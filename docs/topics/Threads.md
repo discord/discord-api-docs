@@ -163,24 +163,42 @@ Additionally, when a client loses access to a channel they are not removed from 
 
 Discord's clients only load active threads into memory on start. So when a thread is unarchived, there is no guarantee that the client has either the thread or whether they are a member, in memory. As such, the Gateway sends a [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update) first, which contains the full channel object. And then sends a [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) to each member of the thread, so those clients know they are a member, and what their notification setting is. This event is not that valuable for bots right now, but is going to be received by bots, so is documented here none the less.
 
-# Forums
+## Forums
 
-A `GUILD_FORUM` channel is very similar (from an API perspective) to a `GUILD_TEXT` channel, except only threads can be created in that channel; messages cannot be sent directly in that channel.
+A `GUILD_FORUM` (type `15`) channel is similar to a `GUILD_TEXT` channel, except *only* threads can be created in them. Unless otherwise noted, threads in forum channels behave in the same way as in text channels—meaning they use the same endpoints and receive the same Gateway events.
+
+Messages cannot be sent directly in forum channels.
 
 > info
 > More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N)
 
-- Forums are a new channel type `15`.
-- Forums do not allow messages to be sent in them. Endpoints like /channels/channel_id/messages will not work on a forum channel.
-- Threads can be created in a forum channel. All threads in a forum are of type `PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
-- The APIs for loading active & archived threads, joining & leaving a thread, and loading who is in a thread are unchanged and work the same for threads in a forum.
-- The API to create a thread in a forum will create _both_ a thread and message in the same call, and as such requires passing in parameters for both the thread and message. The name and behavior of parameters is the same as they are for the existing create thread/message endpoints to simplify integrating with it.
-- The message created by that API call will have the same id as the thread.
-- The `last_message_id` field on the forum channel object tracks the id of the most recently created thread. It has the same behavior and requirements as it does for messages, namely that you will not receive a `CHANNEL_UPDATE` when it is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create).
-- The `message_count` and `total_message_sent` fields on threads created in a forum will increment on `MESSAGE_CREATE` and will decrement on `MESSAGE_DELETE`/`MESSAGE_DELETE_BULK`. There will be no `CHANNEL_UPDATE` event through gateway notifying those fields' changes (similar to `last_message_id` changes). Clients should update those values when receiving corresponding events.
-- The `topic` field on a forum channel is what is shown in the "Guidelines" section visually
-- The `rate_limit_per_user` field currently behaves the same as in a text channel, limiting how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field that can be set on the forum as well, which will limit how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
-- Threads in a forum have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with just one exception: Creating a thread in a forum channel only requires the permission that is currently named `SEND_MESSAGES`.
-- The first message in a forum thread can contain additional markdown for bulleted list and headings.
-- A thread can be pinned within a forum. A thread that is pinned will have the `(1 << 1)` flag set. Archiving a pinned thread will unset the flag. A pinned thread will not auto archive.
-- Forums can specify `available_tags` that can be set on individual threads via the `applied_tags` field.
+### Creating Threads in Forum Channels
+
+Threads appear as forum posts within forum channels, and are created the same way as threads in text channels. However, private threads are currently not supported in forum channels so all threads created must be of type `PUBLIC_THREAD`.
+
+Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) endpoint. When creating threads in forum channels, the API will *also* create a message that will have the same ID as the thread. Since a message is being created, you're required to pass parameters for both a message and a thread when calling the create thread endpoint.
+
+Threads in a forum channel have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a forum channel only requires the `SEND_MESSAGES` permission.
+
+### Forum Channel Fields
+
+It's worth calling out a few details about fields specific to forum channels that may be important to keep in mind:
+
+- The `last_message_id` field is the ID of the most recently created thread in that channel. As with messages, your app will not receive a `CHANNEL_UPDATE` event when the field is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events.
+- The `topic` field is what is shown in the "Guidelines" section within the Discord client.
+- The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on forums as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
+- The `available_tags` field can be set when creating or updating a channel, which determines which tags can be set on individual threads within the thread's `applied_tags` field.
+
+All fields for channels, including forum channels, can be found in the [Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object). 
+
+### Forum Channel Thread Fields
+
+A thread can be pinned within a forum, which will be represented as the [`PINNED` flag](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) in the `flags` field within a forum channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will *not* auto-archive.
+
+The `message_count` and `total_message_sent` fields on threads in forum channels will increment on `MESSAGE_CREATE` events, and decrement on `MESSAGE_DELETE` and `MESSAGE_DELETE_BULK` events. There will be no specific `CHANNEL_UPDATE` event that notifies your app of changes to those fields—instead, apps should update those values when receiving corresponding events.
+
+All fields for threads in forum channels can be found in the [channel resources documentation](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params).
+
+### Forum Channel Thread Formatting
+
+Unlike threads in text channels, threads in forum channels can contain additional markdown for bulleted lists and headings.
