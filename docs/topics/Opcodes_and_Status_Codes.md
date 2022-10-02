@@ -244,6 +244,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50055  | Invalid Guild                                                                                                                 |
 | 50068  | Invalid message type                                                                                                          |
 | 50070  | Payment source required to redeem gift                                                                                        |
+| 50073  | Cannot modify a system webhook                                                                                                |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50080  | Cannot edit stickers within a message                                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
