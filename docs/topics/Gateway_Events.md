@@ -56,7 +56,7 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 | [Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat)                         | Maintains an active gateway connection                    |
 | [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) | Requests members for a guild                              |
 | [Update Voice State](#DOCS_TOPICS_GATEWAY_EVENTS/update-voice-state)       | Joins, moves, or disconnects the app from a voice channel |
-| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates a app's presence                                  |
+| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                  |
 
 #### Identify
 
