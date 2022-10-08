@@ -17,16 +17,16 @@ Discord exposes different versions of our API[.](https://c.tenor.com/BuZl66Eegkg
 
 ###### API Versions
 
-| Version | Status                           | Default |
-| ------- | -------------------------------- | ------- |
-| 10      | Available                        |         |
-| 9       | Available                        |         |
-| 8       | Deprecated                       |         |
-| 7       | Deprecated                       |         |
-| 6       | Deprecated                       | ✓       |
-| 5       | Discontinued                     |         |
-| 4       | Discontinued                     |         |
-| 3       | Discontinued                     |         |
+| Version | Status                           | Default | Expected End of Life |
+| ------- | -------------------------------- | ------- |----------------------|
+| 10      | Available                        |         | TBD                  |
+| 9       | Available                        |         | 2024                 |
+| 8       | Deprecated                       |         | Q2 2023              |
+| 7       | Deprecated                       |         | Q1 2023              |
+| 6       | Deprecated                       | ✓       | Q1 2023              |
+| 5       | Discontinued                     |         | 2016                 |
+| 4       | Discontinued                     |         | 2015                 |
+| 3       | Discontinued                     |         | 2015                 |
 
 ## Error Messages
 
