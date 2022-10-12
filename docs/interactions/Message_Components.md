@@ -203,7 +203,7 @@ Select menus are interactive components that allow users to select one or more o
 
 ![A select menu open on desktop](desktop-select.png)
 
-Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
+Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice(s) by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 - Select menus must be sent inside an Action Row
 - An Action Row can contain only one select menu
@@ -428,7 +428,10 @@ The payloads for the select menu components are detailed in the [select menu str
 
 The `resolved` object is included in interaction payloads for user, role, mentionable, and channel select menu components. `resolved` contains a nested object with additional details about the selected options with the key of the resource type—`users`, `roles`, `channels`, and `members`.
 
-For example, here's a sample `data` object (a subset of the interaction payload) for a channel select menu component:
+> info
+> `members` and `users` may both be present in the `resolved` object when a user is selected (in either a user select or mentionable select).
+
+As an example, here's a sample `data` object (a subset of the interaction payload) for a channel select menu component:
 
 ```json
 "data": {
