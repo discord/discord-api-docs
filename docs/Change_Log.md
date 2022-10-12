@@ -6,7 +6,7 @@
 
 4 new select menu [component types](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) are available that allow apps to auto-populate select menus with users, roles, channels, and mentionables (which are users *and* roles).
 
-The new select menu components are defined in mostly the same way as the existing standard select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) that apps receive also contain a [`resolved` field](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) for the new components.
+The new select menu components are defined in mostly the same way as the existing text select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) that apps receive also contain a [`resolved` field](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) for the new components.
 
 More details can be found in the updated [select menu documentation](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus).
 

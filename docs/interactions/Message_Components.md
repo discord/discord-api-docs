@@ -14,16 +14,16 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name                    | Description                                  |
-| ---- | ----------------------- | -------------------------------------------- |
-| 1    | Action Row              | Container for other components               |
-| 2    | Button                  | Button object                                |
-| 3    | Select Menu             | Select menu for picking from defined options |
-| 4    | Text Input              | Text input object                            |
-| 5    | User Select Menu        | Select menu for picking users                |
-| 6    | Role Select Menu        | Select menu for picking roles                |
-| 7    | Mentionable Select Menu | Select menu for picking users and roles      |
-| 8    | Channel Select Menu     | Select menu for picking channels             |
+| Type | Name               | Description                                      |
+| ---- | ------------------ | ------------------------------------------------ |
+| 1    | Action Row         | Container for other components                   |
+| 2    | Button             | Button object                                    |
+| 3    | Text Select        | Select menu for picking from defined options     |
+| 4    | Text Input         | Text input object                                |
+| 5    | User Select        | Select menu for users                            |
+| 6    | Role Select        | Select menu for roles                            |
+| 7    | Mentionable Select | Select menu for mentionables (users *and* roles) |
+| 8    | Channel Select     | Select menu for channels                         |
 
 The structure of each component type is described in detail below.
 
@@ -94,9 +94,9 @@ Buttons are interactive components that render in messages. They can be clicked 
 | ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | type       | integer                                             | `2` for a button                                                                    |
 | style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
-| label?     | string                                              | Text that appears on the button, max 80 characters                                  |
+| label?     | string                                              | Text that appears on the button; max 80 characters                                  |
 | emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
-| custom_id? | string                                              | Developer-defined identifier for the button, max 100 characters                     |
+| custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                     |
 | url?       | string                                              | URL for link-style buttons                                                          |
 | disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                |
 
@@ -213,7 +213,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) that can be included in Action Rows.
 
-The standard select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).'
+The text select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).'
 
 In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (users, roles, mentionables, and channels) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
@@ -275,18 +275,18 @@ The payloads for the select menu components are detailed in the [select menu str
 
 ###### Select Menu Structure
 
-| Field              | Type                                                                                                        | Description                                                                                                                                                                    |
-| ------------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| type               | integer                                                                                                     | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (`3`: standard, `5`: user, `6`: role, `7`: mentionable, `8`: channels) |
-| custom_id          | string                                                                                                      | ID for the select menu; max 100 characters                                                                                                                                     |
-| options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a standard menu (only required and available for type `3`); max 25                                                                                        |
-| channel_types?\*\* | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                              | List of channel types to include in the channel select component (type `8`)                                                                                                    |
-| placeholder?       | string                                                                                                      | Placeholder text if nothing is selected; max 150 characters                                                                                                                    |
-| min_values?        | integer                                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                                                     |
-| max_values?        | integer                                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                                             |
-| disabled?          | boolean                                                                                                     | Whether select menu is disabled (defaults to `false`)                                                                                                                          |
+| Field              | Type                                                                                                        | Description                                                                                                                                                                |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type               | integer                                                                                                     | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
+| custom_id          | string                                                                                                      | ID for the select menu; max 100 characters                                                                                                                                 |
+| options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a select menu (only required and available for text selects (type `3`); max 25                                                                        |
+| channel_types?\*\* | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                              | List of channel types to include in the channel select component (type `8`)                                                                                                |
+| placeholder?       | string                                                                                                      | Placeholder text if nothing is selected; max 150 characters                                                                                                                |
+| min_values?        | integer                                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                                                 |
+| max_values?        | integer                                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                                         |
+| disabled?          | boolean                                                                                                     | Whether select menu is disabled (defaults to `false`)                                                                                                                      |
 
-\* `options` is required for standard select menus (component type `3`), and unavailable for all other select menu components.
+\* `options` is required for text select menus (component type `3`), and unavailable for all other select menu components.
 
 \*\* `channel_types` can only be used for channel select menu components.
 
@@ -294,9 +294,9 @@ The payloads for the select menu components are detailed in the [select menu str
 
 | Field        | Type                                                       | Description                                              |
 | ------------ | ---------------------------------------------------------- | -------------------------------------------------------- |
-| label        | string                                                     | User-facing name of the option, max 100 characters       |
-| value        | string                                                     | Dev-defined value of the option, max 100 characters      |
-| description? | string                                                     | Additional description of the option, max 100 characters |
+| label        | string                                                     | User-facing name of the option; max 100 characters       |
+| value        | string                                                     | Dev-defined value of the option; max 100 characters      |
+| description? | string                                                     | Additional description of the option; max 100 characters |
 | emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                             |
 | default?     | boolean                                                    | Will show this option as selected by default             |
 
@@ -484,14 +484,14 @@ Text inputs are an interactive component that render on modals. They can be used
 | Field        | Type    | Description                                                                                 |
 | ------------ | ------- | ------------------------------------------------------------------------------------------- |
 | type         | integer | `4` for a text input                                                                        |
-| custom_id    | string  | Developer-defined identifier for the input, max 100 characters                              |
+| custom_id    | string  | Developer-defined identifier for the input; max 100 characters                              |
 | style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
-| label        | string  | Label for this component, max 45 characters                                                 |
-| min_length?  | integer | Minimum input length for a text input, min 0, max 4000                                      |
-| max_length?  | integer | Maximum input length for a text input, min 1, max 4000                                      |
-| required?    | boolean | Whether this component is required to be filled, default true                               |
-| value?       | string  | Pre-filled value for this component, max 4000 characters                                    |
-| placeholder? | string  | Custom placeholder text if the input is empty, max 100 characters                           |
+| label        | string  | Label for this component; max 45 characters                                                 |
+| min_length?  | integer | Minimum input length for a text input; min 0, max 4000                                      |
+| max_length?  | integer | Maximum input length for a text input; min 1, max 4000                                      |
+| required?    | boolean | Whether this component is required to be filled (defaults to `true`)                        |
+| value?       | string  | Pre-filled value for this component; max 4000 characters                                    |
+| placeholder? | string  | Custom placeholder text if the input is empty; max 100 characters                           |
 
 ###### Text Input Styles
 
