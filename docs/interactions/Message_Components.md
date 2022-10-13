@@ -431,7 +431,9 @@ The `resolved` object is included in interaction payloads for user, role, mentio
 > info
 > `members` and `users` may both be present in the `resolved` object when a user is selected (in either a user select or mentionable select).
 
-As an example, here's a sample `data` object (a subset of the interaction payload) for a channel select menu component:
+###### Example Resolved Object
+
+A sample `data` object (a subset of the interaction payload) for a channel select menu component:
 
 ```json
 {
