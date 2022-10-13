@@ -14,16 +14,16 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name               | Description                                      |
-| ---- | ------------------ | ------------------------------------------------ |
-| 1    | Action Row         | Container for other components                   |
-| 2    | Button             | Button object                                    |
-| 3    | Text Select        | Select menu for picking from defined options     |
-| 4    | Text Input         | Text input object                                |
-| 5    | User Select        | Select menu for users                            |
-| 6    | Role Select        | Select menu for roles                            |
-| 7    | Mentionable Select | Select menu for mentionables (users *and* roles) |
-| 8    | Channel Select     | Select menu for channels                         |
+| Type | Name               | Description                                       |
+| ---- | ------------------ | ------------------------------------------------- |
+| 1    | Action Row         | Container for other components                    |
+| 2    | Button             | Button object                                     |
+| 3    | String Select      | Select menu for picking from defined text options |
+| 4    | Text Input         | Text input object                                 |
+| 5    | User Select        | Select menu for users                             |
+| 6    | Role Select        | Select menu for roles                             |
+| 7    | Mentionable Select | Select menu for mentionables (users *and* roles)  |
+| 8    | Channel Select     | Select menu for channels                          |
 
 The structure of each component type is described in detail below.
 
@@ -213,7 +213,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) that can be included in Action Rows.
 
-The text select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).'
+The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
 
 In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (users, roles, mentionables, and channels) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
@@ -279,14 +279,14 @@ The payloads for the select menu components are detailed in the [select menu str
 | ------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | type               | integer                                                                                                     | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
 | custom_id          | string                                                                                                      | ID for the select menu; max 100 characters                                                                                                                                 |
-| options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a select menu (only required and available for text selects (type `3`); max 25                                                                        |
+| options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
 | channel_types?\*\* | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                              | List of channel types to include in the channel select component (type `8`)                                                                                                |
 | placeholder?       | string                                                                                                      | Placeholder text if nothing is selected; max 150 characters                                                                                                                |
 | min_values?        | integer                                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                                                 |
 | max_values?        | integer                                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                                         |
 | disabled?          | boolean                                                                                                     | Whether select menu is disabled (defaults to `false`)                                                                                                                      |
 
-\* `options` is required for text select menus (component type `3`), and unavailable for all other select menu components.
+\* `options` is required for string select menus (component type `3`), and unavailable for all other select menu components.
 
 \*\* `channel_types` can only be used for channel select menu components.
 
