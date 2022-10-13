@@ -434,7 +434,7 @@ The `resolved` object is included in interaction payloads for user, role, mentio
 As an example, here's a sample `data` object (a subset of the interaction payload) for a channel select menu component:
 
 ```json
-"data": {
+{
     "component_type": 8,
     "custom_id": "my_channel_select",
     "resolved": {
