@@ -158,23 +158,23 @@ Private threads are only synced to you if you are a member or a moderator. Whene
 
 #### Gaining Access to Public Threads
 
-When a Discord client is added to a public thread but has not yet subscribed to threads, it might not have that public thread in memory yet. However, upon connecting, the Gateway will auto-subscribe apps (which are a type of client) to all thread events and active threads.
+Upon connecting to the Gateway, apps will be automatically subscribed to thread events and active threads.
 
-When an app is added to _any_ thread, the Gateway will send it a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) event.
+However, when a non-app is added to a public thread but hasn't subscribed to threads, it may not have that thread in memory yet (which is a requirement for Discord's clients). Because of this, the Gateway will send a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) event when a user is added to _any_ thread, even if the event is not necessary for apps.
 
 ### Channel Access
 
 #### Gaining Access to Channels
 
-When an app gains access to a channel (for example, they're given the moderator role), they likely won't have the threads in memory for that channel. To account for this, Discord sends a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event when this happens.
+When an app gains access to a channel (for example, they're given the moderator role), they likely won't have the threads in memory for that channel since the Gateway only syncs threads that the client has permission to view. To account for this, a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event is sent.
 
 The [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event contains a `channel_ids` array, which is the IDs of all channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then ingest any threads that were in the event.
 
 #### Losing Access to Channels
 
-When an app loses access to a channel, the Gateway does not send it a thread-specific event. Instead, the app will receive the event that caused its permissions on the channel to change.
+When an app loses access to a channel, the Gateway does **not** send it [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete) event (or any equivalent thread-specific event). Instead, the app will receive the event that caused its permissions on the channel to change.
 
-If an app wanted to track when it lost access to any thread, it's possible but it would need to handle all cases correctly. Usually, events that cause permission changes are a [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) event.
+If an app wanted to track when it lost access to any thread, it's possible but difficult as it would need to handle all cases correctly. Usually, events that cause permission changes are a [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) event.
 
 > info
 > Discord's clients check their permissions *first* when performing an action. That way, even if it has some stale data, it does not end up acting on it.
@@ -183,10 +183,10 @@ Additionally, when a user or app loses access to a channel, they are not removed
 
 ### Unarchiving a Thread
 
-When a thread is unarchived, there is no guarantee that an app has the thread or its member status in memory. To account for this, the Gateway will send the app two events (in the listed order):
+When a thread is unarchived, there is no guarantee that an app has the thread or its member status in memory. To account for this, the Gateway will send two events (in the listed order):
 
-1. A [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update) event, which contains the full channel object
-2. A [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) if the app is a member of the thread.
+1. A [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update) event, which contains the full channel object.
+2. A [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) event, which is sent to all members of the unarchived thread. Discord's clients only load active threads into memory on start, so this event is sent even if it may not be relevant to most apps. 
 
 # Forums
 
