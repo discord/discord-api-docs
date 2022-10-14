@@ -1055,7 +1055,7 @@ Fetch all of the global commands for your application. Returns an array of [appl
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. Returns `201` if the command does not already exist, a `200` if it does, and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Create a new global command. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
