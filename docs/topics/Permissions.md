@@ -64,7 +64,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_WEBHOOKS \*            | `0x0000000020000000` `(1 << 29)` | Allows management and editing of webhooks                                                                                                           | T, V         |
 | MANAGE_EMOJIS_AND_STICKERS \* | `0x0000000040000000` `(1 << 30)` | Allows management and editing of emojis and stickers                                                                                                |              |
 | USE_APPLICATION_COMMANDS      | `0x0000000080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                                     | T, V         |
-| REQUEST_TO_SPEAK              | `0x0000000100000000` `(1 << 32)` | Allows for requesting to speak in stage channels.                     | S            |
+| REQUEST_TO_SPEAK              | `0x0000000100000000` `(1 << 32)` | Allows for requesting to speak in stage channels.                                                                                                   | S            |
 | MANAGE_EVENTS                 | `0x0000000200000000` `(1 << 33)` | Allows for creating, editing, and deleting scheduled events                                                                                         | V, S         |
 | MANAGE_THREADS \*             | `0x0000000400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                                          | T            |
 | CREATE_PUBLIC_THREADS         | `0x0000000800000000` `(1 << 35)` | Allows for creating public and announcement threads                                                                                                 | T            |
@@ -73,7 +73,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | SEND_MESSAGES_IN_THREADS      | `0x0000004000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                                              | T            |
 | USE_EMBEDDED_ACTIVITIES       | `0x0000008000000000` `(1 << 39)` | Allows for using Activities (applications with the `EMBEDDED` flag) in a voice channel                                                              | V            |
 | MODERATE_MEMBERS \*\*         | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
-| VIEW_CREATOR_MONETIZATION_ANALYTICS         | `0x0000020000000000` `(1 << 41)` | Allows for viewing premium membership analytics       |              |
+| VIEW_CREATOR_MONETIZATION_ANALYTICS         | `0x0000020000000000` `(1 << 41)` | Allows for viewing premium membership analytics                                                                                         |              |
 
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
