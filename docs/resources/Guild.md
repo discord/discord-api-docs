@@ -125,7 +125,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | AUTO_MODERATION                  | guild has set up auto moderation rules                                                                              |
 | BANNER                           | guild has access to set a guild banner image                                                                        |
 | COMMUNITY                        | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates |
-| DEVELOPER_SUPPORT_SERVER         | guild has been set as a support server for a bot                                                                    |
+| DEVELOPER_SUPPORT_SERVER         | guild has been set as a support server on the App Directory                                                         |
 | DISCOVERABLE                     | guild is able to be discovered in the directory                                                                     |
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
 | INVITES_DISABLED                 | guild has paused invites, preventing new users from joining                                                         |
