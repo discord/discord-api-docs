@@ -206,6 +206,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40058  | Cannot send a message in a forum channel                                                                                      |
 | 40060  | Interaction has already been acknowledged                                                                                     |
 | 40061  | Tag names must be unique                                                                                                      |
+| 40062  | Service resource is being rate limited                                                                                        |
 | 40066  | There are no tags available that can be set by non-moderators                                                                 |
 | 40067  | A tag is required to create a forum post in this channel                                                                      |
 | 50001  | Missing access                                                                                                                |
