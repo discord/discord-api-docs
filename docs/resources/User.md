@@ -126,6 +126,7 @@ The connection object that the user has attached.
 | spotify         | Spotify             |
 | skype *         | Skype               |
 | steam           | Steam               |
+| tiktok          | TikTok              |
 | twitch          | Twitch              |
 | twitter         | Twitter             |
 | xbox            | Xbox                |
