@@ -76,9 +76,8 @@ Represents a guild or DM channel within Discord.
 
 | Flag        | Value  | Description                                                                                                                                  |
 | ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| PINNED                  | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel                                                             |
-| ACTIVE_CHANNELS_REMOVED | 1 << 2 | this channel won't appear in a member's Active Now section of Home.  
-|
+| PINNED                  | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel
+| ACTIVE_CHANNELS_REMOVED | 1 << 2 | this channel won't appear in a member's Active Now section of Home        
 | REQUIRE_TAG             | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` channel. Tags are specified in the `applied_tags` field. |
 
 ###### Sort Order Types
