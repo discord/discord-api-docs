@@ -50,7 +50,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   ],
   "trigger_metadata": {
     "keyword_filter": ["cat*", "*dog", "*ana*", "i like rust"],
-    "regex_patterns": ["(b|c)at", "^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"]
+    "regex_patterns": ["(b|c)at", "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$"]
   },
   "enabled": true,
   "exempt_roles": ["323456789123456789", "423456789123456789"],
