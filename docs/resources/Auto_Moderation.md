@@ -85,7 +85,7 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies). Each keyword must be 30 characters or less.
 
 \** Only Rust flavored regex is currently supported, which can be tested in online editors such as [Rustexp](https://rustexp.lpil.uk/).
-
+Each regex pattern must be 75 characters or less.
 
 ###### Keyword Preset Types
 
