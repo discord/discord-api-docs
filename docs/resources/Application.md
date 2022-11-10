@@ -75,8 +75,8 @@
 
 | Value   | Name                             | Description                                                                                                                                                                                                                    |
 | ------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1 << 12 | GATEWAY_PRESENCE                 | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                                                                                |
-| 1 << 13 | GATEWAY_PRESENCE_LIMITED         | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update), found in Bot Settings                                                                               |
+| 1 << 12 | GATEWAY_PRESENCE                 | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                                                                         |
+| 1 << 13 | GATEWAY_PRESENCE_LIMITED         | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update), found in Bot Settings                                                                        |
 | 1 << 14 | GATEWAY_GUILD_MEMBERS            | Intent required for bots in **100 or more servers** to receive member-related events like `guild_member_add`. See list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents)                  |
 | 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    | Intent required for bots in under 100 servers to receive member-related events like `guild_member_add`, found in Bot Settings. See list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents) |
 | 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT | Indicates unusual growth of an app that prevents verification                                                                                                                                                                  |
@@ -84,7 +84,7 @@
 | 1 << 18 | GATEWAY_MESSAGE_CONTENT          | Intent required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055)                                                                              |
 | 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED  | Intent required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found in Bot Settings                                                             |
 | 1 << 23 | APPLICATION_COMMAND_BADGE        | Indicates if an app has registered global [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)                                                                                                                      |
-
+| 1 << 24 | ACTIVE_APPLICATION               | Indicates if an app is considered active. This means that it has had any global command executed in the past 30 days.                                                                                                          |
 ### Install Params Object
 
 ###### Install Params Structure
