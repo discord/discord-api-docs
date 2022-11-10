@@ -3,8 +3,13 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> danger
+> warn
 > Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+
+> danger
+> To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we have deprecated the following pieces of the GameSDK, and will decommission them on **Tuesday, May 2, 2023**:  
+> Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, Store [purchases and discounts]  
+> You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
@@ -290,7 +295,7 @@ Think of these like those end of section review pages from your history textbook
 
 If you can check all those boxes, you are doing great! You're well-equipped to venture forth into the rest of the SDK and make full use of it's myriad of functionality. So, onwards, to game development!
 
-If you ever need help during the process, you can always reach out to us at our [Dev Support](https://dis.gd/devsupport). If you have feedback on things you'd like to see added to the SDK, drop us at a line at our [Dev Feedback](https://dis.gd/devfeedback).
+If you ever need help during the process, you can always reach out to us at our [Dev Support](https://dis.gd/devsupport) or talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 ## Where...do I go...
 
@@ -300,12 +305,5 @@ Oh, yeah. Pseudo Table of Contents:
 - [Activities, a.k.a. Rich Presence](#DOCS_GAME_SDK_ACTIVITIES/)
 - [Relationships](#DOCS_GAME_SDK_RELATIONSHIPS/)
 - [Users](#DOCS_GAME_SDK_USERS/)
-- [Images](#DOCS_GAME_SDK_IMAGES/)
-- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
-- [Networking](#DOCS_GAME_SDK_NETWORKING/)
-- [Storage](#DOCS_GAME_SDK_STORAGE/)
-- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
 - [Store](#DOCS_GAME_SDK_STORE/)
-- [Discord Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
-- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)

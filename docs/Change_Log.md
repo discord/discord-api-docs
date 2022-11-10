@@ -1,5 +1,24 @@
 # Change Log
 
+## GameSDK Feature Deprecation
+
+#### Nov 9, 2022
+
+To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on Tuesday, May 2, **2023**:
+
+- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
+- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
+- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
+- [Images](#DOCS_GAME_SDK_IMAGES/)
+- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
+- [Networking](#DOCS_GAME_SDK_NETWORKING/)
+- [Storage](#DOCS_GAME_SDK_STORAGE/)
+- [Store](#DOCS_GAME_SDK_STORE/) [purchases and discounts]
+
+This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
+
+We know that Discord is an important place for people to find belonging, and that using your Discord identity in games is a crucial part of that sense of belonging. You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
+
 ## Add Automod Regex Support
 
 #### Nov 4, 2022

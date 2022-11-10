@@ -6,6 +6,11 @@
 > danger
 > Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
 
+> danger
+> To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we have deprecated the following pieces of the GameSDK, and will decommission them on **Tuesday, May 2, 2023**:  
+> Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, **Store [purchases and discounts]**  
+> You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, **entitlements**, basic user information, and the overlay.
+
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
 ## Application Test Mode
