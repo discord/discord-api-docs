@@ -243,6 +243,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50046  | Invalid file uploaded                                                                                                         |
 | 50054  | Cannot self-redeem this gift                                                                                                  |
 | 50055  | Invalid Guild                                                                                                                 |
+| 50067  | Invalid request origin                                                                                                        |
 | 50068  | Invalid message type                                                                                                          |
 | 50070  | Payment source required to redeem gift                                                                                        |
 | 50073  | Cannot modify a system webhook                                                                                                |
