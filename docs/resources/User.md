@@ -176,7 +176,9 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
   "permissions": "36953089",
-  "features": ["COMMUNITY", "NEWS"]
+  "features": ["COMMUNITY", "NEWS"],
+  "approximate_member_count": 3268,
+  "approximate_presence_count": 784
 }
 ```
 
@@ -185,11 +187,12 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 
 ###### Query String Params
 
-| Field  | Type      | Description                            | Required | Default |
-| ------ | --------- | -------------------------------------- | -------- | ------- |
-| before | snowflake | get guilds before this guild ID        | false    | absent  |
-| after  | snowflake | get guilds after this guild ID         | false    | absent  |
-| limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
+| Field       | Type      | Description                                                | Required | Default |
+| ----------- | --------- | ---------------------------------------------------------- | -------- | ------- |
+| before      | snowflake | get guilds before this guild ID                            | false    | absent  |
+| after       | snowflake | get guilds after this guild ID                             | false    | absent  |
+| limit       | integer   | max number of guilds to return (1-200)                     | false    | 200     |
+| with_counts | boolean   | include approximate member and presence counts in response | false    | false   |
 
 ## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
 
