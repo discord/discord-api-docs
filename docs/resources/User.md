@@ -201,7 +201,7 @@ Leave a guild. Returns a 204 empty response on success.
 
 ## Create DM % POST /users/@me/channels
 
-Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object (if one already exists, it will be returned instead).
 
 > warn
 > You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
@@ -214,7 +214,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. DMs created with this endpoint will not be shown in the Discord client
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. DMs created with this endpoint will not be shown in the Discord client.
 
 > warn
 > This endpoint is limited to 10 active group DMs.
