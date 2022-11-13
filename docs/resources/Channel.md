@@ -990,6 +990,27 @@ Crosspost a message in an Announcement Channel to following channels. This endpo
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
+## Generate Attachment Upload URL % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object/attachments}
+
+Create an attachment URL to upload the intended attachment directly to Discord's GCP storage bucket. Requires the same permissions as uploading an attachment inline with a message.
+
+###### JSON params
+
+| Field | Type                        | Description                                                               |
+| ----- | --------------------------- | ------------------------------------------------------------------------- |
+| files | array of GCP upload objects | The target files to create a URL for, containing the file's name and size |
+
+###### Example Request Body (application/json)
+
+```json
+{
+  "files": [{
+    "file_size": 734955,
+    "filename": "my_awesome_file.png"
+  }]
+}
+```
+
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-add) Gateway event.

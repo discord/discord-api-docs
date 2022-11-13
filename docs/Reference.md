@@ -449,6 +449,61 @@ For example:
 }
 ```
 
+### Using GCP Attachments
+
+You can upload large attachments quickly directly to Discord's Google Cloud storage bucket, using the [Generate Attachment Upload URL](#DOCS_RESOURCES_CHANNEL/generate-attachment-upload-url) endpoint to generate an upload URL, and sending the generated URL a `PUT` request with the intended attachment as the body.
+
+An example implementation in Python pseudocode would be:
+
+```python
+import requests
+import os
+
+url = "https://discord.com/api/v10/channels/<my_channel_id>/attachments"
+
+headers = {
+    "Authorization": "Bot <my_bot_token>"
+}
+
+filename = "index.js"
+size = os.stat(filename).st_size
+
+json = {
+    "files": [{
+        "file_size": size,
+        "filename": filename
+    }]
+}
+
+r = requests.post(url, headers=headers, json=json)
+r.raise_for_status()
+
+upload = r.json()['attachments'][0]
+
+with open(filename, "r") as f:
+    data = f.read()
+
+    r = requests.put(upload['upload_url'], data=data)
+    r.raise_for_status()
+
+upload_filename = upload['upload_filename']
+```
+
+Now, instead of sending the attachment again in a form body in the request, you can just send the `upload_filename`! For example:
+
+```json
+{
+    "content": "look at my cute cat!",
+    "attachments": [
+        {
+            "id": "0",
+            "filename": "cat.png",
+            "uploaded_filename": "6a08e58a-265f-485a-8c85-5cd4df0edde0/cat.png"
+        }
+    ]
+}
+```
+
 ## Locales
 
 | Locale | Language Name         | Native Name         |
