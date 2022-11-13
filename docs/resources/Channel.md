@@ -1011,6 +1011,20 @@ Create an attachment URL to upload the intended attachment directly to Discord's
 }
 ```
 
+###### Example Response Body (application/json)
+
+```json
+{
+    "attachments": [
+        {
+            "id": null,
+            "upload_url": "https://discord-attachments-uploads-prd.storage.googleapis.com/87e49c99-43f8-4a33-baad-5a834c94424c/cat.png?upload_id=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "upload_filename": "87e49c99-43f8-4a33-baad-5a834c94424c/cat.png"
+        }
+    ]
+}
+```
+
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-add) Gateway event.
