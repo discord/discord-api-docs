@@ -990,7 +990,7 @@ Crosspost a message in an Announcement Channel to following channels. This endpo
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
-## Generate Attachment Upload URL % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object/attachments}
+## Generate Attachment Upload URL % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/attachments
 
 Create an attachment URL to upload the intended attachment directly to Discord's GCP storage bucket. Requires the same permissions as uploading an attachment inline with a message.
 
