@@ -43,6 +43,7 @@ Represents a guild or DM channel within Discord.
 | default_sort_order?                 | ?integer                                                                    | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin  |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
+
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 
 ###### Channel Types
