@@ -4,9 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we have deprecated the following pieces of the GameSDK, and will decommission them on **Tuesday, May 2, 2023**:  
-> Achievements, Applications, Voice, **Images**, Lobbies, Networking, Storage, Store [purchases and discounts]  
-> You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/game-sdk-feature-deprecation)
 
 Discord is like a book; it's better with pictures. The image manager helps you fetch image data for images in Discord, including user's avatars. They worked hard to pick out those photos and gifs. Show them you care, too.
 

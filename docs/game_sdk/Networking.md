@@ -4,9 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we have deprecated the following pieces of the GameSDK, and will decommission them on **Tuesday, May 2, 2023**:  
-> Achievements, Applications, Voice, Images, Lobbies, **Networking**, Storage, Store [purchases and discounts]  
-> You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/game-sdk-feature-deprecation)
 
 A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexibility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](#DOCS_GAME_SDK_LOBBIES/integrated-networking)
 

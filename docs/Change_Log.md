@@ -4,6 +4,9 @@
 
 #### Nov 9, 2022
 
+> danger
+> This entry includes breaking changes
+
 To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on Tuesday, May 2, **2023**:
 
 - [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)

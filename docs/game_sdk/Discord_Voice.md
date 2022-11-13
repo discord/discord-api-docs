@@ -4,9 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we have deprecated the following pieces of the GameSDK, and will decommission them on **Tuesday, May 2, 2023**:  
-> Achievements, Applications, **Voice**, Images, Lobbies, Networking, Storage, Store [purchases and discounts]  
-> You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/game-sdk-feature-deprecation)
 
 Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
 
