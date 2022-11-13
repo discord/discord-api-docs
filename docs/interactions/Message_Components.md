@@ -307,7 +307,7 @@ The payloads for the select menu components are detailed in the [select menu str
     "application_id": "845027738276462632",
     "channel_id": "772908445358620702",
     "data": {
-        "component_type":3,
+        "component_type": 3,
         "custom_id": "class_select_1",
         "values": [
             "mage",
@@ -329,7 +329,7 @@ The payloads for the select menu components are detailed in the [select menu str
         "roles": [
             "785609923542777878"
         ],
-        "user":{
+        "user": {
             "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
             "discriminator": "1337",
             "id": "53908232506183680",
@@ -337,7 +337,7 @@ The payloads for the select menu components are detailed in the [select menu str
             "username": "Mason"
         }
     },
-    "message":{
+    "message": {
         "application_id": "845027738276462632",
         "attachments": [],
         "author": {
@@ -359,7 +359,7 @@ The payloads for the select menu components are detailed in the [select menu str
                         "options": [
                             {
                                 "description": "Sneak n stab",
-                                "emoji":{
+                                "emoji": {
                                     "id": "625891304148303894",
                                     "name": "rogue"
                                 },
@@ -368,7 +368,7 @@ The payloads for the select menu components are detailed in the [select menu str
                             },
                             {
                                 "description": "Turn 'em into a sheep",
-                                "emoji":{
+                                "emoji": {
                                     "id": "625891304081063986",
                                     "name": "mage"
                                 },
@@ -377,7 +377,7 @@ The payloads for the select menu components are detailed in the [select menu str
                             },
                             {
                                 "description": "You get heals when I'm done doing damage",
-                                "emoji":{
+                                "emoji": {
                                     "id": "625891303795982337",
                                     "name": "priest"
                                 },
