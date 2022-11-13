@@ -232,7 +232,7 @@ The payloads for the select menu components are detailed in the [select menu str
                 {
                     "type": 3,
                     "custom_id": "class_select_1",
-                    "options":[
+                    "options": [
                         {
                             "label": "Rogue",
                             "value": "rogue",
