@@ -74,11 +74,11 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | USE_EMBEDDED_ACTIVITIES       | `0x0000008000000000` `(1 << 39)` | Allows for using Activities (applications with the `EMBEDDED` flag) in a voice channel                                                              | V            |
 | MODERATE_MEMBERS \*\*         | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
 
-**\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
+**\* These permissions require the bot owner's account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
 **\*\* See [Permissions for Timed Out Members](#DOCS_TOPICS_PERMISSIONS/permissions-for-timed-out-members) to understand how permissions are temporarily modified for timed out users.**
 
-Note that permission names may be referred to differently in the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Use Voice Activity" refers to USE_VAD, and "Timeout Members" refers to MODERATE_MEMBERS.
+Note that permission names may be referred to differently in the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, and "Use Voice Activity" refers to USE_VAD.
 
 ## Permission Hierarchy
 
