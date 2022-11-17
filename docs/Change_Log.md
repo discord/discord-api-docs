@@ -60,7 +60,7 @@ The new system removes the mutual exclusion aspect, meaning that the different t
 
 **App-level permission configurations now act as the "base" configuration.**
 
-App-level configurations define who is allowed to use the app and where. These will work *together* with  `default_member_permissions`, meaning if a user is granted access via an app-level permission configuration, they will still be restricted to the `default_member_permissions` for each command (by default). No more accidentally granting `/ban` which requires `BAN_MEMBERS` to `@BotMemers` just because you gave them access to the app!
+App-level configurations define who is allowed to use the app and where. These will work *together* with  `default_member_permissions`, meaning if a user is granted access via an app-level permission configuration, they will still be restricted to the `default_member_permissions` for each command (by default). No more accidentally granting `/ban` which requires `BAN_MEMBERS` to `@BotMembers` just because you gave them access to the app!
 
 **Command-level permission configurations now act as an “override” of the app-level.**
 
