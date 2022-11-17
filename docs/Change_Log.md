@@ -9,12 +9,12 @@
 
 Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and more closely resemble other permissions systems in Discord. 
 
-Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers until late January or early February.
+Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
 > info
 > Current permissions behavior is documented in [the application commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) and in [the changelog for the previous permissions update](#DOCS_CHANGE_LOG/updated-command-permissions)
 
-These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions), you may need to make updates and should read these changes carefully.
+These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
 
 
 #### Types of command permission configurations
@@ -41,7 +41,7 @@ We'll go deeper into both of these.
 
 #### 1. How permission configurations are applied in Discord
 
-##### Current behavior
+##### Current behavior:
 
 Currently, these systems are **mutually-exclusive**, meaning that only one type of permission configuration is used to determine whether a user can invoke a command.
 
@@ -53,17 +53,17 @@ The implication of the current permissions system means that:
 
 This system leads to unintentional permission escalations, and can force moderators to manually re-define their application-level configurations to make a small tweak on the command-level.
 
-##### Upcoming behavior
+##### Upcoming behavior:
 
 The upcoming change removes the mutual exclusion, meaning the different types of permissions work together rather than independently, and more than one may be used to determine whether a user can invoke a command.
 
-**`default_member_permissions` continues to act as a “default” that a developer can set when creating or updating a command.**
+- **`default_member_permissions` continues to act as a “default” that a developer can set when creating or updating a command.**
 
-**App-level permission configurations now act as the "base" configuration.**
+- **App-level permission configurations now act as the "base" configuration.**
 
 Configurations at the app-level define who is allowed to use the app and where they are allowed to use it. These will work *together* with those provided by the `default_member_permissions`. This means that granting a user access to the app will still restrict them to the `default_member_permissions` for the command. No more accidentally granting `/ban` which requires `BAN_MEMBERS` to `@BotMemers` just because you gave them access to the application!
 
-**Command-level configurations now act as an “override” of the “base” configuration present at the app-level.**
+- **Command-level configurations now act as an “override” of the “base” configuration present at the app-level.**
 
 Configurations at the command-level become the objective source of truth, meaning they override what is present at the app-level *and* the restrictions set by `default_member_permissions`. This means that you can explicitly grant a user access a specific command even when they are denied access on the app-level *or* don’t have permissions that meet `default_member_permissions`.
 
@@ -114,19 +114,15 @@ else:
 
 After you know what permissions behavior the guild is using, you should update how you handle that guild specifically.
 
-To understand what changes you need to make, you should look at the assumptions users have when your app updates their server’s commands permissions.
-
-Do you have a web dashboard where admins update permissions? If so, analyze the logic of that dashboard and what your permission configurations are trying to do to map them to the new permissions behavior.
-
-Do you document what your app is doing in regards to certain command permissions you’re configuring on behalf of the admin? If so, map that documentation to the new behavior.
+To understand what changes you need to make, you should look at the assumptions users have when your app updates their server’s commands permissions. Do you have a web dashboard where admins update permissions? If so, analyze the logic of that dashboard and what your permission configurations are trying to do to map them to the new permissions behavior. Do you document what your app is doing in regards to certain command permissions you’re configuring on behalf of the admin? If so, map that documentation to the new behavior.
 
 If you are unsure, you can communicate with your admin users to ask if your new logic meets their expectations.
 
-##### What happens if I don’t update my app?
+#### What happens if I don’t update my app?
 
 If your app is affected and you don’t update it, permissions behavior that your app configures might not match what you or users of your app expect it to match.
 
-##### How long do I have to update my app?
+#### How long do I have to update my app?
 
 The new `APPLICATION_COMMAND_PERMISSIONS_V2` flag is already live, and you should start seeing it in guilds’ feature flags.
 

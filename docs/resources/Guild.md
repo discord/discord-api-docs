@@ -122,6 +122,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | ANIMATED_BANNER                  | guild has access to set an animated guild banner image                                                              |
 | ANIMATED_ICON                    | guild has access to set an animated guild icon                                                                      |
+| APPLICATION_COMMAND_PERMISSIONS_V2 | guild is using the [old permissions configuration behavior](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes) |
 | AUTO_MODERATION                  | guild has set up auto moderation rules                                                                              |
 | BANNER                           | guild has access to set a guild banner image                                                                        |
 | COMMUNITY                        | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates |
