@@ -256,6 +256,9 @@ Command permissions can be updated with the [`PUT /applications/{application.id}
 
 ### Syncing and Unsyncing Permissions
 
+> warn
+> This section only applies to the current permissions configuration behavior. It does not apply to guilds that are migrated to the new permissions configuration behavior (starting on December 16, 2022). Read more [in the changelog](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
+
 The command permissions interface can be accessed in the client by navigating to `Server Settings` > `Integrations`, then clicking `Manage` to the right of an installed app. At the top of the interface, users can edit permissions for a specific user, role, or channel. By default, these top-level permissions will apply to all of an app's commands. However, each permission can also be unsynced and customized for individual commands to provide more granular control.
 
 When the permissions for a specific command are unsynced, meaning it doesn't align with the top-level permissions, the interface will display "Not Synced" to users.
@@ -1180,6 +1183,9 @@ Fetches permissions for all commands for your application in a guild. Returns an
 Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 ## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
+
+> danger
+> Apps that use this endpoint may be affected by upcoming breaking changes around permission configuration behavior starting on December 16, 2022. [Read the changelog for details](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
 
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
