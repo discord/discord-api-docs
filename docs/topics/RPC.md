@@ -150,12 +150,12 @@ We also have an RPC token system to bypass the user authorization modal. This is
 
 ###### Authorize Argument Structure
 
-| Field     | Type                                                                         | Description                                                               |
-| --------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| scopes    | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) | scopes to authorize                                                       |
-| client_id | string                                                                       | OAuth2 application id                                                     |
-| rpc_token | string                                                                       | one-time use RPC token                                                    |
-| username  | string                                                                       | username to create a guest account with if the user does not have Discord |
+| Field     | Type                                                        | Description                                                               |
+| --------- | ----------------------------------------------------------- | ------------------------------------------------------------------------- |
+| scopes    | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/oauth2-scopes) | scopes to authorize                                                       |
+| client_id | string                                                      | OAuth2 application id                                                     |
+| rpc_token | string                                                      | one-time use RPC token                                                    |
+| username  | string                                                      | username to create a guest account with if the user does not have Discord |
 
 ###### Authorize Response Structure
 
@@ -203,7 +203,7 @@ Used to authenticate an existing client with your app.
 | Field       | Type                                                                                    | Description                     |
 | ----------- | --------------------------------------------------------------------------------------- | ------------------------------- |
 | user        | partial [user](#DOCS_RESOURCES_USER/user-object) object                                 | the authed user                 |
-| scopes      | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)            | authorized scopes               |
+| scopes      | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/oauth2-scopes)                             | authorized scopes               |
 | expires     | date                                                                                    | expiration date of OAuth2 token |
 | application | [OAuth2 application](#DOCS_TOPICS_RPC/authenticate-oauth2-application-structure) object | application the user authorized |
 
@@ -1469,7 +1469,7 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 #### NOTIFICATION_CREATE
 
-No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes).
+No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#DOCS_TOPICS_OAUTH2/oauth2-scopes).
 
 ###### Notification Create Dispatch Data Structure
 
