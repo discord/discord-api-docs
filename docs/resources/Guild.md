@@ -137,7 +137,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | NEWS                               | guild has access to create announcement channels                                                                              |
 | PARTNERED                          | guild is partnered                                                                                                            |
 | PREVIEW_ENABLED                    | guild can be previewed before joining via Membership Screening or the directory                                               |
-| PRIVATE_THREADS                    | guild has access to create private threads                                                                                    |
 | ROLE_ICONS                         | guild is able to set role icons                                                                                               |
 | TICKETED_EVENTS_ENABLED            | guild has enabled ticketed events                                                                                             |
 | VANITY_URL                         | guild has access to set a vanity URL                                                                                          |
@@ -153,7 +152,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | INVITES_DISABLED | Manage Guild         | Pauses all invites/access to the server                   |
 | DISCOVERABLE     | Administrator*       | Enables discovery in the guild, making it publicly listed |
 
-\* Server also must be passing all discovery requirements 
+\* Server also must be passing all discovery requirements
 
 ###### Example Guild
 
