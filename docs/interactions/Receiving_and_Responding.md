@@ -1,6 +1,5 @@
 # Interactions
 
-An **[Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)** is the message that your application receives when a user uses an application command or a message component.
 
 For [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands), it includes the values that the user submitted.
 
@@ -248,9 +247,9 @@ Not all message fields are currently supported.
 > warn
 > Support for components in modals is currently limited to type 4 (Text Input).
 
-| Field       | Type                                                          | Description                                                          |
+| Field      | Type                                                          | Description                                                          |
 | ---------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
-| custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters |
+| custom_id  | string                                                        | a developer-defined identifier for the modal, max 100 characters     |
 | title      | string                                                        | the title of the popup modal, max 45 characters                      |
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal        |
 
