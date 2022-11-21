@@ -6,20 +6,20 @@ When a guild has added a bot and that bot has configured its [`role_connections_
 
 If an application has configured role connection metadata, its metadata will appear in the role verification configuration when the application has been added as a verification method to the role.
 
-When a user connects their account using the bot's [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object), the bot will [update a user's role connection with metadata](#DOCS_RESOURCE_USER/update-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
+When a user connects their account using the bot's [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object), the bot will [update a user's role connection with metadata](#DOCS_RESOURCES_USER/update-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
 
 ### Application Role Connection Metadata Object
 
 ###### Application Role Connection Metadata Structure
 
-| Field                     | Type                                                                                                                                                                       | Description                                                                     |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| type                      | [ApplicationRoleConnectionMetadataType](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-object-application-role-connection-metadata-type) | type of metadata value                                                          |
-| key                       | string                                                                                                                                                                     | dictionary key for the metadata field (must be `a-z`, `0-9`, or `_` characters) |
-| name                      | string                                                                                                                                                                     | name of the metadata field                                                      |
-| name_localizations?       | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                                       | translations of the name                                                        |
-| description               | string                                                                                                                                                                     | description of the metadata field                                               |
-| description_localizations | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                                       | translations of the description                                                 |
+| Field                     | Type                                                                                                                                                                                | Description                                                                     |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| type                      | [ApplicationRoleConnectionMetadataType](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                          |
+| key                       | string                                                                                                                                                                              | dictionary key for the metadata field (must be `a-z`, `0-9`, or `_` characters) |
+| name                      | string                                                                                                                                                                              | name of the metadata field                                                      |
+| name_localizations?       | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                                                | translations of the name                                                        |
+| description               | string                                                                                                                                                                              | description of the metadata field                                               |
+| description_localizations | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                                                | translations of the description                                                 |
 
 ###### Application Role Connection Metadata Type
 
