@@ -2,6 +2,12 @@
 
 A representation of role connection metadata for an [application](#DOCS_RESOURCES_APPLICATION/).
 
+When a guild has added a bot and that bot has configured its [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object) (in the developer portal), the application will render as a potential verification method in the guild's role verification configuration.
+
+If an application has configured role connection metadata, its metadata will appear in the role verification configuration when the application has been added as a verification method to the role.
+
+When a user connects their account using the bot's [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object), the bot will [update a user's role connection with metadata](#DOCS_RESOURCE_USER/update-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
+
 ### Application Role Connection Metadata Object
 
 ###### Application Role Connection Metadata Structure
