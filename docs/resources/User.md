@@ -147,11 +147,11 @@ The role connection object that an application has attached to a user.
 
 ###### Application Role Connection Structure
 
-| Field             | Type    | Description                                                                                                |
-| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| platform_name     | ?string | the vanity name of the platform a bot has connected                                                        |
-| platform_username | ?string | the username on the platform a bot has connected                                                           |
-| metadata          | object  | object mapping role connection metadata keys to the value for the user on the platform a bot has connected |
+| Field             | Type    | Description                                                                                                                                                                                                                                 |
+| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name     | ?string | the vanity name of the platform a bot has connected                                                                                                                                                                                         |
+| platform_username | ?string | the username on the platform a bot has connected                                                                                                                                                                                            |
+| metadata          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value for the user on the platform a bot has connected |
 
 ## Get Current User % GET /users/@me
 
@@ -252,8 +252,8 @@ Updates the [application role connection](#DOCS_RESOURCES_USER/application-role-
 
 ###### JSON Params
 
-| Field              | Type    | Description                                                                                                                                                                                                                              |
-| ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| platform_name?     | string  | the vanity name of the platform a bot has connected                                                                                                                                                                                      |
-| platform_username? | string  | the username on the platform a bot has connected                                                                                                                                                                                         |
+| Field              | Type    | Description                                                                                                                                                                                                                                 |
+| ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name?     | string  | the vanity name of the platform a bot has connected                                                                                                                                                                                         |
+| platform_username? | string  | the username on the platform a bot has connected                                                                                                                                                                                            |
 | metadata?          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value for the user on the platform a bot has connected |
