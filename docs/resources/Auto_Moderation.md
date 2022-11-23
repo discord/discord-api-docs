@@ -63,7 +63,7 @@ Characterizes the type of content which can trigger the rule.
 
 | Trigger Type   | Value | Description                                                          | Max per Guild |
 | -------------- | ----- | -------------------------------------------------------------------- | ------------- |
-| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 3             |
+| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 5             |
 | SPAM           | 3     | check if content represents generic spam                             | 1             |
 | KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets   | 1             |
 | MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed          | 1             |
