@@ -433,7 +433,7 @@ Content-Type: image/gif
 You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files which contain a filename, as you will need to reference it in your payload.
 
 > warn
-> Only filenames with [supported image extensions](#DOCS_REFERENCE/image-formatting-image-formats) may be used at this time.
+> Only `.jpg`, `.jpeg`, `.png`, `.webp`, and `.gif` may be used at this time. Other file types are not supported.
 
 Within an embed object, you can set an image to use an attachment as its URL with the attachment scheme syntax: `attachment://filename.png`
 
