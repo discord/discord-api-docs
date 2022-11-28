@@ -419,7 +419,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ### Auto Moderation
 
-All auto moderation related events are currently only sent to bot users which have the `MANAGE_GUILD` permission.
+All [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) related events are only sent to bot users which have the `MANAGE_GUILD` permission.
 
 #### Auto Moderation Rule Create
 
@@ -454,7 +454,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 | matched_content ***      | ?string                                                                                        | Substring in content that triggered the rule                                   |
 
 
-\* `message_id` will not exist if message was blocked by automod or content was not part of any message
+\* `message_id` will not exist if message was blocked by [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) or content was not part of any message
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
