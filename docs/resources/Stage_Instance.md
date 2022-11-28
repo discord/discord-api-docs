@@ -76,6 +76,7 @@ Requires the user to be a moderator of the Stage channel.
 | topic                       | string    | The topic of the Stage instance (1-120 characters)                                                                                 |
 | privacy_level?              | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance (default GUILD_ONLY) |
 | send_start_notification? \* | boolean   | Notify @everyone that a Stage instance has started                                                                                 |
+| guild_scheduled_event_id?   | snowflake | The guild scheduled event associated with this Stage instance                                                                      |
 
 \* The stage moderator must have the `MENTION_EVERYONE` permission for this notification to be sent.
 
