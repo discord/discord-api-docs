@@ -1,5 +1,13 @@
 # Change Log
 
+## Forum Channel Layouts
+
+#### Nov 28, 2022
+
+Forum channels now have a new media-focused gallery view option. The default view can be set with the new `default_forum_layout` field in the [channel object](#DOCS_RESOURCES_CHANNEL). Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
+
+If `default_forum_layout` hasn't been set, its value will be `0` (`DEFAULT`).
+
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
 #### Nov 22, 2022
