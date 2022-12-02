@@ -694,6 +694,8 @@ All of the following limits are measured inclusively. Leading and trailing white
 
 Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
+Embeds are deduplicated by URL.  If a message contains multiple embeds with the same URL, only the first is shown.
+
 ### Attachment Object
 
 ###### Attachment Structure
