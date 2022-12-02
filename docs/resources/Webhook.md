@@ -176,6 +176,9 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 > info
 > If the webhook channel is a forum channel, you must provide either `thread_id` in the query string params, or `thread_name` in the JSON/form params. If `thread_id` is provided, the message will send in that thread. If `thread_name` is provided, a thread with that name will be created in the forum channel.
 
+> warn
+> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
