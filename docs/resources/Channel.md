@@ -324,6 +324,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_INVITE_REMINDER                        | 22    | true      |
 | CONTEXT_MENU_COMMAND                         | 23    | true      |
 | AUTO_MODERATION_ACTION                       | 24    | true*     |
+| ROLE_SUBSCRIPTION_PURCHASE                   | 25    | true      |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
