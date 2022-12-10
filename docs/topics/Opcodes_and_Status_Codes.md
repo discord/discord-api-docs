@@ -260,6 +260,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
+| 50155  | We're in the process of rolling this feature out, please check back later.                                                    |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
