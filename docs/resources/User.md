@@ -141,6 +141,18 @@ The connection object that the user has attached.
 | 0     | None     | invisible to everyone except the user themselves |
 | 1     | Everyone | visible to everyone                              |
 
+### Application Role Connection Object
+
+The role connection object that an application has attached to a user.
+
+###### Application Role Connection Structure
+
+| Field             | Type    | Description                                                                                                                                                                                                                                                      |
+| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name     | ?string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username | ?string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
+
 ## Get Current User % GET /users/@me
 
 Returns the [user](#DOCS_RESOURCES_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
@@ -229,3 +241,19 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 ## Get User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+
+## Get User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+
+Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
+
+## Update User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+
+Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
+
+###### JSON Params
+
+| Field              | Type    | Description                                                                                                                                                                                                                                                      |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name?     | string  | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username? | string  | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata?          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
