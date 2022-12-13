@@ -1,5 +1,14 @@
 # Change Log
 
+## Add Default Layout setting for Forum channels
+
+#### Dec 13, 2022
+
+`default_forum_layout` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates how the threads in a [forum channel](#DOCS_TOPICS_THREADS/forums) will be displayed for users by default. Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
+
+If `default_forum_layout` hasn't been set, its value will be `0`.
+
+
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
 #### Nov 22, 2022

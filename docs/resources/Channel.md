@@ -41,6 +41,7 @@ Represents a guild or DM channel within Discord.
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                           |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
 | default_sort_order?                 | ?integer                                                                    | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin  |
+| default_forum_layout?               | ?integer                                                                    | the [default forum layout view](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels. Defaults to `0`, which indicates a layout view has not been set by a channel admin  |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
@@ -85,6 +86,14 @@ Represents a guild or DM channel within Discord.
 | --------------- | ----- | -------------------------------------------------------------- |
 | LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
 | CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
+
+###### Forum Layout Types
+
+| Flag            | Value | Description                                                    |
+| --------------- | ----- | -------------------------------------------------------------- |
+| NOT_SET         | 0     | No default has been set for forum channel                      |
+| LIST_VIEW       | 1     | Display forum channel in List View layout                      |
+| GALLERY_VIEW    | 2     | Sort forum posts by creation time (from most recent to oldest) |
 
 ###### Example Guild Text Channel
 
@@ -874,6 +883,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
 | default_sort_order?                 | ?integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                               | Forum                            |
+| default_forum_layout?               | ?integer                                                                        | the [default forum layout type](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels                                         | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
