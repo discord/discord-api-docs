@@ -93,7 +93,7 @@ Represents a guild or DM channel within Discord.
 | --------------- | ----- | -------------------------------------------------------------- |
 | NOT_SET         | 0     | No default has been set for forum channel                      |
 | LIST_VIEW       | 1     | Display forum channel in List View layout                      |
-| GALLERY_VIEW    | 2     | Sort forum posts by creation time (from most recent to oldest) |
+| GALLERY_VIEW    | 2     | Display posts as a collection of tiles |
 
 ###### Example Guild Text Channel
 
