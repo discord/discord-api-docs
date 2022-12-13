@@ -4,10 +4,9 @@
 
 #### Dec 13, 2022
 
-`default_forum_layout` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates how the threads in a [forum channel](#DOCS_TOPICS_THREADS/forums) will be displayed for users by default. Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
+`default_forum_layout` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates the default layout for posts (or threads) in a [forum channel](#DOCS_TOPICS_THREADS/forums). A value of 1 (`LIST_VIEW`) indicates that posts will be displayed as a chronological list, and 2 (`GALLERY_VIEW`) indicates they will be displayed as a collection of tiles. If `default_forum_layout` hasn't been set, the value will be `0`.
 
-If `default_forum_layout` hasn't been set, its value will be `0`.
-
+Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
