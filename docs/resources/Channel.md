@@ -92,7 +92,7 @@ Represents a guild or DM channel within Discord.
 | Flag            | Value | Description                                                    |
 | --------------- | ----- | -------------------------------------------------------------- |
 | NOT_SET         | 0     | No default has been set for forum channel                      |
-| LIST_VIEW       | 1     | Display forum channel in List View layout                      |
+| LIST_VIEW       | 1     | Display posts as a list                      |
 | GALLERY_VIEW    | 2     | Display posts as a collection of tiles |
 
 ###### Example Guild Text Channel
