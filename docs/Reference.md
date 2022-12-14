@@ -453,6 +453,7 @@ For example:
 
 | Locale | Language Name         | Native Name         |
 | ------ | --------------------- | ------------------- |
+| id     | Indonesian            | Bahasa Indonesia    |
 | da     | Danish                | Dansk               |
 | de     | German                | Deutsch             |
 | en-GB  | English, UK           | English, UK         |
