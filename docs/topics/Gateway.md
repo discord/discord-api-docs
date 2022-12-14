@@ -431,7 +431,7 @@ Events associated with the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are tur
 
 #### HTTP Restrictions
 
-In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must configure the `GUILD_MEMBERS` intent (and be approved for it if eligible for verified).
+In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must enable the `GUILD_MEMBERS` intent (and be approved for it if eligible for verification).
 
 HTTP API restrictions are independent of Gateway restrictions, and are unaffected by which intents your app passes in the `intents` parameter when Identifying.
 
@@ -448,6 +448,7 @@ Apps **without** the intent will receive empty values in fields that contain use
 - Content in messages that an app sends
 - Content in DMs with the app
 - Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
+- Content of the message a [message context menu command](#DOCS_INTERACTIONS/application-commands/message-commands) is used on 
 
 ## Rate Limiting
 
