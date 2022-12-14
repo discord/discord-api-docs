@@ -44,6 +44,7 @@ Represents a guild or DM channel within Discord.
 | default_forum_layout?               | integer                                                                     | the [default forum layout view](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels. Defaults to `0`, which indicates a layout view has not been set by a channel admin  |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
+
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 
 ###### Channel Types
