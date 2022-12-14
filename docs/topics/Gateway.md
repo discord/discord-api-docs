@@ -448,7 +448,7 @@ Apps **without** the intent will receive empty values in fields that contain use
 - Content in messages that an app sends
 - Content in DMs with the app
 - Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
-- Content of the message a [message context menu command](#DOCS_INTERACTIONS/application-commands/message-commands) is used on 
+- Content of the message a [message context menu command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) is used on 
 
 ## Rate Limiting
 
