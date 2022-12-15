@@ -33,6 +33,11 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 | [discordrb](https://github.com/shardlab/discordrb)            | Ruby       |
 | [Serenity](https://github.com/serenity-rs/serenity)           | Rust       |
 
+## Frameworks
+| Name                                                          | Language   |
+| ------------------------------------------------------------- | ---------- |
+| [Mineral](https://github.com/mineral-dart)                    | Dart       |
+
 ## Interactions
 
 [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
