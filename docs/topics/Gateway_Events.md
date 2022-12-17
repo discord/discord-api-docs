@@ -1152,7 +1152,7 @@ Sent when a user starts typing in a channel.
 
 #### User Update
 
-Sent when properties about the user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
+Sent when properties about the current bot's user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
 
