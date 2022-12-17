@@ -486,7 +486,7 @@ Payload compression will be disabled if you use [transport compression](#DOCS_TO
 When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
 
 - Snowflake IDs are transmitted as 64-bit integers or strings.
-- Your app can't send compressed messages to the guild.
+- Your app can't send compressed messages to the server.
 - When sending payloads, you must use string keys. Using atom keys will result in a [`4002`](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) decode error.
 
 See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
