@@ -29,7 +29,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | EMBEDDED_APPLICATION          | 2     |
 | ROLE_SUBSCRIPTIONS_PURCHASE\* | 3     |
 
-\* Bots cannot create this target type
+\* Bots cannot create this type of invite
 
 ###### Example Invite Object
 
