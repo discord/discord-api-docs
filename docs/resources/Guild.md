@@ -52,6 +52,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | nsfw_level                    | integer                                                                             | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                                                |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                  |
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild has the boost progress bar enabled                                                                                                                   |
+| safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                               |
 
 \* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
@@ -137,6 +138,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | NEWS                               | guild has access to create announcement channels                                                                              |
 | PARTNERED                          | guild is partnered                                                                                                            |
 | PREVIEW_ENABLED                    | guild can be previewed before joining via Membership Screening or the directory                                               |
+| RAID_ALERTS_ENABLED                | guild has enabled alerts for join raids in the configured safety alerts channel                                               |
 | ROLE_ICONS                         | guild is able to set role icons                                                                                               |
 | TICKETED_EVENTS_ENABLED            | guild has enabled ticketed events                                                                                             |
 | VANITY_URL                         | guild has access to set a vanity URL                                                                                          |
@@ -146,11 +148,12 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Mutable Guild Features
 
-| Features         | Required Permissions | Effects                                                   |
-| ---------------- | -------------------- | --------------------------------------------------------- |
-| COMMUNITY        | Administrator        | Enables Community Features in the guild                   |
-| INVITES_DISABLED | Manage Guild         | Pauses all invites/access to the server                   |
-| DISCOVERABLE     | Administrator*       | Enables discovery in the guild, making it publicly listed |
+| Features            | Required Permissions | Effects                                                   |
+| ------------------- | -------------------- | --------------------------------------------------------- |
+| COMMUNITY           | Administrator        | Enables Community Features in the guild                   |
+| DISCOVERABLE        | Administrator*       | Enables discovery in the guild, making it publicly listed |
+| INVITES_DISABLED    | Manage Guild         | Pauses all invites/access to the server                   |
+| RAID_ALERTS_ENABLED | Manage Guild         | Enables alerts for join raids                             |
 
 \* Server also must be passing all discovery requirements
 
@@ -198,7 +201,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": "441688182833020939",
-  "public_updates_channel_id": "281283303326089216"
+  "public_updates_channel_id": "281283303326089216",
+  "safety_alerts_channel_id": "281283303326089216"
 }
 ```
 
@@ -650,7 +654,8 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": null,
-  "public_updates_channel_id": null
+  "public_updates_channel_id": null,
+  "safety_alerts_channel_id": null
 }
 ```
 
@@ -695,6 +700,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                            |
 | description                   | ?string                                                                             | the description for the guild                                                                                                                                     |
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
+| safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                          |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
