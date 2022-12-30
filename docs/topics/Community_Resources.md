@@ -49,6 +49,8 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands) and its [Deno fork](https://deno.land/x/discord_slash_commands)
   - [slash-create](https://github.com/Snazzah/slash-create)
+- Kotlin Multiplatform
+  - [KtDiscord](https://github.com/TempestProject/KtDiscord)
 - Python
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
   - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
