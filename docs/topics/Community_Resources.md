@@ -56,6 +56,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [flask-discord-interactions](https://github.com/breqdev/flask-discord-interactions)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
+  - [discord-commands](https://github.com/more-cores/discord-commands)
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
