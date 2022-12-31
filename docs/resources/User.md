@@ -250,6 +250,9 @@ Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-
 
 Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
+> warn
+> For Boolean metadata fields, the value should be set to 1 or 0, not true or false.
+
 ###### JSON Params
 
 | Field              | Type    | Description                                                                                                                                                                                                                                                      |
