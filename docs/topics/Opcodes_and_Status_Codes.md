@@ -191,6 +191,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30047  | Maximum number of pinned threads in a forum channel has been reached                                                          |
 | 30048  | Maximum number of tags in a forum channel has been reached                                                                    |
 | 30052  | Bitrate is too high for channel of this type                                                                                  |
+| 30056  | Maximum number of premium emojis reached (25)                                                                                 |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -259,6 +260,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50109  | The request body contains invalid JSON.                                                                                       |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
+| 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
+| 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
