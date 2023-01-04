@@ -550,7 +550,7 @@ As apps grow and are added to an increasing number of guilds, some developers ma
 > warn
 > Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding. 
 
-To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0.
+To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs and ephemeral messages will only be sent to shard 0.
 
 > info
 > The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field
