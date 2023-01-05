@@ -341,7 +341,7 @@ Represents a message sent in a channel within Discord.
 | STAGE_SPEAKER                                | 29    | true      |
 | STAGE_RAISE_HAND                             | 30    | true      |
 | STAGE_TOPIC                                  | 31    | true      |
-| GUILD_APPLICATION_PREMIUM_SUBSCRIPTION       | 32    | false      |
+| GUILD_APPLICATION_PREMIUM_SUBSCRIPTION       | 32    | false     |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
