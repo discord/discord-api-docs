@@ -68,11 +68,12 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 
 ###### Message Component Data Structure
 
-| Field          | Type                                                                                                              | Description                                                                                                     |
-| -------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| custom_id      | string                                                                                                            | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                             |
-| component_type | integer                                                                                                           | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component             |
-| values?\*      | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | values the user selected in a [select menu](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object) component |
+| Field          | Type                                                                                                    | Description                                                                                                                                                  |
+|----------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| custom_id      | string                                                                                                  | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                                                                          |
+| component_type | integer                                                                                                 | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component                                                          |
+| values?\*      | array of strings                                                                                        | values the user selected in a [select menu](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object) component                                              |
+| resolved?      | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure) | details of any users/roles/mentionables/channels selected by the user in a [select menu](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object) component |
 
 \* This is always present for select menu components
 

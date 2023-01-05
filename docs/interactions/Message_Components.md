@@ -215,7 +215,11 @@ There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPON
 
 The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
 
-In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (users, roles, mentionables, and channels) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
+[Select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) include a `values` array,
+which contains any values selected by the user. In the case of string select menus, this may be any of the defined `options`. For user, role,
+mentionable and channel select menus, the values will contain the ID of the selected resource.
+
+Additionally, auto-populated select menu components (users, roles, mentionables, and channels) also include a [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
 The payloads for the select menu components are detailed in the [select menu structure](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-structure).
 
