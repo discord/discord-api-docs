@@ -336,11 +336,6 @@ Represents a message sent in a channel within Discord.
 | AUTO_MODERATION_ACTION                       | 24    | true*     |
 | ROLE_SUBSCRIPTION_PURCHASE                   | 25    | true      |
 | INTERACTION_PREMIUM_UPSELL                   | 26    | true      |
-| STAGE_START                                  | 27    | true      |
-| STAGE_END                                    | 28    | true      |
-| STAGE_SPEAKER                                | 29    | true      |
-| STAGE_RAISE_HAND                             | 30    | true      |
-| STAGE_TOPIC                                  | 31    | true      |
 | GUILD_APPLICATION_PREMIUM_SUBSCRIPTION       | 32    | false     |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
