@@ -780,7 +780,7 @@ Sent when a user has unsubscribed from a guild scheduled event.
 
 #### Integration Create
 
-Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key, however the `user` object is omitted from the event
+Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with `user` omitted and an additional `guild_id` key:
 
 ###### Integration Create Event Additional Fields
 
