@@ -41,8 +41,10 @@ Represents a guild or DM channel within Discord.
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                           |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
 | default_sort_order?                 | ?integer                                                                    | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin  |
+| default_forum_layout?               | integer                                                                     | the [default forum layout view](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels. Defaults to `0`, which indicates a layout view has not been set by a channel admin  |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
+
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 
 ###### Channel Types
@@ -85,6 +87,14 @@ Represents a guild or DM channel within Discord.
 | --------------- | ----- | -------------------------------------------------------------- |
 | LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
 | CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
+
+###### Forum Layout Types
+
+| Flag            | Value | Description                                                    |
+| --------------- | ----- | -------------------------------------------------------------- |
+| NOT_SET         | 0     | No default has been set for forum channel                      |
+| LIST_VIEW       | 1     | Display posts as a list                                        |
+| GALLERY_VIEW    | 2     | Display posts as a collection of tiles                         |
 
 ###### Example Guild Text Channel
 
@@ -324,6 +334,9 @@ Represents a message sent in a channel within Discord.
 | GUILD_INVITE_REMINDER                        | 22    | true      |
 | CONTEXT_MENU_COMMAND                         | 23    | true      |
 | AUTO_MODERATION_ACTION                       | 24    | true*     |
+| ROLE_SUBSCRIPTION_PURCHASE                   | 25    | true      |
+| INTERACTION_PREMIUM_UPSELL                   | 26    | true      |
+| GUILD_APPLICATION_PREMIUM_SUBSCRIPTION       | 32    | false     |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
@@ -574,15 +587,15 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 > info
 > When updating a `GUILD_FORUM` channel, tag objects in `available_tags` only require the `name` field.
 
-| Field      | Type      | Description                                                                                                    |
-| ---------- | --------- | -------------------------------------------------------------------------------------------------------------- |
-| id         | snowflake | the id of the tag                                                                                              |
-| name       | string    | the name of the tag (0-20 characters)                                                                          |
-| moderated  | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
-| emoji_id   | snowflake | the id of a guild's custom emoji \*                                                                            |
-| emoji_name | ?string   | the unicode character of the emoji \*                                                                          |
+| Field      | Type       | Description                                                                                                    |
+| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------- |
+| id         | snowflake  | the id of the tag                                                                                              |
+| name       | string     | the name of the tag (0-20 characters)                                                                          |
+| moderated  | boolean    | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
+| emoji_id   | ?snowflake | the id of a guild's custom emoji \*                                                                            |
+| emoji_name | ?string    | the unicode character of the emoji \*                                                                          |
 
-\* At most one of `emoji_id` and `emoji_name` may be set.
+\* At most one of `emoji_id` and `emoji_name` may be set to a non-null value.
 
 ### Embed Object
 
@@ -656,7 +669,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | Field           | Type   | Description                                                |
 | --------------- | ------ | ---------------------------------------------------------- |
 | name            | string | name of author                                             |
-| url?            | string | url of author                                              |
+| url?            | string | url of author (only supports http(s))                      |
 | icon_url?       | string | url of author icon (only supports http(s) and attachments) |
 | proxy_icon_url? | string | a proxied url of author icon                               |
 
@@ -874,6 +887,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
 | default_sort_order?                 | ?integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                               | Forum                            |
+| default_forum_layout?               | integer                                                                         | the [default forum layout type](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels                                         | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -990,7 +1004,7 @@ Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/upl
 
 Crosspost a message in an Announcement Channel to following channels. This endpoint requires the `SEND_MESSAGES` permission, if the current user sent the message, or additionally the `MANAGE_MESSAGES` permission, for all other messages, to be present for the current user.
 
-Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
@@ -1180,7 +1194,7 @@ Removes a recipient from a Group DM.
 
 ## Start Thread from Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
-Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
+Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
 When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
@@ -1265,7 +1279,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
-Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
+Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) and a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
 
 ## Add Thread Member % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
