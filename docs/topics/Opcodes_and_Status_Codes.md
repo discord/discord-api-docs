@@ -191,6 +191,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30047  | Maximum number of pinned threads in a forum channel has been reached                                                          |
 | 30048  | Maximum number of tags in a forum channel has been reached                                                                    |
 | 30052  | Bitrate is too high for channel of this type                                                                                  |
+| 30056  | Maximum number of premium emojis reached (25)                                                                                 |
+| 30058  | Maximum number of webhooks per guild reached (1000)                                                                           |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -206,6 +208,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40058  | Cannot send a message in a forum channel                                                                                      |
 | 40060  | Interaction has already been acknowledged                                                                                     |
 | 40061  | Tag names must be unique                                                                                                      |
+| 40062  | Service resource is being rate limited                                                                                        |
 | 40066  | There are no tags available that can be set by non-moderators                                                                 |
 | 40067  | A tag is required to create a forum post in this channel                                                                      |
 | 50001  | Missing access                                                                                                                |
@@ -243,6 +246,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50046  | Invalid file uploaded                                                                                                         |
 | 50054  | Cannot self-redeem this gift                                                                                                  |
 | 50055  | Invalid Guild                                                                                                                 |
+| 50067  | Invalid request origin                                                                                                        |
 | 50068  | Invalid message type                                                                                                          |
 | 50070  | Payment source required to redeem gift                                                                                        |
 | 50073  | Cannot modify a system webhook                                                                                                |
@@ -253,12 +257,15 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50084  | Invalid thread notification settings                                                                                          |
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 50086  | Community server channels must be text channels                                                                               |
+| 50091  | The entity type of the event is different from the entity you are trying to start the event for                               |
 | 50095  | This server is not available in your location                                                                                 |
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
+| 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
+| 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |

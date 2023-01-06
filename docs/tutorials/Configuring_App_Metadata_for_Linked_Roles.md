@@ -51,6 +51,7 @@ All of the code used in the example app can be found in the [Github repository](
 
 This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok in the README if you'd prefer.
 
+> info
 > While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
 
 To start, [remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/remix/linked-role-discord-bot)
@@ -81,6 +82,7 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 
 There's already some code in your `server.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
 
+> warn
 > It bears repeating that you should never check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
 
 First, copy your bot user’s token from earlier and paste it in the `DISCORD_TOKEN` variable in your `.env` file.
