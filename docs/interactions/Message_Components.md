@@ -215,13 +215,21 @@ There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPON
 
 The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
 
-[Select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) include a `values` array,
-which contains any values selected by the user. In the case of string select menus, this may be any of the defined `options`. For user, role,
-mentionable and channel select menus, the values will contain the ID of the selected resource.
-
-Additionally, auto-populated select menu components (users, roles, mentionables, and channels) also include a [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
+The interaction response for auto-populated select menu components also includes a [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
 The payloads for the select menu components are detailed in the [select menu structure](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-structure).
+
+### Select Menu Interaction Values
+
+[Select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) include a `values` array,
+which contains any values selected by the user. The underlying type of this array varies depending on the type of select menu used.
+
+| Select Menu Type                                         | `values` Array Type | Description                                          |
+| -------------------------------------------------------- | ------------------- | ---------------------------------------------------- |
+| String (`3`)                                             | strings             | The `value` field from any of the selected `options` |
+| User (`5`), Role (`6`), Mentionable (`7`), Channel (`8`) | snowflakes          | The IDs of any of the selected resources             |
+
+- String select menus (type `3`) will
 
 ###### Select Menu Example
 
