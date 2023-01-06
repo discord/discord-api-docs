@@ -1002,7 +1002,7 @@ Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/upl
 
 Crosspost a message in an Announcement Channel to following channels. This endpoint requires the `SEND_MESSAGES` permission, if the current user sent the message, or additionally the `MANAGE_MESSAGES` permission, for all other messages, to be present for the current user.
 
-Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
@@ -1192,7 +1192,7 @@ Removes a recipient from a Group DM.
 
 ## Start Thread from Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
-Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
+Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
 When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
@@ -1277,7 +1277,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
-Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
+Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) and a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
 
 ## Add Thread Member % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
