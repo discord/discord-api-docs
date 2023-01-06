@@ -107,7 +107,7 @@ Note that normal route rate-limiting headers will also be sent in this response.
 
 ## Global Rate Limit
 
-All bots can make up to 50 requests per second to our API. This is independent of any individual rate limit on a route. If your bot gets big enough, based on its functionality, it may be impossible to stay below 50 requests per second during normal operations.
+All bots can make up to 50 requests per second to our API. If no authorization header is provided, then the limit is applied to the IP address. This is independent of any individual rate limit on a route. If your bot gets big enough, based on its functionality, it may be impossible to stay below 50 requests per second during normal operations.
 
 Global rate limit issues generally show up as repeatedly getting banned from the Discord API when your bot starts (see below). If your bot gets temporarily CloudFlare banned from the Discord API every once in a while, it is most likely **not** a global rate limit issue. You probably had a spike of errors that was not properly handled and hit our error threshold.
 
