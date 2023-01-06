@@ -390,6 +390,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | scopes?                 | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)                         | the scopes the application has been authorized for                              |
 
 \* These fields are not provided for discord bot integrations.
+> warn
+> Some older integrations may not have an attached user.
 
 ###### Integration Expire Behaviors
 
