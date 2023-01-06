@@ -214,6 +214,7 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 | premium_subscriber?      | null      | whether this is the guild's Booster role           |
 | subscription_listing_id? | snowflake | the id of this role's subscription sku and listing |
 | available_for_purchase?  | null      | whether this role is available for purchase        |
+| guild_connections?       | null      | whether this role is a guild's linked role         |
 
 ###### Example Role
 
