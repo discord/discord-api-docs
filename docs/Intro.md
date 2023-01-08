@@ -45,4 +45,4 @@ We love our developers, and we plan to keep making practical tools so that YOU c
 
 We can’t wait to see what you make.
 
--- Discord
+— Discord
