@@ -569,7 +569,7 @@ A thread member object contains information about a user that has joined a threa
 | user_id? \*    | snowflake                                                   | ID of the user                                                  |
 | join_timestamp | ISO8601 timestamp                                           | Time the user last joined the thread                            |
 | flags          | integer                                                     | Any user-thread settings, currently only used for notifications |
-| member? \*     | [guild member](#RESOURCES_GUILD/guild-member-object) object | Additional information about the user                           |
+| member? \*     | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | Additional information about the user                           |
 
 **\* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) event**
 
@@ -1303,13 +1303,13 @@ Removes another member from a thread. Requires the `MANAGE_THREADS` permission, 
 
 Returns a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the specified user if they are a member of the thread, returns a 404 response otherwise.
 
-When `with_member` is set to `true`, the thread member object will include a `member` field containing a [guild member](#RESOURCES_GUILD/guild-member-object) object.
+When `with_member` is set to `true`, the thread member object will include a `member` field containing a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object.
 
 ###### Query String Params
 
 | Field        | Type      | Description                                                                                            |
 | ------------ | --------- | ------------------------------------------------------------------------------------------------------ |
-| with_member? | boolean   | Whether to include a [guild member](#RESOURCES_GUILD/guild-member-object) object for the thread member |
+| with_member? | boolean   | Whether to include a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the thread member |
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
 
@@ -1318,7 +1318,7 @@ When `with_member` is set to `true`, the thread member object will include a `me
 
 Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects that are members of the thread.
 
-When `with_member` is set to `true`, the results will be paginated and each thread member object will include a `member` field containing a [guild member](#RESOURCES_GUILD/guild-member-object) object.
+When `with_member` is set to `true`, the results will be paginated and each thread member object will include a `member` field containing a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object.
 
 > warn
 > This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
@@ -1327,7 +1327,7 @@ When `with_member` is set to `true`, the results will be paginated and each thre
 
 | Field        | Type      | Description                                                                                             |
 | ------------ | --------- | ------------------------------------------------------------------------------------------------------- |
-| with_member? | boolean   | Whether to include a [guild member](#RESOURCES_GUILD/guild-member-object) object for each thread member |
+| with_member? | boolean   | Whether to include a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for each thread member |
 | after?       | snowflake | Get thread members after this user ID                                                                   |
 | limit?       | integer   | Max number of thread members to return (1-100). Defaults to 100.                                        |
 
