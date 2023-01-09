@@ -1309,8 +1309,8 @@ When `with_member` is set to `true`, the thread member object will include a `me
 
 ###### Query String Params
 
-| Field        | Type      | Description                                                                                            |
-| ------------ | --------- | ------------------------------------------------------------------------------------------------------ |
+| Field        | Type      | Description                                                                                                 |
+| ------------ | --------- | ----------------------------------------------------------------------------------------------------------- |
 | with_member? | boolean   | Whether to include a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the thread member |
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
@@ -1327,11 +1327,11 @@ When `with_member` is set to `true`, the results will be paginated and each thre
 
 ###### Query String Params
 
-| Field        | Type      | Description                                                                                             |
-| ------------ | --------- | ------------------------------------------------------------------------------------------------------- |
+| Field        | Type      | Description                                                                                                  |
+| ------------ | --------- | ------------------------------------------------------------------------------------------------------------ |
 | with_member? | boolean   | Whether to include a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for each thread member |
-| after?       | snowflake | Get thread members after this user ID                                                                   |
-| limit?       | integer   | Max number of thread members to return (1-100). Defaults to 100.                                        |
+| after?       | snowflake | Get thread members after this user ID                                                                        |
+| limit?       | integer   | Max number of thread members to return (1-100). Defaults to 100.                                             |
 
 ## List Public Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
 
