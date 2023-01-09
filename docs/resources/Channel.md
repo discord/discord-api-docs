@@ -563,15 +563,17 @@ A thread member object contains information about a user that has joined a threa
 
 ###### Thread Member Structure
 
-| Field          | Type                                                        | Description                                                     |
-| -------------- | ----------------------------------------------------------- | --------------------------------------------------------------- |
-| id? \*         | snowflake                                                   | ID of the thread                                                |
-| user_id? \*    | snowflake                                                   | ID of the user                                                  |
-| join_timestamp | ISO8601 timestamp                                           | Time the user last joined the thread                            |
-| flags          | integer                                                     | Any user-thread settings, currently only used for notifications |
-| member? \*     | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | Additional information about the user                           |
+| Field           | Type                                                             | Description                                                     |
+| --------------- | ---------------------------------------------------------------- | --------------------------------------------------------------- |
+| id? \*          | snowflake                                                        | ID of the thread                                                |
+| user_id? \*     | snowflake                                                        | ID of the user                                                  |
+| join_timestamp  | ISO8601 timestamp                                                | Time the user last joined the thread                            |
+| flags           | integer                                                          | Any user-thread settings, currently only used for notifications |
+| member? \* \*\* | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | Additional information about the user                           |
 
-**\* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) event**
+\* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) event.
+
+\*\* The `member` field is only present when `with_member` is set to `true` when calling [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) or [Get Thread Member](#DOCS_RESOURCES_CHANNEL/get-thread-member).
 
 ### Default Reaction Object
 
