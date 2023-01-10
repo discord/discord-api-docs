@@ -852,7 +852,7 @@ user 125 in the content.
 | ---------------------------- | --------- | --------------------------------------------------------------------- |
 | role_subscription_listing_id | snowflake | the id of the sku and listing that the user is subscribed to          |
 | tier_name                    | string    | the name of the tier that the user is subscribed to                   |
-| total_months_subscribed      | integer   | the number of months that the user has been subscribed for            |
+| total_months_subscribed      | integer   | the cumulative number of months that the user has been subscribed for |
 | is_renewal                   | boolean   | whether this notification is for a renewal rather than a new purchase |
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
