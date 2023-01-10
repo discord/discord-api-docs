@@ -455,7 +455,7 @@ Apps **without** the intent will receive empty values in fields that contain use
 > info
 > This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
 
-Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
+Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) per [shard](#DOCS_TOPICS_GATEWAY/sharding) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
 
 Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identifying) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session).
 
