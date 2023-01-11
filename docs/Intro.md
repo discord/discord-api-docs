@@ -22,7 +22,7 @@ We love games, and we love helping game developers. If YOU have a game that you 
 
 #### Your Game and Discord
 
-We’ve got a whole suite of tools to help bring your game to life with Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
+We’ve got a whole suite of tools to help bring your game to life with Discord. Need users? Have [users](#DOCS_GAME_SDK_USERS/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
 
 #### Rich Presence
 

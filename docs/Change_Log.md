@@ -31,7 +31,6 @@ Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 - Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 3 to 5
 - Increase maximum length for each regex pattern in the `regex_patterns` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field from 75 to 260.
 
-
 ## Upcoming Application Command Permission Changes
 
 #### Nov 17, 2022
@@ -158,6 +157,28 @@ The new `APPLICATION_COMMAND_PERMISSIONS_V2` flag is already live, and you shoul
 The new permissions behavior will roll out **on December 16, 2022**. On this date, admins will begin to see a banner that allows them to *optionally* move their server to the new behavior.
 
 In **late January or early February**, all servers will be migrated to the new behavior. We'll post another changelog at this point, at which time you can remove any logic around the old permissions behavior.
+
+## GameSDK Feature Deprecation
+
+#### Nov 9, 2022
+
+> danger
+> This entry includes breaking changes
+
+To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
+
+- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
+- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
+- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
+- [Images](#DOCS_GAME_SDK_IMAGES/)
+- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
+- [Networking](#DOCS_GAME_SDK_NETWORKING/)
+- [Storage](#DOCS_GAME_SDK_STORAGE/)
+- [Store](#DOCS_GAME_SDK_STORE/) [purchases and discounts]
+
+This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
+
+We know that Discord is an important place for people to find belonging, and that using your Discord identity in games is a crucial part of that sense of belonging. You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
 
 ## Add Auto Moderation Regex Support
 
