@@ -34,6 +34,7 @@ This manager helps retrieve basic user information for any user on Discord.
 | None  | 0     | Not a Nitro subscriber   |
 | Tier1 | 1     | Nitro Classic subscriber |
 | Tier2 | 2     | Nitro subscriber         |
+| Tier3 | 3     | Nitro Basic subscriber   |
 
 ## GetCurrentUser
 
