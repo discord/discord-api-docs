@@ -111,7 +111,7 @@ All options have names, and an option can either be a parameter and input value-
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | name     | string                                                                                                                                                                           | Name of the parameter                                                                                                                          |
 | type     | integer                                                                                                                                                                          | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | string, integer, or double                                                                                                                                                       | Value of the option resulting from user input                                                                                                  |
+| value?   | string, integer, double, or boolean                                                                                                                                              | Value of the option resulting from user input                                                                                                  |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | Present if this option is a group or subcommand                                                                                                |
 | focused? | boolean                                                                                                                                                                          | `true` if this option is the currently focused option for autocomplete                                                                         |
 
@@ -248,9 +248,9 @@ Not all message fields are currently supported.
 > warn
 > Support for components in modals is currently limited to type 4 (Text Input).
 
-| Field       | Type                                                          | Description                                                          |
+| Field      | Type                                                          | Description                                                          |
 | ---------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
-| custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters |
+| custom_id  | string                                                        | a developer-defined identifier for the modal, max 100 characters     |
 | title      | string                                                        | the title of the popup modal, max 45 characters                      |
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal        |
 

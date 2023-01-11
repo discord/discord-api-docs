@@ -1,5 +1,164 @@
 # Change Log
 
+
+## Thread Member Details and Pagination
+
+> danger
+> This entry includes breaking changes
+
+#### Jan 09, 2023
+
+A new `member` field was added to the [thread member object](#DOCS_RESOURCES_CHANNEL/thread-member-object). `member` is a [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) that will be included within returned thread member objects when the new `with_member` field is set to `true` in the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) and [Get Thread Member](#DOCS_RESOURCES_CHANNEL/get-thread-member) (`GET /channels/<channel_id>/thread-members/<user_id>`) endpoints.
+
+Setting `with_member` to `true` will also enable pagination for the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) endpoint. When the results are paginated, you can use the new `after` and `limit` fields to fetch additional thread members and limit the number of thread members returned. By default, `limit` is 100.
+
+#### Upcoming Changes
+
+Starting in API v11, [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) will *always* return paginated results, regardless of whether `with_member` is passed or not.
+
+## Add Default Layout setting for Forum channels
+
+#### Dec 13, 2022
+
+`default_forum_layout` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates the default layout for posts in a [forum channel](#DOCS_TOPICS_THREADS/forums). A value of 1 (`LIST_VIEW`) indicates that posts will be displayed as a chronological list, and 2 (`GALLERY_VIEW`) indicates they will be displayed as a collection of tiles. If `default_forum_layout` hasn't been set, the value will be `0`.
+
+Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
+
+## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
+
+#### Nov 22, 2022
+
+- Auto Moderation rules with [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support an `allow_list` field in its [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata). Any message content that matches an `allow_list` keyword will be ignored by the Auto Moderation `KEYWORD` rule. Each `allow_list` keyword can be a multi-word phrase and can contain [wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
+- Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 3 to 5
+- Increase maximum length for each regex pattern in the `regex_patterns` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field from 75 to 260.
+
+## Upcoming Application Command Permission Changes
+
+#### Nov 17, 2022
+
+> danger
+> This entry includes breaking changes
+
+Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord. 
+
+Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
+
+> info
+> Current permissions behavior is documented in [the application commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) and in [the changelog for the previous permissions update](#DOCS_CHANGE_LOG/updated-command-permissions)
+
+These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
+
+#### Types of command permission configurations
+
+> info
+> The following information isn’t changing, but it’s helpful context to understand the changes.
+
+Discord’s clients determine whether a user can see or invoke a command based on three different permission configurations:
+
+- **Command-level permissions** are set up by an admin for a specific *command* in their server. These permissions affect only a specific command.
+- **App-level permissions** are set up by an admin for a specific *app* in their server. These permissions affect all commands for an app.
+- **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in *all* servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-using-default-permissions).
+
+The concepts of these permission configurations are not changing. But then of course, the question becomes…
+
+### What's changing?
+
+There are two changes around command permissions:
+
+1. The logic used to apply permission configurations to a user in a given context within Discord clients
+2. New `APPLICATION_COMMAND_PERMISSIONS_V2` guild feature flag to indicate whether that guild is using the old permissions logic or the new (upcoming) logic.
+
+Let's go deeper into both of these.
+
+#### 1. How permission configurations are applied in Discord
+
+##### Current behavior:
+
+Currently, these systems are **mutually-exclusive**, meaning that only one type of permission configuration is used to determine whether a user can invoke a command.
+
+With this current system, there is a clear hierarchy: command-level permission configurations take precedence (if present), then app-level permission configurations (if present), and finally `default_member_permissions` if neither are present.
+
+The implication of the current permissions system means that:
+- If any command-level permissions are configured, all app-level permissions and `default_member_permissions` are ignored for that command.
+- If any app-level permissions are configured, `default_member_permissions` is ignored for *all* of that app’s commands.
+
+This system leads to unintentional permission escalations, and can force moderators to manually re-define their app-level configurations to make small tweaks on the command-level.
+
+##### Upcoming behavior:
+
+The new system removes the mutual exclusion aspect, meaning that the different types of permission configurations work together rather than independently—specifically, more than one may be used to determine whether a user can invoke a command.
+
+**`default_member_permissions` continues to act as a “default” that a developer can set when creating or updating a command.**
+
+**App-level permission configurations now act as the "base" configuration.**
+
+App-level configurations define who is allowed to use the app and where. These will work *together* with  `default_member_permissions`, meaning if a user is granted access via an app-level permission configuration, they will still be restricted to the `default_member_permissions` for each command (by default). No more accidentally granting `/ban` which requires `BAN_MEMBERS` to `@BotMemers` just because you gave them access to the app!
+
+**Command-level permission configurations now act as an “override” of the app-level.**
+
+Command-level configurations override what is present at the app-level *and* any restrictions set by `default_member_permissions`. This means that an admin can explicitly grant a user access to a specific command even if they are denied access on the app-level *or* if they don't have permissions that meet that command's `default_member_permissions`.
+
+If a command-level configuration does not exist for the given context, the system will fall back to looking at the app-level configuration.
+
+##### Flowchart for command permissions logic
+
+Below is a simplified flowchart that illustrates how permissions will be applied by the Discord client after the new changes take effect.
+
+![Flowchart with an overview of the new permissions configurations logic](new-permissions-flowchart.svg)
+
+#### 2. `APPLICATION_COMMAND_PERMISSIONS_V2` Guild Feature
+
+We added a new [`APPLICATION_COMMAND_PERMISSIONS_V2` feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which indicates whether that server is using **the current permissions logic**.
+
+- If the flag *is* present, that server is using the old command permissions behavior.
+- If the flag *is not* present, that server has migrated from the old command permissions behavior to the new behavior.
+
+### Am I affected?
+
+Your app will only be affected if it uses the [`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) endpoint. This is a pretty restricted endpoint used to manage and update application command permissions on behalf of admins, meaning that it requires the `applications.commands.permissions.update` scope.
+
+**If your app doesn’t use this endpoint, there’s nothing you need to prepare for these changes.**
+
+If your app does use this endpoint, you should read the section on preparing for changes below.
+
+### How do I prepare for the changes?
+
+To prepare for these changes, you should take two steps:
+
+**1. Use the  `APPLICATION_COMMAND_PERMISSIONS_V2` flag**
+
+Use this flag to determine which permissions logic that server is using. While the transition from the old behavior to the new behavior is happening, you may need two code paths depending on if the flag is present or not.
+
+```py
+if 'APPLICATION_COMMAND_PERMISSIONS_V2' in guild.features:
+     # Use current behaviors when interacting with endpoint
+else:
+     # Use new permissions behaviors when interacting with endpoint
+```
+
+> info
+> If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](#DOCS_RESOURCES_GUILD/get-guild).
+
+**2. Modify the behavior based on your use case**
+
+After you know what permissions behavior the server is using, you should update how you handle that server specifically.
+
+To understand what changes you need to make, you should look at the assumptions users have when your app updates their server’s commands permissions. Do you have a web dashboard where admins update permissions? If so, analyze the logic of that dashboard and what your permission configurations are trying to do to map them to the new permissions behavior. Do you document what your app is doing in regards to certain command permissions you’re configuring on behalf of the admin? If so, map that documentation to the new behavior.
+
+If you are unsure, you can communicate with your admin users to ask if your new logic meets their expectations.
+
+#### What happens if I don’t update my app?
+
+If your app is affected and you don’t update it, permissions behavior that your app configures may not match what you or the users of your app expect.
+
+#### How long do I have to update my app?
+
+The new `APPLICATION_COMMAND_PERMISSIONS_V2` flag is already live, and you should start seeing it in guilds’ feature flags.
+
+The new permissions behavior will roll out **on December 16, 2022**. On this date, admins will begin to see a banner that allows them to *optionally* move their server to the new behavior.
+
+In **late January or early February**, all servers will be migrated to the new behavior. We'll post another changelog at this point, at which time you can remove any logic around the old permissions behavior.
+
 ## GameSDK Feature Deprecation
 
 #### Nov 9, 2022
@@ -22,11 +181,11 @@ This deprecation period will last until **Tuesday May 2, 2023**, after which the
 
 We know that Discord is an important place for people to find belonging, and that using your Discord identity in games is a crucial part of that sense of belonging. You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
 
-## Add Automod Regex Support
+## Add Auto Moderation Regex Support
 
 #### Nov 4, 2022
 
-Automod rules with [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support
+Auto Moderation rules with [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support
 a `regex_patterns` field in its [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 Regex patterns are a powerful way to describe many keywords all at once using one expression. Only Rust flavored regex is supported, which can be tested in online editors such as [Rustexp](https://rustexp.lpil.uk/).
 
@@ -63,16 +222,16 @@ More details can be found in the updated [select menu documentation](#DOCS_INTER
 
 If `default_sort_order` hasn't been set, its value will be `null`.
 
-## AutoMod Spam and Mention Spam Trigger Types
+## Auto Moderation Spam and Mention Spam Trigger Types
 
 #### Sep 21, 2022
 
-Two new [trigger types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) were added to AutoMod:
+Two new [trigger types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) were added to Auto Moderation:
 
 - `MENTION_SPAM` blocks messages that mention more than a set number of unique server members or roles. Apps can define the number (up to 50) using the `mention_total_limit` field in the [trigger metadata object](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) when creating or updating an Auto Moderation rule.
 - `SPAM` blocks links and messages that are identified as spam.
 
-More information can be found in the [AutoMod documentation](#DOCS_RESOURCES_AUTO_MODERATION).
+More information can be found in the [Auto Moderation documentation](#DOCS_RESOURCES_AUTO_MODERATION).
 
 ## Forum Channels Release
 
@@ -208,7 +367,7 @@ Interaction payloads now contain an `app_permissions` field whose value is the c
 For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
 
 
-## Message Content in AutoMod events
+## Message Content in Auto Moderation events
 
 #### Jun 21, 2022
 
@@ -232,7 +391,7 @@ Add new [Auto Moderation feature](#DOCS_RESOURCES_AUTO_MODERATION) which enables
 - New endpoints for [creating](#DOCS_RESOURCES_AUTO_MODERATION/create-auto-moderation-rule), [updating](#DOCS_RESOURCES_AUTO_MODERATION/modify-auto-moderation-rule), and [deleting](#DOCS_RESOURCES_AUTO_MODERATION/delete-auto-moderation-rule) Auto Moderation rules
 - New gateway events emitted when Auto Moderation rules are [created](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) (`AUTO_MODERATION_RULE_CREATE`), [updated](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) (`AUTO_MODERATION_RULE_UPDATE `), and [deleted](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) (`AUTO_MODERATION_RULE_DELETE `). Requires the `AUTO_MODERATION_CONFIGURATION` (`1 << 20`) intent
 - New gateway event emitted when an [action is executed](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) (`AUTO_MODERATION_ACTION_EXECUTION`). Requires the `AUTO_MODERATION_EXECUTION` (`1 << 21`) intent
-- New [audit log entries](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) when rules are created (`AUTO_MODERATION_RULE_CREATE`), updated (`AUTO_MODERATION_RULE_UPDATE`), or deleted (`AUTO_MODERATION_RULE_DELETE`), or when AutoMod performs an action (`AUTO_MODERATION_BLOCK_MESSAGE`)
+- New [audit log entries](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) when rules are created (`AUTO_MODERATION_RULE_CREATE`), updated (`AUTO_MODERATION_RULE_UPDATE`), or deleted (`AUTO_MODERATION_RULE_DELETE`), or when Auto Moderation performs an action (`AUTO_MODERATION_BLOCK_MESSAGE`)
 
 ## Updated Command Permissions
 
