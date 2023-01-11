@@ -1,6 +1,5 @@
 # Change Log
 
-
 ## Thread Member Details and Pagination
 
 > danger
