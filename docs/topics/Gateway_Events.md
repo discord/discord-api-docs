@@ -362,7 +362,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that an app 
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [\](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
+`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
 
 ###### Ready Event Fields
 
