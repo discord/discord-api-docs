@@ -295,6 +295,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
 | [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
+| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                             |
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-add)                                                   | User was banned from a guild                                                                                                                   |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-remove)                                             | User was unbanned from a guild                                                                                                                 |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-emojis-update)                                       | Guild emojis were updated                                                                                                                      |
@@ -361,7 +362,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that an app 
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
+`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [\](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
 
 ###### Ready Event Fields
 
@@ -585,6 +586,10 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUI
 #### Guild Delete
 
 Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
+
+#### Guild Audit Log Entry Create
+
+Sent when a guild audit log entry is created. The inner payload is an [Audit Log Entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) object.
 
 #### Guild Ban Add
 
