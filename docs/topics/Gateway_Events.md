@@ -589,7 +589,7 @@ Sent when a guild becomes or was already unavailable due to an outage, or when t
 
 #### Guild Audit Log Entry Create
 
-Sent when a guild audit log entry is created. The inner payload is an [Audit Log Entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) object.
+Sent when a guild audit log entry is created. The inner payload is an [Audit Log Entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) object. This event is only sent to bots with the `VIEW_AUDIT_LOG` permission.
 
 #### Guild Ban Add
 
