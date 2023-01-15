@@ -1081,7 +1081,7 @@ Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) object
 
 ## Update Guild Integration % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
-Update the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires [Guild Integrations Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-integrations-update) Gateway event.
+Update the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires [Guild Integrations Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-integrations-update) Gateway event. An empty body is accepted.
 
 > info
 > Integrations that arnt returned in the guilds integration list can still be updated.
