@@ -1070,7 +1070,21 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) objects for the guild. Requires the `MANAGE_GUILD` permission.
 
 > info
-> This endpoint returns a maximum of 50 integrations. If a guild has more integrations, they cannot be accessed.
+> This endpoint returns a maximum of 50 integrations. If a guild has more integrations, they will not all be returned.
+
+###### Query String Params
+
+| Field                              | Type    | Description                                                         | Required |
+| ---------------------------------- | ------- | ------------------------------------------------------------------- | -------- |
+| has_commands?                      | boolean | when `true`, will only return integrations with registered commands | false    |
+| include_role_connections_metadata? | boolean | when `true`, will return the role connections verification url      | false    |
+
+## Update Guild Integration % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
+
+Update the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires [Guild Integrations Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-integrations-update) Gateway event.
+
+> info
+> Integrations that arnt returned in the guilds integration list can still be updated.
 
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
