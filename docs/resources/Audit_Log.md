@@ -125,9 +125,9 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | AUTO_MODERATION_RULE_CREATE                 | 140   | Auto Moderation rule was created                          | [Auto Moderation Rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object)                                                              |
 | AUTO_MODERATION_RULE_UPDATE                 | 141   | Auto Moderation rule was updated                          | [Auto Moderation Rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object)                                                              |
 | AUTO_MODERATION_RULE_DELETE                 | 142   | Auto Moderation rule was deleted                          | [Auto Moderation Rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object)                                                              |
-| AUTO_MODERATION_BLOCK_MESSAGE               | 143   | Message was blocked by AutoMod                            |                                                                                                                                                  |
-| AUTO_MODERATION_FLAG_TO_CHANNEL             | 144   | Message was flagged by AutoMod                            |                                                                                                                                                  |
-| AUTO_MODERATION_USER_COMMUNICATION_DISABLED | 145   | Member was timed out by AutoMod                           |                                                                                                                                                  |
+| AUTO_MODERATION_BLOCK_MESSAGE               | 143   | Message was blocked by Auto Moderation                    |                                                                                                                                                  |
+| AUTO_MODERATION_FLAG_TO_CHANNEL             | 144   | Message was flagged by Auto Moderation                    |                                                                                                                                                  |
+| AUTO_MODERATION_USER_COMMUNICATION_DISABLED | 145   | Member was timed out by Auto Moderation                   |                                                                                                                                                  |
 
 \* Object has exception(s) to available keys. See the [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section below for details.
 
@@ -189,4 +189,5 @@ The following parameters can be used to filter which and how many audit log entr
 | user_id?     | snowflake | Entries from a specific user ID                                                                             |
 | action_type? | integer   | Entries for a specific [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before?      | snowflake | Entries that preceded a specific audit log entry ID                                                         |
+| after?       | snowflake | Entries that succeeded a specific audit log entry ID                                                        |
 | limit?       | integer   | Maximum number of entries (between 1-100) to return, defaults to 50                                         |

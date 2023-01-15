@@ -419,7 +419,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ### Auto Moderation
 
-All auto moderation related events are currently only sent to bot users which have the `MANAGE_GUILD` permission.
+All [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) related events are only sent to bot users which have the `MANAGE_GUILD` permission.
 
 #### Auto Moderation Rule Create
 
@@ -454,7 +454,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 | matched_content ***      | ?string                                                                                        | Substring in content that triggered the rule                                   |
 
 
-\* `message_id` will not exist if message was blocked by automod or content was not part of any message
+\* `message_id` will not exist if message was blocked by [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) or content was not part of any message
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
@@ -469,6 +469,8 @@ Sent when a new guild channel is created, relevant to the current user. The inne
 #### Channel Update
 
 Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` channels).
+
+This event may reference roles or guild members that no longer exist in the guild.
 
 #### Channel Delete
 
@@ -1150,7 +1152,7 @@ Sent when a user starts typing in a channel.
 
 #### User Update
 
-Sent when properties about the user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
+Sent when properties about the current bot's user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
 
