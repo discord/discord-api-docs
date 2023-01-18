@@ -270,6 +270,8 @@ Sent by the client to indicate a presence or status update.
 
 Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
 
+Receive events contextually tied to a guild will always have a corresponding `guild_id` snowflake field set on the inner payload.
+
 | Name                                                                                                         | Description                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello)                                                                   | Defines the heartbeat interval                                                                                                                 |
@@ -505,13 +507,7 @@ Sent when the current user _gains_ access to a channel.
 
 #### Thread Member Update
 
-Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated. The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object with an extra `guild_id` field. This event is documented for completeness, but unlikely to be used by most bots. For bots, this event largely is just a signal that you are a member of the thread. See the [threads docs](#DOCS_TOPICS_THREADS) for more details.
-
-###### Thread Member Update Event Extra Fields
-
-| Field    | Type      | Description     |
-| -------- | --------- | --------------- |
-| guild_id | snowflake | ID of the guild |
+Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated. The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object). This event is documented for completeness, but unlikely to be used by most bots. For bots, this event largely is just a signal that you are a member of the thread. See the [threads docs](#DOCS_TOPICS_THREADS) for more details.
 
 
 #### Thread Members Update
@@ -645,13 +641,7 @@ Sent when a guild integration is updated.
 > warn
 > If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
-Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object with an extra `guild_id` key:
-
-###### Guild Member Add Extra Fields
-
-| Field    | Type      | Description     |
-| -------- | --------- | --------------- |
-| guild_id | snowflake | ID of the guild |
+Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object).
 
 #### Guild Member Remove
 
@@ -780,23 +770,11 @@ Sent when a user has unsubscribed from a guild scheduled event.
 
 #### Integration Create
 
-Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
-
-###### Integration Create Event Additional Fields
-
-| Field    | Type      | Description     |
-| -------- | --------- | --------------- |
-| guild_id | snowflake | ID of the guild |
+Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object).
 
 #### Integration Update
 
-Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
-
-###### Integration Update Event Additional Fields
-
-| Field    | Type      | Description     |
-| -------- | --------- | --------------- |
-| guild_id | snowflake | ID of the guild |
+Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object).
 
 #### Integration Delete
 
