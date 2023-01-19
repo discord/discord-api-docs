@@ -11,13 +11,19 @@
 | --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                              |
 | name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
-| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles allowed to use this emoji                                        |
+| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles allowed to use this emoji                                           |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                                              |
 | require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                              |
 | managed?        | boolean                                                          | whether this emoji is managed                                             |
 | animated?       | boolean                                                          | whether this emoji is animated                                            |
 | available?      | boolean                                                          | whether this emoji can be used, may be false due to loss of Server Boosts |
 
+###### Premium Emoji
+
+Roles with the `integration_id` tag being the guild's guild_subscription integration are considered subscription roles.  
+An emoji cannot have both subscription roles and non-subscription roles.  
+Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.  
+Emojis cannot be converted between normal and premium after creation.
 
 ###### Emoji Example
 
