@@ -376,10 +376,10 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Flag                                    | Value  | Description                                                   | Allows Modification |
 | ----------------------------------------| ------ | ------------------------------------------------------------- |---------------------|
-| DID_REJOIN                              | 1 << 0 | Member has leave and rejoined the guild                       | 0                   |
-| COMPLETED_ONBOARDING                    | 1 << 1 | Member has completed onboarding                               | 0                   |
-| BYPASSES_VERIFICATION                   | 1 << 2 | Member bypasses guild verification requirements               | 1                   |
-| STARTED_ONBOARDING                      | 1 << 3 | Member has started onboarding                                 | 0                   |
+| DID_REJOIN                              | 1 << 0 | Member has leave and rejoined the guild                       | false               |
+| COMPLETED_ONBOARDING                    | 1 << 1 | Member has completed onboarding                               | false               |
+| BYPASSES_VERIFICATION                   | 1 << 2 | Member bypasses guild verification requirements               | true                |
+| STARTED_ONBOARDING                      | 1 << 3 | Member has started onboarding                                 | false               |
 
 > info
 > Not all guild member flags can be modified and are reserved for Discord.
