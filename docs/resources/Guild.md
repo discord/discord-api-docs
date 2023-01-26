@@ -374,12 +374,15 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Flags
 
-| Flag                  | Value  | Description                                     | Editable |
-| --------------------- | ------ | ----------------------------------------------- | -------- |
-| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild          | false    |
-| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                 | false    |
-| BYPASSES_VERIFICATION | 1 << 2 | Member bypasses guild verification requirements | true     |
-| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                   | false    |
+| Flag                  | Value  | Description                                           | Editable |
+| --------------------- | ------ | ----------------------------------------------------- | -------- |
+| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild                | false    |
+| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                       | false    |
+| BYPASSES_VERIFICATION | 1 << 2 | Member is exempt from guild verification requirements | true     |
+| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                         | false    |
+
+> info
+> For servers with Onboarding, members that do not meet verification requirements can only participate in the server if they have the BYPASSES_VERIFICATION flag. This flag can be set by admins who have the MODERATE_MEMBERS permission.
 
 ### Integration Object
 
