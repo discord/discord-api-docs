@@ -583,7 +583,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
           "title": "Chat with Friends",
           "description": "",
           "emoji_id": "1070002302032826408",
-          "emoji_name": null,
+          "emoji_name": "chat",
           "role_ids": [],
           "channel_ids": [
             "962007075288916001"
