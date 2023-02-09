@@ -1046,6 +1046,9 @@ Returns an object with one `pruned` key indicating the number of members that wo
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
+> warn
+> This request will fail with a `502 Gateway Unavailable` response on larger guilds; we do not have the capability to compute the count quickly enough. 
+
 ###### Query String Params
 
 | Field         | Type                                        | Description                              | Default |
