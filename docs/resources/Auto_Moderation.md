@@ -63,7 +63,7 @@ Characterizes the type of content which can trigger the rule.
 
 | Trigger Type   | Value | Description                                                          | Max per Guild |
 | -------------- | ----- | -------------------------------------------------------------------- | ------------- |
-| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 5             |
+| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 6             |
 | SPAM           | 3     | check if content represents generic spam                             | 1             |
 | KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets   | 1             |
 | MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed          | 1             |
@@ -91,10 +91,10 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 | Field               | Trigger Type   | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
 | ------------------- | -------------- | ---------------- | ------------------------- |
-| keyword_filter      | KEYWORD        | 1000             | 30                        |
+| keyword_filter      | KEYWORD        | 1000             | 60                        |
 | regex_patterns      | KEYWORD        | 10               | 260                       |
-| allow_list          | KEYWORD        | 100              | 30                        |
-| allow_list          | KEYWORD_PRESET | 1000             | 30                        |
+| allow_list          | KEYWORD        | 100              | 60                        |
+| allow_list          | KEYWORD_PRESET | 1000             | 60                        |
 
 
 ###### Keyword Preset Types
