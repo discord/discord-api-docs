@@ -46,6 +46,9 @@ Private threads behave similar to Group DMs, but in a Guild. Private threads are
 
 ## Active & Archived Threads
 
+> warn
+> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+
 Every thread can be either active or archived. Changing a thread from archived -> active is referred to as unarchiving the thread. Threads that have `locked` set to true can only be unarchived by a user with the `MANAGE_THREADS` permission.
 
 Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot edit messages, add reactions, use application commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted. Sending a message will automatically unarchive the thread, unless the thread has been locked by a moderator.

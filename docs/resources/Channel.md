@@ -359,17 +359,18 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Flags
 
-| Flag                                   | Value  | Description                                                                       |
-| -------------------------------------- | ------ | --------------------------------------------------------------------------------- |
-| CROSSPOSTED                            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
-| IS_CROSSPOST                           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
-| SUPPRESS_EMBEDS                        | 1 << 2 | do not include any embeds when serializing this message                           |
-| SOURCE_MESSAGE_DELETED                 | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
-| URGENT                                 | 1 << 4 | this message came from the urgent message system                                  |
-| HAS_THREAD                             | 1 << 5 | this message has an associated thread, with the same id as the message            |
-| EPHEMERAL                              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
-| LOADING                                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
-| FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8 | this message failed to mention some roles and add their members to the thread     |
+| Flag                                   | Value   | Description                                                                       |
+| -------------------------------------- | ------  | --------------------------------------------------------------------------------- |
+| CROSSPOSTED                            | 1 << 0  | this message has been published to subscribed channels (via Channel Following)    |
+| IS_CROSSPOST                           | 1 << 1  | this message originated from a message in another channel (via Channel Following) |
+| SUPPRESS_EMBEDS                        | 1 << 2  | do not include any embeds when serializing this message                           |
+| SOURCE_MESSAGE_DELETED                 | 1 << 3  | the source message for this crosspost has been deleted (via Channel Following)    |
+| URGENT                                 | 1 << 4  | this message came from the urgent message system                                  |
+| HAS_THREAD                             | 1 << 5  | this message has an associated thread, with the same id as the message            |
+| EPHEMERAL                              | 1 << 6  | this message is only visible to the user who invoked the Interaction              |
+| LOADING                                | 1 << 7  | this message is an Interaction Response and the bot is "thinking"                 |
+| FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8  | this message failed to mention some roles and add their members to the thread     |
+| SUPPRESS_NOTIFICATIONS                 | 1 << 12 | this message will not trigger push and desktop notifications                      |
 
 ###### Example Message
 
@@ -543,6 +544,9 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 The thread metadata object contains a number of thread-specific channel fields that are not needed by other channel types.
 
 ###### Thread Metadata Structure
+
+> warn
+> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
 
 | Field                 | Type               | Description                                                                                                                                |
 | --------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -1002,7 +1006,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | files[n]?\*        | file contents                                                                                     | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
 | payload_json?      | string                                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
 | attachments?       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | Attachment objects with filename and description. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                    |
-| flags?             | integer                                                                                           | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
+| flags?             | integer                                                                                           | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set) |
 
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, or `files[n]` is required.
 
@@ -1294,7 +1298,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 | files[n]\*        | file contents                                                                                | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
 | payload_json?     | string                                                                                       | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
 | attachments?      | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attachment objects with `filename` and `description`. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                |
-| flags?            | integer                                                                                      | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
+| flags?            | integer                                                                                      | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set) |
 
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, or `files[n]` is required.
 
