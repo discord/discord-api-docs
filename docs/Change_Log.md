@@ -1,5 +1,21 @@
 # Change Log
 
+## Update to Locked Threads
+
+#### Feb 10, 2023
+
+### Upcoming Changes
+
+Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked *without* being archived, and the meaning of the [`locked` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure) will slightly change.
+
+`locked` currently indicates that a thread cannot be reopened by a user without the Manage Posts permission, but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the Manage Posts permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active.
+
+If a user or bot user has the Manage Posts permission, they will still be able to make changes to the thread and messages. And the upcoming change does not affect the meaning of the [`archived` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure).
+
+### How do I prepare for this change?
+
+If your app is interacting with threads (including forum posts), it should check the state of the `locked` and/or `archived` field for the thread to understand which actions it can or cannot perform. It should also be prepared to handle any errors that it may receive when a thread is locked.
+
 ## Guild Audit Log Events
 
 #### Jan 18, 2023
