@@ -16,6 +16,13 @@ If a user or bot user has the `MANAGE_THREADS` permission, they will still be ab
 
 If your app is interacting with threads (including forum posts), it should check the state of the `locked` and/or `archived` field for the thread to understand which actions it can or cannot perform. It should also be prepared to handle any errors that it may receive when a thread is locked.
 
+## Increase Auto Moderation Keyword Limits
+
+#### Feb 8, 2023
+
+- Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 5 to 6
+- Increase maximum length for each keyword in the `keyword_filter` and `allow_list` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) fields from 30 to 60.
+
 ## Guild Audit Log Events
 
 #### Jan 18, 2023
