@@ -544,6 +544,9 @@ The thread metadata object contains a number of thread-specific channel fields t
 
 ###### Thread Metadata Structure
 
+> warn
+> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+
 | Field                 | Type               | Description                                                                                                                                |
 | --------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | archived              | boolean            | whether the thread is archived                                                                                                             |
