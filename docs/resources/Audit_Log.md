@@ -181,7 +181,7 @@ For most objects, the change keys may be any field on the changed object. The fo
 Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) permission.
 
 > info
-> The `before` and `after` parameters are mutually exclusive, only one may be passed at a time.
+> When `before` is used, audit log entries will be returned in descending order. When `after` is used, audit log entries will be returned in ascending order. If both `before` and `after` are provided, only `before` is respected.
 
 ###### Query String Params
 
