@@ -109,12 +109,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### System Channel Flags
 
-| Flag                                  | Value  | Description                            |
-| ------------------------------------- | ------ | -------------------------------------- |
-| SUPPRESS_JOIN_NOTIFICATIONS           | 1 << 0 | Suppress member join notifications     |
-| SUPPRESS_PREMIUM_SUBSCRIPTIONS        | 1 << 1 | Suppress server boost notifications    |
-| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS | 1 << 2 | Suppress server setup tips             |
-| SUPPRESS_JOIN_NOTIFICATION_REPLIES    | 1 << 3 | Hide member join sticker reply buttons |
+| Flag                                                     | Value  | Description                                                   |
+| -------------------------------------------------------- | ------ | ------------------------------------------------------------- |
+| SUPPRESS_JOIN_NOTIFICATIONS                              | 1 << 0 | Suppress member join notifications                            |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | 1 << 1 | Suppress server boost notifications                           |
+| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | 1 << 2 | Suppress server setup tips                                    |
+| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | 1 << 3 | Hide member join sticker reply buttons                        |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | 1 << 4 | Suppress role subscription purchase and renewal notifications |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | 1 << 5 | Hide role subscription sticker reply buttons                  |
 
 ###### Guild Features
 
@@ -345,6 +347,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                              |
 | deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                                                                                                                       |
 | mute                          | boolean                                         | whether the user is muted in voice channels                                                                                                                                                                                          |
+| flags                         | integer                                         | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to `0`                                                                                                         |
 | pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
 | permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                                                                                                                        |
 | communication_disabled_until? | ?ISO8601 timestamp                              | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
@@ -369,6 +372,18 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
+###### Guild Member Flags
+
+| Flag                  | Value  | Description                                           | Editable |
+| --------------------- | ------ | ----------------------------------------------------- | -------- |
+| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild                | false    |
+| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                       | false    |
+| BYPASSES_VERIFICATION | 1 << 2 | Member is exempt from guild verification requirements | true     |
+| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                         | false    |
+
+> info
+> BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
+
 ### Integration Object
 
 ###### Integration Structure
@@ -378,13 +393,13 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | id                      | snowflake                                                                                            | integration id                                                                  |
 | name                    | string                                                                                               | integration name                                                                |
 | type                    | string                                                                                               | integration type (twitch, youtube, discord, or guild_subscription)              |
-| enabled? \*             | boolean                                                                                              | is this integration enabled                                                     |
+| enabled                 | boolean                                                                                              | is this integration enabled                                                     |
 | syncing? \*             | boolean                                                                                              | is this integration syncing                                                     |
 | role_id? \*             | snowflake                                                                                            | id that this integration uses for "subscribers"                                 |
 | enable_emoticons? \*    | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently) |
 | expire_behavior? \*     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                            |
 | expire_grace_period? \* | integer                                                                                              | the grace period (in days) before expiring subscribers                          |
-| user? \*                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
+| user?                   | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
 | account                 | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                 |
 | synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                           |
 | subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                       |
@@ -393,6 +408,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | scopes?                 | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)                         | the scopes the application has been authorized for                              |
 
 \* These fields are not provided for discord bot integrations.
+> warn
+> Some older integrations may not have an attached user.
 
 ###### Integration Expire Behaviors
 
@@ -851,6 +868,7 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 error if the user is not in a voice channel                                                                                                                                                                                                                               | DEAFEN_MEMBERS   |
 | channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice)                                                                                                                                                                                                                                                                             | MOVE_MEMBERS     |
 | communication_disabled_until | ISO8601 timestamp   | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again (up to 28 days in the future), set to null to remove timeout. Will throw a 403 error if the user has the ADMINISTRATOR permission or is the owner of the guild | MODERATE_MEMBERS |
+| flags                        | integer             | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags)                                                                                                                                                                                                                                                         | MODERATE_MEMBERS
 
 ## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
 
@@ -1132,7 +1150,7 @@ Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object
 
 ## Modify Guild Welcome Screen % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
 
-Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object.
+Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object. May fire a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional and nullable
