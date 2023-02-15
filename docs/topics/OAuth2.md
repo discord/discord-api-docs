@@ -54,6 +54,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
+> `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
 
 ## State and Security
 
