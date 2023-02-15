@@ -194,6 +194,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30056  | Maximum number of premium emojis reached (25)                                                                                 |
 | 30058  | Maximum number of webhooks per guild reached (1000)                                                                           |
 | 30060  | Maximum number of channel permission overwrites reached (1000)                                                                |
+| 30061  | The channels for this guild are too large                                                                                     |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
