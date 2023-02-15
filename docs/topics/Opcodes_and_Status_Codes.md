@@ -171,6 +171,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30007  | Maximum number of webhooks reached (10)                                                                                       |
 | 30008  | Maximum number of emojis reached                                                                                              |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
+| 30011  | Maximum number of group DMs reached (10)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
