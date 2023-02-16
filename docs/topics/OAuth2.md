@@ -43,6 +43,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | identify                                 | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                              |
 | messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                   |
 | relationships.read                       | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                         |
+| role_connections.write                   | allows your app to update a user's connection and metadata for the app                                                                                                                  |
 | rpc                                      | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                       |
 | rpc.activities.write                     | for local rpc server access, this allows you to update a user's activity - requires Discord approval                                                                                    |
 | rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                |
@@ -53,6 +54,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
+> `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
 
 ## State and Security
 

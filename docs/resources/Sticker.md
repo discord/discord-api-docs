@@ -38,6 +38,7 @@ Incidentally the client will always use a name generated from an emoji as the va
 | PNG    | 1     |
 | APNG   | 2     |
 | LOTTIE | 3     |
+| GIF    | 4     |
 
 ###### Example Sticker
 
@@ -131,6 +132,8 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 > warn
 > Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
 
+> warn
+> Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
 ###### Form Params
 
 | Field       | Type          | Description                                                                                  |
@@ -138,7 +141,7 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 | name        | string        | name of the sticker (2-30 characters)                                                        |
 | description | string        | description of the sticker (empty or 2-100 characters)                                       |
 | tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
-| file        | file contents | the sticker file to upload, must be a PNG, APNG, or Lottie JSON file, max 500 KB             |
+| file        | file contents | the sticker file to upload, must be a PNG, APNG, GIF, or Lottie JSON file, max 512 KB        |
 
 ## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
