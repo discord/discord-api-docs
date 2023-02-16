@@ -105,7 +105,7 @@ When requesting this scope, we "shortcut" the OAuth2 flow similar to adding a bo
 If your application does not require a bot user in the guild for its commands to work, **you don't need to add the bot scope or a permission bitfield to the URL**.
 
 > info
-> Guilds are limited to 50 integrations.
+> Only 50 integrations will be created for a guild, but there can be more bot users in the server. This means that only the first 50 apps added to a guild will have application commands available and appear in the "Integrations" server settings tab.
 
 
 ## Registering a Command
