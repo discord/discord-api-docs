@@ -235,7 +235,7 @@ There are a handful of scenarios when your app should attempt to resume:
 
 Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id` and the `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready-event) event, and the sequence number (`s`) from the last Dispatch (opcode `0`) event it received before the disconnect.
 
-After the connection is closed, your app should open a new connection using `resume_gateway_url` rather than the URL used to initially connect. If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
+After the connection is closed, your app should open a new connection using `resume_gateway_url` rather than the URL used to initially connect, with the same query parameters from the initial [Connection](#DOCS_TOPICS_GATEWAY/connecting). If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
 
 Once the new connection is opened, your app should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event using the `session_id` and sequence number mentioned above. When sending the event, `session_id` will have the same field name, but the last sequence number will be passed as `seq` in the data object (`d`).
 
