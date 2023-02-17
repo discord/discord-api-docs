@@ -108,6 +108,8 @@ Once connected to the Gateway, your app will receive a [Hello (opcode `10`)](#DO
 
 The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often your app needs to send a Heartbeat event in order to maintain the active connection. Heartbeating is detailed in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
 
+This event is not sent when resuming a connection.
+
 ###### Example Hello Event
 
 ```json
