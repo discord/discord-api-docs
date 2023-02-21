@@ -549,15 +549,14 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Prompt Option Structure
 
-| Field       | Type                | Description                                                                               |
-| ----------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| id          | snowflake           | the id of the option                                                                      |
-| channel_ids | array of snowflakes | the channels opted into when this option is selected                                      |
-| role_ids    | array of snowflakes | the roles assigned when this option is selected                                           |
-| emoji_id    | ?snowflake          | the [emoji id](#DOCS_REFERENCE/image-formatting), if the emoji is custom                  |
-| emoji_name  | ?string             | the emoji name if custom, the unicode character if standard, or `null` if no emoji is set |
-| title       | string              | the title of the option                                                                   |
-| description | ?string             | the description of the option                                                             |
+| Field       | Type                                               | Description                                                                               |
+| ----------- | -------------------------------------------------- | ---------------------------------------------------- |
+| id          | snowflake                                          | the id of the option                                 |
+| channel_ids | array of snowflakes                                | the channels opted into when this option is selected |
+| role_ids    | array of snowflakes                                | the roles assigned when this option is selected      |
+| emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji of the option                              |
+| title       | string                                             | the title of the option                              |
+| description | ?string                                            | the description of the option                        |
 
 
 ###### Prompt Type
@@ -582,8 +581,11 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
           "id": "1067461047608422476",
           "title": "Chat with Friends",
           "description": "",
-          "emoji_id": "1070002302032826408",
-          "emoji_name": "chat",
+          "emoji": {
+            "id": "1070002302032826408",
+            "name": "chat",
+            "animated": false
+          },
           "role_ids": [],
           "channel_ids": [
             "962007075288916001"
@@ -593,8 +595,11 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
           "id": "1070004843541954678",
           "title": "Get Gud",
           "description": "We have excellent teachers!",
-          "emoji_id": null,
-          "emoji_name": "😀",
+          "emoji": {
+            "id": null,
+            "name": "😀",
+            "animated": false
+          },
           "role_ids": [
             "982014491980083211"
           ],
