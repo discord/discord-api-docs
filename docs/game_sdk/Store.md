@@ -389,6 +389,8 @@ Gets entitlements for a given user. You can use this on your game backend to che
 | before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
 | after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
 | limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
+| guild_id?      | snowflake                         | the guild id to look up entitlements for                                                                                       |
+| exclude_ended? | bool                              | whether or not ended entitlements should be omitted                                                                            |
 
 ###### Example
 

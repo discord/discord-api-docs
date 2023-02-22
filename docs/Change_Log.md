@@ -1,5 +1,34 @@
 # Change Log
 
+## Update to Locked Threads
+
+#### Feb 10, 2023
+
+### Upcoming Changes
+
+Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked *without* being archived, which will slightly change the meaning of the [`locked` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure).
+
+`locked` currently indicates that a thread cannot be reopened by a user without the [`MANAGE_THREADS` (`1 << 34`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the `MANAGE_THREADS` permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
+
+If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages. The upcoming change does not affect the meaning of the [`archived` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure) or the behavior of a thread that is both locked and archived.
+
+### How do I prepare for this change?
+
+If your app is interacting with threads (including forum posts), it should check the state of the `locked` and/or `archived` field for the thread to understand which actions it can or cannot perform. It should also be prepared to handle any errors that it may receive when a thread is locked.
+
+## Increase Auto Moderation Keyword Limits
+
+#### Feb 8, 2023
+
+- Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 5 to 6
+- Increase maximum length for each keyword in the `keyword_filter` and `allow_list` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) fields from 30 to 60.
+
+## Guild Audit Log Events
+
+#### Jan 18, 2023
+
+At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create) event has been added to the gateway, allowing your application to react to moderation actions in guilds. The `VIEW_AUDIT_LOG` permission is required in order to receive these events, and the [`GUILD_MODERATION` intent](#DOCS_TOPICS_GATEWAY/gateway-intents) needs to be set when connecting to the gateway.
+
 ## Thread Member Details and Pagination
 
 > danger
