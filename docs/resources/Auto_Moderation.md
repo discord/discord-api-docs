@@ -35,7 +35,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   "actions": [
     {
       "type": 1,
-      "metadata": { "custom_message": "Please keep financial discussions limited to the #finance channel"}
+      "metadata": { "custom_message": "Please keep financial discussions limited to the #finance channel" }
     },
     {
       "type": 2,
@@ -43,13 +43,11 @@ Rules can be configured to automatically execute actions whenever they trigger. 
     },
     {
       "type": 3,
-      "metadata": {
-        "duration_seconds": 60
-      }
+      "metadata": { "duration_seconds": 60 }
     }
   ],
   "trigger_metadata": {
-    "keyword_filter": ["cat*", "*dog", "*ana*", "i like rust"],
+    "keyword_filter": ["cat*", "*dog", "*ana*", "i like c++"],
     "regex_patterns": ["(b|c)at", "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$"]
   },
   "enabled": true,
@@ -101,9 +99,9 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 | Preset Type    | Value | Description                                                  |
 | -------------- | ----- | ------------------------------------------------------------ |
-| PROFANITY      | 1     | Words that may be considered forms of swearing or cursing    |
-| SEXUAL_CONTENT | 2     | Words that refer to sexually explicit behavior or activity   |
-| SLURS          | 3     | Personal insults or words that may be considered hate speech |
+| PROFANITY      | 1     | words that may be considered forms of swearing or cursing    |
+| SEXUAL_CONTENT | 2     | words that refer to sexually explicit behavior or activity   |
+| SLURS          | 3     | personal insults or words that may be considered hate speech |
 
 
 ###### Event Types
@@ -184,11 +182,11 @@ An action which will execute whenever a rule is triggered.
 Additional data used when an action is executed. Different fields are relevant based on the
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
-| Field            | Type      | Associated Action Types | Description                                                                                                 | Constraints                          |
-| ---------------- | --------- | ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged                                                              | existing channel                     |
-| duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds                                                                                 | Maximum of 2419200 seconds (4 weeks) |
-| custom_message?  | string    | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked (Max 150 characters) | Maximum of 150 characters            |
+| Field            | Type      | Associated Action Types | Description                                                                            | Constraints                          |
+| ---------------- | --------- | ----------------------- | -------------------------------------------------------------------------------------- | ------------------------------------ |
+| channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged                                         | existing channel                     |
+| duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds                                                            | maximum of 2419200 seconds (4 weeks) |
+| custom_message?  | string    | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked | maximum of 150 characters            |
 
 
 ### Auto Moderation Permission Requirements
