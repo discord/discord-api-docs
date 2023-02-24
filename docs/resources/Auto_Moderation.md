@@ -35,7 +35,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   "actions": [
     {
       "type": 1,
-      "metadata": {}
+      "metadata": { "custom_message": "Please keep financial discussions limited to the #finance channel"}
     },
     {
       "type": 2,
@@ -170,11 +170,11 @@ An action which will execute whenever a rule is triggered.
 
 ###### Action Types
 
-| Action Type        | Value | Description                                           |
-| ------------------ | ----- | ----------------------------------------------------- |
-| BLOCK_MESSAGE      | 1     | blocks the content of a message according to the rule |
-| SEND_ALERT_MESSAGE | 2     | logs user content to a specified channel              |
-| TIMEOUT            | 3     | timeout user for a specified duration *               |
+| Action Type        | Value | Description                                                                                                                                                |
+| ------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BLOCK_MESSAGE      | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
+| SEND_ALERT_MESSAGE | 2     | logs user content to a specified channel                                                                                                                   |
+| TIMEOUT            | 3     | timeout user for a specified duration *                                                                                                                    |
 
 \* A `TIMEOUT` action can only be set up for `KEYWORD` and `MENTION_SPAM` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
@@ -184,12 +184,11 @@ An action which will execute whenever a rule is triggered.
 Additional data used when an action is executed. Different fields are relevant based on the
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
-| Field            | Type      | Associated Action Types | Description                                    |
-| ---------------- | --------- | ----------------------- | ---------------------------------------------- |
-| channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
-| duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds *                  |
-
-\* Maximum of 2419200 seconds (4 weeks)
+| Field            | Type      | Associated Action Types | Description                                                                                                 | Constraints                          |
+| ---------------- | --------- | ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged                                                              | existing channel                     |
+| duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds                                                                                 | Maximum of 2419200 seconds (4 weeks) |
+| custom_message?  | string    | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked (Max 150 characters) | Maximum of 150 characters            |
 
 
 ### Auto Moderation Permission Requirements
