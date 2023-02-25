@@ -1,5 +1,11 @@
 # Change Log
 
+## Add Auto Moderation custom_message Action Metadata Field
+
+#### Feb 24, 2023
+
+Add new `custom_message` [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-metadata) for the `BLOCK_MESSAGE` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types)). You can now specify a custom string for every Auto Moderation rule that will be shown to members whenever the rule blocks their message. This can be used as an additional explanation for why a message was blocked and as a chance to help members understand your server's rules and guidelines.
+
 ## Update to Locked Threads
 
 #### Feb 10, 2023
