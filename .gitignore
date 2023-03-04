@@ -2,3 +2,4 @@
 *.swp
 node_modules/
 dist/
+.idea
