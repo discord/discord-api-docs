@@ -214,7 +214,7 @@ There are a number of ways you can respond to an interaction:
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
 | MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                  |
 
-\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
+\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions and modals opened in reply to component-based interactions.
 
 \*\* Not available for MODAL_SUBMIT and PING interactions.
 
