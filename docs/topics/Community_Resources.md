@@ -16,6 +16,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 | ------------------------------------------------------------- | ---------- |
 | [Discord.Net](https://github.com/discord-net/Discord.Net)     | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)        | C#         |
+| [Discord.gd](https://github.com/3ddelano/discord.gd)          | GDScript   |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)            | Go         |
 | [Discord4J](https://github.com/Discord4J/Discord4J)           | Java       |
 | [Javacord](https://github.com/Javacord/Javacord)              | Java       |
