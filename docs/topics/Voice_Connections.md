@@ -8,12 +8,18 @@ To ensure that you have the most up-to-date information, please use [version 4](
 
 ###### Gateway Versions
 
-| Version | Status      | WebSocket URL Append |
-| ------- | ----------- | -------------------- |
-| 4       | recommended | ?v=4                 |
-| 3       | available   | ?v=3                 |
-| 2       | available   | ?v=2                 |
-| 1       | default     | ?v=1 or omit         |
+| Version | Status       | WebSocket URL Append |
+| ------- | ------------ | -------------------- |
+| 10      | Recommended  | ?v=10                |
+| 9       | Available    | ?v=9                 |
+| 8       | Deprecated   | ?v=8                 |
+| 7       | Deprecated   | ?v=7                 |
+| 6       | Deprecated   | ?v=6                 |
+| 5       | Discontinued | ?v=5                 |
+| 4       | Discontinued | ?v=4                 |
+| 3       | Discontinued | ?v=3                 |
+| 2       | Discontinued | ?v=2                 |
+| 1       | Discontinued | ?v=1 or omit         |
 
 ## Connecting to Voice
 
