@@ -7,6 +7,12 @@ While this guide is beginner-focused, it assumes a basic understanding of [JavaS
 > info
 > When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 
+<MDXCollapsible title="test title" description="a description" icon="add_app">
+This content is collapsed by default.
+
+Isn't that nice?
+</MDXCollapsible>
+
 ---
 
 ## Overview
