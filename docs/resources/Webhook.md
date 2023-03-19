@@ -268,7 +268,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | Field            | Type                                                                                 | Description                                                     |
 | ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
 | content          | string                                                                               | the message contents (up to 2000 characters)                    |
-| embeds           | array of up to 15 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
+| embeds           | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | Up to 15 `rich` embeds (up to 6000 characters)                  |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
 | components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
 | files[n] \*\*    | file contents                                                                        | the contents of the file being sent/edited                      |
