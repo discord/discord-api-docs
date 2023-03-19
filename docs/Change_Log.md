@@ -551,7 +551,7 @@ Select menus can be used like other [message components](#DOCS_INTERACTIONS_MESS
 
 #### June 10, 2021
 
-Message routes now accept an embeds array in addition to the existing embed field. Bots can now send up to 10 embeds per message, to be consistent with webhook behavior. The existing embed field is considered deprecated and will be removed in the next API version.
+Message routes now accept an embeds array in addition to the existing embed field. Bots can now send up to 15 embeds per message, to be consistent with webhook behavior. The existing embed field is considered deprecated and will be removed in the next API version.
 
 ## Buttons and Message Components
 
