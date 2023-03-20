@@ -29,17 +29,17 @@ To make the user flow a bit more explicit:
 
 ## Step 1: Creating an app
 
-First, you'll need to create an app if you don't have one already:
+First, you'll need to create an app in the developer portal if you don't have one already:
 
 <Button href="https://discord.com/developers/applications?new_application=true" color="brand">Create App</Button>
 
 Enter a name for your app, then press **Create**.
 
-After you create your app, you'll land on the **General Overview** page of the app's settings where you can update basic information about your app (like its description and icon). You'll also see an **Application ID** and **Interactions Endpoint URL**, which we'll use a bit later in the guide.
+After you create your app, you'll land on the **General Overview** page of the app's settings where you can update basic information about your app like its description and icon. You'll also see an **Application ID** and **Interactions Endpoint URL**, which we'll use a bit later in the guide.
 
 ### Configuring a bot
 
-Next you'll add a [bot user](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) to your app, which allows it to appear and behave similar to other server members. On the left hand sidebar click **Bot**, then the **Add Bot** button.
+Next you'll add a [bot user](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) to your app, which allows it to appear and behave similarly to other server members. On the left hand sidebar click **Bot**, then the **Add Bot** button.
 
 Once you add a bot, you can configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by others.
 
@@ -48,14 +48,14 @@ Intents determine which events Discord will send your app when you're creating a
 
 Some intents are [privileged](#DOCS_TOPICS_GATEWAY/privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents appear and can be toggled on the **Bot** page in your app's settings. Standard, non-privileged intents don't require any additional permissions or configurations.
 
-More information about intents and a full list of available intents is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
+More information about intents and a full list of available intents, along with their associated events, is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 </Collapsible>
 
 ![Bot tab in app settings](app-add-bot.png)
 
-There's also a **Token** section on this page, which allows you to copy and reset your bot's token.
+There's also a **Token** section on the **Bot** page, which allows you to copy and reset your bot's token.
 
-Bot tokens are used to authorize API requests and carry all of your bot user's permissions, making them *highly sensitive*. Make sure to *never* share your token or check it into any kind of version control.
+Bot tokens are used to authorize API requests and carry your bot user's permissions, making them *highly sensitive*. Make sure to *never* share your token or check it into any kind of version control.
 
 Go ahead and copy the token, and store the token somewhere safe (like in a password manager).
 
@@ -64,7 +64,7 @@ Go ahead and copy the token, and store the token somewhere safe (like in a passw
 
 ### Adding scopes and bot permissions
 
-Apps need approval from installing users to perform actions in Discord (like creating a slash command or fetching a list of server members). Let's select a few scopes and permissions to request during installation before installing the app.
+Apps need approval from installing users to perform actions in Discord (like creating a slash command or fetching a list of server members). Let's select a few scopes and permissions to request before installing the app.
 
 <Collapsible title="What are scopes and permissions?" description="Introduction to scopes and bot permissions" icon="question">
 When creating an app, scopes and permissions determine what your app can do and access in Discord servers.
@@ -93,7 +93,7 @@ Once you add scopes, you should see a URL that you can copy to install your app.
 > info
 > When developing apps, you should build and test in a server that isn't actively used by others. If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 
-Copy the URL from above, and paste it into your browser. You'll be guided through the installation flow, where you should make sure you're installing the app on a server where you can develop and test.
+Copy the URL from above, and paste it into your browser. You'll be guided through the installation flow, where you should make sure you're installing your app on a server where you can develop and test it.
 
 After installing your app, you can head over to your server and see that it has joined ✨
 
@@ -109,7 +109,7 @@ To make development a bit simpler, the app uses [discord-interactions](https://g
 
 ### Remixing the project
 
-This guide uses Glitch, which allows you to quickly clone and develop an app within your browser. If you'd prefer to develop your app locally developing locally, there's instructions on using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally).
+This guide uses Glitch, which lets you clone and develop within your browser. If you'd prefer to develop your app locally, there's instructions on using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally).
 
 > info
 > While Glitch is great for development and testing, [it has technical restrictions](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
@@ -188,7 +188,7 @@ Discord has two APIs that you can mix-and-match to build apps:
 
 ## Step 3: Handling interactivity
 
-To enable your app to receive slash command requests (and other interactions), Discord needs a public URL to send them. This URL can be configured in your app settings as **Interaction Endpoint URL**.
+To enable your app to receive slash command requests (and other interactions), Discord needs a public URL to send them. This URL can be configured in your app's settings as **Interaction Endpoint URL**.
 
 ### Adding an interaction endpoint URL
 
@@ -197,7 +197,7 @@ Glitch projects have a public URL exposed by default. Copy your project's URL by
 > info
 > If you're developing locally, there are instructions for tunneling requests to your local environment [on the Github README](https://github.com/discord/discord-example-app#running-app-locally).
 
-With the link copied, go to your app settings from [the developer portal](https://discord.com/developers/applications).
+With the link copied, go to your app's settings from [the developer portal](https://discord.com/developers/applications).
 
 On your app's **General Information** page, there's an **Interactive Endpoint URL** option, where you can paste your app's URL and append `/interactions` to it, which is where the Express app is configured to listen for requests.
 
@@ -364,7 +364,7 @@ const componentId = data.custom_id;
 }
 ```
 
-To briefly go over what the above code is doing:
+The above code:
 1. Checks for a `custom_id` that matches what we originally sent (in this case, it starts with `accept_button_`). The custom ID also has the active game ID appended, so we store that in `gameID`.
 2. [Deletes the original message](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) calling a webhook using `node-fetch` and passing the unique interaction `token` in the request body. This is done to clean up the channel, and so other users can't click the button.
 3. Responds to the request by sending a message that contains a select menu with the object choices for the game. The payload should look fairly similar to the previous one, with the exception of the `options` array and `flags: 64`, [which indicates that the message is ephemeral](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
@@ -375,9 +375,9 @@ The `options` array is populated using the `getShuffledOptions()` method in `gam
 
 <Collapsible title="Handling select menu interactions" description="Code for responding to select menu interactions and updating the game state" icon="code" open>
 
-The last thing to add is code to handle select menu interactions and send the result of the game to channel.
+The last thing to add is code to handle select menu interactions, and to send the result of the game to channel.
 
-Since select menus are just another message component, the code to handle interactions with them will be similar to buttons.
+Since select menus are just another message component, the code to handle their interactions will be almost identical to buttons.
 
 Modify the code above to handle the select menu:
 
