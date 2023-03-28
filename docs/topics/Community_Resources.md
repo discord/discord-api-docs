@@ -103,3 +103,4 @@ If you're working on a project that interacts with our API, you might find an AP
 | ---------------------------------------------------------------------- | ---------- |
 | [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
 | [discord-api-types](https://github.com/discordjs/discord-api-types)    | JavaScript |
+| [yde](https://github.com/YDWK/YDE)                                     | Kotlin     |
