@@ -295,7 +295,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
 | [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
-| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                             |
+| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                            |
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-add)                                                   | User was banned from a guild                                                                                                                   |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-remove)                                             | User was unbanned from a guild                                                                                                                 |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-emojis-update)                                       | Guild emojis were updated                                                                                                                      |
@@ -333,6 +333,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
 | [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start)                                                     | User started typing in a channel                                                                                                               |
 | [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update)                                                       | Properties about the user changed                                                                                                              |
+| [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                     |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
@@ -1160,6 +1161,28 @@ Sent when a user starts typing in a channel.
 Sent when properties about the current bot's user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
+
+#### Voice Channel Effect Send
+
+Sent when someone sends an effect, such as an emoji reaction, in a voice channel the current user is connected to.
+
+###### Voice Channel Effect Send Event Fields
+
+| Field           | Type                                                | Description                                                                                                                      |
+| --------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| channel_id      | snowflake                                           | ID of the channel the effect was sent in                                                                                         |
+| guild_id        | snowflake                                           | ID of the guild the effect was sent in                                                                                           |
+| user_id         | snowflake                                           | ID of the user who sent the effect                                                                                               |
+| emoji?          | ?[emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | The emoji sent, for emoji reaction effects                                                                                       |
+| animation_type? | integer                                             | The [type of emoji animation](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send-animation-types), for emoji reaction effects |
+| animation_id?   | integer                                             | The ID of the emoji animation, for emoji reaction effects                                                                        |
+
+###### Animation Types
+
+| Type    | Value | Description                                 |
+| ------- | ----- | ------------------------------------------- |
+| PREMIUM | 0     | A fun animation, sent by a Nitro subscriber |
+| BASIC   | 1     | The standard animation                      |
 
 #### Voice State Update
 
