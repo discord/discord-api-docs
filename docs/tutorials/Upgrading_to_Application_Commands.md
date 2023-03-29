@@ -293,5 +293,5 @@ This can come in the form of a specific command that shows app usage, a message 
 Hopefully this guide was helpful in considering how to design and implement application commands. Below is a couple of follow-up resources you can use:
 
 - [Application command documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)—I know it's linked a bunch in this guide, but there's a reason!
-- Help center article on [message content intent workarounds](https://support.discord.com/hc/en-us/articles/4413259614487-Message-Content-Intent-Alternatives-Workarounds)
+- Help center article on [message content intent workarounds](https://support-dev.discord.com/hc/en-us/articles/6383579033751-Message-Content-Intent-Alternatives-Workarounds)
 - The [DDevs server](https://discord.gg/discord-developers) where you can find API updates, ask questions about developing apps, and connect with other developers

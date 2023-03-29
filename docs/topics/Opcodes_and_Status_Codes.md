@@ -168,7 +168,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
 | 30004  | Maximum number of recipients reached (10)                                                                                     |
 | 30005  | Maximum number of guild roles reached (250)                                                                                   |
-| 30007  | Maximum number of webhooks reached (10)                                                                                       |
+| 30007  | Maximum number of webhooks reached (15)                                                                                       |
 | 30008  | Maximum number of emojis reached                                                                                              |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
 | 30011  | Maximum number of group DMs reached (10)                                                                                      |
