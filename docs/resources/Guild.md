@@ -120,42 +120,44 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Features
 
-| Feature                                   | Description                                                                                                                   |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| ANIMATED_BANNER                           | guild has access to set an animated guild banner image                                                                        |
-| ANIMATED_ICON                             | guild has access to set an animated guild icon                                                                                |
-| APPLICATION_COMMAND_PERMISSIONS_V2        | guild is using the [old permissions configuration behavior](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes) |
-| AUTO_MODERATION                           | guild has set up auto moderation rules                                                                                        |
-| BANNER                                    | guild has access to set a guild banner image                                                                                  |
-| COMMUNITY                                 | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates           |
-| CREATOR_MONETIZABLE_PROVISIONAL           | guild has enabled monetization                                                                                                |
-| CREATOR_STORE_PAGE                        | guild has enabled the role subscription promo page                                                                            |
-| DEVELOPER_SUPPORT_SERVER                  | guild has been set as a support server on the App Directory                                                                   |
-| DISCOVERABLE                              | guild is able to be discovered in the directory                                                                               |
-| FEATURABLE                                | guild is able to be featured in the directory                                                                                 |
-| INVITES_DISABLED                          | guild has paused invites, preventing new users from joining                                                                   |
-| INVITE_SPLASH                             | guild has access to set an invite splash background                                                                           |
-| MEMBER_VERIFICATION_GATE_ENABLED          | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                                   |
-| MORE_STICKERS                             | guild has increased custom sticker slots                                                                                      |
-| NEWS                                      | guild has access to create announcement channels                                                                              |
-| PARTNERED                                 | guild is partnered                                                                                                            |
-| PREVIEW_ENABLED                           | guild can be previewed before joining via Membership Screening or the directory                                               |
-| ROLE_ICONS                                | guild is able to set role icons                                                                                               |
-| ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                            |
-| ROLE_SUBSCRIPTIONS_ENABLED                | guild has enabled role subscriptions                                                                                          |
-| TICKETED_EVENTS_ENABLED                   | guild has enabled ticketed events                                                                                             |
-| VANITY_URL                                | guild has access to set a vanity URL                                                                                          |
-| VERIFIED                                  | guild is verified                                                                                                             |
-| VIP_REGIONS                               | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                               |
-| WELCOME_SCREEN_ENABLED                    | guild has enabled the welcome screen                                                                                          |
+| Feature                                   | Description                                                                                                                      |
+| ----------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------- |
+| ANIMATED_BANNER                           | guild has access to set an animated guild banner image                                                                           |
+| ANIMATED_ICON                             | guild has access to set an animated guild icon                                                                                   |
+| APPLICATION_COMMAND_PERMISSIONS_V2        | guild is using the [old permissions configuration behavior](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes)    |
+| AUTO_MODERATION                           | guild has set up auto moderation rules                                                                                           |
+| BANNER                                    | guild has access to set a guild banner image                                                                                     |
+| COMMUNITY                                 | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates              |
+| CREATOR_MONETIZABLE_PROVISIONAL           | guild has enabled monetization                                                                                                   |
+| CREATOR_STORE_PAGE                        | guild has enabled the role subscription promo page                                                                               |
+| DEVELOPER_SUPPORT_SERVER                  | guild has been set as a support server on the App Directory                                                                      |
+| DISCOVERABLE                              | guild is able to be discovered in the directory                                                                                  |
+| FEATURABLE                                | guild is able to be featured in the directory                                                                                    |
+| INVITES_DISABLED                          | guild has paused invites, preventing new users from joining                                                                      |
+| INVITE_SPLASH                             | guild has access to set an invite splash background                                                                              |
+| MEMBER_VERIFICATION_GATE_ENABLED          | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                                      |
+| MORE_STICKERS                             | guild has increased custom sticker slots                                                                                         |
+| NEWS                                      | guild has access to create announcement channels                                                                                 |
+| PARTNERED                                 | guild is partnered                                                                                                               |
+| PREVIEW_ENABLED                           | guild can be previewed before joining via Membership Screening or the directory                                                  |
+| ROLE_ICONS                                | guild is able to set role icons                                                                                                  |
+| ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                               |
+| ROLE_SUBSCRIPTIONS_ENABLED                | guild has enabled role subscriptions                                                                                             |
+| TICKETED_EVENTS_ENABLED                   | guild has enabled ticketed events                                                                                                |
+| VANITY_URL                                | guild has access to set a vanity URL                                                                                             |
+| VERIFIED                                  | guild is verified                                                                                                                |
+| VIP_REGIONS                               | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                                  |
+| WELCOME_SCREEN_ENABLED                    | guild has enabled the welcome screen                                                                                             |
+| RAID_ALERTS_DISABLED                      | guild has disabled the raid alerts                                                                                               |
 
 ###### Mutable Guild Features
 
-| Features         | Required Permissions | Effects                                                   |
-| ---------------- | -------------------- | --------------------------------------------------------- |
-| COMMUNITY        | Administrator        | Enables Community Features in the guild                   |
-| INVITES_DISABLED | Manage Guild         | Pauses all invites/access to the server                   |
-| DISCOVERABLE     | Administrator*       | Enables discovery in the guild, making it publicly listed |
+| Features                 | Required Permissions | Effects                                                   |
+| ------------------------ | -------------------- | --------------------------------------------------------- |
+| COMMUNITY                | Administrator        | Enables Community Features in the guild                   |
+| INVITES_DISABLED         | Manage Guild         | Pauses all invites/access to the server                   |
+| DISCOVERABLE             | Administrator*       | Enables discovery in the guild, making it publicly listed |
+| RAID_ALERTS_DISABLED     | Manage Guild         | Disables raid alerts in the guild                         |
 
 \* Server also must be passing all discovery requirements
 
