@@ -180,6 +180,8 @@ For most objects, the change keys may be any field on the changed object. The fo
 
 Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) permission.
 
+The returned list of audit log entries is ordered based on whether you use `before` or `after`. When using `before`, the list is ordered by the audit log entry ID **descending** (newer entries first). If `after` is used, the list is reversed and appears in **ascending** order (older entries first). Omitting both `before` and `after` defaults to `before` the current timestamp and will show the most recent entries in descending order by ID, the opposite can be achieved using `after=0` (showing oldest entries).
+
 ###### Query String Params
 
 The following parameters can be used to filter which and how many audit log entries are returned.
@@ -188,5 +190,6 @@ The following parameters can be used to filter which and how many audit log entr
 | ------------ | --------- | ----------------------------------------------------------------------------------------------------------- |
 | user_id?     | snowflake | Entries from a specific user ID                                                                             |
 | action_type? | integer   | Entries for a specific [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
-| before?      | snowflake | Entries that preceded a specific audit log entry ID                                                         |
+| before?      | snowflake | Entries with ID less than a specific audit log entry ID                                                     |
+| after?       | snowflake | Entries with ID greater than a specific audit log entry ID                                                  |
 | limit?       | integer   | Maximum number of entries (between 1-100) to return, defaults to 50                                         |

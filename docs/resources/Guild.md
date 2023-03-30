@@ -110,41 +110,46 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### System Channel Flags
 
-| Flag                                  | Value  | Description                            |
-| ------------------------------------- | ------ | -------------------------------------- |
-| SUPPRESS_JOIN_NOTIFICATIONS           | 1 << 0 | Suppress member join notifications     |
-| SUPPRESS_PREMIUM_SUBSCRIPTIONS        | 1 << 1 | Suppress server boost notifications    |
-| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS | 1 << 2 | Suppress server setup tips             |
-| SUPPRESS_JOIN_NOTIFICATION_REPLIES    | 1 << 3 | Hide member join sticker reply buttons |
+| Flag                                                     | Value  | Description                                                   |
+| -------------------------------------------------------- | ------ | ------------------------------------------------------------- |
+| SUPPRESS_JOIN_NOTIFICATIONS                              | 1 << 0 | Suppress member join notifications                            |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | 1 << 1 | Suppress server boost notifications                           |
+| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | 1 << 2 | Suppress server setup tips                                    |
+| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | 1 << 3 | Hide member join sticker reply buttons                        |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | 1 << 4 | Suppress role subscription purchase and renewal notifications |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | 1 << 5 | Hide role subscription sticker reply buttons                  |
 
 ###### Guild Features
 
-| Feature                            | Description                                                                                                                   |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| ANIMATED_BANNER                    | guild has access to set an animated guild banner image                                                                        |
-| ANIMATED_ICON                      | guild has access to set an animated guild icon                                                                                |
-| APPLICATION_COMMAND_PERMISSIONS_V2 | guild is using the [old permissions configuration behavior](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes) |
-| AUTO_MODERATION                    | guild has set up auto moderation rules                                                                                        |
-| BANNER                             | guild has access to set a guild banner image                                                                                  |
-| COMMUNITY                          | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates           |
-| DEVELOPER_SUPPORT_SERVER           | guild has been set as a support server on the App Directory                                                                   |
-| DISCOVERABLE                       | guild is able to be discovered in the directory                                                                               |
-| FEATURABLE                         | guild is able to be featured in the directory                                                                                 |
-| INVITES_DISABLED                   | guild has paused invites, preventing new users from joining                                                                   |
-| INVITE_SPLASH                      | guild has access to set an invite splash background                                                                           |
-| MEMBER_VERIFICATION_GATE_ENABLED   | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                                   |
-| MONETIZATION_ENABLED               | guild has enabled monetization                                                                                                |
-| MORE_STICKERS                      | guild has increased custom sticker slots                                                                                      |
-| NEWS                               | guild has access to create announcement channels                                                                              |
-| PARTNERED                          | guild is partnered                                                                                                            |
-| PREVIEW_ENABLED                    | guild can be previewed before joining via Membership Screening or the directory                                               |
-| RAID_ALERTS_ENABLED                | guild has enabled alerts for join raids in the configured safety alerts channel                                               |
-| ROLE_ICONS                         | guild is able to set role icons                                                                                               |
-| TICKETED_EVENTS_ENABLED            | guild has enabled ticketed events                                                                                             |
-| VANITY_URL                         | guild has access to set a vanity URL                                                                                          |
-| VERIFIED                           | guild is verified                                                                                                             |
-| VIP_REGIONS                        | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                               |
-| WELCOME_SCREEN_ENABLED             | guild has enabled the welcome screen                                                                                          |
+| Feature                                   | Description                                                                                                                   |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| ANIMATED_BANNER                           | guild has access to set an animated guild banner image                                                                        |
+| ANIMATED_ICON                             | guild has access to set an animated guild icon                                                                                |
+| APPLICATION_COMMAND_PERMISSIONS_V2        | guild is using the [old permissions configuration behavior](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes) |
+| AUTO_MODERATION                           | guild has set up auto moderation rules                                                                                        |
+| BANNER                                    | guild has access to set a guild banner image                                                                                  |
+| COMMUNITY                                 | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates           |
+| CREATOR_MONETIZABLE_PROVISIONAL           | guild has enabled monetization                                                                                                |
+| CREATOR_STORE_PAGE                        | guild has enabled the role subscription promo page                                                                            |
+| DEVELOPER_SUPPORT_SERVER                  | guild has been set as a support server on the App Directory                                                                   |
+| DISCOVERABLE                              | guild is able to be discovered in the directory                                                                               |
+| FEATURABLE                                | guild is able to be featured in the directory                                                                                 |
+| INVITES_DISABLED                          | guild has paused invites, preventing new users from joining                                                                   |
+| INVITE_SPLASH                             | guild has access to set an invite splash background                                                                           |
+| MEMBER_VERIFICATION_GATE_ENABLED          | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                                   |
+| MORE_STICKERS                             | guild has increased custom sticker slots                                                                                      |
+| NEWS                                      | guild has access to create announcement channels                                                                              |
+| PARTNERED                                 | guild is partnered                                                                                                            |
+| PREVIEW_ENABLED                           | guild can be previewed before joining via Membership Screening or the directory                                               |
+| RAID_ALERTS_ENABLED                       | guild has enabled alerts for join raids in the configured safety alerts channel                                               |
+| ROLE_ICONS                                | guild is able to set role icons                                                                                               |
+| ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                            |
+| ROLE_SUBSCRIPTIONS_ENABLED                | guild has enabled role subscriptions                                                                                          |
+| TICKETED_EVENTS_ENABLED                   | guild has enabled ticketed events                                                                                             |
+| VANITY_URL                                | guild has access to set a vanity URL                                                                                          |
+| VERIFIED                                  | guild is verified                                                                                                             |
+| VIP_REGIONS                               | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                               |
+| WELCOME_SCREEN_ENABLED                    | guild has enabled the welcome screen                                                                                          |
 
 ###### Mutable Guild Features
 
@@ -346,6 +351,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                              |
 | deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                                                                                                                       |
 | mute                          | boolean                                         | whether the user is muted in voice channels                                                                                                                                                                                          |
+| flags                         | integer                                         | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to `0`                                                                                                         |
 | pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
 | permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                                                                                                                        |
 | communication_disabled_until? | ?ISO8601 timestamp                              | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
@@ -370,6 +376,18 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
+###### Guild Member Flags
+
+| Flag                  | Value  | Description                                           | Editable |
+| --------------------- | ------ | ----------------------------------------------------- | -------- |
+| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild                | false    |
+| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                       | false    |
+| BYPASSES_VERIFICATION | 1 << 2 | Member is exempt from guild verification requirements | true     |
+| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                         | false    |
+
+> info
+> BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
+
 ### Integration Object
 
 ###### Integration Structure
@@ -378,14 +396,14 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | ----------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | id                      | snowflake                                                                                            | integration id                                                                  |
 | name                    | string                                                                                               | integration name                                                                |
-| type                    | string                                                                                               | integration type (twitch, youtube, or discord)                                  |
-| enabled? \*             | boolean                                                                                              | is this integration enabled                                                     |
+| type                    | string                                                                                               | integration type (twitch, youtube, discord, or guild_subscription)              |
+| enabled                 | boolean                                                                                              | is this integration enabled                                                     |
 | syncing? \*             | boolean                                                                                              | is this integration syncing                                                     |
 | role_id? \*             | snowflake                                                                                            | id that this integration uses for "subscribers"                                 |
 | enable_emoticons? \*    | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently) |
 | expire_behavior? \*     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                            |
 | expire_grace_period? \* | integer                                                                                              | the grace period (in days) before expiring subscribers                          |
-| user? \*                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
+| user?                   | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
 | account                 | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                 |
 | synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                           |
 | subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                       |
@@ -394,6 +412,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | scopes?                 | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)                         | the scopes the application has been authorized for                              |
 
 \* These fields are not provided for discord bot integrations.
+> warn
+> Some older integrations may not have an attached user.
 
 ###### Integration Expire Behaviors
 
@@ -722,24 +742,24 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 
 ###### JSON Params
 
-| Field                         | Type                                                                           | Description                                                                                                                                                                     |
-| ----------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                          | string                                                                         | channel name (1-100 characters)                                                                                                                                                 |
-| type                          | integer                                                                        | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
-| topic                         | string                                                                         | channel topic (0-1024 characters)                                                                                                                                               |
-| bitrate\*                     | integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   |
-| user_limit                    | integer                                                                        | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user           | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| position                      | integer                                                                        | sorting position of the channel                                                                                                                                                 |
-| permission_overwrites\*\*     | array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             |
-| parent_id                     | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         |
-| nsfw                          | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     |
-| rtc_region                    | string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id of the voice or stage channel, automatic when set to null                                                  |
-| video_quality_mode            | integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                |
-| default_auto_archive_duration | integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         |
-| default_reaction_emoji        | [default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                 |
-| available_tags                | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects               | set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                         |
-| default_sort_order            | integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                            |
+| Field                         | Type                                                                           | Description                                                                                                                                                                     | Channel Type                     |
+| ----------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| name                          | string                                                                         | channel name (1-100 characters)                                                                                                                                                 | All                              |
+| type                          | integer                                                                        | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     | All                              |
+| topic                         | string                                                                         | channel topic (0-1024 characters)                                                                                                                                               | Text, Announcement, Forum        |
+| bitrate\*                     | integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   | Voice, Stage                     |
+| user_limit                    | integer                                                                        | the user limit of the voice channel                                                                                                                                             | Voice, Stage                     |
+| rate_limit_per_user           | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text, Forum                      |
+| position                      | integer                                                                        | sorting position of the channel                                                                                                                                                 | All                              |
+| permission_overwrites\*\*     | array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             | All                              |
+| parent_id                     | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         | Text, Voice, Announcement, Stage, Forum |
+| nsfw                          | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, Voice, Announcement, Stage, Forum |
+| rtc_region                    | string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id of the voice or stage channel, automatic when set to null                                                  | Voice, Stage                     |
+| video_quality_mode            | integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice, Stage                     |
+| default_auto_archive_duration | integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, Announcement, Forum        |
+| default_reaction_emoji        | [default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                 | Forum                            |
+| available_tags                | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects               | set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                         | Forum                            |
+| default_sort_order            | integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                            | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -854,6 +874,7 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 error if the user is not in a voice channel                                                                                                                                                                                                                               | DEAFEN_MEMBERS   |
 | channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice)                                                                                                                                                                                                                                                                             | MOVE_MEMBERS     |
 | communication_disabled_until | ISO8601 timestamp   | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again (up to 28 days in the future), set to null to remove timeout. Will throw a 403 error if the user has the ADMINISTRATOR permission or is the owner of the guild | MODERATE_MEMBERS |
+| flags                        | integer             | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags)                                                                                                                                                                                                                                                         | MODERATE_MEMBERS
 
 ## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
 
@@ -1068,6 +1089,9 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) objects for the guild. Requires the `MANAGE_GUILD` permission.
 
+> info
+> This endpoint returns a maximum of 50 integrations. If a guild has more integrations, they cannot be accessed.
+
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
 Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires [Guild Integrations Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-integrations-update) and [Integration Delete](#DOCS_TOPICS_GATEWAY_EVENTS/integration-delete) Gateway events.
@@ -1132,7 +1156,7 @@ Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object
 
 ## Modify Guild Welcome Screen % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
 
-Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object.
+Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object. May fire a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional and nullable
