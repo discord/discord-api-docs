@@ -12,22 +12,22 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Interaction Structure
 
-| Field            | Type                                                                                                | Description                                                                                    |
-| ---------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| id               | snowflake                                                                                           | ID of the interaction                                                                          |
-| application_id   | snowflake                                                                                           | ID of the application this interaction is for                                                  |
-| type             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                            |
-| data?\*          | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data) | Interaction data payload                                                                       |
-| guild_id?        | snowflake                                                                                           | Guild that the interaction was sent from                                                       |
-| channel_id?      | snowflake                                                                                           | Channel that the interaction was sent from                                                     |
-| member?\*\*      | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                    | Guild member data for the invoking user, including permissions                                 |
-| user?            | [user](#DOCS_RESOURCES_USER/user-object) object                                                     | User object for the invoking user, if invoked in a DM                                          |
-| token            | string                                                                                              | Continuation token for responding to the interaction                                           |
-| version          | integer                                                                                             | Read-only property, always `1`                                                                 |
-| message?         | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                            | For components, the message they were attached to                                              |
-| app_permissions? | string                                                                                              | Bitwise set of permissions the app or bot has within the channel the interaction was sent from |
-| locale?\*\*\*    | string                                                                                              | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                              |
-| guild_locale?    | string                                                                                              | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild          |
+| Field            | Type                                                                                                | Description                                                                                                 |
+| ---------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| id               | snowflake                                                                                           | ID of the interaction                                                                                       |
+| application_id   | snowflake                                                                                           | ID of the application this interaction is for                                                               |
+| type             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                                         |
+| data?\*          | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data) | Interaction data payload                                                                                    |
+| guild_id?        | snowflake                                                                                           | Guild that the interaction was sent from                                                                    |
+| channel_id?      | snowflake                                                                                           | Channel that the interaction was sent from                                                                  |
+| member?\*\*      | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                    | Guild member data for the invoking user, including permissions                                              |
+| user?            | [user](#DOCS_RESOURCES_USER/user-object) object                                                     | User object for the invoking user, if invoked in a DM                                                       |
+| token            | string                                                                                              | Continuation token for responding to the interaction                                                        |
+| version          | integer                                                                                             | Read-only property, always `1`                                                                              |
+| message?         | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                            | For components and modal submissions opened in reply to components, message the components were attached to |
+| app_permissions? | string                                                                                              | Bitwise set of permissions the app or bot has within the channel the interaction was sent from              |
+| locale?\*\*\*    | string                                                                                              | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                           |
+| guild_locale?    | string                                                                                              | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                       |
 
 \* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
 
