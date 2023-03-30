@@ -199,11 +199,12 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 
 ###### Query String Params
 
-| Field  | Type      | Description                            | Required | Default |
-| ------ | --------- | -------------------------------------- | -------- | ------- |
-| before | snowflake | get guilds before this guild ID        | false    | absent  |
-| after  | snowflake | get guilds after this guild ID         | false    | absent  |
-| limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
+| Field        | Type      | Description                                                                    | Required | Default |
+|--------------|-----------|--------------------------------------------------------------------------------|----------|---------|
+| before       | snowflake | get guilds before this guild ID                                                | false    | absent  |
+| after        | snowflake | get guilds after this guild ID                                                 | false    | absent  |
+| limit        | integer   | max number of guilds to return (1-200)                                         | false    | 200     |
+| with_counts? | boolean   | when `true`, will return approximate member and presence counts for each guild | false    | false   |
 
 ## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
 
