@@ -104,7 +104,7 @@ Used to represent a webhook.
 Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
-- It does not contain the substrings "**clyde**" or "**discord**" (case-insensitive)
+- It does not contain the substrings `clyde` or `discord` (case-insensitive)
 - It follows the nickname guidelines in the [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with an exception that webhook names can be up to 80 characters
 
 > info
