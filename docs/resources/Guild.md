@@ -536,15 +536,15 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Onboarding Prompt Structure
 
-| Field         | Type                                                                                                    | Description                                                                |
-| ------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| id            | snowflake                                                                                               | ID of the prompt                                                           |
-| type          | [prompt type](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-type)                                | Type of prompt                                                             |
-| options       | array of [prompt option](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-option-structure) objects | Options available within the prompt                                        |
-| title         | string                                                                                                  | Title of the prompt                                                        |
-| single_select | boolean                                                                                                 | Indicates whether users are limited to selecting one option for the prompt |
-| required      | boolean                                                                                                 | Indicates whether the prompt is required in the onboarding flow             |
-| in_onboarding | boolean                                                                                                 | Indicates whether the prompt is in the onboarding flow                     |
+| Field         | Type                                                                                                    | Description                                                                                                                         |
+| ------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| id            | snowflake                                                                                               | ID of the prompt                                                                                                                    |
+| type          | [prompt type](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-type)                                | Type of prompt                                                                                                                      |
+| options       | array of [prompt option](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-option-structure) objects | Options available within the prompt                                                                                                 |
+| title         | string                                                                                                  | Title of the prompt                                                                                                                 |
+| single_select | boolean                                                                                                 | Indicates whether users are limited to selecting one option for the prompt                                                          |
+| required      | boolean                                                                                                 | Indicates whether the prompt is required before a user completes the onboarding flow                                                |
+| in_onboarding | boolean                                                                                                 | Indicates whether the prompt is present in the onboarding flow. If `false`, the prompt will only appear in the Channels & Roles tab |
 
 
 ###### Prompt Option Structure
