@@ -523,6 +523,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ### Guild Onboarding Object
 
+Represents the [onboarding](https://support.discord.com/hc/en-us/articles/11074987197975-Community-Onboarding-FAQ) flow for a guild.
 
 ###### Guild Onboarding Structure
 
@@ -532,7 +533,6 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
 | default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
-
 
 ###### Onboarding Prompt Structure
 
@@ -546,27 +546,23 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | required      | boolean                                                                                                 | Indicates whether the prompt is required before a user completes the onboarding flow                                                |
 | in_onboarding | boolean                                                                                                 | Indicates whether the prompt is present in the onboarding flow. If `false`, the prompt will only appear in the Channels & Roles tab |
 
-
 ###### Prompt Option Structure
 
 | Field       | Type                                               | Description                                                       |
 | ----------- | -------------------------------------------------- | ----------------------------------------------------------------- |
-| id          | snowflake                                          | ID of the option                                                  |
+| id          | snowflake                                          | ID of the prompt option                                           |
 | channel_ids | array of snowflakes                                | IDs for channels a member is added to when the option is selected |
 | role_ids    | array of snowflakes                                | IDs for roles assigned to a member when the option is selected    |
 | emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option                                               |
 | title       | string                                             | Title of the option                                               |
 | description | ?string                                            | Description of the option                                         |
 
+###### Prompt Types
 
-
-###### Prompt Type
-
-| Value | Name            |
-| ----- | --------------- |
-| 0     | Multiple Choice |
-| 1     | Dropdown        |
-
+| Name            | Value |
+| --------------- | ----- |
+| MULTIPLE_CHOICE | 0     |
+| DROPDOWN        | 1     |
 
 ###### Example Guild Onboarding
 
@@ -625,7 +621,6 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
   "enabled": true,
 }
 ```
-
 
 ### Membership Screening Object
 
