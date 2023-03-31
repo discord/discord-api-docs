@@ -270,6 +270,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
+| 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
