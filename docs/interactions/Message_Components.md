@@ -14,12 +14,16 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name        | Description                            |
-| ---- | ----------- | -------------------------------------- |
-| 1    | Action Row  | A container for other components       |
-| 2    | Button      | A button object                        |
-| 3    | Select Menu | A select menu for picking from choices |
-| 4    | Text Input  | A text input object                    |
+| Type | Name               | Description                                       |
+| ---- | ------------------ | ------------------------------------------------- |
+| 1    | Action Row         | Container for other components                    |
+| 2    | Button             | Button object                                     |
+| 3    | String Select      | Select menu for picking from defined text options |
+| 4    | Text Input         | Text input object                                 |
+| 5    | User Select        | Select menu for users                             |
+| 6    | Role Select        | Select menu for roles                             |
+| 7    | Mentionable Select | Select menu for mentionables (users *and* roles)  |
+| 8    | Channel Select     | Select menu for channels                          |
 
 The structure of each component type is described in detail below.
 
@@ -76,25 +80,25 @@ Components, aside from Action Rows, must have a `custom_id` field. This field is
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked.
+Buttons are interactive components that render in messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked.
 
 - Buttons must be sent inside an Action Row
 - An Action Row can contain up to 5 buttons
-- An Action Row containing buttons cannot also contain a select menu
+- An Action Row containing buttons cannot also contain any select menu components
 
 ### Button Object
 
 ###### Button Structure
 
-| Field      | Type                                                | Description                                                                               |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| type       | integer                                             | `2` for a button                                                                          |
-| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                        |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                              |
-| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                         |
-| url?       | string                                              | a url for link-style buttons                                                              |
-| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                          |
+| Field      | Type                                                | Description                                                                         |
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| type       | integer                                             | `2` for a button                                                                    |
+| style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
+| label?     | string                                              | Text that appears on the button; max 80 characters                                  |
+| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
+| custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                     |
+| url?       | string                                              | URL for link-style buttons                                                          |
+| disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 
@@ -195,15 +199,25 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 
 ## Select Menus
 
-Select menus are another interactive component that renders on messages. On desktop, clicking on a select menu opens a dropdown-style UI; on mobile, tapping a select menu opens up a half-sheet with the options.
+Select menus are interactive components that allow users to select one or more options from a dropdown list in messages. On desktop, clicking on a select menu opens a dropdown-style UI; on mobile, tapping a select menu opens up a half-sheet with the options.
 
-![A select menu open on desktop](desktop-select.png)
+![A role select component on desktop](desktop-role-select-menu.png)
 
-Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
+Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice(s) by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 - Select menus must be sent inside an Action Row
 - An Action Row can contain only one select menu
 - An Action Row containing a select menu cannot also contain buttons
+
+### Select Menu Types
+
+There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) that can be included in Action Rows.
+
+The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
+
+In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (users, roles, mentionables, and channels) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
+
+The payloads for the select menu components are detailed in the [select menu structure](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-structure).
 
 ###### Select Menu Example
 
@@ -261,25 +275,30 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 ###### Select Menu Structure
 
-| Field        | Type                                                                                                        | Description                                                               |
-| ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| type         | integer                                                                                                     | `3` for a select menu                                                     |
-| custom_id    | string                                                                                                      | a developer-defined identifier for the select menu, max 100 characters    |
-| options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                         |
-| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 150 characters        |
-| min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
-| max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
-| disabled?    | boolean                                                                                                     | disable the select, default false                                         |
+| Field              | Type                                                                                                        | Description                                                                                                                                                                |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type               | integer                                                                                                     | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
+| custom_id          | string                                                                                                      | ID for the select menu; max 100 characters                                                                                                                                 |
+| options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
+| channel_types?\*\* | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                              | List of channel types to include in the channel select component (type `8`)                                                                                                |
+| placeholder?       | string                                                                                                      | Placeholder text if nothing is selected; max 150 characters                                                                                                                |
+| min_values?        | integer                                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                                                 |
+| max_values?        | integer                                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                                         |
+| disabled?          | boolean                                                                                                     | Whether select menu is disabled (defaults to `false`)                                                                                                                      |
+
+\* `options` is required for string select menus (component type `3`), and unavailable for all other select menu components.
+
+\*\* `channel_types` can only be used for channel select menu components.
 
 ###### Select Option Structure
 
-| Field        | Type                                                       | Description                                                 |
-| ------------ | ---------------------------------------------------------- | ----------------------------------------------------------- |
-| label        | string                                                     | the user-facing name of the option, max 100 characters      |
-| value        | string                                                     | the dev-defined value of the option, max 100 characters     |
-| description? | string                                                     | an additional description of the option, max 100 characters |
-| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                                |
-| default?     | boolean                                                    | will render this option as selected by default              |
+| Field        | Type                                                       | Description                                              |
+| ------------ | ---------------------------------------------------------- | -------------------------------------------------------- |
+| label        | string                                                     | User-facing name of the option; max 100 characters       |
+| value        | string                                                     | Dev-defined value of the option; max 100 characters      |
+| description? | string                                                     | Additional description of the option; max 100 characters |
+| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                             |
+| default?     | boolean                                                    | Will show this option as selected by default             |
 
 ###### Select Menu Interaction
 
@@ -405,6 +424,37 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 }
 ```
 
+###### Select Menu Resolved Object
+
+The `resolved` object is included in interaction payloads for user, role, mentionable, and channel select menu components. `resolved` contains a nested object with additional details about the selected options with the key of the resource type—`users`, `roles`, `channels`, and `members`.
+
+> info
+> `members` and `users` may both be present in the `resolved` object when a user is selected (in either a user select or mentionable select).
+
+###### Example Resolved Object
+
+A sample `data` object (a subset of the interaction payload) for a channel select menu component:
+
+```json
+{
+    "component_type": 8,
+    "custom_id": "my_channel_select",
+    "resolved": {
+        "channels": {
+            "986678954901234567": {
+                "id": "986678954901234567",
+                "name": "general",
+                "permissions": "4398046511103",
+                "type": 0
+            }
+        }
+    },
+    "values": [
+        "986678954901234567"
+    ]
+}
+```
+
 ## Text Inputs
 
 Text inputs are an interactive component that render on modals. They can be used to collect short-form or long-form text.
@@ -439,18 +489,18 @@ Text inputs are an interactive component that render on modals. They can be used
 | Field        | Type    | Description                                                                                 |
 | ------------ | ------- | ------------------------------------------------------------------------------------------- |
 | type         | integer | `4` for a text input                                                                        |
-| custom_id    | string  | a developer-defined identifier for the input, max 100 characters                            |
-| style        | integer | the [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
-| label        | string  | the label for this component, max 45 characters                                             |
-| min_length?  | integer | the minimum input length for a text input, min 0, max 4000                                  |
-| max_length?  | integer | the maximum input length for a text input, min 1, max 4000                                  |
-| required?    | boolean | whether this component is required to be filled, default true                               |
-| value?       | string  | a pre-filled value for this component, max 4000 characters                                  |
-| placeholder? | string  | custom placeholder text if the input is empty, max 100 characters                           |
+| custom_id    | string  | Developer-defined identifier for the input; max 100 characters                              |
+| style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
+| label        | string  | Label for this component; max 45 characters                                                 |
+| min_length?  | integer | Minimum input length for a text input; min 0, max 4000                                      |
+| max_length?  | integer | Maximum input length for a text input; min 1, max 4000                                      |
+| required?    | boolean | Whether this component is required to be filled (defaults to `true`)                        |
+| value?       | string  | Pre-filled value for this component; max 4000 characters                                    |
+| placeholder? | string  | Custom placeholder text if the input is empty; max 100 characters                           |
 
 ###### Text Input Styles
 
-| Name      | Value | Description         |
-| --------- | ----- | ------------------- |
-| Short     | 1     | A single-line input |
-| Paragraph | 2     | A multi-line input  |
+| Name      | Value | Description       |
+| --------- | ----- | ----------------- |
+| Short     | 1     | Single-line input |
+| Paragraph | 2     | Multi-line input  |

@@ -3,8 +3,11 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
+> warn
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 

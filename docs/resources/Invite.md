@@ -144,7 +144,7 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
-Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success. Fires a [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete) Gateway event.
+Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success. Fires an [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.

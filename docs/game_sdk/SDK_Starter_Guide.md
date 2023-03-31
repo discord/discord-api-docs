@@ -3,8 +3,11 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
+> warn
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
@@ -23,7 +26,8 @@ Now you know, and knowing is half the battle.
 
 I know you're already convinced, so let's begin. First, get the SDK. Here it is:
 
-- [Discord Game SDK](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip)
+- [Discord GameSDK v3.2.1](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) - Latest version, includes Apple silicon (aarch64) support
+- [Discord GameSDK v2.5.6](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip) - Try this version if you encounter bugs on the latest version
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
 
@@ -289,7 +293,7 @@ Think of these like those end of section review pages from your history textbook
 
 If you can check all those boxes, you are doing great! You're well-equipped to venture forth into the rest of the SDK and make full use of it's myriad of functionality. So, onwards, to game development!
 
-If you ever need help during the process, you can always reach out to us at our [Dev Support](https://dis.gd/devsupport). If you have feedback on things you'd like to see added to the SDK, drop us at a line at our [Dev Feedback](https://dis.gd/devfeedback).
+If you ever need help during the process, you can always reach out to us at our [Dev Support](https://dis.gd/devsupport) or talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 ## Where...do I go...
 
@@ -299,12 +303,5 @@ Oh, yeah. Pseudo Table of Contents:
 - [Activities, a.k.a. Rich Presence](#DOCS_GAME_SDK_ACTIVITIES/)
 - [Relationships](#DOCS_GAME_SDK_RELATIONSHIPS/)
 - [Users](#DOCS_GAME_SDK_USERS/)
-- [Images](#DOCS_GAME_SDK_IMAGES/)
-- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
-- [Networking](#DOCS_GAME_SDK_NETWORKING/)
-- [Storage](#DOCS_GAME_SDK_STORAGE/)
-- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
 - [Store](#DOCS_GAME_SDK_STORE/)
-- [Discord Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
-- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)

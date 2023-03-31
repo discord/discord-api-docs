@@ -1,6 +1,6 @@
 # Upgrading Apps to Use Application Commands
 
-As [message content becomes a privileged intent](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) for apps in 75 or more servers, [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) will become the primary way Discord users interact with apps. The three types of commands (slash commands, user commands, and message commands) act as entry points into apps, and can be registered globally or for a subset of guilds.
+As [message content has become a privileged intent](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) for verified apps, [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) are the primary way Discord users interact with apps. The three types of commands (slash commands, user commands, and message commands) act as entry points into apps, and can be registered globally or for a subset of guilds.
 
 This guide is intended to provide developers with apps currently using message content with a resource to walk through implementing and designing commands. Throughout the guide, the terms "application commands" and "commands" are used interchangeably.
 
@@ -123,17 +123,17 @@ Permissions for specific roles, users, and channels can be updated by your app i
 
 ## Handling Commands
 
-Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
+Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
 
 > warn
-> If you continue using gateway events, you’ll still receive message events but the payload will have empty string or array data for message content-related fields—like `content`, `embeds`, `attachments`, and `components`. You can read more about the changes to these events [in the original announcement](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-for-Verified-Bots).
+> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components`. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
 ### Adding an Interactions Endpoint URL
 
 > info
-> This step is specific to receiving interactions over HTTP. If you prefer to use [Gateways](#DOCS_TOPICS_GATEWAY/interaction-create), this step won't be applicable to your app.
+> This step is specific to receiving interactions over HTTP. If you prefer to use the [Gateway](#DOCS_TOPICS_GATEWAY), this step won't be applicable to your app.
 
 Before your app can receive interactions, you’ll need to set up an **Interaction Endpoint URL** in your app settings. This endpoint should be a public URL where Discord can send all interactions-related requests.
 
@@ -282,20 +282,6 @@ The following is an example of an app update that may be sent to communicate the
 
 ![Example message updating users about a new feature](examples-update-message.png)
 
-### Adding Reactive Education
-
-In addition to proactively communicating changes, you can reactively educate users when making changes to your app.
-
-For example, if your app currently replies to messages that start with `!poll`, you can continue listening to those messages for a couple of weeks and redirect users to a new `/poll` command. Or you can continue responding to the `!poll` command, but include a disclaimer that support for it will soon be removed. 
-
-Note that for message intents specifically, this approach only works between now and the August deadline.
-
-#### Example
-
-The following is an example of a message that appears when a user tries to use a prefix command.
-
-![Example message in response to using a deprecated feature](examples-message-reactive.png)
-
 ### Making Help Available
 
 Both new and existing users should always have ways for them to easily find usage instructions and support. Some of this help can come in the form of a support server or website, but you should also have instructions in the client. 
@@ -307,5 +293,5 @@ This can come in the form of a specific command that shows app usage, a message 
 Hopefully this guide was helpful in considering how to design and implement application commands. Below is a couple of follow-up resources you can use:
 
 - [Application command documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)—I know it's linked a bunch in this guide, but there's a reason!
-- Help center article on [message content intent workarounds](https://support.discord.com/hc/en-us/articles/4413259614487-Message-Content-Intent-Alternatives-Workarounds)
+- Help center article on [message content intent workarounds](https://support-dev.discord.com/hc/en-us/articles/6383579033751-Message-Content-Intent-Alternatives-Workarounds)
 - The [DDevs server](https://discord.gg/discord-developers) where you can find API updates, ask questions about developing apps, and connect with other developers

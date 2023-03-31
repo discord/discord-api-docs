@@ -4,7 +4,10 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+
+> danger
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -386,6 +389,8 @@ Gets entitlements for a given user. You can use this on your game backend to che
 | before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
 | after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
 | limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
+| guild_id?      | snowflake                         | the guild id to look up entitlements for                                                                                       |
+| exclude_ended? | bool                              | whether or not ended entitlements should be omitted                                                                            |
 
 ###### Example
 

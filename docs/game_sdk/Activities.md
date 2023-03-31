@@ -3,9 +3,6 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
-
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
 For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discord.com/developers/docs/rich-presence/how-to).
@@ -47,9 +44,9 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name       | type   | description                                                                           |
 | ---------- | ------ | ------------------------------------------------------------------------------------- |
-| LargeImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image) |
+| LargeImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
 | LargeText  | string | hover text for the large image                                                        |
-| SmallImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image) |
+| SmallImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
 | SmallText  | string | hover text for the small image                                                        |
 
 ###### ActivityParty Struct
@@ -85,7 +82,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Custom    | 4     |
 | Competing | 5     |
 
-For more details about the activity types, [see Gateway documentation](#DOCS_TOPICS_GATEWAY/activity-object-activity-types).
+For more details about the activity types, [see Gateway documentation](#DOCS_TOPICS_GATEWAY_EVENTS//activity-object-activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 

@@ -17,7 +17,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 | [Discord.Net](https://github.com/discord-net/Discord.Net)     | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)        | C#         |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)            | Go         |
-| [Discord4J](https://discord4j.com/)                           | Java       |
+| [Discord4J](https://github.com/Discord4J/Discord4J)           | Java       |
 | [Javacord](https://github.com/Javacord/Javacord)              | Java       |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                 | Java       |
 | [discord.js](https://github.com/discordjs/discord.js)         | JavaScript |
@@ -44,7 +44,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 - Dart
   - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
-  - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
+  - [Tempest](https://github.com/Amatsagu/Tempest)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands) and its [Deno fork](https://deno.land/x/discord_slash_commands)
@@ -53,7 +53,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
   - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
-  - [flask-discord-interactions](https://github.com/Breq16/flask-discord-interactions)
+  - [flask-discord-interactions](https://github.com/breqdev/flask-discord-interactions)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
 - Other
@@ -83,7 +83,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 
 ## Intent Calculators
 
-[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then these tools may be of help:
+[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [Identify payload](#DOCS_TOPICS_GATEWAY_EVENTS/identify), then these tools may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
 - [Larko's Intent Calculator](https://discord-intents-calculator.vercel.app/)
@@ -102,4 +102,4 @@ If you're working on a project that interacts with our API, you might find an AP
 | Name                                                                   | Language   |
 | ---------------------------------------------------------------------- | ---------- |
 | [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
-| [discord.js API Types](https://github.com/discordjs/discord-api-types) | JavaScript |
+| [discord-api-types](https://github.com/discordjs/discord-api-types)    | JavaScript |

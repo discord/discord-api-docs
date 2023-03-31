@@ -13,7 +13,7 @@ https://discord.com/api
 > danger
 > Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You should specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
+Discord exposes different versions of our API[.](https://c.tenor.com/BuZl66EegkgAAAAC/westworld-dolores.gif) You should specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
@@ -126,7 +126,7 @@ All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord 
 
 ## Snowflakes
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson) for more information regarding Gateway encoding.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/encoding-and-compression) for more information regarding Gateway encoding.
 
 ###### Snowflake ID Broken Down in Binary
 
@@ -245,7 +245,7 @@ Certain endpoints in the API are documented to accept booleans for their query s
 
 ## Gateway (WebSocket) API
 
-Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_TOPICS_GATEWAY/gateways) section.
+Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_TOPICS_GATEWAY/connections) section.
 
 ## Message Formatting
 
@@ -253,23 +253,26 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure           | Example                      |
-| ----------------------- | ------------------- | ---------------------------- |
-| User                    | <@USER_ID>          | <@80351110224678912>         |
-| User \*                 | <@!USER_ID>         | <@!80351110224678912>        |
-| Channel                 | <#CHANNEL_ID>       | <#103735883630395392>        |
-| Role                    | <@&ROLE_ID>         | <@&165511591545143296>       |
-| Standard Emoji          | Unicode Characters  | 💯                            |
-| Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>  |
-| Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104> |
-| Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>               |
-| Unix Timestamp (Styled) | <t:TIMESTAMP:STYLE> | <t:1618953630:d>             |
+| Type                     | Structure           | Example                       |
+| ------------------------ | ------------------- | ----------------------------- |
+| User                     | <@USER_ID>          | <@80351110224678912>          |
+| User \*                  | <@!USER_ID>         | <@!80351110224678912>         |
+| Channel                  | <#CHANNEL_ID>       | <#103735883630395392>         |
+| Role                     | <@&ROLE_ID>         | <@&165511591545143296>        |
+| Slash Command \*\*       | </NAME:COMMAND_ID>  | </airhorn:816437322781949972> |
+| Standard Emoji           | Unicode Characters  | 💯                            |
+| Custom Emoji             | <:NAME:ID>          | <:mmLol:216154654256398347>   |
+| Custom Emoji (Animated)  | <a:NAME:ID>         | <a:b1nzy:392938283556143104>  |
+| Unix Timestamp           | <t:TIMESTAMP>       | <t:1618953630>                |
+| Unix Timestamp (Styled)  | <t:TIMESTAMP:STYLE> | <t:1618953630:d>              |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
 Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
 
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
+
+\*\* Subcommands and subcommand groups can also be mentioned by using respectively `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>`.
 
 ###### Timestamp Styles
 
@@ -320,11 +323,12 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
 | Application Icon            | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
 | Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
-| Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
+| Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
 | Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                       | PNG, JPEG, WebP      |
 | Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
-| Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
+| Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
 | Role Icon                   | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png                                                                                                                                                  | PNG, JPEG, WebP      |
 | Guild Scheduled Event Cover | guild-events/[scheduled_event_id](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)/[scheduled_event_cover_image](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
 | Guild Member Banner         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/banners/[member_banner](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
@@ -335,7 +339,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
-\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
 ## Image Data
 
@@ -430,7 +434,7 @@ Content-Type: image/gif
 You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files which contain a filename, as you will need to reference it in your payload.
 
 > warn
-> Only filenames with [supported image extensions](#DOCS_REFERENCE/image-formatting-image-formats) may be used at this time.
+> Only `.jpg`, `.jpeg`, `.png`, `.webp`, and `.gif` may be used at this time. Other file types are not supported.
 
 Within an embed object, you can set an image to use an attachment as its URL with the attachment scheme syntax: `attachment://filename.png`
 
@@ -450,6 +454,7 @@ For example:
 
 | Locale | Language Name         | Native Name         |
 | ------ | --------------------- | ------------------- |
+| id     | Indonesian            | Bahasa Indonesia    |
 | da     | Danish                | Dansk               |
 | de     | German                | Deutsch             |
 | en-GB  | English, UK           | English, UK         |

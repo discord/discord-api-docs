@@ -10,7 +10,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 | URL                                         | Description                                                 |
 | ------------------------------------------- | ----------------------------------------------------------- |
-| https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
+| https://discord.com/oauth2/authorize        | Base authorization URL                                      |
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
@@ -43,6 +43,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | identify                                 | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                              |
 | messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                   |
 | relationships.read                       | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                         |
+| role_connections.write                   | allows your app to update a user's connection and metadata for the app                                                                                                                  |
 | rpc                                      | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                       |
 | rpc.activities.write                     | for local rpc server access, this allows you to update a user's activity - requires Discord approval                                                                                    |
 | rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                |
@@ -53,6 +54,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
+> `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
 
 ## State and Security
 
@@ -69,7 +71,7 @@ The authorization code grant is what most developers will recognize as "standard
 ###### Authorization URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
+https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
@@ -173,7 +175,7 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 ###### Authorization URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
+https://discord.com/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
 On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](#DOCS_TOPICS_OAUTH2/state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
@@ -236,7 +238,7 @@ So, what are bot accounts?
 
 ### Bot vs User Accounts
 
-Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
+Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
 
 Bot accounts have a few differences in comparison to normal user accounts, namely:
 
@@ -262,7 +264,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
+https://discord.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
 ```
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
@@ -351,7 +353,7 @@ Discord's webhook flow is a specialized version of an [authorization code](#DOCS
 ###### URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:

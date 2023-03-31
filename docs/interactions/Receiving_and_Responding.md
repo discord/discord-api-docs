@@ -60,7 +60,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 | name       | string                                                                                                                                                                           | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
 | type       | integer                                                                                                                                                                          | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
 | resolved?  | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                          | converted users + roles + channels + attachments                                                                                                                                     |
-| options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
+| options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
 | guild_id?  | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                     |
 | target_id? | snowflake                                                                                                                                                                        | id of the user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
 
@@ -101,6 +101,20 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 
 \*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
 
+###### Application Command Interaction Data Option Structure
+
+All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
+
+`value` and `options` are mutually exclusive.
+
+| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                                           | Name of the parameter                                                                                                                          |
+| type     | integer                                                                                                                                                                          | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | string, integer, double, or boolean                                                                                                                                              | Value of the option resulting from user input                                                                                                  |
+| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | Present if this option is a group or subcommand                                                                                                |
+| focused? | boolean                                                                                                                                                                          | `true` if this option is the currently focused option for autocomplete                                                                         |
+
 ### Message Interaction Object
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
@@ -110,7 +124,7 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 ###### Message Interaction Structure
 
-| Name    | Type                                                                                                | Description                                                                                                                                                                      |
+| Field   | Type                                                                                                | Description                                                                                                                                                                      |
 | ------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id      | snowflake                                                                                           | ID of the interaction                                                                                                                                                            |
 | type    | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                                                                                                              |
@@ -133,10 +147,10 @@ Welcome to the new world.
 
 When a user interacts with your app, your app will receive an **[Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. Your app can receive an interaction in one of two ways:
 
-- Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
+- Via [Interaction Create](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) gateway event
 - Via outgoing webhook
 
-These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
+These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
 
 In your application in the Developer Portal, there is a field on the main page called "Interactions Endpoint URL". If you want to receive Interactions via outgoing webhook, you can set your URL in this field. In order for the URL to be valid, you must be prepared for two things ahead of time:
 
@@ -211,7 +225,7 @@ There are a number of ways you can respond to an interaction:
 Not all message fields are currently supported.
 
 
-| Name              | Type                                                                             | Description                                                                                                                                                                                 |
+| Field              | Type                                                                             | Description                                                                                                                                                                                 |
 | ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | tts?              | boolean                                                                          | is the response TTS                                                                                                                                                                         |
 | content?          | string                                                                           | message content                                                                                                                                                                             |
@@ -225,7 +239,7 @@ Not all message fields are currently supported.
 
 ###### Autocomplete
 
-| Name    | Type                                                                                                                               | Description                              |
+| Field    | Type                                                                                                                               | Description                              |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | choices | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
@@ -234,9 +248,9 @@ Not all message fields are currently supported.
 > warn
 > Support for components in modals is currently limited to type 4 (Text Input).
 
-| Name       | Type                                                          | Description                                                          |
+| Field      | Type                                                          | Description                                                          |
 | ---------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
-| custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters |
+| custom_id  | string                                                        | a developer-defined identifier for the modal, max 100 characters     |
 | title      | string                                                        | the title of the popup modal, max 45 characters                      |
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal        |
 
@@ -363,7 +377,7 @@ We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNIT
 > info
 > The endpoints below are not bound to the application's [Global Rate Limit](#DOCS_TOPICS_RATE_LIMITS/global-rate-limit).
 
-## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
+## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
 
 Create a response to an Interaction from the gateway. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `204 No Content`.
 
@@ -379,7 +393,7 @@ Edits the initial Interaction response. Functions the same as [Edit Webhook Mess
 
 ## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
-Deletes the initial Interaction response. Returns `204 No Content` on success. Does not support ephemeral followups.
+Deletes the initial Interaction response. Returns `204 No Content` on success.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
 
@@ -397,4 +411,4 @@ Edits a followup message for an Interaction. Functions the same as [Edit Webhook
 
 ## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Deletes a followup message for an Interaction. Returns `204 No Content` on success. Does not support ephemeral followups.
+Deletes a followup message for an Interaction. Returns `204 No Content` on success.

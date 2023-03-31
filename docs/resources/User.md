@@ -76,8 +76,9 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 14 | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
 | 1 << 16 | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
 | 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
-| 1 << 18 | CERTIFIED_MODERATOR      | Discord Certified Moderator                                                                                                                    |
+| 1 << 18 | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
 | 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| 1 << 22 | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
 
 ###### Premium Types
 
@@ -88,6 +89,7 @@ Premium types denote the level of premium a user has. Visit the [Nitro](https://
 | 0     | None          |
 | 1     | Nitro Classic |
 | 2     | Nitro         |
+| 3     | Nitro Basic   |
 
 ### Connection Object
 
@@ -105,27 +107,32 @@ The connection object that the user has attached.
 | verified      | boolean | whether the connection is verified                                                       |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
+| two_way_link  | boolean | whether this connection has a corresponding third party OAuth2 token                     |
 | visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection |
 
 ###### Services
 
-| Value              | Name                |
-| ------------------ | ------------------- |
-| battlenet          | Battle.net          |
-| epicgames          | Epic Games          |
-| facebook           | Facebook            |
-| github             | GitHub              |
-| leagueoflegends *  | League of Legends   |
-| playstation        | PlayStation Network |
-| reddit             | Reddit              |
-| samsunggalaxy *    | Samsung Galaxy      |
-| spotify            | Spotify             |
-| skype *            | Skype               |
-| steam              | Steam               |
-| twitch             | Twitch              |
-| twitter            | Twitter             |
-| xbox               | Xbox                |
-| youtube            | YouTube             |
+| Value           | Name                |
+| --------------- | ------------------- |
+| battlenet       | Battle.net          |
+| ebay            | eBay                |
+| epicgames       | Epic Games          |
+| facebook        | Facebook            |
+| github          | GitHub              |
+| instagram       | Instagram           |
+| leagueoflegends | League of Legends   |
+| paypal          | PayPal              |
+| playstation     | PlayStation Network |
+| reddit          | Reddit              |
+| riotgames       | Riot Games          |
+| spotify         | Spotify             |
+| skype *         | Skype               |
+| steam           | Steam               |
+| tiktok          | TikTok              |
+| twitch          | Twitch              |
+| twitter         | Twitter             |
+| xbox            | Xbox                |
+| youtube         | YouTube             |
 
 \* Service can no longer be added by users
 
@@ -135,6 +142,18 @@ The connection object that the user has attached.
 | ----- | -------- | ------------------------------------------------ |
 | 0     | None     | invisible to everyone except the user themselves |
 | 1     | Everyone | visible to everyone                              |
+
+### Application Role Connection Object
+
+The role connection object that an application has attached to a user.
+
+###### Application Role Connection Structure
+
+| Field             | Type    | Description                                                                                                                                                                                                                                                      |
+| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name     | ?string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username | ?string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
 
 ## Get Current User % GET /users/@me
 
@@ -146,7 +165,7 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
-Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success.
+Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
@@ -192,11 +211,11 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
-Leave a guild. Returns a 204 empty response on success.
+Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) Gateway event and a [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
 
 ## Create DM % POST /users/@me/channels
 
-Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object (if one already exists, it will be returned instead).
 
 > warn
 > You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
@@ -209,7 +228,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. DMs created with this endpoint will not be shown in the Discord client
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) Gateway event.
 
 > warn
 > This endpoint is limited to 10 active group DMs.
@@ -224,3 +243,19 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 ## Get User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+
+## Get User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+
+Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
+
+## Update User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+
+Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
+
+###### JSON Params
+
+| Field              | Type    | Description                                                                                                                                                                                                                                                      |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name?     | string  | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username? | string  | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata?          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |

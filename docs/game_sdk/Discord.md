@@ -3,8 +3,11 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
+> warn
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 Making a game? Need a whole bunch of fancy APIs to help make it great and your players' lives a breeze? Look no further! The Discord GameSDK is an easy drop-in SDK to help you manage all the hard things that come with making a game. Well, all the hards things about coding it at least. Interpersonal communication skills are on you (have you heard of this cool chat app called Discord?).
 
@@ -14,17 +17,20 @@ OK, cool, so how's it work?
 
 At a high level, the Discord GameSDK has a class, `Discord`. This class is in charge of the creation of a few "manager" sub-classes. They are:
 
-- `AchievementManager` - for achievements!
 - `ActivityManager` - for Rich Presence and game invites
+- `OverlayManager` - for interacting with Discord's built-in overlay
+- `RelationshipManager` - for users' social relationships across Discord, including friends list
+- `StoreManager` - for all things entitlements and SKUs, including IAP
+- `UserManager` - for fetching user data for a given id and the current user
+
+Deprecated managers:
+
+- `AchievementManager` - for achievements!
 - `ApplicationManager` - for retrieving a user's OAuth2 bearer token, locale, and current game branch
 - `ImageManager` - for getting data about images on Discord, like user avatars or chat images
 - `LobbyManager` - for multiplayer lobbies
 - `NetworkManager` - for all your networking layer needs
-- `OverlayManager` - for interacting with Discord's built-in overlay
-- `RelationshipManager` - for users' social relationships across Discord, including friends list
 - `StorageManager` - for saving game data to the disk and the cloud
-- `StoreManager` - for all things entitlements and SKUs, including IAP functionality
-- `UserManager` - for fetching user data for a given id and the current user
 - `VoiceManager` - to make use of Discord's awesome voice chat
 
 Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `Filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!

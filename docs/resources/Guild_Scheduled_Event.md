@@ -114,7 +114,7 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 
 ## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
-Create a guild scheduled event in the guild. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
+Create a guild scheduled event in the guild. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-create) Gateway event.
 
 > info
 > A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
@@ -152,7 +152,7 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 
 ## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
-Modify a guild scheduled event. Returns the modified [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
+Modify a guild scheduled event. Returns the modified [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-update) Gateway event.
 
 > info
 > To start or end an event, use this endpoint to modify the event's [status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) field.
@@ -186,7 +186,7 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 
 ## Delete Guild Scheduled Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
-Delete a guild scheduled event. Returns a `204` on success.
+Delete a guild scheduled event. Returns a `204` on success. Fires a [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-delete) Gateway event.
 
 ## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/users
 

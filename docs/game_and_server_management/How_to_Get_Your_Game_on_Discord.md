@@ -1,7 +1,7 @@
 # How to Get Your Game on Discord
 
 > danger
-> Selling SKUs on Discord has been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> Selling SKUs on Discord has been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
 
 Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Server Commerce features. You've come to the right place, so let's get started.
 

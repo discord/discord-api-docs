@@ -35,15 +35,20 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   "actions": [
     {
       "type": 1,
-      "metadata": {}
+      "metadata": { "custom_message": "Please keep financial discussions limited to the #finance channel" }
     },
     {
       "type": 2,
       "metadata": { "channel_id": "123456789123456789" }
+    },
+    {
+      "type": 3,
+      "metadata": { "duration_seconds": 60 }
     }
   ],
   "trigger_metadata": {
-    "keyword_filter": ["cat*", "*dog", "*ana*", "i like javascript"]
+    "keyword_filter": ["cat*", "*dog", "*ana*", "i like c++"],
+    "regex_patterns": ["(b|c)at", "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$"]
   },
   "enabled": true,
   "exempt_roles": ["323456789123456789", "423456789123456789"],
@@ -52,50 +57,60 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ```
 
 ###### Trigger Types
-
-> info
-> The `HARMFUL_LINK` and `SPAM` trigger types are not yet released, so they cannot be used in most servers.
-
 Characterizes the type of content which can trigger the rule.
 
-| Type                 | Value   | Description                                                          | Max per Guild |
-| -------------------- | ------- | -------------------------------------------------------------------- | ------------- |
-| KEYWORD              | 1       | check if content contains words from a user defined list of keywords | 3             |
-| HARMFUL_LINK         | 2       | check if content contains any harmful links                          | 1             |
-| SPAM                 | 3       | check if content represents generic spam                             | 1             |
-| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   | 1             |
+| Trigger Type   | Value | Description                                                          | Max per Guild |
+| -------------- | ----- | -------------------------------------------------------------------- | ------------- |
+| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 6             |
+| SPAM           | 3     | check if content represents generic spam                             | 1             |
+| KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets   | 1             |
+| MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed          | 1             |
 
 ###### Trigger Metadata
 
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field          | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
-| -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| keyword_filter | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
-| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
-| allow_list     | array of strings *                                                                                                | KEYWORD_PRESET           | substrings which will be exempt from triggering the preset trigger type   |
+| Field               | Type                                                                                                              | Associated Trigger Types | Description                                                                                      |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ |
+| keyword_filter      | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content (Maximum of 1000)                               |
+| regex_patterns      | array of strings **                                                                                               | KEYWORD                  | regular expression patterns which will be matched against content (Maximum of 10)                |
+| presets             | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content                        |
+| allow_list          | array of strings ***                                                                                              | KEYWORD, KEYWORD_PRESET  | substrings which should not trigger the rule (Maximum of 100 or 1000)                            |
+| mention_total_limit | integer                                                                                                           | MENTION_SPAM             | total number of unique role and user mentions allowed per message (Maximum of 50)                |
 
-\* A keyword can be a phrase which contains multiple words. Wildcard symbols (not available to allow lists) can be used to customize how each keyword will be matched.
-See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
+\* A keyword can be a phrase which contains multiple words. [Wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies) can be used to customize how each keyword will be matched. Each keyword must be 60 characters or less.
+
+\** Only Rust flavored regex is currently supported, which can be tested in online editors such as [Rustexp](https://rustexp.lpil.uk/). Each regex pattern must be 260 characters or less.
+
+\*** Each `allow_list` keyword can be a phrase which contains multiple words. [Wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies) can be used to customize how each keyword will be matched. Rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) accept a maximum of 100 keywords. Rules with `KEYWORD_PRESET` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) accept a maximum of 1000 keywords.
+
+###### Trigger Metadata Field Limits
+
+| Field               | Trigger Type   | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
+| ------------------- | -------------- | ---------------- | ------------------------- |
+| keyword_filter      | KEYWORD        | 1000             | 60                        |
+| regex_patterns      | KEYWORD        | 10               | 260                       |
+| allow_list          | KEYWORD        | 100              | 60                        |
+| allow_list          | KEYWORD_PRESET | 1000             | 60                        |
 
 
 ###### Keyword Preset Types
 
-| Type             | Value | Description                                                  |
-| ---------------- | ----- | ------------------------------------------------------------ |
-| PROFANITY        | 1     | Words that may be considered forms of swearing or cursing    |
-| SEXUAL_CONTENT   | 2     | Words that refer to sexually explicit behavior or activity   |
-| SLURS            | 3     | Personal insults or words that may be considered hate speech |
+| Preset Type    | Value | Description                                                  |
+| -------------- | ----- | ------------------------------------------------------------ |
+| PROFANITY      | 1     | words that may be considered forms of swearing or cursing    |
+| SEXUAL_CONTENT | 2     | words that refer to sexually explicit behavior or activity   |
+| SLURS          | 3     | personal insults or words that may be considered hate speech |
 
 
 ###### Event Types
 
 Indicates in what event context a rule should be checked.
 
-| Type             | Value   | Description                                         |
-| ---------------- | ------- | --------------------------------------------------- |
-| MESSAGE_SEND     | 1       | when a member sends or edits a message in the guild |
+| Event Type   | Value | Description                                         |
+| ------------ | ----- | --------------------------------------------------- |
+| MESSAGE_SEND | 1     | when a member sends or edits a message in the guild |
 
 
 ###### Keyword Matching Strategies
@@ -105,7 +120,7 @@ Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how
 **Prefix** - word must start with the keyword
 
 | Keyword   | Matches                               |
-| --------- | --------------------------------------|
+| --------- | ------------------------------------- |
 | cat\*     | **cat**ch, **Cat**apult, **CAt**tLE   |
 | tra\*     | **tra**in, **tra**de, **TRA**ditional |
 | the mat\* | **the mat**rix                        |
@@ -153,13 +168,13 @@ An action which will execute whenever a rule is triggered.
 
 ###### Action Types
 
-| Type                  | Value   | Description                                           |
-| --------------------- | ------- | ----------------------------------------------------- |
-| BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule |
-| SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
-| TIMEOUT               | 3       | timeout user for a specified duration *               |
+| Action Type        | Value | Description                                                                                                                                                |
+| ------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BLOCK_MESSAGE      | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
+| SEND_ALERT_MESSAGE | 2     | logs user content to a specified channel                                                                                                                   |
+| TIMEOUT            | 3     | timeout user for a specified duration *                                                                                                                    |
 
-\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
+\* A `TIMEOUT` action can only be set up for `KEYWORD` and `MENTION_SPAM` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
 
 ###### Action Metadata
@@ -167,12 +182,11 @@ An action which will execute whenever a rule is triggered.
 Additional data used when an action is executed. Different fields are relevant based on the
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
-| Field            | Type       | Associated Action Types | Description                                    | 
-| ---------------- | ---------- | ----------------------- | ---------------------------------------------- |
-| channel_id       | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
-| duration_seconds | integer    | TIMEOUT                 | timeout duration in seconds *                  |
-
-\* Maximum of 2419200 seconds (4 weeks)
+| Field            | Type      | Associated Action Types | Description                                                                            | Constraints                          |
+| ---------------- | --------- | ----------------------- | -------------------------------------------------------------------------------------- | ------------------------------------ |
+| channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged                                         | existing channel                     |
+| duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds                                                            | maximum of 2419200 seconds (4 weeks) |
+| custom_message?  | string    | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked | maximum of 150 characters            |
 
 
 ### Auto Moderation Permission Requirements
@@ -196,7 +210,7 @@ Get a single rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 
 ## Create Auto Moderation Rule % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
-Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
+Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) Gateway event.
 
 > info
 > This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
@@ -225,7 +239,7 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 
 ## Modify Auto Moderation Rule % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
-Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
+Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) Gateway event.
 
 > info
 > Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
@@ -252,7 +266,7 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 
 ## Delete Auto Moderation Rule % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
-Delete a rule. Returns a `204` on success.
+Delete a rule. Returns a `204` on success. Fires an [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) Gateway event.
 
 > info
 > This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).

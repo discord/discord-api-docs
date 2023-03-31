@@ -3,9 +3,6 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
-
 This manager helps retrieve basic user information for any user on Discord.
 
 ## Data Models
@@ -37,6 +34,7 @@ This manager helps retrieve basic user information for any user on Discord.
 | None  | 0     | Not a Nitro subscriber   |
 | Tier1 | 1     | Nitro Classic subscriber |
 | Tier2 | 2     | Nitro subscriber         |
+| Tier3 | 3     | Nitro Basic subscriber   |
 
 ## GetCurrentUser
 
