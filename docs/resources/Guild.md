@@ -530,7 +530,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | ------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | guild_id            | snowflake                                                                                                       | ID of the guild this onboarding is part of                 |
 | prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
-| default_channel_ids | array of snowflakes                                                                                             | Channel IDs that  members get opted into automatically     |
+| default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
 
 
