@@ -526,37 +526,38 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Onboarding Structure
 
-| Field                   | Type                                                                                                                    | Description                                        |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| guild_id                | snowflake                                                                                                               | id of the guild this onboarding is part of                     |
-| prompts                 | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects         | the prompts shown during onboarding and in customize community |
-| default_channel_ids     | array of snowflakes                                                                                                     | channel ids that new members get opted into automatically      |
-| enabled                 | boolean                                                                                                                 | is guild onboarding enabled?                                   |
+| Field               | Type                                                                                                            | Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| guild_id            | snowflake                                                                                                       | ID of the guild this onboarding is part of                 |
+| prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
+| default_channel_ids | array of snowflakes                                                                                             | Channel IDs that  members get opted into automatically     |
+| enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
 
 
 ###### Onboarding Prompt Structure
 
-| Field            | Type                                                                                                    | Description                                            |
-| ---------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| id               | snowflake                                                                                               | the id of the prompt                                   |
-| options          | array of [prompt option](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-option-structure) objects | the options available to the prompt                    |
-| title            | string                                                                                                  | the title of the prompt                                |
-| single_select    | boolean                                                                                                 | can only one option of the prompt be selected at time? |
-| required         | boolean                                                                                                 | is this prompt required in onboarding flow?            |
-| in_onboarding    | boolean                                                                                                 | is this prompt in the onboarding flow?                 |
-| type             | [prompt type](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-type)                                | the type of the prompt                                 |
+| Field         | Type                                                                                                    | Description                                                                |
+| ------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| id            | snowflake                                                                                               | ID of the prompt                                                           |
+| type          | [prompt type](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-type)                                | Type of prompt                                                             |
+| options       | array of [prompt option](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-option-structure) objects | Options available within the prompt                                        |
+| title         | string                                                                                                  | Title of the prompt                                                        |
+| single_select | boolean                                                                                                 | Indicates whether users are limited to selecting one option for the prompt |
+| required      | boolean                                                                                                 | Indicates whether the prompt is required in the onboarding flow             |
+| in_onboarding | boolean                                                                                                 | Indicates whether the prompt is in the onboarding flow                     |
 
 
 ###### Prompt Option Structure
 
-| Field       | Type                                               | Description                                                                               |
-| ----------- | -------------------------------------------------- | ---------------------------------------------------- |
-| id          | snowflake                                          | the id of the option                                 |
-| channel_ids | array of snowflakes                                | the channels opted into when this option is selected |
-| role_ids    | array of snowflakes                                | the roles assigned when this option is selected      |
-| emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji of the option                              |
-| title       | string                                             | the title of the option                              |
-| description | ?string                                            | the description of the option                        |
+| Field       | Type                                               | Description                                                       |
+| ----------- | -------------------------------------------------- | ----------------------------------------------------------------- |
+| id          | snowflake                                          | ID of the option                                                  |
+| channel_ids | array of snowflakes                                | IDs for channels a member is added to when the option is selected |
+| role_ids    | array of snowflakes                                | IDs for roles assigned to a member when the option is selected    |
+| emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option                                               |
+| title       | string                                             | Title of the option                                               |
+| description | ?string                                            | Description of the option                                         |
+
 
 
 ###### Prompt Type
