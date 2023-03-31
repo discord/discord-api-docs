@@ -186,7 +186,7 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 > info
 > Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
 
-###### Request Guild Members Example
+###### Example Request Guild Members
 
 ```json
 {
