@@ -59,12 +59,13 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ###### Trigger Types
 Characterizes the type of content which can trigger the rule.
 
-| Trigger Type   | Value | Description                                                          | Max per Guild |
-| -------------- | ----- | -------------------------------------------------------------------- | ------------- |
-| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 6             |
-| SPAM           | 3     | check if content represents generic spam                             | 1             |
-| KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets   | 1             |
-| MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed          | 1             |
+| Trigger Type   | Value | Description                                                                 | Max per Guild |
+| -------------- | ----- | --------------------------------------------------------------------------- | ------------- |
+| KEYWORD        | 1     | check if content contains words from a user defined list of keywords        | 6             |
+| SPAM           | 3     | check if content represents generic spam                                    | 1             |
+| KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets          | 1             |
+| MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed                 | 1             |
+| MEMBER_PROFILE | 6     | check if member profile contains words from a user defined list of keywords | 1             |
 
 ###### Trigger Metadata
 
@@ -108,9 +109,10 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 Indicates in what event context a rule should be checked.
 
-| Event Type   | Value | Description                                         |
-| ------------ | ----- | --------------------------------------------------- |
-| MESSAGE_SEND | 1     | when a member sends or edits a message in the guild |
+| Event Type    | Value | Description                                         |
+| ------------- | ----- | --------------------------------------------------- |
+| MESSAGE_SEND  | 1     | when a member sends or edits a message in the guild |
+| MEMBER_UPDATE | 2     | when a member edits their profile                   |
 
 
 ###### Keyword Matching Strategies
@@ -168,11 +170,12 @@ An action which will execute whenever a rule is triggered.
 
 ###### Action Types
 
-| Action Type        | Value | Description                                                                                                                                                |
-| ------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| BLOCK_MESSAGE      | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
-| SEND_ALERT_MESSAGE | 2     | logs user content to a specified channel                                                                                                                   |
-| TIMEOUT            | 3     | timeout user for a specified duration *                                                                                                                    |
+| Action Type              | Value | Description                                                                                                                                                |
+| ------------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BLOCK_MESSAGE            | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
+| SEND_ALERT_MESSAGE       | 2     | logs user content to a specified channel                                                                                                                   |
+| TIMEOUT                  | 3     | timeout user for a specified duration *                                                                                                                    |
+| BLOCK_MEMBER_INTERACTION | 4     | prevents a member from using text, voice, or other interactions                                                                                            |
 
 \* A `TIMEOUT` action can only be set up for `KEYWORD` and `MENTION_SPAM` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
