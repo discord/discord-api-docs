@@ -72,13 +72,13 @@ Characterizes the type of content which can trigger the rule.
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field               | Type                                                                                                              | Associated Trigger Types | Description                                                                                      |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ |
-| keyword_filter      | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content (Maximum of 1000)                               |
-| regex_patterns      | array of strings **                                                                                               | KEYWORD                  | regular expression patterns which will be matched against content (Maximum of 10)                |
-| presets             | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content                        |
-| allow_list          | array of strings ***                                                                                              | KEYWORD, KEYWORD_PRESET  | substrings which should not trigger the rule (Maximum of 100 or 1000)                            |
-| mention_total_limit | integer                                                                                                           | MENTION_SPAM             | total number of unique role and user mentions allowed per message (Maximum of 50)                |
+| Field               | Type                                                                                                              | Associated Trigger Types                | Description                                                                                      |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| keyword_filter      | array of strings *                                                                                                | KEYWORD, MEMBER_PROFILE                 | substrings which will be searched for in content (Maximum of 1000)                               |
+| regex_patterns      | array of strings **                                                                                               | KEYWORD, MEMBER_PROFILE                 | regular expression patterns which will be matched against content (Maximum of 10)                |
+| presets             | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET                          | the internally pre-defined wordsets which will be searched for in content                        |
+| allow_list          | array of strings ***                                                                                              | KEYWORD, KEYWORD_PRESET, MEMBER_PROFILE | substrings which should not trigger the rule (Maximum of 100 or 1000)                            |
+| mention_total_limit | integer                                                                                                           | MENTION_SPAM                            | total number of unique role and user mentions allowed per message (Maximum of 50)                |
 
 \* A keyword can be a phrase which contains multiple words. [Wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies) can be used to customize how each keyword will be matched. Each keyword must be 60 characters or less.
 
@@ -88,12 +88,12 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 ###### Trigger Metadata Field Limits
 
-| Field               | Trigger Type   | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
-| ------------------- | -------------- | ---------------- | ------------------------- |
-| keyword_filter      | KEYWORD        | 1000             | 60                        |
-| regex_patterns      | KEYWORD        | 10               | 260                       |
-| allow_list          | KEYWORD        | 100              | 60                        |
-| allow_list          | KEYWORD_PRESET | 1000             | 60                        |
+| Field               | Trigger Types           | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
+| ------------------- | ----------------------- | ---------------- | ------------------------- |
+| keyword_filter      | KEYWORD, MEMBER_PROFILE | 1000             | 60                        |
+| regex_patterns      | KEYWORD, MEMBER_PROFILE | 10               | 260                       |
+| allow_list          | KEYWORD, MEMBER_PROFILE | 100              | 60                        |
+| allow_list          | KEYWORD_PRESET          | 1000             | 60                        |
 
 
 ###### Keyword Preset Types
