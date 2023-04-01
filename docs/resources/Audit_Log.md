@@ -128,7 +128,7 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | AUTO_MODERATION_BLOCK_MESSAGE               | 143   | Message was blocked by Auto Moderation                    |                                                                                                                                                  |
 | AUTO_MODERATION_FLAG_TO_CHANNEL             | 144   | Message was flagged by Auto Moderation                    |                                                                                                                                                  |
 | AUTO_MODERATION_USER_COMMUNICATION_DISABLED | 145   | Member was timed out by Auto Moderation                   |                                                                                                                                                  |
-| GUILD_ONBOARDING_UPDATE                     | 167   | Guild Onboarding was updated                              | [Guild Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object                                                                                 |
+| GUILD_ONBOARDING_UPDATE                     | 167   | Guild Onboarding was updated                              | [Guild Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object)                                                                                |
 
 \* Object has exception(s) to available keys. See the [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section below for details.
 
