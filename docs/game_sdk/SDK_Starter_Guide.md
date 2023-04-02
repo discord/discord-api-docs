@@ -37,7 +37,7 @@ These files are comprised of two parts: a "stub", and fallback modules. What tha
 
 Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
 
-Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
+Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is to create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
 
 Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 

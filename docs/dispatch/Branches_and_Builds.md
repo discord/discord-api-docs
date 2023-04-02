@@ -501,7 +501,7 @@ However, some games do rely on downloading additional files for DLC content. If 
 }
 ```
 
-"manifests" is an array, which means it can contain multiple items. What you'll want to do is create two manifests: one for your base game, and one for your DLC. Depending on how your build folder is set up, you can exclude the DLC files from being uploaded when you upload the base game. Let's pretend your build folder—the one on your local computer that you're uploading from—looks like this:
+"manifests" is an array, which means it can contain multiple items. What you'll want to do is to create two manifests: one for your base game, and one for your DLC. Depending on how your build folder is set up, you can exclude the DLC files from being uploaded when you upload the base game. Let's pretend your build folder—the one on your local computer that you're uploading from—looks like this:
 
 ```
 game/
