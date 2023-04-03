@@ -148,6 +148,15 @@ All of the files for the project are on the left-hand side of your Glitch projec
 └── .gitignore
 ```
 
+> info
+> Glitch defaults to Node 10. To ensure that future npm commands [run without error](https://support.glitch.com/t/unexpected-string-in-dotenv-import/58566), add the following to `package.json` to [upgrade](https://help.glitch.com/kb/article/59-can-i-change-the-version-of-node-js-my-project-uses/) to Node 16. 
+
+```
+  "engines": {
+    "node": "16.x"
+  }
+```
+
 ### Adding credentials
 
 There's already some code in your `app.js` file, but you'll need your app's token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
