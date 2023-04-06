@@ -389,7 +389,6 @@ Represents a message sent in a channel within Discord.
          "normal": 1
       },
       "me": false,
-      "me_burst": false,
       "emoji": {
          "id": null,
          "name": "🔥"
@@ -431,7 +430,6 @@ Represents a message sent in a channel within Discord.
          "normal": 1
       },
       "me": false,
-      "me_burst": false,
       "emoji": {
          "id": null,
          "name": "🔥"
@@ -542,7 +540,6 @@ There are multiple message types that have a message_reference object.  Since me
 | count         | integer                                                    | times this emoji has been used to react                                                    |
 | count_details | object                                                     | the [reaction count details object](#DOCS_RESOURCES_CHANNEL/reaction-count-details-object) |
 | me            | boolean                                                    | whether the current user reacted using this emoji                                          |
-| me_burst      | boolean                                                    | whether the current user reacted with super reaction using this emoji                      |
 | emoji         | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | emoji information                                                                          |
 | burst_colors  | array                                                      | HEX colors used for super reaction                                                         |
 
@@ -1066,12 +1063,6 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-add) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
-
-###### Query String Params
-
-| Field   | Type      | Description                                            |
-| ------- | --------- | ------------------------------------------------------ |
-| burst   | boolean   | whether to establish this reaction as a super reaction |
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
