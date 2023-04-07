@@ -20,6 +20,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 | [Discord4J](https://github.com/Discord4J/Discord4J)           | Java       |
 | [Javacord](https://github.com/Javacord/Javacord)              | Java       |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                 | Java       |
+| [Kord](https://github.com/kordlib/kord)                        | Kotlin     |
 | [discord.js](https://github.com/discordjs/discord.js)         | JavaScript |
 | [Eris](https://github.com/abalabahaha/eris)                   | JavaScript |
 | [Discordia](https://github.com/SinisterRectus/Discordia)      | Lua        |
