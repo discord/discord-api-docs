@@ -104,7 +104,7 @@ Used to represent a webhook.
 Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
-- It does not contain the substring '**clyde**' (case-insensitive)
+- It does not contain the substrings `clyde` or `discord` (case-insensitive)
 - It follows the nickname guidelines in the [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with an exception that webhook names can be up to 80 characters
 
 > info
@@ -201,7 +201,7 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only   |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description                                                                                                                            | false                        |
 | flags            | integer                                                                              | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                        |
-| thread_name            | string                                                                              | name of thread to create (requires the webhook channel to be a forum channel) | false                        |
+| thread_name      | string                                                                               | name of thread to create (requires the webhook channel to be a forum channel)                                                                                               | false                        |
 
 \* Requires an application-owned webhook.
 

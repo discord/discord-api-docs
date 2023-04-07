@@ -9,50 +9,51 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 > info
 > Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events documentation](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create).
 
-| Field                         | Type                                                                                | Description                                                                                                                                                            |
-| ----------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id                            | snowflake                                                                           | guild id                                                                                                                                                               |
-| name                          | string                                                                              | guild name (2-100 characters, excluding trailing and leading whitespace)                                                                                               |
-| icon                          | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)                                                                                                                          |
-| icon_hash?                    | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting), returned when in the template object                                                                                    |
-| splash                        | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)                                                                                                                        |
-| discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                                                     |
-| owner? \*                     | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                                             |
-| owner_id                      | snowflake                                                                           | id of owner                                                                                                                                                            |
-| permissions? \*               | string                                                                              | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overwrites)                                                      |
-| region? \*\*                  | ?string                                                                             | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild (deprecated)                                                                                |
-| afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                                                      |
-| afk_timeout                   | integer                                                                             | afk timeout in seconds, can be set to: 60, 300, 900, 1800, 3600                                                                                                        |
-| widget_enabled?               | boolean                                                                             | true if the server widget is enabled                                                                                                                                   |
-| widget_channel_id?            | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                                               |
-| verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                                                                     |
-| default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                                                           |
-| explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                                                      |
-| roles                         | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                       | roles in the guild                                                                                                                                                     |
-| emojis                        | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                        | custom guild emojis                                                                                                                                                    |
-| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                                 |
-| mfa_level                     | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                                                       |
-| application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                                                               |
-| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                                                         |
-| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                                                        |
-| rules_channel_id              | ?snowflake                                                                          | the id of the channel where Community guilds can display rules and/or guidelines                                                                                       |
-| max_presences?                | ?integer                                                                            | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                                            |
-| max_members?                  | integer                                                                             | the maximum number of members for the guild                                                                                                                            |
-| vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                                                      |
-| description                   | ?string                                                                             | the description of a guild                                                                                                                                             |
-| banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                                                        |
-| premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                                                   |
-| premium_subscription_count?   | integer                                                                             | the number of boosts this guild currently has                                                                                                                          |
-| preferred_locale              | string                                                                              | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild; used in server discovery and notices from Discord, and sent in interactions; defaults to "en-US" |
-| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                     |
-| max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                                                         |
-| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                                                |
-| approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                                    |
-| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object                            |
-| nsfw_level                    | integer                                                                             | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                                                |
-| stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                  |
-| premium_progress_bar_enabled  | boolean                                                                             | whether the guild has the boost progress bar enabled                                                                                                                   |
-| safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                               |
+| Field                          | Type                                                                                | Description                                                                                                                                                            |
+| ------------------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                             | snowflake                                                                           | guild id                                                                                                                                                               |
+| name                           | string                                                                              | guild name (2-100 characters, excluding trailing and leading whitespace)                                                                                               |
+| icon                           | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)                                                                                                                          |
+| icon_hash?                     | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting), returned when in the template object                                                                                    |
+| splash                         | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)                                                                                                                        |
+| discovery_splash               | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                                                     |
+| owner? \*                      | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                                             |
+| owner_id                       | snowflake                                                                           | id of owner                                                                                                                                                            |
+| permissions? \*                | string                                                                              | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overwrites)                                                      |
+| region? \*\*                   | ?string                                                                             | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild (deprecated)                                                                                |
+| afk_channel_id                 | ?snowflake                                                                          | id of afk channel                                                                                                                                                      |
+| afk_timeout                    | integer                                                                             | afk timeout in seconds                                                                                                                                                 |
+| widget_enabled?                | boolean                                                                             | true if the server widget is enabled                                                                                                                                   |
+| widget_channel_id?             | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                                               |
+| verification_level             | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                                                                     |
+| default_message_notifications  | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                                                           |
+| explicit_content_filter        | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                                                      |
+| roles                          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                       | roles in the guild                                                                                                                                                     |
+| emojis                         | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                        | custom guild emojis                                                                                                                                                    |
+| features                       | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                                 |
+| mfa_level                      | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                                                       |
+| application_id                 | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                                                               |
+| system_channel_id              | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                                                         |
+| system_channel_flags           | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                                                        |
+| rules_channel_id               | ?snowflake                                                                          | the id of the channel where Community guilds can display rules and/or guidelines                                                                                       |
+| max_presences?                 | ?integer                                                                            | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                                            |
+| max_members?                   | integer                                                                             | the maximum number of members for the guild                                                                                                                            |
+| vanity_url_code                | ?string                                                                             | the vanity url code for the guild                                                                                                                                      |
+| description                    | ?string                                                                             | the description of a guild                                                                                                                                             |
+| banner                         | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                                                        |
+| premium_tier                   | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                                                   |
+| premium_subscription_count?    | integer                                                                             | the number of boosts this guild currently has                                                                                                                          |
+| preferred_locale               | string                                                                              | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild; used in server discovery and notices from Discord, and sent in interactions; defaults to "en-US" |
+| public_updates_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                     |
+| max_video_channel_users?       | integer                                                                             | the maximum amount of users in a video channel                                                                                                                         |
+| max_stage_video_channel_users? | integer                                                                             | the maximum amount of users in a stage video channel                                                                                                                   |
+| approximate_member_count?      | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                                                |
+| approximate_presence_count?    | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                                    |
+| welcome_screen?                | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object                            |
+| nsfw_level                     | integer                                                                             | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                                                |
+| stickers?                      | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                  |
+| premium_progress_bar_enabled   | boolean                                                                             | whether the guild has the boost progress bar enabled                                                                                                                   |
+| safety_alerts_channel_id       | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                               |
 
 \* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
@@ -522,6 +523,107 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
       "emoji_name": "🔦"
     }
   ]
+}
+```
+
+### Guild Onboarding Object
+
+Represents the [onboarding](https://support.discord.com/hc/en-us/articles/11074987197975-Community-Onboarding-FAQ) flow for a guild.
+
+###### Guild Onboarding Structure
+
+| Field               | Type                                                                                                            | Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| guild_id            | snowflake                                                                                                       | ID of the guild this onboarding is part of                 |
+| prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
+| default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
+| enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
+
+###### Onboarding Prompt Structure
+
+| Field         | Type                                                                                                    | Description                                                                                                                         |
+| ------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| id            | snowflake                                                                                               | ID of the prompt                                                                                                                    |
+| type          | [prompt type](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-types)                               | Type of prompt                                                                                                                      |
+| options       | array of [prompt option](#DOCS_RESOURCES_GUILD/guild-onboarding-object-prompt-option-structure) objects | Options available within the prompt                                                                                                 |
+| title         | string                                                                                                  | Title of the prompt                                                                                                                 |
+| single_select | boolean                                                                                                 | Indicates whether users are limited to selecting one option for the prompt                                                          |
+| required      | boolean                                                                                                 | Indicates whether the prompt is required before a user completes the onboarding flow                                                |
+| in_onboarding | boolean                                                                                                 | Indicates whether the prompt is present in the onboarding flow. If `false`, the prompt will only appear in the Channels & Roles tab |
+
+###### Prompt Option Structure
+
+| Field       | Type                                               | Description                                                       |
+| ----------- | -------------------------------------------------- | ----------------------------------------------------------------- |
+| id          | snowflake                                          | ID of the prompt option                                           |
+| channel_ids | array of snowflakes                                | IDs for channels a member is added to when the option is selected |
+| role_ids    | array of snowflakes                                | IDs for roles assigned to a member when the option is selected    |
+| emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option                                               |
+| title       | string                                             | Title of the option                                               |
+| description | ?string                                            | Description of the option                                         |
+
+###### Prompt Types
+
+| Name            | Value |
+| --------------- | ----- |
+| MULTIPLE_CHOICE | 0     |
+| DROPDOWN        | 1     |
+
+###### Example Guild Onboarding
+
+```json
+{
+  "guild_id": "960007075288915998",
+  "prompts": [
+    {
+      "id": "1067461047608422473",
+      "title": "What do you want to do in this community?",
+      "options": [
+        {
+          "id": "1067461047608422476",
+          "title": "Chat with Friends",
+          "description": "",
+          "emoji": {
+            "id": "1070002302032826408",
+            "name": "chat",
+            "animated": false
+          },
+          "role_ids": [],
+          "channel_ids": [
+            "962007075288916001"
+          ]
+        },
+        {
+          "id": "1070004843541954678",
+          "title": "Get Gud",
+          "description": "We have excellent teachers!",
+          "emoji": {
+            "id": null,
+            "name": "😀",
+            "animated": false
+          },
+          "role_ids": [
+            "982014491980083211"
+          ],
+          "channel_ids": []
+        },
+      ],
+      "single_select": false,
+      "required": false,
+      "in_onboarding": true,
+      "type": 0
+    },
+  ],
+  "default_channel_ids": [
+    "998678771706110023",
+    "998678693058719784",
+    "1070008122577518632",
+    "998678764340912138",
+    "998678704446263309",
+    "998678683592171602",
+    "998678699715067986"
+  ],
+  "enabled": true,
 }
 ```
 
@@ -1171,6 +1273,10 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 | enabled          | boolean                                                                                                                 | whether the welcome screen is enabled                           |
 | welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
 | description      | string                                                                                                                  | the server description to show in the welcome screen            |
+
+## Get Guild Onboarding % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
+
+Returns the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
