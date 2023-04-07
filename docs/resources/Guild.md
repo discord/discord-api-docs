@@ -141,7 +141,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | NEWS                                      | guild has access to create announcement channels                                                                              |
 | PARTNERED                                 | guild is partnered                                                                                                            |
 | PREVIEW_ENABLED                           | guild can be previewed before joining via Membership Screening or the directory                                               |
-| RAID_ALERTS_ENABLED                       | guild has enabled alerts for join raids in the configured safety alerts channel                                               |
+| RAID_ALERTS_DISABLED                      | guild has disabled alerts for join raids in the configured safety alerts channel                                              |
 | ROLE_ICONS                                | guild is able to set role icons                                                                                               |
 | ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                            |
 | ROLE_SUBSCRIPTIONS_ENABLED                | guild has enabled role subscriptions                                                                                          |
@@ -153,12 +153,12 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Mutable Guild Features
 
-| Features            | Required Permissions | Effects                                                   |
-| ------------------- | -------------------- | --------------------------------------------------------- |
-| COMMUNITY           | Administrator        | Enables Community Features in the guild                   |
-| DISCOVERABLE        | Administrator*       | Enables discovery in the guild, making it publicly listed |
-| INVITES_DISABLED    | Manage Guild         | Pauses all invites/access to the server                   |
-| RAID_ALERTS_ENABLED | Manage Guild         | Enables alerts for join raids                             |
+| Features             | Required Permissions | Effects                                                   |
+| -------------------- | -------------------- | --------------------------------------------------------- |
+| COMMUNITY            | Administrator        | Enables Community Features in the guild                   |
+| DISCOVERABLE         | Administrator*       | Enables discovery in the guild, making it publicly listed |
+| INVITES_DISABLED     | Manage Guild         | Pauses all invites/access to the server                   |
+| RAID_ALERTS_DISABLED | Manage Guild         | Disables alerts for join raids                            |
 
 \* Server also must be passing all discovery requirements
 
