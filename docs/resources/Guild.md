@@ -569,57 +569,57 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 
 ```json
 {
-  "guild_id": "960007075288915998",
-  "prompts": [
-    {
-      "id": "1067461047608422473",
-      "title": "What do you want to do in this community?",
-      "options": [
+    "guild_id": "960007075288915998",
+    "prompts": [
         {
-          "id": "1067461047608422476",
-          "title": "Chat with Friends",
-          "description": "",
-          "emoji": {
-            "id": "1070002302032826408",
-            "name": "chat",
-            "animated": false
-          },
-          "role_ids": [],
-          "channel_ids": [
-            "962007075288916001"
-          ]
-        },
-        {
-          "id": "1070004843541954678",
-          "title": "Get Gud",
-          "description": "We have excellent teachers!",
-          "emoji": {
-            "id": null,
-            "name": "😀",
-            "animated": false
-          },
-          "role_ids": [
-            "982014491980083211"
-          ],
-          "channel_ids": []
-        },
-      ],
-      "single_select": false,
-      "required": false,
-      "in_onboarding": true,
-      "type": 0
-    },
-  ],
-  "default_channel_ids": [
-    "998678771706110023",
-    "998678693058719784",
-    "1070008122577518632",
-    "998678764340912138",
-    "998678704446263309",
-    "998678683592171602",
-    "998678699715067986"
-  ],
-  "enabled": true,
+            "id": "1067461047608422473",
+            "title": "What do you want to do in this community?",
+            "options": [
+                {
+                    "id": "1067461047608422476",
+                    "title": "Chat with Friends",
+                    "description": "",
+                    "emoji": {
+                        "id": "1070002302032826408",
+                        "name": "chat",
+                        "animated": false
+                    },
+                    "role_ids": [],
+                    "channel_ids": [
+                        "962007075288916001"
+                    ]
+                },
+                {
+                    "id": "1070004843541954678",
+                    "title": "Get Gud",
+                    "description": "We have excellent teachers!",
+                    "emoji": {
+                        "id": null,
+                        "name": "😀",
+                        "animated": false
+                    },
+                    "role_ids": [
+                        "982014491980083211"
+                    ],
+                    "channel_ids": []
+                }
+            ],
+            "single_select": false,
+            "required": false,
+            "in_onboarding": true,
+            "type": 0
+        }
+    ],
+    "default_channel_ids": [
+        "998678771706110023",
+        "998678693058719784",
+        "1070008122577518632",
+        "998678764340912138",
+        "998678704446263309",
+        "998678683592171602",
+        "998678699715067986"
+    ],
+    "enabled": true
 }
 ```
 
