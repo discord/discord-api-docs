@@ -26,21 +26,21 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 | Field         | Type      | Description                                                                                          | Required OAuth2 Scope |
 | ------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                                                                        | identify              |
-| username      | string    | the user's username, not unique across the platform                                                  | identify              |
-| discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
-| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| id            | snowflake | the user's id                                                                                        | none                  |
+| username      | string    | the user's username, not unique across the platform                                                  | none                  |
+| discriminator | string    | the user's 4-digit discord-tag                                                                       | none                  |
+| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | none                  |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
+| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | none                  |
+| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | none                  |
 | locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
 | premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
-| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | none                  |
 
 ###### Example User
 
