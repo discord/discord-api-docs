@@ -20,8 +20,7 @@ The first thing we’ll do is create an app through the [developer dashboard](ht
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
 - Click **New Application** in the upper right corner, then select a name and create your app
-- Click on the `Bot` tab on the left sidebar, then the **Add Bot** button
-- After the bot is created, click **Reset Token** and store the token somewhere safe (like in a password manager)
+- Click on the **Bot** tab on the left sidebar. On that page, click **Reset Token** and store the token somewhere safe (like in a password manager)
 
 > warn
 > Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.

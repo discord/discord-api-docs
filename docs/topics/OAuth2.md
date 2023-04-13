@@ -53,7 +53,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                     |
 
 > info
-> `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
+> In order to add a user to a guild, your bot has to already belong to that guild.
 > `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
 
 ## State and Security
@@ -232,20 +232,23 @@ In return, you will receive an access token (without a refresh token):
 }
 ```
 
-## Bots
+## Bot Users
 
-So, what are bot accounts?
+So, what are bot users?
 
 ### Bot vs User Accounts
 
-Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
+Discord's API provides bot users, which are a separate type of user dedicated to automation. Bots are automatically added to all apps, and are authenticated using a token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bots have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY).
 
-Bot accounts have a few differences in comparison to normal user accounts, namely:
+> warn
+> Developers must abide by the [terms of service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+
+Bot users have a few differences compared to standard Discord users:
 
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
-2. Bots cannot have friends, nor be added to or join Group DMs.
-3. Verified bots do not have a maximum number of Guilds.
-4. Bots have an entirely separate set of [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits).
+2. Bots cannot have friends or be added to or join Group DMs.
+3. [Verified bots](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) do not have a maximum number of guilds.
+4. Bots have an entirely separate set of [rate limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits).
 
 ### Bot Authorization Flow
 

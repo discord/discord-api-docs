@@ -357,7 +357,7 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 
 ## HTTP APIs
 
-The following are HTTP requests, and should be handled by your game server, rather than a client. They require a token for an authorization header. This token should be the "Bot token" of your application. To get this token, go to your application in the Dev Portal. In the left sidebar, click the `Bot` navigation item. You should then click the `Add Bot` button.
+The following are HTTP requests, and should be handled by your game server, rather than a client. They require a token for an authorization header. This token should be the bot token of your application. To get this token, go to your application in the Dev Portal. In the left sidebar, click the `Bot` navigation item. You should then click the `Add Bot` button.
 
 After that, you can copy the token on this page and use it in your HTTP requests. The format for the authorization header should be `Authorization: Bot <token>`.
 

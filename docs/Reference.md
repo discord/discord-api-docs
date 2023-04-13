@@ -103,7 +103,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](#APPLICATIONS), for more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
+1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_TOPICS_OAUTH2/oauth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
