@@ -376,7 +376,7 @@ Represents a message sent in a channel within Discord.
 | LOADING                                | 1 << 7  | this message is an Interaction Response and the bot is "thinking"                 |
 | FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8  | this message failed to mention some roles and add their members to the thread     |
 | SUPPRESS_NOTIFICATIONS                 | 1 << 12 | this message will not trigger push and desktop notifications                      |
-| VOICE_MESSAGE                          | 1 << 13 | this message is a voice message                                                   |
+| VOICE                                  | 1 << 13 | this message is a voice message                                                   |
 
 ###### Example Message
 
