@@ -75,6 +75,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MODERATE_MEMBERS \*\*                  | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
 | VIEW_CREATOR_MONETIZATION_ANALYTICS \* | `0x0000020000000000` `(1 << 41)` | Allows for viewing role subscription insights                                                                                                       |              |
 | USE_SOUNDBOARD                         | `0x0000040000000000` `(1 << 42)` | Allows for using soundboard in a voice channel                                                                                                      | V            |
+| SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                       | T, V, S      |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
