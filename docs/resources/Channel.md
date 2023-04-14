@@ -730,19 +730,20 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 > info
 > For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 
-| Field         | Type      | Description                                                             |
-| ------------- | --------- | ----------------------------------------------------------------------- |
-| id            | snowflake | attachment id                                                           |
-| filename      | string    | name of file attached                                                   |
-| description?  | string    | description for the file (max 1024 characters)                          |
-| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type) |
-| size          | integer   | size of file in bytes                                                   |
-| url           | string    | source url of file                                                      |
-| proxy_url     | string    | a proxied url of file                                                   |
-| height?       | ?integer  | height of file (if image)                                               |
-| width?        | ?integer  | width of file (if image)                                                |
-| ephemeral? \* | boolean   | whether this attachment is ephemeral                                    |
-| waveform?     | string    |                                                                         |
+| Field          | Type      | Description                                                             |
+| -------------- | --------- | ----------------------------------------------------------------------- |
+| id             | snowflake | attachment id                                                           |
+| filename       | string    | name of file attached                                                   |
+| description?   | string    | description for the file (max 1024 characters)                          |
+| content_type?  | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type) |
+| size           | integer   | size of file in bytes                                                   |
+| url            | string    | source url of file                                                      |
+| proxy_url      | string    | a proxied url of file                                                   |
+| height?        | ?integer  | height of file (if image)                                               |
+| width?         | ?integer  | width of file (if image)                                                |
+| ephemeral? \*  | boolean   | whether this attachment is ephemeral                                    |
+| duration_secs? | float     | duration of voice message                                               |
+| waveform?      | string    |                                                                         |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
