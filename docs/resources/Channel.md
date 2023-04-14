@@ -519,7 +519,7 @@ Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the foll
 
 - They cannot be edited.
 - Only a single audio attachment is allowed. No content, stickers, etc...
-- The attachment has additional fields: `duration_secs` and `waveform`.
+- The [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) has additional fields: `duration_secs` and `waveform`.
 
 As of 2023-04-14, clients upload a 1 channel, 48000 Hz, 32kbps Opus stream in an OGG container.
 This is an implementation detail and may change without warning or documentation.
@@ -753,7 +753,7 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 | height?        | ?integer  | height of file (if image)                                                               |
 | width?         | ?integer  | width of file (if image)                                                                |
 | ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                    |
-| duration_secs? | integer   | the duration of the audio file (currently for voice messages)                           |
+| duration_secs? | float     | the duration of the audio file (currently for voice messages)                           |
 | waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages) |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
