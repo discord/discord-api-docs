@@ -37,11 +37,11 @@ Enter a name for your app, then press **Create**.
 
 After you create your app, you'll land on the **General Overview** page of the app's settings where you can update basic information about your app like its description and icon. You'll also see an **Application ID** and **Interactions Endpoint URL**, which we'll use a bit later in the guide.
 
-### Configuring a bot
+### Configuring your bot
 
-Next you'll add a [bot user](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) to your app, which allows it to appear and behave similarly to other server members. On the left hand sidebar click **Bot**, then the **Add Bot** button.
+Next we'll configure the [bot user](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) for your app, which allows it to appear and behave similarly to other server members.
 
-Once you add a bot, you can configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by others.
+On the left hand sidebar click **Bot**. On this page, you can configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by other users.
 
 <Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
 Intents determine which events Discord will send your app when you're creating a [Gateway API connection](#DOCS_TOPICS_GATEWAY). For example, if you want your app to do something when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
