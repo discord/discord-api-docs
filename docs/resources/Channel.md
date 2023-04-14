@@ -742,6 +742,7 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 | height?       | ?integer  | height of file (if image)                                               |
 | width?        | ?integer  | width of file (if image)                                                |
 | ephemeral? \* | boolean   | whether this attachment is ephemeral                                    |
+| waveform?     | string    |                                                                         |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
