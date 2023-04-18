@@ -1265,7 +1265,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 - The type of the created thread is `PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 - The current user must have the `SEND_MESSAGES` permission (`CREATE_PUBLIC_THREADS` is ignored).
-- The maximum request size when sending a message is **8MiB**.
+- The maximum request size when sending a message is **25 MiB**.
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 - Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 - Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
