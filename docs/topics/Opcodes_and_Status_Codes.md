@@ -271,6 +271,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
 | 50163  | Cannot delete guild subscription integration                                                                                  |
+| 50159  | Voice messages do not support additional content.                                                                             |
+| 50160  | Voice messages must have a single audio attachment.                                                                           |
+| 50161  | Voice messages must have supporting metadata.                                                                                 |
+| 50162  | Voice messages cannot be edited.                                                                                              |
+| 50173  | You cannot send voice messages in this channel.                                                                               |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |

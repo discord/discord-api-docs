@@ -521,8 +521,11 @@ Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the foll
 - Only a single audio attachment is allowed. No content, stickers, etc...
 - The [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) has additional fields: `duration_secs` and `waveform`.
 
+The `waveform` is intended to be a preview of the entire voice message, with 1 byte per datapoint encoded in base64. Clients sample the recording at most
+once per 100 milliseconds, but will downsample so that no more than 256 datapoints are in the waveform.
+
 As of 2023-04-14, clients upload a 1 channel, 48000 Hz, 32kbps Opus stream in an OGG container.
-This is an implementation detail and may change without warning or documentation.
+The encoding, and the waveform details, are an implementation detail and may change without warning or documentation.
 
 ### Followed Channel Object
 
