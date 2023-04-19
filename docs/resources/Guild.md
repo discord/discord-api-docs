@@ -534,6 +534,7 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
 | default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
+| mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
 
 ###### Onboarding Prompt Structure
 
@@ -557,6 +558,13 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option                                               |
 | title       | string                                             | Title of the option                                               |
 | description | ?string                                            | Description of the option                                         |
+
+###### Onboarding Mode
+
+| Name                | Value | Description                                               |
+| ------------------- | ----- | --------------------------------------------------------- |
+| ONBOARDING_DEFAULT  | 0     | Counts only Default Channels towards constraints          |
+| ONBOARDING_ADVANCED | 1     | Counts Default Channels and Questions towards constraints |
 
 ###### Prompt Types
 
@@ -1271,6 +1279,19 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 ## Get Guild Onboarding % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
 
 Returns the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
+
+## Modify Guild Onboarding % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
+
+Modifies the onboarding configuration of the guild. Returns a 200 with the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
+
+###### JSON Params
+
+| Field               | Type                                                                                                            | Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
+| default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
+| enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
+| mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
