@@ -180,8 +180,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
 | 30032  | Maximum number of application commands reached                                                                                |
-| 30033  | Max number of thread participants has been reached (1000)                                                                     |
-| 30034  | Max number of daily application command creates has been reached (200)                                                        |
+| 30033  | Maximum number of thread participants has been reached (1000)                                                                 |
+| 30034  | Maximum number of daily application command creates has been reached (200)                                                    |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30038  | Maximum number of uncompleted guild scheduled events reached (100)                                                            |
@@ -270,11 +270,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
-| 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50159  | Voice messages do not support additional content.                                                                             |
 | 50160  | Voice messages must have a single audio attachment.                                                                           |
 | 50161  | Voice messages must have supporting metadata.                                                                                 |
 | 50162  | Voice messages cannot be edited.                                                                                              |
+| 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50173  | You cannot send voice messages in this channel.                                                                               |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
