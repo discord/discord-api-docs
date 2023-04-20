@@ -561,6 +561,8 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 
 ###### Onboarding Mode
 
+Defines the criteria used to satisfy Onboarding constraints that are required for enabling.
+
 | Name                | Value | Description                                               |
 | ------------------- | ----- | --------------------------------------------------------- |
 | ONBOARDING_DEFAULT  | 0     | Counts only Default Channels towards constraints          |
@@ -1283,6 +1285,12 @@ Returns the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object f
 ## Modify Guild Onboarding % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
 
 Modifies the onboarding configuration of the guild. Returns a 200 with the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
+
+> info
+> Onboarding enforces constraints when enabled. These constraints are that there must be at least 7 Default Channels and at least 5 of them must allow sending messages to the @everyone role. The `mode` field modifies what is considered when enforcing these constraints.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
