@@ -290,10 +290,10 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 ###### Id Types
 
 | Types     | Description                                                                                           |
-| --------- | ----------------------------------------------------------------------------------------------------- |
+|-----------|-------------------------------------------------------------------------------------------------------|
 | customize | Linked to the _Customize_ screen of [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object)       |
 | browse    | Linked to the _Browse Channels_ screen of [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) |
-| guide     | Linked to the _Server Guide_                                                                          |
+| guide     | Linked to the _Server Guide_ screen                                                                   |
 
 \*default
 
