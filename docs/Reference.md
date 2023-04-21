@@ -265,7 +265,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104>  |
 | Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>                |
 | Unix Timestamp (Styled) | <t:TIMESTAMP:STYLE> | <t:1618953630:d>              |
-| Id                      | <id:TYPE>           | <id:customize>                |
+| Guild Navigation        | <id:TYPE>           | <id:customize>                |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
@@ -287,15 +287,15 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 | F     | Tuesday, 20 April 2021 16:20 | Long Date/Time  |
 | R     | 2 months ago                 | Relative Time   |
 
-###### Id Types
-
-| Types     | Description                                                                                           |
-|-----------|-------------------------------------------------------------------------------------------------------|
-| customize | Linked to the _Customize_ screen of [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object)       |
-| browse    | Linked to the _Browse Channels_ screen of [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) |
-| guide     | Linked to the _Server Guide_ screen of [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object)    |
-
 \*default
+
+###### Guild Navigation Types
+
+| Type      | Description                                                                                                   |
+|-----------|---------------------------------------------------------------------------------------------------------------|
+| customize | Link to the _Customize_ section of the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) menu       |
+| browse    | Link to the _Browse Channels_ section of the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) menu |
+| guide     | Link to the _Server Guide_ section of the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) menu    |
 
 ## Image Formatting
 
