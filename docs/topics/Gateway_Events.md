@@ -420,7 +420,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ### Auto Moderation
 
-All [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) related events are only sent to bot users which have the `MANAGE_GUILD` permission.
+All [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) related events are only sent to bot users with the `MANAGE_GUILD` permission.
 
 #### Auto Moderation Rule Create
 
@@ -816,6 +816,8 @@ Sent when an integration is deleted.
 | application_id? | snowflake | ID of the bot/OAuth2 application for this discord integration |
 
 ### Invites
+
+All [Invite](#DOCS_RESOURCES_INVITE) related events are only sent to bot users with the `MANAGE_CHANNELS` permission on the channel.
 
 #### Invite Create
 
