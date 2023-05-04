@@ -42,6 +42,9 @@ As part of the new username system, standard Discord users can define a non-uniq
 
 For bot users, the display name will be the same as the application's name (defined on the **General Overview** tab in the app's settings).
 
+### Default avatars
+
+For users with migrated accounts, default avatar URLs will be based on the user ID instead of the discriminator. The URL can now be calculated using `(user_id >> 22) % 5`.
 
 #### April 14, 2023
 
