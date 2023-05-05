@@ -420,7 +420,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ### Auto Moderation
 
-All [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) related events are only sent to bot users with the `MANAGE_GUILD` permission.
+All [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) related events are only sent to bot users which have the `MANAGE_GUILD` permission.
 
 #### Auto Moderation Rule Create
 
