@@ -5,7 +5,7 @@
 ## Unique usernames on Discord
 
 > warn
-> This change also impacts bot usernames. The impact on apps, and how the migration to the new usernmae system will happen, is detailed on the [Developer Help Center article](https://dis.gd/app-usernames). Dates around migration to the new system will be communicated soon.
+> This change also impacts bot usernames. The impact on apps, and how the migration to the new username system will happen, is detailed on the [Developer Help Center article](https://dis.gd/app-usernames). Dates around migration to the new system will be communicated soon.
 
 Discord’s username system is changing. Discriminators are being removed and new, unique usernames (`@name`) and display names are being introduced. You can read more details about how changes to the username system affects non-bot users in the [general Help Center article](https://dis.gd/usernames). To learn how it impacts bot users specifically, you can read the [Developer Help Center article](https://dis.gd/app-usernames).
 
