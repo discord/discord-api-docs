@@ -335,7 +335,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
-\*\* In the case of the Default User Avatar endpoint, the value for `user_id` in the path should be `user_id >> 22) % 5`
+\*\* In the case of the Default User Avatar endpoint, the value for `user_id` in the path should be `(user_id >> 22) % 5`
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
