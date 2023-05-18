@@ -168,9 +168,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
 | 30004  | Maximum number of recipients reached (10)                                                                                     |
 | 30005  | Maximum number of guild roles reached (250)                                                                                   |
-| 30007  | Maximum number of webhooks reached (10)                                                                                       |
+| 30007  | Maximum number of webhooks reached (15)                                                                                       |
 | 30008  | Maximum number of emojis reached                                                                                              |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
+| 30011  | Maximum number of group DMs reached (10)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
@@ -193,6 +194,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30052  | Bitrate is too high for channel of this type                                                                                  |
 | 30056  | Maximum number of premium emojis reached (25)                                                                                 |
 | 30058  | Maximum number of webhooks per guild reached (1000)                                                                           |
+| 30060  | Maximum number of channel permission overwrites reached (1000)                                                                |
+| 30061  | The channels for this guild are too large                                                                                     |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -267,6 +270,12 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
+| 50163  | Cannot delete guild subscription integration                                                                                  |
+| 50159  | Voice messages do not support additional content.                                                                             |
+| 50160  | Voice messages must have a single audio attachment.                                                                           |
+| 50161  | Voice messages must have supporting metadata.                                                                                 |
+| 50162  | Voice messages cannot be edited.                                                                                              |
+| 50173  | You cannot send voice messages in this channel.                                                                               |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |

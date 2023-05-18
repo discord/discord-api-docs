@@ -96,11 +96,11 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 
 ###### Gateway URL Query String Params
 
-| Field     | Type    | Description                                                                               | Accepted Values                                            |
-| --------- | ------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                      | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
-| encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets | `json` or `etf`                                            |
-| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/resuming) of gateway packets    | `zlib-stream`                                              |
+| Field     | Type    | Description                                                                                         | Accepted Values                                            |
+| --------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                                | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
+| encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets           | `json` or `etf`                                            |
+| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream`                                              |
 
 #### Hello Event
 
@@ -308,7 +308,8 @@ GUILD_MEMBERS (1 << 1) **
   - GUILD_MEMBER_REMOVE
   - THREAD_MEMBERS_UPDATE *
 
-GUILD_BANS (1 << 2)
+GUILD_MODERATION (1 << 2)
+  - GUILD_AUDIT_LOG_ENTRY_CREATE
   - GUILD_BAN_ADD
   - GUILD_BAN_REMOVE
 

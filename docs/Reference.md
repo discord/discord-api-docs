@@ -103,7 +103,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](#APPLICATIONS), for more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
+1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_TOPICS_OAUTH2/oauth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
@@ -325,6 +325,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
 | Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
 | Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                       | PNG, JPEG, WebP      |
 | Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
 | Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
@@ -353,7 +354,7 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 ## Uploading Files
 
 > info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `8 MiB` by default.
+> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 

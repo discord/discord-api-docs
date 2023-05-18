@@ -1322,7 +1322,7 @@ OK so this wasn't really a code example, but I think you get how this works.
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a bot token. This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's settings](https://discord.com/developers/applications), and navigate to the **Bot** page on the sidebar. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
 curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
