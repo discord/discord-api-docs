@@ -277,6 +277,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50161  | Voice messages must have supporting metadata.                                                                                 |
 | 50162  | Voice messages cannot be edited.                                                                                              |
 | 50173  | You cannot send voice messages in this channel.                                                                               |
+| 50178  | The user account must first be verified                                                                                       |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
