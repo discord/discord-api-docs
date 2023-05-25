@@ -265,6 +265,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
+| 50131  | Owner cannot be pending member                                                                                                |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
