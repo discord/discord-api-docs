@@ -817,6 +817,8 @@ Sent when an integration is deleted.
 
 ### Invites
 
+All [Invite](#DOCS_RESOURCES_INVITE) related events are only sent to bot users with the `MANAGE_CHANNELS` permission on the channel.
+
 #### Invite Create
 
 Sent when a new invite to a channel is created.
