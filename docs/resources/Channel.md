@@ -376,6 +376,7 @@ Represents a message sent in a channel within Discord.
 | LOADING                                | 1 << 7  | this message is an Interaction Response and the bot is "thinking"                 |
 | FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8  | this message failed to mention some roles and add their members to the thread     |
 | SUPPRESS_NOTIFICATIONS                 | 1 << 12 | this message will not trigger push and desktop notifications                      |
+| IS_VOICE_MESSAGE                       | 1 << 13 | this message is a voice message                                                   |
 
 ###### Example Message
 
@@ -511,6 +512,20 @@ There are multiple message types that have a message_reference object.  Since me
 - These are the first message in public threads created from messages. They point back to the message in the parent channel from which the thread was started. (type 21)
 - These messages have `message_id`, `channel_id`, and `guild_id`.
 - These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
+
+#### Voice Messages
+
+Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the following properties.
+
+- They cannot be edited.
+- Only a single audio attachment is allowed. No content, stickers, etc...
+- The [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) has additional fields: `duration_secs` and `waveform`.
+
+The `waveform` is intended to be a preview of the entire voice message, with 1 byte per datapoint encoded in base64. Clients sample the recording at most
+once per 100 milliseconds, but will downsample so that no more than 256 datapoints are in the waveform.
+
+As of 2023-04-14, clients upload a 1 channel, 48000 Hz, 32kbps Opus stream in an OGG container.
+The encoding, and the waveform details, are an implementation detail and may change without warning or documentation.
 
 ### Followed Channel Object
 
@@ -729,18 +744,20 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 > info
 > For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 
-| Field         | Type      | Description                                                             |
-| ------------- | --------- | ----------------------------------------------------------------------- |
-| id            | snowflake | attachment id                                                           |
-| filename      | string    | name of file attached                                                   |
-| description?  | string    | description for the file (max 1024 characters)                          |
-| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type) |
-| size          | integer   | size of file in bytes                                                   |
-| url           | string    | source url of file                                                      |
-| proxy_url     | string    | a proxied url of file                                                   |
-| height?       | ?integer  | height of file (if image)                                               |
-| width?        | ?integer  | width of file (if image)                                                |
-| ephemeral? \* | boolean   | whether this attachment is ephemeral                                    |
+| Field          | Type      | Description                                                                             |
+| -------------- | --------- | --------------------------------------------------------------------------------------- |
+| id             | snowflake | attachment id                                                                           |
+| filename       | string    | name of file attached                                                                   |
+| description?   | string    | description for the file (max 1024 characters)                                          |
+| content_type?  | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                 |
+| size           | integer   | size of file in bytes                                                                   |
+| url            | string    | source url of file                                                                      |
+| proxy_url      | string    | a proxied url of file                                                                   |
+| height?        | ?integer  | height of file (if image)                                                               |
+| width?         | ?integer  | width of file (if image)                                                                |
+| ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                    |
+| duration_secs? | float     | the duration of the audio file (currently for voice messages)                           |
+| waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages) |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
