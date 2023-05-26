@@ -9,7 +9,6 @@ Application commands are native ways to interact with apps in the Discord client
 ###### Application Command Naming
 
 `CHAT_INPUT` command names and command option names must match the following regex `^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$` with the unicode flag set. If there is a lowercase variant of any letters used, you must use those. Characters with no lowercase variants and/or uncased letters are still allowed. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
-Furthermore, arrays of [application command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) and [application command option choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) mustn't contain items with duplicate names.
 
 ###### Application Command Structure
 
@@ -30,7 +29,7 @@ Furthermore, arrays of [application command options](#DOCS_INTERACTIONS_APPLICAT
 | nsfw?                      | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands), defaults to `false`                             |
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                      |
 
-\* `options` can only be set for application commands of type `CHAT_INPUT`
+\* `options` can only be set for application commands of type `CHAT_INPUT`.
 
 > danger
 > `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or set `dm_permission` to `false` to disable globally-scoped commands inside of DMs with your app
@@ -49,10 +48,10 @@ Furthermore, arrays of [application command options](#DOCS_INTERACTIONS_APPLICAT
 > warn
 > Required `options` must be listed before optional options
 
-| Field                      | Type                                                                                                                                                         | Description                                                                                                          | Valid Types       |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| Field                      | Type                                                                                                                                                         | Description                                                                                                          | Valid Types     |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------- |
 | type                       | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | Type of option                                                                                                       | all                  |
-| name                       | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) | all                  |
+| name \*                    | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) | all                  |
 | name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          | all                  |
 | description                | string                                                                                                                                                       | 1-100 character description                                                                                          | all                  |
 | description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            | all                  |
@@ -64,9 +63,10 @@ Furthermore, arrays of [application command options](#DOCS_INTERACTIONS_APPLICAT
 | max_value?                 | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | The maximum value permitted                                                                                          | `INTEGER` , `NUMBER` |
 | min_length?                | integer                                                                                                                                                      | The minimum allowed length (minimum of `0`, maximum of `6000`)                                                       | `STRING`             |
 | max_length?                | integer                                                                                                                                                      | The maximum allowed length (minimum of `1`, maximum of `6000`)                                                       | `STRING`             |
-| autocomplete? \*           | boolean                                                                                                                                                      | If autocomplete interactions are enabled for this option                                                             | `STRING`, `INTEGER`, `NUMBER` |
+| autocomplete? \*\*         | boolean                                                                                                                                                      | If autocomplete interactions are enabled for this option                                                             | `STRING`, `INTEGER`, `NUMBER` |
 
-\* `autocomplete` may not be set to true if `choices` are present.
+\* `name` must be unique within an array of [application command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure). 
+\*\* `autocomplete` may not be set to true if `choices` are present.
 
 > info
 > Options using `autocomplete` are not confined to only use choices given by the application.
@@ -89,7 +89,8 @@ Furthermore, arrays of [application command options](#DOCS_INTERACTIONS_APPLICAT
 
 ###### Application Command Option Choice Structure
 
-If you specify `choices` for an option, they are the **only** valid values for a user to pick
+> info
+> If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
 | Field               | Type                                                                  | Description                                                                                 |
 | ------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
