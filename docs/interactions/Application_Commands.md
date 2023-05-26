@@ -1181,7 +1181,7 @@ Takes a list of application commands, overwriting the existing command list for 
 > danger
 > This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
 
-###### Bulk Application Command JSON Params
+###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
