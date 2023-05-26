@@ -65,7 +65,7 @@ Application commands are native ways to interact with apps in the Discord client
 | max_length?                | integer                                                                                                                                                      | The maximum allowed length (minimum of `1`, maximum of `6000`)                                                       | `STRING`             |
 | autocomplete? \*\*         | boolean                                                                                                                                                      | If autocomplete interactions are enabled for this option                                                             | `STRING`, `INTEGER`, `NUMBER` |
 
-\* `name` must be unique within an array of [application command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure). 
+\* `name` must be unique within an array of [application command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 \*\* `autocomplete` may not be set to true if `choices` are present.
 
 > info
