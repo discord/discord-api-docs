@@ -130,8 +130,6 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | AUTO_MODERATION_USER_COMMUNICATION_DISABLED | 145   | Member was timed out by Auto Moderation                   |                                                                                                                                                  |
 | CREATOR_MONETIZATION_REQUEST_CREATED        | 150   | Creator monetization request was created                  |                                                                                                                                                  |
 | CREATOR_MONETIZATION_TERMS_ACCEPTED         | 151   | Creator monetization terms were accepted                  |                                                                                                                                                  |
-| GUILD_FEATURE_ITEM_CREATE                   | 171   | Guild feature item was created                            |                                                                                                                                                  |
-| GUILD_FEATURE_ITEM_UPDATE                   | 172   | Guild feature item was updated                            |                                                                                                                                                  |
 
 \* Object has exception(s) to available keys. See the [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section below for details.
 
