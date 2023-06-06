@@ -1,23 +1,23 @@
 # Change Log
 
-#### May 05, 2023
-
 ## Add Join Raid and Mention Raid fields
+
+#### May 05, 2023
 
 - Add Auto Moderation `mention_raid_protection_enabled` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field for the `MENTION_SPAM` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). If this field and its parent `MENTION_SPAM` rule are enabled, Auto Moderation provides baseline detection against sudden spikes in mention activity that are normally indicative of mention raids.
 - Add `safety_alerts_channel_id` [guild](#DOCS_RESOURCES_GUILD/guild-object) field and [`RAID_ALERTS_DISABLED` guild feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which are associated with join raid protection
 
-#### April 14, 2023
-
 ## Bot users added to all new apps
+
+#### April 14, 2023
 
 Starting today, [bot users](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) will be added to all newly-created apps. Settings and configuration options for bot users remain the same, and can still be accessed on the **Bot** page within your [app's settings](https://discord.com/developers/applications).
 
 If your app doesn't need or want a bot user associated with it, you can refrain from adding the [`bot` scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when installing your app.
 
-#### April 6, 2023
-
 ## Interaction Channel Data
+
+#### April 6, 2023
 
 Interactions now contain a `channel` field which is a partial channel object and guaranteed to contain `id` and `type`. We recommend that you begin using this channel field to identify the source channel of the interaction, and may deprecate the existing `channel_id` field in the future. See the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) for more details.
 
