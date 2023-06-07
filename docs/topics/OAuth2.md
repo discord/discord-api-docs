@@ -326,6 +326,7 @@ When receiving the access code on redirect, there will be additional querystring
     "icon": null,
     "description": null,
     "public_updates_channel_id": null,
+    "safety_alerts_channel_id": null,
     "rules_channel_id": null,
     "max_members": 100000,
     "vanity_url_code": null,

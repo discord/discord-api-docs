@@ -915,7 +915,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | position                            | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                                           | All                              |
 | topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` channels)                                                                                                                  | Text, Announcement, Forum        |
 | nsfw                                | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                                    | Text, Voice, Announcement, Stage, Forum |
-| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                | Text, Forum                      |
+| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                | Text, Voice, Stage, Forum        |
 | bitrate\*                           | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                                  | Voice, Stage                     |
 | user_limit                          | ?integer                                                                        | the user limit of the voice or stage channel, max 99 for voice channels and 10,000 for stage channels (0 refers to no limit)                                                                   | Voice, Stage                     |
 | permission_overwrites\*\*           | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                                       | All                              |
@@ -1007,7 +1007,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - When sending a message with `tts` (text-to-speech) set to `true`, the current user must have the `SEND_TTS_MESSAGES` permission.
 - When creating a message as a reply to another message, the current user must have the `READ_MESSAGE_HISTORY` permission.
     - The referenced message must exist and cannot be a system message.
-- The maximum request size when sending a message is **8MiB**
+- The maximum request size when sending a message is **25 MiB**
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 ###### JSON/Form Params
@@ -1282,7 +1282,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 - The type of the created thread is `PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 - The current user must have the `SEND_MESSAGES` permission (`CREATE_PUBLIC_THREADS` is ignored).
-- The maximum request size when sending a message is **8MiB**.
+- The maximum request size when sending a message is **25 MiB**.
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 - Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 - Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
@@ -1378,10 +1378,10 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 
 ###### Query String Params
 
-| Field   | Type              | Description                                  |
-| ------- | ----------------- | -------------------------------------------- |
-| before? | ISO8601 timestamp | returns threads before this timestamp        |
-| limit?  | integer           | optional maximum number of threads to return |
+| Field   | Type              | Description                                    |
+| ------- | ----------------- | ---------------------------------------------- |
+| before? | ISO8601 timestamp | returns threads archived before this timestamp |
+| limit?  | integer           | optional maximum number of threads to return   |
 
 ###### Response Body
 
@@ -1397,10 +1397,10 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Query String Params
 
-| Field   | Type              | Description                                  |
-| ------- | ----------------- | -------------------------------------------- |
-| before? | ISO8601 timestamp | returns threads before this timestamp        |
-| limit?  | integer           | optional maximum number of threads to return |
+| Field   | Type              | Description                                    |
+| ------- | ----------------- | ---------------------------------------------- |
+| before? | ISO8601 timestamp | returns threads archived before this timestamp |
+| limit?  | integer           | optional maximum number of threads to return   |
 
 ###### Response Body
 
