@@ -51,7 +51,7 @@ For bot users, the display name will be the same as the application's name (defi
 
 ### Default avatars
 
-For users with migrated accounts, default avatar URLs will be based on the user ID instead of the discriminator. The URL can now be calculated using `(user_id >> 22) % 6`.
+For users with migrated accounts, default avatar URLs will be based on the user ID instead of the discriminator. The URL can now be calculated using `(user_id >> 22) % 6`. Users on the legacy username system will continue using `(discriminator >> 22) % 5`.
 
 ## Bot users added to all new apps
 
