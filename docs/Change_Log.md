@@ -47,8 +47,6 @@ After migration of all users is complete, the `discriminator` field may be remov
 
 As part of the new username system, standard Discord users can define a non-unique display name. This value will be a new `global_name` field with a max length of 32 characters. If the user has not set a display name, `global_name` will be null.
 
-For bot users, the display name will be the same as the application's name (defined on the **General Overview** tab in the app's settings).
-
 ### Default avatars
 
 For users with migrated accounts, default avatar URLs will be based on the user ID instead of the discriminator. The URL can now be calculated using `(user_id >> 22) % 6`. Users on the legacy username system will continue using `discriminator % 5`.
