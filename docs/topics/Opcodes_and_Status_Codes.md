@@ -304,6 +304,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
 | 220004 | Webhook services cannot be used in forum channels                                                                             |
 | 240000 | Message blocked by harmful links filter                                                                                       |
+| 350000 | Cannot enable onboarding, requirements are not met                                                                            |
+| 350001 | Cannot update onboarding while below requirements                                                                             |
 
 ###### Example JSON Error Response
 
