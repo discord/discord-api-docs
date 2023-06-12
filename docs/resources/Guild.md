@@ -1284,7 +1284,7 @@ Returns the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object f
 
 ## Modify Guild Onboarding % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
 
-Modifies the onboarding configuration of the guild. Returns a 200 with the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
+Modifies the onboarding configuration of the guild. Returns a 200 with the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild. Requires the `MANAGE_GUILD` and `MANAGE_ROLES` permissions.
 
 > info
 > Onboarding enforces constraints when enabled. These constraints are that there must be at least 7 Default Channels and at least 5 of them must allow sending messages to the @everyone role. The `mode` field modifies what is considered when enforcing these constraints.
