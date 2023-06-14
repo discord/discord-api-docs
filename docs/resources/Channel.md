@@ -14,9 +14,9 @@ Represents a guild or DM channel within Discord.
 | position?                           | integer                                                                     | sorting position of the channel                                                                                                                                                               |
 | permission_overwrites?              | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects      | explicit permission overwrites for members and roles                                                                                                                                          |
 | name?                               | ?string                                                                     | the name of the channel (1-100 characters)                                                                                                                                                    |
-| topic?                              | ?string                                                                     | the channel topic (0-4096 characters for `GUILD_FORUM` channels, 0-1024 characters for all others)                                                                                            |
+| topic?                              | ?string                                                                     | the channel topic (0-4096 characters for `GUILD_FORUM` and `GUILD_MEDIA` channels, 0-1024 characters for all others)                                                                          |
 | nsfw?                               | boolean                                                                     | whether the channel is nsfw                                                                                                                                                                   |
-| last_message_id?                    | ?snowflake                                                                  | the id of the last message sent in this channel (or thread for `GUILD_FORUM` channels) (may not point to an existing or valid message or thread)                                              |
+| last_message_id?                    | ?snowflake                                                                  | the id of the last message sent in this channel (or thread for `GUILD_FORUM` or `GUILD_MEDIA` channels) (may not point to an existing or valid message or thread)                             |
 | bitrate?                            | integer                                                                     | the bitrate (in bits) of the voice channel                                                                                                                                                    |
 | user_limit?                         | integer                                                                     | the user limit of the voice channel                                                                                                                                                           |
 | rate_limit_per_user?\*              | integer                                                                     | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected               |
@@ -37,11 +37,11 @@ Represents a guild or DM channel within Discord.
 | permissions?                        | string                                                                      | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                       |
 | flags?                              | integer                                                                     | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                       |
 | total_message_sent?                 | integer                                                                     | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                    |
-| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects            | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                                   |
-| applied_tags?                       | array of snowflakes                                                         | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                      |
-| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                           |
+| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects            | the set of tags that can be used in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                                                |
+| applied_tags?                       | array of snowflakes                                                         | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                   |
+| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                        |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
-| default_sort_order?                 | ?integer                                                                    | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin  |
+| default_sort_order?                 | ?integer                                                                    | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin  |
 | default_forum_layout?               | integer                                                                     | the [default forum layout view](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels. Defaults to `0`, which indicates a layout view has not been set by a channel admin  |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
@@ -67,6 +67,9 @@ Represents a guild or DM channel within Discord.
 | GUILD_STAGE_VOICE   | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                         |
 | GUILD_DIRECTORY     | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers                 |
 | GUILD_FORUM         | 15  | Channel that can only contain threads                                                                                                                      |
+| GUILD_MEDIA         | 15  | Channel that can only contain threads, similar to GUILD_FORUM channels                                                                                     |
+
+\* The `GUILD_MEDIA` channel type is still in active development. Avoid implementing any features that are not documented here, since they are subject to change without notice!
 
 ###### Video Quality Modes
 
@@ -79,8 +82,9 @@ Represents a guild or DM channel within Discord.
 
 | Flag        | Value  | Description                                                                                                                                  |
 | ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| PINNED      | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel                                                                         |
-| REQUIRE_TAG | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` channel. Tags are specified in the `applied_tags` field. |
+| PINNED      | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` or `GUILD_MEDIA` channel                                                        |
+| REQUIRE_TAG | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field. |
+| HIDE_MEDIA_DOWNLOAD_OPTIONS | 1 << 15 | when set hides the embedded media download options. Available only for media channels |
 
 ###### Sort Order Types
 
@@ -608,12 +612,12 @@ An object that specifies the emoji to use as the default way to react to a forum
 
 ### Forum Tag Object
 
-An object that represents a tag that is able to be applied to a thread in a `GUILD_FORUM` channel.
+An object that represents a tag that is able to be applied to a thread in a `GUILD_FORUM` or `GUILD_MEDIA` channel.
 
 ###### Forum Tag Structure
 
 > info
-> When updating a `GUILD_FORUM` channel, tag objects in `available_tags` only require the `name` field.
+> When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `available_tags` only require the `name` field.
 
 | Field      | Type       | Description                                                                                                    |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------- |
@@ -920,21 +924,21 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | name                                | string                                                                          | 1-100 character channel name                                                                                                                                                                   | All                              |
 | type                                | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature             | Text, Announcement               |
 | position                            | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                                           | All                              |
-| topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` channels)                                                                                                                  | Text, Announcement, Forum        |
+| topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` channels)                                                                                                                  | Text, Announcement, Forum, Media |
 | nsfw                                | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                                    | Text, Voice, Announcement, Stage, Forum |
-| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                | Text, Voice, Stage, Forum        |
+| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                | Text, Voice, Stage, Forum, Media |
 | bitrate\*                           | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                                  | Voice, Stage                     |
 | user_limit                          | ?integer                                                                        | the user limit of the voice or stage channel, max 99 for voice channels and 10,000 for stage channels (0 refers to no limit)                                                                   | Voice, Stage                     |
 | permission_overwrites\*\*           | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                                       | All                              |
-| parent_id                           | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                                    | Text, Voice, Announcement, Stage, Forum |
+| parent_id                           | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                                    | Text, Voice, Announcement, Stage, Forum, Media |
 | rtc_region                          | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                               | Voice, Stage                     |
 | video_quality_mode                  | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                               | Voice, Stage                     |
-| default_auto_archive_duration       | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity                        | Text, Announcement, Forum        |
-| flags?                              | integer                                                                         | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). Currently only `REQUIRE_TAG` (`1 << 4`) is supported. | Forum                            |
-| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel; limited to 20                                                                                                                     | Forum                            |
-| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                            | Forum                            |
-| default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                  | Text, Forum                      |
-| default_sort_order?                 | ?integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                                           | Forum                            |
+| default_auto_archive_duration       | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity                        | Text, Announcement, Forum, Media |
+| flags?                              | integer                                                                         | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). Currently only `REQUIRE_TAG` (`1 << 4`) is supported. | Forum, Media                     |
+| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` or channel; limited to 20                                                                                                                  | Forum, Media                     |
+| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                            | Forum, Media                     |
+| default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                  | Text, Forum, Media               |
+| default_sort_order?                 | ?integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                                           | Forum, Media                     |
 | default_forum_layout?               | integer                                                                         | the [default forum layout type](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels                                                     | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
@@ -955,8 +959,8 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 | locked                | boolean             | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
 | invitable             | boolean             | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
 | rate_limit_per_user   | ?integer            | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
-| flags?                | integer             | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum channels   |
-| applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel; limited to 5                                                                                            |
+| flags?                | integer             | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels   |
+| applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                           |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -1250,7 +1254,7 @@ Removes a recipient from a Group DM.
 
 Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
-When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
+When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) or a `GUILD_MEDIA` channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1282,9 +1286,9 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 
 \* `type` currently defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
-## Start Thread in Forum Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
+## Start Thread in Forum/Media Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread in a forum channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_CHANNEL/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event.
+Creates a new thread in a forum or a media channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_CHANNEL/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event.
 
 - The type of the created thread is `PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
@@ -1308,11 +1312,11 @@ Creates a new thread in a forum channel, and sends a message within the created 
 | name                     | string                                                                                                                           | 1-100 character channel name                                                                                        |
 | auto_archive_duration?\* | integer                                                                                                                          | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | rate_limit_per_user?     | ?integer                                                                                                                         | amount of seconds a user has to wait before sending another message (0-21600)                                       |
-| message                  | a [forum thread message params](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-forum-thread-message-params-object) object | contents of the first message in the forum thread                                                                   |
-| applied_tags?            | array of snowflakes                                                                                                              | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                            |
+| message                  | a [forum thread message params](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-forum-thread-message-params-object) object | contents of the first message in the forum/media thread                                                             |
+| applied_tags?            | array of snowflakes                                                                                                              | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel         |
 
 
-###### Forum Thread Message Params Object
+###### Forum/Media Thread Message Params Object
 
 > info
 > When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
