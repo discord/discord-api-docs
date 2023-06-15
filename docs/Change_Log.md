@@ -16,7 +16,7 @@ Community servers are not affected by this change.
 
 If your app creates permanent invites, you should ensure that your app checks the server type when creating an invite to prevent any breaking behavior.
 
-You can determine if a guild is a community server by checking for  `COMMUNITY` feature within a [guild's `features` array](#DOCS_RESOURCES_GUILD/guild-object). If `COMMUNITY` isn't contained in the `features` array, the guild is a friend server. If the guild *is* a friend server, the `max_age` (which is the time in seconds before expiry of the invite) cannot be set to `0`—it must be set to a value between `1` and `2592000` (30 days).
+You can determine if a guild is a community server by checking for  `"COMMUNITY"` feature within a [guild's `features` array](#DOCS_RESOURCES_GUILD/guild-object). If `"COMMUNITY"` isn't contained in the `features` array, the guild is a friend server. If the guild *is* a friend server, the `max_age` (which is the time in seconds before expiry of the invite) cannot be set to `0`—it must be set to a value between `1` and `2592000` (30 days).
 
 You can fetch the `features` array for a specific guild using:
 1. The [`GET /guilds/<guild_id>`](#DOCS_RESOURCES_GUILD/get-guild) endpoint, or
