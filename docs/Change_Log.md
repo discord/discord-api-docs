@@ -4,6 +4,7 @@
 
 > danger
 > This entry includes breaking changes
+
 #### June 15, 2023
 
 As part of the recent [server type update](https://support.discord.com/hc/en-us/articles/14078261239831), invites for friend servers have been limited to a maximum of 30 days. Previously, invites for friend servers could optionally be permanent, meaning they wouldn't have an expiration. Previously, apps could create permanent invites (regardless of server type) by setting `max_age` to `0` when [creating an invite](#DOCS_RESOURCES_CHANNEL/create-channel-invite).
