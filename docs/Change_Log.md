@@ -11,7 +11,7 @@ As part of the recent [server type update](https://support.discord.com/hc/en-us/
 
 As of June 9, apps that try to create a permanent invite in a friend server will be returned an invite with an expiration of 30 days. **Starting <TODO: DATE>, apps that try to create a permanent invite in a friend server will be returned an error.**
 
-Invites within community servers are not affected by this change.
+*Existing* permanent invites in friend servers and any invites within community servers will not be affected by this change.
 
 #### Updating your app
 
