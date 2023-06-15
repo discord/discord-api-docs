@@ -1,5 +1,27 @@
 # Change Log
 
+## Update to Guild Invite Behavior
+
+> danger
+> This entry includes breaking changes
+#### June 15, 2023
+
+As part of the recent [server type update](https://support.discord.com/hc/en-us/articles/14078261239831), invites for friend servers have been limited to a maximum of 30 days. Previously, invites for friend servers could optionally be permanent, meaning they wouldn't have an expiration. Previously, apps could create permanent invites (regardless of server type) by setting `max_age` to `0` when [creating an invite](#DOCS_RESOURCES_CHANNEL/create-channel-invite).
+
+As of June 9, apps that try to create a permanent invite in a friend server will be returned an invite with an expiration of 30 days. **Starting <TODO: DATE>, apps that try to create a permanent invite in a friend server will receive an error.**
+
+Community servers are not affected by this change.
+
+#### Updating your app
+
+If your app creates permanent invites, you should ensure that your app checks the server type when creating an invite to prevent any breaking behavior.
+
+You can determine if a guild is a community server by checking for  `COMMUNITY` feature within a [guild's `features` array](#DOCS_RESOURCES_GUILD/guild-object). If `COMMUNITY` isn't contained in the `features` array, the guild is a friend server. If the guild *is* a friend server, the `max_age` (which is the time in seconds before expiry of the invite) cannot be set to `0`—it must be set to a value between `1` and `2592000` (30 days).
+
+You can fetch the `features` array for a specific guild using:
+1. The [`GET /guilds/<guild_id>`](#DOCS_RESOURCES_GUILD/get-guild) endpoint, or
+2. If you're responding to an interaction, you can reference the new guild partial (`guild`) added to [interaction requests](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object). The interaction guild partial contains the `id`, `locale`, and `features` array for that server.
+
 ## Add Join Raid and Mention Raid fields
 
 #### May 05, 2023
