@@ -67,7 +67,7 @@ Represents a guild or DM channel within Discord.
 | GUILD_STAGE_VOICE   | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                         |
 | GUILD_DIRECTORY     | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers                 |
 | GUILD_FORUM         | 15  | Channel that can only contain threads                                                                                                                      |
-| GUILD_MEDIA         | 15  | Channel that can only contain threads, similar to `GUILD_FORUM` channels                                                                                     |
+| GUILD_MEDIA         | 16  | Channel that can only contain threads, similar to `GUILD_FORUM` channels                                                                                     |
 
 \* The `GUILD_MEDIA` channel type is still in active development. Avoid implementing any features that are not documented here, since they are subject to change without notice!
 
