@@ -94,6 +94,7 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 
 - [Autocode Embed Builder](https://autocode.com/tools/discord/embed-builder/)
 - [JohnyTheCarrot's Embed Previewer](https://github.com/JohnyTheCarrot/discord-embed-previewer) (Browser Extension)
+- [Walledgarden's Embed Builder](https://embedbuilder.com/)
 
 ## API Types
 
