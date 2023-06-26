@@ -94,6 +94,9 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 > info
 > `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
 
+> warn
+> For security reasons, the Gateway cannot be accessed directly from a Cloudflare Worker. Attempts will result in a 401 Unauthorized status code.
+
 ###### Gateway URL Query String Params
 
 | Field     | Type    | Description                                                                                         | Accepted Values                                            |
