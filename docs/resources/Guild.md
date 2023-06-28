@@ -146,6 +146,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | ROLE_ICONS                                | guild is able to set role icons                                                                                               |
 | ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                            |
 | ROLE_SUBSCRIPTIONS_ENABLED                | guild has enabled role subscriptions                                                                                          |
+| SOUNDBOARD                                | guild has created soundboard sounds                                                                                           |
 | TICKETED_EVENTS_ENABLED                   | guild has enabled ticketed events                                                                                             |
 | VANITY_URL                                | guild has access to set a vanity URL                                                                                          |
 | VERIFIED                                  | guild is verified                                                                                                             |

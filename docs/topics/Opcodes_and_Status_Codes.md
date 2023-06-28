@@ -6,19 +6,20 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 ###### Gateway Opcodes
 
-| Code | Name                  | Client Action | Description                                                                             |
-|------|-----------------------|---------------|-----------------------------------------------------------------------------------------|
-| 0    | Dispatch              | Receive       | An event was dispatched.                                                                |
-| 1    | Heartbeat             | Send/Receive  | Fired periodically by the client to keep the connection alive.                          |
-| 2    | Identify              | Send          | Starts a new session during the initial handshake.                                      |
-| 3    | Presence Update       | Send          | Update the client's presence.                                                           |
-| 4    | Voice State Update    | Send          | Used to join/leave or move between voice channels.                                      |
-| 6    | Resume                | Send          | Resume a previous session that was disconnected.                                        |
-| 7    | Reconnect             | Receive       | You should attempt to reconnect and resume immediately.                                 |
-| 8    | Request Guild Members | Send          | Request information about offline guild members in a large guild.                       |
-| 9    | Invalid Session       | Receive       | The session has been invalidated. You should reconnect and identify/resume accordingly. |
-| 10   | Hello                 | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.            |
-| 11   | Heartbeat ACK         | Receive       | Sent in response to receiving a heartbeat to acknowledge that it has been received.     |
+| Code | Name                      | Client Action | Description                                                                             |
+|------|---------------------------|---------------|-----------------------------------------------------------------------------------------|
+| 0    | Dispatch                  | Receive       | An event was dispatched.                                                                |
+| 1    | Heartbeat                 | Send/Receive  | Fired periodically by the client to keep the connection alive.                          |
+| 2    | Identify                  | Send          | Starts a new session during the initial handshake.                                      |
+| 3    | Presence Update           | Send          | Update the client's presence.                                                           |
+| 4    | Voice State Update        | Send          | Used to join/leave or move between voice channels.                                      |
+| 6    | Resume                    | Send          | Resume a previous session that was disconnected.                                        |
+| 7    | Reconnect                 | Receive       | You should attempt to reconnect and resume immediately.                                 |
+| 8    | Request Guild Members     | Send          | Request information about offline guild members in a large guild.                       |
+| 9    | Invalid Session           | Receive       | The session has been invalidated. You should reconnect and identify/resume accordingly. |
+| 10   | Hello                     | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.            |
+| 11   | Heartbeat ACK             | Receive       | Sent in response to receiving a heartbeat to acknowledge that it has been received.     |
+| 31   | Request Soundboard Sounds | Send          | Request information about soundboard sounds in a set of guilds.                         |
 
 ###### Gateway Close Event Codes
 
@@ -126,6 +127,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10015  | Unknown webhook                                                                                                               |
 | 10016  | Unknown webhook service                                                                                                       |
 | 10020  | Unknown session                                                                                                               |
+| 10021  | Unknown Asset                                                                                                                 |
 | 10026  | Unknown ban                                                                                                                   |
 | 10027  | Unknown SKU                                                                                                                   |
 | 10028  | Unknown Store Listing                                                                                                         |
@@ -265,6 +267,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
+| 50110  | The provided file is invalid.                                                                                                 |
+| 50124  | The provided file duration exceeds maximum of 5.2 seconds.                                                                    |
 | 50131  | Owner cannot be pending member                                                                                                |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |

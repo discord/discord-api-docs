@@ -49,14 +49,15 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 > info
 > Previously, Gateway send events were labeled as commands
 
-| Name                                                                       | Description                                               |
-| -------------------------------------------------------------------------- | --------------------------------------------------------- |
-| [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify)                           | Triggers the initial handshake with the gateway           |
-| [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)                               | Resumes a dropped gateway connection                      |
-| [Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat)                         | Maintains an active gateway connection                    |
-| [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) | Requests members for a guild                              |
-| [Update Voice State](#DOCS_TOPICS_GATEWAY_EVENTS/update-voice-state)       | Joins, moves, or disconnects the app from a voice channel |
-| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                 |
+| Name                                                                               | Description                                               |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify)                                   | Triggers the initial handshake with the gateway           |
+| [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)                                       | Resumes a dropped gateway connection                      |
+| [Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat)                                 | Maintains an active gateway connection                    |
+| [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members)         | Requests members for a guild                              |
+| [Request Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/request-soundboard-sounds) | Requests soundboard sounds in a set of guilds             |
+| [Update Voice State](#DOCS_TOPICS_GATEWAY_EVENTS/update-voice-state)               | Joins, moves, or disconnects the app from a voice channel |
+| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)                     | Updates an app's presence                                 |
 
 #### Identify
 
@@ -195,6 +196,27 @@ Due to our privacy and infrastructural concerns with this feature, there are som
     "guild_id": "41771983444115456",
     "query": "",
     "limit": 0
+  }
+}
+```
+
+#### Request Soundboard Sounds
+
+Used to request soundboard sounds for a list of guilds. The server will send [Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/soundboard-sounds) events for each guild in response.
+
+###### Request Soundboard Sounds Structure
+
+| Field      | Type                | Description                                   | Required |
+| ---------- | ------------------- | --------------------------------------------- | -------- |
+| guild_ids  | array of snowflakes | ID of the guilds to get soundboard sounds for | true     |
+
+###### Example Request Soundboard Sounds
+
+```json
+{
+  "op": 31,
+  "d": {
+    "guild_ids": ["613425648685547541", "81384788765712384"]
   }
 }
 ```
@@ -745,19 +767,19 @@ Sent when a guild role is deleted.
 | guild_id | snowflake | ID of the guild |
 | role_id  | snowflake | ID of the role  |
 
-### Guild Scheduled Event Create
+#### Guild Scheduled Event Create
 
 Sent when a guild scheduled event is created. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
-### Guild Scheduled Event Update
+#### Guild Scheduled Event Update
 
 Sent when a guild scheduled event is updated. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
-### Guild Scheduled Event Delete
+#### Guild Scheduled Event Delete
 
 Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
-### Guild Scheduled Event User Add
+#### Guild Scheduled Event User Add
 
 Sent when a user has subscribed to a guild scheduled event.
 
@@ -769,7 +791,7 @@ Sent when a user has subscribed to a guild scheduled event.
 | user_id                  | snowflake | ID of the user                  |
 | guild_id                 | snowflake | ID of the guild                 |
 
-### Guild Scheduled Event User Remove
+#### Guild Scheduled Event User Remove
 
 Sent when a user has unsubscribed from a guild scheduled event.
 
@@ -780,6 +802,36 @@ Sent when a user has unsubscribed from a guild scheduled event.
 | guild_scheduled_event_id | snowflake | ID of the guild scheduled event |
 | user_id                  | snowflake | ID of the user                  |
 | guild_id                 | snowflake | ID of the guild                 |
+
+#### Guild Soundboard Sound Create
+
+Sent when a guild soundboard sound is created. The inner payload is a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object.
+
+#### Guild Soundboard Sound Update
+
+Sent when a guild soundboard sound is updated. The inner payload is a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object.
+
+#### Guild Soundboard Sound Delete
+
+Sent when a guild soundboard sound is deleted.
+
+###### Guild Soundboard Sound Delete Event Fields
+
+| Field    | Type      | Description                      |
+| -------- | --------- | -------------------------------- |
+| sound_id | snowflake | ID of the sound that was deleted |
+| guild_id | snowflake | ID of the guild the sound was in |
+
+#### Soundboard Sounds
+
+Includes a guild's list of soundboard sounds. Sent in response to [Request Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/request-soundboard-sounds).
+
+###### Soundboard Sounds Event Fields
+
+| Field             | Type                                                                                    | Description                   |
+| ----------------- | --------------------------------------------------------------------------------------- | ----------------------------- |
+| soundboard_sounds | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects | The guild's soundboard sounds |
+| guild_id          | snowflake                                                                               | ID of the guild               |
 
 ### Integrations
 
