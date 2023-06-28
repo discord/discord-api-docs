@@ -273,7 +273,6 @@ if (name === 'challenge' && id) {
     return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        // Fetches a random emoji to send from a helper function
         content: `Rock papers scissors challenge from <@${userId}>`,
         components: [
         {
