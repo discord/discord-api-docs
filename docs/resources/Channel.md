@@ -1201,7 +1201,7 @@ Follow an Announcement Channel to send messages to a target channel. Requires th
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
 
-Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start) Gateway event.
+Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. You must send these at 10 second intervals to keep your bot marked as typing. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start) Gateway event.
 
 ## Get Pinned Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins
 
