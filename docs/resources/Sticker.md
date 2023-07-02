@@ -26,10 +26,10 @@ Incidentally the client will always use a name generated from an emoji as the va
 
 ###### Sticker Types
 
-| Type     | Value | Description                                                                   |
-| -------- | ----- | ----------------------------------------------------------------------------- |
-| STANDARD | 1     | an official sticker in a pack, part of Nitro or in a removed purchasable pack |
-| GUILD    | 2     | a sticker uploaded to a guild for the guild's members                         |
+| Type     | Value | Description                                           |
+| -------- | ----- | ----------------------------------------------------- |
+| STANDARD | 1     | an official sticker in a pack                         |
+| GUILD    | 2     | a sticker uploaded to a guild for the guild's members |
 
 ###### Sticker Format Types
 
@@ -102,9 +102,9 @@ Represents a pack of standard stickers.
 
 Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given sticker ID.
 
-## List Nitro Sticker Packs % GET /sticker-packs
+## List Sticker Packs % GET /sticker-packs
 
-Returns the list of sticker packs available to Nitro subscribers.
+Returns the list of sticker packs that are currently available. Stickers in these packs can be used by all users.
 
 ###### Response Structure
 
