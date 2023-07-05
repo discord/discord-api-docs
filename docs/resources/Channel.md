@@ -758,7 +758,7 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 | ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                    |
 | duration_secs? | float     | the duration of the audio file (currently for voice messages)                           |
 | waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages) |
-| flags?         | integer   | [arrachment flags](#DOCS_RESOURCES_CHANNEL/attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags?         | integer   | [attachment flags](#DOCS_RESOURCES_CHANNEL/attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
