@@ -764,9 +764,9 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 
 ###### Attachment Flags
 
-| Flag                                   | Value   | Description                                                                       |
-| -------------------------------------- | ------  | --------------------------------------------------------------------------------- |
-| REMIX                                  | 1 << 2  | this attachment has been edited using the remix feature on mobile                 |
+| Flag     | Value  | Description                                                       |
+| -------- | ------ | ----------------------------------------------------------------- |
+| IS_REMIX | 1 << 2 | this attachment has been edited using the remix feature on mobile |
 
 ### Channel Mention Object
 
