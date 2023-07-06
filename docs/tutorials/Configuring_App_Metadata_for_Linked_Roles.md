@@ -7,7 +7,7 @@ Apps can define their own [role connection metadata](#DOCS_RESOURCES_APPLICATION
 This tutorial walks through building a Discord app in JavaScript with linked roles support.
 
 > info
-> All of the sample code used in this tutorial can be found in the [`linked-roles-sample` Github repo](https://github.com/discord/linked-roles-sample)
+> All of the sample code used in this tutorial can be found in the [`linked-roles-sample` GitHub repo](https://github.com/discord/linked-roles-sample)
 
 ---
 
@@ -44,7 +44,7 @@ After installing your app, you can head over to your server and see that it has 
 
 ## Running your app
 
-All of the code used in the example app can be found in the [Github repository](https://github.com/discord/linked-roles-sample).
+All of the code used in the example app can be found in the [GitHub repository](https://github.com/discord/linked-roles-sample).
 
 ### Remix the project
 
