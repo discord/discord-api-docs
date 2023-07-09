@@ -365,7 +365,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 > In `GUILD_` events, `pending` will always be included as true or false. In non `GUILD_` events which can only be triggered by non-`pending` users, `pending` will not be included.
 
 > info
-> Member objects retrieved from `VOICE_STATE_UPDATE` events will have `joined_at: null` set on them if they were invited as a guest.
+> Member objects retrieved from `VOICE_STATE_UPDATE` events will have `joined_at` set as `null` if the member was invited as a guest.
 
 ###### Example Guild Member
 
