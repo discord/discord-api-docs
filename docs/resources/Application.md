@@ -99,4 +99,4 @@
 
 ## Get Current Bot Application Information % GET /applications/@me
 
-Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object.
+Returns the [application](#DOCS_RESOURCES_APPLICATION/application-object) object associated with the requesting bot user.
