@@ -8,7 +8,7 @@ This tutorial walks through building a Discord app powered by [`r/aww`](https://
 
 ![Demo of Reddit API app](cloudflare-tutorial-demo.gif)
 
-All of the code for this app can be found **[on Github](https://github.com/discord/cloudflare-sample-app)**.
+All of the code for this app can be found **[on GitHub](https://github.com/discord/cloudflare-sample-app)**.
 
 ### Features and technologies used
 
@@ -28,7 +28,7 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 
 ![IDs found in app settings](cloudflare-general-overview.png)
 
-- Now click on the `Bot` tab on the left sidebar, and create a bot! You can choose the same name as your app.
+- Now click on the **Bot** tab on the left sidebar.
 - Grab the `token` for your bot, and store it somewhere safe (I like to put these tokens in a password manager like [1password](https://1password.com/) or [lastpass](https://www.lastpass.com/)).
 
 > warn
@@ -93,7 +93,7 @@ $ npm install
 A brief look at the cloned app's project structure:
 
 ```
-├── .github/workflows/ci.yaml -> Github Action configuration
+├── .github/workflows/ci.yaml -> GitHub Action configuration
 ├── src
 │   ├── commands.js           -> JSON payloads for commands
 │   ├── reddit.js             -> Interactions with the Reddit API
@@ -336,9 +336,9 @@ router.post('/', async (request, env) => {
 ## Next steps
 
 > info
-> In case you need to reference any of the code, you can find the repo [on Github](https://github.com/discord/cloudflare-sample-app)
+> In case you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/cloudflare-sample-app)
 
 With your app built and deployed, you can start customizing it to be your own:
 - Use **[message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** in your app to add more interactivity (like buttons and select menus).
-- Take a look at different **[public APIs](https://github.com/public-apis/public-apis)** on Github.
+- Take a look at different **[public APIs](https://github.com/public-apis/public-apis)** on GitHub.
 - Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other developers.

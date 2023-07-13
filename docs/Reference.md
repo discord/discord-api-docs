@@ -103,7 +103,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](#APPLICATIONS), for more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
+1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_TOPICS_OAUTH2/oauth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
@@ -126,7 +126,7 @@ All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord 
 
 ## Snowflakes
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/encoding-and-compression) for more information regarding Gateway encoding.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/encoding-and-compression) for more information regarding Gateway encoding.
 
 ###### Snowflake ID Broken Down in Binary
 
@@ -318,7 +318,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Guild Discovery Splash      | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
 | Guild Banner                | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                  | PNG, JPEG, WebP, GIF |
 | User Banner                 | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Default User Avatar         | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
+| Default User Avatar         | embed/avatars/[index](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
 | User Avatar                 | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
 | Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
 | User Avatar Decoration      | avatar-decorations/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar_decoration](#DOCS_RESOURCES_USER/user-object).png                                                                                                                                     | PNG                  |
@@ -326,20 +326,21 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
 | Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
 | Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                       | PNG, JPEG, WebP      |
 | Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
-| Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
+| Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
 | Role Icon                   | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png                                                                                                                                                  | PNG, JPEG, WebP      |
 | Guild Scheduled Event Cover | guild-events/[scheduled_event_id](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)/[scheduled_event_cover_image](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
 | Guild Member Banner         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/banners/[member_banner](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
-\*\* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
+\*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](#DOCS_CHANGE_LOG/unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
-\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
 ## Image Data
 
@@ -354,7 +355,7 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 ## Uploading Files
 
 > info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `8 MiB` by default.
+> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
@@ -434,7 +435,7 @@ Content-Type: image/gif
 You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files which contain a filename, as you will need to reference it in your payload.
 
 > warn
-> Only filenames with [supported image extensions](#DOCS_REFERENCE/image-formatting-image-formats) may be used at this time.
+> Only `.jpg`, `.jpeg`, `.png`, `.webp`, and `.gif` may be used at this time. Other file types are not supported.
 
 Within an embed object, you can set an image to use an attachment as its URL with the attachment scheme syntax: `attachment://filename.png`
 
@@ -454,6 +455,7 @@ For example:
 
 | Locale | Language Name         | Native Name         |
 | ------ | --------------------- | ------------------- |
+| id     | Indonesian            | Bahasa Indonesia    |
 | da     | Danish                | Dansk               |
 | de     | German                | Deutsch             |
 | en-GB  | English, UK           | English, UK         |

@@ -1,5 +1,128 @@
 # Change Log
 
+## Add Join Raid and Mention Raid fields
+
+#### May 05, 2023
+
+- Add Auto Moderation `mention_raid_protection_enabled` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field for the `MENTION_SPAM` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). If this field and its parent `MENTION_SPAM` rule are enabled, Auto Moderation provides baseline detection against sudden spikes in mention activity that are normally indicative of mention raids.
+- Add `safety_alerts_channel_id` [guild](#DOCS_RESOURCES_GUILD/guild-object) field and [`RAID_ALERTS_DISABLED` guild feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which are associated with join raid protection
+
+## Unique usernames on Discord
+
+#### May 3, 2023
+
+> warn
+> Bot users will stay on the legacy username system for now. More details can be found on the [Developer Help Center article](https://dis.gd/app-usernames).
+
+Discord’s username system is changing. Discriminators are being removed and new, unique usernames and display names are being introduced. You can read more details about how changes to the username system affects non-bot users in the [general Help Center article](https://dis.gd/usernames). To learn how it impacts bot users specifically, you can read the [Developer Help Center article](https://dis.gd/app-usernames).
+
+This changelog focuses only on the technical changes to be aware of to update your app's code.
+
+### Identifying migrated users
+ 
+The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
+
+After migration of all users is complete, the `discriminator` field may be removed.
+
+#### Example migrated user
+
+```json
+{
+  "id": "80351110224678912",
+  "username": "nelly",
+  "discriminator": "0",
+  "global_name": "Nelly",
+  "avatar": "8342729096ea3675442027381ff50dfe",
+  "verified": true,
+  "email": "nelly@discord.com",
+  "flags": 64,
+  "banner": "06c16474723fe537c283b8efa61a30c8",
+  "accent_color": 16711680,
+  "premium_type": 1,
+  "public_flags": 64
+}
+```
+
+### Display names
+
+As part of the new username system, standard Discord users can define a non-unique display name. This value will be a new `global_name` field with a max length of 32 characters. If the user has not set a display name, `global_name` will be null.
+
+### Default avatars
+
+For users with migrated accounts, default avatar URLs will be based on the user ID instead of the discriminator. The URL can now be calculated using `(user_id >> 22) % 6`. Users on the legacy username system will continue using `discriminator % 5`.
+
+## Bot users added to all new apps
+
+#### April 14, 2023
+
+Starting today, [bot users](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) will be added to all newly-created apps. Settings and configuration options for bot users remain the same, and can still be accessed on the **Bot** page within your [app's settings](https://discord.com/developers/applications).
+
+If your app doesn't need or want a bot user associated with it, you can refrain from adding the [`bot` scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when installing your app.
+
+## Interaction Channel Data
+
+#### April 6, 2023
+
+Interactions now contain a `channel` field which is a partial channel object and guaranteed to contain `id` and `type`. We recommend that you begin using this channel field to identify the source channel of the interaction, and may deprecate the existing `channel_id` field in the future. See the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) for more details.
+
+## Add Auto Moderation custom_message Action Metadata Field
+
+#### Feb 24, 2023
+
+Add new `custom_message` [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-metadata) for the `BLOCK_MESSAGE` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types)). You can now specify a custom string for every Auto Moderation rule that will be shown to members whenever the rule blocks their message. This can be used as an additional explanation for why a message was blocked and as a chance to help members understand your server's rules and guidelines.
+
+## Update to Locked Threads
+
+#### Feb 10, 2023
+
+### Upcoming Changes
+
+Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked *without* being archived, which will slightly change the meaning of the [`locked` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure).
+
+`locked` currently indicates that a thread cannot be reopened by a user without the [`MANAGE_THREADS` (`1 << 34`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the `MANAGE_THREADS` permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
+
+If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages. The upcoming change does not affect the meaning of the [`archived` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure) or the behavior of a thread that is both locked and archived.
+
+### How do I prepare for this change?
+
+If your app is interacting with threads (including forum posts), it should check the state of the `locked` and/or `archived` field for the thread to understand which actions it can or cannot perform. It should also be prepared to handle any errors that it may receive when a thread is locked.
+
+## Increase Auto Moderation Keyword Limits
+
+#### Feb 8, 2023
+
+- Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 5 to 6
+- Increase maximum length for each keyword in the `keyword_filter` and `allow_list` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) fields from 30 to 60.
+
+## Guild Audit Log Events
+
+#### Jan 18, 2023
+
+At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create) event has been added to the gateway, allowing your application to react to moderation actions in guilds. The `VIEW_AUDIT_LOG` permission is required in order to receive these events, and the [`GUILD_MODERATION` intent](#DOCS_TOPICS_GATEWAY/gateway-intents) needs to be set when connecting to the gateway.
+
+## Thread Member Details and Pagination
+
+> danger
+> This entry includes breaking changes
+
+#### Jan 09, 2023
+
+A new `member` field was added to the [thread member object](#DOCS_RESOURCES_CHANNEL/thread-member-object). `member` is a [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) that will be included within returned thread member objects when the new `with_member` field is set to `true` in the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) and [Get Thread Member](#DOCS_RESOURCES_CHANNEL/get-thread-member) (`GET /channels/<channel_id>/thread-members/<user_id>`) endpoints.
+
+Setting `with_member` to `true` will also enable pagination for the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) endpoint. When the results are paginated, you can use the new `after` and `limit` fields to fetch additional thread members and limit the number of thread members returned. By default, `limit` is 100.
+
+#### Upcoming Changes
+
+Starting in API v11, [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) will *always* return paginated results, regardless of whether `with_member` is passed or not.
+
+## Add Default Layout setting for Forum channels
+
+#### Dec 13, 2022
+
+`default_forum_layout` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates the default layout for posts in a [forum channel](#DOCS_TOPICS_THREADS/forums). A value of 1 (`LIST_VIEW`) indicates that posts will be displayed as a chronological list, and 2 (`GALLERY_VIEW`) indicates they will be displayed as a collection of tiles. If `default_forum_layout` hasn't been set, the value will be `0`.
+
+Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
+
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
 #### Nov 22, 2022
@@ -7,7 +130,6 @@
 - Auto Moderation rules with [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support an `allow_list` field in its [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata). Any message content that matches an `allow_list` keyword will be ignored by the Auto Moderation `KEYWORD` rule. Each `allow_list` keyword can be a multi-word phrase and can contain [wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
 - Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 3 to 5
 - Increase maximum length for each regex pattern in the `regex_patterns` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field from 75 to 260.
-
 
 ## Upcoming Application Command Permission Changes
 
@@ -135,6 +257,28 @@ The new `APPLICATION_COMMAND_PERMISSIONS_V2` flag is already live, and you shoul
 The new permissions behavior will roll out **on December 16, 2022**. On this date, admins will begin to see a banner that allows them to *optionally* move their server to the new behavior.
 
 In **late January or early February**, all servers will be migrated to the new behavior. We'll post another changelog at this point, at which time you can remove any logic around the old permissions behavior.
+
+## GameSDK Feature Deprecation
+
+#### Nov 9, 2022
+
+> danger
+> This entry includes breaking changes
+
+To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
+
+- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
+- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
+- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
+- [Images](#DOCS_GAME_SDK_IMAGES/)
+- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
+- [Networking](#DOCS_GAME_SDK_NETWORKING/)
+- [Storage](#DOCS_GAME_SDK_STORAGE/)
+- [Store](#DOCS_GAME_SDK_STORE/) [purchases and discounts]
+
+This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
+
+We know that Discord is an important place for people to find belonging, and that using your Discord identity in games is a crucial part of that sense of belonging. You’ll still be able to use the GameSDK to integrate Rich Presence, relationships, entitlements, basic user information, and the overlay.
 
 ## Add Auto Moderation Regex Support
 

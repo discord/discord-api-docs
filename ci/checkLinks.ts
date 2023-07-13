@@ -4,7 +4,7 @@ import chalk from "chalk";
 import * as github from "@actions/core";
 const cwd = process.env.GITHUB_ACTIONS ? process.env.GITHUB_WORKSPACE! : process.cwd();
 
-function importDirectory(directory: string, extension: string, subdirectories = true) {
+function importDirectory(directory: string, extensions: string[], subdirectories = true) {
 	try {
 		const output = new Map<string, string>();
 		const files = readdirSync(directory);
@@ -12,16 +12,17 @@ function importDirectory(directory: string, extension: string, subdirectories = 
 			const currentPath = path.join(directory, fileOrPath);
 			if (statSync(currentPath).isDirectory()) {
 				if (!subdirectories) continue;
-				const subdir = importDirectory(currentPath, extension, subdirectories);
+				const subdir = importDirectory(currentPath, extensions, subdirectories);
 				if (!subdir) continue;
 				for (const [name, read] of subdir) {
 					output.set(`/${fileOrPath}${name}`, read);
 				}
 				continue;
 			}
-			if (!fileOrPath.endsWith(extension)) continue;
+			const currentPathParts = path.parse(currentPath);
+			if (!extensions.some((ex) => ex === currentPathParts.ext)) continue;
 			const read = readFileSync(currentPath, "utf8");
-			output.set(`/${fileOrPath}`, read);
+			output.set(`/${currentPathParts.name}`, read);
 		}
 		return output;
 	} catch {
@@ -74,7 +75,7 @@ function annotateResults(resultMap: Map<string, github.AnnotationProperties[]>):
 	}
 }
 
-const docFiles = importDirectory(path.join(cwd, "docs"), ".md");
+const docFiles = importDirectory(path.join(cwd, "docs"), [".md", ".mdx"]);
 
 if (!docFiles) {
 	console.error("No doc files found!");
@@ -87,11 +88,9 @@ const validLinks = new Map<string, string[]>([
 	["TEAMS", []],
 ]);
 
-const extLength = ".md".length;
-
 // Gather valid links
 for (const [name, raw] of docFiles) {
-	const keyName = `DOCS${name.slice(0, -extLength).replaceAll("/", "_").toUpperCase()}`;
+	const keyName = `DOCS${name.replaceAll("/", "_").toUpperCase()}`;
 	if (!validLinks.has(keyName)) {
 		validLinks.set(keyName, []);
 	}
