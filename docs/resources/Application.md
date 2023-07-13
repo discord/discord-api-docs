@@ -97,6 +97,6 @@
 | scopes      | array of strings | the [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
 | permissions | string           | the [permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |
 
-## Get Current Bot Application Information % GET /applications/@me
+## Get Current Application % GET /applications/@me
 
 Returns the [application](#DOCS_RESOURCES_APPLICATION/application-object) object associated with the requesting bot user.
