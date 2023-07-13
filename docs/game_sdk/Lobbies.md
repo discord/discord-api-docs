@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 Looking to integrate multiplayer into your game? Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze by:
 
@@ -1322,7 +1322,7 @@ OK so this wasn't really a code example, but I think you get how this works.
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a bot token. This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's settings](https://discord.com/developers/applications), and navigate to the **Bot** page on the sidebar. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
 curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing

@@ -42,11 +42,12 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 
 ###### Rate Limit Response Structure
 
-| Field       | Type             | Description                                                      |
-|-------------|------------------|------------------------------------------------------------------|
-| message     | string           | A message saying you are being rate limited.                     |
-| retry_after | float            | The number of seconds to wait before submitting another request. |
-| global      | boolean          | A value indicating if you are being globally rate limited or not |
+| Field       | Type             | Description                                                                 |
+|-------------|------------------|-----------------------------------------------------------------------------|
+| message     | string           | A message saying you are being rate limited.                                |
+| retry_after | float            | The number of seconds to wait before submitting another request.            |
+| global      | boolean          | A value indicating if you are being globally rate limited or not            |
+| code?       | integer          | An [error code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json) for some limits |
 
 Note that normal route rate-limiting headers will also be sent in this response. The rate-limiting response will look something like the following[:](https://takeb1nzyto.space/)
 
@@ -106,15 +107,15 @@ Note that normal route rate-limiting headers will also be sent in this response.
 
 ## Global Rate Limit
 
-All bots can make up to 50 requests per second to our API. This is independent of any individual rate limit on a route. If your bot gets big enough, based on its functionality, it may be impossible to stay below 50 requests per second during normal operations.
+All bots can make up to 50 requests per second to our API. If no authorization header is provided, then the limit is applied to the IP address. This is independent of any individual rate limit on a route. If your bot gets big enough, based on its functionality, it may be impossible to stay below 50 requests per second during normal operations.
 
-Global rate limit issues generally show up as repeatedly getting banned from the Discord API when your bot starts (see below). If your bot gets temporarily CloudFlare banned from the Discord API every once in a while, it is most likely **not** a global rate limit issue. You probably had a spike of errors that was not properly handled and hit our error threshold.
+Global rate limit issues generally show up as repeatedly getting banned from the Discord API when your bot starts (see below). If your bot gets temporarily Cloudflare banned from the Discord API every once in a while, it is most likely **not** a global rate limit issue. You probably had a spike of errors that was not properly handled and hit our error threshold.
 
-If you are experiencing repeated CloudFlare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
+If you are experiencing repeated Cloudflare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
 [Interaction endpoints](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/endpoints) are not bound to the bot's Global Rate Limit.
 
-## Invalid Request Limit aka CloudFlare bans
+## Invalid Request Limit aka Cloudflare bans
 
 IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	
 

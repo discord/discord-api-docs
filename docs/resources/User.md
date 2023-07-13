@@ -24,23 +24,25 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field         | Type      | Description                                                                                          | Required OAuth2 Scope |
-| ------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                                                                        | identify              |
-| username      | string    | the user's username, not unique across the platform                                                  | identify              |
-| discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
-| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
-| verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
-| email?        | ?string   | the user's email                                                                                     | email                 |
-| flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
-| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
-| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| Field              | Type      | Description                                                                                          | Required OAuth2 Scope |
+| ------------------ | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
+| id                 | snowflake | the user's id                                                                                        | identify              |
+| username           | string    | the user's username, not unique across the platform                                                  | identify              |
+| discriminator      | string    | the user's Discord-tag                                                                               | identify              |
+| global_name        | ?string   | the user's display name, if it is set. For bots, this is the application name                        | identify              |
+| avatar             | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| bot?               | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
+| system?            | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
+| mfa_enabled?       | boolean   | whether the user has two factor enabled on their account                                             | identify              |
+| banner?            | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| accent_color?      | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
+| locale?            | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
+| verified?          | boolean   | whether the email on this account has been verified                                                  | email                 |
+| email?             | ?string   | the user's email                                                                                     | email                 |
+| flags?             | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| premium_type?      | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
+| public_flags?      | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| avatar_decoration? | ?string   | the user's [avatar decoration hash](#DOCS_REFERENCE/image-formatting)                                | identify              |
 
 ###### Example User
 
@@ -76,7 +78,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 14 | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
 | 1 << 16 | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
 | 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
-| 1 << 18 | CERTIFIED_MODERATOR      | Discord Certified Moderator                                                                                                                    |
+| 1 << 18 | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
 | 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
 | 1 << 22 | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
 
@@ -119,6 +121,7 @@ The connection object that the user has attached.
 | epicgames       | Epic Games          |
 | facebook        | Facebook            |
 | github          | GitHub              |
+| instagram       | Instagram           |
 | leagueoflegends | League of Legends   |
 | paypal          | PayPal              |
 | playstation     | PlayStation Network |
@@ -127,6 +130,7 @@ The connection object that the user has attached.
 | spotify         | Spotify             |
 | skype *         | Skype               |
 | steam           | Steam               |
+| tiktok          | TikTok              |
 | twitch          | Twitch              |
 | twitter         | Twitter             |
 | xbox            | Xbox                |
@@ -140,6 +144,18 @@ The connection object that the user has attached.
 | ----- | -------- | ------------------------------------------------ |
 | 0     | None     | invisible to everyone except the user themselves |
 | 1     | Everyone | visible to everyone                              |
+
+### Application Role Connection Object
+
+The role connection object that an application has attached to a user.
+
+###### Application Role Connection Structure
+
+| Field             | Type    | Description                                                                                                                                                                                                                                                      |
+| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name     | ?string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username | ?string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
 
 ## Get Current User % GET /users/@me
 
@@ -200,11 +216,11 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
-Leave a guild. Returns a 204 empty response on success.
+Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) Gateway event and a [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
 
 ## Create DM % POST /users/@me/channels
 
-Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object (if one already exists, it will be returned instead).
 
 > warn
 > You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
@@ -217,7 +233,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. DMs created with this endpoint will not be shown in the Discord client
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) Gateway event.
 
 > warn
 > This endpoint is limited to 10 active group DMs.
@@ -232,3 +248,19 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 ## Get User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+
+## Get User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+
+Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
+
+## Update User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+
+Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
+
+###### JSON Params
+
+| Field              | Type   | Description                                                                                                                                                                                                                                                      |
+| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform_name?     | string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username? | string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata?          | object | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |

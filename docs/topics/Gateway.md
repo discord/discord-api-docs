@@ -94,13 +94,16 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 > info
 > `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
 
+> warn
+> For security reasons, the Gateway cannot be accessed directly from a Cloudflare Worker. Attempts will result in a 401 Unauthorized status code.
+
 ###### Gateway URL Query String Params
 
-| Field     | Type    | Description                                                                               | Accepted Values                                            |
-| --------- | ------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                      | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
-| encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets | `json` or `etf`                                            |
-| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/resuming) of gateway packets    | `zlib-stream`                                              |
+| Field     | Type    | Description                                                                                         | Accepted Values                                            |
+| --------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                                | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
+| encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets           | `json` or `etf`                                            |
+| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream`                                              |
 
 #### Hello Event
 
@@ -308,7 +311,8 @@ GUILD_MEMBERS (1 << 1) **
   - GUILD_MEMBER_REMOVE
   - THREAD_MEMBERS_UPDATE *
 
-GUILD_BANS (1 << 2)
+GUILD_MODERATION (1 << 2)
+  - GUILD_AUDIT_LOG_ENTRY_CREATE
   - GUILD_BAN_ADD
   - GUILD_BAN_REMOVE
 
@@ -431,7 +435,7 @@ Events associated with the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are tur
 
 #### HTTP Restrictions
 
-In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must configure the `GUILD_MEMBERS` intent (and be approved for it if eligible for verified).
+In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must enable the `GUILD_MEMBERS` intent (and be approved for it if eligible for verification).
 
 HTTP API restrictions are independent of Gateway restrictions, and are unaffected by which intents your app passes in the `intents` parameter when Identifying.
 
@@ -448,13 +452,14 @@ Apps **without** the intent will receive empty values in fields that contain use
 - Content in messages that an app sends
 - Content in DMs with the app
 - Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
+- Content of the message a [message context menu command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) is used on 
 
 ## Rate Limiting
 
 > info
 > This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
 
-Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
+Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) per [connection](#DOCS_TOPICS_GATEWAY/connections) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
 
 Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identifying) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session).
 
@@ -486,7 +491,7 @@ Payload compression will be disabled if you use [transport compression](#DOCS_TO
 When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
 
 - Snowflake IDs are transmitted as 64-bit integers or strings.
-- Your app can't send compressed messages to the guild.
+- Your app can't send compressed messages to the server.
 - When sending payloads, you must use string keys. Using atom keys will result in a [`4002`](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) decode error.
 
 See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.

@@ -46,6 +46,9 @@ Private threads behave similar to Group DMs, but in a Guild. Private threads are
 
 ## Active & Archived Threads
 
+> warn
+> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+
 Every thread can be either active or archived. Changing a thread from archived -> active is referred to as unarchiving the thread. Threads that have `locked` set to true can only be unarchived by a user with the `MANAGE_THREADS` permission.
 
 Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot edit messages, add reactions, use application commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted. Sending a message will automatically unarchive the thread, unless the thread has been locked by a moderator.
@@ -54,7 +57,7 @@ Because of this constraint, the gateway protocol is designed to ensure that bots
 
 Threads do not count against the max-channels limit in a guild, but there is a limit on the maximum number of active threads in a guild.
 
-Threads automatically archive after 7 days of inactivity (as a server approaches the max thread limit this timer will automatically lower, but never below the `auto_archive_duration`). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
+Threads automatically archive after a period of inactivity (as a server approaches the max thread limit this timer will automatically lower, but never below the `auto_archive_duration`). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
 
 ## Permissions
 
