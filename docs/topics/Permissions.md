@@ -191,19 +191,20 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 
 ###### Role Structure
 
-| Field          | Type                                                                         | Description                                       |
-| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
-| id             | snowflake                                                                    | role id                                           |
-| name           | string                                                                       | role name                                         |
-| color          | integer                                                                      | integer representation of hexadecimal color code  |
-| hoist          | boolean                                                                      | if this role is pinned in the user listing        |
-| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
-| unicode_emoji? | ?string                                                                      | role unicode emoji                                |
-| position       | integer                                                                      | position of this role                             |
-| permissions    | string                                                                       | permission bit set                                |
-| managed        | boolean                                                                      | whether this role is managed by an integration    |
-| mentionable    | boolean                                                                      | whether this role is mentionable                  |
-| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                            |
+| Field          | Type                                                                         | Description                                                                                                                     |
+| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| id             | snowflake                                                                    | role id                                                                                                                         |
+| name           | string                                                                       | role name                                                                                                                       |
+| color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
+| hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
+| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)                                                                              |
+| unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
+| position       | integer                                                                      | position of this role                                                                                                           |
+| permissions    | string                                                                       | permission bit set                                                                                                              |
+| managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
+| mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
+| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                                                                                                          |
+| flags          | integer                                                                      | [role flags](#DOCS_TOPICS_PERMISSIONS/role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -233,9 +234,16 @@ Tags with type `null` represent booleans. They will be present and set to `null`
   "position": 1,
   "permissions": "66321471",
   "managed": false,
-  "mentionable": false
+  "mentionable": false,
+  "flags": 0
 }
 ```
+
+###### Role Flags
+
+| Flag      | Value  | Description                                                                                              |
+| --------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 
