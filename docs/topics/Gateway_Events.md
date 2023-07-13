@@ -906,14 +906,15 @@ Sent when a user adds a reaction to a message.
 
 ###### Message Reaction Add Event Fields
 
-| Field      | Type                                                         | Description                                                                                |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| user_id    | snowflake                                                    | ID of the user                                                                             |
-| channel_id | snowflake                                                    | ID of the channel                                                                          |
-| message_id | snowflake                                                    | ID of the message                                                                          |
-| guild_id?  | snowflake                                                    | ID of the guild                                                                            |
-| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
-| emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| Field             | Type                                                         | Description                                                                                |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| user_id           | snowflake                                                    | ID of the user                                                                             |
+| channel_id        | snowflake                                                    | ID of the channel                                                                          |
+| message_id        | snowflake                                                    | ID of the message                                                                          |
+| guild_id?         | snowflake                                                    | ID of the guild                                                                            |
+| member?           | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
+| emoji             | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| message_author_id | snowflake                                                    | ID of the user who authored the message which was reacted to                                 |
 
 #### Message Reaction Remove
 
