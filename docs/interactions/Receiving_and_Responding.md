@@ -6,7 +6,7 @@ For [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands), it
 
 For [User Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [Message Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands), it includes the resolved user or message on which the action was taken.
 
-For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our data models below.
+For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel`, `member` and other fields. You can find all the values in our data models below.
 
 ### Interaction Object
 
@@ -19,6 +19,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | type             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                            |
 | data?\*          | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data) | Interaction data payload                                                                       |
 | guild_id?        | snowflake                                                                                           | Guild that the interaction was sent from                                                       |
+| channel?         | [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                    | Channel that the interaction was sent from                                                     |
 | channel_id?      | snowflake                                                                                           | Channel that the interaction was sent from                                                     |
 | member?\*\*      | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                    | Guild member data for the invoking user, including permissions                                 |
 | user?            | [user](#DOCS_RESOURCES_USER/user-object) object                                                     | User object for the invoking user, if invoked in a DM                                          |
@@ -135,11 +136,11 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 ## Interactions and Bot Users
 
-We're all used to the way that Discord bots have worked for a long time. You make an application in the Dev Portal, you add a bot user to it, and you copy the token. That token can be used to connect to the gateway and to make requests against our API.
+We're all used to the way that Discord bots have worked for a long time. You make an application in the developer portal with a bot user, then use that bot's token to connect to the Gateway and make requests to Discord's API.
 
-Interactions bring something entirely new to the table: the ability to interact with an application _without needing a bot user in the guild_. As you read through this documentation, you'll see that bot tokens are only referenced as a helpful alternative to doing a client credentials auth flow. Responding to interactions does not require a bot token.
+Interactions bring something entirely new to the table: the ability to interact with an application _without relying on a bot token_. As you read through this documentation, you'll see that bot tokens are only referenced as a helpful alternative to doing a client credentials auth flow. Responding to interactions does not require a bot token.
 
-In many cases, you may still need a bot user. If you need to receive gateway events, or need to interact with other parts of our API (like fetching a guild, or a channel, or updating permissions on a user), those actions are all still tied to having a bot token. However, if you don't need any of those things, you never have to add a bot user to your application at all.
+In many cases, you may still need to use a bot token. If you need to receive gateway events, or need to interact with other parts of our API (like fetching a guild, or a channel, or updating permissions on a user), those actions are all still tied to having a bot token.
 
 Welcome to the new world.
 

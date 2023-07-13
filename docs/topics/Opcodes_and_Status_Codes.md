@@ -180,8 +180,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
 | 30032  | Maximum number of application commands reached                                                                                |
-| 30033  | Max number of thread participants has been reached (1000)                                                                     |
-| 30034  | Max number of daily application command creates has been reached (200)                                                        |
+| 30033  | Maximum number of thread participants has been reached (1000)                                                                 |
+| 30034  | Maximum number of daily application command creates has been reached (200)                                                    |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30038  | Maximum number of uncompleted guild scheduled events reached (100)                                                            |
@@ -265,12 +265,19 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
+| 50131  | Owner cannot be pending member                                                                                                |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
+| 50159  | Voice messages do not support additional content.                                                                             |
+| 50160  | Voice messages must have a single audio attachment.                                                                           |
+| 50161  | Voice messages must have supporting metadata.                                                                                 |
+| 50162  | Voice messages cannot be edited.                                                                                              |
 | 50163  | Cannot delete guild subscription integration                                                                                  |
+| 50173  | You cannot send voice messages in this channel.                                                                               |
+| 50178  | The user account must first be verified                                                                                       |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
@@ -299,6 +306,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
 | 220004 | Webhook services cannot be used in forum channels                                                                             |
 | 240000 | Message blocked by harmful links filter                                                                                       |
+| 350000 | Cannot enable onboarding, requirements are not met                                                                            |
+| 350001 | Cannot update onboarding while below requirements                                                                             |
 
 ###### Example JSON Error Response
 

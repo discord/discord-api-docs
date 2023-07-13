@@ -376,6 +376,7 @@ Represents a message sent in a channel within Discord.
 | LOADING                                | 1 << 7  | this message is an Interaction Response and the bot is "thinking"                 |
 | FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8  | this message failed to mention some roles and add their members to the thread     |
 | SUPPRESS_NOTIFICATIONS                 | 1 << 12 | this message will not trigger push and desktop notifications                      |
+| IS_VOICE_MESSAGE                       | 1 << 13 | this message is a voice message                                                   |
 
 ###### Example Message
 
@@ -511,6 +512,20 @@ There are multiple message types that have a message_reference object.  Since me
 - These are the first message in public threads created from messages. They point back to the message in the parent channel from which the thread was started. (type 21)
 - These messages have `message_id`, `channel_id`, and `guild_id`.
 - These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
+
+#### Voice Messages
+
+Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the following properties.
+
+- They cannot be edited.
+- Only a single audio attachment is allowed. No content, stickers, etc...
+- The [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) has additional fields: `duration_secs` and `waveform`.
+
+The `waveform` is intended to be a preview of the entire voice message, with 1 byte per datapoint encoded in base64. Clients sample the recording at most
+once per 100 milliseconds, but will downsample so that no more than 256 datapoints are in the waveform.
+
+As of 2023-04-14, clients upload a 1 channel, 48000 Hz, 32kbps Opus stream in an OGG container.
+The encoding, and the waveform details, are an implementation detail and may change without warning or documentation.
 
 ### Followed Channel Object
 
@@ -729,20 +744,29 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 > info
 > For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 
-| Field         | Type      | Description                                                             |
-| ------------- | --------- | ----------------------------------------------------------------------- |
-| id            | snowflake | attachment id                                                           |
-| filename      | string    | name of file attached                                                   |
-| description?  | string    | description for the file (max 1024 characters)                          |
-| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type) |
-| size          | integer   | size of file in bytes                                                   |
-| url           | string    | source url of file                                                      |
-| proxy_url     | string    | a proxied url of file                                                   |
-| height?       | ?integer  | height of file (if image)                                               |
-| width?        | ?integer  | width of file (if image)                                                |
-| ephemeral? \* | boolean   | whether this attachment is ephemeral                                    |
+| Field          | Type      | Description                                                                             |
+| -------------- | --------- | --------------------------------------------------------------------------------------- |
+| id             | snowflake | attachment id                                                                           |
+| filename       | string    | name of file attached                                                                   |
+| description?   | string    | description for the file (max 1024 characters)                                          |
+| content_type?  | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                 |
+| size           | integer   | size of file in bytes                                                                   |
+| url            | string    | source url of file                                                                      |
+| proxy_url      | string    | a proxied url of file                                                                   |
+| height?        | ?integer  | height of file (if image)                                                               |
+| width?         | ?integer  | width of file (if image)                                                                |
+| ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                    |
+| duration_secs? | float     | the duration of the audio file (currently for voice messages)                           |
+| waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages) |
+| flags?         | integer   | [attachment flags](#DOCS_RESOURCES_CHANNEL/attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
+
+###### Attachment Flags
+
+| Flag     | Value  | Description                                                       |
+| -------- | ------ | ----------------------------------------------------------------- |
+| IS_REMIX | 1 << 2 | this attachment has been edited using the remix feature on mobile |
 
 ### Channel Mention Object
 
@@ -898,7 +922,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | position                            | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                                           | All                              |
 | topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` channels)                                                                                                                  | Text, Announcement, Forum        |
 | nsfw                                | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                                    | Text, Voice, Announcement, Stage, Forum |
-| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                | Text, Forum                      |
+| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                | Text, Voice, Stage, Forum        |
 | bitrate\*                           | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                                  | Voice, Stage                     |
 | user_limit                          | ?integer                                                                        | the user limit of the voice or stage channel, max 99 for voice channels and 10,000 for stage channels (0 refers to no limit)                                                                   | Voice, Stage                     |
 | permission_overwrites\*\*           | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                                       | All                              |
@@ -990,7 +1014,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - When sending a message with `tts` (text-to-speech) set to `true`, the current user must have the `SEND_TTS_MESSAGES` permission.
 - When creating a message as a reply to another message, the current user must have the `READ_MESSAGE_HISTORY` permission.
     - The referenced message must exist and cannot be a system message.
-- The maximum request size when sending a message is **8MiB**
+- The maximum request size when sending a message is **25 MiB**
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 ###### JSON/Form Params
@@ -1265,7 +1289,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 - The type of the created thread is `PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 - The current user must have the `SEND_MESSAGES` permission (`CREATE_PUBLIC_THREADS` is ignored).
-- The maximum request size when sending a message is **8MiB**.
+- The maximum request size when sending a message is **25 MiB**.
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 - Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 - Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
@@ -1361,10 +1385,10 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 
 ###### Query String Params
 
-| Field   | Type              | Description                                  |
-| ------- | ----------------- | -------------------------------------------- |
-| before? | ISO8601 timestamp | returns threads before this timestamp        |
-| limit?  | integer           | optional maximum number of threads to return |
+| Field   | Type              | Description                                    |
+| ------- | ----------------- | ---------------------------------------------- |
+| before? | ISO8601 timestamp | returns threads archived before this timestamp |
+| limit?  | integer           | optional maximum number of threads to return   |
 
 ###### Response Body
 
@@ -1380,10 +1404,10 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Query String Params
 
-| Field   | Type              | Description                                  |
-| ------- | ----------------- | -------------------------------------------- |
-| before? | ISO8601 timestamp | returns threads before this timestamp        |
-| limit?  | integer           | optional maximum number of threads to return |
+| Field   | Type              | Description                                    |
+| ------- | ----------------- | ---------------------------------------------- |
+| before? | ISO8601 timestamp | returns threads archived before this timestamp |
+| limit?  | integer           | optional maximum number of threads to return   |
 
 ###### Response Body
 

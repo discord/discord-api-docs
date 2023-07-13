@@ -56,7 +56,7 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 | [Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat)                         | Maintains an active gateway connection                    |
 | [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) | Requests members for a guild                              |
 | [Update Voice State](#DOCS_TOPICS_GATEWAY_EVENTS/update-voice-state)       | Joins, moves, or disconnects the app from a voice channel |
-| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                  |
+| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                 |
 
 #### Identify
 
@@ -295,7 +295,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
 | [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
-| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                             |
+| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                            |
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-add)                                                   | User was banned from a guild                                                                                                                   |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-remove)                                             | User was unbanned from a guild                                                                                                                 |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-emojis-update)                                       | Guild emojis were updated                                                                                                                      |
@@ -817,6 +817,8 @@ Sent when an integration is deleted.
 
 ### Invites
 
+All [Invite](#DOCS_RESOURCES_INVITE) related events are only sent to bot users with the `MANAGE_CHANNELS` permission on the channel.
+
 #### Invite Create
 
 Sent when a new invite to a channel is created.
@@ -904,14 +906,15 @@ Sent when a user adds a reaction to a message.
 
 ###### Message Reaction Add Event Fields
 
-| Field      | Type                                                         | Description                                                                                |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| user_id    | snowflake                                                    | ID of the user                                                                             |
-| channel_id | snowflake                                                    | ID of the channel                                                                          |
-| message_id | snowflake                                                    | ID of the message                                                                          |
-| guild_id?  | snowflake                                                    | ID of the guild                                                                            |
-| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
-| emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| Field              | Type                                                         | Description                                                                                |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| user_id            | snowflake                                                    | ID of the user                                                                             |
+| channel_id         | snowflake                                                    | ID of the channel                                                                          |
+| message_id         | snowflake                                                    | ID of the message                                                                          |
+| guild_id?          | snowflake                                                    | ID of the guild                                                                            |
+| member?            | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
+| emoji              | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
 
 #### Message Reaction Remove
 
@@ -982,7 +985,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | -------- | ------ | --------------------------------------------------------------------------------- |
 | desktop? | string | User's status set for an active desktop (Windows, Linux, Mac) application session |
 | mobile?  | string | User's status set for an active mobile (iOS, Android) application session         |
-| web?     | string | User's status set for an active web (browser, bot account) application session    |
+| web?     | string | User's status set for an active web (browser, bot user) application session       |
 
 #### Activity Object
 
