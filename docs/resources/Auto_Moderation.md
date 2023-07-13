@@ -72,7 +72,6 @@ Characterizes the type of content which can trigger the rule.
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-=======
 | Field                           | Type                                                                                                              | Associated Trigger Types | Description                                                                       |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------- |
 | keyword_filter                  | array of strings *                                                                                                | KEYWORD, MEMBER_PROFILE                 | substrings which will be searched for in content (Maximum of 1000)                |
