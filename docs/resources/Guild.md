@@ -888,12 +888,12 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field            | Type       | Description                                                                      |
-| ---------------- | ---------- | -------------------------------------------------------------------------------- |
-| id               | snowflake  | channel id                                                                       |
-| position         | ?integer   | sorting position of the channel                                                  |
-| lock_permissions | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
-| parent_id        | ?snowflake | the new parent ID for the channel that is moved                                  |
+| Field             | Type       | Description                                                                      |
+| ----------------- | ---------- | -------------------------------------------------------------------------------- |
+| id                | snowflake  | channel id                                                                       |
+| position?         | ?integer   | sorting position of the channel                                                  |
+| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
+| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                  |
 
 ## List Active Guild Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
 
