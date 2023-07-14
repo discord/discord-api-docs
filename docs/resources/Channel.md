@@ -430,6 +430,7 @@ Represents a message sent in a channel within Discord.
          "normal": 1
       },
       "me": false,
+      "me_burst": false,
       "emoji": {
          "id": null,
          "name": "🔥"
@@ -535,24 +536,25 @@ There are multiple message types that have a message_reference object.  Since me
 
 ###### Reaction Structure
 
-| Field         | Type                                                       | Description                                                                                |
-| ------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| count         | integer                                                    | times this emoji has been used to react                                                    |
-| count_details | object                                                     | the [reaction count details object](#DOCS_RESOURCES_CHANNEL/reaction-count-details-object) |
-| me            | boolean                                                    | whether the current user reacted using this emoji                                          |
-| emoji         | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | emoji information                                                                          |
-| burst_colors  | array                                                      | HEX colors used for super reaction                                                         |
+| Field         | Type                                                       | Description                                                                            |
+| ------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| count         | integer                                                    | Total number of times this emoji has been used to react (including super reacts)       |
+| count_details | object                                                     | [Reaction count details object](#DOCS_RESOURCES_CHANNEL/reaction-count-details-object) |
+| me            | boolean                                                    | Whether the current user reacted using this emoji                                      |
+| me_burst      | boolean                                                    | Whether the current user super-reacted using this emoji                                |
+| emoji         | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | emoji information                                                                      |
+| burst_colors  | array                                                      | HEX colors used for super reaction                                                     |
 
 ### Reaction Count Details Object
 
-The reaction count details object contains information about super and normal reaction counts.
+The reaction count details object contains a breakdown of normal and super reaction counts for the associated emoji.
 
 ###### Reaction Count Details Structure
 
 | Field  | Type      | Description                   |
 | ------ | --------- | ----------------------------- |
-| burst  | integer   | count of super reactions      |
-| normal | integer   | count of normal reactions     |
+| burst  | integer   | Count of super reactions      |
+| normal | integer   | Count of normal reactions     |
 
 ### Overwrite Object
 
