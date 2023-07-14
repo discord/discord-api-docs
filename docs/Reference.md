@@ -291,11 +291,13 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 
 ###### Guild Navigation Types
 
-| Type      | Description                                                                                                   |
-|-----------|---------------------------------------------------------------------------------------------------------------|
-| customize | Link to the _Customize_ section of the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) menu       |
-| browse    | Link to the _Browse Channels_ section of the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) menu |
-| guide     | Link to the _Server Guide_ section of the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) menu    |
+Guild navigation types link to the corresponding resource in the current server.
+
+| Type      | Description                                                                                           |
+|-----------|-------------------------------------------------------------------------------------------------------|
+| customize | _Customize_ tab with the server's [onboarding prompts](#DOCS_RESOURCES_GUILD/guild-onboarding-object) |
+| browse    | _Browse Channels_ tab                                                                                 |
+| guide     | [Server Guide](https://support.discord.com/hc/en-us/articles/13497665141655)                          |
 
 ## Image Formatting
 
