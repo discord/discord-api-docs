@@ -104,7 +104,7 @@ Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given
 
 ## List Sticker Packs % GET /sticker-packs
 
-Returns the list of sticker packs that are currently available. Stickers in these packs can be used by all users.
+Returns a list of available sticker packs.
 
 ###### Response Structure
 
