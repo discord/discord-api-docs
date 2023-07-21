@@ -206,8 +206,6 @@ A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in tha
 
 **This feature is still in active development. Many aspects are subject to change**
 
-> info
-> More information about media channels and how they appear in Discord can be found in the [Media Channels Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743)
 
 ### Creating Threads in Forum/Media Channels
 
