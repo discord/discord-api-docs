@@ -4,7 +4,7 @@
 
 #### June 15, 2023
 
-- Introduce a new channel type, `GUILD_MEDIA` (16). A `GUILD_MEDIA` is a channel that is very similar (from an API perspective) to a `GUILD_FORUM` channel, where only threads can be created in that channel and messages cannot be sent directly in that channel.
+- Add a [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
 
 Check out the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, and the [Media Channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
 
