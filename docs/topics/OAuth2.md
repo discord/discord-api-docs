@@ -149,7 +149,6 @@ import requests
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-REDIRECT_URI = 'https://nicememe.website'
 
 def refresh_token(refresh_token):
   data = {
