@@ -210,7 +210,7 @@ A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in tha
 
 ### Creating Threads in Forum and Media Channels
 
-Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) endpoint with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
+Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
 
 Threads in thread-only channels have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a threads-only channel only requires the `SEND_MESSAGES` permission.
 
@@ -232,7 +232,7 @@ A thread can be pinned within a thread-only, which will be represented as the [`
 
 The `message_count` and `total_message_sent` fields on threads in thread-only channels will increment on `MESSAGE_CREATE` events, and decrement on `MESSAGE_DELETE` and `MESSAGE_DELETE_BULK` events. There will be no specific `CHANNEL_UPDATE` event that notifies your app of changes to those fields—instead, apps should update those values when receiving corresponding events.
 
-All fields for threads in thread-only channels can be found in the [channel resources documentation](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params).
+All fields for threads in thread-only channels can be found in the [channel resources documentation](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params).
 
 ### Forum and Media Channel Formatting
 
