@@ -202,7 +202,7 @@ Messages cannot be sent directly in forum channels.
 
 ## Media Channels
 
-A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in that only threads can be created in them. Unless otherwise noted, threads in media channels behave in the same way as in forum channel - meaning they use the same endpoints and receive the same Gateway events. More information about media channels and how they appear in Discord can be found in the [media channels Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743)
+A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in that only threads can be created in them. Unless otherwise noted, threads in media channels behave in the same way as in forum channels - meaning they use the same endpoints and receive the same Gateway events. More information about media channels and how they appear in Discord can be found in the [media channels Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743).
 
 > warn
 > `GUILD_MEDIA` channels are in beta and still being actively developed. The API and other technical details are subject to change.
