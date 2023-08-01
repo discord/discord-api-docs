@@ -54,7 +54,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | stickers?                      | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                  |
 | premium_progress_bar_enabled   | boolean                                                                             | whether the guild has the boost progress bar enabled                                                                                                                   |
 | safety_alerts_channel_id       | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                               |
-| inventory_settings?            | [inventory settings](#DOCS_RESOURCES_GUILD/inventory-settings-object) object       | the inventory settings                                                                                                                                                 |
+| inventory_settings?            | [inventory settings](#DOCS_RESOURCES_GUILD/inventory-settings-object) object        | the inventory settings                                                                                                                                                 |
 
 \* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
