@@ -212,7 +212,7 @@ A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in tha
 
 Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
 
-Threads in thread-only channels have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a threads-only channel only requires the `SEND_MESSAGES` permission.
+Threads in thread-only channels have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a thread-only channel only requires the `SEND_MESSAGES` permission.
 
 ### Forum and Media Channel Fields
 
