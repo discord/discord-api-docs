@@ -2,7 +2,7 @@
 
 ## New `GUILD_MEDIA` channel type
 
-#### June 15, 2023
+#### Aug 1, 2023
 
 - Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
 
