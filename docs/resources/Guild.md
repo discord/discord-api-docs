@@ -54,6 +54,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | stickers?                      | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                  |
 | premium_progress_bar_enabled   | boolean                                                                             | whether the guild has the boost progress bar enabled                                                                                                                   |
 | safety_alerts_channel_id       | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                               |
+| inventory_settings?            | [inventory settings](#DOCS_RESOURCES_GUILD/inventory-settings-object) object       | the inventory settings                                                                                                                                                 |
 
 \* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
@@ -208,7 +209,10 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "preferred_locale": "en-US",
   "rules_channel_id": "441688182833020939",
   "public_updates_channel_id": "281283303326089216",
-  "safety_alerts_channel_id": "281283303326089216"
+  "safety_alerts_channel_id": "281283303326089216",
+  "inventory_settings": {
+    "is_emoji_pack_collectible": true
+  }
 }
 ```
 
@@ -644,6 +648,14 @@ In guilds with [Membership Screening](https://support.discord.com/hc/en-us/artic
 > warn
 > We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
 
+### Inventory Settings Object
+
+###### Inventory Settings Structure
+
+| Field                      | Type    | Description                                  |
+| -------------------------- | ------- | -------------------------------------------- |
+| is_emoji_pack_collectible? | boolean | Allows everyone to use emojis across servers |
+
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) Gateway event.
@@ -785,7 +797,10 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "preferred_locale": "en-US",
   "rules_channel_id": null,
   "public_updates_channel_id": null,
-  "safety_alerts_channel_id": null
+  "safety_alerts_channel_id": null,
+  "inventory_settings": {
+    "is_emoji_pack_collectible": false
+  }
 }
 ```
 
