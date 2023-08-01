@@ -1,5 +1,13 @@
 # Change Log
 
+## New `GUILD_MEDIA` channel type
+
+#### June 15, 2023
+
+- Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
+
+Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
+
 ## Add Join Raid and Mention Raid fields
 
 #### May 05, 2023
@@ -19,7 +27,7 @@ Discord’s username system is changing. Discriminators are being removed and ne
 This changelog focuses only on the technical changes to be aware of to update your app's code.
 
 ### Identifying migrated users
- 
+
 The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
 
 After migration of all users is complete, the `discriminator` field may be removed.
@@ -152,7 +160,7 @@ Introducing [linked roles](https://discord.com/blog/connected-accounts-functiona
 > danger
 > This entry includes breaking changes
 
-Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord. 
+Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
 
 Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
@@ -492,7 +500,7 @@ In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive 
 
 #### Jun 17, 2022
 
-The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones. 
+The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones.
 
 In API v11, support for the previous field names (`$os`, `$browser`, and `$device`) will be removed.
 
