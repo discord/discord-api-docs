@@ -1,6 +1,6 @@
 # Change Log
 
-## New `GUILD_MEDIA` channel type
+## New GUILD_MEDIA channel type
 
 #### Aug 1, 2023
 
