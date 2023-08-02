@@ -62,6 +62,13 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
   - [Bsati's Slash Command Builder](https://bsati.github.io/dc-app-command-builder/)
 
+## OpenAPI Specification
+
+> warn
+> The OpenAPI spec is currently in public preview and **is subject to breaking changes**
+
+The public preview of the [Discord HTTP API specification](https://github.com/discord/discord-api-spec) provides a standard [OpenAPI 3.1 spec](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) for the HTTP API. 
+
 ## Game SDK Tools
 
 Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
