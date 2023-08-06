@@ -80,6 +80,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
 | 1 << 18 | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
 | 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| 1 << 20 | SPAMMER                  | User is an assumed spammer by discord, their messages will be collapsed by default.
 | 1 << 22 | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
 
 ###### Premium Types
