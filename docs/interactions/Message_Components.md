@@ -459,6 +459,8 @@ A sample `data` object (a subset of the interaction payload) for a channel selec
 
 Text inputs are an interactive component that render on modals. They can be used to collect short-form or long-form text.
 
+When defining a text input component, you can set attributes to customize your component that are not returned in the [text input interaction payload](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-interaction). These can be used to customize whether the text input is required and how it is visually displayed to users.
+
 ![A text input in a modal on desktop client](modal-desktop.png)
 
 ###### Text Input Example
@@ -484,6 +486,8 @@ Text inputs are an interactive component that render on modals. They can be used
 }
 ```
 
+### Text Input Object
+
 ###### Text Input Structure
 
 | Field        | Type    | Description                                                                                 |
@@ -504,3 +508,67 @@ Text inputs are an interactive component that render on modals. They can be used
 | --------- | ----- | ----------------- |
 | Short     | 1     | Single-line input |
 | Paragraph | 2     | Multi-line input  |
+
+
+###### Text Input Interaction
+
+```json
+{
+    "application_id": "845027738276462632",
+    "channel": {
+        "flags": 0,
+        "guild_id": "772904309264089089",
+        "id": "772908445358620702",
+        "last_message_id": "113817814796417433",
+        "name": "general",
+        "nsfw": false,
+        "parent_id": "1113560261366927532",
+        "permissions": "281474976710655",
+        "position": 0,
+        "rate_limit_per_user": 0,
+        "topic": null,
+        "type": 0
+    },
+    "channel_id": "772908445358620702",
+    "data": {
+        "components": [
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "custom_id": "name",
+                        "type": 4,
+                        "value": "John"
+                    }
+                ]
+            }
+        ],
+        "custom_id": "cool_modal"
+    },
+    "guild_id": "772904309264089089",
+    "id": "847587388497854464",
+    "member": {
+        "avatar": null,
+        "deaf": false,
+        "is_pending": false,
+        "joined_at": "2020-11-02T19:25:47.248000+00:00",
+        "mute": false,
+        "nick": null,
+        "pending": false,
+        "permissions": "17179869183",
+        "premium_since": null,
+        "roles": ["785609923542777878"],
+        "user": {
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+            "global_name": "Mason",
+            "discriminator": "0",
+            "id": "53908232506183680",
+            "public_flags": 131141,
+            "username": "Mason"
+        }
+    },
+    "token": "UNIQUE_TOKEN",
+    "type": 5,
+    "version": 1
+}
+```
