@@ -494,7 +494,7 @@ When defining a text input component, you can set attributes to customize your c
 | ------------ | ------- | ------------------------------------------------------------------------------------------- |
 | type         | integer | `4` for a text input                                                                        |
 | custom_id    | string  | Developer-defined identifier for the input; max 100 characters                              |
-| style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
+| style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-styles) |
 | label        | string  | Label for this component; max 45 characters                                                 |
 | min_length?  | integer | Minimum input length for a text input; min 0, max 4000                                      |
 | max_length?  | integer | Maximum input length for a text input; min 1, max 4000                                      |
