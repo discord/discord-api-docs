@@ -1,5 +1,11 @@
 # Change Log
 
+## Activity State and Custom Status for Bots
+
+#### Aug 8, 2023
+
+Bots can now set the `state` field in the [activity object](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object), which enables bots to use custom status or display additional data for other activity types.
+
 ## Public Preview of OpenAPI 3.1 Specification
 
 #### Aug 2, 2023

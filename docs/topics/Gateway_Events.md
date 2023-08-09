@@ -1000,7 +1000,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
 | application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
 | details?        | ?string                                                                              | What the player is currently doing                                                                                               |
-| state?          | ?string                                                                              | User's current party status                                                                                                      |
+| state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
 | emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
 | party?          | [party](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
@@ -1010,7 +1010,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
 > info
-> Bots are only able to send `name`, `type`, and optionally `url`.
+> Bots are only able to send `name`, `state`, `type`, and `url`.
 
 ###### Activity Types
 
