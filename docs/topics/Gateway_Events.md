@@ -1010,7 +1010,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
 > info
-> Bots are only able to send `name`, `state`, `type`, and `url`.
+> Bot users are only able to set `name`, `state`, `type`, and `url`.
 
 ###### Activity Types
 
