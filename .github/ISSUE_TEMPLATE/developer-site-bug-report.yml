@@ -1,6 +1,6 @@
 name: Developer Site Bug Report
 description: A bug has been found with Discord's Developer site or documentation.
-labels: ["bug"]
+labels: ["developer portal"]
 body:
   - type: markdown
     attributes:
