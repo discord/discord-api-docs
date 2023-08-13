@@ -77,6 +77,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | USE_SOUNDBOARD                         | `0x0000040000000000` `(1 << 42)` | Allows for using soundboard in a voice channel                                                                                                      | V            |
 | USE_EXTERNAL_SOUNDS                    | `0x0000200000000000` `(1 << 45)` | Allows the usage of custom soundboard sounds from other servers                                                                                     | V            |
 | SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                       | T, V, S      |
+| USE_CLYDE_AI                           | `0x0000800000000000` `(1 << 47)` | Allows members to interact with the Clyde AI bot.                                                                                                   | T, V, S      |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
