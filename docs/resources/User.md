@@ -181,7 +181,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
-Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of. For OAuth2, requires the `guilds` scope.
 
 ###### Example Partial Guild
 
@@ -245,15 +245,15 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
 | nicks         | dict             | a dictionary of user ids to their respective nicknames                 |
 
-## Get User Connections % GET /users/@me/connections
+## Get Current User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
 
-## Get User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+## Get Current User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
 
 Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
-## Update User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+## Update Current User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
 
 Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
