@@ -31,6 +31,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 | [nextcord](https://github.com/nextcord/nextcord)              | Python     |
 | [pycord](https://github.com/Pycord-Development/pycord)        | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)            | Ruby       |
+| [discorb](https://github.com/discorb-lib/discorb)             | Ruby       |
 | [Serenity](https://github.com/serenity-rs/serenity)           | Rust       |
 
 ## Interactions
