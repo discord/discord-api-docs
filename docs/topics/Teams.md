@@ -34,7 +34,7 @@ To transfer an existing app to a team, navigate to the [Application](https://dis
 
 ## Team Roles
 
-Team members can be one of four roles, and each role inherits the access of those below it. Roles for team members can be configured under **Team Members** in a team's settings.
+Team members can be one of four roles (owner, admin, developer, and read-only), and each role inherits the access of those below it. Roles for team members can be configured under **Team Members** in a team's settings.
 
 ### Owner
 
@@ -51,7 +51,7 @@ Members with the Developer role *cannot* manage the team or team members.
 
 ### Read-only
 
-Read-only members can access information about the team and team-owned apps. Some examples include getting the IDs of applications and exporting payout records.
+Read-only members can access information about a team and any team-owned apps. Some examples include getting the IDs of applications and exporting payout records.
 
 ## Data Models
 
