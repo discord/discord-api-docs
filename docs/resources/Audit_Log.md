@@ -128,6 +128,8 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | AUTO_MODERATION_BLOCK_MESSAGE               | 143   | Message was blocked by Auto Moderation                    |                                                                                                                                                  |
 | AUTO_MODERATION_FLAG_TO_CHANNEL             | 144   | Message was flagged by Auto Moderation                    |                                                                                                                                                  |
 | AUTO_MODERATION_USER_COMMUNICATION_DISABLED | 145   | Member was timed out by Auto Moderation                   |                                                                                                                                                  |
+| CREATOR_MONETIZATION_REQUEST_CREATED        | 150   | Creator monetization request was created                  |                                                                                                                                                  |
+| CREATOR_MONETIZATION_TERMS_ACCEPTED         | 151   | Creator monetization terms were accepted                  |                                                                                                                                                  |
 
 \* Object has exception(s) to available keys. See the [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section below for details.
 

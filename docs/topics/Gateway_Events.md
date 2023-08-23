@@ -469,7 +469,7 @@ Sent when a new guild channel is created, relevant to the current user. The inne
 
 #### Channel Update
 
-Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` channels).
+Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` and `GUILD_MEDIA` channels).
 
 This event may reference roles or guild members that no longer exist in the guild.
 
@@ -906,14 +906,15 @@ Sent when a user adds a reaction to a message.
 
 ###### Message Reaction Add Event Fields
 
-| Field      | Type                                                         | Description                                                                                |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| user_id    | snowflake                                                    | ID of the user                                                                             |
-| channel_id | snowflake                                                    | ID of the channel                                                                          |
-| message_id | snowflake                                                    | ID of the message                                                                          |
-| guild_id?  | snowflake                                                    | ID of the guild                                                                            |
-| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
-| emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| Field              | Type                                                         | Description                                                                                |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| user_id            | snowflake                                                    | ID of the user                                                                             |
+| channel_id         | snowflake                                                    | ID of the channel                                                                          |
+| message_id         | snowflake                                                    | ID of the message                                                                          |
+| guild_id?          | snowflake                                                    | ID of the guild                                                                            |
+| member?            | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
+| emoji              | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
 
 #### Message Reaction Remove
 
@@ -999,7 +1000,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
 | application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
 | details?        | ?string                                                                              | What the player is currently doing                                                                                               |
-| state?          | ?string                                                                              | User's current party status                                                                                                      |
+| state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
 | emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
 | party?          | [party](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
@@ -1009,7 +1010,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
 > info
-> Bots are only able to send `name`, `type`, and optionally `url`.
+> Bot users are only able to set `name`, `state`, `type`, and `url`.
 
 ###### Activity Types
 
@@ -1019,7 +1020,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | 1   | Streaming | Streaming {details} | "Streaming Rocket League"            |
 | 2   | Listening | Listening to {name} | "Listening to Spotify"               |
 | 3   | Watching  | Watching {name}     | "Watching YouTube Together"          |
-| 4   | Custom    | {emoji} {name}      | ":smiley: I am cool"                 |
+| 4   | Custom    | {emoji} {state}     | ":smiley: I am cool"                 |
 | 5   | Competing | Competing in {name} | "Competing in Arena World Champions" |
 
 > info

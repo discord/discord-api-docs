@@ -47,8 +47,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | public_updates_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                     |
 | max_video_channel_users?       | integer                                                                             | the maximum amount of users in a video channel                                                                                                                         |
 | max_stage_video_channel_users? | integer                                                                             | the maximum amount of users in a stage video channel                                                                                                                   |
-| approximate_member_count?      | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                                                |
-| approximate_presence_count?    | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                                    |
+| approximate_member_count?      | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` and `/users/@me/guilds` endpoints when `with_counts` is `true`                       |
+| approximate_presence_count?    | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` and `/users/@me/guilds`  endpoints when `with_counts` is `true`          |
 | welcome_screen?                | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object                            |
 | nsfw_level                     | integer                                                                             | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                                                |
 | stickers?                      | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                  |
@@ -538,6 +538,7 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
 | default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
+| mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
 
 ###### Onboarding Prompt Structure
 
@@ -561,6 +562,15 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | emoji       | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option                                               |
 | title       | string                                             | Title of the option                                               |
 | description | ?string                                            | Description of the option                                         |
+
+###### Onboarding Mode
+
+Defines the criteria used to satisfy Onboarding constraints that are required for enabling.
+
+| Name                | Value | Description                                               |
+| ------------------- | ----- | --------------------------------------------------------- |
+| ONBOARDING_DEFAULT  | 0     | Counts only Default Channels towards constraints          |
+| ONBOARDING_ADVANCED | 1     | Counts Default Channels and Questions towards constraints |
 
 ###### Prompt Types
 
@@ -630,8 +640,6 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 ### Membership Screening Object
 
 In guilds with [Membership Screening](https://support.discord.com/hc/en-us/articles/1500000466882) enabled, when a member joins, [Guild Member Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-add) will be emitted but they will initially be restricted from doing any actions in the guild, and `pending` will be true in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object). When the member completes the screening, [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) will be emitted and `pending` will be false.
-
-Giving the member a role will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
 
 > warn
 > We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
@@ -783,7 +791,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
 
-Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. 
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id.
 If the user is not in the guild, then the guild must be [discoverable](#DOCS_RESOURCES_GUILD/guild-object-guild-features).
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
@@ -849,20 +857,21 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | ----------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
 | name                          | string                                                                         | channel name (1-100 characters)                                                                                                                                                 | All                              |
 | type                          | integer                                                                        | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     | All                              |
-| topic                         | string                                                                         | channel topic (0-1024 characters)                                                                                                                                               | Text, Announcement, Forum        |
+| topic                         | string                                                                         | channel topic (0-1024 characters)                                                                                                                                               | Text, Announcement, Forum, Media |
 | bitrate\*                     | integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   | Voice, Stage                     |
 | user_limit                    | integer                                                                        | the user limit of the voice channel                                                                                                                                             | Voice, Stage                     |
-| rate_limit_per_user           | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text, Voice, Stage, Forum        |
+| rate_limit_per_user           | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text, Voice, Stage, Forum, Media |
 | position                      | integer                                                                        | sorting position of the channel                                                                                                                                                 | All                              |
 | permission_overwrites\*\*     | array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             | All                              |
-| parent_id                     | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         | Text, Voice, Announcement, Stage, Forum |
+| parent_id                     | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         | Text, Voice, Announcement, Stage, Forum, Media |
 | nsfw                          | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, Voice, Announcement, Stage, Forum |
 | rtc_region                    | string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id of the voice or stage channel, automatic when set to null                                                  | Voice, Stage                     |
 | video_quality_mode            | integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice, Stage                     |
-| default_auto_archive_duration | integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, Announcement, Forum        |
-| default_reaction_emoji        | [default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                 | Forum                            |
-| available_tags                | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects               | set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                         | Forum                            |
-| default_sort_order            | integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                            | Forum                            |
+| default_auto_archive_duration | integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, Announcement, Forum, Media |
+| default_reaction_emoji        | [default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | emoji to show in the add reaction button on a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                              | Forum, Media                     |
+| available_tags                | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects               | set of tags that can be used in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                                      | Forum, Media                     |
+| default_sort_order            | integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels                          | Forum, Media                     |
+| default_forum_layout          | integer                                                                        | the [default forum layout view](#DOCS_RESOURCES_CHANNEL/channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels                                      | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -879,12 +888,12 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field            | Type       | Description                                                                      |
-| ---------------- | ---------- | -------------------------------------------------------------------------------- |
-| id               | snowflake  | channel id                                                                       |
-| position         | ?integer   | sorting position of the channel                                                  |
-| lock_permissions | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
-| parent_id        | ?snowflake | the new parent ID for the channel that is moved                                  |
+| Field             | Type       | Description                                                                      |
+| ----------------- | ---------- | -------------------------------------------------------------------------------- |
+| id                | snowflake  | channel id                                                                       |
+| position?         | ?integer   | sorting position of the channel                                                  |
+| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
+| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                  |
 
 ## List Active Guild Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
 
@@ -954,8 +963,6 @@ For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screenin
 | mute         | boolean             | whether the user is muted in voice channels                                                                              | MUTE_MEMBERS     |
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
 
-> warn
-> For guilds with Membership Screening enabled, assigning a role using the `roles` parameter will add the user to the guild as a full member (`pending` is false in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object)). A member with a role will bypass membership screening and the guild's verification level, and get immediate access to chat. Therefore, instead of assigning a role when the member joins, it is recommended to grant roles only after the user completes screening.
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -1208,7 +1215,7 @@ Returns a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-ob
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object.
+Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1278,6 +1285,25 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 ## Get Guild Onboarding % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
 
 Returns the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
+
+## Modify Guild Onboarding % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
+
+Modifies the onboarding configuration of the guild. Returns a 200 with the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild. Requires the `MANAGE_GUILD` and `MANAGE_ROLES` permissions.
+
+> info
+> Onboarding enforces constraints when enabled. These constraints are that there must be at least 7 Default Channels and at least 5 of them must allow sending messages to the @everyone role. The `mode` field modifies what is considered when enforcing these constraints.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params
+
+| Field               | Type                                                                                                            | Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| prompts             | array of [onboarding prompt](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure) objects | Prompts shown during onboarding and in customize community |
+| default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
+| enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
+| mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
