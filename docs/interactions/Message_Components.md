@@ -15,7 +15,7 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 ###### Component Types
 
 | Type | Name               | Description                                       |
-| ---- | ------------------ | ------------------------------------------------- |
+|------|--------------------|---------------------------------------------------|
 | 1    | Action Row         | Container for other components                    |
 | 2    | Button             | Button object                                     |
 | 3    | String Select      | Select menu for picking from defined text options |
@@ -91,7 +91,7 @@ Buttons are interactive components that render in messages. They can be clicked 
 ###### Button Structure
 
 | Field      | Type                                                | Description                                                                         |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
+|------------|-----------------------------------------------------|-------------------------------------------------------------------------------------|
 | type       | integer                                             | `2` for a button                                                                    |
 | style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
 | label?     | string                                              | Text that appears on the button; max 80 characters                                  |
@@ -109,7 +109,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 ###### Button Styles
 
 | Name      | Value | Color                    | Required Field |
-| --------- | ----- | ------------------------ | -------------- |
+|-----------|-------|--------------------------|----------------|
 | Primary   | 1     | blurple                  | `custom_id`    |
 | Secondary | 2     | grey                     | `custom_id`    |
 | Success   | 3     | green                    | `custom_id`    |
@@ -276,7 +276,7 @@ The payloads for the select menu components are detailed in the [select menu str
 ###### Select Menu Structure
 
 | Field              | Type                                                                                                        | Description                                                                                                                                                                |
-| ------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type               | integer                                                                                                     | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
 | custom_id          | string                                                                                                      | ID for the select menu; max 100 characters                                                                                                                                 |
 | options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
@@ -293,7 +293,7 @@ The payloads for the select menu components are detailed in the [select menu str
 ###### Select Option Structure
 
 | Field        | Type                                                       | Description                                              |
-| ------------ | ---------------------------------------------------------- | -------------------------------------------------------- |
+|--------------|------------------------------------------------------------|----------------------------------------------------------|
 | label        | string                                                     | User-facing name of the option; max 100 characters       |
 | value        | string                                                     | Dev-defined value of the option; max 100 characters      |
 | description? | string                                                     | Additional description of the option; max 100 characters |
@@ -491,7 +491,7 @@ When defining a text input component, you can set attributes to customize the be
 ###### Text Input Structure
 
 | Field        | Type    | Description                                                                                 |
-| ------------ | ------- | ------------------------------------------------------------------------------------------- |
+|--------------|---------|---------------------------------------------------------------------------------------------|
 | type         | integer | `4` for a text input                                                                        |
 | custom_id    | string  | Developer-defined identifier for the input; max 100 characters                              |
 | style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-styles) |
@@ -505,7 +505,7 @@ When defining a text input component, you can set attributes to customize the be
 ###### Text Input Styles
 
 | Name      | Value | Description       |
-| --------- | ----- | ----------------- |
+|-----------|-------|-------------------|
 | Short     | 1     | Single-line input |
 | Paragraph | 2     | Multi-line input  |
 

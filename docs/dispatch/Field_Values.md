@@ -8,7 +8,7 @@
 ###### Platform Values
 
 | Platform |
-| -------- |
+|----------|
 | macos    |
 | win32    |
 | win64    |
@@ -17,7 +17,7 @@
 ###### Redistributable values
 
 | Redistributable            |
-| -------------------------- |
+|----------------------------|
 | directx_june_2010          |
 | vcredist_2005_x86          |
 | vcredist_2008_sp1_x86      |
@@ -36,7 +36,7 @@
 ###### Cloud Save Path Replacements
 
 | value            | Windows path                                                                        | macOS path                    | linux path          |
-| ---------------- | ----------------------------------------------------------------------------------- | ----------------------------- | ------------------- |
+|------------------|-------------------------------------------------------------------------------------|-------------------------------|---------------------|
 | \${HOME}         | %USERPROFILE%                                                                       | ~/                            | ~/                  |
 | \${DOCUMENTS}    | %USERPROFILE%\Documents                                                             | ~/Documents                   | \$XDG_DOCUMENTS_DIR |
 | \${DATA}         | %USERPROFILE%\AppData\Roaming                                                       | ~/Library/Application Support | \$XDG_DATA_HOME     |

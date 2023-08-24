@@ -15,14 +15,14 @@ If you want people playing your game to be able to talk with each other, this Vo
 ###### InputModeType Enum
 
 | name          | value |
-| ------------- | ----- |
+|---------------|-------|
 | VoiceActivity | 0     |
 | PushToTalk    | 1     |
 
 ###### InputMode Struct
 
 | name     | type          | description                                   |
-| -------- | ------------- | --------------------------------------------- |
+|----------|---------------|-----------------------------------------------|
 | Type     | InputModeType | set either VAD or PTT as the voice input mode |
 | Shortcut | string        | the PTT hotkey for the user                   |
 
@@ -31,7 +31,7 @@ If you want people playing your game to be able to talk with each other, this Vo
 Keys can be mapped as a combination by adding a "+" between values, such as `"shift + 4"` or `"ctrl + v"`.
 
 | key type      | value                                                     |
-| ------------- | --------------------------------------------------------- |
+|---------------|-----------------------------------------------------------|
 | Alphabetical  | "a", "b", "c", etc.                                       |
 | Numerical     | "1", "2", "3", etc.                                       |
 | Symbols       | "-", "+", ".", "/", etc.                                  |
@@ -95,7 +95,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name      | type      | description                     |
-| --------- | --------- | ------------------------------- |
+|-----------|-----------|---------------------------------|
 | inputMode | InputMode | the new input mode for the user |
 
 ###### Example
@@ -145,7 +145,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type | description                     |
-| ---- | ---- | ------------------------------- |
+|------|------|---------------------------------|
 | mute | bool | true for mute, false for unmute |
 
 ###### Example
@@ -188,7 +188,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type | description                     |
-| ---- | ---- | ------------------------------- |
+|------|------|---------------------------------|
 | deaf | bool | true for mute, false for unmute |
 
 ###### Example
@@ -211,7 +211,7 @@ Returns `bool`.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to check |
 
 ###### Example
@@ -233,7 +233,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type  | description                     |
-| ------ | ----- | ------------------------------- |
+|--------|-------|---------------------------------|
 | userId | Int64 | the id of the user to mute      |
 | mute   | bool  | true for mute, false for unmute |
 
@@ -257,7 +257,7 @@ Returns `byte`.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to check |
 
 ###### Example
@@ -277,7 +277,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type  | description                                       |
-| ------ | ----- | ------------------------------------------------- |
+|--------|-------|---------------------------------------------------|
 | userId | Int64 | the id of the user to change                      |
 | volume | byte  | the volume at which to set the user, `0` to `200` |
 

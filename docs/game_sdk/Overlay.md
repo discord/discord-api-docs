@@ -17,7 +17,7 @@ Discord comes with an awesome built-in overlay, and you may want to make use of 
 ###### ActivityActionType Enum
 
 | name     | value |
-| -------- | ----- |
+|----------|-------|
 | Join     | 1     |
 | Spectate | 2     |
 
@@ -69,7 +69,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name   | type | description                |
-| ------ | ---- | -------------------------- |
+|--------|------|----------------------------|
 | locked | bool | lock or unlock the overlay |
 
 ###### Example
@@ -90,7 +90,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name | type               | description                 |
-| ---- | ------------------ | --------------------------- |
+|------|--------------------|-----------------------------|
 | type | ActivityActionType | what type of invite to send |
 
 ###### Example
@@ -114,7 +114,7 @@ Returns a `Discord.Result` via callback. Note that a successful `Discord.Result`
 ###### Parameters
 
 | name | type   | description                |
-| ---- | ------ | -------------------------- |
+|------|--------|----------------------------|
 | code | string | an invite code for a guild |
 
 ###### Example
@@ -164,7 +164,7 @@ Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 ###### Parameters
 
 | name   | type | description                           |
-| ------ | ---- | ------------------------------------- |
+|--------|------|---------------------------------------|
 | locked | bool | is the overlay now locked or unlocked |
 
 ###### Example
