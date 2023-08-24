@@ -13,7 +13,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 ###### Discord Libraries
 
 | Name                                                          | Language   |
-| ------------------------------------------------------------- | ---------- |
+|---------------------------------------------------------------|------------|
 | [Discord.Net](https://github.com/discord-net/Discord.Net)     | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)        | C#         |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)            | Go         |
@@ -106,7 +106,7 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 
 If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
 
-| Name                                                                   | Language   |
-| ---------------------------------------------------------------------- | ---------- |
-| [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
-| [discord-api-types](https://github.com/discordjs/discord-api-types)    | JavaScript |
+| Name                                                                | Language   |
+|---------------------------------------------------------------------|------------|
+| [dasgo](https://github.com/switchupcb/dasgo)                        | Go         |
+| [discord-api-types](https://github.com/discordjs/discord-api-types) | JavaScript |

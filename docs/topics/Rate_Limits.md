@@ -42,12 +42,12 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 
 ###### Rate Limit Response Structure
 
-| Field       | Type             | Description                                                                 |
-|-------------|------------------|-----------------------------------------------------------------------------|
-| message     | string           | A message saying you are being rate limited.                                |
-| retry_after | float            | The number of seconds to wait before submitting another request.            |
-| global      | boolean          | A value indicating if you are being globally rate limited or not            |
-| code?       | integer          | An [error code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json) for some limits |
+| Field       | Type    | Description                                                                 |
+|-------------|---------|-----------------------------------------------------------------------------|
+| message     | string  | A message saying you are being rate limited.                                |
+| retry_after | float   | The number of seconds to wait before submitting another request.            |
+| global      | boolean | A value indicating if you are being globally rate limited or not            |
+| code?       | integer | An [error code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json) for some limits |
 
 Note that normal route rate-limiting headers will also be sent in this response. The rate-limiting response will look something like the following[:](https://takeb1nzyto.space/)
 

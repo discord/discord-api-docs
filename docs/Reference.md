@@ -17,16 +17,16 @@ Discord exposes different versions of our API[.](https://c.tenor.com/BuZl66Eegkg
 
 ###### API Versions
 
-| Version | Status                           | Default |
-| ------- | -------------------------------- | ------- |
-| 10      | Available                        |         |
-| 9       | Available                        |         |
-| 8       | Deprecated                       |         |
-| 7       | Deprecated                       |         |
-| 6       | Deprecated                       | ✓       |
-| 5       | Discontinued                     |         |
-| 4       | Discontinued                     |         |
-| 3       | Discontinued                     |         |
+| Version | Status       | Default |
+|---------|--------------|---------|
+| 10      | Available    |         |
+| 9       | Available    |         |
+| 8       | Deprecated   |         |
+| 7       | Deprecated   |         |
+| 6       | Deprecated   | ✓       |
+| 5       | Discontinued |         |
+| 4       | Discontinued |         |
+| 3       | Discontinued |         |
 
 ## Error Messages
 
@@ -138,7 +138,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowfl
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
+|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -203,7 +203,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-| ---------------------------- | ------- |
+|------------------------------|---------|
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -278,7 +278,7 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 ###### Timestamp Styles
 
 | Style | Example Output               | Description     |
-| ----- | ---------------------------- | --------------- |
+|-------|------------------------------|-----------------|
 | t     | 16:20                        | Short Time      |
 | T     | 16:20:30                     | Long Time       |
 | d     | 20/04/2021                   | Short Date      |
@@ -312,7 +312,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name   | Extension   |
-| ------ | ----------- |
+|--------|-------------|
 | JPEG   | .jpg, .jpeg |
 | PNG    | .png        |
 | WebP   | .webp       |
@@ -322,14 +322,14 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### CDN Endpoints
 
 | Type                        | Path                                                                                                                                                                                                                                                              | Supports             |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | Custom Emoji                | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
 | Guild Icon                  | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
 | Guild Splash                | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
 | Guild Discovery Splash      | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
 | Guild Banner                | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                  | PNG, JPEG, WebP, GIF |
 | User Banner                 | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Default User Avatar         | embed/avatars/[index](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
+| Default User Avatar         | embed/avatars/[index](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                                           | PNG                  |
 | User Avatar                 | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
 | Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
 | User Avatar Decoration      | avatar-decorations/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar_decoration](#DOCS_RESOURCES_USER/user-object).png                                                                                                                                     | PNG                  |
@@ -337,7 +337,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
 | Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
 | Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
-| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                       | PNG, JPEG, WebP      |
+| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                        | PNG, JPEG, WebP      |
 | Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
 | Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
@@ -465,7 +465,7 @@ For example:
 ## Locales
 
 | Locale | Language Name         | Native Name         |
-| ------ | --------------------- | ------------------- |
+|--------|-----------------------|---------------------|
 | id     | Indonesian            | Bahasa Indonesia    |
 | da     | Danish                | Dansk               |
 | de     | German                | Deutsch             |
@@ -491,9 +491,9 @@ For example:
 | bg     | Bulgarian             | български           |
 | ru     | Russian               | Pусский             |
 | uk     | Ukrainian             | Українська          |
-| hi     | Hindi                 | हिन्दी                 |
+| hi     | Hindi                 | हिन्दी              |
 | th     | Thai                  | ไทย                 |
 | zh-CN  | Chinese, China        | 中文                |
 | ja     | Japanese              | 日本語              |
 | zh-TW  | Chinese, Taiwan       | 繁體中文            |
-| ko     | Korean                | 한국어              |
+| ko     | Korean                | 한국어                 |

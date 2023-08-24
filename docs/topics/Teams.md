@@ -39,7 +39,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 ###### Team Member Role Types
 
 | Role Name | Value     | Description                                                                                                                                                                                                                                                                                                                                       |
-| --------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Owner     | owner     | Owners are the most permissiable role, and can take destructive, irreversible actions like deleting team-owned apps or the team itself. Teams are limited to 1 owner.                                                                                                                                                                             |
 | Admin     | admin     | Admins have similar access as owners, except they cannot take destructive actions on the team or team-owned apps.                                                                                                                                                                                                                                 |
 | Developer | developer | Developers can access information about team-owned apps, like the client secret or public key. They can also take limited actions on team-owned apps, like configuring interaction endpoints or resetting the bot token. Members with the Developer role *cannot* manage the team or its members, or take destructive actions on team-owned apps. |
@@ -51,7 +51,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 ###### Team Object
 
 | field         | type                                                                              | description                          |
-| ------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
+|---------------|-----------------------------------------------------------------------------------|--------------------------------------|
 | icon          | ?string                                                                           | Hash of the image of the team's icon |
 | id            | snowflake                                                                         | Unique ID of the team                |
 | members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | Members of the team                  |
@@ -61,7 +61,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 ###### Team Member Object
 
 | field            | type                                                    | description                                                                                 |
-| ---------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | membership_state | integer                                                 | User's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
 | team_id          | snowflake                                               | ID of the parent team of which they are a member                                            |
 | user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | Avatar, discriminator, ID, and username of the user                                         |
@@ -71,6 +71,6 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 ###### Membership State Enum
 
 | name     | value |
-| -------- | ----- |
+|----------|-------|
 | INVITED  | 1     |
 | ACCEPTED | 2     |
