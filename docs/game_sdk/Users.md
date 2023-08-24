@@ -10,7 +10,7 @@ This manager helps retrieve basic user information for any user on Discord.
 ###### User Struct
 
 | name          | type   | description                   |
-| ------------- | ------ | ----------------------------- |
+|---------------|--------|-------------------------------|
 | Id            | Int64  | the user's id                 |
 | Username      | string | their name                    |
 | Discriminator | string | the user's unique discrim     |
@@ -20,7 +20,7 @@ This manager helps retrieve basic user information for any user on Discord.
 ###### UserFlag Enum
 
 | name            | value | description                  |
-| --------------- | ----- | ---------------------------- |
+|-----------------|-------|------------------------------|
 | Partner         | 2     | Discord Partner              |
 | HypeSquadEvents | 4     | HypeSquad Events participant |
 | HypeSquadHouse1 | 64    | House Bravery                |
@@ -30,7 +30,7 @@ This manager helps retrieve basic user information for any user on Discord.
 ###### PremiumType Enum
 
 | name  | value | description              |
-| ----- | ----- | ------------------------ |
+|-------|-------|--------------------------|
 | None  | 0     | Not a Nitro subscriber   |
 | Tier1 | 1     | Nitro Classic subscriber |
 | Tier2 | 2     | Nitro subscriber         |
@@ -65,7 +65,7 @@ Returns a `Discord.Result` and `ref Discord.User` via callback.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to fetch |
 
 ###### Example
@@ -120,7 +120,7 @@ Returns `bool`.
 ###### Parameters
 
 | name | type                                                       | description                             |
-| ---- | ---------------------------------------------------------- | --------------------------------------- |
+|------|------------------------------------------------------------|-----------------------------------------|
 | flag | [UserFlag](#DOCS_GAME_SDK_USERS/data-models-userflag-enum) | the flag to check on the user's account |
 
 ###### Example
