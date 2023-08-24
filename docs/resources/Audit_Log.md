@@ -148,6 +148,7 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | message_id                        | snowflake | ID of the message that was targeted                              | MESSAGE_PIN & MESSAGE_UNPIN                                                                                                                                                                                                                        |
 | role_name                         | string    | Name of the role if type is `"0"` (not present if type is `"1"`) | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                                                                                                                                     |
 | type                              | string    | Type of overwritten entity - role (`"0"`) or member (`"1"`)      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                                                                                                                                     |
+| integration_type                  | string    | The type of integration which performed the action               | MEMBER_KICK & MEMBER_ROLE_UPDATE                                                                                                                                                                                                                   |
 
 ### Audit Log Change Object
 
@@ -169,7 +170,7 @@ Some events don't follow the same pattern as other audit log events. Details abo
 
 ###### Audit Log Change Exceptions
 
-For most objects, the change keys may be any field on the changed object. The following table details the exceptions to this pattern. 
+For most objects, the change keys may be any field on the changed object. The following table details the exceptions to this pattern.
 
 | Object Changed                                                                                                                                 | Change Key Exceptions                                          | Change Object Exceptions                                                                                                                                                                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
