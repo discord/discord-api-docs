@@ -1,14 +1,14 @@
 # Teams
 
-Teams are groups of developers or other Discord users who want to share access to an app's configuration, management, and payout settings. Since users added to a team have access to any apps that team owns, use caution when adding new team members.
+Teams are groups of developers (or other Discord users) who want to collaborate and share access to an app's configuration, management, and payout settings. Go team(s)!
 
 ## Creating a Team
 
 To create or be a member on a team, you must [enable 2FA for your Discord account](https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Two-Factor-Authentication). After you have 2FA enabled, create a team by navigating to the [Teams page](https://discord.com/developers/teams) then clicking the "New Team" button.
 
-![Screenshot of the initial landing page for viewing teams that you are a part of](team-page.png)
+![Screenshot of the Teams page](team-page.png)
 
-Once you create a team, you'll land on the **Team Information** page where you can fill out details and start inviting other Discord users to join your team.
+Once you create a team, you'll land on the **Team Information** page where you can fill out details and start inviting other Discord users to join your team. Since users added to a team have access to any apps that team owns, use caution when adding new team members.
 
 > info
 > Currently, only the team Owner can invite or remove additional users.
@@ -21,22 +21,22 @@ Once your team is set up, you can create or transfer apps that will be owned by 
 
 To create a new app that belongs to a team, select the team from the **Team** dropdown in the app creation modal. If you want to keep the app under your own account's ownership, choose `Personal`:
 
-![Screenshot of the Team Application creation modal](team-make-app.png)
+![Screenshot of the create application modal with a Team selected](create-team-owned-app.png)
 
 ### Transfering an App
+
+To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's **General Information** page, click "Transfer App to Team".
 
 > danger
 > Once an app has been transferred to a team, it _cannot_ be transferred back.
 
-To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's **General Information** page, click "Transfer App to Team".
-
 ![Screenshot of where to find the button to transfer an Application to a team](transfer-app-to-team.png)
 
-## Team Roles
+## Team Member Roles
 
 Team members can be one of four roles (owner, admin, developer, and read-only), and each role inherits the access of those below it. Roles for team members can be configured under **Team Members** in a team's settings.
 
-###### Team Member Roles
+###### Team Member Role Types
 
 | Role Name | Value     | Description                                                                                                                                                                                                                                                                                        |
 | --------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -65,7 +65,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 | membership_state | integer                                                 | User's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
 | team_id          | snowflake                                               | ID of the parent team of which they are a member                                            |
 | user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | Avatar, discriminator, ID, and username of the user                                         |
-| role             | string                                                  | [Role](#DOCS_TOPICS_TEAMS/team-roles) of the team member                                    |
+| role             | string                                                  | [Role](#DOCS_TOPICS_TEAMS/team-member-roles-team-member-role-types) of the team member                                    |
 
 
 ###### Membership State Enum
