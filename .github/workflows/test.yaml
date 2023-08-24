@@ -25,6 +25,21 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+  markdown_tables:
+    name: Check Markdown Tables
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - name: Check Markdown Tables
+        run: npx markdown-table-formatter docs/resources/**.md --check
+
   links:
     name: Check Links
     runs-on: ubuntu-latest
