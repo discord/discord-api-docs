@@ -38,8 +38,11 @@ jobs:
           node-version: 16
           cache: npm
       - name: Check Markdown Tables
-        run: npx markdown-table-formatter docs/**/*.{md,mdx} --check
-
+        run: |
+          shopt -s globstar
+          npx markdown-table-formatter docs/**/*.{md,mdx} --check
+        shell: bash
+        
   links:
     name: Check Links
     runs-on: ubuntu-latest
