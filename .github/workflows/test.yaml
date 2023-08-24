@@ -38,7 +38,7 @@ jobs:
           node-version: 16
           cache: npm
       - name: Check Markdown Tables
-        run: npx markdown-table-formatter docs/resources/**.md --check
+        run: npx markdown-table-formatter docs/**/*.{md,mdx} --check
 
   links:
     name: Check Links
