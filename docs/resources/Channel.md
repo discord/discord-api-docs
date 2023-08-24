@@ -389,11 +389,16 @@ Represents a message sent in a channel within Discord.
   "reactions": [
     {
       "count": 1,
+      "count_details": {
+         "burst": 0,
+         "normal": 1
+      },
       "me": false,
       "emoji": {
-        "id": null,
-        "name": "🔥"
-      }
+         "id": null,
+         "name": "🔥"
+      },
+      "burst_colors": []
     }
   ],
   "attachments": [],
@@ -425,11 +430,17 @@ Represents a message sent in a channel within Discord.
   "reactions": [
     {
       "count": 1,
+      "count_details": {
+         "burst": 0,
+         "normal": 1
+      },
       "me": false,
+      "me_burst": false,
       "emoji": {
-        "id": null,
-        "name": "🔥"
-      }
+         "id": null,
+         "name": "🔥"
+      },
+      "burst_colors": []
     }
   ],
   "attachments": [],
@@ -544,11 +555,25 @@ The encoding, and the waveform details, are an implementation detail and may cha
 
 ###### Reaction Structure
 
-| Field | Type                                                       | Description                                       |
-| ----- | ---------------------------------------------------------- | ------------------------------------------------- |
-| count | integer                                                    | times this emoji has been used to react           |
-| me    | boolean                                                    | whether the current user reacted using this emoji |
-| emoji | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | emoji information                                 |
+| Field         | Type                                                       | Description                                                                            |
+| ------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| count         | integer                                                    | Total number of times this emoji has been used to react (including super reacts)       |
+| count_details | object                                                     | [Reaction count details object](#DOCS_RESOURCES_CHANNEL/reaction-count-details-object) |
+| me            | boolean                                                    | Whether the current user reacted using this emoji                                      |
+| me_burst      | boolean                                                    | Whether the current user super-reacted using this emoji                                |
+| emoji         | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | emoji information                                                                      |
+| burst_colors  | array                                                      | HEX colors used for super reaction                                                     |
+
+### Reaction Count Details Object
+
+The reaction count details object contains a breakdown of normal and super reaction counts for the associated emoji.
+
+###### Reaction Count Details Structure
+
+| Field  | Type      | Description                   |
+| ------ | --------- | ----------------------------- |
+| burst  | integer   | Count of super reactions      |
+| normal | integer   | Count of normal reactions     |
 
 ### Overwrite Object
 
