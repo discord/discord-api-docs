@@ -459,7 +459,7 @@ A sample `data` object (a subset of the interaction payload) for a channel selec
 
 Text inputs are an interactive component that render in modals. They can be used to collect short-form or long-form text.
 
-When defining a text input component, you can set attributes to customize your component that are not returned in the [text input interaction payload](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-interaction). These can be used to customize whether the text input is required and how it is visually displayed to users.
+When defining a text input component, you can set attributes to customize the behavior and appearance of it. However, not all attributes will be returned in the [text input interaction payload](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-interaction).
 
 ![A text input in a modal on desktop client](modal-desktop.png)
 
