@@ -45,7 +45,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 | Developer | developer | Developers can access information about team-owned apps, like the client secret or public key. They can also take limited actions on team-owned apps, like configuring interaction endpoints or resetting the bot token. Members with the Developer role *cannot* manage the team or its members, or take destructive actions on team-owned apps. |
 | Read-only | read_only | Read-only members can access information about a team and any team-owned apps. Some examples include getting the IDs of applications and exporting payout records.                                                                                                                                                                                |
 
-\* The Owner role is not represented in the `role` field on team members. The `owner_user_id` field is used instead.
+\* The owner role is not represented in the `role` field on the [team member object](#DOCS_TOPICS_TEAMS/data-models-team-member-object). Instead, the `owner_user_id` field  on the [team object](#DOCS_TOPICS_TEAMS/data-models-team-object) should be used to identify which user has the owner role for the team.
 
 
 ## Data Models
