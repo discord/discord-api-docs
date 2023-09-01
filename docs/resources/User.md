@@ -118,9 +118,9 @@ The connection object that the user has attached.
 |-----------------|---------------------|
 | battlenet       | Battle.net          |
 | bungie          | Bungie.net          |
+| domain          | Domain              |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
-| domain          | Domain              |
 | facebook        | Facebook            |
 | github          | GitHub              |
 | instagram       | Instagram           |
