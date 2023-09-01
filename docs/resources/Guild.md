@@ -58,6 +58,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | stickers?                      | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                  | custom guild stickers                                                                                                                                                                       |
 | premium_progress_bar_enabled   | boolean                                                                             | whether the guild has the boost progress bar enabled                                                                                                                                        |
 | safety_alerts_channel_id       | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                                                    |
+| incidents_data                 | ?[incidents data](#DOCS_RESOURCES_GUILD/incidents-data-object) object               | the incidents data for this guild                                                                                                                                                           |
 
 \* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
@@ -664,6 +665,26 @@ In guilds with [Membership Screening](https://support.discord.com/hc/en-us/artic
 > warn
 > We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
 
+### Incidents Data Object
+
+###### Incidents Data Structure
+
+| Field                  | Type               | Description                            |
+|------------------------|--------------------|----------------------------------------|
+| invites_disabled_until | ?ISO8601 timestamp | when invites get enabled again         |
+| dms_disabled_until     | ?ISO8601 timestamp | when direct messages get enabled again |
+| dm_spam_detected_at    | ?ISO8601 timestamp | when the dm spam was detected at       |
+| raid_detected_at       | ?ISO8601 timestamp | when the raid was detected at          |
+
+###### Example Incidents Data
+
+```json
+{
+  "invites_disabled_until": "2023-09-01T14:48:02.222000+00:00",
+  "dms_disabled_until": null
+}
+```
+
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) Gateway event.
@@ -1063,11 +1084,11 @@ Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users 
 
 ###### Query String Params
 
-| Field     | Type      | Description                                    | Default |
-|-----------|-----------|------------------------------------------------|---------|
-| limit?    | number    | number of users to return (up to maximum 1000) | 1000    |
-| before? * | snowflake | consider only users before given user id       | null    |
-| after? *  | snowflake | consider only users after given user id        | null    |
+| Field      | Type      | Description                                    | Default |
+|------------|-----------|------------------------------------------------|---------|
+| limit?     | number    | number of users to return (up to maximum 1000) | 1000    |
+| before? \* | snowflake | consider only users before given user id       | null    |
+| after? \*  | snowflake | consider only users after given user id        | null    |
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user.id`. If both `before` and `after` are provided, only `before` is respected.
 
@@ -1355,3 +1376,19 @@ Modifies the onboarding configuration of the guild. Returns a 200 with the [Onbo
 | default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
 | mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
+
+## Modify Guild Incident Actions % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/incident-actions
+
+Modifies the incident actions of the guild. Returns a 200 with the [Incidents Data](#DOCS_RESOURCES_GUILD/incidents-data-object) object for the guild. Requires the `MANAGE_GUILD` permission.
+
+###### JSON Params
+
+> info
+> Both `invites_disabled_until` and `dms_disabled_until` can be disabled for a maximal timespan of 24 hours in the future.
+
+| Field                   | Type                  | Description                                  |
+|-------------------------|-----------------------|----------------------------------------------|
+| invites_disabled_until? | ?ISO8601 timestamp \* | when invites should be enabled again         |
+| dms_disabled_until?     | ?ISO8601 timestamp \* | when direct messages should be enabled again |
+
+\* Supplying `null` disables the action.
