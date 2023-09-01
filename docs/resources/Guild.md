@@ -1402,7 +1402,7 @@ There are currently several caveats for this endpoint:
 
 ## Modify Guild Incident Actions % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/incident-actions
 
-Modifies the incident actions of the guild. Returns a 200 with the [Incidents Data](#DOCS_RESOURCES_GUILD/incidents-data-object) object for the guild.
+Modifies the incident actions of the guild. Returns a 200 with the [Incidents Data](#DOCS_RESOURCES_GUILD/incidents-data-object) object for the guild. Requires the `MANAGE_GUILD` permission.
 
 ###### JSON Params
 
