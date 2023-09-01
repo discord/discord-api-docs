@@ -120,6 +120,7 @@ The connection object that the user has attached.
 | bungie          | Bungie.net          |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
+| domain          | Domain              |
 | facebook        | Facebook            |
 | github          | GitHub              |
 | instagram       | Instagram           |
