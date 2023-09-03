@@ -477,6 +477,16 @@ This event may reference roles or guild members that no longer exist in the guil
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
+#### Voice Channel Status Update
+
+Sent when the voice channel status changes.
+
+| Field    | Type      | Description                  |
+|----------|-----------|------------------------------|
+| id       | snowflake | The channel id               |
+| guild_id | snowflake | The guild id                 |
+| status   | ?string   | The new voice channel status |
+
 #### Thread Create
 
 Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
