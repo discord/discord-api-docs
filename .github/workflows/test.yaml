@@ -7,44 +7,44 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v4
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: npm
-      run: npm ci
-      run: npm run lint
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
   markdownlint:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v4
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: npm
-      run: npm ci
-      run: npm run markdownlint
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      - run: npm run markdownlint
   links:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v4
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: npm
-      run: npm ci
-      run: npm run build
-      run: npm run test:links
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:links
   markdown_tables:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v4
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: npm
-      run: npm ci
-      run: |
-        shopt -s globstar
-        npx markdown-table-formatter docs/**/*.{md,mdx} --check
-      shell: bash
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      - run: |
+          shopt -s globstar
+          npx markdown-table-formatter docs/**/*.{md,mdx} --check
+        shell: bash
