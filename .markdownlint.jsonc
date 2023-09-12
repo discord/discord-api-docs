@@ -1,0 +1,27 @@
+{
+	"default": true,
+	"MD001": false, // heading-increment/header-increment - Heading levels should only increment by one level at a time
+	"MD004": false, // ul-style - Unordered list style
+	"MD007": false, // ul-indent - Unordered list indentation
+	"MD009": false, // no-trailing-spaces - Trailing spaces
+	"MD010": false, // no-hard-tabs - Hard tabs
+	"MD012": false, // no-multiple-blanks - Multiple consecutive blank lines
+	"MD013": false, // line-length - Line length
+	"MD014": false, // commands-show-output - Dollar signs used before commands without showing output
+	"MD022": false, // blanks-around-headings/blanks-around-headers - Headings should be surrounded by blank lines
+	"MD024": false, // no-duplicate-heading/no-duplicate-header - Multiple headings with the same content
+	"MD025": false, // single-title/single-h1 - Multiple top-level headings in the same document
+	"MD026": false, // no-trailing-punctuation - Trailing punctuation in heading
+	"MD028": false, // no-blanks-blockquote - Blank line inside blockquote
+	"MD030": false, // list-marker-space - Spaces after list markers
+	"MD031": false, // blanks-around-fences - Fenced code blocks should be surrounded by blank lines
+	"MD032": false, // blanks-around-lists - Lists should be surrounded by blank lines
+	"MD034": false, // no-bare-urls - Bare URL used
+	"MD036": false, // no-emphasis-as-heading/no-emphasis-as-header - Emphasis used instead of a heading
+	"MD038": false, // no-space-in-code - Spaces inside code span elements
+	"MD040": false, // fenced-code-language - Fenced code blocks should have a language specified
+	"MD041": false, // first-line-heading/first-line-h1 - First line in a file should be a top-level heading
+	"MD047": false, // single-trailing-newline - Files should end with a single newline character
+	"MD049": false, // emphasis-style - Emphasis style should be consistent
+	"MD051": false // link-fragments - Link fragments should be valid
+}
