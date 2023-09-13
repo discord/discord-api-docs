@@ -36,6 +36,6 @@
 		"eslint-plugin-prettier": "^4.0.0",
 		"markdown-table-formatter": "^1.4.0",
 		"prettier": "^2.4.1",
-		"typescript": "^4.4.3"
+		"typescript": "^5.2.2"
 	}
 }
