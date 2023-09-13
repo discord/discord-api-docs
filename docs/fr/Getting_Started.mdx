@@ -1,0 +1,487 @@
+<LocalePicker currentLocale="fr" />
+
+# Création de ta première application Discord
+
+Les applications Discord te permettent de personnaliser et d'étendre tes serveurs grâce à un ensemble d'API et de fonctions interactives. Ce guide t'aidera à créer ta première application Discord en employant JavaScript, et à la fin, tu disposeras d'une application qui utilise des commandes slash, envoie des messages et répond aux interactions avec des éléments.
+
+Nous allons créer une application Discord qui permet aux membres du serveur de jouer à pierre-feuille-ciseaux (avec 7 choix au lieu des 3 habituels). Ce guide s'adresse aux débutants, mais il nécessite une connaissance des bases de [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+
+<Collapsible title="Ce que nous allons créer" icon="view">
+Voici à quoi ressemblera l'application :
+
+![Démo de l'exemple d'application](getting-started-demo.gif)
+
+Voici le flux utilisateur présenté de manière un peu plus explicite :
+
+1. L'utilisateur 1 lance une nouvelle partie et choisit son objet à l'aide de la commande slash `/defi` de l'application.
+2. Un message est envoyé dans le salon avec un bouton invitant d'autres utilisateurs à relever le défi.
+3. L'utilisateur 2 appuie sur le bouton **Accepter**.
+4. L'utilisateur 2 reçoit un message éphémère qui lui permet de sélectionner l'objet de son choix.
+5. Le résultat de la partie est posté dans le salon d'origine pour que tout le monde puisse le voir.
+</Collapsible>
+
+<Collapsible title="Ressources utilisées dans le cadre de ce guide" description="Vue d'ensemble des outils et technologies que nous allons utiliser" icon="list">
+- **[Dépôt GitHub](https://github.com/discord/discord-example-app)** où est stocké le code de ce guide ainsi que d'autres exemples de code aux fonctionnalités spécifiques.
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, une bibliothèque qui fournit des types et des fonctions d'assistance pour les applications Discord.
+- **[Express](https://expressjs.com)**, une infrastructure Web JavaScript populaire que nous allons utiliser pour créer un serveur où Discord peut nous envoyer les requêtes.
+- **[Glitch](https://glitch.com/)**, un environnement en ligne qui simplifie la création et l'hébergement d'applications pendant les phases initiales de prototypage et de développement. Tu peux aussi développer en local avec un outil tel que **[ngrok](https://ngrok.com/)**.
+</Collapsible>
+
+---
+
+## Étape 1 : création d'une application
+
+Pour commencer, tu dois créer une application sur le portail des développeurs si tu ne l'as pas déjà fait :
+
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Créer une appli</Button>
+
+Saisis un nom pour ton application, puis appuie sur **Créer**.
+
+Une fois ton application créée, tu arrives sur la page **Vue d'ensemble** de ses paramètres, où tu peux mettre à jour des informations de base relatives à ton application, telles que sa description et son icône. Tu y trouves également l'**identifiant de l'application** et l'**URL du point de terminaison des interactions**, qui nous serviront un peu plus loin dans le guide.
+
+### Configuration de ton bot
+
+Maintenant, nous allons configurer l'[utilisateur bot](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) pour ton application, ce qui lui permet d'apparaître et de se comporter de façon semblable aux autres membres du serveur.
+
+Dans l'encadré de gauche, clique sur **Bot**. Depuis cette page, tu peux configurer des paramètres tels que ses [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) ou déterminer si d'autres utilisateurs peuvent l'installer.
+
+<Collapsible title="Que sont les intents ?" description="Introduction aux standard intents et privileged intents" icon="question">
+Les intents déterminent les événements que Discord envoie à ton application lorsque tu crées une [connexion d'API Gateway](#DOCS_TOPICS_GATEWAY). Par exemple, si tu souhaites que ton application fasse quelque chose lorsque des utilisateurs ajoutent une réaction à un message, tu peux utiliser l'intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`).
+
+Certains intents sont [privileged](#DOCS_TOPICS_GATEWAY/privileged-intents), ce qui signifie qu'ils permettent à ton application d'accéder à des données qui peuvent être considérées comme sensibles (comme le contenu des messages). Les privileged intent sont listés et peuvent être activés ou désactivés sur la page **Bot** dans les paramètres de ton application. Les standards intents, quant à eux, ne nécessitent aucune permission ou configuration supplémentaire.
+
+Tu peux obtenir plus d'informations sur les intents ainsi qu'une liste complète des intents disponibles, avec leurs événements associés, en consultant la [documentation de Gateway](#DOCS_TOPICS_GATEWAY/gateway-intents).
+</Collapsible>
+
+![Onglet Bot dans les paramètres de l'application](app-add-bot.png)
+
+Il existe également une section **Token** sur la page **Bot**, qui permet de copier le token de ton bot et de le réinitialiser si besoin.
+
+Les tokens de bot servent à autoriser les requêtes d'API et portent les permissions de ton utilisateur bot, ce qui les rend *hautement sensibles*. Tu ne dois *jamais* partager ton token ou l'inclure dans un système de contrôle de version.
+
+Copie le token et garde-le dans un endroit sûr (par exemple, dans un gestionnaire de mots de passe).
+
+> warn
+> Tu ne pourras plus voir ton token à moins d'en générer un nouveau, alors conserve-le dans un endroit sûr.
+
+### Ajout de champs d'application et de permissions de bot
+
+Les applications doivent être approuvées par les utilisateurs qui les installent afin d'effectuer des actions dans Discord (comme la création d'une commande slash ou la récupération d'une liste des membres du serveur). Sélectionnons quelques champs d'application et permissions à demander avant l'installation de l'application.
+
+<Collapsible title="Que sont les champs d'application et les permissions ?" description="Introduction aux champs d'application et permissions de bot" icon="question">
+Lors de la création d'une application, les champs d'application et permissions déterminent ce que ton application peut faire et ce à quoi elle peut accéder sur les serveurs Discord.
+
+- Les [champs d'application OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) déterminent les accès aux données et actions que ton application peut effectuer. Elles sont accordées au nom de l'utilisateur qui procède à l'installation ou qui s'authentifie.
+- Les [permissions](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) sont les permissions granulaires pour ton utilisateur bot, les mêmes que celles accordées aux autres utilisateurs dans Discord. Elles peuvent être approuvées par l'utilisateur qui procède à l'installation ou mises à jour ultérieurement dans les paramètres du serveur ou à l'aide d'[écrasements de permissions](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
+</Collapsible>
+
+Clique sur **OAuth2** dans l'encadré de gauche, puis sélectionne **générateur d'URL**.
+
+> info
+> Le générateur d'URL crée un lien d'installation en fonction des champs d'application et permissions que tu as sélectionnées pour ton application. Tu peux utiliser ce lien pour installer l'application sur ton propre serveur, ou le partager avec d'autres personnes pour leur permettre de l'installer.
+
+Pour l'instant, ajoute deux champs d'application :
+- `applications.commands` qui permet à ton application de générer des [commandes](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
+- `bot` ajoute ton utilisateur bot. Une fois que tu as sélectionné `bot`, tu peux également sélectionner différentes permissions pour ton bot. Pour l'instant, coche uniquement **Envoyer des messages**.
+
+Tu peux consulter une liste de tous les [champs d'application OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) ou en apprendre davantage sur les [permissions](#DOCS_TOPICS_PERMISSIONS) dans la documentation.
+
+### Installation de ton application
+
+Après avoir ajouté des champs d'application, tu devrais voir apparaître une URL que tu peux copier afin d'installer ton application.
+
+![Capture d'écran du générateur d'URL](url-generator.png)
+
+> info
+> Pendant le développement d'une application, il est conseillé de la développer et de la tester sur un serveur qui n'est pas utilisé par d'autres personnes. Si tu ne disposes pas déjà de ton propre serveur, tu peux en [créer un gratuitement](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+
+Copie l'URL générée précédemment, puis colle-la dans ton navigateur. Tu recevras des explications pour chaque étape du processus d'installation, au cours duquel tu devras vérifier que tu installes ton application sur un serveur qui te permettra de la développer et de la tester.
+
+Une fois ton application installée, tu peux te rendre sur ton serveur pour vérifier qu'elle a bien été intégrée ✨
+
+Maintenant que ton application est configurée et installée, commençons son développement.
+
+---
+
+## Étape 2 : exécution de ton application
+
+L'intégralité du code utilisé dans cet exemple d'application est disponible dans [le dépôt GitHub](https://github.com/discord/discord-example-app).
+
+Pour simplifier un peu le développement, l'application utilise [discord-interactions](https://github.com/discord/discord-interactions-js), qui fournit des types et des fonctions d'assistance. Si tu préfères utiliser d'autres langages ou bibliothèques, tu peux consulter la documentation des [ressources de la communauté](#DOCS_TOPICS_COMMUNITY_RESOURCES).
+
+### Remixage du projet
+
+Ce guide utilise Glitch, qui permet de cloner et de développer depuis ton navigateur. Si tu préfères développer ton application en local, des instructions relatives à l'utilisation de ngrok sont disponibles [dans le LISEZMOI](https://github.com/discord/discord-example-app#running-app-locally).
+
+> info
+> Glitch est un excellent outil de développement et de test, mais [il présente certaines contraintes techniques](https://help.glitch.com/kb/article/17-technical-restrictions/) et il convient donc d'envisager d'autres fournisseurs d'hébergement pour les applications déjà en production.
+
+Pour commencer, **[remixe (ou clone) le projet Glitch 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
+
+Une fois ceci fait, Glitch te redirigera vers un nouveau projet.
+
+<Collapsible title="Interface de projet Glitch" description="Vue d'ensemble de l'interface de projet Glitch" icon="view">
+![Vue d'ensemble de projet Glitch](glitch-project.png)
+
+- Le **nom de projet** est un nom spécifique à ton projet, et se trouve dans le coin supérieur gauche de l'interface.
+- **`.env`** est le fichier dans lequel est stocké l'ensemble de tes informations d'identification pour ton application.
+- Les **Logs** présentent les données de sortie de ton projet, ce qui est utile pour savoir si l'application est en cours d'exécution ou pour obtenir des informations sur les erreurs détectées.
+- Le bouton **Share** dans le coin supérieur droit de l'interface permet d'accéder à l'URL active du projet, dont tu auras besoin pour mettre en place l'interactivité dans la suite de ce guide.
+</Collapsible>
+
+#### Structure du projet
+
+Tous les fichiers du projet se trouvent dans l'encadré de gauche de ton projet Glitch. Voici une vue d'ensemble des principaux dossiers et fichiers :
+
+```
+├── examples    -> exemples d'applications courtes aux fonctionnalités spécifiques
+│   ├── app.js  -> code app.js terminé
+│   ├── button.js
+│   ├── command.js
+│   ├── modal.js
+│   ├── selectMenu.js
+├── .env        -> tes informations d'identification et identifiants
+├── app.js      -> point d'entrée principal de l'application
+├── commands.js -> payloads des commandes slash + fonctions d'assistance
+├── game.js     -> logique spécifique à pierre-feuille-ciseaux
+├── utils.js    -> fonctions utilitaires et énumérations
+├── package.json
+├── README.md
+└── .gitignore
+```
+
+### Ajout d'informations d'identification
+
+Ton fichier `app.js` contient déjà du code, mais tu auras besoin de ton identifiant et de ton token d'application pour effectuer des requêtes. Toutes tes informations d'identification peuvent être stockées directement dans le fichier `.env`.
+
+Tout d'abord, copie le token de l'utilisateur bot que tu as précédemment configuré, et copie-le dans la variable **`DISCORD_TOKEN`** de ton fichier `.env`.
+
+Ensuite, rends-toi sur la page **Vue d'ensemble** de ton application, et copie l'**identifiant de l'application « APP_ID »** ainsi que sa **clé publique « PUBLIC_KEY »**. Colle-les dans les variables **`APP_ID`** et **`PUBLIC_KEY`** de ton fichier `.env`.
+
+Maintenant que tes informations d'identification sont configurées, installons et gérons des commandes slash.
+
+### Installation de commandes slash
+
+> info
+> Pour installer des commandes slash, l'application utilise [`node-fetch`](https://github.com/node-fetch/node-fetch). Tu peux voir l'implémentation pour l'installation dans le fichier `utils.js` à l'intérieur de la fonction `DiscordRequest()`.
+
+Le projet contient un script `register` que tu peux utiliser pour installer les commandes dans la section `ALL_COMMANDS`, qui est définie à la fin du fichier `commands.js`. Il installe les commandes en tant que commandes globales en appelant le point de terminaison [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) de l'API HTTP.
+
+Si tu souhaites personnaliser les commandes ou en ajouter d'autres, tu peux consulter la structure des commandes dans la [documentation des commandes](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure).
+
+Pour exécuter le script `register`, clique sur le bouton **Terminal** en bas de l'interface du projet Glitch et colle la commande suivante :
+
+```
+npm run register
+```
+
+Appuie sur la touche Entrée pour exécuter la commande.
+
+Si tu retournes sur ton serveur, tu devrais voir apparaître les commandes slash. Mais il ne se passera rien si tu essaies de les exécuter, car ton application ne reçoit et ne traite aucune requête de Discord.
+
+<Collapsible title="Quelles sont les API de Discord ?" description="Vue d'ensemble des API HTTP et Gateway de Discord" icon="question">
+Discord propose deux API que tu peux combiner pour créer des applications :
+
+- L'**[API HTTP](#DOCS_REFERENCE/http-api)** est une API similaire à une API REST qui permet d'effectuer des opérations générales telles que l'envoi et la mise à jour de données dans Discord, ou la récupération de données relatives à une ressource.
+- L'**[API Gateway](#DOCS_REFERENCE/gateway-websocket-api)** est une API basée sur WebSocket qui est utile pour maintenir l'état ou suivre les événements qui se produisent sur un serveur Discord. Nous n'utiliserons pas cette API dans ce guide, mais si tu veux en savoir plus sur la création d'une connexion Gateway et sur les différents événements que tu peux suivre, consulte la [documentation de Gateway](#DOCS_TOPICS_GATEWAY).
+</Collapsible>
+
+---
+
+## Étape 3 : gestion de l'interactivité
+
+Pour permettre à ton application de recevoir des requêtes de commande slash (et d'autres interactions), Discord a besoin d'une URL publique pour les envoyer. Cette URL peut être configurée dans les paramètres de ton application en tant qu'**URL de point de terminaison des interactions**.
+
+### Ajout d'une URL de point de terminaison des interactions
+
+Les projets Glitch disposent d'une URL publique exposée par défaut. Pour copier l'URL de ton projet, clique sur le bouton **Share** dans le coin supérieur droit de l'interface, puis copie le lien du projet « Live site » en bas de la fenêtre qui vient de s'ouvrir.
+
+> info
+> Si tu développes en local, tu trouveras des instructions expliquant comment établir un protocole de tunnellisation des requêtes vers ton environnement local [dans le LISEZMOI de GitHub](https://github.com/discord/discord-example-app#running-app-locally).
+
+Une fois le lien copié, va dans les paramètres de ton application depuis [le portail des développeurs](https://discord.com/developers/applications).
+
+Sur la page **Informations générales** de ton application, tu trouveras une option **URL de point de terminaison interactive**. Tu peux y coller l'URL de ton application suivie de `/interactions`, ce qui correspond à l'endroit où l'application Express écoute les requêtes.
+
+![URL de point de terminaison des interactions dans les paramètres de l'application](interactions-url.png)
+
+Clique sur **Sauvegarder les modifications** et assure-toi que la vérification de ton point de terminaison a réussi.
+
+L'exemple d'application gère la vérification de deux façons :
+- Elle utilise la `PUBLIC_KEY` et le [package discord-interactions](https://github.com/discord/discord-interactions-js#usage) avec une fonction wrapper (importée de `utils.js`) qui la rend conforme à l'interface `verify` d'[Express](http://expressjs.com/en/5x/api.html#express.json). Ceci est exécuté pour chaque requête entrante de votre application.
+- Elle répond aux requêtes de `PING` entrantes.
+
+Pour en savoir plus sur la préparation de ton application à la réception d'interactions, consulte [la documentation sur les interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
+
+### Gestion des requêtes de commandes slash
+
+Après la vérification de ton point de terminaison, ouvre le fichier `app.js` de ton projet et trouve le bloc de code qui gère la commande `/test` :
+
+```javascript
+// commande « test »
+if (name === 'test') {
+    // Envoi d'un message dans le salon à partir duquel la commande a été déclenchée
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // Sélectionne un émoji aléatoire à envoyer à partir d'une fonction d'assistance
+        content: 'hello world ' + getRandomEmoji(),
+    },
+    });
+}
+```
+
+Le code ci-dessus répond à l'interaction en envoyant un message dans le salon duquel il est issu. La liste de tous les types de réponses disponibles, comme une réponse dans une fenêtre, est détaillée [dans la documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+
+> info
+> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` est une constante [exportée depuis le package `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33).
+
+Va sur ton serveur et vérifie le bon fonctionnement de la commande slash `/test` de ton application. Lorsque tu déclenches la commande, ton application doit t'envoyer un message contenant « hello world » accompagné d'un émoji aléatoire.
+
+Dans la section suivante, nous allons ajouter une commande supplémentaire qui utilise des options de commande slash, des boutons et des menus de sélection pour créer le jeu pierre-feuille-ciseaux.
+
+---
+
+## Étape 4 : ajout d'éléments de message
+
+La commande `/defi` permet de lancer notre jeu pierre-feuille-ciseaux. Quand cette commande est déclenchée, l'application envoie des éléments de message dans le salon, et ceux-ci guident les utilisateurs qui veulent jouer.
+
+### Ajout d'une commande avec des options
+
+La commande `/defi`, appelée `CHALLENGE_COMMAND` dans `commands.js`, dispose d'un ensemble d'`options`. Dans notre application, les options sont des objets qui représentent différentes choses qu'un utilisateur peut sélectionner lors d'une partie de pierre-feuille-ciseaux, et sont générées en utilisant les clés `RPSChoices` dans `game.js`.
+
+Tu peux en apprendre davantage sur les options de commande et leur structure [en consultant la documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
+
+> info
+> Ce guide ne traite pas en profondeur du fichier `game.js`, mais n'hésite pas à y jeter un coup d'œil et à modifier les commandes ou leurs options.
+
+<Collapsible title="Gestion de l'interaction des commandes" description="Code pour gérer la commande defi et répondre avec un message contenant un bouton" icon="code" open>
+
+Pour gérer la commande `/defi`, ajoute le code suivant après le bloc if `if name === “test”` :
+
+```javascript
+// commande « defi »
+if (name === 'challenge' && id) {
+    const userId = req.body.member.user.id;
+    // Choix d'objet de l'utilisateur
+    const objectName = req.body.data.options[0].value;
+
+    // Création d'une partie active en utilisant l'identifiant de message comme identifiant de partie
+    activeGames[id] = {
+        id: userId,
+        objectName,
+    };
+
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        content: `Rock papers scissors challenge from <@${userId}>`,
+        components: [
+        {
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+            {
+                type: MessageComponentTypes.BUTTON,
+                // Ajout de l'identifiant de partie à utiliser ultérieurement
+                custom_id: `accept_button_${req.body.id}`,
+                label: 'Accept',
+                style: ButtonStyleTypes.PRIMARY,
+            },
+            ],
+        },
+        ],
+    },
+    });
+}
+```
+
+
+> info
+> Si tu ne vois pas où coller ce code, tu peux consulter le code complet dans `examples/app.js` dans le projet Glitch ou dans le fichier `app.js` à la racine [sur GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+
+Le code ci-dessus fait plusieurs choses :
+1. Il analyse le corps de la requête pour extraire l'identifiant de l'utilisateur qui a déclenché la commande slash (`userId`) ainsi que l'option (choix d'objet) sélectionnée (`objectName`).
+2. Il ajoute un nouveau nom de partie à l'objet `activeGames` en utilisant l'identifiant d'interaction. La partie active enregistre le `userId` et le `objectName`.
+3. Il renvoie un message dans le salon avec un bouton doté d'un `custom_id` de type `accept_button_<SOME_ID>`.
+
+> warn
+> L'exemple de code utilise un objet comme stockage en mémoire, mais pour les applications en production, il est préférable d'utiliser une base de données.
+
+Lors de l'envoi d'un message avec des [éléments de message](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), les payloads individuels sont annexés à un tableau `components`. Les éléments actionnables (tels que les boutons) doivent être inclus dans une [ligne d'action](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), que tu peux voir dans l'exemple de code.
+
+Observe le `custom_id` unique envoyé avec les éléments de message, ici `accept_button_` avec l'identifiant de partie active en annexe. Un `custom_id` peut être utilisé pour gérer les requêtes que Discord t'envoie lorsque quelqu'un interagit avec l'élément, ce que tu verras dans un moment.
+
+Désormais, lorsque tu exécutes la commande `/defi` et sélectionnes une option, ton application envoie un message avec un bouton **Accepter**. Ajoutons du code pour gérer le clic sur le bouton.
+
+</Collapsible>
+
+<Collapsible title="Gestion des interactions avec les boutons" description="Code pour gérer les clics sur les boutons et répondre avec un message éphémère" icon="code" open>
+
+Lorsque des utilisateurs interagissent avec un élément de message, Discord envoie une requête avec un [type d'interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) égal à `3` (ou la valeur `MESSAGE_COMPONENT` lors de l'utilisation de `discord-interactions`).
+
+Pour mettre en place un gestionnaire pour le bouton, nous allons vérifier le `type` d'interaction, puis le `custom_id`.
+
+Colle le code suivant sous le gestionnaire de type pour `APPLICATION_COMMAND` :
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id défini dans le payload lors de l'envoi de l'élément de message
+const componentId = data.custom_id;
+
+  if (componentId.startsWith('accept_button_')) {
+    // récupération de l'identifiant de partie associé
+    const gameId = componentId.replace('accept_button_', '');
+    // Suppression du message avec le token dans le corps de la requête
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Sélectionne un émoji aléatoire à envoyer à partir d'une fonction d'assistance
+          content: 'What is your object of choice?',
+          // Indique qu'il s'agit d'un message éphémère
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: MessageComponentTypes.ACTION_ROW,
+              components: [
+                {
+                  type: MessageComponentTypes.STRING_SELECT,
+                  // Annexe l'identifiant de partie
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // Suppression du message précédent
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  }
+}
+```
+
+Le code ci-dessus :
+1. Vérifie qu'il existe un identifiant personnalisé `custom_id` correspondant à ce que nous avons envoyé précédemment (ici, il commence par `accept_button_`). L'identifiant personnalisé comprend également l'identifiant de partie active en annexe, donc nous le stockons dans `gameID`.
+2. [Supprime le message d'origine](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) en appelant un webhook avec `node-fetch` et en passant le `token` d'interaction unique dans le corps de la requête. Cette opération permet de nettoyer le salon pour éviter que d'autres utilisateurs ne cliquent sur le bouton.
+3. Répond à la requête en envoyant un message contenant un menu de sélection avec les choix d'objets pour le jeu. Le payload devrait être assez similaire au précédent, à l'exception du tableau `options` et du `flags: 64`, [qui indique que le message est éphémère](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
+
+Le tableau `options` est peuplé en utilisant la méthode `getShuffledOptions()` dans `game.js`, qui manipule les valeurs `RPSChoices` pour être conforme au format des [options des éléments de message](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure).
+
+</Collapsible>
+
+<Collapsible title="Gestion des interactions avec le menu de sélection" description="Code pour répondre aux interactions avec le menu de sélection et mettre à jour l'état de la partie" icon="code" open>
+
+La dernière chose à ajouter est le code permettant de gérer les interactions avec le menu de sélection et d'envoyer le résultat de la partie dans le salon.
+
+Comme les menus de sélection sont également des éléments de message, le code qui gère leurs interactions est presque identique au code des boutons.
+
+Modifie le code ci-dessus pour gérer le menu de sélection :
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id défini dans le payload lors de l'envoi de l'élément de message
+const componentId = data.custom_id;
+
+  if (componentId.startsWith('accept_button_')) {
+    // récupération de l'identifiant de partie associé
+    const gameId = componentId.replace('accept_button_', '');
+    // Suppression du message avec le token dans le corps de la requête
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Sélectionne un émoji aléatoire à envoyer à partir d'une fonction d'assistance
+          content: 'What is your object of choice?',
+          // Indique qu'il s'agit d'un message éphémère
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: MessageComponentTypes.ACTION_ROW,
+              components: [
+                {
+                  type: MessageComponentTypes.STRING_SELECT,
+                  // Annexe l'identifiant de partie
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // Suppression du message précédent
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  } else if (componentId.startsWith('select_choice_')) {
+    // récupération de l'identifiant de partie associé
+    const gameId = componentId.replace('select_choice_', '');
+
+    if (activeGames[gameId]) {
+      // Obtention de l'identifiant d'utilisateur et du choix d'objet de l'utilisateur qui répond
+      const userId = req.body.member.user.id;
+      const objectName = data.values[0];
+      // Calcul du résultat à l'aide d'une fonction d'assistance
+      const resultStr = getResult(activeGames[gameId], {
+        id: userId,
+        objectName,
+      });
+
+      // Suppression de la partie du stockage
+      delete activeGames[gameId];
+      // Mise à jour du message avec le token dans le corps de la requête
+      const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+
+      try {
+        // Envoi des résultats
+        await res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: resultStr },
+        });
+        // Mise à jour du message éphémère
+        await DiscordRequest(endpoint, {
+          method: 'PATCH',
+          body: {
+            content: 'Nice choice ' + getRandomEmoji(),
+            components: []
+          }
+        });
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
+    }
+  }
+}
+```
+
+Comme le code précédent, le code ci-dessus obtient l'identifiant de l'utilisateur et sa sélection d'objet à partir de la demande d'interaction.
+
+Ces informations, ainsi que l'identifiant et la sélection de l'utilisateur d'origine stockés dans l'objet `activeGames`, sont transmises à la fonction `getResult()`. `getResult()` détermine le vainqueur, puis crée une chaîne lisible à renvoyer dans le salon.
+
+Nous appelons également un autre webhook, cette fois-ci pour [mettre à jour le message éphémère de suivi](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) puisqu'il ne peut pas être supprimé.
+
+Enfin, les résultats sont envoyés dans le salon en utilisant le type de réponse d'interaction `CHANNEL_MESSAGE_WITH_SOURCE`.
+
+</Collapsible>
+
+… et voilà 🎊 Il ne te reste plus qu'à tester ton application pour vérifier que tout fonctionne.
+
+---
+
+## Étapes suivantes
+
+Félicitations, tu viens de créer ta première application Discord ! 🤖
+
+Nous espérons que tu en sais maintenant un peu plus sur les applications Discord, leur configuration et la manière de les rendre interactives. Tu peux désormais poursuivre le développement de ton application ou explorer les autres possibilités qui s'offrent à toi :
+- Lire **[la documentation](#DOCS_INTRO)** pour en savoir plus sur les fonctionnalités des API
+- Parcourir le dossier `examples/` de ce projet pour y trouver des exemples de code courts aux fonctionnalités spécifiques
+- Explorer les **[ressources de la communauté](#DOCS_TOPICS_COMMUNITY_RESOURCES)** pour découvrir des outils spécifiques à un langage maintenus par les membres de la communauté
+- Lire notre tutoriel sur [l'hébergement d'applications Discord sur Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
+- Rejoindre le **[serveur Discord Developers](https://discord.gg/discord-developers)** pour poser des questions sur les API, participer à des événements organisés par l'équipe API de Discord, et interagir avec d'autres développeurs
