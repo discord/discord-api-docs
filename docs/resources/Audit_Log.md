@@ -11,7 +11,7 @@ When an app is performing an eligible action using the APIs, it can pass an `X-A
 ###### Audit Log Structure
 
 | Field                  | Type                                                                                                         | Description                                                 |
-|------------------------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
 | application_commands   | array of [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects  | List of application commands referenced in the audit log    |
 | audit_log_entries      | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects                         | List of audit log entries, sorted from most to least recent |
 | auto_moderation_rules  | array of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects         | List of auto moderation rules referenced in the audit log   |
@@ -49,7 +49,7 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 ###### Audit Log Entry Structure
 
 | Field       | Type                                                                                                    | Description                                           |
-|-------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | target_id   | ?string                                                                                                 | ID of the affected entity (webhook, user, role, etc.) |
 | changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | Changes made to the target_id                         |
 | user_id     | ?snowflake                                                                                              | User or app that made the changes                     |
@@ -73,7 +73,7 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 > You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
 
 | Event                                       | Value | Description                                               | Object Changed                                                                                                                                   |
-|---------------------------------------------|-------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------- | ----- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | GUILD_UPDATE                                | 1     | Server settings were updated                              | [Guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                      |
 | CHANNEL_CREATE                              | 10    | Channel was created                                       | [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                                |
 | CHANNEL_UPDATE                              | 11    | Channel settings were updated                             | [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                                |
@@ -93,9 +93,9 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | ROLE_CREATE                                 | 30    | Role was created                                          | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                     |
 | ROLE_UPDATE                                 | 31    | Role was edited                                           | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                     |
 | ROLE_DELETE                                 | 32    | Role was deleted                                          | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                     |
-| INVITE_CREATE                               | 40    | Server invite was created                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)*                             |
-| INVITE_UPDATE                               | 41    | Server invite was updated                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)*                             |
-| INVITE_DELETE                               | 42    | Server invite was deleted                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)*                             |
+| INVITE_CREATE                               | 40    | Server invite was created                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)\*                            |
+| INVITE_UPDATE                               | 41    | Server invite was updated                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)\*                            |
+| INVITE_DELETE                               | 42    | Server invite was deleted                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)\*                            |
 | WEBHOOK_CREATE                              | 50    | Webhook was created                                       | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)\*                                                                                              |
 | WEBHOOK_UPDATE                              | 51    | Webhook properties or channel were updated                | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)\*                                                                                              |
 | WEBHOOK_DELETE                              | 52    | Webhook was deleted                                       | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)\*                                                                                              |
@@ -136,7 +136,7 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 ###### Optional Audit Entry Info
 
 | Field                             | Type      | Description                                                      | Event Types                                                                                                                                                                                                                                        |
-|-----------------------------------|-----------|------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------------- | --------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | application_id                    | snowflake | ID of the app whose permissions were targeted                    | APPLICATION_COMMAND_PERMISSION_UPDATE                                                                                                                                                                                                              |
 | auto_moderation_rule_name         | string    | Name of the Auto Moderation rule that was triggered              | AUTO_MODERATION_BLOCK_MESSAGE & AUTO_MODERATION_FLAG_TO_CHANNEL & AUTO_MODERATION_USER_COMMUNICATION_DISABLED                                                                                                                                      |
 | auto_moderation_rule_trigger_type | string    | Trigger type of the Auto Moderation rule that was triggered      | AUTO_MODERATION_BLOCK_MESSAGE & AUTO_MODERATION_FLAG_TO_CHANNEL & AUTO_MODERATION_USER_COMMUNICATION_DISABLED                                                                                                                                      |
@@ -161,9 +161,8 @@ Some events don't follow the same pattern as other audit log events. Details abo
 > info
 > If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
 
-
 | Field      | Type                                | Description                                                                                                                        |
-|------------|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ---------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | new_value? | mixed (matches object field's type) | New value of the key                                                                                                               |
 | old_value? | mixed (matches object field's type) | Old value of the key                                                                                                               |
 | key        | string                              | Name of the changed entity, with a few [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) |
@@ -173,7 +172,7 @@ Some events don't follow the same pattern as other audit log events. Details abo
 For most objects, the change keys may be any field on the changed object. The following table details the exceptions to this pattern.
 
 | Object Changed                                                                                                                                 | Change Key Exceptions                                          | Change Object Exceptions                                                                                                                                                                                                                                    |
-|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | snowflake as key                                               | The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key) |
 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                            | Additional `channel_id` key (instead of object's `channel.id`) |                                                                                                                                                                                                                                                             |
 | [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                           | `$add` and `$remove` as keys                                   | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
@@ -190,7 +189,7 @@ The returned list of audit log entries is ordered based on whether you use `befo
 The following parameters can be used to filter which and how many audit log entries are returned.
 
 | Field        | Type      | Description                                                                                                 |
-|--------------|-----------|-------------------------------------------------------------------------------------------------------------|
+| ------------ | --------- | ----------------------------------------------------------------------------------------------------------- |
 | user_id?     | snowflake | Entries from a specific user ID                                                                             |
 | action_type? | integer   | Entries for a specific [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before?      | snowflake | Entries with ID less than a specific audit log entry ID                                                     |

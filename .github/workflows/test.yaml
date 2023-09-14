@@ -1,48 +1,27 @@
-name: Verify Links
-
-on: [push, pull_request]
-
+name: ci
+on:
+  pull_request:
 permissions:
   contents: read
-
 jobs:
   lint:
-    name: ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Node v16
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run ESLint
-        run: npm run lint
-
+      - run: npm ci
+      - run: npm run lint
   links:
-    name: Check Links
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Node v16
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Run Link Checks
-        run: npm run test:links
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:links

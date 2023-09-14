@@ -18,7 +18,7 @@ Discord exposes different versions of our API[.](https://c.tenor.com/BuZl66Eegkg
 ###### API Versions
 
 | Version | Status       | Default |
-|---------|--------------|---------|
+| ------- | ------------ | ------- |
 | 10      | Available    |         |
 | 9       | Available    |         |
 | 8       | Deprecated   |         |
@@ -36,30 +36,30 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ```json
 {
-    "code": 50035,
-    "errors": {
-        "activities": {
-            "0": {
-                "platform": {
-                    "_errors": [
-                        {
-                            "code": "BASE_TYPE_CHOICES",
-                            "message": "Value must be one of ('desktop', 'android', 'ios')."
-                        }
-                    ]
-                },
-                "type": {
-                    "_errors": [
-                        {
-                            "code": "BASE_TYPE_CHOICES",
-                            "message": "Value must be one of (0, 1, 2, 3, 4, 5)."
-                        }
-                    ]
-                }
+  "code": 50035,
+  "errors": {
+    "activities": {
+      "0": {
+        "platform": {
+          "_errors": [
+            {
+              "code": "BASE_TYPE_CHOICES",
+              "message": "Value must be one of ('desktop', 'android', 'ios')."
             }
+          ]
+        },
+        "type": {
+          "_errors": [
+            {
+              "code": "BASE_TYPE_CHOICES",
+              "message": "Value must be one of (0, 1, 2, 3, 4, 5)."
+            }
+          ]
         }
-    },
-    "message": "Invalid Form Body"
+      }
+    }
+  },
+  "message": "Invalid Form Body"
 }
 ```
 
@@ -67,18 +67,18 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ```json
 {
-    "code": 50035,
-    "errors": {
-        "access_token": {
-            "_errors": [
-                {
-                    "code": "BASE_TYPE_REQUIRED",
-                    "message": "This field is required"
-                }
-            ]
+  "code": 50035,
+  "errors": {
+    "access_token": {
+      "_errors": [
+        {
+          "code": "BASE_TYPE_REQUIRED",
+          "message": "This field is required"
         }
-    },
-    "message": "Invalid Form Body"
+      ]
+    }
+  },
+  "message": "Invalid Form Body"
 }
 ```
 
@@ -86,16 +86,16 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ```json
 {
-    "code": 50035,
-    "message": "Invalid Form Body",
-    "errors": {
-        "_errors": [
-            {
-                "code": "APPLICATION_COMMAND_TOO_LARGE",
-                "message": "Command exceeds maximum size (4000)"
-            }
-        ]
-    }
+  "code": 50035,
+  "message": "Invalid Form Body",
+  "errors": {
+    "_errors": [
+      {
+        "code": "APPLICATION_COMMAND_TOO_LARGE",
+        "message": "Command exceeds maximum size (4000)"
+      }
+    ]
+  }
 }
 ```
 
@@ -138,7 +138,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowfl
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
+| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -203,7 +203,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-|------------------------------|---------|
+| ---------------------------- | ------- |
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -254,7 +254,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 ###### Formats
 
 | Type                    | Structure           | Example                       |
-|-------------------------|---------------------|-------------------------------|
+| ----------------------- | ------------------- | ----------------------------- |
 | User                    | <@USER_ID>          | <@80351110224678912>          |
 | User \*                 | <@!USER_ID>         | <@!80351110224678912>         |
 | Channel                 | <#CHANNEL_ID>       | <#103735883630395392>         |
@@ -278,7 +278,7 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 ###### Timestamp Styles
 
 | Style | Example Output               | Description     |
-|-------|------------------------------|-----------------|
+| ----- | ---------------------------- | --------------- |
 | t     | 16:20                        | Short Time      |
 | T     | 16:20:30                     | Long Time       |
 | d     | 20/04/2021                   | Short Date      |
@@ -294,7 +294,7 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 Guild navigation types link to the corresponding resource in the current server.
 
 | Type      | Description                                                                                           |
-|-----------|-------------------------------------------------------------------------------------------------------|
+| --------- | ----------------------------------------------------------------------------------------------------- |
 | customize | _Customize_ tab with the server's [onboarding prompts](#DOCS_RESOURCES_GUILD/guild-onboarding-object) |
 | browse    | _Browse Channels_ tab                                                                                 |
 | guide     | [Server Guide](https://support.discord.com/hc/en-us/articles/13497665141655)                          |
@@ -312,7 +312,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name   | Extension   |
-|--------|-------------|
+| ------ | ----------- |
 | JPEG   | .jpg, .jpeg |
 | PNG    | .png        |
 | WebP   | .webp       |
@@ -322,7 +322,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### CDN Endpoints
 
 | Type                        | Path                                                                                                                                                                                                                                                              | Supports             |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | Custom Emoji                | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
 | Guild Icon                  | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
 | Guild Splash                | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
@@ -347,7 +347,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
-\*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](#DOCS_CHANGE_LOG/unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
+\*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](#DOCS_CHANGE_LOG/unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the _legacy_ username system, `index` will be `discriminator % 5`.
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
@@ -366,11 +366,11 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 ## Uploading Files
 
 > info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
+> A file upload size limit applies to _all_ files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the _snowflake placeholder_ that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 
@@ -382,7 +382,7 @@ The `attachments` JSON parameter includes all files that will be appended to the
 
 Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries (`boundary` is just an example). For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
 
-This example demonstrates usage of the endpoint *without* `payload_json`.
+This example demonstrates usage of the endpoint _without_ `payload_json`.
 
 ```
 --boundary
@@ -396,7 +396,7 @@ true
 --boundary--
 ```
 
-This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `files[n]`) set.
+This example demonstrates usage of the endpoint _with_ `payload_json` and all content fields (`content`, `embeds`, `files[n]`) set.
 
 ```
 --boundary
@@ -454,18 +454,20 @@ For example:
 
 ```json
 {
-  "embeds": [{
-    "image": {
-      "url": "attachment://screenshot.png"
+  "embeds": [
+    {
+      "image": {
+        "url": "attachment://screenshot.png"
+      }
     }
-  }]
+  ]
 }
 ```
 
 ## Locales
 
 | Locale | Language Name         | Native Name         |
-|--------|-----------------------|---------------------|
+| ------ | --------------------- | ------------------- |
 | id     | Indonesian            | Bahasa Indonesia    |
 | da     | Danish                | Dansk               |
 | de     | German                | Deutsch             |
@@ -496,4 +498,4 @@ For example:
 | zh-CN  | Chinese, China        | 中文                |
 | ja     | Japanese              | 日本語              |
 | zh-TW  | Chinese, Taiwan       | 繁體中文            |
-| ko     | Korean                | 한국어                 |
+| ko     | Korean                | 한국어              |

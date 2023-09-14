@@ -7,7 +7,7 @@ Represents a sticker that can be sent in messages.
 ###### Sticker Structure
 
 | Field       | Type                                            | Description                                                                           |
-|-------------|-------------------------------------------------|---------------------------------------------------------------------------------------|
+| ----------- | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
 | id          | snowflake                                       | [id of the sticker](#DOCS_REFERENCE/image-formatting)                                 |
 | pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                             |
 | name        | string                                          | name of the sticker                                                                   |
@@ -27,14 +27,14 @@ Incidentally the client will always use a name generated from an emoji as the va
 ###### Sticker Types
 
 | Type     | Value | Description                                           |
-|----------|-------|-------------------------------------------------------|
+| -------- | ----- | ----------------------------------------------------- |
 | STANDARD | 1     | an official sticker in a pack                         |
 | GUILD    | 2     | a sticker uploaded to a guild for the guild's members |
 
 ###### Sticker Format Types
 
 | Type   | Value |
-|--------|-------|
+| ------ | ----- |
 | PNG    | 1     |
 | APNG   | 2     |
 | LOTTIE | 3     |
@@ -63,7 +63,7 @@ The smallest amount of data required to render a sticker. A partial sticker obje
 ###### Sticker Item Structure
 
 | Field       | Type      | Description                                                                           |
-|-------------|-----------|---------------------------------------------------------------------------------------|
+| ----------- | --------- | ------------------------------------------------------------------------------------- |
 | id          | snowflake | id of the sticker                                                                     |
 | name        | string    | name of the sticker                                                                   |
 | format_type | integer   | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types) |
@@ -75,7 +75,7 @@ Represents a pack of standard stickers.
 ###### Sticker Pack Structure
 
 | Field             | Type                                                               | Description                                                               |
-|-------------------|--------------------------------------------------------------------|---------------------------------------------------------------------------|
+| ----------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
 | id                | snowflake                                                          | id of the sticker pack                                                    |
 | stickers          | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects | the stickers in the pack                                                  |
 | name              | string                                                             | name of the sticker pack                                                  |
@@ -109,7 +109,7 @@ Returns a list of available sticker packs.
 ###### Response Structure
 
 | Field         | Type                                                                         |
-|---------------|------------------------------------------------------------------------------|
+| ------------- | ---------------------------------------------------------------------------- |
 | sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
 
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
@@ -130,14 +130,15 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 > warn
-> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
+> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features).
 
 > warn
 > Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
+
 ###### Form Params
 
 | Field       | Type          | Description                                                                           |
-|-------------|---------------|---------------------------------------------------------------------------------------|
+| ----------- | ------------- | ------------------------------------------------------------------------------------- |
 | name        | string        | name of the sticker (2-30 characters)                                                 |
 | description | string        | description of the sticker (empty or 2-100 characters)                                |
 | tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                     |
@@ -156,7 +157,7 @@ Modify the given sticker. Requires the `MANAGE_GUILD_EXPRESSIONS` permission. Re
 ###### JSON Params
 
 | Field       | Type    | Description                                                       |
-|-------------|---------|-------------------------------------------------------------------|
+| ----------- | ------- | ----------------------------------------------------------------- |
 | name        | string  | name of the sticker (2-30 characters)                             |
 | description | ?string | description of the sticker (2-100 characters)                     |
 | tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters) |

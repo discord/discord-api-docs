@@ -9,7 +9,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 ###### OAuth2 URLs
 
 | URL                                         | Description                                                 |
-|---------------------------------------------|-------------------------------------------------------------|
+| ------------------------------------------- | ----------------------------------------------------------- |
 | https://discord.com/oauth2/authorize        | Base authorization URL                                      |
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
@@ -22,7 +22,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use. Requesting them from a user without approval from Discord may cause errors or undocumented behavior in the OAuth2 flow.
 
 | Name                                     | Description                                                                                                                                                                             |
-|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | activities.read                          | allows your app to fetch data from a user's "Now Playing/Recently Played" list — not currently available for apps                                                                       |
 | activities.write                         | allows your app to update a user's activity - requires Discord approval (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                       |
 | applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                            |
@@ -257,7 +257,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
-|----------------------|-----------------------------------------------------------------------|
+| -------------------- | --------------------------------------------------------------------- |
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
@@ -400,7 +400,7 @@ Returns info about the current authorization. Requires authentication with a bea
 ###### Response Structure
 
 | Field       | Type                                                                         | Description                                                                       |
-|-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| ----------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
 | scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
 | expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
@@ -410,27 +410,24 @@ Returns info about the current authorization. Requires authentication with a bea
 
 ```json
 {
-    "application": {
-        "id": "159799960412356608",
-        "name": "AIRHORN SOLUTIONS",
-        "icon": "f03590d3eb764081d154a66340ea7d6d",
-        "description": "",
-        "hook": true,
-        "bot_public": true,
-        "bot_require_code_grant": false,
-        "verify_key": "c8cde6a3c8c6e49d86af3191287b3ce255872be1fff6dc285bdb420c06a2c3c8"
-    },
-    "scopes": [
-        "guilds.join",
-        "identify"
-    ],
-    "expires": "2021-01-23T02:33:17.017000+00:00",
-    "user": {
-        "id": "268473310986240001",
-        "username": "Discord",
-        "avatar": "f749bb0cbeeb26ef21eca719337d20f1",
-        "discriminator": "0001",
-        "public_flags": 131072
-    }
+  "application": {
+    "id": "159799960412356608",
+    "name": "AIRHORN SOLUTIONS",
+    "icon": "f03590d3eb764081d154a66340ea7d6d",
+    "description": "",
+    "hook": true,
+    "bot_public": true,
+    "bot_require_code_grant": false,
+    "verify_key": "c8cde6a3c8c6e49d86af3191287b3ce255872be1fff6dc285bdb420c06a2c3c8"
+  },
+  "scopes": ["guilds.join", "identify"],
+  "expires": "2021-01-23T02:33:17.017000+00:00",
+  "user": {
+    "id": "268473310986240001",
+    "username": "Discord",
+    "avatar": "f749bb0cbeeb26ef21eca719337d20f1",
+    "discriminator": "0001",
+    "public_flags": 131072
+  }
 }
 ```

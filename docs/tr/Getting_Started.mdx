@@ -18,13 +18,20 @@ Kullanıcı akışını biraz daha açık hâle getirmek adına:
 3. 2. kullanıcı **Kabul Et** butonuna tıklar
 4. 2. kullanıcı, nesnesini seçebileceği geçici bir mesaj alır
 5. Oyunun sonucu herkesin görebilmesi için orijinal kanalda paylaşılır
-</Collapsible>
+   </Collapsible>
 
-<Collapsible title="Bu rehberde kullanılan kaynaklar" description="Kullanacağımız teknolojilere ve araçlara genel bakış" icon="list">
-- Bu kılavuzdaki kodun yanı sıra bazı ek özelliklere özgü kod örneklerinin bulunduğu **[GitHub deposu](https://github.com/discord/discord-example-app)**.
-- Discord uygulamaları için tipler ve yardımcı fonksiyonlar sağlayan **[discord-interactions](https://github.com/discord/discord-interactions-js)** kitaplığı.
-- Discord'un bize istek gönderebileceği bir sunucu oluşturmak için kullanacağımız popüler bir JavaScript web çerçevesi olan **[Express](https://expressjs.com)**.
-- Erken prototip ve geliştirme aşamalarında uygulamaları oluşturma ve barındırma işlemlerini basitleştiren bir çevrim içi ortam olan **[Glitch](https://glitch.com/)**. İstersen **[ngrok](https://ngrok.com/)** gibi bir araçla yerel ortamında da geliştirebilirsin.
+<Collapsible
+  title="Bu rehberde kullanılan kaynaklar"
+  description="Kullanacağımız teknolojilere ve araçlara genel bakış"
+  icon="list"
+>
+  - Bu kılavuzdaki kodun yanı sıra bazı ek özelliklere özgü kod örneklerinin bulunduğu **[GitHub
+  deposu](https://github.com/discord/discord-example-app)**. - Discord uygulamaları için tipler ve yardımcı fonksiyonlar
+  sağlayan **[discord-interactions](https://github.com/discord/discord-interactions-js)** kitaplığı. - Discord'un bize
+  istek gönderebileceği bir sunucu oluşturmak için kullanacağımız popüler bir JavaScript web çerçevesi olan
+  **[Express](https://expressjs.com)**. - Erken prototip ve geliştirme aşamalarında uygulamaları oluşturma ve barındırma
+  işlemlerini basitleştiren bir çevrim içi ortam olan **[Glitch](https://glitch.com/)**. İstersen
+  **[ngrok](https://ngrok.com/)** gibi bir araçla yerel ortamında da geliştirebilirsin.
 </Collapsible>
 
 ---
@@ -33,7 +40,9 @@ Kullanıcı akışını biraz daha açık hâle getirmek adına:
 
 Öncelikle, eğer hâlihazırda bir uygulaman yoksa geliştirici portalında bir uygulama oluşturman gerekli:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Uygulama Oluştur</Button>
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
+  Uygulama Oluştur
+</Button>
 
 Uygulamanın ismini yaz ve **Oluştur** butonuna bas.
 
@@ -51,13 +60,14 @@ Amaçlar, bir [Ağ Geçidi API bağlantısı](#DOCS_TOPICS_GATEWAY) oluştururke
 Bazı amaçlar [privileged'tir](#DOCS_TOPICS_GATEWAY/privileged-intents), yani uygulamanın hassas olarak kabul edilebilecek verilere (mesajların içeriği gibi) erişmesine izin verir. Privileged intent'ler uygulamanın ayarlarındaki **Bot** sayfasında görünür ve açılıp kapatılabilir. Standart, privileged intent dışındakiler herhangi bir ek izin veya yapılandırma gerektirmez.
 
 Amaçlar hakkında daha fazla bilgi ve mevcut amaçların tam listesi, ilişkili olaylarıyla birlikte [Ağ Geçidi dokümantasyonunda](#DOCS_TOPICS_GATEWAY/gateway-intents) bulunmaktadır.
+
 </Collapsible>
 
 ![Ayarlardaki bot sekmesi](app-add-bot.png)
 
 **Bot** sayfasında, botunun token'ını kopyalamana ve sıfırlamana olanak tanıyan bir **Token** bölümü de vardır.
 
-Bot token'ları, API isteklerini yetkilendirmek için kullanılır ve bot kullanıcısının izinlerini taşır, bu da onları *son derece hassas* hâle getirir. Token'ını *asla* paylaşmadığından veya herhangi bir versiyon kontrol sisteminde kontrol etmediğinden emin ol.
+Bot token'ları, API isteklerini yetkilendirmek için kullanılır ve bot kullanıcısının izinlerini taşır, bu da onları _son derece hassas_ hâle getirir. Token'ını _asla_ paylaşmadığından veya herhangi bir versiyon kontrol sisteminde kontrol etmediğinden emin ol.
 
 Şimdi token'ı kopyala ve onu örneğin parola yöneticisi gibi güvenli bir yerde sakla.
 
@@ -73,7 +83,7 @@ Kapsamlar ve izinler, bir uygulama oluştururken uygulamanın Discord sunucular�
 
 - [OAuth2 Kapsamları](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), uygulamanın yükleme yapan veya yetki veren bir kullanıcı adına hangi verilere erişebileceğini ve eylemleri gerçekleştirebileceğini belirler.
 - [İzinler](#DOCS_TOPICS_PERMISSIONS/permission-overwrites), Discord'daki diğer kullanıcıların sahip olduğu gibi bot kullanıcıya verilmiş detaylı izinlerdir. Bunlar, yükleyen kullanıcı tarafından onaylanabilir veya daha sonra sunucu ayarlarında veya [izinlerin üzerine yazarak](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) güncellenebilir.
-</Collapsible>
+  </Collapsible>
 
 Sol kenar çubuğunda **OAuth2**'ye tıkla, ardından **URL oluşturucuyu** seç.
 
@@ -81,6 +91,7 @@ Sol kenar çubuğunda **OAuth2**'ye tıkla, ardından **URL oluşturucuyu** seç
 > URL oluşturucu, uygulaman için seçtiğin kapsamlara ve izinlere göre bir yükleme bağlantısı oluşturur. Bağlantıyı, uygulamayı kendi sunucuna yüklemek için kullanabilir veya yükleyebilmeleri için başkalarıyla paylaşabilirsin.
 
 Şimdilik iki kapsam ekleyelim:
+
 - `applications.commands`, uygulamanın [komutlar](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) oluşturmasını sağlar.
 - `bot`, bot kullanıcını ekler. `bot`'u seçtikten sonra botun için farklı izinler de seçebilirsin. Şimdilik sadece **Mesaj Gönder** seçeneğini işaretleyelim.
 
@@ -127,7 +138,7 @@ Projeyi remikslediğinde yeni bir Glitch projesine ulaşacaksın.
 - **`.env`**, uygulaman için tüm kimlik bilgilerinin saklanacağı dosyadır
 - **Loglar**, projenin çıktısının bulabileceğin dosyalardır; uygulamanın çalışıp çalışmadığını görmek veya uygulamanın karşılaştığı hatalar hakkında bilgi almak için yararlıdır
 - Sağ üst köşedeki **Paylaş** butonu, bu rehberin ilerleyen bölümlerinde etkileşimi ayarlamak için ihtiyaç duyacağın canlı proje URL'sini bulacağın yerdir
-</Collapsible>
+  </Collapsible>
 
 #### Proje yapısı
 
@@ -184,7 +195,7 @@ Discord, uygulamalar oluşturmak için bir araya getirebileceğin iki API'ye sah
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)**, Discord'da veri gönderme, veri güncelleme veya bir kaynak hakkında veri alma gibi genel işlemler için kullanılan REST benzeri bir API'dir.
 - **[Ağ Geçidi API](#DOCS_REFERENCE/gateway-websocket-api)**, durumu korumak veya Discord sunucusunda gerçekleşen olayları dinlemek için yararlı, WebSocket tabanlı bir API'dir. Bu rehberde bunu kullanmayacağız ancak bir Ağ Geçidi bağlantısının nasıl oluşturulacağı hakkında ve dinleyebileceğin farklı olaylar hakkında daha fazla bilgi [Ağ Geçidi dokümantasyonunda](#DOCS_TOPICS_GATEWAY) bulunmaktadır.
-</Collapsible>
+  </Collapsible>
 
 ---
 
@@ -208,6 +219,7 @@ Uygulamanın **Genel Bilgiler** sayfasında, uygulamanın URL'sini yapıştırab
 **Değişiklikleri Kaydet**'e tıkla ve uç noktanın başarıyla doğrulandığından emin ol.
 
 Örnek uygulama, doğrulamayı iki şekilde ele alır:
+
 - `PUBLIC_KEY` ve [discord-interactions paketini](https://github.com/discord/discord-interactions-js#usage) [Express'in `verify` arayüzüne](http://expressjs.com/en/5x/api.html#express.json) uygun hâle getiren bir wrapper fonksiyonla (`utils.js` içerisinden içe aktarılır) birlikte kullanır. Bu, uygulamana gelen her istekte çalıştırılır.
 - Gelen `PING` isteklerine yanıt verir.
 
@@ -220,14 +232,14 @@ Uç nokta doğrulandıktan sonra projenin `app.js` dosyasına git ve `/test` kom
 ```javascript
 // "test" komutu
 if (name === 'test') {
-    // Komutun tetiklendiği kanala bir mesaj gönderir
-    return res.send({
+  // Komutun tetiklendiği kanala bir mesaj gönderir
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        // Bir yardımcı fonksiyondan göndermek için rastgele bir emoji alır
-        content: 'hello world ' + getRandomEmoji(),
+      // Bir yardımcı fonksiyondan göndermek için rastgele bir emoji alır
+      content: 'hello world ' + getRandomEmoji(),
     },
-    });
+  });
 }
 ```
 
@@ -262,44 +274,44 @@ Komut seçenekleri ve bunların yapısı hakkında daha fazla bilgiyi [dokümant
 ```javascript
 // "meydanoku" komutu
 if (name === 'challenge' && id) {
-    const userId = req.body.member.user.id;
-    // Kullanıcının nesne seçimi
-    const objectName = req.body.data.options[0].value;
+  const userId = req.body.member.user.id;
+  // Kullanıcının nesne seçimi
+  const objectName = req.body.data.options[0].value;
 
-    // Oyun kimliği olarak mesaj kimliğini kullanarak aktif oyun oluşturur
-    activeGames[id] = {
-        id: userId,
-        objectName,
-    };
+  // Oyun kimliği olarak mesaj kimliğini kullanarak aktif oyun oluşturur
+  activeGames[id] = {
+    id: userId,
+    objectName,
+  };
 
-    return res.send({
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        content: `Rock papers scissors challenge from <@${userId}>`,
-        components: [
+      content: `Rock papers scissors challenge from <@${userId}>`,
+      components: [
         {
-            type: MessageComponentTypes.ACTION_ROW,
-            components: [
+          type: MessageComponentTypes.ACTION_ROW,
+          components: [
             {
-                type: MessageComponentTypes.BUTTON,
-                // Daha sonra kullanmak üzere oyun kimliğini ekler
-                custom_id: `accept_button_${req.body.id}`,
-                label: 'Accept',
-                style: ButtonStyleTypes.PRIMARY,
+              type: MessageComponentTypes.BUTTON,
+              // Daha sonra kullanmak üzere oyun kimliğini ekler
+              custom_id: `accept_button_${req.body.id}`,
+              label: 'Accept',
+              style: ButtonStyleTypes.PRIMARY,
             },
-            ],
+          ],
         },
-        ],
+      ],
     },
-    });
+  });
 }
 ```
-
 
 > bilgi
 > Kodu nereye yapıştıracağından emin değilsen, kodun tamamını Glitch projesindeki `examples/app.js` dosyasında veya [GitHub'daki](https://github.com/discord/discord-example-app/blob/main/app.js) kök `app.js` dosyasında bulabilirsin.
 
 Yukarıdaki kod birkaç şey yapıyor:
+
 1. Eğik çizgi komutunu tetikleyen kullanıcının kimliğini (`userId`) ve seçtiği (`objectName`) seçeneği (nesne seçimi) almak için istek gövdesini ayrıştırır.
 2. Etkileşim kimliğini kullanarak `activeGames` nesnesine yeni bir oyun ekler. Etkin oyun `userId` ve `objectName`'i kaydeder.
 3. Kanala, `custom_id`'si `accept_button_<SOME_ID>` olan bir buton ile bir mesaj gönderir.
@@ -325,8 +337,8 @@ Aşağıdaki kodu `APPLICATION_COMMAND` için tip işleyicisinin altına yapış
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id mesaj bileşeni gönderilirken payload'da ayarlanır
-const componentId = data.custom_id;
+  // custom_id mesaj bileşeni gönderilirken payload'da ayarlanır
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // ilişkili oyun kimliğini alır
@@ -366,6 +378,7 @@ const componentId = data.custom_id;
 ```
 
 Yukarıdaki kod:
+
 1. Başlangıçta gönderdiğimizle eşleşen bir `custom_id` olup olmadığını kontrol eder (bu durumda, `accept_button_` ile başlar). Özel kimliğe aktif oyun kimliği de eklenmiştir, bu yüzden bunu `gameID`'de saklarız.
 2. `node-fetch` kullanarak bir webhook çağıran ve istek gövdesinde benzersiz etkileşim `token`'ı ileten [orijinal mesajı siler](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response). Bu, kanalı temizlemek için yapılır ve böylece diğer kullanıcılar butona tıklayamaz.
 3. Oyun için nesne seçeneklerini içeren bir seçim menüsü içeren bir mesaj göndererek isteğe yanıt verir. Payload, `options` dizisi ve [mesajın geçici olduğunu gösteren](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message) `flags: 64` belirteci haricinde önceki payload'a epey benzer görünmelidir.
@@ -384,8 +397,8 @@ Seçim menüsünü işlemek için yukarıdaki kodu değiştir:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id mesaj bileşeni gönderilirken payload'da ayarlanır
-const componentId = data.custom_id;
+  // custom_id mesaj bileşeni gönderilirken payload'da ayarlanır
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // ilişkili oyun kimliğini alır
@@ -450,8 +463,8 @@ const componentId = data.custom_id;
           method: 'PATCH',
           body: {
             content: 'Nice choice ' + getRandomEmoji(),
-            components: []
-          }
+            components: [],
+          },
         });
       } catch (err) {
         console.error('Error sending message:', err);
@@ -480,6 +493,7 @@ Son olarak, sonuçlar kanalda `CHANNEL_MESSAGE_WITH_SOURCE` etkileşim yanıt ti
 Tebrikler, ilk Discord uygulamanı geliştirdin! 🤖
 
 Umarız Discord uygulamaları, nasıl yapılandırılacakları ve nasıl etkileşimli hâle getirilecekleri hakkında biraz bilgi edinmişsindir. Buradan uygulamanı oluşturmaya devam edebilir veya başka nelerin mümkün olduğunu keşfedebilirsin:
+
 - API özellikleri hakkında derinlemesine bilgi için **[dokümantasyonları](#DOCS_INTRO)** oku
 - Daha küçük, özelliğe has kod örnekleri için bu projedeki `examples/` klasörüne göz at
 - Topluluk üyeleri tarafından yürütülen kodlama diline özgü araçlar için **[topluluk kaynaklarına](#DOCS_TOPICS_COMMUNITY_RESOURCES)** göz at

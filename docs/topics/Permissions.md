@@ -31,7 +31,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 ###### Bitwise Permission Flags
 
 | Permission                             | Value                            | Description                                                                                                                                         | Channel Type |
-|----------------------------------------|----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| -------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | CREATE_INSTANT_INVITE                  | `0x0000000000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                                  | T, V, S      |
 | KICK_MEMBERS \*                        | `0x0000000000000002` `(1 << 1)`  | Allows kicking members                                                                                                                              |              |
 | BAN_MEMBERS \*                         | `0x0000000000000004` `(1 << 2)`  | Allows banning members                                                                                                                              |              |
@@ -192,7 +192,7 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 ###### Role Structure
 
 | Field          | Type                                                                         | Description                                                                                                                     |
-|----------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | id             | snowflake                                                                    | role id                                                                                                                         |
 | name           | string                                                                       | role name                                                                                                                       |
 | color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
@@ -213,7 +213,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
 Tags with type `null` represent booleans. They will be present and set to `null` if they are "true", and will be not present if they are "false".
 
 | Field                    | Type      | Description                                        |
-|--------------------------|-----------|----------------------------------------------------|
+| ------------------------ | --------- | -------------------------------------------------- |
 | bot_id?                  | snowflake | the id of the bot this role belongs to             |
 | integration_id?          | snowflake | the id of the integration this role belongs to     |
 | premium_subscriber?      | null      | whether this is the guild's Booster role           |
@@ -242,7 +242,7 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 ###### Role Flags
 
 | Flag      | Value  | Description                                                                                              |
-|-----------|--------|----------------------------------------------------------------------------------------------------------|
+| --------- | ------ | -------------------------------------------------------------------------------------------------------- |
 | IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members

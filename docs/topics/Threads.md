@@ -180,7 +180,7 @@ When an app loses access to a channel, the Gateway does **not** send it [Thread 
 If an app wanted to track when it lost access to any thread, it's possible but difficult as it would need to handle all cases correctly. Usually, events that cause permission changes are a [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) event.
 
 > info
-> Discord's clients check their permissions *first* when performing an action. That way, even if it has some stale data, it does not end up acting on it.
+> Discord's clients check their permissions _first_ when performing an action. That way, even if it has some stale data, it does not end up acting on it.
 
 Additionally, when a user or app loses access to a channel, they are not removed from the thread and will continue to be reported as a member of that thread. However, they will **not** receive any new Gateway events unless they are removed from the thread, in which case they will receive a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) event.
 
@@ -193,7 +193,7 @@ When a thread is unarchived, there is no guarantee that an app has the thread or
 
 ## Forums
 
-A `GUILD_FORUM` (type `15`) channel is similar to a `GUILD_TEXT` channel, except *only* threads can be created in them. Unless otherwise noted, threads in forum channels behave in the same way as in text channels—meaning they use the same endpoints and receive the same Gateway events.
+A `GUILD_FORUM` (type `15`) channel is similar to a `GUILD_TEXT` channel, except _only_ threads can be created in them. Unless otherwise noted, threads in forum channels behave in the same way as in text channels—meaning they use the same endpoints and receive the same Gateway events.
 
 Messages cannot be sent directly in forum channels.
 
@@ -207,10 +207,9 @@ A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in tha
 > warn
 > `GUILD_MEDIA` channels are in beta and still being actively developed. The API and other technical details are subject to change.
 
-
 ### Creating Threads in Forum and Media Channels
 
-Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
+Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread _and_ a message.
 
 Threads in thread-only channels have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a thread-only channel only requires the `SEND_MESSAGES` permission.
 
@@ -228,7 +227,7 @@ All fields for channels, including thread-only channels, can be found in the [Ch
 
 ### Forum and Media Channel Thread Fields
 
-A thread can be pinned within a thread-only, which will be represented as the [`PINNED` flag](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) in the `flags` field within a thread-only channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will *not* auto-archive.
+A thread can be pinned within a thread-only, which will be represented as the [`PINNED` flag](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) in the `flags` field within a thread-only channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will _not_ auto-archive.
 
 The `message_count` and `total_message_sent` fields on threads in thread-only channels will increment on `MESSAGE_CREATE` events, and decrement on `MESSAGE_DELETE` and `MESSAGE_DELETE_BULK` events. There will be no specific `CHANNEL_UPDATE` event that notifies your app of changes to those fields—instead, apps should update those values when receiving corresponding events.
 

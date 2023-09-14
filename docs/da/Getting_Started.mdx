@@ -18,13 +18,20 @@ Lad os gøre brugerrejsen lidt mere tydelig:
 3. Bruger 2 trykker på knappen **Acceptér**
 4. Bruger 2 modtager en kortvarig besked, hvorfra vedkommende skal vælge sin genstand
 5. Resultatet af spillet bliver delt i den oprindelige kanal, hvor alle kan se det
-</Collapsible>
+   </Collapsible>
 
-<Collapsible title="Ressourcer brugt i denne vejledning" description="Oversigt over værktøjerne og teknologien vi benytter" icon="list">
-- **[GitHub repository](https://github.com/discord/discord-example-app)**, hvor koden fra denne vejledning bor sammen med nogle ekstra funktionsspecifikke kodeeksempler.
-- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, et bibliotek med typer og hjælpefunktioner til Discord-apps.
-- **[Express](https://expressjs.com)**, et populært JavaScript-web framework vi bruger til at oprette en server, hvor Discord kan sende os anmodninger.
-- **[Glitch](https://glitch.com/)**, et online miljø, der simplificerer udviklingen og hostingen af apps i de tidlige prototype- og udviklingsfaser. Du kan ogås udvikle lokalt med et værktøj som **[ngrok](https://ngrok.com/)**.
+<Collapsible
+  title="Ressourcer brugt i denne vejledning"
+  description="Oversigt over værktøjerne og teknologien vi benytter"
+  icon="list"
+>
+  - **[GitHub repository](https://github.com/discord/discord-example-app)**, hvor koden fra denne vejledning bor sammen
+  med nogle ekstra funktionsspecifikke kodeeksempler. -
+  **[discord-interactions](https://github.com/discord/discord-interactions-js)**, et bibliotek med typer og
+  hjælpefunktioner til Discord-apps. - **[Express](https://expressjs.com)**, et populært JavaScript-web framework vi
+  bruger til at oprette en server, hvor Discord kan sende os anmodninger. - **[Glitch](https://glitch.com/)**, et online
+  miljø, der simplificerer udviklingen og hostingen af apps i de tidlige prototype- og udviklingsfaser. Du kan ogås
+  udvikle lokalt med et værktøj som **[ngrok](https://ngrok.com/)**.
 </Collapsible>
 
 ---
@@ -33,7 +40,9 @@ Lad os gøre brugerrejsen lidt mere tydelig:
 
 Først skal du skabe en app i udviklerportalen, hvis du ikke allerede har en:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Skab app</Button>
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
+  Skab app
+</Button>
 
 Navngiv din app, og tryk på **Skab**.
 
@@ -51,13 +60,14 @@ Intentioner bestemmer, hvilke hændelser Discord sender din app til, når du lav
 Nogle intentioner er [privilegerede](#DOCS_TOPICS_GATEWAY/privileged-intents), hvilket betyder, at de lader din app tilgå data, der kan være følsomme (såsom indholdet af beskeder). Privilegerede intentioner findes og kan styres på siden **Bot** i din apps indstillinger. Standard, ikke-privilegerede intentioner kræver ingen yderligere tilladelser eller konfigurationer.
 
 Du finder mere information om intentioner sammen med en liste over alle intentioner, inkl. deres tilknyttede hændelser i [Gateway-dokumentationen](#DOCS_TOPICS_GATEWAY/gateway-intents).
+
 </Collapsible>
 
 ![Bot-fanen i appens indstillinger](app-add-bot.png)
 
 Der er også en **Token**-sektion på siden **Bot**, der lader dig kopiere og nulstille din bots token.
 
-Bot-tokens bruges til at godkende API-anmodninger og bære din bot-brugers tilladelser, hvilket gør dem *meget følsomme*. Sørg for *ikke* at dele din token eller bruge den til nogen form for versionskontrol.
+Bot-tokens bruges til at godkende API-anmodninger og bære din bot-brugers tilladelser, hvilket gør dem _meget følsomme_. Sørg for _ikke_ at dele din token eller bruge den til nogen form for versionskontrol.
 
 Kopier nu din token, og gem den et sikkert sted (såsom i en administrator af adgangskoder).
 
@@ -73,7 +83,7 @@ Når du laver en app, bestemmer anvendelsesområder og tilladelser, hvad din app
 
 - [OAuth2-anvendelsesområder](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) bestemmer, hvilken dataadgang og hvilke handlinger din app har adgang til, tildelt på vegne af en installerende eller bekræftende bruger.
 - [Tilladelser](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) er din bot-brugers detaljerede tilladelser, ligesom andre brugere på Discord også har. De kan godkendes af den installerende bruger eller senere opdateres under serverens indstillinger eller med [overskrivninger af tilladelser](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
-</Collapsible>
+  </Collapsible>
 
 Klik på **OAuth2** i venstre sidepanel, og vælg **URL-generator**.
 
@@ -81,6 +91,7 @@ Klik på **OAuth2** i venstre sidepanel, og vælg **URL-generator**.
 > URL-generatoren skaber et installationslink baseret på de anvendelsesområder og tilladelser, du har valgt for din app. Du kan bruge linket til at installere appen på din egen server eller dele det med andre, så de kan installere den.
 
 Lige nu skal du tilføje to anvendelsesområder:
+
 - `applications.commands`, der lader din app skabe [kommandoer](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
 - `bot`, der tilføjer din bot-bruger. Når du har valgt `bot`, kan du også vælge forskellige tilladelse til din bot. Lige nu skal du bare afkrydse **Send meddelelser**.
 
@@ -127,7 +138,7 @@ Når du har remixet projektet, lander du på et nyt Glitch-projekt.
 - **`.env`** er filen, hvor alle legitimationsoplysninger for din app bliver gemt
 - **Logs** er stedet, hvor dit projekts output kan findes – det er nyttigt for at se, om appen kører, samt information om fejl, din app støder på
 - **Share**-knappen i øverste, højre hjørne er stedet, hvor du finder det live projekts URL, som du skal bruge til at opsætte interaktivitet senere i denne vejledning
-</Collapsible>
+  </Collapsible>
 
 #### Projektstruktur
 
@@ -184,7 +195,7 @@ Discord har to API's som du frit kan vælge mellem og blande, når du laver apps
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** er en REST-lignende API til generelle operationer som at sende og opdatere data i Discord eller hente data om en ressource.
 - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** er en WebSocket-baseret API, der er nyttig til at beholde en tilstand eller lytte til begivenheder på en Discord-server. Vi benytter den ikke i denne vejledning, men du kan finde mere information om, hvordan du skaber en Gateway-forbindelse, samt de forskellige begivenheder, du kan lytte efter, i [Gateway-dokumentationen](#DOCS_TOPICS_GATEWAY).
-</Collapsible>
+  </Collapsible>
 
 ---
 
@@ -208,6 +219,7 @@ På din apps side med **Generel information** er der en instilling for **URL for
 Klik på **Gem ændringer**, og sørg for, at dit slutpunkt er korrekt bekræftet.
 
 App-eksemplet håndterer bekræftelse på to måder:
+
 - Den bruger `PUBLIC_KEY` og [discord-interaktionspakken](https://github.com/discord/discord-interactions-js#usage) med en wrapper-funktion (importeret fra `utils.js`), der gør, at den passer til [Express' `verify`-brugerflade](http://expressjs.com/en/5x/api.html#express.json). Den køres på alle indkommende anmodninger på din app.
 - Den besvarer indkommende `PING`-anmodninger.
 
@@ -220,14 +232,14 @@ Når slutpunktet er bekræftet, skal du gå til dit projekts `app.js`-fil og fin
 ```javascript
 // "test"-kommando
 if (name === 'test') {
-    // Send en besked i kanalen, hvor kommandoen blev udløst
-    return res.send({
+  // Send en besked i kanalen, hvor kommandoen blev udløst
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        // Henter en tilfældig emoji, der sendes fra en hjælpefunktion
-        content: 'hello world ' + getRandomEmoji(),
+      // Henter en tilfældig emoji, der sendes fra en hjælpefunktion
+      content: 'hello world ' + getRandomEmoji(),
     },
-    });
+  });
 }
 ```
 
@@ -262,44 +274,44 @@ For at håndtere `/challenge`-kommandoen skal du føje følgende kode efter hvis
 ```javascript
 // "challenge"-kommando
 if (name === 'challenge' && id) {
-    const userId = req.body.member.user.id;
-    // Brugers genstandsvalg
-    const objectName = req.body.data.options[0].value;
+  const userId = req.body.member.user.id;
+  // Brugers genstandsvalg
+  const objectName = req.body.data.options[0].value;
 
-    // Skab aktivt spil med besked-ID som spil-ID
-    activeGames[id] = {
-        id: userId,
-        objectName,
-    };
+  // Skab aktivt spil med besked-ID som spil-ID
+  activeGames[id] = {
+    id: userId,
+    objectName,
+  };
 
-    return res.send({
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        content: `Rock papers scissors challenge from <@${userId}>`,
-        components: [
+      content: `Rock papers scissors challenge from <@${userId}>`,
+      components: [
         {
-            type: MessageComponentTypes.ACTION_ROW,
-            components: [
+          type: MessageComponentTypes.ACTION_ROW,
+          components: [
             {
-                type: MessageComponentTypes.BUTTON,
-                // Tilføj spil-ID til senere brug
-                custom_id: `accept_button_${req.body.id}`,
-                label: 'Accept',
-                style: ButtonStyleTypes.PRIMARY,
+              type: MessageComponentTypes.BUTTON,
+              // Tilføj spil-ID til senere brug
+              custom_id: `accept_button_${req.body.id}`,
+              label: 'Accept',
+              style: ButtonStyleTypes.PRIMARY,
             },
-            ],
+          ],
         },
-        ],
+      ],
     },
-    });
+  });
 }
 ```
-
 
 > info
 > Hvis du ikke er sikker på, hvor du skal indsætte koden, kan du se den fulde kode i `examples/app.js` i Glitch-projektet eller i roden `app.js` [på GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
 
 Koden herover gør et par forskellige ting:
+
 1. Parser anmodningsdataen for at få ID på brugeren, der udløste slash-kommandoen (`userId`), og valget (genstandsvalg) de traf (`objectName`).
 2. Tilføjer et nyt spil til `activeGames`-objektet med interaktions-ID'et. Det aktive spil noterer `userId` og `objectName`.
 3. Sender en besked tilbage til kanalen med en knap med et `custom_id` på `accept_button_<SOME_ID>`.
@@ -325,8 +337,8 @@ Indsæt følgende kode under type-handleren for `APPLICATION_COMMAND`:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id valg i nyttelast ved afsendelse af beskedkomponent
-const componentId = data.custom_id;
+  // custom_id valg i nyttelast ved afsendelse af beskedkomponent
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // hent det tilhørende spil-ID
@@ -366,6 +378,7 @@ const componentId = data.custom_id;
 ```
 
 Koden herover:
+
 1. Tjekker efter et `custom_id`, der matcher det, vi oprindeligt sendte (i dette tilfælde starter det med `accept_button_`). Custom-ID har også det aktive spil-ID tilføjet, så vi gemmer det i `gameID`.
 2. [Sletter den oprindelige besked](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) ved at kalde en webhook med `node-fetch` og sende den unikke interaktions-`token` i anmodningens krop. Dette gøres for at rydde op i kanalen og for at forhindre, at andre brugere kan klikke på knappen.
 3. Besvarer anmodningen ved at sende en besked, der indeholder en menu med valgmuligheder med genstandene i spillet. Nyttelasten bør se ud ligesom den forrige med undtagelse af `options`-sættet og `flags: 64`, [der indikerer, at beskeden er kortvarig](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
@@ -384,8 +397,8 @@ Modificér koden ovenfor, så den kan håndtere menuer med valgmuligheder:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id valg i nyttelast ved afsendelse af beskedkomponent
-const componentId = data.custom_id;
+  // custom_id valg i nyttelast ved afsendelse af beskedkomponent
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // hent det tilhørende spil-ID
@@ -450,8 +463,8 @@ const componentId = data.custom_id;
           method: 'PATCH',
           body: {
             content: 'Nice choice ' + getRandomEmoji(),
-            components: []
-          }
+            components: [],
+          },
         });
       } catch (err) {
         console.error('Error sending message:', err);
@@ -480,6 +493,7 @@ Endelig sendes resultatet til kanalen med `CHANNEL_MESSAGE_WITH_SOURCE`-interakt
 Tillykke, du har skabt din første Discord-app! 🤖
 
 Forhåbentlig har du lært en smule om Discord-apps, hvordan du konfigurerer dem, og hvordan du gør dem interaktive. Herfra kan du fortsætte med at udvikle din app, eller du kan udforske, hvad der ellers kan lade sig gøre:
+
 - Læs **[dokumentationen](#DOCS_INTRO)** for dybdegående information om API-funktioner
 - Kig i `examples/`-mappen i dette projekt for mindre, funktionsspecifikke kodeeksempler
 - Se vores **[community-ressourcer](#DOCS_TOPICS_COMMUNITY_RESOURCES)** for sprogspecifikke redskaber, leveret af medlemmer af fællesskabet

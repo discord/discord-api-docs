@@ -8,12 +8,12 @@ The [Official Discord Developers server](https://discord.gg/discord-developers) 
 
 ## Libraries
 
-Discord does not maintain official SDKs.  The following table is an inexhaustive list of third-party libraries that have valid rate limit implementations, are recently maintained, and have large communities of active bots.
+Discord does not maintain official SDKs. The following table is an inexhaustive list of third-party libraries that have valid rate limit implementations, are recently maintained, and have large communities of active bots.
 
 ###### Discord Libraries
 
 | Name                                                          | Language   |
-|---------------------------------------------------------------|------------|
+| ------------------------------------------------------------- | ---------- |
 | [Discord.Net](https://github.com/discord-net/Discord.Net)     | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)        | C#         |
 | [D++](https://github.com/brainboxdotcc/DPP)                   | C++        |
@@ -110,6 +110,6 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
 
 | Name                                                                | Language   |
-|---------------------------------------------------------------------|------------|
+| ------------------------------------------------------------------- | ---------- |
 | [dasgo](https://github.com/switchupcb/dasgo)                        | Go         |
 | [discord-api-types](https://github.com/discordjs/discord-api-types) | JavaScript |

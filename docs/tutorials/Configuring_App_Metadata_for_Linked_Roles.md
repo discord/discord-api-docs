@@ -16,7 +16,7 @@ This tutorial walks through building a Discord app in JavaScript with linked rol
 The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES/running-your-app) section.
 
 > info
-> Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](#DOCS_GETTING_STARTED). 
+> Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](#DOCS_GETTING_STARTED).
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
 - Click **New Application** in the upper right corner, then select a name and create your app
@@ -32,7 +32,7 @@ Apps need approval from installing users to perform actions inside of Discord. S
 - Click on `OAuth2` in the left sidebar, then `URL generator`
 - Check the `bot` scope
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
- 
+
 > info
 > See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
 
@@ -86,7 +86,7 @@ There's already some code in your `server.js` file, but you’ll need your app�
 
 First, copy your bot user’s token from earlier and paste it in the `DISCORD_TOKEN` variable in your `.env` file.
 
-Next, navigate to your app settings in the developer portal, and navigate to OAuth2 -> General. Copy the Client ID and Client Secret for your application, and paste the values as `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` in your `.env`. 
+Next, navigate to your app settings in the developer portal, and navigate to OAuth2 -> General. Copy the Client ID and Client Secret for your application, and paste the values as `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` in your `.env`.
 
 ![Configure OAuth2](linked-roles-oauth-config.png)
 
@@ -94,7 +94,7 @@ Now, we need to set the Redirect URL that will be used for our OAuth2 flow. Go b
 
 ![Glitch Share](linked-roles-glitch-share-url.png)
 
-Go back to the OAuth2 -> General tab in the Discord developer portal, and add a new redirect for your app using the Glitch URL and the `/discord-oauth-callback` route. Copy this URL, then paste it as `DISCORD_REDIRECT_URI` in your `.env`. 
+Go back to the OAuth2 -> General tab in the Discord developer portal, and add a new redirect for your app using the Glitch URL and the `/discord-oauth-callback` route. Copy this URL, then paste it as `DISCORD_REDIRECT_URI` in your `.env`.
 
 Go to the General Information tab in the developer portal, and scroll down to the `Linked Roles Verification Url` field. Paste the base URL to your Glitch app, add the `/linked-role` route, then save.
 
@@ -155,7 +155,7 @@ To acquire your newly created role, click the server name in the upper left corn
 
 ![Connect accounts](linked-roles-connect-account.png)
 
-Click on the linked role criteria. This should lead to the Discord OAuth2 consent screen. Click `Authorize`, and then return to Discord. 
+Click on the linked role criteria. This should lead to the Discord OAuth2 consent screen. Click `Authorize`, and then return to Discord.
 
 ![Consent Dialog](linked-roles-consent-dialog.png)
 
@@ -169,7 +169,7 @@ Finally, create a new private channel, and add the new linked role.
 
 ### Token storage
 
-This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
+This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used.
 
 ### Advanced examples
 

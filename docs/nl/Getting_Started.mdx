@@ -18,13 +18,20 @@ Ter verduidelijking van de gebruikersflow:
 3. Gebruiker 2 klikt op de knop **Accepteren**
 4. Gebruiker 2 ontvangt een kortstondig bericht waarin een object naar keuze kan worden geselecteerd
 5. Het resultaat van het spel wordt in het oorspronkelijke kanaal gepost, zodat iedereen het kan zien
-</Collapsible>
+   </Collapsible>
 
-<Collapsible title="In deze gids gebruikte hulpbronnen" description="Overzicht van de tools en technologieën die we gebruiken" icon="list">
-- **[GitHub-register](https://github.com/discord/discord-example-app)** waar de code uit deze gids zich bevindt, samen met wat extra codevoorbeelden voor speciale functies.
-- **[discord-interacties](https://github.com/discord/discord-interactions-js)**, een bibliotheek met soort- en hulpfuncties voor Discord-apps.
-- **[Express](https://expressjs.com)**, een populair JavaScript-webframewerk dat we gebruiken om een server te creëren waarvandaan Discord ons verzoeken kan sturen.
-- **[Glitch](https://glitch.com/)**, een online omgeving die het bouwen en hosten van apps vereenvoudigt in de vroege prototype- en ontwikkelingsfase. Je kunt ook lokaal ontwikkelen met een tool als **[ngrok](https://ngrok.com/)**.
+<Collapsible
+  title="In deze gids gebruikte hulpbronnen"
+  description="Overzicht van de tools en technologieën die we gebruiken"
+  icon="list"
+>
+  - **[GitHub-register](https://github.com/discord/discord-example-app)** waar de code uit deze gids zich bevindt, samen
+  met wat extra codevoorbeelden voor speciale functies. -
+  **[discord-interacties](https://github.com/discord/discord-interactions-js)**, een bibliotheek met soort- en
+  hulpfuncties voor Discord-apps. - **[Express](https://expressjs.com)**, een populair JavaScript-webframewerk dat we
+  gebruiken om een server te creëren waarvandaan Discord ons verzoeken kan sturen. - **[Glitch](https://glitch.com/)**,
+  een online omgeving die het bouwen en hosten van apps vereenvoudigt in de vroege prototype- en ontwikkelingsfase. Je
+  kunt ook lokaal ontwikkelen met een tool als **[ngrok](https://ngrok.com/)**.
 </Collapsible>
 
 ---
@@ -33,7 +40,9 @@ Ter verduidelijking van de gebruikersflow:
 
 Eerst moet je een app creëren in het ontwikkelaarsportaal, als je dat nog niet hebt gedaan:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">App creëren</Button>
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
+  App creëren
+</Button>
 
 Voer een naam in voor je app en klik dan op **Creëren**.
 
@@ -51,13 +60,14 @@ Intents bepalen welke evenementen Discord naar je app stuurt als je een [Gateway
 Sommige intents zijn [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents), wat betekent dat ze je app toegang geven tot data die als gevoelig beschouwd kunnen worden (zoals de inhoud van berichten). Privileged intents verschijnen op de **Bot**-pagina in je app-instellingen, waar je ze ook aan en uit kunt zetten. Voor gewone intents heb je geen extra machtigingen of configuraties nodig.
 
 Meer informatie over intents en een volledige lijst van beschikbare intents en de bijbehorende evenementen is te vinden in de [Gateway-documentatie](#DOCS_TOPICS_GATEWAY/gateway-intents).
+
 </Collapsible>
 
 ![Bot-tab in app-instellingen](app-add-bot.png)
 
 Er is ook een **Token**-sectie op de **Bot**-pagina, waarmee je het token van je bot kunt kopiëren en resetten.
 
-Met bottokens worden API-verzoeken geautoriseerd. Ze bevatten de machtigingen van je botgebruiker, waardoor ze *zeer kwetsbaar* zijn. Deel *nooit* je token en gebruik hem nooit bij versiecontrole.
+Met bottokens worden API-verzoeken geautoriseerd. Ze bevatten de machtigingen van je botgebruiker, waardoor ze _zeer kwetsbaar_ zijn. Deel _nooit_ je token en gebruik hem nooit bij versiecontrole.
 
 Maar je kunt je token gerust kopiëren en hem dan veilig opbergen (bijvoorbeeld in een wachtwoordbeheerprogramma).
 
@@ -73,7 +83,7 @@ Bij het creëren van een app bepaal je met scopes en botmachtigingen wat je app 
 
 - [OAuth2-scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
 - [Machtigingen](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) zijn de gespecialiseerde toestemmingen voor je botgebruiker, zoals andere gebruikers op Discord ook hebben. Ze kunnen toestemming krijgen van de installerende gebruiker, of later worden bijgewerkt in de serverinstellingen of met [machtigingsoverschrijvingen](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
-</Collapsible>
+  </Collapsible>
 
 Klik in de zijbalk links op **OAuth2** en selecteer vervolgens **URL-generator**.
 
@@ -81,6 +91,7 @@ Klik in de zijbalk links op **OAuth2** en selecteer vervolgens **URL-generator**
 > De URL-generator creëert een installatielink gebaseerd op de scopes en machtigingen die je selecteert voor je app. Je kunt de link gebruiken om de app op je eigen server te installeren of om hem te delen met anderen, zodat zij hem kunnen installeren.
 
 Voeg voorlopig twee scopes toe:
+
 - `applications.commands`, waarmee je app [opdrachten](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) kan creëren.
 - `bot` voegt je botgebruiker toe. Nadat je `bot` hebt geselecteerd, kun je ook andere machtigingen selecteren voor je bot. Vink voorlopig alleen **Berichten verzenden** aan.
 
@@ -127,7 +138,7 @@ Als je het project remixt, kom je in een nieuw Glitch-project terecht.
 - **`.env`** is het bestand waar alle verificatiegegevens voor je app in worden opgeslagen
 - In **logs** kun je de output van je project vinden. Hier kun je zien of de app wel draait, en info bekijken over problemen waar je app tegenaan loopt
 - De knop **Delen**, rechts boven in het scherm, is de plaats waar de live project-URL te vinden is. Verderop in deze gids gebruiken we die om interactiviteit in te stellen
-</Collapsible>
+  </Collapsible>
 
 #### Projectstructuur
 
@@ -184,7 +195,7 @@ Discord heeft twee API's die je kunt combineren om apps te bouwen:
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
 - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](#DOCS_TOPICS_GATEWAY).
-</Collapsible>
+  </Collapsible>
 
 ---
 
@@ -208,6 +219,7 @@ Op de pagina **Algemene informatie** van je app staat de optie **Interactieve ei
 Klik op **Wijzigingen opslaan** en controleer of het is gelukt om je eindpunt te verifiëren.
 
 In de voorbeeld-app wordt verificatie op twee manieren aangepakt:
+
 - Het gebruikt de `PUBLIC_KEY` en het [pakket discord-interactions](https://github.com/discord/discord-interactions-js#usage) met een wrapper-functie (geïmporteerd uit `utils.js`) waardoor het geschikt wordt voor de [`verify`-interface van Express](http://expressjs.com/en/5x/api.html#express.json). Dit wordt toegepast op elk binnenkomend verzoek op je app.
 - Het reageert op binnenkomende `PING`-verzoeken.
 
@@ -220,14 +232,14 @@ Nu het eindpunt geverifieerd is, ga je naar het `app.js`-bestand van je project 
 ```javascript
 // "test" opdracht
 if (name === 'test') {
-    // Stuur een bericht naar het kanaal waarin de opdracht is geactiveerd
-    return res.send({
+  // Stuur een bericht naar het kanaal waarin de opdracht is geactiveerd
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        // Haalt een willekeurige emoji op om te versturen vanaf een hulpfunctie
-        content: 'hello world ' + getRandomEmoji(),
+      // Haalt een willekeurige emoji op om te versturen vanaf een hulpfunctie
+      content: 'hello world ' + getRandomEmoji(),
     },
-    });
+  });
 }
 ```
 
@@ -262,44 +274,44 @@ Om met de opdracht `/challenge` te werken, moet je de volgende code toevoegen na
 ```javascript
 // "challenge" opdracht
 if (name === 'challenge' && id) {
-    const userId = req.body.member.user.id;
-    // Objectkeuze van gebruiker
-    const objectName = req.body.data.options[0].value;
+  const userId = req.body.member.user.id;
+  // Objectkeuze van gebruiker
+  const objectName = req.body.data.options[0].value;
 
-    // Creëer een actief spel met bericht-ID als game-ID
-    activeGames[id] = {
-        id: userId,
-        objectName,
-    };
+  // Creëer een actief spel met bericht-ID als game-ID
+  activeGames[id] = {
+    id: userId,
+    objectName,
+  };
 
-    return res.send({
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        content: `Rock papers scissors challenge from <@${userId}>`,
-        components: [
+      content: `Rock papers scissors challenge from <@${userId}>`,
+      components: [
         {
-            type: MessageComponentTypes.ACTION_ROW,
-            components: [
+          type: MessageComponentTypes.ACTION_ROW,
+          components: [
             {
-                type: MessageComponentTypes.BUTTON,
-                // Voeg de game-ID bij om later te gebruiken
-                custom_id: `accept_button_${req.body.id}`,
-                label: 'Accept',
-                style: ButtonStyleTypes.PRIMARY,
+              type: MessageComponentTypes.BUTTON,
+              // Voeg de game-ID bij om later te gebruiken
+              custom_id: `accept_button_${req.body.id}`,
+              label: 'Accept',
+              style: ButtonStyleTypes.PRIMARY,
             },
-            ],
+          ],
         },
-        ],
+      ],
     },
-    });
+  });
 }
 ```
-
 
 > info
 > Als je niet zeker weet waar je de code moet plakken, kun je de volledige code bekijken in `examples/app.js` in het Glitch-project of de root van `app.js` [op GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
 
 De bovenstaande code doet een aantal dingen:
+
 1. Hij analyseert de inhoud van het verzoek om de ID van de gebruiker op te halen die de slashopdracht heeft geactiveerd (`userId`) en de optie (objectkeuze) die de gebruiker heeft geselecteerd (`objectName`).
 2. Hij voegt een nieuw spel toe aan het object `activeGames` met behulp van de interactie-ID. Het actieve spel registreert de `userId` en `objectName`.
 3. Hij stuurt een bericht met daarin een knop met een `custom_id` van `accept_button_<SOME_ID>` naar het kanaal terug.
@@ -325,8 +337,8 @@ Plak de volgende code onder de typeverwerker voor `APPLICATION_COMMAND`:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id wordt ingesteld in payload bij versturen berichtonderdeel
-const componentId = data.custom_id;
+  // custom_id wordt ingesteld in payload bij versturen berichtonderdeel
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // Haal de bijbehorende game-ID op
@@ -366,6 +378,7 @@ const componentId = data.custom_id;
 ```
 
 De bovenstaande code:
+
 1. Zoekt naar een `custom_id` die overeenkomt met wat we oorspronkelijk hebben verstuurd (in dit geval begint dat met `accept_button_`). Bij de aangepaste ID is de game-ID gevoegd, zodat we die kunnen opslaan in `gameID`.
 2. [Verwijdert het oorspronkelijke bericht](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) door een webhook aan te roepen met behulp van `node-fetch` en door de unieke interactie-`token` door te geven in de inhoud van het verzoek.
 3. Reageert op het verzoek door een bericht te sturen met een keuzemenu dat de objectkeuzes voor de game bevat. De payload is vergelijkbaar met de vorige, met uitzondering van de `options`-lijst en `flags: 64`, [die aangeeft dat het bericht kortstondig is](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
@@ -384,8 +397,8 @@ Pas de bovenstaande code aan voor het keuzemenu:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id wordt ingesteld in payload bij versturen berichtonderdeel
-const componentId = data.custom_id;
+  // custom_id wordt ingesteld in payload bij versturen berichtonderdeel
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // Haal de bijbehorende game-ID op
@@ -450,8 +463,8 @@ const componentId = data.custom_id;
           method: 'PATCH',
           body: {
             content: 'Nice choice ' + getRandomEmoji(),
-            components: []
-          }
+            components: [],
+          },
         });
       } catch (err) {
         console.error('Error sending message:', err);
@@ -480,6 +493,7 @@ En dat was het! 🎊 Nu kun je je app testen en ervoor zorgen dat alles werkt.
 Gefeliciteerd met het bouwen van je eerste Discord-app! 🎊
 
 Hopelijk heb je iets opgestoken over Discord-apps, hoe je ze kunt configureren en hoe je ze interactief kunt maken. Je kunt nu je app verder uitbouwen of ontdekken wat er nog meer mogelijk is:
+
 - Lees **[de documentatie](#DOCS_INTRO)** voor meer informatie over API-functies
 - Kijk de `examples/`-map van dit project door voor kleinere codevoorbeelden, speciaal voor bepaalde functies
 - Check de **[communityhulpbronnen](#DOCS_TOPICS_COMMUNITY_RESOURCES)** voor tools in verschillende coderingstalen die door communityleden worden beheerd

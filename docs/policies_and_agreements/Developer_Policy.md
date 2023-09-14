@@ -4,7 +4,7 @@
 
 ## Last updated: September 1, 2022
 
-*For a link to the previous policy, please see **[here](https://github.com/discord/discord-api-docs/blob/62c9a95b56d2f989d3eefe39a058d69189f6b4a6/docs/policies_and_agreements/Developer_Policy.md)**. For a translated version in your selected language, as available, please see **[here](https://support-dev.discord.com/hc/articles/8563934450327)**.*
+_For a link to the previous policy, please see **[here](https://github.com/discord/discord-api-docs/blob/62c9a95b56d2f989d3eefe39a058d69189f6b4a6/docs/policies_and_agreements/Developer_Policy.md)**. For a translated version in your selected language, as available, please see **[here](https://support-dev.discord.com/hc/articles/8563934450327)**._
 
 Discord is a place of belonging where developers come to build cool tools to further the way that people connect. As Discord continues to grow and support our developers, it’s important to be transparent about the responsibilities and expectations of our developers and their Applications. This document sets forth the policies developers will need to follow to develop and operate their Applications.
 
@@ -16,7 +16,7 @@ Please check back here regularly as we may update these policies from time to ti
 
 ## Protect Discord users
 
-- **Do not modify a Discord user’s account without explicit permission from the Discord user**. Functionality that intends to make any changes to a Discord account, for example adding the account to a server, must clearly and properly inform the Discord account owner of the changes and receive explicit permission to enact the changes. 
+- **Do not modify a Discord user’s account without explicit permission from the Discord user**. Functionality that intends to make any changes to a Discord account, for example adding the account to a server, must clearly and properly inform the Discord account owner of the changes and receive explicit permission to enact the changes.
 - **Do not collect, solicit, or deceive users into providing user login credentials**. Under no circumstances may you or your Application solicit, obtain, or request login credentials from Discord users in any way. This includes information such as passwords or user access or login tokens.
 - **Do not target users with advertisements or marketing**. Messaging to Discord users from any Application or developer team should be relevant to the function of the Application and may not contain material unrelated to an Application’s function or information.
 
@@ -30,7 +30,7 @@ Please check back here regularly as we may update these policies from time to ti
 - **Do not sell, license, or otherwise commercialize any API Data or Discord services (as defined in our [Terms of Service](https://discord.com/terms), e.g., Nitro subscriptions).**
 - **Do not direct your Application to people who are under the age of 13 or the minimum age of digital consent in their applicable countries**. Our services are only for people who are at least 13 years old and meet the minimum age of digital consent in their applicable countries.
 - **Do not attempt to re-identify, de-anonymize, unscramble, unencrypt, or reverse hash or reverse engineer API Data from the form in which you obtain it.**
-- **Do not use API Data in any way that goes against Discord users’ expectations**. This includes frequently sending unsolicited direct messages, sending direct messages not directly related to maintaining or improving an Application's core functionality, or making unsolicited changes to user data or to a user’s access to Discord services. 
+- **Do not use API Data in any way that goes against Discord users’ expectations**. This includes frequently sending unsolicited direct messages, sending direct messages not directly related to maintaining or improving an Application's core functionality, or making unsolicited changes to user data or to a user’s access to Discord services.
 
 For the avoidance of doubt, the above policies apply in addition to the terms relating to API Data described in the Developer Terms (including Section 5 (User Privacy and Security)), and use of data includes how you access, collect, store, retain, transmit, share, and otherwise process it.
 
@@ -53,7 +53,7 @@ For the avoidance of doubt, the above policies apply in addition to the terms re
 
 ## Respect the Platform
 
-- **Obtain consent before initiating processes on a user or server’s behalf**. Your Application must respect user decisions to opt out of or block the Application, as applicable. On the server level, your Application must respect server members’ (with the appropriate permissions) ability to remove the Application. The manner of providing the option for consent/authentication must be clearly labeled and apparent, and contain an accurate description of the purpose or feature being enabled. For example, if your Application is providing a service in response to a user initiated request or command, this is an acceptable instance of consent here. 
+- **Obtain consent before initiating processes on a user or server’s behalf**. Your Application must respect user decisions to opt out of or block the Application, as applicable. On the server level, your Application must respect server members’ (with the appropriate permissions) ability to remove the Application. The manner of providing the option for consent/authentication must be clearly labeled and apparent, and contain an accurate description of the purpose or feature being enabled. For example, if your Application is providing a service in response to a user initiated request or command, this is an acceptable instance of consent here.
 - **Use commercially reasonable efforts to promptly make yourself or your team available for feedback or user support regarding your Application.**
 - **Notify Discord and affected users of potential unauthorized access to API Data, as described in Section 5 of the Developer Terms.**
 - **Do not remove, obscure, or alter Discord’s links to any of the Terms.**

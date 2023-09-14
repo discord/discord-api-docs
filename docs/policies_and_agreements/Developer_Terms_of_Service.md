@@ -4,11 +4,11 @@
 
 ## Last updated: September 1, 2022
 
-*For a link to the previous terms, please see **[here](https://github.com/discord/discord-api-docs/blob/62c9a95b56d2f989d3eefe39a058d69189f6b4a6/docs/policies_and_agreements/Terms_of_Service.md)**. For a translated version in your selected language, as available, please see **[here](https://support-dev.discord.com/hc/articles/8562894815383)**.*
+_For a link to the previous terms, please see **[here](https://github.com/discord/discord-api-docs/blob/62c9a95b56d2f989d3eefe39a058d69189f6b4a6/docs/policies_and_agreements/Terms_of_Service.md)**. For a translated version in your selected language, as available, please see **[here](https://support-dev.discord.com/hc/articles/8562894815383)**._
 
 Welcome! Thank you for your interest in Discord’s APIs, software development kits (“SDKs”), and other developer products and services and associated software (including those described in or available via our [Developer Portal](#DOCS_INTRO)) (collectively, "APIs" or “Developer Platform”).
 
-These Developer Terms of Service (“Developer Terms”) apply to your access to and use of the APIs and set forth the legal obligations between us and you. 
+These Developer Terms of Service (“Developer Terms”) apply to your access to and use of the APIs and set forth the legal obligations between us and you.
 
 When we say “Discord,” “we,” “us,” and “our” in these Developer Terms of Service, we mean Discord Inc., unless otherwise set forth in additional terms applicable to a given API.
 
@@ -50,13 +50,13 @@ You will use any developer credentials (such as your Application ID, passwords, 
 
 ## e. Eligibility
 
-As part of the APIs, we may make certain features available to you that require you to meet additional criteria in order to be eligible to access them (e.g., to enable your Application to be discoverable on or through Discord services). For the avoidance of doubt, your access to and use of such features will be subject to your compliance with the then-current applicable eligibility criteria and other policies (in addition to all other Terms). 
+As part of the APIs, we may make certain features available to you that require you to meet additional criteria in order to be eligible to access them (e.g., to enable your Application to be discoverable on or through Discord services). For the avoidance of doubt, your access to and use of such features will be subject to your compliance with the then-current applicable eligibility criteria and other policies (in addition to all other Terms).
 
 # Section 3: Use of App Content and Your Application
 
 ## a. License
 
-You grant us a non-exclusive, transferable, sublicensable, royalty-free, worldwide license to run, publicly display and perform, distribute, reproduce, modify, host, translate, store, and otherwise use your Application and App Content in connection with operating, developing, and improving the APIs and other Discord services; provided that the right to reproduce does not apply to the Application. This license is to allow us to, among other things: enable users to install and use your Application in Discord servers; display and provide information about you (including your name and Brand Features) and your Application to users (including in profile and product pages); frame and link to, place content around, and limit commands from your Application; make your Application discoverable by users on or through Discord services (including in search results, categories, and collections with other Applications); attribute you as the source of App Content; and analyze your Application and App Content for performance and compliance. For clarity, the things we do under this license will depend in part on your Application, App Content, and how you use the APIs. For example, if your Application is a bot integration that you host and deploy on your own, then we would not need to host your Application. This license will remain in effect with respect to App Content after the Terms end. We will not be subject to any terms or policies associated with your Application or App Content (even if we click to agree). 
+You grant us a non-exclusive, transferable, sublicensable, royalty-free, worldwide license to run, publicly display and perform, distribute, reproduce, modify, host, translate, store, and otherwise use your Application and App Content in connection with operating, developing, and improving the APIs and other Discord services; provided that the right to reproduce does not apply to the Application. This license is to allow us to, among other things: enable users to install and use your Application in Discord servers; display and provide information about you (including your name and Brand Features) and your Application to users (including in profile and product pages); frame and link to, place content around, and limit commands from your Application; make your Application discoverable by users on or through Discord services (including in search results, categories, and collections with other Applications); attribute you as the source of App Content; and analyze your Application and App Content for performance and compliance. For clarity, the things we do under this license will depend in part on your Application, App Content, and how you use the APIs. For example, if your Application is a bot integration that you host and deploy on your own, then we would not need to host your Application. This license will remain in effect with respect to App Content after the Terms end. We will not be subject to any terms or policies associated with your Application or App Content (even if we click to agree).
 
 ## b. Users
 
@@ -76,7 +76,7 @@ Without limiting Section 4, you will comply with all applicable privacy laws and
 
 ## b. API Data Sharing & Retention
 
-You will not share API Data with any third party, except in the following circumstances, subject to compliance with the Terms and applicable laws and regulations: (i) with a Service Provider; (ii) to the extent required under applicable laws or regulations; and (iii) when a user of your Application expressly directs you to share their API Data with the third party (and you will provide us proof thereof upon request). 
+You will not share API Data with any third party, except in the following circumstances, subject to compliance with the Terms and applicable laws and regulations: (i) with a Service Provider; (ii) to the extent required under applicable laws or regulations; and (iii) when a user of your Application expressly directs you to share their API Data with the third party (and you will provide us proof thereof upon request).
 
 Except to the extent you are required to retain API Data under applicable laws or regulations, you will (1) promptly update the API Data upon request from us or the applicable user, and (2) promptly delete the API Data when: (a) retaining it is no longer necessary for your Application’s stated (and approved through App Review, as applicable) functionality that is permitted under the Terms; (b) you stop operating your Application (whether on your own, due to an enforcement action by us, or otherwise); (c) we request you delete it; (d) the applicable user requests you delete it; or (e) required by applicable laws or regulations. You will give users an easily accessible way to ask for their API Data to be modified and deleted. If you have received API Data in error, you will immediately tell us, delete it, and provide proof of deletion upon our request.
 
@@ -128,11 +128,11 @@ You will not make any statement (including in any promotions or advertisements o
 
 You grant us a non-exclusive, transferable, sublicensable, royalty-free, worldwide license to use your name and Brand Features, your Application’s name and icon, and produce and distribute App Content and incidental depictions (including screenshots, videos, or other content) from your Application, in the course of promoting, marketing, or demonstrating the APIs or other Discord services you are using or your Application (including in our discovery surfaces). This license will remain in effect for existing materials and instances even if the Terms are terminated.
 
-# Section  9: Termination
+# Section 9: Termination
 
 ## a. Termination
 
-You may terminate the Terms by discontinuing your (including your Application’s and those acting on your behalf) access to and use of the APIs at any time with or without notice. Discord reserves the right to terminate the Terms with you, or discontinue, suspend, or limit the APIs or any portion or feature or your access thereto, if there is an Enforcement Reason or at our convenience upon notice to you. If there is an Enforcement Reason, we may, at our discretion, also take other enforcement actions, including the following: issue warnings or notifications to you or the users; identify and require or request corrective actions from you; remove, suspend, or limit your Application or App Content; remove any approval we have provided for your Application through App Review; remove badges we’ve issued to you or your Application; require you to stop using and delete API Data; terminate, suspend, or limit your user or developer account with Discord or your developer credentials; terminate your other agreements with Discord or your ability to use other Discord services; report you or your Application to law enforcement (as we deem appropriate); or take legal action or any other action we consider to be appropriate. Enforcement actions may be automated or manual and we may take them with or without notice to you, including while we investigate. 
+You may terminate the Terms by discontinuing your (including your Application’s and those acting on your behalf) access to and use of the APIs at any time with or without notice. Discord reserves the right to terminate the Terms with you, or discontinue, suspend, or limit the APIs or any portion or feature or your access thereto, if there is an Enforcement Reason or at our convenience upon notice to you. If there is an Enforcement Reason, we may, at our discretion, also take other enforcement actions, including the following: issue warnings or notifications to you or the users; identify and require or request corrective actions from you; remove, suspend, or limit your Application or App Content; remove any approval we have provided for your Application through App Review; remove badges we’ve issued to you or your Application; require you to stop using and delete API Data; terminate, suspend, or limit your user or developer account with Discord or your developer credentials; terminate your other agreements with Discord or your ability to use other Discord services; report you or your Application to law enforcement (as we deem appropriate); or take legal action or any other action we consider to be appropriate. Enforcement actions may be automated or manual and we may take them with or without notice to you, including while we investigate.
 
 Without limiting any of the foregoing, we may also limit, suspend, or terminate your Application’s access tokens or any other means of access to the APIs that have not been used or accessed within at least the prior 30-day period, with or without notice to you.
 
@@ -163,6 +163,7 @@ DISCORD IS NOT LIABLE FOR THE CONDUCT OR CONTENT, WHETHER ONLINE OR OFFLINE, OF 
 ## c. Indemnification
 
 Unless prohibited by applicable law, you will defend (at our option), indemnify, and hold harmless Discord, and its affiliates, directors, officers, employees, and users, from and against all claims, liabilities, damages, losses, costs, fees (including legal and accounting fees), and expenses relating to:
+
 - access to or use of the APIs or API Data by you, those acting on your behalf, your Application, or your users (including any incidents of unauthorized access to or use of API Data);
 - actual or alleged violation the Terms by you, those acting on your behalf, your Application, or your users;
 - actual or alleged infringement of any third-party right (including intellectual property or other proprietary rights or rights to privacy or publicity) by you, those acting on your behalf, your Application, or your users; or
@@ -177,6 +178,7 @@ This section applies to the extent that the API Data includes personal data cont
 In each instance of an EEA Data Transfer, your use of Discord EU Data is subject to your compliance with the standard contractual clauses in European Commission Decision (EU) 2021/914 (“Clauses”) as they relate to controller-to-controller transfers as described in Module One.
 
 In each instance, you agree that for the purposes of Section IV, Clauses 17 and 18 in the Clauses, Option 1 and Option (b) shall apply respectively and the Member State shall be the Netherlands. Nothing in this Section 11 (International Transfers) is intended to vary or modify the Clauses. For the purposes of the Appendix to the Clauses, the following will apply:
+
 - For the purposes of Annex I(A) to the Clauses, Discord Netherlands BV is the "data exporter" and you are the "data importer" as defined in the Clauses.
 - For the purposes of Annex I(B) to the Clauses:
   - “Categories of data subjects” are the users who visit, access, use, or otherwise interact with your Application and the services of Discord Netherlands BV;
@@ -185,7 +187,7 @@ In each instance, you agree that for the purposes of Section IV, Clauses 17 and 
   - "Frequency of the transfer" is on a continuous basis to the extent required to fulfill the purpose set forth in Section 11(b)(v) directly below;
   - “Nature and purpose of the data transfer(s)" is the provision of your Application by you to users pursuant to these Terms and your applicable terms and privacy policy; and
   - "Period for which personal data will be retained" is as described in the Terms and in any case not longer than necessary for a legitimate business purpose in accordance with the Terms and applicable laws or regulations (including rights of erasure and similar rights for individuals), unless applicable laws require the Discord EU Data be retained for a longer period, in which case you shall only retain such Discord EU Data for the period required by such applicable laws and subject always to Section 11(d) below.
-- For the purposes of Annex I(C) to the Clauses, the competent supervisory authority will be the Dutch Data Protection Authority (*Autoriteit Persoonsgegevens*); and
+- For the purposes of Annex I(C) to the Clauses, the competent supervisory authority will be the Dutch Data Protection Authority (_Autoriteit Persoonsgegevens_); and
 - For the purposes of Annex II to the Clauses, you will implement and maintain the technical and organisational security measures set out in the Terms, including those in Section 5 (“User Privacy and Security”) and such other measures as we may require from time to time.
 
 # Section 12: General Provisions

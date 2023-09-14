@@ -131,7 +131,7 @@ typedef struct DiscordRichPresence {
 ###### Update Presence Payload Fields
 
 | parameter      | type    | description                                                                                                | example                                                    |
-|----------------|---------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| -------------- | ------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | state          | char\*  | the user's current party status                                                                            | "Looking to Play", "Playing Solo", "In a Group"            |
 | details        | char\*  | what the player is currently doing                                                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
 | startTimestamp | int64_t | epoch seconds for game start - including will show time as "elapsed"                                       | 1507665886                                                 |
@@ -156,7 +156,7 @@ Here's a handy image to see how these fields are actually displayed on a profile
 ![Graphical representation of the legend for rich presence details](rp-legend.png)
 
 | location                               | field name     | notes                                                                       |
-|----------------------------------------|----------------|-----------------------------------------------------------------------------|
+| -------------------------------------- | -------------- | --------------------------------------------------------------------------- |
 | First row below title                  | details        |                                                                             |
 | Second row below title                 | state          |                                                                             |
 | Second row below title                 | partySize      | In parenthesis next to the `state`, first number in the format `(1 of 10)`  |
@@ -209,7 +209,7 @@ typedef struct DiscordJoinRequest {
 ###### Ask to Join Payload Fields
 
 | parameter     | type      | description                                                                                                                         |
-|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------|
+| ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | userId        | char[24]  | the userId of the player asking to join                                                                                             |
 | username      | char[344] | the username of the player asking to join                                                                                           |
 | discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
@@ -223,7 +223,7 @@ When it fires, your game should surface this data with a Yes or No choice for Pl
 ###### Ask to Join Response Codes
 
 | code                 | value |
-|----------------------|-------|
+| -------------------- | ----- |
 | DISCORD_REPLY_NO     | 0     |
 | DISCORD_REPLY_YES    | 1     |
 | DISCORD_REPLY_IGNORE | 2     |
@@ -265,7 +265,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 ###### Rich Presence Field Requirements
 
 |     Field      | Custom Artwork | Spectating | Joining | Ask to Join |
-|:--------------:|:--------------:|:----------:|:-------:|:-----------:|
+| :------------: | :------------: | :--------: | :-----: | :---------: |
 |     state      |                |            |         |             |
 |    details     |                |            |         |             |
 | startTimestamp |                |            |         |             |

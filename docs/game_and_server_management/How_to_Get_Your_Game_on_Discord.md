@@ -93,7 +93,7 @@ TL;DR - When you're ready to distribute your game after getting approved, turn t
 
 ## Getting Verified and Discovered
 
-Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. 
+Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game.
 
 To get verified, head on over to our [Verification page](https://discord.com/verification) and fill out the form at the bottom.
 

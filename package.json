@@ -18,11 +18,9 @@
 	"homepage": "https://github.com/discord/discord-api-docs#readme",
 	"scripts": {
 		"build": "tsc --build",
-		"lint": "eslint ci",
-		"lint:fix": "eslint ci --fix",
-		"test:links": "node dist/ci/checkLinks.js",
-		"test:tables": "npx markdown-table-formatter docs/**/*.{md,mdx} --check",
-		"fix:tables": "npx markdown-table-formatter docs/**/*.{md,mdx}"
+		"lint": "eslint ci && prettier --check '**/*.{md,mdx}'",
+		"lint:fix": "eslint ci --fix && prettier --write '**/*.{md,mdx}'",
+		"test:links": "node dist/ci/checkLinks.js"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.9.1",
@@ -33,7 +31,6 @@
 		"eslint": "^8.49.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
-		"markdown-table-formatter": "^1.4.0",
 		"prettier": "^3.0.3",
 		"typescript": "^5.2.2"
 	}

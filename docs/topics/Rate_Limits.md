@@ -43,7 +43,7 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 ###### Rate Limit Response Structure
 
 | Field       | Type    | Description                                                                 |
-|-------------|---------|-----------------------------------------------------------------------------|
+| ----------- | ------- | --------------------------------------------------------------------------- |
 | message     | string  | A message saying you are being rate limited.                                |
 | retry_after | float   | The number of seconds to wait before submitting another request.            |
 | global      | boolean | A value indicating if you are being globally rate limited or not            |
@@ -69,7 +69,6 @@ Note that normal route rate-limiting headers will also be sent in this response.
   "global": false
 }
 ```
-
 
 ###### Example Exceeded Resource Rate Limit Response
 
@@ -117,13 +116,13 @@ If you are experiencing repeated Cloudflare bans from the Discord API within nor
 
 ## Invalid Request Limit aka Cloudflare bans
 
-IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	
+IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.
 
-All applications should make reasonable attempts to avoid making invalid requests. For example:	
+All applications should make reasonable attempts to avoid making invalid requests. For example:
 
-- **401** responses are avoided by providing a valid token in the authorization header when required and by stopping further requests after a token becomes invalid	
-- **403** responses are avoided by inspecting role or channel permissions and by not making requests that are restricted by such permissions	
-- **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset. *429 errors returned with `X-RateLimit-Scope: shared` are not counted against you.*
+- **401** responses are avoided by providing a valid token in the authorization header when required and by stopping further requests after a token becomes invalid
+- **403** responses are avoided by inspecting role or channel permissions and by not making requests that are restricted by such permissions
+- **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset. _429 errors returned with `X-RateLimit-Scope: shared` are not counted against you._
 
 Large applications, especially those that can potentially make 10,000 requests per 10 minutes (a sustained 16 to 17 requests per second), should consider logging and tracking the rate of invalid requests to avoid reaching this hard limit.
 

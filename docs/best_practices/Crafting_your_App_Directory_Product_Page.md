@@ -36,7 +36,7 @@ While this could be true, it doesn’t really tell folks how the app makes serve
 
 On the **App Directory** tab, there is an **Expanded Description** field near the bottom of the page. This description appears when someone clicks on your app and enters its profile within the App Directory. This is your opportunity to showcase why a user should install your app, and the best functionality your app has to offer. The description also supports formatting via markdown.
 
-When writing your app's Expanded Description, the first thing you do should be to convey the value of the app to users. After the value is clear, continue on with how to get started with your app after it’s installed. 
+When writing your app's Expanded Description, the first thing you do should be to convey the value of the app to users. After the value is clear, continue on with how to get started with your app after it’s installed.
 
 ## Show Your Story: Include as many relevant visuals as possible
 
@@ -68,6 +68,7 @@ Your app’s support server is a paramount part of your App Product Page. It’s
 > If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331-Enabling-Server-Discovery), be sure to include an invite link in the "links" section of your App Directory Product Page.
 
 Some ways you can successfully use your support server includes:
+
 - Encourage users to share feedback or their experience with your app.
 - Offer technical support for users of your app.
 - Share app updates in your support server and update your App’s Product Page description if it changes the functionality of your app.

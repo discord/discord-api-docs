@@ -7,7 +7,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 ###### Invite Structure
 
 | Field                       | Type                                                                                               | Description                                                                                                                                    |
-|-----------------------------|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | code                        | string                                                                                             | the invite code (unique ID)                                                                                                                    |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                                         | the guild this invite is for                                                                                                                   |
 | channel                     | ?partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                  | the channel this invite is for                                                                                                                 |
@@ -24,7 +24,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 ###### Invite Target Types
 
 | Type                 | Value |
-|----------------------|-------|
+| -------------------- | ----- |
 | STREAM               | 1     |
 | EMBEDDED_APPLICATION | 2     |
 
@@ -76,7 +76,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 ###### Invite Metadata Structure
 
 | Field      | Type              | Description                                          |
-|------------|-------------------|------------------------------------------------------|
+| ---------- | ----------------- | ---------------------------------------------------- |
 | uses       | integer           | number of times this invite has been used            |
 | max_uses   | integer           | max number of times this invite can be used          |
 | max_age    | integer           | duration (in seconds) after which the invite expires |
@@ -103,7 +103,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 ###### Invite Stage Instance Structure
 
 | Field             | Type                                                                               | Description                                        |
-|-------------------|------------------------------------------------------------------------------------|----------------------------------------------------|
+| ----------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------- |
 | members           | array of partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the members speaking in the Stage                  |
 | participant_count | integer                                                                            | the number of users in the Stage                   |
 | speaker_count     | integer                                                                            | the number of users speaking in the Stage          |
@@ -115,7 +115,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 {
   "topic": "The debate is over: diet is better than regular",
   "participant_count": 200,
-  "speaker_count": 5 ,
+  "speaker_count": 5,
   "members": [
     {
       "roles": [],
@@ -137,7 +137,7 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 ###### Query String Params
 
 | Field                     | Type      | Description                                                 |
-|---------------------------|-----------|-------------------------------------------------------------|
+| ------------------------- | --------- | ----------------------------------------------------------- |
 | with_counts?              | boolean   | whether the invite should contain approximate member counts |
 | with_expiration?          | boolean   | whether the invite should contain the expiration date       |
 | guild_scheduled_event_id? | snowflake | the guild scheduled event to include with the invite        |

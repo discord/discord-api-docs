@@ -15,14 +15,14 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 ###### Component Types
 
 | Type | Name               | Description                                       |
-|------|--------------------|---------------------------------------------------|
+| ---- | ------------------ | ------------------------------------------------- |
 | 1    | Action Row         | Container for other components                    |
 | 2    | Button             | Button object                                     |
 | 3    | String Select      | Select menu for picking from defined text options |
 | 4    | Text Input         | Text input object                                 |
 | 5    | User Select        | Select menu for users                             |
 | 6    | Role Select        | Select menu for roles                             |
-| 7    | Mentionable Select | Select menu for mentionables (users *and* roles)  |
+| 7    | Mentionable Select | Select menu for mentionables (users _and_ roles)  |
 | 8    | Channel Select     | Select menu for channels                          |
 
 The structure of each component type is described in detail below.
@@ -31,13 +31,13 @@ The structure of each component type is described in detail below.
 
 ```json
 {
-    "content": "This is a message with components",
-    "components": [
-        {
-            "type": 1,
-            "components": []
-        }
-    ]
+  "content": "This is a message with components",
+  "components": [
+    {
+      "type": 1,
+      "components": []
+    }
+  ]
 }
 ```
 
@@ -50,21 +50,20 @@ An Action Row is a non-interactive container component for other types of compon
 
 ```json
 {
-    "content": "This is a message with components",
-    "components": [
+  "content": "This is a message with components",
+  "components": [
+    {
+      "type": 1,
+      "components": [
         {
-            "type": 1,
-            "components": [
-                {
-                    "type": 2,
-                    "label": "Click me!",
-                    "style": 1,
-                    "custom_id": "click_one"
-                }
-            ]
-
+          "type": 2,
+          "label": "Click me!",
+          "style": 1,
+          "custom_id": "click_one"
         }
-    ]
+      ]
+    }
+  ]
 }
 ```
 
@@ -91,7 +90,7 @@ Buttons are interactive components that render in messages. They can be clicked 
 ###### Button Structure
 
 | Field      | Type                                                | Description                                                                         |
-|------------|-----------------------------------------------------|-------------------------------------------------------------------------------------|
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | type       | integer                                             | `2` for a button                                                                    |
 | style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
 | label?     | string                                              | Text that appears on the button; max 80 characters                                  |
@@ -109,7 +108,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 ###### Button Styles
 
 | Name      | Value | Color                    | Required Field |
-|-----------|-------|--------------------------|----------------|
+| --------- | ----- | ------------------------ | -------------- |
 | Primary   | 1     | blurple                  | `custom_id`    |
 | Secondary | 2     | grey                     | `custom_id`    |
 | Success   | 3     | green                    | `custom_id`    |
@@ -126,74 +125,72 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 
 ```json
 {
-    "version": 1,
-    "type": 3,
-    "token": "unique_interaction_token",
-    "message": {
-        "type": 0,
-        "tts": false,
-        "timestamp": "2021-05-19T02:12:51.710000+00:00",
-        "pinned": false,
-        "mentions": [],
-        "mention_roles": [],
-        "mention_everyone": false,
-        "id": "844397162624450620",
-        "flags": 0,
-        "embeds": [],
-        "edited_timestamp": null,
-        "content": "This is a message with components.",
+  "version": 1,
+  "type": 3,
+  "token": "unique_interaction_token",
+  "message": {
+    "type": 0,
+    "tts": false,
+    "timestamp": "2021-05-19T02:12:51.710000+00:00",
+    "pinned": false,
+    "mentions": [],
+    "mention_roles": [],
+    "mention_everyone": false,
+    "id": "844397162624450620",
+    "flags": 0,
+    "embeds": [],
+    "edited_timestamp": null,
+    "content": "This is a message with components.",
+    "components": [
+      {
+        "type": 1,
         "components": [
-            {
-                "type": 1,
-                "components": [
-                    {
-                        "type": 2,
-                        "label": "Click me!",
-                        "style": 1,
-                        "custom_id": "click_one"
-                    }
-                ]
-            }
-        ],
-        "channel_id": "345626669114982402",
-        "author": {
-            "username": "Mason",
-            "public_flags": 131141,
-            "id": "53908232506183680",
-            "discriminator": "1337",
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
-        },
-        "attachments": []
+          {
+            "type": 2,
+            "label": "Click me!",
+            "style": 1,
+            "custom_id": "click_one"
+          }
+        ]
+      }
+    ],
+    "channel_id": "345626669114982402",
+    "author": {
+      "username": "Mason",
+      "public_flags": 131141,
+      "id": "53908232506183680",
+      "discriminator": "1337",
+      "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
     },
-    "member": {
-        "user": {
-            "username": "Mason",
-            "public_flags": 131141,
-            "id": "53908232506183680",
-            "discriminator": "1337",
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
-        },
-        "roles": [
-            "290926798626357999"
-        ],
-        "premium_since": null,
-        "permissions": "17179869183",
-        "pending": false,
-        "nick": null,
-        "mute": false,
-        "joined_at": "2017-03-13T19:19:14.040000+00:00",
-        "is_pending": false,
-        "deaf": false,
-        "avatar": null
+    "attachments": []
+  },
+  "member": {
+    "user": {
+      "username": "Mason",
+      "public_flags": 131141,
+      "id": "53908232506183680",
+      "discriminator": "1337",
+      "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
     },
-    "id": "846462639134605312",
-    "guild_id": "290926798626357999",
-    "data": {
-        "custom_id": "click_one",
-        "component_type": 2
-    },
-    "channel_id": "345626669114982999",
-    "application_id": "290926444748734465"
+    "roles": ["290926798626357999"],
+    "premium_since": null,
+    "permissions": "17179869183",
+    "pending": false,
+    "nick": null,
+    "mute": false,
+    "joined_at": "2017-03-13T19:19:14.040000+00:00",
+    "is_pending": false,
+    "deaf": false,
+    "avatar": null
+  },
+  "id": "846462639134605312",
+  "guild_id": "290926798626357999",
+  "data": {
+    "custom_id": "click_one",
+    "component_type": 2
+  },
+  "channel_id": "345626669114982999",
+  "application_id": "290926444748734465"
 }
 ```
 
@@ -213,7 +210,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) that can be included in Action Rows.
 
-The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
+The string select menu (type `3`) is the _only_ select type that allows (and _requires_) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
 
 In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (users, roles, mentionables, and channels) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
@@ -224,50 +221,50 @@ The payloads for the select menu components are detailed in the [select menu str
 ```json
 // This is a message
 {
-    "content": "Mason is looking for new arena partners. What classes do you play?",
-    "components": [
+  "content": "Mason is looking for new arena partners. What classes do you play?",
+  "components": [
+    {
+      "type": 1,
+      "components": [
         {
-            "type": 1,
-            "components": [
-                {
-                    "type": 3,
-                    "custom_id": "class_select_1",
-                    "options":[
-                        {
-                            "label": "Rogue",
-                            "value": "rogue",
-                            "description": "Sneak n stab",
-                            "emoji": {
-                                "name": "rogue",
-                                "id": "625891304148303894"
-                            }
-                        },
-                        {
-                            "label": "Mage",
-                            "value": "mage",
-                            "description": "Turn 'em into a sheep",
-                            "emoji": {
-                                "name": "mage",
-                                "id": "625891304081063986"
-                            }
-                        },
-                        {
-                            "label": "Priest",
-                            "value": "priest",
-                            "description": "You get heals when I'm done doing damage",
-                            "emoji": {
-                                "name": "priest",
-                                "id": "625891303795982337"
-                            }
-                        }
-                    ],
-                    "placeholder": "Choose a class",
-                    "min_values": 1,
-                    "max_values": 3
-                }
-            ]
+          "type": 3,
+          "custom_id": "class_select_1",
+          "options": [
+            {
+              "label": "Rogue",
+              "value": "rogue",
+              "description": "Sneak n stab",
+              "emoji": {
+                "name": "rogue",
+                "id": "625891304148303894"
+              }
+            },
+            {
+              "label": "Mage",
+              "value": "mage",
+              "description": "Turn 'em into a sheep",
+              "emoji": {
+                "name": "mage",
+                "id": "625891304081063986"
+              }
+            },
+            {
+              "label": "Priest",
+              "value": "priest",
+              "description": "You get heals when I'm done doing damage",
+              "emoji": {
+                "name": "priest",
+                "id": "625891303795982337"
+              }
+            }
+          ],
+          "placeholder": "Choose a class",
+          "min_values": 1,
+          "max_values": 3
         }
-    ]
+      ]
+    }
+  ]
 }
 ```
 
@@ -276,7 +273,7 @@ The payloads for the select menu components are detailed in the [select menu str
 ###### Select Menu Structure
 
 | Field              | Type                                                                                                        | Description                                                                                                                                                                |
-|--------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | type               | integer                                                                                                     | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
 | custom_id          | string                                                                                                      | ID for the select menu; max 100 characters                                                                                                                                 |
 | options?\*         | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
@@ -293,7 +290,7 @@ The payloads for the select menu components are detailed in the [select menu str
 ###### Select Option Structure
 
 | Field        | Type                                                       | Description                                              |
-|--------------|------------------------------------------------------------|----------------------------------------------------------|
+| ------------ | ---------------------------------------------------------- | -------------------------------------------------------- |
 | label        | string                                                     | User-facing name of the option; max 100 characters       |
 | value        | string                                                     | Dev-defined value of the option; max 100 characters      |
 | description? | string                                                     | Additional description of the option; max 100 characters |
@@ -304,123 +301,118 @@ The payloads for the select menu components are detailed in the [select menu str
 
 ```json
 {
+  "application_id": "845027738276462632",
+  "channel_id": "772908445358620702",
+  "data": {
+    "component_type": 3,
+    "custom_id": "class_select_1",
+    "values": ["mage", "rogue"]
+  },
+  "guild_id": "772904309264089089",
+  "id": "847587388497854464",
+  "member": {
+    "avatar": null,
+    "deaf": false,
+    "is_pending": false,
+    "joined_at": "2020-11-02T19:25:47.248000+00:00",
+    "mute": false,
+    "nick": "Bot Man",
+    "pending": false,
+    "permissions": "17179869183",
+    "premium_since": null,
+    "roles": ["785609923542777878"],
+    "user": {
+      "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+      "discriminator": "1337",
+      "id": "53908232506183680",
+      "public_flags": 131141,
+      "username": "Mason"
+    }
+  },
+  "message": {
     "application_id": "845027738276462632",
+    "attachments": [],
+    "author": {
+      "avatar": null,
+      "bot": true,
+      "discriminator": "5284",
+      "id": "845027738276462632",
+      "public_flags": 0,
+      "username": "Interactions Test"
+    },
     "channel_id": "772908445358620702",
-    "data": {
-        "component_type":3,
-        "custom_id": "class_select_1",
-        "values": [
-            "mage",
-            "rogue"
-        ]
-    },
-    "guild_id": "772904309264089089",
-    "id": "847587388497854464",
-    "member": {
-        "avatar": null,
-        "deaf": false,
-        "is_pending": false,
-        "joined_at": "2020-11-02T19:25:47.248000+00:00",
-        "mute": false,
-        "nick": "Bot Man",
-        "pending": false,
-        "permissions": "17179869183",
-        "premium_since": null,
-        "roles": [
-            "785609923542777878"
-        ],
-        "user":{
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-            "discriminator": "1337",
-            "id": "53908232506183680",
-            "public_flags": 131141,
-            "username": "Mason"
-        }
-    },
-    "message":{
-        "application_id": "845027738276462632",
-        "attachments": [],
-        "author": {
-            "avatar": null,
-            "bot": true,
-            "discriminator": "5284",
-            "id": "845027738276462632",
-            "public_flags": 0,
-            "username": "Interactions Test"
-        },
-        "channel_id": "772908445358620702",
+    "components": [
+      {
         "components": [
-            {
-                "components": [
-                    {
-                        "custom_id": "class_select_1",
-                        "max_values": 1,
-                        "min_values": 1,
-                        "options": [
-                            {
-                                "description": "Sneak n stab",
-                                "emoji":{
-                                    "id": "625891304148303894",
-                                    "name": "rogue"
-                                },
-                                "label": "Rogue",
-                                "value": "rogue"
-                            },
-                            {
-                                "description": "Turn 'em into a sheep",
-                                "emoji":{
-                                    "id": "625891304081063986",
-                                    "name": "mage"
-                                },
-                                "label": "Mage",
-                                "value": "mage"
-                            },
-                            {
-                                "description": "You get heals when I'm done doing damage",
-                                "emoji":{
-                                    "id": "625891303795982337",
-                                    "name": "priest"
-                                },
-                                "label": "Priest",
-                                "value": "priest"
-                            }
-                        ],
-                        "placeholder": "Choose a class",
-                        "type": 3
-                    }
-                ],
-                "type": 1
-            }
+          {
+            "custom_id": "class_select_1",
+            "max_values": 1,
+            "min_values": 1,
+            "options": [
+              {
+                "description": "Sneak n stab",
+                "emoji": {
+                  "id": "625891304148303894",
+                  "name": "rogue"
+                },
+                "label": "Rogue",
+                "value": "rogue"
+              },
+              {
+                "description": "Turn 'em into a sheep",
+                "emoji": {
+                  "id": "625891304081063986",
+                  "name": "mage"
+                },
+                "label": "Mage",
+                "value": "mage"
+              },
+              {
+                "description": "You get heals when I'm done doing damage",
+                "emoji": {
+                  "id": "625891303795982337",
+                  "name": "priest"
+                },
+                "label": "Priest",
+                "value": "priest"
+              }
+            ],
+            "placeholder": "Choose a class",
+            "type": 3
+          }
         ],
-        "content": "Mason is looking for new arena partners. What classes do you play?",
-        "edited_timestamp": null,
-        "embeds": [],
-        "flags": 0,
-        "id": "847587334500646933",
-        "interaction": {
-            "id": "847587333942935632",
-            "name": "dropdown",
-            "type": 2,
-            "user": {
-                "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-                "discriminator": "1337",
-                "id": "53908232506183680",
-                "public_flags": 131141,
-                "username": "Mason"
-            }
-        },
-        "mention_everyone": false,
-        "mention_roles":[],
-        "mentions":[],
-        "pinned": false,
-        "timestamp": "2021-05-27T21:29:27.956000+00:00",
-        "tts": false,
-        "type": 20,
-        "webhook_id": "845027738276462632"
+        "type": 1
+      }
+    ],
+    "content": "Mason is looking for new arena partners. What classes do you play?",
+    "edited_timestamp": null,
+    "embeds": [],
+    "flags": 0,
+    "id": "847587334500646933",
+    "interaction": {
+      "id": "847587333942935632",
+      "name": "dropdown",
+      "type": 2,
+      "user": {
+        "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+        "discriminator": "1337",
+        "id": "53908232506183680",
+        "public_flags": 131141,
+        "username": "Mason"
+      }
     },
-    "token": "UNIQUE_TOKEN",
-    "type": 3,
-    "version": 1
+    "mention_everyone": false,
+    "mention_roles": [],
+    "mentions": [],
+    "pinned": false,
+    "timestamp": "2021-05-27T21:29:27.956000+00:00",
+    "tts": false,
+    "type": 20,
+    "webhook_id": "845027738276462632"
+  },
+  "token": "UNIQUE_TOKEN",
+  "type": 3,
+  "version": 1
 }
 ```
 
@@ -437,21 +429,19 @@ A sample `data` object (a subset of the interaction payload) for a channel selec
 
 ```json
 {
-    "component_type": 8,
-    "custom_id": "my_channel_select",
-    "resolved": {
-        "channels": {
-            "986678954901234567": {
-                "id": "986678954901234567",
-                "name": "general",
-                "permissions": "4398046511103",
-                "type": 0
-            }
-        }
-    },
-    "values": [
-        "986678954901234567"
-    ]
+  "component_type": 8,
+  "custom_id": "my_channel_select",
+  "resolved": {
+    "channels": {
+      "986678954901234567": {
+        "id": "986678954901234567",
+        "name": "general",
+        "permissions": "4398046511103",
+        "type": 0
+      }
+    }
+  },
+  "values": ["986678954901234567"]
 }
 ```
 
@@ -470,19 +460,23 @@ When defining a text input component, you can set attributes to customize the be
 {
   "title": "My Cool Modal",
   "custom_id": "cool_modal",
-  "components": [{
-    "type": 1,
-    "components": [{
-      "type": 4,
-      "custom_id": "name",
-      "label": "Name",
-      "style": 1,
-      "min_length": 1,
-      "max_length": 4000,
-      "placeholder": "John",
-      "required": true
-    }]
-  }]
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 4,
+          "custom_id": "name",
+          "label": "Name",
+          "style": 1,
+          "min_length": 1,
+          "max_length": 4000,
+          "placeholder": "John",
+          "required": true
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -491,7 +485,7 @@ When defining a text input component, you can set attributes to customize the be
 ###### Text Input Structure
 
 | Field        | Type    | Description                                                                                       |
-|--------------|---------|---------------------------------------------------------------------------------------------------|
+| ------------ | ------- | ------------------------------------------------------------------------------------------------- |
 | type         | integer | `4` for a text input                                                                              |
 | custom_id    | string  | Developer-defined identifier for the input; max 100 characters                                    |
 | style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-styles) |
@@ -505,70 +499,69 @@ When defining a text input component, you can set attributes to customize the be
 ###### Text Input Styles
 
 | Name      | Value | Description       |
-|-----------|-------|-------------------|
+| --------- | ----- | ----------------- |
 | Short     | 1     | Single-line input |
 | Paragraph | 2     | Multi-line input  |
-
 
 ###### Text Input Interaction
 
 ```json
 {
-    "application_id": "845027738276462632",
-    "channel": {
-        "flags": 0,
-        "guild_id": "772904309264089089",
-        "id": "772908445358620702",
-        "last_message_id": "113817814796417433",
-        "name": "general",
-        "nsfw": false,
-        "parent_id": "1113560261366927532",
-        "permissions": "281474976710655",
-        "position": 0,
-        "rate_limit_per_user": 0,
-        "topic": null,
-        "type": 0
-    },
-    "channel_id": "772908445358620702",
-    "data": {
-        "components": [
-            {
-                "type": 1,
-                "components": [
-                    {
-                        "custom_id": "name",
-                        "type": 4,
-                        "value": "John"
-                    }
-                ]
-            }
-        ],
-        "custom_id": "cool_modal"
-    },
+  "application_id": "845027738276462632",
+  "channel": {
+    "flags": 0,
     "guild_id": "772904309264089089",
-    "id": "847587388497854464",
-    "member": {
-        "avatar": null,
-        "deaf": false,
-        "is_pending": false,
-        "joined_at": "2020-11-02T19:25:47.248000+00:00",
-        "mute": false,
-        "nick": null,
-        "pending": false,
-        "permissions": "17179869183",
-        "premium_since": null,
-        "roles": ["785609923542777878"],
-        "user": {
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-            "global_name": "Mason",
-            "discriminator": "0",
-            "id": "53908232506183680",
-            "public_flags": 131141,
-            "username": "Mason"
-        }
-    },
-    "token": "UNIQUE_TOKEN",
-    "type": 5,
-    "version": 1
+    "id": "772908445358620702",
+    "last_message_id": "113817814796417433",
+    "name": "general",
+    "nsfw": false,
+    "parent_id": "1113560261366927532",
+    "permissions": "281474976710655",
+    "position": 0,
+    "rate_limit_per_user": 0,
+    "topic": null,
+    "type": 0
+  },
+  "channel_id": "772908445358620702",
+  "data": {
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "custom_id": "name",
+            "type": 4,
+            "value": "John"
+          }
+        ]
+      }
+    ],
+    "custom_id": "cool_modal"
+  },
+  "guild_id": "772904309264089089",
+  "id": "847587388497854464",
+  "member": {
+    "avatar": null,
+    "deaf": false,
+    "is_pending": false,
+    "joined_at": "2020-11-02T19:25:47.248000+00:00",
+    "mute": false,
+    "nick": null,
+    "pending": false,
+    "permissions": "17179869183",
+    "premium_since": null,
+    "roles": ["785609923542777878"],
+    "user": {
+      "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+      "global_name": "Mason",
+      "discriminator": "0",
+      "id": "53908232506183680",
+      "public_flags": 131141,
+      "username": "Mason"
+    }
+  },
+  "token": "UNIQUE_TOKEN",
+  "type": 5,
+  "version": 1
 }
 ```

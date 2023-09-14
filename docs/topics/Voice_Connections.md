@@ -9,7 +9,7 @@ To ensure that you have the most up-to-date information, please use [version 4](
 ###### Gateway Versions
 
 | Version | Status      | WebSocket URL Append |
-|---------|-------------|----------------------|
+| ------- | ----------- | -------------------- |
 | 4       | recommended | ?v=4                 |
 | 3       | available   | ?v=3                 |
 | 2       | available   | ?v=2                 |
@@ -83,14 +83,14 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 ```json
 {
-    "op": 2,
-    "d": {
-        "ssrc": 1,
-        "ip": "127.0.0.1",
-        "port": 1234,
-        "modes": ["xsalsa20_poly1305", "xsalsa20_poly1305_suffix", "xsalsa20_poly1305_lite"],
-        "heartbeat_interval": 1
-    }
+  "op": 2,
+  "d": {
+    "ssrc": 1,
+    "ip": "127.0.0.1",
+    "port": 1234,
+    "modes": ["xsalsa20_poly1305", "xsalsa20_poly1305_suffix", "xsalsa20_poly1305_lite"],
+    "heartbeat_interval": 1
+  }
 }
 ```
 
@@ -152,28 +152,28 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#
 
 ```json
 {
-    "op": 1,
-    "d": {
-        "protocol": "udp",
-        "data": {
-            "address": "127.0.0.1",
-            "port": 1337,
-            "mode": "xsalsa20_poly1305_lite"
-        }
+  "op": 1,
+  "d": {
+    "protocol": "udp",
+    "data": {
+      "address": "127.0.0.1",
+      "port": 1337,
+      "mode": "xsalsa20_poly1305_lite"
     }
+  }
 }
 ```
 
 ###### Encryption Modes
 
 | Mode   | Key                      | Nonce Bytes                                                            | Generating Nonce                      |
-|--------|--------------------------|------------------------------------------------------------------------|---------------------------------------|
+| ------ | ------------------------ | ---------------------------------------------------------------------- | ------------------------------------- |
 | Normal | xsalsa20_poly1305        | The nonce bytes are the RTP header                                     | Copy the RTP header                   |
 | Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes              |
 | Lite   | xsalsa20_poly1305_lite   | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value |
 
->warn
->The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
+> warn
+> The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
 
 Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice) voice data:
 
@@ -198,7 +198,7 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 ###### Voice Packet Structure
 
 | Field           | Type                          | Size    |
-|-----------------|-------------------------------|---------|
+| --------------- | ----------------------------- | ------- |
 | Version + Flags | Single byte value of `0x80`   | 1 byte  |
 | Payload Type    | Single byte value of `0x78`   | 1 byte  |
 | Sequence        | Unsigned short (big endian)   | 2 bytes |
@@ -213,7 +213,7 @@ To notify clients that you are speaking or have stopped speaking, send an [Opcod
 The following flags can be used as a bitwise mask. For example `5` would be priority and voice.
 
 | Flag       | Meaning                                                        | Value  |
-|------------|----------------------------------------------------------------|--------|
+| ---------- | -------------------------------------------------------------- | ------ |
 | Microphone | Normal transmission of voice audio                             | 1 << 0 |
 | Soundshare | Transmission of context audio for video, no speaking indicator | 1 << 1 |
 | Priority   | Priority speaker, lowering audio of other speakers             | 1 << 2 |
@@ -222,12 +222,12 @@ The following flags can be used as a bitwise mask. For example `5` would be prio
 
 ```json
 {
-    "op": 5,
-    "d": {
-        "speaking": 5,
-        "delay": 0,
-        "ssrc": 1
-    }
+  "op": 5,
+  "d": {
+    "speaking": 5,
+    "delay": 0,
+    "ssrc": 1
+  }
 }
 ```
 
@@ -273,10 +273,9 @@ If the resume is unsuccessful—for example, due to an invalid session—the Web
 Generally routers on the Internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send the following UDP packet to your voice port (all numeric are big endian):
 
 | Field   | Description                                                    | Size     |
-|---------|----------------------------------------------------------------|----------|
+| ------- | -------------------------------------------------------------- | -------- |
 | Type    | Values 0x1 and 0x2 indicate request and response, respectively | 2 bytes  |
 | Length  | Message length excluding Type and Length fields (value 70)     | 2 bytes  |
 | SSRC    | Unsigned integer                                               | 4 bytes  |
 | Address | Null-terminated string in response                             | 64 bytes |
 | Port    | Unsigned short                                                 | 2 bytes  |
-

@@ -13,7 +13,7 @@ Application commands are native ways to interact with apps in the Discord client
 ###### Application Command Structure
 
 | Field                      | Type                                                                                                                                           | Description                                                                                                                                                        | Valid Types |
-|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
 | id                         | snowflake                                                                                                                                      | Unique ID of command                                                                                                                                               | all         |
 | type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                   | all         |
 | application_id             | snowflake                                                                                                                                      | ID of the parent application                                                                                                                                       | all         |
@@ -35,11 +35,10 @@ Application commands are native ways to interact with apps in the Discord client
 ###### Application Command Types
 
 | Name       | Type | Description                                                               |
-|------------|------|---------------------------------------------------------------------------|
+| ---------- | ---- | ------------------------------------------------------------------------- |
 | CHAT_INPUT | 1    | Slash commands; a text-based command that shows up when a user types `/`  |
 | USER       | 2    | A UI-based command that shows up when you right click or tap on a user    |
 | MESSAGE    | 3    | A UI-based command that shows up when you right click or tap on a message |
-
 
 ###### Application Command Option Structure
 
@@ -47,7 +46,7 @@ Application commands are native ways to interact with apps in the Discord client
 > Required `options` must be listed before optional options
 
 | Field                      | Type                                                                                                                                                         | Description                                                                                                          |
-|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | type                       | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | Type of option                                                                                                       |
 | name                       | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
 | name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
@@ -71,7 +70,7 @@ Application commands are native ways to interact with apps in the Discord client
 ###### Application Command Option Type
 
 | Name              | Value | Note                                                           |
-|-------------------|-------|----------------------------------------------------------------|
+| ----------------- | ----- | -------------------------------------------------------------- |
 | SUB_COMMAND       | 1     |                                                                |
 | SUB_COMMAND_GROUP | 2     |                                                                |
 | STRING            | 3     |                                                                |
@@ -89,7 +88,7 @@ Application commands are native ways to interact with apps in the Discord client
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
 | Field               | Type                                                                  | Description                                                                                 |
-|---------------------|-----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| ------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | name                | string                                                                | 1-100 character choice name                                                                 |
 | name_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name` |
 | value               | string, integer, or double \*                                         | Value for the choice, up to 100 characters if string                                        |
@@ -103,7 +102,6 @@ Application commands do not depend on a bot user in the guild; they use the [int
 When requesting this scope, we "shortcut" the OAuth2 flow similar to adding a bot. You don't need to complete the flow, exchange for a token, or any of that.
 
 If your application does not require a bot user in the guild for its commands to work, **you don't need to add the bot scope or a permission bitfield to the URL**.
-
 
 ## Registering a Command
 
@@ -248,6 +246,7 @@ Application command permissions allow your app to enable or disable commands for
 A command's current permissions can be retrieved using the [`GET /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
 
 Command permissions can be updated with the [`PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) endpoint. To call the endpoint, apps must use a Bearer token that's authorized with the [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
+
 - Has [permission to Manage Guild and Manage Roles](#DOCS_TOPICS_PERMISSIONS) in the guild where the command is being edited
 - Has the ability to run the command being edited
 - Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
@@ -268,7 +267,7 @@ When the permissions for a specific command are unsynced, meaning it doesn't ali
 Returned when fetching the permissions for an app's command(s) in a guild.
 
 | Field          | Type                                                                                                                                                                 | Description                                          |
-|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | id             | snowflake                                                                                                                                                            | ID of the command or the application ID              |
 | application_id | snowflake                                                                                                                                                            | ID of the application the command belongs to         |
 | guild_id       | snowflake                                                                                                                                                            | ID of the guild                                      |
@@ -281,7 +280,7 @@ When the `id` field is the application ID instead of a command ID, the permissio
 Application command permissions allow you to enable or disable commands for specific users, roles, or channels within a guild.
 
 | Field      | Type                                                                                                                                                      | Description                                                                                                                                                                                        |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id         | snowflake                                                                                                                                                 | ID of the role, user, or channel. It can also be a [permission constant](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) |
 | type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role (`1`), user (`2`), or channel (`3`)                                                                                                                                                           |
 | permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow                                                                                                                                                              |
@@ -291,14 +290,14 @@ Application command permissions allow you to enable or disable commands for spec
 The following constants can be used in the `id` field for command permissions payloads.
 
 | Permission   | Value          | Type      | Description             |
-|--------------|----------------|-----------|-------------------------|
+| ------------ | -------------- | --------- | ----------------------- |
 | `@everyone`  | `guild_id`     | snowflake | All members in a guild  |
 | All Channels | `guild_id - 1` | snowflake | All channels in a guild |
 
 ###### Application Command Permission Type
 
 | Name    | Value |
-|---------|-------|
+| ------- | ----- |
 | ROLE    | 1     |
 | USER    | 2     |
 | CHANNEL | 3     |
@@ -324,10 +323,10 @@ As an example, the following command would not be usable by anyone except admins
 
 ```json
 {
-    "name": "permissions_test",
-    "description": "A test of default permissions",
-    "type": 1,
-    "default_member_permissions": "0"
+  "name": "permissions_test",
+  "description": "A test of default permissions",
+  "type": 1,
+  "default_member_permissions": "0"
 }
 ```
 
@@ -374,44 +373,43 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
 > warn
-> Slash commands can have a maximum of 4000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
-
+> Slash commands can have a maximum of 4000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices. When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
 
 ###### Example Slash Command
 
 ```json
 {
-    "name": "blep",
-    "type": 1,
-    "description": "Send a random adorable animal photo",
-    "options": [
+  "name": "blep",
+  "type": 1,
+  "description": "Send a random adorable animal photo",
+  "options": [
+    {
+      "name": "animal",
+      "description": "The type of animal",
+      "type": 3,
+      "required": true,
+      "choices": [
         {
-            "name": "animal",
-            "description": "The type of animal",
-            "type": 3,
-            "required": true,
-            "choices": [
-                {
-                    "name": "Dog",
-                    "value": "animal_dog"
-                },
-                {
-                    "name": "Cat",
-                    "value": "animal_cat"
-                },
-                {
-                    "name": "Penguin",
-                    "value": "animal_penguin"
-                }
-            ]
+          "name": "Dog",
+          "value": "animal_dog"
         },
         {
-            "name": "only_smol",
-            "description": "Whether to show only baby animals",
-            "type": 5,
-            "required": false
+          "name": "Cat",
+          "value": "animal_cat"
+        },
+        {
+          "name": "Penguin",
+          "value": "animal_penguin"
         }
-    ]
+      ]
+    },
+    {
+      "name": "only_smol",
+      "description": "Whether to show only baby animals",
+      "type": 5,
+      "required": false
+    }
+  ]
 }
 ```
 
@@ -752,8 +750,8 @@ User commands are application commands that appear on the context menu (right cl
 
 ```json
 {
-    "name": "High Five",
-    "type": 2
+  "name": "High Five",
+  "type": 2
 }
 ```
 
@@ -765,68 +763,67 @@ When someone uses a user command, your application will receive an interaction:
 
 ```json
 {
-    "application_id": "775799577604522054",
-    "channel_id": "772908445358620702",
-    "data": {
-        "id": "866818195033292850",
-        "name": "context-menu-user-2",
-        "resolved": {
-            "members": {
-                "809850198683418695": {
-                    "avatar": null,
-                    "is_pending": false,
-                    "joined_at": "2021-02-12T18:25:07.972000+00:00",
-                    "nick": null,
-                    "pending": false,
-                    "permissions": "246997699136",
-                    "premium_since": null,
-                    "roles": []
-                }
-            },
-            "users": {
-                "809850198683418695": {
-                    "avatar": "afc428077119df8aabbbd84b0dc90c74",
-                    "bot": true,
-                    "discriminator": "7302",
-                    "id": "809850198683418695",
-                    "public_flags": 0,
-                    "username": "VoltyDemo"
-                }
-            }
-        },
-        "target_id": "809850198683418695",
-        "type": 2
-    },
-    "guild_id": "772904309264089089",
-    "guild_locale": "en-US",
-    "app_permissions": "442368",
-    "id": "867794291820986368",
-    "locale": "en-US",
-    "member": {
-        "avatar": null,
-        "deaf": false,
-        "is_pending": false,
-        "joined_at": "2020-11-02T20:46:57.364000+00:00",
-        "mute": false,
-        "nick": null,
-        "pending": false,
-        "permissions": "274877906943",
-        "premium_since": null,
-        "roles": ["785609923542777878"],
-        "user": {
-            "avatar": "a_f03401914fb4f3caa9037578ab980920",
-            "discriminator": "6538",
-            "id": "167348773423415296",
-            "public_flags": 1,
-            "username": "ian"
+  "application_id": "775799577604522054",
+  "channel_id": "772908445358620702",
+  "data": {
+    "id": "866818195033292850",
+    "name": "context-menu-user-2",
+    "resolved": {
+      "members": {
+        "809850198683418695": {
+          "avatar": null,
+          "is_pending": false,
+          "joined_at": "2021-02-12T18:25:07.972000+00:00",
+          "nick": null,
+          "pending": false,
+          "permissions": "246997699136",
+          "premium_since": null,
+          "roles": []
         }
+      },
+      "users": {
+        "809850198683418695": {
+          "avatar": "afc428077119df8aabbbd84b0dc90c74",
+          "bot": true,
+          "discriminator": "7302",
+          "id": "809850198683418695",
+          "public_flags": 0,
+          "username": "VoltyDemo"
+        }
+      }
     },
-    "token": "UNIQUE_TOKEN",
-    "type": 2,
-    "version": 1
+    "target_id": "809850198683418695",
+    "type": 2
+  },
+  "guild_id": "772904309264089089",
+  "guild_locale": "en-US",
+  "app_permissions": "442368",
+  "id": "867794291820986368",
+  "locale": "en-US",
+  "member": {
+    "avatar": null,
+    "deaf": false,
+    "is_pending": false,
+    "joined_at": "2020-11-02T20:46:57.364000+00:00",
+    "mute": false,
+    "nick": null,
+    "pending": false,
+    "permissions": "274877906943",
+    "premium_since": null,
+    "roles": ["785609923542777878"],
+    "user": {
+      "avatar": "a_f03401914fb4f3caa9037578ab980920",
+      "discriminator": "6538",
+      "id": "167348773423415296",
+      "public_flags": 1,
+      "username": "ian"
+    }
+  },
+  "token": "UNIQUE_TOKEN",
+  "type": 2,
+  "version": 1
 }
 ```
-
 
 ## Message Commands
 
@@ -839,8 +836,8 @@ Message commands are application commands that appear on the context menu (right
 
 ```json
 {
-    "name": "Bookmark",
-    "type": 3
+  "name": "Bookmark",
+  "type": 3
 }
 ```
 
@@ -852,69 +849,69 @@ When someone uses a message command, your application will receive an interactio
 
 ```json
 {
-    "application_id": "775799577604522054",
-    "channel_id": "772908445358620702",
-    "data": {
-        "id": "866818195033292851",
-        "name": "context-menu-message-2",
-        "resolved": {
-            "messages": {
-                "867793854505943041": {
-                    "attachments": [],
-                    "author": {
-                        "avatar": "a_f03401914fb4f3caa9037578ab980920",
-                        "discriminator": "6538",
-                        "id": "167348773423415296",
-                        "public_flags": 1,
-                        "username": "ian"
-                    },
-                    "channel_id": "772908445358620702",
-                    "components": [],
-                    "content": "some message",
-                    "edited_timestamp": null,
-                    "embeds": [],
-                    "flags": 0,
-                    "id": "867793854505943041",
-                    "mention_everyone": false,
-                    "mention_roles": [],
-                    "mentions": [],
-                    "pinned": false,
-                    "timestamp": "2021-07-22T15:42:57.744000+00:00",
-                    "tts": false,
-                    "type": 0
-                }
-            }
-        },
-        "target_id": "867793854505943041",
-        "type": 3
-    },
-    "guild_id": "772904309264089089",
-    "guild_locale": "en-US",
-    "app_permissions": "442368",
-    "id": "867793873336926249",
-    "locale": "en-US",
-    "member": {
-        "avatar": null,
-        "deaf": false,
-        "is_pending": false,
-        "joined_at": "2020-11-02T20:46:57.364000+00:00",
-        "mute": false,
-        "nick": null,
-        "pending": false,
-        "permissions": "274877906943",
-        "premium_since": null,
-        "roles": ["785609923542777878"],
-        "user": {
+  "application_id": "775799577604522054",
+  "channel_id": "772908445358620702",
+  "data": {
+    "id": "866818195033292851",
+    "name": "context-menu-message-2",
+    "resolved": {
+      "messages": {
+        "867793854505943041": {
+          "attachments": [],
+          "author": {
             "avatar": "a_f03401914fb4f3caa9037578ab980920",
             "discriminator": "6538",
             "id": "167348773423415296",
             "public_flags": 1,
             "username": "ian"
+          },
+          "channel_id": "772908445358620702",
+          "components": [],
+          "content": "some message",
+          "edited_timestamp": null,
+          "embeds": [],
+          "flags": 0,
+          "id": "867793854505943041",
+          "mention_everyone": false,
+          "mention_roles": [],
+          "mentions": [],
+          "pinned": false,
+          "timestamp": "2021-07-22T15:42:57.744000+00:00",
+          "tts": false,
+          "type": 0
         }
+      }
     },
-    "token": "UNIQUE_TOKEN",
-    "type": 2,
-    "version": 1
+    "target_id": "867793854505943041",
+    "type": 3
+  },
+  "guild_id": "772904309264089089",
+  "guild_locale": "en-US",
+  "app_permissions": "442368",
+  "id": "867793873336926249",
+  "locale": "en-US",
+  "member": {
+    "avatar": null,
+    "deaf": false,
+    "is_pending": false,
+    "joined_at": "2020-11-02T20:46:57.364000+00:00",
+    "mute": false,
+    "nick": null,
+    "pending": false,
+    "permissions": "274877906943",
+    "premium_since": null,
+    "roles": ["785609923542777878"],
+    "user": {
+      "avatar": "a_f03401914fb4f3caa9037578ab980920",
+      "discriminator": "6538",
+      "id": "167348773423415296",
+      "public_flags": 1,
+      "username": "ian"
+    }
+  },
+  "token": "UNIQUE_TOKEN",
+  "type": 2,
+  "version": 1
 }
 ```
 
@@ -1006,7 +1003,7 @@ For example, if a batch `GET` request were made with locale `zh-CN`, including t
       "type": 4,
       "description": "Your friend's age",
       "name_localized": "岁数",
-      "description_localized": "你朋友的岁数",
+      "description_localized": "你朋友的岁数"
     }
   ]
 }
@@ -1026,8 +1023,9 @@ A command that contains age-restricted content should have the [`nsfw` field](#D
 ### Using Age-Restricted Commands
 
 To use an age-restricted command, a user must be 18 years or older and access the command from either:
+
 - an [age-restricted channel](https://support.discord.com/hc/articles/115000084051-Age-Restricted-Channels-and-Content) or
-- a DM with the app *after* [enabling age-restricted commands](https://support.discord.com/hc/en-us/articles/10123937946007) within their User Settings.
+- a DM with the app _after_ [enabling age-restricted commands](https://support.discord.com/hc/en-us/articles/10123937946007) within their User Settings.
 
 Details about accessing and using age-restricted commands is in [the Help Center](https://support.discord.com/hc/en-us/articles/10123937946007).
 
@@ -1046,7 +1044,7 @@ Fetch all of the global commands for your application. Returns an array of [appl
 ###### Query String Params
 
 | Field               | Type    | Description                                                                                                                                                                                                            |
-|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
@@ -1059,7 +1057,7 @@ Create a new global command. Returns `201` if a command with the same name does 
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
-|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                        | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
 | name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands                                                                                                                                   |
@@ -1085,7 +1083,7 @@ Edit a global command. Returns `200` and an [application command](#DOCS_INTERACT
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
-|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name?                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
 | name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description                                                                                                                                                             |
@@ -1117,7 +1115,7 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 ###### Query String Params
 
 | Field               | Type    | Description                                                                                                                                                                                                            |
-|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
@@ -1130,7 +1128,7 @@ Create a new guild command. New guild commands will be available in the guild im
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
-|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                        | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
 | name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands                                                                                                                                   |
@@ -1155,7 +1153,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
-|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name?                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
 | name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description                                                                                                                                                             |
@@ -1179,7 +1177,7 @@ Takes a list of application commands, overwriting the existing command list for 
 ###### Bulk Application Command JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
-|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id?                         | snowflake                                                                                                                                      | ID of the command, if known                                                                                                                                                             |
 | name                        | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
 | name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
@@ -1221,7 +1219,7 @@ You can add up to 100 permission overwrites for a command.
 ###### JSON Params
 
 | Field       | Type                                                                                                                                                                 | Description                              |
-|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | permissions | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild |
 
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions

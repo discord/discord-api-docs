@@ -59,7 +59,7 @@ This changelog focuses only on the technical changes to be aware of to update yo
 
 ### Identifying migrated users
 
-The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
+The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will _not_ be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
 
 After migration of all users is complete, the `discriminator` field may be removed.
 
@@ -116,9 +116,9 @@ Add new `custom_message` [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-
 
 ### Upcoming Changes
 
-Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked *without* being archived, which will slightly change the meaning of the [`locked` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure).
+Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked _without_ being archived, which will slightly change the meaning of the [`locked` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure).
 
-`locked` currently indicates that a thread cannot be reopened by a user without the [`MANAGE_THREADS` (`1 << 34`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the `MANAGE_THREADS` permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
+`locked` currently indicates that a thread cannot be reopened by a user without the [`MANAGE_THREADS` (`1 << 34`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the `MANAGE_THREADS` permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will _only_ be allowed in locked threads if that thread is also active (or un-archived).
 
 If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages. The upcoming change does not affect the meaning of the [`archived` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure) or the behavior of a thread that is both locked and archived.
 
@@ -152,7 +152,7 @@ Setting `with_member` to `true` will also enable pagination for the [List Thread
 
 #### Upcoming Changes
 
-Starting in API v11, [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) will *always* return paginated results, regardless of whether `with_member` is passed or not.
+Starting in API v11, [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) will _always_ return paginated results, regardless of whether `with_member` is passed or not.
 
 ## Add Default Layout setting for Forum channels
 
@@ -167,6 +167,7 @@ Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 #### Dec 12, 2022
 
 Introducing [linked roles](https://discord.com/blog/connected-accounts-functionality-boost-linked-roles) as well as the ability for all developers to set up their own linked roles with an application. This includes:
+
 - New [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object) that can be set in the developer portal in order for the application to render as potential verification option for linked roles.
 - [Application metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) to specify more detailed linked role requirements.
 - New endpoints to [retrieve](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/get-application-role-connection-metadata-records) (`GET /applications/<application.id>/role-connections/metadata`) and [update](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/update-application-role-connection-metadata-records) (`PUT /applications/<application.id>/role-connections/metadata`) application connection metadata.
@@ -207,9 +208,9 @@ These changes are focused on how configured permissions are used by Discord clie
 
 Discord’s clients determine whether a user can see or invoke a command based on three different permission configurations:
 
-- **Command-level permissions** are set up by an admin for a specific *command* in their server. These permissions affect only a specific command.
-- **App-level permissions** are set up by an admin for a specific *app* in their server. These permissions affect all commands for an app.
-- **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in *all* servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-using-default-permissions).
+- **Command-level permissions** are set up by an admin for a specific _command_ in their server. These permissions affect only a specific command.
+- **App-level permissions** are set up by an admin for a specific _app_ in their server. These permissions affect all commands for an app.
+- **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in _all_ servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-using-default-permissions).
 
 The concepts of these permission configurations are not changing. But then of course, the question becomes…
 
@@ -231,8 +232,9 @@ Currently, these systems are **mutually-exclusive**, meaning that only one type 
 With this current system, there is a clear hierarchy: command-level permission configurations take precedence (if present), then app-level permission configurations (if present), and finally `default_member_permissions` if neither are present.
 
 The implication of the current permissions system means that:
+
 - If any command-level permissions are configured, all app-level permissions and `default_member_permissions` are ignored for that command.
-- If any app-level permissions are configured, `default_member_permissions` is ignored for *all* of that app’s commands.
+- If any app-level permissions are configured, `default_member_permissions` is ignored for _all_ of that app’s commands.
 
 This system leads to unintentional permission escalations, and can force moderators to manually re-define their app-level configurations to make small tweaks on the command-level.
 
@@ -244,11 +246,11 @@ The new system removes the mutual exclusion aspect, meaning that the different t
 
 **App-level permission configurations now act as the "base" configuration.**
 
-App-level configurations define who is allowed to use the app and where. These will work *together* with  `default_member_permissions`, meaning if a user is granted access via an app-level permission configuration, they will still be restricted to the `default_member_permissions` for each command (by default). No more accidentally granting `/ban` which requires `BAN_MEMBERS` to `@BotMemers` just because you gave them access to the app!
+App-level configurations define who is allowed to use the app and where. These will work _together_ with `default_member_permissions`, meaning if a user is granted access via an app-level permission configuration, they will still be restricted to the `default_member_permissions` for each command (by default). No more accidentally granting `/ban` which requires `BAN_MEMBERS` to `@BotMemers` just because you gave them access to the app!
 
 **Command-level permission configurations now act as an “override” of the app-level.**
 
-Command-level configurations override what is present at the app-level *and* any restrictions set by `default_member_permissions`. This means that an admin can explicitly grant a user access to a specific command even if they are denied access on the app-level *or* if they don't have permissions that meet that command's `default_member_permissions`.
+Command-level configurations override what is present at the app-level _and_ any restrictions set by `default_member_permissions`. This means that an admin can explicitly grant a user access to a specific command even if they are denied access on the app-level _or_ if they don't have permissions that meet that command's `default_member_permissions`.
 
 If a command-level configuration does not exist for the given context, the system will fall back to looking at the app-level configuration.
 
@@ -262,8 +264,8 @@ Below is a simplified flowchart that illustrates how permissions will be applied
 
 We added a new [`APPLICATION_COMMAND_PERMISSIONS_V2` feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which indicates whether that server is using **the current permissions logic**.
 
-- If the flag *is* present, that server is using the old command permissions behavior.
-- If the flag *is not* present, that server has migrated from the old command permissions behavior to the new behavior.
+- If the flag _is_ present, that server is using the old command permissions behavior.
+- If the flag _is not_ present, that server has migrated from the old command permissions behavior to the new behavior.
 
 ### Am I affected?
 
@@ -277,7 +279,7 @@ If your app does use this endpoint, you should read the section on preparing for
 
 To prepare for these changes, you should take two steps:
 
-**1. Use the  `APPLICATION_COMMAND_PERMISSIONS_V2` flag**
+**1. Use the `APPLICATION_COMMAND_PERMISSIONS_V2` flag**
 
 Use this flag to determine which permissions logic that server is using. While the transition from the old behavior to the new behavior is happening, you may need two code paths depending on if the flag is present or not.
 
@@ -307,7 +309,7 @@ If your app is affected and you don’t update it, permissions behavior that you
 
 The new `APPLICATION_COMMAND_PERMISSIONS_V2` flag is already live, and you should start seeing it in guilds’ feature flags.
 
-The new permissions behavior will roll out **on December 16, 2022**. On this date, admins will begin to see a banner that allows them to *optionally* move their server to the new behavior.
+The new permissions behavior will roll out **on December 16, 2022**. On this date, admins will begin to see a banner that allows them to _optionally_ move their server to the new behavior.
 
 In **late January or early February**, all servers will be migrated to the new behavior. We'll post another changelog at this point, at which time you can remove any logic around the old permissions behavior.
 
@@ -346,9 +348,9 @@ Regex patterns are a powerful way to describe many keywords all at once using on
 #### Oct 20, 2022
 
 Ephemeral interaction responses and follow-ups can now be deleted with a valid interaction token using the following endpoints:
+
 - [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response)
 - [`DELETE /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-followup-message)
-
 
 As a reminder, interaction tokens stay valid for up to 15 minutes after the interaction occurs. Details can be found in the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
 
@@ -357,9 +359,10 @@ As a reminder, interaction tokens stay valid for up to 15 minutes after the inte
 #### Oct 13, 2022
 
 Four new select menu [component types](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) have been added to make it easier to populate selects with common resources in Discord:
+
 - User select (type `5`)
 - Role select (type `6`)
-- Mentionable (user *and* role) select (type `7`)
+- Mentionable (user _and_ role) select (type `7`)
 - Channel select (type `8`)
 
 The new select menu components are defined similarly to the existing string select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) apps receive also contain a [`resolved` field](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) for the new components.
@@ -400,7 +403,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 > danger
 > This entry includes breaking changes
 
-As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
+As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps _and_ apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
 Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
@@ -410,9 +413,10 @@ Verified apps and verification-eligible apps must be approved for the message co
 
 ##### Temporary Message Content Intent
 
-Verified apps or apps that have submitted for verification can temporarily opt-in to a grace period which will allow your app to continue receiving message content until October 1.  However, if you opt-in to the grace period, your app will be prevented from joining any additional servers until you opt-out. More details are in the [Help Center article](https://support-dev.discord.com/hc/en-us/articles/8561391080471).
+Verified apps or apps that have submitted for verification can temporarily opt-in to a grace period which will allow your app to continue receiving message content until October 1. However, if you opt-in to the grace period, your app will be prevented from joining any additional servers until you opt-out. More details are in the [Help Center article](https://support-dev.discord.com/hc/en-us/articles/8561391080471).
 
 #### If your app is unverified
+
 Unverified apps must still must enable the intent in your app’s settings within the Developer Portal.
 
 Existing unverified apps will automatically have the message content intent toggled on in their settings. New unverified apps will have to manually toggle the intent in the Developer Portal.
@@ -432,7 +436,7 @@ Slash Command mentions use the following format: `</NAME:COMMAND_ID>`. You can a
 > warn
 > Starting on **September 12, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
 
-A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
+A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect _and_ resume sessions, but should now only be used during the connection.
 
 At the moment, the value of `resume_gateway_url` will always be `wss://gateway.discord.gg` to give developers more time to adopt the new field. In the near future, the value will change to the session-specific URLs.
 
@@ -463,7 +467,7 @@ The value of `min_length` must be greater or equal to `0`, and the value of `max
 
 #### July 1, 2022
 
-While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
+While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), _not_ message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
 
 #### Upcoming Changes
 
@@ -497,12 +501,13 @@ After this change, the `name` field for the original interaction payload will st
 > `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` are the only permissions that will be affected by this change. In a previous version of this changelog, it was indicated that `ATTACH_FILES` and `EMBED_LINKS` would be affected but this is no longer the case.
 
 Starting **August 3, 2022**, the way some of a bot's `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated is changing in two cases:
+
 - When **responding to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING)** (like application commands or message components)
 - When **executing a [webhook](#DOCS_RESOURCES_WEBHOOK) that the bot created**
 
-Going forward, in the above cases, a bot’s `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` permissions will be calculated based on the permissions its granted, *including* any [overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Previously, a bot’s permissions in these cases relied only on those granted to `@everyone`.
+Going forward, in the above cases, a bot’s `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` permissions will be calculated based on the permissions its granted, _including_ any [overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Previously, a bot’s permissions in these cases relied only on those granted to `@everyone`.
 
-This change *only* applies to bots. The permissions for an app without a bot user (or without the `bot` scope) will still depend on `@everyone`.
+This change _only_ applies to bots. The permissions for an app without a bot user (or without the `bot` scope) will still depend on `@everyone`.
 
 #### Updating Your App
 
@@ -517,7 +522,6 @@ Note that even if your bot is installed with certain permissions, they can be ch
 Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any channel overwrites). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
 For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
-
 
 ## Message Content in Auto Moderation events
 
@@ -540,6 +544,7 @@ In API v11, support for the previous field names (`$os`, `$browser`, and `$devic
 #### Jun 16, 2022
 
 Add new [Auto Moderation feature](#DOCS_RESOURCES_AUTO_MODERATION) which enables guilds to moderate message content based on keywords, harmful links, and unwanted spam. This change includes:
+
 - New endpoints for [creating](#DOCS_RESOURCES_AUTO_MODERATION/create-auto-moderation-rule), [updating](#DOCS_RESOURCES_AUTO_MODERATION/modify-auto-moderation-rule), and [deleting](#DOCS_RESOURCES_AUTO_MODERATION/delete-auto-moderation-rule) Auto Moderation rules
 - New gateway events emitted when Auto Moderation rules are [created](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) (`AUTO_MODERATION_RULE_CREATE`), [updated](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) (`AUTO_MODERATION_RULE_UPDATE `), and [deleted](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) (`AUTO_MODERATION_RULE_DELETE `). Requires the `AUTO_MODERATION_CONFIGURATION` (`1 << 20`) intent
 - New gateway event emitted when an [action is executed](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) (`AUTO_MODERATION_ACTION_EXECUTION`). Requires the `AUTO_MODERATION_EXECUTION` (`1 << 21`) intent
@@ -561,7 +566,7 @@ Application command permissions have been updated to add more granular control a
 
 - Created a [`CHANNEL` command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type)
 - Increase permission limit from `10` to `100`
--  [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) to represent all channels in command permissions
+- [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) to represent all channels in command permissions
 - Added `default_member_permissions` field, which is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
 - Added `dm_permission`, which is a boolean flag used to indicate whether a command is available in DMs (only for global application commands). If no value is passed, the global command will be visible in DMs.
 - Added `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY_EVENTS/application-command-permissions-update) event and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](#DOCS_RESOURCES_AUDIT_LOG) event.
@@ -690,12 +695,11 @@ The addition of message components means new fields and response types:
 
 API v9 is now available.
 
-API v9 includes support for [threads](#DOCS_TOPICS_THREADS), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
+API v9 includes support for [threads](#DOCS_TOPICS_THREADS), an upcoming feature. Older API versions will not receive any Gateway Events for threads, so it is important to update soon! We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
 
 This documentation is being published early so bots can have at least two months to upgrade before threads launch.
 
 Additionally, API v9 also removes the `/channels/:id/messages/:id/suppress-embeds` route.
-
 
 ## Application Command Permissions
 

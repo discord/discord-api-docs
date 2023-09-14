@@ -1,7 +1,7 @@
-import { readdirSync, statSync, readFileSync } from "node:fs";
-import path from "node:path";
-import chalk from "chalk";
-import * as github from "@actions/core";
+import { readdirSync, statSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import chalk from 'chalk';
+import * as github from '@actions/core';
 const cwd = process.env.GITHUB_ACTIONS ? process.env.GITHUB_WORKSPACE! : process.cwd();
 
 function importDirectory(directory: string, extensions: string[], subdirectories = true) {
@@ -21,7 +21,7 @@ function importDirectory(directory: string, extensions: string[], subdirectories
       }
       const currentPathParts = path.parse(currentPath);
       if (!extensions.some((ex) => ex === currentPathParts.ext)) continue;
-      const read = readFileSync(currentPath, "utf8");
+      const read = readFileSync(currentPath, 'utf8');
       output.set(`/${currentPathParts.name}`, read);
     }
     return output;
@@ -32,7 +32,7 @@ function importDirectory(directory: string, extensions: string[], subdirectories
 }
 
 function printResults(resultMap: Map<string, github.AnnotationProperties[]>): void {
-  let output = "\n";
+  let output = '\n';
   let total = 0;
   for (const [resultFile, resultArr] of resultMap) {
     if (resultArr.length <= 0) continue;
@@ -40,15 +40,15 @@ function printResults(resultMap: Map<string, github.AnnotationProperties[]>): vo
     output += `${chalk.underline(filePath)}\n`;
     output += resultArr.reduce<string>((result, props) => {
       total += 1;
-      return `${result}  ${props.startLine ?? ""}:${props.startColumn ?? ""}-${props.endColumn ?? ""}  ${chalk.yellow(
-        "warning",
-      )}  ${props.title ?? ""}\n`;
-    }, "");
-    output += "\n";
+      return `${result}  ${props.startLine ?? ''}:${props.startColumn ?? ''}-${props.endColumn ?? ''}  ${chalk.yellow(
+        'warning',
+      )}  ${props.title ?? ''}\n`;
+    }, '');
+    output += '\n';
   }
-  output += "\n";
+  output += '\n';
   if (total > 0) {
-    output += chalk.red.bold(`\u2716 ${total} problem${total === 1 ? "" : "s"}\n`);
+    output += chalk.red.bold(`\u2716 ${total} problem${total === 1 ? '' : 's'}\n`);
   }
   console.log(output);
 }
@@ -64,51 +64,51 @@ function annotateResults(resultMap: Map<string, github.AnnotationProperties[]>):
         `::warning file=${resultFile},title=Invalid Link,line=${result.startLine ?? 0},endLine=${
           result.startLine ?? 0
         },col=${result.startColumn ?? 0},endColumn=${result.endColumn ?? result.startColumn ?? 0}::${
-          result.title ?? "Invalid Link"
+          result.title ?? 'Invalid Link'
         }`,
       );
     }
     github.endGroup();
   }
   if (total > 0) {
-    github.setFailed("One or more links are invalid!");
+    github.setFailed('One or more links are invalid!');
   }
 }
 
-const docFiles = importDirectory(path.join(cwd, "docs"), [".md", ".mdx"]);
+const docFiles = importDirectory(path.join(cwd, 'docs'), ['.md', '.mdx']);
 
 if (!docFiles) {
-  console.error("No doc files found!");
+  console.error('No doc files found!');
   process.exit(1);
 }
 
 const validLinks = new Map<string, string[]>([
-  ["APPLICATIONS", []],
-  ["SERVERS", []],
-  ["TEAMS", []],
+  ['APPLICATIONS', []],
+  ['SERVERS', []],
+  ['TEAMS', []],
 ]);
 
 // Gather valid links
 for (const [name, raw] of docFiles) {
-  const keyName = `DOCS${name.replaceAll("/", "_").toUpperCase()}`;
+  const keyName = `DOCS${name.replaceAll('/', '_').toUpperCase()}`;
   if (!validLinks.has(keyName)) {
     validLinks.set(keyName, []);
   }
   const validAnchors = validLinks.get(keyName)!;
 
-  let parentAnchor = "";
+  let parentAnchor = '';
   let multilineCode = false;
-  for (const line of raw.split("\n")) {
-    if (line.trim().startsWith("```")) {
+  for (const line of raw.split('\n')) {
+    if (line.trim().startsWith('```')) {
       multilineCode = !multilineCode;
-      if (line.trim().length > 3 && line.trim().endsWith("```")) multilineCode = !multilineCode;
+      if (line.trim().length > 3 && line.trim().endsWith('```')) multilineCode = !multilineCode;
     }
-    if (multilineCode || !line.startsWith("#")) continue;
+    if (multilineCode || !line.startsWith('#')) continue;
     const anchor = line
-      .split("%")[0]
-      .replace(/[^ A-Z0-9]/gi, "")
+      .split('%')[0]
+      .replace(/[^ A-Z0-9]/gi, '')
       .trim()
-      .replace(/ +/g, "-")
+      .replace(/ +/g, '-')
       .toLowerCase();
     if (/^#{1,5}(?!#)/.test(line.trim())) {
       parentAnchor = `${anchor}-`;
@@ -124,22 +124,22 @@ const results = new Map<string, github.AnnotationProperties[]>();
 // Check Links
 for (const [name, raw] of docFiles) {
   const fileName = `docs${name}`;
-  const file = raw.split("\n");
+  const file = raw.split('\n');
   if (!results.has(fileName)) {
     results.set(fileName, []);
   }
   const ownResults = results.get(fileName)!;
   let multilineCode = false;
   file.forEach((line, lineNum) => {
-    if (line.trim().startsWith("```")) {
+    if (line.trim().startsWith('```')) {
       multilineCode = !multilineCode;
-      if (line.trim().length > 3 && line.trim().endsWith("```")) multilineCode = !multilineCode;
+      if (line.trim().length > 3 && line.trim().endsWith('```')) multilineCode = !multilineCode;
     }
     if (multilineCode) return;
     const matches = line.matchAll(/(?<![!`])\[.+?\]\((?!https?|mailto)(.+?)\)(?!`)/g);
 
     for (const match of matches) {
-      const split = match[1].split("#")[1].split("/");
+      const split = match[1].split('#')[1].split('/');
       const page = split[0];
       const anchor = split[1];
       if (!validLinks.has(page)) {
@@ -155,7 +155,7 @@ for (const [name, raw] of docFiles) {
       if (!anchor) continue;
       if (!validLinks.get(page)!.includes(anchor)) {
         const suggestions = validLinks.get(page)!.filter((a) => a.includes(anchor));
-        const suggestionText = suggestions.length > 0 ? ` Did you mean one of (${suggestions.join(", ")})?` : "";
+        const suggestionText = suggestions.length > 0 ? ` Did you mean one of (${suggestions.join(', ')})?` : '';
         ownResults.push({
           title: `Anchor ${chalk.cyan(anchor)} does not exist on ${chalk.blueBright(page)}${suggestionText}`,
           startLine: lineNum + 1,

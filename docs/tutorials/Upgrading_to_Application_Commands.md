@@ -37,17 +37,19 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 [Message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are in the context menu for messages, which is accessed by right-clicking on a message, or by clicking on the ellipses at the top-right of a message. They’re helpful when an action is tied to a message, like creating a reminder to reply to a message the following day.
 
 ### After This Section
+
 - Start thinking about how different app features might map to the different types of application commands.
 
 ## Registering Commands
 
-Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. 
+Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient.
 
 > info
 > There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
 
 The API endpoint to register (or create) commands is different depending on its scope:
-- **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation. 
+
+- **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation.
 - **[Guild commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-guild-command)** are only available in the servers you explicitly add them to via the API, making them useful for features available only to a subset of guilds. They can be created using the [`/applications/{YOUR APP ID}/guilds/{A GUILD ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
 
 While most apps won’t need to register more than a handful of commands, apps can have up to 100 global slash commands and 100 guild slash commands with unique names. They can also have 5 global user commands and 5 global message commands. Different limitations apply for global and guild commands, which can be found [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/registering-a-command).
@@ -106,7 +108,7 @@ Below is a sample payload to create a global slash command with an optional para
 
 #### Default Permissions
 
-When [creating](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command) or [updating](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) a command, you can use the `default_member_permissions` field to restrict the command to a set of bitwise permissions that reflect the default permission flags a user must be granted in order to use the command. 
+When [creating](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command) or [updating](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) a command, you can use the `default_member_permissions` field to restrict the command to a set of bitwise permissions that reflect the default permission flags a user must be granted in order to use the command.
 
 In addition, the `dm_permission` flag can be used to control whether a global command is available in DMs (not available for guild commands).
 
@@ -145,7 +147,7 @@ However, before adding your URL to your app settings, your endpoint must be set 
 > info
 > Many libraries on the [Community Resources page](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
 
-After your URL is set up to handle signature verification and `PING` requests, you can add your Interaction Endpoint URL by navigating to your app settings from the [developer portal](https://discord.com/developers/applications). On the **General Information** page, you’ll see a field for your **Interactions Endpoint URL**. 
+After your URL is set up to handle signature verification and `PING` requests, you can add your Interaction Endpoint URL by navigating to your app settings from the [developer portal](https://discord.com/developers/applications). On the **General Information** page, you’ll see a field for your **Interactions Endpoint URL**.
 
 ![Interactions endpoint URL in app settings](interactions-url.png)
 
@@ -159,7 +161,7 @@ Once your app has a verified endpoint, you should start being able to receive co
 
 As mentioned above, these include information relevant to handling the command like its name, the user who invoked it, and the guild and channel it was invoked from. It also includes additional details that could be relevant, like the [command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) or [locale information](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization).
 
-Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel, you’ll notice that their payloads don’t contain any information about specific messages. If your app needs the message content, you can use [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) which *do* include the message content.
+Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel, you’ll notice that their payloads don’t contain any information about specific messages. If your app needs the message content, you can use [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) which _do_ include the message content.
 
 > info
 > In the getting started guide’s repository, there’s a code sample showing [how to create and handle commands using JavaScript](https://github.com/discord/discord-example-app/blob/main/examples/command.js).
@@ -241,6 +243,7 @@ Options are great for short input, but if you need user input that’s longer th
 ### Scoping a Command
 
 Commands can optionally be [scoped to specific guilds](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command), rather than available everywhere your app is installed. Guild commands can be useful when your app has functionality that may not be relevant to all servers like:
+
 - When a command is in development
 - When a specific command is opt-in or opt-out
 - When specific commands are behind a paywall
@@ -284,7 +287,7 @@ The following is an example of an app update that may be sent to communicate the
 
 ### Making Help Available
 
-Both new and existing users should always have ways for them to easily find usage instructions and support. Some of this help can come in the form of a support server or website, but you should also have instructions in the client. 
+Both new and existing users should always have ways for them to easily find usage instructions and support. Some of this help can come in the form of a support server or website, but you should also have instructions in the client.
 
 This can come in the form of a specific command that shows app usage, a message when someone `@mentions` your bot user, reactively when someone misuses one of your app’s commands, or ideally all of the above.
 

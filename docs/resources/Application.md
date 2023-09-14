@@ -5,7 +5,7 @@
 ###### Application Structure
 
 | Field                              | Type                                                                       | Description                                                                                                                                                                 |
-|------------------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id                                 | snowflake                                                                  | the id of the app                                                                                                                                                           |
 | name                               | string                                                                     | the name of the app                                                                                                                                                         |
 | icon                               | ?string                                                                    | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                                                                                |
@@ -16,7 +16,7 @@
 | terms_of_service_url?              | string                                                                     | the url of the app's terms of service                                                                                                                                       |
 | privacy_policy_url?                | string                                                                     | the url of the app's privacy policy                                                                                                                                         |
 | owner?                             | partial [user](#DOCS_RESOURCES_USER/user-object) object                    | partial user object containing info on the owner of the application                                                                                                         |
-| summary *(deprecated)*             | string                                                                     | **deprecated and will be removed in v11.** An empty string.                                                                                                                 |
+| summary _(deprecated)_             | string                                                                     | **deprecated and will be removed in v11.** An empty string.                                                                                                                 |
 | verify_key                         | string                                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket)                                                   |
 | team                               | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object                 | if the application belongs to a team, this will be a list of the members of that team                                                                                       |
 | guild_id?                          | snowflake                                                                  | guild associated with the app. For example, a developer support server.                                                                                                     |
@@ -77,7 +77,7 @@
 ###### Application Flags
 
 | Value   | Name                                          | Description                                                                                                                                                                                                                                                   |
-|---------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 << 6  | APPLICATION_AUTO_MODERATION_RULE_CREATE_BADGE | Indicates if an app uses the [Auto Moderation API](#DOCS_RESOURCES_AUTO_MODERATION)                                                                                                                                                                           |
 | 1 << 12 | GATEWAY_PRESENCE                              | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                                                                                                        |
 | 1 << 13 | GATEWAY_PRESENCE_LIMITED                      | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update), found on the **Bot** page in your app's settings                                                                            |
@@ -94,7 +94,7 @@
 ###### Install Params Structure
 
 | Field       | Type             | Description                                                                                                |
-|-------------|------------------|------------------------------------------------------------------------------------------------------------|
+| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
 | scopes      | array of strings | the [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
 | permissions | string           | the [permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |
 

@@ -7,7 +7,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 ###### Gateway Opcodes
 
 | Code | Name                  | Client Action | Description                                                                             |
-|------|-----------------------|---------------|-----------------------------------------------------------------------------------------|
+| ---- | --------------------- | ------------- | --------------------------------------------------------------------------------------- |
 | 0    | Dispatch              | Receive       | An event was dispatched.                                                                |
 | 1    | Heartbeat             | Send/Receive  | Fired periodically by the client to keep the connection alive.                          |
 | 2    | Identify              | Send          | Starts a new session during the initial handshake.                                      |
@@ -24,9 +24,8 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 In order to prevent broken reconnect loops, you should consider some close codes as a signal to stop reconnecting. This can be because your token expired, or your identification is invalid. This table explains what the application defined close codes for the gateway are, and which close codes you should not attempt to reconnect.
 
-
 | Code | Description           | Explanation                                                                                                                                                                                                                      | Reconnect |
-|------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| ---- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                | true      |
 | 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
 | 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-events) to Discord. Don't do that!                                                                                                                                    | true      |
@@ -49,7 +48,7 @@ Our voice gateways have their own set of opcodes and close codes.
 ###### Voice Opcodes
 
 | Code | Name                | Sent By           | Description                                              |
-|------|---------------------|-------------------|----------------------------------------------------------|
+| ---- | ------------------- | ----------------- | -------------------------------------------------------- |
 | 0    | Identify            | client            | Begin a voice websocket connection.                      |
 | 1    | Select Protocol     | client            | Select the voice protocol.                               |
 | 2    | Ready               | server            | Complete the websocket handshake.                        |
@@ -65,7 +64,7 @@ Our voice gateways have their own set of opcodes and close codes.
 ###### Voice Close Event Codes
 
 | Code | Description              | Explanation                                                                                                                                      |
-|------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-voice-opcodes).                                                         |
 | 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) to the Gateway.                                          |
 | 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) with the Gateway.                                                  |
@@ -86,7 +85,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 ###### HTTP Response Codes
 
 | Code                      | Meaning                                                                          |
-|---------------------------|----------------------------------------------------------------------------------|
+| ------------------------- | -------------------------------------------------------------------------------- |
 | 200 (OK)                  | The request completed successfully.                                              |
 | 201 (CREATED)             | The entity was created successfully.                                             |
 | 204 (NO CONTENT)          | The request completed successfully but returned no content.                      |
@@ -107,7 +106,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 ###### JSON Error Codes
 
 | Code   | Meaning                                                                                                                       |
-|--------|-------------------------------------------------------------------------------------------------------------------------------|
+| ------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | 0      | General error (such as a malformed request body, amongst other things)                                                        |
 | 10001  | Unknown account                                                                                                               |
 | 10002  | Unknown application                                                                                                           |
@@ -326,7 +325,7 @@ RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Acces
 ###### RPC Error Codes
 
 | Code | Name                               | Description                                                                           |
-|------|------------------------------------|---------------------------------------------------------------------------------------|
+| ---- | ---------------------------------- | ------------------------------------------------------------------------------------- |
 | 1000 | Unknown error                      | An unknown error occurred.                                                            |
 | 4000 | Invalid payload                    | You sent an invalid payload.                                                          |
 | 4002 | Invalid command                    | Invalid command name specified.                                                       |
@@ -347,7 +346,7 @@ RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Acces
 ###### RPC Close Event Codes
 
 | Code | Name              | Description                                                               |
-|------|-------------------|---------------------------------------------------------------------------|
+| ---- | ----------------- | ------------------------------------------------------------------------- |
 | 4000 | Invalid client ID | You connected to the RPC server with an invalid client ID.                |
 | 4001 | Invalid origin    | You connected to the RPC server with an invalid origin.                   |
 | 4002 | Rate limited      | You are being rate limited.                                               |

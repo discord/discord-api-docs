@@ -8,7 +8,7 @@
 ###### Emoji Structure
 
 | Field           | Type                                                             | Description                                                               |
-|-----------------|------------------------------------------------------------------|---------------------------------------------------------------------------|
+| --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                              |
 | name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
 | roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles allowed to use this emoji                                           |
@@ -56,11 +56,11 @@ Emojis cannot be converted between normal and premium after creation.
 
 ###### Custom Emoji Examples
 
->info
->In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emoji.
+> info
+> In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emoji.
 
->info
->In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
+> info
+> In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
 
 ```json
 {
@@ -98,7 +98,7 @@ Create a new emoji for the guild. Requires the `MANAGE_GUILD_EXPRESSIONS` permis
 ###### JSON Params
 
 | Field | Type                                     | Description                     |
-|-------|------------------------------------------|---------------------------------|
+| ----- | ---------------------------------------- | ------------------------------- |
 | name  | string                                   | name of the emoji               |
 | image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image         |
 | roles | array of snowflakes                      | roles allowed to use this emoji |
@@ -116,7 +116,7 @@ Modify the given emoji. Requires the `MANAGE_GUILD_EXPRESSIONS` permission. Retu
 ###### JSON Params
 
 | Field | Type                 | Description                     |
-|-------|----------------------|---------------------------------|
+| ----- | -------------------- | ------------------------------- |
 | name  | string               | name of the emoji               |
 | roles | ?array of snowflakes | roles allowed to use this emoji |
 

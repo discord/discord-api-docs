@@ -13,7 +13,7 @@ When a user connects their account using the bot's [`role_connections_verificati
 ###### Application Role Connection Metadata Structure
 
 | Field                      | Type                                                                                                                                                                                | Description                                                                                      |
-|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | type                       | [ApplicationRoleConnectionMetadataType](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                                           |
 | key                        | string                                                                                                                                                                              | dictionary key for the metadata field (must be `a-z`, `0-9`, or `_` characters; 1-50 characters) |
 | name                       | string                                                                                                                                                                              | name of the metadata field (1-100 characters)                                                    |
@@ -24,7 +24,7 @@ When a user connects their account using the bot's [`role_connections_verificati
 ###### Application Role Connection Metadata Type
 
 | Type                           | Value | Description                                                                                                                            |
-|--------------------------------|-------|----------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------ | ----- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | INTEGER_LESS_THAN_OR_EQUAL     | 1     | the metadata value (`integer`) is less than or equal to the guild's configured value (`integer`)                                       |
 | INTEGER_GREATER_THAN_OR_EQUAL  | 2     | the metadata value (`integer`) is greater than or equal to the guild's configured value (`integer`)                                    |
 | INTEGER_EQUAL                  | 3     | the metadata value (`integer`) is equal to the guild's configured value (`integer`)                                                    |

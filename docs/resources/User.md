@@ -25,7 +25,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 ###### User Structure
 
 | Field              | Type      | Description                                                                                          | Required OAuth2 Scope |
-|--------------------|-----------|------------------------------------------------------------------------------------------------------|-----------------------|
+| ------------------ | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
 | id                 | snowflake | the user's id                                                                                        | identify              |
 | username           | string    | the user's username, not unique across the platform                                                  | identify              |
 | discriminator      | string    | the user's Discord-tag                                                                               | identify              |
@@ -65,7 +65,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 ###### User Flags
 
 | Value   | Name                     | Description                                                                                                                                    |
-|---------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
 | 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
 | 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
@@ -87,7 +87,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 Premium types denote the level of premium a user has. Visit the [Nitro](https://discord.com/nitro) page to learn more about the premium plans we currently offer.
 
 | Value | Name          |
-|-------|---------------|
+| ----- | ------------- |
 | 0     | None          |
 | 1     | Nitro Classic |
 | 2     | Nitro         |
@@ -100,7 +100,7 @@ The connection object that the user has attached.
 ###### Connection Structure
 
 | Field         | Type    | Description                                                                              |
-|---------------|---------|------------------------------------------------------------------------------------------|
+| ------------- | ------- | ---------------------------------------------------------------------------------------- |
 | id            | string  | id of the connection account                                                             |
 | name          | string  | the username of the connection account                                                   |
 | type          | string  | the [service](#DOCS_RESOURCES_USER/connection-object-services) of this connection        |
@@ -115,7 +115,7 @@ The connection object that the user has attached.
 ###### Services
 
 | Value           | Name                |
-|-----------------|---------------------|
+| --------------- | ------------------- |
 | battlenet       | Battle.net          |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
@@ -128,7 +128,7 @@ The connection object that the user has attached.
 | reddit          | Reddit              |
 | riotgames       | Riot Games          |
 | spotify         | Spotify             |
-| skype *         | Skype               |
+| skype \*        | Skype               |
 | steam           | Steam               |
 | tiktok          | TikTok              |
 | twitch          | Twitch              |
@@ -141,7 +141,7 @@ The connection object that the user has attached.
 ###### Visibility Types
 
 | Value | Name     | Description                                      |
-|-------|----------|--------------------------------------------------|
+| ----- | -------- | ------------------------------------------------ |
 | 0     | None     | invisible to everyone except the user themselves |
 | 1     | Everyone | visible to everyone                              |
 
@@ -152,7 +152,7 @@ The role connection object that an application has attached to a user.
 ###### Application Role Connection Structure
 
 | Field             | Type    | Description                                                                                                                                                                                                                                                      |
-|-------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | platform_name     | ?string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
 | platform_username | ?string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
 | metadata          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
@@ -175,7 +175,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 ###### JSON Params
 
 | Field    | Type                                      | Description                                                                      |
-|----------|-------------------------------------------|----------------------------------------------------------------------------------|
+| -------- | ----------------------------------------- | -------------------------------------------------------------------------------- |
 | username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
 | avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
 
@@ -204,7 +204,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 ###### Query String Params
 
 | Field       | Type      | Description                                                | Required | Default |
-|-------------|-----------|------------------------------------------------------------|----------|---------|
+| ----------- | --------- | ---------------------------------------------------------- | -------- | ------- |
 | before      | snowflake | get guilds before this guild ID                            | false    | absent  |
 | after       | snowflake | get guilds after this guild ID                             | false    | absent  |
 | limit       | integer   | max number of guilds to return (1-200)                     | false    | 200     |
@@ -228,7 +228,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 ###### JSON Params
 
 | Field        | Type      | Description                             |
-|--------------|-----------|-----------------------------------------|
+| ------------ | --------- | --------------------------------------- |
 | recipient_id | snowflake | the recipient to open a DM channel with |
 
 ## Create Group DM % POST /users/@me/channels
@@ -241,7 +241,7 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 ###### JSON Params
 
 | Field         | Type             | Description                                                            |
-|---------------|------------------|------------------------------------------------------------------------|
+| ------------- | ---------------- | ---------------------------------------------------------------------- |
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
 | nicks         | dict             | a dictionary of user ids to their respective nicknames                 |
 
@@ -260,7 +260,7 @@ Updates and returns the [application role connection](#DOCS_RESOURCES_USER/appli
 ###### JSON Params
 
 | Field              | Type   | Description                                                                                                                                                                                                                                                      |
-|--------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | platform_name?     | string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
 | platform_username? | string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
 | metadata?          | object | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |

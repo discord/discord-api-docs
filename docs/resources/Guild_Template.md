@@ -7,7 +7,7 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 ###### Guild Template Structure
 
 | Field                   | Type                                                       | Description                                            |
-|-------------------------|------------------------------------------------------------|--------------------------------------------------------|
+| ----------------------- | ---------------------------------------------------------- | ------------------------------------------------------ |
 | code                    | string                                                     | the template code (unique ID)                          |
 | name                    | string                                                     | template name                                          |
 | description             | ?string                                                    | the description for the template                       |
@@ -109,7 +109,7 @@ Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/
 ###### JSON Params
 
 | Field | Type                                     | Description                             |
-|-------|------------------------------------------|-----------------------------------------|
+| ----- | ---------------------------------------- | --------------------------------------- |
 | name  | string                                   | name of the guild (2-100 characters)    |
 | icon? | [image data](#DOCS_REFERENCE/image-data) | base64 128x128 image for the guild icon |
 
@@ -124,7 +124,7 @@ Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Return
 ###### JSON Params
 
 | Field        | Type    | Description                                     |
-|--------------|---------|-------------------------------------------------|
+| ------------ | ------- | ----------------------------------------------- |
 | name         | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 
@@ -139,7 +139,7 @@ Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Return
 ###### JSON Params
 
 | Field        | Type    | Description                                     |
-|--------------|---------|-------------------------------------------------|
+| ------------ | ------- | ----------------------------------------------- |
 | name?        | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 

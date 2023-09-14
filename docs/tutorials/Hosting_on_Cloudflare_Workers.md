@@ -36,7 +36,7 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 
 ## Adding bot permissions
 
-Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) required to create and use slash commands, as well as send messages in  channels.
+Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) required to create and use slash commands, as well as send messages in channels.
 
 - Click on the `OAuth2` tab, and choose the `URL Generator`. Click the `bot` and `applications.commands` scopes.
 - Check the boxes next to `Send Messages` and `Use Slash Commands`, then copy the `Generated URL`.
@@ -110,6 +110,7 @@ A brief look at the cloned app's project structure:
 ├── .prettierrc.json
 └── .gitignore
 ```
+
 ### Registering commands
 
 Before testing our app, we need to register our desired slash commands. For this app, we'll have a `/awwww` command, and a `/invite` command. The name and description for these are kept separate in `commands.js`:
@@ -147,9 +148,7 @@ if (!token) {
   throw new Error('The DISCORD_TOKEN environment variable is required.');
 }
 if (!applicationId) {
-  throw new Error(
-    'The DISCORD_APPLICATION_ID environment variable is required.'
-  );
+  throw new Error('The DISCORD_APPLICATION_ID environment variable is required.');
 }
 
 /**
@@ -260,12 +259,7 @@ export default {
       const signature = request.headers.get('x-signature-ed25519');
       const timestamp = request.headers.get('x-signature-timestamp');
       const body = await request.clone().arrayBuffer();
-      const isValidRequest = verifyKey(
-        body,
-        signature,
-        timestamp,
-        env.DISCORD_PUBLIC_KEY
-      );
+      const isValidRequest = verifyKey(body, signature, timestamp, env.DISCORD_PUBLIC_KEY);
       if (!isValidRequest) {
         console.error('Invalid Request');
         return new Response('Bad request signature.', { status: 401 });
@@ -339,6 +333,7 @@ router.post('/', async (request, env) => {
 > In case you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/cloudflare-sample-app)
 
 With your app built and deployed, you can start customizing it to be your own:
+
 - Use **[message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** in your app to add more interactivity (like buttons and select menus).
 - Take a look at different **[public APIs](https://github.com/public-apis/public-apis)** on GitHub.
 - Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other developers.
