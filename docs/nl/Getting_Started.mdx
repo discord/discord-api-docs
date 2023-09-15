@@ -18,20 +18,19 @@ Ter verduidelijking van de gebruikersflow:
 3. Gebruiker 2 klikt op de knop **Accepteren**
 4. Gebruiker 2 ontvangt een kortstondig bericht waarin een object naar keuze kan worden geselecteerd
 5. Het resultaat van het spel wordt in het oorspronkelijke kanaal gepost, zodat iedereen het kan zien
-   </Collapsible>
+
+</Collapsible>
 
 <Collapsible
   title="In deze gids gebruikte hulpbronnen"
   description="Overzicht van de tools en technologieën die we gebruiken"
   icon="list"
 >
-  - **[GitHub-register](https://github.com/discord/discord-example-app)** waar de code uit deze gids zich bevindt, samen
-  met wat extra codevoorbeelden voor speciale functies. -
-  **[discord-interacties](https://github.com/discord/discord-interactions-js)**, een bibliotheek met soort- en
-  hulpfuncties voor Discord-apps. - **[Express](https://expressjs.com)**, een populair JavaScript-webframewerk dat we
-  gebruiken om een server te creëren waarvandaan Discord ons verzoeken kan sturen. - **[Glitch](https://glitch.com/)**,
-  een online omgeving die het bouwen en hosten van apps vereenvoudigt in de vroege prototype- en ontwikkelingsfase. Je
-  kunt ook lokaal ontwikkelen met een tool als **[ngrok](https://ngrok.com/)**.
+- **[GitHub-register](https://github.com/discord/discord-example-app)** waar de code uit deze gids zich bevindt, samen met wat extra codevoorbeelden voor speciale functies. 
+- **[discord-interacties](https://github.com/discord/discord-interactions-js)**, een bibliotheek met soort- en hulpfuncties voor Discord-apps. 
+- **[Express](https://expressjs.com)**, een populair JavaScript-webframewerk dat we gebruiken om een server te creëren waarvandaan Discord ons verzoeken kan sturen. 
+- **[Glitch](https://glitch.com/)**, een online omgeving die het bouwen en hosten van apps vereenvoudigt in de vroege prototype- en ontwikkelingsfase. Je kunt ook lokaal ontwikkelen met een tool als **[ngrok](https://ngrok.com/)**.
+
 </Collapsible>
 
 ---
@@ -40,9 +39,8 @@ Ter verduidelijking van de gebruikersflow:
 
 Eerst moet je een app creëren in het ontwikkelaarsportaal, als je dat nog niet hebt gedaan:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
-  App creëren
-</Button>
+{/* prettier-ignore */}
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">App creëren</Button>
 
 Voer een naam in voor je app en klik dan op **Creëren**.
 
@@ -83,7 +81,8 @@ Bij het creëren van een app bepaal je met scopes en botmachtigingen wat je app 
 
 - [OAuth2-scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
 - [Machtigingen](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) zijn de gespecialiseerde toestemmingen voor je botgebruiker, zoals andere gebruikers op Discord ook hebben. Ze kunnen toestemming krijgen van de installerende gebruiker, of later worden bijgewerkt in de serverinstellingen of met [machtigingsoverschrijvingen](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
-  </Collapsible>
+
+</Collapsible>
 
 Klik in de zijbalk links op **OAuth2** en selecteer vervolgens **URL-generator**.
 
@@ -138,7 +137,8 @@ Als je het project remixt, kom je in een nieuw Glitch-project terecht.
 - **`.env`** is het bestand waar alle verificatiegegevens voor je app in worden opgeslagen
 - In **logs** kun je de output van je project vinden. Hier kun je zien of de app wel draait, en info bekijken over problemen waar je app tegenaan loopt
 - De knop **Delen**, rechts boven in het scherm, is de plaats waar de live project-URL te vinden is. Verderop in deze gids gebruiken we die om interactiviteit in te stellen
-  </Collapsible>
+
+</Collapsible>
 
 #### Projectstructuur
 
@@ -195,7 +195,8 @@ Discord heeft twee API's die je kunt combineren om apps te bouwen:
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
 - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](#DOCS_TOPICS_GATEWAY).
-  </Collapsible>
+
+</Collapsible>
 
 ---
 

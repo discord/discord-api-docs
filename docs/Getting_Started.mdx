@@ -18,7 +18,8 @@ To make the user flow a bit more explicit:
 3. User 2 presses the **Accept** button
 4. User 2 is sent an ephemeral message where they select their object of choice
 5. The result of the game is posted back into the original channel for all to see
-   </Collapsible>
+
+</Collapsible>
 
 <Collapsible
   title="Resources used in this guide"
@@ -30,7 +31,8 @@ To make the user flow a bit more explicit:
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, a library that provides types and helper functions for Discord apps.
 - **[Express](https://expressjs.com)**, a popular JavaScript web framework we'll use to create a server where Discord can send us requests.
 - **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
-  </Collapsible>
+
+</Collapsible>
 
 ---
 
@@ -38,9 +40,8 @@ To make the user flow a bit more explicit:
 
 First, you'll need to create an app in the developer portal if you don't have one already:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
-  Create App
-</Button>
+{/* prettier-ignore */}
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Create App</Button>
 
 Enter a name for your app, then press **Create**.
 
@@ -81,7 +82,8 @@ When creating an app, scopes and permissions determine what your app can do and 
 
 - [OAuth2 Scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) determine what data access and actions your app can take, granted on behalf of an installing or authenticating user.
 - [Permissions](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) are the granular permissions for your bot user, the same as other users in Discord have. They can be approved by the installing user or later updated within server settings or with [permission overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
-  </Collapsible>
+
+</Collapsible>
 
 Click on **OAuth2** in the left sidebar, then select **URL generator**.
 
@@ -136,7 +138,8 @@ Once you remix the project, you'll land on a new Glitch project.
 - **`.env`** is the file where all of your credentials for your app will be stored
 - **Logs** are where your project's output is found—this is helpful to see if the app is running or information about any errors your app encounters
 - The **Share** button in the top-right corner is where you'll find the live project URL, which you'll need to set up interactivity later in this guide
-  </Collapsible>
+
+</Collapsible>
 
 #### Project structure
 
@@ -193,7 +196,8 @@ Discord has two APIs that you can mix-and-match to build apps:
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** is a REST-like API for general operations like sending and updating data in Discord, or fetching data about a resource.
 - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is a WebSocket-based API that is helpful for maintaining state or listening to events happening in a Discord server. We won't be using it in this guide, but more information about how to create a Gateway connection and the different events you can listen to are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
-  </Collapsible>
+
+</Collapsible>
 
 ---
 

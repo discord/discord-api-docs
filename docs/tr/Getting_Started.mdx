@@ -18,20 +18,19 @@ Kullanıcı akışını biraz daha açık hâle getirmek adına:
 3. 2. kullanıcı **Kabul Et** butonuna tıklar
 4. 2. kullanıcı, nesnesini seçebileceği geçici bir mesaj alır
 5. Oyunun sonucu herkesin görebilmesi için orijinal kanalda paylaşılır
-   </Collapsible>
+
+</Collapsible>
 
 <Collapsible
   title="Bu rehberde kullanılan kaynaklar"
   description="Kullanacağımız teknolojilere ve araçlara genel bakış"
   icon="list"
 >
-  - Bu kılavuzdaki kodun yanı sıra bazı ek özelliklere özgü kod örneklerinin bulunduğu **[GitHub
-  deposu](https://github.com/discord/discord-example-app)**. - Discord uygulamaları için tipler ve yardımcı fonksiyonlar
-  sağlayan **[discord-interactions](https://github.com/discord/discord-interactions-js)** kitaplığı. - Discord'un bize
-  istek gönderebileceği bir sunucu oluşturmak için kullanacağımız popüler bir JavaScript web çerçevesi olan
-  **[Express](https://expressjs.com)**. - Erken prototip ve geliştirme aşamalarında uygulamaları oluşturma ve barındırma
-  işlemlerini basitleştiren bir çevrim içi ortam olan **[Glitch](https://glitch.com/)**. İstersen
-  **[ngrok](https://ngrok.com/)** gibi bir araçla yerel ortamında da geliştirebilirsin.
+- Bu kılavuzdaki kodun yanı sıra bazı ek özelliklere özgü kod örneklerinin bulunduğu **[GitHub deposu](https://github.com/discord/discord-example-app)**. 
+- Discord uygulamaları için tipler ve yardımcı fonksiyonlar sağlayan **[discord-interactions](https://github.com/discord/discord-interactions-js)** kitaplığı. 
+- Discord'un bize istek gönderebileceği bir sunucu oluşturmak için kullanacağımız popüler bir JavaScript web çerçevesi olan **[Express](https://expressjs.com)**. 
+- Erken prototip ve geliştirme aşamalarında uygulamaları oluşturma ve barındırma işlemlerini basitleştiren bir çevrim içi ortam olan **[Glitch](https://glitch.com/)**. İstersen **[ngrok](https://ngrok.com/)** gibi bir araçla yerel ortamında da geliştirebilirsin.
+
 </Collapsible>
 
 ---
@@ -40,9 +39,8 @@ Kullanıcı akışını biraz daha açık hâle getirmek adına:
 
 Öncelikle, eğer hâlihazırda bir uygulaman yoksa geliştirici portalında bir uygulama oluşturman gerekli:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
-  Uygulama Oluştur
-</Button>
+{/* prettier-ignore */}
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Uygulama Oluştur</Button>
 
 Uygulamanın ismini yaz ve **Oluştur** butonuna bas.
 
@@ -83,7 +81,8 @@ Kapsamlar ve izinler, bir uygulama oluştururken uygulamanın Discord sunucular�
 
 - [OAuth2 Kapsamları](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), uygulamanın yükleme yapan veya yetki veren bir kullanıcı adına hangi verilere erişebileceğini ve eylemleri gerçekleştirebileceğini belirler.
 - [İzinler](#DOCS_TOPICS_PERMISSIONS/permission-overwrites), Discord'daki diğer kullanıcıların sahip olduğu gibi bot kullanıcıya verilmiş detaylı izinlerdir. Bunlar, yükleyen kullanıcı tarafından onaylanabilir veya daha sonra sunucu ayarlarında veya [izinlerin üzerine yazarak](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) güncellenebilir.
-  </Collapsible>
+
+</Collapsible>
 
 Sol kenar çubuğunda **OAuth2**'ye tıkla, ardından **URL oluşturucuyu** seç.
 
@@ -138,7 +137,8 @@ Projeyi remikslediğinde yeni bir Glitch projesine ulaşacaksın.
 - **`.env`**, uygulaman için tüm kimlik bilgilerinin saklanacağı dosyadır
 - **Loglar**, projenin çıktısının bulabileceğin dosyalardır; uygulamanın çalışıp çalışmadığını görmek veya uygulamanın karşılaştığı hatalar hakkında bilgi almak için yararlıdır
 - Sağ üst köşedeki **Paylaş** butonu, bu rehberin ilerleyen bölümlerinde etkileşimi ayarlamak için ihtiyaç duyacağın canlı proje URL'sini bulacağın yerdir
-  </Collapsible>
+
+</Collapsible>
 
 #### Proje yapısı
 
@@ -195,7 +195,8 @@ Discord, uygulamalar oluşturmak için bir araya getirebileceğin iki API'ye sah
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)**, Discord'da veri gönderme, veri güncelleme veya bir kaynak hakkında veri alma gibi genel işlemler için kullanılan REST benzeri bir API'dir.
 - **[Ağ Geçidi API](#DOCS_REFERENCE/gateway-websocket-api)**, durumu korumak veya Discord sunucusunda gerçekleşen olayları dinlemek için yararlı, WebSocket tabanlı bir API'dir. Bu rehberde bunu kullanmayacağız ancak bir Ağ Geçidi bağlantısının nasıl oluşturulacağı hakkında ve dinleyebileceğin farklı olaylar hakkında daha fazla bilgi [Ağ Geçidi dokümantasyonunda](#DOCS_TOPICS_GATEWAY) bulunmaktadır.
-  </Collapsible>
+
+</Collapsible>
 
 ---
 

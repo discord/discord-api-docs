@@ -18,21 +18,19 @@ Poniżej przedstawiono szczegółowy zarys przepływu użytkowników:
 3. Użytkownik 2 naciska przycisk **Accept** (Przyjmij)
 4. Użytkownik 2 otrzymuje znikającą wiadomość, w której wybiera obiekt
 5. Wynik gry jest publikowany dla wszystkich na pierwotnym kanale
-   </Collapsible>
+
+</Collapsible>
 
 <Collapsible
   title="Zasoby użyte w tym przewodniku"
   description="Podsumowanie narzędzi i technologii, których będziemy używać"
   icon="list"
 >
-  - **[Repozytorium GitHuba](https://github.com/discord/discord-example-app)**, gdzie znajdziesz kod z tego przewodnika
-  wraz z dodatkowymi przykładami kodu przedstawiającymi określone funkcje. -
-  **[discord-interactions](https://github.com/discord/discord-interactions-js)**, biblioteka zawierająca typy i
-  pomocnicze funkcje do aplikacji Discorda. - **[Express](https://expressjs.com)**, popularny framework sieciowy
-  JavaScript, którego użyjemy do utworzenia serwera, na który Discord może wysyłać żądania. -
-  **[Glitch](https://glitch.com/)**, internetowe środowisko, które upraszcza projektowanie i hostowanie aplikacji na
-  wczesnym etapie prototypu i rozwoju. Możesz też projektować aplikację lokalnie przy pomocy narzędzia takiego jak
-  **[ngrok](https://ngrok.com/)**.
+- **[Repozytorium GitHuba](https://github.com/discord/discord-example-app)**, gdzie znajdziesz kod z tego przewodnika wraz z dodatkowymi przykładami kodu przedstawiającymi określone funkcje. 
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, biblioteka zawierająca typy i pomocnicze funkcje do aplikacji Discorda. 
+- **[Express](https://expressjs.com)**, popularny framework sieciowy JavaScript, którego użyjemy do utworzenia serwera, na który Discord może wysyłać żądania. 
+- **[Glitch](https://glitch.com/)**, internetowe środowisko, które upraszcza projektowanie i hostowanie aplikacji na wczesnym etapie prototypu i rozwoju. Możesz też projektować aplikację lokalnie przy pomocy narzędzia takiego jak **[ngrok](https://ngrok.com/)**.
+
 </Collapsible>
 
 ---
@@ -41,9 +39,8 @@ Poniżej przedstawiono szczegółowy zarys przepływu użytkowników:
 
 Najpierw musisz stworzyć aplikację w portalu deweloperów, jeśli jeszcze jej nie masz:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
-  Stwórz aplikację
-</Button>
+{/* prettier-ignore */}
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Stwórz aplikację</Button>
 
 Wprowadź nazwę aplikacji i naciśnij **Stwórz**.
 
@@ -84,7 +81,8 @@ Podczas tworzenia aplikacji zakresy i uprawnienia określają, co Twoja aplikacj
 
 - [Zakresy OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) określają, do których danych aplikacja może uzyskiwać dostęp i jakie czynności może wykonywać w imieniu instalującego lub uwierzytelniającego użytkownika.
 - [Uprawnienia](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) są szczegółowymi uprawnieniami dla użytkownika bota – takimi samymi jak te, które posiadają inni użytkownicy na Discordzie. Uprawnienia te mogą zostać przyznane przez instalującego użytkownika lub zaktualizowane później w ustawieniach serwera bądź przy pomocy [nadpisań uprawnień](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
-  </Collapsible>
+
+</Collapsible>
 
 Kliknij **OAuth2** na lewym pasku bocznym, a następnie wybierz **Generator adresu URL**.
 
@@ -139,7 +137,8 @@ Po edytowaniu projektu zostanie otwarty nowy projekt Glitch.
 - **`.env`** to plik, w którym są przechowywane wszystkie Twoje dane uwierzytelniające do aplikacji
 - **Dzienniki** zawierają dane wyjściowe projektu – pomagają one w ustaleniu, czy aplikacja działa; znajdziesz tu również informacje o wszelkich błędach występujących w aplikacji
 - Przycisk **Udostępnij** w prawym górnym rogu pozwala uzyskać aktywny adres URL projektu, który będzie potrzebny do skonfigurowania interaktywności w dalszej części przewodnika
-  </Collapsible>
+
+</Collapsible>
 
 #### Struktura projektu
 
@@ -196,7 +195,8 @@ Discord ma dwa API, które można łączyć w tworzonych aplikacjach:
 
 - **[API HTTP](#DOCS_REFERENCE/http-api)** jest API w stylu REST przeznaczonym do ogólnych operacji takich jak wysyłanie i aktualizowanie danych na Discordzie lub pobieranie informacji o zasobie.
 - **[API bramki](#DOCS_REFERENCE/gateway-websocket-api)** to oparte na protokole WebSocket API przydatne do utrzymywania stanu lub nasłuchiwania zdarzeń na serwerze Discorda. Nie będziemy używać go w tym przewodniku, ale więcej informacji na temat tworzenia połączenia z bramką i różnych zdarzeń, które możesz nasłuchiwać, znajdziesz w [dokumentacji bramki](#DOCS_TOPICS_GATEWAY).
-  </Collapsible>
+
+</Collapsible>
 
 ---
 

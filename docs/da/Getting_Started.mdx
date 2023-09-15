@@ -18,20 +18,19 @@ Lad os gøre brugerrejsen lidt mere tydelig:
 3. Bruger 2 trykker på knappen **Acceptér**
 4. Bruger 2 modtager en kortvarig besked, hvorfra vedkommende skal vælge sin genstand
 5. Resultatet af spillet bliver delt i den oprindelige kanal, hvor alle kan se det
-   </Collapsible>
+
+</Collapsible>
 
 <Collapsible
   title="Ressourcer brugt i denne vejledning"
   description="Oversigt over værktøjerne og teknologien vi benytter"
   icon="list"
 >
-  - **[GitHub repository](https://github.com/discord/discord-example-app)**, hvor koden fra denne vejledning bor sammen
-  med nogle ekstra funktionsspecifikke kodeeksempler. -
-  **[discord-interactions](https://github.com/discord/discord-interactions-js)**, et bibliotek med typer og
-  hjælpefunktioner til Discord-apps. - **[Express](https://expressjs.com)**, et populært JavaScript-web framework vi
-  bruger til at oprette en server, hvor Discord kan sende os anmodninger. - **[Glitch](https://glitch.com/)**, et online
-  miljø, der simplificerer udviklingen og hostingen af apps i de tidlige prototype- og udviklingsfaser. Du kan ogås
-  udvikle lokalt med et værktøj som **[ngrok](https://ngrok.com/)**.
+- **[GitHub repository](https://github.com/discord/discord-example-app)**, hvor koden fra denne vejledning bor sammen med nogle ekstra funktionsspecifikke kodeeksempler. 
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, et bibliotek med typer og hjælpefunktioner til Discord-apps. 
+- **[Express](https://expressjs.com)**, et populært JavaScript-web framework vi bruger til at oprette en server, hvor Discord kan sende os anmodninger. 
+- **[Glitch](https://glitch.com/)**, et online miljø, der simplificerer udviklingen og hostingen af apps i de tidlige prototype- og udviklingsfaser. Du kan ogås udvikle lokalt med et værktøj som **[ngrok](https://ngrok.com/)**.
+
 </Collapsible>
 
 ---
@@ -40,9 +39,8 @@ Lad os gøre brugerrejsen lidt mere tydelig:
 
 Først skal du skabe en app i udviklerportalen, hvis du ikke allerede har en:
 
-<Button href="https://discord.com/developers/applications?new_application=true" color="brand">
-  Skab app
-</Button>
+{/* prettier-ignore */}
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Skab app</Button>
 
 Navngiv din app, og tryk på **Skab**.
 
@@ -83,7 +81,8 @@ Når du laver en app, bestemmer anvendelsesområder og tilladelser, hvad din app
 
 - [OAuth2-anvendelsesområder](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) bestemmer, hvilken dataadgang og hvilke handlinger din app har adgang til, tildelt på vegne af en installerende eller bekræftende bruger.
 - [Tilladelser](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) er din bot-brugers detaljerede tilladelser, ligesom andre brugere på Discord også har. De kan godkendes af den installerende bruger eller senere opdateres under serverens indstillinger eller med [overskrivninger af tilladelser](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
-  </Collapsible>
+
+</Collapsible>
 
 Klik på **OAuth2** i venstre sidepanel, og vælg **URL-generator**.
 
@@ -138,7 +137,8 @@ Når du har remixet projektet, lander du på et nyt Glitch-projekt.
 - **`.env`** er filen, hvor alle legitimationsoplysninger for din app bliver gemt
 - **Logs** er stedet, hvor dit projekts output kan findes – det er nyttigt for at se, om appen kører, samt information om fejl, din app støder på
 - **Share**-knappen i øverste, højre hjørne er stedet, hvor du finder det live projekts URL, som du skal bruge til at opsætte interaktivitet senere i denne vejledning
-  </Collapsible>
+
+</Collapsible>
 
 #### Projektstruktur
 
@@ -195,7 +195,8 @@ Discord har to API's som du frit kan vælge mellem og blande, når du laver apps
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** er en REST-lignende API til generelle operationer som at sende og opdatere data i Discord eller hente data om en ressource.
 - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** er en WebSocket-baseret API, der er nyttig til at beholde en tilstand eller lytte til begivenheder på en Discord-server. Vi benytter den ikke i denne vejledning, men du kan finde mere information om, hvordan du skaber en Gateway-forbindelse, samt de forskellige begivenheder, du kan lytte efter, i [Gateway-dokumentationen](#DOCS_TOPICS_GATEWAY).
-  </Collapsible>
+
+</Collapsible>
 
 ---
 
