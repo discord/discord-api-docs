@@ -9,7 +9,6 @@
 		"esModuleInterop": true,
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"importsNotUsedAsValues": "error",
 		"isolatedModules": true,
 		"rootDir": "./",
 		"outDir": "./dist"
