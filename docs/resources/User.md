@@ -132,7 +132,7 @@ The connection object that the user has attached.
 | steam           | Steam               |
 | tiktok          | TikTok              |
 | twitch          | Twitch              |
-| twitter         | Twitter             |
+| twitter         | X (Twitter)         |
 | xbox            | Xbox                |
 | youtube         | YouTube             |
 
