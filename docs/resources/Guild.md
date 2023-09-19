@@ -1406,9 +1406,9 @@ Modifies the incident actions of the guild. Returns a 200 with the [Incidents Da
 
 ###### JSON Params
 
-| Field                  | Type                  | Description                                                              |
-|------------------------|-----------------------|--------------------------------------------------------------------------|
-| invites_disabled_until | ?ISO8601 timestamp \* | when disabled invites will expire (up to 24 hours in the future)         |
-| dms_disabled_until     | ?ISO8601 timestamp \* | when disabled direct messages will expire (up to 24 hours in the future) |
+| Field                   | Type                  | Description                                                              |
+|-------------------------|-----------------------|--------------------------------------------------------------------------|
+| invites_disabled_until? | ?ISO8601 timestamp \* | when disabled invites will expire (up to 24 hours in the future)         |
+| dms_disabled_until?     | ?ISO8601 timestamp \* | when disabled direct messages will expire (up to 24 hours in the future) |
 
-\* Set to `null` to disable action.
+\* Supplying `null` disables the action.
