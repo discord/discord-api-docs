@@ -1,18 +1,12 @@
 {
 	"compilerOptions": {
-		"target": "ES2021",
-		"lib": ["ESNext"],
-		"skipLibCheck": true,
+		"target": "ES2022",
 		"strict": true,
-		"alwaysStrict": true,
-		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true,
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"isolatedModules": true,
 		"rootDir": "./",
+		"module": "ES2022",
+		"moduleResolution": "Node",
 		"outDir": "./dist"
 	},
 	"include": ["**/*.ts"],
-	"exclude": ["node_modules"]
 }
