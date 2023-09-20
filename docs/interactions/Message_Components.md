@@ -215,7 +215,7 @@ There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPON
 
 The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
 
-In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (users, roles, mentionables, and channels) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
+In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (user, role, mentionable, and channel) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
 The payloads for the select menu components are detailed in the [select menu structure](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-structure).
 
@@ -282,16 +282,16 @@ The payloads for the select menu components are detailed in the [select menu str
 | options?\*            | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)               | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
 | channel_types?\*\*    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                            | List of channel types to include in the channel select component (type `8`)                                                                                                |
 | placeholder?          | string                                                                                                                    | Placeholder text if nothing is selected; max 150 characters                                                                                                                |
+| default_values?\*\*\* | array of [default value objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-default-value-structure) | List of default values for auto-populated select menu components; max of 25 default values                                                                                  |
 | min_values?           | integer                                                                                                                   | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                                                 |
 | max_values?           | integer                                                                                                                   | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                                         |
 | disabled?             | boolean                                                                                                                   | Whether select menu is disabled (defaults to `false`)                                                                                                                      |
-| default_values?\*\*\* | array of [default value objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-default-value-structure) | List of default values for autopopulated select menu components; max length of 25                                                                                          |
 
 \* `options` is required for string select menus (component type `3`), and unavailable for all other select menu components.
 
 \*\* `channel_types` can only be used for channel select menu components.
 
-\*\*\* `default_values` is only available for autopopulated select menu components, which include user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types).
+\*\*\* `default_values` is only available for auto-populated select menu components, which include user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types).
 
 ###### Select Option Structure
 
