@@ -179,9 +179,8 @@ return res.send({
 
 ### Entitlement Fields in Interaction
 
-We've also added two new fields within interactions to make handling entitlements easier:
+We've also added a new field within interactions to make handling entitlements easier:
 
--   `entitlement_sku_ids`: an array of sku_ids that the guild or user currently has entitlement to
 -   `entitlements`: an array of full entitlement objects that the guild or user currently has entitlement to
 
-You can reference these fields within an interaction to handle premium status, rather than fetching entitlements from Discord's API or your database.
+You can reference this field within an interaction to handle subscription status, rather than fetching entitlements from Discord's API or your database.

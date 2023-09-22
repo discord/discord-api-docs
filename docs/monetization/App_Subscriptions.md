@@ -47,22 +47,9 @@ return new JsonResponse({
 
 If someone is already subscribed, this command will show the upgrade prompt with a disabled upgrade button. In order to avoid this, your interaction handler should check to see if the user or guild has an active entitlement for your SKU.
 
-Each interaction payload includes `entitlement_sku_ids` as an array of SKU ids that the user has access to as well as `entitlements`, an array of their full entitlement objects.
+Each interaction payload includes an `entitlements` field containing an array of full entitlement objects that the guild or user currently has entitlement to.
 
-You can use these fields to determine if the user to your premium offering.
-
-For example, if we know the id for our subscription SKU is `1088510058284990888`, we can now check that it is included in the interaction's `entitlement_sku_ids` field.
-
-```javascript
-if (!interaction.entitlement_sku_ids.includes("1088510058284990888")) {
-    return new JsonResponse({
-        type: 10, // PREMIUM_REQUIRED interaction response type
-        data: {},
-    });
-} else {
-    // perform your interaction as usual
-}
-```
+You can use this field to determine if the user or guild is subscribed to your app.
 
 ### Keeping Track of Entitlements
 
