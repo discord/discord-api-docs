@@ -1,20 +1,17 @@
-# Adding A Subscription to Your App
+# App Subscriptions
 
-## Overview
+App Subscriptions are **TODO TODO TODO**. Before you can add an app subscription to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_PREMIUM_APPS_OVERVIEW/eligibility-checklist)
 
-Before you can add monetization to your app, you must:
+Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_PREMIUM_APPS_SKUS) to represent your app's premium offering.
 
-1. Have a verified app
-2. Complete the [Monetization Eligibility Checklist](#DOCS_PREMIUM_APPS_OVERVIEW/eligibility-checklist)
+## Types of Subscriptions
 
-Once you've confirmed eligibility for your app and team, you will be able to set up a SKU to represent your app's premium offering.
+When creating subscriptions, you will need to choose between user or guild subscriptions:
 
-## Deciding on Subscription Type
-
-You will need to choose between offering subscriptions to specific users or guilds for your app. You cannot offer both. Currently, you can only have one published subscription SKU for your app. This choice will impact what users have access to your app's premium features:
-
--   **User Subscriptions**: Offers premium features to an individual user across any server they have your app installed in.
+-   **User Subscriptions**: Offers premium features to an individual user across any server where your app installed.
 -   **Guild Subscriptions**: Provides premium benefits to all members within a specific server.
+
+Currently, you can only have one published subscription SKU for your app, so you cannot offer both types of subscriptions.
 
 ## Requiring a Subscription for Specific Application Commands
 
