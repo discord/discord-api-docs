@@ -6,17 +6,17 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 ###### Entitlement Structure
 
-| Field          | Type              | Description                                                                                 |
-| -------------- | ----------------- | ------------------------------------------------------------------------------------------- |
-| id             | snowflake         | unique ID of the entitlement                                                                |
-| sku_id         | snowflake         | ID of the SKU                                                                               |
-| user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
-| guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
-| application_id | snowflake         | ID of the parent application                                                                |
-| type           | integer           | [type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
-| consumed       | boolean           | not applicable for app subscriptions. Subscriptions are not consumed and will be `false`    |
-| starts_at?     | ISO8601 timestamp | start date at which the entitlement is valid. Not present when using test entitlements.     |
-| ends_at?       | ISO8601 timestamp | date at which the entitlement is no longer valid. Not present when using test entitlements. |
+| Field            | Type              | Description                                                                                 |
+| ---------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| id               | snowflake         | unique ID of the entitlement                                                                |
+| sku_id           | snowflake         | ID of the SKU                                                                               |
+| user_id?         | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
+| guild_id?        | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
+| application_id   | snowflake         | ID of the parent application                                                                |
+| type             | integer           | [type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
+| consumed         | boolean           | not applicable for app subscriptions. Subscriptions are not consumed and will be `false`    |
+| starts_at?       | ISO8601 timestamp | start date at which the entitlement is valid. Not present when using test entitlements.     |
+| ends_at?         | ISO8601 timestamp | date at which the entitlement is no longer valid. Not present when using test entitlements. |
 
 ###### Entitlement Example
 
@@ -50,10 +50,15 @@ Returns all entitlements for a given application, active and expired.
 
 ###### Query Params
 
-| param    | type              | description                                         |
-| -------- | ----------------- | --------------------------------------------------- |
-| guild_id | optional guild_id | filter returned entitlements to a specific guild_id |
-| user_id  | optional user_id  | filter returned entitlements to a specific user_id  |
+| param          | type                              | description                                           |
+| -------------- | --------------------------------- | ----------------------------------------------------- |
+| user_id?       | snowflake                         | the user id to look up entitlements for               |
+| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for |
+| before?        | snowflake                         | retrieve entitlements before this time                |
+| after?         | snowflake                         | retrieve entitlements after this time                 |
+| limit?         | integer                           | number of entitlements to return, 1-100, default 100  |
+| guild_id?      | snowflake                         | the guild id to look up entitlements for              |
+| exclude_ended? | boolean                           | whether or not ended entitlements should be omitted   |
 
 ```json
 [
