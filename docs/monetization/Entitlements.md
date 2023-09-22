@@ -13,8 +13,8 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 | user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
 | guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
 | application_id | snowflake         | ID of the parent application                                                                |
-| type           | integer           | [type of entitlement](#DOCS_PREMIUM_APPS_ENTITLEMENTS/entitlement-object-entitlement-types) |
-| consumed       | boolean           | not applicable for app subscriptions. Subscriptions are not consumed and will be false      |
+| type           | integer           | [type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
+| consumed       | boolean           | not applicable for app subscriptions. Subscriptions are not consumed and will be `false`    |
 | starts_at?     | ISO8601 timestamp | start date at which the entitlement is valid. Not present when using test entitlements.     |
 | ends_at?       | ISO8601 timestamp | date at which the entitlement is no longer valid. Not present when using test entitlements. |
 
@@ -99,7 +99,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 }
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_PREMIUM_APPS_ENTITLEMENTS/entitlement-object}
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 

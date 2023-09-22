@@ -6,14 +6,13 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 
 ###### SKU Structure
 
-| Field          | Type      | Description                                                                          |
-| -------------- | --------- | ------------------------------------------------------------------------------------ |
-| id             | todo      | unique ID of sku                                                                     |
-| type           | integer   | [type of sku](#DOCS_PREMIUM_APPS_SKUS/sku-object-sku-types)                          |
-| application_id | snowflake | ID of the parent application                                                         |
-| access_type    | integer   | [type of access the sku grants](#DOCS_PREMIUM_APPS_SKUS/sku-object-sku-access-types) |
-| name           | string    | the customer-facing name of your premium offering                                    |
-| slug           | string    | system generated URL slug, based on the sku’s name                                   |
+| Field          | Type      | Description                                                 |
+| -------------- | --------- | ----------------------------------------------------------- |
+| id             | todo      | unique ID of sku                                            |
+| type           | integer   | [type of sku](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) |
+| application_id | snowflake | ID of the parent application                                |
+| name           | string    | the customer-facing name of your premium offering           |
+| slug           | string    | system generated URL slug, based on the sku’s name          |
 
 ###### SKU Example
 
@@ -44,17 +43,15 @@ For subscriptions, SKUs will have a type of either `SUBSCRIPTION` represented by
 | SUBSCRIPTION       | 5   | represents a recurring subscription                      |
 | SUBSCRIPTION_GROUP | 6   | system-generated group for each SUBSCRIPTION sku created |
 
-For subscriptions, there are two types of access levels you can offer to users, which are represented by the `access_type` field on a SKU record.
+For subscriptions, there are two types of access levels you can offer to users:
 
--   **Guild Subscriptions**: A subscription purchased by a user and applied to a single server. Everyone in that server gets your premium benefits
--   **User Subscriptions**: A subscription purchased by a user for themselves. They get access to your premium benefits in every server
+-   **Guild Subscriptions**: A subscription purchased by a user and applied to a single server. Everyone in that server gets your premium benefits.
+-   **User Subscriptions**: A subscription purchased by a user for themselves. They get access to your premium benefits in every server.
 
-###### SKU Access Types
+The `flags` field can be used to differentiate user and server subscriptions with a bitwise `&&` operator.
 
-| Type               | ID  | Description                            |
-| ------------------ | --- | -------------------------------------- |
-| GUILD_SUBSCRIPTION | 1   | sku provides premium access to a guild |
-| USER_SUBSCRIPTION  | 2   | sku provides premium access to a user  |
+-   Guild Subscriptions: `1 << 7`
+-   User Subscriptions: `1 << 8`
 
 ## Customizing Your SKUs
 

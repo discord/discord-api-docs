@@ -1,8 +1,8 @@
-# Premium Apps
+# Monetizing Your Discord App
 
 Premium Apps is a set of monetization features for apps on Discord that allows developers to:
 
--   Sell monthly recurring [subscriptions](#DOCS_PREMIUM_APPS_APP_SUBSCRIPTIONS) for your app's premium functionality within Discord
+-   Sell monthly recurring [subscriptions](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS) for your app's premium functionality within Discord
 -   Highlight your app's premium benefits on the App Directory
 -   Offer native product tie-ins and upsells on the App Directory, app profiles, and in chat
 
@@ -61,3 +61,7 @@ Only the owner of the team can enable payout settings for the team.
 #### If You are Based Outside of the United States
 
 Premium Apps is not currently available outside of the United States. These features will be made available to more regions soon.
+
+### Implementing Your Premium Features
+
+Once your team and app are all set up for monetization, you are ready to [customize your subscription](#DOCS_MONETIZATION_SKUS/customizing-your-skus) and [implement your premium features](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS) in your app!
