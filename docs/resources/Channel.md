@@ -1111,11 +1111,18 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ###### Query String Params
 
-| Field  | Type      | Description                                      | Default |
-|--------|-----------|--------------------------------------------------|---------|
-| type?  | integer   | The reaction type (0 for normal and 1 for super) | 0       |
-| after? | snowflake | Get users after this user ID                     | absent  |
-| limit? | integer   | Max number of users to return (1-100)            | 25      |
+| Field  | Type                                                                | Description                           | Default |
+|--------|---------------------------------------------------------------------|---------------------------------------|---------|
+| type?  | [ReactionType](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-type) | The reaction type                     | 0       |
+| after? | snowflake                                                           | Get users after this user ID          | absent  |
+| limit? | integer                                                             | Max number of users to return (1-100) | 25      |
+
+###### Reaction Type
+
+| Type   | Value |
+|--------|-------|
+| NORMAL | 0     |
+| BURST  | 1     |
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
