@@ -63,13 +63,36 @@ Within your app's settings, you're able to customize details about your premium 
 
 ![Example SKU customization](sku-customization.png)
 
-You're also able to customize a list of up to 6 benefits to explain your premium offering to users. Benefits are displayed on the App Directory and during the purchase and cancellation flows, and each can have:
+### Adding Benefits to Your SKU
+
+You're able to customize a list of up to 6 benefits to explain your premium offering to users. Benefits are displayed on the App Directory and during the purchase and cancellation flows, and each can have:
 
 -   A name, max 80 characters
 -   A description, max 160 characters
 -   An emoji, standard or custom
 
 ![Example of SKU benefits](sku-benefits.png)
+
+#### Using a Unicode Emoji
+To set an icon using a standard Unicode emoji, enter the emoji in the `Unicode Emoji or Custom Emoji Name` field.
+
+> info
+> Using an emoji keyboard can make it easier to pick an icon to display alongside your SKU benefit.  
+> MacOS: `control + command + space bar`   
+> Windows: `Windows + .`
+
+![Set a unicode emoji](sku-unicode.png)
+
+#### Using a Custom Emoji
+To use a custom emoji, set a value for both fields:
+
+- Name of your custom emoji
+- ID of the custom emoji
+
+> info
+> You can find the ID of the emoji in the Discord app by escaping the emoji in a message with a backslash character `\`. For example, `\:uwu:` will render with the name and ID of the emoji.
+
+![Set a custom emoji](sku-custom.png)
 
 ## Publishing Your SKUs
 
