@@ -25,7 +25,7 @@ Only team owners can enable monetization for an app. When a team owner enables m
     -   This document should clearly and accurately describe to users of your app the user data you collect and how you use and share such data with us and third parties, consistent with our Developer Terms of Service and Developer Policy.
 -   App must not contain any harmful or bad language in the name, description, commands, or role connection metadata.
 -   Payouts must be setup with a valid payment method
--   Agreement to the [Monetization Terms](https://support.discord.com/hc/en-us/articles/5330075836311) and [Discord App Subscriptions Policy](https://support-dev.discord.com/hc/en-us/articles/17442400631959).
+-   Agreement to the [Monetization Terms](https://support.discord.com/hc/articles/5330075836311) and [Discord App Subscriptions Policy](https://support-dev.discord.com/hc/articles/17442400631959).
 
 ## Setting Up Monetization
 

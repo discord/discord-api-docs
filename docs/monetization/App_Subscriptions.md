@@ -76,4 +76,4 @@ For example, you might keep track of our entitlements in a database and check a 
 
 Once an app has made its first $100 it will become eligible for payout. A review will be conducted and if everything looks good, your team will begin to receive payouts. 
 
-For more information, read the [Premium Apps Payouts](https://support-dev.discord.com/hc/en-us/articles/17299902720919) Help Center article.
+For more information, read the [Premium Apps Payouts](https://support-dev.discord.com/hc/articles/17299902720919) Help Center article.
