@@ -12,23 +12,24 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Interaction Structure
 
-| Field            | Type                                                                                                | Description                                                                                    |
-| ---------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| id               | snowflake                                                                                           | ID of the interaction                                                                          |
-| application_id   | snowflake                                                                                           | ID of the application this interaction is for                                                  |
-| type             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                            |
-| data?\*          | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data) | Interaction data payload                                                                       |
-| guild_id?        | snowflake                                                                                           | Guild that the interaction was sent from                                                       |
-| channel?         | [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                    | Channel that the interaction was sent from                                                     |
-| channel_id?      | snowflake                                                                                           | Channel that the interaction was sent from                                                     |
-| member?\*\*      | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                    | Guild member data for the invoking user, including permissions                                 |
-| user?            | [user](#DOCS_RESOURCES_USER/user-object) object                                                     | User object for the invoking user, if invoked in a DM                                          |
-| token            | string                                                                                              | Continuation token for responding to the interaction                                           |
-| version          | integer                                                                                             | Read-only property, always `1`                                                                 |
-| message?         | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                            | For components, the message they were attached to                                              |
-| app_permissions? | string                                                                                              | Bitwise set of permissions the app or bot has within the channel the interaction was sent from |
-| locale?\*\*\*    | string                                                                                              | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                              |
-| guild_locale?    | string                                                                                              | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild          |
+| Field            | Type                                                                                                | Description                                                                                                                                               |
+| ---------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id               | snowflake                                                                                           | ID of the interaction                                                                                                                                     |
+| application_id   | snowflake                                                                                           | ID of the application this interaction is for                                                                                                             |
+| type             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                                                                                       |
+| data?\*          | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data) | Interaction data payload                                                                                                                                  |
+| guild_id?        | snowflake                                                                                           | Guild that the interaction was sent from                                                                                                                  |
+| channel?         | [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                    | Channel that the interaction was sent from                                                                                                                |
+| channel_id?      | snowflake                                                                                           | Channel that the interaction was sent from                                                                                                                |
+| member?\*\*      | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                    | Guild member data for the invoking user, including permissions                                                                                            |
+| user?            | [user](#DOCS_RESOURCES_USER/user-object) object                                                     | User object for the invoking user, if invoked in a DM                                                                                                     |
+| token            | string                                                                                              | Continuation token for responding to the interaction                                                                                                      |
+| version          | integer                                                                                             | Read-only property, always `1`                                                                                                                            |
+| message?         | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                            | For components, the message they were attached to                                                                                                         |
+| app_permissions? | string                                                                                              | Bitwise set of permissions the app or bot has within the channel the interaction was sent from                                                            |
+| locale?\*\*\*    | string                                                                                              | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                         |
+| guild_locale?    | string                                                                                              | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                                                                     |
+| entitlements     | array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) objects                  | For [monetized apps](#DOCS_MONETIZATION_OVERVIEW), any entitlements for the invoking user, representing access to premium [SKUs](#DOCS_MONETIZATION_SKUS) |
 
 \* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
 
@@ -53,7 +54,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 ###### Application Command Data Structure
 
 > info
-> Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions. 
+> Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
 
 | Field      | Type                                                                                                                                                                         | Description                                                                                                                                                                          |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -133,7 +134,6 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 | user    | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | User who invoked the interaction                                                                                                                                                 |
 | member? | [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                  | Member who invoked the interaction in the guild                                                                                                                                  |
 
-
 ## Interactions and Bot Users
 
 We're all used to the way that Discord bots have worked for a long time. You make an application in the developer portal with a bot user, then use that bot's token to connect to the Gateway and make requests to Discord's API.
@@ -148,8 +148,8 @@ Welcome to the new world.
 
 When a user interacts with your app, your app will receive an **[Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. Your app can receive an interaction in one of two ways:
 
-- Via [Interaction Create](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) gateway event
-- Via outgoing webhook
+-   Via [Interaction Create](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) gateway event
+-   Via outgoing webhook
 
 These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
 
@@ -178,11 +178,11 @@ You'll also need to properly set up [Security and Authorization](#DOCS_INTERACTI
 
 An [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) includes metadata to aid your application in handling it as well as `data` specific to the interaction type. You can find samples for each interaction type on their respective pages:
 
-- [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands-example-interaction)
-- [User Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands-example-interaction)
-- [Message Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands-example-interaction)
-- [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-interaction-object-sample-component-interaction)
-- [Select Menu Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction)
+-   [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands-example-interaction)
+-   [User Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands-example-interaction)
+-   [Message Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands-example-interaction)
+-   [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-interaction-object-sample-component-interaction)
+-   [Select Menu Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction)
 
 An explanation of all the fields can be found in our [data models](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
@@ -225,7 +225,6 @@ There are a number of ways you can respond to an interaction:
 ###### Messages
 
 Not all message fields are currently supported.
-
 
 | Field             | Type                                                                             | Description                                                                                                                                                                                 |
 | ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -300,16 +299,16 @@ r = requests.post(url, json=json)
 ```
 
 > info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**.  If the 3 second deadline is exceeded, the token will be invalidated.
+> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
 
 ## Followup Messages
 
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
-- [`PATCH /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-original-interaction-response) to edit your initial response to an Interaction
-- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) to delete your initial response to an Interaction
-- [`POST /webhooks/<application_id>/<interaction_token>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message) to send a new followup message
-- [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) to edit a message sent with that `token`
+-   [`PATCH /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-original-interaction-response) to edit your initial response to an Interaction
+-   [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) to delete your initial response to an Interaction
+-   [`POST /webhooks/<application_id>/<interaction_token>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message) to send a new followup message
+-   [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) to edit a message sent with that `token`
 
 > info
 > Interactions webhooks share the same rate limit properties as normal webhooks.
@@ -325,29 +324,29 @@ The internet is a scary place, especially for people hosting open, unauthenticat
 
 Every Interaction is sent with the following headers:
 
-- `X-Signature-Ed25519` as a signature
-- `X-Signature-Timestamp` as a timestamp
+-   `X-Signature-Ed25519` as a signature
+-   `X-Signature-Timestamp` as a timestamp
 
 Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
-const nacl = require('tweetnacl');
+const nacl = require("tweetnacl");
 
 // Your public key can be found on your application in the Developer Portal
-const PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY';
+const PUBLIC_KEY = "APPLICATION_PUBLIC_KEY";
 
-const signature = req.get('X-Signature-Ed25519');
-const timestamp = req.get('X-Signature-Timestamp');
+const signature = req.get("X-Signature-Ed25519");
+const timestamp = req.get("X-Signature-Timestamp");
 const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
 
 const isVerified = nacl.sign.detached.verify(
-  Buffer.from(timestamp + body),
-  Buffer.from(signature, 'hex'),
-  Buffer.from(PUBLIC_KEY, 'hex')
+    Buffer.from(timestamp + body),
+    Buffer.from(signature, "hex"),
+    Buffer.from(PUBLIC_KEY, "hex")
 );
 
 if (!isVerified) {
-  return res.status(401).end('invalid request signature');
+    return res.status(401).end("invalid request signature");
 }
 ```
 
