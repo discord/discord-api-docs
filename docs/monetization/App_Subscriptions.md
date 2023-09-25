@@ -72,8 +72,15 @@ For apps requiring background processing or not solely reliant on interactions, 
 
 For example, you might keep track of our entitlements in a database and check a user's subscription status before performing a cron job or other task.
 
+## Testing Your Implementation
+
+You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscrbed state as a user or guild. 
+
+> info
+> Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
+
 ## Receiving Payouts
 
-Once an app has made its first $100 it will become eligible for payout. A review will be conducted and if everything looks good, your team will begin to receive payouts. 
+Once an app has made its first $100 it will become eligible for payout. A review will be conducted and if everything looks good, your team will begin to receive payouts.
 
 For more information, read the [Premium Apps Payouts](https://support-dev.discord.com/hc/articles/17299902720919) Help Center article.

@@ -90,11 +90,11 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 
 ###### JSON Params
 
-| param      | type   | description                                                |
-| ---------- | ------ | ---------------------------------------------------------- |
-| sku_id     | string | ID of the SKU to grant the entitlement to                  |
-| owner_id   | string | ID of the guild or user to grant the entitlement to        |
-| owner_type | integer    | `1` for a server subscription, `2` for a user subscription |
+| param      | type    | description                                               |
+| ---------- | ------- | --------------------------------------------------------- |
+| sku_id     | string  | ID of the SKU to grant the entitlement to                 |
+| owner_id   | string  | ID of the guild or user to grant the entitlement to       |
+| owner_type | integer | `1` for a guild subscription, `2` for a user subscription |
 
 ```json
 {
