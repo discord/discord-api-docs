@@ -55,15 +55,15 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 > info
 > Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions. 
 
-| Field      | Type                                                                                                                                                                             | Description                                                                                                                                                                          |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id         | snowflake                                                                                                                                                                        | the [`ID`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                  |
-| name       | string                                                                                                                                                                           | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
-| type       | integer                                                                                                                                                                          | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
-| resolved?  | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                          | converted users + roles + channels + attachments                                                                                                                                     |
+| Field      | Type                                                                                                                                                                         | Description                                                                                                                                                                          |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id         | snowflake                                                                                                                                                                    | the [`ID`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                  |
+| name       | string                                                                                                                                                                       | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
+| type       | integer                                                                                                                                                                      | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
+| resolved?  | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                      | converted users + roles + channels + attachments                                                                                                                                     |
 | options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
-| guild_id?  | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                     |
-| target_id? | snowflake                                                                                                                                                                        | id of the user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
+| guild_id?  | snowflake                                                                                                                                                                    | the id of the guild the command is registered to                                                                                                                                     |
+| target_id? | snowflake                                                                                                                                                                    | id of the user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
 
 \* This [can be partial](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) when in response to `APPLICATION_COMMAND_AUTOCOMPLETE`
 
@@ -108,13 +108,13 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                                           | Name of the parameter                                                                                                                          |
-| type     | integer                                                                                                                                                                          | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | string, integer, double, or boolean                                                                                                                                              | Value of the option resulting from user input                                                                                                  |
+| Field    | Type                                                                                                                                                                         | Description                                                                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                                       | Name of the parameter                                                                                                                          |
+| type     | integer                                                                                                                                                                      | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | string, integer, double, or boolean                                                                                                                                          | Value of the option resulting from user input                                                                                                  |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | Present if this option is a group or subcommand                                                                                                |
-| focused? | boolean                                                                                                                                                                          | `true` if this option is the currently focused option for autocomplete                                                                         |
+| focused? | boolean                                                                                                                                                                      | `true` if this option is the currently focused option for autocomplete                                                                         |
 
 ### Message Interaction Object
 
@@ -214,10 +214,11 @@ There are a number of ways you can respond to an interaction:
 | UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                |
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
 | MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                  |
+| PREMIUM_REQUIRED\*\*                    | 10    | respond to an interaction with an upgrade button, only available for apps with monetization enabled           |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
-\*\* Not available for MODAL_SUBMIT and PING interactions.
+\*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
 ###### Interaction Callback Data Structure
 
@@ -226,7 +227,7 @@ There are a number of ways you can respond to an interaction:
 Not all message fields are currently supported.
 
 
-| Field              | Type                                                                             | Description                                                                                                                                                                                 |
+| Field             | Type                                                                             | Description                                                                                                                                                                                 |
 | ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | tts?              | boolean                                                                          | is the response TTS                                                                                                                                                                         |
 | content?          | string                                                                           | message content                                                                                                                                                                             |
@@ -240,7 +241,7 @@ Not all message fields are currently supported.
 
 ###### Autocomplete
 
-| Field    | Type                                                                                                                               | Description                              |
+| Field   | Type                                                                                                                               | Description                              |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | choices | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
@@ -249,11 +250,11 @@ Not all message fields are currently supported.
 > warn
 > Support for components in modals is currently limited to type 4 (Text Input).
 
-| Field      | Type                                                          | Description                                                          |
-| ---------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
-| custom_id  | string                                                        | a developer-defined identifier for the modal, max 100 characters     |
-| title      | string                                                        | the title of the popup modal, max 45 characters                      |
-| components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal        |
+| Field      | Type                                                          | Description                                                      |
+| ---------- | ------------------------------------------------------------- | ---------------------------------------------------------------- |
+| custom_id  | string                                                        | a developer-defined identifier for the modal, max 100 characters |
+| title      | string                                                        | the title of the popup modal, max 45 characters                  |
+| components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal    |
 
 > warn
 > While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`).

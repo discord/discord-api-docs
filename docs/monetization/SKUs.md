@@ -8,11 +8,11 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 
 | Field          | Type      | Description                                                 |
 | -------------- | --------- | ----------------------------------------------------------- |
-| id             | todo      | unique ID of sku                                            |
-| type           | integer   | [type of sku](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) |
+| id             | todo      | ID of SKU                                                   |
+| type           | integer   | [Type of SKU](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) |
 | application_id | snowflake | ID of the parent application                                |
-| name           | string    | the customer-facing name of your premium offering           |
-| slug           | string    | system generated URL slug, based on the sku’s name          |
+| name           | string    | Customer-facing name of your premium offering               |
+| slug           | string    | System-generated URL slug based on the SKU's name           |
 
 ###### SKU Example
 
@@ -40,8 +40,8 @@ For subscriptions, SKUs will have a type of either `SUBSCRIPTION` represented by
 
 | Type               | ID  | Description                                              |
 | ------------------ | --- | -------------------------------------------------------- |
-| SUBSCRIPTION       | 5   | represents a recurring subscription                      |
-| SUBSCRIPTION_GROUP | 6   | system-generated group for each SUBSCRIPTION sku created |
+| SUBSCRIPTION       | 5   | Represents a recurring subscription                      |
+| SUBSCRIPTION_GROUP | 6   | System-generated group for each SUBSCRIPTION SKU created |
 
 For subscriptions, there are two types of access levels you can offer to users:
 
@@ -55,7 +55,7 @@ The `flags` field can be used to differentiate user and server subscriptions wit
 
 ## Customizing Your SKUs
 
-In the developer portal, you're able to customize several things for your premium offering:
+Within your app's settings, you're able to customize details about your premium offering:
 
 -   A name for your premium SKU, max 80 characters.
 -   A description for your premium SKU, max 160 characters
@@ -63,18 +63,17 @@ In the developer portal, you're able to customize several things for your premiu
 
 ![Example SKU customization](sku-customization.png)
 
-You're also able to customize a list of benefits. These are displayed on the App Directory, and during the purchase and cancellation flows to explain to users the benefits of your premium offering. These benefits can have:
+You're also able to customize a list of up to 6 benefits to explain your premium offering to users. Benefits are displayed on the App Directory and during the purchase and cancellation flows, and each can have:
 
--   Up to 6 benefits
--   An emoji, standard or custom
 -   A name, max 80 characters
 -   A description, max 160 characters
+-   An emoji, standard or custom
 
 ![Example of SKU benefits](sku-benefits.png)
 
 ## Publishing Your SKUs
 
-When you're ready to launch, you can go the Developer Portal and change your SKU to "Published", and your premium offering will be live and available for purchase by users.
+When you're ready to launch, you can go to your [app's settings](https://discord.com/developers/applications) and change your SKU to "Published", and your premium offering will be live and available for purchase by users.
 
 From then on, we'll send you daily dashboard emails containing information about purchases, cancellations, and other premium information.
 
@@ -82,7 +81,7 @@ Congratulations on going live! 🥳
 
 ## List SKUs % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/skus
 
-Returns all SKUs for a given application. Because of how our SKU and subscription systems work, you will see two SKUs for your premium offering. You'll want to use the SKU with `type: 5` for integration and testing entitlements.
+Returns all SKUs for a given application. Because of how our SKU and subscription systems work, you will see two SKUs for your premium offering. For integration and testing entitlements, you should use the SKU with `type: 5`.
 
 The `flags` field can be used to differentiate user and server subscriptions with a bitwise `&&` operator.
 

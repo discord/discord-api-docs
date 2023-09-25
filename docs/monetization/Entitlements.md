@@ -6,17 +6,17 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 ###### Entitlement Structure
 
-| Field            | Type              | Description                                                                                 |
-| ---------------- | ----------------- | ------------------------------------------------------------------------------------------- |
-| id               | snowflake         | unique ID of the entitlement                                                                |
-| sku_id           | snowflake         | ID of the SKU                                                                               |
-| user_id?         | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
-| guild_id?        | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
-| application_id   | snowflake         | ID of the parent application                                                                |
-| type             | integer           | [type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
-| consumed         | boolean           | not applicable for app subscriptions. Subscriptions are not consumed and will be `false`    |
-| starts_at?       | ISO8601 timestamp | start date at which the entitlement is valid. Not present when using test entitlements.     |
-| ends_at?         | ISO8601 timestamp | date at which the entitlement is no longer valid. Not present when using test entitlements. |
+| Field          | Type              | Description                                                                                 |
+| -------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| id             | snowflake         | ID of the entitlement                                                                       |
+| sku_id         | snowflake         | ID of the SKU                                                                               |
+| user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
+| guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
+| application_id | snowflake         | ID of the parent application                                                                |
+| type           | integer           | [Type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
+| consumed       | boolean           | Not applicable for App Subscriptions. Subscriptions are not consumed and will be `false`    |
+| starts_at?     | ISO8601 timestamp | Start date at which the entitlement is valid. Not present when using test entitlements.     |
+| ends_at?       | ISO8601 timestamp | Date at which the entitlement is no longer valid. Not present when using test entitlements. |
 
 ###### Entitlement Example
 
@@ -42,23 +42,23 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 | Type                     | ID  | Description                                      |
 | ------------------------ | --- | ------------------------------------------------ |
-| APPLICATION_SUBSCRIPTION | 8   | entitlement was purchased as an app subscription |
+| APPLICATION_SUBSCRIPTION | 8   | Entitlement was purchased as an app subscription |
 
 ## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
-Returns all entitlements for a given application, active and expired.
+Returns all entitlements for a given app, active and expired.
 
 ###### Query Params
 
-| param          | type                              | description                                           |
-| -------------- | --------------------------------- | ----------------------------------------------------- |
-| user_id?       | snowflake                         | the user id to look up entitlements for               |
-| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for |
-| before?        | snowflake                         | retrieve entitlements before this time                |
-| after?         | snowflake                         | retrieve entitlements after this time                 |
-| limit?         | integer                           | number of entitlements to return, 1-100, default 100  |
-| guild_id?      | snowflake                         | the guild id to look up entitlements for              |
-| exclude_ended? | boolean                           | whether or not ended entitlements should be omitted   |
+| param          | type                              | description                                          |
+| -------------- | --------------------------------- | ---------------------------------------------------- |
+| user_id?       | snowflake                         | User ID to look up entitlements for                  |
+| sku_ids?       | comma-delimited set of snowflakes | Optional list of SKU IDs to check entitlements for   |
+| before?        | snowflake                         | Retrieve entitlements before this time               |
+| after?         | snowflake                         | Retrieve entitlements after this time                |
+| limit?         | integer                           | Number of entitlements to return, 1-100, default 100 |
+| guild_id?      | snowflake                         | Guild ID to look up entitlements for                 |
+| exclude_ended? | boolean                           | Whether entitlements should be omitted               |
 
 ```json
 [
@@ -92,8 +92,8 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 
 | param      | type   | description                                                |
 | ---------- | ------ | ---------------------------------------------------------- |
-| sku_id     | string | The sku to grant entitlement to, as Discord for this value |
-| owner_id   | string | The guild_id or user_id to grant entitlement to            |
+| sku_id     | string | SKU to grant the entitlement to, as Discord for this value |
+| owner_id   | string | ID of the guild or user to grant the entitlement to        |
 | owner_type | int    | `1` for a server subscription, `2` for a user subscription |
 
 ```json
@@ -162,7 +162,7 @@ Entitlements are _not_ deleted when they expire.
 
 ### PREMIUM_REQUIRED Interaction Response
 
-As part of Premium Apps, you have access to a new `PREMIUM_REQUIRED` interaction response `type: 10`. This can be sent in response to any kind of interaction. It does not allow a `content` field.
+If your app has monetization enabled, it will have access to a new [`PREMIUM_REQUIRED` interaction response (`type: 10`)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type). This can be sent in response to any kind of interaction. It does not allow a `content` field.
 
 This response will create an ephemeral message shown to the user that ran the interaction, instructing them that whatever they tried to do requires the premium benefits of your app. It also contains an "Upgrade" button to subscribe. The response message is static, but will be automatically updated with the name of your premium SKU.
 
@@ -177,10 +177,8 @@ return res.send({
 
 ---
 
-### Entitlement Fields in Interaction
+### Checking Entitlements in Interactions
 
-We've also added a new field within interactions to make handling entitlements easier:
+To check what the current guild or user has entitlements to, your app can inspect the `entitlements` field. `entitlements` is an array of [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) for the current guild and user.
 
--   `entitlements`: an array of full entitlement objects that the guild or user currently has entitlement to
-
-You can reference this field within an interaction to handle subscription status, rather than fetching entitlements from Discord's API or your database.
+You can reference `entitlements` during interactions to handle subscription status, rather than fetching entitlements from the API or your database.

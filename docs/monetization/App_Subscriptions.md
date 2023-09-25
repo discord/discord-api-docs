@@ -2,7 +2,7 @@
 
 App Subscriptions enable you to charge your users for premium app functionality with a recurring subscription. Before you can add an app subscription to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_MONETIZATION_OVERVIEW/eligibility-checklist).
 
-Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_MONETIZATION_SKUS) to represent your app's premium offering.
+Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_MONETIZATION_SKUS) (stock-keeping unit) to represent your app's premium offering.
 
 ## Types of Subscriptions
 
@@ -19,10 +19,12 @@ Once you have an idea what type of subscription you want to offer your app, you 
 
 Once an app has a published SKU, there are 4 ways users will be able to subscribe:
 
--   Server admins can use the Integrations settings menu
--   Bot profiles will offer the Upgrade button
--   App Directory profiles will offer a Premium tab containing subscription details and an Upgrade option
--   Attempting to run a premium application command will offer the Upgrade button in the response
+-   Server admins can use the **Integrations** tab within a server's settings menu
+-   Bot user profiles include an Upgrade button
+-   App Directory profiles offer a Premium tab containing subscription details and an Upgrade option
+-   Attempting to run a premium command will display the Upgrade button in the response
+
+If you don't have any premium commands, your users will still be able to upgrade to your premium app via the Integrations settings menu, bot user profiles and App Directory profiles.
 
 ## Implementing App Subscriptions
 
@@ -32,9 +34,9 @@ When a user subscribes to your app, there are a few things you will need to impl
 -   Working with Entitlements
 -   Handling Gateway Events for Entitlements
 
-### Gating your App with Premium Interactions
+### Gating Premium Interactions
 
-Interactions like [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) commonly respond to users with a message or modal response. If you'd like to make a command only available to users with a subscription, you can reply with a `PREMIUM_REQUIRED` interaction response `type: 10`. Users without a subscription will be prompted to upgrade when they attempt to use these commands.
+Interactions like [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) commonly respond to users with a message or modal response. If you'd like to make a command only available to users with a subscription, you can reply with a `PREMIUM_REQUIRED` interaction response `type: 10`. Users without a subscription will be prompted to upgrade when they attempt to use these commands.
 
 ```javascript
 return new JsonResponse({
@@ -53,26 +55,25 @@ You can use this field to determine if the user or guild is subscribed to your a
 
 ### Keeping Track of Entitlements
 
-If you don't have any premium application commands, your users will still be able to upgrade to your premium app via the Integrations settings menu, Bot profiles and App Directory profiles.
-
 When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS) represent the user's access to your premium offering. You can keep track of entitlements using Gateway Events and the HTTP API.
 
 #### Entitlement Gateway Events
 
-When users subscribe or renew a subscription with your app, Discord will emit corresponding [entitlement gateway events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events).
+When users subscribe or renew a subscription with your app, Discord will emit [entitlement gateway events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events).
 
-Upon a user's purchase of a sku, you'll receive an [`ENTITLEMENT_CREATE`](#DOCS_MONETIZATION_ENTITLEMENTS/new-entitlement) event. A successful renewal triggers an [`ENTITLEMENT_UPDATE`](#DOCS_MONETIZATION_ENTITLEMENTS/updated-entitlement) event.
+Upon a user's purchase of a SKU, you'll receive an [`ENTITLEMENT_CREATE`](#DOCS_MONETIZATION_ENTITLEMENTS/new-entitlement) event. A successful renewal triggers an [`ENTITLEMENT_UPDATE`](#DOCS_MONETIZATION_ENTITLEMENTS/updated-entitlement) event.
 
 > info
-> **Note**: An [`ENTITLEMENT_DELETE`](#DOCS_MONETIZATION_ENTITLEMENTS/deleted-entitlement) event only occurs when Discord refunds a subscription or removes an entitlement, not when an entitlement expires or is canceled.
+> An [`ENTITLEMENT_DELETE`](#DOCS_MONETIZATION_ENTITLEMENTS/deleted-entitlement) event only occurs when Discord refunds a subscription or removes an entitlement, not when an entitlement expires or is canceled.
 
-#### Entitlement HTTP API
+#### Entitlement HTTP Endpoints
 
 For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_Id=XYZ` query params.
 
 For example, you might keep track of our entitlements in a database and check a user's subscription status before performing a cron job or other task.
 
 ## Receiving Payouts
+
 Once an app has made its first $100 it will become eligible for payout. A review will be conducted and if everything looks good, your team will begin to receive payouts. 
 
-For more information please visit the [Premium Apps Payouts](https://support-dev.discord.com/hc/en-us/articles/17299902720919) article.
+For more information, read the [Premium Apps Payouts](https://support-dev.discord.com/hc/en-us/articles/17299902720919) Help Center article.
