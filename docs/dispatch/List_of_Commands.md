@@ -27,7 +27,7 @@ Creates a new branch. If you have not yet made a master branch, this command wil
 ###### Arguments
 
 | name           | values | description                   |
-| -------------- | ------ | ----------------------------- |
+|----------------|--------|-------------------------------|
 | application_id | int    | your application ID/client ID |
 | branch_name    | string | the name for your new branch  |
 
@@ -45,7 +45,7 @@ Deletes a branch.
 ###### Arguments
 
 | name           | values | description                    |
-| -------------- | ------ | ------------------------------ |
+|----------------|--------|--------------------------------|
 | application_id | int    | your application ID/client ID  |
 | branch_id      | int    | the id of the branch to delete |
 
@@ -62,16 +62,16 @@ Lists all branches for an application.
 ###### Arguments
 
 | name           | values | description                   |
-| -------------- | ------ | ----------------------------- |
+|----------------|--------|-------------------------------|
 | application_id | int    | your application ID/client ID |
 
 ###### Example
 
 ```
 -> dispatch branch list 290926444748734465
-|    APPLICATION ID    |      BRANCH ID       |         NAME         |    LIVE_BUILD_ID     |           CREATED AT           |
-| -------------------- | -------------------- | -------------------- | -------------------- | ------------------------------ |
-|  290926444748734465  |  471164707759996234  |  master              |                      |  2018-07-24 04:00:20.146588Z   |
+| APPLICATION ID     | BRANCH ID          | NAME   | LIVE_BUILD_ID | CREATED AT                  |
+|--------------------|--------------------|--------|---------------|-----------------------------|
+| 290926444748734465 | 471164707759996234 | master |               | 2018-07-24 04:00:20.146588Z |
 ```
 
 ## branch promote
@@ -81,7 +81,7 @@ Promotes the live build of one branch to another.
 ###### Arguments
 
 | name             | values | description                       |
-| ---------------- | ------ | --------------------------------- |
+|------------------|--------|-----------------------------------|
 | application_id   | int    | your application ID/client ID     |
 | branch_id        | int    | the id of the branch to promote   |
 | target_branch_id | int    | the id of the branch to overwrite |
@@ -99,7 +99,7 @@ Deletes a build from a branch.
 ###### Arguments
 
 | name           | values | description                   |
-| -------------- | ------ | ----------------------------- |
+|----------------|--------|-------------------------------|
 | application_id | int    | your application ID/client ID |
 | build_id       | int    | the id of the build to delete |
 
@@ -119,7 +119,7 @@ Wraps your executable in Discord's DRM. This only works for Windows executables.
 ###### Arguments
 
 | name               | values    | description                                                                        |
-| ------------------ | --------- | ---------------------------------------------------------------------------------- |
+|--------------------|-----------|------------------------------------------------------------------------------------|
 | application_id     | int       | your application ID/client ID                                                      |
 | path_to_executable | file path | the path to the executable, either explicit or relative to the dispatch executable |
 
@@ -136,7 +136,7 @@ Lists the builds available on the given branch.
 ###### Arguments
 
 | name           | values | description                   |
-| -------------- | ------ | ----------------------------- |
+|----------------|--------|-------------------------------|
 | application_id | int    | your application ID/client ID |
 | branch_id      | int    | the id of the branch to check |
 
@@ -144,10 +144,10 @@ Lists the builds available on the given branch.
 
 ```
 -> dispatch build list 290926444748734465 491362538965958686
-|    APPLICATION ID    |       BUILD ID       |        STATUS        |   CREATION BRANCH    |           CREATED AT           |
-| -------------------- | -------------------- | -------------------- | -------------------- | ------------------------------ |
-|  290926444748734465  |  489230031839821824  |        READY         |        master        |  2018-09-12 00:25:29.045554Z   |
-|  290926444748734465  |  479469321974841354  |        READY         |        master        |  2018-08-16 01:59:54.481336Z   |
+| APPLICATION ID     | BUILD ID           | STATUS | CREATION BRANCH | CREATED AT                  |
+|--------------------|--------------------|--------|-----------------|-----------------------------|
+| 290926444748734465 | 489230031839821824 | READY  | master          | 2018-09-12 00:25:29.045554Z |
+| 290926444748734465 | 479469321974841354 | READY  | master          | 2018-08-16 01:59:54.481336Z |
 ```
 
 ## build publish
@@ -157,7 +157,7 @@ Marks a given build as the live build for a given branch.
 ###### Arguments
 
 | name           | values | description                    |
-| -------------- | ------ | ------------------------------ |
+|----------------|--------|--------------------------------|
 | application_id | int    | your application ID/client ID  |
 | branch_id      | int    | the id of the branch to check  |
 | build_id       | int    | the id of the build to publish |
@@ -175,7 +175,7 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 ###### Arguments
 
 | name             | values    | description                                                                                           |
-| ---------------- | --------- | ----------------------------------------------------------------------------------------------------- |
+|------------------|-----------|-------------------------------------------------------------------------------------------------------|
 | branch_id        | int       | the id of the branch to check                                                                         |
 | config_file      | filename  | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
@@ -197,7 +197,7 @@ Downloads the build for the given application id and branch id to the given inst
 ###### Arguments
 
 | name           | values                                                            | description                    |
-| -------------- | ----------------------------------------------------------------- | ------------------------------ |
+|----------------|-------------------------------------------------------------------|--------------------------------|
 | application_id | int                                                               | your application ID/client ID  |
 | branch_id      | int                                                               | the id of the branch to check  |
 | install_path   | file path                                                         | the path to install to         |
@@ -217,7 +217,7 @@ Mark a build as corrupted.
 ###### Arguments
 
 | name           | values | description                    |
-| -------------- | ------ | ------------------------------ |
+|----------------|--------|--------------------------------|
 | application_id | int    | your application ID/client ID  |
 | build_id       | int    | the id of the build to corrupt |
 
@@ -235,7 +235,7 @@ Displays a preview of the install paths that a build will put files in, for a gi
 ###### Arguments
 
 | name             | values                                                            | description                                                                                           |
-| ---------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+|------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
 | config_file      | filename                                                          | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path                                                         | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | --locale         | [locale](#DOCS_REFERENCE/locales)                                 | the build locale to preview                                                                           |
@@ -253,12 +253,12 @@ Repairs an application build.
 
 ###### Arguments
 
-| name             | values                                                           | description                                                                                           |
-| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| application_id   | int                                                              | your application ID/client ID                                                                         |
-| branch_id        | int                                                              | the id of the branch to check                                                                         |
-| build_id         | int                                                              | the id of the build to repair                                                                         |
-| application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| name             | values                                                            | description                                                                                           |
+|------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| application_id   | int                                                               | your application ID/client ID                                                                         |
+| branch_id        | int                                                               | the id of the branch to check                                                                         |
+| build_id         | int                                                               | the id of the build to repair                                                                         |
+| application_root | file path                                                         | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to repair                                                                          |
 
 ###### Example
@@ -273,9 +273,9 @@ Runs the launch setup for an application.
 
 ###### Arguments
 
-| name             | values                                                           | description                                                                                           |
-| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| name             | values                                                            | description                                                                                           |
+|------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| application_root | file path                                                         | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to do the launch setup                                                             |
 
 ###### Example
@@ -301,15 +301,15 @@ Lists created manifest labels. These labels are created from the JSON config fil
 ###### Arguments
 
 | name           | values | description                   |
-| -------------- | ------ | ----------------------------- |
+|----------------|--------|-------------------------------|
 | application_id | int    | your application ID/client ID |
 
 ###### Example
 
 ```
 -> dispatch manifest-label list 290926444748734465
-|    APPLICATION ID    |          ID          |         NAME         |
-| -------------------- | -------------------- | -------------------- |
-|  290926444748734465  |  471165178650999608  |        my-game       |
-|  290926444748734465  |  471169990397324288  |      my-game-dlc     |
+| APPLICATION ID     | ID                 | NAME        |
+|--------------------|--------------------|-------------|
+| 290926444748734465 | 471165178650999608 | my-game     |
+| 290926444748734465 | 471169990397324288 | my-game-dlc |
 ```

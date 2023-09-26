@@ -19,6 +19,20 @@ Starting today, eligible US-based developers can monetize their verified apps wi
 
 To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
 
+## Default Value in Auto-populated Select Menus
+
+#### Sep 22, 2023
+
+A new `default_values` field was added for user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus). `default_values` is a list of [default value objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-default-value-structure), which each include an `id` (the snowflake value for the resource), as well as a corresponding `type` (either `"user"`, `"role"`, or `"channel"`).
+
+## Team Member Roles
+
+#### Aug 23, 2023
+
+You can now select roles other than admin when inviting users or configuring members of a team. There are four [role types](#DOCS_TOPICS_TEAMS/team-member-roles-team-member-role-types) that a team member can be assigned: owner, admin, developer, or read-only. The team member object now has an additional [`role` field](#DOCS_TOPICS_TEAMS/data-models-team-member-object), which is a string representing the member's current role.
+
+Details about team member roles are in the updated [Teams documentation](#DOCS_TOPICS_TEAMS/team-member-roles).
+
 ## Embed Debugger
 
 #### Aug 10, 2023

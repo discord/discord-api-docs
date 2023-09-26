@@ -40,7 +40,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 ###### Interaction Type
 
 | Name                             | Value |
-| -------------------------------- | ----- |
+|----------------------------------|-------|
 | PING                             | 1     |
 | APPLICATION_COMMAND              | 2     |
 | MESSAGE_COMPONENT                | 3     |
@@ -71,7 +71,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 ###### Message Component Data Structure
 
 | Field          | Type                                                                                                              | Description                                                                                                     |
-| -------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+|----------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | custom_id      | string                                                                                                            | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                             |
 | component_type | integer                                                                                                           | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component             |
 | values?\*      | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | values the user selected in a [select menu](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object) component |
@@ -81,7 +81,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 ###### Modal Submit Data Structure
 
 | Field      | Type                                                                                    | Description                                                                     |
-| ---------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+|------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
 | custom_id  | string                                                                                  | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the modal |
 | components | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/message-components) | the values submitted by the user                                                |
 
@@ -91,7 +91,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 > If data for a Member is included, data for its corresponding User will also be included.
 
 | Field         | Type                                                                                     | Description                         |
-| ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
+|---------------|------------------------------------------------------------------------------------------|-------------------------------------|
 | users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
 | members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
 | roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
@@ -127,7 +127,7 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 ###### Message Interaction Structure
 
 | Field   | Type                                                                                                | Description                                                                                                                                                                      |
-| ------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------|-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id      | snowflake                                                                                           | ID of the interaction                                                                                                                                                            |
 | type    | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                                                                                                              |
 | name    | string                                                                                              | Name of the [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure), including subcommands and subcommand groups |
@@ -199,14 +199,14 @@ There are a number of ways you can respond to an interaction:
 ###### Interaction Response Structure
 
 | Field | Type                                                                                                                                     | Description                  |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|
 | type  | [interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type)           | the type of response         |
 | data? | [interaction callback data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure) | an optional response message |
 
 ###### Interaction Callback Type
 
 | Name                                    | Value | Description                                                                                                   |
-| --------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------|
 | PONG                                    | 1     | ACK a `Ping`                                                                                                  |
 | CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                      |
 | DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |

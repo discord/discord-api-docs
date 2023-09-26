@@ -57,14 +57,14 @@ lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
 ###### LobbyType Enum
 
 | name    | value |
-| ------- | ----- |
+|---------|-------|
 | Private | 1     |
 | Public  | 2     |
 
 ###### Lobby Struct
 
 | name     | type      | description                            |
-| -------- | --------- | -------------------------------------- |
+|----------|-----------|----------------------------------------|
 | Id       | Int64     | the unique id of the lobby             |
 | Type     | LobbyType | if the lobby is public or private      |
 | OwnerId  | Int64     | the userId of the lobby owner          |
@@ -75,7 +75,7 @@ lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
 ###### LobbySearchComparison Enum
 
 | name               | value |
-| ------------------ | ----- |
+|--------------------|-------|
 | LessThanOrEqual    | -2    |
 | LessThan           | -1    |
 | Equal              | 0     |
@@ -86,14 +86,14 @@ lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
 ###### LobbySearchCast Enum
 
 | name   | value |
-| ------ | ----- |
+|--------|-------|
 | String | 1     |
 | Number | 2     |
 
 ###### LobbySearchDistance Enum
 
 | name     | value | description                          |
-| -------- | ----- | ------------------------------------ |
+|----------|-------|--------------------------------------|
 | Local    | 0     | within the same region               |
 | Default  | 1     | within the same and adjacent regions |
 | Extended | 2     | far distances, like US to EU         |
@@ -120,7 +120,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type      | description       |
-| ---- | --------- | ----------------- |
+|------|-----------|-------------------|
 | type | LobbyType | private or public |
 
 ###### Example
@@ -149,7 +149,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type  | description             |
-| ------ | ----- | ----------------------- |
+|--------|-------|-------------------------|
 | userId | Int64 | the new owner's user id |
 
 ###### Example
@@ -175,7 +175,7 @@ Returns `void`.
 ###### Parameters
 
 | name     | type   | description            |
-| -------- | ------ | ---------------------- |
+|----------|--------|------------------------|
 | capacity | UInt32 | the new max lobby size |
 
 ###### Example
@@ -201,7 +201,7 @@ Returns `void`.
 ###### Parameters
 
 | name  | type   | description      |
-| ----- | ------ | ---------------- |
+|-------|--------|------------------|
 | key   | string | key for the data |
 | value | string | data value       |
 
@@ -228,7 +228,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type   | description      |
-| ---- | ------ | ---------------- |
+|------|--------|------------------|
 | key  | string | key for the data |
 
 ###### Example
@@ -254,7 +254,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type | description                         |
-| ------ | ---- | ----------------------------------- |
+|--------|------|-------------------------------------|
 | locked | bool | whether to lock or unlock the lobby |
 
 ###### Example
@@ -280,7 +280,7 @@ Returns `void`.
 ###### Parameters
 
 | name  | type   | description      |
-| ----- | ------ | ---------------- |
+|-------|--------|------------------|
 | key   | string | key for the data |
 | value | string | data value       |
 
@@ -307,7 +307,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type   | description      |
-| ---- | ------ | ---------------- |
+|------|--------|------------------|
 | key  | string | key for the data |
 
 ###### Example
@@ -333,7 +333,7 @@ Returns `void`.
 ###### Parameters
 
 | name  | type                  | description                                                                |
-| ----- | --------------------- | -------------------------------------------------------------------------- |
+|-------|-----------------------|----------------------------------------------------------------------------|
 | key   | string                | key to search for filter data                                              |
 | comp  | LobbySearchComparison | how the value on the lobby metadata should be compared to the search value |
 | cast  | LobbySearchCast       | should the search value be cast as a string or a number                    |
@@ -355,7 +355,7 @@ Returns `void`.
 ###### Parameters
 
 | name  | type            | description                                             |
-| ----- | --------------- | ------------------------------------------------------- |
+|-------|-----------------|---------------------------------------------------------|
 | key   | string          | key for the data                                        |
 | cast  | LobbySearchCast | should the search value be cast as a string or a number |
 | value | string          | the value to sort by                                    |
@@ -376,7 +376,7 @@ Returns `void`.
 ###### Parameters
 
 | name  | type   | description                            |
-| ----- | ------ | -------------------------------------- |
+|-------|--------|----------------------------------------|
 | limit | UInt32 | the number of lobbies to return at max |
 
 ###### Example
@@ -395,7 +395,7 @@ Returns `void`.
 ###### Parameters
 
 | name     | type                        | description                                     |
-| -------- | --------------------------- | ----------------------------------------------- |
+|----------|-----------------------------|-------------------------------------------------|
 | distance | Discord.LobbySearchDistance | the distance within which to search for lobbies |
 
 ###### Example
@@ -430,7 +430,7 @@ Returns a `Discord.LobbyTransaction`.
 ###### Parameters
 
 | name    | type  | description                  |
-| ------- | ----- | ---------------------------- |
+|---------|-------|------------------------------|
 | lobbyId | Int64 | the lobby you want to change |
 
 ###### Example
@@ -448,7 +448,7 @@ Returns a `Discord.LobbyMemberTransaction`.
 ###### Parameters
 
 | name    | type  | description                  |
-| ------- | ----- | ---------------------------- |
+|---------|-------|------------------------------|
 | lobbyId | Int64 | the lobby you want to change |
 | userId  | Int64 | the user you wish to change  |
 
@@ -467,7 +467,7 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Parameters
 
 | name        | type             | description                                           |
-| ----------- | ---------------- | ----------------------------------------------------- |
+|-------------|------------------|-------------------------------------------------------|
 | transaction | LobbyTransaction | a lobby transaction with set properties like capacity |
 
 ###### Example
@@ -494,7 +494,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name        | type             | description                         |
-| ----------- | ---------------- | ----------------------------------- |
+|-------------|------------------|-------------------------------------|
 | lobbyId     | Int64            | the lobby you want to change        |
 | transaction | LobbyTransaction | the transaction with wanted changes |
 
@@ -519,7 +519,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name    | type  | description                  |
-| ------- | ----- | ---------------------------- |
+|---------|-------|------------------------------|
 | lobbyId | Int64 | the lobby you want to delete |
 
 ###### Example
@@ -543,7 +543,7 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Parameters
 
 | name        | type   | description                      |
-| ----------- | ------ | -------------------------------- |
+|-------------|--------|----------------------------------|
 | lobbyId     | Int64  | the lobby you want to connect to |
 | lobbySecret | string | the password for the lobby       |
 
@@ -568,7 +568,7 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Parameters
 
 | name           | type   | description                               |
-| -------------- | ------ | ----------------------------------------- |
+|----------------|--------|-------------------------------------------|
 | activitySecret | string | the special activity secret for the lobby |
 
 ###### Example
@@ -592,7 +592,7 @@ Returns `string`.
 ###### Parameters
 
 | name    | type  | description                              |
-| ------- | ----- | ---------------------------------------- |
+|---------|-------|------------------------------------------|
 | lobbyId | Int64 | the lobby you want to get the secret for |
 
 ###### Example
@@ -631,7 +631,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name    | type  | description                 |
-| ------- | ----- | --------------------------- |
+|---------|-------|-----------------------------|
 | lobbyId | Int64 | the lobby you want to leave |
 
 ###### Example
@@ -655,7 +655,7 @@ Returns a `Discord.Lobby`.
 ###### Parameters
 
 | name    | type  | description               |
-| ------- | ----- | ------------------------- |
+|---------|-------|---------------------------|
 | lobbyId | Int64 | the lobby you want to get |
 
 ###### Example
@@ -686,7 +686,7 @@ Returns `Int32`.
 ###### Parameters
 
 | name    | type  | description                            |
-| ------- | ----- | -------------------------------------- |
+|---------|-------|----------------------------------------|
 | lobbyId | Int64 | the lobby you want to get metadata for |
 
 ###### Example
@@ -708,7 +708,7 @@ Returns `string`.
 ###### Parameters
 
 | name    | type  | description                            |
-| ------- | ----- | -------------------------------------- |
+|---------|-------|----------------------------------------|
 | lobbyId | Int64 | the lobby you want to get metadata for |
 | index   | Int32 | the index of lobby metadata to access  |
 
@@ -729,7 +729,7 @@ Returns lobby metadata value for a given key and id. Can be used with iteration,
 ###### Parameters
 
 | name    | type   | description                            |
-| ------- | ------ | -------------------------------------- |
+|---------|--------|----------------------------------------|
 | lobbyId | Int64  | the lobby you want to get metadata for |
 | key     | string | the key name to access                 |
 
@@ -748,7 +748,7 @@ Returns `Int32`.
 ###### Parameters
 
 | name    | type  | description                           |
-| ------- | ----- | ------------------------------------- |
+|---------|-------|---------------------------------------|
 | lobbyId | Int64 | the lobby you want to get members for |
 
 ###### Example
@@ -770,7 +770,7 @@ Returns `Int64`.
 ###### Parameters
 
 | name    | type  | description                           |
-| ------- | ----- | ------------------------------------- |
+|---------|-------|---------------------------------------|
 | lobbyId | Int64 | the lobby you want to get members for |
 | index   | Int32 | the index of lobby member to access   |
 
@@ -793,7 +793,7 @@ Returns `Discord.User`.
 ###### Parameters
 
 | name    | type  | description                           |
-| ------- | ----- | ------------------------------------- |
+|---------|-------|---------------------------------------|
 | lobbyId | Int64 | the lobby you want to get members for |
 | userId  | Int64 | the user's userId                     |
 
@@ -818,7 +818,7 @@ Returns `Int32`.
 ###### Parameters
 
 | name    | type  | description                            |
-| ------- | ----- | -------------------------------------- |
+|---------|-------|----------------------------------------|
 | lobbyId | Int64 | the lobby the member belongs to        |
 | userId  | Int64 | the id of the user to get metadata for |
 
@@ -841,7 +841,7 @@ Returns `string`.
 ###### Parameters
 
 | name    | type  | description                            |
-| ------- | ----- | -------------------------------------- |
+|---------|-------|----------------------------------------|
 | lobbyId | Int64 | the lobby the member belongs to        |
 | userId  | Int64 | the id of the user to get metadata for |
 | index   | Int32 | the index of metadata to access        |
@@ -865,7 +865,7 @@ Returns `string`.
 ###### Parameters
 
 | name    | type   | description                            |
-| ------- | ------ | -------------------------------------- |
+|---------|--------|----------------------------------------|
 | lobbyId | Int64  | the lobby the member belongs to        |
 | userId  | Int64  | the id of the user to get metadata for |
 | key     | string | the metadata key to access             |
@@ -891,7 +891,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name        | type                   | description                       |
-| ----------- | ---------------------- | --------------------------------- |
+|-------------|------------------------|-----------------------------------|
 | lobbyId     | Int64                  | lobby the member belongs to       |
 | userId      | Int64                  | id of the user                    |
 | transaction | LobbyMemberTransaction | transaction with the changed data |
@@ -921,7 +921,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name    | type   | description                 |
-| ------- | ------ | --------------------------- |
+|---------|--------|-----------------------------|
 | lobbyId | Int64  | lobby the member belongs to |
 | data    | byte[] | the data to send            |
 
@@ -964,7 +964,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name   | type        | description         |
-| ------ | ----------- | ------------------- |
+|--------|-------------|---------------------|
 | search | LobbySearch | the search criteria |
 
 ###### Example
@@ -1013,7 +1013,7 @@ Returns `Int64`.
 ###### Parameters
 
 | name  | type  | description                                      |
-| ----- | ----- | ------------------------------------------------ |
+|-------|-------|--------------------------------------------------|
 | index | Int32 | the index at which to access the list of lobbies |
 
 ###### Example
@@ -1043,7 +1043,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name    | type  | description               |
-| ------- | ----- | ------------------------- |
+|---------|-------|---------------------------|
 | lobbyId | Int64 | lobby to voice connect to |
 
 ###### Example
@@ -1067,7 +1067,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name    | type  | description                    |
-| ------- | ----- | ------------------------------ |
+|---------|-------|--------------------------------|
 | lobbyId | Int64 | lobby to voice disconnect from |
 
 ###### Example
@@ -1089,7 +1089,7 @@ Fires when a lobby is updated.
 ###### Parameters
 
 | name    | type  | description        |
-| ------- | ----- | ------------------ |
+|---------|-------|--------------------|
 | lobbyId | Int64 | lobby that updated |
 
 ###### Example
@@ -1108,7 +1108,7 @@ Fired when a lobby is deleted.
 ###### Parameters
 
 | name    | type   | description                                    |
-| ------- | ------ | ---------------------------------------------- |
+|---------|--------|------------------------------------------------|
 | lobbyId | Int64  | lobby that was deleted                         |
 | reason  | string | reason for deletion - this is a system message |
 
@@ -1128,7 +1128,7 @@ Fires when a new member joins the lobby.
 ###### Parameters
 
 | name    | type  | description           |
-| ------- | ----- | --------------------- |
+|---------|-------|-----------------------|
 | lobbyId | Int64 | lobby the user joined |
 | userId  | Int64 | user that joined      |
 
@@ -1148,7 +1148,7 @@ Fires when data for a lobby member is updated.
 ###### Parameters
 
 | name    | type  | description                   |
-| ------- | ----- | ----------------------------- |
+|---------|-------|-------------------------------|
 | lobbyId | Int64 | lobby the user is a member of |
 | userId  | Int64 | user that was updated         |
 
@@ -1168,7 +1168,7 @@ Fires when a member leaves the lobby.
 ###### Parameters
 
 | name    | type  | description                    |
-| ------- | ----- | ------------------------------ |
+|---------|-------|--------------------------------|
 | lobbyId | Int64 | lobby the user was a member of |
 | userId  | Int64 | user that left                 |
 
@@ -1188,7 +1188,7 @@ Fires when a message is sent to the lobby.
 ###### Parameters
 
 | name    | type   | description                  |
-| ------- | ------ | ---------------------------- |
+|---------|--------|------------------------------|
 | lobbyId | Int64  | lobby the message is sent to |
 | userId  | Int64  | user that sent the message   |
 | data    | byte[] | the message contents         |
@@ -1209,7 +1209,7 @@ Fires when a user connected to voice starts or stops speaking.
 ###### Parameters
 
 | name     | type  | description                                             |
-| -------- | ----- | ------------------------------------------------------- |
+|----------|-------|---------------------------------------------------------|
 | lobbyId  | Int64 | lobby the user is connected to                          |
 | userId   | Int64 | user in voice                                           |
 | speaking | bool  | `true` == started speaking, `false` == stopped speaking |
@@ -1342,7 +1342,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 ###### Parameters
 
 | name           | type      | description                                                                                          |
-| -------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+|----------------|-----------|------------------------------------------------------------------------------------------------------|
 | application_id | string    | your application id                                                                                  |
 | type           | LobbyType | the type of lobby                                                                                    |
 | metadata       | dict      | metadata for the lobby - key/value pairs with types `string`                                         |
@@ -1374,7 +1374,7 @@ Updates a lobby.
 ###### Parameters
 
 | name     | type      | description                                                  |
-| -------- | --------- | ------------------------------------------------------------ |
+|----------|-----------|--------------------------------------------------------------|
 | type     | LobbyType | the type of lobby                                            |
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
@@ -1390,7 +1390,7 @@ Updates the metadata for a lobby member.
 ###### Parameters
 
 | name     | type | description                                                         |
-| -------- | ---- | ------------------------------------------------------------------- |
+|----------|------|---------------------------------------------------------------------|
 | metadata | dict | metadata for the lobby member - key/value pairs with types `string` |
 
 ## Create Lobby Search % POST /lobbies/search
@@ -1400,7 +1400,7 @@ Creates a lobby search for matchmaking around given criteria.
 ###### Parameters
 
 | name           | type                          | description                              |
-| -------------- | ----------------------------- | ---------------------------------------- |
+|----------------|-------------------------------|------------------------------------------|
 | application_id | string                        | your application id                      |
 | filter         | array of SearchFilter objects | the filter to check against              |
 | sort           | array of SearchSort objects   | how to sort the results                  |
@@ -1409,7 +1409,7 @@ Creates a lobby search for matchmaking around given criteria.
 ###### SearchFilter Object
 
 | name       | type             | description                                       |
-| ---------- | ---------------- | ------------------------------------------------- |
+|------------|------------------|---------------------------------------------------|
 | key        | string           | the metadata key to search                        |
 | value      | string           | the value of the metadata key to validate against |
 | cast       | SearchCast       | the type to cast `value` as                       |
@@ -1418,7 +1418,7 @@ Creates a lobby search for matchmaking around given criteria.
 ###### SearchComparison Types
 
 | name                     | value |
-| ------------------------ | ----- |
+|--------------------------|-------|
 | EQUAL_TO_OR_LESS_THAN    | -2    |
 | LESS_THAN                | -1    |
 | EQUAL                    | 0     |
@@ -1429,7 +1429,7 @@ Creates a lobby search for matchmaking around given criteria.
 ###### SearchSort Object
 
 | name       | type       | description                                                             |
-| ---------- | ---------- | ----------------------------------------------------------------------- |
+|------------|------------|-------------------------------------------------------------------------|
 | key        | string     | the metadata key on which to sort lobbies that meet the search criteria |
 | cast       | SearchCast | the type to cast `value` as                                             |
 | near_value | string     | the value around which to sort the key                                  |
@@ -1437,7 +1437,7 @@ Creates a lobby search for matchmaking around given criteria.
 ###### SearchCast Types
 
 | name   | value |
-| ------ | ----- |
+|--------|-------|
 | STRING | 1     |
 | NUMBER | 2     |
 
@@ -1450,7 +1450,7 @@ This endpoints accepts a UTF8 string. If your message is already a string, you'r
 ###### Parameters
 
 | name | type   | description                                 |
-| ---- | ------ | ------------------------------------------- |
+|------|--------|---------------------------------------------|
 | data | string | a message to be sent to other lobby members |
 
 ## Integrated Networking
@@ -1470,7 +1470,7 @@ Returns `void`.
 ###### Parameters
 
 | name    | type  | description                    |
-| ------- | ----- | ------------------------------ |
+|---------|-------|--------------------------------|
 | lobbyId | Int64 | the ID of the lobby you are in |
 
 ###### Example
@@ -1491,7 +1491,7 @@ Returns `void`.
 ###### Parameters
 
 | name    | type  | description                    |
-| ------- | ----- | ------------------------------ |
+|---------|-------|--------------------------------|
 | lobbyId | Int64 | the ID of the lobby you are in |
 
 ###### Example
@@ -1529,7 +1529,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type  | description                                          |
-| --------- | ----- | ---------------------------------------------------- |
+|-----------|-------|------------------------------------------------------|
 | lobbyId   | Int64 | the ID of the lobby you are in                       |
 | channelId | byte  | the channel on which to connect                      |
 | reliable  | bool  | whether the channel should be unreliable or reliable |
@@ -1554,7 +1554,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                             |
-| --------- | ------ | --------------------------------------- |
+|-----------|--------|-----------------------------------------|
 | lobbyId   | Int64  | the ID of the lobby you are in          |
 | userId    | Int64  | the ID of the user to send a message to |
 | channelId | byte   | the channel on which to connect         |
@@ -1583,7 +1583,7 @@ Fires when the user receives a message from the lobby's networking layer.
 ###### Parameters
 
 | name      | type   | description                             |
-| --------- | ------ | --------------------------------------- |
+|-----------|--------|-----------------------------------------|
 | lobbyId   | Int64  | the ID of the lobby you are in          |
 | userId    | Int64  | the ID of the user who sent the message |
 | channelId | byte   | the channel the message was sent on     |

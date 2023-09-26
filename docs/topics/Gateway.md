@@ -100,7 +100,7 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 ###### Gateway URL Query String Params
 
 | Field     | Type    | Description                                                                                         | Accepted Values                                            |
-| --------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+|-----------|---------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                                | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
 | encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets           | `json` or `etf`                                            |
 | compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream`                                              |
@@ -675,7 +675,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 ###### JSON Response
 
 | Field               | Type                                                                          | Description                                                                          |
-| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+|---------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | url                 | string                                                                        | WSS URL that can be used for connecting to the Gateway                               |
 | shards              | integer                                                                       | Recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
 | session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                       |
@@ -700,7 +700,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 ###### Session Start Limit Structure
 
 | Field           | Type    | Description                                                    |
-| --------------- | ------- | -------------------------------------------------------------- |
+|-----------------|---------|----------------------------------------------------------------|
 | total           | integer | Total number of session starts the current user is allowed     |
 | remaining       | integer | Remaining number of session starts the current user is allowed |
 | reset_after     | integer | Number of milliseconds after which the limit resets            |
