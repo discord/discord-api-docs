@@ -1,10 +1,10 @@
-name: Slash Commands Bug Report
-description: A bug has been found in Discord's Slash Commands and Interactions.
-labels: ["bug", "slash commands"]
+name: App Subscriptions Bug Report
+description: A bug has been found in Discord's App Subscriptions.
+labels: ["bug", "premium-apps"]
 body:
   - type: markdown
     attributes:
-      value: "Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22slash+commands%22"
+      value: "Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22premium-apps%22"
   - type: textarea
     id: description
     attributes:
