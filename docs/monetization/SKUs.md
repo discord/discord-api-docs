@@ -7,7 +7,7 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 ###### SKU Structure
 
 | Field          | Type      | Description                                                 |
-| -------------- | --------- | ----------------------------------------------------------- |
+|----------------|-----------|-------------------------------------------------------------|
 | id             | todo      | ID of SKU                                                   |
 | type           | integer   | [Type of SKU](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) |
 | application_id | snowflake | ID of the parent application                                |
@@ -38,10 +38,10 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 
 For subscriptions, SKUs will have a type of either `SUBSCRIPTION` represented by `type: 5` or `SUBSCRIPTION_GROUP` represented by `type:6`. For any current implementations, you will want to use the SKU defined by `type: 5`. A `SUBSCRIPTION_GROUP` is automatically created for each `SUBSCRIPTION` SKU and are not used at this time.
 
-| Type               | ID  | Description                                              |
-| ------------------ | --- | -------------------------------------------------------- |
-| SUBSCRIPTION       | 5   | Represents a recurring subscription                      |
-| SUBSCRIPTION_GROUP | 6   | System-generated group for each SUBSCRIPTION SKU created |
+| Type               | ID | Description                                              |
+|--------------------|----|----------------------------------------------------------|
+| SUBSCRIPTION       | 5  | Represents a recurring subscription                      |
+| SUBSCRIPTION_GROUP | 6  | System-generated group for each SUBSCRIPTION SKU created |
 
 For subscriptions, there are two types of access levels you can offer to users:
 

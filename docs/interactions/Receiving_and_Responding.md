@@ -13,7 +13,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 ###### Interaction Structure
 
 | Field            | Type                                                                                                | Description                                                                                                                                               |
-| ---------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id               | snowflake                                                                                           | ID of the interaction                                                                                                                                     |
 | application_id   | snowflake                                                                                           | ID of the application this interaction is for                                                                                                             |
 | type             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                                                                                       |
@@ -57,7 +57,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 > Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
 
 | Field      | Type                                                                                                                                                                         | Description                                                                                                                                                                          |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id         | snowflake                                                                                                                                                                    | the [`ID`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                  |
 | name       | string                                                                                                                                                                       | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
 | type       | integer                                                                                                                                                                      | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
@@ -110,7 +110,7 @@ All options have names, and an option can either be a parameter and input value-
 `value` and `options` are mutually exclusive.
 
 | Field    | Type                                                                                                                                                                         | Description                                                                                                                                    |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | name     | string                                                                                                                                                                       | Name of the parameter                                                                                                                          |
 | type     | integer                                                                                                                                                                      | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
 | value?   | string, integer, double, or boolean                                                                                                                                          | Value of the option resulting from user input                                                                                                  |
@@ -227,7 +227,7 @@ There are a number of ways you can respond to an interaction:
 Not all message fields are currently supported.
 
 | Field             | Type                                                                             | Description                                                                                                                                                                                 |
-| ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | tts?              | boolean                                                                          | is the response TTS                                                                                                                                                                         |
 | content?          | string                                                                           | message content                                                                                                                                                                             |
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)                          | supports up to 10 embeds                                                                                                                                                                    |
@@ -241,7 +241,7 @@ Not all message fields are currently supported.
 ###### Autocomplete
 
 | Field   | Type                                                                                                                               | Description                              |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+|---------|------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
 | choices | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
 ###### Modal
@@ -250,7 +250,7 @@ Not all message fields are currently supported.
 > Support for components in modals is currently limited to type 4 (Text Input).
 
 | Field      | Type                                                          | Description                                                      |
-| ---------- | ------------------------------------------------------------- | ---------------------------------------------------------------- |
+|------------|---------------------------------------------------------------|------------------------------------------------------------------|
 | custom_id  | string                                                        | a developer-defined identifier for the modal, max 100 characters |
 | title      | string                                                        | the title of the popup modal, max 45 characters                  |
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal    |

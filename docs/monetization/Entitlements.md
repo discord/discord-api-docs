@@ -7,7 +7,7 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 ###### Entitlement Structure
 
 | Field          | Type              | Description                                                                                 |
-| -------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+|----------------|-------------------|---------------------------------------------------------------------------------------------|
 | id             | snowflake         | ID of the entitlement                                                                       |
 | sku_id         | snowflake         | ID of the SKU                                                                               |
 | user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
@@ -40,9 +40,9 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 ###### Entitlement Types
 
-| Type                     | ID  | Description                                      |
-| ------------------------ | --- | ------------------------------------------------ |
-| APPLICATION_SUBSCRIPTION | 8   | Entitlement was purchased as an app subscription |
+| Type                     | ID | Description                                      |
+|--------------------------|----|--------------------------------------------------|
+| APPLICATION_SUBSCRIPTION | 8  | Entitlement was purchased as an app subscription |
 
 ## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
@@ -51,7 +51,7 @@ Returns all entitlements for a given app, active and expired.
 ###### Query Params
 
 | param          | type                              | description                                          |
-| -------------- | --------------------------------- | ---------------------------------------------------- |
+|----------------|-----------------------------------|------------------------------------------------------|
 | user_id?       | snowflake                         | User ID to look up entitlements for                  |
 | sku_ids?       | comma-delimited set of snowflakes | Optional list of SKU IDs to check entitlements for   |
 | before?        | snowflake                         | Retrieve entitlements before this time               |
@@ -91,7 +91,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 ###### JSON Params
 
 | param      | type    | description                                               |
-| ---------- | ------- | --------------------------------------------------------- |
+|------------|---------|-----------------------------------------------------------|
 | sku_id     | string  | ID of the SKU to grant the entitlement to                 |
 | owner_id   | string  | ID of the guild or user to grant the entitlement to       |
 | owner_type | integer | `1` for a guild subscription, `2` for a user subscription |
