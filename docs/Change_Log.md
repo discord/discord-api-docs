@@ -937,7 +937,7 @@ Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GU
 
 #### August 22, 2019
 
-News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same.
+News Channels are now changed to Announcement Channels. Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same.
 
 ## More Precise Rate Limits
 
