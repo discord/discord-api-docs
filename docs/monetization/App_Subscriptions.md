@@ -15,7 +15,7 @@ Currently, you can only have one published subscription SKU for your app, so you
 
 ## Configuring App Subscriptions
 
-Once you have an idea what type of subscription you want to offer your app, you can create and [customize your SKU](#DOCS_MONETIZATION_SKUS/customizing-your-skus) to reflect the premium features that you are adding to your app. This is a good place to outline the benefits your users will receive from having an app subscription.
+Once you have an idea what type of subscription you want to offer for your app, you can create and [customize your SKU](#DOCS_MONETIZATION_SKUS/customizing-your-skus) to reflect the premium features that you are adding to your app. This is a good place to outline the benefits your users will receive from having an app subscription.
 
 Once an app has a published SKU, there are 4 ways users will be able to subscribe:
 

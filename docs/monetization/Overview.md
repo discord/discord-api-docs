@@ -18,7 +18,7 @@ Only team owners can enable monetization for an app. When a team owner enables m
 -   App belongs to a developer team
 -   Team owner must be at least 18 years old
 -   Team must have verified emails and 2FA set up
--   App uses slash commands, or has been approved for the Message Content privileged intent
+-   App uses slash commands, or has been approved for the privileged `Message Content` intent
 -   App has a link to your Terms of Service
     -   This document is an agreement between you and users governing the use of your app.
 -   App has a link to your Privacy Policy
