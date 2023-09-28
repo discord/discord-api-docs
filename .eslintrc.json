@@ -1,10 +1,13 @@
 {
-	"extends": "marine/prettier/node",
-	"ignorePatterns": ["dist/*", "**/*.js"],
-	"parserOptions": {
-		"project": "./tsconfig.eslint.json"
-	},
-	"rules": {
-		"no-eq-null": "off"
-	}
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ]
 }

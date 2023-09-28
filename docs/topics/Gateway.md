@@ -81,7 +81,7 @@ At a high-level, Gateway connections consist of the following cycle:
 4. App sends an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event to perform the initial handshake with the Gateway. **Read the section on [Identifying](#DOCS_TOPICS_GATEWAY/identifying)**
 5. Discord sends the app a [Ready (opcode `0`)](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates the handshake was successful and the connection is established. The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should use to Resume. **Read the section on [the Ready event](#DOCS_TOPICS_GATEWAY/ready-event)**
 6. The connection may be dropped for a variety of reasons. Whether the app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) and [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) that it receives. **Read the section on [Disconnecting](#DOCS_TOPICS_GATEWAY/disconnecting)**
-7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url`, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole Gateway cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
+7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url` with the same version and encoding, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole Gateway cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
 
 ### Connecting
 
@@ -94,17 +94,20 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 > info
 > `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
 
+> warn
+> For security reasons, the Gateway cannot be accessed directly from a Cloudflare Worker. Attempts will result in a 401 Unauthorized status code.
+
 ###### Gateway URL Query String Params
 
-| Field     | Type    | Description                                                                               | Accepted Values                                            |
-| --------- | ------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                      | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
-| encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets | `json` or `etf`                                            |
-| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/resuming) of gateway packets    | `zlib-stream`                                              |
+| Field     | Type    | Description                                                                                         | Accepted Values                                            |
+|-----------|---------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                                | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
+| encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets           | `json` or `etf`                                            |
+| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream`                                              |
 
 #### Hello Event
 
-Once connected to the Gateway, your app will receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event that contains your connection's heartbeat interval (`hearbeat_interval`).
+Once connected to the Gateway, your app will receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event that contains your connection's heartbeat interval (`heartbeat_interval`).
 
 The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often your app needs to send a Heartbeat event in order to maintain the active connection. Heartbeating is detailed in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
 
@@ -235,13 +238,16 @@ There are a handful of scenarios when your app should attempt to resume:
 
 Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id` and the `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready-event) event, and the sequence number (`s`) from the last Dispatch (opcode `0`) event it received before the disconnect.
 
-After the connection is closed, your app should open a new connection using `resume_gateway_url` rather than the URL used to initially connect. If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
+After the connection is closed, your app should open a new connection using `resume_gateway_url` rather than the URL used to initially connect, with the same query parameters from the initial [Connection](#DOCS_TOPICS_GATEWAY/connecting). If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
 
 Once the new connection is opened, your app should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event using the `session_id` and sequence number mentioned above. When sending the event, `session_id` will have the same field name, but the last sequence number will be passed as `seq` in the data object (`d`).
 
 When Resuming, you do not need to send an Identify event after opening the connection.
 
 If successful, the Gateway will send the missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY_EVENTS/resumed) event to signal event replay has finished and that all subsequent events will be new.
+
+> info
+> When resuming with the `resume_gateway_url` you need to provide the same version and encoding as the initial connection.
 
 It's possible your app won't reconnect in time to Resume, in which case it will receive an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event. If the `d` field is set to `false` (which is most of the time), your app should disconnect. After disconnect, your app should create a new connection with your cached URL from the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint, then send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event.
 
@@ -308,7 +314,8 @@ GUILD_MEMBERS (1 << 1) **
   - GUILD_MEMBER_REMOVE
   - THREAD_MEMBERS_UPDATE *
 
-GUILD_BANS (1 << 2)
+GUILD_MODERATION (1 << 2)
+  - GUILD_AUDIT_LOG_ENTRY_CREATE
   - GUILD_BAN_ADD
   - GUILD_BAN_REMOVE
 
@@ -431,7 +438,7 @@ Events associated with the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are tur
 
 #### HTTP Restrictions
 
-In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must configure the `GUILD_MEMBERS` intent (and be approved for it if eligible for verified).
+In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must enable the `GUILD_MEMBERS` intent (and be approved for it if eligible for verification).
 
 HTTP API restrictions are independent of Gateway restrictions, and are unaffected by which intents your app passes in the `intents` parameter when Identifying.
 
@@ -448,13 +455,14 @@ Apps **without** the intent will receive empty values in fields that contain use
 - Content in messages that an app sends
 - Content in DMs with the app
 - Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
+- Content of the message a [message context menu command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) is used on 
 
 ## Rate Limiting
 
 > info
 > This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
 
-Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
+Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) per [connection](#DOCS_TOPICS_GATEWAY/connections) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
 
 Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identifying) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session).
 
@@ -486,7 +494,7 @@ Payload compression will be disabled if you use [transport compression](#DOCS_TO
 When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
 
 - Snowflake IDs are transmitted as 64-bit integers or strings.
-- Your app can't send compressed messages to the guild.
+- Your app can't send compressed messages to the server.
 - When sending payloads, you must use string keys. Using atom keys will result in a [`4002`](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) decode error.
 
 See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
@@ -670,7 +678,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 ###### JSON Response
 
 | Field               | Type                                                                          | Description                                                                          |
-| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+|---------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | url                 | string                                                                        | WSS URL that can be used for connecting to the Gateway                               |
 | shards              | integer                                                                       | Recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
 | session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                       |
@@ -695,7 +703,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 ###### Session Start Limit Structure
 
 | Field           | Type    | Description                                                    |
-| --------------- | ------- | -------------------------------------------------------------- |
+|-----------------|---------|----------------------------------------------------------------|
 | total           | integer | Total number of session starts the current user is allowed     |
 | remaining       | integer | Remaining number of session starts the current user is allowed |
 | reset_after     | integer | Number of milliseconds after which the limit resets            |

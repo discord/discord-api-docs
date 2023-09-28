@@ -3,9 +3,6 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
-
 > warn
 > The overlay is only supported on Windows for DirectX or OpenGL games. Linux, Mac, and games using Vulkan are not supported. [Click here for more info.](https://support.discord.com/hc/en-us/articles/217659737-Games-Overlay-101)
 
@@ -20,7 +17,7 @@ Discord comes with an awesome built-in overlay, and you may want to make use of 
 ###### ActivityActionType Enum
 
 | name     | value |
-| -------- | ----- |
+|----------|-------|
 | Join     | 1     |
 | Spectate | 2     |
 
@@ -72,7 +69,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name   | type | description                |
-| ------ | ---- | -------------------------- |
+|--------|------|----------------------------|
 | locked | bool | lock or unlock the overlay |
 
 ###### Example
@@ -93,7 +90,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name | type               | description                 |
-| ---- | ------------------ | --------------------------- |
+|------|--------------------|-----------------------------|
 | type | ActivityActionType | what type of invite to send |
 
 ###### Example
@@ -117,7 +114,7 @@ Returns a `Discord.Result` via callback. Note that a successful `Discord.Result`
 ###### Parameters
 
 | name | type   | description                |
-| ---- | ------ | -------------------------- |
+|------|--------|----------------------------|
 | code | string | an invite code for a guild |
 
 ###### Example
@@ -167,7 +164,7 @@ Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 ###### Parameters
 
 | name   | type | description                           |
-| ------ | ---- | ------------------------------------- |
+|--------|------|---------------------------------------|
 | locked | bool | is the overlay now locked or unlocked |
 
 ###### Example

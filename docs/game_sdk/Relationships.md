@@ -3,9 +3,6 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
-
 This manager helps you access the relationships your players have made on Discord. Unfortunately, it won't help them make relationships IRL. They're on their own for that. It lets you:
 
 - Access a user's relationships
@@ -25,7 +22,7 @@ An example of how to do this properly is at the end of this documentation page.
 ###### Relationship Struct
 
 | name     | type             | description                      |
-| -------- | ---------------- | -------------------------------- |
+|----------|------------------|----------------------------------|
 | Type     | RelationshipType | what kind of relationship it is  |
 | User     | User             | the user the relationship is for |
 | Presence | Presence         | that user's current presence     |
@@ -33,7 +30,7 @@ An example of how to do this properly is at the end of this documentation page.
 ###### RelationshipType Enum
 
 | value           | description                                                                      |
-| --------------- | -------------------------------------------------------------------------------- |
+|-----------------|----------------------------------------------------------------------------------|
 | None            | user has no intrinsic relationship                                               |
 | Friend          | user is a friend                                                                 |
 | Blocked         | user is blocked                                                                  |
@@ -44,14 +41,14 @@ An example of how to do this properly is at the end of this documentation page.
 ###### Presence Struct
 
 | name     | type     | description                      |
-| -------- | -------- | -------------------------------- |
+|----------|----------|----------------------------------|
 | Status   | Status   | the user's current online status |
 | Activity | Activity | the user's current activity      |
 
 ###### Status Enum
 
 | name         | value |
-| ------------ | ----- |
+|--------------|-------|
 | Offline      | 0     |
 | Online       | 1     |
 | Idle         | 2     |
@@ -85,7 +82,7 @@ Returns a `Relationship`.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to fetch |
 
 ###### Example
@@ -104,7 +101,7 @@ Returns a `Relationship`.
 ###### Parameters
 
 | name  | type   | description       |
-| ----- | ------ | ----------------- |
+|-------|--------|-------------------|
 | index | UInt32 | index in the list |
 
 ###### Example
@@ -152,7 +149,7 @@ Fires when a relationship in the filtered list changes, like an updated presence
 ###### Parameters
 
 | name         | type             | description                   |
-| ------------ | ---------------- | ----------------------------- |
+|--------------|------------------|-------------------------------|
 | relationship | ref Relationship | the relationship that changed |
 
 ###### Example

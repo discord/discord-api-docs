@@ -3,8 +3,11 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> danger
+> warn
 > Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+
+> danger
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
@@ -19,7 +22,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 ###### OAuth2Token Struct
 
 | name        | type   | description                                                                                     |
-| ----------- | ------ | ----------------------------------------------------------------------------------------------- |
+|-------------|--------|-------------------------------------------------------------------------------------------------|
 | AccessToken | string | a bearer token for the current user                                                             |
 | Scopes      | string | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
 | Expires     | Int64  | the timestamp at which the token expires                                                        |
@@ -27,9 +30,9 @@ This manager also includes a couple useful helper functions, like getting the lo
 ###### SignedAppTicket Struct
 
 | name           | type                                                                                                                     | description                                              |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+|----------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
-| user           | [User](#DOCS_GAME_SDK_USERS/data-models-user-struct)                                                                      | the user for the ticket                                  |
+| user           | [User](#DOCS_GAME_SDK_USERS/data-models-user-struct)                                                                     | the user for the ticket                                  |
 | entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
 | timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
@@ -134,7 +137,7 @@ applicationManager.ValidateOrExit((result) =>
 ###### Current Version
 
 | version | status  |
-| ------- | ------- |
+|---------|---------|
 | 2       | current |
 
 Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` matches the current version. The `signature` is used to verify the ticket using the libsodium library of your choice, and the `base64encodedjson` is what you can transform after verification. It contains:

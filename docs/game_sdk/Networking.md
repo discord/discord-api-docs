@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexibility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](#DOCS_GAME_SDK_LOBBIES/integrated-networking)
 
@@ -65,7 +65,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                                          |
-| --------- | ------ | ---------------------------------------------------- |
+|-----------|--------|------------------------------------------------------|
 | peerId    | UInt64 | the peerId of the user to connect to                 |
 | channelId | byte   | the channel on which to connect                      |
 | reliable  | bool   | whether the channel should be unreliable or reliable |
@@ -91,7 +91,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type   | description                                  |
-| ------ | ------ | -------------------------------------------- |
+|--------|--------|----------------------------------------------|
 | peerId | UInt64 | the peerId of the user to connect to         |
 | route  | string | the route the user is currently broadcasting |
 
@@ -117,7 +117,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type   | description                |
-| ------ | ------ | -------------------------- |
+|--------|--------|----------------------------|
 | peerId | UInt64 | the user's peerId          |
 | route  | string | the new route for the user |
 
@@ -143,7 +143,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                     |
-| --------- | ------ | ------------------------------- |
+|-----------|--------|---------------------------------|
 | peerId    | UInt64 | the peer id to connect to       |
 | channelId | byte   | the channel on which to connect |
 | data      | byte[] | the data to send                |
@@ -170,7 +170,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                               |
-| --------- | ------ | ----------------------------------------- |
+|-----------|--------|-------------------------------------------|
 | peerId    | UInt64 | the peerId of the user to disconnect from |
 | channelId | byte   | the route to close                        |
 
@@ -196,7 +196,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type   | description       |
-| ------ | ------ | ----------------- |
+|--------|--------|-------------------|
 | peerId | UInt64 | the user's peerId |
 
 ###### Example
@@ -219,7 +219,7 @@ Fires when you receive data from another user. This callback will only fire if y
 ###### Parameters
 
 | name      | type   | description                |
-| --------- | ------ | -------------------------- |
+|-----------|--------|----------------------------|
 | peerId    | UInt64 | the peer id of the sender  |
 | channelId | byte   | the channel it was sent on |
 | data      | byte[] | the data sent              |
@@ -241,7 +241,7 @@ Fires when your networking route has changed. You should broadcast to other user
 ###### Parameters
 
 | name  | type   | description               |
-| ----- | ------ | ------------------------- |
+|-------|--------|---------------------------|
 | route | string | the new route to the user |
 
 ###### Example

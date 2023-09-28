@@ -1,0 +1,487 @@
+<LocalePicker currentLocale="ja" />
+
+# 初めてのDiscordアプリ作成
+
+Discordアプリは、様々なAPIやインタラクティブ機能により、あなたのサーバーのカスタマイズや拡張を助けてくれる存在です。このガイドでは、JavaScriptを使って初めてのDiscordアプリを作るお手伝いをします。ガイドを最後までたどれば、スラッシュコマンドの使用、メッセージの使用、コンポーネント・インタラクションへの応答に対応したアプリが完成します。
+
+サーバーメンバーがじゃんけん（ただし通常の3つではなく7つの手が選べる）をできるDiscordアプリを作ります。このガイドは初心者向けですが、[JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)の基本を知っていることが前提となります。
+
+<Collapsible title="これから作るもの" icon="view">
+これが完成したアプリのお手本です：
+
+![アプリ実例のデモ](getting-started-demo.gif)
+
+このユーザーフローをもう少し明確にしてみましょう：
+
+1. ユーザー1が新しいゲームを開始し、アプリの`/challenge`スラッシュコマンドを使ってオブジェクトを選ぶ
+2. 他のメンバーに挑戦を促すボタンを添えたメッセージがチャンネルに送られる
+3. ユーザー2が**Accept（承諾）**ボタンを押す
+4. ユーザー2に、オブジェクトを選ぶよう促す一時メッセージが送られる
+5. ゲームの結果が、元のチャンネルに公開で投稿される
+</Collapsible>
+
+<Collapsible title="このガイドで使われるリソース" description="使用するツールとテクノロジーの概略" icon="list">
+- **[Githubレポジトリ](https://github.com/discord/discord-example-app)**：このガイドのコードと、追加の機能固有のコード例がいくつか掲載されています。
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**：Discordアプリのタイプおよびヘルパー関数を提供するライブラリです。
+- **[Express](https://expressjs.com)**：人気のJavaScriptウェブフレームワーク。Discordがリクエストを送信できるサーバーの作成に使います。
+- **[Glitch](https://glitch.com/)**：初期のプロトタイピングおよび開発段階でのアプリの構築およびホストをシンプル化してくれるオンライン環境です。**[ngrok](https://ngrok.com/)**のようなツールを用いてローカルで開発することもできます。
+</Collapsible>
+
+---
+
+## ステップ1：アプリを作成する
+
+アプリが既にない場合はまず、開発者ポータルでアプリを作成する必要があります：
+
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">アプリを作成</Button>
+
+アプリの名前を入力し、**Create（作成）**を押してください。
+
+アプリを作成すると、アプリの設定の**概要**ページが開きます。ここではアプリの説明やアイコンなど、基本情報を更新できます。Yまた**アプリケーションID**と**インタラクション・エンドポイントURL**も確認できます。これらはガイドで後ほど使用します。
+
+### Botを設定する
+
+次にアプリの[Botユーザー](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts)を設定します。これにより、Botがサーバー内で他のメンバーと同様に表示・動作するようになります。
+
+左側のサイドバーで**Bot**をクリックします。このページでは、Botの[特権インテント（privileged intents）](#DOCS_TOPICS_GATEWAY/privileged-intents)や、Botが他のユーザーによってインストールできるかどうかなどの設定を行えます。
+
+<Collapsible title="インテントとは何か？" description="標準インテントと特権インテントの概説" icon="question">
+インテントとは、[ゲートウェイAPI接続](#DOCS_TOPICS_GATEWAY)を作成する際に、Discordがあなたのアプリにどのイベントを送信するかを決定するものです。たとえば、ユーザーがメッセージにリアクションを追加したときに動作するアプリを作りたいなら、`GUILD_MESSAGE_REACTIONS` (`1 << 10`) インテントを渡します。
+
+一部のインテントは[特権](#DOCS_TOPICS_GATEWAY/privileged-intents)インテントであり、センシティブと判断される可能性のあるデータ（メッセージの内容など）にアプリがアクセスできるようにします。特権インテントはアプリの設定の**Bot**ページに表示され、ここで切り替えできます。標準の非特権インテントは、追加の権限や設定を必要としません。
+
+インテントについての詳細情報、利用可能な全インテント一覧とそれらに関連付けられたイベントについては、[ゲートウェイ・ドキュメント](#DOCS_TOPICS_GATEWAY/gateway-intents)をご覧ください。
+</Collapsible>
+
+![アプリ設定のBotタブ](app-add-bot.png)
+
+**Bot**ページには、Botのトークンをコピーしたりリセットしたりできる**トークン**セクションもあります。
+
+BotトークンはAPIリクエストの認証に使われ、Botユーザーの権限を含んでいるため、*きわめて機密性が高い*ものです。トークンを共有したり、何らかのバージョン管理にチェックインしたりすることは*絶対に*しないでください。
+
+トークンをコピーし、安全な場所（パスワードマネージャーなど）に保管しておきましょう。
+
+> 警告
+> トークンは再生成しない限り2度と見ることはできませんので、必ず安全な場所に保管してください。
+
+### スコープとBot権限を追加する
+
+アプリは、ダウンロードするユーザーから、Discordでアクション（スラッシュコマンドを作成する、サーバーメンバーのリストを取得するなど）を行う許可を得る必要があります。アプリをインストールする前に、スコープと権限をいくつか選択しましょう。
+
+<Collapsible title="スコープと権限とは何か？" description="スコープとBot権限の概説" icon="question">
+アプリの作成にあたって、あなたのアプリがDiscordサーバーでできること、アクセスできるものを定めるのがスコープと権限です。
+
+- [OAuth2スコープ](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)は、インストールまたは認証を行うユーザーに代わってあなたのアプリが行えるデータアクセスやアクションを定めます。
+- [権限](#DOCS_TOPICS_PERMISSIONS/permission-overwrites)は、Botユーザーに与える粒度の細かい権限であり、Discordにおける他のユーザーが有しているのと同様のものです。インストールするユーザーが承認することもできますし、後から[権限の上書き](#DOCS_TOPICS_PERMISSIONS/permission-overwrites)を用いてサーバー設定で更新することもできます。
+</Collapsible>
+
+左側のサイドバーで**OAuth2**をクリックし、続いて**URLジェネレータ（URL generator）**を選択します。
+
+> 情報
+> URLジェネレータは、あなたがアプリ用に選択したスコープと権限に基づいてインストール用リンクを生成します。このリンクで自分のサーバーにアプリをインストールできるほか、他の人と共有してインストールしてもらうこともできます。
+
+今のところは2つのスコープを追加してみましょう：
+- `applications.commands`：アプリが[コマンド](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)を生成できるようにします。
+- `bot`：Botユーザーを追加します。`bot`を選択したら、Bot用に他の各種権限を追加できます。今のところは、**メッセージを送信**だけチェックしておきましょう。
+
+[OAuth2スコープ](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)の一覧をご確認いただくか、ドキュメントで[権限](#DOCS_TOPICS_PERMISSIONS)についての詳細をご覧ください。
+
+### アプリをインストールする
+
+スコープを追加したら、URLが表示されます。これをコピーしてアプリをインストールすることができます。
+
+![URLジェネレータのスクリーンショット](url-generator.png)
+
+> 情報
+> アプリ開発にあたっては、他の人がアクティブに利用していないサーバーでビルドおよびテストを行ってください。自分のサーバーがまだない方は、[無料で作成できます](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-)。
+
+上記よりURLをコピーし、ブラウザにペーストしてください。インストールのステップを踏む際は、アプリの開発とテストをできるサーバーに間違いなくインストールしていることを確かめてください。
+
+アプリをインストールしたら、サーバーに移動して、アプリが参加したことを確かめましょう✨
+
+アプリの設定とインストールが完了したら、開発を始めましょう。
+
+---
+
+## ステップ2：アプリを実行する
+
+アプリ実例で使われたコードはすべて[Githubレポジトリ](https://github.com/discord/discord-example-app)に掲載されています。
+
+開発がしやすくなるよう、このアプリでは、タイプおよびヘルパー関数を提供する[discord-interactions](https://github.com/discord/discord-interactions-js)を使用しています。他の言語やライブラリを使用したい場合は、[コミュニティ・リソース](#DOCS_TOPICS_COMMUNITY_RESOURCES)ドキュメントをご確認ください。
+
+### プロジェクトをリミックスする
+
+このガイドでは、ブラウザでクローンと開発ができるGlitchを使用しています。ローカルでアプリの開発をしたい場合は、[README](https://github.com/discord/discord-example-app#running-app-locally)にngrokの使い方が掲載されています。
+
+> 情報
+> Glitchは開発とテストには最適ですが、[技術的な制限があるため](https://help.glitch.com/hc/en-us/articles/16287495313293-Technical-Restrictions)、プロダクションアプリについては他のホスティング・プロバイダをご検討ください。
+
+まず**[Glitchプロジェクトをリミックス（またはクローン）しましょう🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**
+
+プロジェクトをリミックスすると、新しいGlitchプロジェクトが開きます。
+
+<Collapsible title="Glitchプロジェクトのインターフェース" description="Glitchのプロジェクト・インターフェースの概説" icon="view">
+![Glitchプロジェクトの概要](glitch-project.png)
+
+- あなたの**プロジェクト名**は、プロジェクト固有の名前であり、左上隅に表示されます
+- **`.env`**はあなたのアプリのクレデンシャルがすべて保存されるファイルです
+- **ログ**は、あなたのプロジェクトのアウトプットがある場所です。アプリがきちんと実行されているかを確かめたり、アプリに生じたエラーをチェックしたりするのに役立ちます
+- 右上隅の**共有（Share）**ボタンを押すと、ライブプロジェクトURLが表示されます。このURLは、このガイドで後ほどインタラクティビティを設定するのに必要です
+</Collapsible>
+
+#### プロジェクトの構造
+
+プロジェクト用のファイルはすべて、Glitchプロジェクトの左側に表示されます。下記は主なフォルダーとファイルを概観したものです：
+
+```
+├── examples    -> 特定機能向けの短いサンプルアプリ
+│   ├── app.js  -> 書き終えたapp.jsコード
+│   ├── button.js
+│   ├── command.js
+│   ├── modal.js
+│   ├── selectMenu.js
+├── .env        -> あなたのクレデンシャルとID
+├── app.js      -> アプリのメインエントリポイント
+├── commands.js -> スラッシュコマンドのペイロードとヘルパー
+├── game.js     -> RPS固有のロジック
+├── utils.js    -> ユーティリティ関数と列挙型
+├── package.json
+├── README.md
+└── .gitignore
+```
+
+### クレデンシャルを追加する
+
+`app.js`ファイルには既にコードが入っていますが、リクエストを行うにはアプリのトークンとIDが必要です。あなたのクレデンシャルはすべて直接`.env`ファイルに保存できます。
+
+まず、先ほどのBotユーザーのトークンをコピーし、`.env`ファイルの**`DISCORD_TOKEN`**変数にペーストします。
+
+次に、アプリの**概要**ページに移動し、**アプリID**と**パブリックキー**をコピーします。`.env`ファイルに、**`APP_ID`**および**`PUBLIC_KEY`**として値をペーストします。
+
+クレデンシャルの設定が終わったら、スラッシュコマンドをインストールしてハンドルしてみましょう。
+
+### スラッシュコマンドをインストールする
+
+> 情報
+> アプリはスラッシュコマンドをインストールするにあたり、[`node-fetch`](https://github.com/node-fetch/node-fetch)を利用しています。インストールの実装は、`DiscordRequest()`関数内の`utils.js`で確認できます。
+
+プロジェクトには`register`スクリプトが含まれています。これを用いて、`commands.js`の最下部で定義されている`ALL_COMMANDS`のコマンドをインストールできます。これはHTTP APIの[`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands)エンドポイントを呼び出すことで、コマンドをグローバルコマンドとしてインストールします。
+
+コマンドをカスタマイズしたい、または新しいものを追加したい場合は、[コマンド・ドキュメント](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure)にてコマンドの構造をご確認ください。
+
+Glitchプロジェクトの最下部にある**ターミナル（Terminal）**をクリックして`register`スクリプトを実行し、下記のコマンドをペーストします：
+
+```
+npm run register
+```
+
+Enterキーを押してコマンドを実行します。
+
+サーバーに戻ると、スラッシュコマンドが表示されるようになっているはずです。ただし、アプリはまだDiscordからのリクエストを受け取ったりハンドルしたりできないため、実行しても何も起きません。
+
+<Collapsible title="DiscordのAPIとは？" description="DiscordのHTTP APIとゲートウェイAPIの概説" icon="question">
+Discordには2種類のAPIがあり、これらを組み合わせてアプリを作成できます：
+
+- **[HTTP API](#DOCS_REFERENCE/http-api)**：RESTに似たAPIであり、Discord上でのデータ送信やアップデート、リソースに関するデータの取得などの全般的操作に使用します。
+- **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)**：WebSocketベースのAPIであり、ステートを維持したり、Discordサーバーで起こっているイベントをリッスンしたりするのに便利です。このガイドでは使いませんが、ゲートウェイ接続の作成方法や、リッスンできる各種イベントについては、[ゲートウェイ・ドキュメント](#DOCS_TOPICS_GATEWAY)をご覧ください。
+</Collapsible>
+
+---
+
+## ステップ3：インタラクティビティをハンドルする
+
+Discordでは、アプリがスラッシュコマンド・リクエスト（およびその他のインタラクション）を受け取れるようにするには、それらを送信するための公開URLが必要となります。このURLは、アプリの設定で**インタラクション・エンドポイントURL**として設定できます。
+
+### インタラクション・エンドポイントURLを追加する
+
+Glitchプロジェクトでは、デフォルトで公開URLが見られるようになっています。右上隅の**共有（Share）**ボタンをクリックしてプロジェクトのURLをコピーし、続いてモーダルの下部近くにある「ライブ中のサイト（Live Site）」プロジェクトリンクをコピーしてください。
+
+> 情報
+> ローカルで開発をしている場合は、ローカルの環境にリクエストをトンネリングする手順を[Github README](https://github.com/discord/discord-example-app#running-app-locally)で確認できます。
+
+リンクがコピーできたら、[開発者ポータル](https://discord.com/developers/applications)からアプリの設定を開きます。
+
+アプリの**概要**ページに**インタラクティブ・エンドポイントURL**オプションがあります。ここでアプリのURLをペーストし、Expressアプリがリクエストをリッスンするよう設定される`/interactions`をアペンドできます。
+
+![アプリ設定におけるインタラクション・エンドポイントURL](interactions-url.png)
+
+**変更を保存（Save Changes）**をクリックし、エンドポイントが認証されたことを確かめましょう。
+
+サンプルアプリは2つの方法で認証をハンドリングします：
+- `PUBLIC_KEY`およびラッパー関数（`utils.js`よりインポート）を伴った[discord-interactionsパッケージ](https://github.com/discord/discord-interactions-js#usage)を利用する。これにより、[Expressの`verify`インターフェース](http://expressjs.com/en/5x/api.html#express.json)に適合します。これはあなたのアプリにリクエストが入ってくるたびに実行されます。
+- 入ってくる`PING`リクエストに応答する。
+
+アプリがインタラクションを受け取れるようにする方法について、詳しくは[インタラクション・ドキュメント](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction)をご覧ください。
+
+### スラッシュコマンド・リクエストをハンドリングする
+
+エンドポイントの認証が完了したら、プロジェクトの`app.js`ファイルに移動し、`/test`コマンドをハンドリングするコードブロックを見つけてください：
+
+```javascript
+// 「test」コマンド
+if (name === 'test') {
+    // コマンドがトリガーされた起点のチャンネルにメッセージを送る
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // ヘルパー関数から送る絵文字をランダムに取得する
+        content: 'hello world ' + getRandomEmoji(),
+    },
+    });
+}
+```
+
+上記のコードは、起点となったチャンネルにおけるメッセージとのインタラクションに応答しています。可能な応答タイプ（モーダルで応答するなど）は[ドキュメント](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type)でご確認いただけます。
+
+> 情報
+> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE`は[`discord-interactions`からエクスポートされた](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)定数です
+
+サーバーに移動し、アプリの`/test`スラッシュコマンドが機能することを確かめましょう。トリガーすると、アプリは「hello world」という言葉のあとにランダムな絵文字を含むメッセージを送信するはずです。
+
+次のセクションでは、じゃんけんゲームを構築するため、スラッシュコマンド・オプションを利用する別のコマンド、ボタン、選択メニューを追加していきます。
+
+---
+
+## ステップ4：メッセージ・コンポーネントを追加する
+
+このじゃんけん式ゲームは、`/challenge`コマンドで開始されます。コマンドがトリガーされると、アプリはチャンネルにメッセージ・コンポーネントを送信し、これによってユーザーはゲームを完了するよう誘導されます。
+
+### オプションのあるコマンドを追加する
+
+`/challenge`コマンドは、`commands.js`では`CHALLENGE_COMMAND`と呼ばれており、一連の`options`を有します。今回のアプリでは、オプションはユーザーがじゃんけんをする際に選択できる様々なものを表しており、`game.js`における`RPSChoices`のキーを利用して生成されます。
+
+コマンドオプションとその構造については[ドキュメント](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)をご覧ください。
+
+> 情報
+> このガイドでは`game.js`にはあまり深入りしませんが、コマンドやコマンド内のオプションを変えるなど、いろいろといじってみましょう。
+
+<Collapsible title="コマンド・インタラクションをハンドリングする" description="challengeコマンドをハンドリングし、ボタンを含むメッセージで応答するためのコード" icon="code" open>
+
+`/challenge`コマンドをハンドリングするには、ifブロック`if name === “test”`のあとに次のコードを追加してください：
+
+```javascript
+// 「challenge」コマンド
+if (name === 'challenge' && id) {
+    const userId = req.body.member.user.id;
+    // ユーザーの選択したオブジェクト
+    const objectName = req.body.data.options[0].value;
+
+    // メッセージIDをゲームIDとして用い、アクティブなゲームを作成する
+    activeGames[id] = {
+        id: userId,
+        objectName,
+    };
+
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        content: `Rock papers scissors challenge from <@${userId}>`,
+        components: [
+        {
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+            {
+                type: MessageComponentTypes.BUTTON,
+                // 後ほど使用するため、ゲームIDをアペンドする
+                custom_id: `accept_button_${req.body.id}`,
+                label: 'Accept',
+                style: ButtonStyleTypes.PRIMARY,
+            },
+            ],
+        },
+        ],
+    },
+    });
+}
+```
+
+
+> 情報
+> コードをペーストする場所が分からない場合は、Glitchプロジェクトの`examples/app.js`でコード全体を見るか、[Github](https://github.com/discord/discord-example-app/blob/main/app.js)でルート`app.js`を見てみましょう。
+
+上記のコードは、次のような動きをしています：
+1. リクエストボディをパースし、スラッシュコマンドをトリガーしたユーザーのID（`userId`）とそのユーザーが選択したオプション（選んだオブジェクト）（`objectName`）を取得します。
+2. インタラクションIDを使用して、`activeGames`オブジェクトに新しいゲームを追加します。アクティブなゲームは`userId`と`objectName`を記録します。
+3. チャンネルに、`accept_button_<SOME_ID>`の`custom_id`を伴う、ボタンのついたメッセージを送り返します。
+
+> 警告
+> サンプルコードではオブジェクトをメモリ内ストレージとして使用していますが、プロダクションアプリではデータベースを使用してください。
+
+[メッセージ・コンポーネント](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component)を伴うメッセージを送るとき、個々のペイロードは`components`アレイにアペンドされます。実行可能なコンポーネント（ボタンなど）は、コードサンプルで確認できる[アクション行](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows)の中にある必要があります。
+
+メッセージ・コンポーネントと共に送られる一意の`custom_id`にお気づきでしょうか。この場合は、アクティブなゲームのIDがアペンドされた`accept_button_`になります。誰かがコンポーネントとインタラクトした際にDiscordがあなたに送るリクエストをハンドリングするには、`custom_id`が使用できます。これについては後ほどご説明します。
+
+これで、`/challenge`コマンドを実行してオプションを選ぶと、アプリが**挑戦受諾（Accept）**ボタンを伴うメッセージを送信します。ボタンを押す動作をハンドリングできるよう、コードを追加しましょう。
+
+</Collapsible>
+
+<Collapsible title="ボタン・インタラクションをハンドリングする" description="ボタンへのクリックをハンドリングして一時メッセージで応答するためのコード" icon="code" open>
+
+ユーザーがメッセージ・コンポーネントとインタラクトすると、Discordは[インタラクション・タイプ](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)が`3`（または`discord-interactions`を使用している場合は`MESSAGE_COMPONENT`の値）のリクエストを送信します。
+
+ボタンのハンドラを設定するため、インタラクションの`type`を確認し、続いて`custom_id`のマッチングを行います。
+
+`APPLICATION_COMMAND`のタイプハンドラの下に、下記のコードをペーストしてください：
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// メッセージ・コンポーネントを送信する際、custom_idをペイロード内に設定する
+const componentId = data.custom_id;
+
+  if (componentId.startsWith('accept_button_')) {
+    // 関連付けられたゲームIDを取得する
+    const gameId = componentId.replace('accept_button_', '');
+    // リクエストボディのトークンを含むメッセージを削除する
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // ヘルパー関数から送る絵文字をランダムに取得する
+          content: 'What is your object of choice?',
+          // 一時メッセージであることを示す
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: MessageComponentTypes.ACTION_ROW,
+              components: [
+                {
+                  type: MessageComponentTypes.STRING_SELECT,
+                  // ゲームIDをアペンドする
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // 以前のメッセージを削除する
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  }
+}
+```
+
+上記のコードは以下のように動作します：
+1. 元々送ったものとマッチする`custom_id`をチェックします（この場合は`accept_button_`で始まるものです）。カスタムIDにはアクティブなゲームIDもアペンドされていますので、これを`gameID`に保存します。
+2. `node-fetch`を使用してウェブフックを呼び出し、リクエストボディ内の一意のインタラクション`token`を渡すことで、[元のメッセージを削除](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response)します。これは他のユーザーがボタンをクリックしてしまわないよう、チャンネルをクリーンアップするための動作です。
+3. ゲームのオブジェクトの選択肢を示す選択メニューを含んだメッセージを送ることで、リクエストに応答します。ペイロードは前のものとよく似ていますが、`options`アレイと[一時メッセージであることを示す](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message)`flags: 64`がある点で異なります。
+
+`options`アレイは`game.js`の`getShuffledOptions()`メソッドを利用して入力されます。これは`RPSChoices`の値を操作して[メッセージ・コンポーネント・オプション](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)の形に合わせてゆくものです。
+
+</Collapsible>
+
+<Collapsible title="選択メニューとのインタラクションをハンドリングする" description="選択メニューとのインタラクションに応答し、ゲームのステートをアップデートするためのコード" icon="code" open>
+
+最後に追加するのは、選択メニューとのインタラクションをハンドリングし、ゲームの結果をチャンネルに送信するコードです。
+
+選択メニューもメッセージ・コンポーネントに他ならないため、メニューとのインタラクションをハンドリングするコードも、ボタンのそれとほぼ同じになります。
+
+上記のコードを編集して、選択メニューをハンドリングしましょう：
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// メッセージ・コンポーネントを送信する際、custom_idをペイロード内に設定する
+const componentId = data.custom_id;
+
+  if (componentId.startsWith('accept_button_')) {
+    // 関連付けられたゲームIDを取得する
+    const gameId = componentId.replace('accept_button_', '');
+    // リクエストボディのトークンを含むメッセージを削除する
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // ヘルパー関数から送る絵文字をランダムに取得する
+          content: 'What is your object of choice?',
+          // 一時メッセージであることを示す
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: MessageComponentTypes.ACTION_ROW,
+              components: [
+                {
+                  type: MessageComponentTypes.STRING_SELECT,
+                  // ゲームIDをアペンドする
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // 以前のメッセージを削除する
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  } else if (componentId.startsWith('select_choice_')) {
+    // 関連付けられたゲームIDを取得する
+    const gameId = componentId.replace('select_choice_', '');
+
+    if (activeGames[gameId]) {
+      // ユーザー応答のためユーザーIDと選択されたオブジェクトを取得する
+      const userId = req.body.member.user.id;
+      const objectName = data.values[0];
+      // ヘルパー関数から結果を計算する
+      const resultStr = getResult(activeGames[gameId], {
+        id: userId,
+        objectName,
+      });
+
+      // ゲームをストレージから削除する
+      delete activeGames[gameId];
+      // リクエストボディのトークンを含むメッセージを更新する
+      const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+
+      try {
+        // 結果を送信する
+        await res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: resultStr },
+        });
+        // 一時メッセージを更新する
+        await DiscordRequest(endpoint, {
+          method: 'PATCH',
+          body: {
+            content: 'Nice choice ' + getRandomEmoji(),
+            components: []
+          }
+        });
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
+    }
+  }
+}
+```
+
+以前のコードと同様、上記のコードは、インタラクション・リクエストからユーザーIDとそのユーザーの選択したオブジェクトを取得しています。
+
+この情報、ならびに元のユーザーのIDと`activeGames`オブジェクトからの選択が、`getResult()`関数に渡されます。`getResult()`が勝者を決定し、チャンネルに送り返すための読み取り可能な文字列をビルドします。
+
+また、別のウェブフックも呼び出して、[フォローアップの一時メッセージを削除できない代わりに更新します](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message)。
+
+最後に、`CHANNEL_MESSAGE_WITH_SOURCE`インタラクション応答タイプを使用して、結果がチャンネルに送られます。
+
+</Collapsible>
+
+……以上です 🎊 アプリをテストしてみて、すべてが想定通りに動くかどうか確かめましょう。
+
+---
+
+## 今後のステップ
+
+初めてのDiscordアプリの完成、おめでとうございます！🤖
+
+Discordアプリのこと、設定する方法、そしてインタラクティブなアプリを作る方法について、学んでいただけていれば幸いです。ここからは、アプリを開発をさらに進めてもよいですし、他にできることを調べてみてもよいでしょう：
+- API機能についてさらに詳しく知るため、**[ドキュメント](#DOCS_INTRO)**を読んでみる
+- より小規模な、機能固有のコード例を見るため、このプロジェクトの`examples/`フォルダーを見てみる
+- **[コミュニティリソース](#DOCS_TOPICS_COMMUNITY_RESOURCES)**で、コミュニティメンバーが管理している言語ごとのツールを見てみる
+- [Cloudflare WorkersでDiscordアプリをホストする](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)チュートリアルを読む
+- **[Discord開発者サーバー](https://discord.gg/discord-developers)**に加入して、APIについて質問したり、Discord APIチームの主催するイベントに参加したり、他の開発者と交流したりする

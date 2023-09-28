@@ -30,49 +30,53 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 ###### Bitwise Permission Flags
 
-| Permission                    | Value                            | Description                                                                                                                                         | Channel Type |
-| ----------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| CREATE_INSTANT_INVITE         | `0x0000000000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                                  | T, V, S      |
-| KICK_MEMBERS \*               | `0x0000000000000002` `(1 << 1)`  | Allows kicking members                                                                                                                              |              |
-| BAN_MEMBERS \*                | `0x0000000000000004` `(1 << 2)`  | Allows banning members                                                                                                                              |              |
-| ADMINISTRATOR \*              | `0x0000000000000008` `(1 << 3)`  | Allows all permissions and bypasses channel permission overwrites                                                                                   |              |
-| MANAGE_CHANNELS \*            | `0x0000000000000010` `(1 << 4)`  | Allows management and editing of channels                                                                                                           | T, V, S      |
-| MANAGE_GUILD \*               | `0x0000000000000020` `(1 << 5)`  | Allows management and editing of the guild                                                                                                          |              |
-| ADD_REACTIONS                 | `0x0000000000000040` `(1 << 6)`  | Allows for the addition of reactions to messages                                                                                                    | T, V         |
-| VIEW_AUDIT_LOG                | `0x0000000000000080` `(1 << 7)`  | Allows for viewing of audit logs                                                                                                                    |              |
-| PRIORITY_SPEAKER              | `0x0000000000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                                                | V            |
-| STREAM                        | `0x0000000000000200` `(1 << 9)`  | Allows the user to go live                                                                                                                          | V            |
-| VIEW_CHANNEL                  | `0x0000000000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels and joining voice channels                                 | T, V, S      |
-| SEND_MESSAGES                 | `0x0000000000000800` `(1 << 11)` | Allows for sending messages in a channel and creating threads in a forum (does not allow sending messages in threads)                               | T, V         |
-| SEND_TTS_MESSAGES             | `0x0000000000001000` `(1 << 12)` | Allows for sending of `/tts` messages                                                                                                               | T, V         |
-| MANAGE_MESSAGES \*            | `0x0000000000002000` `(1 << 13)` | Allows for deletion of other users messages                                                                                                         | T, V         |
-| EMBED_LINKS                   | `0x0000000000004000` `(1 << 14)` | Links sent by users with this permission will be auto-embedded                                                                                      | T, V         |
-| ATTACH_FILES                  | `0x0000000000008000` `(1 << 15)` | Allows for uploading images and files                                                                                                               | T, V         |
-| READ_MESSAGE_HISTORY          | `0x0000000000010000` `(1 << 16)` | Allows for reading of message history                                                                                                               | T, V         |
-| MENTION_EVERYONE              | `0x0000000000020000` `(1 << 17)` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel                  | T, V, S      |
-| USE_EXTERNAL_EMOJIS           | `0x0000000000040000` `(1 << 18)` | Allows the usage of custom emojis from other servers                                                                                                | T, V         |
-| VIEW_GUILD_INSIGHTS           | `0x0000000000080000` `(1 << 19)` | Allows for viewing guild insights                                                                                                                   |              |
-| CONNECT                       | `0x0000000000100000` `(1 << 20)` | Allows for joining of a voice channel                                                                                                               | V, S         |
-| SPEAK                         | `0x0000000000200000` `(1 << 21)` | Allows for speaking in a voice channel                                                                                                              | V            |
-| MUTE_MEMBERS                  | `0x0000000000400000` `(1 << 22)` | Allows for muting members in a voice channel                                                                                                        | V, S         |
-| DEAFEN_MEMBERS                | `0x0000000000800000` `(1 << 23)` | Allows for deafening of members in a voice channel                                                                                                  | V, S         |
-| MOVE_MEMBERS                  | `0x0000000001000000` `(1 << 24)` | Allows for moving of members between voice channels                                                                                                 | V, S         |
-| USE_VAD                       | `0x0000000002000000` `(1 << 25)` | Allows for using voice-activity-detection in a voice channel                                                                                        | V            |
-| CHANGE_NICKNAME               | `0x0000000004000000` `(1 << 26)` | Allows for modification of own nickname                                                                                                             |              |
-| MANAGE_NICKNAMES              | `0x0000000008000000` `(1 << 27)` | Allows for modification of other users nicknames                                                                                                    |              |
-| MANAGE_ROLES \*               | `0x0000000010000000` `(1 << 28)` | Allows management and editing of roles                                                                                                              | T, V, S      |
-| MANAGE_WEBHOOKS \*            | `0x0000000020000000` `(1 << 29)` | Allows management and editing of webhooks                                                                                                           | T, V         |
-| MANAGE_EMOJIS_AND_STICKERS \* | `0x0000000040000000` `(1 << 30)` | Allows management and editing of emojis and stickers                                                                                                |              |
-| USE_APPLICATION_COMMANDS      | `0x0000000080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                                     | T, V         |
-| REQUEST_TO_SPEAK              | `0x0000000100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)                    | S            |
-| MANAGE_EVENTS                 | `0x0000000200000000` `(1 << 33)` | Allows for creating, editing, and deleting scheduled events                                                                                         | V, S         |
-| MANAGE_THREADS \*             | `0x0000000400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                                          | T            |
-| CREATE_PUBLIC_THREADS         | `0x0000000800000000` `(1 << 35)` | Allows for creating public and announcement threads                                                                                                 | T            |
-| CREATE_PRIVATE_THREADS        | `0x0000001000000000` `(1 << 36)` | Allows for creating private threads                                                                                                                 | T            |
-| USE_EXTERNAL_STICKERS         | `0x0000002000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                                              | T, V         |
-| SEND_MESSAGES_IN_THREADS      | `0x0000004000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                                              | T            |
-| USE_EMBEDDED_ACTIVITIES       | `0x0000008000000000` `(1 << 39)` | Allows for using Activities (applications with the `EMBEDDED` flag) in a voice channel                                                              | V            |
-| MODERATE_MEMBERS \*\*         | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
+| Permission                             | Value                            | Description                                                                                                                                         | Channel Type |
+|----------------------------------------|----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| CREATE_INSTANT_INVITE                  | `0x0000000000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                                  | T, V, S      |
+| KICK_MEMBERS \*                        | `0x0000000000000002` `(1 << 1)`  | Allows kicking members                                                                                                                              |              |
+| BAN_MEMBERS \*                         | `0x0000000000000004` `(1 << 2)`  | Allows banning members                                                                                                                              |              |
+| ADMINISTRATOR \*                       | `0x0000000000000008` `(1 << 3)`  | Allows all permissions and bypasses channel permission overwrites                                                                                   |              |
+| MANAGE_CHANNELS \*                     | `0x0000000000000010` `(1 << 4)`  | Allows management and editing of channels                                                                                                           | T, V, S      |
+| MANAGE_GUILD \*                        | `0x0000000000000020` `(1 << 5)`  | Allows management and editing of the guild                                                                                                          |              |
+| ADD_REACTIONS                          | `0x0000000000000040` `(1 << 6)`  | Allows for the addition of reactions to messages                                                                                                    | T, V, S      |
+| VIEW_AUDIT_LOG                         | `0x0000000000000080` `(1 << 7)`  | Allows for viewing of audit logs                                                                                                                    |              |
+| PRIORITY_SPEAKER                       | `0x0000000000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                                                | V            |
+| STREAM                                 | `0x0000000000000200` `(1 << 9)`  | Allows the user to go live                                                                                                                          | V, S         |
+| VIEW_CHANNEL                           | `0x0000000000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels and joining voice channels                                 | T, V, S      |
+| SEND_MESSAGES                          | `0x0000000000000800` `(1 << 11)` | Allows for sending messages in a channel and creating threads in a forum (does not allow sending messages in threads)                               | T, V, S      |
+| SEND_TTS_MESSAGES                      | `0x0000000000001000` `(1 << 12)` | Allows for sending of `/tts` messages                                                                                                               | T, V, S      |
+| MANAGE_MESSAGES \*                     | `0x0000000000002000` `(1 << 13)` | Allows for deletion of other users messages                                                                                                         | T, V, S      |
+| EMBED_LINKS                            | `0x0000000000004000` `(1 << 14)` | Links sent by users with this permission will be auto-embedded                                                                                      | T, V, S      |
+| ATTACH_FILES                           | `0x0000000000008000` `(1 << 15)` | Allows for uploading images and files                                                                                                               | T, V, S      |
+| READ_MESSAGE_HISTORY                   | `0x0000000000010000` `(1 << 16)` | Allows for reading of message history                                                                                                               | T, V, S      |
+| MENTION_EVERYONE                       | `0x0000000000020000` `(1 << 17)` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel                  | T, V, S      |
+| USE_EXTERNAL_EMOJIS                    | `0x0000000000040000` `(1 << 18)` | Allows the usage of custom emojis from other servers                                                                                                | T, V, S      |
+| VIEW_GUILD_INSIGHTS                    | `0x0000000000080000` `(1 << 19)` | Allows for viewing guild insights                                                                                                                   |              |
+| CONNECT                                | `0x0000000000100000` `(1 << 20)` | Allows for joining of a voice channel                                                                                                               | V, S         |
+| SPEAK                                  | `0x0000000000200000` `(1 << 21)` | Allows for speaking in a voice channel                                                                                                              | V            |
+| MUTE_MEMBERS                           | `0x0000000000400000` `(1 << 22)` | Allows for muting members in a voice channel                                                                                                        | V, S         |
+| DEAFEN_MEMBERS                         | `0x0000000000800000` `(1 << 23)` | Allows for deafening of members in a voice channel                                                                                                  | V            |
+| MOVE_MEMBERS                           | `0x0000000001000000` `(1 << 24)` | Allows for moving of members between voice channels                                                                                                 | V, S         |
+| USE_VAD                                | `0x0000000002000000` `(1 << 25)` | Allows for using voice-activity-detection in a voice channel                                                                                        | V            |
+| CHANGE_NICKNAME                        | `0x0000000004000000` `(1 << 26)` | Allows for modification of own nickname                                                                                                             |              |
+| MANAGE_NICKNAMES                       | `0x0000000008000000` `(1 << 27)` | Allows for modification of other users nicknames                                                                                                    |              |
+| MANAGE_ROLES \*                        | `0x0000000010000000` `(1 << 28)` | Allows management and editing of roles                                                                                                              | T, V, S      |
+| MANAGE_WEBHOOKS \*                     | `0x0000000020000000` `(1 << 29)` | Allows management and editing of webhooks                                                                                                           | T, V, S      |
+| MANAGE_GUILD_EXPRESSIONS \*            | `0x0000000040000000` `(1 << 30)` | Allows management and editing of emojis, stickers, and soundboard sounds                                                                            |              |
+| USE_APPLICATION_COMMANDS               | `0x0000000080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                                     | T, V, S      |
+| REQUEST_TO_SPEAK                       | `0x0000000100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)                    | S            |
+| MANAGE_EVENTS                          | `0x0000000200000000` `(1 << 33)` | Allows for creating, editing, and deleting scheduled events                                                                                         | V, S         |
+| MANAGE_THREADS \*                      | `0x0000000400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                                          | T            |
+| CREATE_PUBLIC_THREADS                  | `0x0000000800000000` `(1 << 35)` | Allows for creating public and announcement threads                                                                                                 | T            |
+| CREATE_PRIVATE_THREADS                 | `0x0000001000000000` `(1 << 36)` | Allows for creating private threads                                                                                                                 | T            |
+| USE_EXTERNAL_STICKERS                  | `0x0000002000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                                              | T, V, S      |
+| SEND_MESSAGES_IN_THREADS               | `0x0000004000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                                              | T            |
+| USE_EMBEDDED_ACTIVITIES                | `0x0000008000000000` `(1 << 39)` | Allows for using Activities (applications with the `EMBEDDED` flag) in a voice channel                                                              | V            |
+| MODERATE_MEMBERS \*\*                  | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
+| VIEW_CREATOR_MONETIZATION_ANALYTICS \* | `0x0000020000000000` `(1 << 41)` | Allows for viewing role subscription insights                                                                                                       |              |
+| USE_SOUNDBOARD                         | `0x0000040000000000` `(1 << 42)` | Allows for using soundboard in a voice channel                                                                                                      | V            |
+| USE_EXTERNAL_SOUNDS                    | `0x0000200000000000` `(1 << 45)` | Allows the usage of custom soundboard sounds from other servers                                                                                     | V            |
+| SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                       | T, V, S      |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
@@ -187,29 +191,35 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 
 ###### Role Structure
 
-| Field          | Type                                                                         | Description                                       |
-| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
-| id             | snowflake                                                                    | role id                                           |
-| name           | string                                                                       | role name                                         |
-| color          | integer                                                                      | integer representation of hexadecimal color code  |
-| hoist          | boolean                                                                      | if this role is pinned in the user listing        |
-| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
-| unicode_emoji? | ?string                                                                      | role unicode emoji                                |
-| position       | integer                                                                      | position of this role                             |
-| permissions    | string                                                                       | permission bit set                                |
-| managed        | boolean                                                                      | whether this role is managed by an integration    |
-| mentionable    | boolean                                                                      | whether this role is mentionable                  |
-| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                            |
+| Field          | Type                                                                         | Description                                                                                                                     |
+|----------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake                                                                    | role id                                                                                                                         |
+| name           | string                                                                       | role name                                                                                                                       |
+| color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
+| hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
+| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)                                                                              |
+| unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
+| position       | integer                                                                      | position of this role                                                                                                           |
+| permissions    | string                                                                       | permission bit set                                                                                                              |
+| managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
+| mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
+| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                                                                                                          |
+| flags          | integer                                                                      | [role flags](#DOCS_TOPICS_PERMISSIONS/role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
 ###### Role Tags Structure
 
-| Field               | Type      | Description                                         |
-| ------------------- | --------- | --------------------------------------------------- |
-| bot_id?             | snowflake | the id of the bot this role belongs to              |
-| integration_id?     | snowflake | the id of the integration this role belongs to      |
-| premium_subscriber? | null      | whether this is the guild's premium subscriber role |
+Tags with type `null` represent booleans. They will be present and set to `null` if they are "true", and will be not present if they are "false".
+
+| Field                    | Type      | Description                                        |
+|--------------------------|-----------|----------------------------------------------------|
+| bot_id?                  | snowflake | the id of the bot this role belongs to             |
+| integration_id?          | snowflake | the id of the integration this role belongs to     |
+| premium_subscriber?      | null      | whether this is the guild's Booster role           |
+| subscription_listing_id? | snowflake | the id of this role's subscription sku and listing |
+| available_for_purchase?  | null      | whether this role is available for purchase        |
+| guild_connections?       | null      | whether this role is a guild's linked role         |
 
 ###### Example Role
 
@@ -224,9 +234,16 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "position": 1,
   "permissions": "66321471",
   "managed": false,
-  "mentionable": false
+  "mentionable": false,
+  "flags": 0
 }
 ```
+
+###### Role Flags
+
+| Flag      | Value  | Description                                                                                              |
+|-----------|--------|----------------------------------------------------------------------------------------------------------|
+| IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 
