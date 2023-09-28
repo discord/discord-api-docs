@@ -5,7 +5,7 @@
 ###### Application Structure
 
 | Field                              | Type                                                                       | Description                                                                                                           |
-| ---------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+|------------------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | id                                 | snowflake                                                                  | ID of the app                                                                                                         |
 | name                               | string                                                                     | Name of the app                                                                                                       |
 | icon                               | ?string                                                                    | [Icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                              |
@@ -97,7 +97,7 @@
 ###### Install Params Structure
 
 | Field       | Type             | Description                                                                                            |
-| ----------- | ---------------- | ------------------------------------------------------------------------------------------------------ |
+|-------------|------------------|--------------------------------------------------------------------------------------------------------|
 | scopes      | array of strings | [Scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
 | permissions | string           | [Permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |
 
@@ -115,7 +115,7 @@ Edit properties of the app associated with the requesting bot user. Only propert
 ###### JSON Params
 
 | Field                             | Type                                                                       | Description                                                                                                   |
-| --------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | custom_install_url                | string                                                                     | Default custom authorization URL for the app, if enabled                                                      |
 | description                       | string                                                                     | Description of the app                                                                                        |
 | role_connections_verification_url | string                                                                     | Role connection verification URL for the app                                                                  |
