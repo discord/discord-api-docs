@@ -6,7 +6,7 @@ When a guild has added a bot and that bot has configured its [`role_connections_
 
 If an application has configured role connection metadata, its metadata will appear in the role verification configuration when the application has been added as a verification method to the role.
 
-When a user connects their account using the bot's [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object), the bot will [update a user's role connection with metadata](#DOCS_RESOURCES_USER/update-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
+When a user connects their account using the bot's [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object), the bot will [update a user's role connection with metadata](#DOCS_RESOURCES_USER/update-current-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
 
 ### Application Role Connection Metadata Object
 

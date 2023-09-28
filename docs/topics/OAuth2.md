@@ -33,7 +33,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                                                          |
 | applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                      |
 | bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                              |
-| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                        |
+| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-current-user-connections) to return linked third-party accounts                                                                |
 | dm_channels.read                         | allows your app to see information about the user's DMs and group DMs - requires Discord approval                                                                                       |
 | email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                        |
 | gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                           |
@@ -68,6 +68,8 @@ While Discord does not require the use of the `state` parameter, we support it a
 
 The authorization code grant is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
 
+All calls to the OAuth2 endpoints require either HTTP Basic authentication or `client_id` and `client_secret` supplied in the form data body.
+
 ###### Authorization URL Example
 
 ```
@@ -88,8 +90,6 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 
 `code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
-- `client_id` - your application's client id
-- `client_secret` - your application's client secret
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
 - `redirect_uri` - the `redirect_uri` associated with this authorization, usually from your authorization URL
@@ -106,8 +106,6 @@ REDIRECT_URI = 'https://nicememe.website'
 
 def exchange_code(code):
   data = {
-    'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': code,
     'redirect_uri': REDIRECT_URI
@@ -115,12 +113,12 @@ def exchange_code(code):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
 
-You can also pass your `client_id` and `client_secret` as basic authentication with `client_id` as the username and `client_secret` as the password. In response, you will receive:
+In response, you will receive:
 
 ###### Access Token Response
 
@@ -136,8 +134,6 @@ You can also pass your `client_id` and `client_secret` as basic authentication w
 
 Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
-- `client_id` - your application's client id
-- `client_secret` - your application's client secret
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 
@@ -149,24 +145,51 @@ import requests
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-REDIRECT_URI = 'https://nicememe.website'
 
 def refresh_token(refresh_token):
   data = {
-    'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET,
     'grant_type': 'refresh_token',
     'refresh_token': refresh_token
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
 
 Boom; fresh [access token response](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-response)!
+
+###### Token Revocation Example
+
+To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+
+- `token` - the access token or refresh token to revoke
+- `token_type_hint` *(optional)* - the `token` parameter's type—either `access_token` or `refresh_token`
+
+> warn
+> When you revoke a token, any active access or refresh tokens associated with that authorization will be revoked, regardless of the `token` and `token_type_hint` values you pass in.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+
+def revoke_access_token(access_token):
+  data = {
+    'token': access_token,
+    'token_type_hint': 'access_token'
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  requests.post('%s/oauth2/token/revoke' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+```
+
+Boom; the tokens are safely revoked.
 
 ## Implicit Grant
 
@@ -427,9 +450,10 @@ Returns info about the current authorization. Requires authentication with a bea
     "expires": "2021-01-23T02:33:17.017000+00:00",
     "user": {
         "id": "268473310986240001",
-        "username": "Discord",
+        "username": "discord",
         "avatar": "f749bb0cbeeb26ef21eca719337d20f1",
-        "discriminator": "0001",
+        "discriminator": "0",
+        "global_name": "Discord",
         "public_flags": 131072
     }
 }
