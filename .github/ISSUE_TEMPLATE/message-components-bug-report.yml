@@ -1,10 +1,10 @@
 name: Message Components Bug Report
 description: A bug has been found in Discord's Message Components.
-labels: ["message components"]
+labels: ["bug", "message components"]
 body:
   - type: markdown
     attributes:
-      value: "Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22message+components%22+"
+      value: "Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22message+components%22"
   - type: textarea
     id: description
     attributes:

@@ -1,0 +1,487 @@
+<LocalePicker currentLocale="nl" />
+
+# Het bouwen van je eerste Discord-app
+
+Met Discord-apps kun je je servers aanpassen en uitbreiden via een aantal API's en interactieve functies. Deze gids helpt je stap voor stap bij het bouwen van je eerste Discord-app met behulp van JavaScript, waardoor je app uiteindelijk gebruikmaakt van slashopdrachten, berichten verstuurt en reageert op interacties tussen componenten.
+
+We gaan een app bouwen waarmee serverleden steen-papier-schaar kunnen spelen (met 7 keuzes in plaats van 3). Deze gids richt zich op beginners, maar gaat uit van basiskennis van [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+
+<Collapsible title="Wat we gaan bouwen" icon="view">
+Zo komt de voltooide app eruit te zien:
+
+![Demo van de voorbeeld-app](getting-started-demo.gif)
+
+Ter verduidelijking van de gebruikersflow:
+
+1. Gebruiker 1 begint aan een nieuw spel en kiest een object via de slashopdracht `/challenge` in de app
+2. Er wordt een bericht naar een kanaal gestuurd met een knop waarmee anderen de uitdaging kunnen accepteren
+3. Gebruiker 2 klikt op de knop **Accepteren**
+4. Gebruiker 2 ontvangt een kortstondig bericht waarin een object naar keuze kan worden geselecteerd
+5. Het resultaat van het spel wordt in het oorspronkelijke kanaal gepost, zodat iedereen het kan zien
+</Collapsible>
+
+<Collapsible title="In deze gids gebruikte hulpbronnen" description="Overzicht van de tools en technologieën die we gebruiken" icon="list">
+- **[GitHub-register](https://github.com/discord/discord-example-app)** waar de code uit deze gids zich bevindt, samen met wat extra codevoorbeelden voor speciale functies.
+- **[discord-interacties](https://github.com/discord/discord-interactions-js)**, een bibliotheek met soort- en hulpfuncties voor Discord-apps.
+- **[Express](https://expressjs.com)**, een populair JavaScript-webframewerk dat we gebruiken om een server te creëren waarvandaan Discord ons verzoeken kan sturen.
+- **[Glitch](https://glitch.com/)**, een online omgeving die het bouwen en hosten van apps vereenvoudigt in de vroege prototype- en ontwikkelingsfase. Je kunt ook lokaal ontwikkelen met een tool als **[ngrok](https://ngrok.com/)**.
+</Collapsible>
+
+---
+
+## Stap 1: Een app creëren
+
+Eerst moet je een app creëren in het ontwikkelaarsportaal, als je dat nog niet hebt gedaan:
+
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">App creëren</Button>
+
+Voer een naam in voor je app en klik dan op **Creëren**.
+
+Na het creëren van je app, kom je terecht op de pagina **Algemeen overzicht** van de app-instellingen, waar je basisinformatie over je app kunt updaten, zoals de beschrijving en het pictogram. Je ziet daar ook een **applicatie-ID** en **eindpunt-URL voor interacties**, waar we later in de gids mee te maken krijgen.
+
+### Je bot configureren
+
+Nu gaan we de [botgebruiker](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) voor je app configureren, waardoor hij kan verschijnen en zich kan gedragen als andere serverleden.
+
+Klik in de linker zijbalk op **Bot**. Op deze pagina kun je instellingen configureren zoals de [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) van je bot en of je wilt dat andere gebruikers hem kunnen installeren.
+
+<Collapsible title="Wat zijn intents?" description="Introductie van gewone en privileged intents" icon="question">
+Intents bepalen welke evenementen Discord naar je app stuurt als je een [Gateway API-verbinding](#DOCS_TOPICS_GATEWAY) creëert. Als je bijvoorbeeld wilt dat je app iets doet als gebruikers reageren op een bericht, kun je de intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`) doorgeven.
+
+Sommige intents zijn [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents), wat betekent dat ze je app toegang geven tot data die als gevoelig beschouwd kunnen worden (zoals de inhoud van berichten). Privileged intents verschijnen op de **Bot**-pagina in je app-instellingen, waar je ze ook aan en uit kunt zetten. Voor gewone intents heb je geen extra machtigingen of configuraties nodig.
+
+Meer informatie over intents en een volledige lijst van beschikbare intents en de bijbehorende evenementen is te vinden in de [Gateway-documentatie](#DOCS_TOPICS_GATEWAY/gateway-intents).
+</Collapsible>
+
+![Bot-tab in app-instellingen](app-add-bot.png)
+
+Er is ook een **Token**-sectie op de **Bot**-pagina, waarmee je het token van je bot kunt kopiëren en resetten.
+
+Met bottokens worden API-verzoeken geautoriseerd. Ze bevatten de machtigingen van je botgebruiker, waardoor ze *zeer kwetsbaar* zijn. Deel *nooit* je token en gebruik hem nooit bij versiecontrole.
+
+Maar je kunt je token gerust kopiëren en hem dan veilig opbergen (bijvoorbeeld in een wachtwoordbeheerprogramma).
+
+> waarschuwing
+> Je kunt je token niet zien tenzij je hem regenereert, dus berg hem ergens veilig op.
+
+### Scopes en botmachtigingen toevoegen
+
+Apps hebben toestemming nodig van gebruikers die ze installeren om acties uit te voeren in Discord (zoals het creëren van slahopdrachten of het ophalen van een lijst met serverleden). Laten we een paar scopes en machtigingen kiezen om aan te vragen voordat de app wordt geïnstalleerd.
+
+<Collapsible title="Wat zijn scopes en machtigingen?" description="Introductie van scopes en botmachtigingen" icon="question">
+Bij het creëren van een app bepaal je met scopes en botmachtigingen wat je app kan doen en waartoe de app toegang krijgt op Discord-servers.
+
+- [OAuth2-scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
+- [Machtigingen](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) zijn de gespecialiseerde toestemmingen voor je botgebruiker, zoals andere gebruikers op Discord ook hebben. Ze kunnen toestemming krijgen van de installerende gebruiker, of later worden bijgewerkt in de serverinstellingen of met [machtigingsoverschrijvingen](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
+</Collapsible>
+
+Klik in de zijbalk links op **OAuth2** en selecteer vervolgens **URL-generator**.
+
+> info
+> De URL-generator creëert een installatielink gebaseerd op de scopes en machtigingen die je selecteert voor je app. Je kunt de link gebruiken om de app op je eigen server te installeren of om hem te delen met anderen, zodat zij hem kunnen installeren.
+
+Voeg voorlopig twee scopes toe:
+- `applications.commands`, waarmee je app [opdrachten](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) kan creëren.
+- `bot` voegt je botgebruiker toe. Nadat je `bot` hebt geselecteerd, kun je ook andere machtigingen selecteren voor je bot. Vink voorlopig alleen **Berichten verzenden** aan.
+
+Bekijk een lijst met alle [OAuth2-scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) of lees meer over [machtigingen](#DOCS_TOPICS_PERMISSIONS) in de documentatie.
+
+### Je app installeren
+
+Als je eenmaal scopes hebt toegevoegd, verschijnt er een URL die je kunt kopiëren om je app te installeren.
+
+![Screenshot van URL-generator](url-generator.png)
+
+> info
+> Als je apps ontwikkelt, kun je ze het beste bouwen en testen op een server die niet actief wordt gebruikt door anderen. Als je nog geen eigen server hebt, kun je [er gratis eentje creëren](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+
+Kopieer de bovenstaande URL en plak hem in je browser. Je wordt vervolgens door het installatieproces geleid, waarbij je ervoor moet zorgen dat je je app installeert op een server waarop hij ontwikkeld en getest kan worden.
+
+Na het installeren van je app kun je naar je server gaan om te zien of alles werkt ✨
+
+Nu je app is geconfigureerd en geïnstalleerd, kun je hem gaan ontwikkelen.
+
+---
+
+## Stap 2: Je app laten draaien
+
+Alle code uit de voorbeeld-app vind je in [het GitHub-register](https://github.com/discord/discord-example-app).
+
+Om het ontwikkelen wat makkelijker te maken, maakt de app gebruik van [discord-interactions](https://github.com/discord/discord-interactions-js), die soort- en hulpfuncties verschaffen. Als je liever andere talen of bibliotheken gebruikt, raadpleeg dan de documentatie van de [communityhulpbronnen.](#DOCS_TOPICS_COMMUNITY_RESOURCES)
+
+### Het project remixen
+
+Deze gids maakt gebruik van Glitch, waarmee je in je browser kunt klonen en ontwikkelen. Als je je app liever lokaal ontwikkelt, vind je [in de README](https://github.com/discord/discord-example-app#running-app-locally) instructies over het gebruik van ngrok.
+
+> info
+> Glitch is geweldig voor ontwikkeling en testen, maar [het heeft ook zijn technische beperkingen](https://help.glitch.com/hc/en-us/articles/16287495313293-Technical-Restrictions). Daarom is het goed om voor productie-apps ook naar andere hostingproviders te kijken.
+
+**[Remix (of kloon) om te beginnen het Glitch-project 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
+
+Als je het project remixt, kom je in een nieuw Glitch-project terecht.
+
+<Collapsible title="Interface Glitch-project" description="Overzicht van de projectinterface van Glitch" icon="view">
+![Projectoverzicht Glitch](glitch-project.png)
+
+- Je **projectnaam** is een unieke naam voor je project, die je vindt in de linker bovenhoek
+- **`.env`** is het bestand waar alle verificatiegegevens voor je app in worden opgeslagen
+- In **logs** kun je de output van je project vinden. Hier kun je zien of de app wel draait, en info bekijken over problemen waar je app tegenaan loopt
+- De knop **Delen**, rechts boven in het scherm, is de plaats waar de live project-URL te vinden is. Verderop in deze gids gebruiken we die om interactiviteit in te stellen
+</Collapsible>
+
+#### Projectstructuur
+
+Alle bestanden voor het project staan aan de linkerkant van je Glitch-project. Hieronder zie je een overzicht van de hoofdmappen en -bestanden:
+
+```
+├── examples    -> korte, functie-specifieke voorbeeld-apps
+│   ├── app.js  -> voltooide app.js-code
+│   ├── button.js
+│   ├── command.js
+│   ├── modal.js
+│   ├── selectMenu.js
+├── .env        -> je verificatiegegevens en ID's
+├── app.js      -> belangrijkste ingang voor app
+├── commands.js -> payloads van slashopdrachten + hulpfuncties
+├── game.js     -> specifieke SPS-logica
+├── utils.js    -> hulpprogrammafuncties en enums
+├── package.json
+├── README.md
+└── .gitignore
+```
+
+### Verificatiegegevens toevoegen
+
+Er staat al wat code in je `app.js`-bestand, maar om verzoeken in te dienen, heb je de token en ID van je app nodig. Al je verificatiegegevens kun je opslaan in het `.env`-bestand.
+
+Eerst kopieer je het eerder genoemde token van je botgebruiker en plak je die in de **`DISCORD_TOKEN`**-variabele van je `.env`-bestand.
+
+Ga daarna naar de pagina **Algemeen overzicht** en kopieer de **app-ID** en **openbare code**. Plak de waarden in je `.env`-bestand als **`APP_ID`** en **`PUBLIC_KEY`**.
+
+Nu je verificatiegegevens zijn geconfigureerd, gaan we slashopdrachten installeren en er verder mee werken.
+
+### Slashopdrachten installeren
+
+> info
+> Om slashopdrachten te installeren, maakt de app gebruik van [`node-fetch`](https://github.com/node-fetch/node-fetch). Je kunt de implementatie voor de installatie zien in `utils.js`, binnen de `DiscordRequest()`-functie.
+
+Het project bevat een `register`-script waarmee je de opdrachten kunt installeren in `ALL_COMMANDS`, wat je onderaan `commands.js` vindt. Dit installeert de opdrachten als algemene opdrachten door het [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands)-eindpunt van de HTTP API op te roepen.
+
+Als je je opdrachten wilt aanpassen of extra opdrachten wilt toevoegen, kun je verwijzen naar de opdrachtstructuur in de [opdrachtdocumentatie](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure).
+
+Run het `register`-script door onderaan het Glitch-project op **Terminal** te klikken en de volgende opdracht te plakken:
+
+```
+npm run register
+```
+
+Druk op Enter om de opdracht te activeren.
+
+Als je teruggaat naar je server, moet je nu de slashopdrachten zien verschijnen. Maar als je ze probeert uit te voeren, gebeurt er niets, omdat je app geen verzoeken ontvangt of verwerkt van Discord.
+
+<Collapsible title="Wat zijn Discords API's?" description="Overzicht van Discords HTTP en Gateway-API's" icon="question">
+Discord heeft twee API's die je kunt combineren om apps te bouwen:
+
+- **[HTTP API](#DOCS_REFERENCE/http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
+- **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](#DOCS_TOPICS_GATEWAY).
+</Collapsible>
+
+---
+
+## Step 3: Werken met interactiviteit
+
+Om ervoor te zorgen dat je app slashopdrachtverzoeken (en andere interacties) kan ontvangen, heeft Discord een openbare URL nodig om ze te versturen. Je kunt deze URL configureren in de instellingen van je app als **eindpunt-URL voor interacties**.
+
+### Een eindpunt-URL voor interacties toevoegen
+
+In Glitch-projecten is standaard een openbare URL te zien. Kopieer de URL van je project door op de knop **Delen** te klikken rechtsboven in de hoek. Kopieer vervolgens de projectlink 'Live site' onderaan de modal.
+
+> info
+> Als je lokaal ontwikkelt, kun je [in de README van GitHub](https://github.com/discord/discord-example-app#running-app-locally) instructies vinden om verzoeken naar je lokale omgeving te leiden.
+
+Nu de link gekopieerd is, ga je naar de instellingen van je app vanuit [het ontwikkelaarsportaal](https://discord.com/developers/applications).
+
+Op de pagina **Algemene informatie** van je app staat de optie **Interactieve eindpunt-URL**. Hier kun je de URL van de app in plakken en er `/interactions` aanhangen. Dat is waar de Express-app geconfigureerd kan worden om verzoeken op te vangen.
+
+![Eindpunt-URL voor interacties in app-instellingen](interactions-url.png)
+
+Klik op **Wijzigingen opslaan** en controleer of het is gelukt om je eindpunt te verifiëren.
+
+In de voorbeeld-app wordt verificatie op twee manieren aangepakt:
+- Het gebruikt de `PUBLIC_KEY` en het [pakket discord-interactions](https://github.com/discord/discord-interactions-js#usage) met een wrapper-functie (geïmporteerd uit `utils.js`) waardoor het geschikt wordt voor de [`verify`-interface van Express](http://expressjs.com/en/5x/api.html#express.json). Dit wordt toegepast op elk binnenkomend verzoek op je app.
+- Het reageert op binnenkomende `PING`-verzoeken.
+
+Raadpleeg voor meer informatie over het voorbereiden van je app op het ontvangen van interacties [de interactiedocumentatie](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
+
+### Werken met slashopdracht-verzoeken
+
+Nu het eindpunt geverifieerd is, ga je naar het `app.js`-bestand van je project en zoek je het codeblok voor de `/test`-opdracht:
+
+```javascript
+// "test" opdracht
+if (name === 'test') {
+    // Stuur een bericht naar het kanaal waarin de opdracht is geactiveerd
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // Haalt een willekeurige emoji op om te versturen vanaf een hulpfunctie
+        content: 'hello world ' + getRandomEmoji(),
+    },
+    });
+}
+```
+
+Bovenstaande code reageert op de interactie door een bericht naar het kanaal te sturen waar de interactie is ontstaan. Je kunt alle beschikbare reactiesoorten bekijken, zoals reageren met een modal, [in de documentatie](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+
+> info
+> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is een constante [die wordt geëxporteerd uit `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+
+Ga naar je server en zorg ervoor dat de `/test`-slashopdracht van je app werkt. Als je hem activeert, moet je app een bericht versturen met de woorden 'hello world' erin, gevolgd door een willekeurige emoji.
+
+In de volgende sectie voegen we een extra opdracht toe met slashopdracht-opties, knoppen en keuzemenu's om het spelletje steen-papier-schaar op te bouwen.
+
+---
+
+## Stap 4: Berichtonderdelen toevoegen
+
+Met de opdracht `/challenge` wordt ons steen-papier-schaar-achtige spelletje gestart. Als de opdracht wordt geactiveerd, stuurt de app een berichtonderdeel naar het kanaal, dat gebruikers tot het eind van het spel zal begeleiden.
+
+### Een opdracht met opties toevoegen
+
+De opdracht `/challenge`, `CHALLENGE_COMMAND` genaamd in `commands.js`, heeft verschillende `options`. In onze app zijn de opties verschillende objecten die een gebruiker kan kiezen bij het spelen van steen-papier-schaar, die worden gegenereerd met behulp van `RPSChoices`-codes in `game.js`.
+
+Je kunt meer lezen over opdrachtopties en hun structuur [in de documentatie](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
+
+> info
+> In deze gids staat niet veel over het `game.js`-bestand, maar verken het bestand gerust en wees niet bang opdrachten of opties in de opdrachten te wijzigen.
+
+<Collapsible title="Werken met opdrachtinteractie" description="Code voor het werken met de challenge-opdracht en reageren met een bericht dat een knop bevat" icon="code" open>
+
+Om met de opdracht `/challenge` te werken, moet je de volgende code toevoegen na het 'if block'`if name === “test”`:
+
+```javascript
+// "challenge" opdracht
+if (name === 'challenge' && id) {
+    const userId = req.body.member.user.id;
+    // Objectkeuze van gebruiker
+    const objectName = req.body.data.options[0].value;
+
+    // Creëer een actief spel met bericht-ID als game-ID
+    activeGames[id] = {
+        id: userId,
+        objectName,
+    };
+
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        content: `Rock papers scissors challenge from <@${userId}>`,
+        components: [
+        {
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+            {
+                type: MessageComponentTypes.BUTTON,
+                // Voeg de game-ID bij om later te gebruiken
+                custom_id: `accept_button_${req.body.id}`,
+                label: 'Accept',
+                style: ButtonStyleTypes.PRIMARY,
+            },
+            ],
+        },
+        ],
+    },
+    });
+}
+```
+
+
+> info
+> Als je niet zeker weet waar je de code moet plakken, kun je de volledige code bekijken in `examples/app.js` in het Glitch-project of de root van `app.js` [op GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+
+De bovenstaande code doet een aantal dingen:
+1. Hij analyseert de inhoud van het verzoek om de ID van de gebruiker op te halen die de slashopdracht heeft geactiveerd (`userId`) en de optie (objectkeuze) die de gebruiker heeft geselecteerd (`objectName`).
+2. Hij voegt een nieuw spel toe aan het object `activeGames` met behulp van de interactie-ID. Het actieve spel registreert de `userId` en `objectName`.
+3. Hij stuurt een bericht met daarin een knop met een `custom_id` van `accept_button_<SOME_ID>` naar het kanaal terug.
+
+> waarschuwing
+> De voorbeeldcode gebruikt een object als opslag in het geheugen, maar voor productie-apps moet je een database gebruiken.
+
+Bij het sturen van een bericht met [berichtonderdelen](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) worden de individuele payloads aan een `components`-lijst toegevoegd. Onderdelen waar acties mee worden uitgevoerd (zoals knoppen) moeten deel uitmaken van een [actierij](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), die je in het codevoorbeeld ziet staan.
+
+Let op de unieke `custom_id` die meegestuurd wordt met berichtonderdelen. In dit geval is dat `accept_button_` waaraan de ID van het actieve spel is bijgevoegd. Een `custom_id` kan worden gebruikt om verzoeken af te handelen die Discord je stuurt als iemand interactie aangaat met het onderdeel, waarvan je straks een voorbeeld ziet.
+
+Als je nu de opdracht `/challenge` activeert en een optie kiest, zal je app een bericht sturen met de knop **Accepteren** erin. Laten we code toevoegen om de druk op de knop te verwerken.
+
+</Collapsible>
+
+<Collapsible title="Het werken met knopinteracties" description="Code voor het verwerken van een klik op een knop en reageren met een kortstondig bericht" icon="code" open>
+
+Als gebruikers interactie aangaan met een berichtonderdeel, verstuurt Discord een verzoek met één [interactietype](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) uit `3` opties (of de waarde van het `MESSAGE_COMPONENT` als `discord-interactions` wordt gebruikt).
+
+Om een verwerker in te stellen voor de knop, controleren we het `type` interactie en matchen we de `custom_id`.
+
+Plak de volgende code onder de typeverwerker voor `APPLICATION_COMMAND`:
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id wordt ingesteld in payload bij versturen berichtonderdeel
+const componentId = data.custom_id;
+
+  if (componentId.startsWith('accept_button_')) {
+    // Haal de bijbehorende game-ID op
+    const gameId = componentId.replace('accept_button_', '');
+    // Verwijder bericht met token in verzoekinhoud
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Haalt een willekeurige emoji op om te versturen vanaf een hulpfunctie
+          content: 'What is your object of choice?',
+          // Geeft aan dat het een kortstondig bericht wordt
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: MessageComponentTypes.ACTION_ROW,
+              components: [
+                {
+                  type: MessageComponentTypes.STRING_SELECT,
+                  // Voeg game-ID bij
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // Verwijder eerder bericht
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  }
+}
+```
+
+De bovenstaande code:
+1. Zoekt naar een `custom_id` die overeenkomt met wat we oorspronkelijk hebben verstuurd (in dit geval begint dat met `accept_button_`). Bij de aangepaste ID is de game-ID gevoegd, zodat we die kunnen opslaan in `gameID`.
+2. [Verwijdert het oorspronkelijke bericht](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) door een webhook aan te roepen met behulp van `node-fetch` en door de unieke interactie-`token` door te geven in de inhoud van het verzoek.
+3. Reageert op het verzoek door een bericht te sturen met een keuzemenu dat de objectkeuzes voor de game bevat. De payload is vergelijkbaar met de vorige, met uitzondering van de `options`-lijst en `flags: 64`, [die aangeeft dat het bericht kortstondig is](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
+
+De `options`-lijst wordt gevuld met behulp van de `getShuffledOptions()`-methode in `game.js`, die de `RPSChoices`-waarden manipuleert om te passen bij de vorm van de [berichtcomponentopties](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure).
+
+</Collapsible>
+
+<Collapsible title="Werken met keuzemenu-interacties" description="Code voor het reageren op keuzemenu-interacties en het updaten van de spelstatus" icon="code" open>
+
+Het laatste wat je moet toevoegen is een code om keuzemenu-interacties te verwerken en het resultaat van het spel naar een kanaal te sturen.
+
+Aangezien keuzemenu's gewoon een berichtonderdeel zijn, is de code om de bijbehorende interacties te verwerken vergelijkbaar met knoppen.
+
+Pas de bovenstaande code aan voor het keuzemenu:
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id wordt ingesteld in payload bij versturen berichtonderdeel
+const componentId = data.custom_id;
+
+  if (componentId.startsWith('accept_button_')) {
+    // Haal de bijbehorende game-ID op
+    const gameId = componentId.replace('accept_button_', '');
+    // Verwijder bericht met token in verzoekinhoud
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Haalt een willekeurige emoji op om te versturen vanaf een hulpfunctie
+          content: 'What is your object of choice?',
+          // Geeft aan dat het een kortstondig bericht wordt
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: MessageComponentTypes.ACTION_ROW,
+              components: [
+                {
+                  type: MessageComponentTypes.STRING_SELECT,
+                  // Voeg game-ID bij
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // Verwijder eerder bericht
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  } else if (componentId.startsWith('select_choice_')) {
+    // Haal de bijbehorende game-ID op
+    const gameId = componentId.replace('select_choice_', '');
+
+    if (activeGames[gameId]) {
+      // Haal de gebruikers-ID en objectkeuze voor de reagerende gebruiker op
+      const userId = req.body.member.user.id;
+      const objectName = data.values[0];
+      // Bereken resultaat met hulpfunctie
+      const resultStr = getResult(activeGames[gameId], {
+        id: userId,
+        objectName,
+      });
+
+      // Verwijder game uit opslag
+      delete activeGames[gameId];
+      // Update bericht met token in verzoekinhoud
+      const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+
+      try {
+        // Verstuur resultaten
+        await res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: resultStr },
+        });
+        // Update kortstondig bericht
+        await DiscordRequest(endpoint, {
+          method: 'PATCH',
+          body: {
+            content: 'Nice choice ' + getRandomEmoji(),
+            components: []
+          }
+        });
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
+    }
+  }
+}
+```
+
+Net zoals de eerdere code, haalt de bovenstaande code de gebruikers-ID en de objectkeuze op uit het interactieverzoek.
+
+Die informatie wordt samen met de ID van de oorspronkelijke gebruiker en de keuze van het `activeGames`-object doorgegeven aan de functie `getResult()`. `getResult()` bepaalt de winnaar en bouwt een leesbare string om naar het kanaal terug te sturen.
+
+We roepen ook nog een andere webhook aan, dit keer om [het kortstondige opvolgbericht te updaten](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message), aangezien dat niet kan worden verwijderd.
+
+Als laatste worden de resultaten verstuurd naar het kanaal met behulp van het interactiereactietype `CHANNEL_MESSAGE_WITH_SOURCE`.
+
+</Collapsible>
+
+En dat was het! 🎊 Nu kun je je app testen en ervoor zorgen dat alles werkt.
+
+---
+
+## Volgende stappen
+
+Gefeliciteerd met het bouwen van je eerste Discord-app! 🎊
+
+Hopelijk heb je iets opgestoken over Discord-apps, hoe je ze kunt configureren en hoe je ze interactief kunt maken. Je kunt nu je app verder uitbouwen of ontdekken wat er nog meer mogelijk is:
+- Lees **[de documentatie](#DOCS_INTRO)** voor meer informatie over API-functies
+- Kijk de `examples/`-map van dit project door voor kleinere codevoorbeelden, speciaal voor bepaalde functies
+- Check de **[communityhulpbronnen](#DOCS_TOPICS_COMMUNITY_RESOURCES)** voor tools in verschillende coderingstalen die door communityleden worden beheerd
+- Lees onze tutorial over het [hosten van Discord-apps op Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
+- Word lid van de **[Discord-ontwikkelaarsserver](https://discord.gg/discord-developers)** om vragen te stellen over de API, deel te nemen aan door het Discord API-team gehoste evenementen en met andere ontwikkelaars te praten

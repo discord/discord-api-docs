@@ -13,15 +13,18 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 ###### Discord Libraries
 
 | Name                                                          | Language   |
-| ------------------------------------------------------------- | ---------- |
+|---------------------------------------------------------------|------------|
 | [Discord.Net](https://github.com/discord-net/Discord.Net)     | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)        | C#         |
+| [D++](https://github.com/brainboxdotcc/DPP)                   | C++        |
+| [discljord](https://github.com/discljord/discljord)           | Clojure    |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)            | Go         |
 | [Discord4J](https://github.com/Discord4J/Discord4J)           | Java       |
 | [Javacord](https://github.com/Javacord/Javacord)              | Java       |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                 | Java       |
 | [discord.js](https://github.com/discordjs/discord.js)         | JavaScript |
 | [Eris](https://github.com/abalabahaha/eris)                   | JavaScript |
+| [Oceanic](https://github.com/OceanicJS/Oceanic)               | JavaScript |
 | [Discordia](https://github.com/SinisterRectus/Discordia)      | Lua        |
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)       | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)            | Python     |
@@ -62,6 +65,13 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
   - [Bsati's Slash Command Builder](https://bsati.github.io/dc-app-command-builder/)
 
+## OpenAPI Specification
+
+> warn
+> The OpenAPI spec is currently in public preview and **is subject to breaking changes**
+
+The public preview of the [Discord HTTP API specification](https://github.com/discord/discord-api-spec) provides a standard [OpenAPI 3.1 spec](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) for the HTTP API.
+
 ## Game SDK Tools
 
 Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
@@ -99,7 +109,7 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 
 If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
 
-| Name                                                                   | Language   |
-| ---------------------------------------------------------------------- | ---------- |
-| [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
-| [discord-api-types](https://github.com/discordjs/discord-api-types)    | JavaScript |
+| Name                                                                | Language   |
+|---------------------------------------------------------------------|------------|
+| [dasgo](https://github.com/switchupcb/dasgo)                        | Go         |
+| [discord-api-types](https://github.com/discordjs/discord-api-types) | JavaScript |
