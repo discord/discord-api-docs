@@ -6,14 +6,14 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 
 ###### SKU Structure
 
-| Field          | Type      | Description                                                     |
-|----------------|-----------|-----------------------------------------------------------------|
-| id             | snowflake | ID of SKU                                                       |
-| type           | integer   | [Type of SKU](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)     |
-| application_id | snowflake | ID of the parent application                                    |
-| name           | string    | Customer-facing name of your premium offering                   |
-| slug           | string    | System-generated URL slug based on the SKU's name               |
-| flags          | integer   | [SKU flags](#DOCS_MONETIZATION_SKUS/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)|
+| Field          | Type      | Description                                                                                                                 |
+|----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake | ID of SKU                                                                                                                   |
+| type           | integer   | [Type of SKU](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)                                                                 |
+| application_id | snowflake | ID of the parent application                                                                                                |
+| name           | string    | Customer-facing name of your premium offering                                                                               |
+| slug           | string    | System-generated URL slug based on the SKU's name                                                                           |
+| flags          | integer   | [SKU flags](#DOCS_MONETIZATION_SKUS/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### SKU Example
 
