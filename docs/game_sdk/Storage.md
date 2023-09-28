@@ -36,7 +36,7 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 ###### FileStat Struct
 
 | name         | type   | description                                  |
-| ------------ | ------ | -------------------------------------------- |
+|--------------|--------|----------------------------------------------|
 | Filename     | string | the name of the file                         |
 | Size         | UInt64 | the size of the file                         |
 | LastModified | UInt64 | timestamp of when the file was last modified |
@@ -70,7 +70,7 @@ Returns a `UInt32`.
 ###### Parameters
 
 | name | type   | description                        |
-| ---- | ------ | ---------------------------------- |
+|------|--------|------------------------------------|
 | name | string | the key name to read from the file |
 | data | byte[] | the buffer to read into            |
 
@@ -83,7 +83,7 @@ Returns a `Discord.Result` and a `byte[]` containing the data via callback.
 ###### Parameters
 
 | name | type   | description                        |
-| ---- | ------ | ---------------------------------- |
+|------|--------|------------------------------------|
 | name | string | the key name to read from the file |
 
 ###### Example
@@ -106,7 +106,7 @@ Returns a `Discord.Result` and `byte[]` containing the data via callback.
 ###### Parameters
 
 | name   | type   | description                          |
-| ------ | ------ | ------------------------------------ |
+|--------|--------|--------------------------------------|
 | name   | string | the key name to read from the file   |
 | offset | UInt64 | the offset at which to start reading |
 | length | UInt64 | the length to read                   |
@@ -131,7 +131,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type   | description                 |
-| ---- | ------ | --------------------------- |
+|------|--------|-----------------------------|
 | name | string | the key name to write under |
 | data | byte[] | the data to write           |
 
@@ -150,7 +150,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name | type   | description                 |
-| ---- | ------ | --------------------------- |
+|------|--------|-----------------------------|
 | name | string | the key name to write under |
 | data | byte[] | the data to write           |
 
@@ -175,7 +175,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type   | description            |
-| ---- | ------ | ---------------------- |
+|------|--------|------------------------|
 | name | string | the key name to delete |
 
 ###### Example
@@ -194,7 +194,7 @@ Returns `bool`.
 ###### Parameters
 
 | name | type   | description           |
-| ---- | ------ | --------------------- |
+|------|--------|-----------------------|
 | name | string | the key name to check |
 
 ###### Example
@@ -216,7 +216,7 @@ Returns a `FileStat`.
 ###### Parameters
 
 | name | type   | description                    |
-| ---- | ------ | ------------------------------ |
+|------|--------|--------------------------------|
 | name | string | the key name get file data for |
 
 ###### Example
@@ -255,7 +255,7 @@ Returns a `FileStat`.
 ###### Parameters
 
 | name  | type  | description                    |
-| ----- | ----- | ------------------------------ |
+|-------|-------|--------------------------------|
 | index | Int32 | the index to get file data for |
 
 ###### Example

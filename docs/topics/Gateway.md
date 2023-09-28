@@ -94,17 +94,20 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 > info
 > `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
 
+> warn
+> For security reasons, the Gateway cannot be accessed directly from a Cloudflare Worker. Attempts will result in a 401 Unauthorized status code.
+
 ###### Gateway URL Query String Params
 
 | Field     | Type    | Description                                                                                         | Accepted Values                                            |
-| --------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+|-----------|---------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                                | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
 | encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets           | `json` or `etf`                                            |
 | compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream`                                              |
 
 #### Hello Event
 
-Once connected to the Gateway, your app will receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event that contains your connection's heartbeat interval (`hearbeat_interval`).
+Once connected to the Gateway, your app will receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event that contains your connection's heartbeat interval (`heartbeat_interval`).
 
 The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often your app needs to send a Heartbeat event in order to maintain the active connection. Heartbeating is detailed in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
 
@@ -672,7 +675,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 ###### JSON Response
 
 | Field               | Type                                                                          | Description                                                                          |
-| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+|---------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | url                 | string                                                                        | WSS URL that can be used for connecting to the Gateway                               |
 | shards              | integer                                                                       | Recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
 | session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                       |
@@ -697,7 +700,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 ###### Session Start Limit Structure
 
 | Field           | Type    | Description                                                    |
-| --------------- | ------- | -------------------------------------------------------------- |
+|-----------------|---------|----------------------------------------------------------------|
 | total           | integer | Total number of session starts the current user is allowed     |
 | remaining       | integer | Remaining number of session starts the current user is allowed |
 | reset_after     | integer | Number of milliseconds after which the limit resets            |

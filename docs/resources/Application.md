@@ -5,7 +5,7 @@
 ###### Application Structure
 
 | Field                              | Type                                                                       | Description                                                                                                                                                                 |
-| ---------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                 | snowflake                                                                  | the id of the app                                                                                                                                                           |
 | name                               | string                                                                     | the name of the app                                                                                                                                                         |
 | icon                               | ?string                                                                    | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                                                                                |
@@ -19,11 +19,13 @@
 | summary *(deprecated)*             | string                                                                     | **deprecated and will be removed in v11.** An empty string.                                                                                                                 |
 | verify_key                         | string                                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket)                                                   |
 | team                               | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object                 | if the application belongs to a team, this will be a list of the members of that team                                                                                       |
-| guild_id?                          | snowflake                                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                                                                     |
+| guild_id?                          | snowflake                                                                  | guild associated with the app. For example, a developer support server.                                                                                                     |
+| guild?                             | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                 | a partial object of the associated guild                                                                                                                                    |
 | primary_sku_id?                    | snowflake                                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists                                                       |
 | slug?                              | string                                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                                                                 |
 | cover_image?                       | string                                                                     | the application's default rich presence invite [cover image hash](#DOCS_REFERENCE/image-formatting)                                                                         |
 | flags?                             | integer                                                                    | the application's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                                                                          |
+| approximate_guild_count?           | integer                                                                    | an approximate count of the app's guild membership.                                                                                                                         |
 | tags?                              | array of strings                                                           | up to 5 tags describing the content and functionality of the application                                                                                                    |
 | install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object | settings for the application's default in-app authorization link, if enabled                                                                                                |
 | custom_install_url?                | string                                                                     | the application's default custom authorization link, if enabled                                                                                                             |
@@ -75,7 +77,7 @@
 ###### Application Flags
 
 | Value   | Name                                          | Description                                                                                                                                                                                                                                                   |
-| ------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1 << 6  | APPLICATION_AUTO_MODERATION_RULE_CREATE_BADGE | Indicates if an app uses the [Auto Moderation API](#DOCS_RESOURCES_AUTO_MODERATION)                                                                                                                                                                           |
 | 1 << 12 | GATEWAY_PRESENCE                              | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                                                                                                        |
 | 1 << 13 | GATEWAY_PRESENCE_LIMITED                      | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update), found on the **Bot** page in your app's settings                                                                            |
@@ -92,6 +94,10 @@
 ###### Install Params Structure
 
 | Field       | Type             | Description                                                                                                |
-| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
+|-------------|------------------|------------------------------------------------------------------------------------------------------------|
 | scopes      | array of strings | the [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
 | permissions | string           | the [permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |
+
+## Get Current Application % GET /applications/@me
+
+Returns the [application](#DOCS_RESOURCES_APPLICATION/application-object) object associated with the requesting bot user.
