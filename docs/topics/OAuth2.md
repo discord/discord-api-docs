@@ -27,7 +27,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                |
 | applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                            |
 | applications.builds.upload               | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                           |
-| applications.commands                    | allows your app to use [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild                                                                                                  |
+| applications.commands                    | allows your app to create [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild - included by default with the `bot` scope                                                    |
 | applications.commands.update             | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) using a Bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 | applications.commands.permissions.update | allows your app to update [permissions for its commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) in a guild a user has permissions to                                      |
 | applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                                                          |
@@ -294,8 +294,6 @@ https://discord.com/oauth2/authorize?client_id=157730590492196864&scope=bot&perm
 ```
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
-
-Additionally, if your bot provides [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS), you can add `applications.commands` to the URL's scopes, so that commands will be available in the guild.
 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
