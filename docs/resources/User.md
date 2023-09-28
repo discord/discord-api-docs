@@ -58,7 +58,11 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "banner": "06c16474723fe537c283b8efa61a30c8",
   "accent_color": 16711680,
   "premium_type": 1,
-  "public_flags": 64
+  "public_flags": 64,
+  "avatar_decoration_data": {
+    "sku_id": "1144058844004233369",
+    "asset": "a_fed43ab12698df65902ba06727e20c0e"
+  }
 }
 ```
 
