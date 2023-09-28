@@ -130,23 +130,23 @@ typedef struct DiscordRichPresence {
 
 ###### Update Presence Payload Fields
 
-| parameter      | type     | description                                                                                                | example                                                    |
-| -------------- | -------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| state          | char\*   | the user's current party status                                                                            | "Looking to Play", "Playing Solo", "In a Group"            |
-| details        | char\*   | what the player is currently doing                                                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
-| startTimestamp | int64_t  | epoch seconds for game start - including will show time as "elapsed"                                       | 1507665886                                                 |
-| endTimestamp   | int64_t  | epoch seconds for game end - including will show time as "remaining"                                       | 1507665886                                                 |
-| largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                                                   | "default"                                                  |
-| largeImageText | char\*   | tooltip for the largeImageKey                                                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
-| smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                                                   | "rogue"                                                    |
-| smallImageText | char\*   | tooltip for the smallImageKey                                                                              | "Rogue - Level 100"                                        |
-| partyId        | char\*   | id of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
-| partySize      | int      | current size of the player's party, lobby, or group                                                        | 1                                                          |
-| partyMax       | int      | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
-| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char\*   | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
-| instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
+| parameter      | type    | description                                                                                                | example                                                    |
+|----------------|---------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| state          | char\*  | the user's current party status                                                                            | "Looking to Play", "Playing Solo", "In a Group"            |
+| details        | char\*  | what the player is currently doing                                                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
+| startTimestamp | int64_t | epoch seconds for game start - including will show time as "elapsed"                                       | 1507665886                                                 |
+| endTimestamp   | int64_t | epoch seconds for game end - including will show time as "remaining"                                       | 1507665886                                                 |
+| largeImageKey  | char\*  | name of the uploaded image for the large profile artwork                                                   | "default"                                                  |
+| largeImageText | char\*  | tooltip for the largeImageKey                                                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
+| smallImageKey  | char\*  | name of the uploaded image for the small profile artwork                                                   | "rogue"                                                    |
+| smallImageText | char\*  | tooltip for the smallImageKey                                                                              | "Rogue - Level 100"                                        |
+| partyId        | char\*  | id of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
+| partySize      | int     | current size of the player's party, lobby, or group                                                        | 1                                                          |
+| partyMax       | int     | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
+| matchSecret    | char\*  | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| spectateSecret | char\*  | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char\*  | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| instance       | int8_t  | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
 > info
 > Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
@@ -155,17 +155,17 @@ Here's a handy image to see how these fields are actually displayed on a profile
 
 ![Graphical representation of the legend for rich presence details](rp-legend.png)
 
-| location                               | field name             | notes                                                                       |
-| -------------------------------------- | ---------------------- | --------------------------------------------------------------------------- |
-| First row below title                  | details                |                                                                             |
-| Second row below title                 | state                  |                                                                             |
-| Second row below title                 | partySize              | In parenthesis next to the `state`, first number in the format `(1 of 10)`  |
-| Second row below title                 | partyMax               | In parenthesis next to the `state`, second number in the format `(1 of 10)` |
-| Third row below title                  | startTimestamp         | Converted to a format such as `01:33 elapsed`                               |
-| First button at the bottom             | joinSecret             | Button has the text "Ask to join"                                           |
-| Second button at the bottom            | spectateSecret         | Button has the text "Spectate"                                              |
-| Large image to the left of any content | largeImageKey          | Four rows high, includes the title but not the bottom buttons               |
-| Small image to the left of any content | smallImageKey          | Small icon inset on the bottom right of the `largeImageKey`                 |
+| location                               | field name     | notes                                                                       |
+|----------------------------------------|----------------|-----------------------------------------------------------------------------|
+| First row below title                  | details        |                                                                             |
+| Second row below title                 | state          |                                                                             |
+| Second row below title                 | partySize      | In parenthesis next to the `state`, first number in the format `(1 of 10)`  |
+| Second row below title                 | partyMax       | In parenthesis next to the `state`, second number in the format `(1 of 10)` |
+| Third row below title                  | startTimestamp | Converted to a format such as `01:33 elapsed`                               |
+| First button at the bottom             | joinSecret     | Button has the text "Ask to join"                                           |
+| Second button at the bottom            | spectateSecret | Button has the text "Spectate"                                              |
+| Large image to the left of any content | largeImageKey  | Four rows high, includes the title but not the bottom buttons               |
+| Small image to the left of any content | smallImageKey  | Small icon inset on the bottom right of the `largeImageKey`                 |
 
 Note that this layout may be subject to change without warning. This information is only provided to help those with
 impaired eyesight to understand the potential layout of this information in a user interface.
@@ -209,7 +209,7 @@ typedef struct DiscordJoinRequest {
 ###### Ask to Join Payload Fields
 
 | parameter     | type      | description                                                                                                                         |
-| ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------|
 | userId        | char[24]  | the userId of the player asking to join                                                                                             |
 | username      | char[344] | the username of the player asking to join                                                                                           |
 | discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
@@ -223,7 +223,7 @@ When it fires, your game should surface this data with a Yes or No choice for Pl
 ###### Ask to Join Response Codes
 
 | code                 | value |
-| -------------------- | ----- |
+|----------------------|-------|
 | DISCORD_REPLY_NO     | 0     |
 | DISCORD_REPLY_YES    | 1     |
 | DISCORD_REPLY_IGNORE | 2     |
@@ -265,7 +265,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 ###### Rich Presence Field Requirements
 
 |     Field      | Custom Artwork | Spectating | Joining | Ask to Join |
-| :------------: | :------------: | :--------: | :-----: | :---------: |
+|:--------------:|:--------------:|:----------:|:-------:|:-----------:|
 |     state      |                |            |         |             |
 |    details     |                |            |         |             |
 | startTimestamp |                |            |         |             |

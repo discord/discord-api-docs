@@ -1,3 +1,5 @@
+<LocalePicker />
+
 # Building your first Discord app
 
 Discord apps let you customize and extend your servers using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript, and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
@@ -394,7 +396,6 @@ const componentId = data.custom_id;
       await res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          // Fetches a random emoji to send from a helper function
           content: 'What is your object of choice?',
           // Indicates it'll be an ephemeral message
           flags: InteractionResponseFlags.EPHEMERAL,

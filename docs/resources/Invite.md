@@ -7,7 +7,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 ###### Invite Structure
 
 | Field                       | Type                                                                                               | Description                                                                                                                                    |
-| --------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | code                        | string                                                                                             | the invite code (unique ID)                                                                                                                    |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                                         | the guild this invite is for                                                                                                                   |
 | channel                     | ?partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                  | the channel this invite is for                                                                                                                 |
@@ -75,13 +75,13 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 
 ###### Invite Metadata Structure
 
-| Field      | Type                                            | Description                                          |
-| ---------- | ----------------------------------------------- | ---------------------------------------------------- |
-| uses       | integer                                         | number of times this invite has been used            |
-| max_uses   | integer                                         | max number of times this invite can be used          |
-| max_age    | integer                                         | duration (in seconds) after which the invite expires |
-| temporary  | boolean                                         | whether this invite only grants temporary membership |
-| created_at | ISO8601 timestamp                               | when this invite was created                         |
+| Field      | Type              | Description                                          |
+|------------|-------------------|------------------------------------------------------|
+| uses       | integer           | number of times this invite has been used            |
+| max_uses   | integer           | max number of times this invite can be used          |
+| max_age    | integer           | duration (in seconds) after which the invite expires |
+| temporary  | boolean           | whether this invite only grants temporary membership |
+| created_at | ISO8601 timestamp | when this invite was created                         |
 
 ###### Example Invite Metadata
 
@@ -137,7 +137,7 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 ###### Query String Params
 
 | Field                     | Type      | Description                                                 |
-| ------------------------- | --------- | ----------------------------------------------------------- |
+|---------------------------|-----------|-------------------------------------------------------------|
 | with_counts?              | boolean   | whether the invite should contain approximate member counts |
 | with_expiration?          | boolean   | whether the invite should contain the expiration date       |
 | guild_scheduled_event_id? | snowflake | the guild scheduled event to include with the invite        |
