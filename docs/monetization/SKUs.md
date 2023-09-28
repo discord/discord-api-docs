@@ -13,7 +13,7 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 | application_id | snowflake | ID of the parent application                                    |
 | name           | string    | Customer-facing name of your premium offering                   |
 | slug           | string    | System-generated URL slug based on the SKU's name               |
-| flags          | integer   | The SKU's [flags](#DOCS_MONETIZATION_SKUS/sku-object-sku-flags) |
+| flags          | integer   | [SKU flags](#DOCS_MONETIZATION_SKUS/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)|
 
 ###### SKU Example
 
