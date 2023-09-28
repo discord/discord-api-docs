@@ -114,17 +114,17 @@ Edit properties of the app associated with the requesting bot user. Only propert
 
 ###### JSON Params
 
-| Field                             | Type                                                                       | Description                                                                                                   |
-|-----------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| custom_install_url                | string                                                                     | Default custom authorization URL for the app, if enabled                                                      |
-| description                       | string                                                                     | Description of the app                                                                                        |
-| role_connections_verification_url | string                                                                     | Role connection verification URL for the app                                                                  |
-| install_params                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object | Settings for the app's default in-app authorization link, if enabled                                          |
-| flags \*                          | integer                                                                    | App's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                        |
-| icon                              | ?[image data](#DOCS_REFERENCE/image-data)                                  | Icon for the app                                                                                              |
-| cover_image                       | ?[image data](#DOCS_REFERENCE/image-data)                                  | Default rich presence invite cover image for the app                                                          |
-| interactions_endpoint_url \*\*    | string                                                                     | [Interactions endpoint URL](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) for the app |
-| tags                              | array of strings                                                           | List of tags describing the content and functionality of the app. Max of 5 tags.                              |
+| Field                             | Type                                                                       | Description                                                                                                     |
+|-----------------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| custom_install_url                | string                                                                     | Default custom authorization URL for the app, if enabled                                                        |
+| description                       | string                                                                     | Description of the app                                                                                          |
+| role_connections_verification_url | string                                                                     | Role connection verification URL for the app                                                                    |
+| install_params                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object | Settings for the app's default in-app authorization link, if enabled                                            |
+| flags \*                          | integer                                                                    | App's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                          |
+| icon                              | ?[image data](#DOCS_REFERENCE/image-data)                                  | Icon for the app                                                                                                |
+| cover_image                       | ?[image data](#DOCS_REFERENCE/image-data)                                  | Default rich presence invite cover image for the app                                                            |
+| interactions_endpoint_url \*\*    | string                                                                     | [Interactions endpoint URL](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) for the app   |
+| tags                              | array of strings                                                           | List of tags describing the content and functionality of the app (max of 20 characters per tag). Max of 5 tags. |
 
 \* Only limited intent flags (`GATEWAY_PRESENCE_LIMITED`, `GATEWAY_GUILD_MEMBERS_LIMITED`, and `GATEWAY_MESSAGE_CONTENT_LIMITED`) can be updated via the API.
 
