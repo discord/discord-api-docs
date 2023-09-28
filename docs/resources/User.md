@@ -104,7 +104,7 @@ The data for the user's [avatar decoration](https://support.discord.com/hc/en-us
 ###### Avatar Decoration Data Structure
 
 | Field  | Type      | Description                                                    |
-| ------ | --------- | -------------------------------------------------------------- |
+|--------|-----------|----------------------------------------------------------------|
 | asset  | string    | the [avatar decoration hash](#DOCS_REFERENCE/image-formatting) |
 | sku_id | snowflake | the id of the avatar decoration's SKU                          |
 
