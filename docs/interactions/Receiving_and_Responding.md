@@ -215,11 +215,13 @@ There are a number of ways you can respond to an interaction:
 | UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                |
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
 | MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                  |
-| PREMIUM_REQUIRED\*\*                    | 10    | respond to an interaction with an upgrade button, only available for apps with monetization enabled           |
+| PREMIUM_REQUIRED\*\*\*                  | 10    | respond to an interaction with an upgrade button, only available for apps with monetization enabled           |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
+
+\*\*\* Not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
 
 ###### Interaction Callback Data Structure
 
