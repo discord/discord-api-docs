@@ -7,7 +7,7 @@ Apps can define their own [role connection metadata](#DOCS_RESOURCES_APPLICATION
 This tutorial walks through building a Discord app in JavaScript with linked roles support.
 
 > info
-> All of the sample code used in this tutorial can be found in the [`linked-roles-sample` Github repo](https://github.com/discord/linked-roles-sample)
+> All of the sample code used in this tutorial can be found in the [`linked-roles-sample` GitHub repo](https://github.com/discord/linked-roles-sample)
 
 ---
 
@@ -20,8 +20,7 @@ The first thing we’ll do is create an app through the [developer dashboard](ht
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
 - Click **New Application** in the upper right corner, then select a name and create your app
-- Click on the `Bot` tab on the left sidebar, then the **Add Bot** button
-- After the bot is created, click **Reset Token** and store the token somewhere safe (like in a password manager)
+- Click on the **Bot** tab on the left sidebar. On that page, click **Reset Token** and store the token somewhere safe (like in a password manager)
 
 > warn
 > Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.
@@ -45,12 +44,13 @@ After installing your app, you can head over to your server and see that it has 
 
 ## Running your app
 
-All of the code used in the example app can be found in the [Github repository](https://github.com/discord/linked-roles-sample).
+All of the code used in the example app can be found in the [GitHub repository](https://github.com/discord/linked-roles-sample).
 
 ### Remix the project
 
 This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok in the README if you'd prefer.
 
+> info
 > While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
 
 To start, [remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/remix/linked-role-discord-bot)
@@ -81,6 +81,7 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 
 There's already some code in your `server.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
 
+> warn
 > It bears repeating that you should never check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
 
 First, copy your bot user’s token from earlier and paste it in the `DISCORD_TOKEN` variable in your `.env` file.

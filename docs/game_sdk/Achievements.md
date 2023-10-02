@@ -6,6 +6,9 @@
 > danger
 > Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
 
+> danger
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+
 There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
 
 Anyway—Discord has achievements! Show your players just how successful they are.
@@ -19,7 +22,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 ###### Achievement Struct
 
 | name                      | type                                                                  | description                                          |
-| ------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------- |
+|---------------------------|-----------------------------------------------------------------------|------------------------------------------------------|
 | application_id            | Int64                                                                 | Unique ID of the application                         |
 | name                      | string                                                                | Name of the achievement                              |
 | name_localizations        | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field         |
@@ -33,7 +36,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 ###### User Achievement Struct
 
 | name            | type   | description                                                                                |
-| --------------- | ------ | ------------------------------------------------------------------------------------------ |
+|-----------------|--------|--------------------------------------------------------------------------------------------|
 | UserId          | Int64  | the unique ID of the user working on the achievement                                       |
 | AchievementId   | Int64  | the unique ID of the achievement                                                           |
 | PercentComplete | UInt8  | how far along the user is to completing the achievement (0-100)                            |
@@ -48,7 +51,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name            | type  | description                            |
-| --------------- | ----- | -------------------------------------- |
+|-----------------|-------|----------------------------------------|
 | achievementId   | Int64 | the ID of the achievement to update    |
 | percentComplete | UInt8 | the user's updated percentage progress |
 
@@ -121,7 +124,7 @@ Returns `Discord.UserAchievement`
 ###### Parameters
 
 | name  | type  | description                               |
-| ----- | ----- | ----------------------------------------- |
+|-------|-------|-------------------------------------------|
 | index | Int32 | the index at which to get the achievement |
 
 ###### Example
@@ -150,7 +153,7 @@ Gets the user achievement for the given achievement id. If you keep a hardcoded 
 ###### Parameters
 
 | name          | type  | description                      |
-| ------------- | ----- | -------------------------------- |
+|---------------|-------|----------------------------------|
 | achievementId | Int64 | the ID of the achievement to get |
 
 ###### Example
@@ -176,12 +179,12 @@ Fires when an achievement is updated for the currently connected user
 ###### Parameters
 
 | name        | type                | description                      |
-| ----------- | ------------------- | -------------------------------- |
+|-------------|---------------------|----------------------------------|
 | achievement | ref UserAchievement | the achievement that was updated |
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a bot token. This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's settings](https://discord.com/developers/applications), and navigate to the **Bot** page on the sidebar. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
 curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
@@ -243,7 +246,7 @@ Creates a new achievement for your application. Applications can have a maximum 
 ###### Parameters
 
 | name        | type      | description                             |
-| ----------- | --------- | --------------------------------------- |
+|-------------|-----------|-----------------------------------------|
 | name        | string    | the name of the achievement             |
 | description | string    | the user-facing achievement description |
 | secret      | bool      | if the achievement is secret            |
@@ -291,7 +294,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 ###### Parameters
 
 | name        | type      | description                             |
-| ----------- | --------- | --------------------------------------- |
+|-------------|-----------|-----------------------------------------|
 | name        | string    | the name of the achievement             |
 | description | string    | the user-facing achievement description |
 | secret      | bool      | if the achievement is secret            |
@@ -349,7 +352,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 ###### Parameters
 
 | name             | type | description                                            |
-| ---------------- | ---- | ------------------------------------------------------ |
+|------------------|------|--------------------------------------------------------|
 | percent_complete | int  | the user's progress towards completing the achievement |
 
 ###### Return Object

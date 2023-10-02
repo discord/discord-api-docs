@@ -23,7 +23,7 @@ For readability, event names in the following documentation are typically left i
 Gateway event payloads have a common structure, but the contents of the associated data (`d`) varies between the different events.
 
 | Field | Type                    | Description                                                                                                                                      |
-| ----- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+|-------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | op    | integer                 | [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes), which indicates the payload type                                |
 | d     | ?mixed (any JSON value) | Event data                                                                                                                                       |
 | s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/sending-heartbeats) |
@@ -50,13 +50,13 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 > Previously, Gateway send events were labeled as commands
 
 | Name                                                                       | Description                                               |
-| -------------------------------------------------------------------------- | --------------------------------------------------------- |
+|----------------------------------------------------------------------------|-----------------------------------------------------------|
 | [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify)                           | Triggers the initial handshake with the gateway           |
 | [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)                               | Resumes a dropped gateway connection                      |
 | [Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat)                         | Maintains an active gateway connection                    |
 | [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) | Requests members for a guild                              |
 | [Update Voice State](#DOCS_TOPICS_GATEWAY_EVENTS/update-voice-state)       | Joins, moves, or disconnects the app from a voice channel |
-| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                  |
+| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                 |
 
 #### Identify
 
@@ -67,7 +67,7 @@ Details about identifying is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 ###### Identify Structure
 
 | Field            | Type                                                                  | Description                                                                                                                    | Default |
-| ---------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
+|------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|---------|
 | token            | string                                                                | Authentication token                                                                                                           | -       |
 | properties       | object                                                                | [Connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties)                                   | -       |
 | compress?        | boolean                                                               | Whether this connection supports compression of packets                                                                        | false   |
@@ -79,7 +79,7 @@ Details about identifying is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 ###### Identify Connection Properties
 
 | Field   | Type   | Description           |
-| ------- | ------ | --------------------- |
+|---------|--------|-----------------------|
 | os      | string | Your operating system |
 | browser | string | Your library name     |
 | device  | string | Your library name     |
@@ -127,7 +127,7 @@ Details about resuming are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/r
 ###### Resume Structure
 
 | Field      | Type    | Description                   |
-| ---------- | ------- | ----------------------------- |
+|------------|---------|-------------------------------|
 | token      | string  | Session token                 |
 | session_id | string  | Session ID                    |
 | seq        | integer | Last sequence number received |
@@ -172,10 +172,10 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 - Requesting a prefix (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
 
-###### Guild Request Members Structure
+###### Request Guild Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
-| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+|------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
 | guild_id   | snowflake                        | ID of the guild to get members for                                                                                                    | true                       |
 | query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
@@ -186,7 +186,7 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 > info
 > Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
 
-###### Guild Request Members
+###### Example Request Guild Members
 
 ```json
 {
@@ -206,7 +206,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 ###### Gateway Voice State Update Structure
 
 | Field      | Type       | Description                                                          |
-| ---------- | ---------- | -------------------------------------------------------------------- |
+|------------|------------|----------------------------------------------------------------------|
 | guild_id   | snowflake  | ID of the guild                                                      |
 | channel_id | ?snowflake | ID of the voice channel client wants to join (null if disconnecting) |
 | self_mute  | boolean    | Whether the client is muted                                          |
@@ -233,7 +233,7 @@ Sent by the client to indicate a presence or status update.
 ###### Gateway Presence Update Structure
 
 | Field      | Type                                                                     | Description                                                                                 |
-| ---------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+|------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | since      | ?integer                                                                 | Unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | activities | array of [activity](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) objects | User's activities                                                                           |
 | status     | string                                                                   | User's new [status](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence-status-types)               |
@@ -242,7 +242,7 @@ Sent by the client to indicate a presence or status update.
 ###### Status Types
 
 | Status    | Description                    |
-| --------- | ------------------------------ |
+|-----------|--------------------------------|
 | online    | Online                         |
 | dnd       | Do Not Disturb                 |
 | idle      | AFK                            |
@@ -271,7 +271,7 @@ Sent by the client to indicate a presence or status update.
 Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
 
 | Name                                                                                                         | Description                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello)                                                                   | Defines the heartbeat interval                                                                                                                 |
 | [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready)                                                                   | Contains the initial state information                                                                                                         |
 | [Resumed](#DOCS_TOPICS_GATEWAY_EVENTS/resumed)                                                               | Response to [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)                                                                                       |
@@ -295,6 +295,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
 | [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
+| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                            |
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-add)                                                   | User was banned from a guild                                                                                                                   |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-remove)                                             | User was unbanned from a guild                                                                                                                 |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-emojis-update)                                       | Guild emojis were updated                                                                                                                      |
@@ -343,7 +344,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that an app 
 ###### Hello Structure
 
 | Field              | Type    | Description                                             |
-| ------------------ | ------- | ------------------------------------------------------- |
+|--------------------|---------|---------------------------------------------------------|
 | heartbeat_interval | integer | Interval (in milliseconds) an app should heartbeat with |
 
 ###### Example Hello
@@ -366,7 +367,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 ###### Ready Event Fields
 
 | Field              | Type                                                                                 | Description                                                                                               |
-| ------------------ | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+|--------------------|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | v                  | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                |
 | user               | [user](#DOCS_RESOURCES_USER/user-object) object                                      | Information about the user including email                                                                |
 | guilds             | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | Guilds the user is in                                                                                     |
@@ -440,7 +441,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 ###### Auto Moderation Action Execution Event Fields
 
 | Field                    | Type                                                                                           | Description                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+|--------------------------|------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
 | guild_id                 | snowflake                                                                                      | ID of the guild in which action was executed                                   |
 | action                   | [auto moderation action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) object | Action which was executed                                                      |
 | rule_id                  | snowflake                                                                                      | ID of the rule which action belongs to                                         |
@@ -468,7 +469,7 @@ Sent when a new guild channel is created, relevant to the current user. The inne
 
 #### Channel Update
 
-Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` channels).
+Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` and `GUILD_MEDIA` channels).
 
 This event may reference roles or guild members that no longer exist in the guild.
 
@@ -497,7 +498,7 @@ Sent when the current user _gains_ access to a channel.
 ###### Thread List Sync Event Fields
 
 | Field        | Type                                                                           | Description                                                                                                                                                                                                             |
-| ------------ | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | guild_id     | snowflake                                                                      | ID of the guild                                                                                                                                                                                                         |
 | channel_ids? | array of snowflakes                                                            | Parent channel IDs whose threads are being synced.  If omitted, then threads were synced for the entire guild.  This array may contain channel_ids that have no active threads as well, so you know to clear that data. |
 | threads      | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects             | All active threads in the given channels that the current user can access                                                                                                                                               |
@@ -510,7 +511,7 @@ Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) obje
 ###### Thread Member Update Event Extra Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | ID of the guild |
 
 
@@ -521,7 +522,7 @@ Sent when anyone is added to or removed from a thread.  If the current user does
 ###### Thread Members Update Event Fields
 
 | Field               | Type                                                                           | Description                                               |
-| ------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------- |
+|---------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------|
 | id                  | snowflake                                                                      | ID of the thread                                          |
 | guild_id            | snowflake                                                                      | ID of the guild                                           |
 | member_count        | integer                                                                        | Approximate number of members in the thread, capped at 50 |
@@ -537,7 +538,7 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 ###### Channel Pins Update Event Fields
 
 | Field               | Type               | Description                                             |
-| ------------------- | ------------------ | ------------------------------------------------------- |
+|---------------------|--------------------|---------------------------------------------------------|
 | guild_id?           | snowflake          | ID of the guild                                         |
 | channel_id          | snowflake          | ID of the channel                                       |
 | last_pin_timestamp? | ?ISO8601 timestamp | Time at which the most recent pinned message was pinned |
@@ -562,7 +563,7 @@ The inner payload can be:
 ###### Guild Create Extra Fields
 
 | Field                  | Type                                                                                                         | Description                                                                                                                |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+|------------------------|--------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | joined_at              | ISO8601 timestamp                                                                                            | When this guild was joined at                                                                                              |
 | large                  | boolean                                                                                                      | `true` if this is considered a large guild                                                                                 |
 | unavailable?           | boolean                                                                                                      | `true` if this guild is unavailable due to an outage                                                                       |
@@ -586,6 +587,10 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUI
 
 Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
 
+#### Guild Audit Log Entry Create
+
+Sent when a guild audit log entry is created. The inner payload is an [Audit Log Entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) object. This event is only sent to bots with the `VIEW_AUDIT_LOG` permission.
+
 #### Guild Ban Add
 
 Sent when a user is banned from a guild.
@@ -593,7 +598,7 @@ Sent when a user is banned from a guild.
 ###### Guild Ban Add Event Fields
 
 | Field    | Type                                              | Description         |
-| -------- | ------------------------------------------------- | ------------------- |
+|----------|---------------------------------------------------|---------------------|
 | guild_id | snowflake                                         | ID of the guild     |
 | user     | a [user](#DOCS_RESOURCES_USER/user-object) object | User who was banned |
 
@@ -604,7 +609,7 @@ Sent when a user is unbanned from a guild.
 ###### Guild Ban Remove Event Fields
 
 | Field    | Type                                              | Description           |
-| -------- | ------------------------------------------------- | --------------------- |
+|----------|---------------------------------------------------|-----------------------|
 | guild_id | snowflake                                         | ID of the guild       |
 | user     | a [user](#DOCS_RESOURCES_USER/user-object) object | User who was unbanned |
 
@@ -615,7 +620,7 @@ Sent when a guild's emojis have been updated.
 ###### Guild Emojis Update Event Fields
 
 | Field    | Type      | Description                                           |
-| -------- | --------- | ----------------------------------------------------- |
+|----------|-----------|-------------------------------------------------------|
 | guild_id | snowflake | ID of the guild                                       |
 | emojis   | array     | Array of [emojis](#DOCS_RESOURCES_EMOJI/emoji-object) |
 
@@ -626,7 +631,7 @@ Sent when a guild's stickers have been updated.
 ###### Guild Stickers Update Event Fields
 
 | Field    | Type      | Description                                                 |
-| -------- | --------- | ----------------------------------------------------------- |
+|----------|-----------|-------------------------------------------------------------|
 | guild_id | snowflake | ID of the guild                                             |
 | stickers | array     | Array of [stickers](#DOCS_RESOURCES_STICKER/sticker-object) |
 
@@ -637,7 +642,7 @@ Sent when a guild integration is updated.
 ###### Guild Integrations Update Event Fields
 
 | Field    | Type      | Description                                     |
-| -------- | --------- | ----------------------------------------------- |
+|----------|-----------|-------------------------------------------------|
 | guild_id | snowflake | ID of the guild whose integrations were updated |
 
 #### Guild Member Add
@@ -650,7 +655,7 @@ Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_
 ###### Guild Member Add Extra Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | ID of the guild |
 
 #### Guild Member Remove
@@ -663,7 +668,7 @@ Sent when a user is removed from a guild (leave/kick/ban).
 ###### Guild Member Remove Event Fields
 
 | Field    | Type                                              | Description          |
-| -------- | ------------------------------------------------- | -------------------- |
+|----------|---------------------------------------------------|----------------------|
 | guild_id | snowflake                                         | ID of the guild      |
 | user     | a [user](#DOCS_RESOURCES_USER/user-object) object | User who was removed |
 
@@ -677,7 +682,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 ###### Guild Member Update Event Fields
 
 | Field                         | Type                                              | Description                                                                                                                                                                                                                          |
-| ----------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|-------------------------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | guild_id                      | snowflake                                         | ID of the guild                                                                                                                                                                                                                      |
 | roles                         | array of snowflakes                               | User role ids                                                                                                                                                                                                                        |
 | user                          | a [user](#DOCS_RESOURCES_USER/user-object) object | User                                                                                                                                                                                                                                 |
@@ -698,7 +703,7 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 ###### Guild Members Chunk Event Fields
 
 | Field       | Type                                                                       | Description                                                                                    |
-| ----------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+|-------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | guild_id    | snowflake                                                                  | ID of the guild                                                                                |
 | members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | Set of guild members                                                                           |
 | chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (0 <= chunk\_index < chunk\_count)        |
@@ -714,7 +719,7 @@ Sent when a guild role is created.
 ###### Guild Role Create Event Fields
 
 | Field    | Type                                                  | Description           |
-| -------- | ----------------------------------------------------- | --------------------- |
+|----------|-------------------------------------------------------|-----------------------|
 | guild_id | snowflake                                             | ID of the guild       |
 | role     | a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object | Role that was created |
 
@@ -725,7 +730,7 @@ Sent when a guild role is updated.
 ###### Guild Role Update Event Fields
 
 | Field    | Type                                                  | Description           |
-| -------- | ----------------------------------------------------- | --------------------- |
+|----------|-------------------------------------------------------|-----------------------|
 | guild_id | snowflake                                             | ID of the guild       |
 | role     | a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object | Role that was updated |
 
@@ -736,7 +741,7 @@ Sent when a guild role is deleted.
 ###### Guild Role Delete Event Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | ID of the guild |
 | role_id  | snowflake | ID of the role  |
 
@@ -759,7 +764,7 @@ Sent when a user has subscribed to a guild scheduled event.
 ###### Guild Scheduled Event User Add Event Fields
 
 | Field                    | Type      | Description                     |
-| ------------------------ | --------- | ------------------------------- |
+|--------------------------|-----------|---------------------------------|
 | guild_scheduled_event_id | snowflake | ID of the guild scheduled event |
 | user_id                  | snowflake | ID of the user                  |
 | guild_id                 | snowflake | ID of the guild                 |
@@ -771,7 +776,7 @@ Sent when a user has unsubscribed from a guild scheduled event.
 ###### Guild Scheduled Event User Remove Event Fields
 
 | Field                    | Type      | Description                     |
-| ------------------------ | --------- | ------------------------------- |
+|--------------------------|-----------|---------------------------------|
 | guild_scheduled_event_id | snowflake | ID of the guild scheduled event |
 | user_id                  | snowflake | ID of the user                  |
 | guild_id                 | snowflake | ID of the guild                 |
@@ -785,7 +790,7 @@ Sent when an integration is created. The inner payload is an [integration](#DOCS
 ###### Integration Create Event Additional Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | ID of the guild |
 
 #### Integration Update
@@ -795,7 +800,7 @@ Sent when an integration is updated. The inner payload is an [integration](#DOCS
 ###### Integration Update Event Additional Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | ID of the guild |
 
 #### Integration Delete
@@ -805,12 +810,14 @@ Sent when an integration is deleted.
 ###### Integration Delete Event Fields
 
 | Field           | Type      | Description                                                   |
-| --------------- | --------- | ------------------------------------------------------------- |
+|-----------------|-----------|---------------------------------------------------------------|
 | id              | snowflake | Integration ID                                                |
 | guild_id        | snowflake | ID of the guild                                               |
 | application_id? | snowflake | ID of the bot/OAuth2 application for this discord integration |
 
 ### Invites
+
+All [Invite](#DOCS_RESOURCES_INVITE) related events are only sent to bot users with the `MANAGE_CHANNELS` permission on the channel.
 
 #### Invite Create
 
@@ -819,7 +826,7 @@ Sent when a new invite to a channel is created.
 ###### Invite Create Event Fields
 
 | Field               | Type                                                                         | Description                                                                                                        |
-| ------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+|---------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | channel_id          | snowflake                                                                    | Channel the invite is for                                                                                          |
 | code                | string                                                                       | Unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                         |
 | created_at          | ISO8601 timestamp                                                            | Time at which the invite was created                                                                               |
@@ -840,7 +847,7 @@ Sent when an invite is deleted.
 ###### Invite Delete Event Fields
 
 | Field      | Type      | Description                                                |
-| ---------- | --------- | ---------------------------------------------------------- |
+|------------|-----------|------------------------------------------------------------|
 | channel_id | snowflake | Channel of the invite                                      |
 | guild_id?  | snowflake | Guild of the invite                                        |
 | code       | string    | Unique invite [code](#DOCS_RESOURCES_INVITE/invite-object) |
@@ -857,7 +864,7 @@ Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES
 ###### Message Create Extra Fields
 
 | Field     | Type                                                                                                                                            | Description                                                                                            |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | guild_id? | snowflake                                                                                                                                       | ID of the guild the message was sent in - unless it is an ephemeral message                            |
 | member?   | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
 | mentions  | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/guild-member-object) field | Users specifically mentioned in the message                                                            |
@@ -876,7 +883,7 @@ Sent when a message is deleted.
 ###### Message Delete Event Fields
 
 | Field      | Type      | Description       |
-| ---------- | --------- | ----------------- |
+|------------|-----------|-------------------|
 | id         | snowflake | ID of the message |
 | channel_id | snowflake | ID of the channel |
 | guild_id?  | snowflake | ID of the guild   |
@@ -888,7 +895,7 @@ Sent when multiple messages are deleted at once.
 ###### Message Delete Bulk Event Fields
 
 | Field      | Type                | Description         |
-| ---------- | ------------------- | ------------------- |
+|------------|---------------------|---------------------|
 | ids        | array of snowflakes | IDs of the messages |
 | channel_id | snowflake           | ID of the channel   |
 | guild_id?  | snowflake           | ID of the guild     |
@@ -899,14 +906,15 @@ Sent when a user adds a reaction to a message.
 
 ###### Message Reaction Add Event Fields
 
-| Field      | Type                                                         | Description                                                                                |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| user_id    | snowflake                                                    | ID of the user                                                                             |
-| channel_id | snowflake                                                    | ID of the channel                                                                          |
-| message_id | snowflake                                                    | ID of the message                                                                          |
-| guild_id?  | snowflake                                                    | ID of the guild                                                                            |
-| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
-| emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| Field              | Type                                                         | Description                                                                                |
+|--------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| user_id            | snowflake                                                    | ID of the user                                                                             |
+| channel_id         | snowflake                                                    | ID of the channel                                                                          |
+| message_id         | snowflake                                                    | ID of the message                                                                          |
+| guild_id?          | snowflake                                                    | ID of the guild                                                                            |
+| member?            | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
+| emoji              | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
 
 #### Message Reaction Remove
 
@@ -915,7 +923,7 @@ Sent when a user removes a reaction from a message.
 ###### Message Reaction Remove Event Fields
 
 | Field      | Type                                                         | Description                                                                                |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+|------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | user_id    | snowflake                                                    | ID of the user                                                                             |
 | channel_id | snowflake                                                    | ID of the channel                                                                          |
 | message_id | snowflake                                                    | ID of the message                                                                          |
@@ -929,7 +937,7 @@ Sent when a user explicitly removes all reactions from a message.
 ###### Message Reaction Remove All Event Fields
 
 | Field      | Type      | Description       |
-| ---------- | --------- | ----------------- |
+|------------|-----------|-------------------|
 | channel_id | snowflake | ID of the channel |
 | message_id | snowflake | ID of the message |
 | guild_id?  | snowflake | ID of the guild   |
@@ -941,7 +949,7 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 ###### Message Reaction Remove Emoji Event Fields
 
 | Field      | Type                                                       | Description            |
-| ---------- | ---------------------------------------------------------- | ---------------------- |
+|------------|------------------------------------------------------------|------------------------|
 | channel_id | snowflake                                                  | ID of the channel      |
 | guild_id?  | snowflake                                                  | ID of the guild        |
 | message_id | snowflake                                                  | ID of the message      |
@@ -962,7 +970,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 ###### Presence Update Event Fields
 
 | Field         | Type                                                                     | Description                                  |
-| ------------- | ------------------------------------------------------------------------ | -------------------------------------------- |
+|---------------|--------------------------------------------------------------------------|----------------------------------------------|
 | user          | [user](#DOCS_RESOURCES_USER/user-object) object                          | User whose presence is being updated         |
 | guild_id      | snowflake                                                                | ID of the guild                              |
 | status        | string                                                                   | Either "idle", "dnd", "online", or "offline" |
@@ -974,17 +982,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 Active sessions are indicated with an "online", "idle", or "dnd" string per platform. If a user is offline or invisible, the corresponding field is not present.
 
 | Field    | Type   | Description                                                                       |
-| -------- | ------ | --------------------------------------------------------------------------------- |
+|----------|--------|-----------------------------------------------------------------------------------|
 | desktop? | string | User's status set for an active desktop (Windows, Linux, Mac) application session |
 | mobile?  | string | User's status set for an active mobile (iOS, Android) application session         |
-| web?     | string | User's status set for an active web (browser, bot account) application session    |
+| web?     | string | User's status set for an active web (browser, bot user) application session       |
 
 #### Activity Object
 
 ###### Activity Structure
 
 | Field           | Type                                                                                 | Description                                                                                                                      |
-| --------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | name            | string                                                                               | Activity's name                                                                                                                  |
 | type            | integer                                                                              | [Activity type](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                              | Stream URL, is validated when type is 1                                                                                          |
@@ -992,7 +1000,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
 | application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
 | details?        | ?string                                                                              | What the player is currently doing                                                                                               |
-| state?          | ?string                                                                              | User's current party status                                                                                                      |
+| state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
 | emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
 | party?          | [party](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
@@ -1002,18 +1010,18 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
 > info
-> Bots are only able to send `name`, `type`, and optionally `url`.
+> Bot users are only able to set `name`, `state`, `type`, and `url`.
 
 ###### Activity Types
 
-| ID  | Name      | Format              | Example                              |
-| --- | --------- | ------------------- | ------------------------------------ |
-| 0   | Game      | Playing {name}      | "Playing Rocket League"              |
-| 1   | Streaming | Streaming {details} | "Streaming Rocket League"            |
-| 2   | Listening | Listening to {name} | "Listening to Spotify"               |
-| 3   | Watching  | Watching {name}     | "Watching YouTube Together"          |
-| 4   | Custom    | {emoji} {name}      | ":smiley: I am cool"                 |
-| 5   | Competing | Competing in {name} | "Competing in Arena World Champions" |
+| ID | Name      | Format              | Example                              |
+|----|-----------|---------------------|--------------------------------------|
+| 0  | Game      | Playing {name}      | "Playing Rocket League"              |
+| 1  | Streaming | Streaming {details} | "Streaming Rocket League"            |
+| 2  | Listening | Listening to {name} | "Listening to Spotify"               |
+| 3  | Watching  | Watching {name}     | "Watching YouTube Together"          |
+| 4  | Custom    | {emoji} {state}     | ":smiley: I am cool"                 |
+| 5  | Competing | Competing in {name} | "Competing in Arena World Champions" |
 
 > info
 > The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
@@ -1021,14 +1029,14 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ###### Activity Timestamps
 
 | Field  | Type    | Description                                              |
-| ------ | ------- | -------------------------------------------------------- |
+|--------|---------|----------------------------------------------------------|
 | start? | integer | Unix time (in milliseconds) of when the activity started |
 | end?   | integer | Unix time (in milliseconds) of when the activity ends    |
 
 ###### Activity Emoji
 
 | Field     | Type      | Description                   |
-| --------- | --------- | ----------------------------- |
+|-----------|-----------|-------------------------------|
 | name      | string    | Name of the emoji             |
 | id?       | snowflake | ID of the emoji               |
 | animated? | boolean   | Whether the emoji is animated |
@@ -1036,14 +1044,14 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ###### Activity Party
 
 | Field | Type                                           | Description                                       |
-| ----- | ---------------------------------------------- | ------------------------------------------------- |
+|-------|------------------------------------------------|---------------------------------------------------|
 | id?   | string                                         | ID of the party                                   |
 | size? | array of two integers (current_size, max_size) | Used to show the party's current and maximum size |
 
 ###### Activity Assets
 
 | Field        | Type   | Description                                                                                  |
-| ------------ | ------ | -------------------------------------------------------------------------------------------- |
+|--------------|--------|----------------------------------------------------------------------------------------------|
 | large_image? | string | See [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
 | large_text?  | string | Text displayed when hovering over the large image of the activity                            |
 | small_image? | string | See [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
@@ -1056,14 +1064,14 @@ Activity asset images are arbitrary strings which usually contain snowflake IDs 
 To use an external image via media proxy, specify the URL as the field's value when sending. You will only receive the `mp:` prefix via the gateway.
 
 | Type              | Format                   | Image URL                                                                  |
-| ----------------- | ------------------------ | -------------------------------------------------------------------------- |
+|-------------------|--------------------------|----------------------------------------------------------------------------|
 | Application Asset | `{application_asset_id}` | See [Application Asset Image Formatting](#DOCS_REFERENCE/image-formatting) |
 | Media Proxy Image | `mp:{image_id}`          | `https://media.discordapp.net/{image_id}`                                  |
 
 ###### Activity Secrets
 
 | Field     | Type   | Description                           |
-| --------- | ------ | ------------------------------------- |
+|-----------|--------|---------------------------------------|
 | join?     | string | Secret for joining a party            |
 | spectate? | string | Secret for spectating a game          |
 | match?    | string | Secret for a specific instanced match |
@@ -1071,7 +1079,7 @@ To use an external image via media proxy, specify the URL as the field's value w
 ###### Activity Flags
 
 | Name                        | Value  |
-| --------------------------- | ------ |
+|-----------------------------|--------|
 | INSTANCE                    | 1 << 0 |
 | JOIN                        | 1 << 1 |
 | SPECTATE                    | 1 << 2 |
@@ -1087,7 +1095,7 @@ To use an external image via media proxy, specify the URL as the field's value w
 When received over the gateway, the `buttons` field is an array of strings, which are the button labels. Bots cannot access a user's activity button URLs. When sending, the `buttons` field must be an array of the below object:
 
 | Field | Type   | Description                                            |
-| ----- | ------ | ------------------------------------------------------ |
+|-------|--------|--------------------------------------------------------|
 | label | string | Text shown on the button (1-32 characters)             |
 | url   | string | URL opened when clicking the button (1-512 characters) |
 
@@ -1143,7 +1151,7 @@ Sent when a user starts typing in a channel.
 ###### Typing Start Event Fields
 
 | Field      | Type                                                       | Description                                            |
-| ---------- | ---------------------------------------------------------- | ------------------------------------------------------ |
+|------------|------------------------------------------------------------|--------------------------------------------------------|
 | channel_id | snowflake                                                  | ID of the channel                                      |
 | guild_id?  | snowflake                                                  | ID of the guild                                        |
 | user_id    | snowflake                                                  | ID of the user                                         |
@@ -1152,7 +1160,7 @@ Sent when a user starts typing in a channel.
 
 #### User Update
 
-Sent when properties about the user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
+Sent when properties about the current bot's user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
 
@@ -1170,7 +1178,7 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 ###### Voice Server Update Event Fields
 
 | Field    | Type      | Description                           |
-| -------- | --------- | ------------------------------------- |
+|----------|-----------|---------------------------------------|
 | token    | string    | Voice connection token                |
 | guild_id | snowflake | Guild this voice server update is for |
 | endpoint | ?string   | Voice server host                     |
@@ -1194,7 +1202,7 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 ###### Webhooks Update Event Fields
 
 | Field      | Type      | Description       |
-| ---------- | --------- | ----------------- |
+|------------|-----------|-------------------|
 | guild_id   | snowflake | ID of the guild   |
 | channel_id | snowflake | ID of the channel |
 

@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
 Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
 
@@ -15,14 +15,14 @@ If you want people playing your game to be able to talk with each other, this Vo
 ###### InputModeType Enum
 
 | name          | value |
-| ------------- | ----- |
+|---------------|-------|
 | VoiceActivity | 0     |
 | PushToTalk    | 1     |
 
 ###### InputMode Struct
 
 | name     | type          | description                                   |
-| -------- | ------------- | --------------------------------------------- |
+|----------|---------------|-----------------------------------------------|
 | Type     | InputModeType | set either VAD or PTT as the voice input mode |
 | Shortcut | string        | the PTT hotkey for the user                   |
 
@@ -31,7 +31,7 @@ If you want people playing your game to be able to talk with each other, this Vo
 Keys can be mapped as a combination by adding a "+" between values, such as `"shift + 4"` or `"ctrl + v"`.
 
 | key type      | value                                                     |
-| ------------- | --------------------------------------------------------- |
+|---------------|-----------------------------------------------------------|
 | Alphabetical  | "a", "b", "c", etc.                                       |
 | Numerical     | "1", "2", "3", etc.                                       |
 | Symbols       | "-", "+", ".", "/", etc.                                  |
@@ -95,7 +95,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name      | type      | description                     |
-| --------- | --------- | ------------------------------- |
+|-----------|-----------|---------------------------------|
 | inputMode | InputMode | the new input mode for the user |
 
 ###### Example
@@ -145,7 +145,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type | description                     |
-| ---- | ---- | ------------------------------- |
+|------|------|---------------------------------|
 | mute | bool | true for mute, false for unmute |
 
 ###### Example
@@ -188,7 +188,7 @@ Returns `void`.
 ###### Parameters
 
 | name | type | description                     |
-| ---- | ---- | ------------------------------- |
+|------|------|---------------------------------|
 | deaf | bool | true for mute, false for unmute |
 
 ###### Example
@@ -211,7 +211,7 @@ Returns `bool`.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to check |
 
 ###### Example
@@ -233,7 +233,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type  | description                     |
-| ------ | ----- | ------------------------------- |
+|--------|-------|---------------------------------|
 | userId | Int64 | the id of the user to mute      |
 | mute   | bool  | true for mute, false for unmute |
 
@@ -257,7 +257,7 @@ Returns `byte`.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to check |
 
 ###### Example
@@ -277,7 +277,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type  | description                                       |
-| ------ | ----- | ------------------------------------------------- |
+|--------|-------|---------------------------------------------------|
 | userId | Int64 | the id of the user to change                      |
 | volume | byte  | the volume at which to set the user, `0` to `200` |
 

@@ -24,23 +24,25 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field         | Type      | Description                                                                                          | Required OAuth2 Scope |
-| ------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                                                                        | identify              |
-| username      | string    | the user's username, not unique across the platform                                                  | identify              |
-| discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
-| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
-| verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
-| email?        | ?string   | the user's email                                                                                     | email                 |
-| flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
-| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
-| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| Field              | Type      | Description                                                                                          | Required OAuth2 Scope |
+|--------------------|-----------|------------------------------------------------------------------------------------------------------|-----------------------|
+| id                 | snowflake | the user's id                                                                                        | identify              |
+| username           | string    | the user's username, not unique across the platform                                                  | identify              |
+| discriminator      | string    | the user's Discord-tag                                                                               | identify              |
+| global_name        | ?string   | the user's display name, if it is set. For bots, this is the application name                        | identify              |
+| avatar             | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| bot?               | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
+| system?            | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
+| mfa_enabled?       | boolean   | whether the user has two factor enabled on their account                                             | identify              |
+| banner?            | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| accent_color?      | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
+| locale?            | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
+| verified?          | boolean   | whether the email on this account has been verified                                                  | email                 |
+| email?             | ?string   | the user's email                                                                                     | email                 |
+| flags?             | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| premium_type?      | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
+| public_flags?      | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| avatar_decoration? | ?string   | the user's [avatar decoration hash](#DOCS_REFERENCE/image-formatting)                                | identify              |
 
 ###### Example User
 
@@ -63,7 +65,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 ###### User Flags
 
 | Value   | Name                     | Description                                                                                                                                    |
-| ------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
 | 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
 | 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
@@ -85,7 +87,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 Premium types denote the level of premium a user has. Visit the [Nitro](https://discord.com/nitro) page to learn more about the premium plans we currently offer.
 
 | Value | Name          |
-| ----- | ------------- |
+|-------|---------------|
 | 0     | None          |
 | 1     | Nitro Classic |
 | 2     | Nitro         |
@@ -98,7 +100,7 @@ The connection object that the user has attached.
 ###### Connection Structure
 
 | Field         | Type    | Description                                                                              |
-| ------------- | ------- | ---------------------------------------------------------------------------------------- |
+|---------------|---------|------------------------------------------------------------------------------------------|
 | id            | string  | id of the connection account                                                             |
 | name          | string  | the username of the connection account                                                   |
 | type          | string  | the [service](#DOCS_RESOURCES_USER/connection-object-services) of this connection        |
@@ -113,12 +115,13 @@ The connection object that the user has attached.
 ###### Services
 
 | Value           | Name                |
-| --------------- | ------------------- |
+|-----------------|---------------------|
 | battlenet       | Battle.net          |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
 | facebook        | Facebook            |
 | github          | GitHub              |
+| instagram       | Instagram           |
 | leagueoflegends | League of Legends   |
 | paypal          | PayPal              |
 | playstation     | PlayStation Network |
@@ -127,8 +130,9 @@ The connection object that the user has attached.
 | spotify         | Spotify             |
 | skype *         | Skype               |
 | steam           | Steam               |
+| tiktok          | TikTok              |
 | twitch          | Twitch              |
-| twitter         | Twitter             |
+| twitter         | X (Twitter)         |
 | xbox            | Xbox                |
 | youtube         | YouTube             |
 
@@ -137,7 +141,7 @@ The connection object that the user has attached.
 ###### Visibility Types
 
 | Value | Name     | Description                                      |
-| ----- | -------- | ------------------------------------------------ |
+|-------|----------|--------------------------------------------------|
 | 0     | None     | invisible to everyone except the user themselves |
 | 1     | Everyone | visible to everyone                              |
 
@@ -148,7 +152,7 @@ The role connection object that an application has attached to a user.
 ###### Application Role Connection Structure
 
 | Field             | Type    | Description                                                                                                                                                                                                                                                      |
-| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | platform_name     | ?string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
 | platform_username | ?string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
 | metadata          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
@@ -171,13 +175,13 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 ###### JSON Params
 
 | Field    | Type                                      | Description                                                                      |
-| -------- | ----------------------------------------- | -------------------------------------------------------------------------------- |
+|----------|-------------------------------------------|----------------------------------------------------------------------------------|
 | username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
 | avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
-Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of. For OAuth2, requires the `guilds` scope.
 
 ###### Example Partial Guild
 
@@ -188,7 +192,9 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
   "permissions": "36953089",
-  "features": ["COMMUNITY", "NEWS"]
+  "features": ["COMMUNITY", "NEWS"],
+  "approximate_member_count": 3268,
+  "approximate_presence_count": 784
 }
 ```
 
@@ -197,11 +203,12 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 
 ###### Query String Params
 
-| Field  | Type      | Description                            | Required | Default |
-| ------ | --------- | -------------------------------------- | -------- | ------- |
-| before | snowflake | get guilds before this guild ID        | false    | absent  |
-| after  | snowflake | get guilds after this guild ID         | false    | absent  |
-| limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
+| Field       | Type      | Description                                                | Required | Default |
+|-------------|-----------|------------------------------------------------------------|----------|---------|
+| before      | snowflake | get guilds before this guild ID                            | false    | absent  |
+| after       | snowflake | get guilds after this guild ID                             | false    | absent  |
+| limit       | integer   | max number of guilds to return (1-200)                     | false    | 200     |
+| with_counts | boolean   | include approximate member and presence counts in response | false    | false   |
 
 ## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
 
@@ -209,7 +216,7 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
-Leave a guild. Returns a 204 empty response on success.
+Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) Gateway event and a [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
 
 ## Create DM % POST /users/@me/channels
 
@@ -221,12 +228,12 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 ###### JSON Params
 
 | Field        | Type      | Description                             |
-| ------------ | --------- | --------------------------------------- |
+|--------------|-----------|-----------------------------------------|
 | recipient_id | snowflake | the recipient to open a DM channel with |
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. DMs created with this endpoint will not be shown in the Discord client.
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) Gateway event.
 
 > warn
 > This endpoint is limited to 10 active group DMs.
@@ -234,26 +241,26 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 ###### JSON Params
 
 | Field         | Type             | Description                                                            |
-| ------------- | ---------------- | ---------------------------------------------------------------------- |
+|---------------|------------------|------------------------------------------------------------------------|
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
 | nicks         | dict             | a dictionary of user ids to their respective nicknames                 |
 
-## Get User Connections % GET /users/@me/connections
+## Get Current User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
 
-## Get User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+## Get Current User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
 
 Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
-## Update User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+## Update Current User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
 
 Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
 ###### JSON Params
 
-| Field              | Type    | Description                                                                                                                                                                                                                                                      |
-| ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| platform_name?     | string  | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
-| platform_username? | string  | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
-| metadata?          | object  | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
+| Field              | Type   | Description                                                                                                                                                                                                                                                      |
+|--------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| platform_name?     | string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                          |
+| platform_username? | string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
+| metadata?          | object | object mapping [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
