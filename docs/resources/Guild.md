@@ -1216,14 +1216,14 @@ Returns a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-ob
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object.
+Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
-Returns the [widget](#DOCS_RESOURCES_GUILD/guild-widget-object) for the guild.
+Returns the [widget](#DOCS_RESOURCES_GUILD/guild-widget-object) for the guild. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create) Gateway event if an invite channel is defined on the Guild Widget.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
