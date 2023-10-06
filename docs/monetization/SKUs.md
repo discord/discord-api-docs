@@ -53,10 +53,11 @@ For subscriptions, there are two types of access levels you can offer to users:
 
 The `flags` field can be used to differentiate user and server subscriptions with a bitwise `&&` operator.
 
-| Value  | Type               |
-|--------|--------------------|
-| 1 << 7 | GUILD_SUBSCRIPTION |
-| 1 << 8 | USER_SUBSCRIPTION  |
+| Value  | Type               | Description                                                                                                               |
+|--------|--------------------|---------------------------------------------------------------------------------------------------------------------------|
+| 1 << 2 | AVAILABLE          | SKU is available for purchase                                                                                             |
+| 1 << 7 | GUILD_SUBSCRIPTION | Recurring SKU that can be purchased by a user and applied to a single server. Grants access to every user in that server. |
+| 1 << 8 | USER_SUBSCRIPTION  | Recurring SKU purchased by a user for themselves. Grants access to the purchasing user in every server.                   |
 
 ## Customizing Your SKUs
 
