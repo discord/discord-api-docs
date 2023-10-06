@@ -14,7 +14,6 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 | guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
 | application_id | snowflake         | ID of the parent application                                                                |
 | type           | integer           | [Type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
-| consumed       | boolean           | Not applicable for App Subscriptions. Subscriptions are not consumed and will be `false`    |
 | starts_at?     | ISO8601 timestamp | Start date at which the entitlement is valid. Not present when using test entitlements.     |
 | ends_at?       | ISO8601 timestamp | Date at which the entitlement is no longer valid. Not present when using test entitlements. |
 
