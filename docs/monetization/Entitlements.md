@@ -54,8 +54,8 @@ Returns all entitlements for a given app, active and expired.
 |----------------|-----------------------------------|------------------------------------------------------|
 | user_id?       | snowflake                         | User ID to look up entitlements for                  |
 | sku_ids?       | comma-delimited set of snowflakes | Optional list of SKU IDs to check entitlements for   |
-| before?        | snowflake                         | Retrieve entitlements before this time               |
-| after?         | snowflake                         | Retrieve entitlements after this time                |
+| before?        | snowflake                         | Retrieve entitlements before this entitlement ID     |
+| after?         | snowflake                         | Retrieve entitlements after this entitlement ID      |
 | limit?         | integer                           | Number of entitlements to return, 1-100, default 100 |
 | guild_id?      | snowflake                         | Guild ID to look up entitlements for                 |
 | exclude_ended? | boolean                           | Whether entitlements should be omitted               |
