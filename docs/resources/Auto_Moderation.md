@@ -9,7 +9,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ###### Auto Moderation Rule Structure
 
 | Field            | Type                                                                                     | Description                                                                                               |
-| ---------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+|------------------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | id               | snowflake                                                                                | the id of this rule                                                                                       |
 | guild_id         | snowflake                                                                                | the id of the guild which this rule belongs to                                                            |
 | name             | string                                                                                   | the rule name                                                                                             |
@@ -60,7 +60,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 Characterizes the type of content which can trigger the rule.
 
 | Trigger Type   | Value | Description                                                                 | Max per Guild |
-| -------------- | ----- | --------------------------------------------------------------------------- | ------------- |
+|----------------|-------|-----------------------------------------------------------------------------|---------------|
 | KEYWORD        | 1     | check if content contains words from a user defined list of keywords        | 6             |
 | SPAM           | 3     | check if content represents generic spam                                    | 1             |
 | KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets          | 1             |
@@ -72,8 +72,8 @@ Characterizes the type of content which can trigger the rule.
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field                           | Type                                                                                                              | Associated Trigger Types | Description                                                                       |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------- |
+| Field                           | Type                                                                                                              | Associated Trigger Types                | Description                                                                       |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------|-----------------------------------------------------------------------------------|
 | keyword_filter                  | array of strings *                                                                                                | KEYWORD, MEMBER_PROFILE                 | substrings which will be searched for in content (Maximum of 1000)                |
 | regex_patterns                  | array of strings **                                                                                               | KEYWORD, MEMBER_PROFILE                 | regular expression patterns which will be matched against content (Maximum of 10) |
 | presets                         | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET                          | the internally pre-defined wordsets which will be searched for in content         |
@@ -89,18 +89,18 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 ###### Trigger Metadata Field Limits
 
-| Field               | Trigger Types           | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
-| ------------------- | ----------------------- | ---------------- | ------------------------- |
-| keyword_filter      | KEYWORD, MEMBER_PROFILE | 1000             | 60                        |
-| regex_patterns      | KEYWORD, MEMBER_PROFILE | 10               | 260                       |
-| allow_list          | KEYWORD, MEMBER_PROFILE | 100              | 60                        |
-| allow_list          | KEYWORD_PRESET          | 1000             | 60                        |
+| Field          | Trigger Types           | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
+|----------------|-------------------------|------------------|---------------------------|
+| keyword_filter | KEYWORD, MEMBER_PROFILE | 1000             | 60                        |
+| regex_patterns | KEYWORD, MEMBER_PROFILE | 10               | 260                       |
+| allow_list     | KEYWORD, MEMBER_PROFILE | 100              | 60                        |
+| allow_list     | KEYWORD_PRESET          | 1000             | 60                        |
 
 
 ###### Keyword Preset Types
 
 | Preset Type    | Value | Description                                                  |
-| -------------- | ----- | ------------------------------------------------------------ |
+|----------------|-------|--------------------------------------------------------------|
 | PROFANITY      | 1     | words that may be considered forms of swearing or cursing    |
 | SEXUAL_CONTENT | 2     | words that refer to sexually explicit behavior or activity   |
 | SLURS          | 3     | personal insults or words that may be considered hate speech |
@@ -111,7 +111,7 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 Indicates in what event context a rule should be checked.
 
 | Event Type    | Value | Description                                         |
-| ------------- | ----- | --------------------------------------------------- |
+|---------------|-------|-----------------------------------------------------|
 | MESSAGE_SEND  | 1     | when a member sends or edits a message in the guild |
 | MEMBER_UPDATE | 2     | when a member edits their profile                   |
 
@@ -123,7 +123,7 @@ Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how
 **Prefix** - word must start with the keyword
 
 | Keyword   | Matches                               |
-| --------- | ------------------------------------- |
+|-----------|---------------------------------------|
 | cat\*     | **cat**ch, **Cat**apult, **CAt**tLE   |
 | tra\*     | **tra**in, **tra**de, **TRA**ditional |
 | the mat\* | **the mat**rix                        |
@@ -132,7 +132,7 @@ Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how
 **Suffix** - word must end with the keyword
 
 | Keyword   | Matches                             |
-| --------- | ----------------------------------- |
+|-----------|-------------------------------------|
 | \*cat     | wild**cat**, copy**Cat**            |
 | \*tra     | ex**tra**, ul**tra**, orches**TRA** |
 | \*the mat | brea**the mat**                     |
@@ -141,7 +141,7 @@ Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how
 **Anywhere** - keyword can appear anywhere in the content
 
 | Keyword     | Matches                     |
-| ----------- | --------------------------- |
+|-------------|-----------------------------|
 | \*cat\*     | lo**cat**ion, edu**Cat**ion |
 | \*tra\*     | abs**tra**cted, ou**tra**ge |
 | \*the mat\* | brea**the mat**ter          |
@@ -150,7 +150,7 @@ Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how
 **Whole Word** - keyword is a full word or phrase and must be surrounded by whitespace
 
 | Keyword | Matches     |
-| ------- | ----------- |
+|---------|-------------|
 | cat     | **cat**     |
 | train   | **train**   |
 | the mat | **the mat** |
@@ -163,7 +163,7 @@ An action which will execute whenever a rule is triggered.
 ###### Auto Moderation Action Structure
 
 | Field       | Type                                                                                             | Description                                                               |
-| ----------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+|-------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | type        | [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types)        | the type of action                                                        |
 | metadata? * | [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-metadata) | additional metadata needed during execution for this specific action type |
 
@@ -172,7 +172,7 @@ An action which will execute whenever a rule is triggered.
 ###### Action Types
 
 | Action Type              | Value | Description                                                                                                                                                |
-| ------------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | BLOCK_MESSAGE            | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
 | SEND_ALERT_MESSAGE       | 2     | logs user content to a specified channel                                                                                                                   |
 | TIMEOUT                  | 3     | timeout user for a specified duration *                                                                                                                    |
@@ -187,7 +187,7 @@ Additional data used when an action is executed. Different fields are relevant b
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
 | Field            | Type      | Associated Action Types | Description                                                                            | Constraints                          |
-| ---------------- | --------- | ----------------------- | -------------------------------------------------------------------------------------- | ------------------------------------ |
+|------------------|-----------|-------------------------|----------------------------------------------------------------------------------------|--------------------------------------|
 | channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged                                         | existing channel                     |
 | duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds                                                            | maximum of 2419200 seconds (4 weeks) |
 | custom_message?  | string    | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked | maximum of 150 characters            |
@@ -225,7 +225,7 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 ###### JSON Params
 
 | Field               | Type                                                                                     | Description                                                                                          |
-| ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+|---------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | name                | string                                                                                   | the rule name                                                                                        |
 | event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
 | trigger_type        | integer                                                                                  | the [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)        |
@@ -257,7 +257,7 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 ###### JSON Params
 
 | Field               | Type                                                                                     | Description                                                                                          |
-| ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+|---------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | name                | string                                                                                   | the rule name                                                                                        |
 | event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
 | trigger_metadata? * | object                                                                                   | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) |
