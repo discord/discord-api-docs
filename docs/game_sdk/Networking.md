@@ -65,7 +65,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                                          |
-| --------- | ------ | ---------------------------------------------------- |
+|-----------|--------|------------------------------------------------------|
 | peerId    | UInt64 | the peerId of the user to connect to                 |
 | channelId | byte   | the channel on which to connect                      |
 | reliable  | bool   | whether the channel should be unreliable or reliable |
@@ -91,7 +91,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type   | description                                  |
-| ------ | ------ | -------------------------------------------- |
+|--------|--------|----------------------------------------------|
 | peerId | UInt64 | the peerId of the user to connect to         |
 | route  | string | the route the user is currently broadcasting |
 
@@ -117,7 +117,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type   | description                |
-| ------ | ------ | -------------------------- |
+|--------|--------|----------------------------|
 | peerId | UInt64 | the user's peerId          |
 | route  | string | the new route for the user |
 
@@ -143,7 +143,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                     |
-| --------- | ------ | ------------------------------- |
+|-----------|--------|---------------------------------|
 | peerId    | UInt64 | the peer id to connect to       |
 | channelId | byte   | the channel on which to connect |
 | data      | byte[] | the data to send                |
@@ -170,7 +170,7 @@ Returns `void`.
 ###### Parameters
 
 | name      | type   | description                               |
-| --------- | ------ | ----------------------------------------- |
+|-----------|--------|-------------------------------------------|
 | peerId    | UInt64 | the peerId of the user to disconnect from |
 | channelId | byte   | the route to close                        |
 
@@ -196,7 +196,7 @@ Returns `void`.
 ###### Parameters
 
 | name   | type   | description       |
-| ------ | ------ | ----------------- |
+|--------|--------|-------------------|
 | peerId | UInt64 | the user's peerId |
 
 ###### Example
@@ -219,7 +219,7 @@ Fires when you receive data from another user. This callback will only fire if y
 ###### Parameters
 
 | name      | type   | description                |
-| --------- | ------ | -------------------------- |
+|-----------|--------|----------------------------|
 | peerId    | UInt64 | the peer id of the sender  |
 | channelId | byte   | the channel it was sent on |
 | data      | byte[] | the data sent              |
@@ -241,7 +241,7 @@ Fires when your networking route has changed. You should broadcast to other user
 ###### Parameters
 
 | name  | type   | description               |
-| ----- | ------ | ------------------------- |
+|-------|--------|---------------------------|
 | route | string | the new route to the user |
 
 ###### Example

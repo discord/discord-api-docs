@@ -9,7 +9,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 ###### OAuth2 URLs
 
 | URL                                         | Description                                                 |
-| ------------------------------------------- | ----------------------------------------------------------- |
+|---------------------------------------------|-------------------------------------------------------------|
 | https://discord.com/oauth2/authorize        | Base authorization URL                                      |
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
@@ -22,18 +22,18 @@ The first step in implementing OAuth2 is [registering a developer application](#
 These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use. Requesting them from a user without approval from Discord may cause errors or undocumented behavior in the OAuth2 flow.
 
 | Name                                     | Description                                                                                                                                                                             |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | activities.read                          | allows your app to fetch data from a user's "Now Playing/Recently Played" list — not currently available for apps                                                                       |
-| activities.write                         | allows your app to update a user's activity - requires Discord approval (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                       |
+| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                |
 | applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                            |
 | applications.builds.upload               | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                           |
-| applications.commands                    | allows your app to use [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild                                                                                                  |
+| applications.commands                    | allows your app to add [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) to a guild - included by default with the `bot` scope                                                       |
 | applications.commands.update             | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) using a Bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 | applications.commands.permissions.update | allows your app to update [permissions for its commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) in a guild a user has permissions to                                      |
 | applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                                                          |
 | applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                      |
 | bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                              |
-| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                        |
+| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-current-user-connections) to return linked third-party accounts                                                                |
 | dm_channels.read                         | allows your app to see information about the user's DMs and group DMs - requires Discord approval                                                                                       |
 | email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                        |
 | gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                           |
@@ -68,6 +68,8 @@ While Discord does not require the use of the `state` parameter, we support it a
 
 The authorization code grant is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
 
+All calls to the OAuth2 endpoints require either HTTP Basic authentication or `client_id` and `client_secret` supplied in the form data body.
+
 ###### Authorization URL Example
 
 ```
@@ -88,8 +90,6 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 
 `code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
-- `client_id` - your application's client id
-- `client_secret` - your application's client secret
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
 - `redirect_uri` - the `redirect_uri` associated with this authorization, usually from your authorization URL
@@ -106,8 +106,6 @@ REDIRECT_URI = 'https://nicememe.website'
 
 def exchange_code(code):
   data = {
-    'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': code,
     'redirect_uri': REDIRECT_URI
@@ -115,12 +113,12 @@ def exchange_code(code):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
 
-You can also pass your `client_id` and `client_secret` as basic authentication with `client_id` as the username and `client_secret` as the password. In response, you will receive:
+In response, you will receive:
 
 ###### Access Token Response
 
@@ -136,8 +134,6 @@ You can also pass your `client_id` and `client_secret` as basic authentication w
 
 Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
-- `client_id` - your application's client id
-- `client_secret` - your application's client secret
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 
@@ -149,24 +145,51 @@ import requests
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-REDIRECT_URI = 'https://nicememe.website'
 
 def refresh_token(refresh_token):
   data = {
-    'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET,
     'grant_type': 'refresh_token',
     'refresh_token': refresh_token
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
 
 Boom; fresh [access token response](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-response)!
+
+###### Token Revocation Example
+
+To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+
+- `token` - the access token or refresh token to revoke
+- `token_type_hint` *(optional)* - the `token` parameter's type—either `access_token` or `refresh_token`
+
+> warn
+> When you revoke a token, any active access or refresh tokens associated with that authorization will be revoked, regardless of the `token` and `token_type_hint` values you pass in.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+
+def revoke_access_token(access_token):
+  data = {
+    'token': access_token,
+    'token_type_hint': 'access_token'
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  requests.post('%s/oauth2/token/revoke' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+```
+
+Boom; the tokens are safely revoked.
 
 ## Implicit Grant
 
@@ -257,7 +280,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
+|----------------------|-----------------------------------------------------------------------|
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
@@ -271,8 +294,6 @@ https://discord.com/oauth2/authorize?client_id=157730590492196864&scope=bot&perm
 ```
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
-
-Additionally, if your bot provides [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS), you can add `applications.commands` to the URL's scopes, so that commands will be available in the guild.
 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
@@ -326,6 +347,7 @@ When receiving the access code on redirect, there will be additional querystring
     "icon": null,
     "description": null,
     "public_updates_channel_id": null,
+    "safety_alerts_channel_id": null,
     "rules_channel_id": null,
     "max_members": 100000,
     "vanity_url_code": null,
@@ -399,7 +421,7 @@ Returns info about the current authorization. Requires authentication with a bea
 ###### Response Structure
 
 | Field       | Type                                                                         | Description                                                                       |
-| ----------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+|-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
 | application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
 | scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
 | expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
@@ -426,9 +448,10 @@ Returns info about the current authorization. Requires authentication with a bea
     "expires": "2021-01-23T02:33:17.017000+00:00",
     "user": {
         "id": "268473310986240001",
-        "username": "Discord",
+        "username": "discord",
         "avatar": "f749bb0cbeeb26ef21eca719337d20f1",
-        "discriminator": "0001",
+        "discriminator": "0",
+        "global_name": "Discord",
         "public_flags": 131072
     }
 }

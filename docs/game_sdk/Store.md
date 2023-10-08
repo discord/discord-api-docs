@@ -9,7 +9,7 @@
 > danger
 > The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
-If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
+If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
 ## Application Test Mode
 
@@ -56,7 +56,7 @@ Non-consumable SKUs can only be purchased once.
 ###### SKU Struct
 
 | name  | type     | description              |
-| ----- | -------- | ------------------------ |
+|-------|----------|--------------------------|
 | Id    | Int64    | the unique ID of the SKU |
 | Type  | SkuType  | what sort of SKU it is   |
 | Name  | string   | the name of the SKU      |
@@ -65,7 +65,7 @@ Non-consumable SKUs can only be purchased once.
 ###### SkuType Enum
 
 | name        | value | description                                    |
-| ----------- | ----- | ---------------------------------------------- |
+|-------------|-------|------------------------------------------------|
 | Application | 1     | SKU is a game                                  |
 | DLC         | 2     | SKU is a DLC                                   |
 | Consumable  | 3     | SKU is a consumable (in-app purchase)          |
@@ -74,14 +74,14 @@ Non-consumable SKUs can only be purchased once.
 ###### SkuPrice Struct
 
 | name     | type   | description                       |
-| -------- | ------ | --------------------------------- |
+|----------|--------|-----------------------------------|
 | Amount   | UInt32 | the amount of money the SKU costs |
 | Currency | string | the currency the amount is in     |
 
 ###### Entitlement Struct
 
 | name  | type            | description                                     |
-| ----- | --------------- | ----------------------------------------------- |
+|-------|-----------------|-------------------------------------------------|
 | Id    | Int64           | the unique ID of the entitlement                |
 | Type  | EntitlementType | the kind of entitlement it is                   |
 | SkuId | Int64           | the ID of the SKU to which the user is entitled |
@@ -89,7 +89,7 @@ Non-consumable SKUs can only be purchased once.
 ###### EntitlementType Enum
 
 | name                | value | description                                                    |
-| ------------------- | ----- | -------------------------------------------------------------- |
+|---------------------|-------|----------------------------------------------------------------|
 | Purchase            | 1     | entitlement was purchased                                      |
 | PremiumSubscription | 2     | entitlement for a Discord Nitro subscription                   |
 | DeveloperGift       | 3     | entitlement was gifted by a developer                          |
@@ -152,7 +152,7 @@ Returns `Discord.Sku`.
 ###### Parameters
 
 | name  | type  | description              |
-| ----- | ----- | ------------------------ |
+|-------|-------|--------------------------|
 | skuId | Int64 | the ID of the SKU to get |
 
 ###### Example
@@ -172,7 +172,7 @@ Returns `Discord.Sku`.
 ###### Parameters
 
 | name  | type  | description               |
-| ----- | ----- | ------------------------- |
+|-------|-------|---------------------------|
 | index | Int32 | the index at which to get |
 
 ###### Example
@@ -242,7 +242,7 @@ Returns `Discord.Entitlement`.
 ###### Parameters
 
 | name          | type  | description                      |
-| ------------- | ----- | -------------------------------- |
+|---------------|-------|----------------------------------|
 | entitlementId | Int64 | the ID of the entitlement to get |
 
 ###### Example
@@ -264,7 +264,7 @@ Returns `Discord.Entitlement`.
 ###### Parameters
 
 | name  | type  | description               |
-| ----- | ----- | ------------------------- |
+|-------|-------|---------------------------|
 | index | Int32 | the index at which to get |
 
 ###### Example
@@ -289,7 +289,7 @@ Returns `bool`.
 ###### Parameters
 
 | name  | type  | description                |
-| ----- | ----- | -------------------------- |
+|-------|-------|----------------------------|
 | skuId | Int64 | the ID of the SKU to check |
 
 ###### Example
@@ -317,7 +317,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name  | type  | description                           |
-| ----- | ----- | ------------------------------------- |
+|-------|-------|---------------------------------------|
 | skuId | Int64 | the ID of the SKU to begin purchasing |
 
 ###### Example
@@ -342,7 +342,7 @@ Fires when the connected user receives a new entitlement, either through purchas
 ###### Parameters
 
 | name        | type                | description                               |
-| ----------- | ------------------- | ----------------------------------------- |
+|-------------|---------------------|-------------------------------------------|
 | entitlement | Discord.Entitlement | the entitlement the user has been granted |
 
 ## OnEntitlementDelete
@@ -352,7 +352,7 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 ###### Parameters
 
 | name        | type                | description                       |
-| ----------- | ------------------- | --------------------------------- |
+|-------------|---------------------|-----------------------------------|
 | entitlement | Discord.Entitlement | the entitlement the user has lost |
 
 ## HTTP APIs
@@ -368,7 +368,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 ###### Limited Payment Data Object
 
 | name          | type   | description                          |
-| ------------- | ------ | ------------------------------------ |
+|---------------|--------|--------------------------------------|
 | id            | string | unique ID of the payment             |
 | currency      | string | the currency the payment was made in |
 | amount        | int    | the amount paid                      |
@@ -382,7 +382,7 @@ Gets entitlements for a given user. You can use this on your game backend to che
 ###### Query Parameters
 
 | name           | type                              | description                                                                                                                    |
-| -------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+|----------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
 | sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
 | with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
@@ -428,7 +428,7 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 ###### Query Parameters
 
 | name          | type | description                                                                                                                    |
-| ------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------ |
+|---------------|------|--------------------------------------------------------------------------------------------------------------------------------|
 | with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
 
 ###### Example
@@ -529,7 +529,7 @@ Creates a discount for the given user on their next purchase of the given SKU. Y
 ###### Parameters
 
 | name        | type | description                                                                            |
-| ----------- | ---- | -------------------------------------------------------------------------------------- |
+|-------------|------|----------------------------------------------------------------------------------------|
 | percent_off | int  | the percentage to discount - max of 100, min of 1                                      |
 | ttl?        | int  | the time to live for the discount, in seconds - max of 3600, min of 60, default of 600 |
 

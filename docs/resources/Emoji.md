@@ -8,7 +8,7 @@
 ###### Emoji Structure
 
 | Field           | Type                                                             | Description                                                               |
-| --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
+|-----------------|------------------------------------------------------------------|---------------------------------------------------------------------------|
 | id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                              |
 | name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
 | roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles allowed to use this emoji                                           |
@@ -57,7 +57,7 @@ Emojis cannot be converted between normal and premium after creation.
 ###### Custom Emoji Examples
 
 >info
->In `MESSAGE_REACTION_ADD` gateway events `animated` will be returned for animated emoji.
+>In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emoji.
 
 >info
 >In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
@@ -90,18 +90,18 @@ Returns an [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object for the given guil
 Create a new emoji for the guild. Requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the new [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-emojis-update) Gateway event.
 
 > warn
-> Emojis and animated emojis have a maximum file size of 256kb. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json).
+> Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json).
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field | Type                                     | Description                                    |
-| ----- | ---------------------------------------- | ---------------------------------------------- |
-| name  | string                                   | name of the emoji                              |
-| image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image                        |
-| roles | array of snowflakes                      | roles allowed to use this emoji                |
+| Field | Type                                     | Description                     |
+|-------|------------------------------------------|---------------------------------|
+| name  | string                                   | name of the emoji               |
+| image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image         |
+| roles | array of snowflakes                      | roles allowed to use this emoji |
 
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
@@ -115,10 +115,10 @@ Modify the given emoji. Requires the `MANAGE_GUILD_EXPRESSIONS` permission. Retu
 
 ###### JSON Params
 
-| Field | Type                 | Description                                   |
-| ----- | -------------------- | --------------------------------------------- |
-| name  | string               | name of the emoji                             |
-| roles | ?array of snowflakes | roles allowed to use this emoji               |
+| Field | Type                 | Description                     |
+|-------|----------------------|---------------------------------|
+| name  | string               | name of the emoji               |
+| roles | ?array of snowflakes | roles allowed to use this emoji |
 
 ## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 

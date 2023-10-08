@@ -29,11 +29,11 @@ In order to prevent broken reconnect loops, you should consider some close codes
 |------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                | true      |
 | 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
-| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-events) to Discord. Don't do that!                                                                                                                                       | true      |
-| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identifying).                                                                                                                                                     | true      |
-| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY_EVENTS/identify) is incorrect.                                                                                                                                 | false     |
+| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-events) to Discord. Don't do that!                                                                                                                                    | true      |
+| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identifying).                                                                                                                                                  | true      |
+| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY_EVENTS/identify) is incorrect.                                                                                                                          | false     |
 | 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                          | true      |
-| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY_EVENTS/resume) the session was invalid. Reconnect and start a new session.                                                                                                       | true      |
+| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY_EVENTS/resume) the session was invalid. Reconnect and start a new session.                                                                                                | true      |
 | 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                 | true      |
 | 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                           | true      |
 | 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                  | false     |
@@ -67,10 +67,10 @@ Our voice gateways have their own set of opcodes and close codes.
 | Code | Description              | Explanation                                                                                                                                      |
 |------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) to the Gateway.                                                  |
-| 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) with the Gateway.                                                         |
-| 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload is incorrect.                                                       |
-| 4005 | Already authenticated    | You sent more than one [identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. Stahp.                                                                 |
+| 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) to the Gateway.                                          |
+| 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) with the Gateway.                                                  |
+| 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload is incorrect.                                                |
+| 4005 | Already authenticated    | You sent more than one [identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. Stahp.                                                          |
 | 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                 |
 | 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
 | 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
@@ -180,8 +180,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
 | 30032  | Maximum number of application commands reached                                                                                |
-| 30033  | Max number of thread participants has been reached (1000)                                                                     |
-| 30034  | Max number of daily application command creates has been reached (200)                                                        |
+| 30033  | Maximum number of thread participants has been reached (1000)                                                                 |
+| 30034  | Maximum number of daily application command creates has been reached (200)                                                    |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30038  | Maximum number of uncompleted guild scheduled events reached (100)                                                            |
@@ -265,21 +265,24 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
+| 50131  | Owner cannot be pending member                                                                                                |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
-| 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50159  | Voice messages do not support additional content.                                                                             |
 | 50160  | Voice messages must have a single audio attachment.                                                                           |
 | 50161  | Voice messages must have supporting metadata.                                                                                 |
 | 50162  | Voice messages cannot be edited.                                                                                              |
+| 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50173  | You cannot send voice messages in this channel.                                                                               |
+| 50178  | The user account must first be verified                                                                                       |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
+| 90002  | User cannot use burst reactions                                                                                               |
 | 110001 | Application not yet available. Try again later                                                                                |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
@@ -304,6 +307,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
 | 220004 | Webhook services cannot be used in forum channels                                                                             |
 | 240000 | Message blocked by harmful links filter                                                                                       |
+| 350000 | Cannot enable onboarding, requirements are not met                                                                            |
+| 350001 | Cannot update onboarding while below requirements                                                                             |
 
 ###### Example JSON Error Response
 

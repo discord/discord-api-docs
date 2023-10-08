@@ -1,3 +1,5 @@
+<LocalePicker />
+
 # Building your first Discord app
 
 Discord apps let you customize and extend your servers using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript, and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
@@ -19,7 +21,7 @@ To make the user flow a bit more explicit:
 </Collapsible>
 
 <Collapsible title="Resources used in this guide" description="Overview of the tools and technologies we'll use" icon="list">
-- **[Github repository](https://github.com/discord/discord-example-app)** where the code from this guide lives along with some additional feature-specific code examples.
+- **[GitHub repository](https://github.com/discord/discord-example-app)** where the code from this guide lives along with some additional feature-specific code examples.
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, a library that provides types and helper functions for Discord apps.
 - **[Express](https://expressjs.com)**, a popular JavaScript web framework we'll use to create a server where Discord can send us requests.
 - **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
@@ -78,9 +80,9 @@ Click on **OAuth2** in the left sidebar, then select **URL generator**.
 > info
 > The URL generator creates an installation link based on the scopes and permissions you select for your app. You can use the link to install the app onto your own server, or share it with others so they can install it.
 
-For now, add two scopes:
-- `applications.commands` which allows your app to create [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
-- `bot` adds your bot user. After you select `bot`, you can also select different permissions for your bot. For now, just check **Send Messages**.
+For now, just add the **`bot` scope**, which adds your bot user.
+
+After you select `bot`, you can also select different permissions for your bot. For now, just check **Send Messages**.
 
 See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), or read more on [permissions](#DOCS_TOPICS_PERMISSIONS) in the documentation.
 
@@ -103,7 +105,7 @@ With your app configured and installed, let's start developing it.
 
 ## Step 2: Running your app
 
-All of the code used in the example app can be found in [the Github repository](https://github.com/discord/discord-example-app).
+All of the code used in the example app can be found in [the GitHub repository](https://github.com/discord/discord-example-app).
 
 To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) documentation.
 
@@ -195,7 +197,7 @@ To enable your app to receive slash command requests (and other interactions), D
 Glitch projects have a public URL exposed by default. Copy your project's URL by clicking the **Share** button in the top right corner, then copy the "Live site" project link near the bottom of the modal.
 
 > info
-> If you're developing locally, there are instructions for tunneling requests to your local environment [on the Github README](https://github.com/discord/discord-example-app#running-app-locally).
+> If you're developing locally, there are instructions for tunneling requests to your local environment [on the GitHub README](https://github.com/discord/discord-example-app#running-app-locally).
 
 With the link copied, go to your app's settings from [the developer portal](https://discord.com/developers/applications).
 
@@ -273,7 +275,6 @@ if (name === 'challenge' && id) {
     return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        // Fetches a random emoji to send from a helper function
         content: `Rock papers scissors challenge from <@${userId}>`,
         components: [
         {
@@ -296,7 +297,7 @@ if (name === 'challenge' && id) {
 
 
 > info
-> If you aren't sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on Github](https://github.com/discord/discord-example-app/blob/main/app.js).
+> If you aren't sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
 
 The above code is doing a few things:
 1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`).
@@ -395,7 +396,6 @@ const componentId = data.custom_id;
       await res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          // Fetches a random emoji to send from a helper function
           content: 'What is your object of choice?',
           // Indicates it'll be an ephemeral message
           flags: InteractionResponseFlags.EPHEMERAL,

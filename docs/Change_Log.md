@@ -1,16 +1,131 @@
 # Change Log
 
-#### April 14, 2023
+## Premium App Subscriptions Available in the US
+#### Sep 26, 2023
+
+Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+
+- Manage subscription SKUs in the Developer Portal
+- View monetization analytics in the Developer Portal
+- Team owners can setup and manage payouts in Developer Portal
+- New endpoints for working with [SKUs](#DOCS_MONETIZATION_SKUS) and [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS):
+  - [List SKUs](#DOCS_MONETIZATION_SKUS/list-skus) `GET /applications/<application.id>/skus`
+  - [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) `GET /applications/<application.id>/entitlements`
+  - [Create Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) `POST /applications/<application.id>/entitlements`
+  - [Delete Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
+- [Gateway Events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE` 
+- New [`PREMIUM_REQUIRED (10)` interaction response type](#DOCS_MONETIZATION_ENTITLEMENTS/premiumrequired-interaction-response) is available to prompt users to upgrade
+- New `entitlements` field, which is an array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/) objects, available in interaction data payloads when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure)
+
+To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
+
+## Default Value in Auto-populated Select Menus
+
+#### Sep 22, 2023
+
+A new `default_values` field was added for user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus). `default_values` is a list of [default value objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-default-value-structure), which each include an `id` (the snowflake value for the resource), as well as a corresponding `type` (either `"user"`, `"role"`, or `"channel"`).
+
+## Team Member Roles
+
+#### Aug 23, 2023
+
+You can now select roles other than admin when inviting users or configuring members of a team. There are four [role types](#DOCS_TOPICS_TEAMS/team-member-roles-team-member-role-types) that a team member can be assigned: owner, admin, developer, or read-only. The team member object now has an additional [`role` field](#DOCS_TOPICS_TEAMS/data-models-team-member-object), which is a string representing the member's current role.
+
+Details about team member roles are in the updated [Teams documentation](#DOCS_TOPICS_TEAMS/team-member-roles).
+
+## Embed Debugger
+
+#### Aug 10, 2023
+
+We've released a new [Embed Debugger tool](https://discord.com/developers/embeds) that shows you how a URL's metadata will be parsed and rendered as a link embed within the Discord client. Use it to preview your site's embed, or debug why your site's link embed isn't working as expected.
+
+## Activity State for Bot Users
+
+#### Aug 8, 2023
+
+The `state` field in [activity objects](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) can now be set when [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence) for a bot user. The value of `state` will appear as a custom status for the bot user when an [activity's `type`](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types) is set to `4`, or as additional data under an activity's name for other activity types.
+
+## Public Preview of OpenAPI 3.1 Specification
+
+#### Aug 2, 2023
+
+We're introducing an [OpenAPI 3.1 spec](https://github.com/discord/discord-api-spec) in public preview to make it easier and more reliable to develop with the HTTP API. While our current developer documentation requires manual reviews and updates, the OpenAPI spec is generated from the source code which means it better reflects the nooks, crannies, and nuances of the Discord API.
+
+> warn
+> The public preview of the OpenAPI spec is subject to breaking changes without advance notice, and should not be used within production environments. If you see something that looks incorrect or can be improved, you can [open an issue](https://github.com/discord/discord-api-spec/issues).
+
+The public spec can be found in the new [`discord-api-spec` repository on GitHub](https://github.com/discord/discord-api-spec).
+
+## New GUILD_MEDIA channel type
+
+#### Aug 1, 2023
+
+- Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
+
+Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
+
+## Add Join Raid and Mention Raid fields
+
+#### May 05, 2023
+
+- Add Auto Moderation `mention_raid_protection_enabled` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field for the `MENTION_SPAM` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). If this field and its parent `MENTION_SPAM` rule are enabled, Auto Moderation provides baseline detection against sudden spikes in mention activity that are normally indicative of mention raids.
+- Add `safety_alerts_channel_id` [guild](#DOCS_RESOURCES_GUILD/guild-object) field and [`RAID_ALERTS_DISABLED` guild feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which are associated with join raid protection
+
+## Unique usernames on Discord
+
+#### May 3, 2023
+
+> warn
+> Bot users will stay on the legacy username system for now. More details can be found on the [Developer Help Center article](https://dis.gd/app-usernames).
+
+Discord’s username system is changing. Discriminators are being removed and new, unique usernames and display names are being introduced. You can read more details about how changes to the username system affects non-bot users in the [general Help Center article](https://dis.gd/usernames). To learn how it impacts bot users specifically, you can read the [Developer Help Center article](https://dis.gd/app-usernames).
+
+This changelog focuses only on the technical changes to be aware of to update your app's code.
+
+### Identifying migrated users
+
+The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
+
+After migration of all users is complete, the `discriminator` field may be removed.
+
+#### Example migrated user
+
+```json
+{
+  "id": "80351110224678912",
+  "username": "nelly",
+  "discriminator": "0",
+  "global_name": "Nelly",
+  "avatar": "8342729096ea3675442027381ff50dfe",
+  "verified": true,
+  "email": "nelly@discord.com",
+  "flags": 64,
+  "banner": "06c16474723fe537c283b8efa61a30c8",
+  "accent_color": 16711680,
+  "premium_type": 1,
+  "public_flags": 64
+}
+```
+
+### Display names
+
+As part of the new username system, standard Discord users can define a non-unique display name. This value will be a new `global_name` field with a max length of 32 characters. If the user has not set a display name, `global_name` will be null.
+
+### Default avatars
+
+For users with migrated accounts, default avatar URLs will be based on the user ID instead of the discriminator. The URL can now be calculated using `(user_id >> 22) % 6`. Users on the legacy username system will continue using `discriminator % 5`.
 
 ## Bot users added to all new apps
+
+#### April 14, 2023
 
 Starting today, [bot users](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) will be added to all newly-created apps. Settings and configuration options for bot users remain the same, and can still be accessed on the **Bot** page within your [app's settings](https://discord.com/developers/applications).
 
 If your app doesn't need or want a bot user associated with it, you can refrain from adding the [`bot` scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when installing your app.
 
-#### April 6, 2023
-
 ## Interaction Channel Data
+
+#### April 6, 2023
 
 Interactions now contain a `channel` field which is a partial channel object and guaranteed to contain `id` and `type`. We recommend that you begin using this channel field to identify the source channel of the interaction, and may deprecate the existing `channel_id` field in the future. See the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) for more details.
 
@@ -72,6 +187,20 @@ Starting in API v11, [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-m
 
 Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 
+## Add Application Connections Metadata and Linked Roles
+
+#### Dec 12, 2022
+
+Introducing [linked roles](https://discord.com/blog/connected-accounts-functionality-boost-linked-roles) as well as the ability for all developers to set up their own linked roles with an application. This includes:
+- New [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object) that can be set in the developer portal in order for the application to render as potential verification option for linked roles.
+- [Application metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) to specify more detailed linked role requirements.
+- New endpoints to [retrieve](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/get-application-role-connection-metadata-records) (`GET /applications/<application.id>/role-connections/metadata`) and [update](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/update-application-role-connection-metadata-records) (`PUT /applications/<application.id>/role-connections/metadata`) application connection metadata.
+- New [`role_connections.write`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) OAuth2 scope required to authenticate the below requests.
+- Endpoints to [retrieve](#DOCS_RESOURCES_USER/get-current-user-application-role-connection) (`GET /users/@me/applications/{application.id}/role-connection`) and [update](#DOCS_RESOURCES_USER/update-current-user-application-role-connection) (`PUT /users/@me/applications/{application.id}/role-connection`) a user's role connections, both of which return an [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) object.
+
+> info
+> For a quick rundown on how to get started using linked roles, refer to the [tutorial](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES).
+
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
 #### Nov 22, 2022
@@ -87,7 +216,7 @@ Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 > danger
 > This entry includes breaking changes
 
-Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord. 
+Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
 
 Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
@@ -427,7 +556,7 @@ In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive 
 
 #### Jun 17, 2022
 
-The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones. 
+The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones.
 
 In API v11, support for the previous field names (`$os`, `$browser`, and `$device`) will be removed.
 
@@ -808,7 +937,7 @@ Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GU
 
 #### August 22, 2019
 
-News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same.
+News Channels are now changed to Announcement Channels. Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same.
 
 ## More Precise Rate Limits
 
