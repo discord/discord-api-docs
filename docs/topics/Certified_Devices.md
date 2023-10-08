@@ -19,7 +19,7 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 ###### Query String Params
 
 | Name      | Value                | Required  |
-| --------- | -------------------- | --------- |
+|-----------|----------------------|-----------|
 | v         | `1`                  | All       |
 | client_id | your app's client id | All       |
 | encoding  | `json`               | WebSocket |
@@ -164,7 +164,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
 ###### Device Object
 
 | Field                     | Type                                                                 | Description                                              |
-| ------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
+|---------------------------|----------------------------------------------------------------------|----------------------------------------------------------|
 | type                      | [device type](#DOCS_TOPICS_CERTIFIED_DEVICES/models-device-type)     | the type of device                                       |
 | id                        | string                                                               | the device's Windows UUID                                |
 | vendor                    | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
@@ -180,21 +180,21 @@ The socket will respond with a `200 OK` status code and the following JSON.
 ###### Vendor Object
 
 | Field | Type   | Description        |
-| ----- | ------ | ------------------ |
+|-------|--------|--------------------|
 | name  | string | name of the vendor |
 | url   | string | url for the vendor |
 
 ###### Model Object
 
 | Field | Type   | Description       |
-| ----- | ------ | ----------------- |
+|-------|--------|-------------------|
 | name  | string | name of the model |
 | url   | string | url for the model |
 
 ###### Device Type
 
 | Type         | Value         |
-| ------------ | ------------- |
+|--------------|---------------|
 | AUDIO_INPUT  | "audioinput"  |
 | AUDIO_OUTPUT | "audiooutput" |
 | VIDEO_INPUT  | "videoinput"  |
