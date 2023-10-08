@@ -31,7 +31,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 ###### Bitwise Permission Flags
 
 | Permission                             | Value                            | Description                                                                                                                                         | Channel Type |
-| -------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+|----------------------------------------|----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
 | CREATE_INSTANT_INVITE                  | `0x0000000000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                                  | T, V, S      |
 | KICK_MEMBERS \*                        | `0x0000000000000002` `(1 << 1)`  | Allows kicking members                                                                                                                              |              |
 | BAN_MEMBERS \*                         | `0x0000000000000004` `(1 << 2)`  | Allows banning members                                                                                                                              |              |
@@ -75,6 +75,8 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MODERATE_MEMBERS \*\*                  | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
 | VIEW_CREATOR_MONETIZATION_ANALYTICS \* | `0x0000020000000000` `(1 << 41)` | Allows for viewing role subscription insights                                                                                                       |              |
 | USE_SOUNDBOARD                         | `0x0000040000000000` `(1 << 42)` | Allows for using soundboard in a voice channel                                                                                                      | V            |
+| USE_EXTERNAL_SOUNDS                    | `0x0000200000000000` `(1 << 45)` | Allows the usage of custom soundboard sounds from other servers                                                                                     | V            |
+| SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                       | T, V, S      |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
@@ -189,19 +191,20 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 
 ###### Role Structure
 
-| Field          | Type                                                                         | Description                                       |
-| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
-| id             | snowflake                                                                    | role id                                           |
-| name           | string                                                                       | role name                                         |
-| color          | integer                                                                      | integer representation of hexadecimal color code  |
-| hoist          | boolean                                                                      | if this role is pinned in the user listing        |
-| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
-| unicode_emoji? | ?string                                                                      | role unicode emoji                                |
-| position       | integer                                                                      | position of this role                             |
-| permissions    | string                                                                       | permission bit set                                |
-| managed        | boolean                                                                      | whether this role is managed by an integration    |
-| mentionable    | boolean                                                                      | whether this role is mentionable                  |
-| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                            |
+| Field          | Type                                                                         | Description                                                                                                                     |
+|----------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake                                                                    | role id                                                                                                                         |
+| name           | string                                                                       | role name                                                                                                                       |
+| color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
+| hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
+| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)                                                                              |
+| unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
+| position       | integer                                                                      | position of this role                                                                                                           |
+| permissions    | string                                                                       | permission bit set                                                                                                              |
+| managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
+| mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
+| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                                                                                                          |
+| flags          | integer                                                                      | [role flags](#DOCS_TOPICS_PERMISSIONS/role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -210,7 +213,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
 Tags with type `null` represent booleans. They will be present and set to `null` if they are "true", and will be not present if they are "false".
 
 | Field                    | Type      | Description                                        |
-| ------------------------ | --------- | -------------------------------------------------- |
+|--------------------------|-----------|----------------------------------------------------|
 | bot_id?                  | snowflake | the id of the bot this role belongs to             |
 | integration_id?          | snowflake | the id of the integration this role belongs to     |
 | premium_subscriber?      | null      | whether this is the guild's Booster role           |
@@ -231,9 +234,16 @@ Tags with type `null` represent booleans. They will be present and set to `null`
   "position": 1,
   "permissions": "66321471",
   "managed": false,
-  "mentionable": false
+  "mentionable": false,
+  "flags": 0
 }
 ```
+
+###### Role Flags
+
+| Flag      | Value  | Description                                                                                              |
+|-----------|--------|----------------------------------------------------------------------------------------------------------|
+| IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 

@@ -12,7 +12,7 @@ For more detailed information and documentation around the Rich Presence feature
 ###### User Struct
 
 | name          | type   | description                   |
-| ------------- | ------ | ----------------------------- |
+|---------------|--------|-------------------------------|
 | Id            | Int64  | the user's id                 |
 | Username      | string | their name                    |
 | Discriminator | string | the user's unique discrim     |
@@ -22,7 +22,7 @@ For more detailed information and documentation around the Rich Presence feature
 ###### Activity Struct
 
 | name          | type               | description                                                     |
-| ------------- | ------------------ | --------------------------------------------------------------- |
+|---------------|--------------------|-----------------------------------------------------------------|
 | ApplicationId | Int64              | your application id - this is a read-only field                 |
 | Name          | string             | name of the application - this is a read-only field             |
 | State         | string             | the player's current party status                               |
@@ -36,37 +36,37 @@ For more detailed information and documentation around the Rich Presence feature
 ###### ActivityTimestamps Struct
 
 | name  | type  | description                                            |
-| ----- | ----- | ------------------------------------------------------ |
+|-------|-------|--------------------------------------------------------|
 | Start | Int64 | unix timestamp - send this to have an "elapsed" timer  |
 | End   | Int64 | unix timestamp - send this to have a "remaining" timer |
 
 ###### ActivityAssets Struct
 
-| name       | type   | description                                                                           |
-| ---------- | ------ | ------------------------------------------------------------------------------------- |
+| name       | type   | description                                                                                  |
+|------------|--------|----------------------------------------------------------------------------------------------|
 | LargeImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
-| LargeText  | string | hover text for the large image                                                        |
+| LargeText  | string | hover text for the large image                                                               |
 | SmallImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
-| SmallText  | string | hover text for the small image                                                        |
+| SmallText  | string | hover text for the small image                                                               |
 
 ###### ActivityParty Struct
 
 | name | type      | description                        |
-| ---- | --------- | ---------------------------------- |
+|------|-----------|------------------------------------|
 | Id   | string    | a unique identifier for this party |
 | Size | PartySize | info about the size of the party   |
 
 ###### PartySize Struct
 
 | name        | type  | description                        |
-| ----------- | ----- | ---------------------------------- |
+|-------------|-------|------------------------------------|
 | CurrentSize | Int32 | the current size of the party      |
 | MaxSize     | Int32 | the max possible size of the party |
 
 ###### ActivitySecrets Struct
 
 | name     | type   | description                                  |
-| -------- | ------ | -------------------------------------------- |
+|----------|--------|----------------------------------------------|
 | Match    | string | unique hash for the given match context      |
 | Join     | string | unique hash for chat invites and Ask to Join |
 | Spectate | string | unique hash for Spectate button              |
@@ -74,7 +74,7 @@ For more detailed information and documentation around the Rich Presence feature
 ###### ActivityType Enum
 
 | name      | Value |
-| --------- | ----- |
+|-----------|-------|
 | Playing   | 0     |
 | Streaming | 1     |
 | Listening | 2     |
@@ -89,7 +89,7 @@ For more details about the activity types, [see Gateway documentation](#DOCS_TOP
 ###### ActivityJoinRequestReply Enum
 
 | name   | value |
-| ------ | ----- |
+|--------|-------|
 | No     | 0     |
 | Yes    | 1     |
 | Ignore | 2     |
@@ -97,7 +97,7 @@ For more details about the activity types, [see Gateway documentation](#DOCS_TOP
 ###### ActivityActionType Enum
 
 | name     | value |
-| -------- | ----- |
+|----------|-------|
 | Join     | 1     |
 | Spectate | 2     |
 
@@ -108,7 +108,7 @@ If you want to hook up joining and spectating for your games, there are certain 
 ###### Requirements
 
 | Field                          | Custom Artwork | Spectate | Join | Ask to Join |
-| ------------------------------ | :------------: | :------: | :--: | :---------: |
+|--------------------------------|:--------------:|:--------:|:----:|:-----------:|
 | State                          |                |          |      |             |
 | Details                        |                |          |      |             |
 | ActivityTimestamps.Start       |                |          |      |             |
@@ -134,7 +134,7 @@ Returns `void`.
 ###### Parameters
 
 | name    | type   | description             |
-| ------- | ------ | ----------------------- |
+|---------|--------|-------------------------|
 | command | string | the command to register |
 
 ###### Example
@@ -152,7 +152,7 @@ Returns `void`.
 ###### Parameters
 
 | name    | type   | description              |
-| ------- | ------ | ------------------------ |
+|---------|--------|--------------------------|
 | steamId | UInt32 | your game's Steam app id |
 
 ###### Example
@@ -173,7 +173,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name     | type     | description                   |
-| -------- | -------- | ----------------------------- |
+|----------|----------|-------------------------------|
 | activity | Activity | the new activity for the user |
 
 ###### Example
@@ -259,7 +259,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name   | type                     | description                                 |
-| ------ | ------------------------ | ------------------------------------------- |
+|--------|--------------------------|---------------------------------------------|
 | userId | Int64                    | the user id of the person who asked to join |
 | reply  | ActivityJoinRequestReply | No, Yes, or Ignore                          |
 
@@ -288,7 +288,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name    | type               | description                                           |
-| ------- | ------------------ | ----------------------------------------------------- |
+|---------|--------------------|-------------------------------------------------------|
 | userId  | Int64              | the id of the user to invite                          |
 | type    | ActivityActionType | marks the invite as an invitation to join or spectate |
 | content | string             | a message to send along with the invite               |
@@ -319,7 +319,7 @@ Returns a `Discord.Result` via callback.
 ###### Parameters
 
 | name   | type  | description                        |
-| ------ | ----- | ---------------------------------- |
+|--------|-------|------------------------------------|
 | userId | Int64 | the id of the user who invited you |
 
 ###### Example
@@ -345,7 +345,7 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 ###### Parameters
 
 | name       | type   | description                        |
-| ---------- | ------ | ---------------------------------- |
+|------------|--------|------------------------------------|
 | joinSecret | string | the secret to join the user's game |
 
 ###### Example
@@ -444,7 +444,7 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 ###### Parameters
 
 | name           | type   | description                                       |
-| -------------- | ------ | ------------------------------------------------- |
+|----------------|--------|---------------------------------------------------|
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
 ###### Example
@@ -464,7 +464,7 @@ Fires when a user asks to join the current user's game.
 ###### Parameters
 
 | name | type | description             |
-| ---- | ---- | ----------------------- |
+|------|------|-------------------------|
 | user | User | the user asking to join |
 
 ###### Example
@@ -484,7 +484,7 @@ Fires when the user receives a join or spectate invite.
 ###### Parameters
 
 | name     | type               | description                                |
-| -------- | ------------------ | ------------------------------------------ |
+|----------|--------------------|--------------------------------------------|
 | type     | ActivityActiontype | whether this invite is to join or spectate |
 | user     | User               | the user sending the invite                |
 | activity | Activity           | the inviting user's current activity       |

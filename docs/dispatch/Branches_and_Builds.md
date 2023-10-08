@@ -63,7 +63,7 @@ First, find the `credentials.json` file at:
 - Windows: `C:\Users\<you>\.dispatch\credentials.json`
 - macOS: `~/.dispatch/credentials.json`
 
-Inside that, we can use our Bot token for our application that will _not_ be invalidated across different machines.
+Inside that, we can use our bot's token for our application that will _not_ be invalidated across different machines.
 
 > info
 > Note that this token is only good for its owning application, so if you want to make one build machine deploy multiple applications, you'll need to edit this file per game.
