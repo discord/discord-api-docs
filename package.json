@@ -37,5 +37,8 @@
 		"markdown-table-formatter": "^1.4.0",
 		"prettier": "^3.0.3",
 		"typescript": "^5.2.2"
+	},
+	"peerDependencies": {
+		"@mdx-js/react": "^2.0.0"
 	}
 }
