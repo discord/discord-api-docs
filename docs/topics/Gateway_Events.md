@@ -550,18 +550,15 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 #### Entitlement Create
 
-Sent when an entitlement is created. The inner payload is a [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object.
+Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object.
 
 #### Entitlement Update
 
-Sent when an entitlement is renewed for the next billing period. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. The `ends_at` field will have an updated value with the new expiration date.
+Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. 
 
 #### Entitlement Delete
 
-Sent when an entitlement is deleted. The inner payload is a [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. Entitlements are not deleted when they expire. Entitlement deletions are infrequent and only occur when:
-
--   Discord issues a refund for a subscription
--   Discord removes an entitlement from a user via internal tooling
+Sent when an entitlement is deleted. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. Entitlements are not deleted when they expire.
 
 ### Guilds
 
