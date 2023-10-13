@@ -292,6 +292,9 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync)                                             | Sent when gaining access to a channel, contains all active threads in that channel                                                             |
 | [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update)                                     | [Thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                                 |
 | [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update)                                   | Some user(s) were added to or removed from a thread                                                                                            |
+| [Entitlement Create](#DOCS_TOPICS_GATEWAY_EVENTS/entitlement-create)                                         | Entitlement was created                                                                                                                        |
+| [Entitlement Update](#DOCS_TOPICS_GATEWAY_EVENTS/entitlement-update)                                         | Entitlement was updated or renewed                                                                                                             |
+| [Entitlement Delete](#DOCS_TOPICS_GATEWAY_EVENTS/entitlement-delete)                                         | Entitlement was deleted                                                                                                                        |
 | [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
 | [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
@@ -542,6 +545,20 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 | guild_id?           | snowflake          | ID of the guild                                         |
 | channel_id          | snowflake          | ID of the channel                                       |
 | last_pin_timestamp? | ?ISO8601 timestamp | Time at which the most recent pinned message was pinned |
+
+### Entitlements
+
+#### Entitlement Create
+
+Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object.
+
+#### Entitlement Update
+
+Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. When an entitlement for a subscription is renewed, the `ends_at` field may have an updated value with the new expiration date.
+
+#### Entitlement Delete
+
+Sent when an entitlement is deleted. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. Entitlements are not deleted when they expire.
 
 ### Guilds
 
