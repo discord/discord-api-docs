@@ -554,7 +554,7 @@ Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS
 
 #### Entitlement Update
 
-Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. 
+Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. When an entitlement for a subscription is renewed, the `ends_at` field may have an updated value with the new expiration date.
 
 #### Entitlement Delete
 
