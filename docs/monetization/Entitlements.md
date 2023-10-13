@@ -162,7 +162,7 @@ Entitlements are _not_ deleted when they expire.
 
 ### PREMIUM_REQUIRED Interaction Response
 
-If your app has monetization enabled, it will have access to a new [`PREMIUM_REQUIRED` interaction response (`type: 10`)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type). This can be sent in response to any kind of interaction. It does not allow a `content` field.
+If your app has monetization enabled, it will have access to a new [`PREMIUM_REQUIRED` interaction response (`type: 10`)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type). This can be sent in response to all interaction types except for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING`. The response does not allow returning the `content`, `embeds`, or `attachments` fields.
 
 This response will create an ephemeral message shown to the user that ran the interaction, instructing them that whatever they tried to do requires the premium benefits of your app. It also contains an "Upgrade" button to subscribe. The response message is static, but will be automatically updated with the name of your premium SKU.
 
