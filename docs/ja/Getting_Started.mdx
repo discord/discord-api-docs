@@ -61,7 +61,7 @@ BotトークンはAPIリクエストの認証に使われ、Botユーザーの�
 
 トークンをコピーし、安全な場所（パスワードマネージャーなど）に保管しておきましょう。
 
-> 警告
+> warn
 > トークンは再生成しない限り2度と見ることはできませんので、必ず安全な場所に保管してください。
 
 ### スコープとBot権限を追加する
@@ -77,7 +77,7 @@ BotトークンはAPIリクエストの認証に使われ、Botユーザーの�
 
 左側のサイドバーで**OAuth2**をクリックし、続いて**URLジェネレータ（URL generator）**を選択します。
 
-> 情報
+> info
 > URLジェネレータは、あなたがアプリ用に選択したスコープと権限に基づいてインストール用リンクを生成します。このリンクで自分のサーバーにアプリをインストールできるほか、他の人と共有してインストールしてもらうこともできます。
 
 今のところは2つのスコープを追加してみましょう：
@@ -92,7 +92,7 @@ BotトークンはAPIリクエストの認証に使われ、Botユーザーの�
 
 ![URLジェネレータのスクリーンショット](url-generator.png)
 
-> 情報
+> info
 > アプリ開発にあたっては、他の人がアクティブに利用していないサーバーでビルドおよびテストを行ってください。自分のサーバーがまだない方は、[無料で作成できます](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-)。
 
 上記よりURLをコピーし、ブラウザにペーストしてください。インストールのステップを踏む際は、アプリの開発とテストをできるサーバーに間違いなくインストールしていることを確かめてください。
@@ -113,7 +113,7 @@ BotトークンはAPIリクエストの認証に使われ、Botユーザーの�
 
 このガイドでは、ブラウザでクローンと開発ができるGlitchを使用しています。ローカルでアプリの開発をしたい場合は、[README](https://github.com/discord/discord-example-app#running-app-locally)にngrokの使い方が掲載されています。
 
-> 情報
+> info
 > Glitchは開発とテストには最適ですが、[技術的な制限があるため](https://help.glitch.com/hc/en-us/articles/16287495313293-Technical-Restrictions)、プロダクションアプリについては他のホスティング・プロバイダをご検討ください。
 
 まず**[Glitchプロジェクトをリミックス（またはクローン）しましょう🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**
@@ -162,7 +162,7 @@ BotトークンはAPIリクエストの認証に使われ、Botユーザーの�
 
 ### スラッシュコマンドをインストールする
 
-> 情報
+> info
 > アプリはスラッシュコマンドをインストールするにあたり、[`node-fetch`](https://github.com/node-fetch/node-fetch)を利用しています。インストールの実装は、`DiscordRequest()`関数内の`utils.js`で確認できます。
 
 プロジェクトには`register`スクリプトが含まれています。これを用いて、`commands.js`の最下部で定義されている`ALL_COMMANDS`のコマンドをインストールできます。これはHTTP APIの[`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands)エンドポイントを呼び出すことで、コマンドをグローバルコマンドとしてインストールします。
@@ -196,7 +196,7 @@ Discordでは、アプリがスラッシュコマンド・リクエスト（お�
 
 Glitchプロジェクトでは、デフォルトで公開URLが見られるようになっています。右上隅の**共有（Share）**ボタンをクリックしてプロジェクトのURLをコピーし、続いてモーダルの下部近くにある「ライブ中のサイト（Live Site）」プロジェクトリンクをコピーしてください。
 
-> 情報
+> info
 > ローカルで開発をしている場合は、ローカルの環境にリクエストをトンネリングする手順を[Github README](https://github.com/discord/discord-example-app#running-app-locally)で確認できます。
 
 リンクがコピーできたら、[開発者ポータル](https://discord.com/developers/applications)からアプリの設定を開きます。
@@ -233,7 +233,7 @@ if (name === 'test') {
 
 上記のコードは、起点となったチャンネルにおけるメッセージとのインタラクションに応答しています。可能な応答タイプ（モーダルで応答するなど）は[ドキュメント](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type)でご確認いただけます。
 
-> 情報
+> info
 > `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE`は[`discord-interactions`からエクスポートされた](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)定数です
 
 サーバーに移動し、アプリの`/test`スラッシュコマンドが機能することを確かめましょう。トリガーすると、アプリは「hello world」という言葉のあとにランダムな絵文字を含むメッセージを送信するはずです。
@@ -252,7 +252,7 @@ if (name === 'test') {
 
 コマンドオプションとその構造については[ドキュメント](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)をご覧ください。
 
-> 情報
+> info
 > このガイドでは`game.js`にはあまり深入りしませんが、コマンドやコマンド内のオプションを変えるなど、いろいろといじってみましょう。
 
 <Collapsible title="コマンド・インタラクションをハンドリングする" description="challengeコマンドをハンドリングし、ボタンを含むメッセージで応答するためのコード" icon="code" open>
@@ -296,7 +296,7 @@ if (name === 'challenge' && id) {
 ```
 
 
-> 情報
+> info
 > コードをペーストする場所が分からない場合は、Glitchプロジェクトの`examples/app.js`でコード全体を見るか、[Github](https://github.com/discord/discord-example-app/blob/main/app.js)でルート`app.js`を見てみましょう。
 
 上記のコードは、次のような動きをしています：
@@ -304,7 +304,7 @@ if (name === 'challenge' && id) {
 2. インタラクションIDを使用して、`activeGames`オブジェクトに新しいゲームを追加します。アクティブなゲームは`userId`と`objectName`を記録します。
 3. チャンネルに、`accept_button_<SOME_ID>`の`custom_id`を伴う、ボタンのついたメッセージを送り返します。
 
-> 警告
+> warn
 > サンプルコードではオブジェクトをメモリ内ストレージとして使用していますが、プロダクションアプリではデータベースを使用してください。
 
 [メッセージ・コンポーネント](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component)を伴うメッセージを送るとき、個々のペイロードは`components`アレイにアペンドされます。実行可能なコンポーネント（ボタンなど）は、コードサンプルで確認できる[アクション行](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows)の中にある必要があります。
