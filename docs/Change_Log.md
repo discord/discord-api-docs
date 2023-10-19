@@ -1,6 +1,6 @@
 # Change Log
 
-## Global Rate Limit added to `discordapp.com/*`
+## Global Rate Limit added to discordapp.com/*
 #### Oct 17, 2023
 
 We have added a global rate limit for API requests made to `discordapp.com/*` and may further restrict requests in the future. 
@@ -11,7 +11,7 @@ This does **not** apply for `cdn.discordapp.com`.
 
 Refer to the [API Reference](https://discord.com/developers/docs/reference) for more info on which url(s) to use when building on the REST API
 
-- [February 14, 2022 Change Log](https://discord.com/developers/docs/change-log#feb-14-2022): Requests to v10 and higher will no longer be supported on discordapp.com (this does not affect cdn.discordapp.com)
+- [February 14, 2022 Change Log](https://discord.com/developers/docs/change-log#feb-14-2022): Requests to v10 and higher will no longer be supported on `discordapp.com` (this does not affect `cdn.discordapp.com`)
 - [May 4, 2020 #api-announcements](https://discord.com/channels/613425648685547541/697138785317814292/706944540971630662)
 
 ## Premium App Subscriptions Available in the US
