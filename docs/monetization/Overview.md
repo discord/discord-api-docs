@@ -48,16 +48,16 @@ In the meantime, you can begin setting up your payout information so you can get
 
 Only the owner of the team can enable payout settings for the team.
 
-#### If You are Based in the United States
+#### If You are Based in the United States, European Union, or United Kingdom
 
 -   Click on [your team](https://discord.com/developers/teams) on the Teams page.
 -   Select "Payout Settings"
     -   If you do not see "Payout Settings", you are not the owner of the team. Only the owner of the team can enable payout settings for the team.
 -   Complete the onboarding flow through Stripe
 
-#### If You are Based Outside of the United States
+#### If You are Based Outside of the United States, European Union, or United Kingdom
 
-Premium Apps is not currently available outside of the United States. These features will be made available to more regions soon.
+Premium Apps is not currently available outside of these regions. These features will be made available to more regions soon.
 
 ### Implementing Your Premium Features
 
