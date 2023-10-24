@@ -41,7 +41,7 @@ Before monetization can be enabled, you will need:
 
 -   A [team](#DOCS_TOPICS_TEAMS) in the developer portal. If you don't have one, you can [create one on the Teams page](https://discord.com/developers/teams)
 -   A [verified app](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Allowlisting#h_46b3869c-6d50-43fc-b07c-9ed7569a1160) that is _owned by that team_
--   A test app _owned by that team_
+
 ### Setting Up Team Payouts
 
 In the meantime, you can begin setting up your payout information so you can get paid! Discord does all payout processing through Stripe, so part of setting up payouts will be going through Stripe's onboarding flow.
