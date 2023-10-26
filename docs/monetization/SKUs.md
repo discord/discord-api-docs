@@ -110,6 +110,9 @@ Congratulations on going live! 🥳
 
 ## List SKUs % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/skus
 
+> danger
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+
 Returns all SKUs for a given application. Because of how our SKU and subscription systems work, you will see two SKUs for your premium offering. For integration and testing entitlements, you should use the SKU with `type: 5`.
 
 ```json

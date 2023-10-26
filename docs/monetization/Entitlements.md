@@ -46,6 +46,9 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 ## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
+> danger
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+
 Returns all entitlements for a given app, active and expired.
 
 ###### Query Params
@@ -82,6 +85,9 @@ Returns all entitlements for a given app, active and expired.
 
 ## Create Test Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
+> danger
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+
 Creates a test entitlement to a given SKU for a given guild or user. Discord will act as though that user or guild has entitlement to your premium offering.
 
 This endpoint returns a partial entitlement object. It will **not** contain `subscription_id`, `starts_at`, or `ends_at`, as it's valid in perpetuity.
@@ -105,6 +111,9 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 ```
 
 ## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}
+
+> danger
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 
@@ -181,4 +190,5 @@ return res.send({
 
 To check what the current guild or user has entitlements to, your app can inspect the `entitlements` field. `entitlements` is an array of [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) for the current guild and user.
 
-You can reference `entitlements` during interactions to handle subscription status, rather than fetching entitlements from the API or your database.
+> info
+> Always reference the `entitlements` field within the interaction payload to determine subscription status. You should not rely on fetching entitlements from the API or attempting to synchronize them with your database.

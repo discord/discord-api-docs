@@ -49,13 +49,14 @@ return new JsonResponse({
 
 If someone is already subscribed, this command will show the upgrade prompt with a disabled upgrade button. In order to avoid this, your interaction handler should check to see if the user or guild has an active entitlement for your SKU.
 
+When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS) represent the user's access to your premium offering.
+
 Each interaction payload includes an `entitlements` field containing an array of full entitlement objects that the guild or user currently has entitlement to.
 
-You can use this field to determine if the user or guild is subscribed to your app.
+You can use this field to determine if the user is subscribed to your app.
 
-### Keeping Track of Entitlements
-
-When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS) represent the user's access to your premium offering. You can keep track of entitlements using Gateway Events and the HTTP API.
+> info
+> Always reference the `entitlements` field within the interaction payload to determine subscription status. You should not rely on fetching entitlements from the API or attempting to synchronize them with your database.
 
 #### Entitlement Gateway Events
 
@@ -66,13 +67,10 @@ Upon a user's purchase of a SKU, you'll receive an [`ENTITLEMENT_CREATE`](#DOCS_
 > info
 > An [`ENTITLEMENT_DELETE`](#DOCS_MONETIZATION_ENTITLEMENTS/deleted-entitlement) event only occurs when Discord refunds a subscription or removes an entitlement, not when an entitlement expires or is canceled.
 
-#### Entitlement HTTP Endpoints
-
-For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_Id=XYZ` query params.
-
-For example, you might keep track of our entitlements in a database and check a user's subscription status before performing a cron job or other task.
-
 ## Testing Your Implementation
+
+> danger
+> Please be aware that these testing endpoints are temporary. They may be used for interim testing but should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
 
 You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
