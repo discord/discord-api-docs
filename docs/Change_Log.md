@@ -1,5 +1,25 @@
 # Change Log
 
+## Premium App Subscriptions: Updated Guidance for Entitlements & Skus
+#### October 27, 2023
+
+Following feedback on Premium App Subscriptions, we're working on a better way for developers to test their app subscriptions. The goal is to provide an alternative to creating test entitlements or using live payment methods.
+
+In the meantime, we’re providing updated guidance around the `/entitlements` and `/skus` HTTP endpoints. 
+
+> warn
+> These endpoints will remain available until the new testing method is available. **We strongly advise against embedding them in long-term tooling or libraries as they will be removed in the future.** We will announce new guidance and developers documentation when new testing options are ready to be used. 
+
+Updated documentation for each endpoint now reflects this advice:
+
+- [List SKUs](#DOCS_MONETIZATION_SKUS/list-skus) `GET /applications/<application.id>/skus`
+- [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) `GET /applications/<application.id>/entitlements`
+- [Create Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) `POST /applications/<application.id>/entitlements`
+- [Delete Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
+
+> info
+> For interactions requiring a subscription, always reference the `entitlements` field within the interaction payload to determine subscription status. You should not rely on fetching entitlements from the API or attempting to synchronize them with your database.
+
 ## Premium App Subscriptions Now Available in the EU and UK
 #### October 19, 2023
 

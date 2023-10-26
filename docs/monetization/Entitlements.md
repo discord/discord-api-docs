@@ -47,7 +47,7 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 ## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
 > danger
-> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#DOCS_CHANGE_LOG/premium-app-subscriptions-updated-guidance-for-entitlements-skus).
 
 Returns all entitlements for a given app, active and expired.
 
@@ -86,7 +86,7 @@ Returns all entitlements for a given app, active and expired.
 ## Create Test Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
 > danger
-> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#DOCS_CHANGE_LOG/premium-app-subscriptions-updated-guidance-for-entitlements-skus).
 
 Creates a test entitlement to a given SKU for a given guild or user. Discord will act as though that user or guild has entitlement to your premium offering.
 
@@ -113,7 +113,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 ## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}
 
 > danger
-> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+> Please be aware that this endpoint is temporary. It may be used for interim testing but it should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#DOCS_CHANGE_LOG/premium-app-subscriptions-updated-guidance-for-entitlements-skus).
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 
