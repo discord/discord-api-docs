@@ -70,7 +70,7 @@ Upon a user's purchase of a SKU, you'll receive an [`ENTITLEMENT_CREATE`](#DOCS_
 ## Testing Your Implementation
 
 > danger
-> Please be aware that these testing endpoints are temporary. They may be used for interim testing but should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#).
+> Please be aware that these testing endpoints are temporary. They may be used for interim testing but should not be implemented in long-term tooling or libraries. We're actively developing an improved method for testing your premium offering, as highlighted in our [guidance updates on Entitlements and SKUs](#DOCS_CHANGE_LOG/premium-app-subscriptions-updated-guidance-for-entitlements-skus).
 
 You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
