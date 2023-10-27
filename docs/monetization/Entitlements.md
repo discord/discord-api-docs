@@ -40,9 +40,9 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 ###### Entitlement Types
 
-| Type                     | ID | Description                                      |
-|--------------------------|----|--------------------------------------------------|
-| APPLICATION_SUBSCRIPTION | 8  | Entitlement was purchased as an app subscription |
+| Type                     | Value | Description                                      |
+|--------------------------|-------|--------------------------------------------------|
+| APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription |
 
 ## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
