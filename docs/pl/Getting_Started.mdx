@@ -31,7 +31,7 @@ Poniżej przedstawiono szczegółowy zarys przepływu użytkowników:
 
 ## Krok 1: Tworzenie aplikacji
 
-Najpierw musisz stworzyć aplikację w portalu deweloperów, jeśli jeszcze jej nie masz:
+Najpierw musisz stworzyć aplikację w portalu deweloperów, jeśli jeszcze tego nie zrobiłeś:
 
 <Button href="https://discord.com/developers/applications?new_application=true" color="brand">Stwórz aplikację</Button>
 
@@ -61,7 +61,7 @@ Tokeny bota służą do uwierzytelniania żądań API i zawierają uprawnienia u
 
 Skopiuj token i zapisz go w bezpiecznym miejscu (np. menedżerze haseł).
 
-> ostrzeżenie
+> warn
 > Nie będzie można wyświetlić tokena ponownie, chyba że wygenerujesz go od nowa, więc przechowaj token w bezpiecznym miejscu.
 
 ### Dodawanie zakresów i uprawnień bota
@@ -77,7 +77,7 @@ Podczas tworzenia aplikacji zakresy i uprawnienia określają, co Twoja aplikacj
 
 Kliknij **OAuth2** na lewym pasku bocznym, a następnie wybierz **Generator adresu URL**.
 
-> informacje
+> info
 > Generator adresu URL tworzy łącze instalacyjne na podstawie zakresów i uprawnień wybranych dla aplikacji. Możesz użyć łącza do instalacji aplikacji na swoim serwerze lub udostępnić je innym, aby mogli zainstalować aplikację.
 
 Na razie dodaj dwa zakresy:
@@ -92,10 +92,10 @@ Po dodaniu zakresów powinien zostać wyświetlony adres URL, który możesz sko
 
 ![Zrzut ekranu generatora adresu URL](url-generator.png)
 
-> informacje
-> Podczas pracy nad aplikacjami należy budować i testować je na serwerze, który nie jest aktywnie używany przez innych. Jeśli nie masz jeszcze własnego serwera, możesz [utworzyć go za darmo](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+> info
+> Podczas pracy nad aplikacjami należy budować i testować je na serwerze, który nie jest aktywnie używany przez innych. Jeśli nie masz jeszcze własnego serwera, możesz [utworzyć go za darmo](https://support.discord.com/hc/pl/articles/204849977-Jak-stworzy%C4%87-serwer-).
 
-Skopiuj powyższy adres URL i wklej go w swojej przeglądarce. Zostanie wyświetlony interfejs instalacji, w którym należy upewnić się, że instalujesz aplikację na serwerze, na którym możesz rozwijać ją i testować.
+Skopiuj powyższy adres URL i wklej go w swojej przeglądarce. Zostanie wyświetlony interfejs instalacji, w którym należy upewnić się, że instalujesz aplikację na serwerze, na którym możesz ją rozwijać i testować.
 
 Po zainstalowaniu aplikacji przejdź do serwera, aby zobaczyć, czy została do niego dodana ✨
 
@@ -113,8 +113,8 @@ Aby uprościć nieco pracę, aplikacja wykorzystuje bibliotekę [discord-interac
 
 W tym przewodniku używamy narzędzia Glitch, które pozwala sklonować aplikację i pracować nad nią w przeglądarce. Jeśli wolisz pracować nad aplikacją lokalnie, zobacz instrukcje dotyczące używania narzędzia ngrok [w README](https://github.com/discord/discord-example-app#running-app-locally).
 
-> informacje
-> Choć rozwiązanie Glitch znakomicie nadaje się do pracy nad aplikacją i jej testowania, [ma ograniczenia techniczne,](https://help.glitch.com/kb/article/17-technical-restrictions/) więc należy rozważyć użycie innych dostawców usług hostingowych do publicznej wersji aplikacji.
+> info
+> Choć rozwiązanie Glitch znakomicie nadaje się do pracy nad aplikacją i jej testowania, [ma ograniczenia techniczne](https://help.glitch.com/kb/article/17-technical-restrictions/), więc należy rozważyć użycie innych dostawców usług hostingowych do publicznej wersji aplikacji.
 
 Aby zacząć, **[edytuj (lub sklonuj) projekt Glitch 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
 
@@ -124,7 +124,7 @@ Po edytowaniu projektu zostanie otwarty nowy projekt Glitch.
 ![Przegląd projektu Glitch](glitch-project.png)
 
 - **Nazwa projektu** to unikalna nazwa produktu widoczna w lewym górnym rogu
-- **`.env`** to plik, w którym są przechowywane wszystkie Twoje dane uwierzytelniające do aplikacji
+- **`.env`** to plik, w którym są przechowywane Twoje wszystkie dane uwierzytelniające do aplikacji
 - **Dzienniki** zawierają dane wyjściowe projektu – pomagają one w ustaleniu, czy aplikacja działa; znajdziesz tu również informacje o wszelkich błędach występujących w aplikacji
 - Przycisk **Udostępnij** w prawym górnym rogu pozwala uzyskać aktywny adres URL projektu, który będzie potrzebny do skonfigurowania interaktywności w dalszej części przewodnika
 </Collapsible>
@@ -162,7 +162,7 @@ Po skonfigurowaniu danych uwierzytelniających czas zainstalować i wdrożyć po
 
 ### Instalacja poleceń z ukośnikiem
 
-> informacje
+> info
 > Aplikacja wykorzystuje moduł [`node-fetch`](https://github.com/node-fetch/node-fetch) do instalacji poleceń z ukośnikiem. Kod odpowiedzialny za instalację znajduje się w pliku `utils.js`, w funkcji `DiscordRequest()`.
 
 Projekt zawiera skrypt `register`, którego możesz użyć do instalacji poleceń w elemencie `ALL_COMMANDS`, który jest zdefiniowany na końcu pliku `commands.js`. Instaluje on polecenia jako globalne polecenia, wywołując punkt końcowy [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) API HTTP.
@@ -196,7 +196,7 @@ Aby umożliwić aplikacji otrzymywanie żądań w postaci poleceń z ukośnikiem
 
 Projekty Glitch mają publiczny adres URL, który jest domyślnie ujawniony. Skopuj go, klikając przycisk **Udostępnij** w prawym górnym rogu, a następnie skopiuj łącze projektu „Aktywna witryna” blisko dolnej części okna.
 
-> informacje
+> info
 > Jeśli pracujesz nad aplikacją lokalnie, zobacz instrukcje dotyczące przekazywania żądań do lokalnego środowiska [w README na GitHubie](https://github.com/discord/discord-example-app#running-app-locally).
 
 Po skopiowaniu łącza przejdź do ustawień aplikacji z poziomu [portalu deweloperów](https://discord.com/developers/applications).
@@ -233,7 +233,7 @@ if (name === 'test') {
 
 Powyższy kod reaguje na interakcję z wiadomością na kanale, z którego pochodzi. Możesz zobaczyć wszystkie dostępne typy reakcji, takie jak reagowanie oknem, [w dokumentacji](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
-> informacje
+> info
 > `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` jest stałą [eksportowaną z pliku pakietu `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
 
 Przejdź do swojego serwera i upewnij się, że polecenie z ukośnikiem `/test` działa. Gdy je aktywujesz, aplikacja powinna wysłać wiadomość z tekstem „hello world” i losowym emoji.
@@ -252,7 +252,7 @@ Polecenie `/challenge`, zwane `CHALLENGE_COMMAND` w pliku `commands.js`, ma szer
 
 Więcej o opcjach poleceń i ich strukturze przeczytasz [w dokumentacji](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
-> informacje
+> info
 > Choć w tym przewodniku nie zagłębimy się w plik `game.js`, możesz poeksperymentować z nim, zmieniając polecenia lub ich opcje.
 
 <Collapsible title="Obsługa interakcji poprzez polecenia" description="Kod odpowiadający za obsługę polecenia „challenge” i reagowanie wiadomością z przyciskiem" icon="code" open>
@@ -296,7 +296,7 @@ if (name === 'challenge' && id) {
 ```
 
 
-> informacje
+> info
 > Jeśli nie wiesz, gdzie wkleić kod, możesz zobaczyć pełen kod w pliku `examples/app.js` w projekcie Glitch lub w nadrzędnym pliku `app.js` [na GitFHubie](https://github.com/discord/discord-example-app/blob/main/app.js).
 
 Powyższy kod wykonuje szereg czynności:
@@ -304,7 +304,7 @@ Powyższy kod wykonuje szereg czynności:
 2. Dodaje nową grę do obiektu `activeGames` przy pomocy ID interakcji. Aktywna gra zapisuje elementy `userId` i `objectName`.
 3. Wysyła na kanał wiadomość z przyciskiem z wartością `accept_button_<SOME_ID>` w polu `custom_id`.
 
-> ostrzeżenie
+> warn
 > Przykładowy kod wykorzystuje obiekt przechowywany w pamięci, ale na potrzeby publicznej wersji aplikacji zaleca się użycie bazy danych.
 
 Przy wysyłaniu [elementów wiadomości](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) indywidualne payloady są dodawane do tablicy `components`. Interaktywne elementy (takie jak przyciski) muszą znajdować się w [rzędzie czynności](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), który jest widoczny w przykładowym kodzie.

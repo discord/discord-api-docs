@@ -304,7 +304,7 @@ De bovenstaande code doet een aantal dingen:
 2. Hij voegt een nieuw spel toe aan het object `activeGames` met behulp van de interactie-ID. Het actieve spel registreert de `userId` en `objectName`.
 3. Hij stuurt een bericht met daarin een knop met een `custom_id` van `accept_button_<SOME_ID>` naar het kanaal terug.
 
-> waarschuwing
+> warn
 > De voorbeeldcode gebruikt een object als opslag in het geheugen, maar voor productie-apps moet je een database gebruiken.
 
 Bij het sturen van een bericht met [berichtonderdelen](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) worden de individuele payloads aan een `components`-lijst toegevoegd. Onderdelen waar acties mee worden uitgevoerd (zoals knoppen) moeten deel uitmaken van een [actierij](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), die je in het codevoorbeeld ziet staan.
