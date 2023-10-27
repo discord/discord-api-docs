@@ -51,7 +51,7 @@ If someone is already subscribed, this command will show the upgrade prompt with
 
 When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS) represent the user's access to your premium offering.
 
-Each interaction payload includes an `entitlements` field containing an array of full entitlement objects that the guild or user currently has entitlement to.
+Each interaction payload includes an `entitlements` field containing an array of full [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) that the guild or user currently has access to.
 
 You can use this field to determine if the user is subscribed to your app.
 
