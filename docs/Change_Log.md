@@ -3,7 +3,7 @@
 ## Fix Message Edit Action Permissions
 #### Nov 1, 2023
 
-Behavior for message edit actions like [updating messages](#DOCS_RESOURCES_CHANNEL/edit-message) and [sending follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPOND/followup-messages) have been updated to follow a bot user's permissions.
+Behavior for message edit actions like [updating messages](#DOCS_RESOURCES_CHANNEL/edit-message) and [sending follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) have been updated to follow a bot user's permissions.
 
 Previously, some message edit actions would use the default permissions for message edit actions rather than a bot user's permissions.
 
