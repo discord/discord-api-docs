@@ -1,7 +1,14 @@
 # Change Log
 
+## Fix Message Edit Action Permissions
+#### Nov 1, 2023
+
+Behavior for message edit actions like [updating messages](#DOCS_RESOURCES_CHANNEL/edit-message) and [sending follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPOND/followup-messages) have been updated to follow a bot user's permissions.
+
+Previously, some message edit actions would use the default permissions for message edit actions rather than a bot user's permissions.
+
 ## Premium App Subscriptions Now Available in the EU and UK
-#### October 19, 2023
+#### Oct 19, 2023
 
 Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
 
