@@ -566,7 +566,7 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | title           | string                                             | Title of the option                                               |
 | description     | ?string                                            | Description of the option                                         |
 > info
-> The emoji object is returned, but we expect the flattened `emoji_id`, `emoji_name`, `emoji_animated` when creating or updating the prompt option.
+> When creating or updating a prompt option, the `emoji_id`, `emoji_name`, and `emoji_animated` fields must be used instead of the emoji object.
 
 ###### Onboarding Mode
 
