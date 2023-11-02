@@ -1,11 +1,11 @@
 # Change Log
 
-## Fix Message Edit Action Permissions
+## Fix Message Edit Interaction Response Permissions
 #### Nov 1, 2023
 
-Behavior for message edit actions like [updating messages](#DOCS_RESOURCES_CHANNEL/edit-message) and [sending follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) have been updated to follow a bot user's permissions.
+Behavior for message edit interaction response actions like [updating interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-original-interaction-response) and [sending follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) have been updated to follow a bot user's permissions.
 
-Previously, some message edit actions would use the default permissions for message edit actions rather than a bot user's permissions.
+Previously, some message edit interaction response actions would use the default permissions rather than a bot user's permissions.
 
 ## Premium App Subscriptions Now Available in the EU and UK
 #### Oct 19, 2023
