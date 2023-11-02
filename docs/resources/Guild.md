@@ -562,7 +562,7 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | emoji?          | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option (see info)                                    |
 | emoji_id?       | snowflake                                          | Emoji ID of the option (see below)                                |
 | emoji_name?     | string                                             | Emoji name of the option (see below)                              |
-| emoji_animated? | boolean                                            | Is the emoji animated (see info)                                  |
+| emoji_animated? | boolean                                            | Whether the emoji is animated (see below)                         |
 | title           | string                                             | Title of the option                                               |
 | description     | ?string                                            | Description of the option                                         |
 > info
