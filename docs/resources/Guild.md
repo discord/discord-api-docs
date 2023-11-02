@@ -559,7 +559,7 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | id              | snowflake                                          | ID of the prompt option                                           |
 | channel_ids     | array of snowflakes                                | IDs for channels a member is added to when the option is selected |
 | role_ids        | array of snowflakes                                | IDs for roles assigned to a member when the option is selected    |
-| emoji?          | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option (see info)                                    |
+| emoji?          | [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji of the option (see below)                                   |
 | emoji_id?       | snowflake                                          | Emoji ID of the option (see below)                                |
 | emoji_name?     | string                                             | Emoji name of the option (see below)                              |
 | emoji_animated? | boolean                                            | Whether the emoji is animated (see below)                         |
