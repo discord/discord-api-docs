@@ -565,7 +565,8 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | emoji_animated? | boolean                                            | Whether the emoji is animated (see below)                         |
 | title           | string                                             | Title of the option                                               |
 | description     | ?string                                            | Description of the option                                         |
-> info
+
+> warn
 > When creating or updating a prompt option, the `emoji_id`, `emoji_name`, and `emoji_animated` fields must be used instead of the emoji object.
 
 ###### Onboarding Mode
