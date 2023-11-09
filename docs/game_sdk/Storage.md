@@ -29,7 +29,7 @@ If you want to take that save data on your players' computers and save it to tho
 }
 ```
 
-Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/).
+Yup, that's it!
 
 ## Data Models
 
