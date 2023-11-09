@@ -14,7 +14,7 @@ Used to represent a webhook.
 | type              | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
 | guild_id?         | ?snowflake                                                       | the guild id this webhook is for, if any                                                                      |
 | channel_id        | ?snowflake                                                       | the channel id this webhook is for, if any                                                                    |
-| user?             | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
+| user              | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by                                                                          |
 | name              | ?string                                                          | the default name of the webhook                                                                               |
 | avatar            | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
 | token?            | string                                                           | the secure token of the webhook (returned for Incoming Webhooks)                                              |
@@ -131,7 +131,7 @@ Returns the new [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object for the
 
 ## Get Webhook with Token % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Same as above, except this call does not require authentication and returns no user in the webhook object.
+Same as above, except this call does not require authentication.
 
 ## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -153,7 +153,7 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
+Same as above, except this call does not require authentication, and does not accept a `channel_id` parameter in the body.
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
