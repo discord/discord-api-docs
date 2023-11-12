@@ -758,6 +758,7 @@ All of the following limits are measured inclusively. Leading and trailing white
 |----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | title                                                                      | 256 characters                                                                       |
 | description                                                                | 4096 characters                                                                      |
+| url, [author.url](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure), [author.icon_url](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure), [footer.icon_url](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure), [image.url](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure), [thumbnail.url](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) | 2048 characters                                                                      |
 | fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
 | [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
 | [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
