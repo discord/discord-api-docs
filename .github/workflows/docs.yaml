@@ -1,0 +1,29 @@
+name: Verify Docs Formatting
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  markdown_tables:
+    name: Check Markdown Tables
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Markdown Tables
+        run: |
+          shopt -s globstar
+          npx markdown-table-formatter docs/**/*.{md,mdx} --check
+        shell: bash

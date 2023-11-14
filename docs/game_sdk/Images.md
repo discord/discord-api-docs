@@ -13,20 +13,20 @@ Discord is like a book; it's better with pictures. The image manager helps you f
 ###### ImageDimensions Struct
 
 | name   | type   | description             |
-| ------ | ------ | ----------------------- |
+|--------|--------|-------------------------|
 | Width  | UInt32 | the width of the image  |
 | Height | UInt32 | the height of the image |
 
 ###### ImageType Enum
 
 | value | description              |
-| ----- | ------------------------ |
+|-------|--------------------------|
 | User  | image is a user's avatar |
 
 ###### ImageHandle Struct
 
 | name | type      | description                                     |
-| ---- | --------- | ----------------------------------------------- |
+|------|-----------|-------------------------------------------------|
 | Type | ImageType | the source of the image                         |
 | Id   | Int64     | the id of the user whose avatar you want to get |
 | Size | UInt32    | the resolution at which you want the image      |
@@ -40,7 +40,7 @@ Returns a `Discord.Result` and `Discord.ImageHandle` via callback.
 ###### Parameters
 
 | name    | type        | description                                                 |
-| ------- | ----------- | ----------------------------------------------------------- |
+|---------|-------------|-------------------------------------------------------------|
 | handle  | ImageHandle | contains the desired userId and size for the returned image |
 | refresh | bool        | whether to use cached data for fetch anew                   |
 
@@ -72,7 +72,7 @@ Returns `Discord.ImageDimensions`.
 ###### Parameters
 
 | name   | type        | description                                                 |
-| ------ | ----------- | ----------------------------------------------------------- |
+|--------|-------------|-------------------------------------------------------------|
 | handle | ImageHandle | contains the desired userId and size for the returned image |
 
 ###### Example
@@ -93,7 +93,7 @@ Gets the image data for a given user's avatar. In C#, this is overloaded by a he
 ###### Parameters
 
 | name   | type        | description                                   |
-| ------ | ----------- | --------------------------------------------- |
+|--------|-------------|-----------------------------------------------|
 | handle | ImageHandle | the image handle from the `Fetch()` callback  |
 | data   | uint8_t\*   | a buffer to read image data into (C++/C only) |
 | size   | uint        | the size of the buffer (C++/C only)           |
@@ -149,7 +149,7 @@ Returns a `Texture2D`.
 ###### Parameters
 
 | name   | type        | description                                  |
-| ------ | ----------- | -------------------------------------------- |
+|--------|-------------|----------------------------------------------|
 | handle | ImageHandle | the image handle from the `Fetch()` callback |
 
 ###### Example

@@ -1,80 +1,78 @@
 # Teams
 
-Teams are groups of developers on Discord who want to collaborate on apps. On other platforms, these may be referred to as "organizations", "companies", or "teams". We went with the name Teams because it best encompassed all the awesome conglomerates of devs that work together to make awesome things on Discord. Also, we never got picked for kickball in gym class, so now we get to be on a team.
+Teams are groups of developers (or other Discord users) who want to collaborate and share access to an app's configuration, management, and payout settings. Go team(s)!
 
-## What Do They Do
+## Creating a Team
 
-Teams allow you and other Discord users to share access to apps. No more sharing login credentials in order to reset the token on a bot that your friend owns but you work on, or other such cases.
+To create or be a member on a team, you must [enable 2FA for your Discord account](https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Two-Factor-Authentication). After you have 2FA enabled, create a team by navigating to the [Teams page](https://discord.com/developers/teams) then clicking the "New Team" button.
 
-For game developers, this means that you can get your engineers access to your app for credentials they may need, your marketing folks access to store page management, and your finance people access to sales and performance metrics.
+![Screenshot of the Teams page](team-page.png)
 
-> danger
-> For the initial release, Teams only support one kind of user: Admin. Admins have full access to all parts of an app _except_ for deleting the app and adding/removing users. That can only be done by the owner of the Team.
-
-## How Do I Make One
-
-Making a Team is easy! Head on over to our [Team creation](https://discord.com/developers/teams) page and make your own.
-
-![Screenshot of the initial landing page for viewing Teams that you are a part of](team-page.png)
-
-Note that to use Discord Teams, you need to have 2FA enabled on your account. Security is of the utmost importance, especially when it comes to shared resources. If you're developing on your own and don't want to use Teams, you do not need 2FA. But, in order to keep other Team members safe, you'll need to add it to use Teams.
-
-![Screenshot of the 2FA requirement modal](team-2fa.png)
-
-Once your team is made, you can start inviting other Discord users to join.
+Once you create a team, you'll land on the **Team Information** page where you can fill out details and start inviting other Discord users to join your team. Since users added to a team have access to any apps that team owns, use caution when adding new team members.
 
 > info
-> For the initial release, only the Team owner can invite or remove additional users.
+> Currently, only the team Owner can invite or remove additional users.
 
-## Apps on Teams
+## Adding Apps to a Team
 
-Now that you've got your Team set up, you can start creating apps under it. Teams can own a maximum of 25 apps. To create a new app under a Team, select the Team in the app creation modal. If you want to keep the app under your own ownership, choose `Personal`:
+Once your team is set up, you can create or transfer apps that will be owned by the team. Teams can have a maximum of 25 apps.
 
-![Screenshot of the Team Application creation modal](team-make-app.png)
+### Creating an App
 
-If you have an existing app that you want to transfer to a Team, you can do that, too! Just go into the app that you want to transfer, hit `Transfer App to Team`, and send the app to its new home.
+To create a new app that belongs to a team, select the team from the **Team** dropdown in the app creation modal. If you want to keep the app under your own account's ownership, choose `Personal`:
 
-![Screenshot of where to find the button to transfer an Application to a Team](transfer-app-to-team.png)
+![Screenshot of the create application modal with a Team selected](create-team-owned-app.png)
+
+### Transfering an App
+
+To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's **General Information** page, click "Transfer App to Team".
 
 > danger
 > Once an app has been transferred to a team, it _cannot_ be transferred back.
 
-## What Next
+![Screenshot of where to find the button to transfer an Application to a team](transfer-app-to-team.png)
 
-What next? Go make awesome stuff! Whether you're a Game Developer, Mad Bot Scientist, or OAuth2 Enthusiast, you can now work together with other like-minded Discordians to bring your creations to life.
+## Team Member Roles
 
-We've got a lot of awesome features planned for teams in the future, so stay tuned for things like:
+Team members can be one of four roles (owner, admin, developer, and read-only), and each role inherits the access of those below it. Roles for team members can be configured under **Team Members** in a team's settings.
 
-- Roles and Permissions
-- Audit Logs
-- More cat pictures
+###### Team Member Role Types
 
-Go team!
+| Role Name | Value     | Description                                                                                                                                                                                                                                                                                                                                       |
+|-----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Owner\*   |           | Owners are the most permissiable role, and can take destructive, irreversible actions like deleting team-owned apps or the team itself. Teams are limited to 1 owner.                                                                                                                                                                             |
+| Admin     | admin     | Admins have similar access as owners, except they cannot take destructive actions on the team or team-owned apps.                                                                                                                                                                                                                                 |
+| Developer | developer | Developers can access information about team-owned apps, like the client secret or public key. They can also take limited actions on team-owned apps, like configuring interaction endpoints or resetting the bot token. Members with the Developer role *cannot* manage the team or its members, or take destructive actions on team-owned apps. |
+| Read-only | read_only | Read-only members can access information about a team and any team-owned apps. Some examples include getting the IDs of applications and exporting payout records.                                                                                                                                                                                |
+
+\* The owner role is not represented in the `role` field on the [team member object](#DOCS_TOPICS_TEAMS/data-models-team-member-object). Instead, the `owner_user_id` field  on the [team object](#DOCS_TOPICS_TEAMS/data-models-team-object) should be used to identify which user has the owner role for the team.
+
 
 ## Data Models
 
 ###### Team Object
 
-| field         | type                                                                              | description                            |
-| ------------- | --------------------------------------------------------------------------------- | -------------------------------------- |
-| icon          | ?string                                                                           | a hash of the image of the team's icon |
-| id            | snowflake                                                                         | the unique id of the team              |
-| members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | the members of the team                |
-| name          | string                                                                            | the name of the team                   |
-| owner_user_id | snowflake                                                                         | the user id of the current team owner  |
+| field         | type                                                                              | description                          |
+|---------------|-----------------------------------------------------------------------------------|--------------------------------------|
+| icon          | ?string                                                                           | Hash of the image of the team's icon |
+| id            | snowflake                                                                         | Unique ID of the team                |
+| members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | Members of the team                  |
+| name          | string                                                                            | Name of the team                     |
+| owner_user_id | snowflake                                                                         | User ID of the current team owner    |
 
 ###### Team Member Object
 
-| field            | type                                                    | description                                                                                     |
-| ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| membership_state | integer                                                 | the user's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
-| permissions      | array of strings                                        | will always be `["*"]`                                                                          |
-| team_id          | snowflake                                               | the id of the parent team of which they are a member                                            |
-| user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | the avatar, discriminator, id, and username of the user                                         |
+| field            | type                                                    | description                                                                                 |
+|------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| membership_state | integer                                                 | User's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
+| team_id          | snowflake                                               | ID of the parent team of which they are a member                                            |
+| user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | Avatar, discriminator, ID, and username of the user                                         |
+| role             | string                                                  | [Role](#DOCS_TOPICS_TEAMS/team-member-roles-team-member-role-types) of the team member      |
+
 
 ###### Membership State Enum
 
 | name     | value |
-| -------- | ----- |
+|----------|-------|
 | INVITED  | 1     |
 | ACCEPTED | 2     |
