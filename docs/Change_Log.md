@@ -95,6 +95,23 @@ The public spec can be found in the new [`discord-api-spec` repository on GitHub
 
 Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
 
+## Permission Splits for Expressions and Events
+
+#### Jul 11, 2023
+
+> danger
+> This entry includes breaking changes
+
+> info
+> This documentation was unintentionally delayed from the release of the permission split.
+
+The `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) no longer allow for creating new expressions and events. New permissions have been added:
+
+* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+* `CREATE_EVENTS`: `1 << 44`
+
+These allow for creating new expressions/events, as well as editing and deleting those created by the current user. They have been enabled by default for roles with the corresponding Manage permissions and for `@everyone` in small servers, and they are enabled by default for `@everyone` in new servers.
+
 ## Add Join Raid and Mention Raid fields
 
 #### May 05, 2023
