@@ -102,6 +102,9 @@ Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more inf
 > danger
 > This entry includes breaking changes
 
+> info
+> This documentation was unintentionally delayed from the release of the permission split.
+
 The `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) no longer allow for creating new expressions and events. New permissions have been added:
 
 * `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
