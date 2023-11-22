@@ -83,12 +83,12 @@ You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/c
 
 ### Testing Payment Flow with Live Entitlements
 
-If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing them to purchase without using live payment methods. 
+If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
 
-This subscription is a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
+After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
 
 > info
-> If you want to easily toggle access to your premium features during your development process, it is best to use [test entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement).
+> If you need to toggle access to your premium features during your development process, it is best to use [test entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement).
 
 ## Receiving Payouts
 
