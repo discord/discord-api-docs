@@ -88,7 +88,7 @@ If you'd like to test the full payment flow for your app, you can do so by inter
 After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
 
 > info
-> If you need to toggle access to your premium features during your development process, it is best to use [test entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement).
+> You can only delete entitlements created using the [create test entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use test entitlements.
 
 ## Receiving Payouts
 
