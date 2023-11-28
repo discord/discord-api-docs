@@ -1,7 +1,7 @@
 # Change Log
 
 ## Premium App Subscriptions: New Ways for Testing App Subscriptions
-#### Nov 28, 2023
+#### Nov 29, 2023
 
 Following feedback on Premium App Subscriptions, we've made it easier for developers to test their app subscriptions. The goal is to provide you with flexiblity during testing and prevent you from having to use live payment methods.
 
