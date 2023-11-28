@@ -58,7 +58,7 @@ Returns all entitlements for a given app, active and expired.
 | after?         | snowflake                         | Retrieve entitlements after this entitlement ID      |
 | limit?         | integer                           | Number of entitlements to return, 1-100, default 100 |
 | guild_id?      | snowflake                         | Guild ID to look up entitlements for                 |
-| exclude_ended? | boolean                           | Whether entitlements should be omitted               |
+| exclude_ended? | boolean                           | Whether or not ended entitlements should be omitted  |
 
 ```json
 [
