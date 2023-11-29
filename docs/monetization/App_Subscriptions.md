@@ -49,7 +49,7 @@ return new JsonResponse({
 
 If someone is already subscribed, this command will show the upgrade prompt with a disabled upgrade button. In order to avoid this, your interaction handler should check to see if the user or guild has an active entitlement for your SKU.
 
-Each interaction payload includes an `entitlements` field containing an array of full entitlement objects that the guild or user currently has entitlement to.
+Each interaction payload includes an `entitlements` field containing an array of full [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object).
 
 You can use this field to determine if the user or guild is subscribed to your app.
 
@@ -74,10 +74,21 @@ For example, you might keep track of our entitlements in a database and check a 
 
 ## Testing Your Implementation
 
+### Using Test Entitlements
+
 You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
 > info
 > Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
+
+### Testing Payment Flow with Live Entitlements
+
+If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
+
+After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
+
+> info
+> You can only delete entitlements created using the [create test entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use test entitlements.
 
 ## Receiving Payouts
 
