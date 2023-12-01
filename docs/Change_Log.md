@@ -17,7 +17,7 @@ During this testing phase, there is nothing developers need to do to support end
 
 We will be continuing our testing and will share updates along with developer documentation and sample code once it is available. 
 
-Once this information is published, we will provide developers with a substantial timeframe to implement end-to-end encryption when interacting with voice and voice.
+Once this information is published, we will provide developers with a substantial timeframe to implement end-to-end encryption when interacting with voice and video.
 
 ## Premium App Subscriptions: New Ways for Testing App Subscriptions
 #### Nov 29, 2023
