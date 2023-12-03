@@ -1,5 +1,34 @@
 # Change Log
 
+## Experimenting with End-to-End Encryption for Voice & Video
+#### Dec 1, 2023
+
+#### What’s Happening?
+
+As outlined in [a blog post earlier this year](https://discord.com/blog/encryption-for-voice-and-video-on-discord), we are experimenting with end-to-end encryption (e2ee) for voice and video channels. 
+
+End-to-end encryption is designed to only allow the participants in a call to decipher its contents. One of the protocols we’re experimenting with is called Messaging Layer Security, which we believe would allow us to deliver end-to-end encryption at scale. Intermediaries, including platforms like Discord, are unable to access the content of communications encrypted with end-to-end encryption.
+
+#### How do I prepare for the changes?
+
+During this testing phase, there is nothing developers need to do to support end-to-end encryption. Voice channels will automatically downgrade to documented, non-e2ee protocols when a bot user joins the channel. This is transparent to the connecting client but may result in a slight delay between establishing a connection and receiving audio. 
+
+#### What is planned for the future?
+
+We will be continuing our testing and will share updates along with developer documentation and sample code once it is available. 
+
+Once this information is published, we will provide developers with a substantial timeframe to implement end-to-end encryption when interacting with voice and video.
+
+## Premium App Subscriptions: New Ways for Testing App Subscriptions
+#### Nov 29, 2023
+
+Following feedback on Premium App Subscriptions, we've made it easier for developers to test their app subscriptions. The goal is to provide you with flexibility during testing and prevent you from having to use live payment methods.
+
+- Team members will automatically receive a 100% discount on a subscription for your app, allowing you to test the end-to-end payment flow
+- Developers can create and delete [test entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) to toggle access to an application's premium features
+
+Read more about [Testing your App Subscriptions Implementation](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/testing-your-implementation) for details.
+
 ## Fix Message Edit Interaction Response Permissions
 #### Nov 1, 2023
 
@@ -94,6 +123,23 @@ The public spec can be found in the new [`discord-api-spec` repository on GitHub
 - Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
 
 Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
+
+## Permission Splits for Expressions and Events
+
+#### Jul 11, 2023
+
+> danger
+> This entry includes breaking changes
+
+> info
+> This documentation was unintentionally delayed from the release of the permission split.
+
+The `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) no longer allow for creating new expressions and events. New permissions have been added:
+
+* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+* `CREATE_EVENTS`: `1 << 44`
+
+These allow for creating new expressions/events, as well as editing and deleting those created by the current user. They have been enabled by default for roles with the corresponding Manage permissions and for `@everyone` in small servers, and they are enabled by default for `@everyone` in new servers.
 
 ## Add Join Raid and Mention Raid fields
 
