@@ -472,6 +472,7 @@ For example:
 | en-GB  | English, UK           | English, UK         |
 | en-US  | English, US           | English, US         |
 | es-ES  | Spanish               | Español             |
+| es-419 | Spanish               | Español, LATAM      |
 | fr     | French                | Français            |
 | hr     | Croatian              | Hrvatski            |
 | it     | Italian               | Italiano            |
