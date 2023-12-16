@@ -1,5 +1,23 @@
 # Change Log
 
+
+## Clarification on Permission Splits for Expressions and Events
+
+#### December 15, 2023
+
+> info
+> The existing behavior for `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` will **not be changing**. These permissions will continue to allow your bot users to create, update and delete expressions/events. No action will be needed if you plan to continue using these permissions.
+
+To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
+
+* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+* `CREATE_EVENTS`: `1 << 44`
+
+These allow for creating new expressions and events, as well as editing and deleting those created by the current user.  
+
+> warn
+> These were rolled out in July 2023 to users and roles and have been added to our developer documentation but **are not yet available to app developers**. We will share an update here when these new permissions are available in your apps.
+
 ## Experimenting with End-to-End Encryption for Voice & Video
 #### Dec 1, 2023
 
@@ -123,23 +141,6 @@ The public spec can be found in the new [`discord-api-spec` repository on GitHub
 - Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
 
 Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
-
-## Permission Splits for Expressions and Events
-
-#### Jul 11, 2023
-
-> danger
-> This entry includes breaking changes
-
-> info
-> This documentation was unintentionally delayed from the release of the permission split.
-
-The `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) no longer allow for creating new expressions and events. New permissions have been added:
-
-* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
-* `CREATE_EVENTS`: `1 << 44`
-
-These allow for creating new expressions/events, as well as editing and deleting those created by the current user. They have been enabled by default for roles with the corresponding Manage permissions and for `@everyone` in small servers, and they are enabled by default for `@everyone` in new servers.
 
 ## Add Join Raid and Mention Raid fields
 
