@@ -1,5 +1,12 @@
 # Change Log
 
+## Limit Number of Fields in Embeds
+
+#### December 19, 2023
+
+[Embed objects](#DOCS_RESOURCES_CHANNEL/embed-object) are now limited more explicitly to 25 [embed fields](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
+
+Previously, only the first 25 embed fields would be displayed within the embed but no error was returned.
 
 ## Clarification on Permission Splits for Expressions and Events
 
