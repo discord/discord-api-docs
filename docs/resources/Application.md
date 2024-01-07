@@ -110,7 +110,7 @@ Returns the [application](#DOCS_RESOURCES_APPLICATION/application-object) object
 Edit properties of the app associated with the requesting bot user. Only properties that are passed will be updated. Returns the updated [application](#DOCS_RESOURCES_APPLICATION/application-object) object on success. 
 
 > info 
-> All parameters to this endpoint are optional
+> All parameters to this endpoint are optional.
 
 ###### JSON Params
 

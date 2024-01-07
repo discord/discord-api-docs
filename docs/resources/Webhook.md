@@ -138,7 +138,7 @@ Same as above, except this call does not require authentication and returns no u
 Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 > info
-> All parameters to this endpoint are optional
+> All parameters to this endpoint are optional.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
