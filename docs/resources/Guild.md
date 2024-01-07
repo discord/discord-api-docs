@@ -942,8 +942,8 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 
 | Field  | Type    | Description                                                | Default |
 |------- |---------|------------------------------------------------------------|---------|
-| query? | string  | Query string to match username(s) and nickname(s) against. |         |
-| limit  | integer | max number of members to return (1-1000)                   | 1       |
+| query  | string  | Query string to match username(s) and nickname(s) against. |         |
+| limit? | integer | max number of members to return (1-1000)                   | 1       |
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
