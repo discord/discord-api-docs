@@ -1,0 +1,55 @@
+<LocalePicker currentLocale="es-ES" />
+
+# Creando tu primera aplicación de Discord
+Las aplicaciones de Discord te permiten personalizar y ampliar tus servidores utilizando una colección de API y funciones interactivas. Esta guía te enseñará a crear tu primera aplicación de Discord con JavaScript, y al final tendrás una aplicación que utiliza comandos de barra, envía mensajes y responde a las interacciones de los componentes.
+
+Construiremos una aplicación de Discord que permita a los miembros del servidor jugar piedra, papel o tijera (con 7 opciones en lugar de las 3 habituales). Esta guía está enfocada para principiantes, pero asume que tienes una comprensión básica de [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+
+<Collapsible title="Lo que crearemos" icon="view">
+  Así será el resultado de la aplicación:
+
+  ![Demo of example app](getting-started-demo.gif)
+
+  Para hacer el flujo del usuario un poco más explícito:
+  1. El usuario 1 inicia un nuevo juego y elige su objeto utilizando el comando de barra `/challenge` de la aplicación.
+  2. Se envía un mensaje al canal con un botón que invita a otros a aceptar el desafío.
+  3. El usuario 2 presiona el botón **Accept**.
+  4. Se envía un mensaje efímero al usuario 2, donde selecciona su objeto de elección.
+  5. El resultado del juego se publica nuevamente en el canal original para que todos lo vean.
+</Collapsible>
+
+<Collapsible title="Recursos utilizados en esta guía" description="Resumen de las herramientas y tecnologías que utilizaremos" icon="list">
+  - **[Repositorio GitHub](https://github.com/discord/discord-example-app)** donde se encuentra el código de esta guía, junto con algunos ejemplos de código adicionales específicos de características.
+  - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, es una biblioteca que proporciona tipos y funciones auxiliares para las aplicaciones de Discord.
+  - **[Express](https://expressjs.com)**, es un framework web popular de JavaScript, que usaremos para crear un servidor donde Discord pueda enviarnos solicitudes.
+  - **[Glitch](https://glitch.com/)**, es un entorno en línea que simplifica tanto la creación como el alojamiento de aplicaciones durante las fases iniciales de desarrollo y prototipado. También puede desarrollar localmente con una herramienta como **[ngrok](https://ngrok.com/)**.
+</Collapsible>
+
+---
+
+## Step 1: Crear una aplicación
+
+Primero, necesitas crear una aplicación en el Developer Portal si aún no tienes una:
+
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Crear aplicación</Button>
+
+Escriba un nombre para su aplicación, luego presiona **Create**.
+
+Después de crear tu aplicación, llegarás a la página **General Information** de la aplicación, donde podrás actualizar la información básica sobre tu aplicación, como su descripción e icono. También encontrarás un **Application ID** e **Interactions Endpoint URL**, los cuales utilizaremos más adelante en esta guía.
+
+### Configurando tu bot
+
+A continuación, configuraremos el [usuario bot](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) para tu aplicación, lo cual le permitirá aparecer y comportarse de manera similar a otros miembros del servidor.
+
+En la barra de navegación izquierda da clic en **Bot**. En esta página, puedes configurar los ajustes [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) o si pueden ser añadidos por otros usuarios.
+
+<Collapsible title="¿Qué son las intents?" description="Introducción para intens estándaras y privilegiadas." icon="question">
+  Las intents determinan qué eventos enviará Discord a tu aplicación cuando crees una [conexión Gateway API](#DOCS_TOPICS_GATEWAY). Por ejemplo, si quieres que tu app haga algo cuando los usuarios agreguen una reacción a un mensaje, puedes pasar la intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`).
+
+  Algunos intents tienen [privilegios](#DOCS_TOPICS_GATEWAY/privileged-intents), lo que significa que tu aplicación tiene la capacidad de acceder a datos potencialmente confidenciales (como el contenido de los mensajes). Las intents con privilegios aparecen y se pueden alternar en la página **Bot** en la configuración de la aplicación. Las intents estándar sin privilegios no necesitan permisos ni configuraciones adicionales.
+
+  Para obtener más información sobre las intents y una lista completa de las intents disponibles, junto con sus eventos asociados, consulte la [documentación Gateway](#DOCS_TOPICS_GATEWAY/gateway-intents).
+</Collapsible>
+
+![Bot tab in app settings](app-add-bot.png)
+
