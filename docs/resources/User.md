@@ -117,6 +117,7 @@ The connection object that the user has attached.
 | Value           | Name                |
 |-----------------|---------------------|
 | battlenet       | Battle.net          |
+| domain          | Domain              |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
 | facebook        | Facebook            |
