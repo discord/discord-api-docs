@@ -32,6 +32,7 @@
 | role_connections_verification_url? | string                                                                     | Role connection verification URL for the app                                                                          |
 | tags?                              | array of strings                                                           | List of tags describing the content and functionality of the app. Max of 5 tags.                                      |
 | install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object | Settings for the app's default in-app authorization link, if enabled                                                  |
+| integration_types_config | [integration types configuration](#TODO) object | App's installation configuraiton for its different integration types | 
 | custom_install_url?                | string                                                                     | Default custom authorization URL for the app, if enabled                                                              |
 
 ###### Example Application Object
@@ -45,6 +46,7 @@
   "guild_id": "290926798626357260",
   "icon": null,
   "id": "172150183260323840",
+  "integration_types_config": "TODO",
   "name": "Baba O-Riley",
   "owner": {
     "avatar": null,
