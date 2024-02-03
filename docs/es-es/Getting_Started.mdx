@@ -229,3 +229,241 @@ Ve a tu servidor y asegúrate de que el comando slash `/test` de tu aplicación 
 En la siguiente sección, agregaremos un comando adicional que utiliza opciones de comandos slash, botones y menús de selección para construir el juego de piedra-papel-tijeras.
 
 ---
+
+## Paso 4: Agregando componentes de mensaje
+
+El comando `/challenge` será cómo se iniciará nuestro juego de estilo piedra-papel-tijeras. Cuando se activa el comando, la aplicación enviará componentes de mensaje al canal, que guiarán a los usuarios para completar el juego.
+
+### Agregando un comando con opciones
+
+El comando `/challenge`, llamado `CHALLENGE_COMMAND` en `commands.js`, tiene un array de `options`. En nuestra aplicación, las opciones son objetos que representan diferentes cosas que un usuario puede seleccionar mientras juega a piedra-papel-tijeras, generados usando las claves de `RPSChoices` en `game.js`.
+
+Puedes leer más sobre las opciones de comando y su estructura [en la documentación](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
+
+> info
+> Aunque esta guía no tocará mucho el archivo `game.js`, siéntete libre de explorar y cambiar los comandos o las opciones en los comandos.
+
+<Collapsible title="Manejando la interacción del comando" description="Código para manejar el comando de desafío y responder con un mensaje que contiene un botón" icon="code" open>
+  Para manejar el comando `/challenge`, agrega el siguiente código después del bloque `if name === “test”`:
+
+  ```javascript
+    // Comando "challenge"
+    if (name === 'challenge' && id) {
+        const userId = req.body.member.user.id;
+        // Elección del objeto del usuario
+        const objectName = req.body.data.options[0].value;
+
+        // Crear juego activo usando el ID del mensaje como ID del juego
+        activeGames[id] = {
+            id: userId,
+            objectName,
+        };
+
+        return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+            content: `Desafío de piedra, papel o tijeras de <@${userId}>`,
+            components: [
+            {
+                type: MessageComponentTypes.ACTION_ROW,
+                components: [
+                {
+                    type: MessageComponentTypes.BUTTON,
+                    // Agregar el ID del juego para usarlo más tarde
+                    custom_id: `accept_button_${req.body.id}`,
+                    label: 'Aceptar',
+                    style: ButtonStyleTypes.PRIMARY,
+                },
+                ],
+            },
+            ],
+        },
+        });
+    }
+  ```
+
+
+  > info
+  > Si no estás seguro de dónde pegar el código, puedes ver el código completo en `examples/app.js` en el proyecto Glitch o en el archivo `app.js` principal [en GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+
+  El código anterior está haciendo varias cosas:
+  1. Analiza el cuerpo de la solicitud para obtener el ID del usuario que activó el comando slash (`userId`), y la opción (elección del objeto) que seleccionaron (`objectName`).
+  2. Agrega un nuevo juego al objeto `activeGames` usando el ID de la interacción. El juego activo registra el `userId` y `objectName`.
+  3. Envía un mensaje de vuelta al canal con un botón con un `custom_id` de `accept_button_<SOME_ID>`.
+
+  > warn
+  > El código de ejemplo utiliza un objeto como almacenamiento en memoria, pero para las aplicaciones de producción, debes usar una base de datos.
+
+  Al enviar un mensaje con [componentes de mensaje](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), las cargas útiles individuales se agregan a un array `components`. Los componentes procesables (como los botones) deben estar dentro de una [fila de acción](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), que puedes ver en el ejemplo de código.
+
+  Nota el `custom_id` único enviado con los componentes del mensaje, en este caso `accept_button_` con el ID del juego activo adjunto. Un `custom_id` se puede usar para manejar las solicitudes que Discord te envía cuando alguien interactúa con el componente, lo que verás en un momento.
+
+  Ahora, cuando ejecutes el comando `/challenge` y elijas una opción, tu aplicación enviará un mensaje con un botón **Aceptar**. Vamos a agregar código para manejar la presión del botón.
+</Collapsible>
+
+<Collapsible title="Manejando interacciones de botones" description="Código para manejar clics de botones y responder con un mensaje efímero" icon="code" open>
+  Cuando los usuarios interactúan con un componente de mensaje, Discord enviará una solicitud con un [tipo de interacción](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) de `3` (o el valor `MESSAGE_COMPONENT` cuando se usa `discord-interactions`).
+
+  Para configurar un manejador para el botón, verificaremos el `type` de la interacción, seguido de la coincidencia con el `custom_id`.
+
+  Pega el siguiente código debajo del manejador de tipo para `APPLICATION_COMMAND`s:
+
+  ```javascript
+  if (type === InteractionType.MESSAGE_COMPONENT) {
+      // custom_id establecido en el payload al enviar el componente de mensaje
+      const componentId = data.custom_id;
+
+      if (componentId.startsWith('accept_button_')) {
+          // obtener el ID del juego asociado
+          const gameId = componentId.replace('accept_button_', '');
+          // Eliminar mensaje con token en el cuerpo de la solicitud
+          const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+          try {
+              await res.send({
+                  type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                  data: {
+                      // Obtiene un emoji aleatorio para enviar desde una función auxiliar
+                      content: '¿Cuál es tu objeto de elección?',
+                      // Indica que será un mensaje efímero
+                      flags: InteractionResponseFlags.EPHEMERAL,
+                      components: [
+                      {
+                          type: MessageComponentTypes.ACTION_ROW,
+                          components: [
+                          {
+                              type: MessageComponentTypes.STRING_SELECT,
+                              // Añadir ID del juego
+                              custom_id: `select_choice_${gameId}`,
+                              options: getShuffledOptions(),
+                          },
+                          ],
+                      },
+                      ],
+                  },
+              });
+              // Eliminar mensaje anterior
+              await DiscordRequest(endpoint, { method: 'DELETE' });
+          } catch (err) {
+              console.error('Error enviando mensaje:', err);
+          }
+      }
+  }
+  ```
+
+  El código anterior:
+  1. Verifica un `custom_id` que coincida con lo que enviamos originalmente (en este caso, comienza con `accept_button_`). El custom ID también tiene el ID del juego activo adjunto, por lo que lo almacenamos en `gameID`.
+  2. [Elimina el mensaje original](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) llamando a un webhook usando `node-fetch` y pasando el `token` de interacción único en el cuerpo de la solicitud. Esto se hace para limpiar el canal y para que otros usuarios no puedan hacer clic en el botón.
+  3. Responde a la solicitud enviando un mensaje que contiene un menú de selección con las opciones de objeto para el juego. El payload debería parecerse bastante al anterior, con la excepción del array `options` y `flags: 64`, [que indica que el mensaje es efímero](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
+
+  El array `options` se llena usando el método `getShuffledOptions()` en `game.js`, que manipula los valores de `RPSChoices` para que se ajusten a la forma de las [opciones de componentes de mensaje](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure).
+</Collapsible>
+
+<Collapsible title="Manejando las interacciones del menú de selección" description="Código para responder a las interacciones del menú de selección y actualizar el estado del juego" icon="code" open>
+
+  Lo último que debemos agregar es el código para manejar las interacciones del menú de selección y enviar el resultado del juego al canal.
+
+  Dado que los menús de selección son solo otro componente de mensaje, el código para manejar sus interacciones será casi idéntico al de los botones.
+
+  Modifica el código anterior para manejar el menú de selección:
+
+  ```javascript
+  if (type === InteractionType.MESSAGE_COMPONENT) {
+      // custom_id establecido en el payload al enviar el componente del mensaje
+      const componentId = data.custom_id;
+
+      if (componentId.startsWith('accept_button_')) {
+          // obtener el ID del juego asociado
+          const gameId = componentId.replace('accept_button_', '');
+          // Eliminar el mensaje con el token en el cuerpo de la solicitud
+          const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+          try {
+              await res.send({
+                  type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                  data: {
+                      content: '¿Cuál es tu objeto de elección?',
+                      // Indica que será un mensaje efímero
+                      flags: InteractionResponseFlags.EPHEMERAL,
+                      components: [
+                      {
+                          type: MessageComponentTypes.ACTION_ROW,
+                          components: [
+                          {
+                              type: MessageComponentTypes.STRING_SELECT,
+                              // Añadir el ID del juego
+                              custom_id: `select_choice_${gameId}`,
+                              options: getShuffledOptions(),
+                          },
+                          ],
+                      },
+                      ],
+                  },
+              });
+              // Eliminar el mensaje anterior
+              await DiscordRequest(endpoint, { method: 'DELETE' });
+          } catch (err) {
+              console.error('Error al enviar el mensaje:', err);
+          }
+      } else if (componentId.startsWith('select_choice_')) {
+          // obtener el ID del juego asociado
+          const gameId = componentId.replace('select_choice_', '');
+
+          if (activeGames[gameId]) {
+              // Obtener el ID del usuario y la elección del objeto para el usuario que responde
+              const userId = req.body.member.user.id;
+              const objectName = data.values[0];
+              // Calcular el resultado con la función auxiliar
+              const resultStr = getResult(activeGames[gameId], {
+                  id: userId,
+                  objectName,
+              });
+
+              // Eliminar el juego del almacenamiento
+              delete activeGames[gameId];
+              // Actualizar el mensaje con el token en el cuerpo de la solicitud
+              const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+
+              try {
+                  // Enviar los resultados
+                  await res.send({
+                      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                      data: { content: resultStr },
+                  });
+                  // Actualizar el mensaje efímero
+                  await DiscordRequest(endpoint, {
+                      method: 'PATCH',
+                      body: {
+                          content: 'Buena elección ' + getRandomEmoji(),
+                          components: []
+                      }
+                  });
+              } catch (err) {
+                  console.error('Error al enviar el mensaje:', err);
+              }
+          }
+      }
+  }
+  ```
+
+  Al igual que el código anterior, el código de arriba está obteniendo el ID del usuario y su selección de objeto de la solicitud de interacción.
+
+  Esa información, junto con el ID del usuario original y la selección del objeto del objeto `activeGames`, se pasa a la función `getResult()`. `getResult()` determina el ganador, luego construye una cadena legible para enviar de vuelta al canal.
+
+  También estamos llamando a otro webhook, esta vez para [actualizar el mensaje efímero de seguimiento](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) ya que no puede ser eliminado.
+
+  Finalmente, los resultados se envían al canal utilizando el tipo de respuesta de interacción `CHANNEL_MESSAGE_WITH_SOURCE`.
+</Collapsible>
+
+....y eso es todo 🎊 Adelante, prueba tu aplicación y asegúrate de que todo funcione.
+
+---
+
+## Próximos pasos
+
+¡Felicidades por construir tu primera aplicación de Discord! 🤖
+
+Esperamos que hayas aprendido un poco sobre las aplicaciones de Discord, cómo configurarlas y cómo hacerlas interactivas. A partir de aquí, puedes continuar desarrollando tu aplicación o explorar qué más es posible:
+- Lee **[la documentación](#DOCS_INTRO)** para obtener información detallada sobre las características de la API
+- Navega por la carpeta `examples/` en este proyecto para ver ejemplos de código más pequeños y específicos para cada característica
+- Echa un vistazo a **[recursos de la comunidad](#DOCS_TOPICS_COMMUNITY_RESOURCES)** para herramientas específicas de lenguaje mantenidas por miembros de la comunidad
+- Lee nuestro tutorial sobre [cómo alojar aplicaciones de Discord en Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
+- Únete al **[servidor de Desarrolladores de Discord](https://discord.gg/discord-developers)** para hacer preguntas sobre la API, asistir a eventos organizados por el equipo de la API de Discord e interactuar con otros desarrolladores.
