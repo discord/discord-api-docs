@@ -1,7 +1,7 @@
 <LocalePicker currentLocale="es-ES" />
 
 # Creando tu primera aplicación de Discord
-Las aplicaciones de Discord te permiten personalizar y ampliar tus servidores utilizando una colección de API y funciones interactivas. Esta guía te enseñará a crear tu primera aplicación de Discord con JavaScript, y al final tendrás una aplicación que utiliza comandos de barra, envía mensajes y responde a las interacciones de los componentes.
+Las aplicaciones de Discord te permiten personalizar y ampliar tus servidores utilizando una colección de API y funciones interactivas. Esta guía te enseñará a crear tu primera aplicación de Discord con JavaScript, y al final tendrás una aplicación que utiliza comandos slash, envía mensajes y responde a las interacciones de los componentes.
 
 Construiremos una aplicación de Discord que permita a los miembros del servidor jugar piedra, papel o tijera (con 7 opciones en lugar de las 3 habituales). Esta guía está enfocada para principiantes, pero asume que tienes una comprensión básica de [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
@@ -11,7 +11,7 @@ Construiremos una aplicación de Discord que permita a los miembros del servidor
   ![Demo of example app](getting-started-demo.gif)
 
   Para hacer el flujo del usuario un poco más explícito:
-  1. El usuario 1 inicia un nuevo juego y elige su objeto utilizando el comando de barra `/challenge` de la aplicación.
+  1. El usuario 1 inicia un nuevo juego y elige su objeto utilizando el comando slash `/challenge` de la aplicación.
   2. Se envía un mensaje al canal con un botón que invita a otros a aceptar el desafío.
   3. El usuario 2 presiona el botón **Accept**.
   4. Se envía un mensaje efímero al usuario 2, donde selecciona su objeto de elección.
@@ -39,7 +39,7 @@ Después de crear tu aplicación, llegarás a la página **General Information**
 
 ### Configurando tu bot
 
-A continuación, configuraremos el [usuario bot](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) para tu aplicación, lo cual le permitirá aparecer y comportarse de manera similar a otros miembros del servidor.
+A continuación, configuraremos el [Usuario bot](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) para tu aplicación, lo cual le permitirá aparecer y comportarse de manera similar a otros miembros del servidor.
 
 En la barra de navegación izquierda da clic en **Bot**. En esta página, puedes configurar los ajustes [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) o si pueden ser añadidos por otros usuarios.
 
@@ -51,5 +51,181 @@ En la barra de navegación izquierda da clic en **Bot**. En esta página, puedes
   Para obtener más información sobre las intents y una lista completa de las intents disponibles, junto con sus eventos asociados, consulte la [documentación Gateway](#DOCS_TOPICS_GATEWAY/gateway-intents).
 </Collapsible>
 
-![Bot tab in app settings](app-add-bot.png)
+![Pestaña de Bot en la configuración de la aplicación](app-add-bot.png)
 
+También hay una sección **Token** en la página **Bot**, que te permite copiar y restablecer el token de tu bot.
+
+Los tokens de bot se utilizan para autorizar solicitudes de API y llevan los permisos de tu bot, lo que los hace *altamente sensibles*. Asegúrate de *nunca* compartir tu token o ingresarlo en ningún tipo de control de versiones.
+
+Adelante, copia el token y guárdalo en un lugar seguro (como en un administrador de contraseñas).
+
+> warn
+> No podrás ver tu token de nuevo a menos que lo regeneres, así que asegúrate de guardarlo en un lugar seguro.
+
+### Agregando alcances y permisos de bot
+
+Las aplicaciones necesitan la aprobación de los usuarios que las instalan para realizar acciones en Discord (como crear un comando slash o buscar una lista de miembros del servidor). Vamos a seleccionar algunos alcances y permisos para solicitar antes de instalar la aplicación.
+
+<Collapsible title="¿Qué son los alcances y los permisos?" description="Introducción a los alcances y permisos de bot" icon="question">
+  Al crear una aplicación, los alcances y permisos determinan lo que tu aplicación puede hacer y acceder en los servidores de Discord.
+
+  - Los [Alcances de OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) determinan qué acceso a datos y acciones puede tomar tu aplicación, otorgado en nombre de un usuario que instala o autentica.
+  - Los [Permisos](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) son los permisos asignados para tu usuario bot, los mismos que tienen otros usuarios en Discord. Pueden ser aprobados por el usuario que instala o actualiza más tarde dentro de la configuración del servidor o con [sobrescrituras de permisos](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
+</Collapsible>
+
+Haz clic en **OAuth2** en la barra lateral izquierda, luego selecciona **Generador de URL**.
+
+> info
+> El generador de URL crea un enlace de instalación basado en los alcances y permisos que seleccionas para tu aplicación. Puedes usar el enlace para instalar la aplicación en tu propio servidor, o compartirlo con otros para que puedan instalarla.
+
+Por ahora, solo agrega el alcance **`bot`**, que agrega tu usuario bot.
+
+Después de seleccionar `bot`, también puedes seleccionar diferentes permisos para tu bot. Por ahora, solo marca **Enviar mensajes**.
+
+Consulta la lista de todos los [alcances de OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), o lee más sobre los [permisos](#DOCS_TOPICS_PERMISSIONS) en la documentación.
+
+### Instalando tu aplicación
+
+Una vez que agregues los alcances, deberías ver una URL que puedes copiar para instalar tu aplicación.
+
+![Captura de pantalla del generador de URL](url-generator.png)
+
+> info
+> Cuando estés desarrollando aplicaciones, deberías construir y probar en un servidor que no esté siendo utilizado activamente por otros. Si aún no tienes tu propio servidor, puedes [crear uno gratis](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+
+Copia la URL de arriba y pégala en tu navegador. Serás guiado a través del flujo de instalación, donde debes asegurarte de que estás instalando tu aplicación en un servidor donde puedas desarrollarla y probarla.
+
+Después de instalar tu aplicación, puedes dirigirte a tu servidor y ver que se ha unido ✨
+
+Con tu aplicación configurada e instalada, comencemos a desarrollarla.
+
+---
+
+## Paso 2: Ejecutando tu aplicación
+
+Todo el código utilizado en la aplicación de ejemplo se puede encontrar en [el repositorio de GitHub](https://github.com/discord/discord-example-app).
+
+Para simplificar un poco el desarrollo, la aplicación utiliza [discord-interactions](https://github.com/discord/discord-interactions-js), que proporciona tipos y funciones auxiliares. Si prefieres usar otros lenguajes o bibliotecas, consulta la documentación de [Recursos de la Comunidad](#DOCS_TOPICS_COMMUNITY_RESOURCES).
+
+### Remixando el proyecto
+
+Esta guía utiliza Glitch, que te permite clonar y desarrollar dentro de tu navegador. Si prefieres desarrollar tu aplicación localmente, hay instrucciones sobre cómo usar ngrok [en el README](https://github.com/discord/discord-example-app#running-app-locally).
+
+> info
+> Aunque Glitch es genial para el desarrollo y las pruebas, [tiene restricciones técnicas](https://help.glitch.com/kb/article/17-technical-restrictions/) por lo que se deberían considerar otros proveedores de alojamiento para aplicaciones en producción.
+
+Para comenzar, **[remixa (o clona) el proyecto Glitch 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
+
+Una vez que remezcles el proyecto, aterrizarás en un nuevo proyecto Glitch.
+
+<Collapsible title="Interfaz del proyecto Glitch" description="Visión general de la interfaz del proyecto Glitch" icon="view">
+  ![Visión general del proyecto Glitch](glitch-project.png)
+
+  - Tu **nombre del proyecto** es un nombre único para tu proyecto, que se encuentra en la esquina superior izquierda
+  - **`.env`** es el archivo donde se almacenarán todas tus credenciales para tu aplicación
+  - **Logs** es donde se encuentra la salida de tu proyecto, esto es útil para ver si la aplicación está funcionando o información sobre cualquier error que encuentre tu aplicación
+  - El botón **Share** en la esquina superior derecha es donde encontrarás la URL del proyecto en vivo, que necesitarás para configurar la interactividad más adelante en esta guía
+</Collapsible>
+
+#### Estructura del proyecto
+
+Todos los archivos del proyecto están en el lado izquierdo de tu proyecto Glitch. A continuación, se muestra una descripción general de las carpetas y archivos principales:
+
+```
+├── examples    -> aplicaciones de muestra específicas y cortas
+│   ├── app.js  -> código finalizado de app.js
+│   ├── button.js
+│   ├── command.js
+│   ├── modal.js
+│   ├── selectMenu.js
+├── .env        -> tus credenciales e IDs
+├── app.js      -> punto de entrada principal para la aplicación
+├── commands.js -> cargas útiles de comandos slash + ayudantes
+├── game.js     -> lógica específica para RPS
+├── utils.js    -> funciones de utilidad y enumeraciones
+├── package.json
+├── README.md
+└── .gitignore
+```
+
+### Instalando comandos slash
+
+> info
+> Para instalar comandos slash, la aplicación está utilizando [`node-fetch`](https://github.com/node-fetch/node-fetch). Puedes ver la implementación para la instalación en `utils.js` dentro de la función `DiscordRequest()`.
+
+El proyecto contiene un script `register` que puedes usar para instalar los comandos en `ALL_COMMANDS`, que se define en la parte inferior de `commands.js`. Instala los comandos como comandos globales llamando al endpoint [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) de la API HTTP.
+
+Si quieres personalizar tus comandos o agregar otros adicionales, puedes hacer referencia a la estructura del comando en la [documentación de comandos](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure).
+
+Ejecuta el script `register` haciendo clic en **Terminal** en la parte inferior de tu proyecto Glitch y pegando el siguiente comando:
+
+```
+npm run register
+```
+
+Presiona enter para ejecutar el comando.
+
+Si navegas de vuelta a tu servidor, deberías ver los comandos slash aparecer. Pero si intentas ejecutarlos, no sucederá nada ya que tu aplicación no está recibiendo ni manejando ninguna solicitud de Discord.
+
+<Collapsible title="¿Qué son las APIs de Discord?" description="Visión general de las APIs HTTP y Gateway de Discord" icon="question">
+  Discord tiene dos APIs que puedes combinar y mezclar para construir aplicaciones:
+
+  - **[HTTP API](#DOCS_REFERENCE/http-api)** es una API tipo REST para operaciones generales como enviar y actualizar datos en Discord, o buscar datos sobre un recurso.
+  - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** es una API basada en WebSocket que es útil para mantener el estado o escuchar eventos que ocurren en un servidor de Discord. No la usaremos en esta guía, pero puedes encontrar más información sobre cómo crear una conexión Gateway y los diferentes eventos que puedes escuchar en la [documentación de Gateway](#DOCS_TOPICS_GATEWAY).
+</Collapsible>
+
+---
+
+## Paso 3: Manejo de la interactividad
+
+Para permitir que tu aplicación reciba solicitudes de comandos slash (y otras interacciones), Discord necesita una URL pública para enviarlas. Esta URL se puede configurar en la configuración de tu aplicación como **URL del punto final de interacción**.
+
+### Agregando una URL de punto final de interacción
+
+Los proyectos de Glitch tienen una URL pública expuesta por defecto. Copia la URL de tu proyecto haciendo clic en el botón **Share** en la esquina superior derecha, luego copia el enlace del "sitio en vivo" que se encuentra en la parte inferior del modal.
+
+> info
+> Si estás desarrollando localmente, hay instrucciones para hacer tunneling de las solicitudes a tu entorno local [en el README de GitHub](https://github.com/discord/discord-example-app#running-app-locally).
+
+Con el enlace copiado, ve a la configuración de tu aplicación desde [el portal de desarrolladores](https://discord.com/developers/applications).
+
+En la página **General Information** de tu aplicación, hay una opción **Interactive Endpoint URL**, donde puedes pegar la URL de tu aplicación y agregar `/interactions` al final, que es donde la aplicación Express está configurada para escuchar las solicitudes.
+
+![URL de punto final de interacciones en la configuración de la aplicación](interactions-url.png)
+
+Haz clic en **Save Changes** y asegúrate de que tu punto final esté verificado correctamente.
+
+La aplicación de ejemplo maneja la verificación de dos maneras:
+- Utiliza la `PUBLIC_KEY` y el paquete [discord-interactions](https://github.com/discord/discord-interactions-js#usage) con una función de envoltura (importada de `utils.js`) que la hace cumplir con la interfaz `verify` de [Express](http://expressjs.com/en/5x/api.html#express.json). Esto se ejecuta en cada solicitud entrante a tu aplicación.
+- Responde a las solicitudes `PING` entrantes.
+
+Puedes aprender más sobre cómo preparar tu aplicación para recibir interacciones en [la documentación de interacciones](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
+
+### Manejando las solicitudes de comandos slash
+
+Con el punto final verificado, navega al archivo `app.js` de tu proyecto y encuentra el bloque de código que maneja el comando `/test`:
+
+```javascript
+// Comando "test"
+if (name === 'test') {
+    // Envía un mensaje al canal desde donde se activó el comando
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // Obtiene un emoji aleatorio para enviar desde una función auxiliar
+        content: 'hola mundo ' + getRandomEmoji(),
+    },
+    });
+}
+```
+
+El código anterior está respondiendo a la interacción con un mensaje en el canal desde donde se originó. Puedes ver todos los tipos de respuesta disponibles, como responder con un modal, [en la documentación](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+
+> info
+> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` es una constante [exportada desde `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+
+Ve a tu servidor y asegúrate de que el comando slash `/test` de tu aplicación funciona. Cuando lo activas, tu aplicación debería enviar un mensaje que contiene "hola mundo" seguido de un emoji aleatorio.
+
+En la siguiente sección, agregaremos un comando adicional que utiliza opciones de comandos slash, botones y menús de selección para construir el juego de piedra-papel-tijeras.
+
+---
