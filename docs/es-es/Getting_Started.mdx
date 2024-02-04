@@ -43,7 +43,7 @@ A continuación, configuraremos el [Usuario bot](#DOCS_TOPICS_OAUTH2/bot-vs-user
 
 En la barra de navegación izquierda da clic en **Bot**. En esta página, puedes configurar los ajustes [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) o si pueden ser añadidos por otros usuarios.
 
-<Collapsible title="¿Qué son las intents?" description="Introducción para intens estándaras y privilegiadas." icon="question">
+<Collapsible title="¿Qué son las intents?" description="Introducción a las intents estándares y privilegiadas." icon="question">
   Las intents determinan qué eventos enviará Discord a tu aplicación cuando crees una [conexión Gateway API](#DOCS_TOPICS_GATEWAY). Por ejemplo, si quieres que tu app haga algo cuando los usuarios agreguen una reacción a un mensaje, puedes pasar la intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`).
 
   Algunos intents tienen [privilegios](#DOCS_TOPICS_GATEWAY/privileged-intents), lo que significa que tu aplicación tiene la capacidad de acceder a datos potencialmente confidenciales (como el contenido de los mensajes). Las intents con privilegios aparecen y se pueden alternar en la página **Bot** en la configuración de la aplicación. Las intents estándar sin privilegios no necesitan permisos ni configuraciones adicionales.
@@ -73,14 +73,14 @@ Las aplicaciones necesitan la aprobación de los usuarios que las instalan para 
   - Los [Permisos](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) son los permisos asignados para tu usuario bot, los mismos que tienen otros usuarios en Discord. Pueden ser aprobados por el usuario que instala o actualiza más tarde dentro de la configuración del servidor o con [sobrescrituras de permisos](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
 </Collapsible>
 
-Haz clic en **OAuth2** en la barra lateral izquierda, luego selecciona **Generador de URL**.
+Haz clic en **OAuth2** en la barra lateral izquierda, luego selecciona **URL Generator**.
 
 > info
 > El generador de URL crea un enlace de instalación basado en los alcances y permisos que seleccionas para tu aplicación. Puedes usar el enlace para instalar la aplicación en tu propio servidor, o compartirlo con otros para que puedan instalarla.
 
 Por ahora, solo agrega el alcance **`bot`**, que agrega tu usuario bot.
 
-Después de seleccionar `bot`, también puedes seleccionar diferentes permisos para tu bot. Por ahora, solo marca **Enviar mensajes**.
+Después de seleccionar `bot`, también puedes seleccionar diferentes permisos para tu bot. Por ahora, solo marca **Send Messages**.
 
 Consulta la lista de todos los [alcances de OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), o lee más sobre los [permisos](#DOCS_TOPICS_PERMISSIONS) en la documentación.
 
@@ -165,7 +165,7 @@ npm run register
 
 Presiona enter para ejecutar el comando.
 
-Si navegas de vuelta a tu servidor, deberías ver los comandos slash aparecer. Pero si intentas ejecutarlos, no sucederá nada ya que tu aplicación no está recibiendo ni manejando ninguna solicitud de Discord.
+Si navegas de vuelta a tu servidor, deberías ver los comandos slash aparecer. Pero si intentas ejecutarlos, no sucederá nada, ya que tu aplicación no está recibiendo ni manejando ninguna solicitud de Discord.
 
 <Collapsible title="¿Qué son las APIs de Discord?" description="Visión general de las APIs HTTP y Gateway de Discord" icon="question">
   Discord tiene dos APIs que puedes combinar y mezclar para construir aplicaciones:
@@ -178,9 +178,9 @@ Si navegas de vuelta a tu servidor, deberías ver los comandos slash aparecer. P
 
 ## Paso 3: Manejo de la interactividad
 
-Para permitir que tu aplicación reciba solicitudes de comandos slash (y otras interacciones), Discord necesita una URL pública para enviarlas. Esta URL se puede configurar en la configuración de tu aplicación como **URL del punto final de interacción**.
+Para permitir que tu aplicación reciba solicitudes de comandos slash (y otras interacciones), Discord necesita una URL pública para enviarlas. Esta URL se puede configurar en la configuración de tu aplicación como **Interaction Endpoint URL**.
 
-### Agregando una URL de punto final de interacción
+### Agregando una Interaction Endpoint URL
 
 Los proyectos de Glitch tienen una URL pública expuesta por defecto. Copia la URL de tu proyecto haciendo clic en el botón **Share** en la esquina superior derecha, luego copia el enlace del "sitio en vivo" que se encuentra en la parte inferior del modal.
 
@@ -191,7 +191,7 @@ Con el enlace copiado, ve a la configuración de tu aplicación desde [el portal
 
 En la página **General Information** de tu aplicación, hay una opción **Interactive Endpoint URL**, donde puedes pegar la URL de tu aplicación y agregar `/interactions` al final, que es donde la aplicación Express está configurada para escuchar las solicitudes.
 
-![URL de punto final de interacciones en la configuración de la aplicación](interactions-url.png)
+![Interaction Endpoint URL en la configuración de la aplicación](interactions-url.png)
 
 Haz clic en **Save Changes** y asegúrate de que tu punto final esté verificado correctamente.
 
@@ -213,7 +213,7 @@ if (name === 'test') {
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
         // Obtiene un emoji aleatorio para enviar desde una función auxiliar
-        content: 'hola mundo ' + getRandomEmoji(),
+        content: 'Hola mundo ' + getRandomEmoji(),
     },
     });
 }
@@ -224,7 +224,7 @@ El código anterior está respondiendo a la interacción con un mensaje en el ca
 > info
 > `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` es una constante [exportada desde `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
 
-Ve a tu servidor y asegúrate de que el comando slash `/test` de tu aplicación funciona. Cuando lo activas, tu aplicación debería enviar un mensaje que contiene "hola mundo" seguido de un emoji aleatorio.
+Ve a tu servidor y asegúrate de que el comando slash `/test` de tu aplicación funciona. Cuando lo activas, tu aplicación debería enviar un mensaje que contiene "Hola mundo" seguido de un emoji aleatorio.
 
 En la siguiente sección, agregaremos un comando adicional que utiliza opciones de comandos slash, botones y menús de selección para construir el juego de piedra-papel-tijeras.
 
