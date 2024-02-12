@@ -363,6 +363,28 @@ data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 
 Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
 
+### Signed Attachment CDN URLs
+
+Attachments uploaded to Discord's CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time. Discord automatically refreshes attachment CDN URLs that appear within the client, so when your app receives a payload with a signed URL (like when you [fetch a message](#DOCS_RESOURCES_CHANNEL/get-channel-message)), it will be valid.
+
+When passing CDN URLs into API fields, like [`url` in an embed image object](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) and [`avatar_url` for webhooks](#DOCS_RESOURCES_WEBHOOK/execute-webhook-jsonform-params), your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
+
+The [standard CDN endpoints](#DOCS_REFERENCE/image-formatting-cdn-endpoints) listed above are not signed, so they will not expire.
+
+###### Example Attachment CDN URL
+
+```
+https://cdn.discordapp.com/attachments/1012345678900020080/1234567891233211234/my_image.png?ex=65d903de&is=65c68ede&hm=2481f30dd67f503f54d020ae3b5533b9987fae4e55f2b4e3926e08a3fa3ee24f&
+```
+
+###### Attachment CDN URL Parameters
+
+| Parameter | Description                                                     |
+|-----------|-----------------------------------------------------------------|
+| ex        | Hex timestamp indicating when an attachment CDN URL will expire |
+| is        | Hex timestamp indicating when the URL was issued                |
+| hm        | Unique signature that remains valid until the URL's expiration  |
+
 ## Uploading Files
 
 > info
