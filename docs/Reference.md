@@ -92,7 +92,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
         "_errors": [
             {
                 "code": "APPLICATION_COMMAND_TOO_LARGE",
-                "message": "Command exceeds maximum size (4000)"
+                "message": "Command exceeds maximum size (8000)"
             }
         ]
     }
