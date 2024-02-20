@@ -39,10 +39,10 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 
 For subscriptions, SKUs will have a type of either `SUBSCRIPTION` represented by `type: 5` or `SUBSCRIPTION_GROUP` represented by `type:6`. For any current implementations, you will want to use the SKU defined by `type: 5`. A `SUBSCRIPTION_GROUP` is automatically created for each `SUBSCRIPTION` SKU and are not used at this time.
 
-| Type               | ID | Description                                              |
-|--------------------|----|----------------------------------------------------------|
-| SUBSCRIPTION       | 5  | Represents a recurring subscription                      |
-| SUBSCRIPTION_GROUP | 6  | System-generated group for each SUBSCRIPTION SKU created |
+| Type               | Value | Description                                              |
+|--------------------|-------|----------------------------------------------------------|
+| SUBSCRIPTION       | 5     | Represents a recurring subscription                      |
+| SUBSCRIPTION_GROUP | 6     | System-generated group for each SUBSCRIPTION SKU created |
 
 ###### SKU Flags
 
@@ -53,10 +53,11 @@ For subscriptions, there are two types of access levels you can offer to users:
 
 The `flags` field can be used to differentiate user and server subscriptions with a bitwise `&&` operator.
 
-| Value  | Type               |
-|--------|--------------------|
-| 1 << 7 | GUILD_SUBSCRIPTION |
-| 1 << 8 | USER_SUBSCRIPTION  |
+| Type               | Value  | Description                                                                                                               |
+|--------------------|--------|---------------------------------------------------------------------------------------------------------------------------|
+| AVAILABLE          | 1 << 2 | SKU is available for purchase                                                                                             |
+| GUILD_SUBSCRIPTION | 1 << 7 | Recurring SKU that can be purchased by a user and applied to a single server. Grants access to every user in that server. |
+| USER_SUBSCRIPTION  | 1 << 8 | Recurring SKU purchased by a user for themselves. Grants access to the purchasing user in every server.                   |
 
 ## Customizing Your SKUs
 

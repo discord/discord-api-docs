@@ -78,12 +78,6 @@ Discord Game SDK's lobby and networking layer shares similarities with other gam
 
 - [HouraiNetworking](https://github.com/HouraiTeahouse/HouraiNetworking)
 
-## Dispatch Tools
-
-Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game developers publishing on Discord can sometimes involve using the same long commands multiple times. The following open-source tool helps shorten these commands for you. It will also provide webhook support for when you're pushing an update.
-
-- [JohnyTheCarrot's Dispatch CLI](https://github.com/JohnyTheCarrot/droops-dispatch)
-
 ## Permission Calculators
 
 [Permissions](#DOCS_TOPICS_PERMISSIONS/permissions) in Discord are tricky. Luckily, we've got really smart people who love us and have made some great permissions calculators. If you're making a bot for others, and you're not sure how to properly calculate permissions or generate your [authorization URL](#DOCS_TOPICS_OAUTH2/bot-authorization-flow), these are great tools:

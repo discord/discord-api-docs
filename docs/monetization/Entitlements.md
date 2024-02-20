@@ -10,13 +10,13 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 |----------------|-------------------|---------------------------------------------------------------------------------------------|
 | id             | snowflake         | ID of the entitlement                                                                       |
 | sku_id         | snowflake         | ID of the SKU                                                                               |
-| user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
-| guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
 | application_id | snowflake         | ID of the parent application                                                                |
+| user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
 | type           | integer           | [Type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
-| consumed       | boolean           | Not applicable for App Subscriptions. Subscriptions are not consumed and will be `false`    |
+| deleted        | boolean           | Entitlement was deleted                                                                     |
 | starts_at?     | ISO8601 timestamp | Start date at which the entitlement is valid. Not present when using test entitlements.     |
 | ends_at?       | ISO8601 timestamp | Date at which the entitlement is no longer valid. Not present when using test entitlements. |
+| guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
 
 ###### Entitlement Example
 
@@ -40,9 +40,9 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 ###### Entitlement Types
 
-| Type                     | ID | Description                                      |
-|--------------------------|----|--------------------------------------------------|
-| APPLICATION_SUBSCRIPTION | 8  | Entitlement was purchased as an app subscription |
+| Type                     | Value | Description                                      |
+|--------------------------|-------|--------------------------------------------------|
+| APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription |
 
 ## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
@@ -54,11 +54,11 @@ Returns all entitlements for a given app, active and expired.
 |----------------|-----------------------------------|------------------------------------------------------|
 | user_id?       | snowflake                         | User ID to look up entitlements for                  |
 | sku_ids?       | comma-delimited set of snowflakes | Optional list of SKU IDs to check entitlements for   |
-| before?        | snowflake                         | Retrieve entitlements before this time               |
-| after?         | snowflake                         | Retrieve entitlements after this time                |
+| before?        | snowflake                         | Retrieve entitlements before this entitlement ID     |
+| after?         | snowflake                         | Retrieve entitlements after this entitlement ID      |
 | limit?         | integer                           | Number of entitlements to return, 1-100, default 100 |
 | guild_id?      | snowflake                         | Guild ID to look up entitlements for                 |
-| exclude_ended? | boolean                           | Whether entitlements should be omitted               |
+| exclude_ended? | boolean                           | Whether or not ended entitlements should be omitted  |
 
 ```json
 [
@@ -162,7 +162,7 @@ Entitlements are _not_ deleted when they expire.
 
 ### PREMIUM_REQUIRED Interaction Response
 
-If your app has monetization enabled, it will have access to a new [`PREMIUM_REQUIRED` interaction response (`type: 10`)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type). This can be sent in response to any kind of interaction. It does not allow a `content` field.
+If your app has monetization enabled, it will have access to a new [`PREMIUM_REQUIRED` interaction response (`type: 10`)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type). This can be sent in response to all interaction types except for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING`. The response does not allow returning the `content`, `embeds`, or `attachments` fields.
 
 This response will create an ephemeral message shown to the user that ran the interaction, instructing them that whatever they tried to do requires the premium benefits of your app. It also contains an "Upgrade" button to subscribe. The response message is static, but will be automatically updated with the name of your premium SKU.
 

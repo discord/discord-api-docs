@@ -15,8 +15,8 @@ Kullanıcı akışını biraz daha açık hâle getirmek adına:
 
 1. İlk Kullanıcı yeni bir oyun başlatır ve uygulamanın `/challenge` eğik çizgi komutunu kullanarak nesnesini seçer
 2. Kanala, diğer kullanıcıların meydan okumayı kabul etmesini sağlayan bir buton içeren bir mesaj gönderilir
-3. 2. kullanıcı **Kabul Et** butonuna tıklar
-4. 2. kullanıcı, nesnesini seçebileceği geçici bir mesaj alır
+3. İkinci kullanıcı **Kabul Et** butonuna tıklar
+4. İkinci kullanıcı, nesnesini seçebileceği geçici bir mesaj alır
 5. Oyunun sonucu herkesin görebilmesi için orijinal kanalda paylaşılır
 </Collapsible>
 
@@ -61,7 +61,7 @@ Bot token'ları, API isteklerini yetkilendirmek için kullanılır ve bot kullan
 
 Şimdi token'ı kopyala ve onu örneğin parola yöneticisi gibi güvenli bir yerde sakla.
 
-> uyarı
+> warn
 > Token'ını yeniden oluşturmadığın sürece tekrar görüntüleyemezsin, bu nedenle güvenli bir yerde sakladığından emin ol.
 
 ### Bot izinlerini ve kapsamlarını ekleme
@@ -77,7 +77,7 @@ Kapsamlar ve izinler, bir uygulama oluştururken uygulamanın Discord sunucular�
 
 Sol kenar çubuğunda **OAuth2**'ye tıkla, ardından **URL oluşturucuyu** seç.
 
-> bilgi
+> info
 > URL oluşturucu, uygulaman için seçtiğin kapsamlara ve izinlere göre bir yükleme bağlantısı oluşturur. Bağlantıyı, uygulamayı kendi sunucuna yüklemek için kullanabilir veya yükleyebilmeleri için başkalarıyla paylaşabilirsin.
 
 Şimdilik iki kapsam ekleyelim:
@@ -92,7 +92,7 @@ Kapsamları ekledikten sonra uygulamanı yüklemek için kopyalayabileceğin bir
 
 ![URL oluşturucu ekran görüntüsü](url-generator.png)
 
-> bilgi
+> info
 > Uygulama geliştirirken uygulamanı başkaları tarafından aktif olarak kullanılmayan bir sunucuda oluşturmalı ve test etmelisin. Hâlihazırda kendi sunucun yoksa [ücretsiz bir tane oluşturabilirsin](https://support.discord.com/hc/articles/204849977-How-do-I-create-a-server-).
 
 URL'yi yukarıdan kopyala ve tarayıcına yapıştır. Kurulum süreci sana rehberlik edecektir; bu süreçte uygulamanı geliştirebileceğin ve test edebileceğin bir sunucuya yüklediğinden emin olmalısın.
@@ -113,10 +113,10 @@ Uygulama, geliştirmeyi daha basit hâle getirmek için tipler ve yardımcı fon
 
 Bu rehber, tarayıcında klonlama ve geliştirme yapmanı sağlayan Glitch'i kullanır. Uygulamanı yerel olarak geliştirmeyi tercih edersen, [README](https://github.com/discord/discord-example-app#running-app-locally) dosyasından ngrok kullanımıyla ilgili talimatlara ulaşabilirsin.
 
-> bilgi
+> info
 > Glitch, geliştirme ve test için harika olsa da [teknik kısıtlamalara sahiptir](https://help.glitch.com/hc/en-us/articles/16287495313293-Technical-Restrictions/), bu nedenle bitmiş uygulamalar için diğer barındırma sağlayıcıları düşünmekte fayda vardır.
 
-Başlamak için **[Glitch projesini 🎏 remiksle (veya klonla)](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
+Başlamak için **[Glitch projesini 🎏 remixle (veya klonla)](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
 
 Projeyi remikslediğinde yeni bir Glitch projesine ulaşacaksın.
 
@@ -162,7 +162,7 @@ Kimlik bilgilerin yapılandırıldıktan sonra eğik çizgi komutlarını yükle
 
 ### Eğik çizgi komutlarını yükleme
 
-> bilgi
+> info
 > Eğik çizgi komutlarını yüklemek için uygulama [`node-fetch`](https://github.com/node-fetch/node-fetch) kullanır. Yükleme implementasyonunu `utils.js`'de `DiscordRequest()` fonksiyonu içinde görebilirsin.
 
 Proje, `commands.js` dosyasının altında tanımlanan `ALL_COMMANDS` içerisindeki komutları yüklemek için kullanabileceğin bir `register` komut dosyası içerir. HTTP API'sinin [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) uç noktasını çağırarak komutları global komutlar olarak yükler.
@@ -196,7 +196,7 @@ Uygulamanın eğik çizgi komut isteklerini (ve diğer etkileşimleri) almasın�
 
 Glitch projeleri varsayılan olarak herkese açık bir URL'ye sahiptir. Sağ üst köşedeki **Paylaş** butonuna tıklayarak projenin URL'sini kopyala, ardından minik pencerenin alt kısmındaki "Canlı site" proje bağlantısını kopyala.
 
-> bilgi
+> info
 > Yerel olarak geliştirme yapıyorsan, [GitHub README'de](https://github.com/discord/discord-example-app#running-app-locally) istekleri yerel ortamına tünellemek için talimatlara ulaşabilirsin.
 
 Bağlantı kopyalandıktan sonra [geliştirici portalından](https://discord.com/developers/applications) uygulamanın ayarlarına git.
@@ -233,7 +233,7 @@ if (name === 'test') {
 
 Yukarıdaki kod, gelen etkileşime meydana geldiği kanaldaki bir mesajla yanıt veriyor. Modal ile yanıt vermek gibi mevcut tüm yanıt türlerini [dokümantasyonda](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) bulabilirsin.
 
-> bilgi
+> info
 > `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE`, [`discord-interactions`'dan dışa aktarılmış](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33) bir sabittir.
 
 Sunucuna git ve uygulamanın `/test` eğik çizgi komutunun çalıştığından emin ol. Bunu tetiklediğinde, uygulaman "hello world" kelimelerini takip eden rastgele bir emoji içeren bir mesaj göndermelidir.
@@ -252,7 +252,7 @@ Taş-kâğıt-makas tarzı oyunumuz `/challenge` komutuyla başlatılacaktır. K
 
 Komut seçenekleri ve bunların yapısı hakkında daha fazla bilgiyi [dokümantasyonlardan](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) edinebilirsin.
 
-> bilgi
+> info
 > Bu rehber `game.js` dosyasına fazla değinmeyecek olsa da sen onu kurcalayabilir, komutları veya komutlardaki seçenekleri çekinmeden değiştirebilirsin.
 
 <Collapsible title="Komut etkileşiminin işlenmesi" description="Meydan okuma komutunun işlenmesi ve bir buton içeren bir mesajla yanıt verilmesi için kod" icon="code" open>
@@ -296,7 +296,7 @@ if (name === 'challenge' && id) {
 ```
 
 
-> bilgi
+> info
 > Kodu nereye yapıştıracağından emin değilsen, kodun tamamını Glitch projesindeki `examples/app.js` dosyasında veya [GitHub'daki](https://github.com/discord/discord-example-app/blob/main/app.js) kök `app.js` dosyasında bulabilirsin.
 
 Yukarıdaki kod birkaç şey yapıyor:
@@ -304,7 +304,7 @@ Yukarıdaki kod birkaç şey yapıyor:
 2. Etkileşim kimliğini kullanarak `activeGames` nesnesine yeni bir oyun ekler. Etkin oyun `userId` ve `objectName`'i kaydeder.
 3. Kanala, `custom_id`'si `accept_button_<SOME_ID>` olan bir buton ile bir mesaj gönderir.
 
-> uyarı
+> warn
 > Örnek kod, bellek içi depolama alanı olarak bir nesne kullanır ancak bitmiş uygulamalar için bir veri tabanı kullanman gerekir.
 
 [Mesaj bileşenleriyle](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) bir mesaj gönderirken, tekil payload'lar bir `components` dizisine eklenir. Eyleme geçirilebilir bileşenlerin (butonlar gibi) kod örneğinde görebileceğin bir [eylem satırının](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) içinde olması gereklidir.
