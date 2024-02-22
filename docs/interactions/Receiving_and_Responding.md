@@ -47,6 +47,16 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | APPLICATION_COMMAND_AUTOCOMPLETE | 4     |
 | MODAL_SUBMIT                     | 5     |
 
+###### Interaction Context Types
+
+Context in Discord where a command or interaction can be used. Read [TODO](#TODO) for details.
+
+| Name            | Type | Description                                                                                       |
+|-----------------|------|---------------------------------------------------------------------------------------------------|
+| GUILD           | 0    | Interaction can be used within servers                                                            |
+| BOT_DM          | 1    | Interaction can be used within DMs with the app's bot user                                        |
+| PRIVATE_CHANNEL | 2    | Interaction can be used within private channels, Group DMs, and DMs other than the app's bot user |
+
 ###### Interaction Data
 
 While the `data` field is guaranteed to be present for all [interaction types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) besides `PING`, its structure will vary. The following tables detail the inner `data` payload for each interaction type.

@@ -1,39 +1,43 @@
 # Application Resource
 
+TODO: write an intro for this page
+
 ### Application Object
+
+TODO: write an intro for this section
 
 ###### Application Structure
 
-| Field                              | Type                                                                       | Description                                                                                                           |
-|------------------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| id                                 | snowflake                                                                  | ID of the app                                                                                                         |
-| name                               | string                                                                     | Name of the app                                                                                                       |
-| icon                               | ?string                                                                    | [Icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                              |
-| description                        | string                                                                     | Description of the app                                                                                                |
-| rpc_origins?                       | array of strings                                                           | List of RPC origin URLs, if RPC is enabled                                                                            |
-| bot_public                         | boolean                                                                    | When `false`, only the app owner can add the app to guilds                                                            |
-| bot_require_code_grant             | boolean                                                                    | When `true`, the app's bot will only join upon completion of the full OAuth2 code grant flow                          |
-| bot?                               | partial [user](#DOCS_RESOURCES_USER/user-object) object                    | Partial user object for the bot user associated with the app                                                          |
-| terms_of_service_url?              | string                                                                     | URL of the app's Terms of Service                                                                                     |
-| privacy_policy_url?                | string                                                                     | URL of the app's Privacy Policy                                                                                       |
-| owner?                             | partial [user](#DOCS_RESOURCES_USER/user-object) object                    | Partial user object for the owner of the app                                                                          |
-| summary *(deprecated)*             | string                                                                     | **deprecated and will be removed in v11.** An empty string.                                                           |
-| verify_key                         | string                                                                     | Hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket) |
-| team                               | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object                 | If the app belongs to a team, this will be a list of the members of that team                                         |
-| guild_id?                          | snowflake                                                                  | Guild associated with the app. For example, a developer support server.                                               |
-| guild?                             | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                 | Partial object of the associated guild                                                                                |
-| primary_sku_id?                    | snowflake                                                                  | If this app is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists         |
-| slug?                              | string                                                                     | If this app is a game sold on Discord, this field will be the URL slug that links to the store page                   |
-| cover_image?                       | string                                                                     | App's default rich presence invite [cover image hash](#DOCS_REFERENCE/image-formatting)                               |
-| flags?                             | integer                                                                    | App's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                                |
-| approximate_guild_count?           | integer                                                                    | Approximate count of guilds the app has been added to                                                                 |
-| redirect_uris?                     | array of strings                                                           | Array of redirect URIs for the app                                                                                    |
-| interactions_endpoint_url?         | string                                                                     | [Interactions endpoint URL](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) for the app         |
-| role_connections_verification_url? | string                                                                     | Role connection verification URL for the app                                                                          |
-| tags?                              | array of strings                                                           | List of tags describing the content and functionality of the app. Max of 5 tags.                                      |
-| install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object | Settings for the app's default in-app authorization link, if enabled                                                  |
-| integration_types_config | [integration types configuration](#TODO) object | App's installation configuraiton for its different integration types | 
-| custom_install_url?                | string                                                                     | Default custom authorization URL for the app, if enabled                                                              |
+| Field                              | Type                                                                                                                                  | Description                                                                                                           |
+|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| id                                 | snowflake                                                                                                                             | ID of the app                                                                                                         |
+| name                               | string                                                                                                                                | Name of the app                                                                                                       |
+| icon                               | ?string                                                                                                                               | [Icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                              |
+| description                        | string                                                                                                                                | Description of the app                                                                                                |
+| rpc_origins?                       | array of strings                                                                                                                      | List of RPC origin URLs, if RPC is enabled                                                                            |
+| bot_public                         | boolean                                                                                                                               | When `false`, only the app owner can add the app to guilds                                                            |
+| bot_require_code_grant             | boolean                                                                                                                               | When `true`, the app's bot will only join upon completion of the full OAuth2 code grant flow                          |
+| bot?                               | partial [user](#DOCS_RESOURCES_USER/user-object) object                                                                               | Partial user object for the bot user associated with the app                                                          |
+| terms_of_service_url?              | string                                                                                                                                | URL of the app's Terms of Service                                                                                     |
+| privacy_policy_url?                | string                                                                                                                                | URL of the app's Privacy Policy                                                                                       |
+| owner?                             | partial [user](#DOCS_RESOURCES_USER/user-object) object                                                                               | Partial user object for the owner of the app                                                                          |
+| summary *(deprecated)*             | string                                                                                                                                | **deprecated and will be removed in v11.** An empty string.                                                           |
+| verify_key                         | string                                                                                                                                | Hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket) |
+| team                               | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object                                                                            | If the app belongs to a team, this will be a list of the members of that team                                         |
+| guild_id?                          | snowflake                                                                                                                             | Guild associated with the app. For example, a developer support server.                                               |
+| guild?                             | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                                                                            | Partial object of the associated guild                                                                                |
+| primary_sku_id?                    | snowflake                                                                                                                             | If this app is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists         |
+| slug?                              | string                                                                                                                                | If this app is a game sold on Discord, this field will be the URL slug that links to the store page                   |
+| cover_image?                       | string                                                                                                                                | App's default rich presence invite [cover image hash](#DOCS_REFERENCE/image-formatting)                               |
+| flags?                             | integer                                                                                                                               | App's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                                |
+| approximate_guild_count?           | integer                                                                                                                               | Approximate count of guilds the app has been added to                                                                 |
+| redirect_uris?                     | array of strings                                                                                                                      | Array of redirect URIs for the app                                                                                    |
+| interactions_endpoint_url?         | string                                                                                                                                | [Interactions endpoint URL](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) for the app         |
+| role_connections_verification_url? | string                                                                                                                                | Role connection verification URL for the app                                                                          |
+| tags?                              | array of strings                                                                                                                      | List of tags describing the content and functionality of the app. Max of 5 tags.                                      |
+| install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object                                                            | Settings for the app's default in-app authorization link, if enabled                                                  |
+| integration_types_config?          | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | App's default installation settings for each installation context that it supports                                    |
+| custom_install_url?                | string                                                                                                                                | Default custom authorization URL for the app, if enabled                                                              |
 
 ###### Example Application Object
 
@@ -79,6 +83,17 @@
 }
 ```
 
+###### Application Integration Types
+
+Where an app can be installed, also called its [installation context](#TODO).
+
+| Type            | ID | Description                            |
+|-----------------|----|----------------------------------------|
+| `GUILD_INSTALL` | 0  | App is installable to servers          |
+| `USER_INSTALL`  | 1  | App is installable to individual users |
+
+###### Application Integration Type Configuration Object
+
 ###### Application Flags
 
 | Value   | Name                                          | Description                                                                                                                                                                                                                                                   |
@@ -102,6 +117,37 @@
 |-------------|------------------|--------------------------------------------------------------------------------------------------------|
 | scopes      | array of strings | [Scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
 | permissions | string           | [Permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |
+
+## Installation Context
+
+> preview
+> Callout about user apps preview with link to change log
+
+An app's installation context defines how it's installed: to a server, to a user, or both.
+
+The installation context affects how your app can be seen and used within Discord. For example, apps installed only to a user can't take actions in a server, and apps installed only to a server can't be accessed within a user's DMs.
+
+
+#### Server Context
+
+Apps installed in a server context (server-installed apps) must be authorized by a server member with the [`MANAGE_GUILD`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) permission. Server-installed apps are *visible* to all members of the server, but other factors (like [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions)) determine where and when specific members can interact with the app.
+
+During installation, server-installed apps are authorized with a specific set of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) and [bot user permissions](#DOCS_TOPICS_PERMISSIONS) that determine what resources and data the app can access in that server.
+
+#### User Context
+
+Apps installed in a user context (user-installed apps) are visible *only* to the authorizing user, and therefore don't require any sort of server-specific permissions.
+
+Commands <TODO: supported commands> for user-installed apps are visible for the user across all of their servers, DMs <TODO: true?>, and GDMs but are forced to respect the authorizing user's permissions in that guild. For example, if a user doesn't have permission to post in a specific channel, the user-installed app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. For details on responding to interactions for user-installed apps, read the [TODO INTERACTIONS](#TODO) documentation.
+
+### Setting Supported Installation Contexts
+
+By default, apps can only be installed in a <TODO> context. You can update which installation contexts your app supports in two ways:
+
+1. Go to your [app's settings](https://discord.com/developers/applications). On the **General Information** page, look for the **Install Types** section where you can select which context(s) you want your app to support.
+2. Include the context(s) you want your app to support when setting the `integration_types_config` field when calling the [Edit Current Application](#DOCS_RESOURCES_APPLICATION/edit-current-application) endpoint.
+
+If you have [commands that are supported in a specific installation context](#TODO), you will need to update those commands before updating your app's supported installation contexts.
 
 ## Get Current Application % GET /applications/@me
 

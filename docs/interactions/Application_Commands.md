@@ -27,6 +27,8 @@ Application commands are native ways to interact with apps in the Discord client
 | dm_permission?             | boolean                                                                                                                                        | Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                               | all         |
 | default_permission?        | ?boolean                                                                                                                                       | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true` | all         |
 | nsfw?                      | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands), defaults to `false`                             | all         |
+| integration_types          | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                                                                                             | [Installation context(s)](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available                                                                                                        | all         |
+| contexts                   | list of [interaction context types](#TODO)                                                                                                         | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used                                                                                                                        | all         |
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                      | all         |
 
 > danger
@@ -237,6 +239,22 @@ Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the 
 Because commands have unique names within a type and scope, we treat `POST` requests for new commands as upserts. That means **making a new command with an already-used name for your application will update the existing command**.
 
 Detailed documentation about application command endpoints and their parameters are [in the endpoints section](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/endpoints).
+
+## Contexts
+
+Application commands have two sets of contexts that let you define where and in which scenarios a specific command can be used for your app:
+- `integration_types` defines the **installation contexts** in which a command is supported
+- `contexts` defines the **interaction contexts** where a command can be used
+
+### Installation Context
+
+If your app supports both server and user [installation contexts](#TODO), there may be cases where you want some of your app's commands to only be available for one context. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
+
+You can define which [installation context(s)](#TODO) a command supports by setting the [`integration_types` field](#TODO) when creating or updating a command.
+
+### Interaction Contexts
+
+The interaction contexts for a command determines where a command can be used within the Discord client. For example, maybe your app has a `/TODO` command that should only be available in DMs with the bot user.
 
 ## Permissions
 
