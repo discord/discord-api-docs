@@ -242,19 +242,32 @@ Detailed documentation about application command endpoints and their parameters 
 
 ## Contexts
 
-Application commands have two sets of contexts that let you define where and in which scenarios a specific command can be used for your app:
+> preview
+> Callout about user apps preview with link to change log
+
+Application commands have two sets of contexts that allow you to define when and where a specific command can be used for your app:
 - `integration_types` defines the **installation contexts** in which a command is supported
 - `contexts` defines the **interaction contexts** where a command can be used
 
+The contexts of a command do not affect any [permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for server-installed apps.
+
 ### Installation Context
 
-If your app supports both server and user [installation contexts](#TODO), there may be cases where you want some of your app's commands to only be available for one context. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
+The [installation context](#TODO) is where your app was installed to—a server, a user, or both. If your app supports both server and user installation contexts, there may be cases where you want some of your app's commands to only be available for one context. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
 
-You can define which [installation context(s)](#TODO) a command supports by setting the [`integration_types` field](#TODO) when creating or updating a command.
+You can define which installation context(s) a command supports by setting the [`integration_types` field](#TODO) when creating or updating a command. If a command does not support the installation context for your app, it will not appear for the user or server members.
 
 ### Interaction Contexts
 
-The interaction contexts for a command determines where a command can be used within the Discord client. For example, maybe your app has a `/TODO` command that should only be available in DMs with the bot user.
+The interaction contexts for a command determines which surfaces in the Discord client a command can be used. For example, maybe your app has a `/TODO` command that should only be available in DMs with the bot user.
+
+The `PRIVATE_CHANNEL` interaction context is only available for commands of apps that are installed to a user. Even if an app supports both installation contexts, the user must authenticate the app in a user installation context for a command to appear within private channels, Group DMs, and DMs other than with your app's bot user.
+
+#### Limitations
+
+Depending on the installation context for the app and the value of `integration_types` for a specific command, there may be limitations on the available interaction contexts:
+- Commands that are only supported in a server installation context (meaning `integration_types` only includes [`GUILD_INSTALL`](#TODO)) are limited to `GUILD` (`0`) and `BOT_DM` (`1`) interaction contexts.
+- Commands that support a user installation context (meaning `integration_types` includes [`USER_INSTALL`](#TODO)) can set any interaction context(s), including `PRIVATE_CHANNEL` (`2`)
 
 ## Permissions
 
