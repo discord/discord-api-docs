@@ -805,7 +805,7 @@ If the user is not in the guild, then the guild must be [discoverable](#DOCS_RES
 Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the updated [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
 > info
-> All parameters to this endpoint are optional
+> All parameters to this endpoint are optional.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -925,7 +925,7 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 > This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
 
 > info
-> All parameters to this endpoint are optional
+> All parameters to this endpoint are optional.
 
 ###### Query String Params
 
@@ -938,15 +938,12 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects whose username or nickname starts with a provided string.
 
-> info
-> All parameters to this endpoint except for `query` are optional
-
 ###### Query String Params
 
-| Field | Type    | Description                                                | Default |
-|-------|---------|------------------------------------------------------------|---------|
-| query | string  | Query string to match username(s) and nickname(s) against. |         |
-| limit | integer | max number of members to return (1-1000)                   | 1       |
+| Field  | Type    | Description                                                | Default |
+|--------|---------|------------------------------------------------------------|---------|
+| query  | string  | Query string to match username(s) and nickname(s) against. |         |
+| limit? | integer | max number of members to return (1-1000)                   | 1       |
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -1088,7 +1085,10 @@ Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the g
 
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
-Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-create) Gateway event. All JSON params are optional.
+Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-create) Gateway event.
+
+> info
+> All parameters for this endpoint are optional.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1276,7 +1276,7 @@ Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object
 Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object. May fire a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
 > info
-> All parameters to this endpoint are optional and nullable
+> All parameters to this endpoint are optional and nullable.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
