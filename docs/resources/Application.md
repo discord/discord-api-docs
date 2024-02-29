@@ -49,7 +49,7 @@
   "guild_id": "290926798626357260",
   "icon": null,
   "id": "172150183260323840",
-  "integration_types_config": "TODO",
+  "integration_types_config": "TODO: this needs def",
   "name": "Baba O-Riley",
   "owner": {
     "avatar": null,
@@ -84,7 +84,7 @@
 
 ###### Application Integration Types
 
-Where an app can be installed, also called its [installation context](#DOCS_RESOURCES_APPLICATION/installation-context).
+Where an app can be installed, also called its supported [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context).
 
 | Type            | ID | Description                            |
 |-----------------|----|----------------------------------------|
@@ -120,7 +120,7 @@ Where an app can be installed, also called its [installation context](#DOCS_RESO
 ## Installation Context
 
 > preview
-> Callout about user apps preview with link to change log
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#TODO).
 
 An app's installation context defines how it's installed: to a server, to a user, or both.
 
@@ -135,18 +135,23 @@ During installation, server-installed apps are authorized with a specific set of
 
 #### User Context
 
-Apps installed in a user context (user-installed apps) are visible *only* to the authorizing user, and therefore don't require any sort of server-specific permissions.
+Apps installed in a user context (user-installed apps) are visible *only* to the authorizing user, and therefore don't require any server-specific permissions.
 
-Commands <TODO: supported commands> for user-installed apps are visible for the user across all of their servers, DMs <TODO: true?>, and GDMs but are forced to respect the authorizing user's permissions in that guild. For example, if a user doesn't have permission to post in a specific channel, the user-installed app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. For details on responding to interactions for user-installed apps, read the [TODO INTERACTIONS](#TODO) documentation.
+Commands that support the user installation context are visible across all of an authorizing user's servers, DMs, and GDMs, but are forced to respect the user's permissions in the surface where command is invoked. For example, if a user invokes command for a user-installed app from a server's channel where they don't have permission to send messages, the app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. Details about how the installation context of a command affects interactions are in the [TODO INTERACTION](#TODO) documentation.
 
 ### Setting Supported Installation Contexts
 
-By default, apps can only be installed in a <TODO> context. You can update which installation contexts your app supports in two ways:
+By default, newly-created apps only support installation to guilds.
 
-1. Go to your [app's settings](https://discord.com/developers/applications). On the **General Information** page, look for the **Install Types** section where you can select which context(s) you want your app to support. <TODO: I THINK THIS IS ALL CHANGING HEHE>
-2. Include the context(s) you want your app to support when setting the `integration_types_config` field when calling the [Edit Current Application](#DOCS_RESOURCES_APPLICATION/edit-current-application) endpoint.
+You can update which installation contexts your app supports in two ways:
 
-If you have [commands that are supported in a specific installation context](#TODO), you will need to update those commands before updating your app's supported installation contexts.
+- **In the UI**: In your [app's settings](https://discord.com/developers/applications), click on the **Installation** page. Under the **Authorization Methods** section, you can select the installation contexts your app supports.
+- **Using the API**: When calling the [Edit Current Application](#DOCS_RESOURCES_APPLICATION/edit-current-application) endpoint, set the `integration_types_config` field to include the corresponding installation contexts you want your app to support.
+
+> info
+> If you update your app to support a new installation context, you will need to update your existing [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) if you want them to be supported in the new context. Details are in the [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation.
+
+
 
 ## Get Current Application % GET /applications/@me
 
