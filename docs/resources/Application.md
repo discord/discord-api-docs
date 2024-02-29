@@ -1,8 +1,9 @@
 # Application Resource
 
+[Applications](#DOCS_QUICK_START_OVERVIEW_OF_APPS) (or "apps") are containers for developer platform features, and can be installed to Discord servers and/or user accounts. 
+
 ### Application Object
 
-Represents an app within Discord. <TODO: uhhh>
 
 ###### Application Structure
 

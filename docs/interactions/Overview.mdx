@@ -11,7 +11,7 @@ There are different types of interactions that apps can pick and choose from to 
 
 TODO - port content, include img
 
-### Interactive Components
+### Message Components
 
 TODO - port content, include img
 
@@ -44,7 +44,7 @@ If either of these are not complete, your Interactions Endpoint URL will not be 
 
 When adding your Interactions Endpoint URL, Discord will send a `POST` request with a `PING` payload with a `type: 1` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has the same `type: 1`). Details about interaction responses are in the [Receiving and Responding documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
 
-<Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING interactions" icon="question">
+<Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING interactions" icon="code">
 To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:
 
 ```py
@@ -68,7 +68,7 @@ Each interaction is sent with the following headers:
 
 Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. If the signature fails validation, your app should respond with a `401` error code.
 
-<Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="question">
+<Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="code">
 Below are some code examples that show how to validate the headers sent in interactions requests.
 
 **JavaScript**

@@ -28,7 +28,7 @@ Application commands are native ways to interact with apps in the Discord client
 | default_permission?        | ?boolean                                                                                                                                       | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true` | all         |
 | nsfw?                      | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands), defaults to `false`                             | all         |
 | integration_types          | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [Installation context(s)](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available                                                         | all         |
-| contexts                   | list of [interaction context types](#TODO)                                                                                                     | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used                   | all         |
+| contexts                   | list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                                                                                                     | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used                   | all         |
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                      | all         |
 
 > danger
@@ -243,31 +243,37 @@ Detailed documentation about application command endpoints and their parameters 
 ## Contexts
 
 > preview
-> Callout about user apps preview with link to change log
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#TODO).
 
-Application commands have two sets of contexts that allow you to define when and where a specific command can be used for your app:
-- `integration_types` defines the **installation contexts** in which a command is supported
-- `contexts` defines the **interaction contexts** where a command can be used
+Commands have two sets of contexts on the [application command object](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) that let you to configure when and where it can be used:
+- `integration_types` defines the **[installation contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context)** that a command supports
+- `contexts` defines the **[interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts)** where a command can be used
 
-The contexts of a command do not affect any [permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for server-installed apps.
+The available interaction contexts for a command depends on Details for both types of command contexts are in the sections below.
+
+> info 
+> Contexts are distinct from, and do not affect, any [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for apps installed to a server.
 
 ### Installation Context
 
-The [installation context](#TODO) is where your app was installed to—a server, a user, or both. If your app supports both server and user installation contexts, there may be cases where you want some of your app's commands to only be available for one context. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
+The [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) is where your app was installed—to a server, a user, or both. If your app supports both installation contexts, there may be cases where you want some of your app's commands to only be available for one or the other. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
 
-You can define which installation context(s) a command supports by setting the [`integration_types` field](#TODO) when creating or updating a command. If a command does not support the installation context for your app, it will not appear for the user or server members.
+A command's supported installation context(s) can be set using the [`integration_types` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) when creating or updating a command as long as any included contexts are already [supported on the application-level](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts).
+
+A command's `integration_types` affects which [interaction contexts](#TODO) can be set, and may affect [how your app can respond](#TODO) to the command interaction.
+
+<TODO: include what happens if you try to set installatin context that is not supported at app level>
 
 ### Interaction Contexts
 
-The interaction contexts for a command determines which surfaces in the Discord client a command can be used. For example, maybe your app has a `/TODO` command that should only be available in DMs with the bot user.
+The interaction contexts for a command determines where in the Discord client it can be used, and can be configured by setting the [`contexts` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) when creating or updating a command.
 
-The `PRIVATE_CHANNEL` interaction context is only available for commands of apps that are installed to a user. Even if an app supports both installation contexts, the user must authenticate the app in a user installation context for a command to appear within private channels, Group DMs, and DMs other than with your app's bot user.
+There are three [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) that correspond to different surfaces: `GUILD` (`0`), `BOT_DM` (`1`), and `PRIVATE_CHANNEL` (`2`). However, **the `PRIVATE_CHANNEL` interaction context is only available for commands installed to a user** (meaning the command's `integration_types` includes `USER_INSTALL`).
 
-#### Limitations
+> info
+> Even if a command supports both installation contexts, the user must [install your app to their user account](#TODO) for a command to appear within private channels, Group DMs, and DMs other than with your app's bot user.
 
-Depending on the installation context for the app and the value of `integration_types` for a specific command, there may be limitations on the available interaction contexts:
-- Commands that are only supported in a server installation context (meaning `integration_types` only includes [`GUILD_INSTALL`](#TODO)) are limited to `GUILD` (`0`) and `BOT_DM` (`1`) interaction contexts.
-- Commands that support a user installation context (meaning `integration_types` includes [`USER_INSTALL`](#TODO)) can set any interaction context(s), including `PRIVATE_CHANNEL` (`2`)
+<TODO: include the defaults for interaction contexts>
 
 ## Permissions
 
