@@ -85,7 +85,7 @@ TODO: write an intro for this section
 
 ###### Application Integration Types
 
-Where an app can be installed, also called its [installation context](#TODO).
+Where an app can be installed, also called its [installation context](#DOCS_RESOURCES_APPLICATION/installation-context).
 
 | Type            | ID | Description                            |
 |-----------------|----|----------------------------------------|
@@ -144,7 +144,7 @@ Commands <TODO: supported commands> for user-installed apps are visible for the 
 
 By default, apps can only be installed in a <TODO> context. You can update which installation contexts your app supports in two ways:
 
-1. Go to your [app's settings](https://discord.com/developers/applications). On the **General Information** page, look for the **Install Types** section where you can select which context(s) you want your app to support.
+1. Go to your [app's settings](https://discord.com/developers/applications). On the **General Information** page, look for the **Install Types** section where you can select which context(s) you want your app to support. <TODO: I THINK THIS IS ALL CHANGING HEHE>
 2. Include the context(s) you want your app to support when setting the `integration_types_config` field when calling the [Edit Current Application](#DOCS_RESOURCES_APPLICATION/edit-current-application) endpoint.
 
 If you have [commands that are supported in a specific installation context](#TODO), you will need to update those commands before updating your app's supported installation contexts.
