@@ -164,16 +164,6 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 | user    | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | User who invoked the interaction                                                                                                                                                 |
 | member? | [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                  | Member who invoked the interaction in the guild                                                                                                                                  |
 
-## Interactions and Bot Users
-
-We're all used to the way that Discord bots have worked for a long time. You make an application in the developer portal with a bot user, then use that bot's token to connect to the Gateway and make requests to Discord's API.
-
-Interactions bring something entirely new to the table: the ability to interact with an application _without relying on a bot token_. As you read through this documentation, you'll see that bot tokens are only referenced as a helpful alternative to doing a client credentials auth flow. Responding to interactions does not require a bot token.
-
-In many cases, you may still need to use a bot token. If you need to receive gateway events, or need to interact with other parts of our API (like fetching a guild, or a channel, or updating permissions on a user), those actions are all still tied to having a bot token.
-
-Welcome to the new world.
-
 ## Receiving an Interaction
 
 When a user interacts with your app, your app will receive an **[Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. Your app can receive an interaction in one of two ways:
@@ -183,28 +173,7 @@ When a user interacts with your app, your app will receive an **[Interaction](#D
 
 These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
 
-In your application in the Developer Portal, there is a field on the main page called "Interactions Endpoint URL". If you want to receive Interactions via outgoing webhook, you can set your URL in this field. In order for the URL to be valid, you must be prepared for two things ahead of time:
-
-> info
-> These steps are only necessary for webhook-based Interactions. It is not required for receiving them over the gateway.
-
-1. Your endpoint must be prepared to ACK a `PING` message
-2. Your endpoint must be set up to properly handle signature headers--more on that in [Security and Authorization](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/security-and-authorization)
-
-If either of these are not complete, we will not validate your URL and it will fail to save.
-
-When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` response with a payload of `type: 1`:
-
-```py
-@app.route('/', methods=['POST'])
-def my_command():
-    if request.json["type"] == 1:
-        return jsonify({
-            "type": 1
-        })
-```
-
-You'll also need to properly set up [Security and Authorization](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/security-and-authorization) on your endpoint for the URL to be accepted. Once both of those are complete and your URL has been saved, you can start receiving Interactions via webhook! At this point, your app will **no longer receive Interactions over the gateway**. If you want to receive them over the gateway again, simply delete your URL.
+If you want to receive interactions via HTTP-based outgoing webhooks, you must configure an Interactions Endpoint URL for your app. You can read about preparing and adding an Interactions Endpoint URL to your app in the [Preparing for Interactions](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) section in Interactions Overview.
 
 ### Interaction Metadata
 
@@ -349,64 +318,6 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 > Interactions webhooks share the same rate limit properties as normal webhooks.
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond to an interaction within that amount of time.
-
-## Security and Authorization
-
-> info
-> Check out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) for libraries to help you with security in your language of choice.
-
-The internet is a scary place, especially for people hosting open, unauthenticated endpoints. If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests.
-
-Every Interaction is sent with the following headers:
-
--   `X-Signature-Ed25519` as a signature
--   `X-Signature-Timestamp` as a timestamp
-
-Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
-
-```js
-const nacl = require("tweetnacl");
-
-// Your public key can be found on your application in the Developer Portal
-const PUBLIC_KEY = "APPLICATION_PUBLIC_KEY";
-
-const signature = req.get("X-Signature-Ed25519");
-const timestamp = req.get("X-Signature-Timestamp");
-const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
-
-const isVerified = nacl.sign.detached.verify(
-    Buffer.from(timestamp + body),
-    Buffer.from(signature, "hex"),
-    Buffer.from(PUBLIC_KEY, "hex")
-);
-
-if (!isVerified) {
-    return res.status(401).end("invalid request signature");
-}
-```
-
-```py
-from nacl.signing import VerifyKey
-from nacl.exceptions import BadSignatureError
-
-# Your public key can be found on your application in the Developer Portal
-PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
-
-verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
-
-signature = request.headers["X-Signature-Ed25519"]
-timestamp = request.headers["X-Signature-Timestamp"]
-body = request.data.decode("utf-8")
-
-try:
-    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
-except BadSignatureError:
-    abort(401, 'invalid request signature')
-```
-
-If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL in the future and alert you via email and System DM.
-
-We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) and the libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
 
 ### Endpoints
 

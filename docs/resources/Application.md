@@ -1,10 +1,8 @@
 # Application Resource
 
-TODO: write an intro for this page
-
 ### Application Object
 
-TODO: write an intro for this section
+Represents an app within Discord. <TODO: uhhh>
 
 ###### Application Structure
 

@@ -488,6 +488,8 @@ Metadata about the interaction, including the source of the interaction and rele
 
 ###### Message Metadata Structure
 
+ TODO: docs/interactions/receiving-and-responding#message-interaction-object here already?s
+
 | Field                            | Type                                                                                                                                  | Description                                                                                                                                                                                                         |
 |----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                               | snowflake                                                                                                                             | ID of the interaction                                                                                                                                                                                               |
