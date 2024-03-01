@@ -1,5 +1,15 @@
 # Change Log
 
+## Guild Prune Requiring `MANAGE_GUILD`
+
+#### March 15, 2024
+
+> danger
+> This entry includes breaking changes
+
+The [Get Guild Prune Count](#DOCS_RESOURCES_GUILD/get-guild-prune-count) and [Begin Guild Prune](#DOCS_RESOURCES_GUILD/begin-guild-prune)
+endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement ₍^ >ヮ<^₎ .ᐟ.ᐟ
+
 ## Enforced Nonces on Create Message Endpoint
 
 #### February 12, 2024
