@@ -1,0 +1,201 @@
+# Developing A User-Installable App
+
+> preview
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#TODO).
+
+TODO TODO. This guide will walk you through building a basic game integration app that is  installable to both Discord users and servers.
+
+While the tutorial will focus on supporting different [installation contexts](#TODO), we'll be building a basic game integration along the way with a wiki lookup with user-specific bookmarking and a server leaderboard.
+
+<Collapsible title="What we'll be building" icon="view">
+TODO
+</Collapsible>
+
+<Collapsible title="Resources used in this guide" description="Overview of the tools and technologies we'll use" icon="list">
+TODO
+</Collapsible>
+
+---
+
+## Step 0: Project Setup
+
+Before we dig in, project code from the ["REPO NAME" Github repository](#TODO).
+
+<Collapsible title="Project structure" description="Overview of the project structure for the sample app used in this tutorial" icon="code">
+TODO
+</Collapsible>
+
+> info
+> We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but the code is also available on [Glitch 🎏](#TODO) if you prefer (our [Getting Started](#DOCS_QUICK_START_GETTING_STARTED) has instructions for using Glitch).
+
+If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install that first.
+
+First, use the command line to clone the project code to your machine:
+
+```shell
+git clone <repo>
+```
+
+Then navigate to the directory and install the project's dependencies:
+
+```shell
+cd <project name>
+
+npm install
+```
+
+With that out of the way, open your new project in the code editor of your choice, then we'll move ahead to setting up your Discord app.
+
+## Step 1: Creating an App
+
+First, you'll need to create an app in the developer portal if you don't have one already:
+
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Create App</Button>
+
+Enter a name for your app, then press **Create**.
+
+After you create your app, you'll land on the **General Overview** page of the app's settings where you can update basic information about your app like its description and icon.
+
+### Fetching app credentials
+
+While we're in your app's settings, we'll want to get a few sensitive values for your app, like its token and ID.
+
+> warn
+> Your token is used to authorize API requests and carry your app's permissions, so they are *highly* sensitive. Make sure to never share your token or check it into any kind of version control.
+
+Back in your project folder, rename the `.sample.env` file to `.env`. `.env` is where we'll store all of your app's credentials.
+
+We'll need three values from your app's settings for your `.env` file:
+
+- On the **General Information** page, copy the value for **Application ID**. In `.env`, replace `<YOUR_APP_ID>` with the ID you copied.
+- Back on the **General Information** page, copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
+- On the **Bot** page under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
+
+Now that you have the credentials you need, we'll configure your app to support different installation contexts.
+
+### Choosing Supported Installation Contexts
+
+An app's **[installation context](#TODO)** defines how it's installed: to a server, to a user, or both.
+
+We're going to configure our app to support both installation contexts since we want it available to install to servers and to users. **TODO: maybe a bit of the "why" here.**
+
+In your app's settings, go to the **Installation** page from the sidebar. Under **Authorization Methods**, check both **User Install** and **Guild Install**, then press **Save Changes**.
+
+### Configuring Default Install Settings
+
+The default install settings of your app determines the default [scopes](#TODO) and [bot user permissions](#TODO) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope which allows your app to install [commands](#TODO).
+
+###### Update Install Link
+
+Before adding default install settings, we need to enable Discord provided links. We won't be covering custom URLs in this tutorial, but you can read more in TODO: i dont think we have info anywhere lol.
+
+Under the **Install Link** section, select `Discord Provided Link` from the dropdown. Once you select this, the **Default Install Settings** will appear.
+
+###### Adding Default Install Settings
+
+Under the now-visible **Default Install Settings** section:
+- For **User Install**, add the `applications.commands` scope
+- For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
+
+> info
+> Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) page.
+
+After you've selected the scopes and permissions for your app, click **Save Changes**.
+
+TODO: SCREENSHOT
+
+### Installing your app
+
+Finally, we'll install your new app to both a server and your user account so we can test it in both installation contexts.
+
+###### Install to server
+
+Let's install your app to a test server first. Copy the default Install Link for your app from the **Install Link** section. Paste the link in your browser and, in the installation pop up, click "Add to server".
+
+Select your test server, and follow the installation flow. Once your app is added to your test server, you should see it appear in the member list.
+
+###### Install to user account
+
+Next, install the app to your user account. Using the same Install Link from the server installation, paste the link in your browser. This time, in the installation pop up, click "Add to my apps", which will add the app to your user account.
+
+Follow the installation prompts to install your app.
+
+## Step 2: Setting Up Commands
+
+Next, we'll register the [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) for our app. But before touching code, it's important to understand the concept of command contexts:
+
+
+<Collapsible title="Contexts for application commands" description="A brief introduction to command contexts" icon="view" open="true">
+
+Commands have two context fields that can be set when creating or updating a command which let you limit the supported install methods and surfaces in Discord for that command:
+
+- **`integration_types`** lets you control which **[installation contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context)** a command is supported (user, guild, or both). For example, the `/link` and `/profile` commands we'll be creating are only available when the app is installed to a user.
+- **`contexts`** lets you set the **[interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts)**, or the surfaces in Discord, where a command can be used (in a guild channel, in your bot user's DM, and within other DMs or GDMs). For example, the `/leaderboard` command we'll be creating is only available when the command is run from a guild channel.
+
+More information and details about command contexts are in the [contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation, but for now we'll get a better understanding of contexts by using them in our sample app.
+</Collapsible>
+
+### Commands in the sample project
+
+We'll be setting up four commands for our sample app that all have *slightly* different contexts, which are included in the table below:
+
+| Name           | Description                                            | Installation Contexts (`integration_types`) | Interaction Contexts (`contexts`)    |
+|----------------|--------------------------------------------------------|---------------------------------------------|--------------------------------------|
+| `/leaderboard` | View game leaderboard for the current server           | `GUILD_INSTALL`                             | `GUILD`                              |
+| `/wiki`        | Find information about game items and characters       | `GUILD_INSTALL`, `USER_INSTALL`             | `GUILD`, `BOT_DM`, `PRIVATE_CHANNEL` |
+| `/profile`     | Get information about your game inventory and progress | `USER_INSTALL`                              | `GUILD`, `BOT_DM`, `PRIVATE_CHANNEL` |
+| `/link`        | Link your game account to Discord                      | `USER_INSTALL`                              | `BOT_DM`                             |
+
+> info
+> The supported installation contexts for a command affects which interaction contexts you can set. Specifically, the `PRIVATE_CHANNEL` interaction context can only be included in `contexts` if `USER_INSTALL` is included in `integration_types` for the command. Read details in the [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts).
+
+The payloads for our app's commands are in `commands.js` in the project folder in case you want to change any values or see what the command's context fields (`integration_types` and `contexts`) look like for each of the commands in the table above.
+
+### Registering the commands
+
+Now let's register your app's commands so you can see them in Discord. In your project folder run:
+
+```shell
+npm run register
+```
+
+The register command will call the [Create Global Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command) endpoint for each of the command payloads in `commands.js`.
+
+After your new commands have been created, you can go into Discord and look for the commands in the surfaces where we made them available:
+- In **channels within the guild you installed your app**, you should see `/leaderboard`, `/wiki`, and `/profile`
+- In **channels within any of your guilds**, you should see `/wiki` and `/profile`
+- In **your app's DM**, you should see `/wiki`, `/profile`, and `link`
+- And finally, **in DMs or GDMs with other users**, you should see `/wiki` and `/profile`
+
+However, if you try to run any of the commands, you'll get an error :(
+
+...let's fix that.
+
+## Step 3: Handling Interactivity
+
+TODO
+
+### Configuring an interaction endpoint URL
+
+Discord needs a public endpoint called an **Interaction Endpoint URL** to send interaction payloads to your app.
+
+TODO:
+- run your app
+- add URL to general info
+
+### Using metadata from a command interaction
+
+TODO:
+- look at app_permissions, interaction_metadata?, maybe message stuff.
+- Code for handling context metadata
+
+TODO: transition
+
+## Next Steps
+
+TODO: wrap up a lil
+
+CTAs:
+- play with code
+- docs for application, commands
+- info about preview
