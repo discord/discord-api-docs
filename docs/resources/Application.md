@@ -86,10 +86,10 @@
 
 Where an app can be installed, also called its supported [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context).
 
-| Type            | ID | Description                            |
-|-----------------|----|----------------------------------------|
-| `GUILD_INSTALL` | 0  | App is installable to servers          |
-| `USER_INSTALL`  | 1  | App is installable to individual users |
+| Type            | ID | Description                   |
+|-----------------|----|-------------------------------|
+| `GUILD_INSTALL` | 0  | App is installable to servers |
+| `USER_INSTALL`  | 1  | App is installable to users   |
 
 ###### Application Integration Type Configuration Object
 

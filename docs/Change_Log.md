@@ -1,5 +1,26 @@
 # Change Log
 
+## User Installable Apps Preview
+
+#### March 13, 2024
+
+> info
+> Note: this isn't what the actual change log will be—right now just using to link the new docs content for user-installable apps in one place. Not listing out the changes not relevant to this launch atm
+
+###### Main documentation
+- [Resources: Application](#DOCS_RESOURCES_APPLICATION/installation-context) - Main docs for concept of "installation context", which defines how an app was installed (to a server, user, or both)
+- [Interactions: Application Commands Contexts](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/contexts) - Main docs for understanding how new installation method affects commands. Builds on concept of "installation context", and introduces interaction contexts. Specifically goes into two fields that are directly tied to these concepts: `integration_types` (supported installation contexts) and `contexts` (supported interaction contexts).
+- [Interactions: Authorizing integration owners object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) - Explanations for new `authorizing_integration_owners` field
+- Updates to structures: [Application](#DOCS_RESOURCES_APPLICATION/application-object-application-structure), [Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure), [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure), [Message](#DOCS_RESOURCES_CHANNEL/message-object-message-structure)
+- TODO: responding to interactions (ephemerality)
+
+###### Other content
+- [Tutorial: Developing a user-installable app](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP) - tutorial to build an app installable to both servers and users
+- [Overview of Apps: Installation context](#DOCS_QUICK_START_OVERVIEW_OF_APPS/installation-context) - high-level overview of how apps can exist in two contexts. most of this page isn't done, so just pay attention to the installation context section
+- Will have change log here soon
+
+---
+
 ## Limit Number of Fields in Embeds
 
 #### December 19, 2023
