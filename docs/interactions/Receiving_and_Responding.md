@@ -30,8 +30,8 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | locale?\*\*\*                  | string                                                                                                                                | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                                                                                   |
 | guild_locale?                  | string                                                                                                                                | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                                                                                                                               |
 | entitlements                   | array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) objects                                                    | For [monetized apps](#DOCS_MONETIZATION_OVERVIEW), any entitlements for the invoking user, representing access to premium [SKUs](#DOCS_MONETIZATION_SKUS)                                                           |
-| authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) |
-| context?                       | [interaction context type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | Where the interaction was triggered from                                                                                                                                                                            |
+| authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | IDs for installation context(s) related to an interaction. See [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) |
+| context?                       | [interaction context type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | Context where the interaction was triggered from                                                                                                                                                                            |
 
 \* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
 
@@ -59,27 +59,24 @@ Context in Discord where an interaction can be used. Details about using interac
 | BOT_DM          | 1    | Interaction can be used within DMs with the app's bot user                                        |
 | PRIVATE_CHANNEL | 2    | Interaction can be used within private channels, Group DMs, and DMs other than the app's bot user |
 
+#### Authorizing Integration Owners Object
+
+The `authorizing_integration_owners` field includes details about the [interaction's context](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) for the installation(s) relevant to the interaction.
+
+A key will only be present if both of the following are true:
+- The app has been authorized to the [installation context](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) corresponding to the key (`GUILD_INSTALL` or `USER_INSTALL`)
+- The interaction is supported in the source [interaction context](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) (`GUILD`, `BOT_DM`, or `PRIVATE_CHANNEL`) for the installation context corresponding to the key
+
+The values in `authorizing_integration_owners` depend on the key—
+
+- For `GUILD_INSTALL` (`'0'`), the value depends on the source of the interaction:
+    - The value will be the guild ID if the interaction is triggered from a server
+    - The value will be `'0'` if the interaction is triggered from a DM with the app
+- For `USER_INSTALL` (`'1'`), the value will be the ID of the authorizing user
+
 ###### Interaction Data
 
 While the `data` field is guaranteed to be present for all [interaction types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) besides `PING`, its structure will vary. The following tables detail the inner `data` payload for each interaction type.
-
-###### Authorizing Integration Owners Object
-
-The `authorizing_integration_owners` field on interactions includes details about the [installation context(s)](#TODO) and source for the interaction.
-
-Both the `GUILD_INSTALL` and `USER_INSTALL` key may be present if an app has been authorized in both installation contexts *and* the interaction occurs in a context where both installation contexts are supported—within a server or within DMs with the app's bot user. 
-
-**Server Context**
-
-If the app's installation context includes a **server installation** ([`GUILD_INSTALL` integration type](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)), `authorizing_integration_owners` will include a `GUILD_INSTALL` (`0`) key where the value depends on the source of the interaction:
-- If the interaction was sent from a server, the value is the server ID
-- If the interaction was sent from a DM with the app's bot user, the value is `0`
-
-<TODO: cleanup and edit>
-
-**User Context**
-
-If the app's installation context includes a **user installation** ([`USER_INSTALL` integration type](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)), `authorizing_integration_owners` will include a `USER_INSTALL` (`1`) key with the value of the ID of the authorizing user. <TODO: check if authorizing user or user that invoked interaction and make note>
 
 ###### Application Command Data Structure
 
