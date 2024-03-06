@@ -173,23 +173,119 @@ However, if you try to run any of the commands, you'll get an error :(
 
 ## Step 3: Handling Interactivity
 
-TODO
+To receive and handle interactive requests, we'll set up an **Interactions Endpoint URL**, which is a public URL where Discord sends your app's interactions.
+
+### Set up a public endpoint
+
+To set up a public endpoint we'll start our app, which runs an [Express](#TODO) server, then use [ngrok](#TODO) to expose our server publicly. 
+
+First, go to your project's folder and run the following to start your app:
+
+```shell
+npm run start
+```
+
+There should be some output indiciating your app is running on port 3000. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) documentation.
+
+> info 
+> By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
+
+Next, we'll start our ngrok tunnel. If you don't have ngrok installed locally, you can install it by following the instructions on the [ngrok download page](https://ngrok.com/download).
+
+After ngrok is installed locally, open a new terminal and create a public endpoint that will forward requests to your Express server:
+
+
+```shell
+ngrok http 3000
+```
+
+The output will include a **Forwarding** URL, which is the publicly-accessible URL we'll use for our Interactions Endpoint URL in the next step.
 
 ### Configuring an interaction endpoint URL
 
-Discord needs a public endpoint called an **Interaction Endpoint URL** to send interaction payloads to your app.
+Let's configure our app's **Interaction Endpoint URL**.
 
-TODO:
-- run your app
-- add URL to general info
+Go to your [app's settings](#TODO) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
 
-### Using metadata from a command interaction
+TODO: screenshot
 
-TODO:
-- look at context, app_permissions, interaction_metadata?, maybe message stuff.
-- Code for handling context metadata
+Click **Save Changes** and if all is well, your Interactions Endpoint URL should be verified by Discord.
 
-TODO: transition
+> info
+> If you have troubles verifying your endpoint, make sure both ngrok and your app is running on the same port, and that you've copied the ngrok URL correctly
+
+### Understanding metadata for interactions
+
+With our Interactions Endpoint URL set up, we should now be able to run our app's commands. Go to your app's DM and run `/profile`, and your app should respond with a sample game profile.
+
+Back on the command line, our app is logging incoming requests from Discord, so you can see what the request body for your command invocation looked like.
+
+<Collapsible title="Sample interaction payload" icon="code" open="true">
+The payload below is condensed to be more readable, but your interaction request body should look something like this:
+
+```json
+{
+  "app_permissions": '442368',
+  "application_id": '1234248956100616262',
+  "authorizing_integration_owners": { "1": '1090372582781497424' },
+  "channel": {
+    // Partial channel object corresponding to channel_id
+  },
+  "channel_id": '1234563982236504123',
+  "context": 1,
+  "data": { "id": '1234358421659193405', "name": 'link', "type": 1 },
+  "entitlements": [],
+  "id": '1234968734674853908',
+  "locale": 'en-US',
+  "token": 'a really long interactions token that your app can use to respond to the interactions',
+  "type": 2,
+  "user": {
+    // Partial user object
+  },
+  "version": 1
+}
+```
+
+</Collapsible>
+
+To see which command was run, you can look at the `data` object, TODO LINK TO DOCS.
+
+However, for this tutorial, we're going to focus more on the metadata related to installation and interaction contexts. There are a few metadata fields you'll want to pay attention to when building an app that can be installed to multiple interaction contexts—
+
+###### `context`
+
+[`context`](#TODO) tells you which [interaction context](#TODO) the command was invoked from. I triggered the command from my app's DM, so `context` is `1` (or `BOT_DM`).
+
+With interaction context, something to keep in mind in `BOT_DM` is only the *DM with your bot user*. If you run the same command in a DM with your bestie (or enemy), or in a group DM, the interaction context will be `PRIVATE_CHANNEL` (`2`).
+
+###### `authorizing_integration_owners`
+[`authorizing_integration_owners`](#TODO) provides data about any ID relevant to the [installation context(s)](#TODO) associated with the interaction.
+
+The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`/`0` and/or `USER_INSTALL`/`1`). The values depend on the key, but for `USER_INSTALL` the key will always be the ID of the user that authorized your app.
+
+> info
+> `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
+
+###### `app_permissions`
+[`app_permissions`](#TODO) are the bitwise set of permissions your app has in the place where the interaction was triggered. The permissions your app has will be different for DMs with your app, in servers, and G(DM)s with other users.
+
+In the sample payload, the value is `'442368'`, which means my app has [TODO: add permissions].
+
+All of these values can be helpful when deciding how you want your app to [respond to the interaction](#TODO). For example, maybe you want your app to respond ephemerally when a specific command is invoked from a server, which the sample app does for the `/profile` command.
+
+### Using metadata to respond based on context
+
+As mentioned above, the `/profile` command for our app will respond ephemerally, meaning only the invoking user will see the response, when invoked from a server. If it's invoked within a DM with the bot user, it'll respond with a non-ephemeral message. In the project, you can see this logic in `app.js` on [TODO: line #]:
+
+<Collapsible title="Sample interaction payload" icon="code">
+TODO: code sample for this
+</Collapsible>
+
+TODO TODO
+
+### TODO: interactive component?
+
+TODO TODO
 
 ## Next Steps
 

@@ -35,7 +35,7 @@
 | role_connections_verification_url? | string                                                                                                                                | Role connection verification URL for the app                                                                          |
 | tags?                              | array of strings                                                                                                                      | List of tags describing the content and functionality of the app. Max of 5 tags.                                      |
 | install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object                                                            | Settings for the app's default in-app authorization link, if enabled                                                  |
-| integration_types_config?          | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | App's default installation settings for each installation context that it supports                                    |
+| integration_types_config?          | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) for each installation context that it supports                                    |
 | custom_install_url?                | string                                                                                                                                | Default custom authorization URL for the app, if enabled                                                              |
 
 ###### Example Application Object
@@ -93,6 +93,11 @@ Where an app can be installed, also called its supported [installation contexts]
 
 ###### Application Integration Type Configuration Object
 
+TODO: not sure this section needed... but if so
+
+- keys are installation context
+- values are install params
+
 ###### Application Flags
 
 | Value   | Name                                          | Description                                                                                                                                                                                                                                                   |
@@ -137,16 +142,13 @@ During installation, server-installed apps are authorized with a specific set of
 
 Apps installed in a user context (user-installed apps) are visible *only* to the authorizing user, and therefore don't require any server-specific permissions.
 
-Commands that support the user installation context are visible across all of an authorizing user's servers, DMs, and GDMs, but are forced to respect the user's permissions in the surface where command is invoked. For example, if a user invokes command for a user-installed app from a server's channel where they don't have permission to send messages, the app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. Details about how the installation context of a command affects interactions are in the [TODO INTERACTION](#TODO) documentation.
+Apps that support the user installation context are visible across all of an authorizing user's servers, DMs, and GDMs, but are forced to respect the user's permissions in the surface where the app is being used. For example, if a user invokes a command for a user-installed app from a server's channel where they don't have permission to send messages, the app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. Details about how the installation context of a command affects interactions are in the [TODO INTERACTION](#TODO) documentation.
 
 ### Setting Supported Installation Contexts
 
 By default, newly-created apps only support installation to guilds.
 
-You can update which installation contexts your app supports in two ways:
-
-- **In the UI**: In your [app's settings](https://discord.com/developers/applications), click on the **Installation** page. Under the **Authorization Methods** section, you can select the installation contexts your app supports.
-- **Using the API**: When calling the [Edit Current Application](#DOCS_RESOURCES_APPLICATION/edit-current-application) endpoint, set the `integration_types_config` field to include the corresponding installation contexts you want your app to support.
+You can update which installation contexts your app supports in your [app's settings](https://discord.com/developers/applications). On the **Installation** page under the **Authorization Methods** section, you can select the installation contexts your app supports.
 
 > info
 > If you update your app to support a new installation context, you will need to update your existing [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) if you want them to be supported in the new context. Details are in the [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation.

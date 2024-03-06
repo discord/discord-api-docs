@@ -12,7 +12,7 @@
 - [Interactions: Application Commands Contexts](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/contexts) - Main docs for understanding how new installation method affects commands. Builds on concept of "installation context", and introduces interaction contexts. Specifically goes into two fields that are directly tied to these concepts: `integration_types` (supported installation contexts) and `contexts` (supported interaction contexts).
 - [Interactions: Authorizing integration owners object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) - Explanations for new `authorizing_integration_owners` field
 - Updates to structures: [Application](#DOCS_RESOURCES_APPLICATION/application-object-application-structure), [Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure), [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure), [Message](#DOCS_RESOURCES_CHANNEL/message-object-message-structure)
-- TODO: responding to interactions (ephemerality)
+- Major TODOs: explanation about forced ephemerality, actual change log entry, still editing/revising basically every piece of content, payload examples, tutorial not finished
 
 ###### Other content
 - [Tutorial: Developing a user-installable app](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP) - tutorial to build an app installable to both servers and users

@@ -30,7 +30,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | locale?\*\*\*                  | string                                                                                                                                | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                                                                                   |
 | guild_locale?                  | string                                                                                                                                | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                                                                                                                               |
 | entitlements                   | array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) objects                                                    | For [monetized apps](#DOCS_MONETIZATION_OVERVIEW), any entitlements for the invoking user, representing access to premium [SKUs](#DOCS_MONETIZATION_SKUS)                                                           |
-| authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | IDs for installation context(s) related to an interaction. See [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) |
+| authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | IDs related to the authorization for each installation context(s) related to the interaction. See [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) |
 | context?                       | [interaction context type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | Context where the interaction was triggered from                                                                                                                                                                            |
 
 \* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
@@ -51,7 +51,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Interaction Context Types
 
-Context in Discord where an interaction can be used. Details about using interaction contexts for application commands is in the [commands context documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts).
+Context in Discord where an interaction can be used, or where it was triggered from. Details about using interaction contexts for application commands is in the [commands context documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts).
 
 | Name            | Type | Description                                                                                       |
 |-----------------|------|---------------------------------------------------------------------------------------------------|
@@ -61,7 +61,7 @@ Context in Discord where an interaction can be used. Details about using interac
 
 #### Authorizing Integration Owners Object
 
-The `authorizing_integration_owners` field includes details about the [interaction's context](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) for the installation(s) relevant to the interaction.
+The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction.
 
 A key will only be present if both of the following are true:
 - The app has been authorized to the [installation context](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) corresponding to the key (`GUILD_INSTALL` or `USER_INSTALL`)
