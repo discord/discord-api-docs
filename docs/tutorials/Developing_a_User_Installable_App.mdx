@@ -102,13 +102,13 @@ Now that you have the credentials you need, we'll configure your app to support 
 
 The sample app fetches members in the server when constructing a fake game leaderboard. Getting server members requires a special permission called a [privileged intent](#DOCS_TOPICS_GATEWAY/privileged-intents), so we'll add that to our app.
 
-Go to the **Bot** page and find the **Privileged Gateway Intents** section. Toggle "Server Member Intent".
+Go to the **Bot** page and find the **Privileged Gateway Intents** section. Toggle "Server Member Intent" to be active.
 
 ### Choosing Supported Installation Contexts
 
 An app's **[installation context](#DOCS_RESOURCES_APPLICATION/installation-context)** defines how it's installed: to a server, to a user, or both.
 
-We're going to configure our app to support both installation contexts since we want it available to install to servers and to users. [**TODO: maybe a bit of the "why" here.**]
+We're going to configure our app to support both installation contexts since we want it available to install to servers in addition to users. [**TODO: maybe a bit of the "why" here.**]
 
 In your app's settings, go to the **Installation** page from the sidebar. Under **Authorization Methods**, check both **User Install** and **Guild Install**, then press **Save Changes**.
 
@@ -118,13 +118,13 @@ The default install settings of your app determines the default [scopes](#DOCS_T
 
 ###### Update Install Link
 
-Before adding default install settings, we need to enable Discord provided links. We won't be covering custom URLs in this tutorial, but you can read more in [TODO: this nowhere to link rn lol]
+Before adding default install settings, we need to enable Discord provided links. We won't be covering custom URLs in this tutorial, but you can read more about customizing the installation flow in the [OAuth2](#DOCS_TOPICS_OAUTH2/oauth2) documentation.
 
-Under the **Install Link** section, select `Discord Provided Link` from the dropdown. Once you select this, the **Default Install Settings** will appear.
+Under the **Install Link** section, select `Discord Provided Link` from the dropdown. Once its selected, the **Default Install Settings** will appear.
 
 ###### Adding Default Install Settings
 
-Under the now-visible **Default Install Settings** section:
+Under the new **Default Install Settings** section, set the following:
 - For **User Install**, add the `applications.commands` scope
 - For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
@@ -137,24 +137,23 @@ TODO: SCREENSHOT
 
 ### Installing your app
 
-Finally, we'll install your new app to both a server and your user account so we can test it in both installation contexts.
+Finally, we'll install your new app to both a test server and your user account so that we can test in both installation contexts.
 
 ###### Install to server
 
-Let's install your app to a test server first. Copy the default Install Link for your app from the **Install Link** section. Paste the link in your browser and, in the installation pop up, click "Add to server".
+To install your app to your test server, copy the default Install Link for your app from the **Installation** page. Paste the link in your browser and hit enter, then select "Add to server" in the installation prompt.
 
-Select your test server, and follow the installation flow. Once your app is added to your test server, you should see it appear in the member list.
+Select your test server, and follow the installation prompt. Once your app is added to your test server, you should see it appear in the member list.
 
 ###### Install to user account
 
-Next, install the app to your user account. Using the same Install Link from the server installation, paste the link in your browser. This time, in the installation pop up, click "Add to my apps", which will add the app to your user account.
+Next, install your app to your user account. Paste the same Install Link in your browser and hit enter. This time, select "Add to my apps" in the installation prompt.
 
-Follow the installation prompts to install your app.
+Follow the installation prompt to install your app to your user account. Once it's installed you can open a DM with it.
 
 ## Step 2: Setting Up Commands
 
 Next, we'll register the [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) for our app. But before touching code, it's important to understand the concept of command contexts:
-
 
 <Collapsible title="Contexts for application commands" description="A brief introduction to command contexts" icon="view" open="true">
 
