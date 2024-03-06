@@ -232,6 +232,21 @@ Make sure you've got `core->RunCallbacks()` going every frame!
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
 
+## Code Primer - Unreal Engine 5 (Cpp) Plugin
+
+For a complete example of a reusable UE5 plugin that you can use for your UE5 project,
+see this free, MIT licensed sample project:
+
+[https://github.com/XistGG/DiscordGameSample]()
+
+The above repository shows the correct structure for storing the Discord GameSDK
+in a reusable ThirdParty module, loading that module at runtime and actively managing
+the connection to Discord while your game is running.
+
+Architecturally it provides a `Discord Game Subsystem` that you can use as a base.
+Build your own derived subsystem off of it to gain access to the entire
+Discord GameSDK.
+
 ## Code Primer - No Engine (Cpp)
 
 In your project folder, you'll want to make something like a "discord-files" folder, for organization. In that folder, copy all the `.h` and `.cpp` files from the zip.
