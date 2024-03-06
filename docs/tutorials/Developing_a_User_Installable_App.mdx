@@ -1,28 +1,48 @@
 # Developing A User-Installable App
 
 > preview
-> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#TODO).
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the change log (TODO: WILL ADD LINK :))
 
-TODO TODO. This guide will walk you through building a basic game integration app that is  installable to both Discord users and servers.
+> danger
+> Note: right now, I've focused on ability to get through the tutorial. A lot of the details, like the repository name and various TODOs, will be different when the guide is finished.
 
-While the tutorial will focus on supporting different [installation contexts](#TODO), we'll be building a basic game integration along the way with a wiki lookup with user-specific bookmarking and a server leaderboard.
+Discord apps can be installed to servers, users, or both.. This guide will walk you through building a basic game integration app that is installable to both Discord users and servers.
+
+While the tutorial will focus on supporting different [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context), we'll be building a basic game integration along the way with a wiki lookup with user-specific bookmarking and a server leaderboard.
 
 <Collapsible title="What we'll be building" icon="view">
-TODO
+
+We'll be building an app that integrates with a fake game. It has four commands (`/link`, `/profile`, `/leaderboard`, and `/wiki`) that can be run in different contexts. TODO: make this more explicit
+
+TODO: GIF of app in action
+
 </Collapsible>
 
 <Collapsible title="Resources used in this guide" description="Overview of the tools and technologies we'll use" icon="list">
-TODO
+
+- **[GitHub repository](https://github.com/shaydewael/example-game-integration)** where the code from this guide lives.
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, a library that provides types and helper functions for Discord apps.
+- **[Express](https://expressjs.com/)**, a popular JavaScript web framework we'll use to create a server where Discord can send requests.
+- **[ngrok](https://ngrok.com/)**, a tool that lets us tunnel our local server to a public URL where Discord can send requests.
 </Collapsible>
 
 ---
 
 ## Step 0: Project Setup
 
-Before we dig in, project code from the ["REPO NAME" Github repository](#TODO).
+Before we dig in, project code from the [sample app repository](https://github.com/shaydewael/example-game-integration).
 
 <Collapsible title="Project structure" description="Overview of the project structure for the sample app used in this tutorial" icon="code">
-TODO
+```
+├── .env.sample -> sample .env file
+├── app.js      -> main entrypoint for the app
+├── commands.js -> slash command payloads + helpers
+├── game.js     -> logic specific to the fake game
+├── utils.js    -> utility functions and enums
+├── package.json
+├── README.md
+└── .gitignore
+```
 </Collapsible>
 
 > info
@@ -30,17 +50,20 @@ TODO
 
 If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install that first.
 
-First, use the command line to clone the project code to your machine:
+Now, clone the project code to your machine using the command line:
 
 ```shell
-git clone <repo>
+# ssh
+git clone git@github.com:shaydewael/example-game-integration.git
 ```
 
 Then navigate to the directory and install the project's dependencies:
 
 ```shell
-cd <project name>
+# navigate to directory
+cd example-game-integration
 
+# install dependencies
 npm install
 ```
 
@@ -73,21 +96,29 @@ We'll need three values from your app's settings for your `.env` file:
 
 Now that you have the credentials you need, we'll configure your app to support different installation contexts.
 
+### Add Guild Members intent
+
+**TODO: i'm going to refactor the app to not used a privileged intent, but this is here for now to make sure it's runnable**
+
+The sample app fetches members in the server when constructing a fake game leaderboard. Getting server members requires a special permission called a [privileged intent](#DOCS_TOPICS_GATEWAY/privileged-intents), so we'll add that to our app.
+
+Go to the **Bot** page and find the **Privileged Gateway Intents** section. Toggle "Server Member Intent".
+
 ### Choosing Supported Installation Contexts
 
-An app's **[installation context](#TODO)** defines how it's installed: to a server, to a user, or both.
+An app's **[installation context](#DOCS_RESOURCES_APPLICATION/installation-context)** defines how it's installed: to a server, to a user, or both.
 
-We're going to configure our app to support both installation contexts since we want it available to install to servers and to users. **TODO: maybe a bit of the "why" here.**
+We're going to configure our app to support both installation contexts since we want it available to install to servers and to users. [**TODO: maybe a bit of the "why" here.**]
 
 In your app's settings, go to the **Installation** page from the sidebar. Under **Authorization Methods**, check both **User Install** and **Guild Install**, then press **Save Changes**.
 
 ### Configuring Default Install Settings
 
-The default install settings of your app determines the default [scopes](#TODO) and [bot user permissions](#TODO) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope which allows your app to install [commands](#TODO).
+The default install settings of your app determines the default [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) and [bot user permissions](#DOCS_TOPICS_PERMISSIONS) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope which allows your app to install [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
 
 ###### Update Install Link
 
-Before adding default install settings, we need to enable Discord provided links. We won't be covering custom URLs in this tutorial, but you can read more in TODO: i dont think we have info anywhere lol.
+Before adding default install settings, we need to enable Discord provided links. We won't be covering custom URLs in this tutorial, but you can read more in [TODO: this nowhere to link rn lol]
 
 Under the **Install Link** section, select `Discord Provided Link` from the dropdown. Once you select this, the **Default Install Settings** will appear.
 
@@ -177,7 +208,7 @@ To receive and handle interactive requests, we'll set up an **Interactions Endpo
 
 ### Set up a public endpoint
 
-To set up a public endpoint we'll start our app, which runs an [Express](#TODO) server, then use [ngrok](#TODO) to expose our server publicly. 
+To set up a public endpoint we'll start our app, which runs an [Express](https://expressjs.com/) server, then use [ngrok](https://ngrok.com/) to expose our server publicly. 
 
 First, go to your project's folder and run the following to start your app:
 
@@ -205,7 +236,7 @@ The output will include a **Forwarding** URL, which is the publicly-accessible U
 
 Let's configure our app's **Interaction Endpoint URL**.
 
-Go to your [app's settings](#TODO) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
+Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
 
 TODO: screenshot
 
@@ -254,12 +285,12 @@ However, for this tutorial, we're going to focus more on the metadata related to
 
 ###### `context`
 
-[`context`](#TODO) tells you which [interaction context](#TODO) the command was invoked from. I triggered the command from my app's DM, so `context` is `1` (or `BOT_DM`).
+`context`) tells you which [interaction context](#TODO) the command was invoked from. I triggered the command from my app's DM, so `context` is `1` (or `BOT_DM`).
 
 With interaction context, something to keep in mind in `BOT_DM` is only the *DM with your bot user*. If you run the same command in a DM with your bestie (or enemy), or in a group DM, the interaction context will be `PRIVATE_CHANNEL` (`2`).
 
 ###### `authorizing_integration_owners`
-[`authorizing_integration_owners`](#TODO) provides data about any ID relevant to the [installation context(s)](#TODO) associated with the interaction.
+`authorizing_integration_owners` provides data about any ID relevant to the installation context(s) associated with the interaction. You can read more in the [Authorizing Integration Owners](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/authorizing-integration-owners-object) documentation.
 
 The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`/`0` and/or `USER_INSTALL`/`1`). The values depend on the key, but for `USER_INSTALL` the key will always be the ID of the user that authorized your app.
 
@@ -267,25 +298,68 @@ The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`
 > `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
 
 ###### `app_permissions`
-[`app_permissions`](#TODO) are the bitwise set of permissions your app has in the place where the interaction was triggered. The permissions your app has will be different for DMs with your app, in servers, and G(DM)s with other users.
+`app_permissions` are the bitwise set of permissions your app has in the place where the interaction was triggered. The permissions your app has will be different for DMs with your app, in servers, and G(DM)s with other users.
 
-In the sample payload, the value is `'442368'`, which means my app has [TODO: add permissions].
+In the sample payload, the value is `'442368'`.
 
-All of these values can be helpful when deciding how you want your app to [respond to the interaction](#TODO). For example, maybe you want your app to respond ephemerally when a specific command is invoked from a server, which the sample app does for the `/profile` command.
+All of these values can be helpful when deciding how you want your app to [respond to the interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction). For example, maybe you want your app to respond ephemerally when a specific command is invoked from a server, which the sample app does for the `/profile` command.
 
 ### Using metadata to respond based on context
 
-As mentioned above, the `/profile` command for our app will respond ephemerally, meaning only the invoking user will see the response, when invoked from a server. If it's invoked within a DM with the bot user, it'll respond with a non-ephemeral message. In the project, you can see this logic in `app.js` on [TODO: line #]:
+As mentioned above, the `/profile` command for our app will respond ephemerally, meaning only the invoking user will see the response, when invoked from a server. If it's invoked within a DM with the bot user, it'll respond with a non-ephemeral message. In the project, you can see this logic in `app.js` when handling the `/profile` command:
 
-<Collapsible title="Sample interaction payload" icon="code">
-TODO: code sample for this
+<Collapsible title="Using context for the profile command" icon="code" >
+
+Below is the logic for handling the `/profile` command. When the context for the interaction is in a server, we'll make our interaction response ephemeral and add a button so the user can share their profile if they want.
+
+```javascript
+// "profile" command
+if (name === 'profile') {
+  const profile = getFakeProfile(0);
+  const profileEmbed = createPlayerEmbed(profile);
+
+  // Use interaction context that the interaction was triggered from
+  const interactionContext = req.body.context;
+
+  // Construct `data` for our interaction response. The profile embed will be included regardless of interaction context
+  let profilePayloadData = {
+    embeds: [profileEmbed],
+  };
+
+  // If profile isn't run in a DM with the app, we'll make the response ephemeral and add a share button
+  if (interactionContext !== 1) {
+    // Make message ephemeral
+    profilePayloadData['flags'] = 64;
+    // Add button to components
+    profilePayloadData['components'] = [
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            label: 'Share Profile',
+            custom_id: 'share_profile',
+            style: 2,
+          },
+        ],
+      },
+    ];
+  }
+
+  // Send response
+  return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: profilePayloadData,
+  });
+}
+```
 </Collapsible>
 
-TODO TODO
+In the sample app code, we assign the value of `context` in the request body to a new `interactionContext` variable. Based on the context, we modify how we respond to the command interaction. If it was run in a guild or within a G(DM) other than the DM with the app's bot user, `flags` is set to `64` to make the response ephemeral, and a new button component is added so that the user can share their profile if they want.
 
 ### TODO: interactive component?
 
-TODO TODO
+TODO: might add a section on interactive components so that we can naturally explore message metadata
 
 ## Next Steps
 
