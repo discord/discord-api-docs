@@ -35,7 +35,7 @@
 | role_connections_verification_url? | string                                                                                                                                | Role connection verification URL for the app                                                                                                                                |
 | tags?                              | array of strings                                                                                                                      | List of tags describing the content and functionality of the app. Max of 5 tags.                                                                                            |
 | install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object                                                            | Settings for the app's default in-app authorization link, if enabled                                                                                                        |
-| integration_types_config?          | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | Default scopes and permissions for each supported installation context. Value for each key is an [install params object](#DOCS_RESOURCES_APPLICATION/install-params-object) |
+| integration_types_config?          | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | Default scopes and permissions for each supported installation context. Value for each key is an [integration type configuration object](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-type-configuration-object) |
 | custom_install_url?                | string                                                                                                                                | Default custom authorization URL for the app, if enabled                                                                                                                    |
 
 ###### Example Application Object
@@ -49,7 +49,26 @@
   "guild_id": "290926798626357260",
   "icon": null,
   "id": "172150183260323840",
-  "integration_types_config": "TODO: this needs def",
+  "integration_types": [0, 1],
+  "integration_types_config": {
+    "0": {
+      "oauth2_install_params": {
+        "scopes": [
+          "applications.commands",
+          "bot"
+        ],
+        "permissions": "2048"
+      }
+    },
+    "1": {
+      "oauth2_install_params": {
+        "scopes": [
+          "applications.commands"
+        ],
+        "permissions": "0"
+      }
+    }
+  }
   "name": "Baba O-Riley",
   "owner": {
     "avatar": null,
@@ -93,10 +112,9 @@ Where an app can be installed, also called its supported [installation contexts]
 
 ###### Application Integration Type Configuration Object
 
-TODO: not sure this section needed... but if so
-
-- keys are installation context
-- values are install params
+| Field                 | Type                                                                       | Description                                  |
+|-----------------------|----------------------------------------------------------------------------|----------------------------------------------|
+| oauth2_install_params | [install params object](#DOCS_RESOURCES_APPLICATION/install-params-object) | Install params for each installation context's default in-app authorization link |
 
 ###### Application Flags
 
@@ -142,7 +160,7 @@ During installation, server-installed apps are authorized with a specific set of
 
 Apps installed in a user context (user-installed apps) are visible *only* to the authorizing user, and therefore don't require any server-specific permissions.
 
-Apps that support the user installation context are visible across all of an authorizing user's servers, DMs, and GDMs, but are forced to respect the user's permissions in the surface where the app is being used. For example, if a user invokes a command for a user-installed app from a server's channel where they don't have permission to send messages, the app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. Details about how the installation context of a command affects interactions are in the [TODO INTERACTION](#TODO) documentation.
+Apps that support the user installation context are visible across all of an authorizing user's servers, DMs, and GDMs, but are forced to respect the user's permissions in the surface where the app is being used. For example, if a user invokes a command for a user-installed app from a server's channel where they don't have permission to send messages, the app won't be able to [respond to an interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) with a non-ephemeral message. Details about how the installation context of a command affects interactions is in the [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) documentation.
 
 ### Setting Supported Installation Contexts
 
