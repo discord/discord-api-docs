@@ -312,6 +312,12 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 350000 | Cannot enable onboarding, requirements are not met                                                                            |
 | 350001 | Cannot update onboarding while below requirements                                                                             |
 | 500000 | Failed to ban users                                                                                                           |
+| 520000 | Poll voting blocked                                                                                                           |
+| 520001 | Poll expired                                                                                                                  |
+| 520002 | Invalid channel type for poll creation                                                                                        |
+| 520003 | Cannot edit a poll message                                                                                                    |
+| 520004 | Cannot use an emoji included with the poll                                                                                    |
+| 520006 | Cannot expire a non-poll message                                                                                              |
 
 ###### Example JSON Error Response
 
