@@ -2,7 +2,7 @@
 
 ## User Installable Apps Preview
 
-#### March 13, 2024
+#### March 18, 2024
 
 > info
 > Note: this isn't what the actual change log will be—right now just using to link the new docs content for user-installable apps in one place. Not listing out the changes not relevant to this launch atm

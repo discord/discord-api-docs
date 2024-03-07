@@ -289,21 +289,25 @@ However, for this tutorial, we're going to focus more on the metadata related to
 With interaction context, something to keep in mind in `BOT_DM` is only the *DM with your bot user*. If you run the same command in a DM with your bestie (or enemy), or in a group DM, the interaction context will be `PRIVATE_CHANNEL` (`2`).
 
 ###### `authorizing_integration_owners`
-`authorizing_integration_owners` provides data about any ID relevant to the installation context(s) associated with the interaction. You can read more in the [Authorizing Integration Owners](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/authorizing-integration-owners-object) documentation.
+
+`authorizing_integration_owners` provides data about any ID relevant to the installation context(s) associated with the interaction. 
 
 The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`/`0` and/or `USER_INSTALL`/`1`). The values depend on the key, but for `USER_INSTALL` the key will always be the ID of the user that authorized your app.
 
 > info
 > `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
 
+Understanding the authorization owner can be helpful when handling interactions from message components for apps installed to a user, which is discussed more in the [message component interactions](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP/using-metadata-for-message-component-interactions) section. Or you can find technical details in the [Authorizing Integration Owners](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/authorizing-integration-owners-object) documentation.
+
 ###### `app_permissions`
+
 `app_permissions` are the bitwise set of permissions your app has in the place where the interaction was triggered. The permissions your app has will be different for DMs with your app, in servers, and G(DM)s with other users.
 
 In the sample payload, the value is `'442368'`.
 
 All of these values can be helpful when deciding how you want your app to [respond to the interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction). For example, maybe you want your app to respond ephemerally when a specific command is invoked from a server, which the sample app does for the `/profile` command.
 
-### Using metadata to respond based on context
+### Using metadata for command interactions
 
 As mentioned above, the `/profile` command for our app will respond ephemerally, meaning only the invoking user will see the response, when invoked from a server. If it's invoked within a DM with the bot user, it'll respond with a non-ephemeral message. In the project, you can see this logic in `app.js` when handling the `/profile` command:
 
@@ -356,15 +360,41 @@ if (name === 'profile') {
 
 In the sample app code, we assign the value of `context` in the request body to a new `interactionContext` variable. Based on the context, we modify how we respond to the command interaction. If it was run in a guild or within a G(DM) other than the DM with the app's bot user, `flags` is set to `64` to make the response ephemeral, and a new button component is added so that the user can share their profile if they want.
 
-### TODO: interactive component?
+### Using metadata for message component interactions
 
-TODO: might add a section on interactive components so that we can naturally explore message metadata
+Message component interactions can be triggered by any user the component is visible to, regardless of the installation context. Since potentially any user can trigger the component, it can be helpful to use metadata to understand context about the installation.
+
+Consider we added a new `/game` command supported in the `USER_INSTALL` installation context that a user could trigger to send a message to whatever guild or group DM they're in to ask others if they're interested in joining a game match:
+
+TODO: screenshot of message
+
+When someone clicks on the button, our app would care about two users when handling the interaction:
+1. User B, who clicked the "Join" button so our app can track who is interested in joining the match
+2. User A, who ran the `/game` command so our app can tell them who is interested in joining the match
+
+There are two fields that can be helpful in this scenario (and more complicated ones)—
+
+###### `interaction_metadata`
+
+TODO: interaction vs interaction_metadata
+Messages created in response to an interaction will include an [`interaction_metadata` object](#TODO) that includes information about 
+
+###### `authorizing_integration_owners`
+
+`authorizing_integration_owners` was touched on above, but it's worth highlighting again since it's especially helpful when handling message component interactions for apps installed to users. TODO
+
 
 ## Next Steps
 
-TODO: wrap up a lil
+*Yayyy~*
 
-CTAs:
-- play with code
-- docs for application, commands
-- info about preview
+Hopefully at this point, you have an app that supports both installation contexts and understand the basics of using metadata to support different contexts. Now you can go explore the documentation for details, or play with the sample app to develop more complex features.
+
+<Container>
+  <Card title="Interactions documentation" link="#todo">
+    Explore the Interactions documentation to learn more about receiving and responding to commands and message components
+  </Card>
+  <Card title="Github repository" link="#open-invite-dialog">
+    TODO
+  </Card>
+</Container>

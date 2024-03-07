@@ -61,7 +61,7 @@ Context in Discord where an interaction can be used, or where it was triggered f
 
 #### Authorizing Integration Owners Object
 
-The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction.
+The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction. For apps installed to a user, it can be used to differentiate between the authorizing user and the user that triggered an interaction (like a message component).
 
 A key will only be present if both of the following are true:
 - The app has been authorized to the [installation context](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) corresponding to the key (`GUILD_INSTALL` or `USER_INSTALL`)
