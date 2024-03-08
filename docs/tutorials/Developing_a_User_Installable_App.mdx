@@ -133,7 +133,7 @@ Under the new **Default Install Settings** section, set the following:
 
 After you've selected the scopes and permissions for your app, click **Save Changes**.
 
-TODO: SCREENSHOT
+![Installation settings in App Settings](user-install-settings.png)
 
 ### Installing your app
 
@@ -237,7 +237,6 @@ Let's configure our app's **Interaction Endpoint URL**.
 
 Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
 
-TODO: screenshot
 
 Click **Save Changes** and if all is well, your Interactions Endpoint URL should be verified by Discord.
 
@@ -255,19 +254,19 @@ The payload below is condensed to be more readable, but your interaction request
 
 ```json
 {
-  "app_permissions": '442368',
-  "application_id": '1234248956100616262',
-  "authorizing_integration_owners": { "1": '1090372582781497424' },
+  "app_permissions": "442368",
+  "application_id": "234248956100616262",
+  "authorizing_integration_owners": { "1": "1090372582781497424" },
   "channel": {
     // Partial channel object corresponding to channel_id
   },
-  "channel_id": '1234563982236504123',
+  "channel_id": "1234563982236504123",
   "context": 1,
-  "data": { "id": '1234358421659193405', "name": 'link', "type": 1 },
+  "data": { "id": "1234358421659193405", "name": "link", "type": 1 },
   "entitlements": [],
-  "id": '1234968734674853908',
-  "locale": 'en-US',
-  "token": 'a really long interactions token that your app can use to respond to the interactions',
+  "id": "1234968734674853908',
+  "locale": "en-US',
+  "token": "a really long interactions token that your app can use to respond to the interactions",
   "type": 2,
   "user": {
     // Partial user object
@@ -366,7 +365,8 @@ Message component interactions can be triggered by any user the component is vis
 
 Consider we added a new `/game` command supported in the `USER_INSTALL` installation context that a user could trigger to send a message to whatever guild or group DM they're in to ask others if they're interested in joining a game match:
 
-TODO: screenshot of message
+![Sample game command response](user-install-game-message.png)
+
 
 When someone clicks on the button, our app would care about two users when handling the interaction:
 1. User B, who clicked the "Join" button so our app can track who is interested in joining the match
