@@ -4,16 +4,17 @@ Interactive features like commands and message components allows users to invoke
 
 This overview includes an overview of the main types of interactions, and steps for you to prepare your app to use and receive interactions. Reference documentation and details about handling interactions are in [Receiving and Responding](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
 
+---
 
 ## Types of Interactions
 
-There are different types of interactions that apps can pick and choose from to build experiences on Discord. TODO
+There are different types of interactions in your app's toolbelt that can pick and choose to build engaging, interactive experiences in Discord.
 
 ### Commands
 
-**[Application commands](#TODO)** provide users a native way to invoke an app in Discord. They often map to an app's core features or functionality.
+**[Application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)** provide users a native way to invoke an app in Discord. They often map to an app's core features or functionality.
 
-! TODO: ASSET
+![Command launcher in the Desktop client](overview-command-desktop.png)
 
 When an app creates a command it can choose the command's type, which determines where it appears in the Discord client and the metadata the app will receive when the command is invoked. There are three types for application commands:
 
@@ -27,7 +28,7 @@ Details about creating commands and handling command interactions are in the [Ap
 
 **[Message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** are interactive elements that can be included in the content of a message that your app sends in Discord. 
 
-! TODO: ASSET
+![Button message components in a message](overview-components.png)
 
 The main interactive components that apps can send in messages include:
 
@@ -41,11 +42,13 @@ A list of all message components and details on sending and receiving component 
 
 **[Modals](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal)** are single-user pop-up interfaces that allow apps to collect form-like data. Modals can only be opened in response to a user invoking on of your app's commands or message components.
 
-! TODO: ASSET
+![Modals in the Discord client](overview-modals.png)
 
 The only interactive component that modals can contain are [text inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs), which allow users to fill out single-or-multi line form inputs.
 
 Details about creating and using modals is in the [Receiving and Responding](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) documentation.
+
+---
 
 ## Preparing for Interactions
 
@@ -150,9 +153,11 @@ We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNIT
 
 #### Adding an Interactions Endpoint URL
 
-After you have a public endpoint to use as your app's Interactions Endpoint URL, you can add it to your app by going to your [app's settings](#TODO).
+After you have a public endpoint to use as your app's Interactions Endpoint URL, you can add it to your app by going to your [app's settings](https://discord.com/developers/applications).
 
 On the **General Overview** page, look for the **Interactive Endpoint URL** field. Paste your public URL that is set up to acknowledge `PING` messages and correctly handles security-related signature headers.
+
+---
 
 ## Handling Interactions
 
