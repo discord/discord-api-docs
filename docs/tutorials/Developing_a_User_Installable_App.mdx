@@ -288,7 +288,7 @@ With interaction context, something to keep in mind in `BOT_DM` is only the *DM 
 
 `authorizing_integration_owners` provides data about any ID relevant to the installation context(s) associated with the interaction. 
 
-The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`/`0` and/or `USER_INSTALL`/`1`). The values depend on the key, but for `USER_INSTALL` the key will always be the ID of the user that authorized your app.
+The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`/`"0"` and/or `USER_INSTALL`/`"1"`). The values depend on the key, but for `USER_INSTALL` the key will always be the ID of the user that authorized your app.
 
 > info
 > `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.

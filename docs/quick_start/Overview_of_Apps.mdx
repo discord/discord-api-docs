@@ -45,7 +45,7 @@ Apps can also update a user's **[rich presence](#DOCS_RICH_PRESENCE_HOW_TO)** in
 
 **[App subscriptions](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS)** let apps charge users and/or servers for premium functionality on a recurring basis natively within Discord. You can read more about eligibility and adding monetization features to your app in the [Monetization](#DOCS_MONETIZATION_OVERVIEW) documentation.
 
-### ...and so much more
+### ...and more
 
 This developer documentation is full of nooks and crannies with all sorts of features and functionality you can build, customize, and extend within Discord. Discover the worlds of possibility by building your own app and exploring the documentation.
 
@@ -55,7 +55,7 @@ This developer documentation is full of nooks and crannies with all sorts of fea
 
 Discord apps can be installed in two different contexts:
 
-1. Apps installed **to a server** (called a [guild](#DOCS_RESOURCES_GUILD) in the API) by a user with the Manage Server ([`MANAGE_GUILD`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app, and are visible to all server members.
+1. Apps installed **to a server** (called a [guild](#DOCS_RESOURCES_GUILD) in the API) by a user with the Manage Server ([`MANAGE_GUILD`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
 2. Apps installed **to a user account**. Apps installed to a user are visible *only* to that user, across all of their servers, DMs, and Group DMs. Apps installed to a user have [limited functionality](#TODO)—for example, they cannot take actions on behalf of the installing user (like updating settings, sending messages, or creating new channels).
 
 The installation contexts that an app supports can be limited by the developer when [setting up the app](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts). Details about installation contexts are in the [Application resource documentation](#DOCS_RESOURCES_APPLICATION/installation-context).
