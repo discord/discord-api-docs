@@ -143,7 +143,7 @@ Where an app can be installed, also called its supported [installation contexts]
 ## Installation Context
 
 > preview
-> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#TODO).
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#DOCS_CHANGE_LOG_USERINSTALLABLE_APPS_PREVIEW).
 
 An app's installation context defines how it's installed: to a server, to a user, or both.
 

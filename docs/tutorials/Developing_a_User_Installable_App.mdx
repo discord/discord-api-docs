@@ -3,9 +3,6 @@
 > preview
 > The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the change log (TODO: WILL ADD LINK :))
 
-> danger
-> Note: right now, I've focused on ability to get through the tutorial. A lot of the details, like the repository name and various TODOs, will be different when the guide is finished.
-
 Discord apps can be installed to servers, users, or both.. This guide will walk you through building a basic game integration app that is installable to both Discord users and servers.
 
 While the tutorial will focus on supporting different [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context), we'll be building a basic game integration along the way with a wiki lookup with user-specific bookmarking and a server leaderboard.
@@ -264,8 +261,8 @@ The payload below is condensed to be more readable, but your interaction request
   "context": 1,
   "data": { "id": "1234358421659193405", "name": "link", "type": 1 },
   "entitlements": [],
-  "id": "1234968734674853908',
-  "locale": "en-US',
+  "id": "1234968734674853908",
+  "locale": "en-US",
   "token": "a really long interactions token that your app can use to respond to the interactions",
   "type": 2,
   "user": {
@@ -277,13 +274,13 @@ The payload below is condensed to be more readable, but your interaction request
 
 </Collapsible>
 
-To see which command was run, you can look at the `data` object, TODO LINK TO DOCS.
+To see which command was run, you can look at the [`data` object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data).
 
 However, for this tutorial, we're going to focus more on the metadata related to installation and interaction contexts. There are a few metadata fields you'll want to pay attention to when building an app that can be installed to multiple interaction contexts—
 
 ###### `context`
 
-`context`) tells you which [interaction context](#TODO) the command was invoked from. I triggered the command from my app's DM, so `context` is `1` (or `BOT_DM`).
+`context`) tells you which [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) the command was invoked from. I triggered the command from my app's DM, so `context` is `1` (or `BOT_DM`).
 
 With interaction context, something to keep in mind in `BOT_DM` is only the *DM with your bot user*. If you run the same command in a DM with your bestie (or enemy), or in a group DM, the interaction context will be `PRIVATE_CHANNEL` (`2`).
 

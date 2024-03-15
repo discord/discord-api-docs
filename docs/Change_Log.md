@@ -1,11 +1,11 @@
 # Change Log
 
-## User Installable Apps Preview
+## User-Installable Apps Preview
 
 #### March 18, 2024
 
-> info
-> Note: this isn't what the actual change log will be—right now just using to link the new docs content for user-installable apps in one place. Not listing out the changes not relevant to this launch atm
+> warn
+> User-installable apps are currently in beta. During beta, <TODO>
 
 ###### Main documentation
 - [Resources: Application](#DOCS_RESOURCES_APPLICATION/installation-context) - Main docs for concept of "installation context", which defines how an app was installed (to a server, user, or both)

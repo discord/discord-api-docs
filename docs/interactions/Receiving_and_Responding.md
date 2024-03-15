@@ -59,7 +59,7 @@ Context in Discord where an interaction can be used, or where it was triggered f
 | BOT_DM          | 1    | Interaction can be used within DMs with the app's bot user                     |
 | PRIVATE_CHANNEL | 2    | Interaction can be used within Group DMs and DMs other than the app's bot user |
 
-#### Authorizing Integration Owners Object
+###### Authorizing Integration Owners Object
 
 The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction. For apps installed to a user, it can be used to differentiate between the authorizing user and the user that triggered an interaction (like a message component).
 

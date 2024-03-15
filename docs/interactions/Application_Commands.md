@@ -243,7 +243,7 @@ Detailed documentation about application command endpoints and their parameters 
 ## Contexts
 
 > preview
-> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#TODO).
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#DOCS_CHANGE_LOG_USERINSTALLABLE_APPS_PREVIEW).
 
 Commands have two sets of contexts on the [application command object](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) that let you to configure when and where it can be used:
 - `integration_types` defines the **[installation contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context)** that a command supports
@@ -258,9 +258,9 @@ The available interaction contexts for a command depends on Details for both typ
 
 The [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) is where your app was installed—to a server, a user, or both. If your app supports both installation contexts, there may be cases where you want some of your app's commands to only be available for one or the other. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
 
-A command's supported installation context(s) can be set using the [`integration_types` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) when creating or updating a command as long as any included contexts are already [supported on the application-level](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts) (TODO: could be more explicit about this).
+A command's supported installation context(s) can be set using the [`integration_types` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) when creating or updating a command as long as any included contexts are already [supported on the application-level](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts).
 
-A command's value for `integration_types` may affect which values can be set for `contexts` (detailed in [Interaction Contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) below) and [how your app can respond](#TODO) to the command interaction.
+A command's value for `integration_types` may affect which [interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) a command is visible in.
 
 ### Interaction Contexts
 
@@ -268,10 +268,10 @@ The interaction contexts for a command determines where in the Discord client it
 
 There are three [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) that correspond to different surfaces: `GUILD` (`0`), `BOT_DM` (`1`), and `PRIVATE_CHANNEL` (`2`). However, the `PRIVATE_CHANNEL` interaction context is only meaningful for commands installed to a user (when the command's `integration_types` includes `USER_INSTALL`).
 
+By default, `contexts` includes all interaction context types.
+
 > info
 > Even if a command supports both installation contexts, the user must [install your app to their user account](#TODO) for a command to appear within private channels, Group DMs, and DMs other than with your app's bot user.
-
-<TODO: include the defaults for interaction contexts>
 
 ## Permissions
 
@@ -1244,9 +1244,6 @@ Fetches permissions for all commands for your application in a guild. Returns an
 Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 ## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
-
-> danger
-> Apps that use this endpoint may be affected by upcoming breaking changes around permission configuration behavior starting on December 16, 2022. [Read the changelog for details](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
 
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
