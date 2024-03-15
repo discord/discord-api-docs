@@ -482,11 +482,11 @@ Represents a message sent in a channel within Discord.
 }
 ```
 
-### Interaction Metadata Object
+### Message Interaction Metadata Object
 
 Metadata about the interaction, including the source of the interaction and relevant server and user IDs.
 
-###### Message Metadata Structure
+###### Message Interaction Metadata Structure
 
  TODO: docs/interactions/receiving-and-responding#message-interaction-object here already?s
 
@@ -496,9 +496,9 @@ Metadata about the interaction, including the source of the interaction and rele
 | type                             | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)                                   | Type of interaction                                                                                                                                                                                                 |
 | user_id                          | snowflake                                                                                                                             | ID of the user who triggered the interaction                                                                                                                                                                        |
 | authorizing_integration_owners   | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) |
-| original_response_message_id?    | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](#TODO)                                                                                                                                    |
+| original_response_message_id?    | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                             |
 | interacted_message_id?           | snowflake                                                                                                                             | ID of the message that contained interactive component, present only on messages created from component interactions                                                                                                |
-| triggering_interaction_metadata? | <TODO>                                                                                                                                | Metadata for the interaction that was used to open the modal, present only on modal submit interactions                                                                                                             |
+| triggering_interaction_metadata? | Message Interaction Metadata Structure                                                                                                | Metadata for the interaction that was used to open the modal, present only on modal submit interactions                                                                                                             |
 
 ### Message Reference Object
 
