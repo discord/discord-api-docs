@@ -49,14 +49,14 @@ If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install t
 
 Now, clone the project code to your machine using the command line:
 
-```shell
+```
 # ssh
 git clone git@github.com:shaydewael/example-game-integration.git
 ```
 
 Then navigate to the directory and install the project's dependencies:
 
-```shell
+```
 # navigate to directory
 cd example-game-integration
 
@@ -182,7 +182,7 @@ The payloads for our app's commands are in `commands.js` in the project folder i
 
 Now let's register your app's commands so you can see them in Discord. In your project folder run:
 
-```shell
+```
 npm run register
 ```
 
@@ -208,7 +208,7 @@ To set up a public endpoint we'll start our app, which runs an [Express](https:/
 
 First, go to your project's folder and run the following to start your app:
 
-```shell
+```
 npm run start
 ```
 
@@ -222,7 +222,7 @@ Next, we'll start our ngrok tunnel. If you don't have ngrok installed locally, y
 After ngrok is installed locally, open a new terminal and create a public endpoint that will forward requests to your Express server:
 
 
-```shell
+```
 ngrok http 3000
 ```
 
