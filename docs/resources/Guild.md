@@ -1082,6 +1082,32 @@ Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+## Bulk Guild Ban % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bulk-ban
+
+Ban up to 200 users from a guild, and optionally delete previous messages sent by the banned users. Requires `BAN_MEMBERS` permission. Returns 200 response on success, including a field `banned_users` with the IDs of the banned users and `failed_users` with all that were not be banned. The list of `failed_users` will also include all users that were already banned.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params
+
+| Field                   | Type                | Description                                                             | Default |
+|-------------------------|---------------------|-------------------------------------------------------------------------|---------|
+| user_ids                | array of snowflakes | list of user ids to ban (max 200)                                       |         |
+| delete_message_seconds? | integer             | number of seconds to delete messages for, between 0 and 604800 (7 days) | 0       |
+
+###### Bulk Ban Response
+
+On success, this endpoint returns a 200 success response with the following body.
+
+| Field         | Type                | Description                                     |
+|---------------|---------------------|-------------------------------------------------|
+| banned_users? | array of snowflakes | list of user ids, that were successfully banned |
+| failed_users? | array of snowflakes | list of user ids, that were not banned          |
+
+> info
+> If none of the users could be banned, an error response code `500000: Failed to ban users` is returned instead.
+
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
