@@ -30,7 +30,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | locale?\*\*\*                  | string                                                                                                                                | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                                                                                            |
 | guild_locale?                  | string                                                                                                                                | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                                                                                                                                        |
 | entitlements                   | array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) objects                                                    | For [monetized apps](#DOCS_MONETIZATION_OVERVIEW), any entitlements for the invoking user, representing access to premium [SKUs](#DOCS_MONETIZATION_SKUS)                                                                    |
-| authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | IDs related to the authorization for each installation context(s) related to the interaction. See [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/authorizing-integration-owners-object) |
+| authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | Mapping of installation contexts that the interaction was authorized for to related user or guild IDs. See [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) for details |
 | context?                       | [interaction context type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | Context where the interaction was triggered from                                                                                                                                                                             |
 
 \* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
@@ -61,18 +61,19 @@ Context in Discord where an interaction can be used, or where it was triggered f
 
 ###### Authorizing Integration Owners Object
 
-The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction. For apps installed to a user, it can be used to differentiate between the authorizing user and the user that triggered an interaction (like a message component).
+The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction. For apps installed to a user, it can be used to tell the difference between the authorizing user and the user that triggered an interaction (like a message component).
 
-A key will only be present if both of the following are true:
+A key will only be present if the following are true:
 - The app has been authorized to the [installation context](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) corresponding to the key (`GUILD_INSTALL` or `USER_INSTALL`)
 - The interaction is supported in the source [interaction context](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) (`GUILD`, `BOT_DM`, or `PRIVATE_CHANNEL`) for the installation context corresponding to the key
+- And for command invocations, the command must be supported in the installation context (using [`integration_types`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts))
 
 The values in `authorizing_integration_owners` depend on the key—
 
-- For `GUILD_INSTALL` (`"0"`), the value depends on the source of the interaction:
+- If the key is `GUILD_INSTALL` (`"0"`), the value depends on the source of the interaction:
     - The value will be the guild ID if the interaction is triggered from a server
     - The value will be `"0"` if the interaction is triggered from a DM with the app's bot user
-- For `USER_INSTALL` (`"1"`), the value will be the ID of the authorizing user
+- If the key is `USER_INSTALL` (`"1"`), the value will be the ID of the authorizing user
 
 ###### Interaction Data
 
