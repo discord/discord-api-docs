@@ -1,0 +1,71 @@
+# Discord Activities
+
+> preview 
+> Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
+
+![Building Discord Activities](activities/activities-hero.png)
+
+### The channel is your canvas
+
+Activities are multiplayer games and social experiences in Discord. Under the hood, an Activity is a web application hosted in an iframe within the Discord client. Once a user connects to your Activity, your app can request information using Discord APIs and gateway events to build rich, interactive experiences for your players. 
+
+Whether you're developing a multiplayer game, a new social experience, or another creative idea, your Activity will be built with the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK). The SDK handles all of the communication between Discord and your app, making it easier to do common tasks like managing connected users, supporting mobile clients, and debugging your Activity.
+
+A few examples of Activities built by Discord are [Putt Party](https://support.discord.com/hc/en-us/articles/5101932219671-Putt-Party-FAQ), [Sketch Heads](https://support.discord.com/hc/en-us/articles/4409235005207-Sketch-Heads-FAQ), and [Jamspace Whiteboard](https://support.discord.com/hc/en-us/articles/14042410493847-Jamspace-Whiteboard-FAQ).
+
+The Embedded App SDK uses the RPC API to handle the communication between Discord and your Activity. These guides will help you start building the next big thing on Discord.
+
+<Container>
+  <Card title="How Activities Work" link="#DOCS_ACTIVITIES_HOW_ACTIVITIES_WORK">
+    Learn more about how Activities are run in Discord.
+  </Card>
+  <Card title="Build Your First Discord Activity" link="#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY">
+    Get started building an Activity using the Embedded App SDK.
+  </Card>
+  <Card title="Common Development Patterns" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES">
+    Explore common development patterns to make building Activities simpler.
+  </Card>
+</Container>
+
+---
+
+## Sample Projects
+
+We've published some sample apps on [GitHub](https://github.com/discord/embedded-app-sdk/tree/main/examples) to help you get started building quickly and learn from common development patterns.
+
+<Container>
+  <Card title="Discord Activity Starter" link="https://github.com/discord/embedded-app-sdk/tree/main/examples/discord-activity-starter">
+    This TypeScript starter template is perfect for getting your own Activity up and running quickly.
+  </Card>
+  <Card title="Embedded App SDK Playground" link="https://github.com/discord/embedded-app-sdk/tree/main/examples/sdk-playground">
+    This reference example implements the commands and events available to you within the Embedded App SDK.
+  </Card>
+  <Card title="Multiplayer + State Management" link="https://github.com/discord/embedded-app-sdk/tree/main/examples/react-colyseus">
+    This example uses React Colyseus to demonstrate state management in a multiplayer experience.
+  </Card>
+  <Card title="Nested Framework App" link="https://github.com/discord/embedded-app-sdk/tree/main/examples/nested-messages">
+    This reference example demonstrates an Activity using a nested framework like a game engine.
+  </Card>
+</Container>
+
+---
+
+## Public Developer Preview
+
+Building Activities with the Embedded App SDK is currently in developer preview. During this initial preview, developers will find some limitations that will be removed as we continue to release developer features and functionality for Activities.
+
+Current limitations include: 
+- Activities will only be playable in servers with 25 users or less
+- In-App Purchases (IAP) are possible within Activities but not yet available to developers in this Developer Preview
+- Activities cannot become Verified in this Developer Preview
+- Existing Verified Apps cannot add Activities during this Developer Preview
+
+---
+
+## Support & Feedback
+During this Developer Preview, you can get support and report issues:
+
+- Come find us in the `#activities-dev-help` channel in the [Discord Developers Server](https://discord.gg/discord-developers)
+- Check out the [SDK Release Log](https://github.com/discord/embedded-app-sdk/releases) on GitHub to follow along with updates
+- Report issues in the [Embedded App SDK Github repo](https://github.com/discord/embedded-app-sdk)
+- Reach out to our [Developer Support](https://dis.gd/developer-activities) team if you have any questions about the SDK

@@ -37,7 +37,25 @@ This change introduces new concepts and fields across the API that apps will now
 - All [follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) are currently forced to be ephemeral in DMs
 - Follow-up messages have a bug where they will not correctly respect user permissions
 
----
+## Discord Activities: Developer Preview of the Embedded App SDK
+
+#### March 18, 2024
+
+Discord Developers can now build Activities!
+
+Activities are interactive, multiplayer experiences that run in an iframe in Discord. In order to make the communication between your experience and Discord, we've introduced the Embedded App SDK to assist in communicating between your app and the Discord client.
+
+- New [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW) developer docs with a tutorial, code samples, development guides, and design principles.
+- The Embedded App SDK is now available via [npm](https://npmjs.com/package/@discord/embedded-app-sdk) and [GitHub](http://github.com/discord/embedded-app-sdk).
+- The [Embedded App SDK Reference](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) is now available.
+
+To learn more about how to get started building your own Activity, check out the [Activities Overview](#DOCS_ACTIVITIES_OVERVIEW).
+
+## Enforced Nonces on Create Message Endpoint
+
+#### February 12, 2024
+
+The [Create message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
 
 ## Limit Number of Fields in Embeds
 
