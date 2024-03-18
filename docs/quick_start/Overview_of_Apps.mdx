@@ -16,15 +16,15 @@ Well, let's begin...
 
 ## What can apps do?
 
-You'll find the full power of apps as you explore the documentation and build your own apps, but for now let's take a glance at features you can build with your Discord app.
+You'll discover the full power of apps as you explore the documentation and build your own apps, but for now let's take a glance at features you can build and integrate into your Discord app.
 
 ### Send and manage messages
 
-Messages are expectedly a core part of using Discord, and the same is true for apps. Apps can send messages in a few different ways—they can call the **[Create Message endpoint](#DOCS_RESOURCES_CHANNEL/create-message)**, create and call [webhooks](#DOCS_RESOURCES_WEBHOOK), or send messages when responding to [interactions](#DOCS_INTERACTIONS_OVERVIEW). Apps can also manage messages if they have the proper permissions, which is discussed in the [Channel](#DOCS_RESOURCES_CHANNEL) documentation.
+Messages are (of course) a core part of using Discord, and the same is true for apps. Apps can send messages in different ways—they can call the **[Create Message endpoint](#DOCS_RESOURCES_CHANNEL/create-message)**, create and execute [webhooks](#DOCS_RESOURCES_WEBHOOK), or send messages when responding to [interactions](#DOCS_INTERACTIONS_OVERVIEW). Apps can also manage messages if they have the proper permissions, which is discussed in the [Channel](#DOCS_RESOURCES_CHANNEL) documentation.
 
 ### Interact with users
 
-Apps can send and respond to **[interactions](#DOCS_INTERACTIONS_OVERVIEW)** to create more engaging and intuitive experiences for users. When sending a messages, apps can send interactive components like [buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) and [select menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus) in the `components` field, and open form-like [modals](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) in response to interactions.
+Apps can send and respond to **[interactions](#DOCS_INTERACTIONS_OVERVIEW)** to create more engaging and intuitive experiences for users. When sending messages, apps can send interactive components like [buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) and [select menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus) in the `components` field. Apps can also open form-like [modals](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) in response to interactions.
 
 ### Build embedded experiences
 
@@ -32,7 +32,7 @@ Using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK), apps can c
 
 ### Customize servers
 
-With the right API endpoints and proper [permissions](#DOCS_TOPICS_PERMISSIONS), apps can customize the experience of using and moderating servers by accessing and modifying all sorts of resources core to Discord—including roles, channels, and AutoMod (among *many* others). Explore the **Resources** documentation category to learn about the different Discord resources and how apps can use them.
+With the right API endpoints and proper [permissions](#DOCS_TOPICS_PERMISSIONS), apps can customize the experience of using and moderating servers by accessing and customizing all sorts of resources core to Discord—including roles, channels, and AutoMod among others. Explore the **Resources** documentation category to learn about the different Discord resources and how apps can use them.
 
 ### Update user metadata and presence
 
@@ -40,14 +40,13 @@ Apps can use **[role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNE
 
 Apps can also update a user's **[rich presence](#DOCS_RICH_PRESENCE_HOW_TO)** information in Discord to make it easy for them to customize their profile with games and other activities.
 
-
 ### Add premium features
 
 **[App subscriptions](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS)** let apps charge users and/or servers for premium functionality on a recurring basis natively within Discord. You can read more about eligibility and adding monetization features to your app in the [Monetization](#DOCS_MONETIZATION_OVERVIEW) documentation.
 
 ### ...and more
 
-This developer documentation is full of nooks and crannies with all sorts of features and functionality you can build, customize, and extend within Discord. Discover the worlds of possibility by building your own app and exploring the documentation.
+This developer documentation is full of nooks and crannies with all sorts of features and functionality you can build, customize, and extend within Discord. Discover the limits of possibility by [building your own app](https://discord.com/developers/applications).
 
 --- 
 
@@ -55,8 +54,8 @@ This developer documentation is full of nooks and crannies with all sorts of fea
 
 Discord apps can be installed in two different contexts:
 
-1. Apps installed **to a server** (called a [guild](#DOCS_RESOURCES_GUILD) in the API) by a user with the Manage Server ([`MANAGE_GUILD`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
-2. Apps installed **to a user account**. Apps installed to a user are visible *only* to that user, across all of their servers, DMs, and Group DMs. Apps installed to a user have [limited functionality](#TODO)—for example, they cannot take actions on behalf of the installing user (like updating settings, sending messages, or creating new channels).
+1. Apps installed **to a server** (called a [guild](#DOCS_RESOURCES_GUILD) throughout the API) by a user with the Manage Server ([`MANAGE_GUILD`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
+2. Apps installed **to a user account**. Apps installed to a user are visible *only* to that user, across all of their servers, DMs, and Group DMs by default.
 
 The installation contexts that an app supports can be limited by the developer when [setting up the app](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts). Details about installation contexts are in the [Application resource documentation](#DOCS_RESOURCES_APPLICATION/installation-context).
 
@@ -64,17 +63,17 @@ The installation contexts that an app supports can be limited by the developer w
 
 ## What APIs can apps use?
 
-There are a handful of different APIs that you can pick and choose from based on your app's functionality and which Discord features you want to access. Below is a quick overview of the main APIs on the Discord developer platform, but you can read more details and information about API usage in the [API reference](#DOCS_QUICK_START/API_REFERENCE).
+There are a handful of different APIs that you can pick and choose from based on your app's functionality and which Discord features you want to access. Below is a quick overview of the main APIs on the Discord developer platform, but you can read more details and information about API usage in the [API reference](#DOCS_REFERENCE).
 
 ### HTTP API
 
-The **HTTP API** is a REST API that lets you interact and modify core Discord resources like [channels](#DOCS_RESOURCES_CHANNEL), [servers (or guilds)](#DOCS_RESOURCES_GUILD), [users](#DOCS_RESOURCES_user), and [messages](#DOCS_RESOURCES_CHANNEL/message-object). 
+The **HTTP API** is a REST API that lets you interact and modify core Discord resources like [channels](#DOCS_RESOURCES_CHANNEL), [servers (or guilds)](#DOCS_RESOURCES_GUILD), [users](#DOCS_RESOURCES_USER), and [messages](#DOCS_RESOURCES_CHANNEL/message-object). 
 
 Use the HTTP API to:
 - Retrieve information about a resource
 - Create, update, or delete a resource
 
-Read details about using the HTTP API in the [API reference](#DOCS_QUICK_START/API_REFERENCE/http-api).
+Read details about using the HTTP API in the [API reference](#DOCS_REFERENCE/http-api).
 
 ### Gateway API
 
@@ -83,7 +82,7 @@ The **Gateway API** lets you receive event data over a WebSocket anytime an [eve
 Use the Gateway API to:
 - Receive events happening in Discord
 
-Read details about using the Gateway API in the [API reference](#DOCS_QUICK_START/API_REFERENCE/gateway-websocket-api).
+Read details about using the Gateway API in the [API reference](#DOCS_REFERENCE/gateway-websocket-api).
 
 ---
 
