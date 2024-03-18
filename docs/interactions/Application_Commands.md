@@ -32,7 +32,7 @@ Application commands are native ways to interact with apps in the Discord client
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                            | all         |
 
 > danger
-> `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or set `dm_permission` to `false` to disable globally-scoped commands inside of DMs with your app (TODO: UPDATE THIS)
+> `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or use `contexts` to disable globally-scoped commands inside of DMs with your app
 
 ###### Application Command Types
 
@@ -345,8 +345,6 @@ Similar to how threads [inherit user and role permissions from the parent channe
 ###### Using Default Permissions
 
 Default permissions can be added to a command during creation using the `default_member_permissions` and `context` fields. Adding default permissions doesn't require any Bearer token since it's configured during command creation and isn't targeting specific roles, users, or channels.
-
-<TODO: split out context from this section?>
 
 The `default_member_permissions` field can be used when creating a command to set the permissions a user must have to use it. The value for `default_member_permissions` is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), serialized as a string. Setting it to `"0"` will prohibit anyone in a guild from using the command unless a specific overwrite is configured or the user has admin permissions.
 
