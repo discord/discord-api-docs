@@ -16,11 +16,6 @@ In addition to this Policy, monetizing users must adhere to Discord’s [Terms o
 
 ### You May Not Monetize Content Associated With Any Of The Following:
 
-
-## Monetized Content Policy
-
-### You May Not Monetize Content Associated With Any Of The Following:
-
 1. Intellectual property of other rights holders without written permission.
 2. Impersonation, unless it is clearly labeled as parody or satire.
    1. Labels of parody or satire must be clearly visible to users and to Discord at all times.
