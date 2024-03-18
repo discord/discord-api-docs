@@ -193,7 +193,7 @@ curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-r
 > info
 > Make sure to prepend your token with "Bot"!
 
-## Get Achievements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
+## Get Achievements % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements
 
 Returns all achievements for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -217,7 +217,7 @@ Returns all achievements for the given application. This endpoint has a rate lim
 ]
 ```
 
-## Get Achievement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Get Achievement % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Returns the given achievement for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -239,7 +239,7 @@ Returns the given achievement for the given application. This endpoint has a rat
 }
 ```
 
-## Create Achievement % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
+## Create Achievement % POST /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements
 
 Creates a new achievement for your application. Applications can have a maximum of 1000 achievements. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -287,7 +287,7 @@ Creates a new achievement for your application. Applications can have a maximum 
 }
 ```
 
-## Update Achievement % PATCH /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Update Achievement % PATCH /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -335,7 +335,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 }
 ```
 
-## Delete Achievement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Delete Achievement % DELETE /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Deletes the given achievement from your application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -345,7 +345,7 @@ Deletes the given achievement from your application. This endpoint has a rate li
 // 204 No Content
 ```
 
-## Update User Achievement % PUT /users/{user.id#DOCS_RESOURCES_USER/user-object}/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Update User Achievement % PUT /users/{user.id#DOCS_RESOURCES_USER/user-object}/applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the UserAchievement record for a given user. Use this endpoint to update `secure` achievement progress for users. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -361,7 +361,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 {}
 ```
 
-## Get User Achievements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
+## Get User Achievements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements
 
 Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Credentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 

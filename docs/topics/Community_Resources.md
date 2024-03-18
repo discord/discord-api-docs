@@ -47,7 +47,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 - Dart
   - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
-  - [Tempest](https://github.com/Amatsagu/Tempest)
+  - [tempest](https://github.com/amatsagu/tempest)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands) and its [Deno fork](https://deno.land/x/discord_slash_commands)
