@@ -1084,7 +1084,7 @@ Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204
 
 ## Bulk Guild Ban % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bulk-ban
 
-Ban up to 200 users from a guild, and optionally delete previous messages sent by the banned users. Requires both the `BAN_MEMBERS` and `MANAGE_GUILD` permissions. Returns 200 response on success, including a field `banned_users` with the IDs of the banned users and `failed_users` with all that were not be banned. The list of `failed_users` will also include all users that were already banned.
+Ban up to 200 users from a guild, and optionally delete previous messages sent by the banned users. Requires both the `BAN_MEMBERS` and `MANAGE_GUILD` permissions. Returns a 200 response on success, including the fields `banned_users` with the IDs of the banned users and `failed_users` with IDs that could not be banned or were already banned.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
