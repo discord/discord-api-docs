@@ -1,7 +1,7 @@
 # Introducing Rich Presence
 
 > danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
@@ -14,7 +14,7 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 ## Step 0: Get the SDK
 
 > warn
-> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/).
+> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_GETTING_STARTED/).
 
 ## So, how does it work?
 

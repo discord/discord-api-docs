@@ -375,7 +375,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 | tax           | int    | the amount of tax                    |
 | tax_inclusive | bool   | whether the amount is tax-inclusive  |
 
-## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
+## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
@@ -421,7 +421,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 }
 ```
 
-## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
@@ -456,7 +456,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements/539
 }
 ```
 
-## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
+## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/skus
 
 Get all SKUs for an application.
 
@@ -494,7 +494,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 }
 ```
 
-## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
+## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -508,7 +508,7 @@ curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlem
 // Returns 204 No Content
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
