@@ -1100,10 +1100,10 @@ Ban up to 200 users from a guild, and optionally delete previous messages sent b
 
 On success, this endpoint returns a 200 success response with the following body.
 
-| Field         | Type                | Description                                     |
-|---------------|---------------------|-------------------------------------------------|
-| banned_users? | array of snowflakes | list of user ids, that were successfully banned |
-| failed_users? | array of snowflakes | list of user ids, that were not banned          |
+| Field        | Type                | Description                                     |
+|--------------|---------------------|-------------------------------------------------|
+| banned_users | array of snowflakes | list of user ids, that were successfully banned |
+| failed_users | array of snowflakes | list of user ids, that were not banned          |
 
 > info
 > If none of the users could be banned, an error response code `500000: Failed to ban users` is returned instead.
