@@ -75,6 +75,14 @@ function annotateResults(resultMap: Map<string, github.AnnotationProperties[]>):
   }
 }
 
+function* concatIterables<IterableType>(...iterables: IterableIterator<IterableType>[]) {
+  for (const iterable of iterables) {
+    for (const value of iterable) {
+      yield value;
+    }
+  }
+}
+
 const docFiles = importDirectory(path.join(cwd, "docs"), [".md", ".mdx"]);
 
 if (!docFiles) {
@@ -136,10 +144,11 @@ for (const [name, raw] of docFiles) {
       if (line.trim().length > 3 && line.trim().endsWith("```")) multilineCode = !multilineCode;
     }
     if (multilineCode) return;
-    const matches = line.matchAll(/(?<![!`])\[.+?\]\((?!https?|mailto)(.+?)\)(?!`)/g);
+    const markdownMatches = line.matchAll(/(?<![!`])\[.+?\]\((?!https?|mailto)(?<link>.+?)\)(?!`)/g);
+    const componentMatches = line.matchAll(/(?:link|href)="(?!https?|mailto)(?<link>.+?)"/g);
 
-    for (const match of matches) {
-      const split = match[1].split("#")[1].split("/");
+    for (const match of concatIterables(markdownMatches, componentMatches)) {
+      const split = match.groups!.link.split("#")[1].split("/");
       const page = split[0];
       const anchor = split[1];
       if (!validLinks.has(page)) {
