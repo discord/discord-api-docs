@@ -740,7 +740,7 @@ await discordSdk.ready();
 const participants = await discordSdk.commands.getInstanceConnectedParticipants();
 
 // Subscribe
-function updateParticipants(participants: Types.GetApplicationInstanceConnectedParticipantsResponse) {
+function updateParticipants(participants: Types.GetActivityInstanceConnectedParticipantsResponse) {
   // Do something really cool
 }
 discordSdk.subscribe(Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, updateParticipants);
