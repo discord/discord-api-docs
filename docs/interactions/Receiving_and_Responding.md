@@ -241,6 +241,7 @@ Not all message fields are currently supported.
 | flags?            | integer                                                                          | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, and `SUPPRESS_NOTIFICATIONS` can be set) |
 | components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)                    | message components                                                                                                                                                                                                     |
 | attachments? \*   | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | attachment objects with filename and description                                                                                                                                                                       |
+| poll?             | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object           | A poll!                                                                                                                                                                                                                |
 
 \* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 

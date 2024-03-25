@@ -311,6 +311,13 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 240000 | Message blocked by harmful links filter                                                                                       |
 | 350000 | Cannot enable onboarding, requirements are not met                                                                            |
 | 350001 | Cannot update onboarding while below requirements                                                                             |
+| 520000 | Poll voting blocked                                                                                                           |
+| 520001 | Poll expired                                                                                                                  |
+| 520002 | Invalid channel type for poll creation                                                                                        |
+| 520003 | Cannot edit a poll message                                                                                                    |
+| 520004 | Cannot use an emoji included with the poll                                                                                    |
+| 520006 | Cannot expire a non-poll message                                                                                              |
+| 520007 | Poll is already expired                                                                                                       |
 
 ###### Example JSON Error Response
 
