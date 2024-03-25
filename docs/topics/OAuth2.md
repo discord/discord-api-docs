@@ -73,7 +73,7 @@ All calls to the OAuth2 endpoints require either HTTP Basic authentication or `c
 ###### Authorization URL Example
 
 ```
-https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
+https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent&integration_type=0
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
@@ -81,6 +81,8 @@ https://discord.com/oauth2/authorize?response_type=code&client_id=15773059049219
 When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
 
 `prompt` controls how the authorization flow handles existing authorizations. If a user has previously authorized your application with the requested scopes and prompt is set to `consent`, it will request them to reapprove their authorization. If set to `none`, it will skip the authorization screen and redirect them back to your redirect URI without requesting their authorization. For passthrough scopes, like `bot` and `webhook.incoming`, authorization is always required.
+
+The `integration_type` parameter specifies the type of [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) for the application. The installation context is where your app is about to be installed—to a server or to a user. If your app supports both installation contexts, when set to 0 (GUILD_INSTALL), it indicates that the application is being authorized for installation within a server context. Conversely, when set to 1 (USER_INSTALL), it signifies authorization for installation within a user context.
 
 ###### Redirect URL Example
 
