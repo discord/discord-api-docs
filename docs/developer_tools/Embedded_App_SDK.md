@@ -498,7 +498,7 @@ Locks the application to specific orientations in each of the supported layout m
 #### Usage
 
 ```js
-await discordSdk.commands.commands.setOrientationLockState({ 
+await discordSdk.commands.setOrientationLockState({ 
   lock_state: 'landscape', 
   picture_in_picture_lock_state: 'landscape', 
   grid_lock_state: 'unlocked'
