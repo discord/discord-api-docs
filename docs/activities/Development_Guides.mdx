@@ -332,7 +332,7 @@ Users will see a modal inside the Discord app notifying them whether or not they
 
 Getting an Application Channel Invite, as outlined in [these docs](https://discord.com/developers/docs/resources/invite#get-invite), is not granted by any OAuth scopes. Nonetheless, the `openInviteDialog` command is available via the SDK. This command opens the Application Channel Invite UI within the discord client without requiring additional OAuth scopes.
 
-This command returns an error when called from DM (Direct Message) contexts, so should only be called in Guild Voice Channels. Similarly, this command returns an error if the user has invalid permissions for the channel, so using `getChannelPermissions` (requires OAuth scope `'guild.members.read'`) is highly recommended.
+This command returns an error when called from DM (Direct Message) contexts, so should only be called in Guild Voice Channels. Similarly, this command returns an error if the user has invalid permissions for the channel, so using `getChannelPermissions` (requires OAuth scope `'guilds.members.read'`) is highly recommended.
 
 #### Usage
 
