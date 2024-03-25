@@ -912,7 +912,7 @@ try {
   // check permissions
   ...
 } catch (error) {
-  if (error.code = RPCErrorCodes.INVALID_COMMAND) {
+  if (error.code == RPCErrorCodes.INVALID_COMMAND) {
     // This is an expected error. The Discord client doesn't support this command
     ...
   } else {
