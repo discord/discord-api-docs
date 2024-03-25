@@ -424,7 +424,7 @@ Returns info about the current authorization. Requires authentication with a bea
 | application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
 | scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
 | expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user who has authorized, if the user has authorized with the `identify` scope |
+| user?       | partial [user](#DOCS_RESOURCES_USER/user-object) object                      | the user who has authorized, if the user has authorized with the `identify` scope |
 
 ###### Example Authorization Information
 
