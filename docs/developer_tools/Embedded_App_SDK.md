@@ -499,9 +499,9 @@ No scopes required
 
 ```js
 await discordSdk.commands.setOrientationLockState({ 
-  lock_state: 'landscape', 
-  picture_in_picture_lock_state: 'landscape', 
-  grid_lock_state: 'unlocked'
+  lock_state: 3, // landscape
+  picture_in_picture_lock_state: 3, // landscape
+  grid_lock_state: 1 // unlocked
 });
 ```
 
