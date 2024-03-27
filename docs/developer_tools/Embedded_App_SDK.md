@@ -493,7 +493,7 @@ Locks the application to specific orientations in each of the supported layout m
 
 #### Required Scopes
 
-- guilds.members.read
+No scopes required
 
 #### Usage
 
