@@ -56,7 +56,7 @@ Concepts that are important to know before continuing:
 
 ## Step 1: Creating a new app
 
-First, create a new app in the developer portal. 
+First, create a new app in the developer portal.
 
 Enter a name for your app, select a team, then press **Create**.
 
@@ -65,13 +65,13 @@ Enter a name for your app, select a team, then press **Create**.
 > info
 > **Development Team Access** <br />While developing your application, it will only be launchable or joinable by your user or any member of your developer team. It often makes sense to make a [developer team](https://discord.com/developers/teams) and set the team as the application's owner, especially if you know you will collaborate with others during the development phase.
 
-After you create your app, you'll land on the **General Overview** page of the app's settings, where you can update basic information about your app, like its description and icon. 
+After you create your app, you'll land on the **General Overview** page of the app's settings, where you can update basic information about your app, like its description and icon.
 
 ### Configure Your Activity
 
 Navigate to `Activities -> Getting Started` in the sidebar.
 
-Review this page and press 'Get Started' to make your app eligible for being embedded. 
+Review this page and press 'Get Started' to make your app eligible for being embedded.
 
 ![Configure your Activity](activities/getting-started-activities.png)
 
@@ -110,13 +110,13 @@ The URI should point to the location where you host your app. If you don't yet h
 
 ![Configure your Activity](activities/oauth2-redirect.png)
 
---- 
+---
 
 ## Step 2: Setting up project files
 
 We will use git to pull down a scaffolded project to help you get started quickly.
 
-This tutorial's template includes a minimal frontend and backend with vanilla JavaScript, Node.js, Express, and [Vite](https://vitejs.dev/). 
+This tutorial's template includes a minimal frontend and backend with vanilla JavaScript, Node.js, Express, and [Vite](https://vitejs.dev/).
 
 When you build your applications, you can use whatever backend language and framework you prefer, but we will focus on JavaScript for this guide.
 
@@ -135,7 +135,7 @@ This git clone will pull down a template in a `getting-started-activity` directo
 │   ├── package.json
 |   |── rocket.png
 │   ├── vite.config.js
-├── server     
+├── server
 │   ├── package.json
 │   ├── server.js     -> your Activity backend
 └── .env              -> your credentials, ids and secrets
@@ -158,14 +158,14 @@ DISCORD_CLIENT_SECRET=YOUR_OAUTH2_CLIENT_SECRET_HERE
 > info
 > **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `DISCORD_CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. [Read more in the Vite docs](https://vitejs.dev/guide/env-and-mode)
 
-Any `VITE_` prefixed variables are then made available to us in our code via `import.meta.env` such as `import.meta.env.VITE_DISCORD_CLIENT_ID`. 
+Any `VITE_` prefixed variables are then made available to us in our code via `import.meta.env` such as `import.meta.env.VITE_DISCORD_CLIENT_ID`.
 
 > warn
 > **Secure Your Secrets**<br /> Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` should always be considered sensitive secrets. When using other programming languages and frameworks, it is safe to have your CLIENT_ID public and available to the browser.
 
 ### Set Up Your Frontend
 
-Now that our environment variables are set up, let's spin up our frontend. 
+Now that our environment variables are set up, let's spin up our frontend.
 
 
 ```
@@ -267,15 +267,15 @@ cloudflared tunnel --url http://localhost:5173
 When you run `cloudflared`, the tunnel will generate a public URL for you that we will use in the next step.
 
 ```
-Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  
+Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):
 https://funky-jogging-bunny.trycloudflare.com
 ```
 
-Let's copy that URL and take it into our next step. 
+Let's copy that URL and take it into our next step.
 
-### Set up your Activity URL Mapping 
+### Set up your Activity URL Mapping
 
-To serve your application, you must set up a URL mapping to where your app is hosted. For this tutorial, your app is hosted locally and being served via your network tunnel. 
+To serve your application, you must set up a URL mapping to where your app is hosted. For this tutorial, your app is hosted locally and being served via your network tunnel.
 
 Click on `Activities` -> `URL Mappings` in your application settings. Enter the URL you generated from `cloudflared` in the previous step.
 
@@ -299,18 +299,18 @@ If you haven't already, go to your `User Settings` -> `Advanced` and toggle on t
 
 Now that we are pointing Discord to our locally running app, we can launch it in Discord!
 
-In a voice channel in your Discord server, click on the Activities icon (🚀) to see your Activity at the top of the Activity Shelf. 
+In a voice channel in your Discord server, click on the Activities icon (🚀) to see your Activity at the top of the Activity Shelf.
 
 Clicking on your app will launch your locally running app from inside Discord!
 
 ![Running your activity](activities/start-activity.png)
 
-> info 
+> info
 > **Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata).
 
 We're looking pretty good so far, but we haven't wired up any Discord functionality yet. Let's do that next.
 
---- 
+---
 
 ## Step 5: Authorizing & authenticating users
 
@@ -355,7 +355,7 @@ const port = 3001;
 app.use(express.json());
 
 app.post("/api/token", async (req, res) => {
-  
+
   // Exchange the code for an access_token
   const response = await fetch(`https://discord.com/api/oauth2/token`, {
     method: "POST",
@@ -397,7 +397,7 @@ Server listening at http://localhost:3001
 
 We can now run our server and client-side apps in separate terminal windows. You can see other ways to set this up in our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
 
-### Calling your backend server from your client 
+### Calling your backend server from your client
 
 We're almost there! Now, we need our client application to communicate with our server so we can start the OAuth process and get an access token.
 
@@ -420,7 +420,7 @@ const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
 
 setupDiscordSdk().then(() => {
   console.log("Discord SDK is authenticated");
-  
+
   // We can now make API calls within the scopes we requested in setupDiscordSDK()
   // Note: the access_token returned is a sensitive secret and should be treated as such
 });
@@ -482,7 +482,7 @@ Now if we relaunch our app, we'll be prompted to authorize with Discord using th
 > info
 > If you want to remove the authorization, you can view your application under `Authorized Apps` under your user profile. If you click the `Deauthorize` button next to your app, you can go through the OAuth2 flow when you relaunch your activity.
 
---- 
+---
 
 ## Step 6: Use the SDK to fetch the channel
 
@@ -511,7 +511,7 @@ async function appendVoiceChannelName() {
   // Update the UI with the name of the current voice channel
   const textTagString = `Activity Channel: "${activityChannelName}"`;
   const textTag = document.createElement('p');
-  textTag.innerHTML = textTagString;
+  textTag.textContent = textTagString;
   app.appendChild(textTag);
 }
 ```
@@ -534,7 +534,7 @@ Now when we launch our Activity, we will dynamically see the name of our voice c
 
 ## Step 7: Use the API to fetch the guild
 
-Since we requested the `identify` and `guilds` scopes, you can also use the authorized `access_token` we received earlier to fetch those resources via the API. 
+Since we requested the `identify` and `guilds` scopes, you can also use the authorized `access_token` we received earlier to fetch those resources via the API.
 
 - In the following code block, we will use the `/users/@me/guilds` endpoint in combination with `auth.access_token` to get a list of the guilds we are in.
 - We will then iterate over each guild to find the guild we are in based on the `guildId` defined in discordSdk.
@@ -596,7 +596,7 @@ If we relaunch our Activity, we will also see our the current server's avatar re
 
 ## Next Steps
 
-Congrats on building your first Activity! 🎉  
+Congrats on building your first Activity! 🎉
 
 This is an intentionally simple example to get you started with the communication between your Activity and Discord using the Embedded App SDK and APIs.
 
