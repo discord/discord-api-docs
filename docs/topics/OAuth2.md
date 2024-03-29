@@ -82,7 +82,7 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 
 `prompt` controls how the authorization flow handles existing authorizations. If a user has previously authorized your application with the requested scopes and prompt is set to `consent`, it will request them to reapprove their authorization. If set to `none`, it will skip the authorization screen and redirect them back to your redirect URI without requesting their authorization. For passthrough scopes, like `bot` and `webhook.incoming`, authorization is always required.
 
-The `integration_type` parameter specifies the type of [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) for the application. The installation context is where your app is about to be installed—to a server or to a user. If your app supports both installation contexts, when set to 0 (GUILD_INSTALL), it indicates that the application is being authorized for installation within a server context. Conversely, when set to 1 (USER_INSTALL), it signifies authorization for installation within a user context.
+The `integration_type` parameter specifies the [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) for the authorization. The installation context determines where the application will be installed, and is only relevant when `scope` contains `applications.commands`. When set to 0 (GUILD_INSTALL) the application will be authorized for installation to a server, and when set to 1 (USER_INSTALL) the application will be authorized for installation to a user. The application must be configured in the Developer Portal to support the provided `integration_type`.
 
 ###### Redirect URL Example
 
