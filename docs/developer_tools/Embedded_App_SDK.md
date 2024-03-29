@@ -36,6 +36,7 @@ const discordSdk = new DiscordSDK(DISCORD_CLIENT_ID);
 | [ready](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/ready)             | Resolves when your app has successfully connected to the Discord client |
 | [subscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/subscribe)     | Subscribe to an Embedded App SDK Event                                  |
 | [unsubscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/unsubscribe) | Unsubscribe to an Embedded App SDK Event                                |
+| [close](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/close)       | Unsubscribe to an Embedded App SDK Event                                |
 
 ### ready()
 
@@ -99,6 +100,30 @@ No scopes required
 
 ```js
 await discordSdk.unsubscribe("SDK_EVENT_NAME");
+```
+
+---
+
+### close()
+
+Used to close your app with specific code and reason
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+No scopes required
+
+#### SDK Usage
+
+```js
+async function setup() {
+  await discordSdk.ready();
+  discordSdk.close(RPCCloseCodes.CLOSE_NORMAL, "You exited from app");
+}
 ```
 
 ---
