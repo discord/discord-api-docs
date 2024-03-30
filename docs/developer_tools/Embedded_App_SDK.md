@@ -120,10 +120,7 @@ No scopes required
 #### SDK Usage
 
 ```js
-async function setup() {
-  await discordSdk.ready();
-  discordSdk.close(RPCCloseCodes.CLOSE_NORMAL, "You exited from app");
-}
+discordSdk.close(RPCCloseCodes.CLOSE_NORMAL, "You exited from app");
 ```
 
 ---
