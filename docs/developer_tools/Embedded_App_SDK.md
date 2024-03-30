@@ -106,7 +106,7 @@ await discordSdk.unsubscribe("SDK_EVENT_NAME");
 
 ### close()
 
-Used to close your app with specific code and reason
+Used to close your app with a specified code and reason.
 
 #### Supported Platforms
 | Web | iOS | Android |
