@@ -311,6 +311,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 240000 | Message blocked by harmful links filter                                                                                       |
 | 350000 | Cannot enable onboarding, requirements are not met                                                                            |
 | 350001 | Cannot update onboarding while below requirements                                                                             |
+| 500000 | Failed to ban users                                                                                                           |
 
 ###### Example JSON Error Response
 
