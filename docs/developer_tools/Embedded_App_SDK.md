@@ -36,7 +36,7 @@ const discordSdk = new DiscordSDK(DISCORD_CLIENT_ID);
 | [ready](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/ready)             | Resolves when your app has successfully connected to the Discord client |
 | [subscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/subscribe)     | Subscribe to an Embedded App SDK Event                                  |
 | [unsubscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/unsubscribe) | Unsubscribe to an Embedded App SDK Event                                |
-| [close](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/close)       | Unsubscribe to an Embedded App SDK Event                                |
+| [close](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/close)             | Close an Embedded App                                                   |
 
 ### ready()
 
