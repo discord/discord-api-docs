@@ -112,9 +112,9 @@ Where an app can be installed, also called its supported [installation contexts]
 
 ###### Application Integration Type Configuration Object
 
-| Field                 | Type                                                                       | Description                                                                      |
-|-----------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| oauth2_install_params | [install params object](#DOCS_RESOURCES_APPLICATION/install-params-object) | Install params for each installation context's default in-app authorization link |
+| Field                  | Type                                                                       | Description                                                                      |
+|------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| oauth2_install_params? | [install params object](#DOCS_RESOURCES_APPLICATION/install-params-object) | Install params for each installation context's default in-app authorization link |
 
 ###### Application Flags
 
