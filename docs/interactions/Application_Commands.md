@@ -249,7 +249,7 @@ Commands have two sets of contexts on the [application command object](#DOCS_INT
 - `integration_types` defines the **[installation contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context)** that a command supports
 - `contexts` defines the **[interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts)** where a command can be used
 
-The available interaction contexts for a command depends on Details for both types of command contexts are in the sections below.
+Details for both types of command contexts are in the sections below.
 
 > info 
 > Contexts are distinct from, and do not affect, any [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for apps installed to a server.
