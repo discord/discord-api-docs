@@ -1010,14 +1010,14 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 | Field           | Type                                                                                 | Description                                                                                                                      |
 |-----------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| name            | string                                                                               | Activity's name                                                                                                                  |
+| name            | string                                                                               | Activity's name (max 128 characters)                                                                                             |
 | type            | integer                                                                              | [Activity type](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types)                                                      |
-| url?            | ?string                                                                              | Stream URL, is validated when type is 1                                                                                          |
+| url?            | ?string                                                                              | Stream URL, is validated when type is 1 (max 512 characters)                                                                     |
 | created_at      | integer                                                                              | Unix timestamp (in milliseconds) of when the activity was added to the user's session                                            |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
 | application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
 | details?        | ?string                                                                              | What the player is currently doing                                                                                               |
-| state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
+| state?          | ?string                                                                              | User's current party status, or text used for a custom status (max 128 characters)                                               |
 | emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
 | party?          | [party](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
@@ -1111,10 +1111,10 @@ To use an external image via media proxy, specify the URL as the field's value w
 
 When received over the gateway, the `buttons` field is an array of strings, which are the button labels. Bots cannot access a user's activity button URLs. When sending, the `buttons` field must be an array of the below object:
 
-| Field | Type   | Description                                            |
-|-------|--------|--------------------------------------------------------|
-| label | string | Text shown on the button (1-32 characters)             |
-| url   | string | URL opened when clicking the button (1-512 characters) |
+| Field | Type   | Description                                              |
+|-------|--------|----------------------------------------------------------|
+| label | string | Text shown on the button (max 32 characters)             |
+| url   | string | URL opened when clicking the button (max 512 characters) |
 
 ###### Example Activity
 
