@@ -166,11 +166,14 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#
 
 ###### Encryption Modes
 
-| Mode   | Key                      | Nonce Bytes                                                            | Generating Nonce                      |
-|--------|--------------------------|------------------------------------------------------------------------|---------------------------------------|
-| Normal | xsalsa20_poly1305        | The nonce bytes are the RTP header                                     | Copy the RTP header                   |
-| Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes              |
-| Lite   | xsalsa20_poly1305_lite   | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value |
+| Mode   | Key                             | Nonce Bytes                                                            | Generating Nonce                      | Additional Data (AAD) Bytes |
+|--------|---------------------------------|------------------------------------------------------------------------|---------------------------------------|-----------------------------|
+| Normal | xsalsa20_poly1305               | The nonce bytes are the RTP header                                     | Copy the RTP header                   | NONE                        |
+| Suffix | xsalsa20_poly1305_suffix        | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes (192bit)     | NONE                        |
+| Lite   | xsalsa20_poly1305_lite          | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value | NONE                        |
+|        | xsalsa20_poly1305_lite_rtpsize  | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value | NONE                        |
+|        | aead_xchacha20_poly1305_rtpsize | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value | Copy the RTP header         |
+|        | aead_aes256_gcm_rtpsize         | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value | Copy the RTP header         |
 
 >warn
 >The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
@@ -193,7 +196,8 @@ We can now start encrypting and sending voice data over the previously establish
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305 and xchacha20_poly1305. 
+The aead_aes256_gcm_rtpsize mode's nonce is formed with the 12 byte header alone and does not require additional padding. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
 
 ###### Voice Packet Structure
 
