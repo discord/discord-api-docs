@@ -1,7 +1,7 @@
-# SDK Starter Guide
+# Game SDK: Getting Started
 
 > info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+> Looking to build a game inside of Discord? Check out [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW). We will be revisiting the Game SDK docs soon.
 
 > warn
 > Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)

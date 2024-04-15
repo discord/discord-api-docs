@@ -73,7 +73,7 @@ All calls to the OAuth2 endpoints require either HTTP Basic authentication or `c
 ###### Authorization URL Example
 
 ```
-https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
+https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent&integration_type=0
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
@@ -81,6 +81,8 @@ https://discord.com/oauth2/authorize?response_type=code&client_id=15773059049219
 When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
 
 `prompt` controls how the authorization flow handles existing authorizations. If a user has previously authorized your application with the requested scopes and prompt is set to `consent`, it will request them to reapprove their authorization. If set to `none`, it will skip the authorization screen and redirect them back to your redirect URI without requesting their authorization. For passthrough scopes, like `bot` and `webhook.incoming`, authorization is always required.
+
+The `integration_type` parameter specifies the [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) for the authorization. The installation context determines where the application will be installed, and is only relevant when `scope` contains `applications.commands`. When set to 0 (GUILD_INSTALL) the application will be authorized for installation to a server, and when set to 1 (USER_INSTALL) the application will be authorized for installation to a user. The application must be configured in the Developer Portal to support the provided `integration_type`.
 
 ###### Redirect URL Example
 
@@ -257,11 +259,10 @@ In return, you will receive an access token (without a refresh token):
 
 ## Bot Users
 
-So, what are bot users?
+Discord's API provides bot users, which are a separate type of user dedicated to automation. Bot users are automatically added to all apps, and are authenticated using the bot token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bot users have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY).
+
 
 ### Bot vs User Accounts
-
-Discord's API provides bot users, which are a separate type of user dedicated to automation. Bots are automatically added to all apps, and are authenticated using a token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bots have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY).
 
 > warn
 > Developers must abide by the [terms of service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.

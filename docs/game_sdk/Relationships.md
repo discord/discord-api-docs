@@ -138,6 +138,9 @@ for (int i = 0; i < relationshipsManager.Count(); i++)
 
 Fires at initialization when Discord has cached a snapshot of the current status of all your relationships. Wait for this to fire before calling `Filter` within its callback.
 
+> warn
+> `OnRefresh` requires the `relationships.read` [OAuth2 scope](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes). The GameSDK will return 0 relationships if the requested user has not authenticated with that scope.
+
 ###### Parameters
 
 None

@@ -1082,6 +1082,32 @@ Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+## Bulk Guild Ban % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bulk-ban
+
+Ban up to 200 users from a guild, and optionally delete previous messages sent by the banned users. Requires both the `BAN_MEMBERS` and `MANAGE_GUILD` permissions. Returns a 200 response on success, including the fields `banned_users` with the IDs of the banned users and `failed_users` with IDs that could not be banned or were already banned.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params
+
+| Field                   | Type                | Description                                                             | Default |
+|-------------------------|---------------------|-------------------------------------------------------------------------|---------|
+| user_ids                | array of snowflakes | list of user ids to ban (max 200)                                       |         |
+| delete_message_seconds? | integer             | number of seconds to delete messages for, between 0 and 604800 (7 days) | 0       |
+
+###### Bulk Ban Response
+
+On success, this endpoint returns a 200 success response with the following body.
+
+| Field        | Type                | Description                                     |
+|--------------|---------------------|-------------------------------------------------|
+| banned_users | array of snowflakes | list of user ids, that were successfully banned |
+| failed_users | array of snowflakes | list of user ids, that were not banned          |
+
+> info
+> If none of the users could be banned, an error response code `500000: Failed to ban users` is returned instead.
+
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
@@ -1165,7 +1191,7 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Returns an object with one `pruned` key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
+Returns an object with one `pruned` key indicating the number of members that would be removed in a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
@@ -1178,7 +1204,7 @@ By default, prune will not remove users with roles. You can optionally include s
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an object with one `pruned` key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing `pruned` to `null`. Fires multiple [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway events.
+Begin a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions. Returns an object with one `pruned` key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing `pruned` to `null`. Fires multiple [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway events.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
