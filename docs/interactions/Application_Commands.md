@@ -510,9 +510,9 @@ These are not enforced rules. You are free to use subcommands and groups however
 
 We support nesting one level deep within a group, meaning your top level command can contain subcommand groups, and those groups can contain subcommands. **That is the only kind of nesting supported.** Here's some visual examples:
 
+### Examples of Valid Nesting
+
 ```
-VALID
-
 command
 |
 |__ subcommand
@@ -520,8 +520,6 @@ command
 |__ subcommand
 
 ----
-
-VALID
 
 command
 |
@@ -535,8 +533,6 @@ command
 
 ----
 
-VALID
-
 command
 |
 |__ subcommand-group
@@ -544,10 +540,11 @@ command
     |__ subcommand
 |
 |__ subcommand
+```
 
--------
+### Examples of Invalid Nesting
 
-INVALID
+```
 
 command
 |
@@ -560,8 +557,6 @@ command
     |__ subcommand-group
 
 ----
-
-INVALID
 
 command
 |
