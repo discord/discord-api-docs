@@ -339,6 +339,8 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
+| [Message Poll Vote Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-poll-vote-add)                                   | User voted on a poll                                                                                                                           |
+| [Message Poll Vote Remove](#DOCS_TOPICS_GATEWAY_EVENTS/message-poll-vote-remove)                             | User removed a vote on a poll                                                                                                                  |
 
 #### Hello
 
@@ -1243,4 +1245,32 @@ Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. I
 
 Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
+### Polls
 
+#### Message Poll Vote Add
+
+Sent when a user votes on a poll. If the poll allows multiple selection, one event will be sent per answer.
+
+###### Message Poll Vote Add Fields
+
+| Field      | Type      | Description       |
+|------------|-----------|-------------------|
+| user_id    | snowflake | ID of the user    |
+| channel_id | snowflake | ID of the channel |
+| message_id | snowflake | ID of the message |
+| guild_id?  | snowflake | ID of the guild   |
+| answer_id  | integer   | ID of the answer  |
+
+#### Message Poll Vote Remove
+
+Sent when a user removes their vote on a poll. If the poll allows for multiple selections, one event will be sent per answer.
+
+###### Message Poll Vote Remove Fields
+
+| Field      | Type      | Description       |
+|------------|-----------|-------------------|
+| user_id    | snowflake | ID of the user    |
+| channel_id | snowflake | ID of the channel |
+| message_id | snowflake | ID of the message |
+| guild_id?  | snowflake | ID of the guild   |
+| answer_id  | integer   | ID of the answer  |
