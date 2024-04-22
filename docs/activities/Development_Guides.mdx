@@ -676,13 +676,12 @@ See the example below:
 
 
 ```javascript
-import {DiscordSDK} from '@discord/embedded-app-sdk';
-const discordSdk = new DiscordSDK(YOUR_APP_ID);
+import {patchUrlMappings} from '@discord/embedded-app-sdk';
 const isProd = process.env.NODE_ENV === 'production'; // Actual dev/prod env check may vary for you
 
 async function setupApp() {
   if (isProd) {
-    discordSdk.patchUrlMappings([{prefix: '/foo', target: 'foo.com'}]);
+    patchUrlMappings([{prefix: '/foo', target: 'foo.com'}]);
   }
   // start app initialization after this....
 }
