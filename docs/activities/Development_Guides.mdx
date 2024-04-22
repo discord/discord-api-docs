@@ -609,6 +609,7 @@ Under the hood we utilize Cloudflare Workers, which brings some restrictions, ou
 #### Supported Ports
 
 See the full list of supported ports for network traffic, as listed in [Cloudflare's Docs](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy).
+At this time, URL mappings do not support making requests to external url ports. This is a [known issue](https://developers.cloudflare.com/workers/platform/known-issues/#custom-ports) of Cloudflare workers.
 
 #### WebTransport
 
