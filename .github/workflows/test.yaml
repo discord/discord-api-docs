@@ -28,7 +28,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:links
-  links:
+  mdx:
     name: Validate mdx
     runs-on: ubuntu-latest
     steps:
