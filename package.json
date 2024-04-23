@@ -18,10 +18,11 @@
 	},
 	"homepage": "https://github.com/discord/discord-api-docs#readme",
 	"scripts": {
-		"build": "tsc --build",
+		"build": "tsc",
 		"lint": "eslint ci",
 		"lint:fix": "eslint ci --fix",
-		"test:links": "node dist/ci/checkLinks.js",
+		"test:links": "tsx ci/checkLinks.ts",
+		"test:build": "tsx ci/checkBuild.ts",
 		"test:tables": "npx markdown-table-formatter docs/**/*.{md,mdx} --check",
 		"fix:tables": "npx markdown-table-formatter docs/**/*.{md,mdx}"
 	},
@@ -36,9 +37,13 @@
 		"eslint-plugin-prettier": "^5.0.0",
 		"markdown-table-formatter": "^1.4.0",
 		"prettier": "^3.0.3",
+		"tsx": "^4.7.2",
 		"typescript": "^5.2.2"
 	},
 	"peerDependencies": {
-		"@mdx-js/react": "^2.0.0"
+		"@mdx-js/react": "^3.0.1"
+	},
+	"dependencies": {
+		"@mdx-js/mdx": "^3.0.1"
 	}
 }
