@@ -607,7 +607,7 @@ All network traffic is routed through the Discord Proxy for various security rea
 Under the hood we utilize Cloudflare Workers, which brings some restrictions, outlined below.
 
 #### iframe Supported Ports
-When an activity's iframe makes a request (i.e. to https://<app_id>.discordsays.com), url port usage is limited to Cloudflare's list of supported ports as shown [here](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy).
+When an activity's iframe makes a request (i.e. to https://&lt;app_id&gt;.discordsays.com), url port usage is limited to Cloudflare's list of supported ports as shown [here](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy).
 
 #### Url Mapping Target Supported Ports
 At this time, URL mapping targets do not support external url ports. This is a [known issue](https://developers.cloudflare.com/workers/platform/known-issues/#custom-ports) of Cloudflare workers.
