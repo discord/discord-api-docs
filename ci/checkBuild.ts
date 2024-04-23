@@ -5,16 +5,24 @@ import { compile } from "@mdx-js/mdx";
 const args = process.argv.slice(2);
 const bail = args.includes("--bail");
 
-// TODO(beckwith): this is quite broken for all `md` files, figure out why
-const extensions = [".mdx"];
+const ROOT_DIR = path.join(import.meta.dirname, "..");
+const DOCS_DIR = path.join(ROOT_DIR, "docs");
+
+const extensions = [".mdx", ".md"];
 let hasErrors = false;
-for (const file of await fs.readdir("docs", { recursive: true })) {
-  if (extensions.includes(path.extname(file))) {
+
+for (const docsRelativePath of await fs.readdir(DOCS_DIR, { recursive: true })) {
+  const filePath = path.join(DOCS_DIR, docsRelativePath);
+  const rootRelPath = path.relative(ROOT_DIR, filePath);
+
+  if (extensions.includes(path.extname(filePath))) {
     try {
-      console.log(`Compiling ${file}...`);
-      await compile(await fs.readFile(path.join("docs", file)));
+      console.error(`Compiling ${rootRelPath}`);
+      await compile(await fs.readFile(filePath), {
+        format: path.extname(filePath) === ".mdx" ? "mdx" : "md",
+      });
     } catch (error) {
-      console.error(`Error compiling ${file}:`);
+      console.error(`Error compiling ${rootRelPath}:`);
       console.error(error);
       hasErrors = true;
       if (bail) {
