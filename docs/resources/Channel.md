@@ -290,7 +290,7 @@ Represents a message sent in a channel within Discord.
 | application?                | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object                                                              | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
 | application_id?             | snowflake                                                                                                                                 | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application                                                                                                                        |
 | flags?                      | integer                                                                                                                                   | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                 |
-| message_reference?          | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
+| message_reference?          | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-structure) object                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
 | message_snapshot? \[5\]     | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                 | the message associated with the message_reference. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                         |
 | referenced_message? \[4\]   | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                 | the message associated with the message_reference                                                                                                                                                                                                                       |
 | interaction_metadata?       | [message interaction metadata object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object-message-interaction-metadata-structure) | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). Sent if the message is sent as a result of an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                  |
@@ -313,7 +313,7 @@ Represents a message sent in a channel within Discord.
 
 \[4\] This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
 
-\[5\] This field is only returned for messages with a `message_reference` of type `FORWARD`.
+\[5\] See [message reference types](#DOCS_RESOURCES_CHANNEL/message-reference-types)
 
 
 ###### Message Types
@@ -505,11 +505,11 @@ Metadata about the interaction, including the source of the interaction and rele
 
 ### Message Reference Object
 
-###### Message Reference Structure
+#### Message Reference Structure
 
 | Field               | Type      | Description                                                                                                                             |
 |---------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| type? \*            | integer   | type of reference. Determines how associated data is populated.                                                                         |
+| type? \*            | integer   | [type of reference](#DOCS_RESOURCES_CHANNEL/message-reference-types).                                                                   |
 | message_id?         | snowflake | id of the originating message                                                                                                           |
 | channel_id? \*\*    | snowflake | id of the originating message's channel                                                                                                 |
 | guild_id?           | snowflake | id of the originating message's guild                                                                                                   |
@@ -520,20 +520,20 @@ In future API versions this will become a required field.
 
 \*\* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model.
 
-###### Message Reference Types
+#### Message Reference Types
 
-> warn
-> If the type is not set, assume a `DEFAULT` type.
+Determines how associated data is populated.
 
-| Type            | Value | Description                                              |
-|-----------------|-------|----------------------------------------------------------|
-| DEFAULT         | 0     | A standard reference used by replies.                    |
-| FORWARD         | 1     | Reference used to point to a message at a point in time. |
+| Type            | Value | Coupled Message Field | Description                                              |
+|-----------------|-------|-----------------------|----------------------------------------------------------|
+| DEFAULT         | 0     | `referenced_message`  | A standard reference used by replies.                    |
+| FORWARD         | 1     | `message_snapshot`    | Reference used to point to a message at a point in time. |
 
 
-#### Message Types
+#### Message Reference Content Attribution
 
-There are multiple message types that have a message_reference object.  Since message references are generic attribution to a previous message, there will be more types of messages which have this information in the future.
+There are multiple message types that have a `message_reference` object.
+Since message references are generic attribution to a message, there will be more types of messages which have this information in the future.
 
 ###### Crosspost messages
 
@@ -555,8 +555,8 @@ There are multiple message types that have a message_reference object.  Since me
 - These are messages which capture a snapshot of a message.
 - These messages have a `message_snapshot` field containing a copy of the original message. This copy follows the same structure as a message, but has only the minimal set of fields returned required for context/rendering.
   - of note: `author` will be excluded
-- A forwarded message can be identified by looking at it's `message_reference.type` field.
-  - this is the only way to generate a `message_snapshot`
+- A forwarded message can be identified by looking at it's `message_reference.type` field
+  - `message_snapshot` will be the message data associated with the forward
   - prevents spoofing forwarded data
   - `message_snapshots` are taken at moment the forward message is created, and are **immutable**; any mutations to the orignal message will not be propagated.
 - Forwards are created by including a message_reference with `FORWARD` type when sending a message.
@@ -1085,7 +1085,8 @@ If operating on a guild channel, this endpoint requires the current user to have
 
 Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
-To create a message as a reply or forward of another message, apps can include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure). Refer to the documentation of for required fields.
+To create a message as a reply or forward of another message, apps can include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-structure).
+Refer to the documentation of for required fields.
 
 Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 
@@ -1110,7 +1111,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | tts?               | boolean                                                                                           | `true` if this is a TTS message                                                                                                                                                                                                   |
 | embeds?\*          | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | Up to 10 `rich` embeds (up to 6000 characters)                                                                                                                                                                                    |
 | allowed_mentions?  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | Allowed mentions for the message                                                                                                                                                                                                  |
-| message_reference? | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | Include to make your message a reply or a forward                                                                                                                                                                                 |
+| message_reference? | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-structure)                          | Include to make your message a reply or a forward                                                                                                                                                                                 |
 | components?\*      | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | Components to include with the message                                                                                                                                                                                            |
 | sticker_ids?\*     | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                                                                            |
 | files[n]?\*        | file contents                                                                                     | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                                                                           |
