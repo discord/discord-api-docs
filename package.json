@@ -7,6 +7,9 @@
 	"directories": {
 		"doc": "docs"
 	},
+	"engines": {
+		"node": ">= 20.11.0"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/discord/discord-api-docs.git"
