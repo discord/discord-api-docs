@@ -1,5 +1,10 @@
 # Change Log
 
+## Modify Guild Member flags field permissions
+
+#### April 23, 2024
+Update permissions necessary to modify the `flags` field when calling the [Modify Guild Member](#DOCS_RESOURCES_GUILD/modify-guild-member) endpoint.
+
 ## CSV Export for Premium App Analytics
 
 #### April 2, 2024
