@@ -1,6 +1,6 @@
 # One-Time Purchases
 
-One-time purchases enable you to charge your users for premium app functionality with in-app items. Before you can add one-time purchases to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_MONETIZATION_OVERVIEW/eligibility-checklist).
+One-time purchases enable you to charge your users for premium functionality with in-app items. Before you can add one-time purchases to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_MONETIZATION_OVERVIEW/eligibility-checklist) in your [app's settings](https://discord.com/developers/applications).
 
 Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_MONETIZATION_SKUS) (stock-keeping unit) to represent your app's premium offering via subscriptions or items.
 
