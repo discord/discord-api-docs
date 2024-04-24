@@ -12,7 +12,7 @@ Developers now have the ability to set up a Store page in the Developer Portal. 
 Once you've created SKUs for an [App Subscription](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS) or [One-Time Purchase](#DOCS_MONETIZATION_ONE-TIME_PURCHASES), you can add those SKUs to your Store to make them available for purchase by your users.
 
 ### Manage SKUs
-While creating and editing SKUs on the `Monetization -> Manage SKUs` tab, you have a few options for managing your SKUs visibility and publishing to your users:
+While creating and editing SKUs in your [app's settings](https://discord.com/developers/applications) on the `Monetization -> Manage SKUs` tab, you have a few options for managing your SKUs visibility and publishing to your users:
 
 - **Add to store**: Will add a published SKU to your Store
 - **Remove from store**: Will remove a published SKU from your Store, keeping it published to the API
