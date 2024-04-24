@@ -41,6 +41,8 @@ For subscriptions, SKUs will have a type of either `SUBSCRIPTION` represented by
 
 | Type               | Value | Description                                              |
 |--------------------|-------|----------------------------------------------------------|
+| DURABLE            | 2     | Durable one-time purchase                                |
+| CONSUMABLE         | 3     | Consumable one-time purchase                             |
 | SUBSCRIPTION       | 5     | Represents a recurring subscription                      |
 | SUBSCRIPTION_GROUP | 6     | System-generated group for each SUBSCRIPTION SKU created |
 
@@ -110,7 +112,10 @@ Congratulations on going live! 🥳
 
 ## List SKUs % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/skus
 
-Returns all SKUs for a given application. Because of how our SKU and subscription systems work, you will see two SKUs for your premium offering. For integration and testing entitlements, you should use the SKU with `type: 5`.
+Returns all SKUs for a given application. 
+
+> info
+> Because of how our SKU and subscription systems work, you will see two SKUs for your subscription offering. For integration and testing entitlements for Subscriptions, you should use the SKU with `type: 5`.
 
 ```json
 [
