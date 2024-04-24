@@ -4,7 +4,7 @@
 
 #### April 24, 2024
 
-Two new features are now available for Premium Apps: One-Time Purchases and Stores for Premium Apps.
+Two new features are now available for Premium Apps: One-Time Purchases and Stores.
 
 **One-Time Purchases**
 
