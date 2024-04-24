@@ -63,7 +63,7 @@ Consuming the entitlement will update the entitlement to return a true value in 
 ## Testing Your Implementation
 
 > warn
-> The method of testing purchases for One-Time Purchases differs from the method for App Subscriptions.  Do NOT use Test Entitlements for One-Time Purchases.
+> The method of testing purchases for One-Time Purchases differs from the method for App Subscriptions. **Do NOT use Test Entitlements for One-Time Purchases.**
 
 ### Using Application Test Mode
 
