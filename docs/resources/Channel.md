@@ -290,8 +290,8 @@ Represents a message sent in a channel within Discord.
 | application?                | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object                                                              | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
 | application_id?             | snowflake                                                                                                                                 | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application                                                                                                                        |
 | flags?                      | integer                                                                                                                                   | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                 |
-| message_reference?          | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-structure) object                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
-| message_snapshot? \[5\]     | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                 | the message associated with the message_reference. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                         |
+| message_reference?          | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-structure) object                                                           | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
+| message_snapshots? \[5\]    | array of [message snapshot](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects                                                      | the message associated with the message_reference. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                         |
 | referenced_message? \[4\]   | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                 | the message associated with the message_reference                                                                                                                                                                                                                       |
 | interaction_metadata?       | [message interaction metadata object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object-message-interaction-metadata-structure) | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). Sent if the message is sent as a result of an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                  |
 | interaction?                | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure)        | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                                  |
@@ -546,6 +546,9 @@ Determines how associated data is populated.
 | DEFAULT         | 0     | `referenced_message`  | A standard reference used by replies.                    |
 | FORWARD         | 1     | `message_snapshot`    | Reference used to point to a message at a point in time. |
 
+`FORWARD` can only be used for basic messages; i.e. messages which do not have strong bindings to a non global entity.
+Thus we support only messages with DEFAULT or REPLY types, but disallowed if there are any polls, calls, or components.
+This is subject to change in the future.
 
 #### Message Reference Content Attribution
 
@@ -570,10 +573,10 @@ Since message references are generic attribution to a message, there will be mor
 ###### Forwards
 
 - These are messages which capture a snapshot of a message.
-- These messages have a `message_snapshot` field containing a copy of the original message. This copy follows the same structure as a message, but has only the minimal set of fields returned required for context/rendering.
+- These messages have an array of [`message_snapshots`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) field containing a copy of the original message. This copy follows the same structure as a message, but has only the minimal set of fields returned required for context/rendering.
   - of note: `author` will be excluded
 - A forwarded message can be identified by looking at it's `message_reference.type` field
-  - `message_snapshot` will be the message data associated with the forward
+  - `message_snapshots` will be the message data associated with the forward. Currently we support only 1 snapshot.
   - prevents spoofing forwarded data
   - `message_snapshots` are taken at moment the forward message is created, and are **immutable**; any mutations to the orignal message will not be propagated.
 - Forwards are created by including a message_reference with `FORWARD` type when sending a message.
@@ -610,6 +613,23 @@ once per 100 milliseconds, but will downsample so that no more than 256 datapoin
 
 As of 2023-04-14, clients upload a 1 channel, 48000 Hz, 32kbps Opus stream in an OGG container.
 The encoding, and the waveform details, are an implementation detail and may change without warning or documentation.
+
+
+### Message Snapshot Object
+
+#### Message Snapshot Structure
+
+| Field       | Type      | Description                                                                        |
+|-------------|-----------|------------------------------------------------------------------------------------|
+| message*    | [message] | a subset of fields in the [message object](#DOCS_RESOURCES_CHANNEL/message-object) |
+| guild_id?   | snowflake | id of the originating message's guild                                              |
+
+* The current list of message fields subset consists of:
+`content, embeds, attachments, timestamp, edited_timestamp, flags`.
+
+> info
+> While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
+
 
 ### Followed Channel Object
 
