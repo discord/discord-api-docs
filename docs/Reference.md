@@ -253,8 +253,8 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure           | Example                       |
-|-------------------------|---------------------|-------------------------------|
+| Type                    | Structure             | Example                         |
+|-------------------------|-----------------------|---------------------------------|
 | User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
 | User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
 | Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
