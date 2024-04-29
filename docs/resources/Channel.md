@@ -579,7 +579,7 @@ Since message references are generic attribution to a message, there will be mor
   - prevents spoofing forwarded data
   - `message_snapshots` are taken at moment the forward message is created, and are **immutable**; any mutations to the orignal message will not be propagated.
 - Forwards are created by including a message_reference with `FORWARD` type when sending a message.
-  - Required fields: `type, message_id, channel_id`
+  - Required fields: `type`, `message_id`, `channel_id`
   - the requestor must have VIEW permissions
 
 ###### Replies
@@ -624,7 +624,7 @@ The encoding, and the waveform details, are an implementation detail and may cha
 | guild_id? | snowflake | id of the originating message's guild                                              |
 
 * The current list of message fields subset consists of:
-`content, embeds, attachments, timestamp, edited_timestamp, flags`.
+`content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`.
 
 > info
 > While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
