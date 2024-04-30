@@ -62,7 +62,6 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
-  - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
   - [Bsati's Slash Command Builder](https://bsati.github.io/dc-app-command-builder/)
 
 ## OpenAPI Specification
@@ -96,7 +95,6 @@ Discord Game SDK's lobby and networking layer shares similarities with other gam
 
 Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. These tools can help you test how embeds will appear inside of Discord:
 
-- [Autocode Embed Builder](https://autocode.com/tools/discord/embed-builder/)
 - [JohnyTheCarrot's Embed Previewer](https://github.com/JohnyTheCarrot/discord-embed-previewer) (Browser Extension)
 
 ## API Types
