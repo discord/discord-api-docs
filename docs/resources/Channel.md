@@ -523,19 +523,20 @@ In future API versions this will become a required field.
 #### Message Reference Types
 
 Determines how associated data is populated.
+
 | Type    | Value | Coupled Message Field | Description                                              |
 |---------|-------|-----------------------|----------------------------------------------------------|
 | DEFAULT | 0     | `referenced_message`  | A standard reference used by replies.                    |
 | FORWARD | 1     | `message_snapshot`    | Reference used to point to a message at a point in time. |
 
 `FORWARD` can only be used for basic messages; i.e. messages which do not have strong bindings to a non global entity.
-Thus we support only messages with DEFAULT or REPLY types, but disallowed if there are any polls, calls, or components.
+Thus we support only messages with `DEFAULT` or `REPLY` types, but disallowed if there are any polls, calls, or components.
 This is subject to change in the future.
 
 #### Message Reference Content Attribution
 
+Message references are generic attribution on a message.
 There are multiple message types that have a `message_reference` object.
-Since message references are generic attribution to a message, there will be more types of messages which have this information in the future.
 
 ###### Crosspost messages
 
@@ -563,7 +564,7 @@ Since message references are generic attribution to a message, there will be mor
   - `message_snapshots` are taken at moment the forward message is created, and are **immutable**; any mutations to the orignal message will not be propagated.
 - Forwards are created by including a message_reference with `FORWARD` type when sending a message.
   - Required fields: `type`, `message_id`, `channel_id`
-  - the requestor must have VIEW permissions
+  - the requestor must have `VIEW_CHANNEL` permissions
 
 ###### Replies
 
@@ -601,12 +602,12 @@ The encoding, and the waveform details, are an implementation detail and may cha
 
 #### Message Snapshot Structure
 
-| Field     | Type      | Description                                                                        |
-|-----------|-----------|------------------------------------------------------------------------------------|
-| message*  | [message] | a subset of fields in the [message object](#DOCS_RESOURCES_CHANNEL/message-object) |
-| guild_id? | snowflake | id of the originating message's guild                                              |
+| Field      | Type      | Description                                                                      |
+|------------|-----------|----------------------------------------------------------------------------------|
+| message \* | [message] | subset of fields in the [message object](#DOCS_RESOURCES_CHANNEL/message-object) |
+| guild_id?  | snowflake | ID of the origin message's guild                                                 |
 
-* The current list of message fields subset consists of:
+\* The current list of message fields subset consists of:
 `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`.
 
 > info
