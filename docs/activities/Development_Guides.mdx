@@ -769,7 +769,7 @@ let avatarSrc = '';
 if (user.avatar) {
   avatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
 } else {
-  const defaultAvatarIndex = Math.abs(Number(user.id) >> 22) % 6;
+  const defaultAvatarIndex = (BigInt(user.id) >> 22n) % 6n;
   avatarSrc = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`
 }
 
@@ -811,7 +811,7 @@ fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
     } else if (user.avatar) {
       guildAvatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     } else {
-      const defaultAvatarIndex = Math.abs(Number(user.id) >> 22) % 6;
+      const defaultAvatarIndex = (BigInt(user.id) >> 22n) % 6n;
       avatarSrc = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`;
     }
 
