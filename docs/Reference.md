@@ -353,6 +353,9 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
+> info
+> Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
+
 ## Image Data
 
 Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
