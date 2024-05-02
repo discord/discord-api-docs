@@ -48,6 +48,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | public_flags?           | integer                                                                              | the public [flags](/docs/resources/user#user-object-user-flags) on a user's account                  | identify              |
 | avatar_decoration_data? | ?[avatar decoration data](/docs/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                | identify              |
 | collectibles?           | ?[collectibles](/docs/resources/user#collectibles) object                            | data for the user's collectibles                                                                     | identify              |
+| primary_guild?          | ?[user primary guild](/docs/resources/user#user-object-user-primary-guild)           | the user's primary guild                                                                             | identify              |
 
 ###### Example User
 
@@ -75,6 +76,12 @@ There are other rules and restrictions not shared here for the sake of spam and 
       "label": "",
       "palette": "cobalt"
     }
+  },
+  "primary_guild": {
+    "identity_guild_id": "1234647491267808778",
+    "identity_enabled": true,
+    "tag": "DISC",
+    "badge": "7d1734ae5a615e82bc7a4033b98fade8"
   }
 }
 ```
@@ -109,6 +116,15 @@ Premium types denote the level of premium a user has. Visit the [Nitro](https://
 | 1     | Nitro Classic |
 | 2     | Nitro         |
 | 3     | Nitro Basic   |
+
+###### User Primary Guild
+
+| Field             | Type       | Description                                                   |
+|-------------------|------------|---------------------------------------------------------------|
+| identity_guild_id | ?snowflake | the id of the user's primary guild                            |
+| identity_enabled  | ?boolean   | whether the user is displaying the primary guild's server tag |
+| tag               | ?string    | the text of the user's server tag. Limited to 4 characters    |
+| badge             | ?string    | the [server tag badge hash](#DOCS_REFERENCE/image-formatting) |
 
 ### Avatar Decoration Data Object
 
