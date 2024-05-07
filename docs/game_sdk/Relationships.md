@@ -1,7 +1,8 @@
 # Relationships
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
 This manager helps you access the relationships your players have made on Discord. Unfortunately, it won't help them make relationships IRL. They're on their own for that. It lets you:
 
@@ -138,8 +139,9 @@ for (int i = 0; i < relationshipsManager.Count(); i++)
 
 Fires at initialization when Discord has cached a snapshot of the current status of all your relationships. Wait for this to fire before calling `Filter` within its callback.
 
-> warn
-> `OnRefresh` requires the `relationships.read` [OAuth2 scope](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes). The GameSDK will return 0 relationships if the requested user has not authenticated with that scope.
+:::warning
+`OnRefresh` requires the `relationships.read` [OAuth2 scope](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes). The GameSDK will return 0 relationships if the requested user has not authenticated with that scope.
+:::
 
 ###### Parameters
 

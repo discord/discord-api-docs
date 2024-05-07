@@ -102,7 +102,7 @@ SCHEDULED --> CANCELED
 | member?                  | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) | guild member data for this user for the guild which this event belongs to, if any |
 
 
-## List Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
+## List Scheduled Events for Guild % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/scheduled-events
 
 Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects for the given guild.
 
@@ -112,15 +112,17 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 |------------------|---------|--------------------------------------------------|
 | with_user_count? | boolean | include number of users subscribed to each event |
 
-## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
+## Create Guild Scheduled Event % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/scheduled-events
 
 Create a guild scheduled event in the guild. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-create) Gateway event.
 
-> info
-> A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
+:::info
+A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -140,7 +142,7 @@ Create a guild scheduled event in the guild. Returns a [guild scheduled event](#
 
 \*\* Required for events with `'entity_type': EXTERNAL`
 
-## Get Guild Scheduled Event % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
+## Get Guild Scheduled Event % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)
 
 Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
@@ -150,18 +152,21 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 |------------------|---------|--------------------------------------------------|
 | with_user_count? | boolean | include number of users subscribed to this event |
 
-## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
+## Modify Guild Scheduled Event % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)
 
 Modify a guild scheduled event. Returns the modified [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-update) Gateway event.
 
-> info
-> To start or end an event, use this endpoint to modify the event's [status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) field.
+:::info
+To start or end an event, use this endpoint to modify the event's [status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) field.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-> info
-> This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
+:::info
+This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
+:::
 
 ###### JSON Params
 
@@ -184,11 +189,11 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 - `entity_metadata` with a `location` field must be provided
 - `scheduled_end_time` must be provided
 
-## Delete Guild Scheduled Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
+## Delete Guild Scheduled Event % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)
 
 Delete a guild scheduled event. Returns a `204` on success. Fires a [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-delete) Gateway event.
 
-## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/users
+## Get Guild Scheduled Event Users % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)/users
 
 Get a list of guild scheduled event users subscribed to a guild scheduled event. Returns a list of [guild scheduled event user](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
@@ -232,9 +237,9 @@ Any event with `'status': SCHEDULED` after a certain time interval (on the order
 
 NOTE: `entity_type` is expressed by name rather than value for readability
 
-> info
-> A user must be a member of the guild in order to access events for that guild unless the guild is lurkable. If a guild is lurkable,
-> events in that guild may be visible to lurkers depending on the event type and the permissions of any channels associated with the event.
+:::info
+A user must be a member of the guild in order to access events for that guild unless the guild is lurkable. If a guild is lurkable,
+::> events in that guild may be visible to lurkers depending on the event type and the permissions of any channels associated with the event.
 
 ### Permissions for events with entity_type: STAGE_INSTANCE
 

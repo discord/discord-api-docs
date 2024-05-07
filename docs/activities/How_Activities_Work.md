@@ -22,8 +22,9 @@ This SDK is intended for use by a single-page application. We recognize develope
 
 ### Sample Code and Activity Lifecycle Diagram
 
-> info
-> Below is a minimal example of setting up the SDK. Please see our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects) for more complete sample applications.
+:::info
+Below is a minimal example of setting up the SDK. Please see our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects) for more complete sample applications.
+:::
 
 ```javascript
 import {DiscordSDK} from '@discord/embedded-app-sdk';
@@ -63,4 +64,4 @@ async function setup() {
 
 This diagram illustrates the communication flow between your application and Discord in the sample code above.
 
-![Diagram of how Activities communicate with Discord](activities/embedded-app-flow-diagram.svg)
+![Diagram of how Activities communicate with Discord](/images/activities/embedded-app-flow-diagram.svg)

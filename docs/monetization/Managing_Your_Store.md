@@ -25,14 +25,15 @@ While creating and editing SKUs in your [app's settings](https://discord.com/dev
 ### Manage Store
 Under the `Monetization -> Manage Store` tab, you can organize your SKUs for both subscriptions and items. You can add new or existing SKUs or update the order your SKUs appear to your users in the Store.
 
-> info
-> Currently you can only have one Subscription published on your app and in your Store.
+:::info
+Currently you can only have one Subscription published on your app and in your Store.
+:::
 
 ## User Access for Your Store
 
 Users can now access an App's store page from the Bot User's profile in a server. This allows users to view an available subscription and one-time purchases, select a subscription to view its perks, benefits and details, and make a purchase directly from an App's Store page.
 
-![Accessing the store as a user](botuser-profile.png)
+![Accessing the store as a user](/images/botuser-profile.png)
 
 ### Viewing Subscriptions in Your Store
 
@@ -41,10 +42,10 @@ Currently, you can only have one active App Subscription SKU for your app. If yo
 > preview
 > Support for multiple subscription SKUs is coming soon.
 
-![Subscriptions in your Store View](premium-subscriptions.png)
+![Subscriptions in your Store View](/images/premium-subscriptions.png)
 
 ### Viewing Items in Your Store
 
 As you build out your One-Time Purchase SKUs, you can add as many durable and consumable items to your Store as needed by your app.
 
-![Items in your Store View](premium-items.png)
+![Items in your Store View](/images/premium-items.png)

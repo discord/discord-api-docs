@@ -14,8 +14,9 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
-> warn
-> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+:::warning
+In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+:::
 
 ###### OAuth2 Scopes
 
@@ -38,8 +39,8 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                        |
 | gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                           |
 | guilds                                   | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                       |
-| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                           |
-| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                       |
+| guilds.join                              | allows [/guilds/\{guild.id\}/members/\{user.id\}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                           |
+| guilds.members.read                      | allows [/users/@me/guilds/\{guild.id\}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                       |
 | identify                                 | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                              |
 | messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                   |
 | relationships.read                       | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                         |
@@ -52,9 +53,9 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | voice                                    | allows your app to connect to voice on user's behalf and see all the voice members - requires Discord approval                                                                          |
 | webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                     |
 
-> info
-> In order to add a user to a guild, your bot has to already belong to that guild.
-> `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
+:::info
+In order to add a user to a guild, your bot has to already belong to that guild.
+::> `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
 
 ## State and Security
 
@@ -170,8 +171,9 @@ To disable an access or refresh token, you can revoke it by making a `POST` requ
 - `token` - the access token or refresh token to revoke
 - `token_type_hint` *(optional)* - the `token` parameter's type—either `access_token` or `refresh_token`
 
-> warn
-> When you revoke a token, any active access or refresh tokens associated with that authorization will be revoked, regardless of the `token` and `token_type_hint` values you pass in.
+:::warning
+When you revoke a token, any active access or refresh tokens associated with that authorization will be revoked, regardless of the `token` and `token_type_hint` values you pass in.
+:::
 
 ```python
 import requests
@@ -219,8 +221,9 @@ The client credential flow is a quick and easy way for bot developers to get the
 
 You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
 
-> info
-> Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
+:::info
+Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
+:::
 
 ###### Client Credentials Token Request Example
 
@@ -264,8 +267,9 @@ Discord's API provides bot users, which are a separate type of user dedicated to
 
 ### Bot vs User Accounts
 
-> warn
-> Developers must abide by the [terms of service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+:::warning
+Developers must abide by the [terms of service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+:::
 
 Bot users have a few differences compared to standard Discord users:
 

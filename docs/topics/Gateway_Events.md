@@ -9,8 +9,9 @@ All Gateway events are encapsulated in a [Gateway event payload](#DOCS_TOPICS_GA
 
 For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
 
-> warn
-> Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
+:::warning
+Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
+:::
 
 ### Event Names
 
@@ -46,8 +47,9 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by an app to Discord through a Gateway connection.
 
-> info
-> Previously, Gateway send events were labeled as commands
+:::info
+Previously, Gateway send events were labeled as commands
+:::
 
 | Name                                                                       | Description                                               |
 |----------------------------------------------------------------------------|-----------------------------------------------------------|
@@ -84,8 +86,9 @@ Details about identifying is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 | browser | string | Your library name     |
 | device  | string | Your library name     |
 
-> warn
-> These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](#DOCS_CHANGE_LOG/updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
+:::warning
+These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](#DOCS_CHANGE_LOG/updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
+:::
 
 ###### Example Identify
 
@@ -183,8 +186,9 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 | nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) response                                 | false                      |
 
-> info
-> Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
+:::info
+Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
+:::
 
 ###### Example Request Guild Members
 
@@ -595,8 +599,9 @@ The inner payload can be:
 | stage_instances        | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects                      | Stage instances in the guild                                                                                               |
 | guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
 
-> warn
-> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+:::warning
+If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+:::
 
 #### Guild Update
 
@@ -666,8 +671,9 @@ Sent when a guild integration is updated.
 
 #### Guild Member Add
 
-> warn
-> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::warning
+If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::
 
 Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object with an extra `guild_id` key:
 
@@ -679,8 +685,9 @@ Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_
 
 #### Guild Member Remove
 
-> warn
-> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::warning
+If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::
 
 Sent when a user is removed from a guild (leave/kick/ban).
 
@@ -693,8 +700,9 @@ Sent when a user is removed from a guild (leave/kick/ban).
 
 #### Guild Member Update
 
-> warn
-> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::warning
+If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::
 
 Sent when a guild member is updated. This will also fire when the user object of a guild member changes.
 
@@ -725,7 +733,7 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 |-------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | guild_id    | snowflake                                                                  | ID of the guild                                                                                |
 | members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | Set of guild members                                                                           |
-| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (0 <= chunk\_index < chunk\_count)        |
+| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (0 \<= chunk\_index \< chunk\_count)        |
 | chunk_count | integer                                                                    | Total number of expected chunks for this response                                              |
 | not_found?  | array                                                                      | When passing an invalid ID to `REQUEST_GUILD_MEMBERS`, it will be returned here                |
 | presences?  | array of [presence](#DOCS_TOPICS_GATEWAY_EVENTS/presence) objects          | When passing `true` to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
@@ -873,8 +881,9 @@ Sent when an invite is deleted.
 
 ### Messages
 
-> warn
-> Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](#DOCS_TOPICS_GATEWAY/list-of-intents), and the message object won't include `guild_id` or `member`.
+:::warning
+Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](#DOCS_TOPICS_GATEWAY/list-of-intents), and the message object won't include `guild_id` or `member`.
+:::
 
 #### Message Create
 
@@ -892,8 +901,9 @@ Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES
 
 Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
 
-> warn
-> Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an ID and channel_id).
+:::warning
+Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an ID and channel_id).
+:::
 
 #### Message Delete
 
@@ -978,13 +988,15 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 
 #### Presence Update
 
-> warn
-> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
+:::warning
+If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
+:::
 
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 
-> warn
-> The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
+:::warning
+The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
+:::
 
 ###### Presence Update Event Fields
 
@@ -1028,22 +1040,24 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | flags?          | integer                                                                              | [Activity flags](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-flags) `OR`d together, describes what the payload includes |
 | buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
-> info
-> Bot users are only able to set `name`, `state`, `type`, and `url`.
+:::info
+Bot users are only able to set `name`, `state`, `type`, and `url`.
+:::
 
 ###### Activity Types
 
-| ID | Name      | Format              | Example                              |
-|----|-----------|---------------------|--------------------------------------|
-| 0  | Game      | Playing {name}      | "Playing Rocket League"              |
-| 1  | Streaming | Streaming {details} | "Streaming Rocket League"            |
-| 2  | Listening | Listening to {name} | "Listening to Spotify"               |
-| 3  | Watching  | Watching {name}     | "Watching YouTube Together"          |
-| 4  | Custom    | {emoji} {state}     | ":smiley: I am cool"                 |
-| 5  | Competing | Competing in {name} | "Competing in Arena World Champions" |
+| ID | Name      | Format                | Example                              |
+|----|-----------|-----------------------|--------------------------------------|
+| 0  | Game      | Playing \{name\}      | "Playing Rocket League"              |
+| 1  | Streaming | Streaming \{details\} | "Streaming Rocket League"            |
+| 2  | Listening | Listening to \{name\} | "Listening to Spotify"               |
+| 3  | Watching  | Watching \{name\}     | "Watching YouTube Together"          |
+| 4  | Custom    | \{emoji\} \{state\}   | ":smiley: I am cool"                 |
+| 5  | Competing | Competing in \{name\} | "Competing in Arena World Champions" |
 
-> info
-> The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
+:::info
+The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
+:::
 
 ###### Activity Timestamps
 
@@ -1097,17 +1111,17 @@ To use an external image via media proxy, specify the URL as the field's value w
 
 ###### Activity Flags
 
-| Name                        | Value  |
-|-----------------------------|--------|
-| INSTANCE                    | 1 << 0 |
-| JOIN                        | 1 << 1 |
-| SPECTATE                    | 1 << 2 |
-| JOIN_REQUEST                | 1 << 3 |
-| SYNC                        | 1 << 4 |
-| PLAY                        | 1 << 5 |
-| PARTY_PRIVACY_FRIENDS       | 1 << 6 |
-| PARTY_PRIVACY_VOICE_CHANNEL | 1 << 7 |
-| EMBEDDED                    | 1 << 8 |
+| Name                        | Value    |
+|-----------------------------|----------|
+| INSTANCE                    | `1 << 0` |
+| JOIN                        | `1 << 1` |
+| SPECTATE                    | `1 << 2` |
+| JOIN_REQUEST                | `1 << 3` |
+| SYNC                        | `1 << 4` |
+| PLAY                        | `1 << 5` |
+| PARTY_PRIVACY_FRIENDS       | `1 << 6` |
+| PARTY_PRIVACY_VOICE_CHANNEL | `1 << 7` |
+| EMBEDDED                    | `1 << 8` |
 
 ###### Activity Buttons
 
@@ -1160,8 +1174,9 @@ When received over the gateway, the `buttons` field is an array of strings, whic
 }
 ```
 
-> warn
-> Clients may only update their game status 5 times per 20 seconds.
+:::warning
+Clients may only update their game status 5 times per 20 seconds.
+:::
 
 #### Typing Start
 
@@ -1191,8 +1206,9 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
 
-> warn
-> A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. You should attempt to disconnect from the currently connected voice server, and not attempt to reconnect until a new voice server is allocated.
+:::warning
+A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. You should attempt to disconnect from the currently connected voice server, and not attempt to reconnect until a new voice server is allocated.
+:::
 
 ###### Voice Server Update Event Fields
 

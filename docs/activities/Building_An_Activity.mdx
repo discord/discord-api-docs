@@ -1,3 +1,5 @@
+import Collapsible from '@site/src/components/Collapsible';
+
 # Building Your First Activity in Discord
 
 > preview
@@ -18,10 +20,11 @@ For your first Activity, we'll be building an app in JavaScript with the followi
 - [Fetch and display the name of the current voice channel](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-6-use-the-sdk-to-fetch-the-channel)
 - [Fetch and display the avatar of the current server](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-7-use-the-api-to-fetch-the-guild)
 
-![Building Your First Activity Tutorial](activities/tutorial-hero.png)
+![Building Your First Activity Tutorial](/images/activities/tutorial-hero.png)
 
-> info
-> This example is intended to illustrate how a basic web application works while embedded inside of Discord. For more advanced examples, please see our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
+:::info
+This example is intended to illustrate how a basic web application works while embedded inside of Discord. For more advanced examples, please see our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
+:::
 
 ---
 
@@ -60,10 +63,11 @@ First, create a new app in the developer portal.
 
 Enter a name for your app, select a team, then press **Create**.
 
-![Create a new app](activities/new-app.png)
+![Create a new app](/images/activities/new-app.png)
 
-> info
-> **Development Team Access** <br />While developing your application, it will only be launchable or joinable by your user or any member of your developer team. It often makes sense to make a [developer team](https://discord.com/developers/teams) and set the team as the application's owner, especially if you know you will collaborate with others during the development phase.
+:::info
+**Development Team Access** <br />While developing your application, it will only be launchable or joinable by your user or any member of your developer team. It often makes sense to make a [developer team](https://discord.com/developers/teams) and set the team as the application's owner, especially if you know you will collaborate with others during the development phase.
+:::
 
 After you create your app, you'll land on the **General Overview** page of the app's settings, where you can update basic information about your app, like its description and icon.
 
@@ -73,7 +77,7 @@ Navigate to `Activities -> Getting Started` in the sidebar.
 
 Review this page and press 'Get Started' to make your app eligible for being embedded.
 
-![Configure your Activity](activities/getting-started-activities.png)
+![Configure your Activity](/images/activities/getting-started-activities.png)
 
 From the `Activities` section of the developer portal, you can configure:
 
@@ -93,7 +97,7 @@ Find these values and hold on to them for a later step.
 
 <Collapsible title="How to find your CLIENT_ID and CLIENT_SECRET" icon="view" open>
 
-![oauth2-details](activities/oauth2-details.png)
+![oauth2-details](/images/activities/oauth2-details.png)
 
 ### Client ID
 
@@ -108,7 +112,7 @@ This is a private identifier that your app will use to grant an OAuth2 `access_t
 
 The URI should point to the location where you host your app. If you don't yet have a url, you should fill in the field with a placeholder, such as https://127.0.0.1.
 
-![Configure your Activity](activities/oauth2-redirect.png)
+![Configure your Activity](/images/activities/oauth2-redirect.png)
 
 ---
 
@@ -155,13 +159,15 @@ VITE_DISCORD_CLIENT_ID=YOUR_OAUTH2_CLIENT_ID_HERE
 DISCORD_CLIENT_SECRET=YOUR_OAUTH2_CLIENT_SECRET_HERE
 ```
 
-> info
-> **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `DISCORD_CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. [Read more in the Vite docs](https://vitejs.dev/guide/env-and-mode)
+:::info
+**Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `DISCORD_CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. [Read more in the Vite docs](https://vitejs.dev/guide/env-and-mode)
+:::
 
 Any `VITE_` prefixed variables are then made available to us in our code via `import.meta.env` such as `import.meta.env.VITE_DISCORD_CLIENT_ID`.
 
-> warn
-> **Secure Your Secrets**<br /> Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` should always be considered sensitive secrets. When using other programming languages and frameworks, it is safe to have your CLIENT_ID public and available to the browser.
+:::warning
+**Secure Your Secrets**<br /> Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` should always be considered sensitive secrets. When using other programming languages and frameworks, it is safe to have your CLIENT_ID public and available to the browser.
+:::
 
 ### Set Up Your Frontend
 
@@ -231,8 +237,9 @@ document.querySelector('#app').innerHTML = `
 ```
 </Collapsible>
 
-> warn
-> **Time to leave your browser behind**<br />Once you add the SDK to your app, you will **not** be able to view your app inside your web browser. In the next step, we will run your Activity inside of Discord. In the next step, we will go over how to view you app in Discord.
+:::warning
+**Time to leave your browser behind**<br />Once you add the SDK to your app, you will **not** be able to view your app inside your web browser. In the next step, we will run your Activity inside of Discord. In the next step, we will go over how to view you app in Discord.
+:::
 
 ---
 
@@ -279,7 +286,7 @@ To serve your application, you must set up a URL mapping to where your app is ho
 
 Click on `Activities` -> `URL Mappings` in your application settings. Enter the URL you generated from `cloudflared` in the previous step.
 
-![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](/images/activities/url-mapping-tutorial.png)
 
 | PREFIX | TARGET                                  |
 |--------|-----------------------------------------|
@@ -293,7 +300,7 @@ One more step before we can see our work inside of Discord!
 
 If you haven't already, go to your `User Settings` -> `Advanced` and toggle on the `Developer Mode` setting. Developer Mode exposes context menu items for building apps, including giving you access to Activities that you are working on.
 
-![Enabling Developer Mode in Settings](activities/developer-mode.gif)
+![Enabling Developer Mode in Settings](/images/activities/developer-mode.gif)
 
 ### Running your Activity in Discord
 
@@ -303,10 +310,11 @@ In a voice channel in your Discord server, click on the Activities icon (🚀) t
 
 Clicking on your app will launch your locally running app from inside Discord!
 
-![Running your activity](activities/start-activity.png)
+![Running your activity](/images/activities/start-activity.png)
 
-> info
-> **Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata).
+:::info
+**Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata).
+:::
 
 We're looking pretty good so far, but we haven't wired up any Discord functionality yet. Let's do that next.
 
@@ -322,7 +330,7 @@ We will use `express` for this example, but any backend language or framework wi
 
 This diagram illustrates the common pattern for granting a user an OAuth2 access_token:
 
-![Flow diagram for Oauth2](activities/oauth-flow-diagram.svg)
+![Flow diagram for Oauth2](/images/activities/oauth-flow-diagram.svg)
 
 We will be implementing this pattern in this tutorial, but more example implementations can also be found in this sample project:
 
@@ -401,9 +409,9 @@ We can now run our server and client-side apps in separate terminal windows. You
 
 We're almost there! Now, we need our client application to communicate with our server so we can start the OAuth process and get an access token.
 
-> info
-> **What is vite.config.js?**<br />
-> To allow our frontend app to call our Express server, Vite requires us to set up a proxy for `/api/*` to our backend server, which is running on port 3001. In their docs, you can learn more about [Vite](https://vitejs.dev/).
+:::info
+**What is vite.config.js?**<br />
+::> To allow our frontend app to call our Express server, Vite requires us to set up a proxy for `/api/*` to our backend server, which is running on port 3001. In their docs, you can learn more about [Vite](https://vitejs.dev/).
 
 `getting-started-activity/client/main.js`
 
@@ -473,14 +481,15 @@ document.querySelector('#app').innerHTML = `
 
 Now if we relaunch our app, we'll be prompted to authorize with Discord using the `identify` and `guilds` scopes.
 
-![Prompt to authorize Activity](activities/tutorial-auth.png)
+![Prompt to authorize Activity](/images/activities/tutorial-auth.png)
 
-> warn
-> **Safe storage of tokens**<br />
-> Access tokens and refresh tokens are powerful, and should be treated similarly to passwords or other highly-sensitive data. Store both types of tokens securely and in an encrypted manner.
+:::warning
+**Safe storage of tokens**<br />
+::> Access tokens and refresh tokens are powerful, and should be treated similarly to passwords or other highly-sensitive data. Store both types of tokens securely and in an encrypted manner.
 
-> info
-> If you want to remove the authorization, you can view your application under `Authorized Apps` under your user profile. If you click the `Deauthorize` button next to your app, you can go through the OAuth2 flow when you relaunch your activity.
+:::info
+If you want to remove the authorization, you can view your application under `Authorized Apps` under your user profile. If you click the `Deauthorize` button next to your app, you can go through the OAuth2 flow when you relaunch your activity.
+:::
 
 ---
 
@@ -528,7 +537,7 @@ setupDiscordSdk().then(() => {
 
 Now when we launch our Activity, we will dynamically see the name of our voice channel populate in our app.
 
-![Discord Activities](activities/tutorial-channel-name.png)
+![Discord Activities](/images/activities/tutorial-channel-name.png)
 
 ---
 
@@ -540,8 +549,9 @@ Since we requested the `identify` and `guilds` scopes, you can also use the auth
 - We will then iterate over each guild to find the guild we are in based on the `guildId` defined in discordSdk.
 - Finally, we can create a new HTML image element with the guild avatar and append it to our application.
 
-> info
-> In this example, we use a pure `fetch` request to call the REST API. However, this is a great place to use your favorite Discord JavaScript library alongside the Embedded App SDK.
+:::info
+In this example, we use a pure `fetch` request to call the REST API. However, this is a great place to use your favorite Discord JavaScript library alongside the Embedded App SDK.
+:::
 
 `getting-started-activity/client/main.js`
 
@@ -590,7 +600,7 @@ setupDiscordSdk().then(() => {
 
 If we relaunch our Activity, we will also see our the current server's avatar render in our app.
 
-![Discord Activities](activities/tutorial-hero.png)
+![Discord Activities](/images/activities/tutorial-hero.png)
 
 ---
 

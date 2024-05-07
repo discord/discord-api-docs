@@ -1,3 +1,7 @@
+import LocalePicker from '@site/src/components/LocalePicker';
+import Collapsible from '@site/src/components/Collapsible';
+import Button from '@site/src/components/Button';
+
 <LocalePicker currentLocale="pl" />
 
 # Tworzenie pierwszej aplikacji Discorda
@@ -9,7 +13,7 @@ Zaczniemy od stworzenia aplikacji Discorda, która pozwala członkom serwera gra
 <Collapsible title="Tworzona aplikacja" icon="view">
 Oto, jak będzie wyglądała gotowa aplikacja:
 
-![Demonstracja przykładowej aplikacji](getting-started-demo.gif)
+![Demonstracja przykładowej aplikacji](/images/getting-started-demo.gif)
 
 Poniżej przedstawiono szczegółowy zarys przepływu użytkowników:
 
@@ -53,7 +57,7 @@ Niektóre uprawnienia intent są „[privileged](#DOCS_TOPICS_GATEWAY/privileged
 Więcej informacji na temat uprawnień intent i pełną ich listę, wraz z powiązanymi zdarzeniami, znajdziesz w [dokumentacji bramki](#DOCS_TOPICS_GATEWAY/gateway-intents).
 </Collapsible>
 
-![Karta Bot w ustawieniach aplikacji](app-add-bot.png)
+![Karta Bot w ustawieniach aplikacji](/images/app-add-bot.png)
 
 Na stronie **Bot** znajduje się sekcja **Token**, gdzie możesz skopiować i zresetować token bota.
 
@@ -61,8 +65,9 @@ Tokeny bota służą do uwierzytelniania żądań API i zawierają uprawnienia u
 
 Skopiuj token i zapisz go w bezpiecznym miejscu (np. menedżerze haseł).
 
-> warn
-> Nie będzie można wyświetlić tokena ponownie, chyba że wygenerujesz go od nowa, więc przechowaj token w bezpiecznym miejscu.
+:::warning
+Nie będzie można wyświetlić tokena ponownie, chyba że wygenerujesz go od nowa, więc przechowaj token w bezpiecznym miejscu.
+:::
 
 ### Dodawanie zakresów i uprawnień bota
 
@@ -77,8 +82,9 @@ Podczas tworzenia aplikacji zakresy i uprawnienia określają, co Twoja aplikacj
 
 Kliknij **OAuth2** na lewym pasku bocznym, a następnie wybierz **Generator adresu URL**.
 
-> info
-> Generator adresu URL tworzy łącze instalacyjne na podstawie zakresów i uprawnień wybranych dla aplikacji. Możesz użyć łącza do instalacji aplikacji na swoim serwerze lub udostępnić je innym, aby mogli zainstalować aplikację.
+:::info
+Generator adresu URL tworzy łącze instalacyjne na podstawie zakresów i uprawnień wybranych dla aplikacji. Możesz użyć łącza do instalacji aplikacji na swoim serwerze lub udostępnić je innym, aby mogli zainstalować aplikację.
+:::
 
 Na razie dodaj dwa zakresy:
 - `applications.commands`, który umożliwia aplikacji tworzenie [poleceń](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
@@ -90,10 +96,11 @@ Zobacz listę wszystkich [zakresów OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources
 
 Po dodaniu zakresów powinien zostać wyświetlony adres URL, który możesz skopiować w celu instalacji aplikacji.
 
-![Zrzut ekranu generatora adresu URL](url-generator.png)
+![Zrzut ekranu generatora adresu URL](/images/url-generator.png)
 
-> info
-> Podczas pracy nad aplikacjami należy budować i testować je na serwerze, który nie jest aktywnie używany przez innych. Jeśli nie masz jeszcze własnego serwera, możesz [utworzyć go za darmo](https://support.discord.com/hc/pl/articles/204849977-Jak-stworzy%C4%87-serwer-).
+:::info
+Podczas pracy nad aplikacjami należy budować i testować je na serwerze, który nie jest aktywnie używany przez innych. Jeśli nie masz jeszcze własnego serwera, możesz [utworzyć go za darmo](https://support.discord.com/hc/pl/articles/204849977-Jak-stworzy%C4%87-serwer-).
+:::
 
 Skopiuj powyższy adres URL i wklej go w swojej przeglądarce. Zostanie wyświetlony interfejs instalacji, w którym należy upewnić się, że instalujesz aplikację na serwerze, na którym możesz ją rozwijać i testować.
 
@@ -113,15 +120,16 @@ Aby uprościć nieco pracę, aplikacja wykorzystuje bibliotekę [discord-interac
 
 W tym przewodniku używamy narzędzia Glitch, które pozwala sklonować aplikację i pracować nad nią w przeglądarce. Jeśli wolisz pracować nad aplikacją lokalnie, zobacz instrukcje dotyczące używania narzędzia ngrok [w README](https://github.com/discord/discord-example-app#running-app-locally).
 
-> info
-> Choć rozwiązanie Glitch znakomicie nadaje się do pracy nad aplikacją i jej testowania, [ma ograniczenia techniczne](https://help.glitch.com/kb/article/17-technical-restrictions/), więc należy rozważyć użycie innych dostawców usług hostingowych do publicznej wersji aplikacji.
+:::info
+Choć rozwiązanie Glitch znakomicie nadaje się do pracy nad aplikacją i jej testowania, [ma ograniczenia techniczne](https://help.glitch.com/kb/article/17-technical-restrictions/), więc należy rozważyć użycie innych dostawców usług hostingowych do publicznej wersji aplikacji.
+:::
 
 Aby zacząć, **[edytuj (lub sklonuj) projekt Glitch 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
 
 Po edytowaniu projektu zostanie otwarty nowy projekt Glitch.
 
 <Collapsible title="Interfejs projektu Glitch" description="Przegląd interfejsu projektu Glitch" icon="view">
-![Przegląd projektu Glitch](glitch-project.png)
+![Przegląd projektu Glitch](/images/glitch-project.png)
 
 - **Nazwa projektu** to unikalna nazwa produktu widoczna w lewym górnym rogu
 - **`.env`** to plik, w którym są przechowywane Twoje wszystkie dane uwierzytelniające do aplikacji
@@ -162,8 +170,9 @@ Po skonfigurowaniu danych uwierzytelniających czas zainstalować i wdrożyć po
 
 ### Instalacja poleceń z ukośnikiem
 
-> info
-> Aplikacja wykorzystuje moduł [`node-fetch`](https://github.com/node-fetch/node-fetch) do instalacji poleceń z ukośnikiem. Kod odpowiedzialny za instalację znajduje się w pliku `utils.js`, w funkcji `DiscordRequest()`.
+:::info
+Aplikacja wykorzystuje moduł [`node-fetch`](https://github.com/node-fetch/node-fetch) do instalacji poleceń z ukośnikiem. Kod odpowiedzialny za instalację znajduje się w pliku `utils.js`, w funkcji `DiscordRequest()`.
+:::
 
 Projekt zawiera skrypt `register`, którego możesz użyć do instalacji poleceń w elemencie `ALL_COMMANDS`, który jest zdefiniowany na końcu pliku `commands.js`. Instaluje on polecenia jako globalne polecenia, wywołując punkt końcowy [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) API HTTP.
 
@@ -196,14 +205,15 @@ Aby umożliwić aplikacji otrzymywanie żądań w postaci poleceń z ukośnikiem
 
 Projekty Glitch mają publiczny adres URL, który jest domyślnie ujawniony. Skopuj go, klikając przycisk **Udostępnij** w prawym górnym rogu, a następnie skopiuj łącze projektu „Aktywna witryna” blisko dolnej części okna.
 
-> info
-> Jeśli pracujesz nad aplikacją lokalnie, zobacz instrukcje dotyczące przekazywania żądań do lokalnego środowiska [w README na GitHubie](https://github.com/discord/discord-example-app#running-app-locally).
+:::info
+Jeśli pracujesz nad aplikacją lokalnie, zobacz instrukcje dotyczące przekazywania żądań do lokalnego środowiska [w README na GitHubie](https://github.com/discord/discord-example-app#running-app-locally).
+:::
 
 Po skopiowaniu łącza przejdź do ustawień aplikacji z poziomu [portalu deweloperów](https://discord.com/developers/applications).
 
 Na stronie **Informacje ogólne** aplikacji znajduje się opcja **Końcowy adres URL interakcji**, gdzie możesz wkleić adres URL swojej aplikacji i dodać do niego ciąg `/interactions`, który wskazuje lokalizację, gdzie aplikacja Express będzie nasłuchiwać żądań.
 
-![Końcowy adres URL interakcji w ustawieniach aplikacji](interactions-url.png)
+![Końcowy adres URL interakcji w ustawieniach aplikacji](/images/interactions-url.png)
 
 Kliknij **Zapisz zmiany** i upewnij się, że końcowy adres został pomyślnie zweryfikowany.
 
@@ -233,8 +243,9 @@ if (name === 'test') {
 
 Powyższy kod reaguje na interakcję z wiadomością na kanale, z którego pochodzi. Możesz zobaczyć wszystkie dostępne typy reakcji, takie jak reagowanie oknem, [w dokumentacji](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
-> info
-> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` jest stałą [eksportowaną z pliku pakietu `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::info
+`InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` jest stałą [eksportowaną z pliku pakietu `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::
 
 Przejdź do swojego serwera i upewnij się, że polecenie z ukośnikiem `/test` działa. Gdy je aktywujesz, aplikacja powinna wysłać wiadomość z tekstem „hello world” i losowym emoji.
 
@@ -252,8 +263,9 @@ Polecenie `/challenge`, zwane `CHALLENGE_COMMAND` w pliku `commands.js`, ma szer
 
 Więcej o opcjach poleceń i ich strukturze przeczytasz [w dokumentacji](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
-> info
-> Choć w tym przewodniku nie zagłębimy się w plik `game.js`, możesz poeksperymentować z nim, zmieniając polecenia lub ich opcje.
+:::info
+Choć w tym przewodniku nie zagłębimy się w plik `game.js`, możesz poeksperymentować z nim, zmieniając polecenia lub ich opcje.
+:::
 
 <Collapsible title="Obsługa interakcji poprzez polecenia" description="Kod odpowiadający za obsługę polecenia „challenge” i reagowanie wiadomością z przyciskiem" icon="code" open>
 
@@ -296,16 +308,18 @@ if (name === 'challenge' && id) {
 ```
 
 
-> info
-> Jeśli nie wiesz, gdzie wkleić kod, możesz zobaczyć pełen kod w pliku `examples/app.js` w projekcie Glitch lub w nadrzędnym pliku `app.js` [na GitFHubie](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::info
+Jeśli nie wiesz, gdzie wkleić kod, możesz zobaczyć pełen kod w pliku `examples/app.js` w projekcie Glitch lub w nadrzędnym pliku `app.js` [na GitFHubie](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::
 
 Powyższy kod wykonuje szereg czynności:
 1. Przetwarza treść żądania w celu uzyskania ID użytkownika, który aktywował polecenie z ukośnikiem (`userId`), i wybraną przez niego opcję (wybrany obiekt) (`objectName`).
 2. Dodaje nową grę do obiektu `activeGames` przy pomocy ID interakcji. Aktywna gra zapisuje elementy `userId` i `objectName`.
 3. Wysyła na kanał wiadomość z przyciskiem z wartością `accept_button_<SOME_ID>` w polu `custom_id`.
 
-> warn
-> Przykładowy kod wykorzystuje obiekt przechowywany w pamięci, ale na potrzeby publicznej wersji aplikacji zaleca się użycie bazy danych.
+:::warning
+Przykładowy kod wykorzystuje obiekt przechowywany w pamięci, ale na potrzeby publicznej wersji aplikacji zaleca się użycie bazy danych.
+:::
 
 Przy wysyłaniu [elementów wiadomości](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) indywidualne payloady są dodawane do tablicy `components`. Interaktywne elementy (takie jak przyciski) muszą znajdować się w [rzędzie czynności](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), który jest widoczny w przykładowym kodzie.
 

@@ -10,10 +10,11 @@ https://discord.com/api
 
 ## API Versioning
 
-> danger
-> Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
+:::danger
+Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
+:::
 
-Discord exposes different versions of our API[.](https://c.tenor.com/BuZl66EegkgAAAAC/westworld-dolores.gif) You should specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
+Discord exposes different versions of our API[.](/images/https://c.tenor.com/BuZl66EegkgAAAAC/westworld-dolores.gif) You should specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
@@ -146,7 +147,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowfl
 
 ### Convert Snowflake to DateTime
 
-![Graphical representation of how a Snowflake is constructed](snowflake.png)
+![Graphical representation of how a Snowflake is constructed](/images/snowflake.png)
 
 ### Snowflake IDs in Pagination
 
@@ -232,8 +233,9 @@ User-Agent: DiscordBot ($url, $versionNumber)
 
 Clients may append more information and metadata to the _end_ of this string as they wish.
 
-> warn
-> Client requests that do not have a valid User Agent specified may be blocked and return a [Cloudflare error](https://support.cloudflare.com/hc/en-us/articles/360029779472-Troubleshooting-Cloudflare-1XXX-errors).
+:::warning
+Client requests that do not have a valid User Agent specified may be blocked and return a [Cloudflare error](https://support.cloudflare.com/hc/en-us/articles/360029779472-Troubleshooting-Cloudflare-1XXX-errors).
+:::
 
 ### Rate Limiting
 
@@ -353,8 +355,9 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
-> info
-> Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
+:::info
+Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
+:::
 
 ## Image Data
 
@@ -390,8 +393,9 @@ https://cdn.discordapp.com/attachments/1012345678900020080/1234567891233211234/m
 
 ## Uploading Files
 
-> info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
+:::info
+A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
+:::
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
@@ -470,8 +474,9 @@ Content-Type: image/gif
 
 You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files which contain a filename, as you will need to reference it in your payload.
 
-> warn
-> Only `.jpg`, `.jpeg`, `.png`, `.webp`, and `.gif` may be used at this time. Other file types are not supported.
+:::warning
+Only `.jpg`, `.jpeg`, `.png`, `.webp`, and `.gif` may be used at this time. Other file types are not supported.
+:::
 
 Within an embed object, you can set an image to use an attachment as its URL with the attachment scheme syntax: `attachment://filename.png`
 

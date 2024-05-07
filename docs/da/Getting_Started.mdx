@@ -1,3 +1,7 @@
+import LocalePicker from '@site/src/components/LocalePicker';
+import Collapsible from '@site/src/components/Collapsible';
+import Button from '@site/src/components/Button';
+
 <LocalePicker currentLocale="da" />
 
 # Sådan udvikler du din første Discord-app
@@ -9,7 +13,7 @@ Vi vil udvikle en Discord-app, der lader servermedlemmerne spille sten-saks-papi
 <Collapsible title="Det her skal vi lave" icon="view">
 Her kan du se, hvordan den færdige app vil se ud:
 
-![Demo af app-eksempel](getting-started-demo.gif)
+![Demo af app-eksempel](/images/getting-started-demo.gif)
 
 Lad os gøre brugerrejsen lidt mere tydelig:
 
@@ -53,7 +57,7 @@ Nogle intentioner er [privilegerede](#DOCS_TOPICS_GATEWAY/privileged-intents), h
 Du finder mere information om intentioner sammen med en liste over alle intentioner, inkl. deres tilknyttede hændelser i [Gateway-dokumentationen](#DOCS_TOPICS_GATEWAY/gateway-intents).
 </Collapsible>
 
-![Bot-fanen i appens indstillinger](app-add-bot.png)
+![Bot-fanen i appens indstillinger](/images/app-add-bot.png)
 
 Der er også en **Token**-sektion på siden **Bot**, der lader dig kopiere og nulstille din bots token.
 
@@ -61,8 +65,9 @@ Bot-tokens bruges til at godkende API-anmodninger og bære din bot-brugers tilla
 
 Kopier nu din token, og gem den et sikkert sted (såsom i en administrator af adgangskoder).
 
-> warn
-> Du vil ikke kunne se din token igen, medmindre du regenererer den, så sørg for at opbevare den et sikkert sted.
+:::warning
+Du vil ikke kunne se din token igen, medmindre du regenererer den, så sørg for at opbevare den et sikkert sted.
+:::
 
 ### Tilføjelse af anvendelsesområder og bot-tilladelser
 
@@ -77,8 +82,9 @@ Når du laver en app, bestemmer anvendelsesområder og tilladelser, hvad din app
 
 Klik på **OAuth2** i venstre sidepanel, og vælg **URL-generator**.
 
-> info
-> URL-generatoren skaber et installationslink baseret på de anvendelsesområder og tilladelser, du har valgt for din app. Du kan bruge linket til at installere appen på din egen server eller dele det med andre, så de kan installere den.
+:::info
+URL-generatoren skaber et installationslink baseret på de anvendelsesområder og tilladelser, du har valgt for din app. Du kan bruge linket til at installere appen på din egen server eller dele det med andre, så de kan installere den.
+:::
 
 Lige nu skal du tilføje to anvendelsesområder:
 - `applications.commands`, der lader din app skabe [kommandoer](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
@@ -90,10 +96,11 @@ Se en liste med alle [OAuth2-anvendelsesområder](#DOCS_TOPICS_OAUTH2/shared-res
 
 Når du har tilføjet anvendelsesområder, burde du se en URL, som du kan kopiere og bruge til at installere din app.
 
-![Screenshot af URL-generator](url-generator.png)
+![Screenshot af URL-generator](/images/url-generator.png)
 
-> info
-> Når du udvikler apps, bør du bygge og teste dem på en server, der ikke bruges aktivt af andre. Hvis du ikke har din egen server allerede, kan du [oprette en gratis](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+:::info
+Når du udvikler apps, bør du bygge og teste dem på en server, der ikke bruges aktivt af andre. Hvis du ikke har din egen server allerede, kan du [oprette en gratis](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+:::
 
 Kopiér den førnævnte URL, og indsæt den i din browser. Du bliver ført gennem installationsprocessen, hvor du skal sikre, at du installerer din app på en server, hvor du kan udvikle på den og teste den.
 
@@ -113,15 +120,16 @@ For at gøre det lidt nemmere at udvikle appen, bruger den [Discord-interaktione
 
 Denne vejledning bruger Glitch, der lader dig klone og udvikle inde i din browser. Hvis du foretrækker at udvikle din app lokalt, er der en vejledning i at bruge ngrok [i README](https://github.com/discord/discord-example-app#running-app-locally).
 
-> info
-> Glitch er fantastisk til udvikling og test, men [den har nogle tekniske begrænsninger](https://help.glitch.com/kb/article/17-technical-restrictions/), så du bør overveje andre hosting-udbydere til produktions-apps.
+:::info
+Glitch er fantastisk til udvikling og test, men [den har nogle tekniske begrænsninger](https://help.glitch.com/kb/article/17-technical-restrictions/), så du bør overveje andre hosting-udbydere til produktions-apps.
+:::
 
 Begynd med at **[remixe (eller klone) Glitch-projektet 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
 
 Når du har remixet projektet, lander du på et nyt Glitch-projekt.
 
 <Collapsible title="Glitch-projektbrugerfladen" description="Oversigt over Glitch-projektbrugerfladen" icon="view">
-![Glitch-projektoversigt](glitch-project.png)
+![Glitch-projektoversigt](/images/glitch-project.png)
 
 - Dit **project name** er et unikt navn på dit projekt, der kan ses i øverste venstre hjørne
 - **`.env`** er filen, hvor alle legitimationsoplysninger for din app bliver gemt
@@ -162,8 +170,9 @@ Nu da dine legitimationsoplysninger er konfigureret, så lad os installere og h�
 
 ### Installér slash-kommandoer
 
-> info
-> For at installere slash-kommandoer benytter appen [`node-fetch`](https://github.com/node-fetch/node-fetch). Du kan se implementeringen af installationen i `utils.js` i `DiscordRequest()`-funktionen.
+:::info
+For at installere slash-kommandoer benytter appen [`node-fetch`](https://github.com/node-fetch/node-fetch). Du kan se implementeringen af installationen i `utils.js` i `DiscordRequest()`-funktionen.
+:::
 
 Projektet indeholder et `register`-script, du kan bruge til at installere kommandoerne i `ALL_COMMANDS`, der er defineret i bunden af `commands.js`. Det installerer kommandoerne som globale kommandoer ved at kalde HTTP API'ens [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) endpoint.
 
@@ -196,14 +205,15 @@ For at gøre din app i stand til at modtage slash-kommandoanmodninger (og andre 
 
 Glitch-projekter har en offentlig URL, der som standard er synlig. Kopiér dit projekts URL ved at klikke på knappen **Del** i øverste, højre hjørne, og kopiér så "Live site"-projektlinket nær bunden af modalen.
 
-> info
-> Hvis du udvikler lokalt, er der instrukser til at føre dine anmodninger til dit lokalmiljø [i GitHub README](https://github.com/discord/discord-example-app#running-app-locally).
+:::info
+Hvis du udvikler lokalt, er der instrukser til at føre dine anmodninger til dit lokalmiljø [i GitHub README](https://github.com/discord/discord-example-app#running-app-locally).
+:::
 
 Når du har kopieret linket, skal du gå til din apps indstillinger fra [udviklingsportalen](https://discord.com/developers/applications).
 
 På din apps side med **Generel information** er der en instilling for **URL for slutpunkt for interaktioner**, hvor du kan indsætte din apps URL og hægte `/interactions` på den, og det er her, Express-appen konfigureres til at lytte efter anmodninger.
 
-![URL for slutpunkt for interaktioner i app-indstillinger](interactions-url.png)
+![URL for slutpunkt for interaktioner i app-indstillinger](/images/interactions-url.png)
 
 Klik på **Gem ændringer**, og sørg for, at dit slutpunkt er korrekt bekræftet.
 
@@ -233,8 +243,9 @@ if (name === 'test') {
 
 Koden herover reagerer på interaktionen med en besked i kanalen, hvor kommandoen kom fra. Du kan se alle tilgængelige svartyper såsom besvarelse med en modal [i dokumentationen](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
-> info
-> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` er en konstant, der er [eksporteret fra `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::info
+`InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` er en konstant, der er [eksporteret fra `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::
 
 Gå til din server, og sørg for, at din apps `/test` slash-kommando fungerer. Når du udløser den, burde din app sende en besked, der indeholder teksten “hello world” efterfulgt af en tilfældig emoji.
 
@@ -252,8 +263,9 @@ I den følgende sektion tilføjer vi en ekstra kommando, der benytter slash-komm
 
 Du kan læse mere om kommando-valgmuligheder og deres struktur [i dokumentationen](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
-> info
-> Selvom denne vejledning ikke går i dybden med `game.js`-filen, er du velkommen til at grave lidt rundt og ændre kommandoerne eller valgmulighederne i kommandoerne.
+:::info
+Selvom denne vejledning ikke går i dybden med `game.js`-filen, er du velkommen til at grave lidt rundt og ændre kommandoerne eller valgmulighederne i kommandoerne.
+:::
 
 <Collapsible title="Håndtering af kommandointeraktionen" description="Koden for håndteringen af udfordringskommandoen og besvarelse med en besked, der indeholder en knap" icon="code" open>
 
@@ -296,16 +308,18 @@ if (name === 'challenge' && id) {
 ```
 
 
-> info
-> Hvis du ikke er sikker på, hvor du skal indsætte koden, kan du se den fulde kode i `examples/app.js` i Glitch-projektet eller i roden `app.js` [på GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::info
+Hvis du ikke er sikker på, hvor du skal indsætte koden, kan du se den fulde kode i `examples/app.js` i Glitch-projektet eller i roden `app.js` [på GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::
 
 Koden herover gør et par forskellige ting:
 1. Parser anmodningsdataen for at få ID på brugeren, der udløste slash-kommandoen (`userId`), og valget (genstandsvalg) de traf (`objectName`).
 2. Tilføjer et nyt spil til `activeGames`-objektet med interaktions-ID'et. Det aktive spil noterer `userId` og `objectName`.
 3. Sender en besked tilbage til kanalen med en knap med et `custom_id` på `accept_button_<SOME_ID>`.
 
-> warn
-> Kodeeksemplet bruger et objekt som in-memory lagring, men for produktionsapps bør du bruge en database.
+:::warning
+Kodeeksemplet bruger et objekt som in-memory lagring, men for produktionsapps bør du bruge en database.
+:::
 
 Når der sendes en besked med [beskedkomponenter](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), tilføjes den individuelle nyttelast til et `components`-sæt. Anvendelige komponenter (såsom knapper) skal være i en [handlingsrække](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), som du kan se kodeeksemplet.
 

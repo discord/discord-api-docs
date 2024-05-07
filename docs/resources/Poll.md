@@ -2,7 +2,7 @@
 
 A poll is... well... a poll! It holds information about a poll!
 
-![Example message containing a poll](example-poll.png)
+![Example message containing a poll](/images/example-poll.png)
 
 ### Poll Object
 
@@ -119,7 +119,7 @@ For creating a poll, see [Create Message](#DOCS_RESOURCES_CHANNEL/create-message
 
 Apps are not allowed to vote on polls. No rights! :)
 
-## Get Answer Voters % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/answers/{answer_id#DOCS_RESOURCES_POLL/poll-answer-object}
+## Get Answer Voters % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/polls/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/answers/[\{answer_id\}](#DOCS_RESOURCES_POLL/poll-answer-object)
 
 Get a list of users that voted for this specific answer.
 
@@ -136,7 +136,7 @@ Get a list of users that voted for this specific answer.
 |-------|---------------------------------------------------|---------------------------------|
 | users | array of [user](#DOCS_RESOURCES_USER/user-object) | Users who voted for this answer |
 
-## End Poll % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/expire
+## End Poll % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/polls/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/expire
 
 Immediately ends the poll. You cannot end polls from other users.
 

@@ -1,3 +1,8 @@
+import Button from '@site/src/components/Button';
+import Collapsible from '@site/src/components/Collapsible';
+import Card from '@site/src/components/Card';
+import Container from '@site/src/components/Container';
+
 # Developing A User-Installable App
 
 > preview
@@ -34,8 +39,9 @@ Before we dig in, you'll need the project code from the [sample app repository](
 ```
 </Collapsible>
 
-> info
-> We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but you can use your preferred development environment.
+:::info
+We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but you can use your preferred development environment.
+:::
 
 If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install that first.
 
@@ -71,8 +77,9 @@ After you create your app, you'll land on the **General Overview** page of the a
 
 While we're in your app's settings, we'll want to get a few sensitive values for your app, like its token and ID.
 
-> warn
-> Your token is used to authorize API requests and carry your app's permissions, so they are *highly* sensitive. Make sure to never share your token or check it into any kind of version control.
+:::warning
+Your token is used to authorize API requests and carry your app's permissions, so they are *highly* sensitive. Make sure to never share your token or check it into any kind of version control.
+:::
 
 Back in your project folder, rename the `.sample.env` file to `.env`. `.env` is where we'll store all of your app's credentials.
 
@@ -112,12 +119,13 @@ Under the new **Default Install Settings** section:
 - For **User Install**, add the `applications.commands` scope
 - For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
-> info
-> Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) page.
+:::info
+Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) page.
+:::
 
 After you've selected the scopes and permissions for your app, click **Save Changes**.
 
-![Installation settings in App Settings](user-install-settings.png)
+![Installation settings in App Settings](/images/user-install-settings.png)
 
 ### Installing your app
 
@@ -160,8 +168,9 @@ We'll be setting up four commands for our sample app that all have *slightly* di
 | `/profile`     | Get information about your game inventory and progress | `USER_INSTALL`                              | `GUILD`, `BOT_DM`, `PRIVATE_CHANNEL` |
 | `/link`        | Link your game account to Discord                      | `USER_INSTALL`                              | `BOT_DM`                             |
 
-> info
-> The supported installation contexts for a command affects which interaction contexts you can set. Specifically, the `PRIVATE_CHANNEL` interaction context can only be included in `contexts` if `USER_INSTALL` is included in `integration_types` for the command. Read details in the [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts).
+:::info
+The supported installation contexts for a command affects which interaction contexts you can set. Specifically, the `PRIVATE_CHANNEL` interaction context can only be included in `contexts` if `USER_INSTALL` is included in `integration_types` for the command. Read details in the [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts).
+:::
 
 The payloads for our app's commands are in `commands.js` in the project folder in case you want to change any values or see what the command's context fields (`integration_types` and `contexts`) look like for each of the commands in the table above.
 
@@ -201,8 +210,9 @@ npm run start
 
 There should be some output indiciating your app is running on port 3000. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) documentation.
 
-> info 
-> By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
+:::info 
+By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
+:::
 
 Next, we'll start our ngrok tunnel. If you don't have ngrok installed locally, you can install it by following the instructions on the [ngrok download page](https://ngrok.com/download).
 
@@ -224,8 +234,9 @@ Go to your [app's settings](https://discord.com/developers/applications) and on 
 
 Click **Save Changes** and if all is well, your Interactions Endpoint URL should be verified by Discord.
 
-> info
-> If you have troubles verifying your endpoint, make sure both ngrok and your app is running on the same port, and that you've copied the ngrok URL correctly
+:::info
+If you have troubles verifying your endpoint, make sure both ngrok and your app is running on the same port, and that you've copied the ngrok URL correctly
+:::
 
 ### Understanding metadata for interactions
 
@@ -277,8 +288,9 @@ With interaction context, something to keep in mind in `BOT_DM` is only the *DM 
 
 The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`/`"0"` and/or `USER_INSTALL`/`"1"`). The values depend on the key, but for `USER_INSTALL` the key will always be the ID of the user that authorized your app.
 
-> info
-> `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
+:::info
+`authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
+:::
 
 Understanding the authorization owner can be helpful when handling interactions from message components for apps installed to a user, which is discussed more in the [message component interactions](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP/using-metadata-for-message-component-interactions) section. Or you can find technical details in the [Authorizing Integration Owners](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) documentation.
 
@@ -349,7 +361,7 @@ Message component interactions can be triggered by any user the component is vis
 
 Consider we added a new `/game` command supported in the `USER_INSTALL` installation context that a user could trigger to send a message to whatever guild or group DM they're in to ask others if they're interested in joining a game match:
 
-![Sample game command response](user-install-game-message.png)
+![Sample game command response](/images/user-install-game-message.png)
 
 When someone clicks on the button, our app would care about two users when handling the interaction:
 1. User B, who clicked the "Join" button so our app can track who is interested in joining the match

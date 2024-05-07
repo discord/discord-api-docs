@@ -7,7 +7,7 @@ Premium Apps is a set of monetization features for apps on Discord that allows d
 -   Highlight your app's premium benefits on the App Directory and on your own [Store](#DOCS_MONETIZATION_MANAGING_YOUR_STORE) page
 -   Offer native product tie-ins and upsells on the App Directory, app profiles, and in chat
 
-![Premium App screenshot](premium-example.png)
+![Premium App screenshot](/images/premium-example.png)
 
 ## Eligibility Checklist
 

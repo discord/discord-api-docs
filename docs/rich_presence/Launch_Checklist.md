@@ -1,12 +1,14 @@
 # Rich Presence Launch Checklist
 
-> danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+:::danger
+The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+:::
 
 Ready to launch a Rich Presence integration for your game? Did you read our [Best Practices](#DOCS_RICH_PRESENCE_BEST_PRACTICES/) guide? If so, we recommend looking over this checklist one last time to ensure that your integration is as great as it can be!
 
-> warn
-> Our precompiled libraries depend on the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145). If you distribute your game on Steam, make sure to check that box in your common redistributable settings.
+:::warning
+Our precompiled libraries depend on the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145). If you distribute your game on Steam, make sure to check that box in your common redistributable settings.
+:::
 
 #### Profile Strings
 

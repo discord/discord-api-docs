@@ -6,8 +6,9 @@ Apps can define their own [role connection metadata](#DOCS_RESOURCES_APPLICATION
 
 This tutorial walks through building a Discord app in JavaScript with linked roles support.
 
-> info
-> All of the sample code used in this tutorial can be found in the [`linked-roles-sample` GitHub repo](https://github.com/discord/linked-roles-sample)
+:::info
+All of the sample code used in this tutorial can be found in the [`linked-roles-sample` GitHub repo](https://github.com/discord/linked-roles-sample)
+:::
 
 ---
 
@@ -15,15 +16,17 @@ This tutorial walks through building a Discord app in JavaScript with linked rol
 
 The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES/running-your-app) section.
 
-> info
-> Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED). 
+:::info
+Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED). 
+:::
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
 - Click **New Application** in the upper right corner, then select a name and create your app
 - Click on the **Bot** tab on the left sidebar. On that page, click **Reset Token** and store the token somewhere safe (like in a password manager)
 
-> warn
-> Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.
+:::warning
+Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.
+:::
 
 ### Adding scopes
 
@@ -33,8 +36,9 @@ Apps need approval from installing users to perform actions inside of Discord. S
 - Check the `bot` scope
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
  
-> info
-> See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
+:::info
+See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
+:::
 
 ### Installing your app
 
@@ -50,14 +54,15 @@ All of the code used in the example app can be found in the [GitHub repository](
 
 This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok in the README if you'd prefer.
 
-> info
-> While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+:::info
+While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+:::
 
 To start, [remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/remix/linked-role-discord-bot)
 
 When you remix the project, you'll see a new Glitch project with a unique name similar to this:
 
-![Glitch Remix](linked-roles-glitch.png)
+![Glitch Remix](/images/linked-roles-glitch.png)
 
 #### Project structure
 
@@ -81,27 +86,29 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 
 There's already some code in your `server.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
 
-> warn
-> It bears repeating that you should never check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
+:::warning
+It bears repeating that you should never check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
+:::
 
 First, copy your bot user’s token from earlier and paste it in the `DISCORD_TOKEN` variable in your `.env` file.
 
 Next, navigate to your app settings in the developer portal, and navigate to OAuth2 -> General. Copy the Client ID and Client Secret for your application, and paste the values as `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` in your `.env`. 
 
-![Configure OAuth2](linked-roles-oauth-config.png)
+![Configure OAuth2](/images/linked-roles-oauth-config.png)
 
 Now, we need to set the Redirect URL that will be used for our OAuth2 flow. Go back to Glitch, and click the `Share` button for your project. Copy the public live URL for your app:
 
-![Glitch Share](linked-roles-glitch-share-url.png)
+![Glitch Share](/images/linked-roles-glitch-share-url.png)
 
 Go back to the OAuth2 -> General tab in the Discord developer portal, and add a new redirect for your app using the Glitch URL and the `/discord-oauth-callback` route. Copy this URL, then paste it as `DISCORD_REDIRECT_URI` in your `.env`. 
 
 Go to the General Information tab in the developer portal, and scroll down to the `Linked Roles Verification Url` field. Paste the base URL to your Glitch app, add the `/linked-role` route, then save.
 
-> info
-> For the Glitch project used in the screenshots, the verification URL would be `https://adjoining-crawling-yamamomo.glitch.me/linked-role`
+:::info
+For the Glitch project used in the screenshots, the verification URL would be `https://adjoining-crawling-yamamomo.glitch.me/linked-role`
+:::
 
-![Verify endpoint](linked-roles-verify-endpoint.png)
+![Verify endpoint](/images/linked-roles-verify-endpoint.png)
 
 Finally, to generate a unique cookie secret, go back to Glitch, and click on the `Terminal` tab. Run the following commands:
 
@@ -124,7 +131,7 @@ COOKIE_SECRET: <random generated UUID>
 
 As a one-time step, you must tell Discord which metadata fields you are going to allow admins to use for linked roles associated with your app.
 
-To configure connection metadata for your app, you'll call the [PUT /users/@me/applications/<application_id>/role-connection](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/update-application-role-connection-metadata-records) method with [application connection role metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object). In the sample app, this is handled in [`src/register.js`](https://github.com/discord/linked-roles-sample/blob/main/src/register.js), and can be run via the command line.
+To configure connection metadata for your app, you'll call the [`PUT /users/@me/applications/<application_id>/role-connection`](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/update-application-role-connection-metadata-records) method with [application connection role metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object). In the sample app, this is handled in [`src/register.js`](https://github.com/discord/linked-roles-sample/blob/main/src/register.js), and can be run via the command line.
 
 Go back to Glitch, click the **terminal** tab, and run the following command:
 
@@ -132,7 +139,7 @@ Go back to Glitch, click the **terminal** tab, and run the following command:
 $ node src/register.js
 ```
 
-![Register Metadata Schema](linked-roles-register.png)
+![Register Metadata Schema](/images/linked-roles-register.png)
 
 ## Trying it out
 
@@ -144,24 +151,25 @@ To try out the app, we'll create a linked role in a server where you have admin 
 
 Give the role a name, save it, then click on `Links`. Click the `Add requirement` button, and you should see your bot in the list of available Apps. Click on it, and you will see a setup screen where you can configure specific criteria for your role.
 
-![Verification Setup](linked-roles-verification-setup.png)
+![Verification Setup](/images/linked-roles-verification-setup.png)
 
 ### Acquiring the role
 
 To acquire your newly created role, click the server name in the upper left corner of the screen, and select `Linked Roles`. Click on your role, and it will present the opportunity to connect your account.
 
-> info
-> When you connect your account, one of the scopes requested in the OAuth flow is `role_connections.write`, which is required for an app to update a user's role connection information.
+:::info
+When you connect your account, one of the scopes requested in the OAuth flow is `role_connections.write`, which is required for an app to update a user's role connection information.
+:::
 
-![Connect accounts](linked-roles-connect-account.png)
+![Connect accounts](/images/linked-roles-connect-account.png)
 
 Click on the linked role criteria. This should lead to the Discord OAuth2 consent screen. Click `Authorize`, and then return to Discord. 
 
-![Consent Dialog](linked-roles-consent-dialog.png)
+![Consent Dialog](/images/linked-roles-consent-dialog.png)
 
 After returning to Discord, you should see your account granted the linked role.
 
-![Connected](linked-roles-connected.png)
+![Connected](/images/linked-roles-connected.png)
 
 Finally, create a new private channel, and add the new linked role.
 

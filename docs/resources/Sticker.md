@@ -98,7 +98,7 @@ Represents a pack of standard stickers.
 }
 ```
 
-## Get Sticker % GET /stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Get Sticker % GET /stickers/[\{sticker.id\}](#DOCS_RESOURCES_STICKER/sticker-object)
 
 Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given sticker ID.
 
@@ -112,28 +112,31 @@ Returns a list of available sticker packs.
 |---------------|------------------------------------------------------------------------------|
 | sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
 
-## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
+## List Guild Stickers % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/stickers
 
 Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Get Guild Sticker % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Get Guild Sticker % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/stickers/[\{sticker.id\}](#DOCS_RESOURCES_STICKER/sticker-object)
 
 Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given guild and sticker IDs. Includes the `user` field if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Create Guild Sticker % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
+## Create Guild Sticker % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/stickers
 
 Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
 
 Every guilds has five free sticker slots by default, and each Boost level will grant access to more slots.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-> warn
-> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
+:::warning
+Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
+:::
 
-> warn
-> Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
+:::warning
+Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
+:::
 
 ###### Form Params
 
@@ -144,15 +147,17 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 | tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                      |
 | file        | file contents | the sticker file to upload, must be a PNG, APNG, GIF, or Lottie JSON file, max 512 KiB |
 
-## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Modify Guild Sticker % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/stickers/[\{sticker.id\}](#DOCS_RESOURCES_STICKER/sticker-object)
 
 Modify the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional.
+:::info
+All parameters to this endpoint are optional.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -162,9 +167,10 @@ Modify the given sticker. For stickers created by the current user, requires eit
 | description | ?string | description of the sticker (2-100 characters)                     |
 | tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters) |
 
-## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Delete Guild Sticker % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/stickers/[\{sticker.id\}](#DOCS_RESOURCES_STICKER/sticker-object)
 
 Delete the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+::

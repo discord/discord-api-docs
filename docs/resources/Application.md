@@ -120,16 +120,16 @@ Where an app can be installed, also called its supported [installation contexts]
 
 | Value   | Name                                          | Description                                                                                                                                                                                                                                                   |
 |---------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1 << 6  | APPLICATION_AUTO_MODERATION_RULE_CREATE_BADGE | Indicates if an app uses the [Auto Moderation API](#DOCS_RESOURCES_AUTO_MODERATION)                                                                                                                                                                           |
-| 1 << 12 | GATEWAY_PRESENCE                              | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                                                                                                        |
-| 1 << 13 | GATEWAY_PRESENCE_LIMITED                      | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update), found on the **Bot** page in your app's settings                                                                            |
-| 1 << 14 | GATEWAY_GUILD_MEMBERS                         | Intent required for bots in **100 or more servers** to receive member-related events like `guild_member_add`. See the list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents)                                             |
-| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED                 | Intent required for bots in under 100 servers to receive member-related events like `guild_member_add`, found on the **Bot** page in your app's settings. See the list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents) |
-| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT              | Indicates unusual growth of an app that prevents verification                                                                                                                                                                                                 |
-| 1 << 17 | EMBEDDED                                      | Indicates if an app is embedded within the Discord client (currently unavailable publicly)                                                                                                                                                                    |
-| 1 << 18 | GATEWAY_MESSAGE_CONTENT                       | Intent required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055)                                                                                                             |
-| 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED               | Intent required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found on the **Bot** page in your app's settings                                                                 |
-| 1 << 23 | APPLICATION_COMMAND_BADGE                     | Indicates if an app has registered global [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)                                                                                                                                                     |
+| `1 << 6`  | APPLICATION_AUTO_MODERATION_RULE_CREATE_BADGE | Indicates if an app uses the [Auto Moderation API](#DOCS_RESOURCES_AUTO_MODERATION)                                                                                                                                                                           |
+| `1 << 12` | GATEWAY_PRESENCE                              | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                                                                                                        |
+| `1 << 13` | GATEWAY_PRESENCE_LIMITED                      | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update), found on the **Bot** page in your app's settings                                                                            |
+| `1 << 14` | GATEWAY_GUILD_MEMBERS                         | Intent required for bots in **100 or more servers** to receive member-related events like `guild_member_add`. See the list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents)                                             |
+| `1 << 15` | GATEWAY_GUILD_MEMBERS_LIMITED                 | Intent required for bots in under 100 servers to receive member-related events like `guild_member_add`, found on the **Bot** page in your app's settings. See the list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents) |
+| `1 << 16` | VERIFICATION_PENDING_GUILD_LIMIT              | Indicates unusual growth of an app that prevents verification                                                                                                                                                                                                 |
+| `1 << 17` | EMBEDDED                                      | Indicates if an app is embedded within the Discord client (currently unavailable publicly)                                                                                                                                                                    |
+| `1 << 18` | GATEWAY_MESSAGE_CONTENT                       | Intent required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055)                                                                                                             |
+| `1 << 19` | GATEWAY_MESSAGE_CONTENT_LIMITED               | Intent required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found on the **Bot** page in your app's settings                                                                 |
+| `1 << 23` | APPLICATION_COMMAND_BADGE                     | Indicates if an app has registered global [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)                                                                                                                                                     |
 
 ### Install Params Object
 
@@ -168,8 +168,9 @@ By default, newly-created apps only support installation to guilds.
 
 You can update which installation contexts your app supports in your [app's settings](https://discord.com/developers/applications). On the **Installation** page under the **Authorization Methods** section, you can select the installation contexts your app supports.
 
-> info
-> If you update your app to support a new installation context, you will need to update your existing [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) if you want them to be supported in the new context. Details are in the [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation.
+:::info
+If you update your app to support a new installation context, you will need to update your existing [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) if you want them to be supported in the new context. Details are in the [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation.
+:::
 
 ## Get Current Application % GET /applications/@me
 
@@ -179,8 +180,9 @@ Returns the [application](#DOCS_RESOURCES_APPLICATION/application-object) object
 
 Edit properties of the app associated with the requesting bot user. Only properties that are passed will be updated. Returns the updated [application](#DOCS_RESOURCES_APPLICATION/application-object) object on success. 
 
-> info 
-> All parameters to this endpoint are optional
+:::info
+All parameters to this endpoint are optional
+:::
 
 ###### JSON Params
 

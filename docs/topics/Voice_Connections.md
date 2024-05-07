@@ -54,9 +54,9 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
 
 With this information, we can move on to establishing a voice WebSocket connection.
 
-> info
-> Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive
-> the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS`
+:::info
+Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive
+::> the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS`
 > permission bypasses this limit and allows you to join regardless of the channel being full or not.
 
 ## Establishing a Voice Websocket Connection
@@ -94,8 +94,9 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 }
 ```
 
-> danger
-> `heartbeat_interval` here is an erroneous field and should be ignored. The correct `heartbeat_interval` value comes from the Hello payload.
+:::danger
+`heartbeat_interval` here is an erroneous field and should be ignored. The correct `heartbeat_interval` value comes from the Hello payload.
+:::
 
 ## Heartbeating
 
@@ -212,11 +213,11 @@ To notify clients that you are speaking or have stopped speaking, send an [Opcod
 
 The following flags can be used as a bitwise mask. For example `5` would be priority and voice.
 
-| Flag       | Meaning                                                        | Value  |
-|------------|----------------------------------------------------------------|--------|
-| Microphone | Normal transmission of voice audio                             | 1 << 0 |
-| Soundshare | Transmission of context audio for video, no speaking indicator | 1 << 1 |
-| Priority   | Priority speaker, lowering audio of other speakers             | 1 << 2 |
+| Flag       | Meaning                                                        | Value    |
+|------------|----------------------------------------------------------------|----------|
+| Microphone | Normal transmission of voice audio                             | `1 << 0` |
+| Soundshare | Transmission of context audio for video, no speaking indicator | `1 << 1` |
+| Priority   | Priority speaker, lowering audio of other speakers             | `1 << 2` |
 
 ###### Example Speaking Payload
 
@@ -231,8 +232,9 @@ The following flags can be used as a bitwise mask. For example `5` would be prio
 }
 ```
 
-> warn
-> You must send at least one [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
+:::warning
+You must send at least one [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
+:::
 
 ### Voice Data Interpolation
 

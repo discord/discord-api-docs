@@ -83,8 +83,9 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 
 ###### Application Command Data Structure
 
-> info
-> Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
+:::info
+Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
+:::
 
 | Field      | Type                                                                                                                                                                         | Description                                                                                                                                                                          |
 |------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -118,8 +119,9 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 
 ###### Resolved Data Structure
 
-> info
-> If data for a Member is included, data for its corresponding User will also be included.
+:::info
+If data for a Member is included, data for its corresponding User will also be included.
+:::
 
 | Field         | Type                                                                                     | Description                         |
 |---------------|------------------------------------------------------------------------------------------|-------------------------------------|
@@ -152,8 +154,9 @@ All options have names, and an option can either be a parameter and input value-
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
 
-> info
-> This means responses to [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) do not include this property, instead including a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object as components _always_ exist on preexisting messages.
+:::info
+This means responses to [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) do not include this property, instead including a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object as components _always_ exist on preexisting messages.
+:::
 
 ###### Message Interaction Structure
 
@@ -253,8 +256,9 @@ Not all message fields are currently supported.
 
 ###### Modal
 
-> warn
-> Support for components in modals is currently limited to type 4 (Text Input).
+:::warning
+Support for components in modals is currently limited to type 4 (Text Input).
+:::
 
 | Field      | Type                                                          | Description                                                      |
 |------------|---------------------------------------------------------------|------------------------------------------------------------------|
@@ -262,8 +266,9 @@ Not all message fields are currently supported.
 | title      | string                                                        | the title of the popup modal, max 45 characters                  |
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal    |
 
-> warn
-> While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`).
+:::warning
+While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`).
+:::
 
 When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
 
@@ -305,8 +310,9 @@ json = {
 r = requests.post(url, json=json)
 ```
 
-> info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+:::info
+Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+:::
 
 ## Followup Messages
 
@@ -317,48 +323,50 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 -   [`POST /webhooks/<application_id>/<interaction_token>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message) to send a new followup message
 -   [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) to edit a message sent with that `token`
 
-> info
-> Interactions webhooks share the same rate limit properties as normal webhooks.
+:::info
+Interactions webhooks share the same rate limit properties as normal webhooks.
+:::
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond to an interaction within that amount of time.
 
 ### Endpoints
 
-> info
-> The endpoints below are not bound to the application's [Global Rate Limit](#DOCS_TOPICS_RATE_LIMITS/global-rate-limit).
+:::info
+The endpoints below are not bound to the application's [Global Rate Limit](#DOCS_TOPICS_RATE_LIMITS/global-rate-limit).
+:::
 
-## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
+## Create Interaction Response % POST /interactions/[\{interaction.id\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/callback
 
 Create a response to an Interaction from the gateway. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `204 No Content`.
 
 This endpoint also supports file attachments similar to the webhook endpoints. Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on uploading files and `multipart/form-data` requests.
 
-## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
+## Get Original Interaction Response % GET /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/messages/@original
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/messages/@original
 
 Deletes the initial Interaction response. Returns `204 No Content` on success.
 
-## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
+## Create Followup Message % POST /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups.
 
 `flags` can be set to `64` to mark the message as ephemeral, except when it is the first followup message to a deferred Interactions Response. In that case, the `flags` field will be ignored, and the ephemerality of the message will be determined by the `flags` value in your original ACK.
 
-## Get Followup Message % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Get Followup Message % GET /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Returns a followup message for an Interaction. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/[\{interaction.token\}](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Deletes a followup message for an Interaction. Returns `204 No Content` on success.

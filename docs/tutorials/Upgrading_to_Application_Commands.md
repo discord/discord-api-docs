@@ -4,10 +4,11 @@ As [message content has become a privileged intent](https://support-dev.discord.
 
 This guide is intended to provide developers with apps currently using message content with a resource to walk through implementing and designing commands. Throughout the guide, the terms "application commands" and "commands" are used interchangeably.
 
-![Client interfaces showing the different types of application commands](command-types.png)
+![Client interfaces showing the different types of application commands](/images/command-types.png)
 
-> info
-> If you are developing an app for the first time, the [commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) may be a more helpful resource for you.
+:::info
+If you are developing an app for the first time, the [commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) may be a more helpful resource for you.
+:::
 
 Before diving in, it’s worth noting that with the message content changes, apps can still access message content in their DMs with users, as well as when messages are sent that directly `@mentions` their bot user (since there is clear user intent that the bot can read those messages).
 
@@ -29,8 +30,9 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 
 [User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) are in the context menu for users, which is accessed by right-clicking or tapping on any user. They’re helpful when an action is tied to an individual user, like a moderation app adding a timeout to someone.
 
-> info
-> Within the context menus for users and messages, the `Apps` submenu will only appear if an app in that server has installed a corresponding command (whether or not an individual user can use the installed command).
+:::info
+Within the context menus for users and messages, the `Apps` submenu will only appear if an app in that server has installed a corresponding command (whether or not an individual user can use the installed command).
+:::
 
 ### Message Commands
 
@@ -43,8 +45,9 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 
 Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. 
 
-> info
-> There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
+:::info
+There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
+:::
 
 The API endpoint to register (or create) commands is different depending on its scope:
 - **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation. 
@@ -56,7 +59,7 @@ While most apps won’t need to register more than a handful of commands, apps c
 
 Command options is an optional field (`options`) that can be defined when creating commands. When used, options will display for the user to fill out during invocation. You can also provide dynamic option suggestions using the `autocomplete` field. Read more about options [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
-![Slash command using options](slash-command-options.png)
+![Slash command using options](/images/slash-command-options.png)
 
 ### Using Subcommands to Group Actions
 
@@ -125,15 +128,17 @@ Permissions for specific roles, users, and channels can be updated by your app i
 
 Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
 
-> warn
-> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components`. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
+:::warning
+If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components`. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
+:::
 
 For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
 ### Adding an Interactions Endpoint URL
 
-> info
-> This step is specific to receiving interactions over HTTP. If you prefer to use the [Gateway](#DOCS_TOPICS_GATEWAY), this step won't be applicable to your app.
+:::info
+This step is specific to receiving interactions over HTTP. If you prefer to use the [Gateway](#DOCS_TOPICS_GATEWAY), this step won't be applicable to your app.
+:::
 
 Before your app can receive interactions, you’ll need to set up an **Interaction Endpoint URL** in your app settings. This endpoint should be a public URL where Discord can send all interactions-related requests.
 
@@ -142,12 +147,13 @@ However, before adding your URL to your app settings, your endpoint must be set 
 1. **Responding to `PING` events**: When you save a URL in your settings, Discord will send a `POST` request with `type: 1`. To acknowledge this request (and thus verify your endpoint), you should return a `200` response with a payload containing `type: 1`. More information can be found in the [Receiving an Interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
 2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](#DOCS_INTERACTIONS_OVERVIEW/setting-up-an-endpoint-validating-security-request-headers).
 
-> info
-> Many libraries on the [Community Resources page](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
+:::info
+Many libraries on the [Community Resources page](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
+:::
 
 After your URL is set up to handle signature verification and `PING` requests, you can add your Interaction Endpoint URL by navigating to your app settings from the [developer portal](https://discord.com/developers/applications). On the **General Information** page, you’ll see a field for your **Interactions Endpoint URL**. 
 
-![Interactions endpoint URL in app settings](interactions-url.png)
+![Interactions endpoint URL in app settings](/images/interactions-url.png)
 
 After you paste your URL and click **Save Changes**, Discord will attempt to verify your endpoint.
 
@@ -161,8 +167,9 @@ As mentioned above, these include information relevant to handling the command l
 
 Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel, you’ll notice that their payloads don’t contain any information about specific messages. If your app needs the message content, you can use [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) which *do* include the message content.
 
-> info
-> In the getting started guide’s repository, there’s a code sample showing [how to create and handle commands using JavaScript](https://github.com/discord/discord-example-app/blob/main/examples/command.js).
+:::info
+In the getting started guide’s repository, there’s a code sample showing [how to create and handle commands using JavaScript](https://github.com/discord/discord-example-app/blob/main/examples/command.js).
+:::
 
 Below is an example payload your app would receive when a user invoked a global command with an option:
 
@@ -218,8 +225,9 @@ To determine how your app should handle an incoming command-related interaction,
 
 Adding commands to your app can add discoverability and interactivity for users. While porting your app’s features, it’s worth considering how your app will be seen and used inside of the client. This section includes a handful of areas to consider when designing your app’s commands, and what happens after they’re invoked.
 
-> info
-> CLIs (Command Line Interfaces) can be a helpful analogy when designing Discord commands, their options and subcommands, and how it all fits together into one experience. A good resource for this can be the open source [Command Interface Guidelines](https://clig.dev/).
+:::info
+CLIs (Command Line Interfaces) can be a helpful analogy when designing Discord commands, their options and subcommands, and how it all fits together into one experience. A good resource for this can be the open source [Command Interface Guidelines](https://clig.dev/).
+:::
 
 ### Choosing a Name
 
@@ -259,7 +267,7 @@ For a `/search` command that searches an external service, an app could respond 
 
 Ephemeral messages can also contain message components, so when relevant, there could be a button to share the information in the ephemeral message to a channel.
 
-![Example of ephemeral message to show search results](examples-ephemeral-message.png)
+![Example of ephemeral message to show search results](/images/examples-ephemeral-message.png)
 
 ## Onboarding Users
 
@@ -273,14 +281,15 @@ As to where to communicate the changes, you can start with any communication cha
 
 You can also inform users about changes within the servers your app is installed in as long as it’s done in a non-intrusive way. If your app has a dedicated channel in posts, that would be a good place.
 
-> warn
-> Don’t DM all users in a server where your app is installed. It could get your app rate limited, but more importantly, it can be pretty intrusive and might lead to your app being uninstalled.
+:::warning
+Don’t DM all users in a server where your app is installed. It could get your app rate limited, but more importantly, it can be pretty intrusive and might lead to your app being uninstalled.
+:::
 
 #### Example
 
 The following is an example of an app update that may be sent to communicate the new way to access commands. Depending on the different features your app adopts (like options, subcommands, permissions, etc.), an update message or changelog entry will look very different.
 
-![Example message updating users about a new feature](examples-update-message.png)
+![Example message updating users about a new feature](/images/examples-update-message.png)
 
 ### Making Help Available
 

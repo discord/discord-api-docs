@@ -97,8 +97,9 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 
 ### Invite Stage Instance Object
 
-> warn
-> This is deprecated.
+:::warning
+This is deprecated.
+:::
 
 ###### Invite Stage Instance Structure
 
@@ -130,7 +131,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 }
 ```
 
-## Get Invite % GET /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
+## Get Invite % GET /invites/[\{invite.code\}](#DOCS_RESOURCES_INVITE/invite-object)
 
 Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code.
 
@@ -142,9 +143,10 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 | with_expiration?          | boolean   | whether the invite should contain the expiration date       |
 | guild_scheduled_event_id? | snowflake | the guild scheduled event to include with the invite        |
 
-## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
+## Delete Invite % DELETE /invites/[\{invite.code\}](#DOCS_RESOURCES_INVITE/invite-object)
 
 Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success. Fires an [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+::

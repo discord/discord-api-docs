@@ -50,8 +50,9 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Types
 
-> warn
-> Type 10, 11 and 12 are only available in API v9 and above.
+:::warning
+Type 10, 11 and 12 are only available in API v9 and above.
+:::
 
 | Type                | ID | Description                                                                                                                                                |
 |---------------------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -82,9 +83,9 @@ Represents a guild or DM channel within Discord.
 
 | Flag                        | Value   | Description                                                                                                                                                     |
 |-----------------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| PINNED                      | 1 << 1  | this thread is pinned to the top of its parent `GUILD_FORUM` or `GUILD_MEDIA` channel                                                                           |
-| REQUIRE_TAG                 | 1 << 4  | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field. |
-| HIDE_MEDIA_DOWNLOAD_OPTIONS | 1 << 15 | when set hides the embedded media download options. Available only for media channels                                                                           |
+| PINNED                      | `1 << 1`  | this thread is pinned to the top of its parent `GUILD_FORUM` or `GUILD_MEDIA` channel                                                                           |
+| REQUIRE_TAG                 | `1 << 4`  | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field. |
+| HIDE_MEDIA_DOWNLOAD_OPTIONS | `1 << 15` | when set hides the embedded media download options. Available only for media channels                                                                           |
 
 ###### Sort Order Types
 
@@ -260,11 +261,13 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Structure
 
-> info
-> Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
+:::info
+Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
+:::
 
-> warn
-> `content`, `embeds`, `attachments`, `components`, and `poll` require the [`MESSAGE_CONTENT` intent](#DOCS_TOPICS_GATEWAY/message-content-intent) to receive non-empty values.
+:::warning
+`content`, `embeds`, `attachments`, `components`, and `poll` require the [`MESSAGE_CONTENT` intent](#DOCS_TOPICS_GATEWAY/message-content-intent) to receive non-empty values.
+:::
 
 | Field                       | Type                                                                                                                                      | Description                                                                                                                                                                                                                                                             |
 |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -315,8 +318,9 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Types
 
-> warn
-> Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
+:::warning
+Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
+:::
 
 | Type                                         | Value | Deletable |
 |----------------------------------------------|-------|-----------|
@@ -372,19 +376,19 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Flags
 
-| Flag                                   | Value   | Description                                                                       |
-|----------------------------------------|---------|-----------------------------------------------------------------------------------|
-| CROSSPOSTED                            | 1 << 0  | this message has been published to subscribed channels (via Channel Following)    |
-| IS_CROSSPOST                           | 1 << 1  | this message originated from a message in another channel (via Channel Following) |
-| SUPPRESS_EMBEDS                        | 1 << 2  | do not include any embeds when serializing this message                           |
-| SOURCE_MESSAGE_DELETED                 | 1 << 3  | the source message for this crosspost has been deleted (via Channel Following)    |
-| URGENT                                 | 1 << 4  | this message came from the urgent message system                                  |
-| HAS_THREAD                             | 1 << 5  | this message has an associated thread, with the same id as the message            |
-| EPHEMERAL                              | 1 << 6  | this message is only visible to the user who invoked the Interaction              |
-| LOADING                                | 1 << 7  | this message is an Interaction Response and the bot is "thinking"                 |
-| FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8  | this message failed to mention some roles and add their members to the thread     |
-| SUPPRESS_NOTIFICATIONS                 | 1 << 12 | this message will not trigger push and desktop notifications                      |
-| IS_VOICE_MESSAGE                       | 1 << 13 | this message is a voice message                                                   |
+| Flag                                   | Value     | Description                                                                       |
+|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
+| CROSSPOSTED                            | `1 << 0`  | this message has been published to subscribed channels (via Channel Following)    |
+| IS_CROSSPOST                           | `1 << 1`  | this message originated from a message in another channel (via Channel Following) |
+| SUPPRESS_EMBEDS                        | `1 << 2`  | do not include any embeds when serializing this message                           |
+| SOURCE_MESSAGE_DELETED                 | `1 << 3`  | the source message for this crosspost has been deleted (via Channel Following)    |
+| URGENT                                 | `1 << 4`  | this message came from the urgent message system                                  |
+| HAS_THREAD                             | `1 << 5`  | this message has an associated thread, with the same id as the message            |
+| EPHEMERAL                              | `1 << 6`  | this message is only visible to the user who invoked the Interaction              |
+| LOADING                                | `1 << 7`  | this message is an Interaction Response and the bot is "thinking"                 |
+| FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | `1 << 8`  | this message failed to mention some roles and add their members to the thread     |
+| SUPPRESS_NOTIFICATIONS                 | `1 << 12` | this message will not trigger push and desktop notifications                      |
+| IS_VOICE_MESSAGE                       | `1 << 13` | this message is a voice message                                                   |
 
 ###### Example Message
 
@@ -614,8 +618,9 @@ The thread metadata object contains a number of thread-specific channel fields t
 
 ###### Thread Metadata Structure
 
-> warn
-> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+:::warning
+Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+:::
 
 | Field                 | Type               | Description                                                                                                                                |
 |-----------------------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -661,8 +666,9 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 
 ###### Forum Tag Structure
 
-> info
-> When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `available_tags` only require the `name` field.
+:::info
+When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `available_tags` only require the `name` field.
+:::
 
 | Field      | Type       | Description                                                                                                    |
 |------------|------------|----------------------------------------------------------------------------------------------------------------|
@@ -790,8 +796,9 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 
 ###### Attachment Structure
 
-> info
-> For the `attachments` array in Message Create/Edit requests, only the `id` is required.
+:::info
+For the `attachments` array in Message Create/Edit requests, only the `id` is required.
+:::
 
 | Field          | Type      | Description                                                                                                                                      |
 |----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -815,7 +822,7 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 
 | Flag     | Value  | Description                                                       |
 |----------|--------|-------------------------------------------------------------------|
-| IS_REMIX | 1 << 2 | this attachment has been edited using the remix feature on mobile |
+| IS_REMIX | `1 << 2` | this attachment has been edited using the remix feature on mobile |
 
 ### Channel Mention Object
 
@@ -940,16 +947,17 @@ user 125 in the content.
 | total_months_subscribed      | integer   | the cumulative number of months that the user has been subscribed for |
 | is_renewal                   | boolean   | whether this notification is for a renewal rather than a new purchase |
 
-## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Get Channel % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  If the channel is a thread, a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object is included in the returned result.
 
-## Modify Channel % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Modify Channel % PATCH /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. All JSON parameters are optional.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params (Group DM)
 
@@ -1007,20 +1015,23 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 | flags?                | integer             | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
 | applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                 |
 
-## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Delete/Close Channel % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY_EVENTS/channel-delete) Gateway event (or [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete) if the channel was a thread).
 
-> warn
-> Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
+:::warning
+Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
+:::
 
-> info
-> For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
+:::info
+For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
+## Get Channel Messages % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages
 
 Retrieves the messages in a channel. Returns an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects on success.
 
@@ -1028,8 +1039,9 @@ If operating on a guild channel, this endpoint requires the current user to have
 
 If the current user is missing the `READ_MESSAGE_HISTORY` permission in the channel, then no messages will be returned.
 
-> info
-> The `before`, `after`, and `around` parameters are mutually exclusive, only one may be passed at a time.
+:::info
+The `before`, `after`, and `around` parameters are mutually exclusive, only one may be passed at a time.
+:::
 
 ###### Query String Params
 
@@ -1040,16 +1052,17 @@ If the current user is missing the `READ_MESSAGE_HISTORY` permission in the chan
 | after?  | snowflake | Get messages after this message ID       | absent  |
 | limit?  | integer   | Max number of messages to return (1-100) | 50      |
 
-## Get Channel Message % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Get Channel Message % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Retrieves a specific message in the channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 If operating on a guild channel, this endpoint requires the current user to have the `VIEW_CHANNEL` and `READ_MESSAGE_HISTORY` permissions. If the channel is a voice channel, they must _also_ have the `CONNECT` permission.
 
-## Create Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
+## Create Message % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages
 
-> warn
-> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::warning
+Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::
 
 Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
@@ -1068,8 +1081,9 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 ###### JSON/Form Params
 
-> info
-> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll`.
+:::info
+When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll`.
+:::
 
 | Field              | Type                                                                                              | Description                                                                                                                                                                                                                       |
 |--------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1105,28 +1119,28 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 
-## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
+## Crosspost Message % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/crosspost
 
 Crosspost a message in an Announcement Channel to following channels. This endpoint requires the `SEND_MESSAGES` permission, if the current user sent the message, or additionally the `MANAGE_MESSAGES` permission, for all other messages, to be present for the current user.
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
-## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
+## Create Reaction % PUT /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/reactions/[\{emoji\}](#DOCS_RESOURCES_EMOJI/emoji-object)/@me
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-add) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
+## Delete Own Reaction % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/reactions/[\{emoji\}](#DOCS_RESOURCES_EMOJI/emoji-object)/@me
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success. Fires a [Message Reaction Remove](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Delete User Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/{user.id#DOCS_RESOURCES_USER/user-object}
+## Delete User Reaction % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/reactions/[\{emoji\}](#DOCS_RESOURCES_EMOJI/emoji-object)/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Deletes another user's reaction. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Remove](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Get Reactions % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
+## Get Reactions % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/reactions/[\{emoji\}](#DOCS_RESOURCES_EMOJI/emoji-object)
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_RESOURCES_USER/user-object) objects on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
@@ -1138,16 +1152,16 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 | after? | snowflake | Get users after this user ID          | absent  |
 | limit? | integer   | Max number of users to return (1-100) | 25      |
 
-## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
+## Delete All Reactions % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/reactions
 
 Deletes all reactions on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-all) Gateway event.
 
-## Delete All Reactions for Emoji % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
+## Delete All Reactions for Emoji % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/reactions/[\{emoji\}](#DOCS_RESOURCES_EMOJI/emoji-object)
 
 Deletes all the reactions for a given emoji on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Message % PATCH /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Edit a previously sent message. The fields `content`, `embeds`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
 
@@ -1158,11 +1172,13 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
-> warn
-> Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
+:::warning
+Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
+:::
 
-> info
-> All parameters to this endpoint are optional and nullable.
+:::info
+All parameters to this endpoint are optional and nullable.
+:::
 
 ###### JSON/Form Params
 
@@ -1177,24 +1193,27 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | payload_json     | string                                                                               | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](#DOCS_REFERENCE/uploading-files)                 |
 | attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attached files to keep and possible descriptions for new files. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                  |
 
-## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Message % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_TOPICS_GATEWAY_EVENTS/message-delete) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Bulk Delete Messages % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/bulk-delete
+## Bulk Delete Messages % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/bulk-delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](#DOCS_TOPICS_GATEWAY_EVENTS/message-delete-bulk) Gateway event.
 
 Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively).
 
-> warn
-> This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+:::warning
+This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1202,12 +1221,13 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 |----------|---------------------|-------------------------------------------|
 | messages | array of snowflakes | an array of message ids to delete (2-100) |
 
-## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
+## Edit Channel Permissions % PUT /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/permissions/[\{overwrite.id\}](#DOCS_RESOURCES_CHANNEL/overwrite-object)
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1217,16 +1237,17 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 | deny?  | string? | the bitwise value of all disallowed permissions (default `"0"`) |
 | type   | integer | 0 for a role or 1 for a member                                  |
 
-## Get Channel Invites % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
+## Get Channel Invites % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/invites
 
 Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [invite metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)) for the channel. Only usable for guild channels. Requires the `MANAGE_CHANNELS` permission.
 
-## Create Channel Invite % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
+## Create Channel Invite % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/invites
 
 Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1240,14 +1261,15 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 | target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
 | target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
-## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
+## Delete Channel Permission % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/permissions/[\{overwrite.id\}](#DOCS_RESOURCES_CHANNEL/overwrite-object)
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Follow Announcement Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/followers
+## Follow Announcement Channel % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/followers
 
 Follow an Announcement Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](#DOCS_RESOURCES_CHANNEL/followed-channel-object) object. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event for the target channel.
 
@@ -1257,34 +1279,37 @@ Follow an Announcement Channel to send messages to a target channel. Requires th
 |--------------------|-----------|----------------------|
 | webhook_channel_id | snowflake | id of target channel |
 
-## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
+## Trigger Typing Indicator % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/typing
 
 Post a typing indicator for the specified channel, which expires after 10 seconds. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start) Gateway event.
 
 Generally bots should **not** use this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
 
-## Get Pinned Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins
+## Get Pinned Messages % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/pins
 
 Returns all pinned messages in the channel as an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects.
 
-## Pin Message % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Pin Message % PUT /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/pins/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
 
-> warn
-> The max pinned messages is 50.
+:::warning
+The max pinned messages is 50.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Unpin Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Unpin Message % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/pins/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)
 
 Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
+## Group DM Add Recipient % PUT /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/recipients/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Adds a recipient to a Group DM using their access token.
 
@@ -1295,18 +1320,19 @@ Adds a recipient to a Group DM using their access token.
 | access_token | string | access token of a user that has granted your app the `gdm.join` scope |
 | nick         | string | nickname of the user being added                                      |
 
-## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
+## Group DM Remove Recipient % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/recipients/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Removes a recipient from a Group DM.
 
-## Start Thread from Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
+## Start Thread from Message % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/messages/[\{message.id\}](#DOCS_RESOURCES_CHANNEL/message-object)/threads
 
 Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
 
 When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) or a `GUILD_MEDIA` channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1316,12 +1342,13 @@ When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on
 | auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
 | rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
 
-## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
+## Start Thread without Message % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/threads
 
 Creates a new thread that is not connected to an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1335,7 +1362,7 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 
 \* `type` currently defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
-## Start Thread in Forum or Media Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
+## Start Thread in Forum or Media Channel % POST /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/threads
 
 Creates a new thread in a forum or a media channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_CHANNEL/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event.
 
@@ -1348,11 +1375,13 @@ Creates a new thread in a forum or a media channel, and sends a message within t
 - Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 - Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
 
-> warn
-> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::warning
+Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON/Form Params
 
@@ -1369,8 +1398,9 @@ Creates a new thread in a forum or a media channel, and sends a message within t
 
 ###### Forum and Media Thread Message Params Object
 
-> info
-> When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
+:::info
+When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
+:::
 
 | Field             | Type                                                                                         | Description                                                                                                                                                                                              |
 |-------------------|----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1384,23 +1414,23 @@ Creates a new thread in a forum or a media channel, and sends a message within t
 
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, or `files[n]` is required.
 
-## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
+## Join Thread % PUT /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/thread-members/@me
 
 Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) and a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
 
-## Add Thread Member % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Add Thread Member % PUT /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/thread-members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response if the member is successfully added or was already a member of the thread. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
 
-## Leave Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
+## Leave Thread % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/thread-members/@me
 
 Removes the current user from a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
 
-## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Remove Thread Member % DELETE /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/thread-members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
 
-## Get Thread Member % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Get Thread Member % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/thread-members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Returns a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the specified user if they are a member of the thread, returns a 404 response otherwise.
 
@@ -1412,17 +1442,19 @@ When `with_member` is set to `true`, the thread member object will include a `me
 |--------------|---------|-------------------------------------------------------------------------------------------------------------|
 | with_member? | boolean | Whether to include a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the thread member |
 
-## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
+## List Thread Members % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/thread-members
 
-> warn
-> Starting in API v11, this endpoint will always return paginated results. Paginated results can be enabled before API v11 by setting `with_member` to `true`. Read [the changelog](#DOCS_CHANGE_LOG/thread-member-details-and-pagination) for details.
+:::warning
+Starting in API v11, this endpoint will always return paginated results. Paginated results can be enabled before API v11 by setting `with_member` to `true`. Read [the changelog](#DOCS_CHANGE_LOG/thread-member-details-and-pagination) for details.
+:::
 
 Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects that are members of the thread.
 
 When `with_member` is set to `true`, the results will be paginated and each thread member object will include a `member` field containing a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object.
 
-> warn
-> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
+:::warning
+This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
+:::
 
 ###### Query String Params
 
@@ -1432,7 +1464,7 @@ When `with_member` is set to `true`, the results will be paginated and each thre
 | after?       | snowflake | Get thread members after this user ID                                                                        |
 | limit?       | integer   | Max number of thread members to return (1-100). Defaults to 100.                                             |
 
-## List Public Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
+## List Public Archived Threads % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/threads/archived/public
 
 Returns archived threads in the channel that are public. When called on a `GUILD_TEXT` channel, returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `ANNOUNCEMENT_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
@@ -1451,7 +1483,7 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## List Private Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/private
+## List Private Archived Threads % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/threads/archived/private
 
 Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
 
@@ -1470,7 +1502,7 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## List Joined Private Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
+## List Joined Private Archived Threads % GET /channels/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)/users/@me/threads/archived/private
 
 Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 

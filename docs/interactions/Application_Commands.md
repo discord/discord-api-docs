@@ -2,7 +2,7 @@
 
 Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a message's context menu (top-right menu or right-clicking in a message), and a user's context menu (right-clicking on a user).
 
-![Client interfaces showing the different types of application commands](command-types.png)
+![Client interfaces showing the different types of application commands](/images/command-types.png)
 
 ## Application Command Object
 
@@ -31,8 +31,9 @@ Application commands are native ways to interact with apps in the Discord client
 | contexts?                  | ?list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                 | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands. | all         |
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                                                                          | all         |
 
-> danger
-> `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or use `contexts` to disable globally-scoped commands inside of DMs with your app
+:::danger
+`default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or use `contexts` to disable globally-scoped commands inside of DMs with your app
+:::
 
 ###### Application Command Types
 
@@ -45,8 +46,9 @@ Application commands are native ways to interact with apps in the Discord client
 
 ###### Application Command Option Structure
 
-> warn
-> Required `options` must be listed before optional options
+:::warning
+Required `options` must be listed before optional options
+:::
 
 | Field                      | Type                                                                                                                                                         | Description                                                                                                          |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
@@ -67,8 +69,9 @@ Application commands are native ways to interact with apps in the Discord client
 
 \* `autocomplete` may not be set to true if `choices` are present.
 
-> info
-> Options using `autocomplete` are not confined to only use choices given by the application.
+:::info
+Options using `autocomplete` are not confined to only use choices given by the application.
+:::
 
 ###### Application Command Option Type
 
@@ -109,8 +112,9 @@ If your application does not require a bot user in the guild for its commands to
 
 ## Registering a Command
 
-> info
-> Commands can only be registered via HTTP endpoint.
+:::info
+Commands can only be registered via HTTP endpoint.
+:::
 
 Commands can be scoped either globally or to a specific guild. Global commands are available for every guild that adds your app. An individual app's global commands are also available in DMs if that app has a bot that shares a mutual guild with the user.
 
@@ -133,8 +137,9 @@ An app can have the following number of commands:
 
 As well as the same amount of guild-specific commands per guild.
 
-> danger
-> There is a global rate limit of 200 application command creates per day, per guild
+:::danger
+There is a global rate limit of 200 application command creates per day, per guild
+:::
 
 ### Making a Global Command
 
@@ -251,8 +256,9 @@ Commands have two sets of contexts on the [application command object](#DOCS_INT
 
 Details for both types of command contexts are in the sections below.
 
-> info 
-> Contexts are distinct from, and do not affect, any [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for apps installed to a server.
+:::info
+Contexts are distinct from, and do not affect, any [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for apps installed to a server.
+:::
 
 ### Installation Context
 
@@ -274,8 +280,9 @@ By default, `contexts` includes all interaction context types.
 
 Application command permissions allow your app to enable or disable commands for up to 100 users, roles, and channels within a guild. Command permissions can also be updated by users in the client if they have the necessary permissions.
 
-> warn
-> Command permissions can only be updated using a [Bearer token](#DOCS_TOPICS_OAUTH2/client-credentials-grant). Authenticating with a bot token will result in an error.
+:::warning
+Command permissions can only be updated using a [Bearer token](#DOCS_TOPICS_OAUTH2/client-credentials-grant). Authenticating with a bot token will result in an error.
+:::
 
 A command's current permissions can be retrieved using the [`GET /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
 
@@ -286,8 +293,9 @@ Command permissions can be updated with the [`PUT /applications/{application.id}
 
 ### Syncing and Unsyncing Permissions
 
-> warn
-> This section only applies to the current permissions configuration behavior. It does not apply to guilds that are migrated to the new permissions configuration behavior (starting on December 16, 2022). Read more [in the changelog](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
+:::warning
+This section only applies to the current permissions configuration behavior. It does not apply to guilds that are migrated to the new permissions configuration behavior (starting on December 16, 2022). Read more [in the changelog](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
+:::
 
 The command permissions interface can be accessed in the client by navigating to `Server Settings` > `Integrations`, then clicking `Manage` to the right of an installed app. At the top of the interface, users can edit permissions for a specific user, role, or channel. By default, these top-level permissions will apply to all of an app's commands. However, each permission can also be unsynced and customized for individual commands to provide more granular control.
 
@@ -339,8 +347,9 @@ To allow for fine-tuned access to commands, application command permissions are 
 
 Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command permissions for a channel will apply to the threads it contains.
 
-> info
-> If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
+:::info
+If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
+:::
 
 ###### Using Default Permissions
 
@@ -405,9 +414,9 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
-> warn
-> Slash commands can have a maximum of 8000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
-
+:::warning
+Slash commands can have a maximum of 8000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
+:::
 
 ###### Example Slash Command
 
@@ -494,8 +503,9 @@ When someone uses a slash command, your application will receive an interaction:
 
 ## Subcommands and Subcommand Groups
 
-> warn
-> Currently, subcommands and subcommand groups all appear at the top level in the command explorer. This may change in the future to include them as nested autocomplete options.
+:::warning
+Currently, subcommands and subcommand groups all appear at the top level in the command explorer. This may change in the future to include them as nested autocomplete options.
+:::
 
 For those developers looking to make more organized and complex groups of commands, look no further than subcommands and groups.
 
@@ -505,8 +515,9 @@ For those developers looking to make more organized and complex groups of comman
 
 These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
 
-> danger
-> Using subcommands or subcommand groups will make your base command unusable. You can't send the base `/permissions` command as a valid command if you also have `/permissions add | remove` as subcommands or subcommand groups
+:::danger
+Using subcommands or subcommand groups will make your base command unusable. You can't send the base `/permissions` command as a valid command if you also have `/permissions add | remove` as subcommands or subcommand groups
+:::
 
 We support nesting one level deep within a group, meaning your top level command can contain subcommand groups, and those groups can contain subcommands. **That is the only kind of nesting supported.** Here's some visual examples:
 
@@ -593,7 +604,7 @@ We'll start by defining the top-level information for `/permissions`:
 }
 ```
 
-![A command with no arguments. It says /permissions](command.png)
+![A command with no arguments. It says /permissions](/images/command.png)
 
 Now we have a command named `permissions`. We want this command to be able to affect users and roles. Rather than making two separate commands, we can use subcommand groups. We want to use subcommand groups here because we are grouping commands on a similar resource: `user` or `role`.
 
@@ -663,7 +674,7 @@ Now that we've effectively made `user` and `role` "folders", we want to be able 
 }
 ```
 
-![A command with grouped subcommands. It says /permissions user get](command-with-groups-subcommands.png)
+![A command with grouped subcommands. It says /permissions user get](/images/command-with-groups-subcommands.png)
 
 Now, we need some arguments! If we chose `user`, we need to be able to pick a user; if we chose `role`, we need to be able to pick a role. We also want to be able to pick between guild-level permissions and channel-specific permissions. For that, we can use optional arguments:
 
@@ -768,17 +779,19 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
 
 And, done! The JSON looks a bit complicated, but what we've ended up with is a single command that can be scoped to multiple actions, and then further scoped to a particular resource, and then even _further_ scope with optional arguments. Here's what it looks like all put together.
 
-![A command with grouped subcommands and parameters. It says /permissions user get with arguments for a user and a channel.](command-with-groups-subcommands-parameters.png)
+![A command with grouped subcommands and parameters. It says /permissions user get with arguments for a user and a channel.](/images/command-with-groups-subcommands-parameters.png)
 
 ## User Commands
 
 User commands are application commands that appear on the context menu (right click or tap) of users. They're a great way to surface quick actions for your app that target users. They don't take any arguments, and will return the user on whom you clicked or tapped in the interaction response.
 
-> warn
-> A user must have permission to send text messages in the channel they invoke a user command in. If they don't have this permission, they will receive a 'Permission Denied' error from the interaction.
+:::warning
+A user must have permission to send text messages in the channel they invoke a user command in. If they don't have this permission, they will receive a 'Permission Denied' error from the interaction.
+:::
 
-> danger
-> The `description` field is not allowed when creating user commands. However, to avoid breaking changes to data models, `description` will be an **empty string** (instead of `null`) when fetching commands.
+:::danger
+The `description` field is not allowed when creating user commands. However, to avoid breaking changes to data models, `description` will be an **empty string** (instead of `null`) when fetching commands.
+:::
 
 ###### Example User Command
 
@@ -789,7 +802,7 @@ User commands are application commands that appear on the context menu (right cl
 }
 ```
 
-![An example user command. The context menu has an Apps section open to a High Five command](user-command.png)
+![An example user command. The context menu has an Apps section open to a High Five command](/images/user-command.png)
 
 When someone uses a user command, your application will receive an interaction:
 
@@ -864,8 +877,9 @@ When someone uses a user command, your application will receive an interaction:
 
 Message commands are application commands that appear on the context menu (right click or tap) of messages. They're a great way to surface quick actions for your app that target messages. They don't take any arguments, and will return the message on whom you clicked or tapped in the interaction response.
 
-> danger
-> The `description` field is not allowed when creating message commands. However, to avoid breaking changes to data models, `description` will be an **empty string** (instead of `null`) when fetching commands.
+:::danger
+The `description` field is not allowed when creating message commands. However, to avoid breaking changes to data models, `description` will be an **empty string** (instead of `null`) when fetching commands.
+:::
 
 ###### Example Message Command
 
@@ -876,7 +890,7 @@ Message commands are application commands that appear on the context menu (right
 }
 ```
 
-![An example message command. The context menu has an Apps section open to a Bookmark command](message-command.png)
+![An example message command. The context menu has an Apps section open to a Bookmark command](/images/message-command.png)
 
 When someone uses a message command, your application will receive an interaction:
 
@@ -956,8 +970,9 @@ Autocomplete interactions allow your application to dynamically return option su
 
 An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input, as long as that input passes client-side validation. For example, you may receive partial strings, but not invalid numbers. The option the user is currently typing will be sent with a `focused: true` boolean field and options the user has already filled will also be sent but without the `focused` field. This is a special case where options that are otherwise required might not be present, due to the user not having filled them yet.
 
-> warn
-> This validation is **client-side only**.
+:::warning
+This validation is **client-side only**.
+:::
 
 ```json
 {
@@ -1052,8 +1067,9 @@ Locale is determined by looking at the `X-Discord-Locale` header, then the `Acce
 
 A command that contains age-restricted content should have the [`nsfw` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) set to `true` upon creation or update. Marking a command as age-restricted will limit who can see and access the command, and from which channels.
 
-> warn
-> Apps with [discovery enabled](https://support-dev.discord.com/hc/en-us/articles/9489299950487) (which is required to appear in the App Directory) cannot contain any age-restricted commands or content.
+:::warning
+Apps with [discovery enabled](https://support-dev.discord.com/hc/en-us/articles/9489299950487) (which is required to appear in the App Directory) cannot contain any age-restricted commands or content.
+:::
 
 ### Using Age-Restricted Commands
 
@@ -1065,13 +1081,15 @@ Details about accessing and using age-restricted commands is in [the Help Center
 
 ### Endpoints
 
-> info
-> For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application
+:::info
+For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application
+:::
 
-## Get Global Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
+## Get Global Application Commands % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands
 
-> warn
-> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+:::warning
+The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+:::
 
 Fetch all of the global commands for your application. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
 
@@ -1081,10 +1099,11 @@ Fetch all of the global commands for your application. Returns an array of [appl
 |---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
-## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
+## Create Global Application Command % POST /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands
 
-> warn
-> Creating a command with the same name as an existing command for your application will overwrite the old command.
+:::warning
+Creating a command with the same name as an existing command for your application will overwrite the old command.
+:::
 
 Create a new global command. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
@@ -1105,14 +1124,15 @@ Create a new global command. Returns `201` if a command with the same name does 
 | type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                       |
 
-## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
+## Get Global Application Command % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
 
 Fetch a global command for your application. Returns an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
-## Edit Global Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
+## Edit Global Application Command % PATCH /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
 
-> info
-> All parameters for this endpoint are optional.
+:::info
+All parameters for this endpoint are optional.
+:::
 
 Edit a global command. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
 
@@ -1132,21 +1152,23 @@ Edit a global command. Returns `200` and an [application command](#DOCS_INTERACT
 | contexts?                   | list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                                             |
 
-## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
+## Delete Global Application Command % DELETE /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
 
 Deletes a global command. Returns `204 No Content` on success.
 
-## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
+## Bulk Overwrite Global Application Commands % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands
 
 Takes a list of application commands, overwriting the existing global command list for this application. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
-> danger
-> This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
+:::danger
+This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
+:::
 
-## Get Guild Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
+## Get Guild Application Commands % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands
 
-> warn
-> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+:::warning
+The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+:::
 
 Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
 
@@ -1156,10 +1178,11 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 |---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
-## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
+## Create Guild Application Command % POST /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands
 
-> danger
-> Creating a command with the same name as an existing command for your application will overwrite the old command.
+:::danger
+Creating a command with the same name as an existing command for your application will overwrite the old command.
+:::
 
 Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
@@ -1177,14 +1200,15 @@ Create a new guild command. New guild commands will be available in the guild im
 | type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                       |
 
-## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
+## Get Guild Application Command % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
 
 Fetch a guild command for your application. Returns an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
-## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
+## Edit Guild Application Command % PATCH /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
 
-> info
-> All parameters for this endpoint are optional.
+:::info
+All parameters for this endpoint are optional.
+:::
 
 Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
 
@@ -1201,16 +1225,17 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                       |
 
-## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
+## Delete Guild Application Command % DELETE /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
 
 Delete a guild command. Returns `204 No Content` on success.
 
-## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
+## Bulk Overwrite Guild Application Commands % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands
 
 Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
 
-> danger
-> This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
+:::danger
+This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
+:::
 
 ###### Bulk Application Command JSON Params
 
@@ -1230,28 +1255,31 @@ Takes a list of application commands, overwriting the existing command list for 
 | type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                                                                          |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                                                                                 |
 
-## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
+## Get Guild Application Command Permissions % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/permissions
 
 Fetches permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
-## Get Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
+## Get Application Command Permissions % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)/permissions
 
 Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
-## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
+## Edit Application Command Permissions % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)/permissions
 
-> warn
-> This endpoint will overwrite existing permissions for the command in that guild
+:::warning
+This endpoint will overwrite existing permissions for the command in that guild
+:::
 
 Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object. Fires an [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY_EVENTS/application-command-permissions-update) Gateway event.
 
 You can add up to 100 permission overwrites for a command.
 
-> info
-> This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read above about [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions).
+:::info
+This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read above about [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions).
+:::
 
-> warn
-> Deleting or renaming a command will permanently delete all permissions for the command
+:::warning
+Deleting or renaming a command will permanently delete all permissions for the command
+:::
 
 ###### JSON Params
 
@@ -1259,7 +1287,8 @@ You can add up to 100 permission overwrites for a command.
 |-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
 | permissions | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild |
 
-## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
+## Batch Edit Application Command Permissions % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/permissions
 
-> danger
-> This endpoint has been disabled with [updates to command permissions (Permissions v2)](#DOCS_CHANGE_LOG/updated-command-permissions). Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
+:::danger
+This endpoint has been disabled with [updates to command permissions (Permissions v2)](#DOCS_CHANGE_LOG/updated-command-permissions). Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
+::

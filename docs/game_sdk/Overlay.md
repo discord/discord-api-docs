@@ -1,10 +1,12 @@
 # Overlay
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
-> warn
-> The overlay is only supported on Windows for DirectX or OpenGL games. Linux, Mac, and games using Vulkan are not supported. [Click here for more info.](https://support.discord.com/hc/en-us/articles/217659737-Games-Overlay-101)
+:::warning
+The overlay is only supported on Windows for DirectX or OpenGL games. Linux, Mac, and games using Vulkan are not supported. [Click here for more info.](https://support.discord.com/hc/en-us/articles/217659737-Games-Overlay-101)
+:::
 
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It:
 
@@ -133,11 +135,11 @@ overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
 
 Opens the overlay widget for voice settings for the currently connected application. These settings are unique to each user within the context of your application. That means that a user can have different favorite voice settings for each of their games!
 
-![Screenshot of the Voice Settings modal for an application](game-overlay-sdk-voice-settings.png)
+![Screenshot of the Voice Settings modal for an application](/images/game-overlay-sdk-voice-settings.png)
 
 Also, when connected to a lobby's voice channel, the overlay will show a widget that allows users to locally mute, deafen, and adjust the volume of others.
 
-![Screenshot of the Voice Widget displayed in an application](game-overlay-sdk-voice-widget.png)
+![Screenshot of the Voice Widget displayed in an application](/images/game-overlay-sdk-voice-widget.png)
 
 Returns a `Discord.Result` via callback.
 
@@ -169,10 +171,12 @@ Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 
 ###### Example
 
+```cs
 overlayManager.OnToggle += overlayLock =>
 {
     Console.WriteLine("Overlay Locked: {0}", overlayLock);
 };
+```
 
 ## Example: Activate Overlay Invite Modal
 
@@ -189,4 +193,4 @@ overlayManager.OpenActivityInvite(ActivityActionType.Join, (result) =>
 
 And that invite modal looks like this!
 
-![Screenshot of an Invitation Modal in an application](game-overlay-sdk-invite.gif)
+![Screenshot of an Invitation Modal in an application](/images/game-overlay-sdk-invite.gif)

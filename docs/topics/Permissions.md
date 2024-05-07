@@ -2,15 +2,17 @@
 
 Permissions are a way to limit and grant certain abilities to users in Discord. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual roles or members on a per-channel basis.
 
-> info
-> [Application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) allow you to enable or disable specific commands for entire channels in addition to individual roles or users.
+:::info
+[Application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) allow you to enable or disable specific commands for entire channels in addition to individual roles or users.
+:::
 
 Permissions are stored in a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, it's recommended to deserialize the permissions using your preferred languages' Big Integer libraries. The total permissions integer can be determined by OR-ing (`|`) together each individual value, and flags can be checked using AND (`&`) operations.
 
 In API v8 and above, all permissions are serialized as strings, including the `allow` and `deny` fields in overwrites. Any new permissions are rolled back into the base field.
 
-> info
-> In [API v6 (now deprecated)](#DOCS_REFERENCE), the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
+:::info
+In [API v6 (now deprecated)](#DOCS_REFERENCE), the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
+:::
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -246,7 +248,7 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 
 | Flag      | Value  | Description                                                                                              |
 |-----------|--------|----------------------------------------------------------------------------------------------------------|
-| IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
+| IN_PROMPT | `1 << 0` | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 

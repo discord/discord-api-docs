@@ -1,7 +1,8 @@
 # Activities
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
@@ -165,8 +166,9 @@ activityManager.RegisterSteam(1938123);
 
 Sets a user's presence in Discord to a new activity. This has a rate limit of 5 updates per 20 seconds.
 
-> info
-> It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+:::info
+It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+:::
 
 Returns a `Discord.Result` via callback.
 

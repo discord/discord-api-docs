@@ -1,13 +1,16 @@
 # Store
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
-> danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::danger
+Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::
 
-> danger
-> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::danger
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -15,8 +18,9 @@ If your game has DLC or offers in-app purchases, this manager is for you! The St
 
 With this new Store Manager comes a new fun toggle in the Discord app itself: Application Test Mode! While in Application Test Mode, you can freely make "purchases" of SKUs tied to your application. That means you can test buying your game, buying DLC, or going through an IAP flow without any credit card charges.
 
-> info
-> You still need to have a valid payment method on file to "purchase" SKUs in Application Test Mode; it just won't be charged at checkout.
+:::info
+You still need to have a valid payment method on file to "purchase" SKUs in Application Test Mode; it just won't be charged at checkout.
+:::
 
 To enable it, first make sure you have a payment method on file in User Settings -> Billing. Then:
 
@@ -102,8 +106,9 @@ Non-consumable SKUs can only be purchased once.
 
 Fetches the list of SKUs for the connected application, readying them for iteration.
 
-> warn
-> Only SKUs that have a price set will be fetched. If you aren't seeing any SKUs being returned, make sure they have a price set!
+:::warning
+Only SKUs that have a price set will be fetched. If you aren't seeing any SKUs being returned, make sure they have a price set!
+:::
 
 Returns `Discord.Result` via callback.
 
@@ -375,7 +380,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 | tax           | int    | the amount of tax                    |
 | tax_inclusive | bool   | whether the amount is tax-inclusive  |
 
-## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements
+## Get Entitlements % GET /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
@@ -421,7 +426,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 }
 ```
 
-## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Get Entitlement % GET /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements/[\{entitlement.id\}](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct)
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
@@ -456,7 +461,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements/539
 }
 ```
 
-## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/skus
+## Get SKUs % GET /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/skus
 
 Get all SKUs for an application.
 
@@ -494,7 +499,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 }
 ```
 
-## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
+## Consume SKU % POST /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements/[\{entitlement.id\}](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct)/consume
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -508,7 +513,7 @@ curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlem
 // Returns 204 No Content
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Delete Test Entitlement % DELETE /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements/[\{entitlement.id\}](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct)
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
@@ -522,7 +527,7 @@ curl -X DELETE https://discord.com/api/v6/applications/461618159171141643/entitl
 // Returns 204 No Content
 ```
 
-## Create Purchase Discount % PUT /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}
+## Create Purchase Discount % PUT /store/skus/[\{sku.id\}](#DOCS_GAME_SDK_STORE/data-models-sku-struct)/discounts/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/startpurchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
 
@@ -545,7 +550,7 @@ curl -X PUT https://discord.com/api/v6/store/skus/461618229171141643/discounts/5
 // Returns 204 No Content
 ```
 
-## Delete Purchase Discount % DELETE /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}
+## Delete Purchase Discount % DELETE /store/skus/[\{sku.id\}](#DOCS_GAME_SDK_STORE/data-models-sku-struct)/discounts/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Deletes the currently active discount on the given SKU for the given user. You **do not need** to call this after a user has made a discounted purchase; successful discounted purchases will automatically remove the discount for that user for subsequent purchases.
 

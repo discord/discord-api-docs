@@ -96,11 +96,12 @@ To learn more about how to get started building your own Activity, check out the
 
 #### March 15, 2024
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 The [Get Guild Prune Count](#DOCS_RESOURCES_GUILD/get-guild-prune-count) and [Begin Guild Prune](#DOCS_RESOURCES_GUILD/begin-guild-prune)
-endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement ₍^ >ヮ<^₎ .ᐟ.ᐟ
+endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement `₍\^ >ヮ<\^₎ .ᐟ.ᐟ`
 
 ## Enforced Nonces on Create Message Endpoint
 
@@ -120,8 +121,9 @@ Previously, only the first 25 embed fields would be displayed within the embed b
 
 #### December 15, 2023
 
-> info
-> The existing behavior for `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` will **not be changing**. These permissions will continue to allow your bot users to create, update and delete expressions/events. No action will be needed if you plan to continue using these permissions.
+:::info
+The existing behavior for `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` will **not be changing**. These permissions will continue to allow your bot users to create, update and delete expressions/events. No action will be needed if you plan to continue using these permissions.
+:::
 
 To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
 
@@ -130,8 +132,9 @@ To support added controls for expressions and events, new [permissions](#DOCS_TO
 
 These allow for creating new expressions and events, as well as editing and deleting those created by the current user.  
 
-> warn
-> These were rolled out in July 2023 to users and roles and have been added to our developer documentation but **are not yet available to app developers**. We will share an update here when these new permissions are available in your apps.
+:::warning
+These were rolled out in July 2023 to users and roles and have been added to our developer documentation but **are not yet available to app developers**. We will share an update here when these new permissions are available in your apps.
+:::
 
 ## Experimenting with End-to-End Encryption for Voice & Video
 #### Dec 1, 2023
@@ -174,8 +177,9 @@ Previously, some message edit interaction response actions would use the default
 
 Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
 
-> info
-> New features for Premium App Subscriptions are documented in the [App Subscriptions overview](#DOCS_MONETIZATION_OVERVIEW) and in [the changelog for the previous App Subscriptions release](#DOCS_CHANGE_LOG/premium-app-subscriptions-available-in-the-us).
+:::info
+New features for Premium App Subscriptions are documented in the [App Subscriptions overview](#DOCS_MONETIZATION_OVERVIEW) and in [the changelog for the previous App Subscriptions release](#DOCS_CHANGE_LOG/premium-app-subscriptions-available-in-the-us).
+:::
 
 To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
 
@@ -244,8 +248,9 @@ The `state` field in [activity objects](#DOCS_TOPICS_GATEWAY_EVENTS/activity-obj
 
 We're introducing an [OpenAPI 3.1 spec](https://github.com/discord/discord-api-spec) in public preview to make it easier and more reliable to develop with the HTTP API. While our current developer documentation requires manual reviews and updates, the OpenAPI spec is generated from the source code which means it better reflects the nooks, crannies, and nuances of the Discord API.
 
-> warn
-> The public preview of the OpenAPI spec is subject to breaking changes without advance notice, and should not be used within production environments. If you see something that looks incorrect or can be improved, you can [open an issue](https://github.com/discord/discord-api-spec/issues).
+:::warning
+The public preview of the OpenAPI spec is subject to breaking changes without advance notice, and should not be used within production environments. If you see something that looks incorrect or can be improved, you can [open an issue](https://github.com/discord/discord-api-spec/issues).
+:::
 
 The public spec can be found in the new [`discord-api-spec` repository on GitHub](https://github.com/discord/discord-api-spec).
 
@@ -268,8 +273,9 @@ Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more inf
 
 #### May 3, 2023
 
-> warn
-> Bot users will stay on the legacy username system for now. More details can be found on the [Developer Help Center article](https://dis.gd/app-usernames).
+:::warning
+Bot users will stay on the legacy username system for now. More details can be found on the [Developer Help Center article](https://dis.gd/app-usernames).
+:::
 
 Discord’s username system is changing. Discriminators are being removed and new, unique usernames and display names are being introduced. You can read more details about how changes to the username system affects non-bot users in the [general Help Center article](https://dis.gd/usernames). To learn how it impacts bot users specifically, you can read the [Developer Help Center article](https://dis.gd/app-usernames).
 
@@ -359,8 +365,9 @@ At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS
 
 ## Thread Member Details and Pagination
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 #### Jan 09, 2023
 
@@ -391,8 +398,9 @@ Introducing [linked roles](https://discord.com/blog/connected-accounts-functiona
 - New [`role_connections.write`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) OAuth2 scope required to authenticate the below requests.
 - Endpoints to [retrieve](#DOCS_RESOURCES_USER/get-current-user-application-role-connection) (`GET /users/@me/applications/{application.id}/role-connection`) and [update](#DOCS_RESOURCES_USER/update-current-user-application-role-connection) (`PUT /users/@me/applications/{application.id}/role-connection`) a user's role connections, both of which return an [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) object.
 
-> info
-> For a quick rundown on how to get started using linked roles, refer to the [tutorial](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES).
+:::info
+For a quick rundown on how to get started using linked roles, refer to the [tutorial](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES).
+:::
 
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
@@ -406,22 +414,25 @@ Introducing [linked roles](https://discord.com/blog/connected-accounts-functiona
 
 #### Nov 17, 2022
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
 
 Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
-> info
-> Current permissions behavior is documented in [the application commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) and in [the changelog for the previous permissions update](#DOCS_CHANGE_LOG/updated-command-permissions)
+:::info
+Current permissions behavior is documented in [the application commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) and in [the changelog for the previous permissions update](#DOCS_CHANGE_LOG/updated-command-permissions)
+:::
 
 These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
 
 #### Types of command permission configurations
 
-> info
-> The following information isn’t changing, but it’s helpful context to understand the changes.
+:::info
+The following information isn’t changing, but it’s helpful context to understand the changes.
+:::
 
 Discord’s clients determine whether a user can see or invoke a command based on three different permission configurations:
 
@@ -474,7 +485,7 @@ If a command-level configuration does not exist for the given context, the syste
 
 Below is a simplified flowchart that illustrates how permissions will be applied by the Discord client after the new changes take effect.
 
-![Flowchart with an overview of the new permissions configurations logic](new-permissions-flowchart.svg)
+![Flowchart with an overview of the new permissions configurations logic](/images/new-permissions-flowchart.svg)
 
 #### 2. `APPLICATION_COMMAND_PERMISSIONS_V2` Guild Feature
 
@@ -506,8 +517,9 @@ else:
      # Use new permissions behaviors when interacting with endpoint
 ```
 
-> info
-> If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](#DOCS_RESOURCES_GUILD/get-guild).
+:::info
+If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](#DOCS_RESOURCES_GUILD/get-guild).
+:::
 
 **2. Modify the behavior based on your use case**
 
@@ -533,8 +545,9 @@ In **late January or early February**, all servers will be migrated to the new b
 
 #### Nov 9, 2022
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
 
@@ -615,8 +628,9 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 
 #### Sep 1, 2022
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
@@ -647,8 +661,9 @@ Slash Command mentions use the following format: `</NAME:COMMAND_ID>`. You can a
 
 #### Aug 9, 2022
 
-> warn
-> Starting on **September 12, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
+:::warning
+Starting on **September 12, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
+:::
 
 A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
 
@@ -676,8 +691,9 @@ The value of `min_length` must be greater or equal to `0`, and the value of `max
 
 ## Add Subcommand Groups and Subcommands to Message Interaction Objects
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 #### July 1, 2022
 
@@ -704,15 +720,17 @@ After this change, the `name` field for the original interaction payload will st
 
 ## Changes to Bot Permissions for Interactions and Webhooks
 
-> danger
-> This entry includes breaking changes
+:::danger
+This entry includes breaking changes
+:::
 
 #### Jun 29, 2022
 
 #### Upcoming Changes
 
-> warn
-> `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` are the only permissions that will be affected by this change. In a previous version of this changelog, it was indicated that `ATTACH_FILES` and `EMBED_LINKS` would be affected but this is no longer the case.
+:::warning
+`MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` are the only permissions that will be affected by this change. In a previous version of this changelog, it was indicated that `ATTACH_FILES` and `EMBED_LINKS` would be affected but this is no longer the case.
+:::
 
 Starting **August 3, 2022**, the way some of a bot's `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated is changing in two cases:
 - When **responding to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING)** (like application commands or message components)
@@ -1037,7 +1055,7 @@ Removed in favor of `/guilds/<guild_id>/widget.json`:
 - `/servers/<guild_id>/widget.json`
 - `/guilds/<guild_id>/embed.json`
 
-Removed in favor of `/guilds/<guild_id>/widget.png`:
+Removed in favor of `/guilds/<guild_id>/widget103`:
 
 - `/guilds/<guild_id>/embed.png`
 

@@ -1,13 +1,16 @@
 # Applications
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
-> warn
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::warning
+Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::
 
-> danger
-> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::danger
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
@@ -38,8 +41,9 @@ This manager also includes a couple useful helper functions, like getting the lo
 
 ## GetCurrentLocale
 
-> info
-> Value from environment variable `DISCORD_CURRENT_LOCALE`
+:::info
+Value from environment variable `DISCORD_CURRENT_LOCALE`
+:::
 
 Gets the locale the current user has Discord set to.
 
@@ -58,8 +62,9 @@ Console.WriteLine("This user's language is {0}", locale);
 
 ## GetCurrentBranch
 
-> info
-> Value from environment variable `DISCORD_CURRENT_BRANCH`
+:::info
+Value from environment variable `DISCORD_CURRENT_BRANCH`
+:::
 
 Get the name of pushed branch on which the game is running. These are branches that you created and pushed using Dispatch.
 
@@ -79,11 +84,13 @@ if (branch != MyBranches.Stable)
 
 ## GetOAuth2Token
 
-> info
-> value from environment variable `DISCORD_ACCESS_TOKEN`
+:::info
+value from environment variable `DISCORD_ACCESS_TOKEN`
+:::
 
-> warn
-> Ensure that you have `http://127.0.0.1` set as a valid redirect URI for your application in the Developer Portal, or this method will always return an error.
+:::warning
+Ensure that you have `http://127.0.0.1` set as a valid redirect URI for your application in the Developer Portal, or this method will always return an error.
+:::
 
 Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
 

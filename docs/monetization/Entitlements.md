@@ -52,7 +52,7 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 | PREMIUM_PURCHASE         | 7     | Entitlement was claimed by user for free as a Nitro Subscriber |
 | APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription               |
 
-## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
+## List Entitlements % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/entitlements
 
 Returns all entitlements for a given app, active and expired.
 
@@ -88,13 +88,13 @@ Returns all entitlements for a given app, active and expired.
 ]
 ```
 
-## Consume an Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}/consume
+## Consume an Entitlement % POST /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/entitlements/[\{entitlement.id\}](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object)/consume
 
 For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements).
 
 Returns a `204 No Content` on success.
 
-## Create Test Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
+## Create Test Entitlement % POST /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/entitlements
 
 Creates a test entitlement to a given SKU for a given guild or user. Discord will act as though that user or guild has entitlement to your premium offering.
 
@@ -118,7 +118,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 }
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}
+## Delete Test Entitlement % DELETE /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/entitlements/[\{entitlement.id\}](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object)
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 
@@ -180,7 +180,7 @@ If your app has monetization enabled, it will have access to a new [`PREMIUM_REQ
 
 This response will create an ephemeral message shown to the user that ran the interaction, instructing them that whatever they tried to do requires the premium benefits of your app. It also contains an "Upgrade" button to subscribe. The response message is static, but will be automatically updated with the name of your premium SKU.
 
-![Interaction Response](monetization-interaction-response.png)
+![Interaction Response](/images/monetization-interaction-response.png)
 
 ```js
 return res.send({

@@ -34,16 +34,18 @@ When a user connects their account using the bot's [`role_connections_verificati
 | BOOLEAN_EQUAL                  | 7     | the metadata value (`integer`) is equal to the guild's configured value (`integer`; `1`)                                               |
 | BOOLEAN_NOT_EQUAL              | 8     | the metadata value (`integer`) is not equal to the guild's configured value (`integer`; `1`)                                           |
 
-> info
-> Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
+:::info
+Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
+:::
 
-## Get Application Role Connection Metadata Records % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connections/metadata
+## Get Application Role Connection Metadata Records % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/role-connections/metadata
 
 Returns a list of [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
 
-## Update Application Role Connection Metadata Records % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connections/metadata
+## Update Application Role Connection Metadata Records % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/role-connections/metadata
 
 Updates and returns a list of [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
 
-> info
-> An application can have a maximum of 5 metadata records.
+:::info
+An application can have a maximum of 5 metadata records.
+::

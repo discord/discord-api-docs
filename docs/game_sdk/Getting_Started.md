@@ -1,13 +1,16 @@
 # Game SDK: Getting Started
 
-> info
-> Looking to build a game inside of Discord? Check out [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW). We will be revisiting the Game SDK docs soon.
+:::info
+Looking to build a game inside of Discord? Check out [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW). We will be revisiting the Game SDK docs soon.
+:::
 
-> warn
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::warning
+Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::
 
-> danger
-> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::danger
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
@@ -41,8 +44,9 @@ Head over to our [developer site](https://discord.com/developers/) and create an
 
 Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 
-> warn
-> If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
+:::warning
+If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
+:::
 
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
@@ -237,18 +241,19 @@ You're ready to go! Check out the rest of the documentation for more info on how
 In your project folder, you'll want to make something like a "discord-files" folder, for organization. In that folder, copy all the `.h` and `.cpp` files from the zip.
 You want to include all the header and source files respectively in your project
 
-![Correct Files](cpp-files-sdk.png)
+![Correct Files](/images/cpp-files-sdk.png)
 
 In your project settings, you'll want to include the relevant library (e.g. `discord_game_sdk.dll.lib`) as an additional dependency.
 
-![Linked Library](lib-linked-sdk.png)
+![Linked Library](/images/lib-linked-sdk.png)
 
 - From there, you should be able to `#include "discord-files/discord.h"`, or whatever the path to that header file is, and have access to the code.
 
 ## Testing Locally with Two Clients
 
-> info
-> Value from environment variable `DISCORD_INSTANCE_ID`
+:::info
+Value from environment variable `DISCORD_INSTANCE_ID`
+:::
 
 While integrating the Discord GameSDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
 
@@ -277,8 +282,9 @@ var discord = new Discord(applicationId, Discord.CreateFlags.Default);
 
 This will set the environment variable only within the context of the running process, so don't worry about messing up global stuff.
 
-> danger
-> If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
+:::danger
+If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
+:::
 
 ## Section Checklist
 

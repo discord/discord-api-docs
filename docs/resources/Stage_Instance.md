@@ -63,8 +63,9 @@ Creates a new Stage instance associated to a Stage channel. Returns that [Stage 
 
 Requires the user to be a moderator of the Stage channel.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -78,18 +79,19 @@ Requires the user to be a moderator of the Stage channel.
 
 \* The stage moderator must have the `MENTION_EVERYONE` permission for this notification to be sent.
 
-## Get Stage Instance % GET /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Get Stage Instance % GET /stage-instances/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Gets the stage instance associated with the Stage channel, if it exists.
 
-## Modify Stage Instance % PATCH /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Modify Stage Instance % PATCH /stage-instances/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Updates fields of an existing Stage instance. Returns the updated [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure). Fires a [Stage Instance Update](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-update) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -98,11 +100,12 @@ Requires the user to be a moderator of the Stage channel.
 | topic?         | string  | The topic of the Stage instance (1-120 characters)                                                            |
 | privacy_level? | integer | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
 
-## Delete Stage Instance % DELETE /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Delete Stage Instance % DELETE /stage-instances/[\{channel.id\}](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Deletes the Stage instance. Returns `204 No Content`. Fires a [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+::

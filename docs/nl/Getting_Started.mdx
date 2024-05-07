@@ -1,3 +1,7 @@
+import LocalePicker from '@site/src/components/LocalePicker';
+import Collapsible from '@site/src/components/Collapsible';
+import Button from '@site/src/components/Button';
+
 <LocalePicker currentLocale="nl" />
 
 # Het bouwen van je eerste Discord-app
@@ -9,7 +13,7 @@ We gaan een app bouwen waarmee serverleden steen-papier-schaar kunnen spelen (me
 <Collapsible title="Wat we gaan bouwen" icon="view">
 Zo komt de voltooide app eruit te zien:
 
-![Demo van de voorbeeld-app](getting-started-demo.gif)
+![Demo van de voorbeeld-app](/images/getting-started-demo.gif)
 
 Ter verduidelijking van de gebruikersflow:
 
@@ -53,7 +57,7 @@ Sommige intents zijn [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intent
 Meer informatie over intents en een volledige lijst van beschikbare intents en de bijbehorende evenementen is te vinden in de [Gateway-documentatie](#DOCS_TOPICS_GATEWAY/gateway-intents).
 </Collapsible>
 
-![Bot-tab in app-instellingen](app-add-bot.png)
+![Bot-tab in app-instellingen](/images/app-add-bot.png)
 
 Er is ook een **Token**-sectie op de **Bot**-pagina, waarmee je het token van je bot kunt kopiëren en resetten.
 
@@ -77,8 +81,9 @@ Bij het creëren van een app bepaal je met scopes en botmachtigingen wat je app 
 
 Klik in de zijbalk links op **OAuth2** en selecteer vervolgens **URL-generator**.
 
-> info
-> De URL-generator creëert een installatielink gebaseerd op de scopes en machtigingen die je selecteert voor je app. Je kunt de link gebruiken om de app op je eigen server te installeren of om hem te delen met anderen, zodat zij hem kunnen installeren.
+:::info
+De URL-generator creëert een installatielink gebaseerd op de scopes en machtigingen die je selecteert voor je app. Je kunt de link gebruiken om de app op je eigen server te installeren of om hem te delen met anderen, zodat zij hem kunnen installeren.
+:::
 
 Voeg voorlopig twee scopes toe:
 - `applications.commands`, waarmee je app [opdrachten](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) kan creëren.
@@ -90,10 +95,11 @@ Bekijk een lijst met alle [OAuth2-scopes](#DOCS_TOPICS_OAUTH2/shared-resources-o
 
 Als je eenmaal scopes hebt toegevoegd, verschijnt er een URL die je kunt kopiëren om je app te installeren.
 
-![Screenshot van URL-generator](url-generator.png)
+![Screenshot van URL-generator](/images/url-generator.png)
 
-> info
-> Als je apps ontwikkelt, kun je ze het beste bouwen en testen op een server die niet actief wordt gebruikt door anderen. Als je nog geen eigen server hebt, kun je [er gratis eentje creëren](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+:::info
+Als je apps ontwikkelt, kun je ze het beste bouwen en testen op een server die niet actief wordt gebruikt door anderen. Als je nog geen eigen server hebt, kun je [er gratis eentje creëren](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+:::
 
 Kopieer de bovenstaande URL en plak hem in je browser. Je wordt vervolgens door het installatieproces geleid, waarbij je ervoor moet zorgen dat je je app installeert op een server waarop hij ontwikkeld en getest kan worden.
 
@@ -113,15 +119,16 @@ Om het ontwikkelen wat makkelijker te maken, maakt de app gebruik van [discord-i
 
 Deze gids maakt gebruik van Glitch, waarmee je in je browser kunt klonen en ontwikkelen. Als je je app liever lokaal ontwikkelt, vind je [in de README](https://github.com/discord/discord-example-app#running-app-locally) instructies over het gebruik van ngrok.
 
-> info
-> Glitch is geweldig voor ontwikkeling en testen, maar [het heeft ook zijn technische beperkingen](https://help.glitch.com/hc/en-us/articles/16287495313293-Technical-Restrictions). Daarom is het goed om voor productie-apps ook naar andere hostingproviders te kijken.
+:::info
+Glitch is geweldig voor ontwikkeling en testen, maar [het heeft ook zijn technische beperkingen](https://help.glitch.com/hc/en-us/articles/16287495313293-Technical-Restrictions). Daarom is het goed om voor productie-apps ook naar andere hostingproviders te kijken.
+:::
 
 **[Remix (of kloon) om te beginnen het Glitch-project 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
 
 Als je het project remixt, kom je in een nieuw Glitch-project terecht.
 
 <Collapsible title="Interface Glitch-project" description="Overzicht van de projectinterface van Glitch" icon="view">
-![Projectoverzicht Glitch](glitch-project.png)
+![Projectoverzicht Glitch](/images/glitch-project.png)
 
 - Je **projectnaam** is een unieke naam voor je project, die je vindt in de linker bovenhoek
 - **`.env`** is het bestand waar alle verificatiegegevens voor je app in worden opgeslagen
@@ -162,8 +169,9 @@ Nu je verificatiegegevens zijn geconfigureerd, gaan we slashopdrachten installer
 
 ### Slashopdrachten installeren
 
-> info
-> Om slashopdrachten te installeren, maakt de app gebruik van [`node-fetch`](https://github.com/node-fetch/node-fetch). Je kunt de implementatie voor de installatie zien in `utils.js`, binnen de `DiscordRequest()`-functie.
+:::info
+Om slashopdrachten te installeren, maakt de app gebruik van [`node-fetch`](https://github.com/node-fetch/node-fetch). Je kunt de implementatie voor de installatie zien in `utils.js`, binnen de `DiscordRequest()`-functie.
+:::
 
 Het project bevat een `register`-script waarmee je de opdrachten kunt installeren in `ALL_COMMANDS`, wat je onderaan `commands.js` vindt. Dit installeert de opdrachten als algemene opdrachten door het [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands)-eindpunt van de HTTP API op te roepen.
 
@@ -196,14 +204,15 @@ Om ervoor te zorgen dat je app slashopdrachtverzoeken (en andere interacties) ka
 
 In Glitch-projecten is standaard een openbare URL te zien. Kopieer de URL van je project door op de knop **Delen** te klikken rechtsboven in de hoek. Kopieer vervolgens de projectlink 'Live site' onderaan de modal.
 
-> info
-> Als je lokaal ontwikkelt, kun je [in de README van GitHub](https://github.com/discord/discord-example-app#running-app-locally) instructies vinden om verzoeken naar je lokale omgeving te leiden.
+:::info
+Als je lokaal ontwikkelt, kun je [in de README van GitHub](https://github.com/discord/discord-example-app#running-app-locally) instructies vinden om verzoeken naar je lokale omgeving te leiden.
+:::
 
 Nu de link gekopieerd is, ga je naar de instellingen van je app vanuit [het ontwikkelaarsportaal](https://discord.com/developers/applications).
 
 Op de pagina **Algemene informatie** van je app staat de optie **Interactieve eindpunt-URL**. Hier kun je de URL van de app in plakken en er `/interactions` aanhangen. Dat is waar de Express-app geconfigureerd kan worden om verzoeken op te vangen.
 
-![Eindpunt-URL voor interacties in app-instellingen](interactions-url.png)
+![Eindpunt-URL voor interacties in app-instellingen](/images/interactions-url.png)
 
 Klik op **Wijzigingen opslaan** en controleer of het is gelukt om je eindpunt te verifiëren.
 
@@ -233,8 +242,9 @@ if (name === 'test') {
 
 Bovenstaande code reageert op de interactie door een bericht naar het kanaal te sturen waar de interactie is ontstaan. Je kunt alle beschikbare reactiesoorten bekijken, zoals reageren met een modal, [in de documentatie](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
-> info
-> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is een constante [die wordt geëxporteerd uit `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::info
+`InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is een constante [die wordt geëxporteerd uit `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::
 
 Ga naar je server en zorg ervoor dat de `/test`-slashopdracht van je app werkt. Als je hem activeert, moet je app een bericht versturen met de woorden 'hello world' erin, gevolgd door een willekeurige emoji.
 
@@ -252,8 +262,9 @@ De opdracht `/challenge`, `CHALLENGE_COMMAND` genaamd in `commands.js`, heeft ve
 
 Je kunt meer lezen over opdrachtopties en hun structuur [in de documentatie](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
-> info
-> In deze gids staat niet veel over het `game.js`-bestand, maar verken het bestand gerust en wees niet bang opdrachten of opties in de opdrachten te wijzigen.
+:::info
+In deze gids staat niet veel over het `game.js`-bestand, maar verken het bestand gerust en wees niet bang opdrachten of opties in de opdrachten te wijzigen.
+:::
 
 <Collapsible title="Werken met opdrachtinteractie" description="Code voor het werken met de challenge-opdracht en reageren met een bericht dat een knop bevat" icon="code" open>
 
@@ -296,16 +307,18 @@ if (name === 'challenge' && id) {
 ```
 
 
-> info
-> Als je niet zeker weet waar je de code moet plakken, kun je de volledige code bekijken in `examples/app.js` in het Glitch-project of de root van `app.js` [op GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::info
+Als je niet zeker weet waar je de code moet plakken, kun je de volledige code bekijken in `examples/app.js` in het Glitch-project of de root van `app.js` [op GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::
 
 De bovenstaande code doet een aantal dingen:
 1. Hij analyseert de inhoud van het verzoek om de ID van de gebruiker op te halen die de slashopdracht heeft geactiveerd (`userId`) en de optie (objectkeuze) die de gebruiker heeft geselecteerd (`objectName`).
 2. Hij voegt een nieuw spel toe aan het object `activeGames` met behulp van de interactie-ID. Het actieve spel registreert de `userId` en `objectName`.
 3. Hij stuurt een bericht met daarin een knop met een `custom_id` van `accept_button_<SOME_ID>` naar het kanaal terug.
 
-> warn
-> De voorbeeldcode gebruikt een object als opslag in het geheugen, maar voor productie-apps moet je een database gebruiken.
+:::warning
+De voorbeeldcode gebruikt een object als opslag in het geheugen, maar voor productie-apps moet je een database gebruiken.
+:::
 
 Bij het sturen van een bericht met [berichtonderdelen](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) worden de individuele payloads aan een `components`-lijst toegevoegd. Onderdelen waar acties mee worden uitgevoerd (zoals knoppen) moeten deel uitmaken van een [actierij](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), die je in het codevoorbeeld ziet staan.
 

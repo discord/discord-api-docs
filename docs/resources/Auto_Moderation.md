@@ -195,29 +195,33 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
 Some [action types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) require additional permissions, e.g. the `TIMEOUT` action type requires an additional `MODERATE_MEMBERS` permission.
 
-## List Auto Moderation Rules for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
+## List Auto Moderation Rules for Guild % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/auto-moderation/rules
 
 Get a list of all rules currently configured for the guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
 
-> info
-> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::info
+This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::
 
-## Get Auto Moderation Rule % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
+## Get Auto Moderation Rule % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/auto-moderation/rules/[\{auto_moderation_rule.id\}](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object)
 
 Get a single rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
 
-> info
-> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::info
+This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::
 
-## Create Auto Moderation Rule % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
+## Create Auto Moderation Rule % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/auto-moderation/rules
 
 Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) Gateway event.
 
-> info
-> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::info
+This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -234,22 +238,25 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
-> info
-> See [Trigger Types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) for limits on how many rules of each trigger type can be created per guild.
+:::info
+See [Trigger Types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) for limits on how many rules of each trigger type can be created per guild.
+:::
 
-
-## Modify Auto Moderation Rule % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
+## Modify Auto Moderation Rule % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/auto-moderation/rules/[\{auto_moderation_rule.id\}](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object)
 
 Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) Gateway event.
 
-> info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::info
+Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::
 
-> info
-> All parameters for this endpoint are optional.
+:::info
+All parameters for this endpoint are optional.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -265,12 +272,14 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
-## Delete Auto Moderation Rule % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
+## Delete Auto Moderation Rule % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/auto-moderation/rules/[\{auto_moderation_rule.id\}](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object)
 
 Delete a rule. Returns a `204` on success. Fires an [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) Gateway event.
 
-> info
-> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::info
+This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+::

@@ -64,23 +64,23 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value   | Name                     | Description                                                                                                                                    |
-|---------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
-| 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
-| 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
-| 1 << 3  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
-| 1 << 6  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
-| 1 << 7  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
-| 1 << 8  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
-| 1 << 9  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
-| 1 << 10 | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
-| 1 << 14 | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
-| 1 << 16 | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
-| 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
-| 1 << 18 | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
-| 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
-| 1 << 22 | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
+| Value     | Name                     | Description                                                                                                                                    |
+|-----------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `1 << 0`  | STAFF                    | Discord Employee                                                                                                                               |
+| `1 << 1`  | PARTNER                  | Partnered Server Owner                                                                                                                         |
+| `1 << 2`  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
+| `1 << 3`  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
+| `1 << 6`  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
+| `1 << 7`  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
+| `1 << 8`  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
+| `1 << 9`  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
+| `1 << 10` | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
+| `1 << 14` | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
+| `1 << 16` | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
+| `1 << 17` | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
+| `1 << 18` | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
+| `1 << 19` | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| `1 << 22` | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
 
 ###### Premium Types
 
@@ -162,7 +162,7 @@ The role connection object that an application has attached to a user.
 
 Returns the [user](#DOCS_RESOURCES_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
 
-## Get User % GET /users/{user.id#DOCS_RESOURCES_USER/user-object}
+## Get User % GET /users/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
@@ -170,8 +170,9 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional.
+:::info
+All parameters to this endpoint are optional.
+:::
 
 ###### JSON Params
 
@@ -199,8 +200,9 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 }
 ```
 
-> info
-> This endpoint returns 200 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
+:::info
+This endpoint returns 200 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
+:::
 
 ###### Query String Params
 
@@ -211,11 +213,11 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 | limit       | integer   | max number of guilds to return (1-200)                     | false    | 200     |
 | with_counts | boolean   | include approximate member and presence counts in response | false    | false   |
 
-## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
+## Get Current User Guild Member % GET /users/@me/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/member
 
 Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
 
-## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
+## Leave Guild % DELETE /users/@me/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)
 
 Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) Gateway event and a [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
 
@@ -223,8 +225,9 @@ Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#
 
 Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object (if one already exists, it will be returned instead).
 
-> warn
-> You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+:::warning
+You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+:::
 
 ###### JSON Params
 
@@ -236,8 +239,9 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 
 Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) Gateway event.
 
-> warn
-> This endpoint is limited to 10 active group DMs.
+:::warning
+This endpoint is limited to 10 active group DMs.
+:::
 
 ###### JSON Params
 
@@ -250,11 +254,11 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 
 Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
 
-## Get Current User Application Role Connection % GET /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+## Get Current User Application Role Connection % GET /users/@me/applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/role-connection
 
 Returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
-## Update Current User Application Role Connection % PUT /users/@me/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connection
+## Update Current User Application Role Connection % PUT /users/@me/applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/role-connection
 
 Updates and returns the [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 

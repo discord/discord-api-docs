@@ -1,4 +1,5 @@
 {
+	"extends": "@docusaurus/tsconfig",
 	"compilerOptions": {
 		"noEmit": true,
 		"target": "ES2022",

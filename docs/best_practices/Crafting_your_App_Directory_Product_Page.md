@@ -1,16 +1,20 @@
-# Best Practices for App Directory Product Pages
+---
+title: Best Practices for App Directory Product Pages
+---
 
 So you’ve made an app on Discord and are ready to opt in to discovery on the App Directory! Or maybe you have already listed your app but aren’t seeing as much traction to it as you’d like? Whatever stage you’re at, this guide has some tips and tricks from your friendly Discord Staff members to help boost performance of your App Directory Product Page.
 
-> info
-> This guide references settings and information you can set up and modify within your [app's settings](https://discord.com/developers/applications). If you don't have an app yet, you can follow the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED).
+:::note
+This guide references settings and information you can set up and modify within your [app's settings](https://discord.com/developers/applications). If you don't have an app yet, you can follow the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED).
+:::
 
 ## The Elevator Pitch: Quickly tell your users what your app does
 
 App descriptions should convey the value of your app and what it does. Make your app descriptions punchy and to the point - letting folks know what your app does in simple terms while also exciting the potential user to add the app and start using it.
 
-> info
-> Be sure to spell check and review your grammar before posting your descriptions. Your app has the potential to be seen by millions of people!
+:::info
+Be sure to spell check and review your grammar before posting your descriptions. Your app has the potential to be seen by millions of people!
+:::
 
 There are a few places where you can define different descriptions of your app within your [app's settings](https://discord.com/developers/applications).
 
@@ -18,7 +22,7 @@ There are a few places where you can define different descriptions of your app w
 
 On the **General Information** tab, there is a general **Description** field (max of 400 characters) that appears within your bot user's profile. When a new user clicks on your app within Discord, they'll see this description.
 
-![App description on the General Information tab](bp-productpage-app-description.png)
+![App description on the General Information tab](/images/bp-productpage-app-description.png)
 
 #### App Summary
 
@@ -26,11 +30,11 @@ On the **App Directory** tab, the **Summary** field is a short description (max 
 
 When writing your app's Summary, think about how to grab the user's attention and quickly convey the value of your app. Consider the following description:
 
-![Poorly-written app Summary on the App Directory tab](bp-productpage-summary-bad.png)
+![Poorly-written app Summary on the App Directory tab](/images/bp-productpage-summary-bad.png)
 
 While this could be true, it doesn’t really tell folks how the app makes servers better or more fun. The best descriptions start with an attention grabbing sentence that describes a problem a user might want to solve:
 
-![Well-written app Summary on the App Directory tab](bp-productpage-summary-good.png)
+![Well-written app Summary on the App Directory tab](/images/bp-productpage-summary-good.png)
 
 #### App Expanded Description
 
@@ -58,14 +62,15 @@ After adding some images, make a quick screen recording to demonstrate your app�
 
 Think of up to five words that describe your app and add them as tags (see image below for an example). Consider what categories your app would fit under or keywords users would type into the search bar when looking for apps to add to their servers.
 
-![App tags which help categorize apps and make them more searchable](bp-productpage-tags.png)
+![App tags which help categorize apps and make them more searchable](/images/bp-productpage-tags.png)
 
 ## Support Your Users: Engage with your users directly
 
 Your app’s support server is a paramount part of your App Product Page. It’s important to ensure your app has a dedicated server and channel for communication between your app’s users and its developers and maintainers.
 
-> info
-> If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331-Enabling-Server-Discovery), be sure to include an invite link in the "links" section of your App Directory Product Page.
+:::info
+If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331-Enabling-Server-Discovery), be sure to include an invite link in the "links" section of your App Directory Product Page.
+:::
 
 Some ways you can successfully use your support server includes:
 - Encourage users to share feedback or their experience with your app.

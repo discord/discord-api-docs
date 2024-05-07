@@ -1,13 +1,16 @@
 # Discord
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
-> warn
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::warning
+Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::
 
-> danger
-> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::danger
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::
 
 Making a game? Need a whole bunch of fancy APIs to help make it great and your players' lives a breeze? Look no further! The Discord GameSDK is an easy drop-in SDK to help you manage all the hard things that come with making a game. Well, all the hards things about coding it at least. Interpersonal communication skills are on you (have you heard of this cool chat app called Discord?).
 
@@ -191,8 +194,9 @@ var discord = new Discord(53908232506183680, (UInt64)Discord.CreateFlags.Default
 
 Destroys the instance. Wave goodbye, Nelly! You monster. In C# land, this is `Dispose()`.
 
-> info
-> The C++ binding does not include a `destroy()` method, as the destructor for the Core does the work for you.
+:::info
+The C++ binding does not include a `destroy()` method, as the destructor for the Core does the work for you.
+:::
 
 Returns `void`.
 

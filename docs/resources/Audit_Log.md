@@ -58,8 +58,9 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | Additional info for certain event types               |
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
-> warn
-> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+:::warning
+For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+:::
 
 ###### Audit Log Events
 
@@ -69,8 +70,9 @@ The **Object Changed** column notes which object's values may be included in the
 
 If no object is noted, there won't be a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info).
 
-> info
-> You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
+:::info
+You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
+:::
 
 | Event                                       | Value | Description                                               | Object Changed                                                                                                                                   |
 |---------------------------------------------|-------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -158,9 +160,9 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 
 Some events don't follow the same pattern as other audit log events. Details about these exceptions are explained in [the next section](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions).
 
-> info
-> If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
-
+:::info
+If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
+:::
 
 | Field      | Type                                | Description                                                                                                                        |
 |------------|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -179,7 +181,7 @@ For most objects, the change keys may be any field on the changed object. The fo
 | [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                           | `$add` and `$remove` as keys                                   | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
 | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                              | `avatar_hash` key (instead of `avatar`)                        |                                                                                                                                                                                                                                                             |
 
-## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
+## Get Guild Audit Log % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/audit-logs
 
 Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) permission.
 

@@ -1,10 +1,12 @@
 # Lobbies
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
-> danger
-> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::danger
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::
 
 Looking to integrate multiplayer into your game? Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze by:
 
@@ -139,8 +141,9 @@ lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 
 ## LobbyTransaction.SetOwner
 
-> warn
-> This method is only valid for `LobbyUpdateTransactions` and may cause issues if you set it on a `LobbyCreateTransaction`.
+:::warning
+This method is only valid for `LobbyUpdateTransactions` and may cause issues if you set it on a `LobbyCreateTransaction`.
+:::
 
 Sets a new owner for the lobby.
 
@@ -488,8 +491,9 @@ Updates a lobby with data from the given transaction. You _can_ call `SetOwner()
 
 Returns `Discord.Result` via callback.
 
-> warn
-> This call has a rate limit of 10 updates per 5 seconds. If you fear you might hit that, it may be a good idea to batch your lobby updates into transactions.
+:::warning
+This call has a rate limit of 10 updates per 5 seconds. If you fear you might hit that, it may be a good idea to batch your lobby updates into transactions.
+:::
 
 ###### Parameters
 
@@ -1328,8 +1332,9 @@ Below are the API endpoints and the parameters they accept. If you choose to int
 curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
 ```
 
-> info
-> Make sure to prepend your token with "Bot"!
+:::info
+Make sure to prepend your token with "Bot"!
+:::
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discord.com/developers/docs/intro) you can do with it!
 
@@ -1367,7 +1372,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 }
 ```
 
-## Update Lobby % PATCH /lobbies/{lobby.id#DOCS_LOBBIES/data-models-lobby-struct}
+## Update Lobby % PATCH /lobbies/[\{lobby.id\}](#DOCS_LOBBIES/data-models-lobby-struct)
 
 Updates a lobby.
 
@@ -1379,11 +1384,11 @@ Updates a lobby.
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
 
-## Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
+## Delete Lobby % DELETE /lobbies/[\{lobby.id\}](#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct)
 
 Deletes a lobby.
 
-## Update Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Update Lobby Member % PATCH /lobbies/[\{lobby.id\}](#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Updates the metadata for a lobby member.
 
@@ -1441,7 +1446,7 @@ Creates a lobby search for matchmaking around given criteria.
 | STRING | 1     |
 | NUMBER | 2     |
 
-## Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
+## Send Lobby Data % POST /lobbies/[\{lobby.id\}](#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct)/send
 
 Sends a message to the lobby, fanning it out to other lobby members.
 

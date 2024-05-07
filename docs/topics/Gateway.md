@@ -2,8 +2,9 @@
 
 The Gateway API lets apps open secure WebSocket connections with Discord to receive events about actions that take place in a server/guild, like when a channel is updated or a role is created. There are a few cases where apps will *also* use Gateway connections to update or request resources, like when updating voice state.
 
-> info
-> In *most* cases, performing REST operations on Discord resources can be done using the [HTTP API](#DOCS_REFERENCE/http-api) rather than the Gateway API. 
+:::info
+In *most* cases, performing REST operations on Discord resources can be done using the [HTTP API](#DOCS_REFERENCE/http-api) rather than the Gateway API. 
+:::
 
 The Gateway is Discord's form of real-time communication used by clients (including apps), so there are nuances and data passed that simply isn't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and pieces. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway (or at least those that matter for apps).
 
@@ -32,8 +33,9 @@ Details about Gateway event payloads are in the [Gateway events documentation](#
 
 When sending a Gateway event (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY_EVENTS/identify) or [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)), your app must send an [event payload object](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure) with a valid opcode (`op`) and inner data object (`d`).
 
-> info
-> Specific rate limits are applied when sending events, which you can read about in the [Rate Limiting](#DOCS_TOPICS_GATEWAY/rate-limiting) section.
+:::info
+Specific rate limits are applied when sending events, which you can read about in the [Rate Limiting](#DOCS_TOPICS_GATEWAY/rate-limiting) section.
+:::
 
 Event payloads sent over a Gateway connection:
 
@@ -66,12 +68,13 @@ Gateway connections are persistent WebSockets which introduce more complexity th
 
 ### Connection Lifecycle
 
-> info
-> There are nuances that aren't included in the overview below. More details about each step and event can be found in the individual sections below.
+:::info
+There are nuances that aren't included in the overview below. More details about each step and event can be found in the individual sections below.
+:::
 
 At a high-level, Gateway connections consist of the following cycle:
 
-![Flowchart with an overview of Gateway connection lifecycle](gateway-lifecycle.svg)
+![Flowchart with an overview of Gateway connection lifecycle](/images/gateway-lifecycle.svg)
     
 1. App establishes a connection with the Gateway after fetching and caching a WSS URL using the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 2. Discord sends the app a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event containing a heartbeat interval in milliseconds. **Read the section on [Connecting](#DOCS_TOPICS_GATEWAY/connecting)**
@@ -91,11 +94,13 @@ When initially calling either [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or
 
 When connecting to the URL, it's a good idea to explicitly pass the API version and [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) as query parameters. You can also optionally include whether Discord should [compress](#DOCS_TOPICS_GATEWAY/encoding-and-compression) data that it sends your app.
 
-> info
-> `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
+:::info
+`wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
+:::
 
-> warn
-> For security reasons, the Gateway cannot be accessed directly from a Cloudflare Worker. Attempts will result in a 401 Unauthorized status code.
+:::warning
+For security reasons, the Gateway cannot be accessed directly from a Cloudflare Worker. Attempts will result in a 401 Unauthorized status code.
+:::
 
 ###### Gateway URL Query String Params
 
@@ -134,8 +139,9 @@ Upon receiving the Hello event, your app should wait `heartbeat_interval * jitte
 
 When sending a heartbeat, your app will need to include the last sequence number your app received in the `d` field. The sequence number is sent to your app in the [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure) in the `s` field. If your app hasn't received any events yet, you can just pass `null` in the `d` field.
 
-> info
-> In the first heartbeat, `jitter` is an offset value between 0 and `heartbeat_interval` that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).
+:::info
+In the first heartbeat, `jitter` is an offset value between 0 and `heartbeat_interval` that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).
+:::
 
 You *can* send heartbeats before the `heartbeat_interval` elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you don't need to account for it in your implementation.
 
@@ -149,8 +155,9 @@ When you send a Heartbeat event, Discord will respond with a [Heartbeat ACK (opc
 }
 ```
 
-> info
-> In the event of a service outage where you stay connected to the Gateway, you should continue to send heartbeats and receive heartbeat ACKs. The Gateway will eventually respond and issue a session once it's able to.
+:::info
+In the event of a service outage where you stay connected to the Gateway, you should continue to send heartbeats and receive heartbeat ACKs. The Gateway will eventually respond and issue a session once it's able to.
+:::
 
 If a client does not receive a heartbeat ACK between its attempts at sending heartbeats, this may be due to a failed or "zombied" connection. The client should immediately terminate the connection with any close code besides `1000` or `1001`, then reconnect and attempt to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
 
@@ -168,8 +175,9 @@ Apps are limited by maximum concurrency (`max_concurrency` in the [session start
 
 After your app sends a valid Identify payload, Discord will respond with a [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates that your app is in a successfully-connected state with the Gateway. The Ready event is sent as a standard [Dispatch (opcode `0`)](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes).
 
-> warn
-> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the app will be terminated, the bot token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+:::warning
+Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the app will be terminated, the bot token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+:::
 
 ###### Example Identify Payload
 
@@ -246,8 +254,9 @@ When Resuming, you do not need to send an Identify event after opening the conne
 
 If successful, the Gateway will send the missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY_EVENTS/resumed) event to signal event replay has finished and that all subsequent events will be new.
 
-> info
-> When resuming with the `resume_gateway_url` you need to provide the same version and encoding as the initial connection.
+:::info
+When resuming with the `resume_gateway_url` you need to provide the same version and encoding as the initial connection.
+:::
 
 It's possible your app won't reconnect in time to Resume, in which case it will receive an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event. If the `d` field is set to `false` (which is most of the time), your app should disconnect. After disconnect, your app should create a new connection with your cached URL from the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint, then send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event.
 
@@ -270,8 +279,9 @@ Maintaining a stateful application can be difficult when it comes to the amount 
 
 Intents are bitwise values passed in the `intents` parameter when [Identifying](#DOCS_TOPICS_GATEWAY/identifying) which correlate to a set of related events. For example, the event sent when a guild is created (`GUILD_CREATE`) and when a channel is updated (`CHANNEL_UPDATE`) both require the same `GUILDS (1 << 0)` intent (as listed in the table below). If you do not specify an intent when identifying, you will not receive *any* of the Gateway events associated with that intent.
 
-> info
-> Intents are optionally supported on the v6 gateway but required as of v8
+:::info
+Intents are optionally supported on the v6 gateway but required as of v8
+:::
 
 Two types of intents exist:
 - **Standard intents** can be passed by default. You don't need any additional permissions or configurations.
@@ -424,8 +434,9 @@ Apps that qualify for verification **must** be approved for the privileged inten
 
 Before you specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app requires. [Verified apps](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) can only use privileged intents *after* they've been approved for them.
 
-> info
-> Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
+:::info
+Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
+:::
 
 In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
@@ -439,8 +450,9 @@ If your app qualifies for [verification](https://dis.gd/bot-verification), you m
 
 Privileged intents affect which Gateway events your app is permitted to receive. When using **API v8** and above, all intents (privileged and not) must be specified in the `intents` parameter when Identifying. If you pass a privileged intent in the `intents` parameter without configuring it in your app's settings, or being approved for it during verification, your Gateway connection will be closed with a ([`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)).
 
-> info
-> For **API v6**, you will receive events associated with the privileged intents your app has configured and is authorized to receive *without* passing those intents into the `intents` parameter when Identifying.
+:::info
+For **API v6**, you will receive events associated with the privileged intents your app has configured and is authorized to receive *without* passing those intents into the `intents` parameter when Identifying.
+:::
 
 Events associated with the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned off by default regardless of the API version.
 
@@ -456,8 +468,9 @@ HTTP API restrictions are independent of Gateway restrictions, and are unaffecte
 
 Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, `components`, and `poll` fields in [message objects](#DOCS_RESOURCES_CHANNEL/message-object) all contain message content and therefore require the intent.
 
-> info
-> Like other privileged intents, `MESSAGE_CONTENT` must be approved for your app. After your app is verified, you can apply for the intent from your app's settings within the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+:::info
+Like other privileged intents, `MESSAGE_CONTENT` must be approved for your app. After your app is verified, you can apply for the intent from your app's settings within the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+:::
 
 Apps **without** the intent will receive empty values in fields that contain user-inputted content with a few exceptions:
 - Content in messages that an app sends
@@ -467,8 +480,9 @@ Apps **without** the intent will receive empty values in fields that contain use
 
 ## Rate Limiting
 
-> info
-> This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
+:::info
+This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
+:::
 
 Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) per [connection](#DOCS_TOPICS_GATEWAY/connections) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
 
@@ -486,8 +500,9 @@ When using the plain-text JSON encoding, apps have the option to enable [payload
 
 #### Payload Compression
 
-> warn
-> If an app is using payload compression, it cannot use [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression).
+:::warning
+If an app is using payload compression, it cannot use [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression).
+:::
 
 Payload compression enables optional per-packet compression for *some* events when Discord is sending events over the connection.
 
@@ -550,8 +565,9 @@ Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GAT
 
 As resources continue to be created, updated, and deleted, Gateway events are sent to notify the app of these changes and to provide associated data. To avoid excessive API calls, apps should cache as many relevant resource states as possible, and update them as new events are received.
 
-> info
-> For larger apps, client state can grow to be very large. Therefore, we recommend only storing data in memory that are *needed* for the app to operate. In some cases, there isn't a need to cache member information (like roles or permissions) since some events like [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) have the full member object included.
+:::info
+For larger apps, client state can grow to be very large. Therefore, we recommend only storing data in memory that are *needed* for the app to operate. In some cases, there isn't a need to cache member information (like roles or permissions) since some events like [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) have the full member object included.
+:::
 
 An example of state tracking can be considered in the case of an app that wants to track member status: when initially connecting to the Gateway, the app will receive information about the online status of guild members (whether they're online, idle, dnd, or offline). To keep the state updated, the app will track and parse [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update) events as they're received, then update the cached member objects accordingly.
 
@@ -563,13 +579,15 @@ When connecting to the gateway as a bot user, guilds that the bot is a part of w
 
 As apps grow and are added to an increasing number of guilds, some developers may find it necessary to divide portions of their app's operations across multiple processes. As such, the Gateway implements a method of user-controlled guild sharding which allows apps to split events across a number of Gateway connections. Guild sharding is entirely controlled by an app, and requires no state-sharing between separate connections to operate. While all apps *can* enable sharding, it's not necessary for apps in a smaller number of guilds. 
 
-> warn
-> Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding. 
+:::warning
+Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding. 
+:::
 
 To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0.
 
-> info
-> The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field
+:::info
+The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field
+:::
 
 To calculate which events will be sent to which shard, the following formula can be used:
 
@@ -663,8 +681,9 @@ The session start limit for these bots will also be increased from 1000 to `max(
 
 ## Get Gateway % GET /gateway
 
-> info
-> This endpoint does not require authentication.
+:::info
+This endpoint does not require authentication.
+:::
 
 Returns an object with a valid WSS URL which the app can use when [Connecting](#DOCS_TOPICS_GATEWAY/connecting) to the Gateway. Apps should cache this value and only call this endpoint to retrieve a new URL when they are unable to properly establish a connection using the cached one.
 
@@ -678,8 +697,9 @@ Returns an object with a valid WSS URL which the app can use when [Connecting](#
 
 ## Get Gateway Bot % GET /gateway/bot
 
-> warn
-> This endpoint requires authentication using a valid bot token.
+:::warning
+This endpoint requires authentication using a valid bot token.
+:::
 
 Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus additional metadata that can help during the operation of large or [sharded](#DOCS_TOPICS_GATEWAY/sharding) bots. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 

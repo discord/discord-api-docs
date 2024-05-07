@@ -1,13 +1,16 @@
 # Storage
 
-> info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::info
+Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+:::
 
-> warn
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::warning
+Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
+:::
 
-> danger
-> The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::danger
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+:::
 
 We've been told that people playing games want to save their progress as they go, allowing them to come back where they left off and continue their epic journey of power.
 
@@ -43,8 +46,9 @@ Yup, that's it!
 
 ## GetPath
 
-> info
-> Value from environment variable `DISCORD_STORAGE_PATH`
+:::info
+Value from environment variable `DISCORD_STORAGE_PATH`
+:::
 
 Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
 

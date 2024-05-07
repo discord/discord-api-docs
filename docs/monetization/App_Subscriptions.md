@@ -45,7 +45,7 @@ return new JsonResponse({
 });
 ```
 
-![Interaction Response](monetization-interaction-response.png)
+![Interaction Response](/images/monetization-interaction-response.png)
 
 If someone is already subscribed, this command will show the upgrade prompt with a disabled upgrade button. In order to avoid this, your interaction handler should check to see if the user or guild has an active entitlement for your SKU.
 
@@ -63,8 +63,9 @@ When users subscribe or renew a subscription with your app, Discord will emit [e
 
 Upon a user's purchase of a SKU, you'll receive an [`ENTITLEMENT_CREATE`](#DOCS_MONETIZATION_ENTITLEMENTS/new-entitlement) event. A successful renewal triggers an [`ENTITLEMENT_UPDATE`](#DOCS_MONETIZATION_ENTITLEMENTS/updated-entitlement) event.
 
-> info
-> An [`ENTITLEMENT_DELETE`](#DOCS_MONETIZATION_ENTITLEMENTS/deleted-entitlement) event only occurs when Discord refunds a subscription or removes an entitlement, not when an entitlement expires or is canceled.
+:::info
+An [`ENTITLEMENT_DELETE`](#DOCS_MONETIZATION_ENTITLEMENTS/deleted-entitlement) event only occurs when Discord refunds a subscription or removes an entitlement, not when an entitlement expires or is canceled.
+:::
 
 #### Entitlement HTTP Endpoints
 
@@ -78,8 +79,9 @@ For example, you might keep track of our entitlements in a database and check a 
 
 You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
-> info
-> Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
+:::info
+Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
+:::
 
 ### Testing Payment Flow with Live Entitlements
 
@@ -87,8 +89,9 @@ If you'd like to test the full payment flow for your app, you can do so by inter
 
 After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
 
-> info
-> You can only delete entitlements created using the [create test entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use test entitlements.
+:::info
+You can only delete entitlements created using the [create test entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use test entitlements.
+:::
 
 ## Receiving Payouts
 

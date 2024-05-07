@@ -1,3 +1,7 @@
+import LocalePicker from '@site/src/components/LocalePicker';
+import Collapsible from '@site/src/components/Collapsible';
+import Button from '@site/src/components/Button';
+
 <LocalePicker />
 
 # Building your first Discord app
@@ -9,7 +13,7 @@ We'll be building a Discord app that lets server members play rock-paper-scissor
 <Collapsible title="What we'll be building" icon="view">
 Here's what the finished app will look like:
 
-![Demo of example app](getting-started-demo.gif)
+![Demo of example app](/images/getting-started-demo.gif)
 
 To make the user flow a bit more explicit:
 
@@ -53,7 +57,7 @@ Some intents are [privileged](#DOCS_TOPICS_GATEWAY/privileged-intents), meaning 
 More information about intents and a full list of available intents, along with their associated events, is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 </Collapsible>
 
-![Bot tab in app settings](app-add-bot.png)
+![Bot tab in app settings](/images/app-add-bot.png)
 
 There's also a **Token** section on the **Bot** page, which allows you to copy and reset your bot's token.
 
@@ -61,8 +65,9 @@ Bot tokens are used to authorize API requests and carry your bot user's permissi
 
 Go ahead and copy the token, and store the token somewhere safe (like in a password manager).
 
-> warn
-> You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe.
+:::warning
+You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe.
+:::
 
 ### Adding scopes and bot permissions
 
@@ -77,8 +82,9 @@ When creating an app, scopes and permissions determine what your app can do and 
 
 Click on **OAuth2** in the left sidebar, then select **URL generator**.
 
-> info
-> The URL generator creates an installation link based on the scopes and permissions you select for your app. You can use the link to install the app onto your own server, or share it with others so they can install it.
+:::info
+The URL generator creates an installation link based on the scopes and permissions you select for your app. You can use the link to install the app onto your own server, or share it with others so they can install it.
+:::
 
 For now, just add the **`bot` scope**, which adds your bot user.
 
@@ -90,10 +96,11 @@ See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-sc
 
 Once you add scopes, you should see a URL that you can copy to install your app.
 
-![URL generator screenshot](url-generator.png)
+![URL generator screenshot](/images/url-generator.png)
 
-> info
-> When developing apps, you should build and test in a server that isn't actively used by others. If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+:::info
+When developing apps, you should build and test in a server that isn't actively used by others. If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+:::
 
 Copy the URL from above, and paste it into your browser. You'll be guided through the installation flow, where you should make sure you're installing your app on a server where you can develop and test it.
 
@@ -113,15 +120,16 @@ To make development a bit simpler, the app uses [discord-interactions](https://g
 
 This guide uses Glitch, which lets you clone and develop within your browser. If you'd prefer to develop your app locally, there's instructions on using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally).
 
-> info
-> While Glitch is great for development and testing, [it has technical restrictions](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+:::info
+While Glitch is great for development and testing, [it has technical restrictions](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+:::
 
 To start, **[remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
 
 Once you remix the project, you'll land on a new Glitch project.
 
 <Collapsible title="Glitch project interface" description="Overview of Glitch's project interface" icon="view">
-![Glitch project overview](glitch-project.png)
+![Glitch project overview](/images/glitch-project.png)
 
 - Your **project name** is a unique name for your project, found in the upper-left corner
 - **`.env`** is the file where all of your credentials for your app will be stored
@@ -162,8 +170,9 @@ With your credentials configured, let's install and handle slash commands.
 
 ### Installing slash commands
 
-> info
-> To install slash commands, the app is using [`node-fetch`](https://github.com/node-fetch/node-fetch). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function.
+:::info
+To install slash commands, the app is using [`node-fetch`](https://github.com/node-fetch/node-fetch). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function.
+:::
 
 The project contains a `register` script you can use to install the commands in `ALL_COMMANDS`, which is defined at the bottom of `commands.js`. It installs the commands as global commands by calling the HTTP API's [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) endpoint.
 
@@ -196,14 +205,15 @@ To enable your app to receive slash command requests (and other interactions), D
 
 Glitch projects have a public URL exposed by default. Copy your project's URL by clicking the **Share** button in the top right corner, then copy the "Live site" project link near the bottom of the modal.
 
-> info
-> If you're developing locally, there are instructions for tunneling requests to your local environment [on the GitHub README](https://github.com/discord/discord-example-app#running-app-locally).
+:::info
+If you're developing locally, there are instructions for tunneling requests to your local environment [on the GitHub README](https://github.com/discord/discord-example-app#running-app-locally).
+:::
 
 With the link copied, go to your app's settings from [the developer portal](https://discord.com/developers/applications).
 
 On your app's **General Information** page, there's an **Interactive Endpoint URL** option, where you can paste your app's URL and append `/interactions` to it, which is where the Express app is configured to listen for requests.
 
-![Interactions endpoint URL in app settings](interactions-url.png)
+![Interactions endpoint URL in app settings](/images/interactions-url.png)
 
 Click **Save Changes** and ensure your endpoint is successfully verified.
 
@@ -233,8 +243,9 @@ if (name === 'test') {
 
 The code above is responding to the interaction with a message in the channel it originated from. You can see all available response types, like responding with a modal, [in the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
-> info
-> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::info
+`InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::
 
 Go to your server and make sure your app's `/test` slash command works. When you trigger it, your app should send a message that contains “hello world” followed by a random emoji.
 
@@ -252,8 +263,9 @@ The `/challenge` command, called `CHALLENGE_COMMAND` in `commands.js`, has an ar
 
 You can read more about command options and their structure [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
-> info
-> While this guide won't touch much on the `game.js` file, feel free to poke around and change commands or the options in the commands.
+:::info
+While this guide won't touch much on the `game.js` file, feel free to poke around and change commands or the options in the commands.
+:::
 
 <Collapsible title="Handling the command interaction" description="Code for handling the challenge command and responding with a message containing a button" icon="code" open>
 
@@ -296,16 +308,18 @@ if (name === 'challenge' && id) {
 ```
 
 
-> info
-> If you aren't sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::info
+If you aren't sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+:::
 
 The above code is doing a few things:
 1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`).
 2. Adds a new game to the `activeGames` object using the interaction ID. The active game records the `userId` and `objectName`.
 3. Sends a message back to the channel with a button with a `custom_id` of `accept_button_<SOME_ID>`.
 
-> warn
-> The sample code uses an object as in-memory storage, but for production apps you should use a database.
+:::warning
+The sample code uses an object as in-memory storage, but for production apps you should use a database.
+:::
 
 When sending a message with [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), the individual payloads are appended to a `components` array. Actionable components (like buttons) need to be inside of an [action row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), which you can see in the code sample.
 

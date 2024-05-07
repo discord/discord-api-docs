@@ -6,8 +6,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Structure
 
-> info
-> Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events documentation](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create).
+:::info
+Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events documentation](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create).
+:::
 
 | Field                          | Type                                                                                | Description                                                                                                                                                                                 |
 |--------------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -111,14 +112,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### System Channel Flags
 
-| Flag                                                     | Value  | Description                                                   |
-|----------------------------------------------------------|--------|---------------------------------------------------------------|
-| SUPPRESS_JOIN_NOTIFICATIONS                              | 1 << 0 | Suppress member join notifications                            |
-| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | 1 << 1 | Suppress server boost notifications                           |
-| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | 1 << 2 | Suppress server setup tips                                    |
-| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | 1 << 3 | Hide member join sticker reply buttons                        |
-| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | 1 << 4 | Suppress role subscription purchase and renewal notifications |
-| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | 1 << 5 | Hide role subscription sticker reply buttons                  |
+| Flag                                                     | Value    | Description                                                   |
+|----------------------------------------------------------|----------|---------------------------------------------------------------|
+| SUPPRESS_JOIN_NOTIFICATIONS                              | `1 << 0` | Suppress member join notifications                            |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | `1 << 1` | Suppress server boost notifications                           |
+| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | `1 << 2` | Suppress server setup tips                                    |
+| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | `1 << 3` | Hide member join sticker reply buttons                        |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | `1 << 4` | Suppress role subscription purchase and renewal notifications |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | `1 << 5` | Hide role subscription sticker reply buttons                  |
 
 ###### Guild Features
 
@@ -302,8 +303,9 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | members        | array of partial [user](#DOCS_RESOURCES_USER/user-object) objects          | special widget user objects that includes users presence (Limit 100) |
 | presence_count | integer                                                                    | number of online members in this guild                               |
 
-> warn
-> The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
+:::warning
+The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
+:::
 
 ###### Example Guild Widget
 
@@ -357,11 +359,13 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                                                                                                                        |
 | communication_disabled_until? | ?ISO8601 timestamp                              | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
 
-> info
-> The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
+:::info
+The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
+:::
 
-> info
-> In `GUILD_` events, `pending` will always be included as true or false. In non `GUILD_` events which can only be triggered by non-`pending` users, `pending` will not be included.
+:::info
+In `GUILD_` events, `pending` will always be included as true or false. In non `GUILD_` events which can only be triggered by non-`pending` users, `pending` will not be included.
+:::
 
 ###### Example Guild Member
 
@@ -381,13 +385,14 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Flag                  | Value  | Description                                           | Editable |
 |-----------------------|--------|-------------------------------------------------------|----------|
-| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild                | false    |
-| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                       | false    |
-| BYPASSES_VERIFICATION | 1 << 2 | Member is exempt from guild verification requirements | true     |
-| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                         | false    |
+| DID_REJOIN            | `1 << 0` | Member has left and rejoined the guild                | false    |
+| COMPLETED_ONBOARDING  | `1 << 1` | Member has completed onboarding                       | false    |
+| BYPASSES_VERIFICATION | `1 << 2` | Member is exempt from guild verification requirements | true     |
+| STARTED_ONBOARDING    | `1 << 3` | Member has started onboarding                         | false    |
 
-> info
-> BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
+:::info
+BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
+:::
 
 ### Integration Object
 
@@ -413,8 +418,9 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | scopes?                 | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)                         | the scopes the application has been authorized for                              |
 
 \* These fields are not provided for discord bot integrations.
-> warn
-> Some older integrations may not have an attached user.
+:::warning
+Some older integrations may not have an attached user.
+:::
 
 ###### Integration Expire Behaviors
 
@@ -566,8 +572,9 @@ Represents the [onboarding](https://support.discord.com/hc/en-us/articles/110749
 | title           | string                                             | Title of the option                                               |
 | description     | ?string                                            | Description of the option                                         |
 
-> warn
-> When creating or updating a prompt option, the `emoji_id`, `emoji_name`, and `emoji_animated` fields must be used instead of the emoji object.
+:::warning
+When creating or updating a prompt option, the `emoji_id`, `emoji_name`, and `emoji_animated` fields must be used instead of the emoji object.
+:::
 
 ###### Onboarding Mode
 
@@ -647,15 +654,17 @@ Defines the criteria used to satisfy Onboarding constraints that are required fo
 
 In guilds with [Membership Screening](https://support.discord.com/hc/en-us/articles/1500000466882) enabled, when a member joins, [Guild Member Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-add) will be emitted but they will initially be restricted from doing any actions in the guild, and `pending` will be true in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object). When the member completes the screening, [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) will be emitted and `pending` will be false.
 
-> warn
-> We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
+:::warning
+We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
+:::
 
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) Gateway event.
 
-> warn
-> This endpoint can be used only by bots in less than 10 guilds.
+:::warning
+This endpoint can be used only by bots in less than 10 guilds.
+:::
 
 ###### JSON Params
 
@@ -674,20 +683,25 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 | system_channel_id?             | snowflake                                                                  | the id of the channel where guild notices such as welcome messages and boost events are posted              |
 | system_channel_flags?          | integer                                                                    | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                             |
 
-> warn
-> When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
+:::warning
+When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
+:::
 
-> info
-> When using the `roles` parameter, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
+:::info
+When using the `roles` parameter, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
+:::
 
-> warn
-> When using the `channels` parameter, the `position` field is ignored, and none of the default channels are created.
+:::warning
+When using the `channels` parameter, the `position` field is ignored, and none of the default channels are created.
+:::
 
-> info
-> When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
+:::info
+When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
+:::
 
-> warn
-> The `region` field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+:::warning
+The `region` field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+:::
 
 ###### Example Partial Channel Object
 
@@ -714,7 +728,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 }
 ```
 
-## Get Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
+## Get Guild % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)
 
 Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id. If `with_counts` is set to `true`, this endpoint will also return `approximate_member_count` and `approximate_presence_count` for the guild.
 
@@ -795,23 +809,26 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 }
 ```
 
-## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
+## Get Guild Preview % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/preview
 
 Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id.
 If the user is not in the guild, then the guild must be [discoverable](#DOCS_RESOURCES_GUILD/guild-object-guild-features).
 
-## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
+## Modify Guild % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)
 
 Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the updated [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional
+:::info
+All parameters to this endpoint are optional
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-> warn
-> Attempting to add or remove the `COMMUNITY` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) requires the `ADMINISTRATOR` permission.
+:::warning
+Attempting to add or remove the `COMMUNITY` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) requires the `ADMINISTRATOR` permission.
+:::
 
 ###### JSON Params
 
@@ -839,23 +856,25 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 | safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                          |
 
-## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
+## Delete Guild % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)
 
 Delete a guild permanently. User must be owner. Returns `204 No Content` on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) Gateway event.
 
-## Get Guild Channels % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
+## Get Guild Channels % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/channels
 
 Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. Does not include threads.
 
-## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
+## Create Guild Channel % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/channels
 
 Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. If setting permission overwrites, only permissions your bot has in the guild can be allowed/denied. Setting `MANAGE_ROLES` permission in channels is only possible for guild administrators. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) Gateway event.
 
-> info
-> All parameters to this endpoint are optional and nullable excluding `name`
+:::info
+All parameters to this endpoint are optional and nullable excluding `name`
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -884,12 +903,13 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 
 \*\* In each overwrite object, the `allow` and `deny` keys can be omitted or set to `null`, which both default to `"0"`.
 
-## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
+## Modify Guild Channel Positions % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/channels
 
 Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects for the guild. Requires `MANAGE_CHANNELS` permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway events.
 
-> info
-> Only channels to be modified are required.
+:::info
+Only channels to be modified are required.
+:::
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -902,7 +922,7 @@ This endpoint takes a JSON array of parameters in the following format:
 | lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
 | parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                  |
 
-## List Active Guild Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
+## List Active Guild Threads % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/threads/active
 
 Returns all active threads in the guild, including public and private threads. Threads are ordered by their `id`, in descending order.
 
@@ -913,19 +933,21 @@ Returns all active threads in the guild, including public and private threads. T
 | threads | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the active threads                                                          |
 | members | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined |
 
-## Get Guild Member % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Get Guild Member % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the specified user.
 
-## List Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members
+## List Guild Members % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members
 
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that are members of the guild.
 
-> warn
-> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
+:::warning
+This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
+:::
 
-> info
-> All parameters to this endpoint are optional
+:::info
+All parameters to this endpoint are optional
+:::
 
 ###### Query String Params
 
@@ -934,12 +956,13 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 | limit | integer   | max number of members to return (1-1000) | 1       |
 | after | snowflake | the highest user id in the previous page | 0       |
 
-## Search Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/search
+## Search Guild Members % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/search
 
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects whose username or nickname starts with a provided string.
 
-> info
-> All parameters to this endpoint except for `query` are optional
+:::info
+All parameters to this endpoint except for `query` are optional
+:::
 
 ###### Query String Params
 
@@ -948,17 +971,19 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 | query | string  | Query string to match username(s) and nickname(s) against. |         |
 | limit | integer | max number of members to return (1-1000)                   | 1       |
 
-## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Add Guild Member % PUT /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-add) Gateway event.
 
 For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) enabled, this endpoint will default to adding new members as `pending` in the [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object). Members that are `pending` will have to complete membership screening before they become full members that can talk.
 
-> info
-> All parameters to this endpoint except for `access_token` are optional.
+:::info
+All parameters to this endpoint except for `access_token` are optional.
+:::
 
-> info
-> The Authorization header must be a Bot token (belonging to the same application used for authorization), and the bot must be a member of the guild with `CREATE_INSTANT_INVITE` permission.
+:::info
+The Authorization header must be a Bot token (belonging to the same application used for authorization), and the bot must be a member of the guild with `CREATE_INSTANT_INVITE` permission.
+:::
 
 ###### JSON Params
 
@@ -971,15 +996,17 @@ For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screenin
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
 
 
-## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify Guild Member % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 200 OK with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
-> info
-> All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
+:::info
+All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -993,12 +1020,13 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | communication_disabled_until | ISO8601 timestamp   | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again (up to 28 days in the future), set to null to remove timeout. Will throw a 403 error if the user has the ADMINISTRATOR permission or is the owner of the guild | MODERATE_MEMBERS                                                                    |
 | flags                        | integer             | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags)                                                                                                                                                                                                                                                         | MANAGE_GUILD or MANAGE_ROLES or (MODERATE_MEMBERS and KICK_MEMBERS and BAN_MEMBERS) |
 
-## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
+## Modify Current Member % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/@me
 
 Modifies the current member in a guild. Returns a 200 with the updated member object on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1006,15 +1034,17 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 |-------|---------|---------------------------------|-----------------|
 | nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
 
-## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
+## Modify Current User Nick % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/@me/nick
 
-> danger
-> Deprecated in favor of [Modify Current Member](#DOCS_RESOURCES_GUILD/modify-current-member).
+:::danger
+Deprecated in favor of [Modify Current Member](#DOCS_RESOURCES_GUILD/modify-current-member).
+:::
 
 Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1022,28 +1052,31 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 |-------|---------|---------------------------------|-----------------|
 | nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
 
-## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
+## Add Guild Member Role % PUT /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)/roles/[\{role.id\}](#DOCS_TOPICS_PERMISSIONS/role-object)
 
 Adds a role to a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Remove Guild Member Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
+## Remove Guild Member Role % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)/roles/[\{role.id\}](#DOCS_TOPICS_PERMISSIONS/role-object)
 
 Removes a role from a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Remove Guild Member % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Remove a member from a guild. Requires `KICK_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Get Guild Bans % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans
+## Get Guild Bans % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/bans
 
 Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users banned from this guild. Requires the `BAN_MEMBERS` permission.
 
@@ -1057,16 +1090,17 @@ Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users 
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user.id`. If both `before` and `after` are provided, only `before` is respected.
 
-## Get Guild Ban % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
+## Get Guild Ban % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/bans/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a 404 not found if the ban cannot be found. Requires the `BAN_MEMBERS` permission.
 
-## Create Guild Ban % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
+## Create Guild Ban % PUT /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/bans/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-add) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1075,19 +1109,21 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 | delete_message_days?    | integer | number of days to delete messages for (0-7) (deprecated)                | 0       |
 | delete_message_seconds? | integer | number of seconds to delete messages for, between 0 and 604800 (7 days) | 0       |
 
-## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
+## Remove Guild Ban % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/bans/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204 empty response on success. Fires a [Guild Ban Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-remove) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Bulk Guild Ban % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bulk-ban
+## Bulk Guild Ban % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/bulk-ban
 
 Ban up to 200 users from a guild, and optionally delete previous messages sent by the banned users. Requires both the `BAN_MEMBERS` and `MANAGE_GUILD` permissions. Returns a 200 response on success, including the fields `banned_users` with the IDs of the banned users and `failed_users` with IDs that could not be banned or were already banned.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1105,19 +1141,21 @@ On success, this endpoint returns a 200 success response with the following body
 | banned_users | array of snowflakes | list of user ids, that were successfully banned |
 | failed_users | array of snowflakes | list of user ids, that were not banned          |
 
-> info
-> If none of the users could be banned, an error response code `500000: Failed to ban users` is returned instead.
+:::info
+If none of the users could be banned, an error response code `500000: Failed to ban users` is returned instead.
+:::
 
-## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
+## Get Guild Roles % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/roles
 
 Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
 
-## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
+## Create Guild Role % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/roles
 
 Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-create) Gateway event. All JSON params are optional.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1131,12 +1169,13 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 | unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
 | mentionable   | boolean                                   | whether the role should be mentionable                                                                                         | false                          |
 
-## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
+## Modify Guild Role Positions % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/roles
 
 Modify the positions of a set of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild. Requires the `MANAGE_ROLES` permission. Returns a list of all of the guild's [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects on success. Fires multiple [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update) Gateway events.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -1147,15 +1186,17 @@ This endpoint takes a JSON array of parameters in the following format:
 | id        | snowflake | role                         |
 | position? | ?integer  | sorting position of the role |
 
-## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
+## Modify Guild Role % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/roles/[\{role.id\}](#DOCS_TOPICS_PERMISSIONS/role-object)
 
 Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated [role](#DOCS_TOPICS_PERMISSIONS/role-object) on success. Fires a [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional and nullable.
+:::info
+All parameters to this endpoint are optional and nullable.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1169,12 +1210,13 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 | unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
 | mentionable   | boolean                                  | whether the role should be mentionable                                                                                         |
 
-## Modify Guild MFA Level % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/mfa
+## Modify Guild MFA Level % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/mfa
 
 Modify a guild's MFA level. Requires guild ownership. Returns the updated [level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1182,14 +1224,15 @@ Modify a guild's MFA level. Requires guild ownership. Returns the updated [level
 |-------|---------|-----------------------------------------------------------|
 | level | integer | [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) |
 
-## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
+## Delete Guild Role % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/roles/[\{role.id\}](#DOCS_TOPICS_PERMISSIONS/role-object)
 
 Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Role Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-delete) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
+## Get Guild Prune Count % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/prune
 
 Returns an object with one `pruned` key indicating the number of members that would be removed in a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions.
 
@@ -1202,14 +1245,15 @@ By default, prune will not remove users with roles. You can optionally include s
 | days          | integer                                     | number of days to count prune for (1-30) | 7       |
 | include_roles | string; comma-delimited array of snowflakes | role(s) to include                       | none    |
 
-## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
+## Begin Guild Prune % POST /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/prune
 
 Begin a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions. Returns an object with one `pruned` key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing `pruned` to `null`. Fires multiple [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway events.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1220,44 +1264,47 @@ By default, prune will not remove users with roles. You can optionally include s
 | include_roles       | array of snowflakes | role(s) to include                                         | none    |
 | reason?             | string              | reason for the prune (deprecated)                          |         |
 
-## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
+## Get Guild Voice Regions % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/regions
 
 Returns a list of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) objects for the guild. Unlike the similar `/voice` route, this returns VIP servers when the guild is VIP-enabled.
 
-## Get Guild Invites % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/invites
+## Get Guild Invites % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/invites
 
 Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [invite metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)) for the guild. Requires the `MANAGE_GUILD` permission.
 
-## Get Guild Integrations % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations
+## Get Guild Integrations % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/integrations
 
 Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) objects for the guild. Requires the `MANAGE_GUILD` permission.
 
-> info
-> This endpoint returns a maximum of 50 integrations. If a guild has more integrations, they cannot be accessed.
+:::info
+This endpoint returns a maximum of 50 integrations. If a guild has more integrations, they cannot be accessed.
+:::
 
-## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
+## Delete Guild Integration % DELETE /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/integrations/[\{integration.id\}](#DOCS_RESOURCES_GUILD/integration-object)
 
 Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires [Guild Integrations Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-integrations-update) and [Integration Delete](#DOCS_TOPICS_GATEWAY_EVENTS/integration-delete) Gateway events.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
+## Get Guild Widget Settings % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/widget
 
 Returns a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object. Requires the `MANAGE_GUILD` permission.
 
-## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
+## Modify Guild Widget % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/widget
 
 Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
+## Get Guild Widget % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/widget.json
 
 Returns the [widget](#DOCS_RESOURCES_GUILD/guild-widget-object) for the guild. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create) Gateway event when an invite channel is defined and a new [Invite](#DOCS_RESOURCES_INVITE/invite-object) is generated.
 
-## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
+## Get Guild Vanity URL % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/vanity-url
 
 Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the `MANAGE_GUILD` permission. `code` will be null if a vanity url for the guild is not set.
 
@@ -1270,12 +1317,13 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 }
 ```
 
-## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
+## Get Guild Widget Image % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/widget.png
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
 
-> info
-> All parameters to this endpoint are optional.
+:::info
+All parameters to this endpoint are optional.
+:::
 
 ###### Query String Params
 
@@ -1293,19 +1341,21 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 | banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
 | banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |
 
-## Get Guild Welcome Screen % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
+## Get Guild Welcome Screen % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/welcome-screen
 
 Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object for the guild. If the welcome screen is not enabled, the `MANAGE_GUILD` permission is required.
 
-## Modify Guild Welcome Screen % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
+## Modify Guild Welcome Screen % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/welcome-screen
 
 Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object. May fire a [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional and nullable
+:::info
+All parameters to this endpoint are optional and nullable
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1315,19 +1365,21 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 | welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
 | description      | string                                                                                                                  | the server description to show in the welcome screen            |
 
-## Get Guild Onboarding % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
+## Get Guild Onboarding % GET /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/onboarding
 
 Returns the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild.
 
-## Modify Guild Onboarding % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/onboarding
+## Modify Guild Onboarding % PUT /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/onboarding
 
 Modifies the onboarding configuration of the guild. Returns a 200 with the [Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) object for the guild. Requires the `MANAGE_GUILD` and `MANAGE_ROLES` permissions.
 
-> info
-> Onboarding enforces constraints when enabled. These constraints are that there must be at least 7 Default Channels and at least 5 of them must allow sending messages to the @everyone role. The `mode` field modifies what is considered when enforcing these constraints.
+:::info
+Onboarding enforces constraints when enabled. These constraints are that there must be at least 7 Default Channels and at least 5 of them must allow sending messages to the @everyone role. The `mode` field modifies what is considered when enforcing these constraints.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -1338,7 +1390,7 @@ Modifies the onboarding configuration of the guild. Returns a 200 with the [Onbo
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
 | mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
 
-## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+## Modify Current User Voice State % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/voice-states/@me
 
 Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
 
@@ -1360,7 +1412,7 @@ There are currently several caveats for this endpoint:
 - You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
 - You are able to set `request_to_speak_timestamp` to any present or future time.
 
-## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify User Voice State % PATCH /guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/voice-states/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
 
 Updates another user's voice state. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
 

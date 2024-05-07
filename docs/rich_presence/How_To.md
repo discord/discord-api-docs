@@ -1,7 +1,8 @@
 # Introducing Rich Presence
 
-> danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+:::danger
+The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+:::
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
@@ -13,8 +14,9 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 
 ## Step 0: Get the SDK
 
-> warn
-> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_GETTING_STARTED/).
+:::warning
+Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_GETTING_STARTED/).
+:::
 
 ## So, how does it work?
 
@@ -75,8 +77,9 @@ If you don't want to register all your event handlers at initialization, you can
 
 ## Updating Presence
 
-> warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/updateactivity)
+:::warning
+Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/updateactivity)
+:::
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
 
@@ -148,12 +151,13 @@ typedef struct DiscordRichPresence {
 | joinSecret     | char\*  | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t  | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
-> info
-> Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
+:::info
+Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
+:::
 
 Here's a handy image to see how these fields are actually displayed on a profile:
 
-![Graphical representation of the legend for rich presence details](rp-legend.png)
+![Graphical representation of the legend for rich presence details](/images/rp-legend.png)
 
 | location                               | field name     | notes                                                                       |
 |----------------------------------------|----------------|-----------------------------------------------------------------------------|
@@ -172,8 +176,9 @@ impaired eyesight to understand the potential layout of this information in a us
 
 ## Joining
 
-> warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoinrequest)
+:::warning
+Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoinrequest)
+:::
 
 #### Relevant Callbacks:
 
@@ -215,8 +220,9 @@ typedef struct DiscordJoinRequest {
 | discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
 | avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](#DOCS_REFERENCE/image-formatting) for how to retrieve the image |
 
-> warn
-> `avatar` can be an empty string if the user has not uploaded an avatar to Discord
+:::warning
+`avatar` can be an empty string if the user has not uploaded an avatar to Discord
+:::
 
 When it fires, your game should surface this data with a Yes or No choice for Player A to accept whether or not they wish to play with Player B. Then, call `Discord_Respond()` with Player B's `userId` and the appropriate response code:
 
@@ -235,8 +241,9 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 
 ## Spectating
 
-> warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate)
+:::warning
+Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate)
+:::
 
 #### Relevant Callbacks:
 
@@ -288,8 +295,9 @@ Included with the launch of Rich Presence is an overhaul of Discord's Developer 
 
 OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#APPLICATIONS) to check it out!
 
-> warn
-> **Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
+:::warning
+**Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
+:::
 
 ## A note on testing and Game Detection
 
