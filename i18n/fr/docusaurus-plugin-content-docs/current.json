@@ -1,0 +1,54 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docs.category.Quickstart": {
+    "message": "Quickstart",
+    "description": "The label for category Quickstart in sidebar docs"
+  },
+  "sidebar.docs.category.Interactions": {
+    "message": "Interactions",
+    "description": "The label for category Interactions in sidebar docs"
+  },
+  "sidebar.docs.category.Resources": {
+    "message": "Resources",
+    "description": "The label for category Resources in sidebar docs"
+  },
+  "sidebar.docs.category.Topics": {
+    "message": "Topics",
+    "description": "The label for category Topics in sidebar docs"
+  },
+  "sidebar.docs.category.Tutorials": {
+    "message": "Tutorials",
+    "description": "The label for category Tutorials in sidebar docs"
+  },
+  "sidebar.docs.category.Best Practices": {
+    "message": "Best Practices",
+    "description": "The label for category Best Practices in sidebar docs"
+  },
+  "sidebar.docs.category.Monetization": {
+    "message": "Monetization",
+    "description": "The label for category Monetization in sidebar docs"
+  },
+  "sidebar.docs.category.Activities": {
+    "message": "Activities",
+    "description": "The label for category Activities in sidebar docs"
+  },
+  "sidebar.docs.category.Developer Tools": {
+    "message": "Developer Tools",
+    "description": "The label for category Developer Tools in sidebar docs"
+  },
+  "sidebar.docs.category.Rich Presence": {
+    "message": "Rich Presence",
+    "description": "The label for category Rich Presence in sidebar docs"
+  },
+  "sidebar.docs.category.Game SDK": {
+    "message": "Game SDK",
+    "description": "The label for category Game SDK in sidebar docs"
+  },
+  "sidebar.docs.category.Policies and Agreements": {
+    "message": "Policies and Agreements",
+    "description": "The label for category Policies and Agreements in sidebar docs"
+  }
+}

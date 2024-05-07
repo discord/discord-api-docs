@@ -6,9 +6,9 @@ This repository reflects the Discord API as it is meant to be accessed by third-
 
 We welcome your contributions!
 
--   Issue tracker: Discord API bugs
--   Discussions: Discord API feature and improvement requests
--   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md)
+- Issue tracker: Discord API bugs
+- Discussions: Discord API feature and improvement requests
+- Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md)
 
 ## Markdown Syntax
 

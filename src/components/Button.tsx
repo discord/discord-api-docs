@@ -1,3 +1,5 @@
+import styles from "./Button.module.css";
+
 interface Props {
   href: string;
   color?: string;
@@ -5,5 +7,9 @@ interface Props {
 }
 
 export default function Button({ href, color, children }: Props) {
-  return <a href={href}>{children}</a>;
+  return (
+    <a href={href} className={styles.button}>
+      {children}
+    </a>
+  );
 }

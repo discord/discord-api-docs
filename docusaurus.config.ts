@@ -26,7 +26,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
-    locales: ["en"],
+    locales: ["da", "de", "en", "fr", "ja", "nl", "pl", "pt-br", "tr"],
   },
 
   presets: [
@@ -53,7 +53,7 @@ const config: Config = {
       title: "Discord",
       logo: {
         alt: "My Site Logo",
-        src: "img/logo.svg",
+        src: "img/wump.png",
       },
       items: [
         {
@@ -63,7 +63,11 @@ const config: Config = {
           label: "Docs",
         },
         {
-          href: "https://github.com/facebook/docusaurus",
+          type: "localeDropdown",
+          position: "right",
+        },
+        {
+          href: "https://github.com/discord/discord-api-docs",
           label: "GitHub",
           position: "right",
         },

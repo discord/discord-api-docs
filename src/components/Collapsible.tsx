@@ -1,15 +1,28 @@
-interface Props {
-  title: string;
-  description: string;
-  icon: string;
-  children: React.ReactNode;
-}
+import Details from "@theme/MDXComponents/Details";
 
-export default function Collapsible({ title, description, icon, children }: Props) {
+export default function Collapsible(props: { children: React.ReactNode; title?: string }) {
+  const { children, title = "Collapse" } = props;
+
   return (
-    <details>
-      <summary>{title}</summary>
+    <Details>
+      <summary mdxType="summary">{title}</summary>
       {children}
-    </details>
+    </Details>
   );
 }
+
+// interface Props {
+//   title: string;
+//   description: string;
+//   icon: string;
+//   children: React.ReactNode;
+// }
+
+// export default function Collapsible({ title, description, icon, children }: Props) {
+//   return (
+//     <details>
+//       <summary>{title}</summary>
+//       {children}
+//     </details>
+//   );
+// }
