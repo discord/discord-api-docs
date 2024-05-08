@@ -45,16 +45,16 @@ Após criar seu app, você chegará na página de **Visão Geral** das configura
 
 ### Configurando seu bot
 
-Agora, vamos configurar o [usuário-bot](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) para o seu app, de modo que ele se pareça e se comporte de forma similar a outros membros do servidor.
+Agora, vamos configurar o [usuário-bot](/docs/topics/OAuth2#bot-vs-user-accounts) para o seu app, de modo que ele se pareça e se comporte de forma similar a outros membros do servidor.
 
-Na barra lateral esquerda, clique em **Bot**. Nesta página, você pode definir configurações como as [intenções privilegiadas](#DOCS_TOPICS_GATEWAY/privileged-intents) ou se ele pode ser instalado por outros usuários.
+Na barra lateral esquerda, clique em **Bot**. Nesta página, você pode definir configurações como as [intenções privilegiadas](/docs/topics/Gateway#privileged-intents) ou se ele pode ser instalado por outros usuários.
 
 <Collapsible title="O que são intenções?" description="Introdução a intenções padrão e privilegiadas" icon="question">
-Intenções determinam quais eventos o Discord enviará para o seu app quando você criar uma [conexão ao API de Gateway](#DOCS_TOPICS_GATEWAY). Por exemplo, se você quiser que seu app faça alguma coisa quando usuários adicionam uma reação a uma mensagem, você pode passar a intenção `GUILD_MESSAGE_REACTIONS` (`1 << 10`).
+Intenções determinam quais eventos o Discord enviará para o seu app quando você criar uma [conexão ao API de Gateway](/docs/topics/Gateway). Por exemplo, se você quiser que seu app faça alguma coisa quando usuários adicionam uma reação a uma mensagem, você pode passar a intenção `GUILD_MESSAGE_REACTIONS` (`1 << 10`).
 
-Algumas intenções são [privilegiadas](#DOCS_TOPICS_GATEWAY/privileged-intents), ou seja, elas permitem que seu app acesse dados que podem ser considerados sigilosos (como conteúdo de mensagens). Intenções privilegiadas aparecem e podem ser ligadas ou desligadas na página de **Bots** das configurações do seu app. Intenções padrão (não-privilegiadas) não requerem permissões ou configurações adicionais.
+Algumas intenções são [privilegiadas](/docs/topics/Gateway#privileged-intents), ou seja, elas permitem que seu app acesse dados que podem ser considerados sigilosos (como conteúdo de mensagens). Intenções privilegiadas aparecem e podem ser ligadas ou desligadas na página de **Bots** das configurações do seu app. Intenções padrão (não-privilegiadas) não requerem permissões ou configurações adicionais.
 
-Para mais informações sobre as intenções e uma lista completa das intenções disponíveis e dos eventos associados a elas, leia a [documentação do Gateway](#DOCS_TOPICS_GATEWAY/gateway-intents).
+Para mais informações sobre as intenções e uma lista completa das intenções disponíveis e dos eventos associados a elas, leia a [documentação do Gateway](/docs/topics/Gateway#gateway-intents).
 </Collapsible>
 
 ![Aba de Bots nas configurações do app](/images/app-add-bot.png)
@@ -75,8 +75,8 @@ Apps precisam da permissão do usuário que o está instalando para realizar aç
 <Collapsible title="O que são escopos e permissões?" description="Introdução a escopos e permissões de bot" icon="question">
 Ao criar um app, escopos e permissões determinam o que seu app pode fazer e acessar nos servidores do Discord.
 
-- [Escopos OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) determinam quais dados e quais ações seu app pode acessar e realizar, concedidos em nome de um usuário que esteja instalando ou autenticando o app.
-- [Permissões](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) são as permissões granulares para seu usuário-bot, iguais às que outros usuários do Discord têm. Elas podem ser aprovadas pelo usuário que está instalando ou, mais tarde, atualizando o bot com configurações de servidor ou [redefinições de permissão](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
+- [Escopos OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) determinam quais dados e quais ações seu app pode acessar e realizar, concedidos em nome de um usuário que esteja instalando ou autenticando o app.
+- [Permissões](/docs/topics/Permissions#permission-overwrites) são as permissões granulares para seu usuário-bot, iguais às que outros usuários do Discord têm. Elas podem ser aprovadas pelo usuário que está instalando ou, mais tarde, atualizando o bot com configurações de servidor ou [redefinições de permissão](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
 Clique em **OAuth2** na barra lateral, depois selecione o **gerador de URL**.
@@ -86,10 +86,10 @@ O gerador de URL cria um link de instalação baseado nos escopos e permissões 
 :::
 
 Por ora, adicione dois escopos:
-- `applications.commands`, que permite que seu app crie [comandos](#DOCS_INTERACTIONS_APPLICATION_COMMANDS).
+- `applications.commands`, que permite que seu app crie [comandos](/docs/interactions/Application_Commands).
 - `bot` adiciona seu usuário-bot. Após selecionar `bot`, também dá para selecionar várias permissões para o seu bot. Por ora, pode escolher só **Enviar Mensagens**.
 
-Leia a documentação para ver uma lista de todos os [escopos OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) ou saber mais sobre [permissões](#DOCS_TOPICS_PERMISSIONS).
+Leia a documentação para ver uma lista de todos os [escopos OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) ou saber mais sobre [permissões](/docs/topics/Permissions).
 
 ### Instalando seu app
 
@@ -113,7 +113,7 @@ Com seu app configurado e instalado, vamos começar o desenvolvimento.
 
 Todo o código usado no app de exemplo está disponível no [repositório do GitHub](https://github.com/discord/discord-example-app).
 
-Para simplificar o desenvolvimento, o app usa o [discord-interactions](https://github.com/discord/discord-interactions-js), que fornece tipos e funções auxiliares. Se você preferir usar outros idiomas ou bibliotecas, acesse a documentação dos [Recursos de Comunidade](#DOCS_TOPICS_COMMUNITY_RESOURCES).
+Para simplificar o desenvolvimento, o app usa o [discord-interactions](https://github.com/discord/discord-interactions-js), que fornece tipos e funções auxiliares. Se você preferir usar outros idiomas ou bibliotecas, acesse a documentação dos [Recursos de Comunidade](/docs/topics/Community_Resources).
 
 ### Remixando o projeto
 
@@ -173,9 +173,9 @@ Com suas credenciais configuradas, vamos instalar e direcionar os comandos de ba
 Para instalar comandos de barra, o app usa [`node-fetch`](https://github.com/node-fetch/node-fetch). Você pode ver a implementação da instalação em `utils.js` dentro da função `DiscordRequest()`.
 :::
 
-O projeto contém um script `register` que você pode usar para instalar os comandos em `ALL_COMMANDS`, que são definidos no fim de `commands.js`. Ele instala os comandos como globais chamando o endpoint [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) das APIs HTTP.
+O projeto contém um script `register` que você pode usar para instalar os comandos em `ALL_COMMANDS`, que são definidos no fim de `commands.js`. Ele instala os comandos como globais chamando o endpoint [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) das APIs HTTP.
 
-Se quiser personalizar seus comandos ou adicionar novos, você pode consultar a estrutura de comando na [documentação de comandos](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure).
+Se quiser personalizar seus comandos ou adicionar novos, você pode consultar a estrutura de comando na [documentação de comandos](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
 
 Execute o script `register` clicando em **Terminal** na parte de baixo do seu projeto do Glitch e colando o seguinte comando:
 
@@ -190,8 +190,8 @@ Quando voltar lá para seu servidor, você deve ver os comandos de barra aparece
 <Collapsible title="O que são as APIs do Discord?" description="Visão geral das APIs HTTP e de Gateway do Discord" icon="question">
 O Discord tem duas APIs que você pode combinar como quiser para criar apps:
 
-- A **[API HTTP](#DOCS_REFERENCE/http-api)** é uma API tipo REST para operações gerais como o envio e atualização de dados no Discord, ou solicitações de dados sobre recursos.
-- A **[API de Gateway](#DOCS_REFERENCE/gateway-websocket-api)** é uma API baseada em WebSocket que ajuda a manter o estado ou ouvir eventos que estão ocorrendo em um servidor Discord. Não vamos usá-la neste guia, mas você pode ler mais sobre como criar uma conexão de Gateway e os diferentes eventos que ela pode ouvir na [documentação de Gateway](#DOCS_TOPICS_GATEWAY).
+- A **[API HTTP](/docs/Reference/#http-api)** é uma API tipo REST para operações gerais como o envio e atualização de dados no Discord, ou solicitações de dados sobre recursos.
+- A **[API de Gateway](/docs/Reference/#gateway-websocket-api)** é uma API baseada em WebSocket que ajuda a manter o estado ou ouvir eventos que estão ocorrendo em um servidor Discord. Não vamos usá-la neste guia, mas você pode ler mais sobre como criar uma conexão de Gateway e os diferentes eventos que ela pode ouvir na [documentação de Gateway](/docs/topics/Gateway).
 </Collapsible>
 
 ---
@@ -220,7 +220,7 @@ O app de exemplo faz a verificação de duas formas:
 - Usando a `PUBLIC_KEY` e o [pacote discord-interactions](https://github.com/discord/discord-interactions-js#usage) com uma função wrapper (importada do `utils.js`) que faz ele se conformar à [interface `verify` do Express](http://expressjs.com/en/5x/api.html#express.json). Esse processo é realizado em cada solicitação que seu app recebe.
 - Ele responde a solicitações `PING` recebidas.
 
-Você pode ler mais sobre como preparar seu app para receber interações na [documentação de interações](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
+Você pode ler mais sobre como preparar seu app para receber interações na [documentação de interações](/docs/interactions/Receiving_and_Responding#receiving-an-interaction).
 
 ### Processando solicitações de comando de barra
 
@@ -240,7 +240,7 @@ if (name === 'test') {
 }
 ```
 
-O código acima respondeu à interação com uma mensagem no canal na qual ela se originou. Você pode ver todos os tipos de respostas disponíveis (por exemplo, responder com um modal) [na documentação](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+O código acima respondeu à interação com uma mensagem no canal na qual ela se originou. Você pode ver todos os tipos de respostas disponíveis (por exemplo, responder com um modal) [na documentação](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` é uma constante [exportada do `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -260,7 +260,7 @@ Usaremos o comando `/challenge` para iniciar nosso jogo estilo pedra-papel-tesou
 
 O comando `/challenge`, chamado `CHALLENGE_COMMAND` no `commands.js`, tem um array de `options`. No nosso app, as opções são objetos representando coisas diferentes que usuários podem escolher enquanto jogam pedra-papel-tesoura, gerados usando chaves de `RPSChoices` em `game.js`.
 
-Você pode ler mais sobre opções de comando e a estrutura delas [na documentação](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
+Você pode ler mais sobre opções de comando e a estrutura delas [na documentação](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
 
 :::info
 Este guia não vai falar muito do arquivo `game.js`, mas fique à vontade para mexer nele, mudando os comandos ou as opções deles.
@@ -319,7 +319,7 @@ O código acima faz algumas coisas:
 > aviso
 > O código de exemplo usa um objeto como armazenamento na memória, mas os apps para produção devem ter bases de dados.
 
-Ao enviar uma mensagem com [componentes de mensagem](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), os payloads individuais são anexados a um array `components`. Componentes acionáveis (como botões) precisam estar dentro de uma [fileira de ações](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), como aparece na amostra do código.
+Ao enviar uma mensagem com [componentes de mensagem](/docs/interactions/Message_Components#what-is-a-component), os payloads individuais são anexados a um array `components`. Componentes acionáveis (como botões) precisam estar dentro de uma [fileira de ações](/docs/interactions/Message_Components#action-rows), como aparece na amostra do código.
 
 Repare na `custom_id` enviada com componentes de mensagem (neste caso `accept_button_`) com a ID do jogo ativo anexada a ela. Uma `custom_id` pode ser usada para lidar com solicitações enviadas pelo Discord quando alguém interage com o componente. Você verá isso daqui a pouco.
 
@@ -329,7 +329,7 @@ Agora, quando você usar o comando `/challenge` e escolher uma opção, seu app 
 
 <Collapsible title="Lidar com interações de botão" description="Código para lidar com cliques em botões e respostas com mensagens efêmeras" icon="code" open>
 
-Quando usuários interagem com um componente de mensagem, o Discord envia uma solicitação com um [tipo de interação](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) de `3` (ou o valor `MESSAGE_COMPONENT` ao usar `discord-interactions`).
+Quando usuários interagem com um componente de mensagem, o Discord envia uma solicitação com um [tipo de interação](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) de `3` (ou o valor `MESSAGE_COMPONENT` ao usar `discord-interactions`).
 
 Para montar um handler para o botão, vamos verificar o `type` da interação e alinhando com a `custom_id`.
 
@@ -379,10 +379,10 @@ const componentId = data.custom_id;
 
 O código acima:
 1. Procura uma `custom_id` que combine com a enviada originalmente (neste caso, ela começa com `accept_button_`). A ID personalizada também tem a ID do jogo ativo anexada, então armazenamos ela na `gameID`.
-2. [Exclui a mensagem original](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) chamando um webhook através do `node-fetch` e passando o `token` de interação única no corpo da solicitação. Isso serve para manter o canal limpo e para impedir que outros usuários cliquem no botão.
-3. Responde à solicitação enviando uma mensagem que contém um menu de seleção com as escolhas de objeto do jogo. O payload deve ser bem parecido com o anterior, com exceção do array de `options` e `flags: 64`, [que indica que a mensagem é efêmera](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
+2. [Exclui a mensagem original](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response) chamando um webhook através do `node-fetch` e passando o `token` de interação única no corpo da solicitação. Isso serve para manter o canal limpo e para impedir que outros usuários cliquem no botão.
+3. Responde à solicitação enviando uma mensagem que contém um menu de seleção com as escolhas de objeto do jogo. O payload deve ser bem parecido com o anterior, com exceção do array de `options` e `flags: 64`, [que indica que a mensagem é efêmera](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-O array de `options` é povoado usando o método `getShuffledOptions()` do `game.js`, que manipula os valores de `RPSChoices` para se conformar ao formato das [opções de componente de mensagem](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure).
+O array de `options` é povoado usando o método `getShuffledOptions()` do `game.js`, que manipula os valores de `RPSChoices` para se conformar ao formato das [opções de componente de mensagem](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
 
 </Collapsible>
 
@@ -477,7 +477,7 @@ Parecido com códigos anteriores, o código acima busca a ID de usuário e a sel
 
 Essas informações, junto com a ID do usuário original e a seleção feita no objeto `activeGames`, são passadas para a função `getResult()`. A `getResult()` determina o vencedor, depois monta uma string legível para enviar de volta ao canal.
 
-Também estamos chamando outro webhook, desta vez para [atualizar a mensagem efêmera complementar](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message), já que ela não pode ser excluída.
+Também estamos chamando outro webhook, desta vez para [atualizar a mensagem efêmera complementar](/docs/interactions/Receiving_and_Responding#edit-followup-message), já que ela não pode ser excluída.
 
 Por fim, os resultados são enviados no canal usando o tipo de interação de resposta `CHANNEL_MESSAGE_WITH_SOURCE`.
 
@@ -492,8 +492,8 @@ Por fim, os resultados são enviados no canal usando o tipo de interação de re
 Parabéns por criar seu primeiro app Discord! 🤖
 
 Esperamos que você tenha aprendido um pouco sobre apps Discord e como torná-los interativos. Daqui, você pode continuar a montar seu app ou explorar outras possibilidades:
-- Ler **[a documentação](#DOCS_INTRO)** para informações mais detalhadas sobre recursos da API.
+- Ler **[a documentação](/docs/Intro/)** para informações mais detalhadas sobre recursos da API.
 - Navegar pela pasta `examples/` neste projeto para ver exemplos de código menores e mais específicos.
-- Conferir **[recursos da comunidade](#DOCS_TOPICS_COMMUNITY_RESOURCES)** para ferramentas específicas de certas linguagens de programaçãoque são mantidas por membros da comunidade.
-- Ler nosso tutorial sobre [como hospedar apps Discord no Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
+- Conferir **[recursos da comunidade](/docs/topics/Community_Resources)** para ferramentas específicas de certas linguagens de programaçãoque são mantidas por membros da comunidade.
+- Ler nosso tutorial sobre [como hospedar apps Discord no Cloudflare Workers](/docs/tutorials/Hosting_on_Cloudflare_Workers)
 - Entrar no **[servidor de Desenvolvedores Discord](https://discord.gg/discord-developers)** para fazer perguntas sobre a API, participar de eventos organizados pela equipe da API do Discord e interagir com outros desenvolvedores.

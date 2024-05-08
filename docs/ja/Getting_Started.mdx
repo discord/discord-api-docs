@@ -45,16 +45,16 @@ Discordアプリは、様々なAPIやインタラクティブ機能により、�
 
 ### Botを設定する
 
-次にアプリの[Botユーザー](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts)を設定します。これにより、Botがサーバー内で他のメンバーと同様に表示・動作するようになります。
+次にアプリの[Botユーザー](/docs/topics/OAuth2#bot-vs-user-accounts)を設定します。これにより、Botがサーバー内で他のメンバーと同様に表示・動作するようになります。
 
-左側のサイドバーで**Bot**をクリックします。このページでは、Botの[特権インテント（privileged intents）](#DOCS_TOPICS_GATEWAY/privileged-intents)や、Botが他のユーザーによってインストールできるかどうかなどの設定を行えます。
+左側のサイドバーで**Bot**をクリックします。このページでは、Botの[特権インテント（privileged intents）](/docs/topics/Gateway#privileged-intents)や、Botが他のユーザーによってインストールできるかどうかなどの設定を行えます。
 
 <Collapsible title="インテントとは何か？" description="標準インテントと特権インテントの概説" icon="question">
-インテントとは、[ゲートウェイAPI接続](#DOCS_TOPICS_GATEWAY)を作成する際に、Discordがあなたのアプリにどのイベントを送信するかを決定するものです。たとえば、ユーザーがメッセージにリアクションを追加したときに動作するアプリを作りたいなら、`GUILD_MESSAGE_REACTIONS` (`1 << 10`) インテントを渡します。
+インテントとは、[ゲートウェイAPI接続](/docs/topics/Gateway)を作成する際に、Discordがあなたのアプリにどのイベントを送信するかを決定するものです。たとえば、ユーザーがメッセージにリアクションを追加したときに動作するアプリを作りたいなら、`GUILD_MESSAGE_REACTIONS` (`1 << 10`) インテントを渡します。
 
-一部のインテントは[特権](#DOCS_TOPICS_GATEWAY/privileged-intents)インテントであり、センシティブと判断される可能性のあるデータ（メッセージの内容など）にアプリがアクセスできるようにします。特権インテントはアプリの設定の**Bot**ページに表示され、ここで切り替えできます。標準の非特権インテントは、追加の権限や設定を必要としません。
+一部のインテントは[特権](/docs/topics/Gateway#privileged-intents)インテントであり、センシティブと判断される可能性のあるデータ（メッセージの内容など）にアプリがアクセスできるようにします。特権インテントはアプリの設定の**Bot**ページに表示され、ここで切り替えできます。標準の非特権インテントは、追加の権限や設定を必要としません。
 
-インテントについての詳細情報、利用可能な全インテント一覧とそれらに関連付けられたイベントについては、[ゲートウェイ・ドキュメント](#DOCS_TOPICS_GATEWAY/gateway-intents)をご覧ください。
+インテントについての詳細情報、利用可能な全インテント一覧とそれらに関連付けられたイベントについては、[ゲートウェイ・ドキュメント](/docs/topics/Gateway#gateway-intents)をご覧ください。
 </Collapsible>
 
 ![アプリ設定のBotタブ](/images/app-add-bot.png)
@@ -76,8 +76,8 @@ BotトークンはAPIリクエストの認証に使われ、Botユーザーの�
 <Collapsible title="スコープと権限とは何か？" description="スコープとBot権限の概説" icon="question">
 アプリの作成にあたって、あなたのアプリがDiscordサーバーでできること、アクセスできるものを定めるのがスコープと権限です。
 
-- [OAuth2スコープ](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)は、インストールまたは認証を行うユーザーに代わってあなたのアプリが行えるデータアクセスやアクションを定めます。
-- [権限](#DOCS_TOPICS_PERMISSIONS/permission-overwrites)は、Botユーザーに与える粒度の細かい権限であり、Discordにおける他のユーザーが有しているのと同様のものです。インストールするユーザーが承認することもできますし、後から[権限の上書き](#DOCS_TOPICS_PERMISSIONS/permission-overwrites)を用いてサーバー設定で更新することもできます。
+- [OAuth2スコープ](/docs/topics/OAuth2#shared-resources-oauth2-scopes)は、インストールまたは認証を行うユーザーに代わってあなたのアプリが行えるデータアクセスやアクションを定めます。
+- [権限](/docs/topics/Permissions#permission-overwrites)は、Botユーザーに与える粒度の細かい権限であり、Discordにおける他のユーザーが有しているのと同様のものです。インストールするユーザーが承認することもできますし、後から[権限の上書き](/docs/topics/Permissions#permission-overwrites)を用いてサーバー設定で更新することもできます。
 </Collapsible>
 
 左側のサイドバーで**OAuth2**をクリックし、続いて**URLジェネレータ（URL generator）**を選択します。
@@ -87,10 +87,10 @@ URLジェネレータは、あなたがアプリ用に選択したスコープ�
 :::
 
 今のところは2つのスコープを追加してみましょう：
-- `applications.commands`：アプリが[コマンド](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)を生成できるようにします。
+- `applications.commands`：アプリが[コマンド](/docs/interactions/Application_Commands)を生成できるようにします。
 - `bot`：Botユーザーを追加します。`bot`を選択したら、Bot用に他の各種権限を追加できます。今のところは、**メッセージを送信**だけチェックしておきましょう。
 
-[OAuth2スコープ](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)の一覧をご確認いただくか、ドキュメントで[権限](#DOCS_TOPICS_PERMISSIONS)についての詳細をご覧ください。
+[OAuth2スコープ](/docs/topics/OAuth2#shared-resources-oauth2-scopes)の一覧をご確認いただくか、ドキュメントで[権限](/docs/topics/Permissions)についての詳細をご覧ください。
 
 ### アプリをインストールする
 
@@ -114,7 +114,7 @@ URLジェネレータは、あなたがアプリ用に選択したスコープ�
 
 アプリ実例で使われたコードはすべて[Githubレポジトリ](https://github.com/discord/discord-example-app)に掲載されています。
 
-開発がしやすくなるよう、このアプリでは、タイプおよびヘルパー関数を提供する[discord-interactions](https://github.com/discord/discord-interactions-js)を使用しています。他の言語やライブラリを使用したい場合は、[コミュニティ・リソース](#DOCS_TOPICS_COMMUNITY_RESOURCES)ドキュメントをご確認ください。
+開発がしやすくなるよう、このアプリでは、タイプおよびヘルパー関数を提供する[discord-interactions](https://github.com/discord/discord-interactions-js)を使用しています。他の言語やライブラリを使用したい場合は、[コミュニティ・リソース](/docs/topics/Community_Resources)ドキュメントをご確認ください。
 
 ### プロジェクトをリミックスする
 
@@ -174,9 +174,9 @@ Glitchは開発とテストには最適ですが、[技術的な制限がある�
 アプリはスラッシュコマンドをインストールするにあたり、[`node-fetch`](https://github.com/node-fetch/node-fetch)を利用しています。インストールの実装は、`DiscordRequest()`関数内の`utils.js`で確認できます。
 :::
 
-プロジェクトには`register`スクリプトが含まれています。これを用いて、`commands.js`の最下部で定義されている`ALL_COMMANDS`のコマンドをインストールできます。これはHTTP APIの[`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands)エンドポイントを呼び出すことで、コマンドをグローバルコマンドとしてインストールします。
+プロジェクトには`register`スクリプトが含まれています。これを用いて、`commands.js`の最下部で定義されている`ALL_COMMANDS`のコマンドをインストールできます。これはHTTP APIの[`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands)エンドポイントを呼び出すことで、コマンドをグローバルコマンドとしてインストールします。
 
-コマンドをカスタマイズしたい、または新しいものを追加したい場合は、[コマンド・ドキュメント](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure)にてコマンドの構造をご確認ください。
+コマンドをカスタマイズしたい、または新しいものを追加したい場合は、[コマンド・ドキュメント](/docs/interactions/Application_Commands#application-command-object-application-command-structure)にてコマンドの構造をご確認ください。
 
 Glitchプロジェクトの最下部にある**ターミナル（Terminal）**をクリックして`register`スクリプトを実行し、下記のコマンドをペーストします：
 
@@ -191,8 +191,8 @@ Enterキーを押してコマンドを実行します。
 <Collapsible title="DiscordのAPIとは？" description="DiscordのHTTP APIとゲートウェイAPIの概説" icon="question">
 Discordには2種類のAPIがあり、これらを組み合わせてアプリを作成できます：
 
-- **[HTTP API](#DOCS_REFERENCE/http-api)**：RESTに似たAPIであり、Discord上でのデータ送信やアップデート、リソースに関するデータの取得などの全般的操作に使用します。
-- **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)**：WebSocketベースのAPIであり、ステートを維持したり、Discordサーバーで起こっているイベントをリッスンしたりするのに便利です。このガイドでは使いませんが、ゲートウェイ接続の作成方法や、リッスンできる各種イベントについては、[ゲートウェイ・ドキュメント](#DOCS_TOPICS_GATEWAY)をご覧ください。
+- **[HTTP API](/docs/Reference/#http-api)**：RESTに似たAPIであり、Discord上でのデータ送信やアップデート、リソースに関するデータの取得などの全般的操作に使用します。
+- **[Gateway API](/docs/Reference/#gateway-websocket-api)**：WebSocketベースのAPIであり、ステートを維持したり、Discordサーバーで起こっているイベントをリッスンしたりするのに便利です。このガイドでは使いませんが、ゲートウェイ接続の作成方法や、リッスンできる各種イベントについては、[ゲートウェイ・ドキュメント](/docs/topics/Gateway)をご覧ください。
 </Collapsible>
 
 ---
@@ -221,7 +221,7 @@ Glitchプロジェクトでは、デフォルトで公開URLが見られるよ�
 - `PUBLIC_KEY`およびラッパー関数（`utils.js`よりインポート）を伴った[discord-interactionsパッケージ](https://github.com/discord/discord-interactions-js#usage)を利用する。これにより、[Expressの`verify`インターフェース](http://expressjs.com/en/5x/api.html#express.json)に適合します。これはあなたのアプリにリクエストが入ってくるたびに実行されます。
 - 入ってくる`PING`リクエストに応答する。
 
-アプリがインタラクションを受け取れるようにする方法について、詳しくは[インタラクション・ドキュメント](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction)をご覧ください。
+アプリがインタラクションを受け取れるようにする方法について、詳しくは[インタラクション・ドキュメント](/docs/interactions/Receiving_and_Responding#receiving-an-interaction)をご覧ください。
 
 ### スラッシュコマンド・リクエストをハンドリングする
 
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-上記のコードは、起点となったチャンネルにおけるメッセージとのインタラクションに応答しています。可能な応答タイプ（モーダルで応答するなど）は[ドキュメント](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type)でご確認いただけます。
+上記のコードは、起点となったチャンネルにおけるメッセージとのインタラクションに応答しています。可能な応答タイプ（モーダルで応答するなど）は[ドキュメント](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type)でご確認いただけます。
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE`は[`discord-interactions`からエクスポートされた](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)定数です
@@ -261,7 +261,7 @@ if (name === 'test') {
 
 `/challenge`コマンドは、`commands.js`では`CHALLENGE_COMMAND`と呼ばれており、一連の`options`を有します。今回のアプリでは、オプションはユーザーがじゃんけんをする際に選択できる様々なものを表しており、`game.js`における`RPSChoices`のキーを利用して生成されます。
 
-コマンドオプションとその構造については[ドキュメント](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)をご覧ください。
+コマンドオプションとその構造については[ドキュメント](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure)をご覧ください。
 
 :::info
 このガイドでは`game.js`にはあまり深入りしませんが、コマンドやコマンド内のオプションを変えるなど、いろいろといじってみましょう。
@@ -321,7 +321,7 @@ if (name === 'challenge' && id) {
 サンプルコードではオブジェクトをメモリ内ストレージとして使用していますが、プロダクションアプリではデータベースを使用してください。
 :::
 
-[メッセージ・コンポーネント](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component)を伴うメッセージを送るとき、個々のペイロードは`components`アレイにアペンドされます。実行可能なコンポーネント（ボタンなど）は、コードサンプルで確認できる[アクション行](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows)の中にある必要があります。
+[メッセージ・コンポーネント](/docs/interactions/Message_Components#what-is-a-component)を伴うメッセージを送るとき、個々のペイロードは`components`アレイにアペンドされます。実行可能なコンポーネント（ボタンなど）は、コードサンプルで確認できる[アクション行](/docs/interactions/Message_Components#action-rows)の中にある必要があります。
 
 メッセージ・コンポーネントと共に送られる一意の`custom_id`にお気づきでしょうか。この場合は、アクティブなゲームのIDがアペンドされた`accept_button_`になります。誰かがコンポーネントとインタラクトした際にDiscordがあなたに送るリクエストをハンドリングするには、`custom_id`が使用できます。これについては後ほどご説明します。
 
@@ -331,7 +331,7 @@ if (name === 'challenge' && id) {
 
 <Collapsible title="ボタン・インタラクションをハンドリングする" description="ボタンへのクリックをハンドリングして一時メッセージで応答するためのコード" icon="code" open>
 
-ユーザーがメッセージ・コンポーネントとインタラクトすると、Discordは[インタラクション・タイプ](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)が`3`（または`discord-interactions`を使用している場合は`MESSAGE_COMPONENT`の値）のリクエストを送信します。
+ユーザーがメッセージ・コンポーネントとインタラクトすると、Discordは[インタラクション・タイプ](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type)が`3`（または`discord-interactions`を使用している場合は`MESSAGE_COMPONENT`の値）のリクエストを送信します。
 
 ボタンのハンドラを設定するため、インタラクションの`type`を確認し、続いて`custom_id`のマッチングを行います。
 
@@ -381,10 +381,10 @@ const componentId = data.custom_id;
 
 上記のコードは以下のように動作します：
 1. 元々送ったものとマッチする`custom_id`をチェックします（この場合は`accept_button_`で始まるものです）。カスタムIDにはアクティブなゲームIDもアペンドされていますので、これを`gameID`に保存します。
-2. `node-fetch`を使用してウェブフックを呼び出し、リクエストボディ内の一意のインタラクション`token`を渡すことで、[元のメッセージを削除](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response)します。これは他のユーザーがボタンをクリックしてしまわないよう、チャンネルをクリーンアップするための動作です。
-3. ゲームのオブジェクトの選択肢を示す選択メニューを含んだメッセージを送ることで、リクエストに応答します。ペイロードは前のものとよく似ていますが、`options`アレイと[一時メッセージであることを示す](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message)`flags: 64`がある点で異なります。
+2. `node-fetch`を使用してウェブフックを呼び出し、リクエストボディ内の一意のインタラクション`token`を渡すことで、[元のメッセージを削除](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response)します。これは他のユーザーがボタンをクリックしてしまわないよう、チャンネルをクリーンアップするための動作です。
+3. ゲームのオブジェクトの選択肢を示す選択メニューを含んだメッセージを送ることで、リクエストに応答します。ペイロードは前のものとよく似ていますが、`options`アレイと[一時メッセージであることを示す](/docs/interactions/Receiving_and_Responding#create-followup-message)`flags: 64`がある点で異なります。
 
-`options`アレイは`game.js`の`getShuffledOptions()`メソッドを利用して入力されます。これは`RPSChoices`の値を操作して[メッセージ・コンポーネント・オプション](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)の形に合わせてゆくものです。
+`options`アレイは`game.js`の`getShuffledOptions()`メソッドを利用して入力されます。これは`RPSChoices`の値を操作して[メッセージ・コンポーネント・オプション](/docs/interactions/Message_Components#select-menu-object-select-option-structure)の形に合わせてゆくものです。
 
 </Collapsible>
 
@@ -479,7 +479,7 @@ const componentId = data.custom_id;
 
 この情報、ならびに元のユーザーのIDと`activeGames`オブジェクトからの選択が、`getResult()`関数に渡されます。`getResult()`が勝者を決定し、チャンネルに送り返すための読み取り可能な文字列をビルドします。
 
-また、別のウェブフックも呼び出して、[フォローアップの一時メッセージを削除できない代わりに更新します](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message)。
+また、別のウェブフックも呼び出して、[フォローアップの一時メッセージを削除できない代わりに更新します](/docs/interactions/Receiving_and_Responding#edit-followup-message)。
 
 最後に、`CHANNEL_MESSAGE_WITH_SOURCE`インタラクション応答タイプを使用して、結果がチャンネルに送られます。
 
@@ -494,8 +494,8 @@ const componentId = data.custom_id;
 初めてのDiscordアプリの完成、おめでとうございます！🤖
 
 Discordアプリのこと、設定する方法、そしてインタラクティブなアプリを作る方法について、学んでいただけていれば幸いです。ここからは、アプリを開発をさらに進めてもよいですし、他にできることを調べてみてもよいでしょう：
-- API機能についてさらに詳しく知るため、**[ドキュメント](#DOCS_INTRO)**を読んでみる
+- API機能についてさらに詳しく知るため、**[ドキュメント](/docs/Intro/)**を読んでみる
 - より小規模な、機能固有のコード例を見るため、このプロジェクトの`examples/`フォルダーを見てみる
-- **[コミュニティリソース](#DOCS_TOPICS_COMMUNITY_RESOURCES)**で、コミュニティメンバーが管理している言語ごとのツールを見てみる
-- [Cloudflare WorkersでDiscordアプリをホストする](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)チュートリアルを読む
+- **[コミュニティリソース](/docs/topics/Community_Resources)**で、コミュニティメンバーが管理している言語ごとのツールを見てみる
+- [Cloudflare WorkersでDiscordアプリをホストする](/docs/tutorials/Hosting_on_Cloudflare_Workers)チュートリアルを読む
 - **[Discord開発者サーバー](https://discord.gg/discord-developers)**に加入して、APIについて質問したり、Discord APIチームの主催するイベントに参加したり、他の開発者と交流したりする

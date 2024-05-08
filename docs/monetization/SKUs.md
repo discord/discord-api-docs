@@ -9,11 +9,11 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 | Field          | Type      | Description                                                                                                                 |
 |----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------|
 | id             | snowflake | ID of SKU                                                                                                                   |
-| type           | integer   | [Type of SKU](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)                                                                 |
+| type           | integer   | [Type of SKU](/docs/monetization/SKUs#sku-object-sku-types)                                                                 |
 | application_id | snowflake | ID of the parent application                                                                                                |
 | name           | string    | Customer-facing name of your premium offering                                                                               |
 | slug           | string    | System-generated URL slug based on the SKU's name                                                                           |
-| flags          | integer   | [SKU flags](#DOCS_MONETIZATION_SKUS/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags          | integer   | [SKU flags](/docs/monetization/SKUs#sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### SKU Example
 
@@ -111,7 +111,7 @@ From then on, we'll send you daily dashboard emails containing information about
 
 Congratulations on going live! 🥳
 
-## List SKUs % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/skus
+## List SKUs % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/skus
 
 Returns all SKUs for a given application. 
 

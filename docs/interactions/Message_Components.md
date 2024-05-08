@@ -6,9 +6,9 @@ There are several different types of components; this documentation will outline
 
 ## What is a Component
 
-Components are a field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) or other interaction.
+Components are a field on the [message object](/docs/resources/Channel#message-object), so you can use them whether you're sending messages or responding to a [slash command](/docs/interactions/Application_Commands) or other interaction.
 
-The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) components.
+The top-level `components` field is an array of [Action Row](/docs/interactions/Message_Components#action-rows) components.
 
 ### Component Object
 
@@ -70,7 +70,7 @@ An Action Row is a non-interactive container component for other types of compon
 
 ## Responding to a Component Interaction
 
-Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) for more.
+Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](/docs/interactions/Receiving_and_Responding#responding-to-an-interaction) and [interaction response](/docs/interactions/Receiving_and_Responding#interaction-response-object) for more.
 
 ## Custom ID
 
@@ -80,7 +80,7 @@ Components, aside from Action Rows, must have a `custom_id` field. This field is
 
 ## Buttons
 
-Buttons are interactive components that render in messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked.
+Buttons are interactive components that render in messages. They can be clicked by users, and send an [interaction](/docs/interactions/Receiving_and_Responding#interaction-object) to your app when clicked.
 
 - Buttons must be sent inside an Action Row
 - An Action Row can contain up to 5 buttons
@@ -93,9 +93,9 @@ Buttons are interactive components that render in messages. They can be clicked 
 | Field      | Type                                                | Description                                                                         |
 |------------|-----------------------------------------------------|-------------------------------------------------------------------------------------|
 | type       | integer                                             | `2` for a button                                                                    |
-| style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
+| style      | integer                                             | A [button style](/docs/interactions/Message_Components#button-object-button-styles) |
 | label?     | string                                              | Text that appears on the button; max 80 characters                                  |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
+| emoji?     | partial [emoji](/docs/resources/Emoji#emoji-object) | `name`, `id`, and `animated`                                                        |
 | custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                     |
 | url?       | string                                              | URL for link-style buttons                                                          |
 | disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                |
@@ -104,7 +104,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 - Non-link buttons **must** have a `custom_id`, and cannot have a `url`
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
-- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
+- Link buttons do not send an [interaction](/docs/interactions/Receiving_and_Responding#interaction-object) to your app when clicked
 
 ###### Button Styles
 
@@ -118,7 +118,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ![An image showing the different button styles](/images/button-styles.png)
 
-When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) including the message the button was on:
+When a user clicks on a button, your app will receive an [interaction](/docs/interactions/Receiving_and_Responding#interaction-object) including the message the button was on:
 
 ### Component Interaction Object
 
@@ -203,7 +203,7 @@ Select menus are interactive components that allow users to select one or more o
 
 ![A role select component on desktop](/images/desktop-role-select-menu.png)
 
-Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice(s) by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
+Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice(s) by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure).
 
 - Select menus must be sent inside an Action Row
 - An Action Row can contain only one select menu
@@ -211,13 +211,13 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 ### Select Menu Types
 
-There are 5 different [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) that can be included in Action Rows.
+There are 5 different [select menu components](/docs/interactions/Message_Components#component-object-component-types) that can be included in Action Rows.
 
-The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type).
+The string select menu (type `3`) is the *only* select type that allows (and *requires*) apps to define the `options` that appear in the dropdown list. The other 4 select menu components (users, roles, mentionables, and channels) are auto-populated with options corresponding to the resource type—similar to [command option types](/docs/interactions/Application_Commands#application-command-object-application-command-option-type).
 
-In addition to the `values` array in all [select menu interaction payloads](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction), auto-populated select menu components (user, role, mentionable, and channel) also include an additional [`resolved` object](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
+In addition to the `values` array in all [select menu interaction payloads](/docs/interactions/Message_Components#select-menu-object-select-menu-interaction), auto-populated select menu components (user, role, mentionable, and channel) also include an additional [`resolved` object](/docs/interactions/Message_Components#select-menu-object-select-menu-resolved-object) that provides additional details about the user's selected resource.
 
-The payloads for the select menu components are detailed in the [select menu structure](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-structure).
+The payloads for the select menu components are detailed in the [select menu structure](/docs/interactions/Message_Components#select-menu-object-select-menu-structure).
 
 ###### Select Menu Example
 
@@ -277,12 +277,12 @@ The payloads for the select menu components are detailed in the [select menu str
 
 | Field                 | Type                                                                                                                      | Description                                                                                                                                                                |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type                  | integer                                                                                                                   | [Type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
+| type                  | integer                                                                                                                   | [Type](/docs/interactions/Message_Components#component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
 | custom_id             | string                                                                                                                    | ID for the select menu; max 100 characters                                                                                                                                 |
-| options?\*            | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)               | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
-| channel_types?\*\*    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                            | List of channel types to include in the channel select component (type `8`)                                                                                                |
+| options?\*            | array of [select options](/docs/interactions/Message_Components#select-menu-object-select-option-structure)               | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
+| channel_types?\*\*    | array of [channel types](/docs/resources/Channel#channel-object-channel-types)                                            | List of channel types to include in the channel select component (type `8`)                                                                                                |
 | placeholder?          | string                                                                                                                    | Placeholder text if nothing is selected; max 150 characters                                                                                                                |
-| default_values?\*\*\* | array of [default value objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values`                   |
+| default_values?\*\*\* | array of [default value objects](/docs/interactions/Message_Components#select-menu-object-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values`                   |
 | min_values?           | integer                                                                                                                   | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                                                 |
 | max_values?           | integer                                                                                                                   | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                                         |
 | disabled?             | boolean                                                                                                                   | Whether select menu is disabled (defaults to `false`)                                                                                                                      |
@@ -291,7 +291,7 @@ The payloads for the select menu components are detailed in the [select menu str
 
 \*\* `channel_types` can only be used for channel select menu components.
 
-\*\*\* `default_values` is only available for auto-populated select menu components, which include user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types).
+\*\*\* `default_values` is only available for auto-populated select menu components, which include user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [components](/docs/interactions/Message_Components#component-object-component-types).
 
 ###### Select Option Structure
 
@@ -300,7 +300,7 @@ The payloads for the select menu components are detailed in the [select menu str
 | label        | string                                                     | User-facing name of the option; max 100 characters       |
 | value        | string                                                     | Dev-defined value of the option; max 100 characters      |
 | description? | string                                                     | Additional description of the option; max 100 characters |
-| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                             |
+| emoji?       | partial [emoji](/docs/resources/Emoji#emoji-object) object | `id`, `name`, and `animated`                             |
 | default?     | boolean                                                    | Will show this option as selected by default             |
 
 ###### Select Default Value Structure
@@ -470,7 +470,7 @@ A sample `data` object (a subset of the interaction payload) for a channel selec
 
 Text inputs are an interactive component that render in modals. They can be used to collect short-form or long-form text.
 
-When defining a text input component, you can set attributes to customize the behavior and appearance of it. However, not all attributes will be returned in the [text input interaction payload](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-interaction).
+When defining a text input component, you can set attributes to customize the behavior and appearance of it. However, not all attributes will be returned in the [text input interaction payload](/docs/interactions/Message_Components#text-input-object-text-input-interaction).
 
 ![A text input in a modal on desktop client](/images/modal-desktop.png)
 
@@ -505,7 +505,7 @@ When defining a text input component, you can set attributes to customize the be
 |--------------|---------|---------------------------------------------------------------------------------------------------|
 | type         | integer | `4` for a text input                                                                              |
 | custom_id    | string  | Developer-defined identifier for the input; max 100 characters                                    |
-| style        | integer | The [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-styles) |
+| style        | integer | The [Text Input Style](/docs/interactions/Message_Components#text-input-object-text-input-styles) |
 | label        | string  | Label for this component; max 45 characters                                                       |
 | min_length?  | integer | Minimum input length for a text input; min 0, max 4000                                            |
 | max_length?  | integer | Maximum input length for a text input; min 1, max 4000                                            |

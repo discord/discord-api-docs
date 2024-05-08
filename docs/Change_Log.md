@@ -11,33 +11,33 @@ Two new features are now available for Premium Apps: One-Time Purchases and Stor
 - **Durable Items**: A one-time purchase that is permanent and is not subject to either renewal or consumption, such as lifetime access to an app's premium features.
 - **Consumable Items**: A one-time, non-renewable purchase that provides access, such as a temporary power-up or boost in a game.
 
-Learn more about implementing [One-Time Purchases](#DOCS_MONETIZATION_ONE-TIME_PURCHASES).
+Learn more about implementing [One-Time Purchases](/docs/monetization/One-Time_Purchases).
 
 **A Store for Your Premium App**
 
 We have also introduced a Store for your Premium App to showcase your app subscriptions and one-time purchase items. You can now create a unique Store page within the developer portal and add your published subscription SKUs or one-time purchase SKUs to your store view, allowing your users to buy these items from your App Directory or Bot User Profile.
 
-To explore these features, eligibility details, and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
+To explore these features, eligibility details, and how to enable monetization for your app, check out the [Monetization Overview](/docs/monetization/Overview).
 
 **API Documentation Updates**
 
 The following were added to our public Monetization documentation with this update:
 
-- New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) 
-- New [Entitlement Object Types](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types)
-- [Consume an Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/consume-an-entitlement) API endpoint
-- `consumed` field on the [Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS) resource
+- New [SKU Object Types](/docs/monetization/SKUs#sku-object-sku-types) 
+- New [Entitlement Object Types](/docs/monetization/Entitlements#entitlement-object-entitlement-types)
+- [Consume an Entitlement](/docs/monetization/Entitlements#consume-an-entitlement) API endpoint
+- `consumed` field on the [Entitlement](/docs/monetization/Entitlements) resource
 
 ## Modify Guild Member flags field permissions
 
 #### April 23, 2024
-Update permissions necessary to modify the `flags` field when calling the [Modify Guild Member](#DOCS_RESOURCES_GUILD/modify-guild-member) endpoint.
+Update permissions necessary to modify the `flags` field when calling the [Modify Guild Member](/docs/resources/Guild#modify-guild-member) endpoint.
 
 ## CSV Export for Premium App Analytics
 
 #### April 2, 2024
 
-For apps with [Monetization](#DOCS_MONETIZATION_OVERVIEW) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings. 
+For apps with [Monetization](/docs/monetization/Overview) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings. 
 
 You can find the export at the bottom of the `Monetization → Analytics` tab of your app to export data points such as `sales_count`, `sales_amount`, `sales_currencies`, `cancellation_count`, `refund_amount`, and `refund_count`, aggregated by each of your offerings for the selected month.
 
@@ -46,36 +46,36 @@ You can find the export at the bottom of the `Monetization → Analytics` tab of
 #### March 18, 2024
 
 > preview
-> User-installable apps are currently in preview. During the preview, there are major [limitations and known bugs](#DOCS_CHANGE_LOG/march-18-2024-limitations-and-known-issues), and API details are subject to change.
+> User-installable apps are currently in preview. During the preview, there are major [limitations and known bugs](/docs/Change_Log#march-18-2024-limitations-and-known-issues), and API details are subject to change.
 
 Apps can now be installed to users—making them easier to install, discover, and access across Discord. User-installed apps can be used across all of a user's servers, within their (G)DMs, and in DMs with the app's bot user.
 
-When creating or updating your app, you can choose which installation types your app supports on the **Installation** page in your [app's settings](https://discord.com/developers/applications). To quickly get started, you can follow the new [Developing a User-Installable App tutorial](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP) or read details about the new changes below.
+When creating or updating your app, you can choose which installation types your app supports on the **Installation** page in your [app's settings](https://discord.com/developers/applications). To quickly get started, you can follow the new [Developing a User-Installable App tutorial](/docs/tutorials/Developing_a_User_Installable_App) or read details about the new changes below.
 
 This change introduces new concepts and fields across the API that apps will now encounter—
 
 ###### API Changes
 
 **Concepts:**
-- [Installation context](#DOCS_RESOURCES_APPLICATION/installation-context) defines how an app was installed: to a user, a guild (server), or both. Currently, apps will default to only support the guild installation context, but the default may change in the future.
+- [Installation context](/docs/resources/Application#installation-context) defines how an app was installed: to a user, a guild (server), or both. Currently, apps will default to only support the guild installation context, but the default may change in the future.
 - Commands can also support one or both installation contexts, with the default being the same as the app's supported installation context(s) at the time of command creation.
-- [Interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) defines where a command can be used in Discord—within guilds, DM with your app's bot user, and/or within group DMs and DMs other than with your app's bot user.
+- [Interaction context](/docs/interactions/Application_Commands#interaction-contexts) defines where a command can be used in Discord—within guilds, DM with your app's bot user, and/or within group DMs and DMs other than with your app's bot user.
 - The installation flow for apps have been updated so users can select whether they want to install an app to their account or to a server. 
 
 **API Fields:**
-- New `integration_types_config` field for [Applications](#DOCS_RESOURCES_APPLICATION/application-object) include the default scopes and permissions for app's supported installation contexts
-- New `integration_types` and `contexts` fields for [Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) are the supported [installation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context) and [interaction](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) contexts (respectively) for the command. Read [command contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation for details.
-- New `context` field for [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) indicates the [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) where an interaction was triggered from.
-- New `authorizing_integration_owners` field for [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) includes a mapping of installation contexts that the interaction was authorized for, to related snowflakes for that context. Read [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) for details.
-- `app_permissions` is now always serialized for interactions to indicate what [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) your app has access to in the context its' responding. For (G)DMs with other users, it will include the `ATTACH_FILES | EMBED_LINKS | MENTION_EVERYONE`, and for DMs with the app's bot user it will also contain `USE_EXTERNAL_EMOJIS` for the bot’s DM
-- New `interaction_metadata` on [Messages](#DOCS_RESOURCES_CHANNEL/message-object) that are created as part of an interaction response (either a response or follow-up). See [Message Interaction Metadata Object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object) for details.
-- `dm_permission` field for [Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) is deprecated. Apps should use `contexts` instead.
-- `interaction` field for [Messages](#DOCS_RESOURCES_CHANNEL/message-object) is deprecated. Apps should use `interaction_metadata` instead.
+- New `integration_types_config` field for [Applications](/docs/resources/Application#application-object) include the default scopes and permissions for app's supported installation contexts
+- New `integration_types` and `contexts` fields for [Commands](/docs/interactions/Application_Commands#application-command-object-application-command-structure) are the supported [installation](/docs/interactions/Application_Commands#installation-context) and [interaction](/docs/interactions/Application_Commands#interaction-contexts) contexts (respectively) for the command. Read [command contexts](/docs/interactions/Application_Commands#contexts) documentation for details.
+- New `context` field for [Interactions](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure) indicates the [interaction context](/docs/interactions/Application_Commands#interaction-contexts) where an interaction was triggered from.
+- New `authorizing_integration_owners` field for [Interactions](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure) includes a mapping of installation contexts that the interaction was authorized for, to related snowflakes for that context. Read [Authorizing Integration Owners Object](/docs/interactions/Receiving_and_Responding#interaction-object-authorizing-integration-owners-object) for details.
+- `app_permissions` is now always serialized for interactions to indicate what [permissions](/docs/topics/Permissions#permissions-bitwise-permission-flags) your app has access to in the context its' responding. For (G)DMs with other users, it will include the `ATTACH_FILES | EMBED_LINKS | MENTION_EVERYONE`, and for DMs with the app's bot user it will also contain `USE_EXTERNAL_EMOJIS` for the bot’s DM
+- New `interaction_metadata` on [Messages](/docs/resources/Channel#message-object) that are created as part of an interaction response (either a response or follow-up). See [Message Interaction Metadata Object](/docs/resources/Channel#message-interaction-metadata-object) for details.
+- `dm_permission` field for [Commands](/docs/interactions/Application_Commands#application-command-object-application-command-structure) is deprecated. Apps should use `contexts` instead.
+- `interaction` field for [Messages](/docs/resources/Channel#message-object) is deprecated. Apps should use `interaction_metadata` instead.
 
 ###### Limitations and Known Issues
 
 - During the preview, interaction responses for the user installation context will be forced to be ephemeral in servers with over 25  members. Forced ephemerality is enforced at the client-level, so your app does not need to manually pay attention to server size, and will not receive errors via the API.
-- All [follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) are currently forced to be ephemeral in DMs
+- All [follow-up messages](/docs/interactions/Receiving_and_Responding#followup-messages) are currently forced to be ephemeral in DMs
 - Follow-up messages have a bug where they will not correctly respect user permissions
 
 ## Discord Activities: Developer Preview of the Embedded App SDK
@@ -86,11 +86,11 @@ Discord Developers can now build Activities!
 
 Activities are interactive, multiplayer experiences that run in an iframe in Discord. In order to make the communication between your experience and Discord, we've introduced the Embedded App SDK to assist in communicating between your app and the Discord client.
 
-- New [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW) developer docs with a tutorial, code samples, development guides, and design principles.
+- New [Discord Activities](/docs/activities/Overview) developer docs with a tutorial, code samples, development guides, and design principles.
 - The Embedded App SDK is now available via [npm](https://npmjs.com/package/@discord/embedded-app-sdk) and [GitHub](http://github.com/discord/embedded-app-sdk).
-- The [Embedded App SDK Reference](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) is now available.
+- The [Embedded App SDK Reference](/docs/developer_tools/Embedded_App_SDK) is now available.
 
-To learn more about how to get started building your own Activity, check out the [Activities Overview](#DOCS_ACTIVITIES_OVERVIEW).
+To learn more about how to get started building your own Activity, check out the [Activities Overview](/docs/activities/Overview).
 
 ## Guild Prune Requiring `MANAGE_GUILD`
 
@@ -100,20 +100,20 @@ To learn more about how to get started building your own Activity, check out the
 This entry includes breaking changes
 :::
 
-The [Get Guild Prune Count](#DOCS_RESOURCES_GUILD/get-guild-prune-count) and [Begin Guild Prune](#DOCS_RESOURCES_GUILD/begin-guild-prune)
+The [Get Guild Prune Count](/docs/resources/Guild#get-guild-prune-count) and [Begin Guild Prune](/docs/resources/Guild#begin-guild-prune)
 endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement `₍\^ >ヮ<\^₎ .ᐟ.ᐟ`
 
 ## Enforced Nonces on Create Message Endpoint
 
 #### February 12, 2024
 
-The [Create message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
+The [Create message](/docs/resources/Channel#create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
 
 ## Limit Number of Fields in Embeds
 
 #### December 19, 2023
 
-[Embed objects](#DOCS_RESOURCES_CHANNEL/embed-object) are now limited more explicitly to 25 [embed fields](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
+[Embed objects](/docs/resources/Channel#embed-object) are now limited more explicitly to 25 [embed fields](/docs/resources/Channel#embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
 
 Previously, only the first 25 embed fields would be displayed within the embed but no error was returned.
 
@@ -125,7 +125,7 @@ Previously, only the first 25 embed fields would be displayed within the embed b
 The existing behavior for `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` will **not be changing**. These permissions will continue to allow your bot users to create, update and delete expressions/events. No action will be needed if you plan to continue using these permissions.
 :::
 
-To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
+To support added controls for expressions and events, new [permissions](/docs/topics/Permissions#permissions) were added for users and roles in July 2023:
 
 * `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
 * `CREATE_EVENTS`: `1 << 44`
@@ -161,27 +161,27 @@ Once this information is published, we will provide developers with a substantia
 Following feedback on Premium App Subscriptions, we've made it easier for developers to test their app subscriptions. The goal is to provide you with flexibility during testing and prevent you from having to use live payment methods.
 
 - Team members will automatically receive a 100% discount on a subscription for your app, allowing you to test the end-to-end payment flow
-- Developers can create and delete [test entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) to toggle access to an application's premium features
+- Developers can create and delete [test entitlements](/docs/monetization/Entitlements#create-test-entitlement) to toggle access to an application's premium features
 
-Read more about [Testing your App Subscriptions Implementation](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/testing-your-implementation) for details.
+Read more about [Testing your App Subscriptions Implementation](/docs/monetization/App_Subscriptions#testing-your-implementation) for details.
 
 ## Fix Message Edit Interaction Response Permissions
 #### Nov 1, 2023
 
-Behavior for message edit interaction response actions like [updating interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-original-interaction-response) and [sending follow-up messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) have been updated to follow a bot user's permissions.
+Behavior for message edit interaction response actions like [updating interaction responses](/docs/interactions/Receiving_and_Responding#edit-original-interaction-response) and [sending follow-up messages](/docs/interactions/Receiving_and_Responding#followup-messages) have been updated to follow a bot user's permissions.
 
 Previously, some message edit interaction response actions would use the default permissions rather than a bot user's permissions.
 
 ## Premium App Subscriptions Now Available in the EU and UK
 #### Oct 19, 2023
 
-Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](/docs/monetization/Overview) let you to charge your users for premium functionality with a recurring, monthly subscription. 
 
 :::info
-New features for Premium App Subscriptions are documented in the [App Subscriptions overview](#DOCS_MONETIZATION_OVERVIEW) and in [the changelog for the previous App Subscriptions release](#DOCS_CHANGE_LOG/premium-app-subscriptions-available-in-the-us).
+New features for Premium App Subscriptions are documented in the [App Subscriptions overview](/docs/monetization/Overview) and in [the changelog for the previous App Subscriptions release](/docs/Change_Log#premium-app-subscriptions-available-in-the-us).
 :::
 
-To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
+To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](/docs/monetization/Overview).
 
 ## Global Rate Limit added to discordapp.com/*
 #### Oct 17, 2023
@@ -200,35 +200,35 @@ Refer to the [API Reference](https://discord.com/developers/docs/reference) for 
 ## Premium App Subscriptions Available in the US
 #### Sep 26, 2023
 
-Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](/docs/monetization/Overview) let you to charge your users for premium functionality with a recurring, monthly subscription.
 
 - Manage subscription SKUs in the Developer Portal
 - View monetization analytics in the Developer Portal
 - Team owners can setup and manage payouts in Developer Portal
-- New endpoints for working with [SKUs](#DOCS_MONETIZATION_SKUS) and [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS):
-  - [List SKUs](#DOCS_MONETIZATION_SKUS/list-skus) `GET /applications/<application.id>/skus`
-  - [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) `GET /applications/<application.id>/entitlements`
-  - [Create Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) `POST /applications/<application.id>/entitlements`
-  - [Delete Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
-- [Gateway Events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE` 
-- New [`PREMIUM_REQUIRED (10)` interaction response type](#DOCS_MONETIZATION_ENTITLEMENTS/premiumrequired-interaction-response) is available to prompt users to upgrade
-- New `entitlements` field, which is an array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/) objects, available in interaction data payloads when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure)
+- New endpoints for working with [SKUs](/docs/monetization/SKUs) and [Entitlements](/docs/monetization/Entitlements):
+  - [List SKUs](/docs/monetization/SKUs#list-skus) `GET /applications/<application.id>/skus`
+  - [List Entitlements](/docs/monetization/Entitlements#list-entitlements) `GET /applications/<application.id>/entitlements`
+  - [Create Test Entitlement](/docs/monetization/Entitlements#create-test-entitlement) `POST /applications/<application.id>/entitlements`
+  - [Delete Test Entitlement](/docs/monetization/Entitlements#delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
+- [Gateway Events](/docs/monetization/Entitlements#gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE`
+- New [`PREMIUM_REQUIRED (10)` interaction response type](/docs/monetization/Entitlements#premiumrequired-interaction-response) is available to prompt users to upgrade
+- New `entitlements` field, which is an array of [entitlement](/docs/monetization/Entitlements) objects, available in interaction data payloads when [receiving and responding to interactions](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure)
 
-To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
+To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](/docs/monetization/Overview).
 
 ## Default Value in Auto-populated Select Menus
 
 #### Sep 22, 2023
 
-A new `default_values` field was added for user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [select menu components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus). `default_values` is a list of [default value objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-default-value-structure), which each include an `id` (the snowflake value for the resource), as well as a corresponding `type` (either `"user"`, `"role"`, or `"channel"`).
+A new `default_values` field was added for user (`5`), role (`6`), mentionable (`7`), and channel (`8`) [select menu components](/docs/interactions/Message_Components#select-menus). `default_values` is a list of [default value objects](/docs/interactions/Message_Components#select-menu-object-select-default-value-structure), which each include an `id` (the snowflake value for the resource), as well as a corresponding `type` (either `"user"`, `"role"`, or `"channel"`).
 
 ## Team Member Roles
 
 #### Aug 23, 2023
 
-You can now select roles other than admin when inviting users or configuring members of a team. There are four [role types](#DOCS_TOPICS_TEAMS/team-member-roles-team-member-role-types) that a team member can be assigned: owner, admin, developer, or read-only. The team member object now has an additional [`role` field](#DOCS_TOPICS_TEAMS/data-models-team-member-object), which is a string representing the member's current role.
+You can now select roles other than admin when inviting users or configuring members of a team. There are four [role types](/docs/topics/Teams#team-member-roles-team-member-role-types) that a team member can be assigned: owner, admin, developer, or read-only. The team member object now has an additional [`role` field](/docs/topics/Teams#data-models-team-member-object), which is a string representing the member's current role.
 
-Details about team member roles are in the updated [Teams documentation](#DOCS_TOPICS_TEAMS/team-member-roles).
+Details about team member roles are in the updated [Teams documentation](/docs/topics/Teams#team-member-roles).
 
 ## Embed Debugger
 
@@ -240,7 +240,7 @@ We've released a new [Embed Debugger tool](https://discord.com/developers/embeds
 
 #### Aug 8, 2023
 
-The `state` field in [activity objects](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) can now be set when [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence) for a bot user. The value of `state` will appear as a custom status for the bot user when an [activity's `type`](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types) is set to `4`, or as additional data under an activity's name for other activity types.
+The `state` field in [activity objects](/docs/topics/Gateway_Events#activity-object) can now be set when [updating presence](/docs/topics/Gateway_Events#update-presence) for a bot user. The value of `state` will appear as a custom status for the bot user when an [activity's `type`](/docs/topics/Gateway_Events#activity-object-activity-types) is set to `4`, or as additional data under an activity's name for other activity types.
 
 ## Public Preview of OpenAPI 3.1 Specification
 
@@ -258,16 +258,16 @@ The public spec can be found in the new [`discord-api-spec` repository on GitHub
 
 #### Aug 1, 2023
 
-- Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
+- Add the [`GUILD_MEDIA` (16) channel type](/docs/resources/Channel#channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.
 
-Read the [media channel topic](#DOCS_TOPICS_THREADS/media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
+Read the [media channel topic](/docs/topics/Threads#media-channels) for more information on the relevant APIs and technical details, or the [media channel Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743) for more about the feature.
 
 ## Add Join Raid and Mention Raid fields
 
 #### May 05, 2023
 
-- Add Auto Moderation `mention_raid_protection_enabled` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field for the `MENTION_SPAM` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). If this field and its parent `MENTION_SPAM` rule are enabled, Auto Moderation provides baseline detection against sudden spikes in mention activity that are normally indicative of mention raids.
-- Add `safety_alerts_channel_id` [guild](#DOCS_RESOURCES_GUILD/guild-object) field and [`RAID_ALERTS_DISABLED` guild feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which are associated with join raid protection
+- Add Auto Moderation `mention_raid_protection_enabled` [trigger_metadata](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-metadata) field for the `MENTION_SPAM` [trigger_type](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types). If this field and its parent `MENTION_SPAM` rule are enabled, Auto Moderation provides baseline detection against sudden spikes in mention activity that are normally indicative of mention raids.
+- Add `safety_alerts_channel_id` [guild](/docs/resources/Guild#guild-object) field and [`RAID_ALERTS_DISABLED` guild feature flag](/docs/resources/Guild#guild-object-guild-features) which are associated with join raid protection
 
 ## Unique usernames on Discord
 
@@ -283,7 +283,7 @@ This changelog focuses only on the technical changes to be aware of to update yo
 
 ### Identifying migrated users
 
-The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
+The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](/docs/resources/User#user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
 
 After migration of all users is complete, the `discriminator` field may be removed.
 
@@ -318,21 +318,21 @@ For users with migrated accounts, default avatar URLs will be based on the user 
 
 #### April 14, 2023
 
-Starting today, [bot users](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) will be added to all newly-created apps. Settings and configuration options for bot users remain the same, and can still be accessed on the **Bot** page within your [app's settings](https://discord.com/developers/applications).
+Starting today, [bot users](/docs/topics/OAuth2#bot-vs-user-accounts) will be added to all newly-created apps. Settings and configuration options for bot users remain the same, and can still be accessed on the **Bot** page within your [app's settings](https://discord.com/developers/applications).
 
-If your app doesn't need or want a bot user associated with it, you can refrain from adding the [`bot` scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when installing your app.
+If your app doesn't need or want a bot user associated with it, you can refrain from adding the [`bot` scope](/docs/topics/OAuth2#shared-resources-oauth2-scopes) when installing your app.
 
 ## Interaction Channel Data
 
 #### April 6, 2023
 
-Interactions now contain a `channel` field which is a partial channel object and guaranteed to contain `id` and `type`. We recommend that you begin using this channel field to identify the source channel of the interaction, and may deprecate the existing `channel_id` field in the future. See the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) for more details.
+Interactions now contain a `channel` field which is a partial channel object and guaranteed to contain `id` and `type`. We recommend that you begin using this channel field to identify the source channel of the interaction, and may deprecate the existing `channel_id` field in the future. See the [interaction documentation](/docs/interactions/Receiving_and_Responding#interaction-object) for more details.
 
 ## Add Auto Moderation custom_message Action Metadata Field
 
 #### Feb 24, 2023
 
-Add new `custom_message` [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-metadata) for the `BLOCK_MESSAGE` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types)). You can now specify a custom string for every Auto Moderation rule that will be shown to members whenever the rule blocks their message. This can be used as an additional explanation for why a message was blocked and as a chance to help members understand your server's rules and guidelines.
+Add new `custom_message` [action metadata](/docs/resources/Auto_Moderation#auto-moderation-action-object-action-metadata) for the `BLOCK_MESSAGE` [action type](/docs/resources/Auto_Moderation#auto-moderation-action-object-action-types)). You can now specify a custom string for every Auto Moderation rule that will be shown to members whenever the rule blocks their message. This can be used as an additional explanation for why a message was blocked and as a chance to help members understand your server's rules and guidelines.
 
 ## Update to Locked Threads
 
@@ -340,11 +340,11 @@ Add new `custom_message` [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-
 
 ### Upcoming Changes
 
-Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked *without* being archived, which will slightly change the meaning of the [`locked` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure).
+Currently, threads in Discord (including forum posts) can either be archived or both locked and archived. Starting on **March 6, 2023**, threads will be able to be locked *without* being archived, which will slightly change the meaning of the [`locked` field](/docs/resources/Channel#thread-metadata-object-thread-metadata-structure).
 
-`locked` currently indicates that a thread cannot be reopened by a user without the [`MANAGE_THREADS` (`1 << 34`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the `MANAGE_THREADS` permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
+`locked` currently indicates that a thread cannot be reopened by a user without the [`MANAGE_THREADS` (`1 << 34`) permission](/docs/topics/Permissions#permissions-bitwise-permission-flags), but it doesn't restrict user activity within active (meaning non-archived) threads. After this change, users (including bot users) without the `MANAGE_THREADS` permission will be more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
 
-If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages. The upcoming change does not affect the meaning of the [`archived` field](#DOCS_RESOURCES_CHANNEL/thread-metadata-object-thread-metadata-structure) or the behavior of a thread that is both locked and archived.
+If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages. The upcoming change does not affect the meaning of the [`archived` field](/docs/resources/Channel#thread-metadata-object-thread-metadata-structure) or the behavior of a thread that is both locked and archived.
 
 ### How do I prepare for this change?
 
@@ -354,14 +354,14 @@ If your app is interacting with threads (including forum posts), it should check
 
 #### Feb 8, 2023
 
-- Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 5 to 6
-- Increase maximum length for each keyword in the `keyword_filter` and `allow_list` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) fields from 30 to 60.
+- Increase maximum number of rules with `KEYWORD` [trigger_type](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types) per guild from 5 to 6
+- Increase maximum length for each keyword in the `keyword_filter` and `allow_list` [trigger_metadata](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-metadata) fields from 30 to 60.
 
 ## Guild Audit Log Events
 
 #### Jan 18, 2023
 
-At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create) event has been added to the gateway, allowing your application to react to moderation actions in guilds. The `VIEW_AUDIT_LOG` permission is required in order to receive these events, and the [`GUILD_MODERATION` intent](#DOCS_TOPICS_GATEWAY/gateway-intents) needs to be set when connecting to the gateway.
+At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](/docs/topics/Gateway_Events#guild-audit-log-entry-create) event has been added to the gateway, allowing your application to react to moderation actions in guilds. The `VIEW_AUDIT_LOG` permission is required in order to receive these events, and the [`GUILD_MODERATION` intent](/docs/topics/Gateway#gateway-intents) needs to be set when connecting to the gateway.
 
 ## Thread Member Details and Pagination
 
@@ -371,19 +371,19 @@ This entry includes breaking changes
 
 #### Jan 09, 2023
 
-A new `member` field was added to the [thread member object](#DOCS_RESOURCES_CHANNEL/thread-member-object). `member` is a [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) that will be included within returned thread member objects when the new `with_member` field is set to `true` in the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) and [Get Thread Member](#DOCS_RESOURCES_CHANNEL/get-thread-member) (`GET /channels/<channel_id>/thread-members/<user_id>`) endpoints.
+A new `member` field was added to the [thread member object](/docs/resources/Channel#thread-member-object). `member` is a [guild member object](/docs/resources/Guild#guild-member-object) that will be included within returned thread member objects when the new `with_member` field is set to `true` in the [List Thread Members](/docs/resources/Channel#list-thread-members) (`GET /channels/<channel_id>/thread-members`) and [Get Thread Member](/docs/resources/Channel#get-thread-member) (`GET /channels/<channel_id>/thread-members/<user_id>`) endpoints.
 
-Setting `with_member` to `true` will also enable pagination for the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) endpoint. When the results are paginated, you can use the new `after` and `limit` fields to fetch additional thread members and limit the number of thread members returned. By default, `limit` is 100.
+Setting `with_member` to `true` will also enable pagination for the [List Thread Members](/docs/resources/Channel#list-thread-members) endpoint. When the results are paginated, you can use the new `after` and `limit` fields to fetch additional thread members and limit the number of thread members returned. By default, `limit` is 100.
 
 #### Upcoming Changes
 
-Starting in API v11, [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) will *always* return paginated results, regardless of whether `with_member` is passed or not.
+Starting in API v11, [List Thread Members](/docs/resources/Channel#list-thread-members) (`GET /channels/<channel_id>/thread-members`) will *always* return paginated results, regardless of whether `with_member` is passed or not.
 
 ## Add Default Layout setting for Forum channels
 
 #### Dec 13, 2022
 
-`default_forum_layout` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates the default layout for posts in a [forum channel](#DOCS_TOPICS_THREADS/forums). A value of 1 (`LIST_VIEW`) indicates that posts will be displayed as a chronological list, and 2 (`GALLERY_VIEW`) indicates they will be displayed as a collection of tiles. If `default_forum_layout` hasn't been set, the value will be `0`.
+`default_forum_layout` is an optional field in the [channel object](/docs/resources/Channel) that indicates the default layout for posts in a [forum channel](/docs/topics/Threads#forums). A value of 1 (`LIST_VIEW`) indicates that posts will be displayed as a chronological list, and 2 (`GALLERY_VIEW`) indicates they will be displayed as a collection of tiles. If `default_forum_layout` hasn't been set, the value will be `0`.
 
 Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 
@@ -392,23 +392,23 @@ Setting `default_forum_layout` requires the `MANAGE_CHANNELS` permission.
 #### Dec 12, 2022
 
 Introducing [linked roles](https://discord.com/blog/connected-accounts-functionality-boost-linked-roles) as well as the ability for all developers to set up their own linked roles with an application. This includes:
-- New [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object) that can be set in the developer portal in order for the application to render as potential verification option for linked roles.
-- [Application metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) to specify more detailed linked role requirements.
-- New endpoints to [retrieve](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/get-application-role-connection-metadata-records) (`GET /applications/<application.id>/role-connections/metadata`) and [update](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/update-application-role-connection-metadata-records) (`PUT /applications/<application.id>/role-connections/metadata`) application connection metadata.
-- New [`role_connections.write`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) OAuth2 scope required to authenticate the below requests.
-- Endpoints to [retrieve](#DOCS_RESOURCES_USER/get-current-user-application-role-connection) (`GET /users/@me/applications/{application.id}/role-connection`) and [update](#DOCS_RESOURCES_USER/update-current-user-application-role-connection) (`PUT /users/@me/applications/{application.id}/role-connection`) a user's role connections, both of which return an [application role connection](#DOCS_RESOURCES_USER/application-role-connection-object) object.
+- New [`role_connections_verification_url`](/docs/resources/Application#application-object) that can be set in the developer portal in order for the application to render as potential verification option for linked roles.
+- [Application metadata](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-object) to specify more detailed linked role requirements.
+- New endpoints to [retrieve](/docs/resources/Application_Role_Connection_Metadata#get-application-role-connection-metadata-records) (`GET /applications/<application.id>/role-connections/metadata`) and [update](/docs/resources/Application_Role_Connection_Metadata#update-application-role-connection-metadata-records) (`PUT /applications/<application.id>/role-connections/metadata`) application connection metadata.
+- New [`role_connections.write`](/docs/topics/OAuth2#shared-resources-oauth2-scopes) OAuth2 scope required to authenticate the below requests.
+- Endpoints to [retrieve](/docs/resources/User#get-current-user-application-role-connection) (`GET /users/@me/applications/{application.id}/role-connection`) and [update](/docs/resources/User#update-current-user-application-role-connection) (`PUT /users/@me/applications/{application.id}/role-connection`) a user's role connections, both of which return an [application role connection](/docs/resources/User#application-role-connection-object) object.
 
 :::info
-For a quick rundown on how to get started using linked roles, refer to the [tutorial](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES).
+For a quick rundown on how to get started using linked roles, refer to the [tutorial](/docs/tutorials/Configuring_App_Metadata_for_Linked_Roles).
 :::
 
 ## Add Auto Moderation Allow List for Keyword Rules and Increase Max Keyword Rules Per Guild Limit
 
 #### Nov 22, 2022
 
-- Auto Moderation rules with [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support an `allow_list` field in its [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata). Any message content that matches an `allow_list` keyword will be ignored by the Auto Moderation `KEYWORD` rule. Each `allow_list` keyword can be a multi-word phrase and can contain [wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
-- Increase maximum number of rules with `KEYWORD` [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) per guild from 3 to 5
-- Increase maximum length for each regex pattern in the `regex_patterns` [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) field from 75 to 260.
+- Auto Moderation rules with [trigger_type](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types) `KEYWORD` now support an `allow_list` field in its [trigger_metadata](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-metadata). Any message content that matches an `allow_list` keyword will be ignored by the Auto Moderation `KEYWORD` rule. Each `allow_list` keyword can be a multi-word phrase and can contain [wildcard symbols](/docs/resources/Auto_Moderation#auto-moderation-rule-object-keyword-matching-strategies).
+- Increase maximum number of rules with `KEYWORD` [trigger_type](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types) per guild from 3 to 5
+- Increase maximum length for each regex pattern in the `regex_patterns` [trigger_metadata](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-metadata) field from 75 to 260.
 
 ## Upcoming Application Command Permission Changes
 
@@ -418,15 +418,15 @@ For a quick rundown on how to get started using linked roles, refer to the [tuto
 This entry includes breaking changes
 :::
 
-Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
+Based on feedback, we’re updating permissions for [application commands](/docs/interactions/Application_Commands) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
 
 Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
 :::info
-Current permissions behavior is documented in [the application commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) and in [the changelog for the previous permissions update](#DOCS_CHANGE_LOG/updated-command-permissions)
+Current permissions behavior is documented in [the application commands documentation](/docs/interactions/Application_Commands#permissions) and in [the changelog for the previous permissions update](/docs/Change_Log#updated-command-permissions)
 :::
 
-These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
+These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](/docs/interactions/Application_Commands#edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
 
 #### Types of command permission configurations
 
@@ -438,7 +438,7 @@ Discord’s clients determine whether a user can see or invoke a command based o
 
 - **Command-level permissions** are set up by an admin for a specific *command* in their server. These permissions affect only a specific command.
 - **App-level permissions** are set up by an admin for a specific *app* in their server. These permissions affect all commands for an app.
-- **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in *all* servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-using-default-permissions).
+- **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in *all* servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](/docs/interactions/Application_Commands#application-command-permissions-object-using-default-permissions).
 
 The concepts of these permission configurations are not changing. But then of course, the question becomes…
 
@@ -489,14 +489,14 @@ Below is a simplified flowchart that illustrates how permissions will be applied
 
 #### 2. `APPLICATION_COMMAND_PERMISSIONS_V2` Guild Feature
 
-We added a new [`APPLICATION_COMMAND_PERMISSIONS_V2` feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which indicates whether that server is using **the current permissions logic**.
+We added a new [`APPLICATION_COMMAND_PERMISSIONS_V2` feature flag](/docs/resources/Guild#guild-object-guild-features) which indicates whether that server is using **the current permissions logic**.
 
 - If the flag *is* present, that server is using the old command permissions behavior.
 - If the flag *is not* present, that server has migrated from the old command permissions behavior to the new behavior.
 
 ### Am I affected?
 
-Your app will only be affected if it uses the [`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) endpoint. This is a pretty restricted endpoint used to manage and update application command permissions on behalf of admins, meaning that it requires the `applications.commands.permissions.update` scope.
+Your app will only be affected if it uses the [`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`](/docs/interactions/Application_Commands#edit-application-command-permissions) endpoint. This is a pretty restricted endpoint used to manage and update application command permissions on behalf of admins, meaning that it requires the `applications.commands.permissions.update` scope.
 
 **If your app doesn’t use this endpoint, there’s nothing you need to prepare for these changes.**
 
@@ -518,7 +518,7 @@ else:
 ```
 
 :::info
-If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](#DOCS_RESOURCES_GUILD/get-guild).
+If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](/docs/resources/Guild#get-guild).
 :::
 
 **2. Modify the behavior based on your use case**
@@ -551,14 +551,14 @@ This entry includes breaking changes
 
 To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
 
-- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
-- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
-- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
-- [Images](#DOCS_GAME_SDK_IMAGES/)
-- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
-- [Networking](#DOCS_GAME_SDK_NETWORKING/)
-- [Storage](#DOCS_GAME_SDK_STORAGE/)
-- [Store](#DOCS_GAME_SDK_STORE/) [purchases and discounts]
+- [Achievements](/docs/game_sdk/Achievements)
+- [Applications](/docs/game_sdk/Applications)
+- [Voice](/docs/game_sdk/Discord_Voice)
+- [Images](/docs/game_sdk/Images)
+- [Lobbies](/docs/game_sdk/Lobbies)
+- [Networking](/docs/game_sdk/Networking/)
+- [Storage](/docs/game_sdk/Storage)
+- [Store](/docs/game_sdk/Store) [purchases and discounts]
 
 This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
 
@@ -568,8 +568,8 @@ We know that Discord is an important place for people to find belonging, and tha
 
 #### Nov 4, 2022
 
-Auto Moderation rules with [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support
-a `regex_patterns` field in its [trigger_metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
+Auto Moderation rules with [trigger_type](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types) `KEYWORD` now support
+a `regex_patterns` field in its [trigger_metadata](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types).
 Regex patterns are a powerful way to describe many keywords all at once using one expression. Only Rust flavored regex is supported, which can be tested in online editors such as [Rustexp](https://rustexp.lpil.uk/).
 
 ## Delete Ephemeral Messages
@@ -577,31 +577,32 @@ Regex patterns are a powerful way to describe many keywords all at once using on
 #### Oct 20, 2022
 
 Ephemeral interaction responses and follow-ups can now be deleted with a valid interaction token using the following endpoints:
-- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response)
-- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-followup-message)
 
+- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response)
+- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](/docs/interactions/Receiving_and_Responding#delete-followup-message)
 
-As a reminder, interaction tokens stay valid for up to 15 minutes after the interaction occurs. Details can be found in the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
+As a reminder, interaction tokens stay valid for up to 15 minutes after the interaction occurs. Details can be found in the [interaction documentation](/docs/interactions/Receiving_and_Responding).
 
 ## New Select Menu Components
 
 #### Oct 13, 2022
 
-Four new select menu [component types](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) have been added to make it easier to populate selects with common resources in Discord:
+Four new select menu [component types](/docs/interactions/Message_Components#component-object-component-types) have been added to make it easier to populate selects with common resources in Discord:
+
 - User select (type `5`)
 - Role select (type `6`)
 - Mentionable (user *and* role) select (type `7`)
 - Channel select (type `8`)
 
-The new select menu components are defined similarly to the existing string select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction) apps receive also contain a [`resolved` field](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-resolved-object) for the new components.
+The new select menu components are defined similarly to the existing string select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](/docs/interactions/Message_Components#select-menu-object-select-menu-interaction) apps receive also contain a [`resolved` field](/docs/interactions/Message_Components#select-menu-object-select-menu-resolved-object) for the new components.
 
-More details can be found in the updated [select menu documentation](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus).
+More details can be found in the updated [select menu documentation](/docs/interactions/Message_Components#select-menus).
 
 ## Default Sort Order for Forum Channels
 
 #### Sep 22, 2022
 
-`default_sort_order` is an optional field in the [channel object](#DOCS_RESOURCES_CHANNEL) that indicates how the threads in a [forum channel](#DOCS_TOPICS_THREADS/forums) will be sorted for users by default. Setting `default_sort_order` requires the `MANAGE_CHANNELS` permission.
+`default_sort_order` is an optional field in the [channel object](/docs/resources/Channel) that indicates how the threads in a [forum channel](/docs/topics/Threads#forums) will be sorted for users by default. Setting `default_sort_order` requires the `MANAGE_CHANNELS` permission.
 
 If `default_sort_order` hasn't been set, its value will be `null`.
 
@@ -609,20 +610,20 @@ If `default_sort_order` hasn't been set, its value will be `null`.
 
 #### Sep 21, 2022
 
-Two new [trigger types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) were added to Auto Moderation:
+Two new [trigger types](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types) were added to Auto Moderation:
 
-- `MENTION_SPAM` blocks messages that mention more than a set number of unique server members or roles. Apps can define the number (up to 50) using the `mention_total_limit` field in the [trigger metadata object](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) when creating or updating an Auto Moderation rule.
+- `MENTION_SPAM` blocks messages that mention more than a set number of unique server members or roles. Apps can define the number (up to 50) using the `mention_total_limit` field in the [trigger metadata object](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-metadata) when creating or updating an Auto Moderation rule.
 - `SPAM` blocks links and messages that are identified as spam.
 
-More information can be found in the [Auto Moderation documentation](#DOCS_RESOURCES_AUTO_MODERATION).
+More information can be found in the [Auto Moderation documentation](/docs/resources/Auto_Moderation).
 
 ## Forum Channels Release
 
 #### Sep 14, 2022
 
-Forum channels ([`GUILD_FORUM` or `15`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)) have been released to all community servers. `GUILD_FORUM` channels are a new channel type that only supports threads, which display differently than in text (`GUILD_TEXT`) channels.
+Forum channels ([`GUILD_FORUM` or `15`](/docs/resources/Channel#channel-object-channel-types)) have been released to all community servers. `GUILD_FORUM` channels are a new channel type that only supports threads, which display differently than in text (`GUILD_TEXT`) channels.
 
-Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information on the relevant APIs and technical details, and the [Forums FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N) for more about the feature.
+Check out the [forums topic](/docs/topics/Threads#forums) for more information on the relevant APIs and technical details, and the [Forums FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N) for more about the feature.
 
 ## Message Content is a Privileged Intent
 
@@ -632,7 +633,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 This entry includes breaking changes
 :::
 
-As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
+As of today, [message content](/docs/topics/Gateway#message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
 Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
@@ -653,7 +654,7 @@ Existing unverified apps will automatically have the message content intent togg
 
 #### Aug 22, 2022
 
-This week, [Slash Command mentions](#DOCS_REFERENCE/message-formatting) are rolling out across all Discord clients (for Android, mentions are limited to the [React Native client](https://discord.com/blog/android-react-native-framework-update)). Clicking a Slash Command mention will auto-populate the command in the user's message input.
+This week, [Slash Command mentions](/docs/Reference/#message-formatting) are rolling out across all Discord clients (for Android, mentions are limited to the [React Native client](https://discord.com/blog/android-react-native-framework-update)). Clicking a Slash Command mention will auto-populate the command in the user's message input.
 
 Slash Command mentions use the following format: `</NAME:COMMAND_ID>`. You can also use `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>` for subcommands and subcommand groups.
 
@@ -665,7 +666,7 @@ Slash Command mentions use the following format: `</NAME:COMMAND_ID>`. You can a
 Starting on **September 12, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
 :::
 
-A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
+A new `resume_gateway_url` field has been added to the [Ready](/docs/topics/Gateway_Events#ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
 
 At the moment, the value of `resume_gateway_url` will always be `wss://gateway.discord.gg` to give developers more time to adopt the new field. In the near future, the value will change to the session-specific URLs.
 
@@ -675,17 +676,17 @@ At the moment, the value of `resume_gateway_url` will always be `wss://gateway.d
 
 On August 8th, 2022 we will begin requiring the `VIEW_CHANNEL (1 << 10)` permission for webhook routes which require `MANAGE_WEBHOOKS (1 << 29)`, to align with our documented behavior. We don't expect that many applications will be affected by this, but in case you are, please ensure you have updated permissions needed for accessing the following routes:
 
-- [`GET /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/get-webhook)
-- [`DELETE /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/delete-webhook)
-- [`PATCH /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/modify-webhook)
-- [`GET /channels/{channel.id}/webhooks`](#DOCS_RESOURCES_WEBHOOK/get-channel-webhooks)
-- [`POST /channels/{channel.id}/webhooks`](#DOCS_RESOURCES_WEBHOOK/create-webhook)
+- [`GET /webhooks/{webhook.id}`](/docs/resources/Webhook#get-webhook)
+- [`DELETE /webhooks/{webhook.id}`](/docs/resources/Webhook#delete-webhook)
+- [`PATCH /webhooks/{webhook.id}`](/docs/resources/Webhook#modify-webhook)
+- [`GET /channels/{channel.id}/webhooks`](/docs/resources/Webhook#get-channel-webhooks)
+- [`POST /channels/{channel.id}/webhooks`](/docs/resources/Webhook#create-webhook)
 
 ## Min and Max Length for Command Options
 
 #### July 1, 2022
 
-Application [command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) of type `STRING` now includes optional `min_length` and `max_length` fields to control the length of text a user can input.
+Application [command options](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) of type `STRING` now includes optional `min_length` and `max_length` fields to control the length of text a user can input.
 
 The value of `min_length` must be greater or equal to `0`, and the value of `max_length` must be greater or equal to `1`.
 
@@ -697,11 +698,11 @@ This entry includes breaking changes
 
 #### July 1, 2022
 
-While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
+While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](/docs/interactions/Receiving_and_Responding#message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
 
 #### Upcoming Changes
 
-Starting **July 18, 2022**, the `name` field for [message interaction objects](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command). In the future, we recommend not relying on this message interaction field.
+Starting **July 18, 2022**, the `name` field for [message interaction objects](/docs/interactions/Receiving_and_Responding#message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command). In the future, we recommend not relying on this message interaction field.
 
 The format of the value will be the different command levels (if they exist), separated by spaces:
 `<command name> <subcommand group name> <subcommand name>`
@@ -732,11 +733,11 @@ This entry includes breaking changes
 `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` are the only permissions that will be affected by this change. In a previous version of this changelog, it was indicated that `ATTACH_FILES` and `EMBED_LINKS` would be affected but this is no longer the case.
 :::
 
-Starting **August 3, 2022**, the way some of a bot's `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated is changing in two cases:
-- When **responding to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING)** (like application commands or message components)
-- When **executing a [webhook](#DOCS_RESOURCES_WEBHOOK) that the bot created**
+Starting **August 3, 2022**, the way some of a bot's `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` [permissions](/docs/topics/Permissions#permissions) are calculated is changing in two cases:
+- When **responding to an [interaction](/docs/interactions/Receiving_and_Responding)** (like application commands or message components)
+- When **executing a [webhook](/docs/resources/Webhook) that the bot created**
 
-Going forward, in the above cases, a bot’s `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` permissions will be calculated based on the permissions its granted, *including* any [overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Previously, a bot’s permissions in these cases relied only on those granted to `@everyone`.
+Going forward, in the above cases, a bot’s `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` permissions will be calculated based on the permissions its granted, *including* any [overwrites](/docs/topics/Permissions#permission-overwrites). Previously, a bot’s permissions in these cases relied only on those granted to `@everyone`.
 
 This change *only* applies to bots. The permissions for an app without a bot user (or without the `bot` scope) will still depend on `@everyone`.
 
@@ -744,13 +745,13 @@ This change *only* applies to bots. The permissions for an app without a bot use
 
 If your bot wants to use the `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` or `USE_EXTERNAL_EMOJIS` permissions when responding to interactions or executing a webhook, **ensure that the bot was installed (or explicitly granted) with them**.
 
-Note that even if your bot is installed with certain permissions, they can be changed using overwrites. For interactions, you can use the [`app_permissions` field](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) to determine your app or bot's contextual permissions before replying.
+Note that even if your bot is installed with certain permissions, they can be changed using overwrites. For interactions, you can use the [`app_permissions` field](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure) to determine your app or bot's contextual permissions before replying.
 
 ## Calculated Permissions in Interaction Payloads
 
 #### Jun 29, 2022
 
-Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any channel overwrites). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](/docs/topics/Permissions#permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any channel overwrites). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](/docs/interactions/Receiving_and_Responding#interaction-object).
 
 For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
 
@@ -761,13 +762,13 @@ For apps without a bot user (or without the `bot` scope), the value of `app_perm
 
 #### Breaking Changes
 
-In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
+In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](/docs/topics/Gateway_Events#auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
 
 ## Updated Connection Property Field Names
 
 #### Jun 17, 2022
 
-The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones.
+The `$` prefix in [identify connection properties](/docs/topics/Gateway_Events#identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones.
 
 In API v11, support for the previous field names (`$os`, `$browser`, and `$device`) will be removed.
 
@@ -775,72 +776,72 @@ In API v11, support for the previous field names (`$os`, `$browser`, and `$devic
 
 #### Jun 16, 2022
 
-Add new [Auto Moderation feature](#DOCS_RESOURCES_AUTO_MODERATION) which enables guilds to moderate message content based on keywords, harmful links, and unwanted spam. This change includes:
-- New endpoints for [creating](#DOCS_RESOURCES_AUTO_MODERATION/create-auto-moderation-rule), [updating](#DOCS_RESOURCES_AUTO_MODERATION/modify-auto-moderation-rule), and [deleting](#DOCS_RESOURCES_AUTO_MODERATION/delete-auto-moderation-rule) Auto Moderation rules
-- New gateway events emitted when Auto Moderation rules are [created](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) (`AUTO_MODERATION_RULE_CREATE`), [updated](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) (`AUTO_MODERATION_RULE_UPDATE `), and [deleted](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) (`AUTO_MODERATION_RULE_DELETE `). Requires the `AUTO_MODERATION_CONFIGURATION` (`1 << 20`) intent
-- New gateway event emitted when an [action is executed](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) (`AUTO_MODERATION_ACTION_EXECUTION`). Requires the `AUTO_MODERATION_EXECUTION` (`1 << 21`) intent
-- New [audit log entries](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) when rules are created (`AUTO_MODERATION_RULE_CREATE`), updated (`AUTO_MODERATION_RULE_UPDATE`), or deleted (`AUTO_MODERATION_RULE_DELETE`), or when Auto Moderation performs an action (`AUTO_MODERATION_BLOCK_MESSAGE`)
+Add new [Auto Moderation feature](/docs/resources/Auto_Moderation) which enables guilds to moderate message content based on keywords, harmful links, and unwanted spam. This change includes:
+- New endpoints for [creating](/docs/resources/Auto_Moderation#create-auto-moderation-rule), [updating](/docs/resources/Auto_Moderation#modify-auto-moderation-rule), and [deleting](/docs/resources/Auto_Moderation#delete-auto-moderation-rule) Auto Moderation rules
+- New gateway events emitted when Auto Moderation rules are [created](/docs/topics/Gateway_Events#auto-moderation-rule-create) (`AUTO_MODERATION_RULE_CREATE`), [updated](/docs/topics/Gateway_Events#auto-moderation-rule-update) (`AUTO_MODERATION_RULE_UPDATE `), and [deleted](/docs/topics/Gateway_Events#auto-moderation-rule-delete) (`AUTO_MODERATION_RULE_DELETE `). Requires the `AUTO_MODERATION_CONFIGURATION` (`1 << 20`) intent
+- New gateway event emitted when an [action is executed](/docs/topics/Gateway_Events#auto-moderation-action-execution) (`AUTO_MODERATION_ACTION_EXECUTION`). Requires the `AUTO_MODERATION_EXECUTION` (`1 << 21`) intent
+- New [audit log entries](/docs/resources/Audit_Log#audit-log-entry-object-audit-log-events) when rules are created (`AUTO_MODERATION_RULE_CREATE`), updated (`AUTO_MODERATION_RULE_UPDATE`), or deleted (`AUTO_MODERATION_RULE_DELETE`), or when Auto Moderation performs an action (`AUTO_MODERATION_BLOCK_MESSAGE`)
 
 ## Updated Command Permissions
 
 #### Apr 27, 2022
 
-Application command permissions have been updated to add more granular control and access to commands in Discord. You can read the major changes below, and [the updated documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for details.
+Application command permissions have been updated to add more granular control and access to commands in Discord. You can read the major changes below, and [the updated documentation](/docs/interactions/Application_Commands#permissions) for details.
 
 #### Breaking changes
 
-- Bearer tokens are now required to edit command permissions. Bearer tokens are tokens tied to an authenticating user's permissions, and can be [retrieved using OAuth](#DOCS_TOPICS_OAUTH2). The user must have permission to manage the guild and roles.
-- [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) scope was added as a requirement to edit command permissions.
-- Disabled the batch editing endpoint ([`PUT /applications/{application.id}/guilds/{guild.id}/commands/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/batch-edit-application-command-permissions)).
+- Bearer tokens are now required to edit command permissions. Bearer tokens are tokens tied to an authenticating user's permissions, and can be [retrieved using OAuth](/docs/topics/OAuth2). The user must have permission to manage the guild and roles.
+- [`applications.commands.permissions.update`](/docs/topics/OAuth2#shared-resources-oauth2-scopes) scope was added as a requirement to edit command permissions.
+- Disabled the batch editing endpoint ([`PUT /applications/{application.id}/guilds/{guild.id}/commands/permissions`](/docs/interactions/Application_Commands#batch-edit-application-command-permissions)).
 
 #### Other changes
 
-- Created a [`CHANNEL` command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type)
+- Created a [`CHANNEL` command permission type](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permission-type)
 - Increase permission limit from `10` to `100`
--  [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) to represent all channels in command permissions
-- Added `default_member_permissions` field, which is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
+-  [constant (`guild_id - 1`)](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permissions-constants) to represent all channels in command permissions
+- Added `default_member_permissions` field, which is a bitwise OR-ed set of [permissions](/docs/topics/Permissions#permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
 - Added `dm_permission`, which is a boolean flag used to indicate whether a command is available in DMs (only for global application commands). If no value is passed, the global command will be visible in DMs.
-- Added `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY_EVENTS/application-command-permissions-update) event and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](#DOCS_RESOURCES_AUDIT_LOG) event.
+- Added `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](/docs/topics/Gateway_Events#application-command-permissions-update) event and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](/docs/resources/Audit_Log) event.
 
 ## Forum Channels
 
 #### Apr 06, 2022
 
-Added new channel type, `GUILD_FORUM` (15). A `GUILD_FORUM` channel is an unreleased feature that is very similar (from an API perspective) to a `GUILD_TEXT` channel, except only threads can be created in that channel; messages cannot be sent directly in that channel. Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information.
+Added new channel type, `GUILD_FORUM` (15). A `GUILD_FORUM` channel is an unreleased feature that is very similar (from an API perspective) to a `GUILD_TEXT` channel, except only threads can be created in that channel; messages cannot be sent directly in that channel. Check out the [forums topic](/docs/topics/Threads#forums) for more information.
 
 ## Guild Bans Pagination
 
 #### Mar 31, 2022
 
-The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require pagination to improve reliability and stability. Check out the [endpoint docs](#DOCS_RESOURCES_GUILD/get-guild-bans) for more information.
+The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require pagination to improve reliability and stability. Check out the [endpoint docs](/docs/resources/Guild#get-guild-bans) for more information.
 
 ## API v10
 
 #### Feb 14, 2022
 
 - API v8 is now deprecated.
-- `GET /channels/{channel.id}/threads/active` is decommissioned in favor of [`GET /guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-guild-threads).
-- Starting in v10, you must specify the message content intent (`1 << 15`) to receive content-related fields in message dispatches. Read more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
-- To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
-- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
-- The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
-- The `name` and `description` fields for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct).
-- Existing attachments must be specified when [`PATCH`ing messages with new attachments](#DOCS_REFERENCE/editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
+- `GET /channels/{channel.id}/threads/active` is decommissioned in favor of [`GET /guilds/{guild.id}/threads/active`](/docs/resources/Guild#list-active-guild-threads).
+- Starting in v10, you must specify the message content intent (`1 << 15`) to receive content-related fields in message dispatches. Read more in the [Gateway Intents documentation](/docs/topics/Gateway#gateway-intents).
+- To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](/docs/resources/Audit_Log).
+- Message routes (like [`POST /channels/{channel.id}/messages`](/docs/resources/Channel#create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
+- The `summary` field for [applications](/docs/resources/Application) now returns an empty string for all API versions.
+- The `name` and `description` fields for [Achievements](/docs/game_sdk/Achievements#data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](/docs/interactions/Application_Commands#localization). Read details in the [Achievements documentation](/docs/game_sdk/Achievements#data-models-achievement-struct).
+- Existing attachments must be specified when [`PATCH`ing messages with new attachments](/docs/Reference/#editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
 - Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
 
 #### Upcoming changes
 
 - API v6 and v7 will be decommissioned **in early 2023**
-- `MESSAGE_CONTENT` is becoming a privileged intent for verified bots in 75+ servers **on August 31, 2022**. Read details in [the FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) or follow [the guide](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS) on updating your app.
+- `MESSAGE_CONTENT` is becoming a privileged intent for verified bots in 75+ servers **on August 31, 2022**. Read details in [the FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) or follow [the guide](/docs/tutorials/Upgrading_to_Application_Commands) on updating your app.
 - The `summary` field for applications will be removed in the next API version (v11)
 
 ## Interaction Modals and Application Command Attachment Option Type
 
 #### Feb 8, 2022
 
-Interaction modals are now available, allowing applications to prompt users for further detailed input. Check out [the modal docs](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) for more information.
+Interaction modals are now available, allowing applications to prompt users for further detailed input. Check out [the modal docs](/docs/interactions/Receiving_and_Responding#interaction-response-object-modal) for more information.
 
-Application Commands can now add an attachment option type. See [the option type table](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) for more information.
+Application Commands can now add an attachment option type. See [the option type table](/docs/interactions/Application_Commands#application-command-object-application-command-option-type) for more information.
 
 ## Guild Member Timeouts
 
@@ -870,7 +871,7 @@ Add new documentation for the recently released Guild Scheduled Events feature.
 
 #### October 27, 2021
 
-Autocomplete interactions are now available, allowing application commands to provide server completed options. Check out [the autocomplete interaction docs](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) for more information.
+Autocomplete interactions are now available, allowing application commands to provide server completed options. Check out [the autocomplete interaction docs](/docs/interactions/Application_Commands#autocomplete) for more information.
 
 ## Updated Thread Permissions
 
@@ -889,7 +890,7 @@ A new permission has also been added:
 
 #### August 10, 2021
 
-[User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future.
+[User commands](/docs/interactions/Application_Commands#user-commands) and [message commands](/docs/interactions/Application_Commands#message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future.
 
 Context menu commands are a type of application command. The "Slash Commands" documentation page has been renamed to "Application Commands" and split out by type to show this.
 
@@ -899,7 +900,7 @@ Context menu commands are a type of application command. The "Slash Commands" do
 
 Select Menus are now part of the components API! They're the greatest thing since the invention of buttons yesterday. Select menus allow you to offer users a choice of one or many options in a friendly UI-based way.
 
-Select menus can be used like other [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/). Learn all the specifics in the [documentation](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus).
+Select menus can be used like other [message components](/docs/interactions/Message_Components). Learn all the specifics in the [documentation](/docs/interactions/Message_Components#select-menus).
 
 ## Support for Multiple Embeds in Message Routes
 
@@ -913,12 +914,12 @@ Message routes now accept an embeds array in addition to the existing embed fiel
 
 Message components are now available with our first two components: a layout-based `ActionRow` and...buttons!
 
-You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/).
+You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](/docs/interactions/Message_Components).
 
 The addition of message components means new fields and response types:
 
-- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
-- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type), valid only for component-based interactions
+- An optional `components` field has been added to the [message object](/docs/resources/Channel#message-object)
+- New response types `6` and `7` have been added for [interaction responses](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type), valid only for component-based interactions
 
 ## API v9
 
@@ -926,7 +927,7 @@ The addition of message components means new fields and response types:
 
 API v9 is now available.
 
-API v9 includes support for [threads](#DOCS_TOPICS_THREADS), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
+API v9 includes support for [threads](/docs/topics/Threads), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](/docs/topics/Threads) to help make the upgrade process very straightforward.
 
 This documentation is being published early so bots can have at least two months to upgrade before threads launch.
 
@@ -937,17 +938,17 @@ Additionally, API v9 also removes the `/channels/:id/messages/:id/suppress-embed
 
 #### April 5, 2021
 
-Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands now support [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions)!
+Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands now support [command permissions](/docs/interactions/Application_Commands#permissions)!
 
 You can enable or disable a command (guild or global) for a specific user or role in a guild. For now, users will still be able to see the commands, but won't be able to use them.
 
 New routes have been added to support this functionality:
 
-- [`GET Guild Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-guild-application-command-permissions)
-- [`GET Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-application-command-permissions)
-- [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/batch-edit-application-command-permissions)
+- [`GET Guild Application Command Permissions`](/docs/interactions/Application_Commands#get-guild-application-command-permissions)
+- [`GET Application Command Permissions`](/docs/interactions/Application_Commands#get-application-command-permissions)
+- [`PUT Application Command Permissions`](/docs/interactions/Application_Commands#batch-edit-application-command-permissions)
 
-A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
+A `default_permission` field has also been added to the [ApplicationCommand](/docs/interactions/Application_Commands#application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
 
 ## Large Bot Sharding Lowered to 150,000 Guilds
 
@@ -967,13 +968,13 @@ Changes to interaction response types have been made to support better designs f
 
 These deprecated types will be removed and break on **April 9, 2021**.
 
-Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
 
 ## Slash Commands in DMs
 
 #### February 9, 2021
 
-Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
 
 ## Change to Permission Checking when Creating Channels
 
@@ -985,13 +986,13 @@ Permission overwrites in the guild channel creation endpoint are now validated a
 
 #### December 15, 2020
 
-Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/).
+Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](/docs/interactions/Application_Commands).
 
 Slash Commands include some new features for webhooks as well:
 
-- Webhooks can now update previously-sent messages from the same webhook using [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message) and [Delete Webhook Message](#DOCS_RESOURCES_WEBHOOK/delete-webhook-message)
+- Webhooks can now update previously-sent messages from the same webhook using [Edit Webhook Message](/docs/resources/Webhook#edit-webhook-message) and [Delete Webhook Message](/docs/resources/Webhook#delete-webhook-message)
 
-This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](#DOCS_RESOURCES_APPLICATION/application-object) containing `id` and `flags`.
+This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](/docs/resources/Application#application-object) containing `id` and `flags`.
 
 ## Inline Replies
 
@@ -1001,21 +1002,21 @@ Inline Replies have been added to our documentation. They behave differently in 
 
 - Inline replies are type `19` in v8, but remain type `0` in v6
 - You can now add a `message_reference` on message create to create a reply
-- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
-- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
-- [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+- A new field `referenced_message` has been added to the [Message Object](/docs/resources/Channel#message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](/docs/resources/Channel#allowed-mentions-object)
+- [Message Create](/docs/topics/Gateway_Events#message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
 
 ## Stickers
 
 #### November 13, 2020
 
-Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Stickers are now documented as part of the [message](/docs/resources/Channel#message-object) object.
 
 ## Gateway v6 Intent Restrictions
 
 #### October 27, 2020
 
-The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) for further details.
+The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](/docs/topics/Gateway_Events#request-guild-members) for further details.
 Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
 
 All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
@@ -1029,20 +1030,20 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 The changes are:
 
 - API and Gateway v8 are now available. v6 is still the default for the time being.
-- [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are now required
-- Removed `guild_subscriptions` in identify in favor of [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents).
+- [Gateway Intents](/docs/topics/Gateway#gateway-intents) are now required
+- Removed `guild_subscriptions` in identify in favor of [Gateway Intents](/docs/topics/Gateway#gateway-intents).
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
 - `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
-- Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
+- Form body errors have been improved to include more helpful messaging on validation. [See more here](/docs/Reference/#error-messages)
 - The `Retry-After` header value and `retry_after` body value is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
-- Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) for DMs
+- Bots no longer receive [Channel Create Gateway Event](/docs/topics/Gateway_Events#channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
-- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)
-- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
-- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
+- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](/docs/topics/Gateway_Events#presence-update)
+- Removed some [integration object](/docs/resources/Guild#integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](/docs/resources/Guild#get-guild-integrations). Application integrations are always included.
 - The following deprecated routes have been removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
@@ -1077,13 +1078,13 @@ Documented `permissions_new`, `allow_new`, and `deny_new` as string-serialized p
 
 #### May 11, 2020
 
-The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) API moving forwards.
+The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](/docs/resources/Channel#allowed-mentions-object) API moving forwards.
 
 ## New Properties on Guild Members Chunk Event
 
 #### April 24, 2020
 
-The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) command.
+The [Guild Members Chunk](/docs/topics/Gateway_Events#guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](/docs/topics/Gateway_Events#request-guild-members) command.
 
 ## New Allowed Mentions Object
 
@@ -1091,44 +1092,44 @@ The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) gatew
 
 We've added a way to specify mentions in a more granular form. This change also begins the start of a 60 day deprecation cycle on legacy mention behavior. Read more:
 
-- [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Allowed mentions object](/docs/resources/Channel#allowed-mentions-object)
 
 ## New Invite Events and Reactions Endpoint
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
 
-- [Delete All Reactions for Emoji](#DOCS_RESOURCES_CHANNEL/delete-all-reactions-for-emoji)
-- [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create)
-- [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete)
-- [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji)
+- [Delete All Reactions for Emoji](/docs/resources/Channel#delete-all-reactions-for-emoji)
+- [Invite Create](/docs/topics/Gateway_Events#invite-create)
+- [Invite Delete](/docs/topics/Gateway_Events#invite-delete)
+- [Message Reaction Remove Emoji](/docs/topics/Gateway_Events#message-reaction-remove-emoji)
 
 ## Rich Presence Spectate Approval
 
 #### February 26, 2020
 
-The [Spectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
+The [Spectate](/docs/game_sdk/Activities#onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
 
 ## Gateway Intents
 
 #### February 14, 2020
 
-We've added documentation around a brand new feature: [Gateway Intents!](#DOCS_TOPICS_GATEWAY/gateway-intents) Gateway Intents are a great way to specify which events you want to receive from our gateway. Go on, save yourself some bandwidth and CPU usage.
+We've added documentation around a brand new feature: [Gateway Intents!](/docs/topics/Gateway#gateway-intents) Gateway Intents are a great way to specify which events you want to receive from our gateway. Go on, save yourself some bandwidth and CPU usage.
 
 Using Intents will change the behavior of some existing events and commands, so please refer to:
 
-- [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)
-- [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members)
-- [Guild Member Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-add)
-- [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove)
-- [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update)
-- [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)
-- [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members)
+- [Guild Create](/docs/topics/Gateway_Events#guild-create)
+- [Request Guild Members](/docs/topics/Gateway_Events#request-guild-members)
+- [Guild Member Add](/docs/topics/Gateway_Events#guild-member-add)
+- [Guild Member Remove](/docs/topics/Gateway_Events#guild-member-remove)
+- [Guild Member Update](/docs/topics/Gateway_Events#guild-member-update)
+- [Presence Update](/docs/topics/Gateway_Events#presence-update)
+- [List Guild Members](/docs/resources/Guild#list-guild-members)
 
 ## IP Discovery Updates
 
 #### December 6, 2019
 
-Updated our [IP discovery message](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery). The old message is deprecated and will be removed in the future.
+Updated our [IP discovery message](/docs/topics/Voice_Connections#ip-discovery). The old message is deprecated and will be removed in the future.
 
 ## GameSDK Version 2.5.6
 
@@ -1140,9 +1141,9 @@ Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resul
 
 #### November 14, 2019
 
-We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/setuserachievement) method.
+We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](/docs/game_sdk/Achievements#setuserachievement) method.
 
-Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_GETTING_STARTED/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
+Get the latest at the top of the [Getting Started](/docs/game_sdk/Getting_Started#step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 
 ## Changes to Special Channels
 
@@ -1154,37 +1155,37 @@ News Channels are now changed to Announcement Channels. Developer License owners
 
 #### August 12, 2019
 
-You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/) documentation for more information.
+You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](/docs/topics/Rate_Limits) documentation for more information.
 
 ## Bot Tokens for Achievements
 
 #### July 18, 2019
 
-You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way).
+You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](/docs/game_sdk/Achievements#the-api-way).
 
 ## Additional Team Information
 
 #### June 19, 2019
 
-Additional information around Teams has been added to both the API and the documentation. The [Teams](#DOCS_TOPICS_TEAMS/teams) page now includes information about the team and team member objects. Additionally, the [Get Current Application Information](#DOCS_TOPICS_OAUTH2/get-current-bot-application-information) endpoint now returns a `team` object if that application belongs to a team. That documentation has also been updated to includes fields that were missing for applications that are games sold on Discord.
+Additional information around Teams has been added to both the API and the documentation. The [Teams](/docs/topics/Teams#teams) page now includes information about the team and team member objects. Additionally, the [Get Current Application Information](/docs/topics/OAuth2#get-current-bot-application-information) endpoint now returns a `team` object if that application belongs to a team. That documentation has also been updated to includes fields that were missing for applications that are games sold on Discord.
 
 ## Added Info Around Nitro Boosting Experiment
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](/docs/resources/Channel#message-object-message-types), as well as some [new fields on guilds](/docs/resources/Guild#guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 
 #### April 29, 2019
 
-The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_GETTING_STARTED/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
+The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](/docs/game_sdk/Getting_Started) and check out the relevant functions in the [Activity Manager](/docs/game_sdk/Activities).
 
 ## New Invite Object Fields
 
 #### April 18, 2019
 
-The [Invite Object](#DOCS_RESOURCES_INVITE/invite-object) now includes two additional fields, `target_user` and `target_user_type`.
+The [Invite Object](/docs/resources/Invite#invite-object) now includes two additional fields, `target_user` and `target_user_type`.
 
 ## Ask to Join & Rich Presence SDK
 
@@ -1204,13 +1205,13 @@ Dispatch documentation around store listings has been removed. Store pages for t
 
 #### November 30, 2018
 
-The [User object](#DOCS_RESOURCES_USER/user-object) now includes two new additional fields, `premium_type` and `flags`. These can be used to know the Nitro status of a user, or determine which HypeSquad house a user is in.
+The [User object](/docs/resources/User#user-object) now includes two new additional fields, `premium_type` and `flags`. These can be used to know the Nitro status of a user, or determine which HypeSquad house a user is in.
 
 ## Documentation Fix: List of Open DMS in Certain Payloads
 
 #### June 19, 2018
 
-The documentation has been updated to correctly note that the `private_channels` field in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) should be an empty array, as well as the response from `/users/@me/channels` for a bot user. This change has been in effect for a long time, but the documentation was not updated.
+The documentation has been updated to correctly note that the `private_channels` field in the [Ready](/docs/topics/Gateway_Events#ready) should be an empty array, as well as the response from `/users/@me/channels` for a bot user. This change has been in effect for a long time, but the documentation was not updated.
 
 ## Deprecation: RPC online member count and members list
 
@@ -1222,25 +1223,25 @@ We released server changes that allow guilds to represent an incomplete state of
 
 #### February 5, 2018
 
-Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
+Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](/docs/resources/Channel#message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
 ## Enhancement: Get Guild Emoji Endpoint
 
 #### January 30, 2018
 
-The [Get Guild Emoji](#DOCS_RESOURCES_EMOJI/get-guild-emoji) response now also includes a user object if the emoji was added by a user.
+The [Get Guild Emoji](/docs/resources/Emoji#get-guild-emoji) response now also includes a user object if the emoji was added by a user.
 
 ## Deprecation: Accept Invite Endpoint
 
 #### January 23, 2018
 
-The [Accept Invite](#DOCS_RESOURCES_INVITE/) endpoint is deprecated starting today, and will be discontinued on March 23, 2018. The [Add Guild Member](#DOCS_RESOURCES_GUILD/add-guild-member) endpoint should be used in its place.
+The [Accept Invite](/docs/resources/Invite) endpoint is deprecated starting today, and will be discontinued on March 23, 2018. The [Add Guild Member](/docs/resources/Guild#add-guild-member) endpoint should be used in its place.
 
 ## Semi-Breaking Change: Very Large Bot Sharding
 
 #### January 3, 2018
 
-Additional sharding requirements and information for bots in over 100,000 guilds has been added. This requires a small change in numbers of shards for affected bots. See the [documentation](#DOCS_TOPICS_GATEWAY/sharding-for-large-bots) for more information.
+Additional sharding requirements and information for bots in over 100,000 guilds has been added. This requires a small change in numbers of shards for affected bots. See the [documentation](/docs/topics/Gateway#sharding-for-large-bots) for more information.
 
 ## New Feature: Rich Presence
 
@@ -1252,31 +1253,31 @@ Rich Presence is now live and available for all developers! Rich Presence allows
 - Allowing users to post invitations to join their party or spectate their game in chat
 - Displaying "Spectate" and "Ask to Join" buttons on users' profiles
 
-For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
+For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](/docs/rich_presence/How_To)!
 
 ## Breaking Change: API & Gateway Below v6 Discontinued
 
 #### October 16, 2017
 
-[API](#DOCS_REFERENCE/api-versioning) and Gateway versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
+[API](/docs/Reference/#api-versioning) and Gateway versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
 
 ## New Feature: Channel Categories
 
 #### September 20, 2017
 
-Changes have been made throughout the documentation to reflect the addition of channel categories to Discord. These includes an additional field—`parent_id`—to the base [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object and a new [channel category example](#DOCS_RESOURCES_CHANNEL/channel-object-example-channel-category).
+Changes have been made throughout the documentation to reflect the addition of channel categories to Discord. These includes an additional field—`parent_id`—to the base [channel](/docs/resources/Channel#channel-object) object and a new [channel category example](/docs/resources/Channel#channel-object-example-channel-category).
 
 ## New Feature: Emoji Endpoints
 
 #### September 10, 2017
 
-[Emoji endpoints](#DOCS_RESOURCES_EMOJI/emoji-resource) have been added to the API. Bots can now manage guild emojis to their robo-hearts' content!
+[Emoji endpoints](/docs/resources/Emoji#emoji-resource) have been added to the API. Bots can now manage guild emojis to their robo-hearts' content!
 
 ## Breaking Change: Presence Activity Objects
 
 #### August 16, 2017
 
-The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) for [Gateway Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence) and [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update) payloads is no longer optional when the activity object is not null.
+The `type` field in the [activity object](/docs/topics/Gateway_Events#activity-object) for [Gateway Status Update](/docs/topics/Gateway_Events#update-presence) and [Presence Update](/docs/topics/Gateway_Events#presence-update) payloads is no longer optional when the activity object is not null.
 
 ## Breaking Change: Default Channels
 
@@ -1292,17 +1293,17 @@ We are also rolling out a change in conjunction that will allow Discord to remem
 
 #### July 24, 2017
 
-Audit logs are here! Well, they've been here all along, but now we've got [documentation](#DOCS_RESOURCES_AUDIT_LOG/) about them. Check it out, but remember: with great power comes great responsibility.
+Audit logs are here! Well, they've been here all along, but now we've got [documentation](/docs/resources/Audit_Log) about them. Check it out, but remember: with great power comes great responsibility.
 
 ## Breaking Change: Version 6
 
 #### July 19, 2017
 
-- [Channel](#DOCS_RESOURCES_CHANNEL/channel-object) Object
+- [Channel](/docs/resources/Channel#channel-object) Object
   - `is_private` removed
-  - [`type`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) is now an integer
-  - `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
-- [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
-  - [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
-- [Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence-gateway-presence-update-structure) Object
+  - [`type`](/docs/resources/Channel#channel-object-channel-types) is now an integer
+  - `recipient` is now `recipients`, an array of [user](/docs/resources/User#user-object) objects
+- [Message](/docs/resources/Channel#message-object) Object
+  - [`type`](/docs/resources/Channel#message-object-message-types) added to support system messages
+- [Status Update](/docs/topics/Gateway_Events#update-presence-gateway-presence-update-structure) Object
   - `idle_since` renamed to `since`

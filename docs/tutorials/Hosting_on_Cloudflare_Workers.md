@@ -1,6 +1,6 @@
 # Hosting a Reddit API Discord app on Cloudflare Workers
 
-When building Discord apps, your app can receive common events from the client as [webhooks](#DOCS_RESOURCES_WEBHOOK) when users interact with your app through interactions like [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) or [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS).
+When building Discord apps, your app can receive common events from the client as [webhooks](/docs/resources/Webhook) when users interact with your app through interactions like [application commands](/docs/interactions/Application_Commands) or [message components](/docs/interactions/Message_Components).
 
 Discord will send these events to a pre-configured HTTPS endpoint (called an Interactions Endpoint URL in an app's configuration) as a JSON payload with details about the event.
 
@@ -12,7 +12,7 @@ All of the code for this app can be found **[on GitHub](https://github.com/disco
 
 ### Features and technologies used
 
-- [Discord Interactions API](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) (specifically slash commands)
+- [Discord Interactions API](/docs/interactions/Receiving_and_Responding) (specifically slash commands)
 - [Cloudflare Workers](https://workers.cloudflare.com/) for hosting
 - [Reddit API](https://www.reddit.com/dev/api/) to send messages back to the user
 
@@ -37,7 +37,7 @@ For security reasons, you can only view your bot token once. If you misplace you
 
 ## Adding bot permissions
 
-Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) required to create and use slash commands, as well as send messages in  channels.
+Now we'll configure the bot with [permissions](/docs/topics/Permissions) required to create and use slash commands, as well as send messages in  channels.
 
 - Click on the `OAuth2` tab, and choose the `URL Generator`. Click the `bot` and `applications.commands` scopes.
 - Check the boxes next to `Send Messages` and `Use Slash Commands`, then copy the `Generated URL`.
@@ -130,7 +130,7 @@ export const INVITE_COMMAND = {
 };
 ```
 
-The code to register commands lives in `register.js`. Commands can be [registered globally](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command), making them available for all servers with the app installed, or they can be [registered on a single server](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
+The code to register commands lives in `register.js`. Commands can be [registered globally](/docs/interactions/Application_Commands#create-global-application-command), making them available for all servers with the app installed, or they can be [registered on a single server](/docs/interactions/Application_Commands#create-guild-application-command).
 
 In this example - we'll just focus on global commands:
 
@@ -344,6 +344,6 @@ In case you need to reference any of the code, you can find the repo [on GitHub]
 :::
 
 With your app built and deployed, you can start customizing it to be your own:
-- Use **[message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** in your app to add more interactivity (like buttons and select menus).
+- Use **[message components](/docs/interactions/Message_Components)** in your app to add more interactivity (like buttons and select menus).
 - Take a look at different **[public APIs](https://github.com/public-apis/public-apis)** on GitHub.
 - Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other developers.

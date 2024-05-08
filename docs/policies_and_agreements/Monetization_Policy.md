@@ -91,7 +91,7 @@ We look at a number of safety and security signals to determine eligibility. Thi
 4. Your app must be in good standing. Good standing includes but is not limited to:
     1. Your app has not received a safety violation in the past 30 days.
     2. Your app has not been flagged for suspicious activity usually reserved for safety, abuse, and fraud cases.
-    3. Your app is not actively violating Discord’s [Developer Terms of Service](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_TERMS_OF_SERVICE) and [Policy](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_POLICY).
+    3. Your app is not actively violating Discord’s [Developer Terms of Service](/docs/policies_and_agreements/Developer_Terms_of_Service) and [Policy](/docs/policies_and_agreements/Developer_Policy).
 
 ### In Order To Be Eligible For Server Monetization, Your Server Must Meet The Following Requirements 
 

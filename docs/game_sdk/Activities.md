@@ -45,9 +45,9 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name       | type   | description                                                                                  |
 |------------|--------|----------------------------------------------------------------------------------------------|
-| LargeImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
+| LargeImage | string | see [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image) |
 | LargeText  | string | hover text for the large image                                                               |
-| SmallImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
+| SmallImage | string | see [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image) |
 | SmallText  | string | hover text for the small image                                                               |
 
 ###### ActivityParty Struct
@@ -83,7 +83,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Custom    | 4     |
 | Competing | 5     |
 
-For more details about the activity types, [see Gateway documentation](#DOCS_TOPICS_GATEWAY_EVENTS//activity-object-activity-types).
+For more details about the activity types, [see Gateway documentation](/docs/topics/Gateway_Events#/activity-object-activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 
@@ -283,7 +283,7 @@ activityManager.OnActivityJoinRequest += user =>
 
 ## SendInvite
 
-Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](/docs/game_sdk/Activities#activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 

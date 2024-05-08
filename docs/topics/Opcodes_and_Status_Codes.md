@@ -28,19 +28,19 @@ In order to prevent broken reconnect loops, you should consider some close codes
 | Code | Description           | Explanation                                                                                                                                                                                                                      | Reconnect |
 |------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                | true      |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
-| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-events) to Discord. Don't do that!                                                                                                                                    | true      |
-| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identifying).                                                                                                                                                  | true      |
-| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY_EVENTS/identify) is incorrect.                                                                                                                          | false     |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
+| 4002 | Decode error          | You sent an invalid [payload](/docs/topics/Gateway#sending-events) to Discord. Don't do that!                                                                                                                                    | true      |
+| 4003 | Not authenticated     | You sent us a payload prior to [identifying](/docs/topics/Gateway#identifying).                                                                                                                                                  | true      |
+| 4004 | Authentication failed | The account token sent with your [identify payload](/docs/topics/Gateway_Events#identify) is incorrect.                                                                                                                          | false     |
 | 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                          | true      |
-| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY_EVENTS/resume) the session was invalid. Reconnect and start a new session.                                                                                                | true      |
+| 4007 | Invalid `seq`         | The sequence sent when [resuming](/docs/topics/Gateway_Events#resume) the session was invalid. Reconnect and start a new session.                                                                                                | true      |
 | 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                 | true      |
 | 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                           | true      |
-| 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                  | false     |
-| 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                 | false     |
+| 4010 | Invalid shard         | You sent us an invalid [shard when identifying](/docs/topics/Gateway#sharding).                                                                                                                                                  | false     |
+| 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](/docs/topics/Gateway#sharding) your connection in order to connect.                                                                                 | false     |
 | 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                     | false     |
-| 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                  | false     |
-| 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not approved for](#DOCS_TOPICS_GATEWAY/privileged-intents). | false     |
+| 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](/docs/topics/Gateway#gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                  | false     |
+| 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](/docs/topics/Gateway#gateway-intents). You may have tried to specify an intent that you [have not enabled or are not approved for](/docs/topics/Gateway#privileged-intents). | false     |
 
 ## Voice
 
@@ -66,18 +66,18 @@ Our voice gateways have their own set of opcodes and close codes.
 
 | Code | Description              | Explanation                                                                                                                                      |
 |------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) to the Gateway.                                          |
-| 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY_EVENTS/identify) with the Gateway.                                                  |
-| 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload is incorrect.                                                |
-| 4005 | Already authenticated    | You sent more than one [identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. Stahp.                                                          |
+| 4001 | Unknown opcode           | You sent an invalid [opcode](/docs/topics/Opcodes_and_Status_Codes#voice-voice-opcodes).                                                         |
+| 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](/docs/topics/Gateway_Events#identify) to the Gateway.                                          |
+| 4003 | Not authenticated        | You sent a payload before [identifying](/docs/topics/Gateway_Events#identify) with the Gateway.                                                  |
+| 4004 | Authentication failed    | The token you sent in your [identify](/docs/topics/Gateway_Events#identify) payload is incorrect.                                                |
+| 4005 | Already authenticated    | You sent more than one [identify](/docs/topics/Gateway_Events#identify) payload. Stahp.                                                          |
 | 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                 |
 | 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
 | 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
-| 4012 | Unknown protocol         | We didn't recognize the [protocol](#DOCS_TOPICS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4012 | Unknown protocol         | We didn't recognize the [protocol](/docs/topics/Voice_Connections#establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
 | 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
-| 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
+| 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](/docs/topics/Voice_Connections#resuming-voice-connection).                                           |
+| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](/docs/topics/Voice_Connections#encrypting-and-sending-voice).                                              |
 
 ## HTTP
 
@@ -96,13 +96,13 @@ Our API will return semantically valid HTTP response codes based on the success 
 | 403 (FORBIDDEN)           | The `Authorization` token you passed did not have permission to the resource.    |
 | 404 (NOT FOUND)           | The resource at the location specified doesn't exist.                            |
 | 405 (METHOD NOT ALLOWED)  | The HTTP method used is not valid for the location specified.                    |
-| 429 (TOO MANY REQUESTS)   | You are being rate limited, see [Rate Limits](#DOCS_TOPICS_RATE_LIMITS).         |
+| 429 (TOO MANY REQUESTS)   | You are being rate limited, see [Rate Limits](/docs/topics/Rate_Limits).         |
 | 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry. |
 | 5xx (SERVER ERROR)        | The server had an error processing your request (these are rare).                |
 
 ## JSON
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](#DOCS_REFERENCE/error-messages) provided by an `errors` object.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](/docs/Reference/#error-messages) provided by an `errors` object.
 
 ###### JSON Error Codes
 
@@ -330,7 +330,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ## RPC
 
-RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Access to the RPC server requires approval from Discord.
+RPC is the [local Discord server](/docs/topics/RPC) running on localhost. Access to the RPC server requires approval from Discord.
 
 ###### RPC Error Codes
 

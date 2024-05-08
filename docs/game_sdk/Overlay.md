@@ -85,7 +85,7 @@ overlayManager.SetLocked(true, (res) =>
 
 ## OpenActivityInvite
 
-Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](/docs/game_sdk/Activities#activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
@@ -111,7 +111,7 @@ overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (result) =>
 
 Opens the overlay modal for joining a Discord guild, given its invite code. An invite code for a server may look something like `fortnite` for a verified server—the full invite being `discord.gg/fortnite`—or something like `rjEeUJq` for a non-verified server, the full invite being `discord.gg/rjEeUJq`.
 
-Returns a `Discord.Result` via callback. Note that a successful `Discord.Result` response does not necessarily mean that the user has joined the guild. If you want more granular control over and knowledge about users joining your guild, you may want to look into implementing the [`guilds.join` OAuth2 scope in an authorization code grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) in conjunction with the [Add Guild Members](#DOCS_RESOURCES_GUILD/add-guild-member) endpoint.
+Returns a `Discord.Result` via callback. Note that a successful `Discord.Result` response does not necessarily mean that the user has joined the guild. If you want more granular control over and knowledge about users joining your guild, you may want to look into implementing the [`guilds.join` OAuth2 scope in an authorization code grant](/docs/topics/OAuth2#authorization-code-grant) in conjunction with the [Add Guild Members](/docs/resources/Guild#add-guild-member) endpoint.
 
 ###### Parameters
 

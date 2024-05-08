@@ -1,7 +1,7 @@
 # Introducing Rich Presence
 
 :::danger
-The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](/docs/game_sdk/Getting_Started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](/docs/game_sdk/Activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 :::
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
@@ -15,7 +15,7 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 ## Step 0: Get the SDK
 
 :::warning
-Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_GETTING_STARTED/).
+Please use our new Discord GameSDK. Read the documentation and get it [here](/docs/game_sdk/Getting_Started).
 :::
 
 ## So, how does it work?
@@ -24,12 +24,12 @@ We worked hard to make using Discord's Rich Presence system as easy as possible.
 
 In the header file, you'll find six event-emitting callbacks:
 
-1.  `ready()`
-2.  `errored()`
-3.  `disconnected()`
-4.  `joinGame()`
-5.  `spectateGame()`
-6.  `joinRequest()`
+1. `ready()`
+2. `errored()`
+3. `disconnected()`
+4. `joinGame()`
+5. `spectateGame()`
+6. `joinRequest()`
 
 These six callbacks make up the entirety of what you need to implement. Behind the scenes, we do all the heavy lifting for you.
 
@@ -37,7 +37,7 @@ The header file also contains the `Discord_RunCallbacks()` function. This invoke
 
 ## Initialization
 
-The first step in implementing Rich Presence is [creating an application](#APPLICATIONS). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
+The first step in implementing Rich Presence is [creating an application](https://discord.com/developers/applications). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
 To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
@@ -78,7 +78,7 @@ If you don't want to register all your event handlers at initialization, you can
 ## Updating Presence
 
 :::warning
-Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/updateactivity)
+Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](/docs/game_sdk/Activities#updateactivity)
 :::
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
@@ -177,7 +177,7 @@ impaired eyesight to understand the potential layout of this information in a us
 ## Joining
 
 :::warning
-Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoinrequest)
+Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](/docs/game_sdk/Activities#onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](/docs/game_sdk/Activities#onactivityjoinrequest)
 :::
 
 #### Relevant Callbacks:
@@ -218,7 +218,7 @@ typedef struct DiscordJoinRequest {
 | userId        | char[24]  | the userId of the player asking to join                                                                                             |
 | username      | char[344] | the username of the player asking to join                                                                                           |
 | discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
-| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](#DOCS_REFERENCE/image-formatting) for how to retrieve the image |
+| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](/docs/Reference/#image-formatting) for how to retrieve the image |
 
 :::warning
 `avatar` can be an empty string if the user has not uploaded an avatar to Discord
@@ -242,7 +242,7 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 ## Spectating
 
 :::warning
-Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate)
+Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](/docs/game_sdk/Activities#onactivityspectate)
 :::
 
 #### Relevant Callbacks:
@@ -293,7 +293,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
 
-OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#APPLICATIONS) to check it out!
+OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](https://discord.com/developers/applications) to check it out!
 
 :::warning
 **Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
@@ -307,4 +307,4 @@ If you're testing on your own, we recommend [downloading two separate release ch
 
 ## So, what now?
 
-Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_RICH_PRESENCE_FAQ/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES/). If you're ready to release, consult our [Launch Checklist](#DOCS_RICH_PRESENCE_LAUNCH_CHECKLIST/) and make sure you haven't missed anything!
+Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](/docs/rich_presence/FAQ/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](/docs/rich_presence/Best_Practices/). If you're ready to release, consult our [Launch Checklist](/docs/rich_presence/Launch_Checklist/) and make sure you haven't missed anything!

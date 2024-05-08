@@ -1,7 +1,7 @@
 # Game SDK: Getting Started
 
 :::info
-Looking to build a game inside of Discord? Check out [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW). We will be revisiting the Game SDK docs soon.
+Looking to build a game inside of Discord? Check out [Discord Activities](/docs/activities/Overview). We will be revisiting the Game SDK docs soon.
 :::
 
 :::warning
@@ -9,7 +9,7 @@ Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read her
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/Change_Log#gamesdk-feature-deprecation)
 :::
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
@@ -191,14 +191,14 @@ discord::Core* core{};
 
 AMyPawn::AMyPawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+    // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
 void AMyPawn::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
     /*
         Grab that Client ID from earlier
         Discord.CreateFlags.Default will require Discord to be running for the game to work
@@ -209,11 +209,11 @@ void AMyPawn::BeginPlay()
         Step 3 will fail when running directly from the Unreal Engine editor
         Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
     */
-	auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
-	discord::Activity activity{};
-	activity.SetState("Testing");
-	activity.SetDetails("Fruit Loops");
-	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
+    auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
+    discord::Activity activity{};
+    activity.SetState("Testing");
+    activity.SetDetails("Fruit Loops");
+    core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
 
     });
 }
@@ -221,14 +221,14 @@ void AMyPawn::BeginPlay()
 // Called every frame
 void AMyPawn::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-	::core->RunCallbacks();
+    Super::Tick(DeltaTime);
+    ::core->RunCallbacks();
 }
 
 // Called to bind functionality to input
 void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 ```
 
@@ -305,9 +305,9 @@ If you ever need help during the process, you can always reach out to us at our 
 
 Oh, yeah. Pseudo Table of Contents:
 
-- [The Core - Start Here!](#DOCS_GAME_SDK_DISCORD/)
-- [Activities, a.k.a. Rich Presence](#DOCS_GAME_SDK_ACTIVITIES/)
-- [Relationships](#DOCS_GAME_SDK_RELATIONSHIPS/)
-- [Users](#DOCS_GAME_SDK_USERS/)
-- [Overlay](#DOCS_GAME_SDK_OVERLAY/)
-- [Store](#DOCS_GAME_SDK_STORE/)
+- [The Core - Start Here!](/docs/game_sdk/Discord)
+- [Activities, a.k.a. Rich Presence](/docs/game_sdk/Activities)
+- [Relationships](/docs/game_sdk/Relationships)
+- [Users](/docs/game_sdk/Users)
+- [Overlay](/docs/game_sdk/Overlay)
+- [Store](/docs/game_sdk/Store)

@@ -1,7 +1,7 @@
 # Rich Presence FAQ
 
 :::danger
-The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](/docs/game_sdk/Getting_Started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](/docs/game_sdk/Activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 :::
 
 Below are answers to some common questions about integrating Rich Presence with your game. If you don't see your question answered here, feel free to reach out to [gamedevs@discord.com](mailto:gamedevs@discord.com) for more help.
@@ -35,7 +35,7 @@ Currently, the SDK does not support this. Party slot information is determined b
 
 #### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
 
-Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image).
+Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image).
 
 #### Q: Can I change something in the SDK for my own purposes?
 
@@ -43,4 +43,4 @@ Go nuts! The SDK is open source by design. If you need or want to change somethi
 
 #### Q: OK—I've got it working! Now, how do I make my integration look _awesome_?
 
-I'm happy ~~we preempted your question~~ you asked! Check out our [Rich Presence Best Practices](#DOCS_RICH_PRESENCE_BEST_PRACTICES/) guide for a rundown on how to make your integration the best that it can be!
+I'm happy ~~we preempted your question~~ you asked! Check out our [Rich Presence Best Practices](/docs/rich_presence/Best_Practices) guide for a rundown on how to make your integration the best that it can be!

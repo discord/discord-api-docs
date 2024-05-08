@@ -3,34 +3,34 @@ import Collapsible from '@site/src/components/Collapsible';
 # Building Your First Activity in Discord
 
 > preview
-> Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
+> Creating Activities is currently available as a [Public Developer Preview](/docs/activities/Overview#public-developer-preview).
 
 ## Introduction
 
 Discord Activities are web applications that can run inside Discord. This allows you to build rich, multiplayer experiences inside of Discord.
 
-If this is your first time learning about Activities, check out the [Activities Overview](#DOCS_ACTIVITIES_OVERVIEW) for more information and a collection of sample apps.
+If this is your first time learning about Activities, check out the [Activities Overview](/docs/activities/Overview) for more information and a collection of sample apps.
 
 ### Let's Jump In!
 
 For your first Activity, we'll be building an app in JavaScript with the following goals:
-- [Create a new Discord App](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-1-creating-a-new-app)
-- [Launch your app from within a voice channel](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-4-running-your-app-locally-in-discord)
-- [Authorize and authenticate with the user](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-5-authorizing-authenticating-users)
-- [Fetch and display the name of the current voice channel](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-6-use-the-sdk-to-fetch-the-channel)
-- [Fetch and display the avatar of the current server](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-7-use-the-api-to-fetch-the-guild)
+- [Create a new Discord App](/docs/activities/Building_An_Activity#step-1-creating-a-new-app)
+- [Launch your app from within a voice channel](/docs/activities/Building_An_Activity#step-4-running-your-app-locally-in-discord)
+- [Authorize and authenticate with the user](/docs/activities/Building_An_Activity#step-5-authorizing-authenticating-users)
+- [Fetch and display the name of the current voice channel](/docs/activities/Building_An_Activity#step-6-use-the-sdk-to-fetch-the-channel)
+- [Fetch and display the avatar of the current server](/docs/activities/Building_An_Activity#step-7-use-the-api-to-fetch-the-guild)
 
 ![Building Your First Activity Tutorial](/images/activities/tutorial-hero.png)
 
 :::info
-This example is intended to illustrate how a basic web application works while embedded inside of Discord. For more advanced examples, please see our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
+This example is intended to illustrate how a basic web application works while embedded inside of Discord. For more advanced examples, please see our [Sample Projects](/docs/activities/Overview#sample-projects).
 :::
 
 ---
 
 ## Prerequisites
 
-The [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) is intended to abstract away some of the complexities in building a Discord Activity, but developing a full-featured, multiplayer experience requires extensive experience with JavaScript and other web technologies.
+The [Embedded App SDK](/docs/developer_tools/Embedded_App_SDK) is intended to abstract away some of the complexities in building a Discord Activity, but developing a full-featured, multiplayer experience requires extensive experience with JavaScript and other web technologies.
 
 If you are still learning to program, there are many free education resources to take advantage of:
 - [The Odin Project](https://www.theodinproject.com/paths/foundations/courses/foundations)
@@ -55,7 +55,7 @@ Concepts that are important to know before continuing:
 ---
 
 > preview
-> During the Developer Preview, it is recommended you create a new app for testing purposes. There are [limitations for Activities](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview) during this preview period.
+> During the Developer Preview, it is recommended you create a new app for testing purposes. There are [limitations for Activities](/docs/activities/Overview#public-developer-preview) during this preview period.
 
 ## Step 1: Creating a new app
 
@@ -89,9 +89,9 @@ We'll come back to this page later in this guide when we are ready to set up our
 
 ### Find Your OAuth2 Credentials
 
-To use Discord-related information, such as a user's username, avatar, or guild avatar, a user must agree to grant OAuth scopes to your application. Learn more about scopes [in the OAuth2 documentation](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes).
+To use Discord-related information, such as a user's username, avatar, or guild avatar, a user must agree to grant OAuth scopes to your application. Learn more about scopes [in the OAuth2 documentation](/docs/topics/OAuth2#shared-resources-oauth2-scopes).
 
-There are two OAuth2 identifiers your app will need to reference: [CLIENT ID](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/client-id) and [CLIENT SECRET](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/client-secret), which are located on the `Settings -> OAuth2` tab on the developer portal.
+There are two OAuth2 identifiers your app will need to reference: [CLIENT ID](/docs/activities/Building_An_Activity#client-id) and [CLIENT SECRET](/docs/activities/Building_An_Activity#client-secret), which are located on the `Settings -> OAuth2` tab on the developer portal.
 
 Find these values and hold on to them for a later step.
 
@@ -292,7 +292,7 @@ Click on `Activities` -> `URL Mappings` in your application settings. Enter the 
 |--------|-----------------------------------------|
 | `/`    | `funky-jogging-bunny.trycloudflare.com` |
 
-Read more about the specific rules and details for URL mapping [here](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping).
+Read more about the specific rules and details for URL mapping [here](/docs/activities/Development_Guides#url-mapping).
 
 ### Enable Developer Mode in your Client
 
@@ -313,7 +313,7 @@ Clicking on your app will launch your locally running app from inside Discord!
 ![Running your activity](/images/activities/start-activity.png)
 
 :::info
-**Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata).
+**Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](/docs/activities/Development_Guides#setting-up-activity-metadata).
 :::
 
 We're looking pretty good so far, but we haven't wired up any Discord functionality yet. Let's do that next.
@@ -403,7 +403,7 @@ npm run dev
 Server listening at http://localhost:3001
 ```
 
-We can now run our server and client-side apps in separate terminal windows. You can see other ways to set this up in our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
+We can now run our server and client-side apps in separate terminal windows. You can see other ways to set this up in our [Sample Projects](/docs/activities/Overview#sample-projects).
 
 ### Calling your backend server from your client
 
@@ -610,7 +610,7 @@ Congrats on building your first Activity! 🎉
 
 This is an intentionally simple example to get you started with the communication between your Activity and Discord using the Embedded App SDK and APIs.
 
-You can now explore our more extensive [development guides](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES) and [design patterns](#DOCS_ACTIVITIES_DESIGN_PATTERNS) to consider when building your app.
+You can now explore our more extensive [development guides](/docs/activities/Development_Guides) and [design patterns](/docs/activities/Design_Patterns) to consider when building your app.
 
 ### Sample projects to try out next
 - Start with a blank slate using our [Discord Activity Starter](https://github.com/discord/embedded-app-sdk/tree/main/examples/discord-activity-starter) project

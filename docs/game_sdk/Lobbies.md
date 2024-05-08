@@ -5,7 +5,7 @@ Need help with the SDK? Talk to us in the [Discord Developers Server](https://di
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/Change_Log#gamesdk-feature-deprecation)
 :::
 
 Looking to integrate multiplayer into your game? Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze by:
@@ -652,7 +652,7 @@ lobbyManager.DisconnectLobby(290926798626357250, (result) =>
 
 ## GetLobby
 
-Gets the lobby object for a given lobby id. Because of the way that the SDK is architected, you must first call [`Search()`](#DOCS_GAME_SDK_LOBBIES/search) to build a stable list of lobbies. This function will then query those lobbies for ones with a matching id.
+Gets the lobby object for a given lobby id. Because of the way that the SDK is architected, you must first call [`Search()`](/docs/game_sdk/Lobbies#search) to build a stable list of lobbies. This function will then query those lobbies for ones with a matching id.
 
 Returns a `Discord.Lobby`.
 
@@ -916,7 +916,7 @@ lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =
 
 ## SendLobbyMessage
 
-Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built in networking layer for the lobby. If you are, you should use [SendNetworkMessage](#DOCS_GAME_SDK_LOBBIES/sendnetworkmessage) instead.
+Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built in networking layer for the lobby. If you are, you should use [SendNetworkMessage](/docs/game_sdk/Lobbies#sendnetworkmessage) instead.
 
 This method has a rate limit of 10 messages per 5 seconds.
 
@@ -1038,7 +1038,7 @@ lobbyManager.Search(search, () =>
 
 Connects to the voice channel of the current lobby. When connected to voice, the user can open their Discord overlay to see a list of other users with whom they are in voice, allowing them to mute/deafen themselves as well as mute/adjust the volume of other lobby members.
 
-You can also allow users to adjust voice settings for your game with [Overlay OpenVoiceSettings](#DOCS_GAME_SDK_OVERLAY/openvoicesettings).
+You can also allow users to adjust voice settings for your game with [Overlay OpenVoiceSettings](/docs/game_sdk/Overlay#openvoicesettings).
 
 When integrating lobby voice into your game, be thoughtful about the user's experience. Auto-joining to voice can be jarring for users who may not be expecting it. We recommend voice always being opt-in, or at least that you provide an option for a player to choose whether or not to auto-join the voice channel of lobbies they join.
 
@@ -1372,7 +1372,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 }
 ```
 
-## Update Lobby % PATCH /lobbies/[\{lobby.id\}](#DOCS_LOBBIES/data-models-lobby-struct)
+## Update Lobby % PATCH /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)
 
 Updates a lobby.
 
@@ -1384,11 +1384,11 @@ Updates a lobby.
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
 
-## Delete Lobby % DELETE /lobbies/[\{lobby.id\}](#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct)
+## Delete Lobby % DELETE /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)
 
 Deletes a lobby.
 
-## Update Lobby Member % PATCH /lobbies/[\{lobby.id\}](#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct)/members/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
+## Update Lobby Member % PATCH /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)/members/[\{user.id\}](/docs/resources/User#user-object)
 
 Updates the metadata for a lobby member.
 
@@ -1446,7 +1446,7 @@ Creates a lobby search for matchmaking around given criteria.
 | STRING | 1     |
 | NUMBER | 2     |
 
-## Send Lobby Data % POST /lobbies/[\{lobby.id\}](#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct)/send
+## Send Lobby Data % POST /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)/send
 
 Sends a message to the lobby, fanning it out to other lobby members.
 
@@ -1464,7 +1464,7 @@ Discord lobbies have the option of being used with a wrapped networking layer, a
 
 This layer allows you to easily connect to the network and open channels to all lobby members with one function call. You can then send network messages to users by their user ID, easily retrieved via lobby methods.
 
-We take care of all the route updating for you, so you can get up and running quickly and easily. If you'd like to see how the lower level networking functionality works, or want to try it yourself so you can tweak it to your liking, check out [Networking](#DOCS_GAME_SDK_NETWORKING/);
+We take care of all the route updating for you, so you can get up and running quickly and easily. If you'd like to see how the lower level networking functionality works, or want to try it yourself so you can tweak it to your liking, check out [Networking](/docs/game_sdk/Networking);
 
 ## ConnectNetwork
 

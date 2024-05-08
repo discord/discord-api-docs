@@ -9,7 +9,7 @@ Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read her
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/Change_Log#gamesdk-feature-deprecation)
 :::
 
 Making a game? Need a whole bunch of fancy APIs to help make it great and your players' lives a breeze? Look no further! The Discord GameSDK is an easy drop-in SDK to help you manage all the hard things that come with making a game. Well, all the hards things about coding it at least. Interpersonal communication skills are on you (have you heard of this cool chat app called Discord?).
@@ -78,11 +78,11 @@ Discord passes a number of environment variables down to the SDK. These are acce
 
 | name                   | method                                                                                | description                                                                                                  |
 |------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_GETTING_STARTED/testing-locally-with-two-clients)      | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
-| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token)     | the connected user's bearer token                                                                            |
-| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](#DOCS_GAME_SDK_APPLICATIONS/getcurrentlocale) | the language that Discord is in for the connected user                                                       |
-| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](#DOCS_GAME_SDK_APPLICATIONS/getcurrentbranch) | the branch of the running application that the user has launched                                             |
-| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](#DOCS_GAME_SDK_STORAGE/getpath)                            | the path to which Discord will save files if you're using the StorageManager                                 |
+| DISCORD_INSTANCE_ID    | [Local Testing](/docs/game_sdk/Getting_Started#testing-locally-with-two-clients)      | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
+| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](/docs/game_sdk/Applications#getoauth2token)     | the connected user's bearer token                                                                            |
+| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](/docs/game_sdk/Applications#getcurrentlocale) | the language that Discord is in for the connected user                                                       |
+| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](/docs/game_sdk/Applications#getcurrentbranch) | the branch of the running application that the user has launched                                             |
+| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](/docs/game_sdk/Storage#getpath)                            | the path to which Discord will save files if you're using the StorageManager                                 |
 
 ## Error Handling
 

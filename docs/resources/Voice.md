@@ -11,7 +11,7 @@ Used to represent a user's voice connection status.
 | guild_id?                  | snowflake                                                        | the guild id this voice state is for              |
 | channel_id                 | ?snowflake                                                       | the channel id this user is connected to          |
 | user_id                    | snowflake                                                        | the user id this voice state is for               |
-| member?                    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the guild member this voice state is for          |
+| member?                    | [guild member](/docs/resources/Guild#guild-member-object) object | the guild member this voice state is for          |
 | session_id                 | string                                                           | the session id for this voice state               |
 | deaf                       | boolean                                                          | whether this user is deafened by the server       |
 | mute                       | boolean                                                          | whether this user is muted by the server          |
@@ -52,4 +52,4 @@ Used to represent a user's voice connection status.
 
 ## List Voice Regions % GET /voice/regions
 
-Returns an array of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+Returns an array of [voice region](/docs/resources/Voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/docs/resources/Channel#channel-object-channel-structure).

@@ -9,7 +9,7 @@ Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read her
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/Change_Log#gamesdk-feature-deprecation)
 :::
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
@@ -380,7 +380,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 | tax           | int    | the amount of tax                    |
 | tax_inclusive | bool   | whether the amount is tax-inclusive  |
 
-## Get Entitlements % GET /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements
+## Get Entitlements % GET /applications/[\{application.id\}](/docs/game_sdk/Getting_Started#get-set-up)/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
@@ -390,7 +390,7 @@ Gets entitlements for a given user. You can use this on your game backend to che
 |----------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
 | sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| with_payments? | bool                              | returns [limited payment data](/docs/game_sdk/Store#httpspecific-data-models-limited-payment-data-object) for each entitlement |
 | before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
 | after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
 | limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
@@ -426,7 +426,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 }
 ```
 
-## Get Entitlement % GET /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements/[\{entitlement.id\}](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct)
+## Get Entitlement % GET /applications/[\{application.id\}](/docs/game_sdk/Getting_Started#get-set-up)/entitlements/[\{entitlement.id\}](/docs/game_sdk/Store#data-models-entitlement-struct)
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
@@ -434,7 +434,7 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 
 | name          | type | description                                                                                                                    |
 |---------------|------|--------------------------------------------------------------------------------------------------------------------------------|
-| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| with_payment? | bool | returns [limited payment data](/docs/game_sdk/Store#httpspecific-data-models-limited-payment-data-object) for each entitlement |
 
 ###### Example
 
@@ -461,7 +461,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements/539
 }
 ```
 
-## Get SKUs % GET /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/skus
+## Get SKUs % GET /applications/[\{application.id\}](/docs/game_sdk/Getting_Started#get-set-up)/skus
 
 Get all SKUs for an application.
 
@@ -499,7 +499,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 }
 ```
 
-## Consume SKU % POST /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements/[\{entitlement.id\}](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct)/consume
+## Consume SKU % POST /applications/[\{application.id\}](/docs/game_sdk/Getting_Started#get-set-up)/entitlements/[\{entitlement.id\}](/docs/game_sdk/Store#data-models-entitlement-struct)/consume
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -513,7 +513,7 @@ curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlem
 // Returns 204 No Content
 ```
 
-## Delete Test Entitlement % DELETE /applications/[\{application.id\}](#DOCS_GAME_SDK_GETTING_STARTED/get-set-up)/entitlements/[\{entitlement.id\}](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct)
+## Delete Test Entitlement % DELETE /applications/[\{application.id\}](/docs/game_sdk/Getting_Started#get-set-up)/entitlements/[\{entitlement.id\}](/docs/game_sdk/Store#data-models-entitlement-struct)
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
@@ -527,9 +527,9 @@ curl -X DELETE https://discord.com/api/v6/applications/461618159171141643/entitl
 // Returns 204 No Content
 ```
 
-## Create Purchase Discount % PUT /store/skus/[\{sku.id\}](#DOCS_GAME_SDK_STORE/data-models-sku-struct)/discounts/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
+## Create Purchase Discount % PUT /store/skus/[\{sku.id\}](/docs/game_sdk/Store#data-models-sku-struct)/discounts/[\{user.id\}](/docs/resources/User#user-object)
 
-Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/startpurchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
+Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](/docs/game_sdk/Store#startpurchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
 
 ###### Parameters
 
@@ -550,7 +550,7 @@ curl -X PUT https://discord.com/api/v6/store/skus/461618229171141643/discounts/5
 // Returns 204 No Content
 ```
 
-## Delete Purchase Discount % DELETE /store/skus/[\{sku.id\}](#DOCS_GAME_SDK_STORE/data-models-sku-struct)/discounts/[\{user.id\}](#DOCS_RESOURCES_USER/user-object)
+## Delete Purchase Discount % DELETE /store/skus/[\{sku.id\}](/docs/game_sdk/Store#data-models-sku-struct)/discounts/[\{user.id\}](/docs/resources/User#user-object)
 
 Deletes the currently active discount on the given SKU for the given user. You **do not need** to call this after a user has made a discounted purchase; successful discounted purchases will automatically remove the discount for that user for subsequent purchases.
 

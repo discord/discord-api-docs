@@ -2,7 +2,7 @@
 
 Linked roles are a type of role in Discord that requires a user to connect to 3rd-party services and meet defined criteria. A role's criteria could just include the user connecting to that service, but it's often more narrow—like having a verified account, having certain stats, or having more than a certain number of followers.
 
-Apps can define their own [role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA), which admins can use to configure linked roles in servers where that app is installed. Apps must also set up an [OAuth2 flow](#DOCS_TOPICS_OAUTH2) to allow users to authenticate and grant the required `role_connections.write` scope.
+Apps can define their own [role connection metadata](/docs/resources/Application_Role_Connection_Metadata), which admins can use to configure linked roles in servers where that app is installed. Apps must also set up an [OAuth2 flow](/docs/topics/OAuth2) to allow users to authenticate and grant the required `role_connections.write` scope.
 
 This tutorial walks through building a Discord app in JavaScript with linked roles support.
 
@@ -14,10 +14,10 @@ All of the sample code used in this tutorial can be found in the [`linked-roles-
 
 ## Creating an app
 
-The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES/running-your-app) section.
+The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](/docs/tutorials/Configuring_App_Metadata_for_Linked_Roles#running-your-app) section.
 
 :::info
-Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED). 
+Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](/docs/quick_start/Getting_Started). 
 :::
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
@@ -131,7 +131,7 @@ COOKIE_SECRET: <random generated UUID>
 
 As a one-time step, you must tell Discord which metadata fields you are going to allow admins to use for linked roles associated with your app.
 
-To configure connection metadata for your app, you'll call the [`PUT /users/@me/applications/<application_id>/role-connection`](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/update-application-role-connection-metadata-records) method with [application connection role metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object). In the sample app, this is handled in [`src/register.js`](https://github.com/discord/linked-roles-sample/blob/main/src/register.js), and can be run via the command line.
+To configure connection metadata for your app, you'll call the [`PUT /users/@me/applications/<application_id>/role-connection`](/docs/resources/Application_Role_Connection_Metadata#update-application-role-connection-metadata-records) method with [application connection role metadata](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-object). In the sample app, this is handled in [`src/register.js`](https://github.com/discord/linked-roles-sample/blob/main/src/register.js), and can be run via the command line.
 
 Go back to Glitch, click the **terminal** tab, and run the following command:
 

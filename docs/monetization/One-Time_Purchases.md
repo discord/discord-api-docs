@@ -1,8 +1,8 @@
 # One-Time Purchases
 
-One-time purchases enable you to charge your users for premium functionality with in-app items. Before you can add one-time purchases to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_MONETIZATION_OVERVIEW/eligibility-checklist) in your [app's settings](https://discord.com/developers/applications).
+One-time purchases enable you to charge your users for premium functionality with in-app items. Before you can add one-time purchases to your app, you must complete the [Monetization Eligibility Checklist](/docs/monetization/Overview#eligibility-checklist) in your [app's settings](https://discord.com/developers/applications).
 
-Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_MONETIZATION_SKUS) (stock-keeping unit) to represent your app's premium offering via subscriptions or items.
+Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](/docs/monetization/SKUs) (stock-keeping unit) to represent your app's premium offering via subscriptions or items.
 
 ## Types of One-Time Purchases
 
@@ -28,7 +28,7 @@ As you are setting up a new SKU, you can configure:
 
 ## Publishing Your One-Time Purchases
 
-Once you have configured your SKU, you can publish the SKU to either just the API or the API and your Store. Learn more about [Managing Your Store](#DOCS_MONETIZATION_MANAGING_YOUR_STORE) to curate what items you make available to your users.
+Once you have configured your SKU, you can publish the SKU to either just the API or the API and your Store. Learn more about [Managing Your Store](/docs/monetization/Managing_Your_Store) to curate what items you make available to your users.
 
 ![Publishing your SKU](/images/sku-publish.png)
 
@@ -42,21 +42,21 @@ When a user subscribes to your app, there are a few things you will need to impl
 
 ### Keeping Track of Entitlements
 
-When a user purchases a one-time purchase SKU, an entitlement is created. [Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS) represent the user's access to your consumable or durable item. You can keep track of entitlements using  Gateway Events and the HTTP API.
+When a user purchases a one-time purchase SKU, an entitlement is created. [Entitlements](/docs/monetization/Entitlements) represent the user's access to your consumable or durable item. You can keep track of entitlements using  Gateway Events and the HTTP API.
 
 #### Entitlement Gateway Events
 
-When users subscribe or renew a subscription with your app, Discord will emit [entitlement gateway events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events).
+When users subscribe or renew a subscription with your app, Discord will emit [entitlement gateway events](/docs/monetization/Entitlements#gateway-events).
 
-Upon a user's purchase of a SKU, you'll receive an [`ENTITLEMENT_CREATE`](#DOCS_MONETIZATION_ENTITLEMENTS/new-entitlement) event.
+Upon a user's purchase of a SKU, you'll receive an [`ENTITLEMENT_CREATE`](/docs/monetization/Entitlements#new-entitlement) event.
 
 #### Entitlement HTTP Endpoints
 
-For apps requiring background processing, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) endpoint to list entitlements. Your app can filter entitlements by a specific user or set of SKUs by using the `?user_id=XYZ` or `?sku_ids=XYZ` query params.
+For apps requiring background processing, keeping track of entitlements is essential. You can utilize the [List Entitlements](/docs/monetization/Entitlements#list-entitlements) endpoint to list entitlements. Your app can filter entitlements by a specific user or set of SKUs by using the `?user_id=XYZ` or `?sku_ids=XYZ` query params.
 
 #### Handling Consumable One-Time Purchases
 
-When offering consumable items, users can only have one unconsumed entitlement at a time. In order to handle consumable items in your app or game, you should process and store the consumable item in your app and then make a call to the [Consume Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/consume-an-entitlement) endpoint so that the user can purchase more of this item in the future.
+When offering consumable items, users can only have one unconsumed entitlement at a time. In order to handle consumable items in your app or game, you should process and store the consumable item in your app and then make a call to the [Consume Entitlement](/docs/monetization/Entitlements#consume-an-entitlement) endpoint so that the user can purchase more of this item in the future.
 
 Consuming the entitlement will update the entitlement to return a true value in the entitlement's `consumed` field. You will need to think through how your app uses consumable items to decide on the best strategy for when to consume these entitlements.
 
@@ -84,7 +84,7 @@ To enable it, first make sure you have a payment method on file in User Settings
 
 Once you enabled Application Test Mode successfully, you should now see an orange bar across the top of your screen with the name of your app.
 
-You can now navigate to your [Store](#DOCS_MONETIZATION_MANAGING_YOUR_STORE) page and purchase your one-time purchase items without being charged.
+You can now navigate to your [Store](/docs/monetization/Managing_Your_Store) page and purchase your one-time purchase items without being charged.
 
 The entitlements tied to items that are purchased in Application Test Mode can be identified by entitlements with a `type` value of 4 to represent `TEST_MODE_PURCHASE`.
 

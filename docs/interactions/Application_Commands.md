@@ -15,20 +15,20 @@ Application commands are native ways to interact with apps in the Discord client
 | Field                      | Type                                                                                                                                           | Description                                                                                                                                                                                                                                                                                                            | Valid Types |
 |----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | id                         | snowflake                                                                                                                                      | Unique ID of command                                                                                                                                                                                                                                                                                                   | all         |
-| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                                                                                                                                                                       | all         |
+| type?                      | one of [application command type](/docs/interactions/Application_Commands#application-command-object-application-command-types)                | [Type of command](/docs/interactions/Application_Commands#application-command-object-application-command-types), defaults to `1`                                                                                                                                                                                       | all         |
 | application_id             | snowflake                                                                                                                                      | ID of the parent application                                                                                                                                                                                                                                                                                           | all         |
 | guild_id?                  | snowflake                                                                                                                                      | Guild ID of the command, if not global                                                                                                                                                                                                                                                                                 | all         |
-| name                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                                                                                                                                                      | all         |
-| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                                                                                                                                                                                | all         |
+| name                       | string                                                                                                                                         | [Name of command](/docs/interactions/Application_Commands#application-command-object-application-command-naming), 1-32 characters                                                                                                                                                                                      | all         |
+| name_localizations?        | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                                                                                                                                                                                | all         |
 | description                | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                                                                                                                                                                                                                | all         |
-| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`                                                                                                                                                                                                                  | all         |
-| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command, max of 25                                                                                                                                                                                                                                                                                  | CHAT_INPUT  |
-| default_member_permissions | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                                                                                                                                                | all         |
+| description_localizations? | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`                                                                                                                                                                                                                  | all         |
+| options?                   | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) | Parameters for the command, max of 25                                                                                                                                                                                                                                                                                  | CHAT_INPUT  |
+| default_member_permissions | ?string                                                                                                                                        | Set of [permissions](/docs/topics/Permissions) represented as a bit set                                                                                                                                                                                                                                                | all         |
 | dm_permission?             | boolean                                                                                                                                        | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                                                                                                                                          | all         |
 | default_permission?        | ?boolean                                                                                                                                       | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                                                                                                                                                     | all         |
-| nsfw?                      | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands), defaults to `false`                                                                                                                                                                                 | all         |
-| integration_types?         | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Installation context(s)](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available, only for globally-scoped commands. Defaults to `GUILD_INSTALL` (`0`)                                                                          | all         |
-| contexts?                  | ?list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                 | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands. | all         |
+| nsfw?                      | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/Application_Commands#agerestricted-commands), defaults to `false`                                                                                                                                                                                 | all         |
+| integration_types?         | list of [integration types](/docs/resources/Application#application-object-application-integration-types)                                      | [In preview](/docs/Change_Log#userinstallable-apps-preview). [Installation context(s)](/docs/resources/Application#installation-context) where the command is available, only for globally-scoped commands. Defaults to `GUILD_INSTALL` (`0`)                                                                          | all         |
+| contexts?                  | ?list of [interaction context types](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types)                 | [In preview](/docs/Change_Log#userinstallable-apps-preview). [Interaction context(s)](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands. | all         |
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                                                                          | all         |
 
 :::danger
@@ -43,7 +43,6 @@ Application commands are native ways to interact with apps in the Discord client
 | USER       | 2    | A UI-based command that shows up when you right click or tap on a user    |
 | MESSAGE    | 3    | A UI-based command that shows up when you right click or tap on a message |
 
-
 ###### Application Command Option Structure
 
 :::warning
@@ -52,15 +51,15 @@ Required `options` must be listed before optional options
 
 | Field                      | Type                                                                                                                                                         | Description                                                                                                          |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| type                       | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | Type of option                                                                                                       |
-| name                       | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
-| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| type                       | one of [application command option type](/docs/interactions/Application_Commands#application-command-object-application-command-option-type)                 | Type of option                                                                                                       |
+| name                       | string                                                                                                                                                       | [1-32 character name](/docs/interactions/Application_Commands#application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                                        | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
 | description                | string                                                                                                                                                       | 1-100 character description                                                                                          |
-| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| description_localizations? | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                                        | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
 | required?                  | boolean                                                                                                                                                      | If the parameter is required or optional--default `false`                                                            |
-| choices?                   | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | Choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                |
-| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | If the option is a subcommand or subcommand group type, these nested options will be the parameters                  |
-| channel_types?             | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | If the option is a channel type, the channels shown will be restricted to these types                                |
+| choices?                   | array of [application command option choice](/docs/interactions/Application_Commands#application-command-object-application-command-option-choice-structure) | Choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                |
+| options?                   | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure)               | If the option is a subcommand or subcommand group type, these nested options will be the parameters                  |
+| channel_types?             | array of [channel types](/docs/resources/Channel#channel-object-channel-types)                                                                               | If the option is a channel type, the channels shown will be restricted to these types                                |
 | min_value?                 | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | If the option is an `INTEGER` or `NUMBER` type, the minimum value permitted                                          |
 | max_value?                 | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | If the option is an `INTEGER` or `NUMBER` type, the maximum value permitted                                          |
 | min_length?                | integer                                                                                                                                                      | For option type `STRING`, the minimum allowed length (minimum of `0`, maximum of `6000`)                             |
@@ -87,7 +86,7 @@ Options using `autocomplete` are not confined to only use choices given by the a
 | ROLE              | 8     |                                                                |
 | MENTIONABLE       | 9     | Includes users and roles                                       |
 | NUMBER            | 10    | Any double between -2^53 and 2^53                              |
-| ATTACHMENT        | 11    | [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) object |
+| ATTACHMENT        | 11    | [attachment](/docs/resources/Channel#attachment-object) object |
 
 ###### Application Command Option Choice Structure
 
@@ -96,14 +95,14 @@ If you specify `choices` for an option, they are the **only** valid values for a
 | Field               | Type                                                                  | Description                                                                                 |
 |---------------------|-----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | name                | string                                                                | 1-100 character choice name                                                                 |
-| name_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name` |
+| name_localizations? | ?dictionary with keys in [available locales](/docs/Reference/#locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name` |
 | value               | string, integer, or double \*                                         | Value for the choice, up to 100 characters if string                                        |
 
-\* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
+\* Type of `value` depends on the [option type](/docs/interactions/Application_Commands#application-command-object-application-command-option-type) that the choice belongs to.
 
 ## Authorizing Your Application
 
-Application commands do not depend on a bot user in the guild; they use the [interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope which can be used independently, but is also automatically included with the `bot` scope.
+Application commands do not depend on a bot user in the guild; they use the [interactions](/docs/interactions/Receiving_and_Responding) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope which can be used independently, but is also automatically included with the `bot` scope.
 
 When requesting this scope, we "shortcut" the OAuth2 flow similar to adding a bot. You don't need to complete the flow, exchange for a token, or any of that.
 
@@ -243,36 +242,37 @@ Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the 
 
 Because commands have unique names within a type and scope, we treat `POST` requests for new commands as upserts. That means **making a new command with an already-used name for your application will update the existing command**.
 
-Detailed documentation about application command endpoints and their parameters are [in the endpoints section](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/endpoints).
+Detailed documentation about application command endpoints and their parameters are [in the endpoints section](/docs/interactions/Application_Commands#endpoints).
 
 ## Contexts
 
 > preview
-> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](#DOCS_CHANGE_LOG/userinstallable-apps-preview).
+> The user installation context for apps is currently in a public preview and is subject to change. Read details and limitations about the public preview in the [change log](/docs/Change_Log#userinstallable-apps-preview).
 
-Commands have two sets of contexts on the [application command object](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) that let you to configure when and where it can be used:
-- `integration_types` defines the **[installation contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context)** that a command supports
-- `contexts` defines the **[interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts)** where a command can be used
+Commands have two sets of contexts on the [application command object](/docs/interactions/Application_Commands#application-command-object) that let you to configure when and where it can be used:
+
+- `integration_types` defines the **[installation contexts](/docs/interactions/Application_Commands#installation-context)** that a command supports
+- `contexts` defines the **[interaction contexts](/docs/interactions/Application_Commands#interaction-contexts)** where a command can be used
 
 Details for both types of command contexts are in the sections below.
 
 :::info
-Contexts are distinct from, and do not affect, any [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for apps installed to a server.
+Contexts are distinct from, and do not affect, any [command permissions](/docs/interactions/Application_Commands#permissions) for apps installed to a server.
 :::
 
 ### Installation Context
 
-The [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) is where your app was installed—to a server, a user, or both. If your app supports both installation contexts, there may be cases where you want some of your app's commands to only be available for one or the other. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
+The [installation context](/docs/resources/Application#installation-context) is where your app was installed—to a server, a user, or both. If your app supports both installation contexts, there may be cases where you want some of your app's commands to only be available for one or the other. For example, maybe your app has a `/profile` command that is only relevant when it's installed to a user.
 
-A command's supported installation context(s) can be set using the [`integration_types` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) when creating or updating a command as long as any included contexts are already [supported on the application-level](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts).
+A command's supported installation context(s) can be set using the [`integration_types` field](/docs/interactions/Application_Commands#application-command-object-application-command-structure) when creating or updating a command as long as any included contexts are already [supported on the application-level](/docs/resources/Application#setting-supported-installation-contexts).
 
-A command's value for `integration_types` may affect which [interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) a command is visible in.
+A command's value for `integration_types` may affect which [interaction contexts](/docs/interactions/Application_Commands#interaction-contexts) a command is visible in.
 
 ### Interaction Contexts
 
-The interaction contexts for a command determines where in the Discord client it can be used, and can be configured by setting the [`contexts` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) when creating or updating a command.
+The interaction contexts for a command determines where in the Discord client it can be used, and can be configured by setting the [`contexts` field](/docs/interactions/Application_Commands#application-command-object-application-command-structure) when creating or updating a command.
 
-There are three [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) that correspond to different surfaces: `GUILD` (`0`), `BOT_DM` (`1`), and `PRIVATE_CHANNEL` (`2`). However, the `PRIVATE_CHANNEL` interaction context is only meaningful for commands installed to a user (when the command's `integration_types` includes `USER_INSTALL`).
+There are three [interaction context types](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types) that correspond to different surfaces: `GUILD` (`0`), `BOT_DM` (`1`), and `PRIVATE_CHANNEL` (`2`). However, the `PRIVATE_CHANNEL` interaction context is only meaningful for commands installed to a user (when the command's `integration_types` includes `USER_INSTALL`).
 
 By default, `contexts` includes all interaction context types.
 
@@ -281,20 +281,21 @@ By default, `contexts` includes all interaction context types.
 Application command permissions allow your app to enable or disable commands for up to 100 users, roles, and channels within a guild. Command permissions can also be updated by users in the client if they have the necessary permissions.
 
 :::warning
-Command permissions can only be updated using a [Bearer token](#DOCS_TOPICS_OAUTH2/client-credentials-grant). Authenticating with a bot token will result in an error.
+Command permissions can only be updated using a [Bearer token](/docs/topics/OAuth2#client-credentials-grant). Authenticating with a bot token will result in an error.
 :::
 
-A command's current permissions can be retrieved using the [`GET /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
+A command's current permissions can be retrieved using the [`GET /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](/docs/interactions/Application_Commands#get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
 
-Command permissions can be updated with the [`PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) endpoint. To call the endpoint, apps must use a Bearer token that's authorized with the [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
-- Has [permission to Manage Guild and Manage Roles](#DOCS_TOPICS_PERMISSIONS) in the guild where the command is being edited
+Command permissions can be updated with the [`PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](/docs/interactions/Application_Commands#edit-application-command-permissions) endpoint. To call the endpoint, apps must use a Bearer token that's authorized with the [`applications.commands.permissions.update`](/docs/topics/OAuth2#shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
+
+- Has [permission to Manage Guild and Manage Roles](/docs/topics/Permissions) in the guild where the command is being edited
 - Has the ability to run the command being edited
-- Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
+- Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permission-type))
 
 ### Syncing and Unsyncing Permissions
 
 :::warning
-This section only applies to the current permissions configuration behavior. It does not apply to guilds that are migrated to the new permissions configuration behavior (starting on December 16, 2022). Read more [in the changelog](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
+This section only applies to the current permissions configuration behavior. It does not apply to guilds that are migrated to the new permissions configuration behavior (starting on December 16, 2022). Read more [in the changelog](/docs/Change_Log#upcoming-application-command-permission-changes).
 :::
 
 The command permissions interface can be accessed in the client by navigating to `Server Settings` > `Integrations`, then clicking `Manage` to the right of an installed app. At the top of the interface, users can edit permissions for a specific user, role, or channel. By default, these top-level permissions will apply to all of an app's commands. However, each permission can also be unsynced and customized for individual commands to provide more granular control.
@@ -312,7 +313,7 @@ Returned when fetching the permissions for an app's command(s) in a guild.
 | id             | snowflake                                                                                                                                                            | ID of the command or the application ID              |
 | application_id | snowflake                                                                                                                                                            | ID of the application the command belongs to         |
 | guild_id       | snowflake                                                                                                                                                            | ID of the guild                                      |
-| permissions    | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild, max of 100 |
+| permissions    | array of [application command permissions](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild, max of 100 |
 
 When the `id` field is the application ID instead of a command ID, the permissions apply to all commands that do not contain explicit overwrites.
 
@@ -322,8 +323,8 @@ Application command permissions allow you to enable or disable commands for spec
 
 | Field      | Type                                                                                                                                                      | Description                                                                                                                                                                                        |
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id         | snowflake                                                                                                                                                 | ID of the role, user, or channel. It can also be a [permission constant](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) |
-| type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role (`1`), user (`2`), or channel (`3`)                                                                                                                                                           |
+| id         | snowflake                                                                                                                                                 | ID of the role, user, or channel. It can also be a [permission constant](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permissions-constants) |
+| type       | [application command permission type](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permission-type) | role (`1`), user (`2`), or channel (`3`)                                                                                                                                                           |
 | permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow                                                                                                                                                              |
 
 ###### Application Command Permissions Constants
@@ -343,9 +344,9 @@ The following constants can be used in the `id` field for command permissions pa
 | USER    | 2     |
 | CHANNEL | 3     |
 
-To allow for fine-tuned access to commands, application command permissions are supported for guild and global commands of all types. Guild members and apps with the [necessary permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) can allow or deny specific users and roles from using a command, or toggle commands for entire channels.
+To allow for fine-tuned access to commands, application command permissions are supported for guild and global commands of all types. Guild members and apps with the [necessary permissions](/docs/interactions/Application_Commands#permissions) can allow or deny specific users and roles from using a command, or toggle commands for entire channels.
 
-Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command permissions for a channel will apply to the threads it contains.
+Similar to how threads [inherit user and role permissions from the parent channel](/docs/topics/Threads#permissions), any command permissions for a channel will apply to the threads it contains.
 
 :::info
 If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
@@ -355,9 +356,9 @@ If you don't have permission to use a command, it will not show up in the comman
 
 Default permissions can be added to a command during creation using the `default_member_permissions` and `context` fields. Adding default permissions doesn't require any Bearer token since it's configured during command creation and isn't targeting specific roles, users, or channels.
 
-The `default_member_permissions` field can be used when creating a command to set the permissions a user must have to use it. The value for `default_member_permissions` is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), serialized as a string. Setting it to `"0"` will prohibit anyone in a guild from using the command unless a specific overwrite is configured or the user has admin permissions.
+The `default_member_permissions` field can be used when creating a command to set the permissions a user must have to use it. The value for `default_member_permissions` is a bitwise OR-ed set of [permissions](/docs/topics/Permissions#permissions-bitwise-permission-flags), serialized as a string. Setting it to `"0"` will prohibit anyone in a guild from using the command unless a specific overwrite is configured or the user has admin permissions.
 
-You can also include `BOT_DM` (`1`) in `contexts` when setting a global command's [interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) to control whether it can be run in DMs with your app. Guild commands don't support the `BOT_DM` interaction context.
+You can also include `BOT_DM` (`1`) in `contexts` when setting a global command's [interaction contexts](/docs/interactions/Application_Commands#interaction-contexts) to control whether it can be run in DMs with your app. Guild commands don't support the `BOT_DM` interaction context.
 
 ###### Example of editing permissions
 
@@ -415,7 +416,7 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
 :::warning
-Slash commands can have a maximum of 8000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
+Slash commands can have a maximum of 8000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](/docs/interactions/Application_Commands#localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
 :::
 
 ###### Example Slash Command
@@ -872,7 +873,6 @@ When someone uses a user command, your application will receive an interaction:
 }
 ```
 
-
 ## Message Commands
 
 Message commands are application commands that appear on the context menu (right click or tap) of messages. They're a great way to surface quick actions for your app that target messages. They don't take any arguments, and will return the message on whom you clicked or tapped in the interaction response.
@@ -998,7 +998,7 @@ This validation is **client-side only**.
 
 Application commands can be localized, which will cause them to use localized names and descriptions depending on the client's selected language. This is entirely optional. Localization is available for names and descriptions of commands, subcommands, and options, as well as the names of choices, by submitting the appropriate `name_localizations` and `description_localizations` fields when creating or updating the application command.
 
-Application commands may be partially localized - not all [available locales](#DOCS_REFERENCE/locales) are required, nor do different fields within a command need to support the same set of locales. If a locale is not present in a localizations dictionary for a field, users in that locale will see the default value for that field. It's not necessary to fill out all locales with the default value. Any localized values that are identical to the default will be ignored.
+Application commands may be partially localized - not all [available locales](/docs/Reference/#locales) are required, nor do different fields within a command need to support the same set of locales. If a locale is not present in a localizations dictionary for a field, users in that locale will see the default value for that field. It's not necessary to fill out all locales with the default value. Any localized values that are identical to the default will be ignored.
 
 Localized option names are subject to an additional constraint, which is that they must be distinct from all other default option names of that command, as well as all other option names within that locale on that command.
 
@@ -1065,7 +1065,7 @@ Locale is determined by looking at the `X-Discord-Locale` header, then the `Acce
 
 ## Age-Restricted Commands
 
-A command that contains age-restricted content should have the [`nsfw` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) set to `true` upon creation or update. Marking a command as age-restricted will limit who can see and access the command, and from which channels.
+A command that contains age-restricted content should have the [`nsfw` field](/docs/interactions/Application_Commands#application-command-object-application-command-structure) set to `true` upon creation or update. Marking a command as age-restricted will limit who can see and access the command, and from which channels.
 
 :::warning
 Apps with [discovery enabled](https://support-dev.discord.com/hc/en-us/articles/9489299950487) (which is required to appear in the App Directory) cannot contain any age-restricted commands or content.
@@ -1074,6 +1074,7 @@ Apps with [discovery enabled](https://support-dev.discord.com/hc/en-us/articles/
 ### Using Age-Restricted Commands
 
 To use an age-restricted command, a user must be 18 years or older and access the command from either:
+
 - an [age-restricted channel](https://support.discord.com/hc/articles/115000084051-Age-Restricted-Channels-and-Content) or
 - a DM with the app *after* [enabling age-restricted commands](https://support.discord.com/hc/en-us/articles/10123937946007) within their User Settings.
 
@@ -1082,16 +1083,16 @@ Details about accessing and using age-restricted commands is in [the Help Center
 ### Endpoints
 
 :::info
-For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application
+For authorization, all endpoints take either a [bot token](/docs/Reference/#authentication) or [client credentials token](/docs/topics/OAuth2#client-credentials-grant) for your application
 :::
 
-## Get Global Application Commands % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands
+## Get Global Application Commands % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/commands
 
 :::warning
-The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+The objects returned by this endpoint may be augmented with [additional fields if localization is active](/docs/interactions/Application_Commands#retrieving-localized-commands).
 :::
 
-Fetch all of the global commands for your application. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
+Fetch all of the global commands for your application. Returns an array of [application command](/docs/interactions/Application_Commands#application-command-object) objects.
 
 ###### Query String Params
 
@@ -1099,78 +1100,78 @@ Fetch all of the global commands for your application. Returns an array of [appl
 |---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
-## Create Global Application Command % POST /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands
+## Create Global Application Command % POST /applications/[\{application.id\}](/docs/resources/Application#application-object)/commands
 
 :::warning
 Creating a command with the same name as an existing command for your application will overwrite the old command.
 :::
 
-Create a new global command. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Create a new global command. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](/docs/interactions/Application_Commands#application-command-object) object.
 
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                        | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
-| name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
+| name                        | string                                                                                                                                         | [Name of command](/docs/interactions/Application_Commands#application-command-object-application-command-naming), 1-32 characters                                                       |
+| name_localizations?         | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands                                                                                                                                   |
-| description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                               |
-| options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                                                                                          |
-| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                 |
+| description_localizations?  | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                               |
+| options?                    | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) | the parameters for the command                                                                                                                                                          |
+| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](/docs/topics/Permissions) represented as a bit set                                                                                                                 |
 | dm_permission?              | ?boolean                                                                                                                                       | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.           |
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
-| integration_types?          | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [Installation context(s)](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available                                                                              |
-| contexts?                   | list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used                                        |
-| type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
-| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                       |
+| integration_types?          | list of [integration types](/docs/resources/Application#application-object-application-integration-types)                                      | [Installation context(s)](/docs/resources/Application#installation-context) where the command is available                                                                              |
+| contexts?                   | list of [interaction context types](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types)                  | [Interaction context(s)](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types) where the command can be used                                        |
+| type?                       | one of [application command type](/docs/interactions/Application_Commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
+| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/Application_Commands#agerestricted-commands)                                                                       |
 
-## Get Global Application Command % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
+## Get Global Application Command % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)
 
-Fetch a global command for your application. Returns an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Fetch a global command for your application. Returns an [application command](/docs/interactions/Application_Commands#application-command-object) object.
 
-## Edit Global Application Command % PATCH /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
+## Edit Global Application Command % PATCH /applications/[\{application.id\}](/docs/resources/Application#application-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)
 
 :::info
 All parameters for this endpoint are optional.
 :::
 
-Edit a global command. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
+Edit a global command. Returns `200` and an [application command](/docs/interactions/Application_Commands#application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
 
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                                                   |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name?                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                                             |
-| name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                                                   |
+| name?                       | string                                                                                                                                         | [Name of command](/docs/interactions/Application_Commands#application-command-object-application-command-naming), 1-32 characters                                                                             |
+| name_localizations?         | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                                                   |
 | description?                | string                                                                                                                                         | 1-100 character description                                                                                                                                                                                   |
-| description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                                                     |
-| options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                                                                                                                |
-| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                                       |
+| description_localizations?  | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                                                     |
+| options?                    | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) | the parameters for the command                                                                                                                                                                                |
+| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](/docs/topics/Permissions) represented as a bit set                                                                                                                                       |
 | dm_permission?              | ?boolean                                                                                                                                       | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                                 |
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true`                       |
-| integration_types?          | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Installation context(s)](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available                                       |
-| contexts?                   | list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used |
-| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                                             |
+| integration_types?          | list of [integration types](/docs/resources/Application#application-object-application-integration-types)                                      | [In preview](/docs/Change_Log#userinstallable-apps-preview). [Installation context(s)](/docs/resources/Application#installation-context) where the command is available                                       |
+| contexts?                   | list of [interaction context types](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types)                  | [In preview](/docs/Change_Log#userinstallable-apps-preview). [Interaction context(s)](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types) where the command can be used |
+| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/Application_Commands#agerestricted-commands)                                                                                             |
 
-## Delete Global Application Command % DELETE /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
+## Delete Global Application Command % DELETE /applications/[\{application.id\}](/docs/resources/Application#application-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)
 
 Deletes a global command. Returns `204 No Content` on success.
 
-## Bulk Overwrite Global Application Commands % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/commands
+## Bulk Overwrite Global Application Commands % PUT /applications/[\{application.id\}](/docs/resources/Application#application-object)/commands
 
-Takes a list of application commands, overwriting the existing global command list for this application. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
+Takes a list of application commands, overwriting the existing global command list for this application. Returns `200` and a list of [application command](/docs/interactions/Application_Commands#application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
 :::danger
 This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
 :::
 
-## Get Guild Application Commands % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands
+## Get Guild Application Commands % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands
 
 :::warning
-The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+The objects returned by this endpoint may be augmented with [additional fields if localization is active](/docs/interactions/Application_Commands#retrieving-localized-commands).
 :::
 
-Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
+Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](/docs/interactions/Application_Commands#application-command-object) objects.
 
 ###### Query String Params
 
@@ -1178,60 +1179,60 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 |---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
-## Create Guild Application Command % POST /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands
+## Create Guild Application Command % POST /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands
 
 :::danger
 Creating a command with the same name as an existing command for your application will overwrite the old command.
 :::
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` if a command with the same name does not already exist, or a `200` if it does (in which case the previous command will be overwritten). Both responses include an [application command](/docs/interactions/Application_Commands#application-command-object) object.
 
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                        | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
-| name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
+| name                        | string                                                                                                                                         | [Name of command](/docs/interactions/Application_Commands#application-command-object-application-command-naming), 1-32 characters                                                       |
+| name_localizations?         | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands                                                                                                                                   |
-| description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                               |
-| options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command                                                                                                                                                              |
-| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                 |
+| description_localizations?  | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                               |
+| options?                    | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) | Parameters for the command                                                                                                                                                              |
+| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](/docs/topics/Permissions) represented as a bit set                                                                                                                 |
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
-| type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
-| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                       |
+| type?                       | one of [application command type](/docs/interactions/Application_Commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
+| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/Application_Commands#agerestricted-commands)                                                                       |
 
-## Get Guild Application Command % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
+## Get Guild Application Command % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)
 
-Fetch a guild command for your application. Returns an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Fetch a guild command for your application. Returns an [application command](/docs/interactions/Application_Commands#application-command-object) object.
 
-## Edit Guild Application Command % PATCH /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
+## Edit Guild Application Command % PATCH /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)
 
 :::info
 All parameters for this endpoint are optional.
 :::
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](/docs/interactions/Application_Commands#application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
 
 ###### JSON Params
 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                             |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name?                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                       |
-| name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
+| name?                       | string                                                                                                                                         | [Name of command](/docs/interactions/Application_Commands#application-command-object-application-command-naming), 1-32 characters                                                       |
+| name_localizations?         | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                             |
 | description?                | string                                                                                                                                         | 1-100 character description                                                                                                                                                             |
-| description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                               |
-| options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command                                                                                                                                                              |
-| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                 |
+| description_localizations?  | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                               |
+| options?                    | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) | Parameters for the command                                                                                                                                                              |
+| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](/docs/topics/Permissions) represented as a bit set                                                                                                                 |
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
-| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                       |
+| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/Application_Commands#agerestricted-commands)                                                                       |
 
-## Delete Guild Application Command % DELETE /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)
+## Delete Guild Application Command % DELETE /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)
 
 Delete a guild command. Returns `204 No Content` on success.
 
-## Bulk Overwrite Guild Application Commands % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands
+## Bulk Overwrite Guild Application Commands % PUT /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands
 
-Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
+Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](/docs/interactions/Application_Commands#application-command-object) objects.
 
 :::danger
 This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
@@ -1242,39 +1243,39 @@ This will overwrite **all** types of application commands: slash commands, user 
 | Field                       | Type                                                                                                                                           | Description                                                                                                                                                                                                                                       |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id?                         | snowflake                                                                                                                                      | ID of the command, if known                                                                                                                                                                                                                       |
-| name                        | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                                                                                 |
-| name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                                                                                       |
+| name                        | string                                                                                                                                         | [Name of command](/docs/interactions/Application_Commands#application-command-object-application-command-naming), 1-32 characters                                                                                                                 |
+| name_localizations?         | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                                                                                                                                                       |
 | description                 | string                                                                                                                                         | 1-100 character description                                                                                                                                                                                                                       |
-| description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                                                                                         |
-| options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command                                                                                                                                                                                                                        |
-| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                                                                           |
+| description_localizations?  | ?dictionary with keys in [available locales](/docs/Reference/#locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`                                                                                                                                         |
+| options?                    | array of [application command option](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) | Parameters for the command                                                                                                                                                                                                                        |
+| default_member_permissions? | ?string                                                                                                                                        | Set of [permissions](/docs/topics/Permissions) represented as a bit set                                                                                                                                                                           |
 | dm_permission?              | ?boolean                                                                                                                                       | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                                                                     |
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true`                                                           |
-| integration_types           | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Installation context(s)](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available, defaults to `GUILD_INSTALL` (`[0]`)                                      |
-| contexts                    | list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                  | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, defaults to all contexts `[0,1,2]` |
-| type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                                                                          |
-| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands)                                                                                                                                 |
+| integration_types           | list of [integration types](/docs/resources/Application#application-object-application-integration-types)                                      | [In preview](/docs/Change_Log#userinstallable-apps-preview). [Installation context(s)](/docs/resources/Application#installation-context) where the command is available, defaults to `GUILD_INSTALL` (`[0]`)                                      |
+| contexts                    | list of [interaction context types](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types)                  | [In preview](/docs/Change_Log#userinstallable-apps-preview). [Interaction context(s)](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-context-types) where the command can be used, defaults to all contexts `[0,1,2]` |
+| type?                       | one of [application command type](/docs/interactions/Application_Commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                                                                          |
+| nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/Application_Commands#agerestricted-commands)                                                                                                                                 |
 
-## Get Guild Application Command Permissions % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/permissions
+## Get Guild Application Command Permissions % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/permissions
 
-Fetches permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
+Fetches permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](/docs/interactions/Application_Commands#application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
-## Get Application Command Permissions % GET /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)/permissions
+## Get Application Command Permissions % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)/permissions
 
-Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](/docs/interactions/Application_Commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
 
-## Edit Application Command Permissions % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/[\{command.id\}](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object)/permissions
+## Edit Application Command Permissions % PUT /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/[\{command.id\}](/docs/interactions/Application_Commands#application-command-object)/permissions
 
 :::warning
 This endpoint will overwrite existing permissions for the command in that guild
 :::
 
-Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object. Fires an [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY_EVENTS/application-command-permissions-update) Gateway event.
+Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](/docs/interactions/Application_Commands#application-command-permissions-object-guild-application-command-permissions-structure) object. Fires an [Application Command Permissions Update](/docs/topics/Gateway_Events#application-command-permissions-update) Gateway event.
 
 You can add up to 100 permission overwrites for a command.
 
 :::info
-This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read above about [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions).
+This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read above about [application command permissions](/docs/interactions/Application_Commands#permissions).
 :::
 
 :::warning
@@ -1285,10 +1286,10 @@ Deleting or renaming a command will permanently delete all permissions for the c
 
 | Field       | Type                                                                                                                                                                 | Description                              |
 |-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
-| permissions | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild |
+| permissions | array of [application command permissions](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild |
 
-## Batch Edit Application Command Permissions % PUT /applications/[\{application.id\}](#DOCS_RESOURCES_APPLICATION/application-object)/guilds/[\{guild.id\}](#DOCS_RESOURCES_GUILD/guild-object)/commands/permissions
+## Batch Edit Application Command Permissions % PUT /applications/[\{application.id\}](/docs/resources/Application#application-object)/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/commands/permissions
 
 :::danger
-This endpoint has been disabled with [updates to command permissions (Permissions v2)](#DOCS_CHANGE_LOG/updated-command-permissions). Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
+This endpoint has been disabled with [updates to command permissions (Permissions v2)](/docs/Change_Log#updated-command-permissions). Instead, you can [edit each application command permissions](/docs/interactions/Application_Commands#edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](/docs/topics/Rate_Limits)).
 ::
