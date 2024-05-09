@@ -6,7 +6,7 @@ import Container from '@site/src/components/Container';
 # Developing A User-Installable App
 
 > preview
-> User-installed apps are currently in preview and subject to change. Learn details and limitations about the preview in the [change log entry](/docs/Change_Log#userinstallable-apps-preview)
+> User-installed apps are currently in preview and subject to change. Learn details and limitations about the preview in the [change log entry](/docs/Change_Log#user-installable-apps-preview)
 
 Discord apps can be installed to servers, users, or both. This guide will walk you through building a basic game integration app that is installable to both Discord users and servers.
 
@@ -107,7 +107,7 @@ In your app's settings, go to the **Installation** page from the sidebar. Under 
 
 ### Configuring Default Install Settings
 
-The default install settings of your app determines the default [scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes) and [bot user permissions](/docs/topics/Permissions) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope (which allows your app to install [commands](/docs/interactions/Application_Commands)) in the default install settings.
+The default install settings of your app determines the default [scopes](/docs/topics/OAuth2#oauth2-scopes) and [bot user permissions](/docs/topics/Permissions) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope (which allows your app to install [commands](/docs/interactions/Application_Commands)) in the default install settings.
 
 ###### Update Install Link
 
@@ -120,7 +120,7 @@ Under the new **Default Install Settings** section:
 - For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
 :::info
-Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](/docs/topics/Permissions#permissions-bitwise-permission-flags) page.
+Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](/docs/topics/Permissions#bitwise-permission-flags) page.
 :::
 
 After you've selected the scopes and permissions for your app, click **Save Changes**.
@@ -272,7 +272,7 @@ The payload below is condensed to be more readable, but your interaction request
 
 </Collapsible>
 
-To see which command was run, you can look at the [`data` object](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-data).
+To see which command was run, you can look at the [`data` object](/docs/interactions/Receiving_and_Responding#interaction-data).
 
 However, for this tutorial, we're going to focus more on the metadata related to installation and interaction contexts. There are a few metadata fields you'll want to pay attention to when building an app that can be installed to multiple interaction contexts—
 
@@ -292,7 +292,7 @@ The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`
 `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
 :::
 
-Understanding the authorization owner can be helpful when handling interactions from message components for apps installed to a user, which is discussed more in the [message component interactions](/docs/tutorials/Developing_a_User_Installable_App#using-metadata-for-message-component-interactions) section. Or you can find technical details in the [Authorizing Integration Owners](/docs/interactions/Receiving_and_Responding#interaction-object-authorizing-integration-owners-object) documentation.
+Understanding the authorization owner can be helpful when handling interactions from message components for apps installed to a user, which is discussed more in the [message component interactions](/docs/tutorials/Developing_a_User_Installable_App#using-metadata-for-message-component-interactions) section. Or you can find technical details in the [Authorizing Integration Owners](/docs/interactions/Receiving_and_Responding#authorizing-integration-owners-object) documentation.
 
 ###### `app_permissions`
 
@@ -371,7 +371,7 @@ There are two fields additional fields to know about that can be helpful in this
 
 ###### `interaction_metadata`
 
-Messages created in response to an interaction will include an [`interaction_metadata` object](/docs/resources/Channel#message-interaction-metadata-object-message-interaction-metadata-structure) which includes metadata related to the interaction.
+Messages created in response to an interaction will include an [`interaction_metadata` object](/docs/resources/Channel#message-interaction-metadata-structure) which includes metadata related to the interaction.
 
 ###### `authorizing_integration_owners`
 

@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Audit Logs Resource
 
 ## Audit Logs
@@ -40,7 +42,7 @@ When an app is performing an eligible action using the APIs, it can pass an `X-A
 
 ### Audit Log Entry Object
 
-Each audit log entry represents a single administrative action (or [event](/docs/resources/Audit_Log#audit-log-entry-object-audit-log-events)), indicated by `action_type`. Most entries contain one to many changes in the `changes` array that affected an entity in Discord—whether that's a user, channel, guild, emoji, or something else.
+Each audit log entry represents a single administrative action (or [event](/docs/resources/Audit_Log#audit-log-events)), indicated by `action_type`. Most entries contain one to many changes in the `changes` array that affected an entity in Discord—whether that's a user, channel, guild, emoji, or something else.
 
 The information (and structure) of an entry's changes will be different depending on its type. For example, in `MEMBER_ROLE_UPDATE` events there is only one change: a member is either added or removed from a specific role. However, in `CHANNEL_CREATE` events there are many changes, including (but not limited to) the channel's name, type, and permission overwrites added. More details are in the [change object](/docs/resources/Audit_Log#audit-log-change-object) section.
 
@@ -54,12 +56,12 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | changes?    | array of [audit log change](/docs/resources/Audit_Log#audit-log-change-object) objects                  | Changes made to the target_id                         |
 | user_id     | ?snowflake                                                                                              | User or app that made the changes                     |
 | id          | snowflake                                                                                               | ID of the entry                                       |
-| action_type | [audit log event](/docs/resources/Audit_Log#audit-log-entry-object-audit-log-events)                    | Type of action that occurred                          |
-| options?    | [optional audit entry info](/docs/resources/Audit_Log#audit-log-entry-object-optional-audit-entry-info) | Additional info for certain event types               |
+| action_type | [audit log event](/docs/resources/Audit_Log#audit-log-events)                    | Type of action that occurred                          |
+| options?    | [optional audit entry info](/docs/resources/Audit_Log#optional-audit-entry-info) | Additional info for certain event types               |
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
 :::warning
-For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](/docs/interactions/Application_Commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
+For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](/docs/interactions/Application_Commands#guild-application-command-permissions-structure) object.
 :::
 
 ###### Audit Log Events
@@ -68,7 +70,7 @@ The table below lists audit log events and values (the `action_type` field) that
 
 The **Object Changed** column notes which object's values may be included in the entry. Though there are exceptions, possible keys in the `changes` array typically correspond to the object's fields. The descriptions and types for those fields can be found in the linked documentation for the object.
 
-If no object is noted, there won't be a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](/docs/resources/Audit_Log#audit-log-entry-object-optional-audit-entry-info).
+If no object is noted, there won't be a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](/docs/resources/Audit_Log#optional-audit-entry-info).
 
 :::info
 You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
@@ -123,7 +125,7 @@ You should assume that your app may run into any field for the changed object, t
 | THREAD_CREATE                               | 110   | Thread was created in a channel                           | [Thread](/docs/resources/Channel#thread-metadata-object)                                                                                         |
 | THREAD_UPDATE                               | 111   | Thread was updated                                        | [Thread](/docs/resources/Channel#thread-metadata-object)                                                                                         |
 | THREAD_DELETE                               | 112   | Thread was deleted                                        | [Thread](/docs/resources/Channel#thread-metadata-object)                                                                                         |
-| APPLICATION_COMMAND_PERMISSION_UPDATE       | 121   | Permissions were updated for a command                    | [Command Permission](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permissions-structure)\* |
+| APPLICATION_COMMAND_PERMISSION_UPDATE       | 121   | Permissions were updated for a command                    | [Command Permission](/docs/interactions/Application_Commands#application-command-permissions-structure)\* |
 | AUTO_MODERATION_RULE_CREATE                 | 140   | Auto Moderation rule was created                          | [Auto Moderation Rule](/docs/resources/Auto_Moderation#auto-moderation-rule-object)                                                              |
 | AUTO_MODERATION_RULE_UPDATE                 | 141   | Auto Moderation rule was updated                          | [Auto Moderation Rule](/docs/resources/Auto_Moderation#auto-moderation-rule-object)                                                              |
 | AUTO_MODERATION_RULE_DELETE                 | 142   | Auto Moderation rule was deleted                          | [Auto Moderation Rule](/docs/resources/Auto_Moderation#auto-moderation-rule-object)                                                              |
@@ -133,7 +135,7 @@ You should assume that your app may run into any field for the changed object, t
 | CREATOR_MONETIZATION_REQUEST_CREATED        | 150   | Creator monetization request was created                  |                                                                                                                                                  |
 | CREATOR_MONETIZATION_TERMS_ACCEPTED         | 151   | Creator monetization terms were accepted                  |                                                                                                                                                  |
 
-\* Object has exception(s) to available keys. See the [exceptions](/docs/resources/Audit_Log#audit-log-change-object-audit-log-change-exceptions) section below for details.
+\* Object has exception(s) to available keys. See the [exceptions](/docs/resources/Audit_Log#audit-log-change-exceptions) section below for details.
 
 ###### Optional Audit Entry Info
 
@@ -154,11 +156,11 @@ You should assume that your app may run into any field for the changed object, t
 
 ### Audit Log Change Object
 
-Many audit log events include a `changes` array in their [entry object](/docs/resources/Audit_Log#audit-log-entry-object-audit-log-entry-structure). The [structure for the individual changes](/docs/resources/Audit_Log#audit-log-change-object-audit-log-change-structure) varies based on the event type and its changed objects, so apps shouldn't depend on a single pattern of handling audit log events.
+Many audit log events include a `changes` array in their [entry object](/docs/resources/Audit_Log#audit-log-entry-structure). The [structure for the individual changes](/docs/resources/Audit_Log#audit-log-change-structure) varies based on the event type and its changed objects, so apps shouldn't depend on a single pattern of handling audit log events.
 
 ###### Audit Log Change Structure
 
-Some events don't follow the same pattern as other audit log events. Details about these exceptions are explained in [the next section](/docs/resources/Audit_Log#audit-log-change-object-audit-log-change-exceptions).
+Some events don't follow the same pattern as other audit log events. Details about these exceptions are explained in [the next section](/docs/resources/Audit_Log#audit-log-change-exceptions).
 
 :::info
 If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
@@ -168,7 +170,7 @@ If `new_value` is not present in the change object while `old_value` is, it indi
 |------------|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | new_value? | mixed (matches object field's type) | New value of the key                                                                                                               |
 | old_value? | mixed (matches object field's type) | Old value of the key                                                                                                               |
-| key        | string                              | Name of the changed entity, with a few [exceptions](/docs/resources/Audit_Log#audit-log-change-object-audit-log-change-exceptions) |
+| key        | string                              | Name of the changed entity, with a few [exceptions](/docs/resources/Audit_Log#audit-log-change-exceptions) |
 
 ###### Audit Log Change Exceptions
 
@@ -176,14 +178,16 @@ For most objects, the change keys may be any field on the changed object. The fo
 
 | Object Changed                                                                                                                                 | Change Key Exceptions                                          | Change Object Exceptions                                                                                                                                                                                                                                    |
 |------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Command Permission](/docs/interactions/Application_Commands#application-command-permissions-object-application-command-permissions-structure) | snowflake as key                                               | The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key) |
+| [Command Permission](/docs/interactions/Application_Commands#application-command-permissions-structure) | snowflake as key                                               | The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key) |
 | [Invite](/docs/resources/Invite#invite-object) and [Invite Metadata](/docs/resources/Invite#invite-metadata-object)                            | Additional `channel_id` key (instead of object's `channel.id`) |                                                                                                                                                                                                                                                             |
 | [Partial Role](/docs/topics/Permissions#role-object)                                                                                           | `$add` and `$remove` as keys                                   | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
 | [Webhook](/docs/resources/Webhook#webhook-object)                                                                                              | `avatar_hash` key (instead of `avatar`)                        |                                                                                                                                                                                                                                                             |
 
-## Get Guild Audit Log % GET /guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/audit-logs
+## Get Guild Audit Log
 
-Returns an [audit log](/docs/resources/Audit_Log#audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](/docs/topics/Permissions#permissions-bitwise-permission-flags) permission.
+<RoutePill method="GET">/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/audit-logs</RoutePill>
+
+Returns an [audit log](/docs/resources/Audit_Log#audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](/docs/topics/Permissions#bitwise-permission-flags) permission.
 
 The returned list of audit log entries is ordered based on whether you use `before` or `after`. When using `before`, the list is ordered by the audit log entry ID **descending** (newer entries first). If `after` is used, the list is reversed and appears in **ascending** order (older entries first). Omitting both `before` and `after` defaults to `before` the current timestamp and will show the most recent entries in descending order by ID, the opposite can be achieved using `after=0` (showing oldest entries).
 
@@ -194,7 +198,7 @@ The following parameters can be used to filter which and how many audit log entr
 | Field        | Type      | Description                                                                                                 |
 |--------------|-----------|-------------------------------------------------------------------------------------------------------------|
 | user_id?     | snowflake | Entries from a specific user ID                                                                             |
-| action_type? | integer   | Entries for a specific [audit log event](/docs/resources/Audit_Log#audit-log-entry-object-audit-log-events) |
+| action_type? | integer   | Entries for a specific [audit log event](/docs/resources/Audit_Log#audit-log-events) |
 | before?      | snowflake | Entries with ID less than a specific audit log entry ID                                                     |
 | after?       | snowflake | Entries with ID greater than a specific audit log entry ID                                                  |
 | limit?       | integer   | Maximum number of entries (between 1-100) to return, defaults to 50                                         |

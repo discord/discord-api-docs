@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Lobbies
 
 :::info
@@ -1338,7 +1340,9 @@ Make sure to prepend your token with "Bot"!
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discord.com/developers/docs/intro) you can do with it!
 
-## Create Lobby % POST /lobbies
+## Create Lobby
+
+<RoutePill method="POST">/lobbies</RoutePill>
 
 Creates a new lobby. Returns an object similar to the SDK `Lobby` struct, documented below.
 
@@ -1372,7 +1376,9 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 }
 ```
 
-## Update Lobby % PATCH /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)
+## Update Lobby
+
+<RoutePill method="PATCH">/lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#lobby-struct)</RoutePill>
 
 Updates a lobby.
 
@@ -1384,11 +1390,15 @@ Updates a lobby.
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
 
-## Delete Lobby % DELETE /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)
+## Delete Lobby
+
+<RoutePill method="DELETE">/lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#lobby-struct)</RoutePill>
 
 Deletes a lobby.
 
-## Update Lobby Member % PATCH /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)/members/[\{user.id\}](/docs/resources/User#user-object)
+## Update Lobby Member
+
+<RoutePill method="PATCH">/lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#lobby-struct)/members/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Updates the metadata for a lobby member.
 
@@ -1398,7 +1408,9 @@ Updates the metadata for a lobby member.
 |----------|------|---------------------------------------------------------------------|
 | metadata | dict | metadata for the lobby member - key/value pairs with types `string` |
 
-## Create Lobby Search % POST /lobbies/search
+## Create Lobby Search
+
+<RoutePill method="POST">/lobbies/search</RoutePill>
 
 Creates a lobby search for matchmaking around given criteria.
 
@@ -1446,7 +1458,9 @@ Creates a lobby search for matchmaking around given criteria.
 | STRING | 1     |
 | NUMBER | 2     |
 
-## Send Lobby Data % POST /lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#data-models-lobby-struct)/send
+## Send Lobby Data
+
+<RoutePill method="POST">/lobbies/[\{lobby.id\}](/docs/game_sdk/Lobbies#lobby-struct)/send</RoutePill>
 
 Sends a message to the lobby, fanning it out to other lobby members.
 

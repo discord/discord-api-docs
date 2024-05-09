@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Channels Resource
 
 ### Channel Object
@@ -9,7 +11,7 @@ Represents a guild or DM channel within Discord.
 | Field                               | Type                                                                        | Description                                                                                                                                                                                                                                                                                                   |
 |-------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                  | snowflake                                                                   | the id of this channel                                                                                                                                                                                                                                                                                        |
-| type                                | integer                                                                     | the [type of channel](/docs/resources/Channel#channel-object-channel-types)                                                                                                                                                                                                                                   |
+| type                                | integer                                                                     | the [type of channel](/docs/resources/Channel#channel-types)                                                                                                                                                                                                                                   |
 | guild_id?                           | snowflake                                                                   | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                                                                                                                                          |
 | position?                           | integer                                                                     | sorting position of the channel                                                                                                                                                                                                                                                                               |
 | permission_overwrites?              | array of [overwrite](/docs/resources/Channel#overwrite-object) objects      | explicit permission overwrites for members and roles                                                                                                                                                                                                                                                          |
@@ -28,21 +30,21 @@ Represents a guild or DM channel within Discord.
 | parent_id?                          | ?snowflake                                                                  | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                                                                                                                                 |
 | last_pin_timestamp?                 | ?ISO8601 timestamp                                                          | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                                                                                                                                    |
 | rtc_region?                         | ?string                                                                     | [voice region](/docs/resources/Voice#voice-region-object) id for the voice channel, automatic when set to null                                                                                                                                                                                                |
-| video_quality_mode?                 | integer                                                                     | the camera [video quality mode](/docs/resources/Channel#channel-object-video-quality-modes) of the voice channel, 1 when not present                                                                                                                                                                          |
+| video_quality_mode?                 | integer                                                                     | the camera [video quality mode](/docs/resources/Channel#video-quality-modes) of the voice channel, 1 when not present                                                                                                                                                                          |
 | message_count?\*\*                  | integer                                                                     | number of messages (not including the initial message or deleted messages) in a thread.                                                                                                                                                                                                                       |
 | member_count?                       | integer                                                                     | an approximate count of users in a thread, stops counting at 50                                                                                                                                                                                                                                               |
 | thread_metadata?                    | a [thread metadata](/docs/resources/Channel#thread-metadata-object) object  | thread-specific fields not needed by other channels                                                                                                                                                                                                                                                           |
 | member?                             | a [thread member](/docs/resources/Channel#thread-member-object) object      | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                                                                                                                                             |
 | default_auto_archive_duration?      | integer                                                                     | default duration, copied onto newly created threads, in minutes, threads will stop showing in the channel list after the specified period of inactivity, can be set to: 60, 1440, 4320, 10080                                                                                                                 |
 | permissions?                        | string                                                                      | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction. This does not include [implicit permissions](/docs/topics/Permissions#implicit-permissions), which may need to be checked separately |
-| flags?                              | integer                                                                     | [channel flags](/docs/resources/Channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                                                       |
+| flags?                              | integer                                                                     | [channel flags](/docs/resources/Channel#channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                                                       |
 | total_message_sent?                 | integer                                                                     | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                                                                                                                                    |
 | available_tags?                     | array of [tag](/docs/resources/Channel#forum-tag-object) objects            | the set of tags that can be used in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                                                                                                                                                                |
 | applied_tags?                       | array of snowflakes                                                         | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                                                                                                                                   |
 | default_reaction_emoji?             | ?[default reaction](/docs/resources/Channel#default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                                                                                                                                        |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                                                                                                                                 |
-| default_sort_order?                 | ?integer                                                                    | the [default sort order type](/docs/resources/Channel#channel-object-sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin                                                         |
-| default_forum_layout?               | integer                                                                     | the [default forum layout view](/docs/resources/Channel#channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels. Defaults to `0`, which indicates a layout view has not been set by a channel admin                                                                                |
+| default_sort_order?                 | ?integer                                                                    | the [default sort order type](/docs/resources/Channel#sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin                                                         |
+| default_forum_layout?               | integer                                                                     | the [default forum layout view](/docs/resources/Channel#forum-layout-types) used to display posts in `GUILD_FORUM` channels. Defaults to `0`, which indicates a layout view has not been set by a channel admin                                                                                |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -288,22 +290,22 @@ Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed i
 | nonce?                      | integer or string                                                                                                                         | used for validating a message was sent                                                                                                                                                                                                                                  |
 | pinned                      | boolean                                                                                                                                   | whether this message is pinned                                                                                                                                                                                                                                          |
 | webhook_id?                 | snowflake                                                                                                                                 | if the message is generated by a webhook, this is the webhook's id                                                                                                                                                                                                      |
-| type                        | integer                                                                                                                                   | [type of message](/docs/resources/Channel#message-object-message-types)                                                                                                                                                                                                 |
-| activity?                   | [message activity](/docs/resources/Channel#message-object-message-activity-structure) object                                              | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
+| type                        | integer                                                                                                                                   | [type of message](/docs/resources/Channel#message-types)                                                                                                                                                                                                 |
+| activity?                   | [message activity](/docs/resources/Channel#message-activity-structure) object                                              | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
 | application?                | partial [application](/docs/resources/Application#application-object) object                                                              | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
 | application_id?             | snowflake                                                                                                                                 | if the message is an [Interaction](/docs/interactions/Receiving_and_Responding) or application-owned webhook, this is the id of the application                                                                                                                        |
-| message_reference?          | [message reference](/docs/resources/Channel#message-reference-object-message-reference-structure) object                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
-| flags?                      | integer                                                                                                                                   | [message flags](/docs/resources/Channel#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                 |
+| message_reference?          | [message reference](/docs/resources/Channel#message-reference-structure) object                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
+| flags?                      | integer                                                                                                                                   | [message flags](/docs/resources/Channel#message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                 |
 | referenced_message?\*\*\*\* | ?[message object](/docs/resources/Channel#message-object)                                                                                 | the message associated with the message_reference                                                                                                                                                                                                                       |
-| interaction_metadata?       | [message interaction metadata object](/docs/resources/Channel#message-interaction-metadata-object-message-interaction-metadata-structure) | [In preview](/docs/Change_Log#userinstallable-apps-preview). Sent if the message is sent as a result of an [interaction](/docs/interactions/Receiving_and_Responding)                                                                                                  |
-| interaction?                | [message interaction object](/docs/interactions/Receiving_and_Responding#message-interaction-object-message-interaction-structure)        | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](/docs/interactions/Receiving_and_Responding)                                                                                                                  |
+| interaction_metadata?       | [message interaction metadata object](/docs/resources/Channel#message-interaction-metadata-structure) | [In preview](/docs/Change_Log#user-installable-apps-preview). Sent if the message is sent as a result of an [interaction](/docs/interactions/Receiving_and_Responding)                                                                                                  |
+| interaction?                | [message interaction object](/docs/interactions/Receiving_and_Responding#message-interaction-structure)        | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](/docs/interactions/Receiving_and_Responding)                                                                                                                  |
 | thread?                     | [channel](/docs/resources/Channel#channel-object) object                                                                                  | the thread that was started from this message, includes [thread member](/docs/resources/Channel#thread-member-object) object                                                                                                                                            |
 | components?\*\*             | array of [message components](/docs/interactions/Message_Components#component-object)                                                     | sent if the message contains components like buttons, action rows, or other interactive components                                                                                                                                                                      |
 | sticker_items?              | array of [message sticker item objects](/docs/resources/Sticker#sticker-item-object)                                                      | sent if the message contains stickers                                                                                                                                                                                                                                   |
 | stickers?                   | array of [sticker](/docs/resources/Sticker#sticker-object) objects                                                                        | **Deprecated** the stickers sent with the message                                                                                                                                                                                                                       |
 | position?                   | integer                                                                                                                                   | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the message in a thread in company with `total_message_sent` on parent thread |
 | role_subscription_data?     | [role subscription data](/docs/resources/Channel#role-subscription-data-object) object                                                    | data of the role subscription purchase or renewal that prompted this ROLE_SUBSCRIPTION_PURCHASE message                                                                                                                                                                 |
-| resolved?                   | [resolved](/docs/interactions/Receiving_and_Responding#interaction-object-resolved-data-structure) data                                   | data for users, members, channels, and roles in the message's [auto-populated select menus](/docs/interactions/Message_Components#select-menus)                                                                                                                         |
+| resolved?                   | [resolved](/docs/interactions/Receiving_and_Responding#resolved-data-structure) data                                   | data for users, members, channels, and roles in the message's [auto-populated select menus](/docs/interactions/Message_Components#select-menus)                                                                                                                         |
 | poll?                       | [poll](/docs/resources/Poll#poll-create-request-object) request object                                                                    | A poll!                                                                                                                                                                                                                                                                 |
 
 
@@ -362,8 +364,8 @@ Type `19` and `20` are only available in API v8 and above. In v6, they are repre
 
 | Field     | Type    | Description                                                                                                        |
 |-----------|---------|--------------------------------------------------------------------------------------------------------------------|
-| type      | integer | [type of message activity](/docs/resources/Channel#message-object-message-activity-types)                          |
-| party_id? | string  | party_id from a [Rich Presence event](/docs/rich_presence/How_To#updating-presence-update-presence-payload-fields) |
+| type      | integer | [type of message activity](/docs/resources/Channel#message-activity-types)                          |
+| party_id? | string  | party_id from a [Rich Presence event](/docs/rich_presence/How_To#update-presence-payload-fields) |
 
 ###### Message Activity Types
 
@@ -496,9 +498,9 @@ Metadata about the interaction, including the source of the interaction and rele
 | Field                            | Type                                                                                                                                  | Description                                                                                                                                                                                                         |
 |----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                               | snowflake                                                                                                                             | ID of the interaction                                                                                                                                                                                               |
-| type                             | [interaction type](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type)                                   | Type of interaction                                                                                                                                                                                                 |
+| type                             | [interaction type](/docs/interactions/Receiving_and_Responding#interaction-type)                                   | Type of interaction                                                                                                                                                                                                 |
 | user                             | [user object](/docs/resources/User#user-object)                                                                                       | User who triggered the interaction                                                                                                                                                                                  |
-| authorizing_integration_owners   | dictionary with keys of [application integration types](/docs/resources/Application#application-object-application-integration-types) | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](/docs/interactions/Receiving_and_Responding#interaction-object-authorizing-integration-owners-object) |
+| authorizing_integration_owners   | dictionary with keys of [application integration types](/docs/resources/Application#application-integration-types) | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](/docs/interactions/Receiving_and_Responding#authorizing-integration-owners-object) |
 | original_response_message_id?    | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](/docs/interactions/Receiving_and_Responding)                                                                                             |
 | interacted_message_id?           | snowflake                                                                                                                             | ID of the message that contained interactive component, present only on messages created from component interactions                                                                                                |
 | triggering_interaction_metadata? | Message Interaction Metadata Structure                                                                                                | Metadata for the interaction that was used to open the modal, present only on modal submit interactions                                                                                                             |
@@ -601,7 +603,7 @@ The reaction count details object contains a breakdown of normal and super react
 
 ### Overwrite Object
 
-See [permissions](/docs/topics/Permissions#permissions) for more information about the `allow` and `deny` fields.
+See [permissions](/docs/topics/Permissions) for more information about the `allow` and `deny` fields.
 
 ###### Overwrite Structure
 
@@ -687,18 +689,18 @@ When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `availa
 | Field        | Type                                                                                       | Description                                                                                          |
 |--------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | title?       | string                                                                                     | title of embed                                                                                       |
-| type?        | string                                                                                     | [type of embed](/docs/resources/Channel#embed-object-embed-types) (always "rich" for webhook embeds) |
+| type?        | string                                                                                     | [type of embed](/docs/resources/Channel#embed-types) (always "rich" for webhook embeds) |
 | description? | string                                                                                     | description of embed                                                                                 |
 | url?         | string                                                                                     | url of embed                                                                                         |
 | timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                                                                           |
 | color?       | integer                                                                                    | color code of the embed                                                                              |
-| footer?      | [embed footer](/docs/resources/Channel#embed-object-embed-footer-structure) object         | footer information                                                                                   |
-| image?       | [embed image](/docs/resources/Channel#embed-object-embed-image-structure) object           | image information                                                                                    |
-| thumbnail?   | [embed thumbnail](/docs/resources/Channel#embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                |
-| video?       | [embed video](/docs/resources/Channel#embed-object-embed-video-structure) object           | video information                                                                                    |
-| provider?    | [embed provider](/docs/resources/Channel#embed-object-embed-provider-structure) object     | provider information                                                                                 |
-| author?      | [embed author](/docs/resources/Channel#embed-object-embed-author-structure) object         | author information                                                                                   |
-| fields?      | array of [embed field](/docs/resources/Channel#embed-object-embed-field-structure) objects | fields information, max of 25                                                                        |
+| footer?      | [embed footer](/docs/resources/Channel#embed-footer-structure) object         | footer information                                                                                   |
+| image?       | [embed image](/docs/resources/Channel#embed-image-structure) object           | image information                                                                                    |
+| thumbnail?   | [embed thumbnail](/docs/resources/Channel#embed-thumbnail-structure) object   | thumbnail information                                                                                |
+| video?       | [embed video](/docs/resources/Channel#embed-video-structure) object           | video information                                                                                    |
+| provider?    | [embed provider](/docs/resources/Channel#embed-provider-structure) object     | provider information                                                                                 |
+| author?      | [embed author](/docs/resources/Channel#embed-author-structure) object         | author information                                                                                   |
+| fields?      | array of [embed field](/docs/resources/Channel#embed-field-structure) objects | fields information, max of 25                                                                        |
 
 ###### Embed Types
 
@@ -782,11 +784,11 @@ All of the following limits are measured inclusively. Leading and trailing white
 |----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | title                                                                      | 256 characters                                                                       |
 | description                                                                | 4096 characters                                                                      |
-| fields                                                                     | Up to 25 [field](/docs/resources/Channel#embed-object-embed-field-structure) objects |
-| [field.name](/docs/resources/Channel#embed-object-embed-field-structure)   | 256 characters                                                                       |
-| [field.value](/docs/resources/Channel#embed-object-embed-field-structure)  | 1024 characters                                                                      |
-| [footer.text](/docs/resources/Channel#embed-object-embed-footer-structure) | 2048 characters                                                                      |
-| [author.name](/docs/resources/Channel#embed-object-embed-author-structure) | 256 characters                                                                       |
+| fields                                                                     | Up to 25 [field](/docs/resources/Channel#embed-field-structure) objects |
+| [field.name](/docs/resources/Channel#embed-field-structure)   | 256 characters                                                                       |
+| [field.value](/docs/resources/Channel#embed-field-structure)  | 1024 characters                                                                      |
+| [footer.text](/docs/resources/Channel#embed-footer-structure) | 2048 characters                                                                      |
+| [author.name](/docs/resources/Channel#embed-author-structure) | 256 characters                                                                       |
 
 Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
@@ -814,7 +816,7 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 | ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                                                                             |
 | duration_secs? | float     | the duration of the audio file (currently for voice messages)                                                                                    |
 | waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                          |
-| flags?         | integer   | [attachment flags](/docs/resources/Channel#attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags?         | integer   | [attachment flags](/docs/resources/Channel#attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
@@ -832,7 +834,7 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 |----------|-----------|-----------------------------------------------------------------------------|
 | id       | snowflake | id of the channel                                                           |
 | guild_id | snowflake | id of the guild containing the channel                                      |
-| type     | integer   | the [type of channel](/docs/resources/Channel#channel-object-channel-types) |
+| type     | integer   | the [type of channel](/docs/resources/Channel#channel-types) |
 | name     | string    | the name of the channel                                                     |
 
 ### Allowed Mentions Object
@@ -851,7 +853,7 @@ The allowed mention field allows for more granular control over mentions without
 
 | Field        | Type                           | Description                                                                                                                           |
 |--------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| parse        | array of allowed mention types | An array of [allowed mention types](/docs/resources/Channel#allowed-mentions-object-allowed-mention-types) to parse from the content. |
+| parse        | array of allowed mention types | An array of [allowed mention types](/docs/resources/Channel#allowed-mention-types) to parse from the content. |
 | roles        | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                                        |
 | users        | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                                        |
 | replied_user | boolean                        | For replies, whether to mention the author of the message being replied to (default false)                                            |
@@ -947,11 +949,15 @@ user 125 in the content.
 | total_months_subscribed      | integer   | the cumulative number of months that the user has been subscribed for |
 | is_renewal                   | boolean   | whether this notification is for a renewal rather than a new purchase |
 
-## Get Channel % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)
+## Get Channel
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)</RoutePill>
 
 Get a channel by ID. Returns a [channel](/docs/resources/Channel#channel-object) object.  If the channel is a thread, a [thread member](/docs/resources/Channel#thread-member-object) object is included in the returned result.
 
-## Modify Channel % PATCH /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)
+## Modify Channel
+
+<RoutePill method="PATCH">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)</RoutePill>
 
 Update a channel's settings. Returns a [channel](/docs/resources/Channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters. All JSON parameters are optional.
 
@@ -975,7 +981,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | Field                               | Type                                                                            | Description                                                                                                                                                                                                                                                                                                                      | Channel Type                                   |
 |-------------------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|
 | name                                | string                                                                          | 1-100 character channel name                                                                                                                                                                                                                                                                                                     | All                                            |
-| type                                | integer                                                                         | the [type of channel](/docs/resources/Channel#channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature                                                                                                                                               | Text, Announcement                             |
+| type                                | integer                                                                         | the [type of channel](/docs/resources/Channel#channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature                                                                                                                                               | Text, Announcement                             |
 | position                            | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                                                                                                                                                                             | All                                            |
 | topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` and `GUILD_MEDIA` channels)                                                                                                                                                                                                                                  | Text, Announcement, Forum, Media               |
 | nsfw                                | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                                                                                                                                                                      | Text, Voice, Announcement, Stage, Forum, Media |
@@ -985,16 +991,16 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | permission_overwrites\*\*           | ?array of partial [overwrite](/docs/resources/Channel#overwrite-object) objects | channel or category-specific permissions                                                                                                                                                                                                                                                                                         | All                                            |
 | parent_id                           | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                                                                                                                                                                      | Text, Voice, Announcement, Stage, Forum, Media |
 | rtc_region                          | ?string                                                                         | channel [voice region](/docs/resources/Voice#voice-region-object) id, automatic when set to null                                                                                                                                                                                                                                 | Voice, Stage                                   |
-| video_quality_mode                  | ?integer                                                                        | the camera [video quality mode](/docs/resources/Channel#channel-object-video-quality-modes) of the voice channel                                                                                                                                                                                                                 | Voice, Stage                                   |
+| video_quality_mode                  | ?integer                                                                        | the camera [video quality mode](/docs/resources/Channel#video-quality-modes) of the voice channel                                                                                                                                                                                                                 | Voice, Stage                                   |
 | default_auto_archive_duration       | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity                                                                                                                                                          | Text, Announcement, Forum, Media               |
-| flags?                              | integer                                                                         | [channel flags](/docs/resources/Channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). Currently only `REQUIRE_TAG` (`1 << 4`) is supported by `GUILD_FORUM` and `GUILD_MEDIA` channels. `HIDE_MEDIA_DOWNLOAD_OPTIONS` (`1 << 15`) is supported only by `GUILD_MEDIA` channels | Forum, Media                                   |
+| flags?                              | integer                                                                         | [channel flags](/docs/resources/Channel#channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). Currently only `REQUIRE_TAG` (`1 << 4`) is supported by `GUILD_FORUM` and `GUILD_MEDIA` channels. `HIDE_MEDIA_DOWNLOAD_OPTIONS` (`1 << 15`) is supported only by `GUILD_MEDIA` channels | Forum, Media                                   |
 | available_tags?                     | array of [tag](/docs/resources/Channel#forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 20                                                                                                                                                                                                                                    | Forum, Media                                   |
 | default_reaction_emoji?             | ?[default reaction](/docs/resources/Channel#default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                                                                                                                                                                                                                           | Forum, Media                                   |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                                                                                                                                                    | Text, Forum, Media                             |
-| default_sort_order?                 | ?integer                                                                        | the [default sort order type](/docs/resources/Channel#channel-object-sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels                                                                                                                                                                           | Forum, Media                                   |
-| default_forum_layout?               | integer                                                                         | the [default forum layout type](/docs/resources/Channel#channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels                                                                                                                                                                                       | Forum                                          |
+| default_sort_order?                 | ?integer                                                                        | the [default sort order type](/docs/resources/Channel#sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels                                                                                                                                                                           | Forum, Media                                   |
+| default_forum_layout?               | integer                                                                         | the [default forum layout type](/docs/resources/Channel#forum-layout-types) used to display posts in `GUILD_FORUM` channels                                                                                                                                                                                       | Forum                                          |
 
-\* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](/docs/resources/Guild#guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
+\* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](/docs/resources/Guild#guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
 \*\* In each overwrite object, the `allow` and `deny` keys can be omitted or set to `null`, which both default to `"0"`.
 
@@ -1012,10 +1018,12 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/do
 | locked                | boolean             | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                    |
 | invitable             | boolean             | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                        |
 | rate_limit_per_user   | ?integer            | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected         |
-| flags?                | integer             | [channel flags](/docs/resources/Channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
+| flags?                | integer             | [channel flags](/docs/resources/Channel#channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
 | applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                 |
 
-## Delete/Close Channel % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)
+## Delete/Close Channel
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)</RoutePill>
 
 Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](/docs/topics/Gateway_Events#channel-update) Gateway event will fire for each of them. Returns a [channel](/docs/resources/Channel#channel-object) object on success. Fires a [Channel Delete](/docs/topics/Gateway_Events#channel-delete) Gateway event (or [Thread Delete](/docs/topics/Gateway_Events#thread-delete) if the channel was a thread).
 
@@ -1031,7 +1039,9 @@ For Community guilds, the Rules or Guidelines channel and the Community Updates 
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
-## Get Channel Messages % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages
+## Get Channel Messages
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages</RoutePill>
 
 Retrieves the messages in a channel. Returns an array of [message](/docs/resources/Channel#message-object) objects on success.
 
@@ -1052,23 +1062,27 @@ The `before`, `after`, and `around` parameters are mutually exclusive, only one 
 | after?  | snowflake | Get messages after this message ID       | absent  |
 | limit?  | integer   | Max number of messages to return (1-100) | 50      |
 
-## Get Channel Message % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)
+## Get Channel Message
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)</RoutePill>
 
 Retrieves a specific message in the channel. Returns a [message](/docs/resources/Channel#message-object) object on success.
 
 If operating on a guild channel, this endpoint requires the current user to have the `VIEW_CHANNEL` and `READ_MESSAGE_HISTORY` permissions. If the channel is a voice channel, they must _also_ have the `CONNECT` permission.
 
-## Create Message % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages
+## Create Message
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages</RoutePill>
 
 :::warning
 Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
 :::
 
-Post a message to a guild text or DM channel. Returns a [message](/docs/resources/Channel#message-object) object. Fires a [Message Create](/docs/topics/Gateway_Events#message-create) Gateway event. See [message formatting](/docs/Reference/#message-formatting) for more information on how to properly format messages.
+Post a message to a guild text or DM channel. Returns a [message](/docs/resources/Channel#message-object) object. Fires a [Message Create](/docs/topics/Gateway_Events#message-create) Gateway event. See [message formatting](/docs/Reference#message-formatting) for more information on how to properly format messages.
 
-To create a message as a reply to another message, apps can include a [`message_reference`](/docs/resources/Channel#message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
+To create a message as a reply to another message, apps can include a [`message_reference`](/docs/resources/Channel#message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
-Files must be attached using a `multipart/form-data` body as described in [Uploading Files](/docs/Reference/#uploading-files).
+Files must be attached using a `multipart/form-data` body as described in [Uploading Files](/docs/Reference#uploading-files).
 
 ###### Limitations
 
@@ -1092,13 +1106,13 @@ When creating a message, apps must provide a value for **at least one of** `cont
 | tts?               | boolean                                                                                           | `true` if this is a TTS message                                                                                                                                                                                                   |
 | embeds?\*          | array of [embed](/docs/resources/Channel#embed-object) objects                                    | Up to 10 `rich` embeds (up to 6000 characters)                                                                                                                                                                                    |
 | allowed_mentions?  | [allowed mention object](/docs/resources/Channel#allowed-mentions-object)                         | Allowed mentions for the message                                                                                                                                                                                                  |
-| message_reference? | [message reference](/docs/resources/Channel#message-reference-object-message-reference-structure) | Include to make your message a reply                                                                                                                                                                                              |
+| message_reference? | [message reference](/docs/resources/Channel#message-reference-structure) | Include to make your message a reply                                                                                                                                                                                              |
 | components?\*      | array of [message component](/docs/interactions/Message_Components#component-object) objects      | Components to include with the message                                                                                                                                                                                            |
 | sticker_ids?\*     | array of snowflakes                                                                               | IDs of up to 3 [stickers](/docs/resources/Sticker#sticker-object) in the server to send in the message                                                                                                                            |
-| files[n]?\*        | file contents                                                                                     | Contents of the file being sent. See [Uploading Files](/docs/Reference/#uploading-files)                                                                                                                                           |
-| payload_json?      | string                                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/Reference/#uploading-files)                                                                                             |
-| attachments?       | array of partial [attachment](/docs/resources/Channel#attachment-object) objects                  | Attachment objects with filename and description. See [Uploading Files](/docs/Reference/#uploading-files)                                                                                                                          |
-| flags?             | integer                                                                                           | [Message flags](/docs/resources/Channel#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set)                          |
+| files[n]?\*        | file contents                                                                                     | Contents of the file being sent. See [Uploading Files](/docs/Reference#uploading-files)                                                                                                                                           |
+| payload_json?      | string                                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/Reference#uploading-files)                                                                                             |
+| attachments?       | array of partial [attachment](/docs/resources/Channel#attachment-object) objects                  | Attachment objects with filename and description. See [Uploading Files](/docs/Reference#uploading-files)                                                                                                                          |
+| flags?             | integer                                                                                           | [Message flags](/docs/resources/Channel#message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set)                          |
 | enforce_nonce?     | boolean                                                                                           | If true and nonce is present, it will be checked for uniqueness in the past few minutes. If another message was created by the same author with the same nonce, that message will be returned and no new message will be created. |
 | poll?              | [poll](/docs/resources/Poll#poll-create-request-object) request object                            | A poll!                                                                                                                                                                                                                           |
 
@@ -1117,30 +1131,40 @@ When creating a message, apps must provide a value for **at least one of** `cont
 }
 ```
 
-Examples for file uploads are available in [Uploading Files](/docs/Reference/#uploading-files).
+Examples for file uploads are available in [Uploading Files](/docs/Reference#uploading-files).
 
-## Crosspost Message % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/crosspost
+## Crosspost Message
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/crosspost</RoutePill>
 
 Crosspost a message in an Announcement Channel to following channels. This endpoint requires the `SEND_MESSAGES` permission, if the current user sent the message, or additionally the `MANAGE_MESSAGES` permission, for all other messages, to be present for the current user.
 
 Returns a [message](/docs/resources/Channel#message-object) object. Fires a [Message Update](/docs/topics/Gateway_Events#message-update) Gateway event.
 
-## Create Reaction % PUT /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)/@me
+## Create Reaction
+
+<RoutePill method="PUT">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)/@me</RoutePill>
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](/docs/topics/Gateway_Events#message-reaction-add) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Delete Own Reaction % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)/@me
+## Delete Own Reaction
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)/@me</RoutePill>
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success. Fires a [Message Reaction Remove](/docs/topics/Gateway_Events#message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Delete User Reaction % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)/[\{user.id\}](/docs/resources/User#user-object)
+## Delete User Reaction
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Deletes another user's reaction. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Remove](/docs/topics/Gateway_Events#message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Get Reactions % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)
+## Get Reactions
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)</RoutePill>
 
 Get a list of users that reacted with this emoji. Returns an array of [user](/docs/resources/User#user-object) objects on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
@@ -1152,16 +1176,22 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 | after? | snowflake | Get users after this user ID          | absent  |
 | limit? | integer   | Max number of users to return (1-100) | 25      |
 
-## Delete All Reactions % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions
+## Delete All Reactions
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions</RoutePill>
 
 Deletes all reactions on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove All](/docs/topics/Gateway_Events#message-reaction-remove-all) Gateway event.
 
-## Delete All Reactions for Emoji % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)
+## Delete All Reactions for Emoji
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/reactions/[\{emoji\}](/docs/resources/Emoji#emoji-object)</RoutePill>
 
 Deletes all the reactions for a given emoji on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove Emoji](/docs/topics/Gateway_Events#message-reaction-remove-emoji) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Edit Message % PATCH /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)
+## Edit Message
+
+<RoutePill method="PATCH">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)</RoutePill>
 
 Edit a previously sent message. The fields `content`, `embeds`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
 
@@ -1169,7 +1199,7 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 Returns a [message](/docs/resources/Channel#message-object) object. Fires a [Message Update](/docs/topics/Gateway_Events#message-update) Gateway event.
 
-Refer to [Uploading Files](/docs/Reference/#uploading-files) for details on attachments and `multipart/form-data` requests.
+Refer to [Uploading Files](/docs/Reference#uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
 :::warning
@@ -1186,14 +1216,16 @@ All parameters to this endpoint are optional and nullable.
 |------------------|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | content          | string                                                                               | Message contents (up to 2000 characters)                                                                                                |
 | embeds           | array of [embed](/docs/resources/Channel#embed-object) objects                       | Up to 10 `rich` embeds (up to 6000 characters)                                                                                          |
-| flags            | integer                                                                              | Edit the [flags](/docs/resources/Channel#message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| flags            | integer                                                                              | Edit the [flags](/docs/resources/Channel#message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
 | allowed_mentions | [allowed mention object](/docs/resources/Channel#allowed-mentions-object)            | Allowed mentions for the message                                                                                                        |
 | components       | array of [message component](/docs/interactions/Message_Components#component-object) | Components to include with the message                                                                                                  |
-| files[n]         | file contents                                                                        | Contents of the file being sent/edited. See [Uploading Files](/docs/Reference/#uploading-files)                                          |
-| payload_json     | string                                                                               | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/Reference/#uploading-files)                 |
-| attachments      | array of [attachment](/docs/resources/Channel#attachment-object) objects             | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/Reference/#uploading-files)                  |
+| files[n]         | file contents                                                                        | Contents of the file being sent/edited. See [Uploading Files](/docs/Reference#uploading-files)                                          |
+| payload_json     | string                                                                               | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/Reference#uploading-files)                 |
+| attachments      | array of [attachment](/docs/resources/Channel#attachment-object) objects             | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/Reference#uploading-files)                  |
 
-## Delete Message % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)
+## Delete Message
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)</RoutePill>
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](/docs/topics/Gateway_Events#message-delete) Gateway event.
 
@@ -1201,7 +1233,9 @@ Delete a message. If operating on a guild channel and trying to delete a message
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
-## Bulk Delete Messages % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/bulk-delete
+## Bulk Delete Messages
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/bulk-delete</RoutePill>
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](/docs/topics/Gateway_Events#message-delete-bulk) Gateway event.
 
@@ -1221,9 +1255,11 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 |----------|---------------------|-------------------------------------------|
 | messages | array of snowflakes | an array of message ids to delete (2-100) |
 
-## Edit Channel Permissions % PUT /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/Channel#overwrite-object)
+## Edit Channel Permissions
 
-Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](/docs/topics/Gateway_Events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/Permissions#permissions).
+<RoutePill method="PUT">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/Channel#overwrite-object)</RoutePill>
+
+Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](/docs/topics/Gateway_Events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/Permissions).
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1237,11 +1273,15 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | deny?  | string? | the bitwise value of all disallowed permissions (default `"0"`) |
 | type   | integer | 0 for a role or 1 for a member                                  |
 
-## Get Channel Invites % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/invites
+## Get Channel Invites
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/invites</RoutePill>
 
 Returns a list of [invite](/docs/resources/Invite#invite-object) objects (with [invite metadata](/docs/resources/Invite#invite-metadata-object)) for the channel. Only usable for guild channels. Requires the `MANAGE_CHANNELS` permission.
 
-## Create Channel Invite % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/invites
+## Create Channel Invite
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/invites</RoutePill>
 
 Create a new [invite](/docs/resources/Invite#invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](/docs/resources/Invite#invite-object) object. Fires an [Invite Create](/docs/topics/Gateway_Events#invite-create) Gateway event.
 
@@ -1257,19 +1297,23 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
 | temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
 | unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
-| target_type           | integer   | the [type of target](/docs/resources/Invite#invite-object-invite-target-types) for this voice channel invite                              |                  |
+| target_type           | integer   | the [type of target](/docs/resources/Invite#invite-target-types) for this voice channel invite                              |                  |
 | target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
 | target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
-## Delete Channel Permission % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/Channel#overwrite-object)
+## Delete Channel Permission
 
-Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](/docs/topics/Gateway_Events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/Permissions#permissions)
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/Channel#overwrite-object)</RoutePill>
+
+Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](/docs/topics/Gateway_Events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/Permissions)
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
-## Follow Announcement Channel % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/followers
+## Follow Announcement Channel
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/followers</RoutePill>
 
 Follow an Announcement Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](/docs/resources/Channel#followed-channel-object) object. Fires a [Webhooks Update](/docs/topics/Gateway_Events#webhooks-update) Gateway event for the target channel.
 
@@ -1279,17 +1323,23 @@ Follow an Announcement Channel to send messages to a target channel. Requires th
 |--------------------|-----------|----------------------|
 | webhook_channel_id | snowflake | id of target channel |
 
-## Trigger Typing Indicator % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/typing
+## Trigger Typing Indicator
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/typing</RoutePill>
 
 Post a typing indicator for the specified channel, which expires after 10 seconds. Returns a 204 empty response on success. Fires a [Typing Start](/docs/topics/Gateway_Events#typing-start) Gateway event.
 
 Generally bots should **not** use this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
 
-## Get Pinned Messages % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/pins
+## Get Pinned Messages
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/pins</RoutePill>
 
 Returns all pinned messages in the channel as an array of [message](/docs/resources/Channel#message-object) objects.
 
-## Pin Message % PUT /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/pins/[\{message.id\}](/docs/resources/Channel#message-object)
+## Pin Message
+
+<RoutePill method="PUT">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/pins/[\{message.id\}](/docs/resources/Channel#message-object)</RoutePill>
 
 Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/topics/Gateway_Events#channel-pins-update) Gateway event.
 
@@ -1301,7 +1351,9 @@ The max pinned messages is 50.
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
-## Unpin Message % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/pins/[\{message.id\}](/docs/resources/Channel#message-object)
+## Unpin Message
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/pins/[\{message.id\}](/docs/resources/Channel#message-object)</RoutePill>
 
 Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/topics/Gateway_Events#channel-pins-update) Gateway event.
 
@@ -1309,7 +1361,9 @@ Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
-## Group DM Add Recipient % PUT /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/recipients/[\{user.id\}](/docs/resources/User#user-object)
+## Group DM Add Recipient
+
+<RoutePill method="PUT">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/recipients/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Adds a recipient to a Group DM using their access token.
 
@@ -1320,11 +1374,15 @@ Adds a recipient to a Group DM using their access token.
 | access_token | string | access token of a user that has granted your app the `gdm.join` scope |
 | nick         | string | nickname of the user being added                                      |
 
-## Group DM Remove Recipient % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/recipients/[\{user.id\}](/docs/resources/User#user-object)
+## Group DM Remove Recipient
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/recipients/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Removes a recipient from a Group DM.
 
-## Start Thread from Message % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/threads
+## Start Thread from Message
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/messages/[\{message.id\}](/docs/resources/Channel#message-object)/threads</RoutePill>
 
 Creates a new thread from an existing message. Returns a [channel](/docs/resources/Channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/topics/Gateway_Events#thread-create) and a [Message Update](/docs/topics/Gateway_Events#message-update) Gateway event.
 
@@ -1342,7 +1400,9 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
 | rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
 
-## Start Thread without Message % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads
+## Start Thread without Message
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads</RoutePill>
 
 Creates a new thread that is not connected to an existing message. Returns a [channel](/docs/resources/Channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/topics/Gateway_Events#thread-create) Gateway event.
 
@@ -1356,23 +1416,25 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 |------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | name                   | string   | 1-100 character channel name                                                                                                               |
 | auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
-| type?\*                | integer  | the [type of thread](/docs/resources/Channel#channel-object-channel-types) to create                                                       |
+| type?\*                | integer  | the [type of thread](/docs/resources/Channel#channel-types) to create                                                       |
 | invitable?             | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread                             |
 | rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
 
 \* `type` currently defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
-## Start Thread in Forum or Media Channel % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads
+## Start Thread in Forum or Media Channel
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads</RoutePill>
 
 Creates a new thread in a forum or a media channel, and sends a message within the created thread. Returns a [channel](/docs/resources/Channel#channel-object), with a nested [message](/docs/resources/Channel#message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/topics/Gateway_Events#thread-create) and [Message Create](/docs/topics/Gateway_Events#message-create) Gateway event.
 
 - The type of the created thread is `PUBLIC_THREAD`.
-- See [message formatting](/docs/Reference/#message-formatting) for more information on how to properly format messages.
+- See [message formatting](/docs/Reference#message-formatting) for more information on how to properly format messages.
 - The current user must have the `SEND_MESSAGES` permission (`CREATE_PUBLIC_THREADS` is ignored).
 - The maximum request size when sending a message is **25 MiB**.
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
-- Examples for file uploads are available in [Uploading Files](/docs/Reference/#uploading-files).
-- Files must be attached using a `multipart/form-data` body as described in [Uploading Files](/docs/Reference/#uploading-files).
+- Examples for file uploads are available in [Uploading Files](/docs/Reference#uploading-files).
+- Files must be attached using a `multipart/form-data` body as described in [Uploading Files](/docs/Reference#uploading-files).
 - Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
 
 :::warning
@@ -1390,10 +1452,10 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | name                     | string                                                                                                                                              | 1-100 character channel name                                                                                                          |
 | auto_archive_duration?\* | integer                                                                                                                                             | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                   |
 | rate_limit_per_user?     | ?integer                                                                                                                                            | amount of seconds a user has to wait before sending another message (0-21600)                                                         |
-| message                  | a [forum thread message params](/docs/resources/Channel#start-thread-in-forum-or-media-channel-forum-and-media-thread-message-params-object) object | contents of the first message in the forum/media thread                                                                               |
+| message                  | a [forum thread message params](/docs/resources/Channel#forum-and-media-thread-message-params-object) object | contents of the first message in the forum/media thread                                                                               |
 | applied_tags?            | array of snowflakes                                                                                                                                 | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel                           |
-| files[n]?\*              | file contents                                                                                                                                       | Contents of the file being sent. See [Uploading Files](/docs/Reference/#uploading-files)                                               |
-| payload_json?            | string                                                                                                                                              | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/Reference/#uploading-files) |
+| files[n]?\*              | file contents                                                                                                                                       | Contents of the file being sent. See [Uploading Files](/docs/Reference#uploading-files)                                               |
+| payload_json?            | string                                                                                                                                              | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/Reference#uploading-files) |
 
 
 ###### Forum and Media Thread Message Params Object
@@ -1409,28 +1471,38 @@ When sending a message, apps must provide a value for **at least one of** `conte
 | allowed_mentions? | [allowed mention object](/docs/resources/Channel#allowed-mentions-object)                    | Allowed mentions for the message                                                                                                                                                                         |
 | components?\*     | array of [message component](/docs/interactions/Message_Components#component-object) objects | Components to include with the message                                                                                                                                                                   |
 | sticker_ids?\*    | array of snowflakes                                                                          | IDs of up to 3 [stickers](/docs/resources/Sticker#sticker-object) in the server to send in the message                                                                                                   |
-| attachments?      | array of partial [attachment](/docs/resources/Channel#attachment-object) objects             | Attachment objects with `filename` and `description`. See [Uploading Files](/docs/Reference/#uploading-files)                                                                                             |
-| flags?            | integer                                                                                      | [Message flags](/docs/resources/Channel#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set) |
+| attachments?      | array of partial [attachment](/docs/resources/Channel#attachment-object) objects             | Attachment objects with `filename` and `description`. See [Uploading Files](/docs/Reference#uploading-files)                                                                                             |
+| flags?            | integer                                                                                      | [Message flags](/docs/resources/Channel#message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set) |
 
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, or `files[n]` is required.
 
-## Join Thread % PUT /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/@me
+## Join Thread
+
+<RoutePill method="PUT">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/@me</RoutePill>
 
 Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](/docs/topics/Gateway_Events#thread-members-update) and a [Thread Create](/docs/topics/Gateway_Events#thread-create) Gateway event.
 
-## Add Thread Member % PUT /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/User#user-object)
+## Add Thread Member
+
+<RoutePill method="PUT">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response if the member is successfully added or was already a member of the thread. Fires a [Thread Members Update](/docs/topics/Gateway_Events#thread-members-update) Gateway event.
 
-## Leave Thread % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/@me
+## Leave Thread
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/@me</RoutePill>
 
 Removes the current user from a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](/docs/topics/Gateway_Events#thread-members-update) Gateway event.
 
-## Remove Thread Member % DELETE /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/User#user-object)
+## Remove Thread Member
+
+<RoutePill method="DELETE">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](/docs/topics/Gateway_Events#thread-members-update) Gateway event.
 
-## Get Thread Member % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/User#user-object)
+## Get Thread Member
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Returns a [thread member](/docs/resources/Channel#thread-member-object) object for the specified user if they are a member of the thread, returns a 404 response otherwise.
 
@@ -1442,7 +1514,9 @@ When `with_member` is set to `true`, the thread member object will include a `me
 |--------------|---------|-------------------------------------------------------------------------------------------------------------|
 | with_member? | boolean | Whether to include a [guild member](/docs/resources/Guild#guild-member-object) object for the thread member |
 
-## List Thread Members % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members
+## List Thread Members
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/thread-members</RoutePill>
 
 :::warning
 Starting in API v11, this endpoint will always return paginated results. Paginated results can be enabled before API v11 by setting `with_member` to `true`. Read [the changelog](/docs/Change_Log#thread-member-details-and-pagination) for details.
@@ -1464,9 +1538,11 @@ This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged
 | after?       | snowflake | Get thread members after this user ID                                                                        |
 | limit?       | integer   | Max number of thread members to return (1-100). Defaults to 100.                                             |
 
-## List Public Archived Threads % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads/archived/public
+## List Public Archived Threads
 
-Returns archived threads in the channel that are public. When called on a `GUILD_TEXT` channel, returns threads of [type](/docs/resources/Channel#channel-object-channel-types) `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel returns threads of [type](/docs/resources/Channel#channel-object-channel-types) `ANNOUNCEMENT_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads/archived/public</RoutePill>
+
+Returns archived threads in the channel that are public. When called on a `GUILD_TEXT` channel, returns threads of [type](/docs/resources/Channel#channel-types) `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel returns threads of [type](/docs/resources/Channel#channel-types) `ANNOUNCEMENT_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
 ###### Query String Params
 
@@ -1483,9 +1559,11 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 | members  | array of [thread members](/docs/resources/Channel#thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## List Private Archived Threads % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads/archived/private
+## List Private Archived Threads
 
-Returns archived threads in the channel that are of [type](/docs/resources/Channel#channel-object-channel-types) `PRIVATE_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/threads/archived/private</RoutePill>
+
+Returns archived threads in the channel that are of [type](/docs/resources/Channel#channel-types) `PRIVATE_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
 
 ###### Query String Params
 
@@ -1502,9 +1580,11 @@ Returns archived threads in the channel that are of [type](/docs/resources/Chann
 | members  | array of [thread members](/docs/resources/Channel#thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## List Joined Private Archived Threads % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/users/@me/threads/archived/private
+## List Joined Private Archived Threads
 
-Returns archived threads in the channel that are of [type](/docs/resources/Channel#channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/users/@me/threads/archived/private</RoutePill>
+
+Returns archived threads in the channel that are of [type](/docs/resources/Channel#channel-types) `PRIVATE_THREAD`, and the user has joined. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
 ###### Query String Params
 

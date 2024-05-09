@@ -4,7 +4,7 @@ Voice connections operate in a similar fashion to the [Gateway](/docs/topics/Gat
 
 ## Voice Gateway Versioning
 
-To ensure that you have the most up-to-date information, please use [version 4](/docs/topics/Voice_Connections#voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](/docs/topics/Opcodes_and_Status_Codes#voice) documented here will reflect what you receive over the socket.
+To ensure that you have the most up-to-date information, please use [version 4](/docs/topics/Voice_Connections#gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](/docs/topics/Opcodes_and_Status_Codes#voice) documented here will reflect what you receive over the socket.
 
 ###### Gateway Versions
 
@@ -268,7 +268,7 @@ If successful, the Voice server will respond with an [Opcode 9 Resumed](/docs/to
 }
 ```
 
-If the resume is unsuccessful—for example, due to an invalid session—the WebSocket connection will close with the appropriate [close event code](/docs/topics/Opcodes_and_Status_Codes#voice-voice-close-event-codes). You should then follow the [Connecting](/docs/topics/Voice_Connections#connecting-to-voice) flow to reconnect.
+If the resume is unsuccessful—for example, due to an invalid session—the WebSocket connection will close with the appropriate [close event code](/docs/topics/Opcodes_and_Status_Codes#voice-close-event-codes). You should then follow the [Connecting](/docs/topics/Voice_Connections#connecting-to-voice) flow to reconnect.
 
 #### IP Discovery
 

@@ -76,7 +76,7 @@ Apps skal bruge godkendelse fra den installerende bruger for at udføre handling
 <Collapsible title="Hvad are anvendelsesområder og tilladelser?" description="Introduktion til anvendelsesområder og bot-tilladelser" icon="question">
 Når du laver en app, bestemmer anvendelsesområder og tilladelser, hvad din app kan gøre og få tilgang til på Discord-servere.
 
-- [OAuth2-anvendelsesområder](/docs/topics/OAuth2#shared-resources-oauth2-scopes) bestemmer, hvilken dataadgang og hvilke handlinger din app har adgang til, tildelt på vegne af en installerende eller bekræftende bruger.
+- [OAuth2-anvendelsesområder](/docs/topics/OAuth2#oauth2-scopes) bestemmer, hvilken dataadgang og hvilke handlinger din app har adgang til, tildelt på vegne af en installerende eller bekræftende bruger.
 - [Tilladelser](/docs/topics/Permissions#permission-overwrites) er din bot-brugers detaljerede tilladelser, ligesom andre brugere på Discord også har. De kan godkendes af den installerende bruger eller senere opdateres under serverens indstillinger eller med [overskrivninger af tilladelser](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
@@ -90,7 +90,7 @@ Lige nu skal du tilføje to anvendelsesområder:
 - `applications.commands`, der lader din app skabe [kommandoer](/docs/interactions/Application_Commands).
 - `bot`, der tilføjer din bot-bruger. Når du har valgt `bot`, kan du også vælge forskellige tilladelse til din bot. Lige nu skal du bare afkrydse **Send meddelelser**.
 
-Se en liste med alle [OAuth2-anvendelsesområder](/docs/topics/OAuth2#shared-resources-oauth2-scopes), eller læs mere om [tilladelser](/docs/topics/Permissions) i dokumentationen.
+Se en liste med alle [OAuth2-anvendelsesområder](/docs/topics/OAuth2#oauth2-scopes), eller læs mere om [tilladelser](/docs/topics/Permissions) i dokumentationen.
 
 ### Installation af din app
 
@@ -176,7 +176,7 @@ For at installere slash-kommandoer benytter appen [`node-fetch`](https://github.
 
 Projektet indeholder et `register`-script, du kan bruge til at installere kommandoerne i `ALL_COMMANDS`, der er defineret i bunden af `commands.js`. Det installerer kommandoerne som globale kommandoer ved at kalde HTTP API'ens [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) endpoint.
 
-Hvis du ønsker at tilpasse dine kommandoer eller tilføje ekstra kommandoer, kan du refererer kommandostrukturen i [kommandodokumentationen](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
+Hvis du ønsker at tilpasse dine kommandoer eller tilføje ekstra kommandoer, kan du refererer kommandostrukturen i [kommandodokumentationen](/docs/interactions/Application_Commands#application-command-structure).
 
 Kør `register`-scriptet ved at klikke på **Terminal** i bunden af dit Glitch-projekt og indsætte følgende kommando:
 
@@ -191,8 +191,8 @@ Hvis du går tilbage til din server, bør du nu se slash-kommandoerne. Men hvis 
 <Collapsible title="Hvad er Discords API's?" description="Oversigt over Discords HTTP og Gateway API's" icon="question">
 Discord har to API's som du frit kan vælge mellem og blande, når du laver apps:
 
-- **[HTTP API](/docs/Reference/#http-api)** er en REST-lignende API til generelle operationer som at sende og opdatere data i Discord eller hente data om en ressource.
-- **[Gateway API](/docs/Reference/#gateway-websocket-api)** er en WebSocket-baseret API, der er nyttig til at beholde en tilstand eller lytte til begivenheder på en Discord-server. Vi benytter den ikke i denne vejledning, men du kan finde mere information om, hvordan du skaber en Gateway-forbindelse, samt de forskellige begivenheder, du kan lytte efter, i [Gateway-dokumentationen](/docs/topics/Gateway).
+- **[HTTP API](/docs/Reference#http-api)** er en REST-lignende API til generelle operationer som at sende og opdatere data i Discord eller hente data om en ressource.
+- **[Gateway API](/docs/Reference#gateway-websocket-api)** er en WebSocket-baseret API, der er nyttig til at beholde en tilstand eller lytte til begivenheder på en Discord-server. Vi benytter den ikke i denne vejledning, men du kan finde mere information om, hvordan du skaber en Gateway-forbindelse, samt de forskellige begivenheder, du kan lytte efter, i [Gateway-dokumentationen](/docs/topics/Gateway).
 </Collapsible>
 
 ---
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-Koden herover reagerer på interaktionen med en besked i kanalen, hvor kommandoen kom fra. Du kan se alle tilgængelige svartyper såsom besvarelse med en modal [i dokumentationen](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
+Koden herover reagerer på interaktionen med en besked i kanalen, hvor kommandoen kom fra. Du kan se alle tilgængelige svartyper såsom besvarelse med en modal [i dokumentationen](/docs/interactions/Receiving_and_Responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` er en konstant, der er [eksporteret fra `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -261,7 +261,7 @@ I den følgende sektion tilføjer vi en ekstra kommando, der benytter slash-komm
 
 `/challenge`-kommandoen, kaldet `CHALLENGE_COMMAND` i `commands.js`, har en række `options`. I vores app er de forskellige options objekter, der repræsenterer forskellige ting, en bruger kan vælge mellem i et spil sten-saks-papir, genereret ved brug af nøgler for `RPSChoices` i `game.js`.
 
-Du kan læse mere om kommando-valgmuligheder og deres struktur [i dokumentationen](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+Du kan læse mere om kommando-valgmuligheder og deres struktur [i dokumentationen](/docs/interactions/Application_Commands#application-command-option-structure).
 
 :::info
 Selvom denne vejledning ikke går i dybden med `game.js`-filen, er du velkommen til at grave lidt rundt og ændre kommandoerne eller valgmulighederne i kommandoerne.
@@ -331,7 +331,7 @@ Når du nu kører `/challenge`-kommandoen og vælger en valgmulighed, vil din ap
 
 <Collapsible title="Håndtering af knapinteraktioner" description="Kode til håndtering af tryk på knapper og besvarelser med en kortvarig besked" icon="code" open>
 
-Når brugere interagerer med en beskedkomponent, sender Discord en anmodning med [interaktionstypen](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) `3` (eller `MESSAGE_COMPONENT`-værdien, når der anvendes `discord-interactions`).
+Når brugere interagerer med en beskedkomponent, sender Discord en anmodning med [interaktionstypen](/docs/interactions/Receiving_and_Responding#interaction-type) `3` (eller `MESSAGE_COMPONENT`-værdien, når der anvendes `discord-interactions`).
 
 For at sætte en handler op for knappen tjekker vi interaktionens `type`, efterfulgt af en matching af `custom_id`.
 
@@ -384,7 +384,7 @@ Koden herover:
 2. [Sletter den oprindelige besked](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response) ved at kalde en webhook med `node-fetch` og sende den unikke interaktions-`token` i anmodningens krop. Dette gøres for at rydde op i kanalen og for at forhindre, at andre brugere kan klikke på knappen.
 3. Besvarer anmodningen ved at sende en besked, der indeholder en menu med valgmuligheder med genstandene i spillet. Nyttelasten bør se ud ligesom den forrige med undtagelse af `options`-sættet og `flags: 64`, [der indikerer, at beskeden er kortvarig](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-`options`-sættet befolkes ved hjælp af `getShuffledOptions()`-metoden i `game.js`, der manipulerer `RPSChoices`-værdierne, så de passer til formen på [beskedkomponentvalgene](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
+`options`-sættet befolkes ved hjælp af `getShuffledOptions()`-metoden i `game.js`, der manipulerer `RPSChoices`-værdierne, så de passer til formen på [beskedkomponentvalgene](/docs/interactions/Message_Components#select-option-structure).
 
 </Collapsible>
 

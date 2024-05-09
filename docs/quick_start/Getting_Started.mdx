@@ -80,7 +80,7 @@ Apps need approval from installing users to perform actions in Discord (like cre
 <Collapsible title="What are scopes and permissions?" description="Introduction to scopes and bot permissions" icon="question">
 When creating an app, scopes and permissions determine what your app can do and access in Discord servers.
 
-- [OAuth2 Scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes) determine what data access and actions your app can take, granted on behalf of an installing or authenticating user.
+- [OAuth2 Scopes](/docs/topics/OAuth2#oauth2-scopes) determine what data access and actions your app can take, granted on behalf of an installing or authenticating user.
 - [Permissions](/docs/topics/Permissions#permission-overwrites) are the granular permissions for your bot user, the same as other users in Discord have. They can be approved by the installing user or later updated within server settings or with [permission overwrites](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
@@ -94,7 +94,7 @@ For now, just add the **`bot` scope**, which adds your bot user.
 
 After you select `bot`, you can also select different permissions for your bot. For now, just check **Send Messages**.
 
-See a list of all [OAuth2 scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes), or read more on [permissions](/docs/topics/Permissions) in the documentation.
+See a list of all [OAuth2 scopes](/docs/topics/OAuth2#oauth2-scopes), or read more on [permissions](/docs/topics/Permissions) in the documentation.
 
 ### Installing your app
 
@@ -180,7 +180,7 @@ To install slash commands, the app is using [`node-fetch`](https://github.com/no
 
 The project contains a `register` script you can use to install the commands in `ALL_COMMANDS`, which is defined at the bottom of `commands.js`. It installs the commands as global commands by calling the HTTP API's [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) endpoint.
 
-If you want to customize your commands or add additional ones, you can reference the command structure in the [commands documentation](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
+If you want to customize your commands or add additional ones, you can reference the command structure in the [commands documentation](/docs/interactions/Application_Commands#application-command-structure).
 
 Run the `register` script by clicking **Terminal** at the bottom of your Glitch project and pasting the following command:
 
@@ -195,8 +195,8 @@ If you navigate back to your server, you should see the slash commands appear. B
 <Collapsible title="What are Discord's APIs?" description="Overview of Discord's HTTP and Gateway APIs" icon="question">
 Discord has two APIs that you can mix-and-match to build apps:
 
-- **[HTTP API](/docs/Reference/#http-api)** is a REST-like API for general operations like sending and updating data in Discord, or fetching data about a resource.
-- **[Gateway API](/docs/Reference/#gateway-websocket-api)** is a WebSocket-based API that is helpful for maintaining state or listening to events happening in a Discord server. We won't be using it in this guide, but more information about how to create a Gateway connection and the different events you can listen to are in the [Gateway documentation](/docs/topics/Gateway).
+- **[HTTP API](/docs/Reference#http-api)** is a REST-like API for general operations like sending and updating data in Discord, or fetching data about a resource.
+- **[Gateway API](/docs/Reference#gateway-websocket-api)** is a WebSocket-based API that is helpful for maintaining state or listening to events happening in a Discord server. We won't be using it in this guide, but more information about how to create a Gateway connection and the different events you can listen to are in the [Gateway documentation](/docs/topics/Gateway).
 </Collapsible>
 
 ---
@@ -245,7 +245,7 @@ if (name === 'test') {
 }
 ```
 
-The code above is responding to the interaction with a message in the channel it originated from. You can see all available response types, like responding with a modal, [in the documentation](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
+The code above is responding to the interaction with a message in the channel it originated from. You can see all available response types, like responding with a modal, [in the documentation](/docs/interactions/Receiving_and_Responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -265,7 +265,7 @@ The `/challenge` command will be how our rock-paper-scissors-style game is initi
 
 The `/challenge` command, called `CHALLENGE_COMMAND` in `commands.js`, has an array of `options`. In our app, the options are objects representing different things that a user can select while playing rock-paper-scissors, generated using keys of `RPSChoices` in `game.js`.
 
-You can read more about command options and their structure [in the documentation](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+You can read more about command options and their structure [in the documentation](/docs/interactions/Application_Commands#application-command-option-structure).
 
 :::info
 While this guide won't touch much on the `game.js` file, feel free to poke around and change commands or the options in the commands.
@@ -335,7 +335,7 @@ Now when you run the `/challenge` command and pick an option, your app will send
 
 <Collapsible title="Handling button interactions" description="Code for handling button clicks and responding with an ephemeral message" icon="code" open>
 
-When users interact with a message component, Discord will send a request with an [interaction type](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) of `3` (or the  `MESSAGE_COMPONENT` value when using `discord-interactions`).
+When users interact with a message component, Discord will send a request with an [interaction type](/docs/interactions/Receiving_and_Responding#interaction-type) of `3` (or the  `MESSAGE_COMPONENT` value when using `discord-interactions`).
 
 To set up a handler for the button, we'll check the `type` of interaction, followed by matching the `custom_id`.
 
@@ -388,7 +388,7 @@ The above code:
 2. [Deletes the original message](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response) calling a webhook using `node-fetch` and passing the unique interaction `token` in the request body. This is done to clean up the channel, and so other users can't click the button.
 3. Responds to the request by sending a message that contains a select menu with the object choices for the game. The payload should look fairly similar to the previous one, with the exception of the `options` array and `flags: 64`, [which indicates that the message is ephemeral](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-The `options` array is populated using the `getShuffledOptions()` method in `game.js`, which manipulates the `RPSChoices` values to conform to the shape of [message component options](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
+The `options` array is populated using the `getShuffledOptions()` method in `game.js`, which manipulates the `RPSChoices` values to conform to the shape of [message component options](/docs/interactions/Message_Components#select-option-structure).
 
 </Collapsible>
 

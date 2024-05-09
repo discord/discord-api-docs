@@ -45,9 +45,9 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name       | type   | description                                                                                  |
 |------------|--------|----------------------------------------------------------------------------------------------|
-| LargeImage | string | see [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image) |
+| LargeImage | string | see [Activity Asset Image](/docs/topics/Gateway_Events#activity-asset-image) |
 | LargeText  | string | hover text for the large image                                                               |
-| SmallImage | string | see [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image) |
+| SmallImage | string | see [Activity Asset Image](/docs/topics/Gateway_Events#activity-asset-image) |
 | SmallText  | string | hover text for the small image                                                               |
 
 ###### ActivityParty Struct
@@ -83,7 +83,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Custom    | 4     |
 | Competing | 5     |
 
-For more details about the activity types, [see Gateway documentation](/docs/topics/Gateway_Events#/activity-object-activity-types).
+For more details about the activity types, [see Gateway documentation](/docs/topics/Gateway_Events#activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 

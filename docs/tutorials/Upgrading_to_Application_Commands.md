@@ -59,7 +59,7 @@ While most apps won’t need to register more than a handful of commands, apps c
 
 ### Using Options as Parameters
 
-Command options is an optional field (`options`) that can be defined when creating commands. When used, options will display for the user to fill out during invocation. You can also provide dynamic option suggestions using the `autocomplete` field. Read more about options [in the documentation](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+Command options is an optional field (`options`) that can be defined when creating commands. When used, options will display for the user to fill out during invocation. You can also provide dynamic option suggestions using the `autocomplete` field. Read more about options [in the documentation](/docs/interactions/Application_Commands#application-command-option-structure).
 
 ![Slash command using options](/images/slash-command-options.png)
 
@@ -147,7 +147,7 @@ Before your app can receive interactions, you’ll need to set up an **Interacti
 However, before adding your URL to your app settings, your endpoint must be set up to handle two things:
 
 1. **Responding to `PING` events**: When you save a URL in your settings, Discord will send a `POST` request with `type: 1`. To acknowledge this request (and thus verify your endpoint), you should return a `200` response with a payload containing `type: 1`. More information can be found in the [Receiving an Interaction documentation](/docs/interactions/Receiving_and_Responding#receiving-an-interaction).
-2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](/docs/interactions/Overview#setting-up-an-endpoint-validating-security-request-headers).
+2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](/docs/interactions/Overview#validating-security-request-headers).
 
 :::info
 Many libraries on the [Community Resources page](/docs/topics/Community_Resources#interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
@@ -165,7 +165,7 @@ If all goes well, your endpoint will successfully save. And if not, you should d
 
 Once your app has a verified endpoint, you should start being able to receive command requests from Discord.
 
-As mentioned above, these include information relevant to handling the command like its name, the user who invoked it, and the guild and channel it was invoked from. It also includes additional details that could be relevant, like the [command options](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) or [locale information](/docs/interactions/Application_Commands#localization).
+As mentioned above, these include information relevant to handling the command like its name, the user who invoked it, and the guild and channel it was invoked from. It also includes additional details that could be relevant, like the [command options](/docs/interactions/Application_Commands#application-command-option-structure) or [locale information](/docs/interactions/Application_Commands#localization).
 
 Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel, you’ll notice that their payloads don’t contain any information about specific messages. If your app needs the message content, you can use [message commands](/docs/interactions/Application_Commands#message-commands) which *do* include the message content.
 
@@ -244,9 +244,9 @@ And when your app has several commands (and perhaps [subcommands](/docs/interact
 
 ### Collecting User Input
 
-When commands need a bit of input from a user, you can use the `options` field. Command options can be thought of as parameters to your command. They can be one of many [types](/docs/interactions/Application_Commands#application-command-object-application-command-option-type), like the standard string or number, or the more Discord-specific role, user, and channel.
+When commands need a bit of input from a user, you can use the `options` field. Command options can be thought of as parameters to your command. They can be one of many [types](/docs/interactions/Application_Commands#application-command-option-type), like the standard string or number, or the more Discord-specific role, user, and channel.
 
-Options are great for short input, but if you need user input that’s longer than a couple of words, like a title or description, you can collect form-like input using [modals](/docs/interactions/Receiving_and_Responding#interaction-response-object-modal) as a response to the command invocation.
+Options are great for short input, but if you need user input that’s longer than a couple of words, like a title or description, you can collect form-like input using [modals](/docs/interactions/Receiving_and_Responding#modal) as a response to the command invocation.
 
 ### Scoping a Command
 
@@ -260,7 +260,7 @@ Commands can optionally be [scoped to specific guilds](/docs/interactions/Applic
 
 Interactions (including commands) can have a hand-picked reply using one of the many available [interaction responses](/docs/interactions/Receiving_and_Responding#responding-to-an-interaction).
 
-The specific response type should be picked based on the situation. Some commands may call for sending a message back to the channel where the command was invoked from, or perhaps just to the specific user who ran the command (for this, the [ephemeral message flag](/docs/interactions/Receiving_and_Responding#interaction-response-object-messages) can be used). Other commands may necessitate descriptive input from the user, in which case responding with a follow-up modal with text inputs might make the most sense.
+The specific response type should be picked based on the situation. Some commands may call for sending a message back to the channel where the command was invoked from, or perhaps just to the specific user who ran the command (for this, the [ephemeral message flag](/docs/interactions/Receiving_and_Responding#messages) can be used). Other commands may necessitate descriptive input from the user, in which case responding with a follow-up modal with text inputs might make the most sense.
 
 Regardless of the response, it should be picked based on the specific interaction the user is taking.
 

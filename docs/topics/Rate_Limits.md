@@ -3,7 +3,7 @@
 Rate limits exist across Discord's APIs to prevent spam, abuse, and service overload. Limits are applied to individual bots and users both on a per-route basis and globally. Individuals are determined using a request's authentication—for example, a bot token for a bot.
 
 :::info
-Because rate limits depend on a variety of factors and are subject to change, **rate limits should not be hard coded into your app**. Instead, your app should parse [response headers](/docs/topics/Rate_Limits#header-format-rate-limit-header-examples) to prevent hitting the limit, and to respond accordingly in case you do.
+Because rate limits depend on a variety of factors and are subject to change, **rate limits should not be hard coded into your app**. Instead, your app should parse [response headers](/docs/topics/Rate_Limits#rate-limit-header-examples) to prevent hitting the limit, and to respond accordingly in case you do.
 :::
 
 **Per-route rate limits** exist for many individual endpoints, and may include the HTTP method (`GET`, `POST`, `PUT`, or `DELETE`). In some cases, per-route limits will be shared across a set of similar endpoints, indicated in the `X-RateLimit-Bucket` header. It's recommended to use this header as a unique identifier for a rate limit, which will allow you to group shared limits as you encounter them.

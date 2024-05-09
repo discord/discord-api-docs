@@ -75,7 +75,7 @@ Apps hebben toestemming nodig van gebruikers die ze installeren om acties uit te
 <Collapsible title="Wat zijn scopes en machtigingen?" description="Introductie van scopes en botmachtigingen" icon="question">
 Bij het creëren van een app bepaal je met scopes en botmachtigingen wat je app kan doen en waartoe de app toegang krijgt op Discord-servers.
 
-- [OAuth2-scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
+- [OAuth2-scopes](/docs/topics/OAuth2#oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
 - [Machtigingen](/docs/topics/Permissions#permission-overwrites) zijn de gespecialiseerde toestemmingen voor je botgebruiker, zoals andere gebruikers op Discord ook hebben. Ze kunnen toestemming krijgen van de installerende gebruiker, of later worden bijgewerkt in de serverinstellingen of met [machtigingsoverschrijvingen](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
@@ -89,7 +89,7 @@ Voeg voorlopig twee scopes toe:
 - `applications.commands`, waarmee je app [opdrachten](/docs/interactions/Application_Commands) kan creëren.
 - `bot` voegt je botgebruiker toe. Nadat je `bot` hebt geselecteerd, kun je ook andere machtigingen selecteren voor je bot. Vink voorlopig alleen **Berichten verzenden** aan.
 
-Bekijk een lijst met alle [OAuth2-scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes) of lees meer over [machtigingen](/docs/topics/Permissions) in de documentatie.
+Bekijk een lijst met alle [OAuth2-scopes](/docs/topics/OAuth2#oauth2-scopes) of lees meer over [machtigingen](/docs/topics/Permissions) in de documentatie.
 
 ### Je app installeren
 
@@ -175,7 +175,7 @@ Om slashopdrachten te installeren, maakt de app gebruik van [`node-fetch`](https
 
 Het project bevat een `register`-script waarmee je de opdrachten kunt installeren in `ALL_COMMANDS`, wat je onderaan `commands.js` vindt. Dit installeert de opdrachten als algemene opdrachten door het [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands)-eindpunt van de HTTP API op te roepen.
 
-Als je je opdrachten wilt aanpassen of extra opdrachten wilt toevoegen, kun je verwijzen naar de opdrachtstructuur in de [opdrachtdocumentatie](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
+Als je je opdrachten wilt aanpassen of extra opdrachten wilt toevoegen, kun je verwijzen naar de opdrachtstructuur in de [opdrachtdocumentatie](/docs/interactions/Application_Commands#application-command-structure).
 
 Run het `register`-script door onderaan het Glitch-project op **Terminal** te klikken en de volgende opdracht te plakken:
 
@@ -190,8 +190,8 @@ Als je teruggaat naar je server, moet je nu de slashopdrachten zien verschijnen.
 <Collapsible title="Wat zijn Discords API's?" description="Overzicht van Discords HTTP en Gateway-API's" icon="question">
 Discord heeft twee API's die je kunt combineren om apps te bouwen:
 
-- **[HTTP API](/docs/Reference/#http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
-- **[Gateway API](/docs/Reference/#gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](/docs/topics/Gateway).
+- **[HTTP API](/docs/Reference#http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
+- **[Gateway API](/docs/Reference#gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](/docs/topics/Gateway).
 </Collapsible>
 
 ---
@@ -240,7 +240,7 @@ if (name === 'test') {
 }
 ```
 
-Bovenstaande code reageert op de interactie door een bericht naar het kanaal te sturen waar de interactie is ontstaan. Je kunt alle beschikbare reactiesoorten bekijken, zoals reageren met een modal, [in de documentatie](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
+Bovenstaande code reageert op de interactie door een bericht naar het kanaal te sturen waar de interactie is ontstaan. Je kunt alle beschikbare reactiesoorten bekijken, zoals reageren met een modal, [in de documentatie](/docs/interactions/Receiving_and_Responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is een constante [die wordt geëxporteerd uit `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -260,7 +260,7 @@ Met de opdracht `/challenge` wordt ons steen-papier-schaar-achtige spelletje ges
 
 De opdracht `/challenge`, `CHALLENGE_COMMAND` genaamd in `commands.js`, heeft verschillende `options`. In onze app zijn de opties verschillende objecten die een gebruiker kan kiezen bij het spelen van steen-papier-schaar, die worden gegenereerd met behulp van `RPSChoices`-codes in `game.js`.
 
-Je kunt meer lezen over opdrachtopties en hun structuur [in de documentatie](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+Je kunt meer lezen over opdrachtopties en hun structuur [in de documentatie](/docs/interactions/Application_Commands#application-command-option-structure).
 
 :::info
 In deze gids staat niet veel over het `game.js`-bestand, maar verken het bestand gerust en wees niet bang opdrachten of opties in de opdrachten te wijzigen.
@@ -330,7 +330,7 @@ Als je nu de opdracht `/challenge` activeert en een optie kiest, zal je app een 
 
 <Collapsible title="Het werken met knopinteracties" description="Code voor het verwerken van een klik op een knop en reageren met een kortstondig bericht" icon="code" open>
 
-Als gebruikers interactie aangaan met een berichtonderdeel, verstuurt Discord een verzoek met één [interactietype](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) uit `3` opties (of de waarde van het `MESSAGE_COMPONENT` als `discord-interactions` wordt gebruikt).
+Als gebruikers interactie aangaan met een berichtonderdeel, verstuurt Discord een verzoek met één [interactietype](/docs/interactions/Receiving_and_Responding#interaction-type) uit `3` opties (of de waarde van het `MESSAGE_COMPONENT` als `discord-interactions` wordt gebruikt).
 
 Om een verwerker in te stellen voor de knop, controleren we het `type` interactie en matchen we de `custom_id`.
 
@@ -383,7 +383,7 @@ De bovenstaande code:
 2. [Verwijdert het oorspronkelijke bericht](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response) door een webhook aan te roepen met behulp van `node-fetch` en door de unieke interactie-`token` door te geven in de inhoud van het verzoek.
 3. Reageert op het verzoek door een bericht te sturen met een keuzemenu dat de objectkeuzes voor de game bevat. De payload is vergelijkbaar met de vorige, met uitzondering van de `options`-lijst en `flags: 64`, [die aangeeft dat het bericht kortstondig is](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-De `options`-lijst wordt gevuld met behulp van de `getShuffledOptions()`-methode in `game.js`, die de `RPSChoices`-waarden manipuleert om te passen bij de vorm van de [berichtcomponentopties](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
+De `options`-lijst wordt gevuld met behulp van de `getShuffledOptions()`-methode in `game.js`, die de `RPSChoices`-waarden manipuleert om te passen bij de vorm van de [berichtcomponentopties](/docs/interactions/Message_Components#select-option-structure).
 
 </Collapsible>
 

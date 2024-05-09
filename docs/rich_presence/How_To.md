@@ -218,7 +218,7 @@ typedef struct DiscordJoinRequest {
 | userId        | char[24]  | the userId of the player asking to join                                                                                             |
 | username      | char[344] | the username of the player asking to join                                                                                           |
 | discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
-| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](/docs/Reference/#image-formatting) for how to retrieve the image |
+| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](/docs/Reference#image-formatting) for how to retrieve the image |
 
 :::warning
 `avatar` can be an empty string if the user has not uploaded an avatar to Discord

@@ -84,7 +84,7 @@ userManager.GetUser(userId, (Discord.Result result, ref Discord.User user) =>
 
 ## GetCurrentUserPremiumType
 
-Get the [PremiumType](/docs/game_sdk/Users#data-models-premiumtype-enum) for the currently connected user.
+Get the [PremiumType](/docs/game_sdk/Users#premiumtype-enum) for the currently connected user.
 
 Returns `Discord.PremiumType`.
 
@@ -115,7 +115,7 @@ switch (premiumType)
 
 ## CurrentUserHasFlag
 
-See whether or not the current user has a certain [UserFlag](/docs/game_sdk/Users#data-models-userflag-enum) on their account.
+See whether or not the current user has a certain [UserFlag](/docs/game_sdk/Users#userflag-enum) on their account.
 
 Returns `bool`.
 
@@ -123,7 +123,7 @@ Returns `bool`.
 
 | name | type                                                       | description                             |
 |------|------------------------------------------------------------|-----------------------------------------|
-| flag | [UserFlag](/docs/game_sdk/Users#data-models-userflag-enum) | the flag to check on the user's account |
+| flag | [UserFlag](/docs/game_sdk/Users#userflag-enum) | the flag to check on the user's account |
 
 ###### Example
 

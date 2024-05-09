@@ -105,7 +105,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
 Authenticating with the Discord API can be done in one of two ways:
 
 1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](/docs/topics/OAuth2#bot-vs-user-accounts).
-2. Using an OAuth2 bearer token gained through the [OAuth2 API](/docs/topics/OAuth2#oauth2).
+2. Using an OAuth2 bearer token gained through the [OAuth2 API](/docs/topics/OAuth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
 
@@ -239,7 +239,7 @@ Client requests that do not have a valid User Agent specified may be blocked and
 
 ### Rate Limiting
 
-The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](/docs/topics/Rate_Limits#rate-limits) section.
+The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](/docs/topics/Rate_Limits) section.
 
 ### Boolean Query Strings
 
@@ -309,7 +309,7 @@ Guild navigation types link to the corresponding resource in the current server.
 https://cdn.discordapp.com/
 ```
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](/docs/resources/User#get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](/docs/Reference/#image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](/docs/resources/User#get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](/docs/Reference#image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
 
 ###### Image Formats
 
@@ -337,11 +337,11 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | User Avatar Decoration      | avatar-decorations/[user_id](/docs/resources/User#user-object)/[user_avatar_decoration](/docs/resources/User#user-object).png                                                                                                                                     | PNG                  |
 | Application Icon            | app-icons/[application_id](/docs/resources/Application#application-object)/[icon](/docs/resources/Application#application-object).png                                                                                                                             | PNG, JPEG, WebP      |
 | Application Cover           | app-icons/[application_id](/docs/resources/Application#application-object)/[cover_image](/docs/resources/Application#application-object).png                                                                                                                      | PNG, JPEG, WebP      |
-| Application Asset           | app-assets/[application_id](/docs/resources/Application#application-object)/[asset_id](/docs/topics/Gateway_Events#activity-object-activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
-| Achievement Icon            | app-assets/[application_id](/docs/resources/Application#application-object)/achievements/[achievement_id](/docs/game_sdk/Achievements#data-models-user-achievement-struct)/icons/[icon_hash](/docs/game_sdk/Achievements#data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Application Asset           | app-assets/[application_id](/docs/resources/Application#application-object)/[asset_id](/docs/topics/Gateway_Events#activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
+| Achievement Icon            | app-assets/[application_id](/docs/resources/Application#application-object)/achievements/[achievement_id](/docs/game_sdk/Achievements#user-achievement-struct)/icons/[icon_hash](/docs/game_sdk/Achievements#user-achievement-struct).png | PNG, JPEG, WebP      |
 | Store Page Asset            | app-assets/[application_id](/docs/resources/Application#application-object)/store/asset_id                                                                                                                                                                        | PNG, JPEG, WebP      |
 | Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](/docs/resources/Sticker#sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
-| Team Icon                   | team-icons/[team_id](/docs/topics/Teams#data-models-team-object)/[team_icon](/docs/topics/Teams#data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
+| Team Icon                   | team-icons/[team_id](/docs/topics/Teams#team-object)/[team_icon](/docs/topics/Teams#team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
 | Sticker                     | stickers/[sticker_id](/docs/resources/Sticker#sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
 | Role Icon                   | role-icons/[role_id](/docs/topics/Permissions#role-object)/[role_icon](/docs/topics/Permissions#role-object).png                                                                                                                                                  | PNG, JPEG, WebP      |
 | Guild Scheduled Event Cover | guild-events/[scheduled_event_id](/docs/resources/Guild_Scheduled_Event#guild-scheduled-event-object)/[scheduled_event_cover_image](/docs/resources/Guild_Scheduled_Event#guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
@@ -373,9 +373,9 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 Attachments uploaded to Discord's CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time. Discord automatically refreshes attachment CDN URLs that appear within the client, so when your app receives a payload with a signed URL (like when you [fetch a message](/docs/resources/Channel#get-channel-message)), it will be valid.
 
-When passing CDN URLs into API fields, like [`url` in an embed image object](/docs/resources/Channel#embed-object-embed-image-structure) and [`avatar_url` for webhooks](/docs/resources/Webhook#execute-webhook-jsonform-params), your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
+When passing CDN URLs into API fields, like [`url` in an embed image object](/docs/resources/Channel#embed-image-structure) and [`avatar_url` for webhooks](/docs/resources/Webhook#jsonform-params), your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
 
-The [standard CDN endpoints](/docs/Reference/#image-formatting-cdn-endpoints) listed above are not signed, so they will not expire.
+The [standard CDN endpoints](/docs/Reference#cdn-endpoints) listed above are not signed, so they will not expire.
 
 ###### Example Attachment CDN URL
 
@@ -399,7 +399,7 @@ A file upload size limit applies to *all* files in a request (rather than each i
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-data-structure)).
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/docs/interactions/Receiving_and_Responding#interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 

@@ -35,7 +35,7 @@ Currently, the SDK does not support this. Party slot information is determined b
 
 #### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
 
-Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image).
+Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](/docs/topics/Gateway_Events#activity-asset-image).
 
 #### Q: Can I change something in the SDK for my own purposes?
 

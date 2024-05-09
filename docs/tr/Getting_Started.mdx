@@ -76,7 +76,7 @@ Uygulamalar, Discord'da eğik çizgi komutu oluşturmak veya sunucu üyelerinin 
 <Collapsible title="Kapsamlar ve izinler nelerdir?" description="Kapsamlara ve bot izinlerine giriş" icon="question">
 Kapsamlar ve izinler, bir uygulama oluştururken uygulamanın Discord sunucularında neler yapabileceğini ve nelere erişebileceğini belirler.
 
-- [OAuth2 Kapsamları](/docs/topics/OAuth2#shared-resources-oauth2-scopes), uygulamanın yükleme yapan veya yetki veren bir kullanıcı adına hangi verilere erişebileceğini ve eylemleri gerçekleştirebileceğini belirler.
+- [OAuth2 Kapsamları](/docs/topics/OAuth2#oauth2-scopes), uygulamanın yükleme yapan veya yetki veren bir kullanıcı adına hangi verilere erişebileceğini ve eylemleri gerçekleştirebileceğini belirler.
 - [İzinler](/docs/topics/Permissions#permission-overwrites), Discord'daki diğer kullanıcıların sahip olduğu gibi bot kullanıcıya verilmiş detaylı izinlerdir. Bunlar, yükleyen kullanıcı tarafından onaylanabilir veya daha sonra sunucu ayarlarında veya [izinlerin üzerine yazarak](/docs/topics/Permissions#permission-overwrites) güncellenebilir.
 </Collapsible>
 
@@ -90,7 +90,7 @@ URL oluşturucu, uygulaman için seçtiğin kapsamlara ve izinlere göre bir yü
 - `applications.commands`, uygulamanın [komutlar](/docs/interactions/Application_Commands) oluşturmasını sağlar.
 - `bot`, bot kullanıcını ekler. `bot`'u seçtikten sonra botun için farklı izinler de seçebilirsin. Şimdilik sadece **Mesaj Gönder** seçeneğini işaretleyelim.
 
-Dokümantasyonda tüm [OAuth2 kapsamlarının](/docs/topics/OAuth2#shared-resources-oauth2-scopes) bir listesine bakabilir veya [izinler](/docs/topics/Permissions) hakkında daha fazla bilgi edinebilirsin.
+Dokümantasyonda tüm [OAuth2 kapsamlarının](/docs/topics/OAuth2#oauth2-scopes) bir listesine bakabilir veya [izinler](/docs/topics/Permissions) hakkında daha fazla bilgi edinebilirsin.
 
 ### Uygulamanı yüklemek
 
@@ -176,7 +176,7 @@ Eğik çizgi komutlarını yüklemek için uygulama [`node-fetch`](https://githu
 
 Proje, `commands.js` dosyasının altında tanımlanan `ALL_COMMANDS` içerisindeki komutları yüklemek için kullanabileceğin bir `register` komut dosyası içerir. HTTP API'sinin [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) uç noktasını çağırarak komutları global komutlar olarak yükler.
 
-Komutlarını özelleştirmek veya ilave komutlar eklemek istersen [komutlar dokümantasyonundaki](/docs/interactions/Application_Commands#application-command-object-application-command-structure) komut yapısına başvurabilirsin.
+Komutlarını özelleştirmek veya ilave komutlar eklemek istersen [komutlar dokümantasyonundaki](/docs/interactions/Application_Commands#application-command-structure) komut yapısına başvurabilirsin.
 
 Glitch projenin altındaki **Terminal**'e tıklayarak ve aşağıdaki komutu yapıştırarak `register` komut dosyasını çalıştır:
 
@@ -191,8 +191,8 @@ Sunucuna geri döndüğünde eğik çizgi komutlarının göründüğünü göre
 <Collapsible title="Discord'un API'leri nelerdir?" description="Discord'un HTTP ve Ağ Geçidi API'lerine Genel Bakış" icon="question">
 Discord, uygulamalar oluşturmak için bir araya getirebileceğin iki API'ye sahiptir:
 
-- **[HTTP API](/docs/Reference/#http-api)**, Discord'da veri gönderme, veri güncelleme veya bir kaynak hakkında veri alma gibi genel işlemler için kullanılan REST benzeri bir API'dir.
-- **[Ağ Geçidi API](/docs/Reference/#gateway-websocket-api)**, durumu korumak veya Discord sunucusunda gerçekleşen olayları dinlemek için yararlı, WebSocket tabanlı bir API'dir. Bu rehberde bunu kullanmayacağız ancak bir Ağ Geçidi bağlantısının nasıl oluşturulacağı hakkında ve dinleyebileceğin farklı olaylar hakkında daha fazla bilgi [Ağ Geçidi dokümantasyonunda](/docs/topics/Gateway) bulunmaktadır.
+- **[HTTP API](/docs/Reference#http-api)**, Discord'da veri gönderme, veri güncelleme veya bir kaynak hakkında veri alma gibi genel işlemler için kullanılan REST benzeri bir API'dir.
+- **[Ağ Geçidi API](/docs/Reference#gateway-websocket-api)**, durumu korumak veya Discord sunucusunda gerçekleşen olayları dinlemek için yararlı, WebSocket tabanlı bir API'dir. Bu rehberde bunu kullanmayacağız ancak bir Ağ Geçidi bağlantısının nasıl oluşturulacağı hakkında ve dinleyebileceğin farklı olaylar hakkında daha fazla bilgi [Ağ Geçidi dokümantasyonunda](/docs/topics/Gateway) bulunmaktadır.
 </Collapsible>
 
 ---
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-Yukarıdaki kod, gelen etkileşime meydana geldiği kanaldaki bir mesajla yanıt veriyor. Modal ile yanıt vermek gibi mevcut tüm yanıt türlerini [dokümantasyonda](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type) bulabilirsin.
+Yukarıdaki kod, gelen etkileşime meydana geldiği kanaldaki bir mesajla yanıt veriyor. Modal ile yanıt vermek gibi mevcut tüm yanıt türlerini [dokümantasyonda](/docs/interactions/Receiving_and_Responding#interaction-callback-type) bulabilirsin.
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE`, [`discord-interactions`'dan dışa aktarılmış](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33) bir sabittir.
@@ -261,7 +261,7 @@ Taş-kâğıt-makas tarzı oyunumuz `/challenge` komutuyla başlatılacaktır. K
 
 `commands.js`'de `CHALLENGE_COMMAND` olarak adlandırılan `/challenge` komutu bir dizi `options`'a sahiptir. Uygulamamızda seçenekler, kullanıcının taş-kâğıt-makas oynarken seçebileceği farklı şeyleri temsil eden nesnelerdir ve `game.js`'deki `RPSChoices` anahtarları kullanılarak oluşturulmuştur.
 
-Komut seçenekleri ve bunların yapısı hakkında daha fazla bilgiyi [dokümantasyonlardan](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure) edinebilirsin.
+Komut seçenekleri ve bunların yapısı hakkında daha fazla bilgiyi [dokümantasyonlardan](/docs/interactions/Application_Commands#application-command-option-structure) edinebilirsin.
 
 :::info
 Bu rehber `game.js` dosyasına fazla değinmeyecek olsa da sen onu kurcalayabilir, komutları veya komutlardaki seçenekleri çekinmeden değiştirebilirsin.
@@ -331,7 +331,7 @@ Artık `/challenge` komutunu çalıştırdığında ve bir seçenek belirlediği
 
 <Collapsible title="Buton etkileşimlerinin işlenmesi" description="Buton tıklamalarını işlemek ve geçici bir mesajla yanıt vermek için kod" icon="code" open>
 
-Kullanıcılar bir mesaj bileşeniyle etkileşime girdiğinde, Discord [etkileşim türü](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) `3` (veya `discord-interactions` kullanılırken `MESSAGE_COMPONENT`) değeri olan bir istek gönderecektir.
+Kullanıcılar bir mesaj bileşeniyle etkileşime girdiğinde, Discord [etkileşim türü](/docs/interactions/Receiving_and_Responding#interaction-type) `3` (veya `discord-interactions` kullanılırken `MESSAGE_COMPONENT`) değeri olan bir istek gönderecektir.
 
 Buton için bir işleyici ayarlamak üzere, etkileşimin `type`'ını kontrol edeceğiz ve ardından `custom_id` ile eşleştireceğiz.
 
@@ -384,7 +384,7 @@ Yukarıdaki kod:
 2. `node-fetch` kullanarak bir webhook çağıran ve istek gövdesinde benzersiz etkileşim `token`'ı ileten [orijinal mesajı siler](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response). Bu, kanalı temizlemek için yapılır ve böylece diğer kullanıcılar butona tıklayamaz.
 3. Oyun için nesne seçeneklerini içeren bir seçim menüsü içeren bir mesaj göndererek isteğe yanıt verir. Payload, `options` dizisi ve [mesajın geçici olduğunu gösteren](/docs/interactions/Receiving_and_Responding#create-followup-message) `flags: 64` belirteci haricinde önceki payload'a epey benzer görünmelidir.
 
-`options` dizisi, `game.js`'deki `getShuffledOptions()` metodu kullanılarak doldurulur ve bu metot `RPSChoices` değerlerini [mesaj bileşeni seçeneklerinin](/docs/interactions/Message_Components#select-menu-object-select-option-structure) şekline uyacak şekilde değiştirir.
+`options` dizisi, `game.js`'deki `getShuffledOptions()` metodu kullanılarak doldurulur ve bu metot `RPSChoices` değerlerini [mesaj bileşeni seçeneklerinin](/docs/interactions/Message_Components#select-option-structure) şekline uyacak şekilde değiştirir.
 
 </Collapsible>
 

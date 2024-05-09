@@ -83,7 +83,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                                                                                                                              | T, V, S      |
 | SEND_POLLS                             | `0x0002000000000000` `(1 << 49)` | Allows sending polls                                                                                                                                                                                                                                       | T, V, S      |
 
-**\* These permissions require the owner account to use [two-factor authentication](/docs/topics/OAuth2#twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
+**\* These permissions require the owner account to use [two-factor authentication](/docs/topics/OAuth2#two-factor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
 **\*\* See [Permissions for Timed Out Members](/docs/topics/Permissions#permissions-for-timed-out-members) to understand how permissions are temporarily modified for timed out users.**
 
@@ -202,14 +202,14 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | name           | string                                                                       | role name                                                                                                                       |
 | color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
 | hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
-| icon?          | ?string                                                                      | role [icon hash](/docs/Reference/#image-formatting)                                                                              |
+| icon?          | ?string                                                                      | role [icon hash](/docs/Reference#image-formatting)                                                                              |
 | unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
 | position       | integer                                                                      | position of this role                                                                                                           |
 | permissions    | string                                                                       | permission bit set                                                                                                              |
 | managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
 | mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
-| tags?          | [role tags](/docs/topics/Permissions#role-object-role-tags-structure) object | the tags this role has                                                                                                          |
-| flags          | integer                                                                      | [role flags](/docs/topics/Permissions#role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| tags?          | [role tags](/docs/topics/Permissions#role-tags-structure) object | the tags this role has                                                                                                          |
+| flags          | integer                                                                      | [role flags](/docs/topics/Permissions#role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 

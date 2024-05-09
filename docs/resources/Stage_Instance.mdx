@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Stage Instance Resource
 
 A _Stage Instance_ holds information about a live stage.
@@ -12,7 +14,7 @@ A _Stage Instance_ holds information about a live stage.
 | guild_id                 | snowflake  | The guild id of the associated Stage channel                                                                  |
 | channel_id               | snowflake  | The id of the associated Stage channel                                                                        |
 | topic                    | string     | The topic of the Stage instance (1-120 characters)                                                            |
-| privacy_level            | integer    | The [privacy level](/docs/resources/Stage_Instance#stage-instance-object-privacy-level) of the Stage instance |
+| privacy_level            | integer    | The [privacy level](/docs/resources/Stage_Instance#privacy-level) of the Stage instance |
 | discoverable_disabled    | boolean    | Whether or not Stage Discovery is disabled (deprecated)                                                       |
 | guild_scheduled_event_id | ?snowflake | The id of the scheduled event for this Stage instance                                                         |
 
@@ -44,7 +46,7 @@ Below are some definitions related to stages.
 - **Liveness:** A Stage channel is considered _live_ when there is an associated stage instance. Conversely, a Stage channel is _not live_ when there is no associated stage instance.
 - **Speakers:** A participant of a Stage channel is a _speaker_ when their [voice state](/docs/resources/Voice#voice-state-object)
   is not `suppress`ed, and has no `request_to_speak_timestamp`.
-- **Moderators**: A member of the guild is a _moderator_ of a Stage channel if they have all of the following [permissions](/docs/topics/Permissions#permissions):
+- **Moderators**: A member of the guild is a _moderator_ of a Stage channel if they have all of the following [permissions](/docs/topics/Permissions):
   - `MANAGE_CHANNELS`
   - `MUTE_MEMBERS`
   - `MOVE_MEMBERS`
@@ -57,9 +59,11 @@ Below are some definitions related to stages.
 
 When a Stage channel has no speakers for a certain period of time (on the order of minutes), the Stage instance will be automatically deleted.
 
-## Create Stage Instance % POST /stage-instances
+## Create Stage Instance
 
-Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](/docs/resources/Stage_Instance#stage-instance-object-stage-instance-structure). Fires a [Stage Instance Create](/docs/topics/Gateway_Events#stage-instance-create) Gateway event.
+<RoutePill method="POST">/stage-instances</RoutePill>
+
+Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](/docs/resources/Stage_Instance#stage-instance-structure). Fires a [Stage Instance Create](/docs/topics/Gateway_Events#stage-instance-create) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -73,19 +77,23 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 |-----------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------|
 | channel_id                  | snowflake | The id of the Stage channel                                                                                                        |
 | topic                       | string    | The topic of the Stage instance (1-120 characters)                                                                                 |
-| privacy_level?              | integer   | The [privacy level](/docs/resources/Stage_Instance#stage-instance-object-privacy-level) of the Stage instance (default GUILD_ONLY) |
+| privacy_level?              | integer   | The [privacy level](/docs/resources/Stage_Instance#privacy-level) of the Stage instance (default GUILD_ONLY) |
 | send_start_notification? \* | boolean   | Notify @everyone that a Stage instance has started                                                                                 |
 | guild_scheduled_event_id?   | snowflake | The guild scheduled event associated with this Stage instance                                                                      |
 
 \* The stage moderator must have the `MENTION_EVERYONE` permission for this notification to be sent.
 
-## Get Stage Instance % GET /stage-instances/[\{channel.id\}](/docs/resources/Channel#channel-object)
+## Get Stage Instance
+
+<RoutePill method="GET">/stage-instances/[\{channel.id\}](/docs/resources/Channel#channel-object)</RoutePill>
 
 Gets the stage instance associated with the Stage channel, if it exists.
 
-## Modify Stage Instance % PATCH /stage-instances/[\{channel.id\}](/docs/resources/Channel#channel-object)
+## Modify Stage Instance
 
-Updates fields of an existing Stage instance. Returns the updated [Stage instance](/docs/resources/Stage_Instance#stage-instance-object-stage-instance-structure). Fires a [Stage Instance Update](/docs/topics/Gateway_Events#stage-instance-update) Gateway event.
+<RoutePill method="PATCH">/stage-instances/[\{channel.id\}](/docs/resources/Channel#channel-object)</RoutePill>
+
+Updates fields of an existing Stage instance. Returns the updated [Stage instance](/docs/resources/Stage_Instance#stage-instance-structure). Fires a [Stage Instance Update](/docs/topics/Gateway_Events#stage-instance-update) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -98,9 +106,11 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | Field          | Type    | Description                                                                                                   |
 |----------------|---------|---------------------------------------------------------------------------------------------------------------|
 | topic?         | string  | The topic of the Stage instance (1-120 characters)                                                            |
-| privacy_level? | integer | The [privacy level](/docs/resources/Stage_Instance#stage-instance-object-privacy-level) of the Stage instance |
+| privacy_level? | integer | The [privacy level](/docs/resources/Stage_Instance#privacy-level) of the Stage instance |
 
-## Delete Stage Instance % DELETE /stage-instances/[\{channel.id\}](/docs/resources/Channel#channel-object)
+## Delete Stage Instance
+
+<RoutePill method="DELETE">/stage-instances/[\{channel.id\}](/docs/resources/Channel#channel-object)</RoutePill>
 
 Deletes the Stage instance. Returns `204 No Content`. Fires a [Stage Instance Delete](/docs/topics/Gateway_Events#stage-instance-delete) Gateway event.
 

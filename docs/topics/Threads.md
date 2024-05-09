@@ -40,9 +40,9 @@ Additionally, there are a few fields that are only available on threads:
 
 ## Public & Private Threads
 
-Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](/docs/resources/Channel#channel-object-channel-types) of thread created matches the [type](/docs/resources/Channel#channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](/docs/resources/Channel#start-thread-from-message) `PUBLIC_THREAD` and `GUILD_ANNOUNCEMENT` channels [create](/docs/resources/Channel#start-thread-from-message) `ANNOUNCEMENT_THREAD`.
+Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](/docs/resources/Channel#channel-types) of thread created matches the [type](/docs/resources/Channel#channel-types) of the parent channel. `GUILD_TEXT` channels [create](/docs/resources/Channel#start-thread-from-message) `PUBLIC_THREAD` and `GUILD_ANNOUNCEMENT` channels [create](/docs/resources/Channel#start-thread-from-message) `ANNOUNCEMENT_THREAD`.
 
-Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](/docs/resources/Channel#start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](/docs/resources/Channel#channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
+Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](/docs/resources/Channel#start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](/docs/resources/Channel#channel-types) and can only be created in `GUILD_TEXT` channels.
 
 ## Active & Archived Threads
 
@@ -122,12 +122,12 @@ Threads do not explicitly set the `nsfw` field. All threads in a channel marked 
 
 ## New Message Types
 
-Threads introduce a few [message types](/docs/resources/Channel#message-object-message-types), and repurpose some others:
+Threads introduce a few [message types](/docs/resources/Channel#message-types), and repurpose some others:
 
 - `RECIPIENT_ADD` and `RECIPIENT_REMOVE` have been repurposed to also send when a user is added to or removed from a thread by someone else
 - `CHANNEL_NAME_CHANGE` has been repurposed and is sent when the thread's name is changed
-- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](/docs/resources/Channel#message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
-- `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](/docs/resources/Channel#message-reference-object-message-reference-structure) field that points to the message from which the thread was started.
+- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](/docs/resources/Channel#message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
+- `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](/docs/resources/Channel#message-reference-structure) field that points to the message from which the thread was started.
 
 ## Enumerating threads
 
@@ -216,7 +216,7 @@ A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in tha
 
 ### Creating Threads in Forum and Media Channels
 
-Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](/docs/resources/Channel#start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](/docs/resources/Channel#start-thread-in-forum-or-media-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
+Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](/docs/resources/Channel#start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](/docs/resources/Channel#jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
 
 Threads in thread-only channels have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a thread-only channel only requires the `SEND_MESSAGES` permission.
 
@@ -228,17 +228,17 @@ It's worth calling out a few details about fields specific to thread-only channe
 - The `topic` field is what is shown in the "Guidelines" section within the Discord client.
 - The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on thread-only channels as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - The `available_tags` field can be set when creating or updating a channel, which determines which tags can be set on individual threads within the thread's `applied_tags` field.
-- The `flags` field indicates any [channel flags](/docs/resources/Channel#channel-object-channel-flags) set for a thread-only channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` be specified when creating a thread in that channel.
+- The `flags` field indicates any [channel flags](/docs/resources/Channel#channel-flags) set for a thread-only channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` be specified when creating a thread in that channel.
 
 All fields for channels, including thread-only channels, can be found in the [Channel Object](/docs/resources/Channel#channel-object).
 
 ### Forum and Media Channel Thread Fields
 
-A thread can be pinned within a thread-only, which will be represented as the [`PINNED` flag](/docs/resources/Channel#channel-object-channel-flags) in the `flags` field within a thread-only channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will *not* auto-archive.
+A thread can be pinned within a thread-only, which will be represented as the [`PINNED` flag](/docs/resources/Channel#channel-flags) in the `flags` field within a thread-only channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will *not* auto-archive.
 
 The `message_count` and `total_message_sent` fields on threads in thread-only channels will increment on `MESSAGE_CREATE` events, and decrement on `MESSAGE_DELETE` and `MESSAGE_DELETE_BULK` events. There will be no specific `CHANNEL_UPDATE` event that notifies your app of changes to those fields—instead, apps should update those values when receiving corresponding events.
 
-All fields for threads in thread-only channels can be found in the [channel resources documentation](/docs/resources/Channel#start-thread-in-forum-or-media-channel-jsonform-params).
+All fields for threads in thread-only channels can be found in the [channel resources documentation](/docs/resources/Channel#jsonform-params).
 
 ### Forum and Media Channel Formatting
 

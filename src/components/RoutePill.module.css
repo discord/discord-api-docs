@@ -1,0 +1,52 @@
+.pill {
+	display: flex;
+	vertical-align: middle;
+	margin-bottom: 20px;
+	font-family: monospace;
+	font-weight: 600;
+}
+
+.route {
+	vertical-align: middle;
+}
+
+.method {
+	color: #FFF;
+	border-radius: 10px;
+	margin-right: 5px;
+}
+
+.method_get {
+	background-color: violet;
+	border-color: darkmagenta;
+}
+
+.method_post {
+	background-color: lime;
+	border-color: green;
+}
+
+.method_delete {
+	background-color: red;
+	border-color: darkred
+}
+
+.method_put {
+	background-color: blue;
+	border-color: darkblue;
+}
+
+.method_options {
+	background-color: #FFA500;
+	border-color: #FF8C00;
+}
+
+.module_patch {
+	background-color: #FFD700;
+	border-color: #FFD700;
+}
+
+.module_head {
+	background-color: #FF69B4;
+	border-color: #FF69B4;
+}

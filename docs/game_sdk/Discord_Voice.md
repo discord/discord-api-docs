@@ -90,7 +90,7 @@ Console.WriteLine("The current input mode is {0}. The current PTT hotkey is set 
 
 ## SetInputMode
 
-Sets a new voice input mode for the user. Refer to [Shortcut Keys](/docs/game_sdk/Discord_Voice#data-models-shortcut-keys) for a table of valid values for shortcuts.
+Sets a new voice input mode for the user. Refer to [Shortcut Keys](/docs/game_sdk/Discord_Voice#shortcut-keys) for a table of valid values for shortcuts.
 
 Returns a `Discord.Result` via callback.
 

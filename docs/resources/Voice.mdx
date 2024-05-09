@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Voice Resource
 
 ### Voice State Object
@@ -50,6 +52,8 @@ Used to represent a user's voice connection status.
 | deprecated | boolean | whether this is a deprecated voice region (avoid switching to these)  |
 | custom     | boolean | whether this is a custom voice region (used for events/etc)           |
 
-## List Voice Regions % GET /voice/regions
+## List Voice Regions
 
-Returns an array of [voice region](/docs/resources/Voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/docs/resources/Channel#channel-object-channel-structure).
+<RoutePill method="GET">/voice/regions</RoutePill>
+
+Returns an array of [voice region](/docs/resources/Voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/docs/resources/Channel#channel-structure).

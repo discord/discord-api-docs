@@ -76,7 +76,7 @@ Aplikacje potrzebują zgody instalujących je użytkowników, aby wykonywać czy
 <Collapsible title="Czym są zakresy i uprawnienia?" description="Wprowadzenie do zakresów i uprawnień botów" icon="question">
 Podczas tworzenia aplikacji zakresy i uprawnienia określają, co Twoja aplikacja może robić i do czego ma dostęp na serwerach Discorda.
 
-- [Zakresy OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) określają, do których danych aplikacja może uzyskiwać dostęp i jakie czynności może wykonywać w imieniu instalującego lub uwierzytelniającego użytkownika.
+- [Zakresy OAuth2](/docs/topics/OAuth2#oauth2-scopes) określają, do których danych aplikacja może uzyskiwać dostęp i jakie czynności może wykonywać w imieniu instalującego lub uwierzytelniającego użytkownika.
 - [Uprawnienia](/docs/topics/Permissions#permission-overwrites) są szczegółowymi uprawnieniami dla użytkownika bota – takimi samymi jak te, które posiadają inni użytkownicy na Discordzie. Uprawnienia te mogą zostać przyznane przez instalującego użytkownika lub zaktualizowane później w ustawieniach serwera bądź przy pomocy [nadpisań uprawnień](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
@@ -90,7 +90,7 @@ Na razie dodaj dwa zakresy:
 - `applications.commands`, który umożliwia aplikacji tworzenie [poleceń](/docs/interactions/Application_Commands).
 - `bot` dodaje Twojego użytkownika bota. Po wybraniu `bot` możesz również wybrać różne uprawnienia bota. Na razie zaznacz tylko **Wysyłanie wiadomości**.
 
-Zobacz listę wszystkich [zakresów OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) lub przeczytaj więcej na temat [uprawnień](/docs/topics/Permissions) w dokumentacji.
+Zobacz listę wszystkich [zakresów OAuth2](/docs/topics/OAuth2#oauth2-scopes) lub przeczytaj więcej na temat [uprawnień](/docs/topics/Permissions) w dokumentacji.
 
 ### Instalacja aplikacji
 
@@ -176,7 +176,7 @@ Aplikacja wykorzystuje moduł [`node-fetch`](https://github.com/node-fetch/node-
 
 Projekt zawiera skrypt `register`, którego możesz użyć do instalacji poleceń w elemencie `ALL_COMMANDS`, który jest zdefiniowany na końcu pliku `commands.js`. Instaluje on polecenia jako globalne polecenia, wywołując punkt końcowy [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) API HTTP.
 
-Jeśli chcesz spersonalizować polecenia lub dodać ich więcej, możesz odnieść się do struktury poleceń przedstawionej w [ich dokumentacji](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
+Jeśli chcesz spersonalizować polecenia lub dodać ich więcej, możesz odnieść się do struktury poleceń przedstawionej w [ich dokumentacji](/docs/interactions/Application_Commands#application-command-structure).
 
 Uruchom skrypt `register`, klikając **Terminal** na dole projektu Glitch i wklejając następujące polecenie:
 
@@ -191,8 +191,8 @@ Jeśli wrócisz do swojego serwera, zobaczysz polecenia z ukośnikiem. Ale jeśl
 <Collapsible title="Czym są API Discorda?" description="Przegląd API HTTP i bramki Discorda" icon="question">
 Discord ma dwa API, które można łączyć w tworzonych aplikacjach:
 
-- **[API HTTP](/docs/Reference/#http-api)** jest API w stylu REST przeznaczonym do ogólnych operacji takich jak wysyłanie i aktualizowanie danych na Discordzie lub pobieranie informacji o zasobie.
-- **[API bramki](/docs/Reference/#gateway-websocket-api)** to oparte na protokole WebSocket API przydatne do utrzymywania stanu lub nasłuchiwania zdarzeń na serwerze Discorda. Nie będziemy używać go w tym przewodniku, ale więcej informacji na temat tworzenia połączenia z bramką i różnych zdarzeń, które możesz nasłuchiwać, znajdziesz w [dokumentacji bramki](/docs/topics/Gateway).
+- **[API HTTP](/docs/Reference#http-api)** jest API w stylu REST przeznaczonym do ogólnych operacji takich jak wysyłanie i aktualizowanie danych na Discordzie lub pobieranie informacji o zasobie.
+- **[API bramki](/docs/Reference#gateway-websocket-api)** to oparte na protokole WebSocket API przydatne do utrzymywania stanu lub nasłuchiwania zdarzeń na serwerze Discorda. Nie będziemy używać go w tym przewodniku, ale więcej informacji na temat tworzenia połączenia z bramką i różnych zdarzeń, które możesz nasłuchiwać, znajdziesz w [dokumentacji bramki](/docs/topics/Gateway).
 </Collapsible>
 
 ---
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-Powyższy kod reaguje na interakcję z wiadomością na kanale, z którego pochodzi. Możesz zobaczyć wszystkie dostępne typy reakcji, takie jak reagowanie oknem, [w dokumentacji](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
+Powyższy kod reaguje na interakcję z wiadomością na kanale, z którego pochodzi. Możesz zobaczyć wszystkie dostępne typy reakcji, takie jak reagowanie oknem, [w dokumentacji](/docs/interactions/Receiving_and_Responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` jest stałą [eksportowaną z pliku pakietu `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -261,7 +261,7 @@ Polecenie `/challenge` będzie uruchamiać grę w stylu gry w papier, kamień, n
 
 Polecenie `/challenge`, zwane `CHALLENGE_COMMAND` w pliku `commands.js`, ma szereg opcji (`options`). W naszej aplikacji opcje są obiektami oznaczającymi różne elementy, które użytkownik może wybrać podczas gry w papier, kamień, nożyce, generowane przy pomocy kluczy `RPSChoices` w pliku `game.js`.
 
-Więcej o opcjach poleceń i ich strukturze przeczytasz [w dokumentacji](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+Więcej o opcjach poleceń i ich strukturze przeczytasz [w dokumentacji](/docs/interactions/Application_Commands#application-command-option-structure).
 
 :::info
 Choć w tym przewodniku nie zagłębimy się w plik `game.js`, możesz poeksperymentować z nim, zmieniając polecenia lub ich opcje.
@@ -331,7 +331,7 @@ Teraz gdy użyjesz polecenia `/challenge` i wybierzesz opcję, Twoja aplikacja w
 
 <Collapsible title="Obsługa interakcji z przyciskiem" description="Kod odpowiadający za obsługę kliknięć przycisku i reagowanie znikającą wiadomością" icon="code" open>
 
-Gdy użytkownicy wejdą w interakcję z elementem wiadomości, Discord wyśle żądanie z [typem interakcji](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) `3` (lub wartością `MESSAGE_COMPONENT` przy używaniu `discord-interactions`).
+Gdy użytkownicy wejdą w interakcję z elementem wiadomości, Discord wyśle żądanie z [typem interakcji](/docs/interactions/Receiving_and_Responding#interaction-type) `3` (lub wartością `MESSAGE_COMPONENT` przy używaniu `discord-interactions`).
 
 W celu skonfigurowania procedury obsługi przycisku sprawdzimy typ (`type`) interakcji, a następnie `custom_id`.
 
@@ -384,7 +384,7 @@ Powyższy kod:
 2. [Usuwa pierwotną wiadomość](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response), wywołując webhook przy pomocy `node-fetch` i przekazując `token` unikalnej interakcji w treści żądania. Jest to konieczne, aby zachować porządek na kanale i zapobiec klikaniu przycisku przez innych użytkowników.
 3. Wysyła w odpowiedzi na żądanie wiadomość zawierającą menu wyboru obiektu do gry. Payload powinien wyglądać podobnie do poprzedniego, z wyjątkiem tabeli `options` i parametru `flags: 64`, [który oznacza, że wiadomość jest znikająca](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-Tabela `options` jest wypełniana przy pomocy metody `getShuffledOptions()` w pliku `game.js`, która dostosowuje wartości `RPSChoices` do formatu [opcji elementu wiadomości](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
+Tabela `options` jest wypełniana przy pomocy metody `getShuffledOptions()` w pliku `game.js`, która dostosowuje wartości `RPSChoices` do formatu [opcji elementu wiadomości](/docs/interactions/Message_Components#select-option-structure).
 
 </Collapsible>
 

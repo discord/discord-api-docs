@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # OAuth2
 
 OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are multiple types of OAuth2 authentication. We support the authorization code grant, the implicit grant, client credentials, and some modified special-for-Discord flows for Bots and Webhooks.
@@ -77,7 +79,7 @@ All calls to the OAuth2 endpoints require either HTTP Basic authentication or `c
 https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent&integration_type=0
 ```
 
-`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](/docs/topics/OAuth2#state-and-security).
+`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](/docs/topics/OAuth2#oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](/docs/topics/OAuth2#state-and-security).
 
 When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
 
@@ -91,7 +93,7 @@ The `integration_type` parameter specifies the [installation context](/docs/reso
 https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn
 ```
 
-`code` is now exchanged for the user's access token by making a `POST` request to the [token URL](/docs/topics/OAuth2#shared-resources-oauth2-urls) with the following parameters:
+`code` is now exchanged for the user's access token by making a `POST` request to the [token URL](/docs/topics/OAuth2#oauth2-urls) with the following parameters:
 
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
@@ -135,7 +137,7 @@ In response, you will receive:
 }
 ```
 
-Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](/docs/topics/OAuth2#shared-resources-oauth2-urls) with the following parameters:
+Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](/docs/topics/OAuth2#oauth2-urls) with the following parameters:
 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
@@ -162,11 +164,11 @@ def refresh_token(refresh_token):
   return r.json()
 ```
 
-Boom; fresh [access token response](/docs/topics/OAuth2#authorization-code-grant-access-token-response)!
+Boom; fresh [access token response](/docs/topics/OAuth2#access-token-response)!
 
 ###### Token Revocation Example
 
-To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](/docs/topics/OAuth2#shared-resources-oauth2-urls) with the following parameters:
+To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](/docs/topics/OAuth2#oauth2-urls) with the following parameters:
 
 - `token` - the access token or refresh token to revoke
 - `token_type_hint` *(optional)* - the `token` parameter's type—either `access_token` or `refresh_token`
@@ -217,9 +219,9 @@ There are tradeoffs in using the implicit grant flow. It is both quicker and eas
 
 ## Client Credentials Grant
 
-The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](/docs/topics/OAuth2#shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](/docs/topics/OAuth2#oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
 
-You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](/docs/topics/OAuth2#shared-resources-oauth2-scopes) separated by spaces:
+You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](/docs/topics/OAuth2#oauth2-scopes) separated by spaces:
 
 :::info
 Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
@@ -276,7 +278,7 @@ Bot users have a few differences compared to standard Discord users:
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends or be added to or join Group DMs.
 3. [Verified bots](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) do not have a maximum number of guilds.
-4. Bots have an entirely separate set of [rate limits](/docs/topics/Rate_Limits#rate-limits).
+4. Bots have an entirely separate set of [rate limits](/docs/topics/Rate_Limits).
 
 ### Bot Authorization Flow
 
@@ -298,7 +300,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 https://discord.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
 ```
 
-In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](/docs/topics/Permissions#permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
+In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](/docs/topics/Permissions#bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
@@ -374,7 +376,7 @@ When receiving the access code on redirect, there will be additional querystring
 
 ### Two-Factor Authentication Requirement
 
-For bots with [elevated permissions](/docs/topics/Permissions#permissions-bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
+For bots with [elevated permissions](/docs/topics/Permissions#bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
 
 ## Webhooks
 
@@ -386,7 +388,7 @@ Discord's webhook flow is a specialized version of an [authorization code](/docs
 https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
-When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](/docs/resources/Webhook#execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](/docs/topics/OAuth2#authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
+When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](/docs/resources/Webhook#execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](/docs/topics/OAuth2#access-token-exchange-example). In return, you will receive a slightly modified token response:
 
 ###### Webhook Token Response Example
 
@@ -413,13 +415,17 @@ When the user navigates to this URL, they will be prompted to select a channel i
 
 From this object, you should store the `webhook.token` and `webhook.id`. See the [execute webhook](/docs/resources/Webhook#execute-webhook) documentation for how to send messages with the webhook.
 
-Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](/docs/topics/Rate_Limits#rate-limits)!
+Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](/docs/topics/Rate_Limits)!
 
-## Get Current Bot Application Information % GET /oauth2/applications/@me
+## Get Current Bot Application Information
+
+<RoutePill method="GET">/oauth2/applications/@me</RoutePill>
 
 Returns the bot's [application](/docs/resources/Application#application-object) object.
 
-## Get Current Authorization Information % GET /oauth2/@me
+## Get Current Authorization Information
+
+<RoutePill method="GET">/oauth2/@me</RoutePill>
 
 Returns info about the current authorization. Requires authentication with a bearer token.
 

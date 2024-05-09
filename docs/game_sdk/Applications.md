@@ -35,8 +35,8 @@ This manager also includes a couple useful helper functions, like getting the lo
 | name           | type                                                                                                                     | description                                              |
 |----------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
-| user           | [User](/docs/game_sdk/Users#data-models-user-struct)                                                                     | the user for the ticket                                  |
-| entitlements   | list of partial [Entitlements](/docs/game_sdk/Store#data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
+| user           | [User](/docs/game_sdk/Users#user-struct)                                                                     | the user for the ticket                                  |
+| entitlements   | list of partial [Entitlements](/docs/game_sdk/Store#entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
 | timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
 ## GetCurrentLocale
@@ -152,9 +152,9 @@ Get the signed app ticket for the current user. The structure of the ticket is: 
 - the application id tied to the ticket
 - the user's user id
 - a timestamp for the ticket
-- the list of the user's [entitlements](/docs/game_sdk/Store#data-models-entitlement-struct) for the application id
+- the list of the user's [entitlements](/docs/game_sdk/Store#entitlement-struct) for the application id
 
-These values can be accessed by transforming the string into a [SignedAppTicket](/docs/game_sdk/Applications#data-models-signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
+These values can be accessed by transforming the string into a [SignedAppTicket](/docs/game_sdk/Applications#signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
 
 Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
 

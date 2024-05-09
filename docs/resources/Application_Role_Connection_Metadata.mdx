@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Application Role Connection Metadata
 
 A representation of role connection metadata for an [application](/docs/resources/Application).
@@ -14,12 +16,12 @@ When a user connects their account using the bot's [`role_connections_verificati
 
 | Field                      | Type                                                                                                                                                                                | Description                                                                                      |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| type                       | [ApplicationRoleConnectionMetadataType](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                                           |
+| type                       | [ApplicationRoleConnectionMetadataType](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-type) | type of metadata value                                                                           |
 | key                        | string                                                                                                                                                                              | dictionary key for the metadata field (must be `a-z`, `0-9`, or `_` characters; 1-50 characters) |
 | name                       | string                                                                                                                                                                              | name of the metadata field (1-100 characters)                                                    |
-| name_localizations?        | dictionary with keys in [available locales](/docs/Reference/#locales)                                                                                                                | translations of the name                                                                         |
+| name_localizations?        | dictionary with keys in [available locales](/docs/Reference#locales)                                                                                                                | translations of the name                                                                         |
 | description                | string                                                                                                                                                                              | description of the metadata field (1-200 characters)                                             |
-| description_localizations? | dictionary with keys in [available locales](/docs/Reference/#locales)                                                                                                                | translations of the description                                                                  |
+| description_localizations? | dictionary with keys in [available locales](/docs/Reference#locales)                                                                                                                | translations of the description                                                                  |
 
 ###### Application Role Connection Metadata Type
 
@@ -38,11 +40,15 @@ When a user connects their account using the bot's [`role_connections_verificati
 Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
 :::
 
-## Get Application Role Connection Metadata Records % GET /applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connections/metadata
+## Get Application Role Connection Metadata Records
+
+<RoutePill method="GET">/applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connections/metadata</RoutePill>
 
 Returns a list of [application role connection metadata](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-object) objects for the given application.
 
-## Update Application Role Connection Metadata Records % PUT /applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connections/metadata
+## Update Application Role Connection Metadata Records
+
+<RoutePill method="PUT">/applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connections/metadata</RoutePill>
 
 Updates and returns a list of [application role connection metadata](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-object) objects for the given application.
 

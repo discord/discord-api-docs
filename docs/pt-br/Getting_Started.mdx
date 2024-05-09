@@ -75,7 +75,7 @@ Apps precisam da permissão do usuário que o está instalando para realizar aç
 <Collapsible title="O que são escopos e permissões?" description="Introdução a escopos e permissões de bot" icon="question">
 Ao criar um app, escopos e permissões determinam o que seu app pode fazer e acessar nos servidores do Discord.
 
-- [Escopos OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) determinam quais dados e quais ações seu app pode acessar e realizar, concedidos em nome de um usuário que esteja instalando ou autenticando o app.
+- [Escopos OAuth2](/docs/topics/OAuth2#oauth2-scopes) determinam quais dados e quais ações seu app pode acessar e realizar, concedidos em nome de um usuário que esteja instalando ou autenticando o app.
 - [Permissões](/docs/topics/Permissions#permission-overwrites) são as permissões granulares para seu usuário-bot, iguais às que outros usuários do Discord têm. Elas podem ser aprovadas pelo usuário que está instalando ou, mais tarde, atualizando o bot com configurações de servidor ou [redefinições de permissão](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
@@ -89,7 +89,7 @@ Por ora, adicione dois escopos:
 - `applications.commands`, que permite que seu app crie [comandos](/docs/interactions/Application_Commands).
 - `bot` adiciona seu usuário-bot. Após selecionar `bot`, também dá para selecionar várias permissões para o seu bot. Por ora, pode escolher só **Enviar Mensagens**.
 
-Leia a documentação para ver uma lista de todos os [escopos OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) ou saber mais sobre [permissões](/docs/topics/Permissions).
+Leia a documentação para ver uma lista de todos os [escopos OAuth2](/docs/topics/OAuth2#oauth2-scopes) ou saber mais sobre [permissões](/docs/topics/Permissions).
 
 ### Instalando seu app
 
@@ -175,7 +175,7 @@ Para instalar comandos de barra, o app usa [`node-fetch`](https://github.com/nod
 
 O projeto contém um script `register` que você pode usar para instalar os comandos em `ALL_COMMANDS`, que são definidos no fim de `commands.js`. Ele instala os comandos como globais chamando o endpoint [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) das APIs HTTP.
 
-Se quiser personalizar seus comandos ou adicionar novos, você pode consultar a estrutura de comando na [documentação de comandos](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
+Se quiser personalizar seus comandos ou adicionar novos, você pode consultar a estrutura de comando na [documentação de comandos](/docs/interactions/Application_Commands#application-command-structure).
 
 Execute o script `register` clicando em **Terminal** na parte de baixo do seu projeto do Glitch e colando o seguinte comando:
 
@@ -190,8 +190,8 @@ Quando voltar lá para seu servidor, você deve ver os comandos de barra aparece
 <Collapsible title="O que são as APIs do Discord?" description="Visão geral das APIs HTTP e de Gateway do Discord" icon="question">
 O Discord tem duas APIs que você pode combinar como quiser para criar apps:
 
-- A **[API HTTP](/docs/Reference/#http-api)** é uma API tipo REST para operações gerais como o envio e atualização de dados no Discord, ou solicitações de dados sobre recursos.
-- A **[API de Gateway](/docs/Reference/#gateway-websocket-api)** é uma API baseada em WebSocket que ajuda a manter o estado ou ouvir eventos que estão ocorrendo em um servidor Discord. Não vamos usá-la neste guia, mas você pode ler mais sobre como criar uma conexão de Gateway e os diferentes eventos que ela pode ouvir na [documentação de Gateway](/docs/topics/Gateway).
+- A **[API HTTP](/docs/Reference#http-api)** é uma API tipo REST para operações gerais como o envio e atualização de dados no Discord, ou solicitações de dados sobre recursos.
+- A **[API de Gateway](/docs/Reference#gateway-websocket-api)** é uma API baseada em WebSocket que ajuda a manter o estado ou ouvir eventos que estão ocorrendo em um servidor Discord. Não vamos usá-la neste guia, mas você pode ler mais sobre como criar uma conexão de Gateway e os diferentes eventos que ela pode ouvir na [documentação de Gateway](/docs/topics/Gateway).
 </Collapsible>
 
 ---
@@ -240,7 +240,7 @@ if (name === 'test') {
 }
 ```
 
-O código acima respondeu à interação com uma mensagem no canal na qual ela se originou. Você pode ver todos os tipos de respostas disponíveis (por exemplo, responder com um modal) [na documentação](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
+O código acima respondeu à interação com uma mensagem no canal na qual ela se originou. Você pode ver todos os tipos de respostas disponíveis (por exemplo, responder com um modal) [na documentação](/docs/interactions/Receiving_and_Responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` é uma constante [exportada do `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -260,7 +260,7 @@ Usaremos o comando `/challenge` para iniciar nosso jogo estilo pedra-papel-tesou
 
 O comando `/challenge`, chamado `CHALLENGE_COMMAND` no `commands.js`, tem um array de `options`. No nosso app, as opções são objetos representando coisas diferentes que usuários podem escolher enquanto jogam pedra-papel-tesoura, gerados usando chaves de `RPSChoices` em `game.js`.
 
-Você pode ler mais sobre opções de comando e a estrutura delas [na documentação](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+Você pode ler mais sobre opções de comando e a estrutura delas [na documentação](/docs/interactions/Application_Commands#application-command-option-structure).
 
 :::info
 Este guia não vai falar muito do arquivo `game.js`, mas fique à vontade para mexer nele, mudando os comandos ou as opções deles.
@@ -329,7 +329,7 @@ Agora, quando você usar o comando `/challenge` e escolher uma opção, seu app 
 
 <Collapsible title="Lidar com interações de botão" description="Código para lidar com cliques em botões e respostas com mensagens efêmeras" icon="code" open>
 
-Quando usuários interagem com um componente de mensagem, o Discord envia uma solicitação com um [tipo de interação](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) de `3` (ou o valor `MESSAGE_COMPONENT` ao usar `discord-interactions`).
+Quando usuários interagem com um componente de mensagem, o Discord envia uma solicitação com um [tipo de interação](/docs/interactions/Receiving_and_Responding#interaction-type) de `3` (ou o valor `MESSAGE_COMPONENT` ao usar `discord-interactions`).
 
 Para montar um handler para o botão, vamos verificar o `type` da interação e alinhando com a `custom_id`.
 
@@ -382,7 +382,7 @@ O código acima:
 2. [Exclui a mensagem original](/docs/interactions/Receiving_and_Responding#delete-original-interaction-response) chamando um webhook através do `node-fetch` e passando o `token` de interação única no corpo da solicitação. Isso serve para manter o canal limpo e para impedir que outros usuários cliquem no botão.
 3. Responde à solicitação enviando uma mensagem que contém um menu de seleção com as escolhas de objeto do jogo. O payload deve ser bem parecido com o anterior, com exceção do array de `options` e `flags: 64`, [que indica que a mensagem é efêmera](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-O array de `options` é povoado usando o método `getShuffledOptions()` do `game.js`, que manipula os valores de `RPSChoices` para se conformar ao formato das [opções de componente de mensagem](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
+O array de `options` é povoado usando o método `getShuffledOptions()` do `game.js`, que manipula os valores de `RPSChoices` para se conformar ao formato das [opções de componente de mensagem](/docs/interactions/Message_Components#select-option-structure).
 
 </Collapsible>
 

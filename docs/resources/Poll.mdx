@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Poll Resource
 
 A poll is... well... a poll! It holds information about a poll!
@@ -14,27 +16,27 @@ necessary.
 
 | Field             | Type                                                                                                | Description                                                     |
 |-------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| question          | [Poll Media Object](/docs/resources/Poll#poll-media-object-poll-media-object-structure)             | The question of the poll. Only `text` is supported.             |
-| answers           | List of [Poll Answer Objects](/docs/resources/Poll#poll-answer-object-poll-answer-object-structure) | Each of the answers available in the poll.                      |
+| question          | [Poll Media Object](/docs/resources/Poll#poll-media-object-structure)             | The question of the poll. Only `text` is supported.             |
+| answers           | List of [Poll Answer Objects](/docs/resources/Poll#poll-answer-object-structure) | Each of the answers available in the poll.                      |
 | expiry            | ?IS08601 timestamp                                                                                  | The time when the poll ends.                                    |
 | allow_multiselect | boolean                                                                                             | Whether a user can select multiple answers                      |
 | layout_type       | integer                                                                                             | The [layout type](/docs/resources/Poll#layout-type) of the poll |
-| results?          | [Poll Results Object](/docs/resources/Poll#poll-results-object-poll-results-object-structure)       | The results of the poll                                         |
+| results?          | [Poll Results Object](/docs/resources/Poll#poll-results-object-structure)       | The results of the poll                                         |
 
 `expiry` is marked as nullable to support non-expiring polls in the future, but all polls have an expiry currently.
 
 ### Poll Create Request Object
 
 This is the request object used when creating a poll across the different endpoints.
-It is similar but not exactly identical to the main [poll object](/docs/resources/Poll#poll-object-poll-object-structure).
+It is similar but not exactly identical to the main [poll object](/docs/resources/Poll#poll-object-structure).
 The main difference is that the request has `duration` which eventually becomes `expiry`.
 
 ###### Poll Create Request Object Structure
 
 | Field             | Type                                                                                                | Description                                                                              |
 |-------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| question          | [Poll Media Object](/docs/resources/Poll#poll-media-object-poll-media-object-structure)             | The question of the poll. Only `text` is supported.                                      |
-| answers           | List of [Poll Answer Objects](/docs/resources/Poll#poll-answer-object-poll-answer-object-structure) | Each of the answers available in the poll, up to 10                                      |
+| question          | [Poll Media Object](/docs/resources/Poll#poll-media-object-structure)             | The question of the poll. Only `text` is supported.                                      |
+| answers           | List of [Poll Answer Objects](/docs/resources/Poll#poll-answer-object-structure) | Each of the answers available in the poll, up to 10                                      |
 | duration          | integer                                                                                             | Number of hours the poll should be open for, up to 7 days                                |
 | allow_multiselect | boolean                                                                                             | Whether a user can select multiple answers                                               |
 | layout_type?      | integer                                                                                             | The [layout type](/docs/resources/Poll#layout-type) of the poll. Defaults to... DEFAULT! |
@@ -79,7 +81,7 @@ Currently, there is a maximum of 10 answers per poll.
 | Field       | Type                                                                                    | Description            |
 |-------------|-----------------------------------------------------------------------------------------|------------------------|
 | answer_id\* | integer                                                                                 | The ID of the answer   |
-| poll_media  | [Poll Media Object](/docs/resources/Poll#poll-media-object-poll-media-object-structure) | The data of the answer |
+| poll_media  | [Poll Media Object](/docs/resources/Poll#poll-media-object-structure) | The data of the answer |
 
 \* Only sent as part of responses from Discord's API/Gateway.
 
@@ -103,7 +105,7 @@ If `answer_counts` does not contain an entry for a particular answer, then there
 | Field         | Type                                                                                                            | Description                                   |
 |---------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
 | is_finalized  | boolean                                                                                                         | Whether the votes have been precisely counted |
-| answer_counts | List of [Poll Answer Count Object](/docs/resources/Poll#poll-results-object-poll-answer-count-object-structure) | The counts for each answer                    |
+| answer_counts | List of [Poll Answer Count Object](/docs/resources/Poll#poll-answer-count-object-structure) | The counts for each answer                    |
 
 ###### Poll Answer Count Object Structure
 
@@ -119,7 +121,9 @@ For creating a poll, see [Create Message](/docs/resources/Channel#create-message
 
 Apps are not allowed to vote on polls. No rights! :)
 
-## Get Answer Voters % GET /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/polls/[\{message.id\}](/docs/resources/Channel#message-object)/answers/[\{answer_id\}](/docs/resources/Poll#poll-answer-object)
+## Get Answer Voters
+
+<RoutePill method="GET">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/polls/[\{message.id\}](/docs/resources/Channel#message-object)/answers/[\{answer_id\}](/docs/resources/Poll#poll-answer-object)</RoutePill>
 
 Get a list of users that voted for this specific answer.
 
@@ -136,7 +140,9 @@ Get a list of users that voted for this specific answer.
 |-------|---------------------------------------------------|---------------------------------|
 | users | array of [user](/docs/resources/User#user-object) | Users who voted for this answer |
 
-## End Poll % POST /channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/polls/[\{message.id\}](/docs/resources/Channel#message-object)/expire
+## End Poll
+
+<RoutePill method="POST">/channels/[\{channel.id\}](/docs/resources/Channel#channel-object)/polls/[\{message.id\}](/docs/resources/Channel#message-object)/expire</RoutePill>
 
 Immediately ends the poll. You cannot end polls from other users.
 

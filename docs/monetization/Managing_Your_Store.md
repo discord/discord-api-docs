@@ -2,7 +2,7 @@
 
 Developers now have the ability to set up a Store page in the Developer Portal. To set up your Premium App's Store view take the following steps:
 
-- Create a SKU 
+- Create a SKU
 - Add a SKU image and benefits
 - Implement the SKU into your app 
 - Publish a SKU to your store view with the click of a button.

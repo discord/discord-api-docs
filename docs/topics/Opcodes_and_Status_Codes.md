@@ -28,7 +28,7 @@ In order to prevent broken reconnect loops, you should consider some close codes
 | Code | Description           | Explanation                                                                                                                                                                                                                      | Reconnect |
 |------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                | true      |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
 | 4002 | Decode error          | You sent an invalid [payload](/docs/topics/Gateway#sending-events) to Discord. Don't do that!                                                                                                                                    | true      |
 | 4003 | Not authenticated     | You sent us a payload prior to [identifying](/docs/topics/Gateway#identifying).                                                                                                                                                  | true      |
 | 4004 | Authentication failed | The account token sent with your [identify payload](/docs/topics/Gateway_Events#identify) is incorrect.                                                                                                                          | false     |
@@ -66,7 +66,7 @@ Our voice gateways have their own set of opcodes and close codes.
 
 | Code | Description              | Explanation                                                                                                                                      |
 |------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode           | You sent an invalid [opcode](/docs/topics/Opcodes_and_Status_Codes#voice-voice-opcodes).                                                         |
+| 4001 | Unknown opcode           | You sent an invalid [opcode](/docs/topics/Opcodes_and_Status_Codes#voice-opcodes).                                                         |
 | 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](/docs/topics/Gateway_Events#identify) to the Gateway.                                          |
 | 4003 | Not authenticated        | You sent a payload before [identifying](/docs/topics/Gateway_Events#identify) with the Gateway.                                                  |
 | 4004 | Authentication failed    | The token you sent in your [identify](/docs/topics/Gateway_Events#identify) payload is incorrect.                                                |
@@ -74,7 +74,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                 |
 | 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
 | 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
-| 4012 | Unknown protocol         | We didn't recognize the [protocol](/docs/topics/Voice_Connections#establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4012 | Unknown protocol         | We didn't recognize the [protocol](/docs/topics/Voice_Connections#example-select-protocol-payload) you sent. |
 | 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
 | 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](/docs/topics/Voice_Connections#resuming-voice-connection).                                           |
 | 4016 | Unknown encryption mode  | We didn't recognize your [encryption](/docs/topics/Voice_Connections#encrypting-and-sending-voice).                                              |
@@ -102,7 +102,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](/docs/Reference/#error-messages) provided by an `errors` object.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](/docs/Reference#error-messages) provided by an `errors` object.
 
 ###### JSON Error Codes
 

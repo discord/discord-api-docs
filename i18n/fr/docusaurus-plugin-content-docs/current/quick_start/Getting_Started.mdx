@@ -76,7 +76,7 @@ Les applications doivent être approuvées par les utilisateurs qui les installe
 <Collapsible title="Que sont les champs d'application et les permissions ?" description="Introduction aux champs d'application et permissions de bot" icon="question">
 Lors de la création d'une application, les champs d'application et permissions déterminent ce que ton application peut faire et ce à quoi elle peut accéder sur les serveurs Discord.
 
-- Les [champs d'application OAuth2](/docs/topics/OAauth2#shared-resources-oauth2-scopes) déterminent les accès aux données et actions que ton application peut effectuer. Elles sont accordées au nom de l'utilisateur qui procède à l'installation ou qui s'authentifie.
+- Les [champs d'application OAuth2](/docs/topics/OAauth2#oauth2-scopes) déterminent les accès aux données et actions que ton application peut effectuer. Elles sont accordées au nom de l'utilisateur qui procède à l'installation ou qui s'authentifie.
 - Les [permissions](/docs/topics/Permissions#permission-overwrites) sont les permissions granulaires pour ton utilisateur bot, les mêmes que celles accordées aux autres utilisateurs dans Discord. Elles peuvent être approuvées par l'utilisateur qui procède à l'installation ou mises à jour ultérieurement dans les paramètres du serveur ou à l'aide d'[écrasements de permissions](/docs/topics/Permissions#permission-overwrites).
 </Collapsible>
 
@@ -90,7 +90,7 @@ Pour l'instant, ajoute deux champs d'application :
 - `applications.commands` qui permet à ton application de générer des [commandes](/docs/interactions/Application_Commands).
 - `bot` ajoute ton utilisateur bot. Une fois que tu as sélectionné `bot`, tu peux également sélectionner différentes permissions pour ton bot. Pour l'instant, coche uniquement **Envoyer des messages**.
 
-Tu peux consulter une liste de tous les [champs d'application OAuth2](/docs/topics/OAuth2#shared-resources-oauth2-scopes) ou en apprendre davantage sur les [permissions](/docs/topics/Permissions) dans la documentation.
+Tu peux consulter une liste de tous les [champs d'application OAuth2](/docs/topics/OAuth2#oauth2-scopes) ou en apprendre davantage sur les [permissions](/docs/topics/Permissions) dans la documentation.
 
 ### Installation de ton application
 
@@ -176,7 +176,7 @@ Pour installer des commandes slash, l'application utilise [`node-fetch`](https:/
 
 Le projet contient un script `register` que tu peux utiliser pour installer les commandes dans la section `ALL_COMMANDS`, qui est définie à la fin du fichier `commands.js`. Il installe les commandes en tant que commandes globales en appelant le point de terminaison [`PUT /applications/<APP_ID>/commands`](/docs/interactions/Application_Commands#bulk-overwrite-global-application-commands) de l'API HTTP.
 
-Si tu souhaites personnaliser les commandes ou en ajouter d'autres, tu peux consulter la structure des commandes dans la [documentation des commandes](/docs/interactions/Application_Commands#application-command-object-application-command-structure).
+Si tu souhaites personnaliser les commandes ou en ajouter d'autres, tu peux consulter la structure des commandes dans la [documentation des commandes](/docs/interactions/Application_Commands#application-command-structure).
 
 Pour exécuter le script `register`, clique sur le bouton **Terminal** en bas de l'interface du projet Glitch et colle la commande suivante :
 
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-Le code ci-dessus répond à l'interaction en envoyant un message dans le salon duquel il est issu. La liste de tous les types de réponses disponibles, comme une réponse dans une fenêtre, est détaillée [dans la documentation](/docs/interactions/Receiving_and_Responding#interaction-response-object-interaction-callback-type).
+Le code ci-dessus répond à l'interaction en envoyant un message dans le salon duquel il est issu. La liste de tous les types de réponses disponibles, comme une réponse dans une fenêtre, est détaillée [dans la documentation](/docs/interactions/Receiving_and_Responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` est une constante [exportée depuis le package `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33).
@@ -261,7 +261,7 @@ La commande `/defi` permet de lancer notre jeu pierre-feuille-ciseaux. Quand cet
 
 La commande `/defi`, appelée `CHALLENGE_COMMAND` dans `commands.js`, dispose d'un ensemble d'`options`. Dans notre application, les options sont des objets qui représentent différentes choses qu'un utilisateur peut sélectionner lors d'une partie de pierre-feuille-ciseaux, et sont générées en utilisant les clés `RPSChoices` dans `game.js`.
 
-Tu peux en apprendre davantage sur les options de commande et leur structure [en consultant la documentation](/docs/interactions/Application_Commands#application-command-object-application-command-option-structure).
+Tu peux en apprendre davantage sur les options de commande et leur structure [en consultant la documentation](/docs/interactions/Application_Commands#application-command-option-structure).
 
 :::info
 Ce guide ne traite pas en profondeur du fichier `game.js`, mais n'hésite pas à y jeter un coup d'œil et à modifier les commandes ou leurs options.
@@ -331,7 +331,7 @@ Désormais, lorsque tu exécutes la commande `/defi` et sélectionnes une option
 
 <Collapsible title="Gestion des interactions avec les boutons" description="Code pour gérer les clics sur les boutons et répondre avec un message éphémère" icon="code" open>
 
-Lorsque des utilisateurs interagissent avec un élément de message, Discord envoie une requête avec un [type d'interaction](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-type) égal à `3` (ou la valeur `MESSAGE_COMPONENT` lors de l'utilisation de `discord-interactions`).
+Lorsque des utilisateurs interagissent avec un élément de message, Discord envoie une requête avec un [type d'interaction](/docs/interactions/Receiving_and_Responding#interaction-type) égal à `3` (ou la valeur `MESSAGE_COMPONENT` lors de l'utilisation de `discord-interactions`).
 
 Pour mettre en place un gestionnaire pour le bouton, nous allons vérifier le `type` d'interaction, puis le `custom_id`.
 
@@ -384,7 +384,7 @@ Le code ci-dessus :
 2. [Supprime le message d'origine](/docs/interactions/Receiving_And_Responding#delete-original-interaction-response) en appelant un webhook avec `node-fetch` et en passant le `token` d'interaction unique dans le corps de la requête. Cette opération permet de nettoyer le salon pour éviter que d'autres utilisateurs ne cliquent sur le bouton.
 3. Répond à la requête en envoyant un message contenant un menu de sélection avec les choix d'objets pour le jeu. Le payload devrait être assez similaire au précédent, à l'exception du tableau `options` et du `flags: 64`, [qui indique que le message est éphémère](/docs/interactions/Receiving_and_Responding#create-followup-message).
 
-Le tableau `options` est peuplé en utilisant la méthode `getShuffledOptions()` dans `game.js`, qui manipule les valeurs `RPSChoices` pour être conforme au format des [options des éléments de message](/docs/interactions/Message_Components#select-menu-object-select-option-structure).
+Le tableau `options` est peuplé en utilisant la méthode `getShuffledOptions()` dans `game.js`, qui manipule les valeurs `RPSChoices` pour être conforme au format des [options des éléments de message](/docs/interactions/Message_Components#select-option-structure).
 
 </Collapsible>
 

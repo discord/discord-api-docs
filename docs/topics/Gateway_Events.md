@@ -25,12 +25,12 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 | Field | Type                    | Description                                                                                                                                      |
 |-------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| op    | integer                 | [Gateway opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-gateway-opcodes), which indicates the payload type                                |
+| op    | integer                 | [Gateway opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-opcodes), which indicates the payload type                                |
 | d     | ?mixed (any JSON value) | Event data                                                                                                                                       |
 | s     | ?integer \*             | Sequence number of event used for [resuming sessions](/docs/topics/Gateway#resuming) and [heartbeating](/docs/topics/Gateway#sending-heartbeats) |
 | t     | ?string \*              | Event name                                                                                                                                       |
 
-\* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-gateway-opcodes)).
+\* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](/docs/topics/Opcodes_and_Status_Codes#gateway-opcodes)).
 
 ###### Example Gateway Event Payload
 
@@ -71,7 +71,7 @@ Details about identifying is in the [Gateway documentation](/docs/topics/Gateway
 | Field            | Type                                                                  | Description                                                                                                                    | Default |
 |------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|---------|
 | token            | string                                                                | Authentication token                                                                                                           | -       |
-| properties       | object                                                                | [Connection properties](/docs/topics/Gateway_Events#identify-identify-connection-properties)                                   | -       |
+| properties       | object                                                                | [Connection properties](/docs/topics/Gateway_Events#identify-connection-properties)                                   | -       |
 | compress?        | boolean                                                               | Whether this connection supports compression of packets                                                                        | false   |
 | large_threshold? | integer                                                               | Value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?           | array of two integers (shard_id, num_shards)                          | Used for [Guild Sharding](/docs/topics/Gateway#sharding)                                                                       | -       |
@@ -240,7 +240,7 @@ Sent by the client to indicate a presence or status update.
 |------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | since      | ?integer                                                                 | Unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | activities | array of [activity](/docs/topics/Gateway_Events#activity-object) objects | User's activities                                                                           |
-| status     | string                                                                   | User's new [status](/docs/topics/Gateway_Events#update-presence-status-types)               |
+| status     | string                                                                   | User's new [status](/docs/topics/Gateway_Events#status-types)               |
 | afk        | boolean                                                                  | Whether or not the client is afk                                                            |
 
 ###### Status Types
@@ -377,7 +377,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 | Field              | Type                                                                                 | Description                                                                                               |
 |--------------------|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| v                  | integer                                                                              | [API version](/docs/Reference/#api-versioning-api-versions)                                                |
+| v                  | integer                                                                              | [API version](/docs/Reference#api-versions)                                                |
 | user               | [user](/docs/resources/User#user-object) object                                      | Information about the user including email                                                                |
 | guilds             | array of [Unavailable Guild](/docs/resources/Guild#unavailable-guild-object) objects | Guilds the user is in                                                                                     |
 | session_id         | string                                                                               | Used for resuming connections                                                                             |
@@ -425,7 +425,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 #### Application Command Permissions Update
 
-`APPLICATION_COMMAND_PERMISSIONS_UPDATE` event, sent when an application command's permissions are updated. The inner payload is an [application command permissions](/docs/interactions/Application_Commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
+`APPLICATION_COMMAND_PERMISSIONS_UPDATE` event, sent when an application command's permissions are updated. The inner payload is an [application command permissions](/docs/interactions/Application_Commands#guild-application-command-permissions-structure) object.
 
 ### Auto Moderation
 
@@ -454,7 +454,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 | guild_id                 | snowflake                                                                                      | ID of the guild in which action was executed                                   |
 | action                   | [auto moderation action](/docs/resources/Auto_Moderation#auto-moderation-action-object) object | Action which was executed                                                      |
 | rule_id                  | snowflake                                                                                      | ID of the rule which action belongs to                                         |
-| rule_trigger_type        | [trigger_type](/docs/resources/Auto_Moderation#auto-moderation-rule-object-trigger-types)      | Trigger type of rule which was triggered                                       |
+| rule_trigger_type        | [trigger_type](/docs/resources/Auto_Moderation#trigger-types)      | Trigger type of rule which was triggered                                       |
 | user_id                  | snowflake                                                                                      | ID of the user which generated the content which triggered the rule            |
 | channel_id?              | snowflake                                                                                      | ID of the channel in which user content was posted                             |
 | message_id?              | snowflake                                                                                      | ID of any user message which content belongs to *                              |
@@ -714,7 +714,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles                         | array of snowflakes                               | User role ids                                                                                                                                                                                                                        |
 | user                          | a [user](/docs/resources/User#user-object) object | User                                                                                                                                                                                                                                 |
 | nick?                         | ?string                                           | Nickname of the user in the guild                                                                                                                                                                                                    |
-| avatar                        | ?string                                           | Member's [guild avatar hash](/docs/Reference/#image-formatting)                                                                                                                                                                       |
+| avatar                        | ?string                                           | Member's [guild avatar hash](/docs/Reference#image-formatting)                                                                                                                                                                       |
 | joined_at                     | ?ISO8601 timestamp                                | When the user joined the guild                                                                                                                                                                                                       |
 | premium_since?                | ?ISO8601 timestamp                                | When the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                             |
 | deaf?                         | boolean                                           | Whether the user is deafened in voice channels                                                                                                                                                                                       |
@@ -861,7 +861,7 @@ Sent when a new invite to a channel is created.
 | inviter?            | [user](/docs/resources/User#user-object) object                              | User that created the invite                                                                                       |
 | max_age             | integer                                                                      | How long the invite is valid for (in seconds)                                                                      |
 | max_uses            | integer                                                                      | Maximum number of times the invite can be used                                                                     |
-| target_type?        | integer                                                                      | [Type of target](/docs/resources/Invite#invite-object-invite-target-types) for this voice channel invite           |
+| target_type?        | integer                                                                      | [Type of target](/docs/resources/Invite#invite-target-types) for this voice channel invite           |
 | target_user?        | [user](/docs/resources/User#user-object) object                              | User whose stream to display for this voice channel stream invite                                                  |
 | target_application? | partial [application](/docs/resources/Application#application-object) object | Embedded application to open for this voice channel embedded application invite                                    |
 | temporary           | boolean                                                                      | Whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
@@ -942,7 +942,7 @@ Sent when a user adds a reaction to a message.
 | message_id         | snowflake                                                    | ID of the message                                                                          |
 | guild_id?          | snowflake                                                    | ID of the guild                                                                            |
 | member?            | [member](/docs/resources/Guild#guild-member-object) object   | Member who reacted if this happened in a guild                                             |
-| emoji              | a partial [emoji](/docs/resources/Emoji#emoji-object) object | Emoji used to react - [example](/docs/resources/Emoji#emoji-object-standard-emoji-example) |
+| emoji              | a partial [emoji](/docs/resources/Emoji#emoji-object) object | Emoji used to react - [example](/docs/resources/Emoji#standard-emoji-example) |
 | message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
 
 #### Message Reaction Remove
@@ -957,7 +957,7 @@ Sent when a user removes a reaction from a message.
 | channel_id | snowflake                                                    | ID of the channel                                                                          |
 | message_id | snowflake                                                    | ID of the message                                                                          |
 | guild_id?  | snowflake                                                    | ID of the guild                                                                            |
-| emoji      | a partial [emoji](/docs/resources/Emoji#emoji-object) object | Emoji used to react - [example](/docs/resources/Emoji#emoji-object-standard-emoji-example) |
+| emoji      | a partial [emoji](/docs/resources/Emoji#emoji-object) object | Emoji used to react - [example](/docs/resources/Emoji#standard-emoji-example) |
 
 #### Message Reaction Remove All
 
@@ -1025,20 +1025,20 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | Field           | Type                                                                                 | Description                                                                                                                      |
 |-----------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | name            | string                                                                               | Activity's name                                                                                                                  |
-| type            | integer                                                                              | [Activity type](/docs/topics/Gateway_Events#activity-object-activity-types)                                                      |
+| type            | integer                                                                              | [Activity type](/docs/topics/Gateway_Events#activity-types)                                                      |
 | url?            | ?string                                                                              | Stream URL, is validated when type is 1                                                                                          |
 | created_at      | integer                                                                              | Unix timestamp (in milliseconds) of when the activity was added to the user's session                                            |
-| timestamps?     | [timestamps](/docs/topics/Gateway_Events#activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
+| timestamps?     | [timestamps](/docs/topics/Gateway_Events#activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
 | application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
 | details?        | ?string                                                                              | What the player is currently doing                                                                                               |
 | state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
-| emoji?          | ?[emoji](/docs/topics/Gateway_Events#activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
-| party?          | [party](/docs/topics/Gateway_Events#activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
-| assets?         | [assets](/docs/topics/Gateway_Events#activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
-| secrets?        | [secrets](/docs/topics/Gateway_Events#activity-object-activity-secrets) object       | Secrets for Rich Presence joining and spectating                                                                                 |
+| emoji?          | ?[emoji](/docs/topics/Gateway_Events#activity-emoji) object          | Emoji used for a custom status                                                                                                   |
+| party?          | [party](/docs/topics/Gateway_Events#activity-party) object           | Information for the current party of the player                                                                                  |
+| assets?         | [assets](/docs/topics/Gateway_Events#activity-assets) object         | Images for the presence and their hover texts                                                                                    |
+| secrets?        | [secrets](/docs/topics/Gateway_Events#activity-secrets) object       | Secrets for Rich Presence joining and spectating                                                                                 |
 | instance?       | boolean                                                                              | Whether or not the activity is an instanced game session                                                                         |
-| flags?          | integer                                                                              | [Activity flags](/docs/topics/Gateway_Events#activity-object-activity-flags) `OR`d together, describes what the payload includes |
-| buttons?        | array of [buttons](/docs/topics/Gateway_Events#activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
+| flags?          | integer                                                                              | [Activity flags](/docs/topics/Gateway_Events#activity-flags) `OR`d together, describes what the payload includes |
+| buttons?        | array of [buttons](/docs/topics/Gateway_Events#activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
 :::info
 Bot users are only able to set `name`, `state`, `type`, and `url`.
@@ -1085,9 +1085,9 @@ The streaming type currently only supports Twitch and YouTube. Only `https://twi
 
 | Field        | Type   | Description                                                                                  |
 |--------------|--------|----------------------------------------------------------------------------------------------|
-| large_image? | string | See [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image) |
+| large_image? | string | See [Activity Asset Image](/docs/topics/Gateway_Events#activity-asset-image) |
 | large_text?  | string | Text displayed when hovering over the large image of the activity                            |
-| small_image? | string | See [Activity Asset Image](/docs/topics/Gateway_Events#activity-object-activity-asset-image) |
+| small_image? | string | See [Activity Asset Image](/docs/topics/Gateway_Events#activity-asset-image) |
 | small_text?  | string | Text displayed when hovering over the small image of the activity                            |
 
 ###### Activity Asset Image
@@ -1098,7 +1098,7 @@ To use an external image via media proxy, specify the URL as the field's value w
 
 | Type              | Format                   | Image URL                                                                  |
 |-------------------|--------------------------|----------------------------------------------------------------------------|
-| Application Asset | `{application_asset_id}` | See [Application Asset Image Formatting](/docs/Reference/#image-formatting) |
+| Application Asset | `{application_asset_id}` | See [Application Asset Image Formatting](/docs/Reference#image-formatting) |
 | Media Proxy Image | `mp:{image_id}`          | `https://media.discordapp.net/{image_id}`                                  |
 
 ###### Activity Secrets
@@ -1245,7 +1245,7 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 
 #### Interaction Create
 
-Sent when a user uses an [Application Command](/docs/interactions/Application_Commands) or [Message Component](/docs/interactions/Message_Components). Inner payload is an [Interaction](/docs/interactions/Receiving_and_Responding#interaction-object-interaction-structure).
+Sent when a user uses an [Application Command](/docs/interactions/Application_Commands) or [Message Component](/docs/interactions/Message_Components). Inner payload is an [Interaction](/docs/interactions/Receiving_and_Responding#interaction-structure).
 
 ### Stage Instances
 

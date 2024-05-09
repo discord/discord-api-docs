@@ -27,7 +27,7 @@ Messages are (of course) a core part of using Discord, and the same is true for 
 
 ### Interact with users
 
-Apps can send and respond to **[interactions](/docs/interactions/Overview)** to create more engaging and intuitive experiences for users. When sending messages, apps can send interactive components like [buttons](/docs/interactions/Message_Components#buttons) and [select menus](/docs/interactions/Message_Components#select-menus) in the `components` field. Apps can also open form-like [modals](/docs/interactions/Receiving_and_Responding#interaction-response-object-modal) in response to interactions.
+Apps can send and respond to **[interactions](/docs/interactions/Overview)** to create more engaging and intuitive experiences for users. When sending messages, apps can send interactive components like [buttons](/docs/interactions/Message_Components#buttons) and [select menus](/docs/interactions/Message_Components#select-menus) in the `components` field. Apps can also open form-like [modals](/docs/interactions/Receiving_and_Responding#modal) in response to interactions.
 
 ### Build embedded experiences
 
@@ -57,7 +57,7 @@ This developer documentation is full of nooks and crannies with all sorts of fea
 
 Discord apps can be installed in two different contexts:
 
-1. Apps installed **to a server** (called a [guild](/docs/resources/Guild) throughout the API) by a user with the Manage Server ([`MANAGE_GUILD`](/docs/topics/Permissions#permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
+1. Apps installed **to a server** (called a [guild](/docs/resources/Guild) throughout the API) by a user with the Manage Server ([`MANAGE_GUILD`](/docs/topics/Permissions#bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
 2. Apps installed **to a user account**. Apps installed to a user are visible *only* to that user, across all of their servers, DMs, and Group DMs by default.
 
 The installation contexts that an app supports can be limited by the developer when [setting up the app](/docs/resources/Application#setting-supported-installation-contexts). Details about installation contexts are in the [Application resource documentation](/docs/resources/Application#installation-context).
@@ -76,7 +76,7 @@ Use the HTTP API to:
 - Retrieve information about a resource
 - Create, update, or delete a resource
 
-Read details about using the HTTP API in the [API reference](/docs/Reference/#http-api).
+Read details about using the HTTP API in the [API reference](/docs/Reference#http-api).
 
 ### Gateway API
 
@@ -85,7 +85,7 @@ The **Gateway API** lets you receive event data over a WebSocket anytime an [eve
 Use the Gateway API to:
 - Receive events happening in Discord
 
-Read details about using the Gateway API in the [API reference](/docs/Reference/#gateway-websocket-api).
+Read details about using the Gateway API in the [API reference](/docs/Reference#gateway-websocket-api).
 
 ---
 

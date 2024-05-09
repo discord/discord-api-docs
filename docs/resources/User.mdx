@@ -1,3 +1,5 @@
+import RoutePill from '@site/src/components/RoutePill';
+
 # Users Resource
 
 Users in Discord are generally considered the base entity. Users can spawn across the entire platform, be members of
@@ -30,19 +32,19 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | username           | string    | the user's username, not unique across the platform                                                  | identify              |
 | discriminator      | string    | the user's Discord-tag                                                                               | identify              |
 | global_name        | ?string   | the user's display name, if it is set. For bots, this is the application name                        | identify              |
-| avatar             | ?string   | the user's [avatar hash](/docs/Reference/#image-formatting)                                           | identify              |
+| avatar             | ?string   | the user's [avatar hash](/docs/Reference#image-formatting)                                           | identify              |
 | bot?               | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?            | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?       | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?            | ?string   | the user's [banner hash](/docs/Reference/#image-formatting)                                           | identify              |
+| banner?            | ?string   | the user's [banner hash](/docs/Reference#image-formatting)                                           | identify              |
 | accent_color?      | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?            | string    | the user's chosen [language option](/docs/Reference/#locales)                                         | identify              |
+| locale?            | string    | the user's chosen [language option](/docs/Reference#locales)                                         | identify              |
 | verified?          | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?             | ?string   | the user's email                                                                                     | email                 |
-| flags?             | integer   | the [flags](/docs/resources/User#user-object-user-flags) on a user's account                         | identify              |
-| premium_type?      | integer   | the [type of Nitro subscription](/docs/resources/User#user-object-premium-types) on a user's account | identify              |
-| public_flags?      | integer   | the public [flags](/docs/resources/User#user-object-user-flags) on a user's account                  | identify              |
-| avatar_decoration? | ?string   | the user's [avatar decoration hash](/docs/Reference/#image-formatting)                                | identify              |
+| flags?             | integer   | the [flags](/docs/resources/User#user-flags) on a user's account                         | identify              |
+| premium_type?      | integer   | the [type of Nitro subscription](/docs/resources/User#premium-types) on a user's account | identify              |
+| public_flags?      | integer   | the public [flags](/docs/resources/User#user-flags) on a user's account                  | identify              |
+| avatar_decoration? | ?string   | the user's [avatar decoration hash](/docs/Reference#image-formatting)                                | identify              |
 
 ###### Example User
 
@@ -103,14 +105,14 @@ The connection object that the user has attached.
 |---------------|---------|------------------------------------------------------------------------------------------|
 | id            | string  | id of the connection account                                                             |
 | name          | string  | the username of the connection account                                                   |
-| type          | string  | the [service](/docs/resources/User#connection-object-services) of this connection        |
+| type          | string  | the [service](/docs/resources/User#services) of this connection        |
 | revoked?      | boolean | whether the connection is revoked                                                        |
 | integrations? | array   | an array of partial [server integrations](/docs/resources/Guild#integration-object)      |
 | verified      | boolean | whether the connection is verified                                                       |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
 | two_way_link  | boolean | whether this connection has a corresponding third party OAuth2 token                     |
-| visibility    | integer | [visibility](/docs/resources/User#connection-object-visibility-types) of this connection |
+| visibility    | integer | [visibility](/docs/resources/User#visibility-types) of this connection |
 
 ###### Services
 
@@ -158,15 +160,21 @@ The role connection object that an application has attached to a user.
 | platform_username | ?string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                            |
 | metadata          | object  | object mapping [application role connection metadata](/docs/resources/Application_Role_Connection_Metadata#application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
 
-## Get Current User % GET /users/@me
+## Get Current User
+
+<RoutePill method="GET">/users/@me</RoutePill>
 
 Returns the [user](/docs/resources/User#user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
 
-## Get User % GET /users/[\{user.id\}](/docs/resources/User#user-object)
+## Get User
+
+<RoutePill method="GET">/users/[\{user.id\}](/docs/resources/User#user-object)</RoutePill>
 
 Returns a [user](/docs/resources/User#user-object) object for a given user ID.
 
-## Modify Current User % PATCH /users/@me
+## Modify Current User
+
+<RoutePill method="PATCH">/users/@me</RoutePill>
 
 Modify the requester's user account settings. Returns a [user](/docs/resources/User#user-object) object on success. Fires a [User Update](/docs/topics/Gateway_Events#user-update) Gateway event.
 
@@ -179,9 +187,11 @@ All parameters to this endpoint are optional.
 | Field    | Type                                      | Description                                                                      |
 |----------|-------------------------------------------|----------------------------------------------------------------------------------|
 | username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
-| avatar   | ?[image data](/docs/Reference/#image-data) | if passed, modifies the user's avatar                                            |
+| avatar   | ?[image data](/docs/Reference#image-data) | if passed, modifies the user's avatar                                            |
 
-## Get Current User Guilds % GET /users/@me/guilds
+## Get Current User Guilds
+
+<RoutePill method="GET">/users/@me/guilds</RoutePill>
 
 Returns a list of partial [guild](/docs/resources/Guild#guild-object) objects the current user is a member of. For OAuth2, requires the `guilds` scope.
 
@@ -213,15 +223,21 @@ This endpoint returns 200 guilds by default, which is the maximum number of guil
 | limit       | integer   | max number of guilds to return (1-200)                     | false    | 200     |
 | with_counts | boolean   | include approximate member and presence counts in response | false    | false   |
 
-## Get Current User Guild Member % GET /users/@me/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/member
+## Get Current User Guild Member
+
+<RoutePill method="GET">/users/@me/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)/member</RoutePill>
 
 Returns a [guild member](/docs/resources/Guild#guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
 
-## Leave Guild % DELETE /users/@me/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)
+## Leave Guild
+
+<RoutePill method="DELETE">/users/@me/guilds/[\{guild.id\}](/docs/resources/Guild#guild-object)</RoutePill>
 
 Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](/docs/topics/Gateway_Events#guild-delete) Gateway event and a [Guild Member Remove](/docs/topics/Gateway_Events#guild-member-remove) Gateway event.
 
-## Create DM % POST /users/@me/channels
+## Create DM
+
+<RoutePill method="POST">/users/@me/channels</RoutePill>
 
 Create a new DM channel with a user. Returns a [DM channel](/docs/resources/Channel#channel-object) object (if one already exists, it will be returned instead).
 
@@ -235,7 +251,9 @@ You should not use this endpoint to DM everyone in a server about something. DMs
 |--------------|-----------|-----------------------------------------|
 | recipient_id | snowflake | the recipient to open a DM channel with |
 
-## Create Group DM % POST /users/@me/channels
+## Create Group DM
+
+<RoutePill method="POST">/users/@me/channels</RoutePill>
 
 Create a new group DM channel with multiple users. Returns a [DM channel](/docs/resources/Channel#channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](/docs/topics/Gateway_Events#channel-create) Gateway event.
 
@@ -250,15 +268,21 @@ This endpoint is limited to 10 active group DMs.
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
 | nicks         | dict             | a dictionary of user ids to their respective nicknames                 |
 
-## Get Current User Connections % GET /users/@me/connections
+## Get Current User Connections
+
+<RoutePill method="GET">/users/@me/connections</RoutePill>
 
 Returns a list of [connection](/docs/resources/User#connection-object) objects. Requires the `connections` OAuth2 scope.
 
-## Get Current User Application Role Connection % GET /users/@me/applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connection
+## Get Current User Application Role Connection
+
+<RoutePill method="GET">/users/@me/applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connection</RoutePill>
 
 Returns the [application role connection](/docs/resources/User#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
-## Update Current User Application Role Connection % PUT /users/@me/applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connection
+## Update Current User Application Role Connection
+
+<RoutePill method="PUT">/users/@me/applications/[\{application.id\}](/docs/resources/Application#application-object)/role-connection</RoutePill>
 
 Updates and returns the [application role connection](/docs/resources/User#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
