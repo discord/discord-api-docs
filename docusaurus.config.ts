@@ -4,7 +4,6 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "Discord",
-  tagline: "Feed the Wumpus",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -12,12 +11,6 @@ const config: Config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: "discord", // Usually your GitHub org/user name.
-  projectName: "discord-api-docs", // Usually your repo name.
-
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
@@ -35,11 +28,12 @@ const config: Config = {
       "classic",
       {
         docs: {
+          routeBasePath: "/",
           sidebarPath: "./sidebars.ts",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "https://github.com/discord/discord-api-docs",
         },
+        pages: false,
+        blog: false,
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -51,10 +45,10 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "Discord",
       logo: {
-        alt: "My Site Logo",
-        src: "img/wump.png",
+        alt: "Discord Developers",
+        src: "images/wump.svg",
+        srcDark: "images/wump-dark.svg",
       },
       items: [
         {
@@ -64,13 +58,18 @@ const config: Config = {
           label: "Docs",
         },
         {
+          type: "search",
+          position: "right",
+        },
+        {
           type: "localeDropdown",
           position: "right",
         },
         {
-          href: "https://github.com/discord/discord-api-docs",
-          label: "GitHub",
+          type: "html",
+          value: "<a href='https://discord.com/developers/applications' target='_blank'>Developer Portal</a>",
           position: "right",
+          className: "developer-portal-link",
         },
       ],
     },
@@ -82,7 +81,7 @@ const config: Config = {
           items: [
             {
               label: "Tutorial",
-              to: "/docs/intro",
+              to: "/docs",
             },
           ],
         },
@@ -118,6 +117,35 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    algolia: {
+      // The application ID provided by Algolia
+      appId: "YOUR_APP_ID",
+
+      // Public API key: it is safe to commit it
+      apiKey: "YOUR_SEARCH_API_KEY",
+
+      indexName: "YOUR_INDEX_NAME",
+
+      // Optional: see doc section below
+      contextualSearch: true,
+
+      // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+      externalUrlRegex: "external\\.com|domain\\.com",
+
+      // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
+      replaceSearchResultPathname: {
+        from: "/docs/", // or as RegExp: /\/docs\//
+        to: "/",
+      },
+
+      // Optional: Algolia search parameters
+      searchParameters: {},
+      searchPagePath: false,
+      // Optional: whether the insights feature is enabled or not on Docsearch (`false` by default)
+      insights: false,
+
+      //... other Algolia params
     },
   } satisfies Preset.ThemeConfig,
 };
