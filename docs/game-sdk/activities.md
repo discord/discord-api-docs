@@ -6,7 +6,7 @@ Need help with the SDK? Talk to us in the [Discord Developers Server](https://di
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
-For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discord.com/developers/docs/rich-presence/how-to).
+For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](/rich-presence/how-to).
 
 ## Data Models
 
@@ -45,9 +45,9 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name       | type   | description                                                                                  |
 |------------|--------|----------------------------------------------------------------------------------------------|
-| LargeImage | string | see [Activity Asset Image](/docs/topics/gateway-events#activity-asset-image) |
+| LargeImage | string | see [Activity Asset Image](/topics/gateway-events#activity-asset-image) |
 | LargeText  | string | hover text for the large image                                                               |
-| SmallImage | string | see [Activity Asset Image](/docs/topics/gateway-events#activity-asset-image) |
+| SmallImage | string | see [Activity Asset Image](/topics/gateway-events#activity-asset-image) |
 | SmallText  | string | hover text for the small image                                                               |
 
 ###### ActivityParty Struct
@@ -83,7 +83,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Custom    | 4     |
 | Competing | 5     |
 
-For more details about the activity types, [see Gateway documentation](/docs/topics/gateway-events#activity-types).
+For more details about the activity types, [see Gateway documentation](/topics/gateway-events#activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 
@@ -283,7 +283,7 @@ activityManager.OnActivityJoinRequest += user =>
 
 ## SendInvite
 
-Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](/docs/game-sdk/activities#activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](/game-sdk/activities#activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 

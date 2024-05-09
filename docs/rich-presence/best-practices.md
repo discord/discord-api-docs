@@ -1,7 +1,7 @@
 # Rich Presence Best Practices
 
 :::danger
-The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](/docs/game-sdk/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](/docs/game-sdk/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](/game-sdk/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](/game-sdk/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 :::
 
 Rich Presence is a new feature from Discord that allows you to surface unique, interesting, and actionable data inside a Discord user’s profile when they play your game! This guide is intended to show some best practices on how to make that data the best it can be. It will include images and code samples; for full technical documentation, see our developer documentation.

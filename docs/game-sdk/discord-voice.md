@@ -5,12 +5,12 @@ Need help with the SDK? Talk to us in the [Discord Developers Server](https://di
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/change-log#gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/change-log#gamesdk-feature-deprecation)
 :::
 
 Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
 
-If you want people playing your game to be able to talk with each other, this Voice manager can help you out! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](/docs/game-sdk/lobbies#connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](/docs/game-sdk/overlay#openvoicesettings) in the Overlay manager. The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
+If you want people playing your game to be able to talk with each other, this Voice manager can help you out! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](/game-sdk/lobbies#connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](/game-sdk/overlay#openvoicesettings) in the Overlay manager. The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
 
 ## Data Models
 
@@ -90,7 +90,7 @@ Console.WriteLine("The current input mode is {0}. The current PTT hotkey is set 
 
 ## SetInputMode
 
-Sets a new voice input mode for the user. Refer to [Shortcut Keys](/docs/game-sdk/discord-voice#shortcut-keys) for a table of valid values for shortcuts.
+Sets a new voice input mode for the user. Refer to [Shortcut Keys](/game-sdk/discord-voice#shortcut-keys) for a table of valid values for shortcuts.
 
 Returns a `Discord.Result` via callback.
 

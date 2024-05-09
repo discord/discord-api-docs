@@ -52,12 +52,6 @@ const config: Config = {
       },
       items: [
         {
-          type: "docSidebar",
-          sidebarId: "docs",
-          position: "left",
-          label: "Docs",
-        },
-        {
           type: "search",
           position: "right",
         },
@@ -77,54 +71,86 @@ const config: Config = {
       style: "dark",
       links: [
         {
-          title: "Docs",
+          title: "Product",
           items: [
             {
-              label: "Tutorial",
-              to: "/docs",
+              label: "Download",
+              href: "https://discord.com/download",
+            },
+            {
+              label: "Nitro",
+              href: "https://discord.com/nitro",
+            },
+            {
+              label: "Status",
+              href: "https://discordstatus.com/",
+            },
+            {
+              label: "App Directory",
+              href: "https://discord.com/application-directory",
             },
           ],
         },
         {
-          title: "Community",
+          title: "Company",
           items: [
             {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
+              label: "About",
+              href: "https://discord.com/company",
             },
             {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
+              label: "Jobs",
+              href: "https://discord.com/careers",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
+              label: "Brand",
+              href: "https://discord.com/branding",
+            },
+            {
+              label: "Newsroom",
+              href: "https://discord.com/newsroom",
             },
           ],
         },
         {
-          title: "More",
+          title: "Policies",
           items: [
             {
-              label: "GitHub",
-              href: "https://github.com/discord/discord-api-docs",
+              label: "Terms",
+              href: "https://discord.com/terms",
+            },
+            {
+              label: "Privacy",
+              href: "https://discord.com/privacy",
+            },
+            {
+              label: "Guidelines",
+              href: "https://discord.com/guidelines",
+            },
+            {
+              label: "Acknowledgements",
+              href: "https://discord.com/acknowledgements",
+            },
+            {
+              label: "Licenses",
+              href: "https://discord.com/licenses",
+            },
+            {
+              label: "Company Information",
+              href: "https://discord.com/company-information",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Made with 🦶 by Discord.`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
     algolia: {
-      // The application ID provided by Algolia
       appId: "YOUR_APP_ID",
-
-      // Public API key: it is safe to commit it
       apiKey: "YOUR_SEARCH_API_KEY",
-
       indexName: "YOUR_INDEX_NAME",
 
       // Optional: see doc section below

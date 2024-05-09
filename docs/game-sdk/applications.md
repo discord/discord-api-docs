@@ -9,12 +9,12 @@ Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read her
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/change-log#gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/change-log#gamesdk-feature-deprecation)
 :::
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
-This token is also useful for retrieving information about the connected user's account. Check out our [OAuth2 documentation](https://discord.com/developers/docs/topics/oauth2) for more information.
+This token is also useful for retrieving information about the connected user's account. Check out our [OAuth2 documentation](/topics/oauth2) for more information.
 
 These bearer tokens are good for seven days, after which they will expire. When a user reconnects to your game, and is online and connected to the internet, they'll receive a new token that you can grab.
 
@@ -35,8 +35,8 @@ This manager also includes a couple useful helper functions, like getting the lo
 | name           | type                                                                                                                     | description                                              |
 |----------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
-| user           | [User](/docs/game-sdk/users#user-struct)                                                                     | the user for the ticket                                  |
-| entitlements   | list of partial [Entitlements](/docs/game-sdk/store#entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
+| user           | [User](/game-sdk/users#user-struct)                                                                     | the user for the ticket                                  |
+| entitlements   | list of partial [Entitlements](/game-sdk/store#entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
 | timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
 ## GetCurrentLocale
@@ -152,9 +152,9 @@ Get the signed app ticket for the current user. The structure of the ticket is: 
 - the application id tied to the ticket
 - the user's user id
 - a timestamp for the ticket
-- the list of the user's [entitlements](/docs/game-sdk/store#entitlement-struct) for the application id
+- the list of the user's [entitlements](/game-sdk/store#entitlement-struct) for the application id
 
-These values can be accessed by transforming the string into a [SignedAppTicket](/docs/game-sdk/applications#signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
+These values can be accessed by transforming the string into a [SignedAppTicket](/game-sdk/applications#signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
 
 Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
 

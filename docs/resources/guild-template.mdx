@@ -15,11 +15,11 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 | description             | ?string                                                    | the description for the template                       |
 | usage_count             | integer                                                    | number of times this template has been used            |
 | creator_id              | snowflake                                                  | the ID of the user who created the template            |
-| creator                 | [user](/docs/resources/user#user-object) object            | the user who created the template                      |
+| creator                 | [user](/resources/user#user-object) object            | the user who created the template                      |
 | created_at              | ISO8601 timestamp                                          | when this template was created                         |
 | updated_at              | ISO8601 timestamp                                          | when this template was last synced to the source guild |
 | source_guild_id         | snowflake                                                  | the ID of the guild this template is based on          |
-| serialized_source_guild | partial [guild](/docs/resources/guild#guild-object) object | the guild snapshot this template contains              |
+| serialized_source_guild | partial [guild](/resources/guild#guild-object) object | the guild snapshot this template contains              |
 | is_dirty                | ?boolean                                                   | whether the template has unsynced changes              |
 
 ###### Example Guild Template Object
@@ -99,15 +99,15 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 
 ## Get Guild Template
 
-<RoutePill method="GET">/guilds/templates/[\{template.code\}](/docs/resources/guild-template#guild-template-object)</RoutePill>
+<RoutePill method="GET">/guilds/templates/[\{template.code\}](/resources/guild-template#guild-template-object)</RoutePill>
 
-Returns a [guild template](/docs/resources/guild-template#guild-template-object) object for the given code.
+Returns a [guild template](/resources/guild-template#guild-template-object) object for the given code.
 
 ## Create Guild from Guild Template
 
-<RoutePill method="POST">/guilds/templates/[\{template.code\}](/docs/resources/guild-template#guild-template-object)</RoutePill>
+<RoutePill method="POST">/guilds/templates/[\{template.code\}](/resources/guild-template#guild-template-object)</RoutePill>
 
-Create a new guild based on a template. Returns a [guild](/docs/resources/guild#guild-object) object on success. Fires a [Guild Create](/docs/topics/gateway-events#guild-create) Gateway event.
+Create a new guild based on a template. Returns a [guild](/resources/guild#guild-object) object on success. Fires a [Guild Create](/topics/gateway-events#guild-create) Gateway event.
 
 :::warning
 This endpoint can be used only by bots in less than 10 guilds.
@@ -118,19 +118,19 @@ This endpoint can be used only by bots in less than 10 guilds.
 | Field | Type                                     | Description                             |
 |-------|------------------------------------------|-----------------------------------------|
 | name  | string                                   | name of the guild (2-100 characters)    |
-| icon? | [image data](/docs/reference#image-data) | base64 128x128 image for the guild icon |
+| icon? | [image data](/reference#image-data) | base64 128x128 image for the guild icon |
 
 ## Get Guild Templates
 
-<RoutePill method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/templates</RoutePill>
+<RoutePill method="GET">/guilds/[\{guild.id\}](/resources/guild#guild-object)/templates</RoutePill>
 
-Returns an array of [guild template](/docs/resources/guild-template#guild-template-object) objects. Requires the `MANAGE_GUILD` permission.
+Returns an array of [guild template](/resources/guild-template#guild-template-object) objects. Requires the `MANAGE_GUILD` permission.
 
 ## Create Guild Template
 
-<RoutePill method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/templates</RoutePill>
+<RoutePill method="POST">/guilds/[\{guild.id\}](/resources/guild#guild-object)/templates</RoutePill>
 
-Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Returns the created [guild template](/docs/resources/guild-template#guild-template-object) object on success.
+Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Returns the created [guild template](/resources/guild-template#guild-template-object) object on success.
 
 ###### JSON Params
 
@@ -141,15 +141,15 @@ Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Return
 
 ## Sync Guild Template
 
-<RoutePill method="PUT">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/templates/[\{template.code\}](/docs/resources/guild-template#guild-template-object)</RoutePill>
+<RoutePill method="PUT">/guilds/[\{guild.id\}](/resources/guild#guild-object)/templates/[\{template.code\}](/resources/guild-template#guild-template-object)</RoutePill>
 
-Syncs the template to the guild's current state. Requires the `MANAGE_GUILD` permission. Returns the [guild template](/docs/resources/guild-template#guild-template-object) object on success.
+Syncs the template to the guild's current state. Requires the `MANAGE_GUILD` permission. Returns the [guild template](/resources/guild-template#guild-template-object) object on success.
 
 ## Modify Guild Template
 
-<RoutePill method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/templates/[\{template.code\}](/docs/resources/guild-template#guild-template-object)</RoutePill>
+<RoutePill method="PATCH">/guilds/[\{guild.id\}](/resources/guild#guild-object)/templates/[\{template.code\}](/resources/guild-template#guild-template-object)</RoutePill>
 
-Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Returns the [guild template](/docs/resources/guild-template#guild-template-object) object on success.
+Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Returns the [guild template](/resources/guild-template#guild-template-object) object on success.
 
 ###### JSON Params
 
@@ -160,6 +160,6 @@ Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Return
 
 ## Delete Guild Template
 
-<RoutePill method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/templates/[\{template.code\}](/docs/resources/guild-template#guild-template-object)</RoutePill>
+<RoutePill method="DELETE">/guilds/[\{guild.id\}](/resources/guild#guild-object)/templates/[\{template.code\}](/resources/guild-template#guild-template-object)</RoutePill>
 
-Deletes the template. Requires the `MANAGE_GUILD` permission. Returns the deleted [guild template](/docs/resources/guild-template#guild-template-object) object on success.
+Deletes the template. Requires the `MANAGE_GUILD` permission. Returns the deleted [guild template](/resources/guild-template#guild-template-object) object on success.

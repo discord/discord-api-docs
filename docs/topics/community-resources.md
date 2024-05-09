@@ -38,7 +38,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 
 ## Interactions
 
-[Interactions](/docs/interactions/receiving-and-responding) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
+[Interactions](/interactions/receiving-and-responding) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
 - C#
   - [Discord.Net.Rest](https://github.com/discord-net/Discord.Net)
@@ -80,14 +80,14 @@ Discord Game SDK's lobby and networking layer shares similarities with other gam
 
 ## Permission Calculators
 
-[Permissions](/docs/topics/permissions) in Discord are tricky. Luckily, we've got really smart people who love us and have made some great permissions calculators. If you're making a bot for others, and you're not sure how to properly calculate permissions or generate your [authorization URL](/docs/topics/oauth2#bot-authorization-flow), these are great tools:
+[Permissions](/topics/permissions) in Discord are tricky. Luckily, we've got really smart people who love us and have made some great permissions calculators. If you're making a bot for others, and you're not sure how to properly calculate permissions or generate your [authorization URL](/topics/oauth2#bot-authorization-flow), these are great tools:
 
 - [FiniteReality's Permissions Calculator](https://finitereality.github.io/permissions-calculator/?v=0)
 - [abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
 
 ## Intent Calculators
 
-[Gateway Intents](/docs/topics/gateway#gateway-intents) are pretty confusing at first. If you're not sure what to send in your [Identify payload](/docs/topics/gateway-events#identify), then these tools may be of help:
+[Gateway Intents](/topics/gateway#gateway-intents) are pretty confusing at first. If you're not sure what to send in your [Identify payload](/topics/gateway-events#identify), then these tools may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
 - [Larko's Intent Calculator](https://discord-intents-calculator.vercel.app/)

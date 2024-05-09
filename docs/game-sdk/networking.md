@@ -5,10 +5,10 @@ Need help with the SDK? Talk to us in the [Discord Developers Server](https://di
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/change-log#gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/change-log#gamesdk-feature-deprecation)
 :::
 
-A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexibility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](/docs/game-sdk/lobbies#integrated-networking)
+A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexibility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](/game-sdk/lobbies#integrated-networking)
 
 Need a networking layer? Have a networking layer! This manager handles all things packets so you can get data from player to player and make your multiplayer...work. It:
 

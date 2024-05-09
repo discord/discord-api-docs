@@ -2,7 +2,7 @@
 
 Linked roles are a type of role in Discord that requires a user to connect to 3rd-party services and meet defined criteria. A role's criteria could just include the user connecting to that service, but it's often more narrow—like having a verified account, having certain stats, or having more than a certain number of followers.
 
-Apps can define their own [role connection metadata](/docs/resources/application-role-connection-metadata), which admins can use to configure linked roles in servers where that app is installed. Apps must also set up an [OAuth2 flow](/docs/topics/oauth2) to allow users to authenticate and grant the required `role_connections.write` scope.
+Apps can define their own [role connection metadata](/resources/application-role-connection-metadata), which admins can use to configure linked roles in servers where that app is installed. Apps must also set up an [OAuth2 flow](/topics/oauth2) to allow users to authenticate and grant the required `role_connections.write` scope.
 
 This tutorial walks through building a Discord app in JavaScript with linked roles support.
 
@@ -14,10 +14,10 @@ All of the sample code used in this tutorial can be found in the [`linked-roles-
 
 ## Creating an app
 
-The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](/docs/tutorials/configuring-app-metadata-for-linked-roles#running-your-app) section.
+The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](/tutorials/configuring-app-metadata-for-linked-roles#running-your-app) section.
 
 :::info
-Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](/docs/quick-start/getting-started). 
+Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](/quick-start/getting-started). 
 :::
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
@@ -37,7 +37,7 @@ Apps need approval from installing users to perform actions inside of Discord. S
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
  
 :::info
-See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
+See a list of all [OAuth2 scopes](/topics/oauth2#oauth2-scopes), or read more on [user permissions](/topics/permissions) in the documentation.
 :::
 
 ### Installing your app
@@ -131,7 +131,7 @@ COOKIE_SECRET: <random generated UUID>
 
 As a one-time step, you must tell Discord which metadata fields you are going to allow admins to use for linked roles associated with your app.
 
-To configure connection metadata for your app, you'll call the [`PUT /users/@me/applications/<application_id>/role-connection`](/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records) method with [application connection role metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object). In the sample app, this is handled in [`src/register.js`](https://github.com/discord/linked-roles-sample/blob/main/src/register.js), and can be run via the command line.
+To configure connection metadata for your app, you'll call the [`PUT /users/@me/applications/<application_id>/role-connection`](/resources/application-role-connection-metadata#update-application-role-connection-metadata-records) method with [application connection role metadata](/resources/application-role-connection-metadata#application-role-connection-metadata-object). In the sample app, this is handled in [`src/register.js`](https://github.com/discord/linked-roles-sample/blob/main/src/register.js), and can be run via the command line.
 
 Go back to Glitch, click the **terminal** tab, and run the following command:
 
@@ -177,7 +177,7 @@ Finally, create a new private channel, and add the new linked role.
 
 ### Token storage
 
-This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
+This app largely relies on Discord's [OAuth2](/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
 
 ### Advanced examples
 

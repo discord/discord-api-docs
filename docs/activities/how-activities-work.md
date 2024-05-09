@@ -1,16 +1,16 @@
 # How Activities Work
 
 :::info[preview]
-Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
+Creating Activities is currently available as a [Public Developer Preview](/activities/overview#public-developer-preview).
 :::
 
 Activities are web applications that run in an iframe within Discord on desktop, mobile and web. In order to achieve this, we use the [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) protocol to enable secure communication between your application and Discord.
 
-The [Embedded App SDK](https://github.com/discord/embedded-app-sdk) simplifies this process by managing the `postMessage` protocol on your behalf. For details on available commands and their usage, consult the [SDK Reference](/docs/developer-tools/embedded-app-sdk). Our [Sample Projects](/docs/activities/overview#sample-projects) provide practical examples of how to implement these features.
+The [Embedded App SDK](https://github.com/discord/embedded-app-sdk) simplifies this process by managing the `postMessage` protocol on your behalf. For details on available commands and their usage, consult the [SDK Reference](/developer-tools/embedded-app-sdk). Our [Sample Projects](/activities/overview#sample-projects) provide practical examples of how to implement these features.
 
 ### Designed for Single-Page Apps (SPAs)
 
-This SDK is intended for use by a single-page application. We recognize developers may be using frameworks or approaches that are not an exact fit for single-page applications. We recommend nesting those frameworks inside your Activity's top-level single-page application and passing messages as you see fit. Please refer to the [Nested Messages App](/docs/activities/overview#sample-projects) sample project for guidance on this approach.
+This SDK is intended for use by a single-page application. We recognize developers may be using frameworks or approaches that are not an exact fit for single-page applications. We recommend nesting those frameworks inside your Activity's top-level single-page application and passing messages as you see fit. Please refer to the [Nested Messages App](/activities/overview#sample-projects) sample project for guidance on this approach.
 
 ### Activity Lifecycle
 
@@ -24,7 +24,7 @@ This SDK is intended for use by a single-page application. We recognize develope
 ### Sample Code and Activity Lifecycle Diagram
 
 :::info
-Below is a minimal example of setting up the SDK. Please see our [Sample Projects](/docs/activities/overview#sample-projects) for more complete sample applications.
+Below is a minimal example of setting up the SDK. Please see our [Sample Projects](/activities/overview#sample-projects) for more complete sample applications.
 :::
 
 ```javascript

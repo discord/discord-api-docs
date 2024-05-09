@@ -10,9 +10,9 @@ Discord is a place of belonging where developers come to build cool tools to fur
 
 ## Introduction
 
-This Discord Developer Policy is incorporated into the [Discord Developer Terms of Service](/docs/policies-and-agreements/developer-terms-of-service) (“Developer Terms”) and you agree that it applies to your access to and use of our APIs in addition to the Developer Terms and other Terms. Capitalized terms not otherwise defined herein (including API Data and Application) have the meaning assigned to them in the Developer Terms. For clarity, the term “including” as used herein means “including without limitation.”
+This Discord Developer Policy is incorporated into the [Discord Developer Terms of Service](/policies-and-agreements/developer-terms-of-service) (“Developer Terms”) and you agree that it applies to your access to and use of our APIs in addition to the Developer Terms and other Terms. Capitalized terms not otherwise defined herein (including API Data and Application) have the meaning assigned to them in the Developer Terms. For clarity, the term “including” as used herein means “including without limitation.”
 
-Please check back here regularly as we may update these policies from time to time and your continued access to or use of the APIs after such updates go into effect means you accept and agree to them. Additional terms and policies may also apply to your access to or use of certain APIs (including as described in or available via our [Developer Portal](/docs/intro/) or [Help Center](https://support-dev.discord.com/hc/categories/360000656491)).
+Please check back here regularly as we may update these policies from time to time and your continued access to or use of the APIs after such updates go into effect means you accept and agree to them. Additional terms and policies may also apply to your access to or use of certain APIs (including as described in or available via our [Developer Portal](//) or [Help Center](https://support-dev.discord.com/hc/categories/360000656491)).
 
 ## Protect Discord users
 

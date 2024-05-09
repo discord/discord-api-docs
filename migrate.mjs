@@ -25,7 +25,7 @@ async function processFiles(directory) {
           linkParts[0] = linkParts[0].toLowerCase();
         }
         const linkEnd = link ? `#${link}` : "";
-        const newLink = `[${title}](/docs/${linkParts[0]}/${linkParts.slice(1).join("_")}${linkEnd})`;
+        const newLink = `[${title}](/${linkParts[0]}/${linkParts.slice(1).join("_")}${linkEnd})`;
         return newLink;
       });
       await writeFile(filePath, md);

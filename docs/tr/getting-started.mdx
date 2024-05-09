@@ -45,16 +45,16 @@ Uygulamanı oluşturduktan sonra uygulamanla ilgili açıklama ve simge gibi tem
 
 ### Botunu yapılandırmak
 
-Şimdiyse uygulamanın [bot kullanıcısını](/docs/topics/oauth2#bot-vs-user-accounts) yapılandırarak onun da tıpkı diğer sunucu üyeleri gibi görünmesini ve hareket etmesini sağlayacağız.
+Şimdiyse uygulamanın [bot kullanıcısını](/topics/oauth2#bot-vs-user-accounts) yapılandırarak onun da tıpkı diğer sunucu üyeleri gibi görünmesini ve hareket etmesini sağlayacağız.
 
-Sol taraftaki kenar çubuğunda **Bot**'a tıkla. Bu sayfada botun [ayrıcalıklı amaçlarını](/docs/topics/gateway#privileged-intents) veya diğer kullanıcılar tarafından yüklenip yüklenemeyeceği gibi ayarları yapılandırabilirsin.
+Sol taraftaki kenar çubuğunda **Bot**'a tıkla. Bu sayfada botun [ayrıcalıklı amaçlarını](/topics/gateway#privileged-intents) veya diğer kullanıcılar tarafından yüklenip yüklenemeyeceği gibi ayarları yapılandırabilirsin.
 
 <Collapsible title="Amaç nedir?" description="Standart ve ayrıcalıklı amaçlara giriş" icon="question">
-Amaçlar, bir [Ağ Geçidi API bağlantısı](/docs/topics/gateway) oluştururken Discord'un uygulamana hangi olayları göndereceğini belirler. Örneğin, kullanıcılar bir mesaja tepki eklediğinde uygulamanın bir şey yapmasını istiyorsan `GUILD_MESSAGE_REACTIONS` (`1 << 10`) amacını gönderebilirsin.
+Amaçlar, bir [Ağ Geçidi API bağlantısı](/topics/gateway) oluştururken Discord'un uygulamana hangi olayları göndereceğini belirler. Örneğin, kullanıcılar bir mesaja tepki eklediğinde uygulamanın bir şey yapmasını istiyorsan `GUILD_MESSAGE_REACTIONS` (`1 << 10`) amacını gönderebilirsin.
 
-Bazı amaçlar [privileged'tir](/docs/topics/gateway#privileged-intents), yani uygulamanın hassas olarak kabul edilebilecek verilere (mesajların içeriği gibi) erişmesine izin verir. Privileged intent'ler uygulamanın ayarlarındaki **Bot** sayfasında görünür ve açılıp kapatılabilir. Standart, privileged intent dışındakiler herhangi bir ek izin veya yapılandırma gerektirmez.
+Bazı amaçlar [privileged'tir](/topics/gateway#privileged-intents), yani uygulamanın hassas olarak kabul edilebilecek verilere (mesajların içeriği gibi) erişmesine izin verir. Privileged intent'ler uygulamanın ayarlarındaki **Bot** sayfasında görünür ve açılıp kapatılabilir. Standart, privileged intent dışındakiler herhangi bir ek izin veya yapılandırma gerektirmez.
 
-Amaçlar hakkında daha fazla bilgi ve mevcut amaçların tam listesi, ilişkili olaylarıyla birlikte [Ağ Geçidi dokümantasyonunda](/docs/topics/gateway#gateway-intents) bulunmaktadır.
+Amaçlar hakkında daha fazla bilgi ve mevcut amaçların tam listesi, ilişkili olaylarıyla birlikte [Ağ Geçidi dokümantasyonunda](/topics/gateway#gateway-intents) bulunmaktadır.
 </Collapsible>
 
 ![Ayarlardaki bot sekmesi](/images/app-add-bot.png)
@@ -76,8 +76,8 @@ Uygulamalar, Discord'da eğik çizgi komutu oluşturmak veya sunucu üyelerinin 
 <Collapsible title="Kapsamlar ve izinler nelerdir?" description="Kapsamlara ve bot izinlerine giriş" icon="question">
 Kapsamlar ve izinler, bir uygulama oluştururken uygulamanın Discord sunucularında neler yapabileceğini ve nelere erişebileceğini belirler.
 
-- [OAuth2 Kapsamları](/docs/topics/oauth2#oauth2-scopes), uygulamanın yükleme yapan veya yetki veren bir kullanıcı adına hangi verilere erişebileceğini ve eylemleri gerçekleştirebileceğini belirler.
-- [İzinler](/docs/topics/permissions#permission-overwrites), Discord'daki diğer kullanıcıların sahip olduğu gibi bot kullanıcıya verilmiş detaylı izinlerdir. Bunlar, yükleyen kullanıcı tarafından onaylanabilir veya daha sonra sunucu ayarlarında veya [izinlerin üzerine yazarak](/docs/topics/permissions#permission-overwrites) güncellenebilir.
+- [OAuth2 Kapsamları](/topics/oauth2#oauth2-scopes), uygulamanın yükleme yapan veya yetki veren bir kullanıcı adına hangi verilere erişebileceğini ve eylemleri gerçekleştirebileceğini belirler.
+- [İzinler](/topics/permissions#permission-overwrites), Discord'daki diğer kullanıcıların sahip olduğu gibi bot kullanıcıya verilmiş detaylı izinlerdir. Bunlar, yükleyen kullanıcı tarafından onaylanabilir veya daha sonra sunucu ayarlarında veya [izinlerin üzerine yazarak](/topics/permissions#permission-overwrites) güncellenebilir.
 </Collapsible>
 
 Sol kenar çubuğunda **OAuth2**'ye tıkla, ardından **URL oluşturucuyu** seç.
@@ -87,10 +87,10 @@ URL oluşturucu, uygulaman için seçtiğin kapsamlara ve izinlere göre bir yü
 :::
 
 Şimdilik iki kapsam ekleyelim:
-- `applications.commands`, uygulamanın [komutlar](/docs/interactions/application-commands) oluşturmasını sağlar.
+- `applications.commands`, uygulamanın [komutlar](/interactions/application-commands) oluşturmasını sağlar.
 - `bot`, bot kullanıcını ekler. `bot`'u seçtikten sonra botun için farklı izinler de seçebilirsin. Şimdilik sadece **Mesaj Gönder** seçeneğini işaretleyelim.
 
-Dokümantasyonda tüm [OAuth2 kapsamlarının](/docs/topics/oauth2#oauth2-scopes) bir listesine bakabilir veya [izinler](/docs/topics/permissions) hakkında daha fazla bilgi edinebilirsin.
+Dokümantasyonda tüm [OAuth2 kapsamlarının](/topics/oauth2#oauth2-scopes) bir listesine bakabilir veya [izinler](/topics/permissions) hakkında daha fazla bilgi edinebilirsin.
 
 ### Uygulamanı yüklemek
 
@@ -114,7 +114,7 @@ Hadi yapılandırılmış ve yüklenmiş uygulamanı geliştirelim.
 
 Örnek uygulamada kullanılan tüm kodlar [GitHub deposunda](https://github.com/discord/discord-example-app) bulunabilir.
 
-Uygulama, geliştirmeyi daha basit hâle getirmek için tipler ve yardımcı fonksiyonlar sağlayan [discord-interactions](https://github.com/discord/discord-interactions-js) kullanır. Başka dilleri veya kütüphaneleri kullanmayı tercih ediyorsan [Topluluk Kaynakları](/docs/topics/community-resources) dokümantasyonlarına göz atabilirsin.
+Uygulama, geliştirmeyi daha basit hâle getirmek için tipler ve yardımcı fonksiyonlar sağlayan [discord-interactions](https://github.com/discord/discord-interactions-js) kullanır. Başka dilleri veya kütüphaneleri kullanmayı tercih ediyorsan [Topluluk Kaynakları](/topics/community-resources) dokümantasyonlarına göz atabilirsin.
 
 ### Projeyi remikslemek
 
@@ -174,9 +174,9 @@ Kimlik bilgilerin yapılandırıldıktan sonra eğik çizgi komutlarını yükle
 Eğik çizgi komutlarını yüklemek için uygulama [`node-fetch`](https://github.com/node-fetch/node-fetch) kullanır. Yükleme implementasyonunu `utils.js`'de `DiscordRequest()` fonksiyonu içinde görebilirsin.
 :::
 
-Proje, `commands.js` dosyasının altında tanımlanan `ALL_COMMANDS` içerisindeki komutları yüklemek için kullanabileceğin bir `register` komut dosyası içerir. HTTP API'sinin [`PUT /applications/<APP_ID>/commands`](/docs/interactions/application-commands#bulk-overwrite-global-application-commands) uç noktasını çağırarak komutları global komutlar olarak yükler.
+Proje, `commands.js` dosyasının altında tanımlanan `ALL_COMMANDS` içerisindeki komutları yüklemek için kullanabileceğin bir `register` komut dosyası içerir. HTTP API'sinin [`PUT /applications/<APP_ID>/commands`](/interactions/application-commands#bulk-overwrite-global-application-commands) uç noktasını çağırarak komutları global komutlar olarak yükler.
 
-Komutlarını özelleştirmek veya ilave komutlar eklemek istersen [komutlar dokümantasyonundaki](/docs/interactions/application-commands#application-command-structure) komut yapısına başvurabilirsin.
+Komutlarını özelleştirmek veya ilave komutlar eklemek istersen [komutlar dokümantasyonundaki](/interactions/application-commands#application-command-structure) komut yapısına başvurabilirsin.
 
 Glitch projenin altındaki **Terminal**'e tıklayarak ve aşağıdaki komutu yapıştırarak `register` komut dosyasını çalıştır:
 
@@ -191,8 +191,8 @@ Sunucuna geri döndüğünde eğik çizgi komutlarının göründüğünü göre
 <Collapsible title="Discord'un API'leri nelerdir?" description="Discord'un HTTP ve Ağ Geçidi API'lerine Genel Bakış" icon="question">
 Discord, uygulamalar oluşturmak için bir araya getirebileceğin iki API'ye sahiptir:
 
-- **[HTTP API](/docs/reference#http-api)**, Discord'da veri gönderme, veri güncelleme veya bir kaynak hakkında veri alma gibi genel işlemler için kullanılan REST benzeri bir API'dir.
-- **[Ağ Geçidi API](/docs/reference#gateway-websocket-api)**, durumu korumak veya Discord sunucusunda gerçekleşen olayları dinlemek için yararlı, WebSocket tabanlı bir API'dir. Bu rehberde bunu kullanmayacağız ancak bir Ağ Geçidi bağlantısının nasıl oluşturulacağı hakkında ve dinleyebileceğin farklı olaylar hakkında daha fazla bilgi [Ağ Geçidi dokümantasyonunda](/docs/topics/gateway) bulunmaktadır.
+- **[HTTP API](/reference#http-api)**, Discord'da veri gönderme, veri güncelleme veya bir kaynak hakkında veri alma gibi genel işlemler için kullanılan REST benzeri bir API'dir.
+- **[Ağ Geçidi API](/reference#gateway-websocket-api)**, durumu korumak veya Discord sunucusunda gerçekleşen olayları dinlemek için yararlı, WebSocket tabanlı bir API'dir. Bu rehberde bunu kullanmayacağız ancak bir Ağ Geçidi bağlantısının nasıl oluşturulacağı hakkında ve dinleyebileceğin farklı olaylar hakkında daha fazla bilgi [Ağ Geçidi dokümantasyonunda](/topics/gateway) bulunmaktadır.
 </Collapsible>
 
 ---
@@ -221,7 +221,7 @@ Uygulamanın **Genel Bilgiler** sayfasında, uygulamanın URL'sini yapıştırab
 - `PUBLIC_KEY` ve [discord-interactions paketini](https://github.com/discord/discord-interactions-js#usage) [Express'in `verify` arayüzüne](http://expressjs.com/en/5x/api.html#express.json) uygun hâle getiren bir wrapper fonksiyonla (`utils.js` içerisinden içe aktarılır) birlikte kullanır. Bu, uygulamana gelen her istekte çalıştırılır.
 - Gelen `PING` isteklerine yanıt verir.
 
-Uygulamanı etkileşim almaya hazırlama hakkında daha fazla bilgiyi [etkileşimler dokümantasyonunda](/docs/interactions/receiving-and-responding#receiving-an-interaction) bulabilirsin.
+Uygulamanı etkileşim almaya hazırlama hakkında daha fazla bilgiyi [etkileşimler dokümantasyonunda](/interactions/receiving-and-responding#receiving-an-interaction) bulabilirsin.
 
 ### Eğik çizgi komut isteklerini işleme
 
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-Yukarıdaki kod, gelen etkileşime meydana geldiği kanaldaki bir mesajla yanıt veriyor. Modal ile yanıt vermek gibi mevcut tüm yanıt türlerini [dokümantasyonda](/docs/interactions/receiving-and-responding#interaction-callback-type) bulabilirsin.
+Yukarıdaki kod, gelen etkileşime meydana geldiği kanaldaki bir mesajla yanıt veriyor. Modal ile yanıt vermek gibi mevcut tüm yanıt türlerini [dokümantasyonda](/interactions/receiving-and-responding#interaction-callback-type) bulabilirsin.
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE`, [`discord-interactions`'dan dışa aktarılmış](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33) bir sabittir.
@@ -261,7 +261,7 @@ Taş-kâğıt-makas tarzı oyunumuz `/challenge` komutuyla başlatılacaktır. K
 
 `commands.js`'de `CHALLENGE_COMMAND` olarak adlandırılan `/challenge` komutu bir dizi `options`'a sahiptir. Uygulamamızda seçenekler, kullanıcının taş-kâğıt-makas oynarken seçebileceği farklı şeyleri temsil eden nesnelerdir ve `game.js`'deki `RPSChoices` anahtarları kullanılarak oluşturulmuştur.
 
-Komut seçenekleri ve bunların yapısı hakkında daha fazla bilgiyi [dokümantasyonlardan](/docs/interactions/application-commands#application-command-option-structure) edinebilirsin.
+Komut seçenekleri ve bunların yapısı hakkında daha fazla bilgiyi [dokümantasyonlardan](/interactions/application-commands#application-command-option-structure) edinebilirsin.
 
 :::info
 Bu rehber `game.js` dosyasına fazla değinmeyecek olsa da sen onu kurcalayabilir, komutları veya komutlardaki seçenekleri çekinmeden değiştirebilirsin.
@@ -321,7 +321,7 @@ Yukarıdaki kod birkaç şey yapıyor:
 Örnek kod, bellek içi depolama alanı olarak bir nesne kullanır ancak bitmiş uygulamalar için bir veri tabanı kullanman gerekir.
 :::
 
-[Mesaj bileşenleriyle](/docs/interactions/message-components#what-is-a-component) bir mesaj gönderirken, tekil payload'lar bir `components` dizisine eklenir. Eyleme geçirilebilir bileşenlerin (butonlar gibi) kod örneğinde görebileceğin bir [eylem satırının](/docs/interactions/message-components#action-rows) içinde olması gereklidir.
+[Mesaj bileşenleriyle](/interactions/message-components#what-is-a-component) bir mesaj gönderirken, tekil payload'lar bir `components` dizisine eklenir. Eyleme geçirilebilir bileşenlerin (butonlar gibi) kod örneğinde görebileceğin bir [eylem satırının](/interactions/message-components#action-rows) içinde olması gereklidir.
 
 Mesaj bileşenleriyle birlikte gönderilen benzersiz `custom_id`'ye dikkatli bakalım. Şu anki durumda `accept_button_` aktif oyunun kimliğiyle birlikte eklendi. Bir `custom_id`, birisi bileşenle etkileşime girdiğinde Discord'un sana gönderdiği istekleri işlemek için kullanılabilir, bunu birazdan göreceğiz.
 
@@ -331,7 +331,7 @@ Artık `/challenge` komutunu çalıştırdığında ve bir seçenek belirlediği
 
 <Collapsible title="Buton etkileşimlerinin işlenmesi" description="Buton tıklamalarını işlemek ve geçici bir mesajla yanıt vermek için kod" icon="code" open>
 
-Kullanıcılar bir mesaj bileşeniyle etkileşime girdiğinde, Discord [etkileşim türü](/docs/interactions/receiving-and-responding#interaction-type) `3` (veya `discord-interactions` kullanılırken `MESSAGE_COMPONENT`) değeri olan bir istek gönderecektir.
+Kullanıcılar bir mesaj bileşeniyle etkileşime girdiğinde, Discord [etkileşim türü](/interactions/receiving-and-responding#interaction-type) `3` (veya `discord-interactions` kullanılırken `MESSAGE_COMPONENT`) değeri olan bir istek gönderecektir.
 
 Buton için bir işleyici ayarlamak üzere, etkileşimin `type`'ını kontrol edeceğiz ve ardından `custom_id` ile eşleştireceğiz.
 
@@ -381,10 +381,10 @@ const componentId = data.custom_id;
 
 Yukarıdaki kod:
 1. Başlangıçta gönderdiğimizle eşleşen bir `custom_id` olup olmadığını kontrol eder (bu durumda, `accept_button_` ile başlar). Özel kimliğe aktif oyun kimliği de eklenmiştir, bu yüzden bunu `gameID`'de saklarız.
-2. `node-fetch` kullanarak bir webhook çağıran ve istek gövdesinde benzersiz etkileşim `token`'ı ileten [orijinal mesajı siler](/docs/interactions/receiving-and-responding#delete-original-interaction-response). Bu, kanalı temizlemek için yapılır ve böylece diğer kullanıcılar butona tıklayamaz.
-3. Oyun için nesne seçeneklerini içeren bir seçim menüsü içeren bir mesaj göndererek isteğe yanıt verir. Payload, `options` dizisi ve [mesajın geçici olduğunu gösteren](/docs/interactions/receiving-and-responding#create-followup-message) `flags: 64` belirteci haricinde önceki payload'a epey benzer görünmelidir.
+2. `node-fetch` kullanarak bir webhook çağıran ve istek gövdesinde benzersiz etkileşim `token`'ı ileten [orijinal mesajı siler](/interactions/receiving-and-responding#delete-original-interaction-response). Bu, kanalı temizlemek için yapılır ve böylece diğer kullanıcılar butona tıklayamaz.
+3. Oyun için nesne seçeneklerini içeren bir seçim menüsü içeren bir mesaj göndererek isteğe yanıt verir. Payload, `options` dizisi ve [mesajın geçici olduğunu gösteren](/interactions/receiving-and-responding#create-followup-message) `flags: 64` belirteci haricinde önceki payload'a epey benzer görünmelidir.
 
-`options` dizisi, `game.js`'deki `getShuffledOptions()` metodu kullanılarak doldurulur ve bu metot `RPSChoices` değerlerini [mesaj bileşeni seçeneklerinin](/docs/interactions/message-components#select-option-structure) şekline uyacak şekilde değiştirir.
+`options` dizisi, `game.js`'deki `getShuffledOptions()` metodu kullanılarak doldurulur ve bu metot `RPSChoices` değerlerini [mesaj bileşeni seçeneklerinin](/interactions/message-components#select-option-structure) şekline uyacak şekilde değiştirir.
 
 </Collapsible>
 
@@ -479,7 +479,7 @@ Daha önceki koda benzer şekilde, yukarıdaki kod etkileşim isteğinden kullan
 
 Bu bilgi, orijinal kullanıcının kimliği ve `activeGames` nesnesinden yapılan seçimle birlikte `getResult()` fonksiyonuna aktarılır. `getResult()` kazananı belirler, ardından kanala geri göndermek için okunabilir bir karakter dizisi oluşturur.
 
-Ayrıca, bu kez silinemediği için [takip eden geçici mesajı güncellemek](/docs/interactions/receiving-and-responding#edit-followup-message) için başka bir webhook çağırıyoruz.
+Ayrıca, bu kez silinemediği için [takip eden geçici mesajı güncellemek](/interactions/receiving-and-responding#edit-followup-message) için başka bir webhook çağırıyoruz.
 
 Son olarak, sonuçlar kanalda `CHANNEL_MESSAGE_WITH_SOURCE` etkileşim yanıt tipi kullanılarak gönderilir.
 
@@ -494,8 +494,8 @@ Son olarak, sonuçlar kanalda `CHANNEL_MESSAGE_WITH_SOURCE` etkileşim yanıt ti
 Tebrikler, ilk Discord uygulamanı geliştirdin! 🤖
 
 Umarız Discord uygulamaları, nasıl yapılandırılacakları ve nasıl etkileşimli hâle getirilecekleri hakkında biraz bilgi edinmişsindir. Buradan uygulamanı oluşturmaya devam edebilir veya başka nelerin mümkün olduğunu keşfedebilirsin:
-- API özellikleri hakkında derinlemesine bilgi için **[dokümantasyonları](/docs/intro/)** oku
+- API özellikleri hakkında derinlemesine bilgi için **[dokümantasyonları](//)** oku
 - Daha küçük, özelliğe has kod örnekleri için bu projedeki `examples/` klasörüne göz at
-- Topluluk üyeleri tarafından yürütülen kodlama diline özgü araçlar için **[topluluk kaynaklarına](/docs/topics/community-resources)** göz at
-- Discord uygulamalarını [Cloudflare Workers](/docs/tutorials/hosting-on-cloudflare-workers) üzerinde barındırma hakkındaki eğitimimizi oku
+- Topluluk üyeleri tarafından yürütülen kodlama diline özgü araçlar için **[topluluk kaynaklarına](/topics/community-resources)** göz at
+- Discord uygulamalarını [Cloudflare Workers](/tutorials/hosting-on-cloudflare-workers) üzerinde barındırma hakkındaki eğitimimizi oku
 - API hakkında sorular sormak, Discord API ekibi tarafından düzenlenen etkinliklere katılmak ve diğer geliştiricilerle etkileşim kurmak için **[Discord Geliştiricileri sunucusuna](https://discord.gg/discord-developers)** katıl

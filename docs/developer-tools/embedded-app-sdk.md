@@ -1,12 +1,12 @@
 # Embedded App SDK Reference
 
 :::info[preview]
-Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
+Creating Activities is currently available as a [Public Developer Preview](/activities/overview#public-developer-preview).
 :::
 
 The Embedded App SDK handles making RPC calls between your application and Discord. It is designed to assist developers in developing interactive Activities like games.
 
-To learn more about building Activities, check out our [Building an Activity](/docs/activities/building-an-activity) tutorial or explore our [Sample Projects](/docs/activities/overview#sample-projects).
+To learn more about building Activities, check out our [Building an Activity](/activities/building-an-activity) tutorial or explore our [Sample Projects](/activities/overview#sample-projects).
 
 ---
 
@@ -34,9 +34,9 @@ const discordSdk = new DiscordSDK(DISCORD_CLIENT_ID);
 
 | Name                                                              | Description                                                             |
 |-------------------------------------------------------------------|-------------------------------------------------------------------------|
-| [ready](/docs/developer-tools/embedded-app-sdk#ready)             | Resolves when your app has successfully connected to the Discord client |
-| [subscribe](/docs/developer-tools/embedded-app-sdk#subscribe)     | Subscribe to an Embedded App SDK Event                                  |
-| [unsubscribe](/docs/developer-tools/embedded-app-sdk#unsubscribe) | Unsubscribe to an Embedded App SDK Event                                |
+| [ready](/developer-tools/embedded-app-sdk#ready)             | Resolves when your app has successfully connected to the Discord client |
+| [subscribe](/developer-tools/embedded-app-sdk#subscribe)     | Subscribe to an Embedded App SDK Event                                  |
+| [unsubscribe](/developer-tools/embedded-app-sdk#unsubscribe) | Unsubscribe to an Embedded App SDK Event                                |
 
 ### ready()
 
@@ -64,7 +64,7 @@ async function setup() {
 
 ### subscribe()
 
-Used to subscribe to a specific event from the list of [SDK Events](/docs/developer-tools/embedded-app-sdk#sdk-events).
+Used to subscribe to a specific event from the list of [SDK Events](/developer-tools/embedded-app-sdk#sdk-events).
 
 #### Supported Platforms
 | Web | iOS | Android |
@@ -85,7 +85,7 @@ await discordSdk.subscribe("SDK_EVENT_NAME", eventHandler, args);
 
 ### unsubscribe()
 
-Used to unsubscribe to [SDK Events](/docs/developer-tools/embedded-app-sdk#sdk-events) that your app has already subscribed to.
+Used to unsubscribe to [SDK Events](/developer-tools/embedded-app-sdk#sdk-events) that your app has already subscribed to.
 
 #### Supported Platforms
 | Web | iOS | Android |
@@ -110,24 +110,24 @@ Developers can use these commands to interact with the Discord client. The follo
 
 | Name                                                                                                        | Description                                                                              |
 |-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| [authenticate](/docs/developer-tools/embedded-app-sdk#authenticate)                                         | Authenticate an existing client with your app                                            |
-| [authorize](/docs/developer-tools/embedded-app-sdk#authorize)                                               | Authorize a new client with your app                                                     |
-| [captureLog](/docs/developer-tools/embedded-app-sdk#capturelog)                                             | Forward logs to your own logger                                                          |
-| [encourageHardwareAcceleration](/docs/developer-tools/embedded-app-sdk#encouragehardwareacceleration)       | Presents a modal dialog to allow enabling of hardware acceleration                       |
-| [getChannel](/docs/developer-tools/embedded-app-sdk#getchannel)                                             | Returns information about the channel, per the channel_id                                |
-| [getChannelPermissions](/docs/developer-tools/embedded-app-sdk#getchannelpermissions)                       | Returns permissions for the current user in the currently connected channel              |
-| [getEntitlements](/docs/developer-tools/embedded-app-sdk#getentitlements)                                   | Not available during Developer Preview                                                   |
-| [getInstanceConnectedParticipants](/docs/developer-tools/embedded-app-sdk#getinstanceconnectedparticipants) | Returns all participants connected to the instance                                       |
-| [getPlatformBehaviors](/docs/developer-tools/embedded-app-sdk#getplatformbehaviors)                         | Returns information about supported platform behaviors                                   |
-| [getSkus](/docs/developer-tools/embedded-app-sdk#getskus)                                                   | Not available during Developer Preview                                                   |
-| [initiateImageUpload](/docs/developer-tools/embedded-app-sdk#initiateimageupload)                           | Presents the file upload flow in the Discord client                                      |
-| [openExternalLink](/docs/developer-tools/embedded-app-sdk#openexternallink)                                 | Allows for opening an external link from within the Discord client                       |
-| [openInviteDialog](/docs/developer-tools/embedded-app-sdk#openinvitedialog)                                 | Presents a modal dialog with Channel Invite UI without requiring additional OAuth scopes |
-| [openShareMomentDialog](/docs/developer-tools/embedded-app-sdk#opensharemomentdialog)                       | Presents a modal dialog to share media to a channel or DM                                |
-| [setActivity](/docs/developer-tools/embedded-app-sdk#setactivity)                                           | Modifies how your activity's rich presence is displayed in the Discord client            |
-| [setOrientationLockState](/docs/developer-tools/embedded-app-sdk#setorientationlockstate)                   | Set options for orientation and picture-in-picture (PIP) modes                           |
-| [startPurchase](/docs/developer-tools/embedded-app-sdk#startpurchase)                                       | Not available during Developer Preview                                                   |
-| [userSettingsGetLocale](/docs/developer-tools/embedded-app-sdk#usersettingsgetlocale)                       | Returns the current user's locale                                                        |
+| [authenticate](/developer-tools/embedded-app-sdk#authenticate)                                         | Authenticate an existing client with your app                                            |
+| [authorize](/developer-tools/embedded-app-sdk#authorize)                                               | Authorize a new client with your app                                                     |
+| [captureLog](/developer-tools/embedded-app-sdk#capturelog)                                             | Forward logs to your own logger                                                          |
+| [encourageHardwareAcceleration](/developer-tools/embedded-app-sdk#encouragehardwareacceleration)       | Presents a modal dialog to allow enabling of hardware acceleration                       |
+| [getChannel](/developer-tools/embedded-app-sdk#getchannel)                                             | Returns information about the channel, per the channel_id                                |
+| [getChannelPermissions](/developer-tools/embedded-app-sdk#getchannelpermissions)                       | Returns permissions for the current user in the currently connected channel              |
+| [getEntitlements](/developer-tools/embedded-app-sdk#getentitlements)                                   | Not available during Developer Preview                                                   |
+| [getInstanceConnectedParticipants](/developer-tools/embedded-app-sdk#getinstanceconnectedparticipants) | Returns all participants connected to the instance                                       |
+| [getPlatformBehaviors](/developer-tools/embedded-app-sdk#getplatformbehaviors)                         | Returns information about supported platform behaviors                                   |
+| [getSkus](/developer-tools/embedded-app-sdk#getskus)                                                   | Not available during Developer Preview                                                   |
+| [initiateImageUpload](/developer-tools/embedded-app-sdk#initiateimageupload)                           | Presents the file upload flow in the Discord client                                      |
+| [openExternalLink](/developer-tools/embedded-app-sdk#openexternallink)                                 | Allows for opening an external link from within the Discord client                       |
+| [openInviteDialog](/developer-tools/embedded-app-sdk#openinvitedialog)                                 | Presents a modal dialog with Channel Invite UI without requiring additional OAuth scopes |
+| [openShareMomentDialog](/developer-tools/embedded-app-sdk#opensharemomentdialog)                       | Presents a modal dialog to share media to a channel or DM                                |
+| [setActivity](/developer-tools/embedded-app-sdk#setactivity)                                           | Modifies how your activity's rich presence is displayed in the Discord client            |
+| [setOrientationLockState](/developer-tools/embedded-app-sdk#setorientationlockstate)                   | Set options for orientation and picture-in-picture (PIP) modes                           |
+| [startPurchase](/developer-tools/embedded-app-sdk#startpurchase)                                       | Not available during Developer Preview                                                   |
+| [userSettingsGetLocale](/developer-tools/embedded-app-sdk#usersettingsgetlocale)                       | Returns the current user's locale                                                        |
 
 ### authenticate()
 
@@ -545,17 +545,17 @@ Developers may use the following events alongside the `subscribe()` SDK method t
 
 | Name                                                                                                               | Description                                                                               |
 |--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| [READY](/docs/developer-tools/embedded-app-sdk#ready)                                                              | non-subscription event sent immediately after connecting, contains server information     |
-| [ERROR](/docs/developer-tools/embedded-app-sdk#error)                                                              | non-subscription event sent when there is an error, including command responses           |
-| [VOICE_STATE_UPDATE](/docs/developer-tools/embedded-app-sdk#voice_state_update)                                      | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
-| [SPEAKING_START](/docs/developer-tools/embedded-app-sdk#speaking_start)                                             | sent when a user in a subscribed voice channel speaks                                     |
-| [SPEAKING_STOP](/docs/developer-tools/embedded-app-sdk#speaking_stop)                                               | sent when a user in a subscribed voice channel stops speaking                             |
-| [ACTIVITY_LAYOUT_MODE_UPDATE](/docs/developer-tools/embedded-app-sdk#activity_layout_mode_update)                     | Received when a user changes the layout mode in the Discord client                        |
-| [ORIENTATION_UPDATE](/docs/developer-tools/embedded-app-sdk#orientation_update)                                     | Received when screen orientation changes                                                  |
-| [CURRENT_USER_UPDATE](/docs/developer-tools/embedded-app-sdk#current_user_update)                                    | Received when the current user object changes                                             |
-| [THERMAL_STATE_UPDATE](/docs/developer-tools/embedded-app-sdk#thermal_state_update)                                  | Received when Android or iOS thermal states are surfaced to the Discord app               |
-| [ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE](/docs/developer-tools/embedded-app-sdk#activity_instance_participants_update) | Received when the number of instance participants changes                                 |
-| [ENTITLEMENT_CREATE](/docs/developer-tools/embedded-app-sdk#entitlement_create)                                     | Not available during Developer Preview                                                    |
+| [READY](/developer-tools/embedded-app-sdk#ready)                                                              | non-subscription event sent immediately after connecting, contains server information     |
+| [ERROR](/developer-tools/embedded-app-sdk#error)                                                              | non-subscription event sent when there is an error, including command responses           |
+| [VOICE_STATE_UPDATE](/developer-tools/embedded-app-sdk#voice_state_update)                                      | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
+| [SPEAKING_START](/developer-tools/embedded-app-sdk#speaking_start)                                             | sent when a user in a subscribed voice channel speaks                                     |
+| [SPEAKING_STOP](/developer-tools/embedded-app-sdk#speaking_stop)                                               | sent when a user in a subscribed voice channel stops speaking                             |
+| [ACTIVITY_LAYOUT_MODE_UPDATE](/developer-tools/embedded-app-sdk#activity_layout_mode_update)                     | Received when a user changes the layout mode in the Discord client                        |
+| [ORIENTATION_UPDATE](/developer-tools/embedded-app-sdk#orientation_update)                                     | Received when screen orientation changes                                                  |
+| [CURRENT_USER_UPDATE](/developer-tools/embedded-app-sdk#current_user_update)                                    | Received when the current user object changes                                             |
+| [THERMAL_STATE_UPDATE](/developer-tools/embedded-app-sdk#thermal_state_update)                                  | Received when Android or iOS thermal states are surfaced to the Discord app               |
+| [ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE](/developer-tools/embedded-app-sdk#activity_instance_participants_update) | Received when the number of instance participants changes                                 |
+| [ENTITLEMENT_CREATE](/developer-tools/embedded-app-sdk#entitlement_create)                                     | Not available during Developer Preview                                                    |
 
 
 ### READY

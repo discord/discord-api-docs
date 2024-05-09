@@ -12,10 +12,10 @@ Routes for controlling emojis do not follow the normal rate limit conventions. T
 
 | Field           | Type                                                             | Description                                                               |
 |-----------------|------------------------------------------------------------------|---------------------------------------------------------------------------|
-| id              | ?snowflake                                                       | [emoji id](/docs/reference#image-formatting)                              |
+| id              | ?snowflake                                                       | [emoji id](/reference#image-formatting)                              |
 | name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
-| roles?          | array of [role](/docs/topics/permissions#role-object) object ids | roles allowed to use this emoji                                           |
-| user?           | [user](/docs/resources/user#user-object) object                  | user that created this emoji                                              |
+| roles?          | array of [role](/topics/permissions#role-object) object ids | roles allowed to use this emoji                                           |
+| user?           | [user](/resources/user#user-object) object                  | user that created this emoji                                              |
 | require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                              |
 | managed?        | boolean                                                          | whether this emoji is managed                                             |
 | animated?       | boolean                                                          | whether this emoji is animated                                            |
@@ -82,24 +82,24 @@ Emojis cannot be converted between normal and premium after creation.
 
 ## List Guild Emojis
 
-<RoutePill method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis</RoutePill>
+<RoutePill method="GET">/guilds/[\{guild.id\}](/resources/guild#guild-object)/emojis</RoutePill>
 
-Returns a list of [emoji](/docs/resources/emoji#emoji-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
+Returns a list of [emoji](/resources/emoji#emoji-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
 ## Get Guild Emoji
 
-<RoutePill method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</RoutePill>
+<RoutePill method="GET">/guilds/[\{guild.id\}](/resources/guild#guild-object)/emojis/[\{emoji.id\}](/resources/emoji#emoji-object)</RoutePill>
 
-Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the the `CREATE_GUILD_EXPRESSIONS` permission.
+Returns an [emoji](/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the the `CREATE_GUILD_EXPRESSIONS` permission.
 
 ## Create Guild Emoji
 
-<RoutePill method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis</RoutePill>
+<RoutePill method="POST">/guilds/[\{guild.id\}](/resources/guild#guild-object)/emojis</RoutePill>
 
-Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/topics/gateway-events#guild-emojis-update) Gateway event.
+Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [emoji](/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/topics/gateway-events#guild-emojis-update) Gateway event.
 
 :::warning
-Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/topics/opcodes-and-status-codes#json).
 :::
 
 :::info
@@ -111,14 +111,14 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | Field | Type                                     | Description                     |
 |-------|------------------------------------------|---------------------------------|
 | name  | string                                   | name of the emoji               |
-| image | [image data](/docs/reference#image-data) | the 128x128 emoji image         |
+| image | [image data](/reference#image-data) | the 128x128 emoji image         |
 | roles | array of snowflakes                      | roles allowed to use this emoji |
 
 ## Modify Guild Emoji
 
-<RoutePill method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</RoutePill>
+<RoutePill method="PATCH">/guilds/[\{guild.id\}](/resources/guild#guild-object)/emojis/[\{emoji.id\}](/resources/emoji#emoji-object)</RoutePill>
 
-Modify the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/topics/gateway-events#guild-emojis-update) Gateway event.
+Modify the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [emoji](/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/topics/gateway-events#guild-emojis-update) Gateway event.
 
 :::info
 All parameters to this endpoint are optional.
@@ -137,9 +137,9 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Delete Guild Emoji
 
-<RoutePill method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</RoutePill>
+<RoutePill method="DELETE">/guilds/[\{guild.id\}](/resources/guild#guild-object)/emojis/[\{emoji.id\}](/resources/emoji#emoji-object)</RoutePill>
 
-Delete the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](/docs/topics/gateway-events#guild-emojis-update) Gateway event.
+Delete the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](/topics/gateway-events#guild-emojis-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.

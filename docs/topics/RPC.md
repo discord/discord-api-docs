@@ -16,7 +16,7 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Restrictions
 
-For connections to the RPC server, a [list of approved testers](/docs/topics/rpc#authorize) is used to restrict access while you're still developing. You can invite up to 50 people.
+For connections to the RPC server, a [list of approved testers](/topics/rpc#authorize) is used to restrict access while you're still developing. You can invite up to 50 people.
 
 For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
 
@@ -26,9 +26,9 @@ For applications/games not approved, we limit you to creating 10 guilds and 10 c
 
 | Field | Type   | Description                                                           | Present                                                  |
 |-------|--------|-----------------------------------------------------------------------|----------------------------------------------------------|
-| cmd   | enum   | [payload command](/docs/topics/rpc#rpc-commands)  | Always                                                   |
+| cmd   | enum   | [payload command](/topics/rpc#rpc-commands)  | Always                                                   |
 | nonce | string | unique string used once for replies from the server                   | In responses to commands (not subscribed events)         |
-| evt   | enum   | [subscription event](/docs/topics/rpc#rpc-events) | In subscribed events, errors, and (un)subscribing events |
+| evt   | enum   | [subscription event](/topics/rpc#rpc-events) | In subscribed events, errors, and (un)subscribing events |
 | data  | object | event data                                                            | In responses from the server                             |
 | args  | object | command arguments                                                     | In commands sent to the server                           |
 
@@ -57,7 +57,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 
 ## Authenticating
 
-In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](/docs/topics/rpc#authorize):
+In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](/topics/rpc#authorize):
 
 ###### RPC Authorize Example
 
@@ -72,7 +72,7 @@ In order to call any commands over RPC, you must be authenticated or you will re
 }
 ```
 
-The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discord.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](/docs/topics/rpc#authenticate):
+The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discord.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](/topics/rpc#authenticate):
 
 ###### RPC Authenticate Example
 
@@ -96,25 +96,25 @@ Commands are requests made to the RPC socket by a client.
 
 | Name                                                                   | Description                                                     |
 |------------------------------------------------------------------------|-----------------------------------------------------------------|
-| [DISPATCH](/docs/topics/rpc#rpc-events)            | event dispatch                                                  |
-| [AUTHORIZE](/docs/topics/rpc#authorize)                                | used to authorize a new client with your app                    |
-| [AUTHENTICATE](/docs/topics/rpc#authenticate)                          | used to authenticate an existing client with your app           |
-| [GET_GUILD](/docs/topics/rpc#get_guild)                                 | used to retrieve guild information from the client              |
-| [GET_GUILDS](/docs/topics/rpc#get_guilds)                               | used to retrieve a list of guilds from the client               |
-| [GET_CHANNEL](/docs/topics/rpc#get_channel)                             | used to retrieve channel information from the client            |
-| [GET_CHANNELS](/docs/topics/rpc#get_channels)                           | used to retrieve a list of channels for a guild from the client |
-| [SUBSCRIBE](/docs/topics/rpc#subscribe)                                | used to subscribe to an RPC event                               |
-| [UNSUBSCRIBE](/docs/topics/rpc#unsubscribe)                            | used to unsubscribe from an RPC event                           |
-| [SET_USER_VOICE_SETTINGS](/docs/topics/rpc#set_user_voice_settings)       | used to change voice settings of users in voice channels        |
-| [SELECT_VOICE_CHANNEL](/docs/topics/rpc#select_voice_channel)            | used to join or leave a voice channel, group dm, or dm          |
-| [GET_SELECTED_VOICE_CHANNEL](/docs/topics/rpc#get_selected_voice_channel) | used to get the current voice channel the client is in          |
-| [SELECT_TEXT_CHANNEL](/docs/topics/rpc#select_text_channel)              | used to join or leave a text channel, group dm, or dm           |
-| [GET_VOICE_SETTINGS](/docs/topics/rpc#get_voice_settings)                | used to retrieve the client's voice settings                    |
-| [SET_VOICE_SETTINGS](/docs/topics/rpc#set_voice_settings)                | used to set the client's voice settings                         |
-| [SET_CERTIFIED_DEVICES](/docs/topics/rpc#set_certified_devices)          | used to send info about certified hardware devices              |
-| [SET_ACTIVITY](/docs/topics/rpc#set_activity)                           | used to update a user's Rich Presence                           |
-| [SEND_ACTIVITY_JOIN_INVITE](/docs/topics/rpc#send_activity_join_invite)   | used to consent to a Rich Presence Ask to Join request          |
-| [CLOSE_ACTIVITY_REQUEST](/docs/topics/rpc#close_activity_request)        | used to reject a Rich Presence Ask to Join request              |
+| [DISPATCH](/topics/rpc#rpc-events)            | event dispatch                                                  |
+| [AUTHORIZE](/topics/rpc#authorize)                                | used to authorize a new client with your app                    |
+| [AUTHENTICATE](/topics/rpc#authenticate)                          | used to authenticate an existing client with your app           |
+| [GET_GUILD](/topics/rpc#get_guild)                                 | used to retrieve guild information from the client              |
+| [GET_GUILDS](/topics/rpc#get_guilds)                               | used to retrieve a list of guilds from the client               |
+| [GET_CHANNEL](/topics/rpc#get_channel)                             | used to retrieve channel information from the client            |
+| [GET_CHANNELS](/topics/rpc#get_channels)                           | used to retrieve a list of channels for a guild from the client |
+| [SUBSCRIBE](/topics/rpc#subscribe)                                | used to subscribe to an RPC event                               |
+| [UNSUBSCRIBE](/topics/rpc#unsubscribe)                            | used to unsubscribe from an RPC event                           |
+| [SET_USER_VOICE_SETTINGS](/topics/rpc#set_user_voice_settings)       | used to change voice settings of users in voice channels        |
+| [SELECT_VOICE_CHANNEL](/topics/rpc#select_voice_channel)            | used to join or leave a voice channel, group dm, or dm          |
+| [GET_SELECTED_VOICE_CHANNEL](/topics/rpc#get_selected_voice_channel) | used to get the current voice channel the client is in          |
+| [SELECT_TEXT_CHANNEL](/topics/rpc#select_text_channel)              | used to join or leave a text channel, group dm, or dm           |
+| [GET_VOICE_SETTINGS](/topics/rpc#get_voice_settings)                | used to retrieve the client's voice settings                    |
+| [SET_VOICE_SETTINGS](/topics/rpc#set_voice_settings)                | used to set the client's voice settings                         |
+| [SET_CERTIFIED_DEVICES](/topics/rpc#set_certified_devices)          | used to send info about certified hardware devices              |
+| [SET_ACTIVITY](/topics/rpc#set_activity)                           | used to update a user's Rich Presence                           |
+| [SEND_ACTIVITY_JOIN_INVITE](/topics/rpc#send_activity_join_invite)   | used to consent to a Rich Presence Ask to Join request          |
+| [CLOSE_ACTIVITY_REQUEST](/topics/rpc#close_activity_request)        | used to reject a Rich Presence Ask to Join request              |
 
 Events are payloads sent over the socket to a client that correspond to events in Discord.
 
@@ -122,26 +122,26 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 | Name                                                                                    | Description                                                                                |
 |-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| [READY](/docs/topics/rpc#ready)                                                         | non-subscription event sent immediately after connecting, contains server information      |
-| [ERROR](/docs/topics/rpc#error)                                                         | non-subscription event sent when there is an error, including command responses            |
-| [GUILD_STATUS](/docs/topics/rpc#guild_status)                                            | sent when a subscribed server's state changes                                              |
-| [GUILD_CREATE](/docs/topics/rpc#guild_create)                                            | sent when a guild is created/joined on the client                                          |
-| [CHANNEL_CREATE](/docs/topics/rpc#channel_create)                                        | sent when a channel is created/joined on the client                                        |
-| [VOICE_CHANNEL_SELECT](/docs/topics/rpc#voice_channel_select)                             | sent when the client joins a voice channel                                                 |
-| [VOICE_STATE_CREATE](/docs/topics/rpc#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user joins a subscribed voice channel                                          |
-| [VOICE_STATE_UPDATE](/docs/topics/rpc#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
-| [VOICE_STATE_DELETE](/docs/topics/rpc#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user parts a subscribed voice channel                                          |
-| [VOICE_SETTINGS_UPDATE](/docs/topics/rpc#voice_settings_update)                           | sent when the client's voice settings update                                               |
-| [VOICE_CONNECTION_STATUS](/docs/topics/rpc#voice_connection_status)                       | sent when the client's voice connection status changes                                     |
-| [SPEAKING_START](/docs/topics/rpc#speaking_startspeaking_stop)                            | sent when a user in a subscribed voice channel speaks                                      |
-| [SPEAKING_STOP](/docs/topics/rpc#speaking_startspeaking_stop)                             | sent when a user in a subscribed voice channel stops speaking                              |
-| [MESSAGE_CREATE](/docs/topics/rpc#message_createmessage_updatemessage_delete)              | sent when a message is created in a subscribed text channel                                |
-| [MESSAGE_UPDATE](/docs/topics/rpc#message_createmessage_updatemessage_delete)              | sent when a message is updated in a subscribed text channel                                |
-| [MESSAGE_DELETE](/docs/topics/rpc#message_createmessage_updatemessage_delete)              | sent when a message is deleted in a subscribed text channel                                |
-| [NOTIFICATION_CREATE](/docs/topics/rpc#notification_create)                              | sent when the client receives a notification (mention or new message in eligible channels) |
-| [ACTIVITY_JOIN](/docs/topics/rpc#activity_join)                                          | sent when the user clicks a Rich Presence join invite in chat to join a game               |
-| [ACTIVITY_SPECTATE](/docs/topics/rpc#activity_spectate)                                  | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
-| [ACTIVITY_JOIN_REQUEST](/docs/topics/rpc#activity_join_request)                           | sent when the user receives a Rich Presence Ask to Join request                            |
+| [READY](/topics/rpc#ready)                                                         | non-subscription event sent immediately after connecting, contains server information      |
+| [ERROR](/topics/rpc#error)                                                         | non-subscription event sent when there is an error, including command responses            |
+| [GUILD_STATUS](/topics/rpc#guild_status)                                            | sent when a subscribed server's state changes                                              |
+| [GUILD_CREATE](/topics/rpc#guild_create)                                            | sent when a guild is created/joined on the client                                          |
+| [CHANNEL_CREATE](/topics/rpc#channel_create)                                        | sent when a channel is created/joined on the client                                        |
+| [VOICE_CHANNEL_SELECT](/topics/rpc#voice_channel_select)                             | sent when the client joins a voice channel                                                 |
+| [VOICE_STATE_CREATE](/topics/rpc#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user joins a subscribed voice channel                                          |
+| [VOICE_STATE_UPDATE](/topics/rpc#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
+| [VOICE_STATE_DELETE](/topics/rpc#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user parts a subscribed voice channel                                          |
+| [VOICE_SETTINGS_UPDATE](/topics/rpc#voice_settings_update)                           | sent when the client's voice settings update                                               |
+| [VOICE_CONNECTION_STATUS](/topics/rpc#voice_connection_status)                       | sent when the client's voice connection status changes                                     |
+| [SPEAKING_START](/topics/rpc#speaking_startspeaking_stop)                            | sent when a user in a subscribed voice channel speaks                                      |
+| [SPEAKING_STOP](/topics/rpc#speaking_startspeaking_stop)                             | sent when a user in a subscribed voice channel stops speaking                              |
+| [MESSAGE_CREATE](/topics/rpc#message_createmessage_updatemessage_delete)              | sent when a message is created in a subscribed text channel                                |
+| [MESSAGE_UPDATE](/topics/rpc#message_createmessage_updatemessage_delete)              | sent when a message is updated in a subscribed text channel                                |
+| [MESSAGE_DELETE](/topics/rpc#message_createmessage_updatemessage_delete)              | sent when a message is deleted in a subscribed text channel                                |
+| [NOTIFICATION_CREATE](/topics/rpc#notification_create)                              | sent when the client receives a notification (mention or new message in eligible channels) |
+| [ACTIVITY_JOIN](/topics/rpc#activity_join)                                          | sent when the user clicks a Rich Presence join invite in chat to join a game               |
+| [ACTIVITY_SPECTATE](/topics/rpc#activity_spectate)                                  | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
+| [ACTIVITY_JOIN_REQUEST](/topics/rpc#activity_join_request)                           | sent when the user receives a Rich Presence Ask to Join request                            |
 
 #### AUTHORIZE
 
@@ -155,7 +155,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
 
 | Field     | Type                                                                         | Description                                                               |
 |-----------|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| scopes    | array of [OAuth2 scopes](/docs/topics/oauth2#oauth2-scopes) | scopes to authorize                                                       |
+| scopes    | array of [OAuth2 scopes](/topics/oauth2#oauth2-scopes) | scopes to authorize                                                       |
 | client_id | string                                                                       | OAuth2 application id                                                     |
 | rpc_token | string                                                                       | one-time use RPC token                                                    |
 | username  | string                                                                       | username to create a guest account with if the user does not have Discord |
@@ -205,10 +205,10 @@ Used to authenticate an existing client with your app.
 
 | Field       | Type                                                                                    | Description                     |
 |-------------|-----------------------------------------------------------------------------------------|---------------------------------|
-| user        | partial [user](/docs/resources/user#user-object) object                                 | the authed user                 |
-| scopes      | array of [OAuth2 scopes](/docs/topics/oauth2#oauth2-scopes)            | authorized scopes               |
+| user        | partial [user](/resources/user#user-object) object                                 | the authed user                 |
+| scopes      | array of [OAuth2 scopes](/topics/oauth2#oauth2-scopes)            | authorized scopes               |
 | expires     | date                                                                                    | expiration date of OAuth2 token |
-| application | [OAuth2 application](/docs/topics/rpc#oauth2-application-structure) object | application the user authorized |
+| application | [OAuth2 application](/topics/rpc#oauth2-application-structure) object | application the user authorized |
 
 ###### OAuth2 Application Structure
 
@@ -266,7 +266,7 @@ Used to get a list of guilds the client is in.
 
 | Field  | Type                                                                 | Description               |
 |--------|----------------------------------------------------------------------|---------------------------|
-| guilds | array of partial [guild](/docs/resources/guild#guild-object) objects | the guilds the user is in |
+| guilds | array of partial [guild](/resources/guild#guild-object) objects | the guilds the user is in |
 
 ###### Example Get Guilds Command Payload
 
@@ -313,7 +313,7 @@ Used to get a guild the client is in.
 | id       | string                                                                     | guild id                                              |
 | name     | string                                                                     | guild name                                            |
 | icon_url | string                                                                     | guild icon url                                        |
-| members  | array of [guild member](/docs/resources/guild#guild-member-object) objects | members of the guild (deprecated; always empty array) |
+| members  | array of [guild member](/resources/guild#guild-member-object) objects | members of the guild (deprecated; always empty array) |
 
 ###### Example Get Guild Command Payload
 
@@ -364,8 +364,8 @@ Used to get a channel the client is in.
 | bitrate      | integer                                                                  | (voice) bitrate of voice channel                                 |
 | user_limit   | integer                                                                  | (voice) user limit of voice channel (0 for none)                 |
 | position     | integer                                                                  | position of channel in channel list                              |
-| voice_states | array of [voice state](/docs/resources/voice#voice-state-object) objects | (voice) channel's voice states                                   |
-| messages     | array of [message](/docs/resources/channel#message-object) objects       | (text) channel's messages                                        |
+| voice_states | array of [voice state](/resources/voice#voice-state-object) objects | (voice) channel's voice states                                   |
+| messages     | array of [message](/resources/channel#message-object) objects       | (text) channel's messages                                        |
 
 ###### Example Get Channel Command Payload
 
@@ -436,7 +436,7 @@ Used to get a guild's channels the client is in.
 
 | Field    | Type                                                                       | Description                   |
 |----------|----------------------------------------------------------------------------|-------------------------------|
-| channels | array of partial [channel](/docs/resources/channel#channel-object) objects | guild channels the user is in |
+| channels | array of partial [channel](/resources/channel#channel-object) objects | guild channels the user is in |
 
 ###### Example Get Channels Command Payload
 
@@ -482,7 +482,7 @@ Used to change voice settings of users in voice channels
 | Field   | Type                                                           | Description                                              |
 |---------|----------------------------------------------------------------|----------------------------------------------------------|
 | user_id | string                                                         | user id                                                  |
-| pan?    | [pan](/docs/topics/rpc#pan-object) object | set the pan of the user                                  |
+| pan?    | [pan](/topics/rpc#pan-object) object | set the pan of the user                                  |
 | volume? | integer                                                        | set the volume of user (defaults to 100, min 0, max 200) |
 | mute?   | boolean                                                        | set the mute state of the user                           |
 
@@ -535,7 +535,7 @@ In the current release, we only support a single modifier of voice settings at a
 
 #### SELECT_VOICE_CHANNEL
 
-Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](/docs/topics/rpc#get_channel) response, `null` if none.
+Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](/topics/rpc#get_channel) response, `null` if none.
 
 ###### Select Voice Channel Argument Structure
 
@@ -607,11 +607,11 @@ When trying to join the user to a voice channel, you will receive a `5003` error
 
 #### GET_SELECTED_VOICE_CHANNEL
 
-Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](/docs/topics/rpc#get_channel) response, or `null` if none.
+Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](/topics/rpc#get_channel) response, or `null` if none.
 
 #### SELECT_TEXT_CHANNEL
 
-Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](/docs/topics/rpc#get_channel) response, or `null` if none.
+Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](/topics/rpc#get_channel) response, or `null` if none.
 
 ###### Select Text Channel Argument Structure
 
@@ -626,9 +626,9 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 | Field                  | Type                                                                                           | Description                       |
 |------------------------|------------------------------------------------------------------------------------------------|-----------------------------------|
-| input                  | [voice settings input](/docs/topics/rpc#voice-settings-input-object) object   | input settings                    |
-| output                 | [voice settings output](/docs/topics/rpc#voice-settings-output-object) object | output settings                   |
-| mode                   | [voice settings mode](/docs/topics/rpc#voice-settings-mode-object) object     | voice mode settings               |
+| input                  | [voice settings input](/topics/rpc#voice-settings-input-object) object   | input settings                    |
+| output                 | [voice settings output](/topics/rpc#voice-settings-output-object) object | output settings                   |
+| mode                   | [voice settings mode](/topics/rpc#voice-settings-mode-object) object     | voice mode settings               |
 | automatic_gain_control | boolean                                                                                        | state of automatic gain control   |
 | echo_cancellation      | boolean                                                                                        | state of echo cancellation        |
 | noise_suppression      | boolean                                                                                        | state of noise suppression        |
@@ -660,14 +660,14 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 | type           | string                                                                                   | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
 | auto_threshold | boolean                                                                                  | voice activity threshold automatically sets its threshold           |
 | threshold      | float                                                                                    | threshold for voice activity (in dB) (min: -100, max: 0)            |
-| shortcut       | [shortcut key combo](/docs/topics/rpc#shortcut-key-combo-object) object | shortcut key combos for PTT                                         |
+| shortcut       | [shortcut key combo](/topics/rpc#shortcut-key-combo-object) object | shortcut key combos for PTT                                         |
 | delay          | float                                                                                    | the PTT release delay (in ms) (min: 0, max: 2000)                   |
 
 ###### Shortcut Key Combo Object
 
 | Field | Type    | Description                                                  |
 |-------|---------|--------------------------------------------------------------|
-| type  | integer | see [key types](/docs/topics/rpc#key-types) |
+| type  | integer | see [key types](/topics/rpc#key-types) |
 | code  | integer | key code                                                     |
 | name  | string  | key name                                                     |
 
@@ -745,9 +745,9 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 | Field                  | Type                                                                                           | Description                       |
 |------------------------|------------------------------------------------------------------------------------------------|-----------------------------------|
-| input                  | [voice settings input](/docs/topics/rpc#voice-settings-input-object) object   | input settings                    |
-| output                 | [voice settings output](/docs/topics/rpc#voice-settings-output-object) object | output settings                   |
-| mode                   | [voice settings mode](/docs/topics/rpc#voice-settings-mode-object) object     | voice mode settings               |
+| input                  | [voice settings input](/topics/rpc#voice-settings-input-object) object   | input settings                    |
+| output                 | [voice settings output](/topics/rpc#voice-settings-output-object) object | output settings                   |
+| mode                   | [voice settings mode](/topics/rpc#voice-settings-mode-object) object     | voice mode settings               |
 | automatic_gain_control | boolean                                                                                        | state of automatic gain control   |
 | echo_cancellation      | boolean                                                                                        | state of echo cancellation        |
 | noise_suppression      | boolean                                                                                        | state of noise suppression        |
@@ -901,16 +901,16 @@ Used by hardware manufacturers to send information about the current state of th
 
 | Field   | Type                                                                                    | Description                                                   |
 |---------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| devices | array of [certified device](/docs/topics/rpc#device-object) objects | a list of devices for your manufacturer, in order of priority |
+| devices | array of [certified device](/topics/rpc#device-object) objects | a list of devices for your manufacturer, in order of priority |
 
 ###### Device Object
 
 | Field                     | Type                                                                | Description                                              |
 |---------------------------|---------------------------------------------------------------------|----------------------------------------------------------|
-| type                      | [device type](/docs/topics/rpc#device-type)     | the type of device                                       |
+| type                      | [device type](/topics/rpc#device-type)     | the type of device                                       |
 | id                        | string                                                              | the device's Windows UUID                                |
-| vendor                    | [vendor](/docs/topics/rpc#vendor-object) object | the hardware vendor                                      |
-| model                     | [model](/docs/topics/rpc#model-object) object   | the model of the product                                 |
+| vendor                    | [vendor](/topics/rpc#vendor-object) object | the hardware vendor                                      |
+| model                     | [model](/topics/rpc#model-object) object   | the model of the product                                 |
 | related                   | array of strings                                                    | UUIDs of related devices                                 |
 | echo_cancellation?\*      | boolean                                                             | if the device's native echo cancellation is enabled      |
 | noise_suppression?\*      | boolean                                                             | if the device's native noise suppression is enabled      |
@@ -991,7 +991,7 @@ Used to update a user's Rich Presence.
 | Field    | Type                                                           | Description                             |
 |----------|----------------------------------------------------------------|-----------------------------------------|
 | pid      | integer                                                        | the application's process id            |
-| activity | [activity](/docs/topics/gateway-events#activity-object) object | the rich presence to assign to the user |
+| activity | [activity](/topics/gateway-events#activity-object) object | the rich presence to assign to the user |
 
 ###### Example Set Activity Payload
 
@@ -1080,8 +1080,8 @@ Used to reject an Ask to Join request.
 | Field  | Type                                                                                      | Description                        |
 |--------|-------------------------------------------------------------------------------------------|------------------------------------|
 | v      | integer                                                                                   | RPC version                        |
-| config | [rpc server configuration](/docs/topics/rpc#rpc-server-configuration-object) object | server configuration               |
-| user   | partial [user](/docs/resources/user#user-object) object                                   | the user to whom you are connected |
+| config | [rpc server configuration](/topics/rpc#rpc-server-configuration-object) object | server configuration               |
+| user   | partial [user](/resources/user#user-object) object                                   | the user to whom you are connected |
 
 ###### RPC Server Configuration Object
 
@@ -1149,7 +1149,7 @@ Used to reject an Ask to Join request.
 
 | Field  | Type                                                       | Description                                            |
 |--------|------------------------------------------------------------|--------------------------------------------------------|
-| guild  | partial [guild](/docs/resources/guild#guild-object) object | guild with requested id                                |
+| guild  | partial [guild](/resources/guild#guild-object) object | guild with requested id                                |
 | online | integer                                                    | number of online users in guild (deprecated; always 0) |
 
 ###### Example Guild Status Dispatch Payload
@@ -1247,7 +1247,7 @@ No arguments
 
 ###### Voice Settings Argument Structure
 
-No arguments. Dispatches the [Get Voice Settings](/docs/topics/rpc#get_voice_settings) response.
+No arguments. Dispatches the [Get Voice Settings](/topics/rpc#get_voice_settings) response.
 
 ###### Example Voice Settings Dispatch Payload
 
@@ -1466,14 +1466,14 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 #### NOTIFICATION_CREATE
 
-No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](/docs/topics/oauth2#oauth2-scopes).
+No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](/topics/oauth2#oauth2-scopes).
 
 ###### Notification Create Dispatch Data Structure
 
 | Field      | Type                                                     | Description                               |
 |------------|----------------------------------------------------------|-------------------------------------------|
 | channel_id | string                                                   | id of channel where notification occurred |
-| message    | [message](/docs/resources/channel#message-object) object | message that generated this notification  |
+| message    | [message](/resources/channel#message-object) object | message that generated this notification  |
 | icon_url   | string                                                   | icon url of the notification              |
 | title      | string                                                   | title of the notification                 |
 | body       | string                                                   | body of the notification                  |
@@ -1530,7 +1530,7 @@ No arguments
 
 | Field  | Type   | Description                                                                                                           |
 |--------|--------|-----------------------------------------------------------------------------------------------------------------------|
-| secret | string | the [`join_secret`](/docs/rich-presence/how-to#update-presence-payload-fields) for the given invite |
+| secret | string | the [`join_secret`](/rich-presence/how-to#update-presence-payload-fields) for the given invite |
 
 ###### Example Activity Join Dispatch Payload
 
@@ -1552,7 +1552,7 @@ No arguments
 
 | Field  | Type   | Description                                                                                                               |
 |--------|--------|---------------------------------------------------------------------------------------------------------------------------|
-| secret | string | the [`spectate_secret`](/docs/rich-presence/how-to#update-presence-payload-fields) for the given invite |
+| secret | string | the [`spectate_secret`](/rich-presence/how-to#update-presence-payload-fields) for the given invite |
 
 ###### Example Activity Spectate Dispatch Payload
 
@@ -1574,7 +1574,7 @@ No arguments
 
 | Field | Type                                                    | Description                                   |
 |-------|---------------------------------------------------------|-----------------------------------------------|
-| user  | partial [user](/docs/resources/user#user-object) object | information about the user requesting to join |
+| user  | partial [user](/resources/user#user-object) object | information about the user requesting to join |
 
 ###### Example Activity Join Request Dispatch Payload
 

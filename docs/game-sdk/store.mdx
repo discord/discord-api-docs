@@ -11,7 +11,7 @@ Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read her
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/change-log#gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/change-log#gamesdk-feature-deprecation)
 :::
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
@@ -384,7 +384,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 
 ## Get Entitlements
 
-<RoutePill method="GET">/applications/[\{application.id\}](/docs/game-sdk/getting-started#get-set-up)/entitlements</RoutePill>
+<RoutePill method="GET">/applications/[\{application.id\}](/game-sdk/getting-started#get-set-up)/entitlements</RoutePill>
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
@@ -394,7 +394,7 @@ Gets entitlements for a given user. You can use this on your game backend to che
 |----------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
 | sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | bool                              | returns [limited payment data](/docs/game-sdk/store#limited-payment-data-object) for each entitlement |
+| with_payments? | bool                              | returns [limited payment data](/game-sdk/store#limited-payment-data-object) for each entitlement |
 | before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
 | after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
 | limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
@@ -432,7 +432,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 
 ## Get Entitlement
 
-<RoutePill method="GET">/applications/[\{application.id\}](/docs/game-sdk/getting-started#get-set-up)/entitlements/[\{entitlement.id\}](/docs/game-sdk/store#entitlement-struct)</RoutePill>
+<RoutePill method="GET">/applications/[\{application.id\}](/game-sdk/getting-started#get-set-up)/entitlements/[\{entitlement.id\}](/game-sdk/store#entitlement-struct)</RoutePill>
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
@@ -440,7 +440,7 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 
 | name          | type | description                                                                                                                    |
 |---------------|------|--------------------------------------------------------------------------------------------------------------------------------|
-| with_payment? | bool | returns [limited payment data](/docs/game-sdk/store#limited-payment-data-object) for each entitlement |
+| with_payment? | bool | returns [limited payment data](/game-sdk/store#limited-payment-data-object) for each entitlement |
 
 ###### Example
 
@@ -469,7 +469,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements/539
 
 ## Get SKUs
 
-<RoutePill method="GET">/applications/[\{application.id\}](/docs/game-sdk/getting-started#get-set-up)/skus</RoutePill>
+<RoutePill method="GET">/applications/[\{application.id\}](/game-sdk/getting-started#get-set-up)/skus</RoutePill>
 
 Get all SKUs for an application.
 
@@ -509,7 +509,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 
 ## Consume SKU
 
-<RoutePill method="POST">/applications/[\{application.id\}](/docs/game-sdk/getting-started#get-set-up)/entitlements/[\{entitlement.id\}](/docs/game-sdk/store#entitlement-struct)/consume</RoutePill>
+<RoutePill method="POST">/applications/[\{application.id\}](/game-sdk/getting-started#get-set-up)/entitlements/[\{entitlement.id\}](/game-sdk/store#entitlement-struct)/consume</RoutePill>
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -525,7 +525,7 @@ curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlem
 
 ## Delete Test Entitlement
 
-<RoutePill method="DELETE">/applications/[\{application.id\}](/docs/game-sdk/getting-started#get-set-up)/entitlements/[\{entitlement.id\}](/docs/game-sdk/store#entitlement-struct)</RoutePill>
+<RoutePill method="DELETE">/applications/[\{application.id\}](/game-sdk/getting-started#get-set-up)/entitlements/[\{entitlement.id\}](/game-sdk/store#entitlement-struct)</RoutePill>
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
@@ -541,9 +541,9 @@ curl -X DELETE https://discord.com/api/v6/applications/461618159171141643/entitl
 
 ## Create Purchase Discount
 
-<RoutePill method="PUT">/store/skus/[\{sku.id\}](/docs/game-sdk/store#sku-struct)/discounts/[\{user.id\}](/docs/resources/user#user-object)</RoutePill>
+<RoutePill method="PUT">/store/skus/[\{sku.id\}](/game-sdk/store#sku-struct)/discounts/[\{user.id\}](/resources/user#user-object)</RoutePill>
 
-Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](/docs/game-sdk/store#startpurchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
+Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](/game-sdk/store#startpurchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
 
 ###### Parameters
 
@@ -566,7 +566,7 @@ curl -X PUT https://discord.com/api/v6/store/skus/461618229171141643/discounts/5
 
 ## Delete Purchase Discount
 
-<RoutePill method="DELETE">/store/skus/[\{sku.id\}](/docs/game-sdk/store#sku-struct)/discounts/[\{user.id\}](/docs/resources/user#user-object)</RoutePill>
+<RoutePill method="DELETE">/store/skus/[\{sku.id\}](/game-sdk/store#sku-struct)/discounts/[\{user.id\}](/resources/user#user-object)</RoutePill>
 
 Deletes the currently active discount on the given SKU for the given user. You **do not need** to call this after a user has made a discounted purchase; successful discounted purchases will automatically remove the discount for that user for subsequent purchases.
 

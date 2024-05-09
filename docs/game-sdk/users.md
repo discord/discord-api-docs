@@ -40,10 +40,10 @@ This manager helps retrieve basic user information for any user on Discord.
 ## GetCurrentUser
 
 :::info
-Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](/docs/game-sdk/users#oncurrentuserupdate) callback to fire after instantiating the User manager.
+Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](/game-sdk/users#oncurrentuserupdate) callback to fire after instantiating the User manager.
 :::
 
-Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](/docs/resources/user#get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](/docs/topics/oauth2#authorization-code-grant) flow.
+Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](/resources/user#get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](/topics/oauth2#authorization-code-grant) flow.
 
 Returns a `Discord.User`.
 
@@ -84,7 +84,7 @@ userManager.GetUser(userId, (Discord.Result result, ref Discord.User user) =>
 
 ## GetCurrentUserPremiumType
 
-Get the [PremiumType](/docs/game-sdk/users#premiumtype-enum) for the currently connected user.
+Get the [PremiumType](/game-sdk/users#premiumtype-enum) for the currently connected user.
 
 Returns `Discord.PremiumType`.
 
@@ -115,7 +115,7 @@ switch (premiumType)
 
 ## CurrentUserHasFlag
 
-See whether or not the current user has a certain [UserFlag](/docs/game-sdk/users#userflag-enum) on their account.
+See whether or not the current user has a certain [UserFlag](/game-sdk/users#userflag-enum) on their account.
 
 Returns `bool`.
 
@@ -123,7 +123,7 @@ Returns `bool`.
 
 | name | type                                                       | description                             |
 |------|------------------------------------------------------------|-----------------------------------------|
-| flag | [UserFlag](/docs/game-sdk/users#userflag-enum) | the flag to check on the user's account |
+| flag | [UserFlag](/game-sdk/users#userflag-enum) | the flag to check on the user's account |
 
 ###### Example
 

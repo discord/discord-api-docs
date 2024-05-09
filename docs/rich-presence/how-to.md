@@ -1,7 +1,7 @@
 # Introducing Rich Presence
 
 :::danger
-The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](/docs/game-sdk/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](/docs/game-sdk/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](/game-sdk/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](/game-sdk/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 :::
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
@@ -15,7 +15,7 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 ## Step 0: Get the SDK
 
 :::warning
-Please use our new Discord GameSDK. Read the documentation and get it [here](/docs/game-sdk/getting-started).
+Please use our new Discord GameSDK. Read the documentation and get it [here](/game-sdk/getting-started).
 :::
 
 ## So, how does it work?
@@ -78,7 +78,7 @@ If you don't want to register all your event handlers at initialization, you can
 ## Updating Presence
 
 :::warning
-Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](/docs/game-sdk/activities#updateactivity)
+Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](/game-sdk/activities#updateactivity)
 :::
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
@@ -177,7 +177,7 @@ impaired eyesight to understand the potential layout of this information in a us
 ## Joining
 
 :::warning
-Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](/docs/game-sdk/activities#onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](/docs/game-sdk/activities#onactivityjoinrequest)
+Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](/game-sdk/activities#onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](/game-sdk/activities#onactivityjoinrequest)
 :::
 
 #### Relevant Callbacks:
@@ -218,7 +218,7 @@ typedef struct DiscordJoinRequest {
 | userId        | char[24]  | the userId of the player asking to join                                                                                             |
 | username      | char[344] | the username of the player asking to join                                                                                           |
 | discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
-| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](/docs/reference#image-formatting) for how to retrieve the image |
+| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](/reference#image-formatting) for how to retrieve the image |
 
 :::warning
 `avatar` can be an empty string if the user has not uploaded an avatar to Discord
@@ -242,7 +242,7 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 ## Spectating
 
 :::warning
-Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](/docs/game-sdk/activities#onactivityspectate)
+Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](/game-sdk/activities#onactivityspectate)
 :::
 
 #### Relevant Callbacks:
@@ -307,4 +307,4 @@ If you're testing on your own, we recommend [downloading two separate release ch
 
 ## So, what now?
 
-Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](/docs/rich-presence/faq/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](/docs/rich-presence/best-practices/). If you're ready to release, consult our [Launch Checklist](/docs/rich-presence/launch-checklist/) and make sure you haven't missed anything!
+Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](/rich-presence/faq/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](/rich-presence/best-practices/). If you're ready to release, consult our [Launch Checklist](/rich-presence/launch-checklist/) and make sure you haven't missed anything!

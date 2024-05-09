@@ -45,16 +45,16 @@ Når du har skabt din app, lander du på siden **Generel oversigt** i appens ind
 
 ### Konfigurering af din bot
 
-Derefter konfigurerer vi [bot-brugeren](/docs/topics/oauth2#bot-vs-user-accounts) for din app, så den kan se ud som og opføre sig ligesom andre medlemmer af serveren.
+Derefter konfigurerer vi [bot-brugeren](/topics/oauth2#bot-vs-user-accounts) for din app, så den kan se ud som og opføre sig ligesom andre medlemmer af serveren.
 
-I sidepanelet til venstre skal du klikke på **Bot**. På denne side kan du konfigurere indstillinger som dens [priviligerede intentioner](/docs/topics/gateway#privileged-intents), eller om den kan installeres af andre brugere.
+I sidepanelet til venstre skal du klikke på **Bot**. På denne side kan du konfigurere indstillinger som dens [priviligerede intentioner](/topics/gateway#privileged-intents), eller om den kan installeres af andre brugere.
 
 <Collapsible title="Hvad er intentioner?" description="Introduktion til standard- og privilegerede intentioner" icon="question">
-Intentioner bestemmer, hvilke hændelser Discord sender din app til, når du laver en [Gateway API-forbindelse](/docs/topics/gateway). Hvis du eksempelvis vil have din app til at gøre noget, når brugere føjer en reaktion til en besked, kan du sende `GUILD_MESSAGE_REACTIONS` (`1 << 10`)-intentionen.
+Intentioner bestemmer, hvilke hændelser Discord sender din app til, når du laver en [Gateway API-forbindelse](/topics/gateway). Hvis du eksempelvis vil have din app til at gøre noget, når brugere føjer en reaktion til en besked, kan du sende `GUILD_MESSAGE_REACTIONS` (`1 << 10`)-intentionen.
 
-Nogle intentioner er [privilegerede](/docs/topics/gateway#privileged-intents), hvilket betyder, at de lader din app tilgå data, der kan være følsomme (såsom indholdet af beskeder). Privilegerede intentioner findes og kan styres på siden **Bot** i din apps indstillinger. Standard, ikke-privilegerede intentioner kræver ingen yderligere tilladelser eller konfigurationer.
+Nogle intentioner er [privilegerede](/topics/gateway#privileged-intents), hvilket betyder, at de lader din app tilgå data, der kan være følsomme (såsom indholdet af beskeder). Privilegerede intentioner findes og kan styres på siden **Bot** i din apps indstillinger. Standard, ikke-privilegerede intentioner kræver ingen yderligere tilladelser eller konfigurationer.
 
-Du finder mere information om intentioner sammen med en liste over alle intentioner, inkl. deres tilknyttede hændelser i [Gateway-dokumentationen](/docs/topics/gateway#gateway-intents).
+Du finder mere information om intentioner sammen med en liste over alle intentioner, inkl. deres tilknyttede hændelser i [Gateway-dokumentationen](/topics/gateway#gateway-intents).
 </Collapsible>
 
 ![Bot-fanen i appens indstillinger](/images/app-add-bot.png)
@@ -76,8 +76,8 @@ Apps skal bruge godkendelse fra den installerende bruger for at udføre handling
 <Collapsible title="Hvad are anvendelsesområder og tilladelser?" description="Introduktion til anvendelsesområder og bot-tilladelser" icon="question">
 Når du laver en app, bestemmer anvendelsesområder og tilladelser, hvad din app kan gøre og få tilgang til på Discord-servere.
 
-- [OAuth2-anvendelsesområder](/docs/topics/oauth2#oauth2-scopes) bestemmer, hvilken dataadgang og hvilke handlinger din app har adgang til, tildelt på vegne af en installerende eller bekræftende bruger.
-- [Tilladelser](/docs/topics/permissions#permission-overwrites) er din bot-brugers detaljerede tilladelser, ligesom andre brugere på Discord også har. De kan godkendes af den installerende bruger eller senere opdateres under serverens indstillinger eller med [overskrivninger af tilladelser](/docs/topics/permissions#permission-overwrites).
+- [OAuth2-anvendelsesområder](/topics/oauth2#oauth2-scopes) bestemmer, hvilken dataadgang og hvilke handlinger din app har adgang til, tildelt på vegne af en installerende eller bekræftende bruger.
+- [Tilladelser](/topics/permissions#permission-overwrites) er din bot-brugers detaljerede tilladelser, ligesom andre brugere på Discord også har. De kan godkendes af den installerende bruger eller senere opdateres under serverens indstillinger eller med [overskrivninger af tilladelser](/topics/permissions#permission-overwrites).
 </Collapsible>
 
 Klik på **OAuth2** i venstre sidepanel, og vælg **URL-generator**.
@@ -87,10 +87,10 @@ URL-generatoren skaber et installationslink baseret på de anvendelsesområder o
 :::
 
 Lige nu skal du tilføje to anvendelsesområder:
-- `applications.commands`, der lader din app skabe [kommandoer](/docs/interactions/application-commands).
+- `applications.commands`, der lader din app skabe [kommandoer](/interactions/application-commands).
 - `bot`, der tilføjer din bot-bruger. Når du har valgt `bot`, kan du også vælge forskellige tilladelse til din bot. Lige nu skal du bare afkrydse **Send meddelelser**.
 
-Se en liste med alle [OAuth2-anvendelsesområder](/docs/topics/oauth2#oauth2-scopes), eller læs mere om [tilladelser](/docs/topics/permissions) i dokumentationen.
+Se en liste med alle [OAuth2-anvendelsesområder](/topics/oauth2#oauth2-scopes), eller læs mere om [tilladelser](/topics/permissions) i dokumentationen.
 
 ### Installation af din app
 
@@ -114,7 +114,7 @@ Nu da din app er konfigureret og installeret, kan vi begynde at udvikle på den.
 
 Al koden brugt i app-eksemplet kan findes i [GitHub repository](https://github.com/discord/discord-example-app).
 
-For at gøre det lidt nemmere at udvikle appen, bruger den [Discord-interaktioner](https://github.com/discord/discord-interactions-js), der leverer typer og hjælpefunktioner. Hvis du foretrækker at anvende andre sprog eller biblioteker, skal du se dokumentationen om [Community-ressourcer](/docs/topics/community-resources).
+For at gøre det lidt nemmere at udvikle appen, bruger den [Discord-interaktioner](https://github.com/discord/discord-interactions-js), der leverer typer og hjælpefunktioner. Hvis du foretrækker at anvende andre sprog eller biblioteker, skal du se dokumentationen om [Community-ressourcer](/topics/community-resources).
 
 ### Remix af projektet
 
@@ -174,9 +174,9 @@ Nu da dine legitimationsoplysninger er konfigureret, så lad os installere og h�
 For at installere slash-kommandoer benytter appen [`node-fetch`](https://github.com/node-fetch/node-fetch). Du kan se implementeringen af installationen i `utils.js` i `DiscordRequest()`-funktionen.
 :::
 
-Projektet indeholder et `register`-script, du kan bruge til at installere kommandoerne i `ALL_COMMANDS`, der er defineret i bunden af `commands.js`. Det installerer kommandoerne som globale kommandoer ved at kalde HTTP API'ens [`PUT /applications/<APP_ID>/commands`](/docs/interactions/application-commands#bulk-overwrite-global-application-commands) endpoint.
+Projektet indeholder et `register`-script, du kan bruge til at installere kommandoerne i `ALL_COMMANDS`, der er defineret i bunden af `commands.js`. Det installerer kommandoerne som globale kommandoer ved at kalde HTTP API'ens [`PUT /applications/<APP_ID>/commands`](/interactions/application-commands#bulk-overwrite-global-application-commands) endpoint.
 
-Hvis du ønsker at tilpasse dine kommandoer eller tilføje ekstra kommandoer, kan du refererer kommandostrukturen i [kommandodokumentationen](/docs/interactions/application-commands#application-command-structure).
+Hvis du ønsker at tilpasse dine kommandoer eller tilføje ekstra kommandoer, kan du refererer kommandostrukturen i [kommandodokumentationen](/interactions/application-commands#application-command-structure).
 
 Kør `register`-scriptet ved at klikke på **Terminal** i bunden af dit Glitch-projekt og indsætte følgende kommando:
 
@@ -191,8 +191,8 @@ Hvis du går tilbage til din server, bør du nu se slash-kommandoerne. Men hvis 
 <Collapsible title="Hvad er Discords API's?" description="Oversigt over Discords HTTP og Gateway API's" icon="question">
 Discord har to API's som du frit kan vælge mellem og blande, når du laver apps:
 
-- **[HTTP API](/docs/reference#http-api)** er en REST-lignende API til generelle operationer som at sende og opdatere data i Discord eller hente data om en ressource.
-- **[Gateway API](/docs/reference#gateway-websocket-api)** er en WebSocket-baseret API, der er nyttig til at beholde en tilstand eller lytte til begivenheder på en Discord-server. Vi benytter den ikke i denne vejledning, men du kan finde mere information om, hvordan du skaber en Gateway-forbindelse, samt de forskellige begivenheder, du kan lytte efter, i [Gateway-dokumentationen](/docs/topics/gateway).
+- **[HTTP API](/reference#http-api)** er en REST-lignende API til generelle operationer som at sende og opdatere data i Discord eller hente data om en ressource.
+- **[Gateway API](/reference#gateway-websocket-api)** er en WebSocket-baseret API, der er nyttig til at beholde en tilstand eller lytte til begivenheder på en Discord-server. Vi benytter den ikke i denne vejledning, men du kan finde mere information om, hvordan du skaber en Gateway-forbindelse, samt de forskellige begivenheder, du kan lytte efter, i [Gateway-dokumentationen](/topics/gateway).
 </Collapsible>
 
 ---
@@ -221,7 +221,7 @@ App-eksemplet håndterer bekræftelse på to måder:
 - Den bruger `PUBLIC_KEY` og [discord-interaktionspakken](https://github.com/discord/discord-interactions-js#usage) med en wrapper-funktion (importeret fra `utils.js`), der gør, at den passer til [Express' `verify`-brugerflade](http://expressjs.com/en/5x/api.html#express.json). Den køres på alle indkommende anmodninger på din app.
 - Den besvarer indkommende `PING`-anmodninger.
 
-Du kan lære mere om at forberede din app til at modtage interaktioner i [interaktionsdokumentationen](/docs/interactions/receiving-and-responding#receiving-an-interaction).
+Du kan lære mere om at forberede din app til at modtage interaktioner i [interaktionsdokumentationen](/interactions/receiving-and-responding#receiving-an-interaction).
 
 ### Håndtering af slash-kommandoanmodninger
 
@@ -241,7 +241,7 @@ if (name === 'test') {
 }
 ```
 
-Koden herover reagerer på interaktionen med en besked i kanalen, hvor kommandoen kom fra. Du kan se alle tilgængelige svartyper såsom besvarelse med en modal [i dokumentationen](/docs/interactions/receiving-and-responding#interaction-callback-type).
+Koden herover reagerer på interaktionen med en besked i kanalen, hvor kommandoen kom fra. Du kan se alle tilgængelige svartyper såsom besvarelse med en modal [i dokumentationen](/interactions/receiving-and-responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` er en konstant, der er [eksporteret fra `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -261,7 +261,7 @@ I den følgende sektion tilføjer vi en ekstra kommando, der benytter slash-komm
 
 `/challenge`-kommandoen, kaldet `CHALLENGE_COMMAND` i `commands.js`, har en række `options`. I vores app er de forskellige options objekter, der repræsenterer forskellige ting, en bruger kan vælge mellem i et spil sten-saks-papir, genereret ved brug af nøgler for `RPSChoices` i `game.js`.
 
-Du kan læse mere om kommando-valgmuligheder og deres struktur [i dokumentationen](/docs/interactions/application-commands#application-command-option-structure).
+Du kan læse mere om kommando-valgmuligheder og deres struktur [i dokumentationen](/interactions/application-commands#application-command-option-structure).
 
 :::info
 Selvom denne vejledning ikke går i dybden med `game.js`-filen, er du velkommen til at grave lidt rundt og ændre kommandoerne eller valgmulighederne i kommandoerne.
@@ -321,7 +321,7 @@ Koden herover gør et par forskellige ting:
 Kodeeksemplet bruger et objekt som in-memory lagring, men for produktionsapps bør du bruge en database.
 :::
 
-Når der sendes en besked med [beskedkomponenter](/docs/interactions/message-components#what-is-a-component), tilføjes den individuelle nyttelast til et `components`-sæt. Anvendelige komponenter (såsom knapper) skal være i en [handlingsrække](/docs/interactions/message-components#action-rows), som du kan se kodeeksemplet.
+Når der sendes en besked med [beskedkomponenter](/interactions/message-components#what-is-a-component), tilføjes den individuelle nyttelast til et `components`-sæt. Anvendelige komponenter (såsom knapper) skal være i en [handlingsrække](/interactions/message-components#action-rows), som du kan se kodeeksemplet.
 
 Bemærk det unikke `custom_id`, der blev sendt med beskedkomponenterne, i dette tilfælde `accept_button_` med det aktive spils ID tilføjet. Et `custom_id` kan bruges til at håndtere anmodninger, som Discord sender dig, når nogen interagerer med komponenten, som du vil få at se om et øjeblik.
 
@@ -331,7 +331,7 @@ Når du nu kører `/challenge`-kommandoen og vælger en valgmulighed, vil din ap
 
 <Collapsible title="Håndtering af knapinteraktioner" description="Kode til håndtering af tryk på knapper og besvarelser med en kortvarig besked" icon="code" open>
 
-Når brugere interagerer med en beskedkomponent, sender Discord en anmodning med [interaktionstypen](/docs/interactions/receiving-and-responding#interaction-type) `3` (eller `MESSAGE_COMPONENT`-værdien, når der anvendes `discord-interactions`).
+Når brugere interagerer med en beskedkomponent, sender Discord en anmodning med [interaktionstypen](/interactions/receiving-and-responding#interaction-type) `3` (eller `MESSAGE_COMPONENT`-værdien, når der anvendes `discord-interactions`).
 
 For at sætte en handler op for knappen tjekker vi interaktionens `type`, efterfulgt af en matching af `custom_id`.
 
@@ -381,10 +381,10 @@ const componentId = data.custom_id;
 
 Koden herover:
 1. Tjekker efter et `custom_id`, der matcher det, vi oprindeligt sendte (i dette tilfælde starter det med `accept_button_`). Custom-ID har også det aktive spil-ID tilføjet, så vi gemmer det i `gameID`.
-2. [Sletter den oprindelige besked](/docs/interactions/receiving-and-responding#delete-original-interaction-response) ved at kalde en webhook med `node-fetch` og sende den unikke interaktions-`token` i anmodningens krop. Dette gøres for at rydde op i kanalen og for at forhindre, at andre brugere kan klikke på knappen.
-3. Besvarer anmodningen ved at sende en besked, der indeholder en menu med valgmuligheder med genstandene i spillet. Nyttelasten bør se ud ligesom den forrige med undtagelse af `options`-sættet og `flags: 64`, [der indikerer, at beskeden er kortvarig](/docs/interactions/receiving-and-responding#create-followup-message).
+2. [Sletter den oprindelige besked](/interactions/receiving-and-responding#delete-original-interaction-response) ved at kalde en webhook med `node-fetch` og sende den unikke interaktions-`token` i anmodningens krop. Dette gøres for at rydde op i kanalen og for at forhindre, at andre brugere kan klikke på knappen.
+3. Besvarer anmodningen ved at sende en besked, der indeholder en menu med valgmuligheder med genstandene i spillet. Nyttelasten bør se ud ligesom den forrige med undtagelse af `options`-sættet og `flags: 64`, [der indikerer, at beskeden er kortvarig](/interactions/receiving-and-responding#create-followup-message).
 
-`options`-sættet befolkes ved hjælp af `getShuffledOptions()`-metoden i `game.js`, der manipulerer `RPSChoices`-værdierne, så de passer til formen på [beskedkomponentvalgene](/docs/interactions/message-components#select-option-structure).
+`options`-sættet befolkes ved hjælp af `getShuffledOptions()`-metoden i `game.js`, der manipulerer `RPSChoices`-værdierne, så de passer til formen på [beskedkomponentvalgene](/interactions/message-components#select-option-structure).
 
 </Collapsible>
 
@@ -479,7 +479,7 @@ Ligesom med tidligere kode henter koden herover bruger-ID'et og deres valg af ge
 
 Den information, sammen med den oprindelige brugers ID og valg fra `activeGames`-objektet, sendes til `getResult()`-funktionen. `getResult()` bestemmer vinderen og bygger en læselig tekst, der sendes tilbage til kanalen.
 
-Vi kalder også en anden webhook, denne gang for at [opdater den opfølgende kortvarige besked](/docs/interactions/receiving-and-responding#edit-followup-message), siden den ikke kan slettes.
+Vi kalder også en anden webhook, denne gang for at [opdater den opfølgende kortvarige besked](/interactions/receiving-and-responding#edit-followup-message), siden den ikke kan slettes.
 
 Endelig sendes resultatet til kanalen med `CHANNEL_MESSAGE_WITH_SOURCE`-interaktionssvartypen.
 
@@ -494,8 +494,8 @@ Endelig sendes resultatet til kanalen med `CHANNEL_MESSAGE_WITH_SOURCE`-interakt
 Tillykke, du har skabt din første Discord-app! 🤖
 
 Forhåbentlig har du lært en smule om Discord-apps, hvordan du konfigurerer dem, og hvordan du gør dem interaktive. Herfra kan du fortsætte med at udvikle din app, eller du kan udforske, hvad der ellers kan lade sig gøre:
-- Læs **[dokumentationen](/docs/intro/)** for dybdegående information om API-funktioner
+- Læs **[dokumentationen](//)** for dybdegående information om API-funktioner
 - Kig i `examples/`-mappen i dette projekt for mindre, funktionsspecifikke kodeeksempler
-- Se vores **[community-ressourcer](/docs/topics/community-resources)** for sprogspecifikke redskaber, leveret af medlemmer af fællesskabet
-- Læs vores vejledning om at [hoste Discord-apps på Cloudflare Workers](/docs/tutorials/hosting-on-cloudflare-workers)
+- Se vores **[community-ressourcer](/topics/community-resources)** for sprogspecifikke redskaber, leveret af medlemmer af fællesskabet
+- Læs vores vejledning om at [hoste Discord-apps på Cloudflare Workers](/tutorials/hosting-on-cloudflare-workers)
 - Slut dig til **[Discord Developers-serveren](https://discord.gg/discord-developers)** for at stille spørgsmål om API'en, deltag i begivenheder afholdt af Discord API-teamet, og interagér med andre udviklere

@@ -1,10 +1,10 @@
 # Voice
 
-Voice connections operate in a similar fashion to the [Gateway](/docs/topics/gateway) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](/docs/topics/voice-connections#ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
+Voice connections operate in a similar fashion to the [Gateway](/topics/gateway) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](/topics/voice-connections#ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
 
 ## Voice Gateway Versioning
 
-To ensure that you have the most up-to-date information, please use [version 4](/docs/topics/voice-connections#gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](/docs/topics/opcodes-and-status-codes#voice) documented here will reflect what you receive over the socket.
+To ensure that you have the most up-to-date information, please use [version 4](/topics/voice-connections#gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](/topics/opcodes-and-status-codes#voice) documented here will reflect what you receive over the socket.
 
 ###### Gateway Versions
 
@@ -19,7 +19,7 @@ To ensure that you have the most up-to-date information, please use [version 4](
 
 ### Retrieving Voice Server Information
 
-The first step in connecting to a voice server (and in turn, a guild's voice channel) is formulating a request that can be sent to the [Gateway](/docs/topics/gateway), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send an [Opcode 4 Gateway Voice State Update](/docs/topics/opcodes-and-status-codes#gateway):
+The first step in connecting to a voice server (and in turn, a guild's voice channel) is formulating a request that can be sent to the [Gateway](/topics/gateway), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send an [Opcode 4 Gateway Voice State Update](/topics/opcodes-and-status-codes#gateway):
 
 ###### Gateway Voice State Update Example
 
@@ -35,7 +35,7 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 }
 ```
 
-If our request succeeded, the gateway will respond with _two_ events—a [Voice State Update](/docs/topics/gateway-events#voice-state-update) event and a [Voice Server Update](/docs/topics/gateway-events#voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
+If our request succeeded, the gateway will respond with _two_ events—a [Voice State Update](/topics/gateway-events#voice-state-update) event and a [Voice Server Update](/topics/gateway-events#voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
 
 ###### Example Voice Server Update Payload
 
@@ -61,7 +61,7 @@ Bot users respect the voice channel's user limit, if set. When the voice channel
 
 ## Establishing a Voice Websocket Connection
 
-Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](/docs/topics/gateway#get-gateway) request, the endpoint received from our [Voice Server Update](/docs/topics/gateway-events#voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](/docs/topics/opcodes-and-status-codes#voice) payload with our server_id, user_id, session_id, and token:
+Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](/topics/gateway#get-gateway) request, the endpoint received from our [Voice Server Update](/topics/gateway-events#voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](/topics/opcodes-and-status-codes#voice) payload with our server_id, user_id, session_id, and token:
 
 ###### Example Voice Identify Payload
 
@@ -77,7 +77,7 @@ Once we retrieve a session_id, token, and endpoint information, we can connect a
 }
 ```
 
-The voice server should respond with an [Opcode 2 Ready](/docs/topics/opcodes-and-status-codes#voice) payload, which informs us of the `SSRC`, UDP IP/port, and supported encryption modes the voice server expects:
+The voice server should respond with an [Opcode 2 Ready](/topics/opcodes-and-status-codes#voice) payload, which informs us of the `SSRC`, UDP IP/port, and supported encryption modes the voice server expects:
 
 ###### Example Voice Ready Payload
 
@@ -100,7 +100,7 @@ The voice server should respond with an [Opcode 2 Ready](/docs/topics/opcodes-an
 
 ## Heartbeating
 
-In order to maintain your WebSocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](/docs/topics/opcodes-and-status-codes#voice):
+In order to maintain your WebSocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](/topics/opcodes-and-status-codes#voice):
 
 ###### Example Hello Payload below V3
 
@@ -121,9 +121,9 @@ In order to maintain your WebSocket connection, you need to continuously send he
 }
 ```
 
-This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](/docs/topics/opcodes-and-status-codes#voice) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
+This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](/topics/opcodes-and-status-codes#voice) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
 
-After receiving [Opcode 8 Hello](/docs/topics/opcodes-and-status-codes#voice), you should send [Opcode 3 Heartbeat](/docs/topics/opcodes-and-status-codes#voice)—which contains an integer nonce—every elapsed interval:
+After receiving [Opcode 8 Hello](/topics/opcodes-and-status-codes#voice), you should send [Opcode 3 Heartbeat](/topics/opcodes-and-status-codes#voice)—which contains an integer nonce—every elapsed interval:
 
 ###### Example Heartbeat Payload
 
@@ -134,7 +134,7 @@ After receiving [Opcode 8 Hello](/docs/topics/opcodes-and-status-codes#voice), y
 }
 ```
 
-In return, you will be sent back an [Opcode 6 Heartbeat ACK](/docs/topics/opcodes-and-status-codes#voice) that contains the previously sent nonce:
+In return, you will be sent back an [Opcode 6 Heartbeat ACK](/topics/opcodes-and-status-codes#voice) that contains the previously sent nonce:
 
 ###### Example Heartbeat ACK Payload
 
@@ -147,7 +147,7 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](/docs/topics/opcode
 
 ## Establishing a Voice UDP Connection
 
-Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](/docs/topics/opcodes-and-status-codes#voice) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](/docs/topics/voice-connections#ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice WebSocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](/docs/topics/opcodes-and-status-codes#voice):
+Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](/topics/opcodes-and-status-codes#voice) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](/topics/voice-connections#ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice WebSocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](/topics/opcodes-and-status-codes#voice):
 
 ###### Example Select Protocol Payload
 
@@ -176,7 +176,7 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](/
 >warn
 >The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
 
-Finally, the voice server will respond with a [Opcode 4 Session Description](/docs/topics/opcodes-and-status-codes#voice) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](/docs/topics/voice-connections#encrypting-and-sending-voice) voice data:
+Finally, the voice server will respond with a [Opcode 4 Session Description](/topics/opcodes-and-status-codes#voice) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](/topics/voice-connections#encrypting-and-sending-voice) voice data:
 
 ###### Example Session Description Payload
 
@@ -194,7 +194,7 @@ We can now start encrypting and sending voice data over the previously establish
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](/docs/topics/opcodes-and-status-codes#voice) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](/topics/opcodes-and-status-codes#voice) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
 
 ###### Voice Packet Structure
 
@@ -209,7 +209,7 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 
 ## Speaking
 
-To notify clients that you are speaking or have stopped speaking, send an [Opcode 5 Speaking](/docs/topics/opcodes-and-status-codes#voice) payload:
+To notify clients that you are speaking or have stopped speaking, send an [Opcode 5 Speaking](/topics/opcodes-and-status-codes#voice) payload:
 
 The following flags can be used as a bitwise mask. For example `5` would be priority and voice.
 
@@ -233,7 +233,7 @@ The following flags can be used as a bitwise mask. For example `5` would be prio
 ```
 
 :::warning
-You must send at least one [Opcode 5 Speaking](/docs/topics/opcodes-and-status-codes#voice) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
+You must send at least one [Opcode 5 Speaking](/topics/opcodes-and-status-codes#voice) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
 :::
 
 ### Voice Data Interpolation
@@ -242,7 +242,7 @@ When there's a break in the sent data, the packet transmission shouldn't simply 
 
 ## Resuming Voice Connection
 
-When your client detects that its connection has been severed, it should open a new WebSocket connection. Once the new connection has been opened, your client should send an [Opcode 7 Resume](/docs/topics/opcodes-and-status-codes#voice) payload:
+When your client detects that its connection has been severed, it should open a new WebSocket connection. Once the new connection has been opened, your client should send an [Opcode 7 Resume](/topics/opcodes-and-status-codes#voice) payload:
 
 ###### Example Resume Connection Payload
 
@@ -257,7 +257,7 @@ When your client detects that its connection has been severed, it should open a 
 }
 ```
 
-If successful, the Voice server will respond with an [Opcode 9 Resumed](/docs/topics/opcodes-and-status-codes#voice) to signal that your client is now resumed:
+If successful, the Voice server will respond with an [Opcode 9 Resumed](/topics/opcodes-and-status-codes#voice) to signal that your client is now resumed:
 
 ###### Example Resumed Payload
 
@@ -268,7 +268,7 @@ If successful, the Voice server will respond with an [Opcode 9 Resumed](/docs/to
 }
 ```
 
-If the resume is unsuccessful—for example, due to an invalid session—the WebSocket connection will close with the appropriate [close event code](/docs/topics/opcodes-and-status-codes#voice-close-event-codes). You should then follow the [Connecting](/docs/topics/voice-connections#connecting-to-voice) flow to reconnect.
+If the resume is unsuccessful—for example, due to an invalid session—the WebSocket connection will close with the appropriate [close event code](/topics/opcodes-and-status-codes#voice-close-event-codes). You should then follow the [Connecting](/topics/voice-connections#connecting-to-voice) flow to reconnect.
 
 #### IP Discovery
 

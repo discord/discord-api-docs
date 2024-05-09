@@ -45,16 +45,16 @@ Na het creëren van je app, kom je terecht op de pagina **Algemeen overzicht** v
 
 ### Je bot configureren
 
-Nu gaan we de [botgebruiker](/docs/topics/oauth2#bot-vs-user-accounts) voor je app configureren, waardoor hij kan verschijnen en zich kan gedragen als andere serverleden.
+Nu gaan we de [botgebruiker](/topics/oauth2#bot-vs-user-accounts) voor je app configureren, waardoor hij kan verschijnen en zich kan gedragen als andere serverleden.
 
-Klik in de linker zijbalk op **Bot**. Op deze pagina kun je instellingen configureren zoals de [privileged intents](/docs/topics/gateway#privileged-intents) van je bot en of je wilt dat andere gebruikers hem kunnen installeren.
+Klik in de linker zijbalk op **Bot**. Op deze pagina kun je instellingen configureren zoals de [privileged intents](/topics/gateway#privileged-intents) van je bot en of je wilt dat andere gebruikers hem kunnen installeren.
 
 <Collapsible title="Wat zijn intents?" description="Introductie van gewone en privileged intents" icon="question">
-Intents bepalen welke evenementen Discord naar je app stuurt als je een [Gateway API-verbinding](/docs/topics/gateway) creëert. Als je bijvoorbeeld wilt dat je app iets doet als gebruikers reageren op een bericht, kun je de intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`) doorgeven.
+Intents bepalen welke evenementen Discord naar je app stuurt als je een [Gateway API-verbinding](/topics/gateway) creëert. Als je bijvoorbeeld wilt dat je app iets doet als gebruikers reageren op een bericht, kun je de intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`) doorgeven.
 
-Sommige intents zijn [privileged intents](/docs/topics/gateway#privileged-intents), wat betekent dat ze je app toegang geven tot data die als gevoelig beschouwd kunnen worden (zoals de inhoud van berichten). Privileged intents verschijnen op de **Bot**-pagina in je app-instellingen, waar je ze ook aan en uit kunt zetten. Voor gewone intents heb je geen extra machtigingen of configuraties nodig.
+Sommige intents zijn [privileged intents](/topics/gateway#privileged-intents), wat betekent dat ze je app toegang geven tot data die als gevoelig beschouwd kunnen worden (zoals de inhoud van berichten). Privileged intents verschijnen op de **Bot**-pagina in je app-instellingen, waar je ze ook aan en uit kunt zetten. Voor gewone intents heb je geen extra machtigingen of configuraties nodig.
 
-Meer informatie over intents en een volledige lijst van beschikbare intents en de bijbehorende evenementen is te vinden in de [Gateway-documentatie](/docs/topics/gateway#gateway-intents).
+Meer informatie over intents en een volledige lijst van beschikbare intents en de bijbehorende evenementen is te vinden in de [Gateway-documentatie](/topics/gateway#gateway-intents).
 </Collapsible>
 
 ![Bot-tab in app-instellingen](/images/app-add-bot.png)
@@ -75,8 +75,8 @@ Apps hebben toestemming nodig van gebruikers die ze installeren om acties uit te
 <Collapsible title="Wat zijn scopes en machtigingen?" description="Introductie van scopes en botmachtigingen" icon="question">
 Bij het creëren van een app bepaal je met scopes en botmachtigingen wat je app kan doen en waartoe de app toegang krijgt op Discord-servers.
 
-- [OAuth2-scopes](/docs/topics/oauth2#oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
-- [Machtigingen](/docs/topics/permissions#permission-overwrites) zijn de gespecialiseerde toestemmingen voor je botgebruiker, zoals andere gebruikers op Discord ook hebben. Ze kunnen toestemming krijgen van de installerende gebruiker, of later worden bijgewerkt in de serverinstellingen of met [machtigingsoverschrijvingen](/docs/topics/permissions#permission-overwrites).
+- [OAuth2-scopes](/topics/oauth2#oauth2-scopes) bepalen de datatoegang en acties waarvan je app gebruik mag maken, toegekend uit naam van een gebruiker die de app installeert of authentiseert.
+- [Machtigingen](/topics/permissions#permission-overwrites) zijn de gespecialiseerde toestemmingen voor je botgebruiker, zoals andere gebruikers op Discord ook hebben. Ze kunnen toestemming krijgen van de installerende gebruiker, of later worden bijgewerkt in de serverinstellingen of met [machtigingsoverschrijvingen](/topics/permissions#permission-overwrites).
 </Collapsible>
 
 Klik in de zijbalk links op **OAuth2** en selecteer vervolgens **URL-generator**.
@@ -86,10 +86,10 @@ De URL-generator creëert een installatielink gebaseerd op de scopes en machtigi
 :::
 
 Voeg voorlopig twee scopes toe:
-- `applications.commands`, waarmee je app [opdrachten](/docs/interactions/application-commands) kan creëren.
+- `applications.commands`, waarmee je app [opdrachten](/interactions/application-commands) kan creëren.
 - `bot` voegt je botgebruiker toe. Nadat je `bot` hebt geselecteerd, kun je ook andere machtigingen selecteren voor je bot. Vink voorlopig alleen **Berichten verzenden** aan.
 
-Bekijk een lijst met alle [OAuth2-scopes](/docs/topics/oauth2#oauth2-scopes) of lees meer over [machtigingen](/docs/topics/permissions) in de documentatie.
+Bekijk een lijst met alle [OAuth2-scopes](/topics/oauth2#oauth2-scopes) of lees meer over [machtigingen](/topics/permissions) in de documentatie.
 
 ### Je app installeren
 
@@ -113,7 +113,7 @@ Nu je app is geconfigureerd en geïnstalleerd, kun je hem gaan ontwikkelen.
 
 Alle code uit de voorbeeld-app vind je in [het GitHub-register](https://github.com/discord/discord-example-app).
 
-Om het ontwikkelen wat makkelijker te maken, maakt de app gebruik van [discord-interactions](https://github.com/discord/discord-interactions-js), die soort- en hulpfuncties verschaffen. Als je liever andere talen of bibliotheken gebruikt, raadpleeg dan de documentatie van de [communityhulpbronnen.](/docs/topics/community-resources)
+Om het ontwikkelen wat makkelijker te maken, maakt de app gebruik van [discord-interactions](https://github.com/discord/discord-interactions-js), die soort- en hulpfuncties verschaffen. Als je liever andere talen of bibliotheken gebruikt, raadpleeg dan de documentatie van de [communityhulpbronnen.](/topics/community-resources)
 
 ### Het project remixen
 
@@ -173,9 +173,9 @@ Nu je verificatiegegevens zijn geconfigureerd, gaan we slashopdrachten installer
 Om slashopdrachten te installeren, maakt de app gebruik van [`node-fetch`](https://github.com/node-fetch/node-fetch). Je kunt de implementatie voor de installatie zien in `utils.js`, binnen de `DiscordRequest()`-functie.
 :::
 
-Het project bevat een `register`-script waarmee je de opdrachten kunt installeren in `ALL_COMMANDS`, wat je onderaan `commands.js` vindt. Dit installeert de opdrachten als algemene opdrachten door het [`PUT /applications/<APP_ID>/commands`](/docs/interactions/application-commands#bulk-overwrite-global-application-commands)-eindpunt van de HTTP API op te roepen.
+Het project bevat een `register`-script waarmee je de opdrachten kunt installeren in `ALL_COMMANDS`, wat je onderaan `commands.js` vindt. Dit installeert de opdrachten als algemene opdrachten door het [`PUT /applications/<APP_ID>/commands`](/interactions/application-commands#bulk-overwrite-global-application-commands)-eindpunt van de HTTP API op te roepen.
 
-Als je je opdrachten wilt aanpassen of extra opdrachten wilt toevoegen, kun je verwijzen naar de opdrachtstructuur in de [opdrachtdocumentatie](/docs/interactions/application-commands#application-command-structure).
+Als je je opdrachten wilt aanpassen of extra opdrachten wilt toevoegen, kun je verwijzen naar de opdrachtstructuur in de [opdrachtdocumentatie](/interactions/application-commands#application-command-structure).
 
 Run het `register`-script door onderaan het Glitch-project op **Terminal** te klikken en de volgende opdracht te plakken:
 
@@ -190,8 +190,8 @@ Als je teruggaat naar je server, moet je nu de slashopdrachten zien verschijnen.
 <Collapsible title="Wat zijn Discords API's?" description="Overzicht van Discords HTTP en Gateway-API's" icon="question">
 Discord heeft twee API's die je kunt combineren om apps te bouwen:
 
-- **[HTTP API](/docs/reference#http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
-- **[Gateway API](/docs/reference#gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](/docs/topics/gateway).
+- **[HTTP API](/reference#http-api)** is een REST-achtige API voor algemene handelingen zoals het versturen en updaten van data in Discord, of het ophalen van data over een hulpbron.
+- **[Gateway API](/reference#gateway-websocket-api)** is een op WebSocket gebaseerde API die nuttig is voor het behouden van een status en om te luisteren naar evenementen die plaatsvinden op een Discord-server. We gebruiken deze API niet in deze gids, maar als je meer wilt weten over het creëren van een Gateway-verbinding en de verschillende evenementen waarnaar je kunt luisteren, raadpleeg dan de [Gateway-documentatie](/topics/gateway).
 </Collapsible>
 
 ---
@@ -220,7 +220,7 @@ In de voorbeeld-app wordt verificatie op twee manieren aangepakt:
 - Het gebruikt de `PUBLIC_KEY` en het [pakket discord-interactions](https://github.com/discord/discord-interactions-js#usage) met een wrapper-functie (geïmporteerd uit `utils.js`) waardoor het geschikt wordt voor de [`verify`-interface van Express](http://expressjs.com/en/5x/api.html#express.json). Dit wordt toegepast op elk binnenkomend verzoek op je app.
 - Het reageert op binnenkomende `PING`-verzoeken.
 
-Raadpleeg voor meer informatie over het voorbereiden van je app op het ontvangen van interacties [de interactiedocumentatie](/docs/interactions/receiving-and-responding#receiving-an-interaction).
+Raadpleeg voor meer informatie over het voorbereiden van je app op het ontvangen van interacties [de interactiedocumentatie](/interactions/receiving-and-responding#receiving-an-interaction).
 
 ### Werken met slashopdracht-verzoeken
 
@@ -240,7 +240,7 @@ if (name === 'test') {
 }
 ```
 
-Bovenstaande code reageert op de interactie door een bericht naar het kanaal te sturen waar de interactie is ontstaan. Je kunt alle beschikbare reactiesoorten bekijken, zoals reageren met een modal, [in de documentatie](/docs/interactions/receiving-and-responding#interaction-callback-type).
+Bovenstaande code reageert op de interactie door een bericht naar het kanaal te sturen waar de interactie is ontstaan. Je kunt alle beschikbare reactiesoorten bekijken, zoals reageren met een modal, [in de documentatie](/interactions/receiving-and-responding#interaction-callback-type).
 
 :::info
 `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is een constante [die wordt geëxporteerd uit `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -260,7 +260,7 @@ Met de opdracht `/challenge` wordt ons steen-papier-schaar-achtige spelletje ges
 
 De opdracht `/challenge`, `CHALLENGE_COMMAND` genaamd in `commands.js`, heeft verschillende `options`. In onze app zijn de opties verschillende objecten die een gebruiker kan kiezen bij het spelen van steen-papier-schaar, die worden gegenereerd met behulp van `RPSChoices`-codes in `game.js`.
 
-Je kunt meer lezen over opdrachtopties en hun structuur [in de documentatie](/docs/interactions/application-commands#application-command-option-structure).
+Je kunt meer lezen over opdrachtopties en hun structuur [in de documentatie](/interactions/application-commands#application-command-option-structure).
 
 :::info
 In deze gids staat niet veel over het `game.js`-bestand, maar verken het bestand gerust en wees niet bang opdrachten of opties in de opdrachten te wijzigen.
@@ -320,7 +320,7 @@ De bovenstaande code doet een aantal dingen:
 De voorbeeldcode gebruikt een object als opslag in het geheugen, maar voor productie-apps moet je een database gebruiken.
 :::
 
-Bij het sturen van een bericht met [berichtonderdelen](/docs/interactions/message-components#what-is-a-component) worden de individuele payloads aan een `components`-lijst toegevoegd. Onderdelen waar acties mee worden uitgevoerd (zoals knoppen) moeten deel uitmaken van een [actierij](/docs/interactions/message-components#action-rows), die je in het codevoorbeeld ziet staan.
+Bij het sturen van een bericht met [berichtonderdelen](/interactions/message-components#what-is-a-component) worden de individuele payloads aan een `components`-lijst toegevoegd. Onderdelen waar acties mee worden uitgevoerd (zoals knoppen) moeten deel uitmaken van een [actierij](/interactions/message-components#action-rows), die je in het codevoorbeeld ziet staan.
 
 Let op de unieke `custom_id` die meegestuurd wordt met berichtonderdelen. In dit geval is dat `accept_button_` waaraan de ID van het actieve spel is bijgevoegd. Een `custom_id` kan worden gebruikt om verzoeken af te handelen die Discord je stuurt als iemand interactie aangaat met het onderdeel, waarvan je straks een voorbeeld ziet.
 
@@ -330,7 +330,7 @@ Als je nu de opdracht `/challenge` activeert en een optie kiest, zal je app een 
 
 <Collapsible title="Het werken met knopinteracties" description="Code voor het verwerken van een klik op een knop en reageren met een kortstondig bericht" icon="code" open>
 
-Als gebruikers interactie aangaan met een berichtonderdeel, verstuurt Discord een verzoek met één [interactietype](/docs/interactions/receiving-and-responding#interaction-type) uit `3` opties (of de waarde van het `MESSAGE_COMPONENT` als `discord-interactions` wordt gebruikt).
+Als gebruikers interactie aangaan met een berichtonderdeel, verstuurt Discord een verzoek met één [interactietype](/interactions/receiving-and-responding#interaction-type) uit `3` opties (of de waarde van het `MESSAGE_COMPONENT` als `discord-interactions` wordt gebruikt).
 
 Om een verwerker in te stellen voor de knop, controleren we het `type` interactie en matchen we de `custom_id`.
 
@@ -380,10 +380,10 @@ const componentId = data.custom_id;
 
 De bovenstaande code:
 1. Zoekt naar een `custom_id` die overeenkomt met wat we oorspronkelijk hebben verstuurd (in dit geval begint dat met `accept_button_`). Bij de aangepaste ID is de game-ID gevoegd, zodat we die kunnen opslaan in `gameID`.
-2. [Verwijdert het oorspronkelijke bericht](/docs/interactions/receiving-and-responding#delete-original-interaction-response) door een webhook aan te roepen met behulp van `node-fetch` en door de unieke interactie-`token` door te geven in de inhoud van het verzoek.
-3. Reageert op het verzoek door een bericht te sturen met een keuzemenu dat de objectkeuzes voor de game bevat. De payload is vergelijkbaar met de vorige, met uitzondering van de `options`-lijst en `flags: 64`, [die aangeeft dat het bericht kortstondig is](/docs/interactions/receiving-and-responding#create-followup-message).
+2. [Verwijdert het oorspronkelijke bericht](/interactions/receiving-and-responding#delete-original-interaction-response) door een webhook aan te roepen met behulp van `node-fetch` en door de unieke interactie-`token` door te geven in de inhoud van het verzoek.
+3. Reageert op het verzoek door een bericht te sturen met een keuzemenu dat de objectkeuzes voor de game bevat. De payload is vergelijkbaar met de vorige, met uitzondering van de `options`-lijst en `flags: 64`, [die aangeeft dat het bericht kortstondig is](/interactions/receiving-and-responding#create-followup-message).
 
-De `options`-lijst wordt gevuld met behulp van de `getShuffledOptions()`-methode in `game.js`, die de `RPSChoices`-waarden manipuleert om te passen bij de vorm van de [berichtcomponentopties](/docs/interactions/message-components#select-option-structure).
+De `options`-lijst wordt gevuld met behulp van de `getShuffledOptions()`-methode in `game.js`, die de `RPSChoices`-waarden manipuleert om te passen bij de vorm van de [berichtcomponentopties](/interactions/message-components#select-option-structure).
 
 </Collapsible>
 
@@ -478,7 +478,7 @@ Net zoals de eerdere code, haalt de bovenstaande code de gebruikers-ID en de obj
 
 Die informatie wordt samen met de ID van de oorspronkelijke gebruiker en de keuze van het `activeGames`-object doorgegeven aan de functie `getResult()`. `getResult()` bepaalt de winnaar en bouwt een leesbare string om naar het kanaal terug te sturen.
 
-We roepen ook nog een andere webhook aan, dit keer om [het kortstondige opvolgbericht te updaten](/docs/interactions/receiving-and-responding#edit-followup-message), aangezien dat niet kan worden verwijderd.
+We roepen ook nog een andere webhook aan, dit keer om [het kortstondige opvolgbericht te updaten](/interactions/receiving-and-responding#edit-followup-message), aangezien dat niet kan worden verwijderd.
 
 Als laatste worden de resultaten verstuurd naar het kanaal met behulp van het interactiereactietype `CHANNEL_MESSAGE_WITH_SOURCE`.
 
@@ -493,8 +493,8 @@ En dat was het! 🎊 Nu kun je je app testen en ervoor zorgen dat alles werkt.
 Gefeliciteerd met het bouwen van je eerste Discord-app! 🎊
 
 Hopelijk heb je iets opgestoken over Discord-apps, hoe je ze kunt configureren en hoe je ze interactief kunt maken. Je kunt nu je app verder uitbouwen of ontdekken wat er nog meer mogelijk is:
-- Lees **[de documentatie](/docs/intro/)** voor meer informatie over API-functies
+- Lees **[de documentatie](//)** voor meer informatie over API-functies
 - Kijk de `examples/`-map van dit project door voor kleinere codevoorbeelden, speciaal voor bepaalde functies
-- Check de **[communityhulpbronnen](/docs/topics/community-resources)** voor tools in verschillende coderingstalen die door communityleden worden beheerd
-- Lees onze tutorial over het [hosten van Discord-apps op Cloudflare Workers](/docs/tutorials/hosting-on-cloudflare-workers)
+- Check de **[communityhulpbronnen](/topics/community-resources)** voor tools in verschillende coderingstalen die door communityleden worden beheerd
+- Lees onze tutorial over het [hosten van Discord-apps op Cloudflare Workers](/tutorials/hosting-on-cloudflare-workers)
 - Word lid van de **[Discord-ontwikkelaarsserver](https://discord.gg/discord-developers)** om vragen te stellen over de API, deel te nemen aan door het Discord API-team gehoste evenementen en met andere ontwikkelaars te praten

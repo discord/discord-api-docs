@@ -1,7 +1,7 @@
 # Game SDK: Getting Started
 
 :::info
-Looking to build a game inside of Discord? Check out [Discord Activities](/docs/activities/overview). We will be revisiting the Game SDK docs soon.
+Looking to build a game inside of Discord? Check out [Discord Activities](/activities/overview). We will be revisiting the Game SDK docs soon.
 :::
 
 :::warning
@@ -9,7 +9,7 @@ Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read her
 :::
 
 :::danger
-The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/docs/change-log#gamesdk-feature-deprecation)
+The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](/change-log#gamesdk-feature-deprecation)
 :::
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
@@ -305,9 +305,9 @@ If you ever need help during the process, you can always reach out to us at our 
 
 Oh, yeah. Pseudo Table of Contents:
 
-- [The Core - Start Here!](/docs/game-sdk/discord)
-- [Activities, a.k.a. Rich Presence](/docs/game-sdk/activities)
-- [Relationships](/docs/game-sdk/relationships)
-- [Users](/docs/game-sdk/users)
-- [Overlay](/docs/game-sdk/overlay)
-- [Store](/docs/game-sdk/store)
+- [The Core - Start Here!](/game-sdk/discord)
+- [Activities, a.k.a. Rich Presence](/game-sdk/activities)
+- [Relationships](/game-sdk/relationships)
+- [Users](/game-sdk/users)
+- [Overlay](/game-sdk/overlay)
+- [Store](/game-sdk/store)
