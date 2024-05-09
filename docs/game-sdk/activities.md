@@ -1,6 +1,6 @@
 # Activities
 
-:::info
+:::tip
 Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 :::
 

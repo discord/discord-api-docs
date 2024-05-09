@@ -1,6 +1,6 @@
 # How Activities Work
 
-:::info
+:::info[preview]
 Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
 :::
 

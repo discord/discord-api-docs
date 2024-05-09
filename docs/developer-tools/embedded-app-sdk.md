@@ -1,6 +1,6 @@
 # Embedded App SDK Reference
 
-:::info
+:::info[preview]
 Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
 :::
 
@@ -291,7 +291,7 @@ await discordSdk.commands.getChannelPermissions();
 
 ### getEntitlements()
 
-:::info
+:::info[preview]
 Coming soon! Not available during Developer Preview
 :::
 
@@ -341,7 +341,7 @@ await discordSdk.commands.getPlatformBehaviors();
 
 ### getSkus()
 
-:::info
+:::info[preview]
 Coming soon! Not available during Developer Preview
 :::
 
@@ -512,7 +512,7 @@ await discordSdk.commands.setOrientationLockState({
 
 ### startPurchase()
 
-:::info
+:::info[preview]
 Coming soon! Not available during Developer Preview
 :::
 
@@ -789,6 +789,6 @@ No scopes required
 
 ### ENTITLEMENT_CREATE
 
-:::info
+:::info[preview]
 Coming soon! Not available during Developer Preview
 :::
