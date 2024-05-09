@@ -2,9 +2,9 @@
 
 Premium Apps is a set of monetization features for apps on Discord that allows developers to:
 
-- Sell monthly recurring [subscriptions](/docs/monetization/App_Subscriptions) for your app's premium functionality within Discord
-- Sell [one-time purchases](/docs/monetization/One-Time_Purchases) for both durable and consumable items or functionality within your app
-- Highlight your app's premium benefits on the App Directory and on your own [Store](/docs/monetization/Managing_Your_Store) page
+- Sell monthly recurring [subscriptions](/docs/monetization/app-subscriptions) for your app's premium functionality within Discord
+- Sell [one-time purchases](/docs/monetization/one-time-purchases) for both durable and consumable items or functionality within your app
+- Highlight your app's premium benefits on the App Directory and on your own [Store](/docs/monetization/managing-your-store) page
 - Offer native product tie-ins and upsells on the App Directory, app profiles, and in chat
 
 ![Premium App screenshot](/images/premium-example.png)
@@ -40,7 +40,7 @@ Adding monetization to your app is a three-step process:
 
 Before monetization can be enabled, you will need:
 
-- A [team](/docs/topics/Teams) in the developer portal. If you don't have one, you can [create one on the Teams page](https://discord.com/developers/teams)
+- A [team](/docs/topics/teams) in the developer portal. If you don't have one, you can [create one on the Teams page](https://discord.com/developers/teams)
 - A [verified app](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Allowlisting#h_46b3869c-6d50-43fc-b07c-9ed7569a1160) that is _owned by that team_
 
 ### Setting Up Team Payouts
@@ -62,4 +62,4 @@ Premium Apps is not currently available outside of these regions. These features
 
 ### Implementing Your Premium Features
 
-Once your team and app are all set up for monetization, you are ready to [customize your subscription](/docs/monetization/SKUs#customizing-your-skus) and [implement your premium features](/docs/monetization/App_Subscriptions) in your app!
+Once your team and app are all set up for monetization, you are ready to [customize your subscription](/docs/monetization/skus#customizing-your-skus) and [implement your premium features](/docs/monetization/app-subscriptions) in your app!

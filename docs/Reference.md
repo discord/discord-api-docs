@@ -104,8 +104,8 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](/docs/topics/OAuth2#bot-vs-user-accounts).
-2. Using an OAuth2 bearer token gained through the [OAuth2 API](/docs/topics/OAuth2).
+1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](/docs/topics/oauth2#bot-vs-user-accounts).
+2. Using an OAuth2 bearer token gained through the [OAuth2 API](/docs/topics/oauth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
 
@@ -127,7 +127,7 @@ All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord 
 
 ## Snowflakes
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](/docs/topics/Gateway#encoding-and-compression) for more information regarding Gateway encoding.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](/docs/topics/gateway#encoding-and-compression) for more information regarding Gateway encoding.
 
 ###### Snowflake ID Broken Down in Binary
 
@@ -239,7 +239,7 @@ Client requests that do not have a valid User Agent specified may be blocked and
 
 ### Rate Limiting
 
-The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](/docs/topics/Rate_Limits) section.
+The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](/docs/topics/rate-limits) section.
 
 ### Boolean Query Strings
 
@@ -247,7 +247,7 @@ Certain endpoints in the API are documented to accept booleans for their query s
 
 ## Gateway (WebSocket) API
 
-Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](/docs/topics/Gateway#connections) section.
+Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](/docs/topics/gateway#connections) section.
 
 ## Message Formatting
 
@@ -297,7 +297,7 @@ Guild navigation types link to the corresponding resource in the current server.
 
 | Type      | Description                                                                                           |
 |-----------|-------------------------------------------------------------------------------------------------------|
-| customize | _Customize_ tab with the server's [onboarding prompts](/docs/resources/Guild#guild-onboarding-object) |
+| customize | _Customize_ tab with the server's [onboarding prompts](/docs/resources/guild#guild-onboarding-object) |
 | browse    | _Browse Channels_ tab                                                                                 |
 | guide     | [Server Guide](https://support.discord.com/hc/en-us/articles/13497665141655)                          |
 
@@ -309,7 +309,7 @@ Guild navigation types link to the corresponding resource in the current server.
 https://cdn.discordapp.com/
 ```
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](/docs/resources/User#get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](/docs/Reference#image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](/docs/resources/user#get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](/docs/reference#image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
 
 ###### Image Formats
 
@@ -325,35 +325,35 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 | Type                        | Path                                                                                                                                                                                                                                                              | Supports             |
 |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
-| Custom Emoji                | emojis/[emoji_id](/docs/resources/Emoji#emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
-| Guild Icon                  | icons/[guild_id](/docs/resources/Guild#guild-object)/[guild_icon](/docs/resources/Guild#guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
-| Guild Splash                | splashes/[guild_id](/docs/resources/Guild#guild-object)/[guild_splash](/docs/resources/Guild#guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
-| Guild Discovery Splash      | discovery-splashes/[guild_id](/docs/resources/Guild#guild-object)/[guild_discovery_splash](/docs/resources/Guild#guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
-| Guild Banner                | banners/[guild_id](/docs/resources/Guild#guild-object)/[guild_banner](/docs/resources/Guild#guild-object).png \*                                                                                                                                                  | PNG, JPEG, WebP, GIF |
-| User Banner                 | banners/[user_id](/docs/resources/User#user-object)/[user_banner](/docs/resources/User#user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Default User Avatar         | embed/avatars/[index](/docs/resources/User#user-object).png \*\* \*\*\*                                                                                                                                                                                           | PNG                  |
-| User Avatar                 | avatars/[user_id](/docs/resources/User#user-object)/[user_avatar](/docs/resources/User#user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Guild Member Avatar         | guilds/[guild_id](/docs/resources/Guild#guild-object)/users/[user_id](/docs/resources/User#user-object)/avatars/[member_avatar](/docs/resources/Guild#guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
-| User Avatar Decoration      | avatar-decorations/[user_id](/docs/resources/User#user-object)/[user_avatar_decoration](/docs/resources/User#user-object).png                                                                                                                                     | PNG                  |
-| Application Icon            | app-icons/[application_id](/docs/resources/Application#application-object)/[icon](/docs/resources/Application#application-object).png                                                                                                                             | PNG, JPEG, WebP      |
-| Application Cover           | app-icons/[application_id](/docs/resources/Application#application-object)/[cover_image](/docs/resources/Application#application-object).png                                                                                                                      | PNG, JPEG, WebP      |
-| Application Asset           | app-assets/[application_id](/docs/resources/Application#application-object)/[asset_id](/docs/topics/Gateway_Events#activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
-| Achievement Icon            | app-assets/[application_id](/docs/resources/Application#application-object)/achievements/[achievement_id](/docs/game_sdk/Achievements#user-achievement-struct)/icons/[icon_hash](/docs/game_sdk/Achievements#user-achievement-struct).png | PNG, JPEG, WebP      |
-| Store Page Asset            | app-assets/[application_id](/docs/resources/Application#application-object)/store/asset_id                                                                                                                                                                        | PNG, JPEG, WebP      |
-| Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](/docs/resources/Sticker#sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
-| Team Icon                   | team-icons/[team_id](/docs/topics/Teams#team-object)/[team_icon](/docs/topics/Teams#team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
-| Sticker                     | stickers/[sticker_id](/docs/resources/Sticker#sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
-| Role Icon                   | role-icons/[role_id](/docs/topics/Permissions#role-object)/[role_icon](/docs/topics/Permissions#role-object).png                                                                                                                                                  | PNG, JPEG, WebP      |
-| Guild Scheduled Event Cover | guild-events/[scheduled_event_id](/docs/resources/Guild_Scheduled_Event#guild-scheduled-event-object)/[scheduled_event_cover_image](/docs/resources/Guild_Scheduled_Event#guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
-| Guild Member Banner         | guilds/[guild_id](/docs/resources/Guild#guild-object)/users/[user_id](/docs/resources/User#user-object)/banners/[member_banner](/docs/resources/Guild#guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
+| Custom Emoji                | emojis/[emoji_id](/docs/resources/emoji#emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
+| Guild Icon                  | icons/[guild_id](/docs/resources/guild#guild-object)/[guild_icon](/docs/resources/guild#guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
+| Guild Splash                | splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_splash](/docs/resources/guild#guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
+| Guild Discovery Splash      | discovery-splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_discovery_splash](/docs/resources/guild#guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
+| Guild Banner                | banners/[guild_id](/docs/resources/guild#guild-object)/[guild_banner](/docs/resources/guild#guild-object).png \*                                                                                                                                                  | PNG, JPEG, WebP, GIF |
+| User Banner                 | banners/[user_id](/docs/resources/user#user-object)/[user_banner](/docs/resources/user#user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Default User Avatar         | embed/avatars/[index](/docs/resources/user#user-object).png \*\* \*\*\*                                                                                                                                                                                           | PNG                  |
+| User Avatar                 | avatars/[user_id](/docs/resources/user#user-object)/[user_avatar](/docs/resources/user#user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Guild Member Avatar         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/avatars/[member_avatar](/docs/resources/guild#guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
+| User Avatar Decoration      | avatar-decorations/[user_id](/docs/resources/user#user-object)/[user_avatar_decoration](/docs/resources/user#user-object).png                                                                                                                                     | PNG                  |
+| Application Icon            | app-icons/[application_id](/docs/resources/application#application-object)/[icon](/docs/resources/application#application-object).png                                                                                                                             | PNG, JPEG, WebP      |
+| Application Cover           | app-icons/[application_id](/docs/resources/application#application-object)/[cover_image](/docs/resources/application#application-object).png                                                                                                                      | PNG, JPEG, WebP      |
+| Application Asset           | app-assets/[application_id](/docs/resources/application#application-object)/[asset_id](/docs/topics/gateway-events#activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
+| Achievement Icon            | app-assets/[application_id](/docs/resources/application#application-object)/achievements/[achievement_id](/docs/game-sdk/achievements#user-achievement-struct)/icons/[icon_hash](/docs/game-sdk/achievements#user-achievement-struct).png | PNG, JPEG, WebP      |
+| Store Page Asset            | app-assets/[application_id](/docs/resources/application#application-object)/store/asset_id                                                                                                                                                                        | PNG, JPEG, WebP      |
+| Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](/docs/resources/sticker#sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
+| Team Icon                   | team-icons/[team_id](/docs/topics/teams#team-object)/[team_icon](/docs/topics/teams#team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
+| Sticker                     | stickers/[sticker_id](/docs/resources/sticker#sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
+| Role Icon                   | role-icons/[role_id](/docs/topics/permissions#role-object)/[role_icon](/docs/topics/permissions#role-object).png                                                                                                                                                  | PNG, JPEG, WebP      |
+| Guild Scheduled Event Cover | guild-events/[scheduled_event_id](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)/[scheduled_event_cover_image](/docs/resources/guild-scheduled-event#guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
+| Guild Member Banner         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/banners/[member_banner](/docs/resources/guild#guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
-\*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](/docs/Change_Log#unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
+\*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](/docs/change-log#unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
-\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](/docs/resources/Sticker#sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](/docs/resources/sticker#sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
 :::info
 Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
@@ -371,11 +371,11 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 ### Signed Attachment CDN URLs
 
-Attachments uploaded to Discord's CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time. Discord automatically refreshes attachment CDN URLs that appear within the client, so when your app receives a payload with a signed URL (like when you [fetch a message](/docs/resources/Channel#get-channel-message)), it will be valid.
+Attachments uploaded to Discord's CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time. Discord automatically refreshes attachment CDN URLs that appear within the client, so when your app receives a payload with a signed URL (like when you [fetch a message](/docs/resources/channel#get-channel-message)), it will be valid.
 
-When passing CDN URLs into API fields, like [`url` in an embed image object](/docs/resources/Channel#embed-image-structure) and [`avatar_url` for webhooks](/docs/resources/Webhook#jsonform-params), your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
+When passing CDN URLs into API fields, like [`url` in an embed image object](/docs/resources/channel#embed-image-structure) and [`avatar_url` for webhooks](/docs/resources/webhook#jsonform-params), your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
 
-The [standard CDN endpoints](/docs/Reference#cdn-endpoints) listed above are not signed, so they will not expire.
+The [standard CDN endpoints](/docs/reference#cdn-endpoints) listed above are not signed, so they will not expire.
 
 ###### Example Attachment CDN URL
 
@@ -399,7 +399,7 @@ A file upload size limit applies to *all* files in a request (rather than each i
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/docs/interactions/Receiving_and_Responding#interaction-callback-data-structure)).
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/docs/interactions/receiving-and-responding#interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 

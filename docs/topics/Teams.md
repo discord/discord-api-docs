@@ -47,7 +47,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 | Developer | developer | Developers can access information about team-owned apps, like the client secret or public key. They can also take limited actions on team-owned apps, like configuring interaction endpoints or resetting the bot token. Members with the Developer role *cannot* manage the team or its members, or take destructive actions on team-owned apps. |
 | Read-only | read_only | Read-only members can access information about a team and any team-owned apps. Some examples include getting the IDs of applications and exporting payout records.                                                                                                                                                                                |
 
-\* The owner role is not represented in the `role` field on the [team member object](/docs/topics/Teams#team-member-object). Instead, the `owner_user_id` field  on the [team object](/docs/topics/Teams#team-object) should be used to identify which user has the owner role for the team.
+\* The owner role is not represented in the `role` field on the [team member object](/docs/topics/teams#team-member-object). Instead, the `owner_user_id` field  on the [team object](/docs/topics/teams#team-object) should be used to identify which user has the owner role for the team.
 
 
 ## Data Models
@@ -58,7 +58,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 |---------------|-----------------------------------------------------------------------------------|--------------------------------------|
 | icon          | ?string                                                                           | Hash of the image of the team's icon |
 | id            | snowflake                                                                         | Unique ID of the team                |
-| members       | array of [team member](/docs/topics/Teams#team-member-object) objects | Members of the team                  |
+| members       | array of [team member](/docs/topics/teams#team-member-object) objects | Members of the team                  |
 | name          | string                                                                            | Name of the team                     |
 | owner_user_id | snowflake                                                                         | User ID of the current team owner    |
 
@@ -66,10 +66,10 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 
 | field            | type                                                    | description                                                                                 |
 |------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| membership_state | integer                                                 | User's [membership state](/docs/topics/Teams#membership-state-enum) on the team |
+| membership_state | integer                                                 | User's [membership state](/docs/topics/teams#membership-state-enum) on the team |
 | team_id          | snowflake                                               | ID of the parent team of which they are a member                                            |
-| user             | partial [user](/docs/resources/User#user-object) object | Avatar, discriminator, ID, and username of the user                                         |
-| role             | string                                                  | [Role](/docs/topics/Teams#team-member-role-types) of the team member      |
+| user             | partial [user](/docs/resources/user#user-object) object | Avatar, discriminator, ID, and username of the user                                         |
+| role             | string                                                  | [Role](/docs/topics/teams#team-member-role-types) of the team member      |
 
 
 ###### Membership State Enum
