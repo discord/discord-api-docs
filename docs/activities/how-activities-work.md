@@ -1,7 +1,8 @@
 # How Activities Work
 
-> preview 
-> Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
+:::info
+Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
+:::
 
 Activities are web applications that run in an iframe within Discord on desktop, mobile and web. In order to achieve this, we use the [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) protocol to enable secure communication between your application and Discord.
 

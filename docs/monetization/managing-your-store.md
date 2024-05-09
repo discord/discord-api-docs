@@ -19,8 +19,9 @@ While creating and editing SKUs in your [app's settings](https://discord.com/dev
 - **Publish SKU**: Will let you publish a new SKU and make it **Available via Store & API** or **Available via API Only**.
 - **Unpublish SKU**: Will unpublish the SKU from both the Store and the API. Users who already have this SKU will still be entitled to the SKU even if it becomes unpublished. You can republish a SKU at any time.
 
-> preview
-> We will have more updates on publishing SKUs to the API vs the Store as we release more monetization features.
+:::info
+We will have more updates on publishing SKUs to the API vs the Store as we release more monetization features.
+:::
 
 ### Manage Store
 Under the `Monetization -> Manage Store` tab, you can organize your SKUs for both subscriptions and items. You can add new or existing SKUs or update the order your SKUs appear to your users in the Store.
@@ -39,8 +40,9 @@ Users can now access an App's store page from the Bot User's profile in a server
 
 Currently, you can only have one active App Subscription SKU for your app. If your app has either a user or guild subscription, you can add it to your Store for users to purchase.
 
-> preview
-> Support for multiple subscription SKUs is coming soon.
+:::info
+Support for multiple subscription SKUs is coming soon.
+:::
 
 ![Subscriptions in your Store View](/images/premium-subscriptions.png)
 

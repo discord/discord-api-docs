@@ -3,117 +3,118 @@ import Card from '@site/src/components/Container';
 
 # Activity Development Guides
 
-> preview
-> Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
+:::info
+Creating Activities is currently available as a [Public Developer Preview](/docs/activities/overview#public-developer-preview).
+:::
 
 These guides include suggested development practices, SDK commands, and user flows for you to consider while building your Activity. These will help to provide your users with a consistent and clear experience while interacting with your application.
 
 ## Local Development
 <Container>
-  <Card title="Run Your Application Locally" link="/docs/activities/Development_Guildes#run-your-application-locally">
+  <Card title="Run Your Application Locally" link="/docs/activities/development-guides#run-your-application-locally">
     Get up and running with a local development application.
   </Card>
-  <Card title="Launch Your App from Discord" link="/docs/activities/Development_Guildes#launch-your-application-from-the-discord-client">
+  <Card title="Launch Your App from Discord" link="/docs/activities/development-guides#launch-your-application-from-the-discord-client">
     How to launch your app on mobile and desktop Discord clients.
   </Card>
-  <Card title="Setup URL Mapping" link="/docs/activities/Development_Guildes#url-mapping">
+  <Card title="Setup URL Mapping" link="/docs/activities/development-guides#url-mapping">
     Configure the Discord proxy to allow network requests to necessary external endpoints.
   </Card>
-  <Card title="Logging" link="/docs/activities/Development_Guildes#logging">
+  <Card title="Logging" link="/docs/activities/development-guides#logging">
     How to use the various levels of logging while building your application.
   </Card>
 </Container>
 
 ## User Actions
 <Container>
-  <Card title="Open External Link" link="/docs/activities/Development_Guildes#open-external-link">
+  <Card title="Open External Link" link="/docs/activities/development-guides#open-external-link">
     Open an external link from within your app.
   </Card>
-  <Card title="Open Invite Dialog" link="/docs/activities/Development_Guildes#open-invite-dialog">
+  <Card title="Open Invite Dialog" link="/docs/activities/development-guides#open-invite-dialog">
     Open the Application Channel Invite dialog within Discord.
   </Card>
-  <Card title="Open Share Moment Dialog" link="/docs/activities/Development_Guildes#open-share-moment-dialog">
+  <Card title="Open Share Moment Dialog" link="/docs/activities/development-guides#open-share-moment-dialog">
     Open a dialog to share media from your application to a channel, DM, or GDM.
   </Card>
-  <Card title="Encourage Hardware Acceleration" link="/docs/activities/Development_Guildes#encourage-hardware-acceleration">
+  <Card title="Encourage Hardware Acceleration" link="/docs/activities/development-guides#encourage-hardware-acceleration">
     Open a dialog to enable hardware acceleration for compute-intensive applications.
   </Card>
 </Container>
 
 ## Mobile
 <Container>
-  <Card title="Supporting Mobile Platforms" link="/docs/activities/Development_Guildes#supported-platforms-web-ios-android">
+  <Card title="Supporting Mobile Platforms" link="/docs/activities/development-guides#supported-platforms-web-ios-android">
     Update your application settings to support iOS and Android.
   </Card>
-  <Card title="Mobile Safe Areas" link="/docs/activities/Development_Guildes#mobile-safe-areas">
+  <Card title="Mobile Safe Areas" link="/docs/activities/development-guides#mobile-safe-areas">
     Ensure that your app's assets fall within mobile-safe areas.
   </Card>
-  <Card title="Mobile Thermal States" link="/docs/activities/Development_Guildes#mobile-thermal-states">
+  <Card title="Mobile Thermal States" link="/docs/activities/development-guides#mobile-thermal-states">
     Respond to thermal state changes surfaced from iOS and Android.
   </Card>
 </Container>
 
 ## Layout
 <Container>
-  <Card title="Application Orientation" link="/docs/activities/Development_Guildes#application-orientation">
+  <Card title="Application Orientation" link="/docs/activities/development-guides#application-orientation">
     Configure and subscribe to changes in application orientation.
   </Card>
-  <Card title="Application Layout Mode" link="/docs/activities/Development_Guildes#application-layout-mode">
+  <Card title="Application Layout Mode" link="/docs/activities/development-guides#application-layout-mode">
     Subscribe to layout mode changes to update your application's user interface.
   </Card>
 </Container>
 
 ## Networking
 <Container>
-  <Card title="Activity Proxy Considerations" link="/docs/activities/Development_Guildes#activity-proxy-considerations">
+  <Card title="Activity Proxy Considerations" link="/docs/activities/development-guides#activity-proxy-considerations">
     Working with our Activity Proxy
   </Card>
-  <Card title="Construct a Full URL" link="/docs/activities/Development_Guildes#construct-a-full-url">
+  <Card title="Construct a Full URL" link="/docs/activities/development-guides#construct-a-full-url">
     Generate a full URL when working with network requests.
   </Card>
-  <Card title="Using External Resources" link="/docs/activities/Development_Guildes#using-external-resources">
+  <Card title="Using External Resources" link="/docs/activities/development-guides#using-external-resources">
     Allow network requests to external resources from inside the Discord proxy.
   </Card>
-  <Card title="Security Considerations" link="/docs/activities/Development_Guildes#security-considerations">
+  <Card title="Security Considerations" link="/docs/activities/development-guides#security-considerations">
     Keep things safe and secure in your Activity.
   </Card>
 </Container>
 
 ## Multiplayer Experience
 <Container>
-  <Card title="Instance Management" link="/docs/activities/Development_Guildes#activity-instance-management">
+  <Card title="Instance Management" link="/docs/activities/development-guides#activity-instance-management">
     Managing instances to ensure users join the same instance as their friends.
   </Card>
-  <Card title="Instance Participants" link="/docs/activities/Development_Guildes#instance-participants">
+  <Card title="Instance Participants" link="/docs/activities/development-guides#instance-participants">
     Use the SDK to fetch the users currently connected to an instance.
   </Card>
-  <Card title="Render Avatars and Names" link="/docs/activities/Development_Guildes#render-avatars-and-names">
+  <Card title="Render Avatars and Names" link="/docs/activities/development-guides#render-avatars-and-names">
     Retrieve and render the usernames and avatars of users connected to your application.
   </Card>
 </Container>
 
 ## Assets & Metadata
 <Container>
-  <Card title="Setting Up Activity Metadata" link="/docs/activities/Development_Guildes#setting-up-activity-metadata">
+  <Card title="Setting Up Activity Metadata" link="/docs/activities/development-guides#setting-up-activity-metadata">
     Best practices for configuring how your application shows up in Discord.
   </Card>
-   <Card title="Setting Up Art Assets" link="/docs/activities/Development_Guildes#setting-up-activity-art-assets">
+   <Card title="Setting Up Art Assets" link="/docs/activities/development-guides#setting-up-activity-art-assets">
     Best practices for configuring how your application shows up in Discord.
   </Card>
 </Container>
 
 ## Production Readiness
 <Container>
-  <Card title="Cache Busting" link="/docs/activities/Development_Guildes#cache-busting">
+  <Card title="Cache Busting" link="/docs/activities/development-guides#cache-busting">
     Manage asset caching in your application and the Discord Activity proxy.
   </Card>
-  <Card title="Handling Rate Limits" link="/docs/activities/Development_Guildes#handling-rate-limits">
+  <Card title="Handling Rate Limits" link="/docs/activities/development-guides#handling-rate-limits">
     Stay within rate limits to keep the fun going in your Activity.
   </Card>
-  <Card title="Static IP Addresses" link="/docs/activities/Development_Guildes#static-ip-addresses">
+  <Card title="Static IP Addresses" link="/docs/activities/development-guides#static-ip-addresses">
     Network routing considerations when preparing your Activity for production use.
   </Card>
-  <Card title="Backward Compatibility" link="/docs/activities/Development_Guildes#backward-compatibility">
+  <Card title="Backward Compatibility" link="/docs/activities/development-guides#backward-compatibility">
     Future-proof your application and support new commands as they become available in the SDK.
   </Card>
 </Container>
@@ -207,8 +208,9 @@ Because your application is "sandboxed", it will be unable to make network reque
 
 #### How to set a URL Mapping
 
-> preview
-> This is only possible once the Developer Preview Activities is enabled on your application.
+:::info
+This is only possible once the Developer Preview Activities is enabled on your application.
+:::
 
 To add or modify your application's URL mappings, click on `Activities -> URL Mappings` and set the prefix and target values for each mapping as needed.
 
