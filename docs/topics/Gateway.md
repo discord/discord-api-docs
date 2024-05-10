@@ -566,12 +566,12 @@ As apps grow and are added to an increasing number of guilds, some developers ma
 > warn
 > Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding.
 
-Sessions that would like to only receive events from a subset of guilds should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array is `shard_id`, the zero-based integer value of the current shard, while the second is `total_shards` and represents the total number of shards.
+Sessions that would like to only receive events from a subset of guilds should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array is `shard_id`, the zero-based integer value of the current shard, while the second is `num_shards` and represents the total number of shards.
 
 > info
 > The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field
 
-A certain gateway session is only subscribed to events from guilds with a `guild_id` that fulfil the following formula, using the `shard_id` and `num_shards` that the session provided in the Identify event:
+A certain gateway session is only subscribed to events from guilds with a `guild_id` that fulfil the following formula, using the `shard_id` and `num_shards` that the session provided in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event:
 
 ###### Sharding Formula
 
@@ -579,9 +579,9 @@ A certain gateway session is only subscribed to events from guilds with a `guild
 shard_id == (guild_id >> 22) % num_shards
 ```
 
-Every session with `shard_id = 0` will be subscribed to DM's and other non-guild related events.
+Every session with `shard_id = 0` will be subscribed to DMs and other non-guild related events.
 
-As an example, if you wanted to split events equally between three shards, you'd use the following values for `shard` for each session: `[0, 3]`, `[1, 3]`, and `[2, 3]`. DM's would only be sent to the `[0, 3]` shard.
+As an example, if you wanted to split events equally between three shards, you'd use the following values for `shard` for each session: `[0, 3]`, `[1, 3]`, and `[2, 3]`. DMs would only be sent to the `[0, 3]` shard.
 
 Note that `num_shards` does not relate to (or limit) the total number of potential sessions, and can be different between multiple sessions existing at the same time. It is only used to decide whether an event will be sent to the associated session using the [Sharding Formula](#DOCS_TOPICS_GATEWAY/sharding-sharding-formula) above. In the simple case like the example above, where every session has the same `num_shards` and the sessions respective `shard_id`'s cover every value from `0` to `num_shards - 1`, the events will be split evenly between the sessions. This is probably how most bots will operate.
 
