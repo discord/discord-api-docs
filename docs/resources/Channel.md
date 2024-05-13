@@ -506,9 +506,9 @@ Information about the call in message.
 
 ###### Message Call Object Structure
 
-| Field           | Type                | Description                                                                                 |
-| participants    | array of snowflakes | array of [user](#DOCS_RESOURCES_USER/user-object) object ids that participanted in the call |
-| ended_timestamp | ?ISO8601 timestamp  | time when call ended                                                                        |
+| Field           | Type                | Description                                                                                |
+| participants    | array of snowflakes | array of [user](#DOCS_RESOURCES_USER/user-object) object ids that participated in the call |
+| ended_timestamp | ?ISO8601 timestamp  | time when call ended                                                                       |
 
 ### Message Reference Object
 
