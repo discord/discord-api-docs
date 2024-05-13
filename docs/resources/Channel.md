@@ -398,6 +398,7 @@ Represents a message sent in a channel within Discord.
          "normal": 1
       },
       "me": false,
+      "me_burst": false,
       "emoji": {
          "id": null,
          "name": "🔥"
