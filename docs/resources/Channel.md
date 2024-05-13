@@ -502,7 +502,7 @@ Metadata about the interaction, including the source of the interaction and rele
 
 ### Message Call Object
 
-Information about the call in message.
+Information about the call in private channel.
 
 ###### Message Call Object Structure
 
