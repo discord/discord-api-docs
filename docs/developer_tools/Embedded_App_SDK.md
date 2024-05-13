@@ -476,7 +476,7 @@ No scopes required
 
 ```js
 await discordSdk.commands.setConfig({
-  user_interactive_pip: true
+  use_interactive_pip: true
 })
 ```
 
