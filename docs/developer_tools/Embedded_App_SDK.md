@@ -36,6 +36,7 @@ const discordSdk = new DiscordSDK(DISCORD_CLIENT_ID);
 | [ready](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/ready)             | Resolves when your app has successfully connected to the Discord client |
 | [subscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/subscribe)     | Subscribe to an Embedded App SDK Event                                  |
 | [unsubscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/unsubscribe) | Unsubscribe to an Embedded App SDK Event                                |
+| [close](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/close)             | Close an Embedded App                                                   |
 
 ### ready()
 
@@ -99,6 +100,40 @@ No scopes required
 
 ```js
 await discordSdk.unsubscribe("SDK_EVENT_NAME");
+```
+
+---
+
+### close()
+
+Used to close your app with a specified code and reason.
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+No scopes required
+
+#### RPC Close Codes
+| Name              | Code |
+|-------------------|------|
+| CLOSE_NORMAL      | 1000 |
+| CLOSE_UNSUPPORTED | 1003 |
+| CLOSE_ABNORMAL    | 1006 |
+| INVALID_CLIENTID  | 4000 |
+| INVALID_ORIGIN    | 4001 |
+| RATELIMITED       | 4002 |
+| TOKEN_REVOKED     | 4003 |
+| INVALID_VERSION   | 4004 |
+| INVALID_ENCODING  | 4005 |
+
+#### SDK Usage
+
+```js
+discordSdk.close(RPCCloseCodes.CLOSE_NORMAL, "You exited from app");
 ```
 
 ---
