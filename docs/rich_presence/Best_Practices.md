@@ -1,7 +1,7 @@
 # Rich Presence Best Practices
 
 > danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
 Rich Presence is a new feature from Discord that allows you to surface unique, interesting, and actionable data inside a Discord user’s profile when they play your game! This guide is intended to show some best practices on how to make that data the best it can be. It will include images and code samples; for full technical documentation, see our developer documentation.
 
@@ -42,10 +42,10 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-|                                       Bad                                                    |                       Good                                                                          |
-| :------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
+|                                             Bad                                              |                                                Good                                                 |
+|:--------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
 | ![A rich presence string that is too long and does not fit on one line](rp-long-strings.png) | ![Screenshot of a good rich presence string that is concise and easy to read](rp-short-strings.png) |
-| The data wraps onto multiple lines. It’s repetitive, slower to read, and messy.              | The data all fits on one line per string. Clean!                                                    |
+|       The data wraps onto multiple lines. It’s repetitive, slower to read, and messy.        |                          The data all fits on one line per string. Clean!                           |
 
 ### Make it Actionable!
 
@@ -55,10 +55,10 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-|                                           Bad                                             |                                          Good                                                                                                     |
-| :---------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
-| ![Screenshot of a rich presence string reading "Rank 9999"](rp-non-actionable.png)        | ![Screenshot of a good rich presence string shows a game mode of "Ranked: Control Point" and that the user is in a queue](rp-actionable.png)      |
-| While Rank 9999 is impressive, it doesn’t present any actionable data for their friends.  | This player is in queue for something I want to play. Let's ask to join that open spot!                                                           |
+|                                           Bad                                            |                                                                     Good                                                                     |
+|:----------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------:|
+|    ![Screenshot of a rich presence string reading "Rank 9999"](rp-non-actionable.png)    | ![Screenshot of a good rich presence string shows a game mode of "Ranked: Control Point" and that the user is in a queue](rp-actionable.png) |
+| While Rank 9999 is impressive, it doesn’t present any actionable data for their friends. |                           This player is in queue for something I want to play. Let's ask to join that open spot!                            |
 
 ### Use ALL of the fields (where applicable)!
 
@@ -68,10 +68,10 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-|                                          Bad                                                    |                                                Good                                                                             |
-| :---------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+|                                               Bad                                               |                                                              Good                                                               |
+|:-----------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|
 | ![Screenshot of a rich presence string that is hard to read at a glance](rp-not-all-fields.png) | ![Screenshot of a good rich presence that takes advantage of storing less important information in tooltips](rp-all-fields.png) |
-| The map name takes up space and makes the player's status harder to read at a glance.           | Moving the name of the map to the tooltip makes the data cleaner and frees up space for the score.                              |
+|      The map name takes up space and makes the player's status harder to read at a glance.      |               Moving the name of the map to the tooltip makes the data cleaner and frees up space for the score.                |
 
 ### Have interesting, expressive art!
 
@@ -82,7 +82,7 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-|                                     Bad                                               |                           Good                                                       |
-| :-----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: |
-| ![Screenshot of a rich presence icon that is too dark to see clearly](rp-bad-art.png) | ![Screenshot of a rich presence icon that is clear and detailed](rp-good-art.png)    |
-| The image is dark and unfocused. Highly-detailed images can be hard to see.           | This image is bright and matches the details. Let's help!                            |
+|                                          Bad                                          |                                       Good                                        |
+|:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
+| ![Screenshot of a rich presence icon that is too dark to see clearly](rp-bad-art.png) | ![Screenshot of a rich presence icon that is clear and detailed](rp-good-art.png) |
+|      The image is dark and unfocused. Highly-detailed images can be hard to see.      |             This image is bright and matches the details. Let's help!             |

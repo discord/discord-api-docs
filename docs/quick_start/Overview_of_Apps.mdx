@@ -1,0 +1,107 @@
+# Overview of Discord Apps
+
+![Overview of Apps](overview-of-apps-banner.png)
+
+Discord apps customize, extend, and enhance Discord servers for millions of users. Whether you're a developer interested in customizing servers, integrating your game, or building an Activity, Discord apps are your one-stop solution.
+
+On this page we'll answer the questions:
+
+- [What can apps do?](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-can-apps-do)
+- [Where are apps installed?](#DOCS_QUICK_START_OVERVIEW_OF_APPS/where-are-apps-installed)
+- [What APIs can apps use?](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-apis-can-apps-use)
+
+Well, let's begin...
+
+---
+
+## What can apps do?
+
+You'll discover the full power of apps as you explore the documentation and build your own apps, but for now let's take a glance at features you can build and integrate into your Discord app.
+
+### Send and manage messages
+
+Messages are (of course) a core part of using Discord, and the same is true for apps. Apps can send messages in different ways—they can call the **[Create Message endpoint](#DOCS_RESOURCES_CHANNEL/create-message)**, create and execute [webhooks](#DOCS_RESOURCES_WEBHOOK), or send messages when responding to [interactions](#DOCS_INTERACTIONS_OVERVIEW). Apps can also manage messages if they have the proper permissions, which is discussed in the [Channel](#DOCS_RESOURCES_CHANNEL) documentation.
+
+### Interact with users
+
+Apps can send and respond to **[interactions](#DOCS_INTERACTIONS_OVERVIEW)** to create more engaging and intuitive experiences for users. When sending messages, apps can send interactive components like [buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) and [select menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus) in the `components` field. Apps can also open form-like [modals](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) in response to interactions.
+
+### Build embedded experiences
+
+Using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK), apps can create **[Activities](#DOCS_ACTIVITIES_OVERVIEW)** which are interactive, multiplayer games and social experiences in Discord. Activities are cross-platform and embedded within iframes in Discord, where people who play games are already hanging out.
+
+### Customize servers
+
+With the right API endpoints and proper [permissions](#DOCS_TOPICS_PERMISSIONS), apps can customize the experience of using and moderating servers by accessing and customizing all sorts of resources core to Discord—including roles, channels, and AutoMod among others. Explore the **Resources** documentation category to learn about the different Discord resources and how apps can use them.
+
+### Update user metadata and presence
+
+Apps can use **[role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA)** to associate third-party metadata (like stats or account type) with Discord users. When server admins install the app, they'll be able to set up roles based on criteria linked to that metadata. You can explore more in the [configuring metadata for linked roles](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES) tutorial.
+
+Apps can also update a user's **[rich presence](#DOCS_RICH_PRESENCE_HOW_TO)** information in Discord to make it easy for them to customize their profile with games and other activities.
+
+### Add premium features
+
+**[App subscriptions](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS)** let apps charge users and/or servers for premium functionality on a recurring basis natively within Discord. You can read more about eligibility and adding monetization features to your app in the [Monetization](#DOCS_MONETIZATION_OVERVIEW) documentation.
+
+### ...and more
+
+This developer documentation is full of nooks and crannies with all sorts of features and functionality you can build, customize, and extend within Discord. Discover the limits of possibility by [building your own app](https://discord.com/developers/applications).
+
+--- 
+
+## Where are apps installed?
+
+Discord apps can be installed in two different contexts:
+
+1. Apps installed **to a server** (called a [guild](#DOCS_RESOURCES_GUILD) throughout the API) by a user with the Manage Server ([`MANAGE_GUILD`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
+2. Apps installed **to a user account**. Apps installed to a user are visible *only* to that user, across all of their servers, DMs, and Group DMs by default.
+
+The installation contexts that an app supports can be limited by the developer when [setting up the app](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts). Details about installation contexts are in the [Application resource documentation](#DOCS_RESOURCES_APPLICATION/installation-context).
+
+---
+
+## What APIs can apps use?
+
+There are a handful of different APIs that you can pick and choose from based on your app's functionality and which Discord features you want to access. Below is a quick overview of the main APIs on the Discord developer platform, but you can read more details and information about API usage in the [API reference](#DOCS_REFERENCE).
+
+### HTTP API
+
+The **HTTP API** is a REST API that lets you interact and modify core Discord resources like [channels](#DOCS_RESOURCES_CHANNEL), [servers (or guilds)](#DOCS_RESOURCES_GUILD), [users](#DOCS_RESOURCES_USER), and [messages](#DOCS_RESOURCES_CHANNEL/message-object). 
+
+Use the HTTP API to:
+- Retrieve information about a resource
+- Create, update, or delete a resource
+
+Read details about using the HTTP API in the [API reference](#DOCS_REFERENCE/http-api).
+
+### Gateway API
+
+The **Gateway API** lets you receive event data over a WebSocket anytime an [event](#DOCS_TOPICS_GATEWAY_EVENTS) occurs in a server where your app is installed.
+
+Use the Gateway API to:
+- Receive events happening in Discord
+
+Read details about using the Gateway API in the [API reference](#DOCS_REFERENCE/gateway-websocket-api).
+
+---
+
+## Start Building
+
+Well, would you look at the time? With the basics out of the way, it's time to start building your Discord app! You can explore the reset of the documentation, go to your [Apps](https://discord.com/developers/applications), or explore the beginner resources below.
+
+<Container>
+  <Card title="Developing your First Discord App" link="#DOCS_QUICK_START_GETTING_STARTED">
+    Tutorial to develop and run your first Discord app with sample code for many developer features
+  </Card>
+  <Card title="Building an Activity on Discord" link="#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY">
+    Tutorial to develop an Activity using the Embedded App SDK
+  </Card>
+  <Card title="Explore developer tools" link="#DOCS_TOPICS_COMMUNITY_RESOURCES">
+    Explore the Embedded App SDK and community-built library and tools to make speed up and simplify development
+  </Card>
+</Container>
+
+
+
+

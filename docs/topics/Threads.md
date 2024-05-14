@@ -139,7 +139,7 @@ There are four `GET` routes for enumerating threads in a specific channel:
 
 Webhooks can send messages to threads by using the `thread_id` query parameter. See the [execute webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook) docs for more details.
 
-## Details about Thread Access and Syncing 
+## Details about Thread Access and Syncing
 
 While the syncing of threads is similar to channels, there are two important differences that are relevant for [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) and [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events:
 
@@ -189,7 +189,7 @@ Additionally, when a user or app loses access to a channel, they are not removed
 When a thread is unarchived, there is no guarantee that an app has the thread or its member status in memory. To account for this, the Gateway will send two events (in the listed order):
 
 1. A [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update) event, which contains the full channel object.
-2. A [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) event, which is sent to all members of the unarchived thread. Discord's clients only load active threads into memory on start, so this event is sent even if it may not be relevant to most apps. 
+2. A [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) event, which is sent to all members of the unarchived thread. Discord's clients only load active threads into memory on start, so this event is sent even if it may not be relevant to most apps.
 
 ## Forums
 
@@ -200,32 +200,40 @@ Messages cannot be sent directly in forum channels.
 > info
 > More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N)
 
-### Creating Threads in Forum Channels
+## Media Channels
 
-Within a forum channel, threads appear as forum posts. They can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) endpoint as threads in text channels, but with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params). For example, when creating threads in a forum channel, a message is created that has the same ID as the thread. This requires you to pass parameters for both a thread *and* a message.
+A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in that only threads can be created in them. Unless otherwise noted, threads in media channels behave in the same way as in forum channels - meaning they use the same endpoints and receive the same Gateway events. More information about media channels and how they appear in Discord can be found in the [media channels Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743).
 
-Threads in a forum channel have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a forum channel only requires the `SEND_MESSAGES` permission.
+> warn
+> `GUILD_MEDIA` channels are in beta and still being actively developed. The API and other technical details are subject to change.
 
-### Forum Channel Fields
 
-It's worth calling out a few details about fields specific to forum channels that may be important to keep in mind:
+### Creating Threads in Forum and Media Channels
+
+Within thread-only channels, threads appear as posts. Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) endpoint with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params) than threads in text channels. For example, when creating threads in a threads-only channel, a message is created that has the same ID as the thread which requires you to pass parameters for both a thread *and* a message.
+
+Threads in thread-only channels have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a thread-only channel only requires the `SEND_MESSAGES` permission.
+
+### Forum and Media Channel Fields
+
+It's worth calling out a few details about fields specific to thread-only channels that may be important to keep in mind:
 
 - The `last_message_id` field is the ID of the most recently created thread in that channel. As with messages, your app will not receive a `CHANNEL_UPDATE` event when the field is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events.
 - The `topic` field is what is shown in the "Guidelines" section within the Discord client.
-- The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on forums as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
+- The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on thread-only channels as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - The `available_tags` field can be set when creating or updating a channel, which determines which tags can be set on individual threads within the thread's `applied_tags` field.
-- The `flags` field indicates any [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) set for a forum channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` be specified when creating a thread in that channel.
+- The `flags` field indicates any [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) set for a thread-only channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` be specified when creating a thread in that channel.
 
-All fields for channels, including forum channels, can be found in the [Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object). 
+All fields for channels, including thread-only channels, can be found in the [Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object).
 
-### Forum Channel Thread Fields
+### Forum and Media Channel Thread Fields
 
-A thread can be pinned within a forum, which will be represented as the [`PINNED` flag](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) in the `flags` field within a forum channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will *not* auto-archive.
+A thread can be pinned within a thread-only, which will be represented as the [`PINNED` flag](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) in the `flags` field within a thread-only channel. A thread that is pinned will have the `(1 << 1)` flag set, and archiving that thread will unset the flag. A pinned thread will *not* auto-archive.
 
-The `message_count` and `total_message_sent` fields on threads in forum channels will increment on `MESSAGE_CREATE` events, and decrement on `MESSAGE_DELETE` and `MESSAGE_DELETE_BULK` events. There will be no specific `CHANNEL_UPDATE` event that notifies your app of changes to those fields—instead, apps should update those values when receiving corresponding events.
+The `message_count` and `total_message_sent` fields on threads in thread-only channels will increment on `MESSAGE_CREATE` events, and decrement on `MESSAGE_DELETE` and `MESSAGE_DELETE_BULK` events. There will be no specific `CHANNEL_UPDATE` event that notifies your app of changes to those fields—instead, apps should update those values when receiving corresponding events.
 
-All fields for threads in forum channels can be found in the [channel resources documentation](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params).
+All fields for threads in thread-only channels can be found in the [channel resources documentation](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel-jsonform-params).
 
-### Forum Channel Formatting
+### Forum and Media Channel Formatting
 
-In forum channels, the first message in a thread and the channel topic can both contain markdown for bulleted lists and headings (unlike text channels).
+In thread-only channels, the first message in a thread and the channel topic can both contain markdown for bulleted lists and headings (unlike text channels).
