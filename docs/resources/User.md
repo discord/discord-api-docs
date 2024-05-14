@@ -106,7 +106,7 @@ The data for the user's [avatar decoration](https://support.discord.com/hc/en-us
 | Field  | Type      | Description                                                    |
 |--------|-----------|----------------------------------------------------------------|
 | asset  | string    | the [avatar decoration hash](#DOCS_REFERENCE/image-formatting) |
-| sku_id | snowflake | the id of the avatar decoration's SKU                          |
+| sku_id | snowflake | id of the avatar decoration's SKU                              |
 
 ### Connection Object
 
