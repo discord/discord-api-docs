@@ -56,17 +56,17 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 
 Returns all entitlements for a given app, active and expired.
 
-###### Query Params
+###### Query String Params
 
-| param          | type                              | description                                          |
-|----------------|-----------------------------------|------------------------------------------------------|
-| user_id?       | snowflake                         | User ID to look up entitlements for                  |
-| sku_ids?       | comma-delimited set of snowflakes | Optional list of SKU IDs to check entitlements for   |
-| before?        | snowflake                         | Retrieve entitlements before this entitlement ID     |
-| after?         | snowflake                         | Retrieve entitlements after this entitlement ID      |
-| limit?         | integer                           | Number of entitlements to return, 1-100, default 100 |
-| guild_id?      | snowflake                         | Guild ID to look up entitlements for                 |
-| exclude_ended? | boolean                           | Whether or not ended entitlements should be omitted  |
+| param          | type                                             | description                                          |
+|----------------|--------------------------------------------------|------------------------------------------------------|
+| user_id?       | snowflake                                        | User ID to look up entitlements for                  |
+| sku_ids?       | comma-delimited set of snowflakes                | Optional list of SKU IDs to check entitlements for   |
+| before?        | snowflake                                        | Retrieve entitlements before this entitlement ID     |
+| after?         | snowflake                                        | Retrieve entitlements after this entitlement ID      |
+| limit?         | integer                                          | Number of entitlements to return, 1-100, default 100 |
+| guild_id?      | snowflake                                        | Guild ID to look up entitlements for                 |
+| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not ended entitlements should be omitted  |
 
 ```json
 [

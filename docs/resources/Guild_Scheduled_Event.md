@@ -108,9 +108,9 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 
 ###### Query String Params
 
-| Field            | Type    | Description                                      |
-|------------------|---------|--------------------------------------------------|
-| with_user_count? | boolean | include number of users subscribed to each event |
+| Field            | Type                                             | Description                                      |
+|------------------|--------------------------------------------------|--------------------------------------------------|
+| with_user_count? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include number of users subscribed to each event |
 
 ## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
@@ -146,9 +146,9 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 
 ###### Query String Params
 
-| Field            | Type    | Description                                      |
-|------------------|---------|--------------------------------------------------|
-| with_user_count? | boolean | include number of users subscribed to this event |
+| Field            | Type                                             | Description                                      |
+|------------------|--------------------------------------------------|--------------------------------------------------|
+| with_user_count? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include number of users subscribed to this event |
 
 ## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
@@ -194,12 +194,12 @@ Get a list of guild scheduled event users subscribed to a guild scheduled event.
 
 ###### Query String Params
 
-| Field        | Type      | Description                                   | Default |
-|--------------|-----------|-----------------------------------------------|---------|
-| limit?       | number    | number of users to return (up to maximum 100) | 100     |
-| with_member? | boolean   | include guild member data if it exists        | false   |
-| before? *    | snowflake | consider only users before given user id      | null    |
-| after? *     | snowflake | consider only users after given user id       | null    |
+| Field        | Type                                             | Description                                   | Default |
+|--------------|--------------------------------------------------|-----------------------------------------------|---------|
+| limit?       | number                                           | number of users to return (up to maximum 100) | 100     |
+| with_member? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include guild member data if it exists        | false   |
+| before? *    | snowflake                                        | consider only users before given user id      | null    |
+| after? *     | snowflake                                        | consider only users after given user id       | null    |
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user_id`. If both `before` and `after` are provided, only `before` is respected. Fetching users in-between `before` and `after` is not supported.
 

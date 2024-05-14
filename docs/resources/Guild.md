@@ -720,9 +720,9 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ###### Query String Params
 
-| Field        | Type    | Description                                                                   | Required | Default |
-|--------------|---------|-------------------------------------------------------------------------------|----------|---------|
-| with_counts? | boolean | when `true`, will return approximate member and presence counts for the guild | false    | false   |
+| Field        | Type                                             | Description                                                                   | Required | Default |
+|--------------|--------------------------------------------------|-------------------------------------------------------------------------------|----------|---------|
+| with_counts? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | when `true`, will return approximate member and presence counts for the guild | false    | false   |
 
 ###### Example Response
 
