@@ -41,7 +41,7 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 
 ## Registering Commands
 
-Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Alternatively, it's also automatically included with the `bot` scope.
+Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. The `applications.commands` scope is also automatically included when an app requests the `bot` scope.
 
 > info
 > There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
