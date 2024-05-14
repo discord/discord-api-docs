@@ -24,25 +24,25 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field              | Type      | Description                                                                                          | Required OAuth2 Scope |
-|--------------------|-----------|------------------------------------------------------------------------------------------------------|-----------------------|
-| id                 | snowflake | the user's id                                                                                        | identify              |
-| username           | string    | the user's username, not unique across the platform                                                  | identify              |
-| discriminator      | string    | the user's Discord-tag                                                                               | identify              |
-| global_name        | ?string   | the user's display name, if it is set. For bots, this is the application name                        | identify              |
-| avatar             | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| bot?               | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?            | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?       | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?            | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| accent_color?      | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?            | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
-| verified?          | boolean   | whether the email on this account has been verified                                                  | email                 |
-| email?             | ?string   | the user's email                                                                                     | email                 |
-| flags?             | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
-| premium_type?      | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
-| public_flags?      | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
-| avatar_decoration? | ?string   | the user's [avatar decoration hash](#DOCS_REFERENCE/image-formatting)                                | identify              |
+| Field                   | Type                                                                                 | Description                                                                                          | Required OAuth2 Scope |
+|-------------------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-----------------------|
+| id                      | snowflake                                                                            | the user's id                                                                                        | identify              |
+| username                | string                                                                               | the user's username, not unique across the platform                                                  | identify              |
+| discriminator           | string                                                                               | the user's Discord-tag                                                                               | identify              |
+| global_name             | ?string                                                                              | the user's display name, if it is set. For bots, this is the application name                        | identify              |
+| avatar                  | ?string                                                                              | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| bot?                    | boolean                                                                              | whether the user belongs to an OAuth2 application                                                    | identify              |
+| system?                 | boolean                                                                              | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
+| mfa_enabled?            | boolean                                                                              | whether the user has two factor enabled on their account                                             | identify              |
+| banner?                 | ?string                                                                              | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| accent_color?           | ?integer                                                                             | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
+| locale?                 | string                                                                               | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
+| verified?               | boolean                                                                              | whether the email on this account has been verified                                                  | email                 |
+| email?                  | ?string                                                                              | the user's email                                                                                     | email                 |
+| flags?                  | integer                                                                              | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| premium_type?           | integer                                                                              | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
+| public_flags?           | integer                                                                              | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| avatar_decoration_data? | ?[avatar decoration data](#DOCS_RESOURCES_USER/avatar-decoration-data-object) object | data for the user's avatar decoration                                                                | identify              |
 
 ###### Example User
 
@@ -58,7 +58,11 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "banner": "06c16474723fe537c283b8efa61a30c8",
   "accent_color": 16711680,
   "premium_type": 1,
-  "public_flags": 64
+  "public_flags": 64,
+  "avatar_decoration_data": {
+    "sku_id": "1144058844004233369",
+    "asset": "a_fed43ab12698df65902ba06727e20c0e"
+  }
 }
 ```
 
@@ -92,6 +96,17 @@ Premium types denote the level of premium a user has. Visit the [Nitro](https://
 | 1     | Nitro Classic |
 | 2     | Nitro         |
 | 3     | Nitro Basic   |
+
+### Avatar Decoration Data Object
+
+The data for the user's [avatar decoration](https://support.discord.com/hc/en-us/articles/13410113109911-Avatar-Decorations).
+
+###### Avatar Decoration Data Structure
+
+| Field  | Type      | Description                                                    |
+|--------|-----------|----------------------------------------------------------------|
+| asset  | string    | the [avatar decoration hash](#DOCS_REFERENCE/image-formatting) |
+| sku_id | snowflake | id of the avatar decoration's SKU                              |
 
 ### Connection Object
 
