@@ -613,7 +613,7 @@ Sent when a guild audit log entry is created. The inner payload is an [Audit Log
 ###### Guild Audit Log Entry Create Event Extra Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | ID of the guild |
 
 #### Guild Ban Add
