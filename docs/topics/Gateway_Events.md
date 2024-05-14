@@ -814,7 +814,7 @@ Sent when an integration is created. The inner payload is an [integration](#DOCS
 
 #### Integration Update
 
-Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with `user` omitted and an additional `guild_id` key:
 
 ###### Integration Update Event Additional Fields
 
