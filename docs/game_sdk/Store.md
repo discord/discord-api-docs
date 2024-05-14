@@ -379,18 +379,18 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
-###### Query Parameters
+###### Query String Params
 
-| name           | type                              | description                                                                                                                    |
-|----------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
-| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
-| before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
-| after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
-| limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
-| guild_id?      | snowflake                         | the guild id to look up entitlements for                                                                                       |
-| exclude_ended? | bool                              | whether or not ended entitlements should be omitted                                                                            |
+| name           | type                                             | description                                                                                                                    |
+|----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| user_id?       | snowflake                                        | the user id to look up entitlements for                                                                                        |
+| sku_ids?       | comma-delimited set of snowflakes                | (optional) the list SKU ids to check entitlements for                                                                          |
+| with_payments? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| before?        | snowflake                                        | retrieve entitlements before this time                                                                                         |
+| after?         | snowflake                                        | retrieve entitlements after this time                                                                                          |
+| limit?         | int                                              | number of entitlements to return, 1-100, default 100                                                                           |
+| guild_id?      | snowflake                                        | the guild id to look up entitlements for                                                                                       |
+| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether or not ended entitlements should be omitted                                                                            |
 
 ###### Example
 
@@ -425,11 +425,11 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
-###### Query Parameters
+###### Query String Params
 
-| name          | type | description                                                                                                                    |
-|---------------|------|--------------------------------------------------------------------------------------------------------------------------------|
-| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| name          | type                                             | description                                                                                                                    |
+|---------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| with_payment? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
 
 ###### Example
 

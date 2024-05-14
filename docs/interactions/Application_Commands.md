@@ -1077,9 +1077,9 @@ Fetch all of the global commands for your application. Returns an array of [appl
 
 ###### Query String Params
 
-| Field               | Type    | Description                                                                                                                                                                                                            |
-|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
+| Field               | Type                                             | Description                                                                                                                                                                                                            |
+|---------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -1152,9 +1152,9 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 
 ###### Query String Params
 
-| Field               | Type    | Description                                                                                                                                                                                                            |
-|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
+| Field               | Type                                             | Description                                                                                                                                                                                                            |
+|---------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
