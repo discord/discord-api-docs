@@ -195,6 +195,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 |----------|-------------------------------------------|----------------------------------------------------------------------------------|
 | username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
 | avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
+| banner   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's banner                                            |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
