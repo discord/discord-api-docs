@@ -620,7 +620,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 
 As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
-Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, `components`, and `poll` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
+Any app that does not have the message content intent configured in its app's settings within the Developer Portal will receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, `components`, and `poll` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
 #### If your app is verified
 
