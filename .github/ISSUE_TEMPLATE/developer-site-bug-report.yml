@@ -1,10 +1,10 @@
 name: Developer Site Bug Report
 description: A bug has been found with Discord's Developer site or documentation.
-labels: ["bug"]
+labels: ["bug", "developer portal"]
 body:
   - type: markdown
     attributes:
-      value: "Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues"
+      value: "Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22developer+portal%22"
   - type: textarea
     id: description
     attributes:

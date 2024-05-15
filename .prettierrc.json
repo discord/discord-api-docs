@@ -1,15 +1,3 @@
 {
-	"quoteProps": "consistent",
-	"endOfLine": "lf",
-	"printWidth": 120,
-	"useTabs": true,
-	"overrides": [
-		{
-			"files": "*.md",
-			"options": {
-				"useTabs": false,
-				"tabWidth": 4
-			}
-		}
-	]
+	"printWidth": 120
 }

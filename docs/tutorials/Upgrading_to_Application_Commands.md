@@ -41,7 +41,7 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 
 ## Registering Commands
 
-Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. 
+Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. The `applications.commands` scope is also automatically included when an app requests the `bot` scope.
 
 > info
 > There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
@@ -140,7 +140,7 @@ Before your app can receive interactions, you’ll need to set up an **Interacti
 However, before adding your URL to your app settings, your endpoint must be set up to handle two things:
 
 1. **Responding to `PING` events**: When you save a URL in your settings, Discord will send a `POST` request with `type: 1`. To acknowledge this request (and thus verify your endpoint), you should return a `200` response with a payload containing `type: 1`. More information can be found in the [Receiving an Interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
-2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/security-and-authorization).
+2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](#DOCS_INTERACTIONS_OVERVIEW/setting-up-an-endpoint-validating-security-request-headers).
 
 > info
 > Many libraries on the [Community Resources page](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
