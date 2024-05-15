@@ -11,7 +11,7 @@ Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Re
 ###### Soundboard Sound Structure
 
 | Field         | Type                                            | Description                                                                                  |
-| ------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------- |
+|---------------|-------------------------------------------------|----------------------------------------------------------------------------------------------|
 | name          | string                                          | the name of this sound                                                                       |
 | sound_id      | snowflake                                       | the id of this sound                                                                         |
 | id?           | snowflake                                       | the id of this sound                                                                         |
@@ -35,7 +35,7 @@ https://cdn.discordapp.com/
 ###### CDN Endpoints
 
 | Type                     | Path                                          |
-| ------------------------ | --------------------------------------------- |
+|--------------------------|-----------------------------------------------|
 | Soundboard Sound         | soundboard-sounds/sound_id                    |
 | Soundboard Default Sound | soundboard-default-sounds/sound_override_path |
 
@@ -56,7 +56,7 @@ Create a new soundboard sound for the guild. Requires the `MANAGE_GUILD_EXPRESSI
 ###### JSON Params
 
 | Field       | Type       | Description                                                                             |
-| ----------- | ---------- | --------------------------------------------------------------------------------------- |
+|-------------|------------|-----------------------------------------------------------------------------------------|
 | name        | string     | name of the soundboard sound (2-32 characters)                                          |
 | sound       | data uri   | the mp3 sound data, base64 encoded, similar to [image data](#DOCS_REFERENCE/image-data) |
 | volume?     | ?double    | the volume of the soundboard sound, from 0 to 1, defaults to 1                          |
@@ -76,7 +76,7 @@ Modify the given soundboard sound. Requires the `MANAGE_GUILD_EXPRESSIONS` permi
 ###### JSON Params
 
 | Field      | Type       | Description                                                        |
-| ---------- | ---------- | ------------------------------------------------------------------ |
+|------------|------------|--------------------------------------------------------------------|
 | name       | string     | name of the soundboard sound (2-32 characters)                     |
 | volume     | ?double    | the volume of the soundboard sound, from 0 to 1, defaults to 1     |
 | emoji_id   | ?snowflake | the id of the custom emoji for the soundboard sound                |

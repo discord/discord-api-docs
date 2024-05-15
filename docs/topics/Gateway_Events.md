@@ -206,9 +206,9 @@ Used to request soundboard sounds for a list of guilds. The server will send [So
 
 ###### Request Soundboard Sounds Structure
 
-| Field      | Type                | Description                                    | Required |
-| ---------- | ------------------- | ---------------------------------------------- | -------- |
-| guild_ids  | array of snowflakes | IDs of the guilds to get soundboard sounds for | true     |
+| Field     | Type                | Description                                    | Required |
+|-----------|---------------------|------------------------------------------------|----------|
+| guild_ids | array of snowflakes | IDs of the guilds to get soundboard sounds for | true     |
 
 ###### Example Request Soundboard Sounds
 
@@ -843,7 +843,7 @@ Sent when a guild soundboard sound is deleted.
 ###### Guild Soundboard Sound Delete Event Fields
 
 | Field    | Type      | Description                      |
-| -------- | --------- | -------------------------------- |
+|----------|-----------|----------------------------------|
 | sound_id | snowflake | ID of the sound that was deleted |
 | guild_id | snowflake | ID of the guild the sound was in |
 
@@ -854,7 +854,7 @@ Includes a guild's list of soundboard sounds. Sent in response to [Request Sound
 ###### Soundboard Sounds Event Fields
 
 | Field             | Type                                                                                    | Description                   |
-| ----------------- | --------------------------------------------------------------------------------------- | ----------------------------- |
+|-------------------|-----------------------------------------------------------------------------------------|-------------------------------|
 | soundboard_sounds | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects | The guild's soundboard sounds |
 | guild_id          | snowflake                                                                               | ID of the guild               |
 
