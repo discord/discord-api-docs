@@ -1,0 +1,93 @@
+.collapsible {
+  margin-bottom: 16px;
+}
+
+.bottomBorderRadius {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  background: var(--theme-background-color);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 16px 24px;
+
+  &:hover .trigger,
+  &:active .trigger,
+  &:focus .trigger {
+    opacity: 1;
+  }
+}
+
+.container {
+  display: flex;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 20px;
+  color: var(--theme-header-color);
+  font-weight: 600;
+}
+
+.description {
+  display: flex;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 8px;
+}
+
+.trigger {
+  opacity: 0.5;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.chevron {
+  height: 24px;
+  width: 24px;
+  fill: var(--theme-header-color);
+  color: var(--theme-header-color);
+  transition: all ease 200ms;
+}
+
+.chevronOpen {
+  rotate: 0deg;
+}
+
+.chevronClose {
+  rotate: -180deg;
+}
+
+.aside {
+  border-top: 1px solid var(--theme-border-color);
+  background-color: var(--theme-background-color);
+  padding: 16px 24px;
+}
+
+.open {
+  animation: open 0.5s ease-out;
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

@@ -1,0 +1,59 @@
+import RoutePill from '@site/src/components/RoutePill';
+
+# Voice Resource
+
+### Voice State Object
+
+Used to represent a user's voice connection status.
+
+###### Voice State Structure
+
+| Field                      | Type                                                        | Description                                       |
+|----------------------------|-------------------------------------------------------------|---------------------------------------------------|
+| guild_id?                  | snowflake                                                   | the guild id this voice state is for              |
+| channel_id                 | ?snowflake                                                  | the channel id this user is connected to          |
+| user_id                    | snowflake                                                   | the user id this voice state is for               |
+| member?                    | [guild member](/resources/guild#guild-member-object) object | the guild member this voice state is for          |
+| session_id                 | string                                                      | the session id for this voice state               |
+| deaf                       | boolean                                                     | whether this user is deafened by the server       |
+| mute                       | boolean                                                     | whether this user is muted by the server          |
+| self_deaf                  | boolean                                                     | whether this user is locally deafened             |
+| self_mute                  | boolean                                                     | whether this user is locally muted                |
+| self_stream?               | boolean                                                     | whether this user is streaming using "Go Live"    |
+| self_video                 | boolean                                                     | whether this user's camera is enabled             |
+| suppress                   | boolean                                                     | whether this user's permission to speak is denied |
+| request_to_speak_timestamp | ?ISO8601 timestamp                                          | the time at which the user requested to speak     |
+
+###### Example Voice State
+
+```json
+{
+  "channel_id": "157733188964188161",
+  "user_id": "80351110224678912",
+  "session_id": "90326bd25d71d39b9ef95b299e3872ff",
+  "deaf": false,
+  "mute": false,
+  "self_deaf": false,
+  "self_mute": true,
+  "suppress": false,
+  "request_to_speak_timestamp": "2021-03-31T18:45:31.297561+00:00"
+}
+```
+
+### Voice Region Object
+
+###### Voice Region Structure
+
+| Field      | Type    | Description                                                           |
+|------------|---------|-----------------------------------------------------------------------|
+| id         | string  | unique ID for the region                                              |
+| name       | string  | name of the region                                                    |
+| optimal    | boolean | true for a single server that is closest to the current user's client |
+| deprecated | boolean | whether this is a deprecated voice region (avoid switching to these)  |
+| custom     | boolean | whether this is a custom voice region (used for events/etc)           |
+
+## List Voice Regions
+
+<RoutePill method="GET">/voice/regions</RoutePill>
+
+Returns an array of [voice region](/resources/voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/resources/channel#channel-structure).

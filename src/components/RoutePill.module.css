@@ -1,0 +1,48 @@
+.pill {
+	display: flex;
+	vertical-align: middle;
+	margin-bottom: 20px;
+	font-family: monospace;
+	font-weight: 600;
+}
+
+.route {
+	vertical-align: middle;
+	font-size: larger;
+}
+
+.method {
+	color: #FFF;
+	border-radius: 2px;
+	padding: 2px 5px;
+	margin-right: 5px;
+	font-weight: bolder;
+}
+
+.method_get {
+	background-color: rgb(49, 17, 108);
+}
+
+.method_post {
+	background-color: rgb(6, 97, 6);
+}
+
+.method_delete {
+	background-color: darkred
+}
+
+.method_put {
+	background-color: darkblue;
+}
+
+.method_options {
+	background-color: #8b4d02;
+}
+
+.method_patch {
+	background-color: #9c8506;
+}
+
+.method_head {
+	background-color: #044549;
+}

@@ -2,3 +2,5 @@
 *.swp
 node_modules/
 dist/
+.docusaurus/
+build/

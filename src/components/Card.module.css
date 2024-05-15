@@ -1,0 +1,41 @@
+.card {
+	max-width: 300px;
+	flex: auto;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.dark {
+	background-color: #333;
+	border: 1px solid #0c0f24;
+	color: #f7f7fe;
+}
+
+.light {
+	background-color: #f7f7fe;
+	color: #333;
+	border: 1px solid #f0f1fe;
+}
+
+.title {
+	font-size: larger;
+	font-weight: bolder;
+	margin-bottom: 20px;
+}
+
+.card:link {
+  text-decoration: none;
+}
+
+.card:visited {
+  text-decoration: none; 
+} 
+
+.card:hover {
+  text-decoration: none;
+	border: 1px solid #5765f2;
+} 
+
+.card:active {
+  text-decoration: none; 
+}
