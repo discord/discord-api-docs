@@ -41,7 +41,7 @@
 		"prettier": "^3.2.5",
 		"tsx": "^4.10.2",
 		"typescript": "^5.4.5",
-		"typescript-eslint": "^7.9.0"
+		"typescript-eslint": "^8.0.0-alpha.12"
 	},
 	"peerDependencies": {
 		"@mdx-js/react": "^3.0.1"
