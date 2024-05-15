@@ -943,6 +943,7 @@ Sent when a user adds a reaction to a message.
 | message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
 | burst              | boolean                                                      | true if this is a super-reaction                                                           |
 | burst_colors?      | array of strings                                             | Colors used for super-reaction animation in "#rrggbb" format                               |
+| type               | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove
 
@@ -958,6 +959,7 @@ Sent when a user removes a reaction from a message.
 | guild_id?  | snowflake                                                    | ID of the guild                                                                            |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
 | burst      | boolean                                                      | true if this was a super-reaction                                                          |
+| type       | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove All
 
