@@ -507,10 +507,10 @@ Information about the call in a private channel.
 
 ###### Message Call Object Structure
 
-| Field            | Type                | Description                                                                            |
-|------------------|---------------------|----------------------------------------------------------------------------------------|
-| participants     | array of snowflakes | array of IDs of [user](#DOCS_RESOURCES_USER/user-object)s who participated in the call |
-| ended_timestamp? | ?ISO8601 timestamp  | ending time of the call                                                                |
+| Field            | Type                | Description                                                                                |
+|------------------|---------------------|--------------------------------------------------------------------------------------------|
+| participants     | array of snowflakes | array of [user](#DOCS_RESOURCES_USER/user-object) object ids that participated in the call |
+| ended_timestamp? | ?ISO8601 timestamp  | time when call ended                                                                       |
 
 ### Message Reference Object
 
