@@ -133,7 +133,7 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | ONBOARDING_PROMPT_CREATE                  | 163   | Guild Onboarding Question was created                     | [Onboarding Prompt Structure](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure)                                         |
 | ONBOARDING_QUESTION_UPDATE                  | 164   | Guild Onboarding Question was updated                     | [Onboarding Prompt Structure](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-prompt-structure)                                         |
 | ONBOARDING_UPDATE                           | 167   | Guild Onboarding was updated                              | [Guild Onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object)                                                                                |
-| SERVER_GUIDE_CREATE                         | 190   | Guild Server Guide was created                            |                                                                                                                                                  |
+| HOME_SETTINGS_CREATE                         | 190   | Guild Server Guide was created                            |                                                                                                                                                  |
 | SERVER_GUIDE_UPDATE                         | 191   | Guild Server Guide was updated                            |                                                                                                                                                  |
 
 
