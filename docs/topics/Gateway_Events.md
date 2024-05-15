@@ -719,6 +719,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | mute?                         | boolean                                           | Whether the user is muted in voice channels                                                                                                                                                                                          |
 | pending?                      | boolean                                           | Whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
 | communication_disabled_until? | ?ISO8601 timestamp                                | When the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
+| flags?                        | integer                                           | [Guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to 0                                                                                                           |
 
 #### Guild Members Chunk
 
