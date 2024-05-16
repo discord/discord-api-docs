@@ -1202,16 +1202,16 @@ Sent when someone sends an effect, such as an emoji reaction or a soundboard sou
 
 ###### Voice Channel Effect Send Event Fields
 
-| Field                | Type                                                | Description                                                                                                                                     |
-|----------------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| channel_id           | snowflake                                           | ID of the channel the effect was sent in                                                                                                        |
-| guild_id             | snowflake                                           | ID of the guild the effect was sent in                                                                                                          |
-| user_id              | snowflake                                           | ID of the user who sent the effect                                                                                                              |
-| emoji?               | ?[emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | The emoji sent, for emoji reaction and soundboard effects                                                                                       |
-| animation_type?      | ?integer                                            | The [type of emoji animation](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send-animation-types), for emoji reaction and soundboard effects |
-| animation_id?        | integer                                             | The ID of the emoji animation, for emoji reaction and soundboard effects                                                                        |
-| sound_id?            | snowflake or integer                                | The ID of the soundboard sound, for soundboard effects                                                                                          |
-| sound_volume?        | double                                              | The volume of the soundboard sound, from 0 to 1, for soundboard effects                                                                         |
+| Field           | Type                                                | Description                                                                                                                                     |
+|-----------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| channel_id      | snowflake                                           | ID of the channel the effect was sent in                                                                                                        |
+| guild_id        | snowflake                                           | ID of the guild the effect was sent in                                                                                                          |
+| user_id         | snowflake                                           | ID of the user who sent the effect                                                                                                              |
+| emoji?          | ?[emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | The emoji sent, for emoji reaction and soundboard effects                                                                                       |
+| animation_type? | ?integer                                            | The [type of emoji animation](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send-animation-types), for emoji reaction and soundboard effects |
+| animation_id?   | integer                                             | The ID of the emoji animation, for emoji reaction and soundboard effects                                                                        |
+| sound_id?       | snowflake or integer                                | The ID of the soundboard sound, for soundboard effects                                                                                          |
+| sound_volume?   | double                                              | The volume of the soundboard sound, from 0 to 1, for soundboard effects                                                                         |
 
 ###### Animation Types
 
