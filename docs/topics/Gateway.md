@@ -571,12 +571,12 @@ Sessions that would like to only receive events from a subset of guilds should s
 > info
 > The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field
 
-A certain gateway session is only subscribed to events from guilds with a `guild_id` that fulfil the following formula, using the `shard_id` and `num_shards` that the session provided in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event:
+A certain gateway session is only subscribed to events from guilds with a `guild_id` that satisfies the following formula, using the `shard_id` and `num_shards` that the session provided in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event:
 
 ###### Sharding Formula
 
 ```python
-shard_id == (guild_id >> 22) % num_shards
+(guild_id >> 22) % num_shards == shard_id
 ```
 
 Every session with `shard_id = 0` will be subscribed to DMs and other non-guild related events.
