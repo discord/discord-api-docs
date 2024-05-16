@@ -22,7 +22,7 @@ An example of how to do this properly is at the end of this documentation page.
 ###### Relationship Struct
 
 | name     | type             | description                      |
-| -------- | ---------------- | -------------------------------- |
+|----------|------------------|----------------------------------|
 | Type     | RelationshipType | what kind of relationship it is  |
 | User     | User             | the user the relationship is for |
 | Presence | Presence         | that user's current presence     |
@@ -30,7 +30,7 @@ An example of how to do this properly is at the end of this documentation page.
 ###### RelationshipType Enum
 
 | value           | description                                                                      |
-| --------------- | -------------------------------------------------------------------------------- |
+|-----------------|----------------------------------------------------------------------------------|
 | None            | user has no intrinsic relationship                                               |
 | Friend          | user is a friend                                                                 |
 | Blocked         | user is blocked                                                                  |
@@ -41,14 +41,14 @@ An example of how to do this properly is at the end of this documentation page.
 ###### Presence Struct
 
 | name     | type     | description                      |
-| -------- | -------- | -------------------------------- |
+|----------|----------|----------------------------------|
 | Status   | Status   | the user's current online status |
 | Activity | Activity | the user's current activity      |
 
 ###### Status Enum
 
 | name         | value |
-| ------------ | ----- |
+|--------------|-------|
 | Offline      | 0     |
 | Online       | 1     |
 | Idle         | 2     |
@@ -82,7 +82,7 @@ Returns a `Relationship`.
 ###### Parameters
 
 | name   | type  | description                 |
-| ------ | ----- | --------------------------- |
+|--------|-------|-----------------------------|
 | userId | Int64 | the id of the user to fetch |
 
 ###### Example
@@ -101,7 +101,7 @@ Returns a `Relationship`.
 ###### Parameters
 
 | name  | type   | description       |
-| ----- | ------ | ----------------- |
+|-------|--------|-------------------|
 | index | UInt32 | index in the list |
 
 ###### Example
@@ -138,6 +138,9 @@ for (int i = 0; i < relationshipsManager.Count(); i++)
 
 Fires at initialization when Discord has cached a snapshot of the current status of all your relationships. Wait for this to fire before calling `Filter` within its callback.
 
+> warn
+> `OnRefresh` requires the `relationships.read` [OAuth2 scope](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes). The GameSDK will return 0 relationships if the requested user has not authenticated with that scope.
+
 ###### Parameters
 
 None
@@ -149,7 +152,7 @@ Fires when a relationship in the filtered list changes, like an updated presence
 ###### Parameters
 
 | name         | type             | description                   |
-| ------------ | ---------------- | ----------------------------- |
+|--------------|------------------|-------------------------------|
 | relationship | ref Relationship | the relationship that changed |
 
 ###### Example

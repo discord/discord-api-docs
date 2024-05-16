@@ -1,0 +1,164 @@
+# Overview of Interactions
+
+Interactive features like commands and message components allows users to invoke an app natively within Discord. When a user engages with one of your app's interactive features, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+
+This overview includes an overview of the main types of interactions, and steps for you to prepare your app to use and receive interactions. Reference documentation and details about handling interactions are in [Receiving and Responding](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
+
+---
+
+## Types of Interactions
+
+There are different types of interactions in your app's toolbelt that can pick and choose to build engaging, interactive experiences in Discord.
+
+### Commands
+
+**[Application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)** provide users a native way to invoke an app in Discord. They often map to an app's core features or functionality.
+
+![Command launcher in the Desktop client](overview-command-desktop.png)
+
+When an app creates a command it can choose the command's type, which determines where it appears in the Discord client and the metadata the app will receive when the command is invoked. There are three types for application commands:
+
+- **Slash commands** are the most popular type of command and are accessed by typing `/` in the chat input, or by opening the command picker.
+- **Message commands** are commands related to a message or a message's content. They're accessed by clicking on the context menu (the three dots) at the top-right of a message (or right clicking on a message), then navigating to the "Apps" section.
+- **User commands** are commands that related to a user in Discord. They're accessed by right clicking on a user profile, then navigating to the "Apps" section.
+
+Details about creating commands and handling command interactions are in the [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) documentation.
+
+### Message Components
+
+**[Message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** are interactive elements that can be included in the content of a message that your app sends in Discord. 
+
+![Button message components in a message](overview-components.png)
+
+The main interactive components that apps can send in messages include:
+
+- [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) are clickable components that can be customized with different styles, texts, and emoji.
+- [Static select menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus) are components that a user can open to see a list of developer-defined select options with custom labels and descriptions.
+- [Auto-populated select menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-types) are a set of four different select components that are populated with contextual Discord resources, like a list of users or channels in a server.
+
+A list of all message components and details on sending and receiving component interactions is in the [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS) documentation.
+
+### Modals
+
+**[Modals](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal)** are single-user pop-up interfaces that allow apps to collect form-like data. Modals can only be opened in response to a user invoking on of your app's commands or message components.
+
+![Modals in the Discord client](overview-modals.png)
+
+The only interactive component that modals can contain are [text inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs), which allow users to fill out single-or-multi line form inputs.
+
+Details about creating and using modals is in the [Receiving and Responding](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) documentation.
+
+---
+
+## Preparing for Interactions
+
+When a user interacts with your app, you have the option for your app to receive interactions in two mutually-exclusive ways:
+- WebSocket-based Gateway connection
+- HTTP via outgoing webhooks
+
+By default your app will receive interactions via a Gateway connection, but you can opt-in to HTTP-based interactions by adding a **Interactions Endpoint URL** to your app's settings. Technical details about handling interactions is in the [Receiving and Responding](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) documentation.
+
+### Configuring an Interactions Endpoint URL
+
+A **Interactions Endpoint URL** is a public endpoint for your app where Discord can send your app HTTP-based interactions. If your app is using [Gateway](#DOCS_TOPICS_GATEWAY)-based interactions, you don't need to configure an Interactions Endpoint URL.
+
+#### Setting Up an Endpoint
+
+Before you can add your Interactions Endpoint URL to your app, your endpoint must be prepared for two things ahead of time:
+
+1. Acknowledging `PING` requests from Discord
+2. Validate security-related request headers (`X-Signature-Ed25519` and `X-Signature-Timestamp`)
+
+If either of these are not complete, your Interactions Endpoint URL will not be validated. Details on acknowledging PING requests and validating security-related headers are in the sections below.
+
+###### Acknowledging PING requests
+
+When adding your Interactions Endpoint URL, Discord will send a `POST` request with a `PING` payload with a `type: 1` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has the same `type: 1`). Details about interaction responses are in the [Receiving and Responding documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
+
+<Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING interactions" icon="code">
+To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:
+
+```py
+@app.route('/', methods=['POST'])
+def my_command():
+    if request.json["type"] == 1:
+        return jsonify({
+            "type": 1
+        })
+```
+</Collapsible> 
+
+###### Validating Security Request Headers
+
+The internet is a scary place, especially for people hosting public, unauthenticated endpoints. To receive interactions via HTTP, there are some security steps you **must** take before your app is eligible to receive requests.
+
+Each interaction is sent with the following headers:
+
+-   `X-Signature-Ed25519` as a signature
+-   `X-Signature-Timestamp` as a timestamp
+
+Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. If the signature fails validation, your app should respond with a `401` error code.
+
+<Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="code">
+Below are some code examples that show how to validate the headers sent in interactions requests.
+
+**JavaScript**
+
+```js
+const nacl = require("tweetnacl");
+
+// Your public key can be found on your application in the Developer Portal
+const PUBLIC_KEY = "APPLICATION_PUBLIC_KEY";
+
+const signature = req.get("X-Signature-Ed25519");
+const timestamp = req.get("X-Signature-Timestamp");
+const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
+
+const isVerified = nacl.sign.detached.verify(
+    Buffer.from(timestamp + body),
+    Buffer.from(signature, "hex"),
+    Buffer.from(PUBLIC_KEY, "hex")
+);
+
+if (!isVerified) {
+    return res.status(401).end("invalid request signature");
+}
+```
+
+**Python**
+
+```py
+from nacl.signing import VerifyKey
+from nacl.exceptions import BadSignatureError
+
+# Your public key can be found on your application in the Developer Portal
+PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
+
+verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
+
+signature = request.headers["X-Signature-Ed25519"]
+timestamp = request.headers["X-Signature-Timestamp"]
+body = request.data.decode("utf-8")
+
+try:
+    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
+except BadSignatureError:
+    abort(401, 'invalid request signature')
+```
+</Collapsible> 
+
+In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL and alert you via email and System DM.
+
+We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) and the libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
+
+#### Adding an Interactions Endpoint URL
+
+After you have a public endpoint to use as your app's Interactions Endpoint URL, you can add it to your app by going to your [app's settings](https://discord.com/developers/applications).
+
+On the **General Overview** page, look for the **Interactive Endpoint URL** field. Paste your public URL that is set up to acknowledge `PING` messages and correctly handles security-related signature headers.
+
+---
+
+## Handling Interactions
+
+Once your app is prepared for interactions, you can explore the [Receiving and Responding](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) documentation which goes into the technical details of handling interactions requests in your app.

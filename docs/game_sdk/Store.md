@@ -9,7 +9,7 @@
 > danger
 > The GameSDK's Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, and Store (purchases and discounts) features have been deprecated, and will be decommissioned on **May 2, 2023**. [Read more](#DOCS_CHANGE_LOG/gamesdk-feature-deprecation)
 
-If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
+If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
 ## Application Test Mode
 
@@ -56,7 +56,7 @@ Non-consumable SKUs can only be purchased once.
 ###### SKU Struct
 
 | name  | type     | description              |
-| ----- | -------- | ------------------------ |
+|-------|----------|--------------------------|
 | Id    | Int64    | the unique ID of the SKU |
 | Type  | SkuType  | what sort of SKU it is   |
 | Name  | string   | the name of the SKU      |
@@ -65,7 +65,7 @@ Non-consumable SKUs can only be purchased once.
 ###### SkuType Enum
 
 | name        | value | description                                    |
-| ----------- | ----- | ---------------------------------------------- |
+|-------------|-------|------------------------------------------------|
 | Application | 1     | SKU is a game                                  |
 | DLC         | 2     | SKU is a DLC                                   |
 | Consumable  | 3     | SKU is a consumable (in-app purchase)          |
@@ -74,14 +74,14 @@ Non-consumable SKUs can only be purchased once.
 ###### SkuPrice Struct
 
 | name     | type   | description                       |
-| -------- | ------ | --------------------------------- |
+|----------|--------|-----------------------------------|
 | Amount   | UInt32 | the amount of money the SKU costs |
 | Currency | string | the currency the amount is in     |
 
 ###### Entitlement Struct
 
 | name  | type            | description                                     |
-| ----- | --------------- | ----------------------------------------------- |
+|-------|-----------------|-------------------------------------------------|
 | Id    | Int64           | the unique ID of the entitlement                |
 | Type  | EntitlementType | the kind of entitlement it is                   |
 | SkuId | Int64           | the ID of the SKU to which the user is entitled |
@@ -89,7 +89,7 @@ Non-consumable SKUs can only be purchased once.
 ###### EntitlementType Enum
 
 | name                | value | description                                                    |
-| ------------------- | ----- | -------------------------------------------------------------- |
+|---------------------|-------|----------------------------------------------------------------|
 | Purchase            | 1     | entitlement was purchased                                      |
 | PremiumSubscription | 2     | entitlement for a Discord Nitro subscription                   |
 | DeveloperGift       | 3     | entitlement was gifted by a developer                          |
@@ -152,7 +152,7 @@ Returns `Discord.Sku`.
 ###### Parameters
 
 | name  | type  | description              |
-| ----- | ----- | ------------------------ |
+|-------|-------|--------------------------|
 | skuId | Int64 | the ID of the SKU to get |
 
 ###### Example
@@ -172,7 +172,7 @@ Returns `Discord.Sku`.
 ###### Parameters
 
 | name  | type  | description               |
-| ----- | ----- | ------------------------- |
+|-------|-------|---------------------------|
 | index | Int32 | the index at which to get |
 
 ###### Example
@@ -242,7 +242,7 @@ Returns `Discord.Entitlement`.
 ###### Parameters
 
 | name          | type  | description                      |
-| ------------- | ----- | -------------------------------- |
+|---------------|-------|----------------------------------|
 | entitlementId | Int64 | the ID of the entitlement to get |
 
 ###### Example
@@ -264,7 +264,7 @@ Returns `Discord.Entitlement`.
 ###### Parameters
 
 | name  | type  | description               |
-| ----- | ----- | ------------------------- |
+|-------|-------|---------------------------|
 | index | Int32 | the index at which to get |
 
 ###### Example
@@ -289,7 +289,7 @@ Returns `bool`.
 ###### Parameters
 
 | name  | type  | description                |
-| ----- | ----- | -------------------------- |
+|-------|-------|----------------------------|
 | skuId | Int64 | the ID of the SKU to check |
 
 ###### Example
@@ -317,7 +317,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name  | type  | description                           |
-| ----- | ----- | ------------------------------------- |
+|-------|-------|---------------------------------------|
 | skuId | Int64 | the ID of the SKU to begin purchasing |
 
 ###### Example
@@ -342,7 +342,7 @@ Fires when the connected user receives a new entitlement, either through purchas
 ###### Parameters
 
 | name        | type                | description                               |
-| ----------- | ------------------- | ----------------------------------------- |
+|-------------|---------------------|-------------------------------------------|
 | entitlement | Discord.Entitlement | the entitlement the user has been granted |
 
 ## OnEntitlementDelete
@@ -352,12 +352,12 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 ###### Parameters
 
 | name        | type                | description                       |
-| ----------- | ------------------- | --------------------------------- |
+|-------------|---------------------|-----------------------------------|
 | entitlement | Discord.Entitlement | the entitlement the user has lost |
 
 ## HTTP APIs
 
-The following are HTTP requests, and should be handled by your game server, rather than a client. They require a token for an authorization header. This token should be the "Bot token" of your application. To get this token, go to your application in the Dev Portal. In the left sidebar, click the `Bot` navigation item. You should then click the `Add Bot` button.
+The following are HTTP requests, and should be handled by your game server, rather than a client. They require a token for an authorization header. This token should be the bot token of your application. To get this token, go to your application in the Dev Portal. In the left sidebar, click the `Bot` navigation item. You should then click the `Add Bot` button.
 
 After that, you can copy the token on this page and use it in your HTTP requests. The format for the authorization header should be `Authorization: Bot <token>`.
 
@@ -368,29 +368,29 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 ###### Limited Payment Data Object
 
 | name          | type   | description                          |
-| ------------- | ------ | ------------------------------------ |
+|---------------|--------|--------------------------------------|
 | id            | string | unique ID of the payment             |
 | currency      | string | the currency the payment was made in |
 | amount        | int    | the amount paid                      |
 | tax           | int    | the amount of tax                    |
 | tax_inclusive | bool   | whether the amount is tax-inclusive  |
 
-## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
+## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
-###### Query Parameters
+###### Query String Params
 
-| name           | type                              | description                                                                                                                    |
-| -------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
-| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
-| before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
-| after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
-| limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
-| guild_id?      | snowflake                         | the guild id to look up entitlements for                                                                                       |
-| exclude_ended? | bool                              | whether or not ended entitlements should be omitted                                                                            |
+| name           | type                                             | description                                                                                                                    |
+|----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| user_id?       | snowflake                                        | the user id to look up entitlements for                                                                                        |
+| sku_ids?       | comma-delimited set of snowflakes                | (optional) the list SKU ids to check entitlements for                                                                          |
+| with_payments? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| before?        | snowflake                                        | retrieve entitlements before this time                                                                                         |
+| after?         | snowflake                                        | retrieve entitlements after this time                                                                                          |
+| limit?         | int                                              | number of entitlements to return, 1-100, default 100                                                                           |
+| guild_id?      | snowflake                                        | the guild id to look up entitlements for                                                                                       |
+| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether or not ended entitlements should be omitted                                                                            |
 
 ###### Example
 
@@ -421,15 +421,15 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 }
 ```
 
-## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
-###### Query Parameters
+###### Query String Params
 
-| name          | type | description                                                                                                                    |
-| ------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------ |
-| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| name          | type                                             | description                                                                                                                    |
+|---------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| with_payment? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
 
 ###### Example
 
@@ -456,7 +456,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements/539
 }
 ```
 
-## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
+## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/skus
 
 Get all SKUs for an application.
 
@@ -494,7 +494,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 }
 ```
 
-## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
+## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -508,7 +508,7 @@ curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlem
 // Returns 204 No Content
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
@@ -529,7 +529,7 @@ Creates a discount for the given user on their next purchase of the given SKU. Y
 ###### Parameters
 
 | name        | type | description                                                                            |
-| ----------- | ---- | -------------------------------------------------------------------------------------- |
+|-------------|------|----------------------------------------------------------------------------------------|
 | percent_off | int  | the percentage to discount - max of 100, min of 1                                      |
 | ttl?        | int  | the time to live for the discount, in seconds - max of 3600, min of 60, default of 600 |
 

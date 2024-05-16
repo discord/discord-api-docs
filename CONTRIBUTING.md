@@ -12,5 +12,6 @@
 1. Modifications to the overall structure and format of the API docs.
 1. Additions that replicate or needlessly restructure current documentation.
 1. Additions that document unreleased product functionality.
+1. Changes that modify [Community Resources](https://discord.com/developers/docs/topics/community-resources#community-resources) (see [guidelines](https://github.com/discord/discord-api-docs/discussions/4456) for more detail).
 
 See the [README](https://github.com/discord/discord-api-docs/blob/main/README.md) for licensing and legal information.

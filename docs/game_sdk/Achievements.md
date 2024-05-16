@@ -22,7 +22,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 ###### Achievement Struct
 
 | name                      | type                                                                  | description                                          |
-| ------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------- |
+|---------------------------|-----------------------------------------------------------------------|------------------------------------------------------|
 | application_id            | Int64                                                                 | Unique ID of the application                         |
 | name                      | string                                                                | Name of the achievement                              |
 | name_localizations        | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field         |
@@ -36,7 +36,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 ###### User Achievement Struct
 
 | name            | type   | description                                                                                |
-| --------------- | ------ | ------------------------------------------------------------------------------------------ |
+|-----------------|--------|--------------------------------------------------------------------------------------------|
 | UserId          | Int64  | the unique ID of the user working on the achievement                                       |
 | AchievementId   | Int64  | the unique ID of the achievement                                                           |
 | PercentComplete | UInt8  | how far along the user is to completing the achievement (0-100)                            |
@@ -51,7 +51,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name            | type  | description                            |
-| --------------- | ----- | -------------------------------------- |
+|-----------------|-------|----------------------------------------|
 | achievementId   | Int64 | the ID of the achievement to update    |
 | percentComplete | UInt8 | the user's updated percentage progress |
 
@@ -124,7 +124,7 @@ Returns `Discord.UserAchievement`
 ###### Parameters
 
 | name  | type  | description                               |
-| ----- | ----- | ----------------------------------------- |
+|-------|-------|-------------------------------------------|
 | index | Int32 | the index at which to get the achievement |
 
 ###### Example
@@ -153,7 +153,7 @@ Gets the user achievement for the given achievement id. If you keep a hardcoded 
 ###### Parameters
 
 | name          | type  | description                      |
-| ------------- | ----- | -------------------------------- |
+|---------------|-------|----------------------------------|
 | achievementId | Int64 | the ID of the achievement to get |
 
 ###### Example
@@ -179,12 +179,12 @@ Fires when an achievement is updated for the currently connected user
 ###### Parameters
 
 | name        | type                | description                      |
-| ----------- | ------------------- | -------------------------------- |
+|-------------|---------------------|----------------------------------|
 | achievement | ref UserAchievement | the achievement that was updated |
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a bot token. This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's settings](https://discord.com/developers/applications), and navigate to the **Bot** page on the sidebar. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
 curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
@@ -193,7 +193,7 @@ curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-r
 > info
 > Make sure to prepend your token with "Bot"!
 
-## Get Achievements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
+## Get Achievements % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements
 
 Returns all achievements for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -217,7 +217,7 @@ Returns all achievements for the given application. This endpoint has a rate lim
 ]
 ```
 
-## Get Achievement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Get Achievement % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Returns the given achievement for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -239,14 +239,14 @@ Returns the given achievement for the given application. This endpoint has a rat
 }
 ```
 
-## Create Achievement % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
+## Create Achievement % POST /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements
 
 Creates a new achievement for your application. Applications can have a maximum of 1000 achievements. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
 ###### Parameters
 
 | name        | type      | description                             |
-| ----------- | --------- | --------------------------------------- |
+|-------------|-----------|-----------------------------------------|
 | name        | string    | the name of the achievement             |
 | description | string    | the user-facing achievement description |
 | secret      | bool      | if the achievement is secret            |
@@ -287,14 +287,14 @@ Creates a new achievement for your application. Applications can have a maximum 
 }
 ```
 
-## Update Achievement % PATCH /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Update Achievement % PATCH /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
 ###### Parameters
 
 | name        | type      | description                             |
-| ----------- | --------- | --------------------------------------- |
+|-------------|-----------|-----------------------------------------|
 | name        | string    | the name of the achievement             |
 | description | string    | the user-facing achievement description |
 | secret      | bool      | if the achievement is secret            |
@@ -335,7 +335,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 }
 ```
 
-## Delete Achievement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Delete Achievement % DELETE /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Deletes the given achievement from your application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -345,14 +345,14 @@ Deletes the given achievement from your application. This endpoint has a rate li
 // 204 No Content
 ```
 
-## Update User Achievement % PUT /users/{user.id#DOCS_RESOURCES_USER/user-object}/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Update User Achievement % PUT /users/{user.id#DOCS_RESOURCES_USER/user-object}/applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the UserAchievement record for a given user. Use this endpoint to update `secure` achievement progress for users. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
 ###### Parameters
 
 | name             | type | description                                            |
-| ---------------- | ---- | ------------------------------------------------------ |
+|------------------|------|--------------------------------------------------------|
 | percent_complete | int  | the user's progress towards completing the achievement |
 
 ###### Return Object
@@ -361,7 +361,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 {}
 ```
 
-## Get User Achievements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
+## Get User Achievements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/achievements
 
 Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Credentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 

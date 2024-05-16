@@ -17,16 +17,16 @@ Discord exposes different versions of our API[.](https://c.tenor.com/BuZl66Eegkg
 
 ###### API Versions
 
-| Version | Status                           | Default |
-| ------- | -------------------------------- | ------- |
-| 10      | Available                        |         |
-| 9       | Available                        |         |
-| 8       | Deprecated                       |         |
-| 7       | Deprecated                       |         |
-| 6       | Deprecated                       | ✓       |
-| 5       | Discontinued                     |         |
-| 4       | Discontinued                     |         |
-| 3       | Discontinued                     |         |
+| Version | Status       | Default |
+|---------|--------------|---------|
+| 10      | Available    |         |
+| 9       | Available    |         |
+| 8       | Deprecated   |         |
+| 7       | Deprecated   |         |
+| 6       | Deprecated   | ✓       |
+| 5       | Discontinued |         |
+| 4       | Discontinued |         |
+| 3       | Discontinued |         |
 
 ## Error Messages
 
@@ -92,7 +92,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
         "_errors": [
             {
                 "code": "APPLICATION_COMMAND_TOO_LARGE",
-                "message": "Command exceeds maximum size (4000)"
+                "message": "Command exceeds maximum size (8000)"
             }
         ]
     }
@@ -103,7 +103,7 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](#APPLICATIONS), for more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
+1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_TOPICS_OAUTH2/oauth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
@@ -126,7 +126,7 @@ All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord 
 
 ## Snowflakes
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/encoding-and-compression) for more information regarding Gateway encoding.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/encoding-and-compression) for more information regarding Gateway encoding.
 
 ###### Snowflake ID Broken Down in Binary
 
@@ -138,7 +138,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
+|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -203,7 +203,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-| ---------------------------- | ------- |
+|------------------------------|---------|
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -253,18 +253,19 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                     | Structure           | Example                       |
-| ------------------------ | ------------------- | ----------------------------- |
-| User                     | <@USER_ID>          | <@80351110224678912>          |
-| User \*                  | <@!USER_ID>         | <@!80351110224678912>         |
-| Channel                  | <#CHANNEL_ID>       | <#103735883630395392>         |
-| Role                     | <@&ROLE_ID>         | <@&165511591545143296>        |
-| Slash Command \*\*       | </NAME:COMMAND_ID>  | </airhorn:816437322781949972> |
-| Standard Emoji           | Unicode Characters  | 💯                            |
-| Custom Emoji             | <:NAME:ID>          | <:mmLol:216154654256398347>   |
-| Custom Emoji (Animated)  | <a:NAME:ID>         | <a:b1nzy:392938283556143104>  |
-| Unix Timestamp           | <t:TIMESTAMP>       | <t:1618953630>                |
-| Unix Timestamp (Styled)  | <t:TIMESTAMP:STYLE> | <t:1618953630:d>              |
+| Type                    | Structure             | Example                         |
+|-------------------------|-----------------------|---------------------------------|
+| User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
+| User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
+| Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
+| Role                    | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
+| Slash Command \*\*      | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
+| Standard Emoji          | Unicode Characters    | 🦶                              |
+| Custom Emoji            | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
+| Custom Emoji (Animated) | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
+| Unix Timestamp          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
+| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
+| Guild Navigation        | `<id:TYPE>`           | `<id:customize>`                |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
@@ -277,7 +278,7 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 ###### Timestamp Styles
 
 | Style | Example Output               | Description     |
-| ----- | ---------------------------- | --------------- |
+|-------|------------------------------|-----------------|
 | t     | 16:20                        | Short Time      |
 | T     | 16:20:30                     | Long Time       |
 | d     | 20/04/2021                   | Short Date      |
@@ -287,6 +288,16 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 | R     | 2 months ago                 | Relative Time   |
 
 \*default
+
+###### Guild Navigation Types
+
+Guild navigation types link to the corresponding resource in the current server.
+
+| Type      | Description                                                                                           |
+|-----------|-------------------------------------------------------------------------------------------------------|
+| customize | _Customize_ tab with the server's [onboarding prompts](#DOCS_RESOURCES_GUILD/guild-onboarding-object) |
+| browse    | _Browse Channels_ tab                                                                                 |
+| guide     | [Server Guide](https://support.discord.com/hc/en-us/articles/13497665141655)                          |
 
 ## Image Formatting
 
@@ -301,7 +312,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name   | Extension   |
-| ------ | ----------- |
+|--------|-------------|
 | JPEG   | .jpg, .jpeg |
 | PNG    | .png        |
 | WebP   | .webp       |
@@ -311,21 +322,22 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### CDN Endpoints
 
 | Type                        | Path                                                                                                                                                                                                                                                              | Supports             |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | Custom Emoji                | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
 | Guild Icon                  | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
 | Guild Splash                | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
 | Guild Discovery Splash      | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
 | Guild Banner                | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                  | PNG, JPEG, WebP, GIF |
 | User Banner                 | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Default User Avatar         | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
+| Default User Avatar         | embed/avatars/[index](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                                           | PNG                  |
 | User Avatar                 | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
 | Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
+| Avatar Decoration           | avatar-decoration-presets/[avatar_decoration_data_asset](#DOCS_RESOURCES_USER/avatar-decoration-data-object).png                                                                                                                                                  | PNG                  |
 | Application Icon            | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
 | Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
-| Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
+| Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
 | Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
-| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                       | PNG, JPEG, WebP      |
+| Store Page Asset            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/store/asset_id                                                                                                                                                                        | PNG, JPEG, WebP      |
 | Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
 | Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie, GIF     |
@@ -335,11 +347,14 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
-\*\* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
+\*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](#DOCS_CHANGE_LOG/unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+
+> info
+> Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
 
 ## Image Data
 
@@ -351,10 +366,32 @@ data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 
 Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
 
+### Signed Attachment CDN URLs
+
+Attachments uploaded to Discord's CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time. Discord automatically refreshes attachment CDN URLs that appear within the client, so when your app receives a payload with a signed URL (like when you [fetch a message](#DOCS_RESOURCES_CHANNEL/get-channel-message)), it will be valid.
+
+When passing CDN URLs into API fields, like [`url` in an embed image object](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) and [`avatar_url` for webhooks](#DOCS_RESOURCES_WEBHOOK/execute-webhook-jsonform-params), your app can pass the CDN URL without any parameters as the value and Discord will automatically render and refresh the URL.
+
+The [standard CDN endpoints](#DOCS_REFERENCE/image-formatting-cdn-endpoints) listed above are not signed, so they will not expire.
+
+###### Example Attachment CDN URL
+
+```
+https://cdn.discordapp.com/attachments/1012345678900020080/1234567891233211234/my_image.png?ex=65d903de&is=65c68ede&hm=2481f30dd67f503f54d020ae3b5533b9987fae4e55f2b4e3926e08a3fa3ee24f&
+```
+
+###### Attachment CDN URL Parameters
+
+| Parameter | Description                                                     |
+|-----------|-----------------------------------------------------------------|
+| ex        | Hex timestamp indicating when an attachment CDN URL will expire |
+| is        | Hex timestamp indicating when the URL was issued                |
+| hm        | Unique signature that remains valid until the URL's expiration  |
+
 ## Uploading Files
 
 > info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `8 MiB` by default.
+> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `25 MiB` by default.
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
@@ -453,13 +490,14 @@ For example:
 ## Locales
 
 | Locale | Language Name         | Native Name         |
-| ------ | --------------------- | ------------------- |
+|--------|-----------------------|---------------------|
 | id     | Indonesian            | Bahasa Indonesia    |
 | da     | Danish                | Dansk               |
 | de     | German                | Deutsch             |
 | en-GB  | English, UK           | English, UK         |
 | en-US  | English, US           | English, US         |
 | es-ES  | Spanish               | Español             |
+| es-419 | Spanish, LATAM        | Español, LATAM      |
 | fr     | French                | Français            |
 | hr     | Croatian              | Hrvatski            |
 | it     | Italian               | Italiano            |
@@ -479,9 +517,9 @@ For example:
 | bg     | Bulgarian             | български           |
 | ru     | Russian               | Pусский             |
 | uk     | Ukrainian             | Українська          |
-| hi     | Hindi                 | हिन्दी                 |
+| hi     | Hindi                 | हिन्दी              |
 | th     | Thai                  | ไทย                 |
 | zh-CN  | Chinese, China        | 中文                |
 | ja     | Japanese              | 日本語              |
 | zh-TW  | Chinese, Taiwan       | 繁體中文            |
-| ko     | Korean                | 한국어              |
+| ko     | Korean                | 한국어                 |
