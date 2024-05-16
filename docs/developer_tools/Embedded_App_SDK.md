@@ -528,15 +528,17 @@ Locks the application to specific orientations in each of the supported layout m
 
 #### Required Scopes
 
-- guilds.members.read
+No scopes required
 
 #### Usage
 
 ```js
+import {Common} from '@discord/embedded-app-sdk';
+
 await discordSdk.commands.setOrientationLockState({ 
-  lock_state: 'landscape', 
-  picture_in_picture_lock_state: 'landscape', 
-  grid_lock_state: 'unlocked'
+  lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  picture_in_picture_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  grid_lock_state: Common.OrientationLockStateTypeObject.UNLOCKED
 });
 ```
 

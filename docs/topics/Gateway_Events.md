@@ -719,6 +719,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | mute?                         | boolean                                           | Whether the user is muted in voice channels                                                                                                                                                                                          |
 | pending?                      | boolean                                           | Whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
 | communication_disabled_until? | ?ISO8601 timestamp                                | When the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
+| flags?                        | integer                                           | [Guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to 0                                                                                                           |
 
 #### Guild Members Chunk
 
@@ -940,6 +941,9 @@ Sent when a user adds a reaction to a message.
 | member?            | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
 | emoji              | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
 | message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
+| burst              | boolean                                                      | true if this is a super-reaction                                                           |
+| burst_colors?      | array of strings                                             | Colors used for super-reaction animation in "#rrggbb" format                               |
+| type               | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove
 
@@ -954,6 +958,8 @@ Sent when a user removes a reaction from a message.
 | message_id | snowflake                                                    | ID of the message                                                                          |
 | guild_id?  | snowflake                                                    | ID of the guild                                                                            |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| burst      | boolean                                                      | true if this was a super-reaction                                                          |
+| type       | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove All
 
