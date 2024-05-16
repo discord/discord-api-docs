@@ -264,7 +264,7 @@ Represents a message sent in a channel within Discord.
 > Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
 
 > warn
-> `content`, `embeds`, `attachments`, `components`, and `poll` require the [`MESSAGE_CONTENT` intent](#DOCS_TOPICS_GATEWAY/message-content-intent) to receive non-empty values or be present respectively.
+> An app will receive empty values in the `content`, `embeds`, `attachments`, and `components` fields while `poll` will be omitted if they have not configured (or been approved for) the [`MESSAGE_CONTENT` privileged intent (`1 << 15`)](#DOCS_TOPICS_GATEWAY/message-content-intent).
 
 | Field                       | Type                                                                                                                                      | Description                                                                                                                                                                                                                                                             |
 |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
