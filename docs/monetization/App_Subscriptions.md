@@ -36,6 +36,33 @@ When a user subscribes to your app, there are a few things you will need to impl
 
 ### Gating Premium Interactions
 
+Each interaction payload includes an `entitlements` field containing an array of full [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object). You can use this field to determine if the user or guild is subscribed to your app. If the user or guild is not subscribed and you wish to present them with a means to do so you can use a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` attached. You may also use these buttons to present users with options to make a [One-Time Purchase](#DOCS_MONETIZATION_ONE-TIME_PURCHASES).
+
+```javascript
+return new JsonResponse({
+    type: 4, // InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+    data: {
+        content: "This command requires Nelly Premium! Upgrade now to get access to these features!",
+        components: [{
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+                {
+                    type: MessageComponentTypes.BUTTON,
+                    style: 6, // ButtonStyleTypes.PREMIUM
+                    skuId: '1234965026943668316',
+                    label: 'Upgrade',
+                },
+            ],
+        }]
+    },
+});
+```
+
+#### Type 10 Interaction Response
+
+> warn
+> `PREMIUM_REQUIRED` type 10 interaction response is deprecated. Please use `ButtonStyle.PREMIUM` to handle purchases.
+
 Interactions like [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) commonly respond to users with a message or modal response. If you'd like to make a command only available to users with a subscription, you can reply with a `PREMIUM_REQUIRED` interaction response `type: 10`. Users without a subscription will be prompted to upgrade when they attempt to use these commands.
 
 ```javascript
@@ -76,14 +103,14 @@ For example, you might keep track of our entitlements in a database and check a 
 
 ### Using Test Entitlements
 
-You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
+You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild.
 
 > info
 > Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
 
 ### Testing Payment Flow with Live Entitlements
 
-If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
+If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method.
 
 After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
 

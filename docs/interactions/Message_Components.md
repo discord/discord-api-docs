@@ -97,6 +97,7 @@ Buttons are interactive components that render in messages. They can be clicked 
 | label?     | string                                              | Text that appears on the button; max 80 characters                                  |
 | emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
 | custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                     |
+| sku_id?    | string                                              | Identifier for a purchasable SKU, only available when using [ButtonStyle.Premium](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
 | url?       | string                                              | URL for link-style buttons                                                          |
 | disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                |
 
@@ -115,6 +116,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 | Success   | 3     | green                    | `custom_id`    |
 | Danger    | 4     | red                      | `custom_id`    |
 | Link      | 5     | grey, navigates to a URL | `url`          |
+| Premium   | 6     | gradient                 | `sku_id`       |
 
 ![An image showing the different button styles](button-styles.png)
 
