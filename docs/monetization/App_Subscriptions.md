@@ -103,14 +103,14 @@ For example, you might keep track of our entitlements in a database and check a 
 
 ### Using Test Entitlements
 
-You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild.
+You can test your implementation by [creating](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) and [deleting](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
 > info
 > Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
 
 ### Testing Payment Flow with Live Entitlements
 
-If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method.
+If you'd like to test the full payment flow for your app, you can do so by interacting with the `Upgrade` button. Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
 
 After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until cancelled and can be used in testing subscription renewals in your app.
 
