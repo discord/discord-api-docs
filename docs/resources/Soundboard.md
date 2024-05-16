@@ -10,34 +10,26 @@ Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Re
 
 ###### Soundboard Sound Structure
 
-| Field         | Type                                            | Description                                                                                  |
-|---------------|-------------------------------------------------|----------------------------------------------------------------------------------------------|
-| name          | string                                          | the name of this sound                                                                       |
-| sound_id      | snowflake                                       | the id of this sound                                                                         |
-| id?           | snowflake                                       | the id of this sound                                                                         |
-| volume        | double                                          | the volume of this sound, from 0 to 1                                                        |
-| emoji_id      | ?snowflake                                      | the id of this sound's custom emoji                                                          |
-| emoji_name    | ?string                                         | the unicode character of this sound's standard emoji                                         |
-| override_path | ?string                                         | the filename of this sound (for default sounds)                                              |
-| guild_id?     | snowflake                                       | the id of the guild this sound is in                                                         |
-| user_id       | snowflake                                       | the id of the user who created this sound                                                    |
-| available?    | boolean                                         | whether this sound can be used (for guild sounds), may be false due to loss of Server Boosts |
-| user?         | [user](#DOCS_RESOURCES_USER/user-object) object | the user who created this sound                                                              |
+| Field      | Type                                            | Description                                                                                  |
+|------------|-------------------------------------------------|----------------------------------------------------------------------------------------------|
+| name       | string                                          | the name of this sound                                                                       |
+| sound_id   | snowflake                                       | the id of this sound                                                                         |
+| id?        | snowflake                                       | the id of this sound                                                                         |
+| volume     | double                                          | the volume of this sound, from 0 to 1                                                        |
+| emoji_id   | ?snowflake                                      | the id of this sound's custom emoji                                                          |
+| emoji_name | ?string                                         | the unicode character of this sound's standard emoji                                         |
+| guild_id?  | snowflake                                       | the id of the guild this sound is in                                                         |
+| user_id    | snowflake                                       | the id of the user who created this sound                                                    |
+| available? | boolean                                         | whether this sound can be used (for guild sounds), may be false due to loss of Server Boosts |
+| user?      | [user](#DOCS_RESOURCES_USER/user-object) object | the user who created this sound                                                              |
 
 ### Sound Files
 
-###### Base URL
+A soundboard sound can be retrieved in MP3 format at the URL:
 
 ```
-https://cdn.discordapp.com/
+https://cdn.discordapp.com/soundboard-sounds/{sound_id}
 ```
-
-###### CDN Endpoints
-
-| Type                     | Path                                          |
-|--------------------------|-----------------------------------------------|
-| Soundboard Sound         | soundboard-sounds/sound_id                    |
-| Soundboard Default Sound | soundboard-default-sounds/sound_override_path |
 
 ## List Soundboard Default Sounds % GET /soundboard-default-sounds
 
