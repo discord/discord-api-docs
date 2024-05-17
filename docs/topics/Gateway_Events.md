@@ -387,7 +387,7 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 #### Reconnect
 
-The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
+The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This can occur at any point in the gateway connection lifecycle. A few seconds after this event is dispatched, the connection may be closed by the server. This may even happen before/in place of receiving a [Hello](#DOCTS_TOPICS_GATEWAY_EVENTS/hello).
 
 ###### Example Gateway Reconnect
 
