@@ -509,7 +509,7 @@ See [erlpack](https://github.com/discord/erlpack) for an ETF implementation exam
 
 ### Transport Compression
 
-Transport compression enables optional compression for all packets when Discord is sending events over the connection. The only currently-available transport compression options are `zlib-stream` and `zstd-stream`.
+Transport compression enables optional compression for all packets when Discord is sending events over the connection. The currently-available transport compression options are `zlib-stream` and `zstd-stream`.
 
 #### zlib-stream
 
