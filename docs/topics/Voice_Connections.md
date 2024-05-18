@@ -235,7 +235,7 @@ The following flags can be used as a bitwise mask. For example `5` would be prio
 > You must send at least one [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
 
 > info
-> The `delay` property is ignored for voice connections via the voice gateway.
+> The `delay` property should be set to `0` for bots that use the voice gateway.
 
 ### Voice Data Interpolation
 
