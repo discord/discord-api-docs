@@ -1,27 +1,27 @@
 <LocalePicker currentLocale="it" />
 
-# Building your first Discord app
+# Sviluppare la tua prima app su Discord
 
-Discord apps let you customize and extend Discord using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript, and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
+Le app Discord ti permettono di personalizzare ed estendere le funzionalità di Discord utilizzando una collezione di APIs e funzionalità interattive. Questa guida ti servirà per sviluppare la tua prima app Discord utilizzando JavaScript, e alla fine avrai un'app che utilizza gli slash commmands, invia messaggi, e risponde alle component interactions.
 
-We'll be building a Discord app that lets server members play rock-paper-scissors (with 7 choices instead of the usual 3). This guide is beginner-focused, but it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+Svilupperemo un'app Discord che permette ai membri del server di giocare a sasso-carta-forbice (con 7 scelte invece delle usuali 3). Questa guida è beginner-focused, ma presume che tu abbia una conoscenza base di [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
-<Collapsible title="What we'll be building" icon="view">
-Here's what the finished app will look like:
+<Collapsible title="Cosa svilupperemo" icon="view">
+Ecco l'aspetto dell'app finalizzata:
 
-![Demo of example app](getting-started-demo.gif)
+![Demo dell'app](getting-started-demo.gif)
 
-To make the user flow a bit more explicit:
+Per esplicitare l'user flow:
 
-1. User 1 initiates a new game and picks their object using the app's `/challenge` slash command
-2. A message is sent to channel with a button inviting others to accept the challenge
-3. User 2 presses the **Accept** button
-4. User 2 is sent an ephemeral message where they select their object of choice
-5. The result of the game is posted back into the original channel for all to see
+1. Utente 1 inizia un nuovo gioco e sceglie il proprio oggetto usando lo slash command `/challenge` fornito dall'app
+2. Un messaggio viene inviato nel canale con un bottone invitando altri a partecipare
+3. Utente 2 clicca il pulsante **Accept**
+4. Utente 2 riceve un messaggio effimero dove selezionano il proprio oggetto
+5. Il risultato del gioco viene inviato nel canale originale mostrando a tutti il risultato
 </Collapsible>
 
-<Collapsible title="Resources used in this guide" description="Overview of the tools and technologies we'll use" icon="list">
-- **[GitHub repository](https://github.com/discord/discord-example-app)** where the code from this guide lives along with some additional feature-specific code examples.
+<Collapsible title="Risorse utilizzate nella guida" description="Panoramica degli strumenti e tecnologie utilizzate" icon="list">
+- **[Repository GitHub](https://github.com/discord/discord-example-app)** where the code from this guide lives along with some additional feature-specific code examples.
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, a library that provides types and helper functions for Discord apps.
 - **[Express](https://expressjs.com)**, a popular JavaScript web framework we'll use to create a server where Discord can send us requests.
 - **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
