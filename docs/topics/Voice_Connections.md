@@ -208,9 +208,9 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 
 ## Speaking
 
-To notify clients that you are speaking or have stopped speaking, send an [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload:
+Speaking updates are used to update the **speaking modes** used by the client. This speaking mode is set using a [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload. The client must send this at least once before sending audio to update the SSRC and set the initial speaking mode.
 
-The following flags can be used as a bitwise mask. For example `5` would be priority and voice.
+The following flags can be used as a bitwise mask. For example `5` would be priority and voice. The speaking mode should not be 0 to allow sending audio.
 
 | Flag       | Meaning                                                        | Value  |
 |------------|----------------------------------------------------------------|--------|
@@ -233,6 +233,9 @@ The following flags can be used as a bitwise mask. For example `5` would be prio
 
 > warn
 > You must send at least one [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
+
+> info
+> The `delay` property should be set to `0` for bots that use the voice gateway.
 
 ### Voice Data Interpolation
 
