@@ -83,5 +83,7 @@ Cards let you display links in a card format. It accepts two arguments, `title` 
 ![Card MDX Component](images/mdx-card.png)
 
 ```markdown
-<Card title="Card Title" link="https://discord.com/developers/docs/getting-started">This is the content inside of the card~</Card>
+<Card title="Card Title" link="https://discord.com/developers/docs/getting-started">
+This is the content inside of the card~
+</Card>
 ```
