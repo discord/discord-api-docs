@@ -47,7 +47,7 @@ There are a few reusable MDX components that can be used on pages with the `mdx`
 
 #### Collapsibles
 
-Collapsibles allow you to show/hide content on a page that may be secondary to the page's primary content. They have four fields that can be set: `title`, `description`, `icon`, and an `open` flag (which makes the collapsible element open by default)
+Collapsibles allow you to show/hide content on a page that may be secondary to the page's primary content. They have four fields that can be set: `title`, `description`, `icon`, and an `open` flag (which makes the collapsible element open by default).
 
 Available options for `icon` are `"list"`, `"view"`, `"question"`, and `"code"`.
 
