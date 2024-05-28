@@ -36,7 +36,7 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 
 ### Alert Boxes
 
-Alert boxes are creating using a block quote that has one of 'warn', 'danger', 'info', or `preview` on the first line. 
+Alert boxes are created using a block quote that has one of 'warn', 'danger', 'info', or 'preview' on the first line. 
 
 ![Alert options](images/alerts.png)
 
@@ -45,9 +45,9 @@ Alert boxes are creating using a block quote that has one of 'warn', 'danger', '
 
 There are a few reusable MDX components that can be used on pages with the `mdx` extension. 
 
-#### Collapsible
+#### Collapsibles
 
-Collapsible allows you to show/hide content on a page that may be secondary to the page's primary content. It has four fields that can be set: `title`, `description` `icon`, and an `open` flag (which makes the collapsible element open by default)
+Collapsibles allow you to show/hide content on a page that may be secondary to the page's primary content. They have four fields that can be set: `title`, `description`, `icon`, and an `open` flag (which makes the collapsible element open by default).
 
 Available options for `icon` are `"list"`, `"view"`, `"question"`, and `"code"`.
 
@@ -62,9 +62,9 @@ Collapsed content
 </Collapsible>
 ```
 
-#### Button
+#### Buttons
 
-Button is simply...a clickable button. It takes `href` and `color` arguments, but currently we only use the `"brand"` value for `color`.
+Buttons are simply... clickable buttons. They take `href` and `color` as arguments, but currently we only use `"brand"` as a value for `color`.
 
 ###### Example
 
@@ -74,9 +74,9 @@ Button is simply...a clickable button. It takes `href` and `color` arguments, bu
 <Button href="https://discord.com/developers/docs/getting-started" color="brand">click the button!</Button>
 ```
 
-#### Card
+#### Cards
 
-Cards let you display links in a card format. It accepts two arguments, `title` and `link`.
+Cards let you display links in a card format. They accept two arguments, `title` and `link`.
 
 ###### Example
 
