@@ -64,7 +64,7 @@ Collapsed content
 
 #### Buttons
 
-Button are simply... clickable buttons. They take `href` and `color` as arguments, but currently we only use `"brand"` as a value for `color`.
+Buttons are simply... clickable buttons. They take `href` and `color` as arguments, but currently we only use `"brand"` as a value for `color`.
 
 ###### Example
 
