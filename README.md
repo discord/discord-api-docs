@@ -28,7 +28,55 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 
 ### Alert Boxes
 
-Alert boxes are achieved by using a block quote that has one of 'warn', 'danger' or 'info' on the first line.
+Alert boxes are creating using a block quote that has one of 'warn', 'danger', 'info', or `preview` on the first line. 
+
+![Alert options](images/alerts.png)
+
+
+### MDX Components
+
+There are a few reusable MDX components that can be used on pages with the `mdx` extension. 
+
+#### Collapsible
+
+Collapsible allows you to show/hide content on a page that may be secondary to the page's primary content. It has four fields that can be set: `title`, `description` `icon`, and an `open` flag (which makes the collapsible element open by default)
+
+Available options for `icon` are `"list"`, `"view"`, `"question"`, and `"code"`.
+
+
+###### Example
+
+![Collapsible MDX Component with the list icon](images/mdx-collapsible.png)
+
+```markdown
+<Collapsible title="Title" description="Description text" icon="list">
+Collapsed content
+</Collapsible>
+```
+
+#### Button
+
+Button is simply...a clickable button. It takes `href` and `color` arguments, but currently we only use the `"brand"` value for `color`.
+
+###### Example
+
+![Button MDX Component](images/mdx-button.png)
+
+```markdown
+<Button href="https://discord.com/developers/docs/getting-started" color="brand">click the button!</Button>
+```
+
+#### Card
+
+Cards let you display links in a card format. It accepts two arguments, `title` and `link`.
+
+###### Example
+
+![Card MDX Component](images/mdx-card.png)
+
+```markdown
+<Card title="Card Title" link="https://discord.com/developers/docs/getting-started">This is the content inside of the card~</Card>
+```
 
 ## Need some help?
 
