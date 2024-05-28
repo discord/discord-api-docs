@@ -224,7 +224,7 @@ There are a number of ways you can respond to an interaction:
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
-\*\*\* This response type is deprecated. Learn more about [migrating to premium buttons](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions). Not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
+\*\*\* This response type is deprecated. Learn more about [migrating to premium buttons](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions). `PREMIUM_REQUIRED` response type is not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
 
 ###### Interaction Callback Data Structure
 

@@ -50,7 +50,6 @@ return new JsonResponse({
                     type: MessageComponentTypes.BUTTON,
                     style: 6, // ButtonStyleTypes.PREMIUM
                     skuId: '1234965026943668316',
-                    label: 'Upgrade',
                 },
             ],
         }]
