@@ -1,6 +1,8 @@
-# Discord Official API Documentation
+![Wow a header](images/docs-header.svg)
 
-This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
+# Discord API Documentation
+
+This repo contains the official Discord API documentation, which can be viewed online at [https://discord.dev](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
 
 This repository reflects the Discord API as it is meant to be accessed by third-party applications. It omits features and capabilities that are not generally available, or are not fully supported for third-party usage.
 
@@ -8,75 +10,7 @@ We welcome your contributions!
 
 -   Issue tracker: Discord API bugs
 -   Discussions: Discord API feature and improvement requests
--   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md)
-
-## Markdown Syntax
-
-This repository uses special markdown syntax that helps style the resulting web version of the documentation.
-
-### H6 Headings
-
-H6 headings should be used above tables and code blocks to properly label them.
-
-### Linking
-
-Links between docs can be achieved by using a hash symbol (#), plus the markdown file name, plus a slash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
-
-```md
-[Links to README.md H6](#README/h6-headings)
-```
-
-### Alert Boxes
-
-Alert boxes are creating using a block quote that has one of 'warn', 'danger', 'info', or `preview` on the first line. 
-
-![Alert options](images/alerts.png)
-
-
-### MDX Components
-
-There are a few reusable MDX components that can be used on pages with the `mdx` extension. 
-
-#### Collapsible
-
-Collapsible allows you to show/hide content on a page that may be secondary to the page's primary content. It has four fields that can be set: `title`, `description` `icon`, and an `open` flag (which makes the collapsible element open by default)
-
-Available options for `icon` are `"list"`, `"view"`, `"question"`, and `"code"`.
-
-
-###### Example
-
-![Collapsible MDX Component with the list icon](images/mdx-collapsible.png)
-
-```markdown
-<Collapsible title="Title" description="Description text" icon="list">
-Collapsed content
-</Collapsible>
-```
-
-#### Button
-
-Button is simply...a clickable button. It takes `href` and `color` arguments, but currently we only use the `"brand"` value for `color`.
-
-###### Example
-
-![Button MDX Component](images/mdx-button.png)
-
-```markdown
-<Button href="https://discord.com/developers/docs/getting-started" color="brand">click the button!</Button>
-```
-
-#### Card
-
-Cards let you display links in a card format. It accepts two arguments, `title` and `link`.
-
-###### Example
-
-![Card MDX Component](images/mdx-card.png)
-
-```markdown
-<Card title="Card Title" link="https://discord.com/developers/docs/getting-started">This is the content inside of the card~</Card>
-```
+-   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md) for types of changes accepted and specific markdown syntax used in the documentation.
 
 ## Need some help?
 
