@@ -1,8 +1,6 @@
-![Wow a header](images/docs-header.svg)
-
 # Discord API Documentation
 
-This repo contains the official Discord API documentation, which can be viewed online at [https://discord.dev](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
+This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
 
 This repository reflects the Discord API as it is meant to be accessed by third-party applications. It omits features and capabilities that are not generally available, or are not fully supported for third-party usage.
 
