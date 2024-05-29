@@ -106,7 +106,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 - Non-link and Non-premium buttons **must** have a `custom_id`, and cannot have a `url` or a `sku_id`.
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
 - Link buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
-- Premium buttons **must** has a `sku_id`, and cannot have a `custom_id` or a `label`.
+- Premium buttons **must** have a `sku_id`, and cannot have a `custom_id` or a `label`.
 - Premium buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
 
 ###### Button Styles
