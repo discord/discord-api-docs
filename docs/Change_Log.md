@@ -4,7 +4,8 @@
 
 #### May 31, 2024
 
-Add Auto Moderation `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This rule type will check if a member's profile contains disallowed keywords.
+- Add Auto Moderation `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This rule type will check if a member's profile contains disallowed keywords.
+- Add new Auto Moderation `BLOCK_MEMBER_INTERACTION` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types)) currently available for the `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This acts as a "quarantine" on the user where they are unable to perform most interactions within a specific server.
 
 ## Premium Apps: One-Time Purchases and Store
 
