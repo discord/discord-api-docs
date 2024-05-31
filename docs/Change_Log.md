@@ -1,5 +1,11 @@
 # Change Log
 
+## Auto Moderation Member Profile Rule
+
+#### May 31, 2024
+
+Add Auto Moderation `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This rule type will check if a member's profile contains disallowed keywords.
+
 ## Premium Apps: One-Time Purchases and Store
 
 #### April 24, 2024
