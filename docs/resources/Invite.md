@@ -8,6 +8,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 | Field                       | Type                                                                                               | Description                                                                                                                                    |
 |-----------------------------|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| type                        | integer                                                                                            | the [type of invite](#DOCS_RESOURCES_INVITE/invite-object-invite-types)                                                                        |
 | code                        | string                                                                                             | the invite code (unique ID)                                                                                                                    |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                                         | the guild this invite is for                                                                                                                   |
 | channel                     | ?partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                  | the channel this invite is for                                                                                                                 |
@@ -21,6 +22,14 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | stage_instance?             | [invite stage instance](#DOCS_RESOURCES_INVITE/invite-stage-instance-object) object                | stage instance data if there is a [public Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) in the Stage channel this invite is for (deprecated) |
 | guild_scheduled_event?      | [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id                              |
 
+###### Invite Types
+
+| Type     | Value |
+|----------|-------|
+| GUILD    | 0     |
+| GROUP_DM | 1     |
+| FRIEND   | 2     |
+
 ###### Invite Target Types
 
 | Type                 | Value |
@@ -32,6 +41,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ```json
 {
+  "type": 0,
   "code": "0vCdhLbwjZZTWZLD",
   "guild": {
     "id": "165176875973476352",
@@ -136,11 +146,11 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 
 ###### Query String Params
 
-| Field                     | Type      | Description                                                 |
-|---------------------------|-----------|-------------------------------------------------------------|
-| with_counts?              | boolean   | whether the invite should contain approximate member counts |
-| with_expiration?          | boolean   | whether the invite should contain the expiration date       |
-| guild_scheduled_event_id? | snowflake | the guild scheduled event to include with the invite        |
+| Field                     | Type                                             | Description                                                 |
+|---------------------------|--------------------------------------------------|-------------------------------------------------------------|
+| with_counts?              | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether the invite should contain approximate member counts |
+| with_expiration?          | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether the invite should contain the expiration date       |
+| guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite        |
 
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 

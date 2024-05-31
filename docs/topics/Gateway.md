@@ -80,7 +80,7 @@ At a high-level, Gateway connections consist of the following cycle:
    - Discord may send the app a [Heartbeat (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat) event, in which case the app should send a Heartbeat event immediately.
 4. App sends an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event to perform the initial handshake with the Gateway. **Read the section on [Identifying](#DOCS_TOPICS_GATEWAY/identifying)**
 5. Discord sends the app a [Ready (opcode `0`)](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates the handshake was successful and the connection is established. The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should use to Resume. **Read the section on [the Ready event](#DOCS_TOPICS_GATEWAY/ready-event)**
-6. The connection may be dropped for a variety of reasons. Whether the app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) and [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) that it receives. **Read the section on [Disconnecting](#DOCS_TOPICS_GATEWAY/disconnecting)**
+6. The connection may be dropped for a variety of reasons at any time. Whether the app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) and [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) that it receives. **Read the section on [Disconnecting](#DOCS_TOPICS_GATEWAY/disconnecting)**
 7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url` with the same version and encoding, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole Gateway cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
 
 ### Connecting
@@ -103,7 +103,7 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 |-----------|---------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | v         | integer | [API Version](#DOCS_REFERENCE/api-versioning) to use                                                | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
 | encoding  | string  | The [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) of received gateway packets           | `json` or `etf`                                            |
-| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream`                                              |
+| compress? | string  | The optional [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) of gateway packets | `zlib-stream` or `zstd-stream`                             |
 
 #### Hello Event
 
@@ -388,6 +388,14 @@ AUTO_MODERATION_CONFIGURATION (1 << 20)
 
 AUTO_MODERATION_EXECUTION (1 << 21)
   - AUTO_MODERATION_ACTION_EXECUTION
+
+GUILD_MESSAGE_POLLS (1 << 24)
+  - MESSAGE_POLL_VOTE_ADD
+  - MESSAGE_POLL_VOTE_REMOVE
+
+DIRECT_MESSAGE_POLLS (1 << 25)
+  - MESSAGE_POLL_VOTE_ADD
+  - MESSAGE_POLL_VOTE_REMOVE
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) contains different data depending on which intents are used.
@@ -446,7 +454,7 @@ HTTP API restrictions are independent of Gateway restrictions, and are unaffecte
 
 `MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs.
 
-Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, and `components` fields in [message objects](#DOCS_RESOURCES_CHANNEL/message-object) all contain message content and therefore require the intent.
+Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, `components`, and `poll` fields in [message objects](#DOCS_RESOURCES_CHANNEL/message-object) all contain message content and therefore require the intent.
 
 > info
 > Like other privileged intents, `MESSAGE_CONTENT` must be approved for your app. After your app is verified, you can apply for the intent from your app's settings within the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
@@ -470,7 +478,7 @@ Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit
 
 When [establishing a connection](#DOCS_TOPICS_GATEWAY/connecting) to the Gateway, apps can use the `encoding` parameter to choose whether to communicate with Discord using a plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html) encoding. You can pick whichever encoding type you're more comfortable with, but both have their own quirks. If you aren't sure which encoding to use, JSON is generally recommended.
 
-Apps can also optionally enable compression to receive zlib-compressed packets. [Payload compression](#DOCS_TOPICS_GATEWAY/payload-compression) can only be enabled when using a JSON encoding, but [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) can be used regardless of encoding type.
+Apps can also optionally enable compression to receive zlib-compressed or zstd-compressed packets. [Payload compression](#DOCS_TOPICS_GATEWAY/payload-compression) can only be enabled when using a JSON encoding, but [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression) can be used regardless of encoding type.
 
 ### Using JSON Encoding
 
@@ -501,9 +509,11 @@ See [erlpack](https://github.com/discord/erlpack) for an ETF implementation exam
 
 ### Transport Compression
 
-Transport compression enables optional compression for all packets when Discord is sending events over the connection. The only currently-available transport compression option is `zlib-stream`.
+Transport compression enables optional compression for all packets when Discord is sending events over the connection. The currently-available transport compression options are `zlib-stream` and `zstd-stream`.
 
-When transport compression is enabled, your app needs to process received data through a single Gateway connection using a shared zlib context. However, each Gateway connection should use its own unique zlib context.
+#### zlib-stream
+
+When zlib transport compression is enabled, your app needs to process received data through a single Gateway connection using a shared zlib context. However, each Gateway connection should use its own unique zlib context.
 
 When processing transport-compressed data, you should push received data to a buffer until you receive the 4-byte `Z_SYNC_FLUSH` suffix (`00 00 ff ff`). After you receive the `Z_SYNC_FLUSH` suffix, you can then decompress the buffer.
 
@@ -535,6 +545,12 @@ def on_websocket_message(msg):
   # here you can treat `msg` as either JSON or ETF encoded,
   # depending on your `encoding` param
 ```
+
+#### zstd-stream
+
+When zstd-stream transport compression is enabled, all data needs to be processed through a zstd decompression context that stays alive for the lifetime of the gateway connection.
+
+When processing data, each websocket message corresponds to a single gateway message, but does not end a zstd frame. You will need to repeatedly call ZSTD_decompressStream until all data in the frame has been processed (ZSTD_decompressStream will not necessarily return 0, though). Take a look at this [Erlang](https://github.com/silviucpp/ezstd/blob/f3f33b2f6b917f7e8aaa2b4d71338620537df81b/src/ezstd.erl#L151-L169) + [C++](https://github.com/silviucpp/ezstd/blob/f3f33b2f6b917f7e8aaa2b4d71338620537df81b/c_src/ezstd_nif.cc#L520-L568) implementation for inspiration.
 
 ## Tracking State
 

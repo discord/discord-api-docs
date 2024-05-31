@@ -17,11 +17,60 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 | starts_at?     | ISO8601 timestamp | Start date at which the entitlement is valid. Not present when using test entitlements.     |
 | ends_at?       | ISO8601 timestamp | Date at which the entitlement is no longer valid. Not present when using test entitlements. |
 | guild_id?      | snowflake         | ID of the guild that is granted access to the entitlement's sku                             |
+| consumed?      | boolean           | For consumable items, whether or not the entitlement has been consumed                      |
 
 ###### Entitlement Example
 
 ```json
 {
+  "id": "1019653849998299136",
+  "sku_id": "1019475255913222144",
+  "application_id": "1019370614521200640",
+  "user_id": "771129655544643584",
+  "promotion_id": null,
+  "type": 8,
+  "deleted": false,
+  "gift_code_flags": 0,
+  "consumed": false,
+  "starts_at": "2022-09-14T17:00:18.704163+00:00",
+  "ends_at": "2022-10-14T17:00:18.704163+00:00",
+  "guild_id": "1015034326372454400",
+  "subscription_id": "1019653835926409216"
+}
+```
+
+###### Entitlement Types
+
+| Type                     | Value | Description                                                    |
+|--------------------------|-------|----------------------------------------------------------------|
+| PURCHASE                 | 1     | Entitlement was purchased by user                              |
+| PREMIUM_SUBSCRIPTION     | 2     | Entitlement for Discord Nitro subscription                     |
+| DEVELOPER_GIFT           | 3     | Entitlement was gifted by developer                            |
+| TEST_MODE_PURCHASE       | 4     | Entitlement was purchased by a dev in application test mode    |
+| FREE_PURCHASE            | 5     | Entitlement was granted when the SKU was free                  |
+| USER_GIFT                | 6     | Entitlement was gifted by another user                         |
+| PREMIUM_PURCHASE         | 7     | Entitlement was claimed by user for free as a Nitro Subscriber |
+| APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription               |
+
+## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
+
+Returns all entitlements for a given app, active and expired.
+
+###### Query String Params
+
+| param          | type                                             | description                                          |
+|----------------|--------------------------------------------------|------------------------------------------------------|
+| user_id?       | snowflake                                        | User ID to look up entitlements for                  |
+| sku_ids?       | comma-delimited set of snowflakes                | Optional list of SKU IDs to check entitlements for   |
+| before?        | snowflake                                        | Retrieve entitlements before this entitlement ID     |
+| after?         | snowflake                                        | Retrieve entitlements after this entitlement ID      |
+| limit?         | integer                                          | Number of entitlements to return, 1-100, default 100 |
+| guild_id?      | snowflake                                        | Guild ID to look up entitlements for                 |
+| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not ended entitlements should be omitted  |
+
+```json
+[
+  {
     "id": "1019653849998299136",
     "sku_id": "1019475255913222144",
     "application_id": "1019370614521200640",
@@ -35,50 +84,15 @@ Entitlements in Discord represent that a user or guild has access to a premium o
     "ends_at": "2022-10-14T17:00:18.704163+00:00",
     "guild_id": "1015034326372454400",
     "subscription_id": "1019653835926409216"
-}
-```
-
-###### Entitlement Types
-
-| Type                     | Value | Description                                      |
-|--------------------------|-------|--------------------------------------------------|
-| APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription |
-
-## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
-
-Returns all entitlements for a given app, active and expired.
-
-###### Query Params
-
-| param          | type                              | description                                          |
-|----------------|-----------------------------------|------------------------------------------------------|
-| user_id?       | snowflake                         | User ID to look up entitlements for                  |
-| sku_ids?       | comma-delimited set of snowflakes | Optional list of SKU IDs to check entitlements for   |
-| before?        | snowflake                         | Retrieve entitlements before this entitlement ID     |
-| after?         | snowflake                         | Retrieve entitlements after this entitlement ID      |
-| limit?         | integer                           | Number of entitlements to return, 1-100, default 100 |
-| guild_id?      | snowflake                         | Guild ID to look up entitlements for                 |
-| exclude_ended? | boolean                           | Whether or not ended entitlements should be omitted  |
-
-```json
-[
-    {
-        "id": "1019653849998299136",
-        "sku_id": "1019475255913222144",
-        "application_id": "1019370614521200640",
-        "user_id": "771129655544643584",
-        "promotion_id": null,
-        "type": 8,
-        "deleted": false,
-        "gift_code_flags": 0,
-        "consumed": false,
-        "starts_at": "2022-09-14T17:00:18.704163+00:00",
-        "ends_at": "2022-10-14T17:00:18.704163+00:00",
-        "guild_id": "1015034326372454400",
-        "subscription_id": "1019653835926409216"
-    }
+  }
 ]
 ```
+
+## Consume an Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}/consume
+
+For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements).
+
+Returns a `204 No Content` on success.
 
 ## Create Test Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
 
@@ -98,9 +112,9 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 
 ```json
 {
-    "sku_id": "999184799365857331",
-    "owner_id": "847184799365857999",
-    "owner_type": 1
+  "sku_id": "999184799365857331",
+  "owner_id": "847184799365857999",
+  "owner_type": 1
 }
 ```
 
@@ -122,18 +136,18 @@ Fires when a user subscribes to a SKU. Contains an entitlement object.
 
 ```json
 {
-    "id": "1083167266843000832",
-    "sku_id": "1083142056391606272",
-    "application_id": "1083108937882013696",
-    "user_id": "1072239583707664384",
-    "promotion_id": null,
-    "type": 8,
-    "deleted": false,
-    "gift_code_flags": 0,
-    "consumed": false,
-    "starts_at": "2023-03-08T23:19:58.010876+00:00",
-    "ends_at": "2023-04-08T23:19:58.010876+00:00",
-    "subscription_id": "1083167255652597760"
+  "id": "1083167266843000832",
+  "sku_id": "1083142056391606272",
+  "application_id": "1083108937882013696",
+  "user_id": "1072239583707664384",
+  "promotion_id": null,
+  "type": 8,
+  "deleted": false,
+  "gift_code_flags": 0,
+  "consumed": false,
+  "starts_at": "2023-03-08T23:19:58.010876+00:00",
+  "ends_at": "2023-04-08T23:19:58.010876+00:00",
+  "subscription_id": "1083167255652597760"
 }
 ```
 
@@ -151,8 +165,8 @@ If a user's subscription is cancelled, you will _not_ receive an `ENTITLEMENT_DE
 
 Fires when a user's entitlement is deleted. Entitlement deletions are infrequent, and occur when:
 
--   Discord issues a refund for a subscription
--   Discord removes an entitlement from a user via internal tooling
+- Discord issues a refund for a subscription
+- Discord removes an entitlement from a user via internal tooling
 
 Entitlements are _not_ deleted when they expire.
 
@@ -170,8 +184,8 @@ This response will create an ephemeral message shown to the user that ran the in
 
 ```js
 return res.send({
-    type: InteractionResponseType.PREMIUM_REQUIRED, // This has a value of 10
-    data: {},
+  type: InteractionResponseType.PREMIUM_REQUIRED, // This has a value of 10
+  data: {},
 });
 ```
 

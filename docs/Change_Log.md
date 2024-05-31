@@ -1,5 +1,38 @@
 # Change Log
 
+## Premium Apps: One-Time Purchases and Store
+
+#### April 24, 2024
+
+Two new features are now available for Premium Apps: One-Time Purchases and Stores.
+
+**One-Time Purchases**
+
+- **Durable Items**: A one-time purchase that is permanent and is not subject to either renewal or consumption, such as lifetime access to an app's premium features.
+- **Consumable Items**: A one-time, non-renewable purchase that provides access, such as a temporary power-up or boost in a game.
+
+Learn more about implementing [One-Time Purchases](#DOCS_MONETIZATION_ONE-TIME_PURCHASES).
+
+**A Store for Your Premium App**
+
+We have also introduced a Store for your Premium App to showcase your app subscriptions and one-time purchase items. You can now create a unique Store page within the developer portal and add your published subscription SKUs or one-time purchase SKUs to your store view, allowing your users to buy these items from your App Directory or Bot User Profile.
+
+To explore these features, eligibility details, and how to enable monetization for your app, check out the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW).
+
+**API Documentation Updates**
+
+The following were added to our public Monetization documentation with this update:
+
+- New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) 
+- New [Entitlement Object Types](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types)
+- [Consume an Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/consume-an-entitlement) API endpoint
+- `consumed` field on the [Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS) resource
+
+## Modify Guild Member flags field permissions
+
+#### April 23, 2024
+Update permissions necessary to modify the `flags` field when calling the [Modify Guild Member](#DOCS_RESOURCES_GUILD/modify-guild-member) endpoint.
+
 ## CSV Export for Premium App Analytics
 
 #### April 2, 2024
@@ -587,7 +620,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 
 As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
-Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
+Any app that does not have the message content intent configured in its app's settings within the Developer Portal will receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
 #### If your app is verified
 

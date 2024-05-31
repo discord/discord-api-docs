@@ -146,7 +146,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowfl
 
 ### Convert Snowflake to DateTime
 
-![Graphical representation of how a Snowflake is constructed](snowflake.png)
+<Snowflake />
 
 ### Snowflake IDs in Pagination
 
@@ -253,19 +253,19 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure           | Example                       |
-|-------------------------|---------------------|-------------------------------|
-| User                    | <@USER_ID>          | <@80351110224678912>          |
-| User \*                 | <@!USER_ID>         | <@!80351110224678912>         |
-| Channel                 | <#CHANNEL_ID>       | <#103735883630395392>         |
-| Role                    | <@&ROLE_ID>         | <@&165511591545143296>        |
-| Slash Command \*\*      | </NAME:COMMAND_ID>  | </airhorn:816437322781949972> |
-| Standard Emoji          | Unicode Characters  | 💯                            |
-| Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>   |
-| Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104>  |
-| Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>                |
-| Unix Timestamp (Styled) | <t:TIMESTAMP:STYLE> | <t:1618953630:d>              |
-| Guild Navigation        | \<id:TYPE>          | \<id:customize>               |
+| Type                    | Structure             | Example                         |
+|-------------------------|-----------------------|---------------------------------|
+| User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
+| User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
+| Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
+| Role                    | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
+| Slash Command \*\*      | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
+| Standard Emoji          | Unicode Characters    | 🦶                              |
+| Custom Emoji            | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
+| Custom Emoji (Animated) | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
+| Unix Timestamp          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
+| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
+| Guild Navigation        | `<id:TYPE>`           | `<id:customize>`                |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
@@ -332,7 +332,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Default User Avatar         | embed/avatars/[index](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                                           | PNG                  |
 | User Avatar                 | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
 | Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
-| User Avatar Decoration      | avatar-decorations/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar_decoration](#DOCS_RESOURCES_USER/user-object).png                                                                                                                                     | PNG                  |
+| Avatar Decoration           | avatar-decoration-presets/[avatar_decoration_data_asset](#DOCS_RESOURCES_USER/avatar-decoration-data-object).png                                                                                                                                                  | PNG                  |
 | Application Icon            | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
 | Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
 | Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets).png                                                                                                           | PNG, JPEG, WebP      |
@@ -352,6 +352,9 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+
+> info
+> Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
 
 ## Image Data
 

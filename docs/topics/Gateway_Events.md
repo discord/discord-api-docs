@@ -339,6 +339,8 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
+| [Message Poll Vote Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-poll-vote-add)                                   | User voted on a poll                                                                                                                           |
+| [Message Poll Vote Remove](#DOCS_TOPICS_GATEWAY_EVENTS/message-poll-vote-remove)                             | User removed a vote on a poll                                                                                                                  |
 
 #### Hello
 
@@ -385,7 +387,7 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 #### Reconnect
 
-The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
+The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This can occur at any point in the gateway connection lifecycle, even before/in place of receiving a [Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello) event. A few seconds after the reconnect event is dispatched, the connection may be closed by the server.
 
 ###### Example Gateway Reconnect
 
@@ -606,7 +608,13 @@ Sent when a guild becomes or was already unavailable due to an outage, or when t
 
 #### Guild Audit Log Entry Create
 
-Sent when a guild audit log entry is created. The inner payload is an [Audit Log Entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) object. This event is only sent to bots with the `VIEW_AUDIT_LOG` permission.
+Sent when a guild audit log entry is created. The inner payload is an [Audit Log Entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) object with an extra `guild_id` key. This event is only sent to bots with the `VIEW_AUDIT_LOG` permission.
+
+###### Guild Audit Log Entry Create Event Extra Fields
+
+| Field    | Type      | Description     |
+|----------|-----------|-----------------|
+| guild_id | snowflake | ID of the guild |
 
 #### Guild Ban Add
 
@@ -711,6 +719,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | mute?                         | boolean                                           | Whether the user is muted in voice channels                                                                                                                                                                                          |
 | pending?                      | boolean                                           | Whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
 | communication_disabled_until? | ?ISO8601 timestamp                                | When the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
+| flags?                        | integer                                           | [Guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to 0                                                                                                           |
 
 #### Guild Members Chunk
 
@@ -802,7 +811,7 @@ Sent when a user has unsubscribed from a guild scheduled event.
 
 #### Integration Create
 
-Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with `user` omitted and an additional `guild_id` key:
 
 ###### Integration Create Event Additional Fields
 
@@ -812,7 +821,7 @@ Sent when an integration is created. The inner payload is an [integration](#DOCS
 
 #### Integration Update
 
-Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with `user` omitted and an additional `guild_id` key:
 
 ###### Integration Update Event Additional Fields
 
@@ -932,6 +941,9 @@ Sent when a user adds a reaction to a message.
 | member?            | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | Member who reacted if this happened in a guild                                             |
 | emoji              | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
 | message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
+| burst              | boolean                                                      | true if this is a super-reaction                                                           |
+| burst_colors?      | array of strings                                             | Colors used for super-reaction animation in "#rrggbb" format                               |
+| type               | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove
 
@@ -946,6 +958,8 @@ Sent when a user removes a reaction from a message.
 | message_id | snowflake                                                    | ID of the message                                                                          |
 | guild_id?  | snowflake                                                    | ID of the guild                                                                            |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
+| burst      | boolean                                                      | true if this was a super-reaction                                                          |
+| type       | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove All
 
@@ -1243,4 +1257,32 @@ Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. I
 
 Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
+### Polls
 
+#### Message Poll Vote Add
+
+Sent when a user votes on a poll. If the poll allows multiple selection, one event will be sent per answer.
+
+###### Message Poll Vote Add Fields
+
+| Field      | Type      | Description       |
+|------------|-----------|-------------------|
+| user_id    | snowflake | ID of the user    |
+| channel_id | snowflake | ID of the channel |
+| message_id | snowflake | ID of the message |
+| guild_id?  | snowflake | ID of the guild   |
+| answer_id  | integer   | ID of the answer  |
+
+#### Message Poll Vote Remove
+
+Sent when a user removes their vote on a poll. If the poll allows for multiple selections, one event will be sent per answer.
+
+###### Message Poll Vote Remove Fields
+
+| Field      | Type      | Description       |
+|------------|-----------|-------------------|
+| user_id    | snowflake | ID of the user    |
+| channel_id | snowflake | ID of the channel |
+| message_id | snowflake | ID of the message |
+| guild_id?  | snowflake | ID of the guild   |
+| answer_id  | integer   | ID of the answer  |

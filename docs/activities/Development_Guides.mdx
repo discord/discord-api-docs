@@ -606,9 +606,11 @@ All network traffic is routed through the Discord Proxy for various security rea
 
 Under the hood we utilize Cloudflare Workers, which brings some restrictions, outlined below.
 
-#### Supported Ports
+#### iframe Supported Ports
+When an activity's iframe makes a request (i.e. to https://&lt;app_id&gt;.discordsays.com), url port usage is limited to Cloudflare's list of supported ports as shown [here](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy).
 
-See the full list of supported ports for network traffic, as listed in [Cloudflare's Docs](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy).
+#### Url Mapping Target Supported Ports
+At this time, URL mapping targets do not support external url ports. This is a [known issue](https://developers.cloudflare.com/workers/platform/known-issues/#custom-ports) of Cloudflare workers.
 
 #### WebTransport
 
@@ -674,13 +676,12 @@ See the example below:
 
 
 ```javascript
-import {DiscordSDK} from '@discord/embedded-app-sdk';
-const discordSdk = new DiscordSDK(YOUR_APP_ID);
+import {patchUrlMappings} from '@discord/embedded-app-sdk';
 const isProd = process.env.NODE_ENV === 'production'; // Actual dev/prod env check may vary for you
 
 async function setupApp() {
   if (isProd) {
-    discordSdk.patchUrlMappings([{prefix: '/foo', target: 'foo.com'}]);
+    patchUrlMappings([{prefix: '/foo', target: 'foo.com'}]);
   }
   // start app initialization after this....
 }
@@ -768,7 +769,7 @@ let avatarSrc = '';
 if (user.avatar) {
   avatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
 } else {
-  const defaultAvatarIndex = Math.abs(Number(user.id) >> 22) % 6;
+  const defaultAvatarIndex = (BigInt(user.id) >> 22n) % 6n;
   avatarSrc = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`
 }
 
@@ -810,7 +811,7 @@ fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
     } else if (user.avatar) {
       guildAvatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     } else {
-      const defaultAvatarIndex = Math.abs(Number(user.id) >> 22) % 6;
+      const defaultAvatarIndex = (BigInt(user.id) >> 22n) % 6n;
       avatarSrc = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`;
     }
 
