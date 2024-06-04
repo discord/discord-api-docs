@@ -351,7 +351,11 @@ Represents a message sent in a channel within Discord.
 | STAGE_END                                    | 28    | true      |
 | STAGE_SPEAKER                                | 29    | true      |
 | STAGE_TOPIC                                  | 31    | true      |
-| GUILD_APPLICATION_PREMIUM_SUBSCRIPTION       | 32    | false     |
+| GUILD_APPLICATION_PREMIUM_SUBSCRIPTION       | 32    | true      |
+| GUILD_INCIDENT_ALERT_MODE_ENABLED            | 36    | true      |
+| GUILD_INCIDENT_ALERT_MODE_DISABLED           | 37    | true      |
+| GUILD_INCIDENT_REPORT_RAID                   | 38    | true      |
+| GUILD_INCIDENT_REPORT_FALSE_ALARM            | 39    | true      |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
