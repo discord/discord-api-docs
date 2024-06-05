@@ -87,6 +87,9 @@ These guides include suggested development practices, SDK commands, and user flo
   <Card title="Render Avatars and Names" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/render-avatars-and-names">
     Retrieve and render the usernames and avatars of users connected to your application.
   </Card>
+  <Card title="Preventing Unwanted Activity Sessions" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/preventing-unwanted-activity-sessions">
+    Validating activity sessions are via a Discord client before adding them to an instance's session.
+  </Card>
 </Container>
 
 ## Assets & Metadata
@@ -825,6 +828,29 @@ This example is being done entirely on the client, however, a more common patter
 - Store the user's access token on the application server
 - Retrieve the user's guild-specific avatar and nickname via the application's server
 - Serve all of the application's avatar/nicknames via the application's server
+
+---
+
+### Preventing unwanted activity sessions
+
+Activities are surfaced through iframes in the Discord app. The activity website itself is publicly reachable at `<application_id>.discordsays.com`. Activities will expect to be able to communicate with Discord's web or mobile client via the Discord SDK's RPC protocol. If a user loads the activity's website in a normal browser, the Discord RPC server will not be present, and the activity will likely fail in some way.
+
+It is theoretically possible for a malicious client to mock Discord's RPC protocol or load one activity website when launching another. Because the activity is loaded inside Discord, the RPC protocol is active, and the activity is none the wiser.
+
+To enable an activity to "lock down" activity access, we encourage utilizing the `activity instances` API, found at `discord.com/api/applications/<application_id>/instances/<channel_id>`. The route requires a Bot token of the application. It returns a list of active activity instances for the given application in the given channel (at the moment, the list will always either be of length 0 or length 1, as we do not allow multiple instances of the same activity). Here are two example responses:
+
+```javascript
+curl https://discord.com/api/applications/987654321987654321/instances/987654321987654321 -H 'Authorization: Bot <bot token>'
+{"instances": []}
+
+curl https://discord.com/api/applications/987654321987654321/instances/987654321987654321 -H 'Authorization: Bot <bot token>'
+{"instances": [{"application_id": "987654321987654321", "channel_id": "987654321987654321", "users": ["987654321987654321"], "instance_id": "abcdabcd-1234-5678-9012-123456781234"}]}
+```
+
+With this API, the activity's backend can verify that a client is in fact in an instance of that activity, in a specific channel, before allowing the client to participate in any meaningful gameplay. How an activity implement's "session verification" is up to them. The solution can be as granular as gating specific features or as binary as not returning the activity HTML except for valid sessions.
+
+In the below flow diagram, we show how server can deliver the activity website, only for valid users in a valid activity session
+![application-test-mode-prod](activities/activity-instance-validation.jpg)
 
 ---
 
