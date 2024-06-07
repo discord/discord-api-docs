@@ -23,7 +23,7 @@ To create a new app that belongs to a team, select the team from the **Team** dr
 
 ![Screenshot of the create application modal with a Team selected](create-team-owned-app.png)
 
-### Transfering an App
+### Transferring an App
 
 To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's **General Information** page, click "Transfer App to Team".
 
@@ -40,7 +40,7 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 
 | Role Name | Value     | Description                                                                                                                                                                                                                                                                                                                                       |
 |-----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Owner\*   |           | Owners are the most permissiable role, and can take destructive, irreversible actions like deleting team-owned apps or the team itself. Teams are limited to 1 owner.                                                                                                                                                                             |
+| Owner\*   |           | Owners are the most permissible role, and can take destructive, irreversible actions like deleting team-owned apps or the team itself. Teams are limited to 1 owner.                                                                                                                                                                              |
 | Admin     | admin     | Admins have similar access as owners, except they cannot take destructive actions on the team or team-owned apps.                                                                                                                                                                                                                                 |
 | Developer | developer | Developers can access information about team-owned apps, like the client secret or public key. They can also take limited actions on team-owned apps, like configuring interaction endpoints or resetting the bot token. Members with the Developer role *cannot* manage the team or its members, or take destructive actions on team-owned apps. |
 | Read-only | read_only | Read-only members can access information about a team and any team-owned apps. Some examples include getting the IDs of applications and exporting payout records. Members can also invite bots associated with team-owned apps that are marked private.                                                                                          |
