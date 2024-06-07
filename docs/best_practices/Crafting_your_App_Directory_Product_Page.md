@@ -68,6 +68,7 @@ Your app’s support server is a paramount part of your App Product Page. It’s
 > If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331-Enabling-Server-Discovery), be sure to include an invite link in the "links" section of your App Directory Product Page.
 
 Some ways you can successfully use your support server includes:
+
 - Encourage users to share feedback or their experience with your app.
 - Offer technical support for users of your app.
 - Share app updates in your support server and update your App’s Product Page description if it changes the functionality of your app.

@@ -153,10 +153,10 @@ Details about heartbeats are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 
 ###### Example Heartbeat
 
-```
+```json
 {
-	"op": 1,
-	"d": 251
+  "op": 1,
+  "d": 251
 }
 ```
 
@@ -459,7 +459,6 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 | matched_keyword          | ?string                                                                                        | Word or phrase configured in the rule that triggered the rule                  |
 | matched_content ***      | ?string                                                                                        | Substring in content that triggered the rule                                   |
 
-
 \* `message_id` will not exist if message was blocked by [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) or content was not part of any message
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
@@ -485,6 +484,7 @@ Sent when a channel relevant to the current user is deleted. The inner payload i
 #### Thread Create
 
 Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+
 - When a thread is created, includes an additional `newly_created` boolean field.
 - When being added to an existing private thread, includes a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
 
@@ -568,14 +568,15 @@ Sent when an entitlement is deleted. The inner payload is an [entitlement](#DOCS
 
 This event can be sent in three different scenarios:
 
-1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) event.
-2.  When a Guild becomes available again to the client.
-3.  When the current user joins a new Guild.
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) event.
+2. When a Guild becomes available again to the client.
+3. When the current user joins a new Guild.
 
 > note
 > During an outage, the guild object in scenarios 1 and 3 may be marked as unavailable.
 
 The inner payload can be:
+
 - An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as noted below.
 - An unavailable Guild: an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object.
 
@@ -1109,17 +1110,17 @@ To use an external image via media proxy, specify the URL as the field's value w
 
 ###### Activity Flags
 
-| Name                        | Value  |
-|-----------------------------|--------|
-| INSTANCE                    | 1 << 0 |
-| JOIN                        | 1 << 1 |
-| SPECTATE                    | 1 << 2 |
-| JOIN_REQUEST                | 1 << 3 |
-| SYNC                        | 1 << 4 |
-| PLAY                        | 1 << 5 |
-| PARTY_PRIVACY_FRIENDS       | 1 << 6 |
-| PARTY_PRIVACY_VOICE_CHANNEL | 1 << 7 |
-| EMBEDDED                    | 1 << 8 |
+| Name                        | Value    |
+|-----------------------------|----------|
+| INSTANCE                    | `1 << 0` |
+| JOIN                        | `1 << 1` |
+| SPECTATE                    | `1 << 2` |
+| JOIN_REQUEST                | `1 << 3` |
+| SYNC                        | `1 << 4` |
+| PLAY                        | `1 << 5` |
+| PARTY_PRIVACY_FRIENDS       | `1 << 6` |
+| PARTY_PRIVACY_VOICE_CHANNEL | `1 << 7` |
+| EMBEDDED                    | `1 << 8` |
 
 ###### Activity Buttons
 

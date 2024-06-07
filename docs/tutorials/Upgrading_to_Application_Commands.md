@@ -47,6 +47,7 @@ Commands can be registered via HTTP requests after an app is authorized with the
 > There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
 
 The API endpoint to register (or create) commands is different depending on its scope:
+
 - **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation. 
 - **[Guild commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-guild-command)** are only available in the servers you explicitly add them to via the API, making them useful for features available only to a subset of guilds. They can be created using the [`/applications/{YOUR APP ID}/guilds/{A GUILD ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
 
@@ -74,7 +75,7 @@ If your app currently relies on permissioning, using command permissions can be 
 
 Below is a sample payload to create a global slash command with an optional parameter:
 
-```
+```json
 {
     "name": "rock",
     "type": 1,
@@ -166,7 +167,7 @@ Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel
 
 Below is an example payload your app would receive when a user invoked a global command with an option:
 
-```
+```json
 {
     "type": 2,
     "token": "A_UNIQUE_TOKEN",
@@ -241,6 +242,7 @@ Options are great for short input, but if you need user input that’s longer th
 ### Scoping a Command
 
 Commands can optionally be [scoped to specific guilds](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command), rather than available everywhere your app is installed. Guild commands can be useful when your app has functionality that may not be relevant to all servers like:
+
 - When a command is in development
 - When a specific command is opt-in or opt-out
 - When specific commands are behind a paywall

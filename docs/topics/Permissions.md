@@ -244,9 +244,9 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 
 ###### Role Flags
 
-| Flag      | Value  | Description                                                                                              |
-|-----------|--------|----------------------------------------------------------------------------------------------------------|
-| IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
+| Flag      | Value    | Description                                                                                              |
+|-----------|----------|----------------------------------------------------------------------------------------------------------|
+| IN_PROMPT | `1 << 0` | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 

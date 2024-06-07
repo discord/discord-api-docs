@@ -1,6 +1,6 @@
 # Embedded App SDK Reference
 
-> preview 
+> preview
 > Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
 
 The Embedded App SDK handles making RPC calls between your application and Discord. It is designed to assist developers in developing interactive Activities like games.
@@ -325,7 +325,7 @@ await discordSdk.commands.getChannelPermissions();
 
 ### getEntitlements()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -374,7 +374,7 @@ await discordSdk.commands.getPlatformBehaviors();
 
 ### getSkus()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -546,7 +546,7 @@ await discordSdk.commands.setOrientationLockState({
 
 ### startPurchase()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -822,5 +822,5 @@ No scopes required
 
 ### ENTITLEMENT_CREATE
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview

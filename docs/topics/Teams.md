@@ -47,7 +47,6 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 
 \* The owner role is not represented in the `role` field on the [team member object](#DOCS_TOPICS_TEAMS/data-models-team-member-object). Instead, the `owner_user_id` field  on the [team object](#DOCS_TOPICS_TEAMS/data-models-team-object) should be used to identify which user has the owner role for the team.
 
-
 ## Data Models
 
 ###### Team Object
@@ -68,7 +67,6 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 | team_id          | snowflake                                               | ID of the parent team of which they are a member                                            |
 | user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | Avatar, discriminator, ID, and username of the user                                         |
 | role             | string                                                  | [Role](#DOCS_TOPICS_TEAMS/team-member-roles-team-member-role-types) of the team member      |
-
 
 ###### Membership State Enum
 

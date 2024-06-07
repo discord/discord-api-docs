@@ -32,7 +32,7 @@ Apps need approval from installing users to perform actions inside of Discord. S
 - Click on `OAuth2` in the left sidebar, then `URL generator`
 - Check the `bot` scope
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
- 
+
 > info
 > See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
 
