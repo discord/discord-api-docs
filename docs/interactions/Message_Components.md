@@ -106,7 +106,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 - Non-link and Non-premium buttons **must** have a `custom_id`, and cannot have a `url` or a `sku_id`.
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
 - Link buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
-- Premium buttons **must** have a `sku_id`, and cannot have a `custom_id` or a `label`.
+- Premium buttons **must** contain a `sku_id`, and cannot have a `custom_id`, `label`, `url`, or `emoji`.
 - Premium buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
 
 ###### Button Styles
@@ -123,6 +123,40 @@ Buttons come in a variety of styles to convey different types of actions. These 
 ![An image showing the different button styles](button-styles.png)
 
 When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) including the message the button was on:
+
+### Button Design Guidelines
+
+###### General Button copy
+
+- 34 characters max with icon or emoji
+- 38 characters max without icon or emoji
+- Keep text concise and to the point.
+- Use clear and easily understandable language. Avoid jargon or overly technical terms.
+- Use verbs that indicate the outcome of the action.
+- Maintain consistency in language and tone across buttons.
+- Anticipate the need for translation, test for expansion or contraction in different languages.
+
+###### Multiple Buttons
+
+Use different button styles to create a hierarchy. Use only one `Primary` button per group.
+
+![Example showing one primary button per button group](multiple-buttons-example-1.png)
+
+If there are multiple buttons of equal significance, use the `Secondary` button style for all buttons
+
+![Example showing multiple buttons in a group with equal significance](multiple-buttons-example-2.png)
+
+###### Premium Buttons
+
+Premium buttons will automatically have:
+
+- Shop Icon
+- Blurple Background
+- SKU name
+- SKU price
+- 34 character max for this button. Longer titles will be truncated
+
+![A premium button](premium-button.png)
 
 ### Component Interaction Object
 

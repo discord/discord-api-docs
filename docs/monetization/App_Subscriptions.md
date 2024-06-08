@@ -57,6 +57,8 @@ return new JsonResponse({
 });
 ```
 
+![A premium button](premium-button.png)
+
 #### Type 10 Interaction Response
 
 > warn
