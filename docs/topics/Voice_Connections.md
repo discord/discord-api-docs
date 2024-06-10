@@ -212,11 +212,11 @@ Speaking updates are used to update the **speaking modes** used by the client. T
 
 The following flags can be used as a bitwise mask. For example `5` would be priority and voice. The speaking mode should not be 0 to allow sending audio.
 
-| Flag       | Meaning                                                        | Value  |
-|------------|----------------------------------------------------------------|--------|
-| Microphone | Normal transmission of voice audio                             | 1 << 0 |
-| Soundshare | Transmission of context audio for video, no speaking indicator | 1 << 1 |
-| Priority   | Priority speaker, lowering audio of other speakers             | 1 << 2 |
+| Flag       | Meaning                                                        | Value    |
+|------------|----------------------------------------------------------------|----------|
+| Microphone | Normal transmission of voice audio                             | `1 << 0` |
+| Soundshare | Transmission of context audio for video, no speaking indicator | `1 << 1` |
+| Priority   | Priority speaker, lowering audio of other speakers             | `1 << 2` |
 
 ###### Example Speaking Payload
 
@@ -282,4 +282,3 @@ Generally routers on the Internet mask or obfuscate UDP ports through a process 
 | SSRC    | Unsigned integer                                               | 4 bytes  |
 | Address | Null-terminated string in response                             | 64 bytes |
 | Port    | Unsigned short                                                 | 2 bytes  |
-

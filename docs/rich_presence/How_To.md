@@ -22,12 +22,12 @@ We worked hard to make using Discord's Rich Presence system as easy as possible.
 
 In the header file, you'll find six event-emitting callbacks:
 
-1.  `ready()`
-2.  `errored()`
-3.  `disconnected()`
-4.  `joinGame()`
-5.  `spectateGame()`
-6.  `joinRequest()`
+1. `ready()`
+2. `errored()`
+3. `disconnected()`
+4. `joinGame()`
+5. `spectateGame()`
+6. `joinRequest()`
 
 These six callbacks make up the entirety of what you need to implement. Behind the scenes, we do all the heavy lifting for you.
 

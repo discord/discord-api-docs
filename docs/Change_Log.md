@@ -132,8 +132,8 @@ Previously, only the first 25 embed fields would be displayed within the embed b
 
 To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
 
-* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
-* `CREATE_EVENTS`: `1 << 44`
+- `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+- `CREATE_EVENTS`: `1 << 44`
 
 These allow for creating new expressions and events, as well as editing and deleting those created by the current user.  
 
