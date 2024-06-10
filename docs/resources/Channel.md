@@ -334,10 +334,10 @@ Represents a message sent in a channel within Discord.
 | GUILD_BOOST_TIER_2                           | 10    | true      |
 | GUILD_BOOST_TIER_3                           | 11    | true      |
 | CHANNEL_FOLLOW_ADD                           | 12    | true      |
-| GUILD_DISCOVERY_DISQUALIFIED                 | 14    | false     |
-| GUILD_DISCOVERY_REQUALIFIED                  | 15    | false     |
-| GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING | 16    | false     |
-| GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   | 17    | false     |
+| GUILD_DISCOVERY_DISQUALIFIED                 | 14    | true      |
+| GUILD_DISCOVERY_REQUALIFIED                  | 15    | true      |
+| GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING | 16    | true      |
+| GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   | 17    | true      |
 | THREAD_CREATED                               | 18    | true      |
 | REPLY                                        | 19    | true      |
 | CHAT_INPUT_COMMAND                           | 20    | true      |
@@ -356,6 +356,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_INCIDENT_ALERT_MODE_DISABLED           | 37    | true      |
 | GUILD_INCIDENT_REPORT_RAID                   | 38    | true      |
 | GUILD_INCIDENT_REPORT_FALSE_ALARM            | 39    | true      |
+| PURCHASE_NOTIFICATION                        | 44    | true      |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
