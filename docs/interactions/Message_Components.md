@@ -128,8 +128,8 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 
 ###### General Button copy
 
-- 34 characters max with icon or emoji
-- 38 characters max without icon or emoji
+- 34 characters max with icon or emoji.
+- 38 characters max without icon or emoji.
 - Keep text concise and to the point.
 - Use clear and easily understandable language. Avoid jargon or overly technical terms.
 - Use verbs that indicate the outcome of the action.
