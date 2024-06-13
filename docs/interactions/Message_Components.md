@@ -118,7 +118,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 | Success   | 3     | green                    | `custom_id`    |
 | Danger    | 4     | red                      | `custom_id`    |
 | Link      | 5     | grey, navigates to a URL | `url`          |
-| Premium   | 6     | gradient                 | `sku_id`       |
+| Premium   | 6     | blurple                  | `sku_id`       |
 
 ![An image showing the different button styles](button-styles.png)
 
