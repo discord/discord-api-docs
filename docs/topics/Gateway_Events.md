@@ -153,10 +153,10 @@ Details about heartbeats are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 
 ###### Example Heartbeat
 
-```
+```json
 {
-	"op": 1,
-	"d": 251
+  "op": 1,
+  "d": 251
 }
 ```
 
@@ -387,7 +387,7 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 #### Reconnect
 
-The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
+The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This can occur at any point in the gateway connection lifecycle, even before/in place of receiving a [Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello) event. A few seconds after the reconnect event is dispatched, the connection may be closed by the server.
 
 ###### Example Gateway Reconnect
 
@@ -459,7 +459,6 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 | matched_keyword          | ?string                                                                                        | Word or phrase configured in the rule that triggered the rule                  |
 | matched_content ***      | ?string                                                                                        | Substring in content that triggered the rule                                   |
 
-
 \* `message_id` will not exist if message was blocked by [Auto Moderation](#DOCS_RESOURCES_AUTO_MODERATION) or content was not part of any message
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
@@ -485,6 +484,7 @@ Sent when a channel relevant to the current user is deleted. The inner payload i
 #### Thread Create
 
 Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+
 - When a thread is created, includes an additional `newly_created` boolean field.
 - When being added to an existing private thread, includes a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
 
@@ -568,14 +568,15 @@ Sent when an entitlement is deleted. The inner payload is an [entitlement](#DOCS
 
 This event can be sent in three different scenarios:
 
-1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) event.
-2.  When a Guild becomes available again to the client.
-3.  When the current user joins a new Guild.
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) event.
+2. When a Guild becomes available again to the client.
+3. When the current user joins a new Guild.
 
 > note
 > During an outage, the guild object in scenarios 1 and 3 may be marked as unavailable.
 
 The inner payload can be:
+
 - An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as noted below.
 - An unavailable Guild: an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object.
 
@@ -706,20 +707,21 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field                         | Type                                              | Description                                                                                                                                                                                                                          |
-|-------------------------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| guild_id                      | snowflake                                         | ID of the guild                                                                                                                                                                                                                      |
-| roles                         | array of snowflakes                               | User role ids                                                                                                                                                                                                                        |
-| user                          | a [user](#DOCS_RESOURCES_USER/user-object) object | User                                                                                                                                                                                                                                 |
-| nick?                         | ?string                                           | Nickname of the user in the guild                                                                                                                                                                                                    |
-| avatar                        | ?string                                           | Member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                       |
-| joined_at                     | ?ISO8601 timestamp                                | When the user joined the guild                                                                                                                                                                                                       |
-| premium_since?                | ?ISO8601 timestamp                                | When the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                             |
-| deaf?                         | boolean                                           | Whether the user is deafened in voice channels                                                                                                                                                                                       |
-| mute?                         | boolean                                           | Whether the user is muted in voice channels                                                                                                                                                                                          |
-| pending?                      | boolean                                           | Whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
-| communication_disabled_until? | ?ISO8601 timestamp                                | When the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
-| flags?                        | integer                                           | [Guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to 0                                                                                                           |
+| Field                         | Type                                                                          | Description                                                                                                                                                                                                                          |
+|-------------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id                      | snowflake                                                                     | ID of the guild                                                                                                                                                                                                                      |
+| roles                         | array of snowflakes                                                           | User role ids                                                                                                                                                                                                                        |
+| user                          | a [user](#DOCS_RESOURCES_USER/user-object) object                             | User                                                                                                                                                                                                                                 |
+| nick?                         | ?string                                                                       | Nickname of the user in the guild                                                                                                                                                                                                    |
+| avatar                        | ?string                                                                       | Member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                       |
+| joined_at                     | ?ISO8601 timestamp                                                            | When the user joined the guild                                                                                                                                                                                                       |
+| premium_since?                | ?ISO8601 timestamp                                                            | When the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                             |
+| deaf?                         | boolean                                                                       | Whether the user is deafened in voice channels                                                                                                                                                                                       |
+| mute?                         | boolean                                                                       | Whether the user is muted in voice channels                                                                                                                                                                                          |
+| pending?                      | boolean                                                                       | Whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
+| communication_disabled_until? | ?ISO8601 timestamp                                                            | When the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
+| flags?                        | integer                                                                       | [Guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to 0                                                                                                           |
+| avatar_decoration_data?       | ?[avatar decoration data](#DOCS_RESOURCES_USER/avatar-decoration-data-object) | Data for the member's guild avatar decoration                                                                                                                                                                                        |
 
 #### Guild Members Chunk
 
@@ -1109,17 +1111,17 @@ To use an external image via media proxy, specify the URL as the field's value w
 
 ###### Activity Flags
 
-| Name                        | Value  |
-|-----------------------------|--------|
-| INSTANCE                    | 1 << 0 |
-| JOIN                        | 1 << 1 |
-| SPECTATE                    | 1 << 2 |
-| JOIN_REQUEST                | 1 << 3 |
-| SYNC                        | 1 << 4 |
-| PLAY                        | 1 << 5 |
-| PARTY_PRIVACY_FRIENDS       | 1 << 6 |
-| PARTY_PRIVACY_VOICE_CHANNEL | 1 << 7 |
-| EMBEDDED                    | 1 << 8 |
+| Name                        | Value    |
+|-----------------------------|----------|
+| INSTANCE                    | `1 << 0` |
+| JOIN                        | `1 << 1` |
+| SPECTATE                    | `1 << 2` |
+| JOIN_REQUEST                | `1 << 3` |
+| SYNC                        | `1 << 4` |
+| PLAY                        | `1 << 5` |
+| PARTY_PRIVACY_FRIENDS       | `1 << 6` |
+| PARTY_PRIVACY_VOICE_CHANNEL | `1 << 7` |
+| EMBEDDED                    | `1 << 8` |
 
 ###### Activity Buttons
 

@@ -122,7 +122,7 @@ IP addresses that make too many invalid HTTP requests are automatically and temp
 All applications should make reasonable attempts to avoid making invalid requests. For example:	
 
 - **401** responses are avoided by providing a valid token in the authorization header when required and by stopping further requests after a token becomes invalid	
-- **403** responses are avoided by inspecting role or channel permissions and by not making requests that are restricted by such permissions	
+- **403** responses are avoided by inspecting role or channel permissions and by not making requests that are restricted by such permissions
 - **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset. *429 errors returned with `X-RateLimit-Scope: shared` are not counted against you.*
 
 Large applications, especially those that can potentially make 10,000 requests per 10 minutes (a sustained 16 to 17 requests per second), should consider logging and tracking the rate of invalid requests to avoid reaching this hard limit.

@@ -111,14 +111,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### System Channel Flags
 
-| Flag                                                     | Value  | Description                                                   |
-|----------------------------------------------------------|--------|---------------------------------------------------------------|
-| SUPPRESS_JOIN_NOTIFICATIONS                              | 1 << 0 | Suppress member join notifications                            |
-| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | 1 << 1 | Suppress server boost notifications                           |
-| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | 1 << 2 | Suppress server setup tips                                    |
-| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | 1 << 3 | Hide member join sticker reply buttons                        |
-| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | 1 << 4 | Suppress role subscription purchase and renewal notifications |
-| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | 1 << 5 | Hide role subscription sticker reply buttons                  |
+| Flag                                                     | Value    | Description                                                   |
+|----------------------------------------------------------|----------|---------------------------------------------------------------|
+| SUPPRESS_JOIN_NOTIFICATIONS                              | `1 << 0` | Suppress member join notifications                            |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | `1 << 1` | Suppress server boost notifications                           |
+| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | `1 << 2` | Suppress server setup tips                                    |
+| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | `1 << 3` | Hide member join sticker reply buttons                        |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | `1 << 4` | Suppress role subscription purchase and renewal notifications |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | `1 << 5` | Hide role subscription sticker reply buttons                  |
 
 ###### Guild Features
 
@@ -380,12 +380,12 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Flags
 
-| Flag                  | Value  | Description                                           | Editable |
-|-----------------------|--------|-------------------------------------------------------|----------|
-| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild                | false    |
-| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                       | false    |
-| BYPASSES_VERIFICATION | 1 << 2 | Member is exempt from guild verification requirements | true     |
-| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                         | false    |
+| Flag                  | Value    | Description                                           | Editable |
+|-----------------------|----------|-------------------------------------------------------|----------|
+| DID_REJOIN            | `1 << 0` | Member has left and rejoined the guild                | false    |
+| COMPLETED_ONBOARDING  | `1 << 1` | Member has completed onboarding                       | false    |
+| BYPASSES_VERIFICATION | `1 << 2` | Member is exempt from guild verification requirements | true     |
+| STARTED_ONBOARDING    | `1 << 3` | Member has started onboarding                         | false    |
 
 > info
 > BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
@@ -590,57 +590,57 @@ Defines the criteria used to satisfy Onboarding constraints that are required fo
 
 ```json
 {
-    "guild_id": "960007075288915998",
-    "prompts": [
+  "guild_id": "960007075288915998",
+  "prompts": [
+    {
+      "id": "1067461047608422473",
+      "title": "What do you want to do in this community?",
+      "options": [
         {
-            "id": "1067461047608422473",
-            "title": "What do you want to do in this community?",
-            "options": [
-                {
-                    "id": "1067461047608422476",
-                    "title": "Chat with Friends",
-                    "description": "",
-                    "emoji": {
-                        "id": "1070002302032826408",
-                        "name": "chat",
-                        "animated": false
-                    },
-                    "role_ids": [],
-                    "channel_ids": [
-                        "962007075288916001"
-                    ]
-                },
-                {
-                    "id": "1070004843541954678",
-                    "title": "Get Gud",
-                    "description": "We have excellent teachers!",
-                    "emoji": {
-                        "id": null,
-                        "name": "😀",
-                        "animated": false
-                    },
-                    "role_ids": [
-                        "982014491980083211"
-                    ],
-                    "channel_ids": []
-                }
-            ],
-            "single_select": false,
-            "required": false,
-            "in_onboarding": true,
-            "type": 0
+          "id": "1067461047608422476",
+          "title": "Chat with Friends",
+          "description": "",
+          "emoji": {
+            "id": "1070002302032826408",
+            "name": "chat",
+            "animated": false
+          },
+          "role_ids": [],
+          "channel_ids": [
+            "962007075288916001"
+          ]
+        },
+        {
+          "id": "1070004843541954678",
+          "title": "Get Gud",
+          "description": "We have excellent teachers!",
+          "emoji": {
+            "id": null,
+            "name": "😀",
+            "animated": false
+          },
+          "role_ids": [
+            "982014491980083211"
+          ],
+          "channel_ids": []
         }
-    ],
-    "default_channel_ids": [
-        "998678771706110023",
-        "998678693058719784",
-        "1070008122577518632",
-        "998678764340912138",
-        "998678704446263309",
-        "998678683592171602",
-        "998678699715067986"
-    ],
-    "enabled": true
+      ],
+      "single_select": false,
+      "required": false,
+      "in_onboarding": true,
+      "type": 0
+    }
+  ],
+  "default_channel_ids": [
+    "998678771706110023",
+    "998678693058719784",
+    "1070008122577518632",
+    "998678764340912138",
+    "998678704446263309",
+    "998678683592171602",
+    "998678699715067986"
+  ],
+  "enabled": true
 }
 ```
 

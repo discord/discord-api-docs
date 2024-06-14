@@ -2,7 +2,7 @@
 
 ## Premium Interactions
 
-#### May 16, 2024
+#### June 17, 2024
 
 **Premium Apps: New Premium Button Style**
 
@@ -15,6 +15,13 @@ Learn more about using [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons).
 The `PREMIUM_REQUIRED` interaction response type is now deprecated in favor of using custom premium buttons. This will continue to function but may be eventually unsupported. It is recommended to migrate your bots to use the premium buttons.
 
 Learn more about [Premium Interactions](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions).
+
+## Auto Moderation Member Profile Rule
+
+#### May 31, 2024
+
+- Add Auto Moderation `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This rule type will check if a member's profile contains disallowed keywords.
+- Add Auto Moderation `BLOCK_MEMBER_INTERACTION` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) currently available for the `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This action will "quarantine" the member to some extent and prevent them from performing most interactions within a specific server.
 
 ## Premium Apps: One-Time Purchases and Store
 
@@ -39,7 +46,7 @@ To explore these features, eligibility details, and how to enable monetization f
 
 The following were added to our public Monetization documentation with this update:
 
-- New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) 
+- New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)
 - New [Entitlement Object Types](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types)
 - [Consume an Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/consume-an-entitlement) API endpoint
 - `consumed` field on the [Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS) resource
@@ -53,7 +60,7 @@ Update permissions necessary to modify the `flags` field when calling the [Modif
 
 #### April 2, 2024
 
-For apps with [Monetization](#DOCS_MONETIZATION_OVERVIEW) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings. 
+For apps with [Monetization](#DOCS_MONETIZATION_OVERVIEW) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings.
 
 You can find the export at the bottom of the `Monetization → Analytics` tab of your app to export data points such as `sales_count`, `sales_amount`, `sales_currencies`, `cancellation_count`, `refund_amount`, and `refund_count`, aggregated by each of your offerings for the selected month.
 
@@ -76,7 +83,7 @@ This change introduces new concepts and fields across the API that apps will now
 - [Installation context](#DOCS_RESOURCES_APPLICATION/installation-context) defines how an app was installed: to a user, a guild (server), or both. Currently, apps will default to only support the guild installation context, but the default may change in the future.
 - Commands can also support one or both installation contexts, with the default being the same as the app's supported installation context(s) at the time of command creation.
 - [Interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) defines where a command can be used in Discord—within guilds, DM with your app's bot user, and/or within group DMs and DMs other than with your app's bot user.
-- The installation flow for apps have been updated so users can select whether they want to install an app to their account or to a server. 
+- The installation flow for apps have been updated so users can select whether they want to install an app to their account or to a server.
 
 **API Fields:**
 - New `integration_types_config` field for [Applications](#DOCS_RESOURCES_APPLICATION/application-object) include the default scopes and permissions for app's supported installation contexts
@@ -141,10 +148,10 @@ Previously, only the first 25 embed fields would be displayed within the embed b
 
 To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
 
-* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
-* `CREATE_EVENTS`: `1 << 44`
+- `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+- `CREATE_EVENTS`: `1 << 44`
 
-These allow for creating new expressions and events, as well as editing and deleting those created by the current user.  
+These allow for creating new expressions and events, as well as editing and deleting those created by the current user.
 
 > warn
 > These were rolled out in July 2023 to users and roles and have been added to our developer documentation but **are not yet available to app developers**. We will share an update here when these new permissions are available in your apps.
@@ -154,17 +161,17 @@ These allow for creating new expressions and events, as well as editing and dele
 
 #### What’s Happening?
 
-As outlined in [a blog post earlier this year](https://discord.com/blog/encryption-for-voice-and-video-on-discord), we are experimenting with end-to-end encryption (e2ee) for voice and video channels. 
+As outlined in [a blog post earlier this year](https://discord.com/blog/encryption-for-voice-and-video-on-discord), we are experimenting with end-to-end encryption (e2ee) for voice and video channels.
 
 End-to-end encryption is designed to only allow the participants in a call to decipher its contents. One of the protocols we’re experimenting with is called Messaging Layer Security, which we believe would allow us to deliver end-to-end encryption at scale. Intermediaries, including platforms like Discord, are unable to access the content of communications encrypted with end-to-end encryption.
 
 #### How do I prepare for the changes?
 
-During this testing phase, there is nothing developers need to do to support end-to-end encryption. Voice channels will automatically downgrade to documented, non-e2ee protocols when a bot user joins the channel. This is transparent to the connecting client but may result in a slight delay between establishing a connection and receiving audio. 
+During this testing phase, there is nothing developers need to do to support end-to-end encryption. Voice channels will automatically downgrade to documented, non-e2ee protocols when a bot user joins the channel. This is transparent to the connecting client but may result in a slight delay between establishing a connection and receiving audio.
 
 #### What is planned for the future?
 
-We will be continuing our testing and will share updates along with developer documentation and sample code once it is available. 
+We will be continuing our testing and will share updates along with developer documentation and sample code once it is available.
 
 Once this information is published, we will provide developers with a substantial timeframe to implement end-to-end encryption when interacting with voice and video.
 
@@ -188,7 +195,7 @@ Previously, some message edit interaction response actions would use the default
 ## Premium App Subscriptions Now Available in the EU and UK
 #### Oct 19, 2023
 
-Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription.
 
 > info
 > New features for Premium App Subscriptions are documented in the [App Subscriptions overview](#DOCS_MONETIZATION_OVERVIEW) and in [the changelog for the previous App Subscriptions release](#DOCS_CHANGE_LOG/premium-app-subscriptions-available-in-the-us).
@@ -198,7 +205,7 @@ To learn more about eligibility details and how to enable monetization for your 
 ## Global Rate Limit added to discordapp.com/*
 #### Oct 17, 2023
 
-We have added a global rate limit for API requests made to `discordapp.com/*` and may further restrict requests in the future. 
+We have added a global rate limit for API requests made to `discordapp.com/*` and may further restrict requests in the future.
 
 To limit impact on your app, please make sure you are making calls to `discord.com/*`.
 
@@ -212,7 +219,7 @@ Refer to the [API Reference](https://discord.com/developers/docs/reference) for 
 ## Premium App Subscriptions Available in the US
 #### Sep 26, 2023
 
-Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription.
 
 - Manage subscription SKUs in the Developer Portal
 - View monetization analytics in the Developer Portal
@@ -222,7 +229,7 @@ Starting today, eligible US-based developers can monetize their verified apps wi
   - [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) `GET /applications/<application.id>/entitlements`
   - [Create Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) `POST /applications/<application.id>/entitlements`
   - [Delete Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
-- [Gateway Events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE` 
+- [Gateway Events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE`
 - New [`PREMIUM_REQUIRED (10)` interaction response type](#DOCS_MONETIZATION_ENTITLEMENTS/premiumrequired-interaction-response) is available to prompt users to upgrade
 - New `entitlements` field, which is an array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/) objects, available in interaction data payloads when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure)
 
@@ -636,7 +643,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 
 As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
-Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
+Any app that does not have the message content intent configured in its app's settings within the Developer Portal will receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
 #### If your app is verified
 

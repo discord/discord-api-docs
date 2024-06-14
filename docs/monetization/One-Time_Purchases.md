@@ -8,8 +8,8 @@ Once you've confirmed eligibility for your app and team, you will be able to set
 
 When creating items for one-time purchase, you can choose between durable and consumable items:
 
--   **Durable Items**: A one-time purchase that is permanent and is not subject to either renewal or consumption, such as lifetime access to an app's premium features.
--   **Consumable Items**: A one-time, non-renewable purchase that provides access, such as a temporary power-up or boost in a game.
+- **Durable Items**: A one-time purchase that is permanent and is not subject to either renewal or consumption, such as lifetime access to an app's premium features.
+- **Consumable Items**: A one-time, non-renewable purchase that provides access, such as a temporary power-up or boost in a game.
 
 You can offer as many one-time purchase SKUs as needed by your app.
 
@@ -36,9 +36,9 @@ Once you have configured your SKU, you can publish the SKU to either just the AP
 
 When a user subscribes to your app, there are a few things you will need to implement in your code to check for subscription status and access.
 
--   Working with Entitlements
--   Handling Gateway Events for Entitlements
--   Handling Entitlements for Consumable SKUs
+- Working with Entitlements
+- Handling Gateway Events for Entitlements
+- Handling Entitlements for Consumable SKUs
 
 ### Keeping Track of Entitlements
 
@@ -74,11 +74,11 @@ While in Application Test Mode, you can freely make "purchases" of One-Time Purc
 
 To enable it, first make sure you have a payment method on file in User Settings -> Billing and then:
 
-1.  Open up the Discord app
-2.  Click on the Settings cog in the bottom left corner
-3.  Go to the `Advanced` page under App Settings
-4.  Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID. You can leave the other settings as-is.
-5.  Exit user settings
+1. Open up the Discord app
+2. Click on the Settings cog in the bottom left corner
+3. Go to the `Advanced` page under App Settings
+4. Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID. You can leave the other settings as-is.
+5. Exit user settings
 
 Once you enabled Application Test Mode successfully, you should now see an orange bar across the top of your screen with the name of your app.
 

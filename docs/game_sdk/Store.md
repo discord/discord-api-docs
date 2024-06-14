@@ -20,18 +20,18 @@ With this new Store Manager comes a new fun toggle in the Discord app itself: Ap
 
 To enable it, first make sure you have a payment method on file in User Settings -> Billing. Then:
 
-1.  Open up the Discord app
-2.  Click on the settings cog in the bottom left corner
-3.  Go to Appearance -> allll the way at the bottom
-4.  Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID
-5.  Exit user settings
+1. Open up the Discord app
+2. Click on the settings cog in the bottom left corner
+3. Go to Appearance -> allll the way at the bottom
+4. Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID
+5. Exit user settings
 
 You should now see an orange bar across the top of your screen; this means it worked! The dropdown in the orange bar will show you all the available SKUs for that application; you can select one of them to go to its store page. You can also view your Library and see all the branches of your game automagically there waiting for you!
 
 If for some reason the "Install" button is greyed out, please check the following:
 
-1.  Do you have a `LIVE_BUILD_ID` on that branch for this SKU? Check with `dispatch branch list <application_id>`.
-2.  Do you have a price tier set for this SKU? If not, pick one!
+1. Do you have a `LIVE_BUILD_ID` on that branch for this SKU? Check with `dispatch branch list <application_id>`.
+2. Do you have a price tier set for this SKU? If not, pick one!
 
 Once those two conditions are met, you should be good to go! Entitlements "purchased" with this mode enabled can be revoked with the `DELETE /entitlements` HTTP endpoint, documented below.
 
