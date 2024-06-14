@@ -6,7 +6,7 @@
 
 **Premium Apps: New Premium Button Style**
 
-This button is to be used with `sku_id` which points to an active SKU. This allows developers to customize their premium experience.
+Introducing a new `premium` [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) to be used with a `sku_id` which points to an active [SKU](#DOC_MONETIZATION_SKUS/sku-object). This allows developers to customize their premium experience.
 
 Learn more about using [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons).
 
