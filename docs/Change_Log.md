@@ -4,7 +4,7 @@
 
 #### May 16, 2024
 
-**Premium Apps: New Premium Style for MessageComponentType.BUTTON**
+**Premium Apps: New Premium Button Style**
 
 This button is to be used with `sku_id` which points to an active SKU. This allows developers to customize their premium experience.
 
