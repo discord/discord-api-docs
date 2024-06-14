@@ -36,30 +36,30 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ```json
 {
-    "code": 50035,
-    "errors": {
-        "activities": {
-            "0": {
-                "platform": {
-                    "_errors": [
-                        {
-                            "code": "BASE_TYPE_CHOICES",
-                            "message": "Value must be one of ('desktop', 'android', 'ios')."
-                        }
-                    ]
-                },
-                "type": {
-                    "_errors": [
-                        {
-                            "code": "BASE_TYPE_CHOICES",
-                            "message": "Value must be one of (0, 1, 2, 3, 4, 5)."
-                        }
-                    ]
-                }
+  "code": 50035,
+  "errors": {
+    "activities": {
+      "0": {
+        "platform": {
+          "_errors": [
+            {
+              "code": "BASE_TYPE_CHOICES",
+              "message": "Value must be one of ('desktop', 'android', 'ios')."
             }
+          ]
+        },
+        "type": {
+          "_errors": [
+            {
+              "code": "BASE_TYPE_CHOICES",
+              "message": "Value must be one of (0, 1, 2, 3, 4, 5)."
+            }
+          ]
         }
-    },
-    "message": "Invalid Form Body"
+      }
+    }
+  },
+  "message": "Invalid Form Body"
 }
 ```
 
@@ -67,18 +67,18 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ```json
 {
-    "code": 50035,
-    "errors": {
-        "access_token": {
-            "_errors": [
-                {
-                    "code": "BASE_TYPE_REQUIRED",
-                    "message": "This field is required"
-                }
-            ]
+  "code": 50035,
+  "errors": {
+    "access_token": {
+      "_errors": [
+        {
+          "code": "BASE_TYPE_REQUIRED",
+          "message": "This field is required"
         }
-    },
-    "message": "Invalid Form Body"
+      ]
+    }
+  },
+  "message": "Invalid Form Body"
 }
 ```
 
@@ -86,16 +86,16 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ```json
 {
-    "code": 50035,
-    "message": "Invalid Form Body",
-    "errors": {
-        "_errors": [
-            {
-                "code": "APPLICATION_COMMAND_TOO_LARGE",
-                "message": "Command exceeds maximum size (8000)"
-            }
-        ]
-    }
+  "code": 50035,
+  "message": "Invalid Form Body",
+  "errors": {
+    "_errors": [
+      {
+        "code": "APPLICATION_COMMAND_TOO_LARGE",
+        "message": "Command exceeds maximum size (8000)"
+      }
+    ]
+  }
 }
 ```
 
@@ -146,7 +146,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter-archive/snowfl
 
 ### Convert Snowflake to DateTime
 
-![Graphical representation of how a Snowflake is constructed](snowflake.png)
+<Snowflake />
 
 ### Snowflake IDs in Pagination
 
@@ -166,7 +166,7 @@ There are some cases in which our API and Gateway may return IDs in an unexpecte
 
 However, there are cases in which passing something to our API will instead return IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
 
-```
+```javascript
 // Send
 {
   op: 8,

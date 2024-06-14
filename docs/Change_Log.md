@@ -1,5 +1,12 @@
 # Change Log
 
+## Auto Moderation Member Profile Rule
+
+#### May 31, 2024
+
+- Add Auto Moderation `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This rule type will check if a member's profile contains disallowed keywords.
+- Add Auto Moderation `BLOCK_MEMBER_INTERACTION` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) currently available for the `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This action will "quarantine" the member to some extent and prevent them from performing most interactions within a specific server.
+
 ## Premium Apps: One-Time Purchases and Store
 
 #### April 24, 2024
@@ -125,8 +132,8 @@ Previously, only the first 25 embed fields would be displayed within the embed b
 
 To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
 
-* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
-* `CREATE_EVENTS`: `1 << 44`
+- `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+- `CREATE_EVENTS`: `1 << 44`
 
 These allow for creating new expressions and events, as well as editing and deleting those created by the current user.  
 
@@ -620,7 +627,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 
 As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
-Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
+Any app that does not have the message content intent configured in its app's settings within the Developer Portal will receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
 #### If your app is verified
 

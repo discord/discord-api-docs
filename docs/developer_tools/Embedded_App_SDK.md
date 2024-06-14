@@ -1,6 +1,6 @@
 # Embedded App SDK Reference
 
-> preview 
+> preview
 > Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
 
 The Embedded App SDK handles making RPC calls between your application and Discord. It is designed to assist developers in developing interactive Activities like games.
@@ -325,7 +325,7 @@ await discordSdk.commands.getChannelPermissions();
 
 ### getEntitlements()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -374,7 +374,7 @@ await discordSdk.commands.getPlatformBehaviors();
 
 ### getSkus()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -528,15 +528,17 @@ Locks the application to specific orientations in each of the supported layout m
 
 #### Required Scopes
 
-- guilds.members.read
+No scopes required
 
 #### Usage
 
 ```js
+import {Common} from '@discord/embedded-app-sdk';
+
 await discordSdk.commands.setOrientationLockState({ 
-  lock_state: 'landscape', 
-  picture_in_picture_lock_state: 'landscape', 
-  grid_lock_state: 'unlocked'
+  lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  picture_in_picture_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  grid_lock_state: Common.OrientationLockStateTypeObject.UNLOCKED
 });
 ```
 
@@ -544,7 +546,7 @@ await discordSdk.commands.setOrientationLockState({
 
 ### startPurchase()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -820,5 +822,5 @@ No scopes required
 
 ### ENTITLEMENT_CREATE
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview

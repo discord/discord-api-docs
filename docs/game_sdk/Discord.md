@@ -178,7 +178,7 @@ Returns a new `Discord`.
 
 ###### Example
 
-```
+```cpp
 // c++ land
 discord::Core* core{};
 discord::Core::Create(53908232506183680, DiscordCreateFlags_Default, &core);
@@ -210,7 +210,7 @@ discord.Dispose();
 
 Registers a logging callback function with the minimum level of message to receive. The callback function should have a signature of:
 
-```
+```cs
 MyCallbackFunction(LogLevel level, string message);
 ```
 
