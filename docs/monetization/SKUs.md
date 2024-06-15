@@ -53,7 +53,7 @@ For subscriptions, there are two types of access levels you can offer to users:
 - **Guild Subscriptions**: A subscription purchased by a user and applied to a single server. Everyone in that server gets your premium benefits.
 - **User Subscriptions**: A subscription purchased by a user for themselves. They get access to your premium benefits in every server.
 
-The `flags` field can be used to differentiate user and server subscriptions with a bitwise `&&` operator.
+The `flags` field can be used to differentiate user and server subscriptions with a bitwise `&` operator.
 
 | Type               | Value    | Description                                                                                                               |
 |--------------------|----------|---------------------------------------------------------------------------------------------------------------------------|
