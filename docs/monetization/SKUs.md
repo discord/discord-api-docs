@@ -112,6 +112,17 @@ From then on, we'll send you daily dashboard emails containing information about
 
 Congratulations on going live! 🥳
 
+## Linking to your SKUs
+
+You can link directly to a specific SKU using our Application Directory Store URL scheme:
+
+`https://discord.com/application-directory/:appID/store/:skuID`
+
+- When used in chat, it will render as a rich embed that allows users to launch a modal to view either the SKU details or checkout flow
+- When used as a direct URL in a browser, it will take the user to your product in the Application Directory on web
+
+![Embed for direct link to SKU](sku_embed.png)
+
 ## List SKUs % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/skus
 
 Returns all SKUs for a given application. 

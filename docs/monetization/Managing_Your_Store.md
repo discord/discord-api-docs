@@ -50,3 +50,14 @@ Currently, you can only have one active App Subscription SKU for your app. If yo
 As you build out your One-Time Purchase SKUs, you can add as many durable and consumable items to your Store as needed by your app.
 
 ![Items in your Store View](premium-items.png)
+
+## Linking To Your Store
+
+You can link directly to your Store using our Application Directory Store URL scheme:
+
+`https://discord.com/application-directory/:appID/store`
+
+- When used in chat, it will render as a rich embed that allows users to launch a modal to your Store
+- When used as a direct URL in a browser, it will take the user to your store in the Application Directory on web
+
+![Embed for direct link to Store](store_embed.png)
