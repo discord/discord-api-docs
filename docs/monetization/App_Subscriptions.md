@@ -36,6 +36,34 @@ When a user subscribes to your app, there are a few things you will need to impl
 
 ### Gating Premium Interactions
 
+Each interaction payload includes an `entitlements` field containing an array of full [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object). You can use this field to determine if the user or guild is subscribed to your app. If the user or guild is not subscribed and you wish to present them with a means to do so you can use a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` attached. You may also use these buttons to present users with options to make a [One-Time Purchase](#DOCS_MONETIZATION_ONE-TIME_PURCHASES).
+
+```javascript
+return new JsonResponse({
+    type: 4, // InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+    data: {
+        content: "This command requires Nelly Premium! Upgrade now to get access to these features!",
+        components: [{
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+                {
+                    type: MessageComponentTypes.BUTTON,
+                    style: 6, // ButtonStyleTypes.PREMIUM
+                    skuId: '1234965026943668316',
+                },
+            ],
+        }]
+    },
+});
+```
+
+![A premium button](premium-button.png)
+
+#### Type 10 Interaction Response
+
+> warn
+> `PREMIUM_REQUIRED` type 10 interaction response is deprecated. Please use `ButtonStyle.PREMIUM` to handle purchases.
+
 Interactions like [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) commonly respond to users with a message or modal response. If you'd like to make a command only available to users with a subscription, you can reply with a `PREMIUM_REQUIRED` interaction response `type: 10`. Users without a subscription will be prompted to upgrade when they attempt to use these commands.
 
 ```javascript
