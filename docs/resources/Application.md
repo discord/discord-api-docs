@@ -48,7 +48,6 @@
   "guild_id": "290926798626357260",
   "icon": null,
   "id": "172150183260323840",
-  "integration_types": [0, 1],
   "integration_types_config": {
     "0": {
       "oauth2_install_params": {
