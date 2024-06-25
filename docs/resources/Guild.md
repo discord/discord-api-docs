@@ -868,7 +868,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | bitrate\*                          | integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   | Voice, Stage                                   |
 | user_limit                         | integer                                                                        | the user limit of the voice channel                                                                                                                                             | Voice, Stage                                   |
 | rate_limit_per_user                | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text, Voice, Stage, Forum, Media               |
-| position                           | integer                                                                        | sorting position of the channel                                                                                                                                                 | All                                            |
+| position                           | integer                                                                        | sorting position of the channel (channels with the same position are sorted by id)                                                                                              | All                                            |
 | permission_overwrites\*\*          | array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             | All                                            |
 | parent_id                          | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         | Text, Voice, Announcement, Stage, Forum, Media |
 | nsfw                               | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, Voice, Announcement, Stage, Forum        |
@@ -896,12 +896,12 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field             | Type       | Description                                                                      |
-|-------------------|------------|----------------------------------------------------------------------------------|
-| id                | snowflake  | channel id                                                                       |
-| position?         | ?integer   | sorting position of the channel                                                  |
-| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
-| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                  |
+| Field             | Type       | Description                                                                        |
+|-------------------|------------|------------------------------------------------------------------------------------|
+| id                | snowflake  | channel id                                                                         |
+| position?         | ?integer   | sorting position of the channel (channels with the same position are sorted by id) |
+| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category   |
+| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                    |
 
 ## List Active Guild Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
 
@@ -1143,10 +1143,10 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field     | Type      | Description                  |
-|-----------|-----------|------------------------------|
-| id        | snowflake | role                         |
-| position? | ?integer  | sorting position of the role |
+| Field     | Type      | Description                                                                  |
+|-----------|-----------|------------------------------------------------------------------------------|
+| id        | snowflake | role                                                                         |
+| position? | ?integer  | sorting position of the role (roles with the same position are sorted by id) |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
