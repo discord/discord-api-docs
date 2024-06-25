@@ -811,6 +811,7 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 |----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | id             | snowflake | attachment id                                                                                                                                    |
 | filename       | string    | name of file attached                                                                                                                            |
+| title?         | string    | the title of the file                                                                                                                            |
 | description?   | string    | description for the file (max 1024 characters)                                                                                                   |
 | content_type?  | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                          |
 | size           | integer   | size of file in bytes                                                                                                                            |
