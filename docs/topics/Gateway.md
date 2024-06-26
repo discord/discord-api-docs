@@ -423,7 +423,7 @@ Some intents are defined as "privileged" due to the sensitive nature of the data
 
 Apps that qualify for verification **must** be approved for the privileged intent(s) before they can use them. After your app is verified, you can request privileged intents within the app's settings within the Developer Portal.
 
-Before you specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app requires. [Verified apps](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) can only use privileged intents *after* they've been approved for them.
+Before you specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app requires. [Verified apps](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) can only use privileged intents *after* they've been approved for them.
 
 > info
 > Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
@@ -434,7 +434,7 @@ In addition to the gateway restrictions described here, Discord's REST API is al
 
 Before using privileged intents, you must enable them in your app's settings. In the [Developer Portal](#APPLICATIONS), you can navigate to your app's settings then toggle the privileged intents on the **Bots** page under the "Privileged Gateway Intents" section. You should only toggle privileged intents that your bot *requires to function*.
 
-If your app qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your app](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your app is already verified and you need to request additional privileged intents, you can [contact support](https://dis.gd/support).
+If your app qualifies for [verification](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified), you must first [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) and request access to these intents during the verification process. If your app is already verified and you need to request additional privileged intents, you can [contact support](https://dis.gd/support).
 
 #### Gateway Restrictions
 
