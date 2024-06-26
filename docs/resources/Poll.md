@@ -35,7 +35,7 @@ The main difference is that the request has `duration` which eventually becomes 
 |-------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
 | question          | [Poll Media Object](#DOCS_RESOURCES_POLL/poll-media-object-poll-media-object-structure)             | The question of the poll. Only `text` is supported.                                      |
 | answers           | List of [Poll Answer Objects](#DOCS_RESOURCES_POLL/poll-answer-object-poll-answer-object-structure) | Each of the answers available in the poll, up to 10                                      |
-| duration          | integer                                                                                             | Number of hours the poll should be open for, up to 7 days                                |
+| duration          | integer                                                                                             | Number of hours the poll should be open for, up to 32 days                               |
 | allow_multiselect | boolean                                                                                             | Whether a user can select multiple answers                                               |
 | layout_type?      | integer                                                                                             | The [layout type](#DOCS_RESOURCES_POLL/layout-type) of the poll. Defaults to... DEFAULT! |
 
