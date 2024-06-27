@@ -167,11 +167,14 @@ You can update which installation contexts your app supports in your [app's sett
 
 ## Install Links
 
-Install links provide an easy way for users to install your app in Discord. If you have an install link configured, an "Add App" button will appear in your app's profile and App Directory page which guides the user through the installation flow.
+Install links provide an easy way for users to install your app in Discord. If you have an install link configured, an "Add App" button will appear in your app's profile and App Directory page which will guide the user through your app's installation flow.
 
 ### Types of Install Links
 
-There are three options when configuring an install link for your app: "Discord Provided Link", "Custom URL", and "None". If you don't configure an install link (by selecting "None"), the "Add App" button will not appear for your app, and your app will not be [eligible for the App Directory](#TODO).
+There are three options when configuring an install link for your app: "Discord Provided Link", "Custom URL", and "None". If you don't configure an install link (by selecting "None"), the "Add App" button will not appear for your app, and your app will not be eligible for the App Directory.
+
+> info
+> Note that install links are distinct from OAuth2 flows like the [authorization code grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant), which may additionally be required if you need to request user-specific [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) like `identify` or `role_connections.write`.
 
 #### Discord Provided Link
 
@@ -183,7 +186,7 @@ Discord Provided Links don't have scopes or bot user permissions defined in the 
 https://discord.com/oauth2/authorize?client_id=1234567895647001626
 ```
 
-Instead, these links will prompt the user for the scopes and bot user permissions configured in your Default Install Settings.
+Instead, these links will prompt the user for the scopes and bot user permissions configured on the in your Default Install Settings.
 
 > info
 > Discord Provided Links are limited to the `application.commands` and `bot` scopes
@@ -194,11 +197,11 @@ A Custom URL is an alternative to the Discord Provided Link that gives you more 
 
 A Custom URL doesn't have strict limitations, but is commonly an [OAuth2 `/authorize` URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) that has defined scopes, permissions, and an installation context (`integration_type`).
 
-### Configuring an Install Link
+### Configuring an Install Link and Default Install Settings
 
-You can configure your app's install link in your [app's settings](https://discord.com/developers/applications). On the **Installation** page, go to the **Install Link** section, and select which type of install link you want for your app.
+You can configure your app's install link in your [app's settings](https://discord.com/developers/applications). On the **Installation** page, go to the **Install Link** section, and select which type of install link you want for your app. For most apps, we recommend the Discord Provided Link.
 
-For most apps, we recommend defaulting to the Discord Provided Link.
+The Default Install Settings will appear on the **Installation** page when you have "Discord Provided Link" selected as your install link type.
 
 ## Get Current Application % GET /applications/@me
 
