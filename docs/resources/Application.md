@@ -186,7 +186,7 @@ Discord Provided Links don't have scopes or bot user permissions defined in the 
 https://discord.com/oauth2/authorize?client_id=1234567895647001626
 ```
 
-Instead, these links will prompt the user for the scopes and bot user permissions configured on the in your Default Install Settings.
+Instead, these links will prompt the user for the scopes and bot user permissions configured in your Default Install Settings.
 
 > info
 > Discord Provided Links are limited to the `application.commands` and `bot` scopes
