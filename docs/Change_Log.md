@@ -22,7 +22,7 @@ With this update, there are a few API and behavioral updates for user-installed 
 
 ###### New `Use External Apps` Permission
 
-A new [`USE_EXTERNAL_APPS` (`1 << 50`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) was added, and is disabled for servers by default. The new permission lets modmins control whether user-installed apps can post public replies in a server. If `Use External Apps` is disabled and your app is *not* installed to the server, your app’s responses will be ephemeral for the end user.
+A new [`USE_EXTERNAL_APPS` (`1 << 50`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) was added, and is enabled for servers by default. The new permission lets modmins control whether user-installed apps can post public replies in a server. If `Use External Apps` is disabled and your app is *not* installed to the server, your app’s responses will be ephemeral for the end user.
 
 Read more in the [Moderating Apps on Discord Help Center article](https://support.discord.com/hc/en-us/articles/23957313048343-Moderating-Apps-on-Discord#h_01HZQQQEADYVN2CM4AX4EZGKHM).
 
