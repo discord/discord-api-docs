@@ -18,6 +18,7 @@ With this update, there are a few API and behavioral updates for user-installed 
 - On [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure), the value of `authorizing_integration_owners` is now correctly serialized as a string. . Previously, the `"0"` value was incorrectly serialized as a number.
 - `app_permissions` on [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) now correctly represents the permissions for user-installed apps. Previously, the value was incorrect for user-installed apps.
 - Updating a message can result in a `400` response if the content of the message was blocked by AutoMod, which may be particularly important for [deferred messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction).
+- Interaction responses are no longer forced to be ephemeral for servers with over 25 members.
 
 ###### New `Use External Apps` Permission
 
