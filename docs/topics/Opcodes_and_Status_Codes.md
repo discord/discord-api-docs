@@ -264,6 +264,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 50086  | Community server channels must be text channels                                                                               |
 | 50091  | The entity type of the event is different from the entity you are trying to start the event for                               |
+| 40094  | This interaction has hit the maximum number of follow up messages                                                             |
 | 50095  | This server is not available in your location                                                                                 |
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
