@@ -29,6 +29,7 @@ Read more in the [Moderating Apps on Discord Help Center article](https://suppor
 
 - Newly-created apps now default to having both "User Install" *and* "Guild Install" [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) enabled. This can be updated in the **Installation** tab in an [app's settings](https://discord.com/developers/applications).
 - Newly-created apps now default to using the "Discord Provided Link" [install link](#DOCS_RESOURCES_APPLICATION/install-links). This can be updated in the **Installation** tab in an [app's settings](https://discord.com/developers/applications).
+- If Discord Provided Link is selected as the install link type, `application.commands` scope is added to both installation contexts.
 
 ## Premium Apps: New Premium Button Style & Deep Linking URL Schemes
 
