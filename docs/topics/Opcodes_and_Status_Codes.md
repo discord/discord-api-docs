@@ -204,6 +204,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
 | 40012  | Connection has been revoked                                                                                                   |
+| 40018  | Only consumable SKUs can be consumed                                                                                          |
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
