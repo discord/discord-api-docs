@@ -106,9 +106,6 @@ You can find the export at the bottom of the `Monetization → Analytics` tab of
 
 #### March 18, 2024
 
-> preview
-> User-installable apps are currently in preview. During the preview, there are major [limitations and known bugs](#DOCS_CHANGE_LOG/march-18-2024-limitations-and-known-issues), and API details are subject to change.
-
 Apps can now be installed to users—making them easier to install, discover, and access across Discord. User-installed apps can be used across all of a user's servers, within their (G)DMs, and in DMs with the app's bot user.
 
 When creating or updating your app, you can choose which installation types your app supports on the **Installation** page in your [app's settings](https://discord.com/developers/applications). To quickly get started, you can follow the new [Developing a User-Installable App tutorial](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP) or read details about the new changes below.
