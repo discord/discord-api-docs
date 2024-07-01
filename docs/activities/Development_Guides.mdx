@@ -227,11 +227,15 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 
 The aforementioned "sandbox" is enforced by a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). We have some notable exceptions to our CSP, meaning application clients may make requests to these URLs without hitting the proxy and therefore without establishing mappings. Notable exceptions include:
 
-- `https://discord.com`
-- `https://canary.discord.com`
-- `https://ptb.discord.com`
-- `https://cdn.discordapp.com`
-- `https://media.discordapp.net`
+- `https://discord.com/api/`
+- `https://canary.discord.com/api/`
+- `https://ptb.discord.com/api/`
+- `https://cdn.discordapp.com/attachments/`
+- `https://cdn.discordapp.com/avatars/`
+- `https://cdn.discordapp.com/icons/`
+- `https://media.discordapp.net/attachments/`
+- `https://media.discordapp.net/avatars/`
+- `https://media.discordapp.net/icons/`
 
 ---
 
