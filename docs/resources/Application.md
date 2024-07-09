@@ -232,3 +232,31 @@ Edit properties of the app associated with the requesting bot user. Only propert
 \* Only limited intent flags (`GATEWAY_PRESENCE_LIMITED`, `GATEWAY_GUILD_MEMBERS_LIMITED`, and `GATEWAY_MESSAGE_CONTENT_LIMITED`) can be updated via the API.
 
 \*\* To update an Interactions endpoint URL via the API, the URL must be valid according to the [Receiving an Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) documentation.
+
+## Get Application Activity Instance % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/activity-instance/{instance_id}
+
+###### Query String Params
+
+| Field                       | Type               | Description                                      |
+|-----------------------------|--------------------|--------------------------------------------------|
+| channel_id?                 | snowflake          | the id of the channel the instance is running in |
+
+Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/preventing-unwanted-activity-sessions).
+
+
+###### Example Activity Instance
+
+```json
+{
+  "application_id": "937798149664288788",
+  "instance_id": "987654321987654321",
+  "launch_id": "987654321987654321",
+  "location": {
+    "id": "gc-912952092627435520-912954213460484116",
+    "kind": "gc",
+    "channel_id": "912954213460484116",
+    "guild_id": "912952092627435520",
+  },
+  "users": ["205519959982473217"],
+}
+```
