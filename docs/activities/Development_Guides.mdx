@@ -847,9 +847,9 @@ curl https://discord.com/api/applications/987654321987654321/instances/987654321
 {"application_id":"937798149664288788","instance_id":"987654321987654321","launch_id":"987654321987654321","location":{"id":"gc-912952092627435520-912954213460484116","kind":"gc","channel_id":"912954213460484116","guild_id":"912952092627435520"},"users":["205519959982473217"]}
 ```
 
-With this API, the activity's backend can verify that a client is in fact in an instance of that activity before allowing the client to participate in any meaningful gameplay. How an activity implement's "session verification" is up to them. The solution can be as granular as gating specific features or as binary as not returning the activity HTML except for valid sessions.
+With this API, the activity's backend can verify that a client is in fact in an instance of that activity before allowing the client to participate in any meaningful gameplay. How an activity implements "session verification" is left to the developer's discretion. The solution can be as granular as gating specific features or as binary as not returning the activity HTML except for valid sessions.
 
-In the below flow diagram, we show how server can deliver the activity website, only for valid users in a valid activity session
+In the below flow diagram, we show how the server can deliver the activity website, only for valid users in a valid activity instance:
 ![application-test-mode-prod](activities/activity-instance-validation.jpg)
 
 ---
