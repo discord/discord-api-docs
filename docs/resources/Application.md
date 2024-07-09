@@ -243,6 +243,9 @@ Edit properties of the app associated with the requesting bot user. Only propert
 
 Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/preventing-unwanted-activity-sessions).
 
+> warn
+> The `channel_id` query param is currently **required** for instances taking place within guild channels, but will be unnecessary and deprecated in the future.
+
 
 ###### Example Activity Instance
 
