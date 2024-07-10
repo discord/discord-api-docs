@@ -18,7 +18,7 @@ our CSP will be updated as follows:
 - Only allowed paths on `cdn.discordapp.com` and `media.discordapp.com` will be permitted such as `/attachments/`, `/icons/`, and `/avatars`/ .
 - nested child iframes must also mount paths prepended by `/.proxy/`
 
-As of **[TODO INSERT SDK VERSION]** we have updated `patchUrlMappings` to automatically route requests through `/.proxy/`, so updating your SDK version is a good first step.
+As of [embedded-app-sdk 1.4.0](https://github.com/discord/embedded-app-sdk/releases/tag/v1.4.0) we have updated `patchUrlMappings` to automatically route requests through `/.proxy/`, so updating your SDK version is a good first step.
 
 ## User-Installed Apps General Availability
 
