@@ -15,7 +15,7 @@ our CSP will be updated as follows:
 
 - all requests must be made through `https://<application_id>.discordsays.com/.proxy/`, and requests to other paths on the `discordsays.com` domain will be blocked.
 - requests to `https://discord.com/api/` will be permitted, but other paths on the `discord.com` domain will be blocked.
-- Only allowed paths on `cdn.discordapp.com` and `media.discordapp.com` will be permitted such as `/attachments/`, `/icons/`, and `/avatars`/ .
+- Only allowed paths on `cdn.discordapp.com` and `media.discordapp.com` will be permitted such as `/attachments/`, `/icons/`, and `/avatars/`.
 - nested child iframes must also mount paths prepended by `/.proxy/`
 
 As of [embedded-app-sdk 1.4.0](https://github.com/discord/embedded-app-sdk/releases/tag/v1.4.0) we have updated `patchUrlMappings` to automatically route requests through `/.proxy/`, so updating your SDK version is a good first step.
