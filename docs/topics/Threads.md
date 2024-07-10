@@ -59,7 +59,7 @@ Because of this constraint, the gateway protocol is designed to ensure that bots
 
 Threads do not count against the max-channels limit in a guild, but there is a limit on the maximum number of active threads in a guild.
 
-Threads automatically archive after a period of inactivity (as a server approaches the max thread limit this timer will automatically lower, but never below the `auto_archive_duration`). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
+Threads automatically archive after a period of inactivity. As a server approaches the max thread limit this timer will automatically lower, usually not below the `auto_archive_duration`. In very busy channels, threads set to a 7 day auto archive may archive earlier to help avoid the server becoming "full"). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
 
 ## Permissions
 
