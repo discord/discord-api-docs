@@ -126,3 +126,39 @@ Delete the given emoji. For emojis created by the current user, requires either 
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
+
+## List Application Emojis % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis
+
+Returns a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given application. Includes `user` fields.
+
+## Get Application Emoji % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
+
+Returns an [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object for the given application and emoji IDs. Includes the `user` field.
+
+## Create Application Emoji % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis
+
+Create a new emoji for the application. Returns the new [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object on success.
+
+> warn
+> Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json).
+
+###### JSON Params
+
+| Field | Type                                     | Description             |
+|-------|------------------------------------------|-------------------------|
+| name  | string                                   | name of the emoji       |
+| image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image |
+
+## Modify Application Emoji % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
+
+Modify the given emoji. Returns the updated [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object on success.
+
+###### JSON Params
+
+| Field | Type   | Description       |
+|-------|--------|-------------------|
+| name  | string | name of the emoji |
+
+## Delete Application Emoji % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
+
+Delete the given emoji. Returns `204 No Content` on success.
