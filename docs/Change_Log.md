@@ -9,7 +9,7 @@
 
 This change will be rolled out on **[TODO CUTOVER DATE TBD]**.
 
-We will be updating our Content Security Policy (CSP) for the Activities Domain (`https://<application_id>.discordsays.com`) to be more restrictive. This represents a **breaking change** for **all Activities**, and as such we have a migration plan in order.
+We will be updating our Content Security Policy (CSP) for the Activities Domain (`https://<application_id>.discordsays.com`). This represents a **breaking change** for **all Activities**, and as such we have a migration plan in order.
 
 our CSP will be updated as follows:
 
