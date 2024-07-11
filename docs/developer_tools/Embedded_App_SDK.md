@@ -249,14 +249,12 @@ No scopes required
 #### Level Parameter
 
 `captureLog` requires a `level` parameter which matches the javascript [console](https://developer.mozilla.org/en-US/docs/Web/API/console) log levels.
-
-| Level   | Effect                                      |
-|---------|---------------------------------------------|
-| `debug` | logs the message with the debug log level   |
-| `log`   | logs the message                            |
-| `info`  | logs the message with the info log level    |
-| `warn`  | logs the message with the warning log level |
-| `error` | logs the message with the error log level   |
+The supported values for `level` are:
+- `debug`
+- `log`
+- `info`
+- `warn`
+- `error`
 
 #### Usage
 
