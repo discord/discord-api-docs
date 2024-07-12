@@ -1,5 +1,43 @@
 # Change Log
 
+## Message Forwarding rollout
+
+#### July 15, 2024
+
+We are slowly rolling out the message forwarding feature to users. This feature allows callers to create a message using `message_reference.type = FORWARD` and have the API generate a `message_snapshot` for the sent message. The feature some limitations (see documentation) and the snapshot is a minimial version of a standard `MessageObject`, but does capture the core parts of a message.
+
+The resulting message will look something like:
+```json
+{
+  "id": 1234,
+  "message_reference": {
+    "type": 1, // Forward
+    ...
+  }
+  "message_snapshots": [
+    {
+      "message": {
+        "content": "original message",
+        "embeds": [...],
+        "attachments": [...],
+        ...
+      }
+    }
+  ],
+  ...
+}
+```
+
+We have applied stricter rate limits for this feature based on (intentionally omitting values since they might change as needed):
+- number of forwards sent
+- total attachment size
+
+###### API Updates since preview
+
+This was [previously announced](https://canary.discord.com/channels/613425648685547541/1233463756160503859) and has since had a slight API changes depeneding on when you last read/used the api:
+- `message_snapshot.guild` is not returned anymore
+- `message_reference` is now populated with `type == FORWARD`
+
 ## User-Installed Apps General Availability
 
 #### June 27, 2024
