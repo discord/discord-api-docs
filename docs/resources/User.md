@@ -144,6 +144,7 @@ The connection object that the user has attached.
 | playstation     | PlayStation Network |
 | reddit          | Reddit              |
 | riotgames       | Riot Games          |
+| roblox          | Roblox              |
 | spotify         | Spotify             |
 | skype *         | Skype               |
 | steam           | Steam               |
