@@ -2,12 +2,12 @@
 
 ## Activities Proxy CSP Update
 
-### TODO DATE TBD
+### July 17, 2024
 
 > danger
 > This entry includes breaking changes
 
-This change will be rolled out to all existing applications on **[TODO CUTOVER DATE TBD]**.
+This change will be rolled out to all existing applications on **August 28, 2024**.
 
 We will be updating our Content Security Policy (CSP) for the Activities Domain (`https://<application_id>.discordsays.com`). This represents a **breaking change** for **all Activities**, and as such we have a migration plan in order.
 
