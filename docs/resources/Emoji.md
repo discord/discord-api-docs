@@ -129,7 +129,29 @@ Delete the given emoji. For emojis created by the current user, requires either 
 
 ## List Application Emojis % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis
 
-Returns a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given application. Includes `user` fields.
+Returns an object containing a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given application under the `items` key. Includes `user` fields.
+
+```json
+{
+  "items": [
+    {
+      "id": "41771983429993937",
+      "name": "LUL",
+      "roles": [],
+      "user": {
+        "username": "Luigi",
+        "discriminator": "0002",
+        "id": "96008815106887111",
+        "avatar": "5500909a3274e1812beb4e8de6631111",
+        "public_flags": 131328
+      },
+      "require_colons": true,
+      "managed": false,
+      "animated": false
+    }
+  ]
+}
+```
 
 ## Get Application Emoji % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
