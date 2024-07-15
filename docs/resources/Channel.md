@@ -291,7 +291,7 @@ Represents a message sent in a channel within Discord.
 | application_id?           | snowflake                                                                                                                                 | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application                                                                                                                        |
 | flags?                    | integer                                                                                                                                   | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                 |
 | message_reference?        | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-structure) object                                                           | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
-| message_snapshots? \[5\]  | array of [message snapshot](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects                                                      | the message associated with the message_reference. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                         |
+| message_snapshots? \[5\]  | array of [message snapshot](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects                                                      | the message associated with the `message_reference`. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                       |
 | referenced_message? \[4\] | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                 | the message associated with the message_reference                                                                                                                                                                                                                       |
 | interaction_metadata?     | [message interaction metadata object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object-message-interaction-metadata-structure) | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). Sent if the message is sent as a result of an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                  |
 | interaction?              | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure)        | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                                  |
@@ -535,7 +535,7 @@ Information about the call in a private channel.
 \* If `type` is unset, `DEFAULT` can be assumed in order to match the behaviour before message reference had types.
 In future API versions this will become a required field.
 
-\*\* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model.
+\*\* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model. Reqruired for forwards.
 
 #### Message Reference Types
 
@@ -575,10 +575,10 @@ There are multiple message types that have a `message_reference` object.
 - These are messages which capture a snapshot of a message.
 - These messages have an array of [`message_snapshots`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) field containing a copy of the original message. This copy follows the same structure as a message, but has only the minimal set of fields returned required for context/rendering.
   - of note: `author` will be excluded
-- A forwarded message can be identified by looking at it's `message_reference.type` field
+- A forwarded message can be identified by looking at its `message_reference.type` field
   - `message_snapshots` will be the message data associated with the forward. Currently we support only 1 snapshot.
   - prevents spoofing forwarded data
-  - `message_snapshots` are taken at moment the forward message is created, and are **immutable**; any mutations to the orignal message will not be propagated.
+  - `message_snapshots` are taken the moment a forward message is created, and are **immutable**; any mutations to the original message will not be propagated.
 - Forwards are created by including a message_reference with `FORWARD` type when sending a message.
   - Required fields: `type`, `message_id`, `channel_id`
   - the requestor must have `VIEW_CHANNEL` permissions
@@ -624,9 +624,7 @@ The encoding, and the waveform details, are an implementation detail and may cha
 | message\* | [message] | subset of fields in the [message object](#DOCS_RESOURCES_CHANNEL/message-object) |
 
 \* The current list of message fields subset consists of:
-'type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`.
-
-\*\* This contains only the `id` for the guild. May hold additional fields in future apis.
+`type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`.
 
 > info
 > While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
@@ -1122,7 +1120,7 @@ If operating on a guild channel, this endpoint requires the current user to have
 Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
 To create a message as a reply or forward of another message, apps can include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-structure).
-Refer to the documentation of for required fields.
+Refer to the documentation for required fields.
 
 Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 
