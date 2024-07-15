@@ -209,9 +209,10 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "id": "80351110224678912",
   "name": "1337 Krew",
   "icon": "8342729096ea3675442027381ff50dfe",
+  "banner": "bb42bdc37653b7cf58c4c8cc622e76cb",
   "owner": true,
   "permissions": "36953089",
-  "features": ["COMMUNITY", "NEWS"],
+  "features": ["COMMUNITY", "NEWS", "ANIMATED_ICON", "INVITE_SPLASH", "BANNER", "ROLE_ICONS"],
   "approximate_member_count": 3268,
   "approximate_presence_count": 784
 }
