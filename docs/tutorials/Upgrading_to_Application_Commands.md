@@ -41,12 +41,13 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 
 ## Registering Commands
 
-Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. 
+Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. The `applications.commands` scope is also automatically included when an app requests the `bot` scope.
 
 > info
 > There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
 
 The API endpoint to register (or create) commands is different depending on its scope:
+
 - **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation. 
 - **[Guild commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-guild-command)** are only available in the servers you explicitly add them to via the API, making them useful for features available only to a subset of guilds. They can be created using the [`/applications/{YOUR APP ID}/guilds/{A GUILD ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
 
@@ -74,7 +75,7 @@ If your app currently relies on permissioning, using command permissions can be 
 
 Below is a sample payload to create a global slash command with an optional parameter:
 
-```
+```json
 {
     "name": "rock",
     "type": 1,
@@ -126,7 +127,7 @@ Permissions for specific roles, users, and channels can be updated by your app i
 Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
 
 > warn
-> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components`. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
+> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components` while `poll` will be omitted. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
@@ -140,7 +141,7 @@ Before your app can receive interactions, you’ll need to set up an **Interacti
 However, before adding your URL to your app settings, your endpoint must be set up to handle two things:
 
 1. **Responding to `PING` events**: When you save a URL in your settings, Discord will send a `POST` request with `type: 1`. To acknowledge this request (and thus verify your endpoint), you should return a `200` response with a payload containing `type: 1`. More information can be found in the [Receiving an Interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
-2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/security-and-authorization).
+2. **Verifying request signatures**: To ensure that requests are coming from Discord, your endpoint must verify each request using the included headers, specifically `X-Signature-Ed25519` and `X-Signature-Timestamp`. If the signature fails validating, your app should return a `401` response. More information and example code can be found in the [Security and Authorization documentation](#DOCS_INTERACTIONS_OVERVIEW/setting-up-an-endpoint-validating-security-request-headers).
 
 > info
 > Many libraries on the [Community Resources page](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
@@ -166,7 +167,7 @@ Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel
 
 Below is an example payload your app would receive when a user invoked a global command with an option:
 
-```
+```json
 {
     "type": 2,
     "token": "A_UNIQUE_TOKEN",
@@ -241,6 +242,7 @@ Options are great for short input, but if you need user input that’s longer th
 ### Scoping a Command
 
 Commands can optionally be [scoped to specific guilds](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command), rather than available everywhere your app is installed. Guild commands can be useful when your app has functionality that may not be relevant to all servers like:
+
 - When a command is in development
 - When a specific command is opt-in or opt-out
 - When specific commands are behind a paywall

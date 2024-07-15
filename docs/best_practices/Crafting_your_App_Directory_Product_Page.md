@@ -3,7 +3,7 @@
 So you’ve made an app on Discord and are ready to opt in to discovery on the App Directory! Or maybe you have already listed your app but aren’t seeing as much traction to it as you’d like? Whatever stage you’re at, this guide has some tips and tricks from your friendly Discord Staff members to help boost performance of your App Directory Product Page.
 
 > info
-> This guide references settings and information you can set up and modify within your [app's settings](https://discord.com/developers/applications). If you don't have an app yet, you can follow the [Getting Started guide](#DOCS_GETTING_STARTED).
+> This guide references settings and information you can set up and modify within your [app's settings](https://discord.com/developers/applications). If you don't have an app yet, you can follow the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED).
 
 ## The Elevator Pitch: Quickly tell your users what your app does
 
@@ -68,6 +68,7 @@ Your app’s support server is a paramount part of your App Product Page. It’s
 > If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331-Enabling-Server-Discovery), be sure to include an invite link in the "links" section of your App Directory Product Page.
 
 Some ways you can successfully use your support server includes:
+
 - Encourage users to share feedback or their experience with your app.
 - Offer technical support for users of your app.
 - Share app updates in your support server and update your App’s Product Page description if it changes the functionality of your app.

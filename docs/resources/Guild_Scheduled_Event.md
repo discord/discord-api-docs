@@ -108,9 +108,9 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 
 ###### Query String Params
 
-| Field            | Type    | Description                                      |
-|------------------|---------|--------------------------------------------------|
-| with_user_count? | boolean | include number of users subscribed to each event |
+| Field            | Type                                             | Description                                      |
+|------------------|--------------------------------------------------|--------------------------------------------------|
+| with_user_count? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include number of users subscribed to each event |
 
 ## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
@@ -146,9 +146,9 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 
 ###### Query String Params
 
-| Field            | Type    | Description                                      |
-|------------------|---------|--------------------------------------------------|
-| with_user_count? | boolean | include number of users subscribed to this event |
+| Field            | Type                                             | Description                                      |
+|------------------|--------------------------------------------------|--------------------------------------------------|
+| with_user_count? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include number of users subscribed to this event |
 
 ## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
@@ -194,12 +194,12 @@ Get a list of guild scheduled event users subscribed to a guild scheduled event.
 
 ###### Query String Params
 
-| Field        | Type      | Description                                   | Default |
-|--------------|-----------|-----------------------------------------------|---------|
-| limit?       | number    | number of users to return (up to maximum 100) | 100     |
-| with_member? | boolean   | include guild member data if it exists        | false   |
-| before? *    | snowflake | consider only users before given user id      | null    |
-| after? *     | snowflake | consider only users after given user id       | null    |
+| Field        | Type                                             | Description                                   | Default |
+|--------------|--------------------------------------------------|-----------------------------------------------|---------|
+| limit?       | number                                           | number of users to return (up to maximum 100) | 100     |
+| with_member? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include guild member data if it exists        | false   |
+| before? *    | snowflake                                        | consider only users before given user id      | null    |
+| after? *     | snowflake                                        | consider only users after given user id       | null    |
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user_id`. If both `before` and `after` are provided, only `before` is respected. Fetching users in-between `before` and `after` is not supported.
 
@@ -236,38 +236,60 @@ NOTE: `entity_type` is expressed by name rather than value for readability
 > A user must be a member of the guild in order to access events for that guild unless the guild is lurkable. If a guild is lurkable,
 > events in that guild may be visible to lurkers depending on the event type and the permissions of any channels associated with the event.
 
-### Permissions to create an event with entity_type: STAGE_INSTANCE
+### Permissions for events with entity_type: STAGE_INSTANCE
 
-#### Write Permissions (CREATE / UPDATE)
+The computed permissions for the user in the `channel_id` associated with the event must include:
 
-- `MANAGE_EVENTS` at the guild level or at least `MANAGE_EVENTS` for the `channel_id` associated with the event
+#### Get Permissions
+
+- `VIEW_CHANNEL`
+
+#### Create Permissions
+
+- `CREATE_EVENTS`
 - `MANAGE_CHANNELS`
 - `MUTE_MEMBERS`
 - `MOVE_MEMBERS`
 
-#### Read Permissions (GET)
+#### Modify/Delete Permissions
 
-- `VIEW_CHANNEL` for `channel_id` associated with the event
+- If the event was created by the current user, either `CREATE_EVENTS` or `MANAGE_EVENTS`. Otherwise, `MANAGE_EVENTS`
+- `MANAGE_CHANNELS`
+- `MUTE_MEMBERS`
+- `MOVE_MEMBERS`
 
-### Permissions to create an event with entity_type: VOICE
+### Permissions for events with entity_type: VOICE
 
-#### Write Permissions (CREATE / UPDATE)
+The computed permissions for the user in the `channel_id` associated with the event must include:
 
-- `MANAGE_EVENTS` at the guild level or `MANAGE_EVENTS` for the `channel_id` associated with the event
-- `VIEW_CHANNEL` for `channel_id` associated with event
-- `CONNECT` for `channel_id` associated with event
+#### Get Permissions
 
-#### Read Permissions (GET)
+- `VIEW_CHANNEL`
 
-- `VIEW_CHANNEL` for `channel_id` associated with the event
+#### Create permissions
 
+- `CREATE_EVENTS`
+- `VIEW_CHANNEL`
+- `CONNECT`
 
-### Permissions to create an event with entity_type: EXTERNAL
+#### Modify/Delete Permissions
 
-#### Write Permissions (CREATE / UPDATE)
+- If the event was created by the current user, either `CREATE_EVENTS` or `MANAGE_EVENTS`. Otherwise, `MANAGE_EVENTS`
+- `VIEW_CHANNEL`
+- `CONNECT`
 
-- `MANAGE_EVENTS` at the guild level
+### Permissions for events with entity_type: EXTERNAL
 
-#### Read Permissions (GET)
+The user's guild-level permissions must include:
 
-* *No other permissions required*
+#### Get Permissions
+
+- *No permissions required*
+
+#### Create permissions
+
+- `CREATE_EVENTS`
+
+#### Modify/Delete Permissions
+
+- If the event was created by the current user, either `CREATE_EVENTS` or `MANAGE_EVENTS`. Otherwise, `MANAGE_EVENTS`

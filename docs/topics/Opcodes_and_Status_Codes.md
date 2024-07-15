@@ -215,6 +215,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40066  | There are no tags available that can be set by non-moderators                                                                 |
 | 40067  | A tag is required to create a forum post in this channel                                                                      |
 | 40074  | An entitlement has already been granted for this resource                                                                     |
+| 40333  | Cloudflare is blocking your request. This can often be resolved by setting a proper [User Agent](#DOCS_REFERENCE/user-agent)  |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
@@ -311,6 +312,13 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 240000 | Message blocked by harmful links filter                                                                                       |
 | 350000 | Cannot enable onboarding, requirements are not met                                                                            |
 | 350001 | Cannot update onboarding while below requirements                                                                             |
+| 500000 | Failed to ban users                                                                                                           |
+| 520000 | Poll voting blocked                                                                                                           |
+| 520001 | Poll expired                                                                                                                  |
+| 520002 | Invalid channel type for poll creation                                                                                        |
+| 520003 | Cannot edit a poll message                                                                                                    |
+| 520004 | Cannot use an emoji included with the poll                                                                                    |
+| 520006 | Cannot expire a non-poll message                                                                                              |
 
 ###### Example JSON Error Response
 

@@ -44,10 +44,12 @@ Public threads are viewable by everyone who can view the parent channel of the t
 
 Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
-## Active & Archived Threads
+## Locked Threads
+Users (including bot users) without the `MANAGE_THREADS` permission are more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
 
-> warn
-> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages.
+
+## Active & Archived Threads
 
 Every thread can be either active or archived. Changing a thread from archived -> active is referred to as unarchiving the thread. Threads that have `locked` set to true can only be unarchived by a user with the `MANAGE_THREADS` permission.
 

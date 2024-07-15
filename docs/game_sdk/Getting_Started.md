@@ -1,7 +1,7 @@
-# SDK Starter Guide
+# Game SDK: Getting Started
 
 > info
-> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+> Looking to build a game inside of Discord? Check out [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW). We will be revisiting the Game SDK docs soon.
 
 > warn
 > Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
@@ -187,44 +187,44 @@ discord::Core* core{};
 
 AMyPawn::AMyPawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+  // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+  PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
 void AMyPawn::BeginPlay()
 {
-	Super::BeginPlay();
-    /*
-        Grab that Client ID from earlier
-        Discord.CreateFlags.Default will require Discord to be running for the game to work
-        If Discord is not running, it will:
-        1. Close your game
-        2. Open Discord
-        3. Attempt to re-open your game
-        Step 3 will fail when running directly from the Unreal Engine editor
-        Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
-    */
-	auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
-	discord::Activity activity{};
-	activity.SetState("Testing");
-	activity.SetDetails("Fruit Loops");
-	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
+  Super::BeginPlay();
+  /*
+      Grab that Client ID from earlier
+      Discord.CreateFlags.Default will require Discord to be running for the game to work
+      If Discord is not running, it will:
+      1. Close your game
+      2. Open Discord
+      3. Attempt to re-open your game
+      Step 3 will fail when running directly from the Unreal Engine editor
+      Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+  */
+  auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
+  discord::Activity activity{};
+  activity.SetState("Testing");
+  activity.SetDetails("Fruit Loops");
+  core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
 
-    });
+  });
 }
 
 // Called every frame
 void AMyPawn::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-	::core->RunCallbacks();
+  Super::Tick(DeltaTime);
+  ::core->RunCallbacks();
 }
 
 // Called to bind functionality to input
 void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+  Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 ```
 

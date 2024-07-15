@@ -4,7 +4,7 @@
 
 Discord-Apps ermöglichen dir die Anpassung und Erweiterung deines Servers mithilfe einer Reihe von APIs und interaktiven Features. Diese Anleitung führt dich durch die Erstellung deiner ersten Discord-App mit JavaScript. Das Ergebnis ist eine App, die Slash-Befehle verwendet, Nachrichten sendet und auf Interaktionen mit Komponenten reagiert.
 
-Wir werden eine Discord-App erstellen, mit der Servermitglieder Stein-Schere-Papier spielen können (mit 7 Wahlmöglichkeiten statt der üblichen 3). Diese Anleitung richtet sich an Anfänger, setzt aber ein grundlegendes Verständnis von [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics) voraus.
+Wir werden eine Discord-App erstellen, mit der Servermitglieder Schere-Stein-Papier spielen können (mit 7 Wahlmöglichkeiten statt der üblichen 3). Diese Anleitung richtet sich an Anfänger, setzt aber ein grundlegendes Verständnis von [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics) voraus.
 
 <Collapsible title="Was wir erstellen werden" icon="view">
 So wird die fertige App aussehen:
@@ -14,15 +14,15 @@ So wird die fertige App aussehen:
 Um den Spielablauf etwas besser zu erklären:
 
 1. Benutzer 1 startet ein neues Spiel und wählt mit dem Slash-Befehl `/challenge` ein Objekt.
-2. Eine Nachricht wird an den Kanal geschickt. Sie enthält einen Button, der andere zum Annehmen der Herausforderung einlädt.
-3. Benutzer 2 klickt auf den Button **Accept**.
-4. Benutzer 2 erhält eine ephemerale (temporär verfügbare) Nachricht und kann dort selbst ein Objekt wählen.
-5. Der Ausgang des Spiels wird im ursprünglichen Kanal für alle sichtbar gepostet.
+2. Es wird eine Nachricht mit einer Schaltfläche an den Kanal gesendet, die andere dazu einlädt, die Herausforderung anzunehmen.
+3. Benutzer 2 drückt die Schaltfläche **Accept**.
+4. Benutzer 2 erhält eine ephemerale (temporär verfügbare) Nachricht, in der er das Objekt seiner Wahl auswählt.
+5. Das Ergebnis des Spiels wird im ursprünglichen Kanal für alle sichtbar veröffentlicht.
 </Collapsible>
 
 <Collapsible title="In dieser Anleitung verwendete Ressourcen" description="Überblick über die Tools und Technologien, die wir verwenden werden" icon="list">
 - **[Github-Repository](https://github.com/discord/discord-example-app)** mit dem Code für diese Anleitung sowie einigen weiteren Code-Beispielen für spezifische Features.
-- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, eine Bibliothek mit Types und Helper-Funktionen für Discord-Apps
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, eine Bibliothek mit Types und Helper-Funktionen für Discord-Apps.
 - **[Express](https://expressjs.com)**, ein beliebtes JavaScript-Web-Framework, mit dem wir einen Server erstellen werden, über den uns Discord Anfragen schicken kann.
 - **[Glitch](https://glitch.com/)**, eine Online-Umgebung, die das Erstellen und Hosten von Apps während des Prototypings und der Entwicklung vereinfacht. Mit Tools wie **[ngrok](https://ngrok.com/)** kannst du auch lokal entwickeln.
 </Collapsible>
@@ -126,7 +126,7 @@ Nach dem Remix des Projekts landest du in einem neuen Glitch-Projekt.
 - Dein **Project Name** ist ein einzigartiger Name für dein Projekt, der in der oberen linken Ecke steht.
 - **`.env`** ist die Datei, in der all deine Anmeldeinformationen für die App gespeichert werden.
 - In den **Logs** findest du die Ausgabe deines Projekts – so kannst du sehen, ob die App funktioniert, und findest Informationen zu auftretenden Fehlern.
-- Über den Button **Share** in der oberen rechten Ecke erhältst du die Live-URL des Projekts. Du benötigst sie später in dieser Anleitung, um die Interaktivität einzurichten.
+- Über die Schaltfläche **Share** in der oberen rechten Ecke erhältst du die Live-URL des Projekts. Du benötigst sie später in dieser Anleitung, um die Interaktivität einzurichten.
 </Collapsible>
 
 #### Projektstruktur
@@ -194,7 +194,7 @@ Damit deine App Anfragen über Slash-Befehle (und andere Interaktionen) erhalten
 
 ### Hinzufügen einer Interaction Endpoint URL
 
-Glitch-Projekte haben standardmäßig eine öffentliche URL. Kopier die URL deines Projekts mit dem Button **Share** in der oberen rechten Ecke und kopiere dann den „Live Site“-Projektlink fast ganz unten im Modal.
+Glitch-Projekte haben standardmäßig eine öffentliche URL. Kopier die URL deines Projekts mit der Schaltfläche **Share** in der oberen rechten Ecke und kopiere dann den „Live Site“-Projektlink fast ganz unten im Modal.
 
 > info
 > Wenn du lokal entwickelst, findest du [in der Github-README](https://github.com/discord/discord-example-app#running-app-locally) Anweisungen, wie du Anfragen in deine lokale Umgebung tunnelst.
@@ -238,24 +238,24 @@ Der Code oben reagiert auf die Interaktion mit einer Nachricht in dem Kanal, wo 
 
 Geh auf deinen Server und überprüfe, ob dein Slash-Befehl `/test` funktioniert. Wenn du ihn auslöst, sollte deine App eine Nachricht mit „hello world“ und einem zufälligen Emoji senden.
 
-Im folgenden Abschnitt fügen wir für unser Stein-Schere-Papier-Spiel einen weiteren Befehl hinzu, der Slash-Befehle, Buttons und Auswahlmenüs benutzt.
+Im folgenden Abschnitt fügen wir für unser Schere-Stein-Papier Spiel einen weiteren Befehl hinzu, der Slash-Befehle, Schaltflächen und Auswahlmenüs benutzt.
 
 ---
 
 ## Schritt 4: Hinzufügen von Nachrichtenkomponenten
 
-Der Befehl `/challenge` wird unser Stein-Schere-Papier-Spiel beginnen. Wenn er ausgelöst wird, sendet die App Nachrichtenkomponenten an den Kanal, die den Benutzer zum Abschluss des Spiels führen.
+Der Befehl `/challenge` wird unser Schere-Stein-Papier Spiel beginnen. Wenn er ausgelöst wird, sendet die App Nachrichtenkomponenten an den Kanal, die den Benutzer zum Abschluss des Spiels führen.
 
 ### Hinzufügen eines Befehls mit Optionen
 
-Der Befehl `/challenge` (zu finden in `commands.js` als `CHALLENGE_COMMAND`) hat eine Reihe von `options`. In unserer App sind das Objekte, die ein Benutzer auswählen kann, wenn er Stein-Schere-Papier spielt. Sie werden mit Keys von `RPSChoices` in `game.js` generiert.
+Der Befehl `/challenge` (zu finden in `commands.js` als `CHALLENGE_COMMAND`) hat eine Reihe von `options`. In unserer App sind das Objekte, die ein Benutzer auswählen kann, wenn er Schere-Stein-Papier spielt. Sie werden mit Keys von `RPSChoices` in `game.js` generiert.
 
 [In der Dokumentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) kannst du mehr über Befehlsoptionen und ihre Struktur lesen.
 
 > info
 > Diese Anleitung geht nicht weiter auf die Datei `game.js` ein, aber sieh sie dir ruhig an und ändere Befehle oder Optionen der Befehle.
 
-<Collapsible title="Bearbeiten der Befehlsinteraktion" description="Code zum Ausführen des Befehls Challenge und zum Antworten mit einer Nachricht, die einen Button enthält" icon="code" open>
+<Collapsible title="Bearbeiten der Befehlsinteraktion" description="Code zum Ausführen des Befehls Challenge und zum Antworten mit einer Nachricht, die eine Schaltfläche enthält" icon="code" open>
 
 Füge den folgenden Code nach dem If-Block `if name === “test”` ein, um den Befehl `/challenge` zu bearbeiten:
 
@@ -302,24 +302,24 @@ if (name === 'challenge' && id) {
 Der obige Code erfüllt eine Reihe von Funktionen:
 1. Er parst die Anfrage, um die ID des Benutzers, der den Slash-Befehl ausgelöst hat (`userId`), und seine gewählte Option (das gewählte `objectName`-Objekt) zu erhalten.
 2. Er fügt dem Objekt `activeGames` ein neues Spiel mit der Interaktions-ID hinzu. Dort werden `userId` und `objectName` festgehalten.
-3. Er sendet eine Nachricht zurück an den Kanal, die einen Button mit einer `custom_id` von `accept_button_<SOME_ID>` enthält.
+3. Er sendet eine Nachricht zurück an den Kanal, die eine Schaltfläche mit einer `custom_id` von `accept_button_<SOME_ID>` enthält.
 
 > warn
 > Der Beispielcode verwendet In-Memory-Speicherung für das Objekt, aber für Apps in Anwendung solltest du eine Datenbank benutzen.
 
-Wenn eine Nachricht mit [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) (Nachrichtenkomponenten) gesendet wird, werden die individuellen Payloads an ein `components`-Array angehängt. Ausführbare Komponenten (wie Buttons) müssen wie im Beispielcode in einer [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) sein.
+Wenn eine Nachricht mit [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component) (Nachrichtenkomponenten) gesendet wird, werden die individuellen Payloads an ein `components`-Array angehängt. Ausführbare Komponenten (wie Schaltflächen) müssen wie im Beispielcode in einer [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) sein.
 
 Wie du siehst, wird die einzigartige `custom_id` mit Nachrichtenkomponenten geschickt, in diesem Fall `accept_button_`, mit der angehängten ID des aktiven Spiels. Eine `custom_id` kann verwendet werden, um Anfragen von Discord zu bearbeiten, wenn jemand mit der Nachrichtenkomponente interagiert. Damit beschäftigen wir uns gleich.
 
-Wenn du jetzt den `/challenge`-Befehl ausführst und eine Option wählst, wird deine App eine Nachricht mit dem Button **Accept** senden. Also fügen wir jetzt den Code für das Betätigen dieses Buttons hinzu.
+Wenn du jetzt den `/challenge`-Befehl ausführst und eine Option wählst, wird deine App eine Nachricht mit der Schaltfläche **Accept** senden. Also fügen wir jetzt den Code für das Betätigen dieser Schaltfläche hinzu.
 
 </Collapsible>
 
-<Collapsible title="Bearbeiten von Button-Interaktionen" description="Code zum Bearbeiten von Klicks auf Buttons und zum Antworten mit einer ephemeralen Nachricht" icon="code" open>
+<Collapsible title="Bearbeiten von Schaltflächen-Interaktionen" description="Code zum Bearbeiten von Klicks auf Schaltflächen und zum Antworten mit einer ephemeralen Nachricht" icon="code" open>
 
 Wenn Benutzer mit einer Message Component interagieren, sendet Discord eine Anfrage mit dem [Interaction Type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) `3` (oder dem Wert von `MESSAGE_COMPONENT`, wenn `discord-interactions` verwendet wird).
 
-Für die Bearbeitung des Buttons prüfen wir den `type` der Interaktion, gefolgt vom Abgleich der `custom_id`.
+Für die Bearbeitung der Schaltfläche prüfen wir den `type` der Interaktion, gefolgt vom Abgleich der `custom_id`.
 
 Kopier den folgenden Code unter die Type-Bearbeitung für `APPLICATION_COMMAND`:
 
@@ -367,7 +367,7 @@ const componentId = data.custom_id;
 
 Der obige Code:
 1. Sucht nach einer `custom_id`, die mit unserer ursprünglich gesendeten übereinstimmt (in diesem Fall beginnt sie mit `accept_button_`). Diese ID hat auch die ID des aktiven Spiels angehängt, also speichern wir diese in `gameID`.
-2. [Löscht die ursprüngliche Nachricht](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response), indem mit `node-fetch` ein WebHook aufgerufen und das einzigartige Interaktions-`token` in der Anfrage weitergegeben wird. Damit wird der Kanal aufgeräumt und andere Benutzer können den Button nicht anklicken.
+2. [Löscht die ursprüngliche Nachricht](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response), indem mit `node-fetch` ein WebHook aufgerufen und das einzigartige Interaktions-`token` in der Anfrage weitergegeben wird. Damit wird der Kanal aufgeräumt und andere Benutzer können die Schaltfläche nicht anklicken.
 3. Reagiert auf die Anfrage mit dem Senden einer Nachricht, die ein Auswahlmenü mit den Objekten für das Spiel enthält. Die Payload sollte der vorherigen sehr ähnlich sein, mit Ausnahme des `options`-Arrays und `flags: 64` ([zeigt an, dass die Nachricht ephemeral ist](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message)).
 
 Das `options`-Array wird mit der `getShuffledOptions()`-Methode in `game.js` befüllt, die die `RPSChoices`-Werte manipuliert, um sie an die Form von [Message Component Options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) anzupassen.
@@ -378,7 +378,7 @@ Das `options`-Array wird mit der `getShuffledOptions()`-Methode in `game.js` bef
 
 Als Letztes müssen wir den Code hinzufügen, der die Interaktionen im Auswahlmenü bearbeitet und das Ergebnis des Spiels an den Kanal sendet.
 
-Da Auswahlmenüs nur eine weitere Nachrichtenkomponente sind, ist der Code für ihre Interaktionen beinahe identisch mit dem für Buttons.
+Da Auswahlmenüs nur eine weitere Nachrichtenkomponente sind, ist der Code für ihre Interaktionen beinahe identisch mit dem für Schaltflächen.
 
 Modifiziere den obigen Code, um das Auswahlmenü zu bearbeiten:
 

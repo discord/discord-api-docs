@@ -8,15 +8,15 @@ _not_ have a limitation on the number of Guilds they can be a part of.
 
 Discord enforces the following restrictions for usernames and nicknames:
 
-1.  Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
-2.  Usernames must be between 2 and 32 characters long.
-3.  Nicknames must be between 1 and 32 characters long.
-4.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
+1. Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
+2. Usernames must be between 2 and 32 characters long.
+3. Nicknames must be between 1 and 32 characters long.
+4. Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
 
 The following restrictions are additionally enforced for usernames:
 
-1.  Usernames cannot contain the following substrings: `@`, `#`, `:`, ` ``` `, `discord`
-2.  Usernames cannot be: `everyone`, `here`
+1. Usernames cannot contain the following substrings: `@`, `#`, `:`, ` ``` `, `discord`
+2. Usernames cannot be: `everyone`, `here`
 
 There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
 
@@ -24,25 +24,25 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field              | Type      | Description                                                                                          | Required OAuth2 Scope |
-|--------------------|-----------|------------------------------------------------------------------------------------------------------|-----------------------|
-| id                 | snowflake | the user's id                                                                                        | identify              |
-| username           | string    | the user's username, not unique across the platform                                                  | identify              |
-| discriminator      | string    | the user's Discord-tag                                                                               | identify              |
-| global_name        | ?string   | the user's display name, if it is set. For bots, this is the application name                        | identify              |
-| avatar             | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| bot?               | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?            | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?       | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?            | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| accent_color?      | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?            | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
-| verified?          | boolean   | whether the email on this account has been verified                                                  | email                 |
-| email?             | ?string   | the user's email                                                                                     | email                 |
-| flags?             | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
-| premium_type?      | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
-| public_flags?      | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
-| avatar_decoration? | ?string   | the user's [avatar decoration hash](#DOCS_REFERENCE/image-formatting)                                | identify              |
+| Field                   | Type                                                                                 | Description                                                                                          | Required OAuth2 Scope |
+|-------------------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-----------------------|
+| id                      | snowflake                                                                            | the user's id                                                                                        | identify              |
+| username                | string                                                                               | the user's username, not unique across the platform                                                  | identify              |
+| discriminator           | string                                                                               | the user's Discord-tag                                                                               | identify              |
+| global_name             | ?string                                                                              | the user's display name, if it is set. For bots, this is the application name                        | identify              |
+| avatar                  | ?string                                                                              | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| bot?                    | boolean                                                                              | whether the user belongs to an OAuth2 application                                                    | identify              |
+| system?                 | boolean                                                                              | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
+| mfa_enabled?            | boolean                                                                              | whether the user has two factor enabled on their account                                             | identify              |
+| banner?                 | ?string                                                                              | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| accent_color?           | ?integer                                                                             | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
+| locale?                 | string                                                                               | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
+| verified?               | boolean                                                                              | whether the email on this account has been verified                                                  | email                 |
+| email?                  | ?string                                                                              | the user's email                                                                                     | email                 |
+| flags?                  | integer                                                                              | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| premium_type?           | integer                                                                              | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
+| public_flags?           | integer                                                                              | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| avatar_decoration_data? | ?[avatar decoration data](#DOCS_RESOURCES_USER/avatar-decoration-data-object) object | data for the user's avatar decoration                                                                | identify              |
 
 ###### Example User
 
@@ -58,29 +58,33 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "banner": "06c16474723fe537c283b8efa61a30c8",
   "accent_color": 16711680,
   "premium_type": 1,
-  "public_flags": 64
+  "public_flags": 64,
+  "avatar_decoration_data": {
+    "sku_id": "1144058844004233369",
+    "asset": "a_fed43ab12698df65902ba06727e20c0e"
+  }
 }
 ```
 
 ###### User Flags
 
-| Value   | Name                     | Description                                                                                                                                    |
-|---------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
-| 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
-| 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
-| 1 << 3  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
-| 1 << 6  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
-| 1 << 7  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
-| 1 << 8  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
-| 1 << 9  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
-| 1 << 10 | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
-| 1 << 14 | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
-| 1 << 16 | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
-| 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
-| 1 << 18 | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
-| 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
-| 1 << 22 | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
+| Value     | Name                     | Description                                                                                                                                    |
+|-----------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `1 << 0`  | STAFF                    | Discord Employee                                                                                                                               |
+| `1 << 1`  | PARTNER                  | Partnered Server Owner                                                                                                                         |
+| `1 << 2`  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
+| `1 << 3`  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
+| `1 << 6`  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
+| `1 << 7`  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
+| `1 << 8`  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
+| `1 << 9`  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
+| `1 << 10` | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
+| `1 << 14` | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
+| `1 << 16` | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
+| `1 << 17` | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
+| `1 << 18` | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
+| `1 << 19` | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| `1 << 22` | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
 
 ###### Premium Types
 
@@ -92,6 +96,17 @@ Premium types denote the level of premium a user has. Visit the [Nitro](https://
 | 1     | Nitro Classic |
 | 2     | Nitro         |
 | 3     | Nitro Basic   |
+
+### Avatar Decoration Data Object
+
+The data for the user's [avatar decoration](https://support.discord.com/hc/en-us/articles/13410113109911-Avatar-Decorations).
+
+###### Avatar Decoration Data Structure
+
+| Field  | Type      | Description                                                    |
+|--------|-----------|----------------------------------------------------------------|
+| asset  | string    | the [avatar decoration hash](#DOCS_REFERENCE/image-formatting) |
+| sku_id | snowflake | id of the avatar decoration's SKU                              |
 
 ### Connection Object
 
@@ -117,6 +132,8 @@ The connection object that the user has attached.
 | Value           | Name                |
 |-----------------|---------------------|
 | battlenet       | Battle.net          |
+| bungie          | Bungie.net          |
+| domain          | Domain              |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
 | facebook        | Facebook            |
@@ -178,6 +195,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 |----------|-------------------------------------------|----------------------------------------------------------------------------------|
 | username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
 | avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
+| banner   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's banner                                            |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
@@ -203,12 +221,12 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 
 ###### Query String Params
 
-| Field       | Type      | Description                                                | Required | Default |
-|-------------|-----------|------------------------------------------------------------|----------|---------|
-| before      | snowflake | get guilds before this guild ID                            | false    | absent  |
-| after       | snowflake | get guilds after this guild ID                             | false    | absent  |
-| limit       | integer   | max number of guilds to return (1-200)                     | false    | 200     |
-| with_counts | boolean   | include approximate member and presence counts in response | false    | false   |
+| Field       | Type                                             | Description                                                | Required | Default |
+|-------------|--------------------------------------------------|------------------------------------------------------------|----------|---------|
+| before      | snowflake                                        | get guilds before this guild ID                            | false    | absent  |
+| after       | snowflake                                        | get guilds after this guild ID                             | false    | absent  |
+| limit       | integer                                          | max number of guilds to return (1-200)                     | false    | 200     |
+| with_counts | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include approximate member and presence counts in response | false    | false   |
 
 ## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
 

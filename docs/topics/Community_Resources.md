@@ -47,7 +47,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 - Dart
   - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
-  - [Tempest](https://github.com/Amatsagu/Tempest)
+  - [tempest](https://github.com/amatsagu/tempest)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands) and its [Deno fork](https://deno.land/x/discord_slash_commands)
@@ -62,7 +62,6 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
-  - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
   - [Bsati's Slash Command Builder](https://bsati.github.io/dc-app-command-builder/)
 
 ## OpenAPI Specification
@@ -77,12 +76,6 @@ The public preview of the [Discord HTTP API specification](https://github.com/di
 Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
 
 - [HouraiNetworking](https://github.com/HouraiTeahouse/HouraiNetworking)
-
-## Dispatch Tools
-
-Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game developers publishing on Discord can sometimes involve using the same long commands multiple times. The following open-source tool helps shorten these commands for you. It will also provide webhook support for when you're pushing an update.
-
-- [JohnyTheCarrot's Dispatch CLI](https://github.com/JohnyTheCarrot/droops-dispatch)
 
 ## Permission Calculators
 
@@ -102,7 +95,6 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 
 Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. These tools can help you test how embeds will appear inside of Discord:
 
-- [Autocode Embed Builder](https://autocode.com/tools/discord/embed-builder/)
 - [JohnyTheCarrot's Embed Previewer](https://github.com/JohnyTheCarrot/discord-embed-previewer) (Browser Extension)
 
 ## API Types

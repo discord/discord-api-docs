@@ -20,18 +20,18 @@ With this new Store Manager comes a new fun toggle in the Discord app itself: Ap
 
 To enable it, first make sure you have a payment method on file in User Settings -> Billing. Then:
 
-1.  Open up the Discord app
-2.  Click on the settings cog in the bottom left corner
-3.  Go to Appearance -> allll the way at the bottom
-4.  Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID
-5.  Exit user settings
+1. Open up the Discord app
+2. Click on the settings cog in the bottom left corner
+3. Go to Appearance -> allll the way at the bottom
+4. Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID
+5. Exit user settings
 
 You should now see an orange bar across the top of your screen; this means it worked! The dropdown in the orange bar will show you all the available SKUs for that application; you can select one of them to go to its store page. You can also view your Library and see all the branches of your game automagically there waiting for you!
 
 If for some reason the "Install" button is greyed out, please check the following:
 
-1.  Do you have a `LIVE_BUILD_ID` on that branch for this SKU? Check with `dispatch branch list <application_id>`.
-2.  Do you have a price tier set for this SKU? If not, pick one!
+1. Do you have a `LIVE_BUILD_ID` on that branch for this SKU? Check with `dispatch branch list <application_id>`.
+2. Do you have a price tier set for this SKU? If not, pick one!
 
 Once those two conditions are met, you should be good to go! Entitlements "purchased" with this mode enabled can be revoked with the `DELETE /entitlements` HTTP endpoint, documented below.
 
@@ -375,22 +375,22 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 | tax           | int    | the amount of tax                    |
 | tax_inclusive | bool   | whether the amount is tax-inclusive  |
 
-## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
+## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
-###### Query Parameters
+###### Query String Params
 
-| name           | type                              | description                                                                                                                    |
-|----------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
-| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
-| before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
-| after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
-| limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
-| guild_id?      | snowflake                         | the guild id to look up entitlements for                                                                                       |
-| exclude_ended? | bool                              | whether or not ended entitlements should be omitted                                                                            |
+| name           | type                                             | description                                                                                                                    |
+|----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| user_id?       | snowflake                                        | the user id to look up entitlements for                                                                                        |
+| sku_ids?       | comma-delimited set of snowflakes                | (optional) the list SKU ids to check entitlements for                                                                          |
+| with_payments? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| before?        | snowflake                                        | retrieve entitlements before this time                                                                                         |
+| after?         | snowflake                                        | retrieve entitlements after this time                                                                                          |
+| limit?         | int                                              | number of entitlements to return, 1-100, default 100                                                                           |
+| guild_id?      | snowflake                                        | the guild id to look up entitlements for                                                                                       |
+| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether or not ended entitlements should be omitted                                                                            |
 
 ###### Example
 
@@ -421,15 +421,15 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements?use
 }
 ```
 
-## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
-###### Query Parameters
+###### Query String Params
 
-| name          | type | description                                                                                                                    |
-|---------------|------|--------------------------------------------------------------------------------------------------------------------------------|
-| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| name          | type                                             | description                                                                                                                    |
+|---------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| with_payment? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
 
 ###### Example
 
@@ -456,7 +456,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/entitlements/539
 }
 ```
 
-## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
+## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/skus
 
 Get all SKUs for an application.
 
@@ -494,7 +494,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 }
 ```
 
-## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
+## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -508,7 +508,7 @@ curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlem
 // Returns 204 No Content
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_GETTING_STARTED/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 

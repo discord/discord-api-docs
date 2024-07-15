@@ -1,6 +1,10 @@
 name: Verify Docs Formatting
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 permissions:
   contents: read
@@ -13,10 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Node v16
-        uses: actions/setup-node@v3
+      - name: Install Node v20
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: npm
 
       - name: Install dependencies

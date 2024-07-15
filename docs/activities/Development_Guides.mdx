@@ -1,0 +1,926 @@
+# Activity Development Guides
+
+> preview
+> Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
+
+These guides include suggested development practices, SDK commands, and user flows for you to consider while building your Activity. These will help to provide your users with a consistent and clear experience while interacting with your application.
+
+## Local Development
+<Container>
+  <Card title="Run Your Application Locally" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/run-your-application-locally">
+    Get up and running with a local development application.
+  </Card>
+  <Card title="Launch Your App from Discord" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/launch-your-application-from-the-discord-client">
+    How to launch your app on mobile and desktop Discord clients.
+  </Card>
+  <Card title="Setup URL Mapping" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping">
+    Configure the Discord proxy to allow network requests to necessary external endpoints.
+  </Card>
+  <Card title="Logging" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/logging">
+    How to use the various levels of logging while building your application.
+  </Card>
+</Container>
+
+## User Actions
+<Container>
+  <Card title="Open External Link" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/open-external-link">
+    Open an external link from within your app.
+  </Card>
+  <Card title="Open Invite Dialog" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/open-invite-dialog">
+    Open the Application Channel Invite dialog within Discord.
+  </Card>
+  <Card title="Open Share Moment Dialog" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/open-share-moment-dialog">
+    Open a dialog to share media from your application to a channel, DM, or GDM.
+  </Card>
+  <Card title="Encourage Hardware Acceleration" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/encourage-hardware-acceleration">
+    Open a dialog to enable hardware acceleration for compute-intensive applications.
+  </Card>
+</Container>
+
+## Mobile
+<Container>
+  <Card title="Supporting Mobile Platforms" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/supported-platforms-web-ios-android">
+    Update your application settings to support iOS and Android.
+  </Card>
+  <Card title="Mobile Safe Areas" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/mobile-safe-areas">
+    Ensure that your app's assets fall within mobile-safe areas.
+  </Card>
+  <Card title="Mobile Thermal States" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/mobile-thermal-states">
+    Respond to thermal state changes surfaced from iOS and Android.
+  </Card>
+</Container>
+
+## Layout
+<Container>
+  <Card title="Application Orientation" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/application-orientation">
+    Configure and subscribe to changes in application orientation.
+  </Card>
+  <Card title="Application Layout Mode" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/application-layout-mode">
+    Subscribe to layout mode changes to update your application's user interface.
+  </Card>
+</Container>
+
+## Networking
+<Container>
+  <Card title="Activity Proxy Considerations" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/activity-proxy-considerations">
+    Working with our Activity Proxy
+  </Card>
+  <Card title="Construct a Full URL" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/construct-a-full-url">
+    Generate a full URL when working with network requests.
+  </Card>
+  <Card title="Using External Resources" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/using-external-resources">
+    Allow network requests to external resources from inside the Discord proxy.
+  </Card>
+  <Card title="Security Considerations" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/security-considerations">
+    Keep things safe and secure in your Activity.
+  </Card>
+</Container>
+
+## Multiplayer Experience
+<Container>
+  <Card title="Instance Management" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/activity-instance-management">
+    Managing instances to ensure users join the same instance as their friends.
+  </Card>
+  <Card title="Instance Participants" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/instance-participants">
+    Use the SDK to fetch the users currently connected to an instance.
+  </Card>
+  <Card title="Render Avatars and Names" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/render-avatars-and-names">
+    Retrieve and render the usernames and avatars of users connected to your application.
+  </Card>
+</Container>
+
+## Assets & Metadata
+<Container>
+  <Card title="Setting Up Activity Metadata" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata">
+    Best practices for configuring how your application shows up in Discord.
+  </Card>
+   <Card title="Setting Up Art Assets" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-art-assets">
+    Best practices for configuring how your application shows up in Discord.
+  </Card>
+</Container>
+
+## Production Readiness
+<Container>
+  <Card title="Cache Busting" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/cache-busting">
+    Manage asset caching in your application and the Discord Activity proxy.
+  </Card>
+  <Card title="Handling Rate Limits" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/handling-rate-limits">
+    Stay within rate limits to keep the fun going in your Activity.
+  </Card>
+  <Card title="Static IP Addresses" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/static-ip-addresses">
+    Network routing considerations when preparing your Activity for production use.
+  </Card>
+  <Card title="Backward Compatibility" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/backward-compatibility">
+    Future-proof your application and support new commands as they become available in the SDK.
+  </Card>
+</Container>
+
+---
+### Run Your Application Locally
+
+It is possible to load your application via a localhost port or other unique URL. This URL must support an HTTPS connection to load on the web/desktop Discord app (HTTPS is not required for mobile). The downside to this flow is that your application's network traffic will not pass through Discord's proxy, which means any requests made by the application will need to use a full URL instead of a ["mapped"](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping) URL.
+
+To run your locally hosted application, follow the instructions for [Launching your Application from the Discord Client](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/launch-your-application-from-the-discord-client) and set the Application URL Override to the address of your application's web server.
+
+### Running Your Application Through A Network Tunnel
+
+Although it is possible to test your application locally, we recommend developing and testing against the Discord proxy. This is helpful to make sure all URLs behave as expected before your application runs in production. One technique to enable testing locally against the proxy is to use a network tunneling tool, such as [cloudflared](https://github.com/cloudflare/cloudflared#installing-cloudflared). A typical pattern is for each developer to have their own "development-only" application. To set up a local environment to run through Discord's proxy, you will need to do the following:
+
+1. Create a new application in the Discord Developer portal.
+2. Enable the Developer Preview for Activities.
+3. Set up the application's [URL mapping](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping).
+4. Locally, spin up your web server.
+5. Install and run a tunnel solution, such as [cloudflared](https://github.com/cloudflare/cloudflared#installing-cloudflared). You will point it to your local web server.
+
+> info
+> Your web server can be HTTP and your network tunnel can upgrade the connection to HTTPS.
+
+If using cloudflared, you will run the following command, replace `3000` with your web server's port.
+
+```
+cloudflared tunnel --url http://localhost:3000
+```
+
+Once you run this command, you will receive your publicly accessible network tunnel address from cloudflared.
+
+```
+Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):
+https://funky-jogging-bunny.trycloudflare.com
+```
+
+In the Discord Developer Portal, update the Application URL mapping for `/` url to `funky-jogging-bunny.trycloudflare.com` to match your network tunnel address and save your changes.
+
+![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+
+> warn
+> If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
+
+Follow the instructions for [Launching your Application from the Discord Client](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/launch-your-application-from-the-discord-client). Application URL Override should not be enabled.
+
+### Running Your Application In Production
+
+The flow for setting up your production application is very similar:
+
+1. If not made yet, create a new application
+2. Enable the Developer Preview for Activities.
+3. Set up the application's [URL Mapping](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping). The URL for your application's html should be set to the `/` route.
+4. Follow the instructions for [Launching your Application from the Discord Client](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/launch-your-application-from-the-discord-client)). Application URL Override should not be enabled.
+
+This application now uses the same configuration it will use once it is fully published ✨.
+![application-test-mode-prod](activities/application-test-mode-prod.gif)
+
+
+---
+
+### Launch your application from the Discord Client
+
+You will be able to see and launch all activities owned by you or any teams you are a member of via the Developer Activity Shelf. One caveat is that the activity will not be shown on the current platform (web/ios/android) unless you have checked your platform in `Settings/Supported Platforms` on the developer portal.
+
+To see you app inside of Discord in the Activity Shelf:
+
+#### Web
+
+1. Select ⚙️User Settings > App Settings > Advanced and toggle on `Developer Mode`
+3. Close the settings window and enter a voice channel.
+4. From either the RTC Panel or the Center Control Tray, click on the "Rocket Button" to open the Activity shelf. You should now see all of the same applications that you have access to in the developer portal. Note: The shelf will only include applications which have been flagged as "Embedded".
+6. Click on an activity to launch it!
+
+#### Mobile
+
+1. From your User Profile, select Appearance, and then toggle "On" `Developer Mode`
+2. Enter a voice channel
+5. Click on an activity to launch it!
+
+---
+
+### URL Mapping
+
+Activities in Discord are "sandboxed" via a Discord proxy. This is done to hide the users' IP addresses, your application's IP addresses, and to block URLs from known malicious endpoints. As an application owner, you can configure the proxy to allow network requests to external endpoints.
+
+Because your application is "sandboxed", it will be unable to make network requests to external URLs. Let's say you want request `https://some-api.com`. To enable reaching this url from inside your application, you will create a new url mapping, with the `PREFIX` set to
+`/api` and `TARGET` set to `some-api.com`. Now you can make requests to `/api` from inside of your application, which will be forwarded, via Discord's proxy to `some-api.com`.
+
+#### How to set a URL Mapping
+
+> preview
+> This is only possible once the Developer Preview Activities is enabled on your application.
+
+To add or modify your application's URL mappings, click on `Activities -> URL Mappings` and set the prefix and target values for each mapping as needed.
+
+![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+
+#### Prefix/Target formatting rules
+
+- URL mappings can utilize any url protocol, (https, wss, ftp, etc...), which is why the URL target should not include a protocol. For example, for a URL target, do not put `https://your-url.com`, instead, omit `https://` and use `your-url.com`.
+- Parameter matching can be used to help map external domain urls. For example, if an external url has many subdomains, such as `foo.google.com`, `bar.google.com`, then you could use the following mapping:
+  | PREFIX                | TARGET                   |
+  |-----------------------|--------------------------|
+  | `/google/{subdomain}` | `{subdomain}.google.com` |
+- Because of how URL globbing works, if you have multiple prefix urls with the same initial path, you must place the shortest of the prefix paths last in order for each url mapping to be reachable. For example, if you have `/foo` and `/foo/bar`, you must place the url `/foo/bar` before `/foo` or else the mapping for `/foo/bar` will never be reached.
+
+| ✅ DO                                                 | ❌ DON'T                                                    |
+|------------------------------------------------------|------------------------------------------------------------|
+| Requests mapped correctly                            | Requests to /foo/bar will incorrectly be sent to `foo.com` |
+| ![url-mapping-do.png](activities/url-mapping-do.png) | ![url-mapping-dont.png](activities/url-mapping-dont.png)   |
+
+#### Exceptions
+
+The aforementioned "sandbox" is enforced by a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). We have some notable exceptions to our CSP, meaning application clients may make requests to these URLs without hitting the proxy and therefore without establishing mappings. Notable exceptions include:
+
+- `https://discord.com`
+- `https://canary.discord.com`
+- `https://ptb.discord.com`
+- `https://cdn.discordapp.com`
+- `https://media.discordapp.net`
+
+---
+
+### Logging
+
+By default, the SDK will send any console `log`, `warn`, `error`, `info`, and `debug` events triggered by your app to the Discord application.
+
+#### Viewing Logs on Desktop
+
+Desktop logs are viewable through the console tab inside a browser's Developer Tools. See the [Troubleshooting Console Log Errors](https://support.discord.com/hc/en-us/articles/115001239472-Troubleshooting-Console-Log-Errors) support article for more information.
+
+The Public Test Build (PTB) Discord client also allows inspecting your logs from the `View -> Developer -> Toggle Developer Tools` menu.  It can be downloaded at [https://discord.com/downloads](https://discord.com/downloads).
+
+#### Viewing Logs on Mobile
+
+Mobile logs are viewable via the `Debug Logs` option inside User Settings on the mobile App. It is only discoverable when you have `Developer Mode` enabled.
+
+1. On the bottom navigation, tap on your avatar and then the gear icon to open your `User Settings`.
+2. Tap `Appearance`.
+3. Slide the `Developer Mode` toggle to ON.
+4. The `Debug Logs` option will be available under the `DEV ONLY` section.
+
+#### Filtering for Application Logs
+
+Inside the Debug Logs view, you can search for your own application logs with the possible keywords:
+
+- `RpcApplicationLogger`
+- Your Application ID
+
+Each log line is formatted as: `[RpcApplicationLogger] <application-id> - message`
+
+The first section of Debug Logs are not your application logs but Discord specific app startup info which is not relevant to your application.
+
+When you scroll down the page, your application logs should be visible.
+
+![debug-logs-filtering](activities/debug-logs-filtering.gif)
+
+#### Sharing Application Logs from Mobile
+
+With `Developer Mode` enabled, you can share your application logs from within a Voice Channel.
+
+1. In the voice channel, swipe from the bottom to see the expanded voice controls. Tap on `Share Application Logs`.
+2. You'll be presented with a native share sheet where you can save the logs to a file or share it as a message.
+
+#### Disabling Logging
+
+If you do not want logs to be forwarded to the browser, you can disable it with the optional configuration object.
+
+```javascript
+import {DiscordSDK} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId, {
+  disableConsoleLogOverride: true,
+});
+```
+
+#### Forwarding Log Messages
+
+You can forward specific log messages via the SDK command `captureLog` as shown below.
+
+```javascript
+import {DiscordSDK} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+await discordSdk.ready();
+discordSdk.commands.captureLog({
+  level: 'log',
+  message: 'This is my log message!',
+});
+```
+
+---
+
+### Open External Link
+
+Since Activities are sandboxed, your app will need to perform a command in order for users to launch any external links. Users will be prompted inside Discord whether or not they want to open the external link.
+
+#### Usage
+
+```javascript
+import {DiscordSDK} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+await discordSdk.ready();
+// Once the sdk has established the connection with the discord client, external
+// links can be launched
+discordSdk.commands.openExternalLink({
+  url: 'https://google.com',
+});
+```
+
+#### User Experience
+
+![external-link-modal](activities/external-link-modal.png)
+
+Users will see a modal inside the Discord app notifying them whether or not they want to proceed. By clicking **_Trust this Domain_**, users will not see a modal for that specific domain again.
+
+---
+
+### Open Invite Dialog
+
+Getting an Application Channel Invite, as outlined in [these docs](https://discord.com/developers/docs/resources/invite#get-invite), is not granted by any OAuth scopes. Nonetheless, the `openInviteDialog` command is available via the SDK. This command opens the Application Channel Invite UI within the discord client without requiring additional OAuth scopes.
+
+This command returns an error when called from DM (Direct Message) contexts, so should only be called in Guild Voice Channels. Similarly, this command returns an error if the user has invalid permissions for the channel, so using `getChannelPermissions` (requires OAuth scope `'guilds.members.read'`) is highly recommended.
+
+#### Usage
+
+```javascript
+import {DiscordSDK, Permissions, PermissionUtils} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+await discordSdk.ready();
+
+try {
+  const {permissions} = await discordSdk.commands.getChannelPermissions();
+  if (PermissionUtils.can(Permissions.CREATE_INSTANT_INVITE, permissions)) {
+    await discordSdk.commands.openInviteDialog();
+    // successfully opened dialog
+  } else {
+    console.warn('User does not have CREATE_INSTANT_INVITE permissions');
+  }
+} catch (err) {
+  // failed to fetch permissions or open dialog
+  console.warn(err.message);
+}
+```
+
+User Experience
+
+![Invite Dialog UI](activities/invite-dialog.png)
+
+Users will see a modal inside the Discord app allowing them to send an invite to a channel, friend, or copy an invite link to share manually.
+
+---
+
+### Open Share Moment Dialog
+
+The easiest way for an application to share media to a channel or DM is to use the `openShareMomentDialog` command. This command accepts a Discord CDN `mediaUrl` (eg `https://cdn.discordapp.com/attachments/...`) and opens a dialog on the discord client that allows the user to select channels, DMs, and GDMs to share to. This requires no additional OAuth scopes, but does require the application to be authenticated.
+
+Since `mediaUrl` must be a Discord CDN URL, it is encouraged to use the activities attachment API endpoint (`discord.com/api/applications/${applicationId}/attachment`) to create an ephemeral CDN URL. This endpoint accepts bearer tokens for any scopes, so it can be called from the application client using the authorized user's bearer token. The endpoint returns a serialized attachment, which includes a `url` attribute, which should then be passed to the DiscordSDK command as `mediaUrl`.
+
+#### Usage
+
+```javascript
+import {discordSdk} from './wherever-you-initialize-your-sdk';
+import {accessToken} from './wherever-you-store-your-access-token';
+
+// some image
+const imageURL = 'https://i.imgur.com/vaSWuKr.gif';
+
+// get image data
+const response = await fetch(imageURL);
+const blob = await response.blob();
+const mimeType = blob.type;
+
+// image data as buffer
+const buf = await blob.arrayBuffer();
+
+// image as file
+const imageFile = new File([buf], 'example.gif', {type: mimeType});
+
+const body = new FormData();
+body.append('file', imageFile);
+
+const attachmentResponse = await fetch(`${env.discordAPI}/applications/${env.applicationId}/attachment`, {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+  body,
+});
+const attachmentJson = await attachmentResponse.json();
+
+// mediaUrl is an ephemeral Discord CDN URL
+const mediaUrl = attachmentJson.attachment.url;
+
+// opens dialog in Discord client
+await discordSdk.commands.openShareMomentDialog({mediaUrl});
+```
+
+User Experience
+
+![share-moment-dialog](activities/share-moment-dialog-example.png)
+
+
+---
+
+### Encourage Hardware Acceleration
+
+Activities that are compute intensive may benefit from encouraging users to enable hardware acceleration. When an application invokes the `encourageHardwareAcceleration` command the current status of the setting will be returned and the user will be prompted to update the setting, if applicable.
+
+Users will see a modal inside the Discord app if Hardware Acceleration is disabled, encouraging them to change the setting. By clicking **Don't show me this again** they will not see the modal for _any application_ on this device again.
+
+#### Best Practices
+
+Switching the Hardware Acceleration setting causes the Discord client to quit and re-launch, so it is best practice to invoke this command as soon as possible, so users do not begin the experience of an application before restarting. Ideally, this is immediately after `await discordSdk.ready()`.
+
+#### Usage
+
+```javascript
+import {DiscordSDK} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+await discordSdk.ready();
+const {enabled} = await discordSdk.commands.encourageHardwareAcceleration();
+console.log(`Hardware Acceleration is ${enabled === true ? 'enabled' : 'disabled'}`);
+```
+
+#### User Experience
+
+![encourage-hardware-acceleration-modal](activities/encourage-hardware-acceleration-modal.png)
+
+
+---
+
+### Supported Platforms: Web, iOS, Android
+
+By default, your Activity will be launchable on web/desktop. To enable or disable support for Web/iOS/Android, do the following:
+
+- Visit the developer portal
+- Select your application
+- Select `Activities` -> `Settings` in the left-side of the developer portal, or visit `https://discord.com/developers/<your app id>/embedded/settings`
+- From check the appropriate checkboxes in the developer portal, and save your changes
+
+![supported-platforms](activities/supported-platforms.png)
+
+---
+
+### Mobile Safe Areas
+
+As an example, you can define your safe area insets as below in CSS:
+
+```
+:root {
+  --sait: var(--discord-safe-area-inset-top, env(safe-area-inset-top));
+  --saib: var(--discord-safe-area-inset-bottom, env(safe-area-inset-bottom));
+  --sail: var(--discord-safe-area-inset-left, env(safe-area-inset-left));
+  --sair: var(--discord-safe-area-inset-right, env(safe-area-inset-right));
+}
+```
+
+This prefers the `--discord-safe-area-inset-*` variable and will fallback to the env values for iOS + any local dev testing that is done outside of Discord.
+
+You can then reference these values:
+
+```
+body {
+  padding-left: var(--sail);
+  padding-right: var(--sair);
+  padding-top: var(--sait);
+  padding-bottom: var(--saib);
+}
+```
+
+---
+
+### Mobile Thermal States
+
+You may need to respond to thermal state changes using recommendations from [thermal states surfaced by mobile devices](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/RespondToThermalStateChanges.html) to improve the user experience.
+
+Discord's Embedded App SDK provides an abstraction over [Apple's thermal state APIs](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/RespondToThermalStateChanges.html) and [Android's thermal state APIs](https://source.android.com/docs/core/power/thermal-mitigation#thermal-api).
+
+Here's how Discord's abstraction maps to Apple's thermal states and Android's thermal states.
+
+```javascript
+enum ThermalState {
+  NOMINAL = 0, // maps to "nominal" on iOS and "none" on Android
+  FAIR = 1, // maps to "fair" on iOS and "light" / "moderate" on Android
+  SERIOUS = 2, // maps to "serious" on iOS and "severe" on Android
+  CRITICAL = 3, // maps to "critical" on iOS and "critical" / "emergency" / "shutdown" on Android
+}
+```
+
+The Embedded App SDK allows developers to subscribe to these thermal state changes.
+
+```javascript
+const handleThermalStateUpdate = (update: {thermal_state: number}) => {
+  switch (thermalState) {
+      case Common.ThermalStateTypeObject.NOMINAL:
+        ...
+      case Common.ThermalStateTypeObject.FAIR:
+        ...
+      case Common.ThermalStateTypeObject.SERIOUS:
+        ...
+      case Common.ThermalStateTypeObject.CRITICAL:
+        ...
+      default:
+        ...
+    }
+}
+
+discordSdk.subscribe('THERMAL_STATE_UPDATE', handleThermalStateUpdate);
+```
+
+Discord will publish the current thermal state upon event subscription, and it will also publish any thermal state changes that happen afterward.
+
+> info
+> On Android devices, the thermal state updates will only be available on Android 10 and higher.
+
+---
+
+### Application Orientation
+
+#### Locking Application Orientation
+
+This SDK provides APIs for locking the application to specific orientations. The possible lock states are `UNLOCKED`, `PORTRAIT`, and `LANDSCAPE`. `lock_state` is the default lock state, and it affects the app orientation when the application is focused. `picture_in_picture_lock_state` determines the PIP aspect ratio, and `grid_lock_state` determines the grid tile aspect ratio for the application. When `picture_in_picture_lock_state` is not set, the application PIP falls back to `lock_state` to determine the aspect ratio. When `grid_lock_state` is not set, the application grid tile falls back to `picture_in_picture_lock_state` to determine its aspect ratio, and if `picture_in_picture_lock_state`is not set, it uses `lock_state`.
+
+Calling `setOrientationLockState` with an `undefined` or omitted value for `picture_in_picture_lock_state` or `grid_lock_state` will not change the corresponding lock states for the application. Calling `setOrientationLockState` with a null value for `picture_in_picture_lock_state` or `grid_lock_state` will clear the application's corresponding lock states such that those layout modes will use the fallback lock states.
+
+```javascript
+import {DiscordSDK, Common} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+await discordSdk.ready();
+
+// Set a default lock state
+discordSdk.commands.setOrientationLockState({lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE});
+
+// or set both a default lock state and a picture-in-picture lock state
+discordSdk.commands.setOrientationLockState({
+  lock_state: Common.OrientationLockStateTypeObject.PORTRAIT,
+  picture_in_picture_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  grid_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+});
+```
+
+#### Configuring Default Orientation Lock State Through the Developer Portal
+
+It's also possible to configure an application with a default orientation lock state via the Developer Portal. Using this method, the Discord app will apply the orientation lock when launching the application before the SDK has been initialized. This can create a smoother application launch flow where the application starts in the correct orientation rather than switching to the correct orientation after some delay after the application requests an orientation lock via the SDK. The Developer Portal supports setting a different default orientation lock states for phones versus tablets.
+
+![default-orientation-lock-state](activities/default_orientation_lock_state.png)
+
+#### Subscribing to Screen Orientation Updates
+
+To listen to the screen orientation (which is sometimes different from the physical device orientation), subscribe to the `ORIENTATION_UPDATE` event. Discord will publish the current orientation upon event subscription, and it'll also publish any orientation changes that happen afterward.
+
+```javascript
+const handleOrientationUpdate = (update: {screen_orientation: number}) => {
+  switch (update.screen_orientation) {
+      case Common.OrientationTypeObject.PORTRAIT:
+        ...
+      case Common.OrientationTypeObject.LANDSCAPE:
+        ...
+      default:
+        ...
+    }
+}
+
+discordSdk.subscribe('ORIENTATION_UPDATE', handleOrientationUpdate);
+```
+
+---
+
+### Application Layout Mode
+
+There are three layout modes that an application can be in: focused, picture-in-picture (PIP), or grid mode. Activities can subscribe to the layout mode to determine when to optionally change their layouts to optimize for each layout mode. Old Discord clients only support the `ACTIVITY_PIP_MODE_UPDATE` event, while new Discord clients support both `ACTIVITY_PIP_MODE_UPDATE` and `ACTIVITY_LAYOUT_MODE_UPDATE`. Use `subscribeToLayoutModeUpdatesCompat` and `unsubscribeFromLayoutModeUpdatesCompat` to subscribe to both events with backward compatibility for old Discord clients that only support `ACTIVITY_PIP_MODE_UPDATE`. Here's an example using React:
+
+```javascript
+export default function LayoutMode() {
+  const handleLayoutModeUpdate = React.useCallback((update: {layout_mode: number}) => {
+       ...
+  }, []);
+
+  React.useEffect(() => {
+    discordSdk.subscribeToLayoutModeUpdatesCompat(handleLayoutModeUpdate);
+    return () => {
+      discordSdk.unsubscribeFromLayoutModeUpdatesCompat(handleLayoutModeUpdate);
+    };
+  }, [handleLayoutModeUpdate]);
+}
+```
+
+---
+
+### Activity Proxy Considerations
+
+All network traffic is routed through the Discord Proxy for various security reasons. The proxy does not support mapping targets to specific ports. Any mapping to specific ports will have to be handled by your application.
+
+Under the hood we utilize Cloudflare Workers, which brings some restrictions, outlined below.
+
+#### iframe Supported Ports
+When an activity's iframe makes a request (i.e. to https://&lt;app_id&gt;.discordsays.com), url port usage is limited to Cloudflare's list of supported ports as shown [here](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy).
+
+#### Url Mapping Target Supported Ports
+At this time, URL mapping targets do not support external url ports. This is a [known issue](https://developers.cloudflare.com/workers/platform/known-issues/#custom-ports) of Cloudflare workers.
+
+#### WebTransport
+
+While we currently only support websockets, we're working with our upstream providers to enable WebTransport.
+
+#### WebRTC
+
+WebRTC is not supported.
+
+Other guides are available in this [Networking](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/networking) section for using external network resources and constructing a full url versus relative urls.
+
+---
+
+### Construct A Full URL
+
+There are scenarios where instead of using a relative url (`/path/to/my/thing`) you may want or need to reference the full url when making a network request. The URL is a combination of the following
+
+1. The protocol you wish to use
+2. Your application's client id
+3. The discord proxy domain
+4. Whatever you need to list
+
+Here's an example of how to build a full url, using the URL constructor:
+
+```javascript
+const protocol = `https`;
+const clientId = '<YOUR CLIENT ID>';
+const proxyDomain = 'discordsays.com';
+const resourcePath = '/foo/bar.jpg';
+const url = new URL(`${protocol}://${clientId}.${proxyDomain}${resourcePath}`);
+```
+
+In other words, given an application client id of `12345678`
+| Relative Path | Full Path                                    |
+|---------------|----------------------------------------------|
+| /foo/bar.jpg  | https://12345678.discordsays.com/foo/bar.jpg |
+
+---
+
+### Using External Resources
+
+Activities in Discord are "sandboxed" via a Discord proxy. This is done to hide the users' IP addresses as well as block URLs from known malicious endpoints. To achieve this, the Discord Developer Portal has a section for [configuring URL Mappings](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping) for your application.
+
+One edge-case of URL mappings is that third-party NPM modules or other resources may reference external (non-sandboxed) urls.
+
+For example, if your application has an npm module that attempts to make an http request to https://foo.library.com, the request will fail with a `blocked:csp` error.
+
+To get around this limitation there are several options to consider:
+
+- Fork the library (to use mapped urls)
+- Utilize a post-install utility such as [patch-package](https://www.npmjs.com/package/patch-package)
+- Use our Embedded App SDK's `patchUrlMappings` API
+
+In the above scenario, we recommend using the `patchUrlMappings` API, as it will allow a smooth transition from the non-sandboxed dev environment to the production environment.
+
+This method call takes an array of "mappings" which will transform any external network requests to the mappings you've defined.
+
+See the example below:
+
+- In this example, imagine you have a third-party library which makes an HTTP request to foo.com
+- In the developer portal, create a mapping like this: `/foo` -> `foo.com`
+- Then in your code, when initializing the SDK, you will make a function call.
+
+
+```javascript
+import {patchUrlMappings} from '@discord/embedded-app-sdk';
+const isProd = process.env.NODE_ENV === 'production'; // Actual dev/prod env check may vary for you
+
+async function setupApp() {
+  if (isProd) {
+    patchUrlMappings([{prefix: '/foo', target: 'foo.com'}]);
+  }
+  // start app initialization after this....
+}
+```
+
+> info
+> Note: `patchUrlMappings` is modifying your browser's `fetch`, `WebSocket`, and `XMLHttpRequest.prototype.open` global variables. Depending on the library, you may see side effects from using this helper function. It should be used only when necessary.
+
+---
+
+### Security Considerations
+
+#### Trusting Client Data
+
+Do not trust data coming from the Discord client as truth. It's fine to use this data in your application locally, but assume any data coming from the Discord Client could be falsified. That includes data about the current user, their nitro status, their current channel, etc. If you need this information in a trusted manner, contact Discord API directly from your application's server, with the user token you received from completing the OAuth2 flow.
+
+Furthermore, data coming from the Discord client is not sanitized beforehand.  Things like usernames and channel names are arbitrary user input.  Make sure to sanitize these strings or use `.textContent` (for example) to display them safely in your UI.
+
+---
+
+### Activity Instance Management
+
+When a user clicks "Join Application", they expect to enter the same application that their friends are participating in. Whether the application is a shared drawing canvas, board game, collaborative playlist, or first-person shooter; the two users should have access to the same shared data. In this documentation, we refer to this shared data as an **application instance**.
+
+![join-application](activities/join-application.png)
+
+The Embedded App SDK allows your app to talk bidirectionally with the Discord Client. The `instanceId` is necessary for your application, as well as Discord, to understand which unique instance of an application it is talking to.
+
+#### Using instanceId
+
+The `instanceId` attribute is available as soon as the SDK is constructed, and does not require the SDK to receive a `ready` payload from the Discord client.
+
+```javascript
+import {DiscordSDK} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+// available immediately
+const instanceId = discordSdk.instanceId;
+```
+
+The `instanceId` should be used as a key to save and load the shared data relevant to an application. This ensures that two users who are in the same application instance have access to the same shared data.
+
+##### Semantics of instanceId
+
+Instance IDs are generated when a user launches an application. Any users joining the same application will receive the same `instanceId`. When all the users of an application in a channel leave or close the application, that instance has finished its lifecycle, and will not be used again. The next time a user opens the application in that channel, a new `instanceId` will be generated.
+
+---
+
+### Instance Participants
+
+Instance Participants are any Discord user actively connected to the same Application Instance. This data can be fetched or subscribed to.
+
+```javascript
+import {DiscordSDK, Events, type Types} from '@discord/embedded-app-sdk';
+
+const discordSdk = new DiscordSDK('...');
+await discordSdk.ready();
+
+// Fetch
+const participants = await discordSdk.commands.getInstanceConnectedParticipants();
+
+// Subscribe
+function updateParticipants(participants: Types.GetActivityInstanceConnectedParticipantsResponse) {
+  // Do something really cool
+}
+discordSdk.subscribe(Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, updateParticipants);
+// Unsubscribe
+discordSdk.unsubscribe(Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, updateParticipants);
+```
+
+---
+
+### Render Avatars and Names
+
+Check out detailed documentation on where and how Discord stores common image assets [here](https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints).
+
+Here's a basic example for retrieving a user's avatar and username
+
+```javascript
+// We'll be referencing the user object returned from authenticate
+const {user} = await DiscordRPC.commands.authenticate({
+  access_token: accessToken,
+});
+
+let avatarSrc = '';
+if (user.avatar) {
+  avatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
+} else {
+  const defaultAvatarIndex = (BigInt(user.id) >> 22n) % 6n;
+  avatarSrc = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`
+}
+
+const username = user.global_name ?? `${user.username}#${user.discriminator}`;
+
+// Then in your HTML/JSX/etc...
+<img alt="avatar" src={avatarSrc} />
+<p>{username}</p>
+```
+
+#### Rendering guild-specific avatars and nicknames
+
+In order to retrieve a user's guild-specific avatar and nickname, your application must request the `guilds.members.read` scope. Note, this only grants the information for that instance of the application's user. To display the guild-specific avater/nickname for all application users, any info retrieved from `guilds.members.read` scope'd API calls must be shared via your application's server.
+
+Here's an example of how to retrieve the user's guild-specific avatar and nickname:
+
+```javascript
+// We'll be referencing the user object returned from authenticate
+const {user} = await DiscordRPC.commands.authenticate({
+  access_token: accessToken,
+});
+
+// When using the proxy, you may instead replace `https://discord.com` with `/discord`
+// or whatever url mapping you have chosen via the developer portal
+fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+})
+  .then((response) => {
+    return response.json();
+  })
+  .then((guildsMembersRead) => {
+    let guildAvatarSrc = '';
+    // Retrieve the guild-specific avatar, and fallback to the user's avatar
+    if (guildsMembersRead?.avatar) {
+      guildAvatarSrc = `https://cdn.discordapp.com/guilds/${DiscordRPC.guildId}/users/${user.id}/avatars/${guildsMembersRead.avatar}.png?size=256`;
+    } else if (user.avatar) {
+      guildAvatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
+    } else {
+      const defaultAvatarIndex = (BigInt(user.id) >> 22n) % 6n;
+      avatarSrc = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`;
+    }
+
+    // Retrieve the guild-specific nickname, and fallback to the username#discriminator
+    const guildNickname = guildsMembersRead?.nick ?? (user.global_name ?? `${user.username}#${user.discriminator}`);
+  });
+```
+
+This example is being done entirely on the client, however, a more common pattern is to instead, do the following:
+
+- Store the user's access token on the application server
+- Retrieve the user's guild-specific avatar and nickname via the application's server
+- Serve all of the application's avatar/nicknames via the application's server
+
+---
+
+### Setting Up Activity Metadata
+
+The Activity Shelf is where users can see what Activities can be played. It has various metadata and art assets that can be configured.
+
+To update your app's metadata in the Discord Developer Portal, navigate to the `Settings -> General Information` tab of your app.
+
+- **Application Name:** The publicly visible name of your app.
+- **Application Icon:** The publicly visible icon for your app.
+- **Application Description:** The application description is shown in the view of the Activity Shelf Item.
+- **Max Participants:** The max participants indicate the maximum number of players for your application.
+  - Max Participants is displayed above the name in the 1-up view: `Up to X participants`.
+  - Leaving this field empty defaults to `Unlimited participants`.
+  - Max Participants is also displayed under the name in the 2-up view.
+
+> info
+> An app can have a different application name and avatar from the application's bot username and avatar. Both sets of metadata are public-facing and may be visible in various situations when a user interacts with your app. You can view your bot's username on the `Settings -> Bot` tab.
+
+---
+
+### Setting Up Activity Art Assets
+
+The Activity Shelf is where users can see what Activities can be played. It has various metadata and art assets that can be configured.
+
+To update your app's embedded-specific art assets in the Discord Developer Portal, navigate to the `Activities -> Art Assets` tab of your app.
+
+### Embedded Background
+
+Used as a background overlay in Grid view. Artwork should be clustered around the edges of the image leaving space in the center of the image so the UI does not clash with it.
+
+#### Specifications
+- 16:9 aspect ratio
+- At least 1024 pixels wide
+
+### Cover Art
+
+Used as the main image in the Activity Shelf. It is suggested that this image contain the title and some art in the background.
+
+#### Specifications:
+- Image can be displayed at both 16:9 and 13:11 aspect ratios
+- At least 1024 pixels wide
+
+
+### App Tile
+
+There are two views of an application tile. The regular size tile (2-up tile) and the larger "featured" application tile (1-up tile).
+
+### Video Preview
+
+Hovering over the cover image should start playing a preview video of the Application. The preview videos should be no more than 10 seconds long. If no video is provided, nothing will happen as you hover over the application.
+
+#### Specifications: 640 x 360, mp4 format, under 10 seconds long, under 1 MB in size
+
+---
+
+### Cache Busting
+
+All assets loaded by your application will respect [cache headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control). One exception is that Discord's application proxy will remove any cache headers for assets whose `content-type` headers include `text/html`. For all non-`text/html` content that your application plans to serve, be sure your application has a cache-busting strategy. This is often built into build processes. If your application has a static filename for its javascript or css, please be sure to implement cache busting techniques, for example [webpack enables creating a content hash and manifest](https://webpack.js.org/guides/caching/) as a part of the build process.
+
+----
+
+### Handling Rate Limits
+
+Be sure network requests made by your application's client and server will be able to respect Discord API's rate limiting [as described here](https://discord.com/developers/docs/topics/rate-limits).
+
+See [this implementation in the Activity Starter project](https://github.com/discord/embedded-app-sdk/blob/main/examples/discord-activity-starter/packages/server/src/utils.ts) for an example of how to respect the `retry_after` header when you receive a 429 error.
+
+---
+
+### Static IP Addresses
+
+If your application's server is utilizing a dynamically assigned IP address (this is standard for cloud functions), there is a non-zero chance that you will inherit from a previous bad actor an IP address which has been banned by Cloudflare. In this scenario any egress traffic from the IP address directed towards Discord's API will be banned for up-to an hour. The best way to mitigate this situation is to set up a static IP address for all of your application server's egress traffic to be routed through.
+
+---
+
+### Backward Compatibility
+
+#### New Commands
+
+When new commands become available in the embedded-app-sdk, those commands won't be supported by all Discord app versions. The new command will typically only be supported by newer Discord app versions. When an application tries to use a new command with an old Discord app version that doesn't support the command, the Discord app will respond with error code `INVALID_COMMAND` which the application can handle like this:
+
+```javascript
+try {
+  const {permissions} = await discordSdk.commands.getChannelPermissions();
+
+  // check permissions
+  ...
+} catch (error) {
+  if (error.code == RPCErrorCodes.INVALID_COMMAND) {
+    // This is an expected error. The Discord client doesn't support this command
+    ...
+  } else {
+    // Unexpected error
+    ...
+  }
+}
+```
