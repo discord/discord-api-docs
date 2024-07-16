@@ -535,7 +535,7 @@ Information about the call in a private channel.
 \* If `type` is unset, `DEFAULT` can be assumed in order to match the behaviour before message reference had types.
 In future API versions this will become a required field.
 
-\*\* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model. Reqruired for forwards.
+\*\* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model. **Required for forwards.**
 
 #### Message Reference Types
 
