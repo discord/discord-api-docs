@@ -619,9 +619,9 @@ The encoding, and the waveform details, are an implementation detail and may cha
 
 #### Message Snapshot Structure
 
-| Field     | Type      | Description                                                                      |
-|-----------|-----------|----------------------------------------------------------------------------------|
-| message\* | [message] | subset of fields in the [message object](#DOCS_RESOURCES_CHANNEL/message-object) |
+| Field     | Type                                                             | Description                                       |
+|-----------|------------------------------------------------------------------|---------------------------------------------------|
+| message\* | partial [message](#DOCS_RESOURCES_CHANNEL/message-object) object | minimal subset of fields in the forwarded message |
 
 \* The current list of message fields subset consists of:
 `type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`.
