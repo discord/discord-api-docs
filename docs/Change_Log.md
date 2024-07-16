@@ -1,5 +1,11 @@
 # Change Log
 
+## Guild Member Banners
+
+#### July 16, 2024
+
+Apps can now access guild member profile banners via the API and Gateway! The [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) now includes a `banner` field which can be used to create the [guild member banner URL](#DOCS_REFERENCE/image-formatting).
+
 ## Message Forwarding rollout
 
 #### July 15, 2024
