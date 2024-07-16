@@ -573,7 +573,7 @@ There are multiple message types that have a `message_reference` object.
 ###### Forwards
 
 - These are messages which capture a snapshot of a message.
-- These messages have an array of [`message_snapshots`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) field containing a copy of the original message. This copy follows the same structure as a message, but has only the minimal set of fields returned required for context/rendering.
+- These messages have an array of [`message_snapshot`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects containing a copy of the original message. This copy follows the same structure as a message, but has only the minimal set of fields returned required for context/rendering.
   - of note: `author` will be excluded
 - A forwarded message can be identified by looking at its `message_reference.type` field
   - `message_snapshots` will be the message data associated with the forward. Currently we support only 1 snapshot.
