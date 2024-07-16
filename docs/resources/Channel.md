@@ -623,7 +623,7 @@ The encoding, and the waveform details, are an implementation detail and may cha
 |-----------|------------------------------------------------------------------|---------------------------------------------------|
 | message\* | partial [message](#DOCS_RESOURCES_CHANNEL/message-object) object | minimal subset of fields in the forwarded message |
 
-\* The current list of message fields subset consists of:
+\* The current subset of message fields consists of:
 `type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`.
 
 > info
