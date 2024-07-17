@@ -60,6 +60,12 @@ This was [previously announced](https://discord.com/channels/613425648685547541/
 - [`message snapshot`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects don't include a `guild` field anymore since the `message_reference` already provides that information
 - forwarded messages have a distinctive `message_reference` type of `FORWARD` now
 
+# Banners in Get Current User Guilds
+
+#### July 9, 2024
+
+[`GET /users/@me/guilds`](#DOCS_RESOURCES_USER/get-current-user-guilds) now includes each guild's `banner` field! This enables apps using OAuth2 with the `guilds` scope to display guild banners.
+
 ## User-Installed Apps General Availability
 
 #### June 27, 2024
