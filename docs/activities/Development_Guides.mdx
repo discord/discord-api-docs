@@ -702,7 +702,7 @@ Furthermore, data coming from the Discord client is not sanitized beforehand.  T
 
 #### Using Cookies
 
-To set a cookie for your activity to use in network requests through the proxy, make sure the cookie's domain matches your app's full `{clientId}.discordsays.com` domain. You will also need to explicitly set `SameSite=None Partitioned` on the cookie. `SameSite=None` is needed as browsers refuse to store or send cookies with higher restriction levels for any navigation within an `iframe`. `Partitioned` then limits the use of that cookie to only Discord's `iframe`s.
+To set a cookie for your activity to use in network requests through the proxy, make sure the cookie's domain matches your app's full `{clientId}.discordsays.com` domain. You will also need to explicitly set `SameSite=None Partitioned` on the cookie. `SameSite=None` is needed as browsers refuse to store or send cookies with higher restriction levels for any navigation within an iframe. `Partitioned` then limits the use of that cookie to only Discord's iframes.
 
 Rest assured: other activities will not be able to make requests with your activity's cookie, thanks to the Content Security Policy (CSP) limiting requests only to your own app's proxy.
 
