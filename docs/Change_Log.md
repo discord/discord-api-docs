@@ -2,7 +2,7 @@
 
 ## Activities Proxy CSP Update
 
-### July 17, 2024
+#### July 17, 2024
 
 > danger
 > This entry includes breaking changes
