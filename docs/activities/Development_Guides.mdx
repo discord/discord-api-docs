@@ -227,11 +227,15 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 
 The aforementioned "sandbox" is enforced by a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). We have some notable exceptions to our CSP, meaning application clients may make requests to these URLs without hitting the proxy and therefore without establishing mappings. Notable exceptions include:
 
-- `https://discord.com`
-- `https://canary.discord.com`
-- `https://ptb.discord.com`
-- `https://cdn.discordapp.com`
-- `https://media.discordapp.net`
+- `https://discord.com/api/`
+- `https://canary.discord.com/api/`
+- `https://ptb.discord.com/api/`
+- `https://cdn.discordapp.com/attachments/`
+- `https://cdn.discordapp.com/avatars/`
+- `https://cdn.discordapp.com/icons/`
+- `https://media.discordapp.net/attachments/`
+- `https://media.discordapp.net/avatars/`
+- `https://media.discordapp.net/icons/`
 
 ---
 
@@ -631,7 +635,8 @@ There are scenarios where instead of using a relative url (`/path/to/my/thing`) 
 1. The protocol you wish to use
 2. Your application's client id
 3. The discord proxy domain
-4. Whatever you need to list
+4. The `/.proxy` path prefix
+5. Whatever you need to list
 
 Here's an example of how to build a full url, using the URL constructor:
 
@@ -640,13 +645,13 @@ const protocol = `https`;
 const clientId = '<YOUR CLIENT ID>';
 const proxyDomain = 'discordsays.com';
 const resourcePath = '/foo/bar.jpg';
-const url = new URL(`${protocol}://${clientId}.${proxyDomain}${resourcePath}`);
+const url = new URL(`${protocol}://${clientId}.${proxyDomain}/.proxy${resourcePath}`);
 ```
 
 In other words, given an application client id of `12345678`
-| Relative Path | Full Path                                    |
-|---------------|----------------------------------------------|
-| /foo/bar.jpg  | https://12345678.discordsays.com/foo/bar.jpg |
+| Relative Path | Full Path                                           |
+|---------------|-----------------------------------------------------|
+| /foo/bar.jpg  | https://12345678.discordsays.com/.proxy/foo/bar.jpg |
 
 ---
 
