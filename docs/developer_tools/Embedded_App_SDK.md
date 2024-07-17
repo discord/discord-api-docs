@@ -246,6 +246,16 @@ Forward logs to your own logger.
 
 No scopes required
 
+#### Level Parameter
+
+`captureLog` requires a `level` parameter which matches the javascript [console](https://developer.mozilla.org/en-US/docs/Web/API/console) log levels.
+The supported values for `level` are:
+- `debug`
+- `log`
+- `info`
+- `warn`
+- `error`
+
 #### Usage
 
 ```js
