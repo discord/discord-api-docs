@@ -103,13 +103,13 @@ We'll need three values from your app's settings for your `.env` file:
 > warn
 > You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe (like in a password manager).
 
-Now that you have the credentials you need, we'll configure your app to support different installation contexts.
+Now that you have the credentials you need, lets configure your bot user and installation settings.
 
 ### Configuring your bot
 
-Newly-created apps have a bot user enabled by default. Bot users allow your app to appear and behave similarly to other server members when it's [installed to a server](#TODO).
+Newly-created apps have a bot user enabled by default. Bot users allow your app to appear and behave similarly to other server members when it's [installed to a server](#DOCS_QUICK_START_OVERVIEW_OF_APPS/where-are-apps-installed).
 
-On the left hand sidebar, there's a **Bot** page (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by other users.
+On the left hand sidebar in your app's settings, there's a **Bot** page (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by other users.
 
 <Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
 Intents determine which events Discord will send your app when you're creating a [Gateway API connection](#DOCS_TOPICS_GATEWAY). For example, if you want your app to perform an action when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
@@ -156,11 +156,11 @@ When creating an app, scopes and permissions determine what your app can do and 
 - [Permissions](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) are the granular permissions for your bot user, the same as other users in Discord have. They can be approved by the installing user or later updated within server settings or with [permission overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Since apps installed to a user context can only respond to commands, these permissions are only relevant to apps installed to a server.
 </Collapsible>
 
-On the **Installation** page in the **Default Install Settings** section, make sure `application.commands` is selected for both "User Install" and "Guild Install". 
+On the **Installation** page in the **Default Install Settings** section:
+- For **User Install**, add the `applications.commands` scope
+- For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
-For "Guild Install", you should also add the `bot` scope from the dropdown.
-
-After you add `bot`, you can also select different permissions for your bot. For now, just select **Send Messages**.
+![Default Install Settings](getting-started-default-install.png)
 
 See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), or read more on [permissions](#DOCS_TOPICS_PERMISSIONS) in the documentation.
 
@@ -169,23 +169,30 @@ See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-sc
 > info
 > When developing apps, you should build and test on your user account (for user-installable apps) and in a server that isn't actively used by others (for server-installable apps). If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 
-Once you add scopes, copy the URL from the **Install Link** section from before, and paste it into your browser. You'll be guided through the installation flow.
+Once you add scopes, copy the URL from the **Install Link** section from before.
 
-<TODO: new asset>
+Since our app is supporting both installation contexts, we'll install your new app to both a test server and your user account so that we can test in both [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context).
 
-Since our app is supporting both installation contexts, we'll want to add it to a test server as well as our user account. This means you'll need to install your app twice. <TODO: make this clearer—maybe create subsections here>
+###### Install to server
 
-After installing your app, you can head over to your server and see that it has joined ✨
+To install your app to your test server, copy the default Install Link for your app from the **Installation** page. Paste the link in your browser and hit enter, then select "Add to server" in the installation prompt.
 
-With your app configured and installed, let's start developing it.
+Select your test server, and follow the installation prompt. Once your app is added to your test server, you should see it appear in the member list.
+
+###### Install to user account
+
+Next, install your app to your user account. Paste the same Install Link in your browser and hit enter. This time, select "Add to my apps" in the installation prompt.
+
+Follow the installation prompt to install your app to your user account. Once it's installed you can open a DM with it.
 
 ---
 
 ## Step 2: Running your app
 
-<TODO: new intro here>
+With your app configured and installed to your test server and account, let's take a look at the code.
 
-To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) documentation.
+> info
+> To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) documentation.
 
 ### Installing slash commands
 
@@ -215,6 +222,8 @@ Apps have access to [APIs](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-apis-can-apps
 
 ## Step 3: Handling interactivity
 
+<TODO: need to include handling interactive context somewhere in here>
+
 To enable your app to receive slash command and other interactions requests, Discord needs a public URL to send them. This URL can be configured in your app's settings as **Interaction Endpoint URL**.
 
 ### Set up a public endpoint
@@ -240,13 +249,25 @@ After ngrok is installed, open a new terminal and create a public endpoint that 
 ngrok http 3000
 ```
 
-The output will include a **Forwarding** URL, which is the publicly-accessible URL we'll use for our Interactions Endpoint URL in the next step.
+You should see your connection open with output similar to the following:
+
+```
+Tunnel Status                 online
+Version                       2.0/2.0
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    https://1234-someurl.ngrok.io -> localhost:3000
+
+Connections                  ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00
+```
+
+We'll use **Forwarding** URL as the publicly-accessible URL where Discord will send interactions requests in the next step.
 
 ### Adding an interaction endpoint URL
 
-Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
+Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok forwarding URL and append `/interactions`.
 
-<TODO: new asset>
+![Interactions Endpoint URL](getting-started-interactions-endpoint.png)
 
 Click **Save Changes** and ensure your endpoint is successfully verified.
 
@@ -343,7 +364,6 @@ if (name === 'challenge' && id) {
     });
 }
 ```
-
 
 > info
 > If you aren't sure where to paste the code, you can see the full code in `examples/app.js`.
