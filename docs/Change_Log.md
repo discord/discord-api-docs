@@ -9,6 +9,7 @@ You can now upload emojis for your application in your [app's settings](https://
 - Up to 2000 emojis per app
 - Support for user-installable apps
 - Can be [managed via the API](#DOCS_RESOURCES_EMOJI/create-application-emoji) with a bot token
+- Does not require the `USE_EXTERNAL_EMOJIS` permission for the app
 
 ## Activities Proxy CSP Update
 
