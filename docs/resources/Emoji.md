@@ -129,7 +129,7 @@ Delete the given emoji. For emojis created by the current user, requires either 
 
 ## List Application Emojis % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/emojis
 
-Returns an object containing a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given application under the `items` key. Includes `user` fields.
+Returns an object containing a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given application under the `items` key. Includes a `user` object for the team member that uploaded the emoji from the app's settings, or for the bot user if uploaded using the API.
 
 ```json
 {
