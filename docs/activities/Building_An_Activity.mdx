@@ -339,7 +339,7 @@ cd server
 npm install
 ```
 
-We aren't going to edit the server code here, but it consists of a single POST route for `/API/token` that allows us to perform the Oauth2 flow from the server securely.
+We aren't going to edit the server code here, but it consists of a single POST route for `/api/token` that allows us to perform the Oauth2 flow from the server securely.
 
 <Collapsible title="getting-started-activity/server/server.js" icon="view">
 ```javascript
@@ -397,6 +397,15 @@ Server listening at http://localhost:3001
 
 We can now run our server and client-side apps in separate terminal windows. You can see other ways to set this up in our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
 
+### Calling external resources from your activity
+
+Before we call your backend activity server, we need to be aware of the Discord proxy and understand how to avoid Content Security Policy (CSP) issues.
+
+> info
+> For this tutorial, we are going to simply prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
+
+Learn more about this topic in the guides for [Constructing a Full URL](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/construct-a-full-url) and [Using External Resources](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/using-external-resources).
+
 ### Calling your backend server from your client
 
 We're almost there! Now, we need our client application to communicate with our server so we can start the OAuth process and get an access token.
@@ -442,7 +451,10 @@ async function setupDiscordSdk() {
   });
 
   // Retrieve an access_token from your activity's server
-  const response = await fetch("/api/token", {
+  // Note: We need to prefix our backend `/api/token` route with `/.proxy` to stay compliant with the CSP.
+  // Read more about constructing a full URL and using external resources at
+  // https://discord.com/developers/docs/activities/development-guides#construct-a-full-url
+  const response = await fetch("/.proxy/api/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
