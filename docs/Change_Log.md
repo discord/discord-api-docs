@@ -70,7 +70,7 @@ This was [previously announced](https://discord.com/channels/613425648685547541/
 - [`message snapshot`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects don't include a `guild` field anymore since the `message_reference` already provides that information
 - forwarded messages have a distinctive `message_reference` type of `FORWARD` now
 
-# Banners in Get Current User Guilds
+## Banners in Get Current User Guilds
 
 #### July 9, 2024
 
