@@ -901,9 +901,6 @@ Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES
 
 Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
 
-> warn
-> Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an ID and channel_id).
-
 #### Message Delete
 
 Sent when a message is deleted.
