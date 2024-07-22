@@ -47,3 +47,7 @@ Updates and returns a list of [application role connection metadata](#DOCS_RESOU
 
 > info
 > An application can have a maximum of 5 metadata records.
+
+## Delete Application Role Connection Metadata Records % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connections/metadata
+
+Deletes [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application
