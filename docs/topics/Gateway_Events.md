@@ -901,6 +901,9 @@ Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES
 
 Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
 
+> warn
+> The value for `tts` will always be false in message updates.
+
 #### Message Delete
 
 Sent when a message is deleted.
