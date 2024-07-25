@@ -219,12 +219,15 @@ There are a number of ways you can respond to an interaction:
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                                                                                                          |
 | MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                                                                                                           |
 | PREMIUM_REQUIRED\*\*\*                  | 10    | [**Deprecated**](#DOCS_CHANGE_LOG/premium-apps-new-premium-button-style-deep-linking-url-schemes); respond to an interaction with an upgrade button, only available for apps with monetization enabled |
+| LAUNCH_ACTIVITY\*\*\*\*                 | 12    | launch the activity associated with the application                                                                                                                                                    |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
 \*\*\* This response type is deprecated. Learn more about [migrating to premium buttons](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions). `PREMIUM_REQUIRED` response type is not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
+
+\*\*\*\* Requires the application to have enable Activities. [Learn more about building Activities on Discord](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/overview).
 
 ###### Interaction Callback Data Structure
 
