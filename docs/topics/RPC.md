@@ -993,7 +993,7 @@ Used to update a user's Rich Presence.
 ###### Set Activity Argument Structure
 
 > info
-> When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Game (`0`), Listening (`2`), Watching (`3`), and Competing (`5`).
+> When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Playing (`0`), Listening (`2`), Watching (`3`), and Competing (`5`).
 
 | Field    | Type                                                           | Description                             |
 |----------|----------------------------------------------------------------|-----------------------------------------|
