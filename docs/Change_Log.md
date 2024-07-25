@@ -4,7 +4,7 @@
 
 #### July 25, 2024
 
-The [`SET_ACTIVITY` RPC command](#DOCS_TOPICS_RPC/setactivity) has been updated to support 3 additional [activity types](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types): Listening (`2`), Watching (`3`), and Competing (`5`). Previously, it only accepted Game (`0`).
+The [`SET_ACTIVITY` RPC command](#DOCS_TOPICS_RPC/setactivity) has been updated to support 3 additional [activity types](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types): Listening (`2`), Watching (`3`), and Competing (`5`). Previously, it only accepted Playing (`0`).
 
 > warn
 > The [Game SDK](#DOCS_GAME_SDK_ACTIVITIES) has not been updated to support setting [`ActivityType`](#DOCS_GAME_SDK_ACTIVITIES/data-models-activitytype-enum), and is still limited to read-only (to handle events that you receive from Discord).
