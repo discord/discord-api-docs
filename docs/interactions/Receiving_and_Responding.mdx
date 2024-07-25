@@ -266,31 +266,9 @@ Not all message fields are currently supported.
 > warn
 > If your application responds with user data, you should use [`allowed_mentions`](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object) to filter which mentions in the content actually ping.
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
+###### Callback
 
-```py
-@app.route('/', methods=['POST'])
-def my_command():
-    if request.json["type"] == 1:
-        return jsonify({
-            "type": 1
-        })
-
-    else:
-        return jsonify({
-            "type": 4,
-            "data": {
-                "tts": False,
-                "content": "Congrats on sending your command!",
-                "embeds": [],
-                "allowed_mentions": { "parse": [] }
-            }
-        })
-```
-
-If you are receiving Interactions over the gateway, you will **also need to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
-
-To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request to issue an initial response.**
+When responding to an interaction received, you can make a `POST` request to `/interactions/<interaction_id>/<interaction_token>/callback`. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **If you send this request for an interaction received over HTTP, respond to the original HTTP request with a 202 and no body.**
 
 ```py
 import requests
@@ -308,6 +286,35 @@ r = requests.post(url, json=json)
 
 > info
 > Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+
+<Collapsible title="Inline HTTP Reponse Behavior" icon="code">
+    > warn
+    > The documentation in this section is a discouraged way of responding to interactions now. We highly recommend using the [HTTP callback method](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-callback) to receive results and any potential error.
+
+    Your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
+
+    ```py
+    @app.route('/', methods=['POST'])
+    def my_command():
+        if request.json["type"] == 1:
+            return jsonify({
+                "type": 1
+            })
+
+        else:
+            return jsonify({
+                "type": 4,
+                "data": {
+                    "tts": False,
+                    "content": "Congrats on sending your command!",
+                    "embeds": [],
+                    "allowed_mentions": { "parse": [] }
+                }
+            })
+    ```
+
+    If you are receiving Interactions over the gateway, you **have to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
+</Collapsible>
 
 ## Followup Messages
 
@@ -328,25 +335,25 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond to an i
 > info
 > The endpoints below are not bound to the application's [Global Rate Limit](#DOCS_TOPICS_RATE_LIMITS/global-rate-limit).
 
-## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
+## Create Interaction Response % POST /interactions/\{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/callback
 
-Create a response to an Interaction from the gateway. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `204 No Content`.
+Create a response to an Interaction. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `200` [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
 This endpoint also supports file attachments similar to the webhook endpoints. Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on uploading files and `multipart/form-data` requests.
 
-## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
+## Get Original Interaction Response % GET /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/@original
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/@original
 
 Deletes the initial Interaction response. Returns `204 No Content` on success.
 
-## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
+## Create Followup Message % POST /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}
 
 > info
 > Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
@@ -355,14 +362,14 @@ Create a followup message for an Interaction. Functions the same as [Execute Web
 
 `flags` can be set to `64` to mark the message as ephemeral, except when it is the first followup message to a deferred Interactions Response. In that case, the `flags` field will be ignored, and the ephemerality of the message will be determined by the `flags` value in your original ACK.
 
-## Get Followup Message % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+## Get Followup Message % GET /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/\{message.id#DOCS_RESOURCES_CHANNEL/message-object\}
 
 Returns a followup message for an Interaction. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+## Edit Followup Message % PATCH /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/\{message.id#DOCS_RESOURCES_CHANNEL/message-object\}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+## Delete Followup Message % DELETE /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/\{message.id#DOCS_RESOURCES_CHANNEL/message-object\}
 
 Deletes a followup message for an Interaction. Returns `204 No Content` on success.
