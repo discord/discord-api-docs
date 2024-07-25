@@ -362,7 +362,7 @@ Used to get a channel the client is in.
 | user_limit   | integer                                                                  | (voice) user limit of voice channel (0 for none)                 |
 | position     | integer                                                                  | position of channel in channel list                              |
 | voice_states | array of [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects | (voice) channel's voice states                                   |
-| messages     | array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects       | (text) channel's messages                                        |
+| messages     | array of [message](#DOCS_RESOURCES_MESSAGE/message-object) objects       | (text) channel's messages                                        |
 
 ###### Example Get Channel Command Payload
 
@@ -1477,7 +1477,7 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#D
 | Field      | Type                                                     | Description                               |
 |------------|----------------------------------------------------------|-------------------------------------------|
 | channel_id | string                                                   | id of channel where notification occurred |
-| message    | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification  |
+| message    | [message](#DOCS_RESOURCES_MESSAGE/message-object) object | message that generated this notification  |
 | icon_url   | string                                                   | icon url of the notification              |
 | title      | string                                                   | title of the notification                 |
 | body       | string                                                   | body of the notification                  |

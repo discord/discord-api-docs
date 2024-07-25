@@ -455,7 +455,7 @@ HTTP API restrictions are independent of Gateway restrictions, and are unaffecte
 
 `MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs.
 
-Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, `components`, and `poll` fields in [message objects](#DOCS_RESOURCES_CHANNEL/message-object) all contain message content and therefore require the intent.
+Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, `components`, and `poll` fields in [message objects](#DOCS_RESOURCES_MESSAGE/message-object) all contain message content and therefore require the intent.
 
 > info
 > Like other privileged intents, `MESSAGE_CONTENT` must be approved for your app. After your app is verified, you can apply for the intent from your app's settings within the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).

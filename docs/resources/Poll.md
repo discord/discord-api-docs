@@ -115,11 +115,11 @@ If `answer_counts` does not contain an entry for a particular answer, then there
 
 # Poll Endpoints
 
-For creating a poll, see [Create Message](#DOCS_RESOURCES_CHANNEL/create-message). After creation, the poll message cannot be edited.
+For creating a poll, see [Create Message](#DOCS_RESOURCES_MESSAGE/create-message). After creation, the poll message cannot be edited.
 
 Apps are not allowed to vote on polls. No rights! :)
 
-## Get Answer Voters % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/answers/{answer_id#DOCS_RESOURCES_POLL/poll-answer-object}
+## Get Answer Voters % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_MESSAGE/message-object}/answers/{answer_id#DOCS_RESOURCES_POLL/poll-answer-object}
 
 Get a list of users that voted for this specific answer.
 
@@ -136,8 +136,8 @@ Get a list of users that voted for this specific answer.
 |-------|---------------------------------------------------|---------------------------------|
 | users | array of [user](#DOCS_RESOURCES_USER/user-object) | Users who voted for this answer |
 
-## End Poll % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/expire
+## End Poll % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_MESSAGE/message-object}/expire
 
 Immediately ends the poll. You cannot end polls from other users.
 
-Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
+Returns a [message](#DOCS_RESOURCES_MESSAGE/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
