@@ -88,7 +88,7 @@ Application commands are native ways to interact with apps in the Discord client
 | ROLE              | 8     |                                                                |
 | MENTIONABLE       | 9     | Includes users and roles                                       |
 | NUMBER            | 10    | Any double between -2^53 and 2^53                              |
-| ATTACHMENT        | 11    | [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) object |
+| ATTACHMENT        | 11    | [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) object |
 
 ###### Application Command Option Choice Structure
 
