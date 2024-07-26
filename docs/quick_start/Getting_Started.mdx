@@ -273,7 +273,7 @@ Go to your [app's settings](https://discord.com/developers/applications) and on 
 Click **Save Changes** and ensure your endpoint is successfully verified.
 
 > info
-> If you have troubles verifying your endpoint, make sure both ngrok and your app is running on the same port, and that you've copied the ngrok URL correctly
+> If you have troubles verifying your endpoint, make sure both ngrok and your app are running on the same port, and that you've copied the ngrok URL correctly
 
 The verification is handled automatically by the sample app in two ways:
 - It uses the `PUBLIC_KEY` and [discord-interactions package](https://github.com/discord/discord-interactions-js#usage) with a wrapper function (imported from `utils.js`) that makes it conform to [Express's `verify` interface](http://expressjs.com/en/5x/api.html#express.json). This is run on every incoming request to your app.
