@@ -206,9 +206,9 @@ Used to request soundboard sounds for a list of guilds. The server will send [So
 
 ###### Request Soundboard Sounds Structure
 
-| Field     | Type                | Description                                    | Required |
-|-----------|---------------------|------------------------------------------------|----------|
-| guild_ids | array of snowflakes | IDs of the guilds to get soundboard sounds for | true     |
+| Field     | Type                | Description                                    |
+|-----------|---------------------|------------------------------------------------|
+| guild_ids | array of snowflakes | IDs of the guilds to get soundboard sounds for |
 
 ###### Example Request Soundboard Sounds
 
