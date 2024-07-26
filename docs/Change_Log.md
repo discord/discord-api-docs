@@ -1,5 +1,14 @@
 # Change Log
 
+## Supported Activity Types for SET_ACTIVITY
+
+#### July 25, 2024
+
+The [`SET_ACTIVITY` RPC command](#DOCS_TOPICS_RPC/setactivity) has been updated to support 3 additional [activity types](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types): Listening (`2`), Watching (`3`), and Competing (`5`). Previously, it only accepted Playing (`0`).
+
+> warn
+> The [Game SDK](#DOCS_GAME_SDK_ACTIVITIES) has not been updated to support setting [`ActivityType`](#DOCS_GAME_SDK_ACTIVITIES/data-models-activitytype-enum), and is still limited to read-only (to handle events that you receive from Discord).
+
 ## Application Emoji
 
 #### July 18, 2024
@@ -37,7 +46,7 @@ All Application IDs created after `07/17/2024 12:00:00` UTC (applicationID great
 
 #### July 15, 2024
 
-We are slowly rolling out the message forwarding feature to users. This feature allows callers to create a message using `message_reference.type = FORWARD` and have the API generate a `message_snapshot` for the sent message. The feature has [some limitations](#DOCS_RESOURCES_CHANNEL/message-reference-types) and the snapshot is a minimal version of a standard `MessageObject`, but does capture the core parts of a message.
+We are slowly rolling out the message forwarding feature to users. This feature allows callers to create a message using `message_reference.type = FORWARD` and have the API generate a `message_snapshot` for the sent message. The feature has [some limitations](#DOCS_RESOURCES_MESSAGE/message-reference-types) and the snapshot is a minimal version of a standard `MessageObject`, but does capture the core parts of a message.
 
 The resulting message will look something like:
 ```json
@@ -68,10 +77,10 @@ We have applied stricter rate limits for this feature based on the following:
 ###### API Updates since preview
 
 This was [previously announced](https://discord.com/channels/613425648685547541/697138785317814292/1233463756160503859) but note that the final API has a few changes since the API was first previewed:
-- [`message snapshot`](#DOCS_RESOURCES_CHANNEL/message-snapshot-object) objects don't include a `guild` field anymore since the `message_reference` already provides that information
+- [`message snapshot`](#DOCS_RESOURCES_MESSAGE/message-snapshot-object) objects don't include a `guild` field anymore since the `message_reference` already provides that information
 - forwarded messages have a distinctive `message_reference` type of `FORWARD` now
 
-# Banners in Get Current User Guilds
+## Banners in Get Current User Guilds
 
 #### July 9, 2024
 
@@ -90,7 +99,7 @@ With this update, there are a few API and behavioral updates for user-installed 
 
 ###### API Updates
 
-- `user_id` has been removed from the `interaction_metadata` field on messages. Instead, you can use the `id` field in the nested `user` object. See the [Message Interaction Metadata Object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object) for details.
+- `user_id` has been removed from the `interaction_metadata` field on messages. Instead, you can use the `id` field in the nested `user` object. See the [Message Interaction Metadata Object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object) for details.
 - User-installed apps are now limited to creating a maximum of 5 [follow-ups](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) when responding to interactions. This only affects the [Create Followup Message endpoint](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message), and apps installed to the server are unaffected.
 - On [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure), the value of `authorizing_integration_owners` is now correctly serialized as a string. Previously, the `"0"` value was incorrectly serialized as a number.
 - `app_permissions` on [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) now correctly represents the permissions for user-installed apps. Previously, the value was incorrect for user-installed apps.
@@ -205,9 +214,9 @@ This change introduces new concepts and fields across the API that apps will now
 - New `context` field for [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) indicates the [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) where an interaction was triggered from.
 - New `authorizing_integration_owners` field for [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) includes a mapping of installation contexts that the interaction was authorized for, to related snowflakes for that context. Read [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) for details.
 - `app_permissions` is now always serialized for interactions to indicate what [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) your app has access to in the context its' responding. For (G)DMs with other users, it will include the `ATTACH_FILES | EMBED_LINKS | MENTION_EVERYONE`, and for DMs with the app's bot user it will also contain `USE_EXTERNAL_EMOJIS` for the bot’s DM
-- New `interaction_metadata` on [Messages](#DOCS_RESOURCES_CHANNEL/message-object) that are created as part of an interaction response (either a response or follow-up). See [Message Interaction Metadata Object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object) for details.
+- New `interaction_metadata` on [Messages](#DOCS_RESOURCES_MESSAGE/message-object) that are created as part of an interaction response (either a response or follow-up). See [Message Interaction Metadata Object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object) for details.
 - `dm_permission` field for [Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) is deprecated. Apps should use `contexts` instead.
-- `interaction` field for [Messages](#DOCS_RESOURCES_CHANNEL/message-object) is deprecated. Apps should use `interaction_metadata` instead.
+- `interaction` field for [Messages](#DOCS_RESOURCES_MESSAGE/message-object) is deprecated. Apps should use `interaction_metadata` instead.
 
 ###### Limitations and Known Issues
 
@@ -243,13 +252,13 @@ endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK
 
 #### February 12, 2024
 
-The [Create message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
+The [Create message](#DOCS_RESOURCES_MESSAGE/create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
 
 ## Limit Number of Fields in Embeds
 
 #### December 19, 2023
 
-[Embed objects](#DOCS_RESOURCES_CHANNEL/embed-object) are now limited more explicitly to 25 [embed fields](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
+[Embed objects](#DOCS_RESOURCES_MESSAGE/embed-object) are now limited more explicitly to 25 [embed fields](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
 
 Previously, only the first 25 embed fields would be displayed within the embed but no error was returned.
 
@@ -941,7 +950,7 @@ The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require paginati
 - `GET /channels/{channel.id}/threads/active` is decommissioned in favor of [`GET /guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-guild-threads).
 - Starting in v10, you must specify the message content intent (`1 << 15`) to receive content-related fields in message dispatches. Read more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 - To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
-- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
+- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_MESSAGE/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
 - The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
 - The `name` and `description` fields for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct).
 - Existing attachments must be specified when [`PATCH`ing messages with new attachments](#DOCS_REFERENCE/editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
@@ -1036,7 +1045,7 @@ You can now include buttons on messages sent by your app, whether they're bot me
 
 The addition of message components means new fields and response types:
 
-- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
+- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_MESSAGE/message-object)
 - New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type), valid only for component-based interactions
 
 ## API v9
@@ -1120,15 +1129,15 @@ Inline Replies have been added to our documentation. They behave differently in 
 
 - Inline replies are type `19` in v8, but remain type `0` in v6
 - You can now add a `message_reference` on message create to create a reply
-- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
-- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_MESSAGE/message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)
 - [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
 
 ## Stickers
 
 #### November 13, 2020
 
-Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_MESSAGE/message-object) object.
 
 ## Gateway v6 Intent Restrictions
 
@@ -1196,7 +1205,7 @@ Documented `permissions_new`, `allow_new`, and `deny_new` as string-serialized p
 
 #### May 11, 2020
 
-The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) API moving forwards.
+The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object) API moving forwards.
 
 ## New Properties on Guild Members Chunk Event
 
@@ -1210,13 +1219,13 @@ The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) gatew
 
 We've added a way to specify mentions in a more granular form. This change also begins the start of a 60 day deprecation cycle on legacy mention behavior. Read more:
 
-- [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Allowed mentions object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)
 
 ## New Invite Events and Reactions Endpoint
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
 
-- [Delete All Reactions for Emoji](#DOCS_RESOURCES_CHANNEL/delete-all-reactions-for-emoji)
+- [Delete All Reactions for Emoji](#DOCS_RESOURCES_MESSAGE/delete-all-reactions-for-emoji)
 - [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create)
 - [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete)
 - [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji)
@@ -1291,7 +1300,7 @@ Additional information around Teams has been added to both the API and the docum
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_MESSAGE/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 
@@ -1341,7 +1350,7 @@ We released server changes that allow guilds to represent an incomplete state of
 
 #### February 5, 2018
 
-Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
+Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_MESSAGE/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
 ## Enhancement: Get Guild Emoji Endpoint
 
@@ -1421,7 +1430,7 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
   - `is_private` removed
   - [`type`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) is now an integer
   - `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
-- [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
-  - [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
+- [Message](#DOCS_RESOURCES_MESSAGE/message-object) Object
+  - [`type`](#DOCS_RESOURCES_MESSAGE/message-object-message-types) added to support system messages
 - [Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence-gateway-presence-update-structure) Object
   - `idle_since` renamed to `since`
