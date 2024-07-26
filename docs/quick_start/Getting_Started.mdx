@@ -1,8 +1,9 @@
-<LocalePicker />
-
 # Building your first Discord app
 
-[Discord apps](#DOCS_QUICK_START_OVERVIEW_OF_APPS) let you customize and extend Discord using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript, and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
+[Discord apps](#DOCS_QUICK_START_OVERVIEW_OF_APPS) let you customize and extend Discord using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
+
+> info
+> If you're interested in building a game or social experience in an iframe, you can follow the tutorial for [building an Activity](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY)
 
 We'll be building a Discord app that lets users play rock-paper-scissors (with 7 choices instead of 3). This guide is beginner-focused, but it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
@@ -31,14 +32,14 @@ To make the user flow a bit more explicit:
 
 ## Step 0: Project Setup
 
-Before we get started, you'll need the project code from the [sample app repository](https://github.com/discord/discord-example-app).
+Before we get started, you'll need to set up your local environment and get the project code from the [sample app repository](https://github.com/discord/discord-example-app).
 
 > info
 > We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but you can use your preferred development environment.
 
 If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install that first.
 
-Now, clone the project code to your machine using the command line:
+After NodeJS is installed, open your command line and clone the project code:
 
 ```
 git clone https://github.com/discord/discord-example-app.git
@@ -65,8 +66,8 @@ npm install
 ├── .env        -> your credentials and IDs
 ├── app.js      -> main entrypoint for app
 ├── commands.js -> slash command payloads + helpers
-├── game.js     -> logic specific to RPS
-├── utils.js    -> utility functions and enums
+├── game.js     -> logic specific to Rock, Paper, Scissors
+├── utils.js    -> utility functions and constants
 ├── package.json
 ├── README.md
 └── .gitignore
@@ -222,8 +223,6 @@ Apps have access to [APIs](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-apis-can-apps
 
 ## Step 3: Handling interactivity
 
-<TODO: need to include handling interactive context somewhere in here>
-
 To enable your app to receive slash command and other interactions requests, Discord needs a public URL to send them. This URL can be configured in your app's settings as **Interaction Endpoint URL**.
 
 ### Set up a public endpoint
@@ -278,7 +277,7 @@ The verification is handled automatically by the sample app in two ways:
 - It uses the `PUBLIC_KEY` and [discord-interactions package](https://github.com/discord/discord-interactions-js#usage) with a wrapper function (imported from `utils.js`) that makes it conform to [Express's `verify` interface](http://expressjs.com/en/5x/api.html#express.json). This is run on every incoming request to your app.
 - It responds to incoming `PING` requests.
 
-You can learn more about preparing your app to receive interactions in [the interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
+You can learn more about preparing your app to receive interactions in [the interactions documentation](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions).
 
 ### Handling slash command requests
 
@@ -298,7 +297,7 @@ if (name === 'test') {
 }
 ```
 
-The code above is responding to the interaction with a message in the channel or DM it originated from. You can see all available response types, like responding with a modal, [in the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+The code above is responding to the interaction with a message in the channel, DM, or Group DM it originated from. You can see all available response types, like responding with a modal, [in the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
 > info
 > `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -369,7 +368,7 @@ if (name === 'challenge' && id) {
 > If you aren't sure where to paste the code, you can see the full code in `examples/app.js`.
 
 The above code is doing a few things:
-1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`). If the interaction is run in a server (`context === 0`), the user ID will be nested in the `member` object. Otherwise, it will be in the `user` object.
+1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`). If the interaction is run in a server (`context === 0`), the user ID will be nested in the `member` object. If it's in a DM or Group DM, it will be in the `user` object.
 2. Adds a new game to the `activeGames` object using the interaction ID. The active game records the `userId` and `objectName`.
 3. Sends a message back to the channel with a button with a `custom_id` of `accept_button_<SOME_ID>`.
 
@@ -549,9 +548,19 @@ Finally, the results are sent in the channel using the `CHANNEL_MESSAGE_WITH_SOU
 
 Congrats on building your first Discord app! 🤖
 
-Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible:
-- Read **[the documentation](#DOCS_INTRO)** for in-depth information about API features
-- Browse the `examples/` folder in this project for smaller, feature-specific code examples
-- Check out **[community resources](#DOCS_TOPICS_COMMUNITY_RESOURCES)** for language-specific tools maintained by community members
-- Read our tutorial on [hosting Discord apps on Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
-- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs
+Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible.
+
+<Container>
+  <Card title="Overview of Apps" link="#DOCS_QUICK_START_OVERVIEW_OF_APPS" icon="AppsIcon">
+    Explore the platform features and APIs you have access to when building an app on Discord
+  </Card>
+  <Card title="Explore developer tools" link="#DOCS_TOPICS_COMMUNITY_RESOURCES" icon="WrenchIcon">
+    Explore 1st party and community-built libraries and tools to make speed up and simplify your development
+  </Card>
+  <Card title="Developing User-Installable Apps" link="#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP" icon="UserIcon">
+    Tutorial on building and handling interactions for apps installed to a user
+  </Card>
+  <Card title="Discord Developers" link="https://discord.gg/discord-developers" icon="GlobeEarthIcon">
+    Join our community to ask questions about the API, attend events hosted by the Discord platform team, and interact with other devs
+  </Card>
+</Container>
