@@ -104,6 +104,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_INCIDENT_REPORT_RAID                   | 38    | true      |
 | GUILD_INCIDENT_REPORT_FALSE_ALARM            | 39    | true      |
 | PURCHASE_NOTIFICATION                        | 44    | true      |
+| POLL_RESULT                                  | 46    | true      |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
