@@ -855,3 +855,21 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 | Field    | Type                | Description                               |
 |----------|---------------------|-------------------------------------------|
 | messages | array of snowflakes | an array of message ids to delete (2-100) |
+
+## Pin Message % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+
+Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
+
+> warn
+> A channel can have up to 50 pinned messages.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+## Unpin Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+
+Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+

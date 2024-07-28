@@ -487,23 +487,6 @@ Generally bots should **not** use this route. However, if a bot is responding to
 
 Returns all pinned messages in the channel as an array of [message](#DOCS_RESOURCES_MESSAGE/message-object) objects.
 
-## Pin Message % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
-
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
-
-> warn
-> The max pinned messages is 50.
-
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
-
-## Unpin Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
-
-Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
-
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
-
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Adds a recipient to a Group DM using their access token.
