@@ -11,7 +11,7 @@ Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Re
 ###### Soundboard Sound Structure
 
 | Field      | Type                                            | Description                                                               |
-|------------|-------------------------------------------------|-------------------------------------------------------------------------- |
+|------------|-------------------------------------------------|---------------------------------------------------------------------------|
 | name       | string                                          | the name of this sound                                                    |
 | sound_id   | snowflake                                       | the id of this sound                                                      |
 | volume     | double                                          | the volume of this sound, from 0 to 1                                     |
