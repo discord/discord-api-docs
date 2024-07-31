@@ -64,10 +64,6 @@ When a user begins an authorization flow on the client, a `state` is generated t
 
 While Discord does not require the use of the `state` parameter, we support it and highly recommend that you implement it for the security of your own applications and data.
 
-## Proof Key for Code Exchange (PCKE)
-
-...
-
 ## Authorization Code Grant
 
 The authorization code grant is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
