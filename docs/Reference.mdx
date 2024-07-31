@@ -101,10 +101,11 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ## Authentication
 
-Authenticating with the Discord API can be done in one of two ways:
+Authenticating with the Discord API can be done in one of three ways:
 
 1. Using a bot token found on the **Bot** page within your app's settings. For more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_TOPICS_OAUTH2/oauth2).
+3. Using basic authentication with a client ID and client client found on the **OAuth2** page within your app's settings in the format `client_id:client_secret` as a Base64 encoded string. Only applicable for the [OAuth2 API](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) token URLs.
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
 
@@ -118,6 +119,12 @@ Authorization: Bot MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs
 
 ```
 Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
+```
+
+###### Example Basic Token Authorization Header
+
+```
+Authorization: Basic MTk4NjIyNDgzNDcxOTI1MjQ4OlEzS052N0NSRW5DYS1nS0xMajFEOGV1ZFl1SmZ1Nm96
 ```
 
 ## Encryption
