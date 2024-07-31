@@ -134,7 +134,9 @@ In response, you will receive:
 }
 ```
 
-Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. 
+
+To refresh, make another `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with basic authorization where `CLIENT_ID` is username, `CLIENT_SECRET` is password, and the following parameters:
 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
