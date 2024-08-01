@@ -1,0 +1,695 @@
+# Game SDK
+
+Game SDK is x y and z.
+
+Old: Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
+
+
+Deprecation status
+
+---
+
+## Getting Started
+TODO
+
+### Step 1: Get the SDK
+
+Now, let's get started. First, get the SDK. Here it is:
+
+- [Discord GameSDK v3.2.1](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) - Latest version, includes Apple silicon (aarch64) support
+- [Discord GameSDK v2.5.6](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip) - Try this version if you encounter bugs on the latest version
+
+There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
+
+These files are comprised of two parts: a "stub", and fallback modules. What that means is that when everything is running smoothly, the DLLs will just call back to the local running Discord client to do the heavy lifting. If, however, something is wrong, like a breaking change, the files also include "fallback" modules that reflect the native SDK modules in Discord at the time that version of the SDK was published. TLDR - you don't need to worry about breaking changes.
+
+### Step 2: Get Set Up
+
+Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
+
+Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
+
+Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
+
+> warn
+> If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
+
+First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
+
+Next, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
+
+While you're here, head to the "OAuth2" section of your application and add `http://127.0.0.1` as a redirect URI for your application. This will allow us to do the OAuth2 token exchange within the Discord client.
+
+### Step 3: Start Coding
+
+Before you start developing, there are a couple of notes to keep in mind about the SDK:
+
+- All strings in the SDK are UTF8 strings. Make sure you've converted properly if necessary!
+- The SDK is **_NOT_** threadsafe!
+
+With that out of the way, let's start coding. Didn't think we'd get there so fast, did ya? _Think again!_ The dropdowns are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
+
+<Collapsible title="Code Primer for Unity (Csharp)" icon="code">
+- Open up that SDK zip that you downloaded.
+- Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
+- Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGameSDK`
+
+From there, you'll be able to reference functions in the DLL within your scripts. A basic example of a script can be found [in this example repo](https://github.com/msciotti/discord-game-sdk-test-apps/tree/master/cs-examples/unity-examples/Assets). In this example, we attach our `DiscordController.cs` script to the Main Camera object of the default created scene. We then instantiate the SDK with:
+
+```cs
+/*
+    Grab that Client ID from earlier
+    Discord.CreateFlags.Default will require Discord to be running for the game to work
+    If Discord is not running, it will:
+    1. Close your game
+    2. Open Discord
+    3. Attempt to re-open your game
+    Step 3 will fail when running directly from the Unity editor
+    Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+*/
+var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+```
+
+You're now free to use other functionality in the SDK! Make sure to call `discord.RunCallbacks()` in your main game loop; that's your `Update()` function.
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
+</Collapsible>
+
+<Collapsible title="Code Primer for Non-Unity Projects (Csharp)" icon="code">
+- Open up that SDK zip that you downloaded.
+- Create a folder in your project directory called `DiscordGameSDK` and copy the contents of the `csharp/` folder to it
+- Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
+
+From there, you'll be able to reference functions in the DLL within your scripts. We then instantiate the SDK with:
+
+```cs
+/*
+    Grab that Client ID from earlier
+    Discord.CreateFlags.Default will require Discord to be running for the game to work
+    If Discord is not running, it will:
+    1. Close your game
+    2. Open Discord
+    3. Attempt to re-open your game
+    Step 3 may fail when running directly from your editor
+    Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+*/
+var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+```
+
+You're now free to use other functionality in the SDK! Make sure to call `discord.RunCallbacks()` in your main game loop; that's your `Update()` function.
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
+</Collapsible>
+
+<Collapsible title="Code Primer for Unreal Engine (C)" icon="code">
+Before jumping into the C binding, a word of caution. If you are using Unreal Engine 3, or need to support an older version of Visual Studio, you may at first see some unexpected crashes due to compile configurations. The way to fix this is to wrap the include statement for the Discord GameSDK header file like so:
+
+```c
+#pragma pack(push, 8)
+#include "discord_game_sdk.h"
+#pragma pack(pop)
+```
+
+This should let you use the SDK without any further crashes. Now, on with the show!
+
+- Open up that SDK zip that you downloaded.
+- Copy the contents of the `lib/` folder to the best location within your project for DLLs.
+- Copy the contents of the `c/` folder to your source directory
+- It's dangerous to go alone—take this small code block with you (to start)!
+
+```c
+struct Application {
+    struct IDiscordCore* core;
+    struct IDiscordUsers* users;
+};
+
+struct Application app;
+// Don't forget to memset or otherwise initialize your classes!
+memset(&app, 0, sizeof(app));
+
+struct IDiscordCoreEvents events;
+memset(&events, 0, sizeof(events));
+
+struct DiscordCreateParams params;
+params.client_id = CLIENT_ID;
+params.flags = DiscordCreateFlags_Default;
+params.events = &events;
+params.event_data = &app;
+
+DiscordCreate(DISCORD_VERSION, &params, &app.core);
+```
+
+- Make sure to call `core->run_callbacks(core, 0)` in your game loop.
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/c/main.c` in the SDK zip file.
+</Collapsible>
+
+<Collapsible title="Code Primer for Unreal Engine 4 (Cpp)" icon="code">
+First, you'll want to copy the header files and `.cpp` files to a folder somewhere in your project directory. For ease of a quickstart example, you can put them right inside your `Source/your-project-name` folder; I'd put them in a containing folder called something like `discord-files/`.
+
+Second, you'll want to copy the `.dll` and `.lib` files from the `lib/x86_64` folder of the downloaded zip. These files should be put in `your-project-name/Binaries/Win64/`. For win32, take the files from `x86/` and put them, in `your-project-name/Binaries/Win32`.
+
+Next, we need to link these files within our project so that we can reference them. If you open up your project's `.sln` file in Visual Studio, you'll find a file called `your-project-name.Build.cs`. We're going to add the following lines of code to that file:
+
+```cpp
+/*
+    ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY will look something like:
+
+    "H:\\Unreal Projects\\gamesdktest\\Source\\gamesdktest\\discord-files\\"
+
+    You should get this value programmatically
+*/
+PublicIncludePaths.Add(ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY)
+
+/*
+    ABSOLUTE_PATH_TO_LIB_FILE will look something like:
+
+    "H:\\Unreal Projects\\gamesdktest\\Binaries\\Win64\\discord_game_sdk.dll.lib"
+
+    You should get this value programmatically
+*/
+PublicAdditionalLibraries.Add(ABSOLUTE_PATH_TO_LIB_FILE)
+```
+
+Now that we've got our new dependencies properly linked, we can reference them in our code. In this example, we're going to make a new `Pawn` class called `MyPawn`. It will look something like this:
+
+```cpp
+#include "MyPawn.h"
+#include "discord-files/discord.h"
+
+discord::Core* core{};
+
+AMyPawn::AMyPawn()
+{
+  // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+  PrimaryActorTick.bCanEverTick = true;
+}
+
+// Called when the game starts or when spawned
+void AMyPawn::BeginPlay()
+{
+  Super::BeginPlay();
+  /*
+      Grab that Client ID from earlier
+      Discord.CreateFlags.Default will require Discord to be running for the game to work
+      If Discord is not running, it will:
+      1. Close your game
+      2. Open Discord
+      3. Attempt to re-open your game
+      Step 3 will fail when running directly from the Unreal Engine editor
+      Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+  */
+  auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
+  discord::Activity activity{};
+  activity.SetState("Testing");
+  activity.SetDetails("Fruit Loops");
+  core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
+
+  });
+}
+
+// Called every frame
+void AMyPawn::Tick(float DeltaTime)
+{
+  Super::Tick(DeltaTime);
+  ::core->RunCallbacks();
+}
+
+// Called to bind functionality to input
+void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+  Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+```
+
+Make sure you've got `core->RunCallbacks()` going every frame!
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
+</Collapsible>
+
+<Collapsible title="Code Primer for No Engine (Cpp)" icon="code">
+In your project folder, you'll want to make something like a "discord-files" folder, for organization. In that folder, copy all the `.h` and `.cpp` files from the zip.
+You want to include all the header and source files respectively in your project
+
+![Correct Files](cpp-files-sdk.png)
+
+In your project settings, you'll want to include the relevant library (e.g. `discord_game_sdk.dll.lib`) as an additional dependency.
+
+![Linked Library](lib-linked-sdk.png)
+
+- From there, you should be able to `#include "discord-files/discord.h"`, or whatever the path to that header file is, and have access to the code.
+</Collapsible>
+
+<Collapsible title="How do I test locally while developing?" icon="question">
+
+> info
+> Value from environment variable `DISCORD_INSTANCE_ID`
+
+While integrating the Discord GameSDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
+
+We know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
+
+1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discord.com/api/download/canary?platform=win) - [Mac](https://discord.com/api/download/canary?platform=osx)
+2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discord.com/api/download/ptb?platform=win) - [Mac](https://discord.com/api/download/ptb?platform=osx)
+3. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
+4. Log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
+
+Now, in your game code, you can tell the SDK which client to connect to via the environment variable `DISCORD_INSTANCE_ID` **before initializing the SDK**. The value of the variable corresponds to the order in which you opened the clients, so `0` would connect to the first opened client, `1` the second, etc.
+
+###### Environment Variable Example
+
+```cs
+// This machine opened Discord Canary first, and Discord PTB second
+
+// This makes the SDK connect to Canary
+System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
+var discord = new Discord(applicationId, Discord.CreateFlags.Default);
+
+// This makes the SDK connect to PTB
+System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "1");
+var discord = new Discord(applicationId, Discord.CreateFlags.Default);
+```
+
+This will set the environment variable only within the context of the running process, so don't worry about messing up global stuff.
+
+> danger
+> If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
+
+</Collapsible>
+
+## Using the SDK
+
+TODO
+
+### General Structure
+
+At a high level, the Discord GameSDK has a class, `Discord`. This class is in charge of the creation of a few "manager" sub-classes. They are:
+
+TODO: link to sections
+
+- `ActivityManager` - for Rich Presence and game invites
+- `OverlayManager` - for interacting with Discord's built-in overlay
+- `RelationshipManager` - for users' social relationships across Discord, including friends list
+- `StoreManager` - for all things entitlements and SKUs, including IAP
+- `UserManager` - for fetching user data for a given id and the current user
+
+Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `Filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
+
+<Collapsible title="Deprecated managers" description="List of managers in the SDK that have been deprecated" icon="view">
+Deprecated managers:
+
+- `AchievementManager` - for achievements!
+- `ApplicationManager` - for retrieving a user's OAuth2 bearer token, locale, and current game branch
+- `ImageManager` - for getting data about images on Discord, like user avatars or chat images
+- `LobbyManager` - for multiplayer lobbies
+- `NetworkManager` - for all your networking layer needs
+- `StorageManager` - for saving game data to the disk and the cloud
+- `VoiceManager` - to make use of Discord's awesome voice chat
+</Collapsible>
+
+### Using Functions in the SDK
+
+Most functions in the Discord GameSDK, uh, _function_ in a similar way. They take whatever parameters are required for the function to do its job—a user id, the requested size for an image, etc.—and a callback by means of a function pointer. That callback is fired when the function completes its work, letting you handle events without worrying about piping asynchronously-returned data to the right context.
+
+Some functions behave with a normal return behavior; e.g. `RelationshipManager.Count()` just returns the number directly. Don't worry, it's outlined in the docs.
+
+<Collapsible title="Example calling a function with our C# binding" icon="code">
+
+```c#
+var userManager = discord.GetUserManager();
+
+// Return via callback
+userManager.GetUser(290926444748734465, (Discord.Result result, ref Discord.User otherUser) =>
+{
+  if (result == Discord.Result.Ok)
+  {
+    Console.WriteLine(otherUser.Username);
+    Console.WriteLine(otherUser.Id);
+  }
+});
+
+
+// Return normally
+userManager.OnCurrentUserUpdate += () =>
+{
+    var currentUser = userManager.GetCurrentUser();
+        Console.WriteLine(currentUser.Username);
+        Console.WriteLine(currentUser.Discriminator);
+        Console.WriteLine(currentUser.Id);
+};
+```
+
+</Collapsible>
+
+### Environment Variables
+
+Discord passes a number of environment variables down to the SDK. These are accessed by various methods in the SDK and can be changed for local testing by changing the value in your local environment.
+
+| name                   | method                                                                                | description                                                                                                  |
+|------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_GETTING_STARTED/testing-locally-with-two-clients)      | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
+| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token)     | the connected user's bearer token                                                                            |
+| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](#DOCS_GAME_SDK_APPLICATIONS/getcurrentlocale) | the language that Discord is in for the connected user                                                       |
+| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](#DOCS_GAME_SDK_APPLICATIONS/getcurrentbranch) | the branch of the running application that the user has launched                                             |
+| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](#DOCS_GAME_SDK_STORAGE/getpath)                            | the path to which Discord will save files if you're using the StorageManager                                 |
+
+### Error Handling
+
+Debugging is a pain, so before we get into the meat of the SDK, we want to make sure you're prepared for when things go awry. Within the Discord core is a function called `SetLogHook()`. It takes a `level`, which is minimum level of log message you want to listen to, and a callback function:
+
+<Collapsible title="Using SetLogHook for Error Handling in the SDK" icon="code">
+
+```cs
+public void LogProblemsFunction(Discord.LogLevel level, string message)
+{
+  Console.WriteLine("Discord:{0} - {1}", level, message);
+}
+
+discord.SetLogHook(Discord.LogLevel.Debug, LogProblemsFunction);
+```
+
+You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guess work out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
+</Collapsible>
+
+### Data Models
+
+#### Result Enum
+
+<Collapsible title="Codes and Values for the Result Enum" icon="view">
+
+
+| Code | value                           | description                                                                                     |
+|------|---------------------------------|-------------------------------------------------------------------------------------------------|
+| 0    | Ok                              | everything is good                                                                              |
+| 1    | ServiceUnavailable              | Discord isn't working                                                                           |
+| 2    | InvalidVersion                  | the SDK version may be outdated                                                                 |
+| 3    | LockFailed                      | an internal error on transactional operations                                                   |
+| 4    | InternalError                   | something on our side went wrong                                                                |
+| 5    | InvalidPayload                  | the data you sent didn't match what we expect                                                   |
+| 6    | InvalidCommand                  | that's not a thing you can do                                                                   |
+| 7    | InvalidPermissions              | you aren't authorized to do that                                                                |
+| 8    | NotFetched                      | couldn't fetch what you wanted                                                                  |
+| 9    | NotFound                        | what you're looking for doesn't exist                                                           |
+| 10   | Conflict                        | user already has a network connection open on that channel                                      |
+| 11   | InvalidSecret                   | activity secrets must be unique and not match party id                                          |
+| 12   | InvalidJoinSecret               | join request for that user does not exist                                                       |
+| 13   | NoEligibleActivity              | you accidentally set an `ApplicationId` in your `UpdateActivity()` payload                      |
+| 14   | InvalidInvite                   | your game invite is no longer valid                                                             |
+| 15   | NotAuthenticated                | the internal auth call failed for the user, and you can't do this                               |
+| 16   | InvalidAccessToken              | the user's bearer token is invalid                                                              |
+| 17   | ApplicationMismatch             | access token belongs to another application                                                     |
+| 18   | InvalidDataUrl                  | something internally went wrong fetching image data                                             |
+| 19   | InvalidBase64                   | not valid Base64 data                                                                           |
+| 20   | NotFiltered                     | you're trying to access the list before creating a stable list with `Filter()`                  |
+| 21   | LobbyFull                       | the lobby is full                                                                               |
+| 22   | InvalidLobbySecret              | the secret you're using to connect is wrong                                                     |
+| 23   | InvalidFilename                 | file name is too long                                                                           |
+| 24   | InvalidFileSize                 | file is too large                                                                               |
+| 25   | InvalidEntitlement              | the user does not have the right entitlement for this game                                      |
+| 26   | NotInstalled                    | Discord is not installed                                                                        |
+| 27   | NotRunning                      | Discord is not running                                                                          |
+| 28   | InsufficientBuffer              | insufficient buffer space when trying to write                                                  |
+| 29   | PurchaseCancelled               | user cancelled the purchase flow                                                                |
+| 30   | InvalidGuild                    | Discord guild does not exist                                                                    |
+| 31   | InvalidEvent                    | the event you're trying to subscribe to does not exist                                          |
+| 32   | InvalidChannel                  | Discord channel does not exist                                                                  |
+| 33   | InvalidOrigin                   | the origin header on the socket does not match what you've registered (you should not see this) |
+| 34   | RateLimited                     | you are calling that method too quickly                                                         |
+| 35   | OAuth2Error                     | the OAuth2 process failed at some point                                                         |
+| 36   | SelectChannelTimeout            | the user took too long selecting a channel for an invite                                        |
+| 37   | GetGuildTimeout                 | took too long trying to fetch the guild                                                         |
+| 38   | SelectVoiceForceRequired        | push to talk is required for this channel                                                       |
+| 39   | CaptureShortcutAlreadyListening | that push to talk shortcut is already registered                                                |
+| 40   | UnauthorizedForAchievement      | your application cannot update this achievement                                                 |
+| 41   | InvalidGiftCode                 | the gift code is not valid                                                                      |
+| 42   | PurchaseError                   | something went wrong during the purchase flow                                                   |
+| 43   | TransactionAborted              | purchase flow aborted because the SDK is being torn down                                        |
+
+</Collapsible>
+
+#### LogLevel Enum
+
+<Collapsible title="Values for the LogLevel Enum" icon="view">
+
+| value   | description                    |
+|---------|--------------------------------|
+| Error   | Log only errors                |
+| Warning | Log warnings and errors        |
+| Info    | Log info, warnings, and errors |
+| Debug   | Log _all_ the things!          |
+
+</Collapsible>
+
+#### CreateFlags Enum
+
+<Collapsible title="Values for the CreateFlags Enum" icon="view">
+
+| value            | description                                                         |
+|------------------|---------------------------------------------------------------------|
+| Default          | Requires Discord to be running to play the game                     |
+| NoRequireDiscord | Does not require Discord to be running, use this on other platforms |
+
+</Collapsible>
+
+### Functions
+
+#### Create
+
+Creates an instance of Discord to initialize the SDK. This is the overlord of all things Discord. We like to call her Nelly.
+
+Returns a new `Discord`.
+
+###### Parameters
+
+| name     | type        | description                                         |
+|----------|-------------|-----------------------------------------------------|
+| clientId | Int64       | your application's client id                        |
+| flags    | CreateFlags | the creation parameters for the SDK, outlined above |
+
+###### Example
+
+```cpp
+// c++ land
+discord::Core* core{};
+discord::Core::Create(53908232506183680, DiscordCreateFlags_Default, &core);
+
+// c# land
+var discord = new Discord(53908232506183680, (UInt64)Discord.CreateFlags.Default);
+```
+
+#### Destroy
+
+Destroys the instance. Wave goodbye, Nelly! You monster. In C# land, this is `Dispose()`.
+
+> info
+> The C++ binding does not include a `destroy()` method, as the destructor for the Core does the work for you.
+
+Returns `void`.
+
+###### Example
+
+```cs
+discord.Dispose();
+```
+
+#### SetLogHook
+
+Registers a logging callback function with the minimum level of message to receive. The callback function should have a signature of:
+
+```cs
+MyCallbackFunction(LogLevel level, string message);
+```
+
+Returns `void`.
+
+###### Parameters
+
+| name     | type     | description                                 |
+|----------|----------|---------------------------------------------|
+| level    | LogLevel | the minimum level of event to log           |
+| callback | function | the callback function to catch the messages |
+
+###### Example
+
+```cs
+public void LogProblemsFunction(Discord.LogLevel level, string message)
+{
+  Console.WriteLine("Discord:{0} - {1}", level, message);
+}
+
+discord.SetLogHook(Discord.LogLevel.Debug, LogProblemFunctions);
+```
+
+#### RunCallbacks
+
+Runs all pending SDK callbacks. Put this in your game's main event loop, like `Update()` in Unity. That way, the first thing your game does is check for any new info from Discord.
+
+This function also serves as a way to know that the local Discord client is still connected. If the user closes Discord while playing your game, `RunCallbacks()` will return/throw `Discord.Result.NotRunning`.
+
+In C and C++, this function returns `Discord.Result`. In C#, it returns `void` and will throw `Discord.Result` error if something went wrong.
+
+###### Example
+
+```cs
+void Update()
+{
+  discord.RunCallbacks();
+}
+```
+
+#### GetActivityManager
+
+Fetches an instance of the manager for interfacing with activities in the SDK.
+
+Returns an `ActivityManager`.
+
+###### Example
+
+```cs
+var activityManager = discord.GetActivityManager();
+```
+
+#### GetRelationshipManager
+
+Fetches an instance of the manager for interfacing with relationships in the SDK.
+
+Returns a `RelationshipManager`.
+
+###### Example
+
+```cs
+var relationshipManager = discord.GetRelationshipManager();
+```
+
+#### GetImageManager
+
+Fetches an instance of the manager for interfacing with images in the SDK.
+
+Returns an `ImageManager`.
+
+###### Example
+
+```cs
+var imageManager = discord.GetImageManager();
+```
+
+#### GetUserManager
+
+Fetches an instance of the manager for interfacing with users in the SDK.
+
+Returns an `UserManager`.
+
+###### Example
+
+```cs
+var userManager = discord.GetUserManager();
+```
+
+#### GetLobbyManager
+
+Fetches an instance of the manager for interfacing with lobbies in the SDK.
+
+Returns a `LobbyManager`.
+
+###### Example
+
+```cs
+var lobbyManager = discord.GetLobbyManager();
+```
+
+#### GetNetworkManager
+
+Fetches an instance of the manager for interfacing with networking in the SDK.
+
+Returns an `NetworkManager`.
+
+###### Example
+
+```cs
+var networkManager = discord.GetNetworkManager();
+```
+
+#### GetOverlayManager
+
+Fetches an instance of the manager for interfacing with the overlay in the SDK.
+
+Returns an `OverlayManager`.
+
+###### Example
+
+```cs
+var overlayManager = discord.GetOverlayManager();
+```
+
+#### GetApplicationManager
+
+Fetches an instance of the manager for interfacing with applications in the SDK.
+
+Returns an `ApplicationManager`.
+
+###### Example
+
+```cs
+var applicationManager = discord.GetApplicationManager();
+```
+
+#### GetStorageManager
+
+Fetches an instance of the manager for interfacing with storage in the SDK.
+
+Returns a `StorageManager`.
+
+###### Example
+
+```cs
+var storageManager = discord.GetStorageManager();
+```
+
+#### GetStoreManager
+
+Fetches an instance of the manager for interfacing with SKUs and Entitlements in the SDK.
+
+Returns a `StoreManager`.
+
+###### Example
+
+```cs
+var storeManager = discord.GetStoreManager();
+```
+
+#### GetVoiceManager
+
+Fetches an instance of the manager for interfacing with voice chat in the SDK.
+
+Returns a `VoiceManager`.
+
+###### Example
+
+```cs
+var voiceManager = discord.GetVoiceManager();
+```
+
+#### GetAchievementManager
+
+Fetches an instance of the manager for interfacing with achievements in the SDK.
+
+Returns an `AchievementManager`.
+
+###### Example
+
+```cs
+var achievementManager = discord.GetAchievementManager();
+```
+
+## Activities
+
+> info
+> Looking to build a game inside of Discord? Check out the (other) [Activities](#DOCS_ACTIVITIES_OVERVIEW) and [Embedded SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) documentation instead.
+
+## Overlay
+
+## Relationships
+
+## Users
+
+## Deprecated
