@@ -265,7 +265,7 @@ Discord's API provides bot users, which are a separate type of user dedicated to
 ### Bot vs User Accounts
 
 > warn
-> Developers must abide by the [terms of service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+> Developers must abide by the [terms of service](https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
 
 Bot users have a few differences compared to standard Discord users:
 
