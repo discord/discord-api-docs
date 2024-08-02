@@ -1,31 +1,30 @@
 # Game SDK
 
-Game SDK is x y and z.
+Welcome to the Discord Game SDK! We're glad you made it. The Game SDK helps you develop your game, and integrate it with Discord.
 
-Old: Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
-
-
-Deprecation status
+> danger
+> Many Game SDK features—including Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, Store (purchases and discounts), and selling SKUs— have been deprecated. This page contains managers that aren't deprecated, but **are not being actively developed**. 
 
 ---
 
 ## Getting Started
-TODO
+
+This section will walk you through the first few steps you need to take to get up-and-running with the Game SDK. After you download the SDK and configure your app, you can find more details in the [Using the SDK section](#DOCS_DEVELOPER_TOOLS_GAME_SDK/using-the-sdk).
 
 ### Step 1: Get the SDK
 
 Now, let's get started. First, get the SDK. Here it is:
 
-- [Discord GameSDK v3.2.1](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) - Latest version, includes Apple silicon (aarch64) support
-- [Discord GameSDK v2.5.6](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip) - Try this version if you encounter bugs on the latest version
+- [Discord Game SDK v3.2.1](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) - Latest version, includes Apple silicon (aarch64) support
+- [Discord Game SDK v2.5.6](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip) - Try this version if you encounter bugs on the latest version
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
 
 These files are comprised of two parts: a "stub", and fallback modules. What that means is that when everything is running smoothly, the DLLs will just call back to the local running Discord client to do the heavy lifting. If, however, something is wrong, like a breaking change, the files also include "fallback" modules that reflect the native SDK modules in Discord at the time that version of the SDK was published. TLDR - you don't need to worry about breaking changes.
 
-### Step 2: Get Set Up
+### Step 2: Create your App
 
-Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
+Next, we need to set up the application for your game. An [app](#DOCS_RESOURCES_APPLICATION) is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
 
 Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
 
@@ -52,7 +51,7 @@ With that out of the way, let's start coding. Didn't think we'd get there so fas
 <Collapsible title="Code Primer for Unity (Csharp)" icon="code">
 - Open up that SDK zip that you downloaded.
 - Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
-- Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGameSDK`
+- Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGame SDK`
 
 From there, you'll be able to reference functions in the DLL within your scripts. A basic example of a script can be found [in this example repo](https://github.com/msciotti/discord-game-sdk-test-apps/tree/master/cs-examples/unity-examples/Assets). In this example, we attach our `DiscordController.cs` script to the Main Camera object of the default created scene. We then instantiate the SDK with:
 
@@ -77,7 +76,7 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 <Collapsible title="Code Primer for Non-Unity Projects (Csharp)" icon="code">
 - Open up that SDK zip that you downloaded.
-- Create a folder in your project directory called `DiscordGameSDK` and copy the contents of the `csharp/` folder to it
+- Create a folder in your project directory called `DiscordGame SDK` and copy the contents of the `csharp/` folder to it
 - Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
 
 From there, you'll be able to reference functions in the DLL within your scripts. We then instantiate the SDK with:
@@ -102,7 +101,7 @@ You're ready to go! Check out the rest of the documentation for more info on how
 </Collapsible>
 
 <Collapsible title="Code Primer for Unreal Engine (C)" icon="code">
-Before jumping into the C binding, a word of caution. If you are using Unreal Engine 3, or need to support an older version of Visual Studio, you may at first see some unexpected crashes due to compile configurations. The way to fix this is to wrap the include statement for the Discord GameSDK header file like so:
+Before jumping into the C binding, a word of caution. If you are using Unreal Engine 3, or need to support an older version of Visual Studio, you may at first see some unexpected crashes due to compile configurations. The way to fix this is to wrap the include statement for the Discord Game SDK header file like so:
 
 ```c
 #pragma pack(push, 8)
@@ -155,7 +154,7 @@ Next, we need to link these files within our project so that we can reference th
 /*
     ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY will look something like:
 
-    "H:\\Unreal Projects\\gamesdktest\\Source\\gamesdktest\\discord-files\\"
+    "H:\\Unreal Projects\\Game SDKtest\\Source\\Game SDKtest\\discord-files\\"
 
     You should get this value programmatically
 */
@@ -164,7 +163,7 @@ PublicIncludePaths.Add(ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY)
 /*
     ABSOLUTE_PATH_TO_LIB_FILE will look something like:
 
-    "H:\\Unreal Projects\\gamesdktest\\Binaries\\Win64\\discord_game_sdk.dll.lib"
+    "H:\\Unreal Projects\\Game SDKtest\\Binaries\\Win64\\discord_game_sdk.dll.lib"
 
     You should get this value programmatically
 */
@@ -240,52 +239,15 @@ In your project settings, you'll want to include the relevant library (e.g. `dis
 - From there, you should be able to `#include "discord-files/discord.h"`, or whatever the path to that header file is, and have access to the code.
 </Collapsible>
 
-<Collapsible title="How do I test locally while developing?" icon="question">
-
-> info
-> Value from environment variable `DISCORD_INSTANCE_ID`
-
-While integrating the Discord GameSDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
-
-We know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
-
-1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discord.com/api/download/canary?platform=win) - [Mac](https://discord.com/api/download/canary?platform=osx)
-2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discord.com/api/download/ptb?platform=win) - [Mac](https://discord.com/api/download/ptb?platform=osx)
-3. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
-4. Log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
-
-Now, in your game code, you can tell the SDK which client to connect to via the environment variable `DISCORD_INSTANCE_ID` **before initializing the SDK**. The value of the variable corresponds to the order in which you opened the clients, so `0` would connect to the first opened client, `1` the second, etc.
-
-###### Environment Variable Example
-
-```cs
-// This machine opened Discord Canary first, and Discord PTB second
-
-// This makes the SDK connect to Canary
-System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
-var discord = new Discord(applicationId, Discord.CreateFlags.Default);
-
-// This makes the SDK connect to PTB
-System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "1");
-var discord = new Discord(applicationId, Discord.CreateFlags.Default);
-```
-
-This will set the environment variable only within the context of the running process, so don't worry about messing up global stuff.
-
-> danger
-> If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
-
-</Collapsible>
-
 ## Using the SDK
 
-TODO
+At a high level, the Discord Game SDK has a parent class, `Discord`.
+
+This class is in charge of the creation of a few "manager" sub-classes to interact with Discord.
 
 ### Managers
 
-At a high level, the Discord GameSDK has a class, `Discord`.
-
-This class is in charge of the creation of a few "manager" sub-classes which contain their own functions and events used to interact with Discord in the context of the manager.
+Each manager class contains its own functions and events used to interact with Discord in the context of the manager:
 
 | Name                                                                  | Description                                                                                 |
 |-----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
@@ -293,7 +255,7 @@ This class is in charge of the creation of a few "manager" sub-classes which con
 | [`OverlayManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/overlay)            | for interacting with Discord's built-in overlay                                             |
 | [`RelationshipManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/relationships) | for users' social relationships across Discord, including friends list                      |
 | [`StoreManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/store)                | for all things entitlements and SKUs; purchases, discounts, and selling SKUs are deprecated |
-| [`UserManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/user)                  | for fetching user data for a given id and the current user                                  |
+| [`UserManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/users)                 | for fetching user data for a given id and the current user                                  |
 
 Many managers in the Game SDK have been deprecated. You can see the deprecated managers in the dropdown below, and find the old documentation for each deprecated manager in the [deprecated section](#DOCS_DEVELOPER_TOOLS_GAME_SDK/deprecated) below.
 
@@ -313,7 +275,7 @@ Many managers in the Game SDK have been deprecated. You can see the deprecated m
 
 ### Using Functions in the SDK
 
-Most functions in the Discord GameSDK, uh, _function_ in a similar way. They take whatever parameters are required for the function to do its job—a user id, the requested size for an image, etc.—and a callback by means of a function pointer. That callback is fired when the function completes its work, letting you handle events without worrying about piping asynchronously-returned data to the right context.
+Most functions in the Discord Game SDK, uh, _function_ in a similar way. They take whatever parameters are required for the function to do its job—a user id, the requested size for an image, etc.—and a callback by means of a function pointer. That callback is fired when the function completes its work, letting you handle events without worrying about piping asynchronously-returned data to the right context.
 
 Some functions behave with a normal return behavior; e.g. `RelationshipManager.Count()` just returns the number directly. Don't worry, it's outlined in the docs.
 
@@ -349,13 +311,13 @@ userManager.OnCurrentUserUpdate += () =>
 
 Discord passes a number of environment variables down to the SDK. These are accessed by various functions in the SDK and can be changed for local testing by changing the value in your local environment.
 
-| name                   | method                                                                                | description                                                                                                  |
-|------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_GETTING_STARTED/testing-locally-with-two-clients)      | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
-| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token)     | the connected user's bearer token                                                                            |
-| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](#DOCS_GAME_SDK_APPLICATIONS/getcurrentlocale) | the language that Discord is in for the connected user                                                       |
-| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](#DOCS_GAME_SDK_APPLICATIONS/getcurrentbranch) | the branch of the running application that the user has launched                                             |
-| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](#DOCS_GAME_SDK_STORAGE/getpath)                            | the path to which Discord will save files if you're using the StorageManager                                 |
+| name                   | method                                                                                                                                                  | description                                                                                                  |
+|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_DEVELOPER_TOOLS_GAME_SDK/testing-locally)                                                                                         | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
+| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getoauth2token)     | the connected user's bearer token                                                                            |
+| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getcurrentlocale) | the language that Discord is in for the connected user                                                       |
+| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getcurrentbranch) | the branch of the running application that the user has launched                                             |
+| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Storage.md#getpath)                            | the path to which Discord will save files if you're using the StorageManager                                 |
 
 ### Error Handling
 
@@ -373,6 +335,47 @@ discord.SetLogHook(Discord.LogLevel.Debug, LogProblemsFunction);
 ```
 
 You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guess work out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
+</Collapsible>
+
+### Testing Locally
+
+While integrating the Discord Game SDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
+
+We know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! 
+
+<Collapsible title="How do I test locally while developing?" icon="question">
+
+> info
+> Value from environment variable `DISCORD_INSTANCE_ID`
+
+By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
+
+1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discord.com/api/download/canary?platform=win) - [Mac](https://discord.com/api/download/canary?platform=osx)
+2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discord.com/api/download/ptb?platform=win) - [Mac](https://discord.com/api/download/ptb?platform=osx)
+3. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
+4. Log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
+
+Now, in your game code, you can tell the SDK which client to connect to via the environment variable `DISCORD_INSTANCE_ID` **before initializing the SDK**. The value of the variable corresponds to the order in which you opened the clients, so `0` would connect to the first opened client, `1` the second, etc.
+
+###### Environment Variable Example
+
+```cs
+// This machine opened Discord Canary first, and Discord PTB second
+
+// This makes the SDK connect to Canary
+System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
+var discord = new Discord(applicationId, Discord.CreateFlags.Default);
+
+// This makes the SDK connect to PTB
+System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "1");
+var discord = new Discord(applicationId, Discord.CreateFlags.Default);
+```
+
+This will set the environment variable only within the context of the running process, so don't worry about messing up global stuff.
+
+> danger
+> If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
+
 </Collapsible>
 
 ### Data Models
@@ -976,7 +979,7 @@ activityManager.OnActivityJoinRequest += user =>
 
 #### SendInvite
 
-Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
@@ -1357,7 +1360,7 @@ overlayManager.SetLocked(true, (res) =>
 
 #### OpenActivityInvite
 
-Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
@@ -1630,7 +1633,7 @@ for (int i = 0; i < relationshipsManager.Count(); i++)
 Fires at initialization when Discord has cached a snapshot of the current status of all your relationships. Wait for this to fire before calling `Filter` within its callback.
 
 > warn
-> `OnRefresh` requires the `relationships.read` [OAuth2 scope](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes). The GameSDK will return 0 relationships if the requested user has not authenticated with that scope.
+> `OnRefresh` requires the `relationships.read` [OAuth2 scope](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes). The Game SDK will return 0 relationships if the requested user has not authenticated with that scope.
 
 #### OnRelationshipUpdate
 
@@ -1769,7 +1772,7 @@ This manager helps retrieve basic user information for any user on Discord.
 #### GetCurrentUser
 
 > info
-> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_GAME_SDK_USERS/oncurrentuserupdate) callback to fire after instantiating the User manager.
+> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_DEVELOPER_TOOLS_GAME_SDK/oncurrentuserupdate) callback to fire after instantiating the User manager.
 
 Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESOURCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
 
@@ -1814,7 +1817,7 @@ userManager.GetUser(userId, (Discord.Result result, ref Discord.User user) =>
 
 #### GetCurrentUserPremiumType
 
-Get the [PremiumType](#DOCS_GAME_SDK_USERS/data-models-premiumtype-enum) for the currently connected user.
+Get the [PremiumType](#DOCS_DEVELOPER_TOOLS_GAME_SDK/premiumtype-enum) for the currently connected user.
 
 Returns `Discord.PremiumType`.
 
@@ -1845,15 +1848,15 @@ switch (premiumType)
 
 #### CurrentUserHasFlag
 
-See whether or not the current user has a certain [UserFlag](#DOCS_GAME_SDK_USERS/data-models-userflag-enum) on their account.
+See whether or not the current user has a certain [UserFlag](#DOCS_DEVELOPER_TOOLS_GAME_SDK/userflag-enum) on their account.
 
 Returns `bool`.
 
 ###### Parameters
 
-| name | type                                                       | description                             |
-|------|------------------------------------------------------------|-----------------------------------------|
-| flag | [UserFlag](#DOCS_GAME_SDK_USERS/data-models-userflag-enum) | the flag to check on the user's account |
+| name | type                                                     | description                             |
+|------|----------------------------------------------------------|-----------------------------------------|
+| flag | [UserFlag](#DOCS_DEVELOPER_TOOLS_GAME_SDK/userflag-enum) | the flag to check on the user's account |
 
 ###### Example
 
@@ -2233,7 +2236,7 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 
 ### HTTP Endpoints
 
-The following are HTTP requests, and should be handled by your game server (rather than a client). You can refer to the [reference documentation](#DOCS_TOPICS_REFERENCE/authentication) for information on authenticating HTTP requests using your app's bot token.
+The following are HTTP requests, and should be handled by your game server (rather than a client). You can refer to the [reference documentation](#DOCS_REFERENCE/authentication) for information on authenticating HTTP requests using your app's bot token.
 
 #### Get Entitlements % GET /applications/\{application.id#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started\}/entitlements
 
@@ -2245,7 +2248,7 @@ Gets entitlements for a given user. You can use this on your game backend to che
 |----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | user_id?       | snowflake                                        | the user id to look up entitlements for                                                                                        
 | sku_ids?       | comma-delimited set of snowflakes                | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_DEVELOPER_TOOLS_GAME_SDK/limited-payment-data-objectt) for each entitlement |
+| with_payments? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_DEVELOPER_TOOLS_GAME_SDK/limited-payment-data-object) for each entitlement |
 | before?        | snowflake                                        | retrieve entitlements before this time                                                                                         |
 | after?         | snowflake                                        | retrieve entitlements after this time                                                                                          |
 | limit?         | int                                              | number of entitlements to return, 1-100, default 100                                                                           |
@@ -2290,9 +2293,9 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 
 ###### Query String Params
 
-| name          | type                                             | description                                                                                                                    |
-|---------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| with_payment? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| name          | type                                             | description                                                                                                     |
+|---------------|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| with_payment? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_DEVELOPER_TOOLS_GAME_SDK/limited-payment-data-object) for each entitlement |
 
 ###### Example
 
@@ -2375,7 +2378,7 @@ There's no feeling quite like accomplishing a goal that you've set out to achiev
 
 Anyway—Discord has achievements! Show your players just how successful they are.
 
-[Achievements Manager documentation on GitHub](#TODO)
+[Achievements Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md)
 
 ### Applications
 
@@ -2384,33 +2387,33 @@ Anyway—Discord has achievements! Show your players just how successful they ar
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
-[Application Manager documentation on GitHub](#TODO)
+[Application Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md)
 
 ### Voice
 
 Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
 
-If you want people playing your game to be able to talk with each other, this Voice manager can help you out! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](#DOCS_GAME_SDK_LOBBIES/connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](#DOCS_GAME_SDK_OVERLAY/openvoicesettings) in the Overlay manager. The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
+If you want people playing your game to be able to talk with each other, this Voice manager can help you out! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md#connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](#DOCS_DEVELOPER_TOOLS_GAME_SDK/openvoicesettings) in the Overlay manager. The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
 
-[Voice Manager documentation on GitHub](#TODO)
+[Voice Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Discord_Voice.md)
 
 ### Images
 
 Discord is like a book; it's better with pictures. The image manager helps you fetch image data for images in Discord, including user's avatars. They worked hard to pick out those photos and gifs. Show them you care, too.
 
-[Image Manager documentation on GitHub](#TODO)
+[Image Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Images.md)
 
 ### Lobbies
 
 Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze.
 
-[Lobby Manager documentation on GitHub](#TODO)
+[Lobby Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md)
 
 ### Networking
 
 Need a networking layer? Have a networking layer! This manager handles all things packets so you can get data from player to player and make your multiplayer...work. 
 
-[Networking Manager docs on GitHub](#TODO)
+[Networking Manager docs on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Networking.md)
 
 ### Storage
 
@@ -2418,4 +2421,4 @@ Discord's storage manager lets you save data mapped to a key for easy reading, w
 
 Creating this manager will also spawn an IO thread for async reads and writes, so unless you really want to be blocking, you don't need to be!
 
-[Storage Manager documentation on GitHub](#TODO)
+[Storage Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Storage.md)

@@ -1,7 +1,7 @@
 # Introducing Rich Presence
 
 > danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
@@ -14,7 +14,7 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 ## Step 0: Get the SDK
 
 > warn
-> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_GETTING_STARTED/).
+> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started).
 
 ## So, how does it work?
 
@@ -76,7 +76,7 @@ If you don't want to register all your event handlers at initialization, you can
 ## Updating Presence
 
 > warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/updateactivity)
+> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_DEVELOPER_TOOLS_GAME_SDK/updateactivity)
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
 
@@ -173,7 +173,7 @@ impaired eyesight to understand the potential layout of this information in a us
 ## Joining
 
 > warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoinrequest)
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_DEVELOPER_TOOLS_GAME_SDK/onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_DEVELOPER_TOOLS_GAME_SDK/onactivityjoinrequest)
 
 #### Relevant Callbacks:
 
@@ -236,7 +236,7 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 ## Spectating
 
 > warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate)
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_DEVELOPER_TOOLS_GAME_SDK/onactivityspectate)
 
 #### Relevant Callbacks:
 
@@ -299,4 +299,4 @@ If you're testing on your own, we recommend [downloading two separate release ch
 
 ## So, what now?
 
-Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_RICH_PRESENCE_FAQ/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES/). If you're ready to release, consult our [Launch Checklist](#DOCS_RICH_PRESENCE_LAUNCH_CHECKLIST/) and make sure you haven't missed anything!
+Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_RICH_PRESENCE_OVERVIEW/faq). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_BEST_PRACTICES_DESIGNING_YOUR_DATA_FOR_RICH_PRESENCE/). If you're ready to release, consult our [Launch Checklist](#DOCS_RICH_PRESENCE_OVERVIEW/launch-checklist) and make sure you haven't missed anything!
