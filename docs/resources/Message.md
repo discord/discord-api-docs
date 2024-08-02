@@ -104,6 +104,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_INCIDENT_REPORT_RAID                   | 38    | true      |
 | GUILD_INCIDENT_REPORT_FALSE_ALARM            | 39    | true      |
 | PURCHASE_NOTIFICATION                        | 44    | true      |
+| POLL_RESULT                                  | 46    | true      |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
@@ -345,6 +346,21 @@ There are multiple message types that have a `message_reference` object.
 - These messages have `message_id`, `channel_id`, and `guild_id`.
 - These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
 
+###### Poll result messages
+
+- These are automatic messages sent after a poll has ended and the results have been finalized. (type 46)
+- These messages have `message_id` and `channel_id`, which point to the original poll message. The `channel_id` will be the same as that of the poll.
+- The author will be the same as the author of the poll, and they will mention the author of the poll.
+- These messages contain a `poll_result` embed that can have the following fields:
+  - `poll_question_text` contains the question text from the original poll message.    
+  - `victor_answer_votes` contains the number of votes for the answer(s) with the most votes.
+  - `total_votes` contains the total number of votes in the poll.
+  - `victor_answer_id` contains the id for the winning answer, if applicable. 
+  - `victor_answer_text` contains the text for the winning answer, if applicable.
+  - `victor_answer_emoji_id` contains the id for the emoji associated with the winning answer, if applicable.
+  - `victor_answer_emoji_name` contains the name of the emoji associated with the winning answer, if applicable.
+  - `victor_answer_emoji_animated` specifies whether the emoji associated with the winning answer is animated, if applicable.         
+
 #### Voice Messages
 
 Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the following properties.
@@ -422,14 +438,15 @@ The reaction count details object contains a breakdown of normal and super react
 
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
-| Type    | Description                                        |
-|---------|----------------------------------------------------|
-| rich    | generic embed rendered from embed attributes       |
-| image   | image embed                                        |
-| video   | video embed                                        |
-| gifv    | animated gif image embed rendered as a video embed |
-| article | article embed                                      |
-| link    | link embed                                         |
+| Type        | Description                                                                                             |
+|-------------|---------------------------------------------------------------------------------------------------------|
+| rich        | generic embed rendered from embed attributes                                                            |
+| image       | image embed                                                                                             |
+| video       | video embed                                                                                             |
+| gifv        | animated gif image embed rendered as a video embed                                                      |
+| article     | article embed                                                                                           |
+| link        | link embed                                                                                              |
+| poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/message-reference-content-attribution-poll-result-messages) |
 
 ###### Embed Thumbnail Structure
 
