@@ -324,7 +324,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ```json
 {
-  "message": "Invalid authentication token",
+  "message": "Invalid authentication token provided",
   "code": 50014
 }
 ```
