@@ -1921,7 +1921,7 @@ userManager.GetUser(450795363658366976, (Discord.Result result, ref Discord.User
 ## Store
 
 > danger
-> Selling SKUs and the purchase and discount features are deprecated. Some documentation has been removed to reflect this, but the old documentation in full can be viewed at TODO: link to old store docs
+> Selling SKUs and the purchase and discount features are deprecated. Some documentation has been removed to reflect this, but [the previous documentation in full can be viewed on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Store.md)
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -2370,7 +2370,7 @@ curl https://discord.com/api/v6/applications/461618159171141643/skus \
 ## Deprecated
 
 > danger
-> TODO: deprecated
+> The following Game SDK managers have been deprecated. In each section, we link to the previous documentation for each of the managers on GitHub, but generally these features shouldn't be used and may be decommissioned without notice.
 
 ### Achievements
 
@@ -2385,15 +2385,15 @@ Anyway—Discord has achievements! Show your players just how successful they ar
 > info
 > If you're looking for information about Discord apps, you can read the [Applications](#DOCS_RESOURCES_APPLICATION)
 
-Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
+The Applications manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
 [Application Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md)
 
 ### Voice
 
-Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
+The Voice manager can help integrate voice with your game! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md#connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](#DOCS_DEVELOPER_TOOLS_GAME_SDK/openvoicesettings) in the Overlay manager.
 
-If you want people playing your game to be able to talk with each other, this Voice manager can help you out! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md#connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](#DOCS_DEVELOPER_TOOLS_GAME_SDK/openvoicesettings) in the Overlay manager. The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
+The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
 
 [Voice Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Discord_Voice.md)
 
@@ -2417,7 +2417,7 @@ Need a networking layer? Have a networking layer! This manager handles all thing
 
 ### Storage
 
-Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user — no need to worry about your little brother overwriting your save file.
+The Storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user — no need to worry about your little brother overwriting your save file.
 
 Creating this manager will also spawn an IO thread for async reads and writes, so unless you really want to be blocking, you don't need to be!
 
