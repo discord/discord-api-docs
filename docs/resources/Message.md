@@ -350,7 +350,7 @@ There are multiple message types that have a `message_reference` object.
 
 - These are automatic messages sent after a poll has ended and the results have been finalized. (type 46)
 - These messages have `message_id` and `channel_id`, which point to the original poll message. The `channel_id` will be the same as that of the poll.
-- The author will be the same as the author of the poll, and they will mention the author of the poll.
+- The author will be the same as the author of the poll and will be mentioned.
 - These messages contain a `poll_result` embed that can have the following fields:
   - `poll_question_text` contains the question text from the original poll message.    
   - `victor_answer_votes` contains the number of votes for the answer(s) with the most votes.
