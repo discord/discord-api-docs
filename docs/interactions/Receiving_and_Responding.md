@@ -220,7 +220,7 @@ There are a number of ways you can respond to an interaction:
 | MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                                                                                                           |
 | PREMIUM_REQUIRED\*\*\*                  | 10    | [**Deprecated**](#DOCS_CHANGE_LOG/premium-apps-new-premium-button-style-deep-linking-url-schemes); respond to an interaction with an upgrade button, only available for apps with monetization enabled |
 
-\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
+\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions and modals opened in reply to component-based interactions. If used on a `MODAL_SUBMIT` interaction, the message that opened the modal via components is updated.
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
@@ -338,13 +338,22 @@ This endpoint also supports file attachments similar to the webhook endpoints. R
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
+> info
+> The original message is the message created or updated by the initial [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-interaction-response).
+
 ## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
+> info
+> The original message is the message created or updated by the initial [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-interaction-response).
+
 ## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
 Deletes the initial Interaction response. Returns `204 No Content` on success.
+
+> info
+> The original message is the message created or updated by the initial [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-interaction-response).
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
 
