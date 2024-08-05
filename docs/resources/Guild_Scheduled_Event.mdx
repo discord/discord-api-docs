@@ -24,6 +24,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | creator?              | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the user that created the scheduled event                                                                                                                                                                             |
 | user_count?           | integer                                                                                                                        | the number of users subscribed to the scheduled event                                                                                                                                                                 |
 | image?                | ?string                                                                                                                        | the [cover image hash](#DOCS_REFERENCE/image-formatting) of the scheduled event                                                                                                                                       |
+| recurrence_rule?      | [recurrence rule](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object)                          | the definition for how often this event should recur                                                                                                                                                                  |
 
 
 \* `creator_id` will be null and `creator` will not be included for events created before October 25th, 2021, when the concept of `creator_id` was introduced and tracked.
@@ -101,8 +102,164 @@ SCHEDULED --> CANCELED
 | user                     | [user](#DOCS_RESOURCES_USER/user-object)                  | user which subscribed to an event                                                 |
 | member?                  | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) | guild member data for this user for the guild which this event belongs to, if any |
 
+### Guild Scheduled Event Recurrence Rule Object
+Discord's recurrence rule is a subset of the behaviors [defined in the iCalendar RFC](https://datatracker.ietf.org/doc/html/rfc5545) and implemented by [python's dateutil rrule](https://dateutil.readthedocs.io/en/stable/rrule.html)
+> warn
+> There are currently many limitations to this system. Please see "System limitations" below
 
-## List Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
+###### Guild Scheduled Event Recurrence Rule Structure
+
+| Field             | Type                                                                                                                                                                                         | Description                                                                                                                                      |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| start             | ISO8601 timestamp                                                                                                                                                                            | Starting time of the recurrence interval                                                                                                         |
+| end \[1\]         | ?ISO8601 timestamp                                                                                                                                                                           | Ending time of the recurrence interval                                                                                                           |
+| frequency         | [recurrence rule - frequency](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-frequency) object                     | How often the event occurs                                                                                                                       |
+| interval          | int                                                                                                                                                                                          | The spacing between the events, defined by `frequency`. For example, `frecency` of `WEEKLY` and an `interval` of `2` would be "every-other week" |
+| by_weekday        | ?array of [recurrence rule - weekday](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-weekday)                      | Set of specific days within a week for the event to recur on                                                                                     |
+| by_n_weekday      | ?array of [recurrence rule - n_weekday](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-nweekday-structure) objects | List of specific days within a specific week (1-5) to recur on                                                                                   |
+| by_month          | ?array of [recurrence rule - month](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-month)                          | Set of specific months to recur on                                                                                                               |
+| by_month_day      | ?array of int                                                                                                                                                                                | Set of specific dates within a month to recur on                                                                                                 |
+| by_year_day \[1\] | ?array of int                                                                                                                                                                                | Set of days within a year to recur on (1-364)                                                                                                    |
+| count  \[1\]      | ?int                                                                                                                                                                                         | The total amount of times that the event is allowed to recur before stopping                                                                     |
+
+\[1\] - Cannot be set externally currently.
+
+<Collapsible title="System limitations" description="Recurrence rules are powerful, but they have some specific restrictions" icon="warning">
+The current system limitations are present due to how reoccurring event data needs to be displayed in the client.
+In the future, we would like to open the system up to have fewer / none of these restrictions.
+
+###### The following fields cannot be set by the client / application
+  - `count`
+  - `end`
+  - `by_year_day`
+
+###### The following combinations are mutually exclusive
+  - `by_weekday`
+  - `by_n_weekday`
+  - `by_month` + `by_month_day`
+
+###### `by_weekday`
+  - Only valid for daily and weekly events (`frequency` of `DAILY` (`0`) or `WEEKLY` (`1`))
+  - when used in a daily event (`frequency` is `DAILY` (`0`))
+    - The values present in the `by_weekday` event must be a "known set" of weekdays.
+    - The following are current allowed "sets"
+      - Monday - Friday (`[0, 1, 2, 3, 4]`)
+      - Tuesday - Saturday (`[1, 2, 3, 4, 5]`)
+      - Sunday - Thursday (`[6, 0, 1, 2, 3]`)
+      - Friday & Saturday (`[4, 5]`)
+      - Saturday & Sunday (`[5, 6]`)
+      - Sunday & Monday (`[6, 0]`)
+  - when used in a weekly event (`frequency` is `WEEKLY` (`1`))
+    - `by_weekday` array currently can only be a length of `1`
+      - i.e: You can only select a single day within a week to have a recurring event on
+      - If you wish to have multiple days within a week have a recurring event, please use a `frequency` of `DAILY`
+    - Also, see `interval` below for "every-other" week information
+
+###### `by_n_weekday`
+  - Only valid for monthly events (`frequency` of `MONTHLY` (`1`))
+  - `by_n_weekday` array currently can only be a length of `1`
+    - i.e: You can only select a single day within a month to have a recurring event on
+
+###### `by_month` and `by_month_day`
+  - Only valid for annual event (`frequency` is `YEARLY` (`0`))
+  - both `by_month` and `by_month_day` must be provided
+  - both `by_month` and `by_month_day` arrays must have a length of `1`
+    - (i.e: You can only set a single date for annual events)
+
+###### `interval` can only be set to a value other than `1` when `frequency` is set to `WEEKLY` (`1`)
+  - In this situation, interval can be set to `2`
+  - This allowance enables "every-other week" events
+  - Due to the limitations placed on `by_weekday` this means that if you wish to use "every-other week" functionality
+    you can only do so for a single day.
+</Collapsible>
+
+<Collapsible title="Examples" description="Simple examples of some common Recurrent Rules" icon="list">
+**Every weekday**
+```js
+frequency = 3 // Frequency.DAILY
+interval = 1
+by_weekday = [0, 1, 2, 3, 4] // [Weekday.MONDAY, ..., Weekday.FRIDAY]
+```
+
+**Every Wednesday**
+```js
+frequency = 2 // Frequency.WEEKLY
+interval = 1
+by_weekday = [2] // [Weekday.WEDNESDAY]
+```
+
+**Every other Wednesday**
+```js
+frequency = 2 // Frequency.WEEKLY
+interval = 2
+by_weekday = [2] // [Weekday.WEDNESDAY]
+```
+
+**Monthly on the fourth Wednesday**
+```js
+frequency = 1 // Frequency.MONTHLY
+interval = 1
+by_n_weekday = [{
+  n: 4,
+  day: 2 // Weekday.WEDNESDAY
+}]
+```
+
+**Annually on July 24**
+```js
+frequency = 0 // Frequency.YEARLY
+interval = 1
+by_month = [7] // [Month.JULY]
+by_month_day = [24]
+```
+</Collapsible>
+
+###### Guild Scheduled Event Recurrence Rule - Frequency
+
+| Type    | Value |
+|---------|-------|
+| YEARLY  | 0     |
+| MONTHLY | 1     |
+| WEEKLY  | 2     |
+| DAILY   | 3     |
+
+###### Guild Scheduled Event Recurrence Rule - Weekday
+
+| Type      | Value |
+|-----------|-------|
+| MONDAY    | 0     |
+| TUESDAY   | 1     |
+| WEDNESDAY | 2     |
+| THURSDAY  | 3     |
+| FRIDAY    | 4     |
+| SATURDAY  | 5     |
+| SUNDAY    | 6     |
+
+###### Guild Scheduled Event Recurrence Rule - N_Weekday Structure
+
+| Field        | Type                                                                                                                                                    | Description                           |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+| n            | int                                                                                                                                                     | The week to reoccur on. 1 - 5         |
+| day          | [recurrence rule - weekday](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object-guild-scheduled-recurrence-rule-weekday) | The day within the week to reoccur on |                                                                                                                                                                                | guild member data for this user for the guild which this event belongs to, if any |
+
+###### Guild Scheduled Event Recurrence Rule - Month
+
+| Type      | Value |
+|-----------|-------|
+| JANUARY   | 1     |
+| FEBRUARY  | 2     |
+| MARCH     | 3     |
+| APRIL     | 4     |
+| MAY       | 5     |
+| JUNE      | 6     |
+| JULY      | 7     |
+| AUGUST    | 8     |
+| SEPTEMBER | 9     |
+| OCTOBER   | 10    |
+| NOVEMBER  | 11    |
+| DECEMBER  | 12    |
+
+## List Scheduled Events for Guild % GET /guilds/\{guild.id#DOCS_RESOURCES_GUILD/guild-object\}/scheduled-events
 
 Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects for the given guild.
 
@@ -112,7 +269,7 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 |------------------|--------------------------------------------------|--------------------------------------------------|
 | with_user_count? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include number of users subscribed to each event |
 
-## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
+## Create Guild Scheduled Event % POST /guilds/\{guild.id#DOCS_RESOURCES_GUILD/guild-object\}/scheduled-events
 
 Create a guild scheduled event in the guild. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-create) Gateway event.
 
@@ -135,12 +292,14 @@ Create a guild scheduled event in the guild. Returns a [guild scheduled event](#
 | description?           | string                                                                                                                      | the description of the scheduled event                |
 | entity_type            | [entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)        | the entity type of the scheduled event                |
 | image?                 | [image data](#DOCS_REFERENCE/image-data)                                                                                    | the cover image of the scheduled event                |
+| recurrence_rule?       | [recurrence rule](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object)                       | the definition for how often this event should recur  |
+
 
 \* Optional for events with `'entity_type': EXTERNAL`
 
 \*\* Required for events with `'entity_type': EXTERNAL`
 
-## Get Guild Scheduled Event % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
+## Get Guild Scheduled Event % GET /guilds/\{guild.id#DOCS_RESOURCES_GUILD/guild-object\}/scheduled-events/\{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object\}
 
 Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
@@ -150,7 +309,7 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 |------------------|--------------------------------------------------|--------------------------------------------------|
 | with_user_count? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | include number of users subscribed to this event |
 
-## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
+## Modify Guild Scheduled Event % PATCH /guilds/\{guild.id#DOCS_RESOURCES_GUILD/guild-object\}/scheduled-events/\{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object\}
 
 Modify a guild scheduled event. Returns the modified [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-update) Gateway event.
 
@@ -162,6 +321,9 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 
 > info
 > This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
+
+> info
+> All parameters to this endpoint are optional
 
 ###### JSON Params
 
@@ -177,6 +339,8 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 | entity_type? *        | [event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)   | the entity type of the scheduled event                                                     |
 | status?               | [event status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status)              | the status of the scheduled event                                                          |
 | image?                | [image data](#DOCS_REFERENCE/image-data)                                                                                     | the cover image of the scheduled event                                                     |
+| recurrence_rule?      | [recurrence rule](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-recurrence-rule-object)                        | the definition for how often this event should recur                                       |
+
 
 \* If updating `entity_type` to `EXTERNAL`:
 
@@ -184,11 +348,11 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 - `entity_metadata` with a `location` field must be provided
 - `scheduled_end_time` must be provided
 
-## Delete Guild Scheduled Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
+## Delete Guild Scheduled Event % DELETE /guilds/\{guild.id#DOCS_RESOURCES_GUILD/guild-object\}/scheduled-events/\{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object\}
 
 Delete a guild scheduled event. Returns a `204` on success. Fires a [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-delete) Gateway event.
 
-## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/users
+## Get Guild Scheduled Event Users % GET /guilds/\{guild.id#DOCS_RESOURCES_GUILD/guild-object\}/scheduled-events/\{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object\}/users
 
 Get a list of guild scheduled event users subscribed to a guild scheduled event. Returns a list of [guild scheduled event user](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
