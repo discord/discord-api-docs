@@ -7,10 +7,6 @@ How easy is it for people to play your game together? With Rich Presence from Di
 
 If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
 
-## So, what is it?
-
-Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside Discord. You can spectate a friend's game directly from their profile popout, or party up via beautiful chat embeds with real-time information about open party slots and the party's in-game status. No more exchanging usernames and friend codes, or wondering if there's room for you to join. Rich Presence is a living invitation to play together, or to watch your friends kick butt.
-
 ## Step 0: Get the SDK
 
 > warn
@@ -300,3 +296,46 @@ If you're testing on your own, we recommend [downloading two separate release ch
 ## So, what now?
 
 Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_RICH_PRESENCE_OVERVIEW/faq). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_BEST_PRACTICES_DESIGNING_YOUR_DATA_FOR_RICH_PRESENCE/). If you're ready to release, consult our [Launch Checklist](#DOCS_RICH_PRESENCE_OVERVIEW/launch-checklist) and make sure you haven't missed anything!
+
+## FAQ
+
+Below are answers to some common questions about integrating Rich Presence with your game.
+
+#### Q: I see "Playing MyGame", but no Rich Presence data.
+
+There's a couple things that could be going on:
+
+- If you're running two instances of the Discord client, check both!
+- Double check that your `Discord_Initialize()` function is correct.
+
+Throughout development, make sure you have your `errored()` and `disconnected()` callbacks hooked up for debugging. You can open up the console in Discord and look for errors pertaining to `SET_ACTIVITY` for more information as well.
+
+#### Q: I'm not seeing Spectate buttons on my profile.
+
+Make sure you applied for approval! If you want the Spectate button on your players' profiles, we require your integration to go through an approval process. If you have applied and have been approved and still don't see the buttons, check your Discord console for errors.
+
+#### Q: What happens if someone has more than one game running that supports Rich Presence?
+
+Due to recent changes in our infrastructure for support of multi-activities, the behavior of multiple connected Rich Presence apps has changed from what it was before. Previously, whichever application was focused would be the presence that was shown. With the recent changes, the application that connected _first_ is now displayed.
+
+However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party, playing Game A that allows you to send Join invites, and playing Game B that allows you to send Spectate invites, you'll be able to send invites to all three simultaneously!
+
+#### Q: What if someone looking at my profile or an invite doesn't own the game?
+
+Anyone can see your profile data, whether they own the game or not. They'll only be able to interact with chat invites or profile buttons if they own the game and have launched it at least once. Otherwise, the invite/button tooltip will show "Game Not Detected".
+
+#### Q: Do join invitations allow players to select the number of open slots?
+
+Currently, the SDK does not support this. Party slot information is determined by the party data you sent in your presence payload.
+
+#### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
+
+Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image).
+
+#### Q: Can I change something in the SDK for my own purposes?
+
+Go nuts! The SDK is open source by design. If you need or want to change something for the purposes of your specific integration—like changing our JSON parser, or changing all of the variable names to the names of your pets—go ahead and tinker to your heart's content.
+
+#### Q: OK—I've got it working! Now, how do I make my integration look _awesome_?
+
+I'm happy ~~we preempted your question~~ you asked! Check out our [Rich Presence Best Practices](#DOCS_BEST_PRACTICES_DESIGNING_YOUR_DATA_FOR_RICH_PRESENCE/) guide for a rundown on how to make your integration the best that it can be!
