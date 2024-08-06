@@ -58,7 +58,7 @@ Returns an array of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) ob
 
 Returns the current user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) in the guild.
 
-## Get User Voice State % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+## Get User Voice State % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Returns the specified user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) in the guild.
 
