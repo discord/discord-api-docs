@@ -93,7 +93,7 @@ An app's **[installation context](#DOCS_RESOURCES_APPLICATION/installation-conte
 
 We're going to configure our app to support both installation contexts, and while that's a good default for most apps, some apps may only make sense in one context or the other.
 
-In your app's settings, go to the **Installation** page from the sidebar. Under **Authorization Methods**, check both **User Install** and **Guild Install**, then press **Save Changes**.
+In your app's settings, go to the **Installation** page from the sidebar. Under **Installation Contexts**, check both **User Install** and **Guild Install**, then press **Save Changes**.
 
 ### Configuring Default Install Settings
 
@@ -218,7 +218,6 @@ Let's configure our app's **Interaction Endpoint URL**.
 
 Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
 
-
 Click **Save Changes** and if all is well, your Interactions Endpoint URL should be verified by Discord.
 
 > info
@@ -264,7 +263,7 @@ However, for this tutorial, we're going to focus more on the metadata related to
 
 ###### `context`
 
-`context`) tells you which [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) the command was invoked from. I triggered the command from my app's DM, so `context` is `1` (or `BOT_DM`).
+`context` tells you which [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) the command was invoked from. Since I triggered the command from my app's DM the `context` is `1` (or `BOT_DM`).
 
 With interaction context, something to keep in mind in `BOT_DM` is only the *DM with your bot user*. If you run the same command in a DM with your bestie, or in a group DM, the interaction context will be `PRIVATE_CHANNEL` (`2`).
 
@@ -356,7 +355,7 @@ There are two fields additional fields to know about that can be helpful in this
 
 ###### `interaction_metadata`
 
-Messages created in response to an interaction will include an [`interaction_metadata` object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object-message-interaction-metadata-structure) which includes metadata related to the interaction.
+Messages created in response to an interaction will include an [`interaction_metadata` object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object-message-interaction-metadata-structure) which includes metadata related to the interaction.
 
 ###### `authorizing_integration_owners`
 

@@ -887,7 +887,7 @@ Sent when an invite is deleted.
 
 #### Message Create
 
-Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the following extra fields:
+Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_MESSAGE/message-object) object with the following extra fields:
 
 ###### Message Create Extra Fields
 
@@ -899,7 +899,7 @@ Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES
 
 #### Message Update
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
+Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_MESSAGE/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
 
 > warn
 > The value for `tts` will always be false in message updates.
@@ -945,7 +945,7 @@ Sent when a user adds a reaction to a message.
 | message_author_id? | snowflake                                                    | ID of the user who authored the message which was reacted to                               |
 | burst              | boolean                                                      | true if this is a super-reaction                                                           |
 | burst_colors?      | array of strings                                             | Colors used for super-reaction animation in "#rrggbb" format                               |
-| type               | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
+| type               | integer                                                      | The [type of reaction](#DOCS_RESOURCES_MESSAGE/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove
 
@@ -961,7 +961,7 @@ Sent when a user removes a reaction from a message.
 | guild_id?  | snowflake                                                    | ID of the guild                                                                            |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | Emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-standard-emoji-example) |
 | burst      | boolean                                                      | true if this was a super-reaction                                                          |
-| type       | integer                                                      | The [type of reaction](#DOCS_RESOURCES_CHANNEL/get-reactions-reaction-types)               |
+| type       | integer                                                      | The [type of reaction](#DOCS_RESOURCES_MESSAGE/get-reactions-reaction-types)               |
 
 #### Message Reaction Remove All
 
@@ -1049,7 +1049,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 | ID | Name      | Format              | Example                              |
 |----|-----------|---------------------|--------------------------------------|
-| 0  | Game      | Playing {name}      | "Playing Rocket League"              |
+| 0  | Playing   | Playing {name}      | "Playing Rocket League"              |
 | 1  | Streaming | Streaming {details} | "Streaming Rocket League"            |
 | 2  | Listening | Listening to {name} | "Listening to Spotify"               |
 | 3  | Watching  | Watching {name}     | "Watching YouTube Together"          |
