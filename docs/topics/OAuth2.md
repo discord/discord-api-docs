@@ -68,7 +68,9 @@ While Discord does not require the use of the `state` parameter, we support it a
 
 The authorization code grant is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
 
-All calls to the OAuth2 endpoints require either HTTP Basic authentication or `client_id` and `client_secret` supplied in the form data body.
+All calls to the OAuth2 endpoints require one of the following forms of authentication:
+1. HTTP Basic authentication with `client_id` as the username and `client_secret` as the password.
+2. `client_id` and `client_secret` supplied in the form data body.
 
 ###### Authorization URL Example
 
