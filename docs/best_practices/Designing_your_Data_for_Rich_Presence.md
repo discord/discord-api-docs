@@ -10,18 +10,6 @@ If you take away one thing from this guide, let it be this:
 > warn
 > Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.
 
-## Who should use Rich Presence?
-
-Rich Presence is a powerful way to integrate your game with Discord. To do it most effectively, you should think about its purpose and how well (or not) it matches with your game and your implementation. Rich Presence is designed for these three things:
-
-1. Show interesting, unique, actionable data in a user’s profile
-2. Allow friends to spectate each other’s games
-3. Join a friend’s in-game party or server directly from Discord
-
-We certainly don’t want to stifle creativity, especially for games that can use Rich Presence in an interesting way. However, keep in mind that this sort of gameplay is what it was designed for, and how players will normally interact with it.
-
-If you want to do something creative, wacky, funky, or otherwise out-there with Rich Presence for your players and aren’t sure if you can, feel free to drop us a line at [gamedevs@discord.com](mailto:gamedevs@discord.com). We’re always happy to help!
-
 ## How should you think about the data you show?
 
 The data in your players’ profiles is the first thing that others on Discord will see about your game, both those familiar with it and those who have never played. It should answer two questions: can I play with my friend right now, and if not, when can I? Show data like:
