@@ -1,1 +1,56 @@
+# Using Rich Presence with the Embedded App SDK
+
+When developing an [Activity](#TODO), the [Embedded App SDK](#TODO) makes it easy to integrate Rich Presence to display details about what a user is up to inside of your game or social experience. This guide provides an overview of the platform and technical knowledge you need to integrate Rich Presence with your existing Activity (with sample code provided!).
+
+The rest of this guide assumes you've already developed an [app](#DOCS_QUICK_START_OVERVIEW_OF_APPS) that can launch an Activity. If you aren't at that point quite yet, you should follow the guide on [building your first Activity](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY) before continuing.
+
+- TODO: differentiate rich presence activity vs embedded app activity
+- What you can do with Embedded App SDK + Rich Presence (hint: mostly just info share)
+
+## Overview of Rich Presence in Embedded App SDK
+
+TODO: commands that are important - probs setActivity + params
+
+By default, when a user is connected to your Activity, it will display on their profile. 
+
+TODO: no spectating or specific join
+
+## Understanding Rich Presence Fields
+
 TODO
+
+## Updating Presence
+
+TODO: intro setActivity
+TODO: something about rpc.activities.write
+
+You can update a connected user's Rich Presence data
+
+### setActivity Fields
+
+When calling `setActivity`, you can only use a subset of the [Activity object](#TODO) since some fields (like the ones related to spectating) aren't relevant to Activities. Below is a table with the available fields:
+
+| field      | type    | description                                                                                                | example                                                    |
+|----------------|---------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| todo | todo | todo | todo |
+
+### setActivity Example
+
+TODO: image with example that maps to code below
+
+TODO: code example
+
+TODO: include maximum participants
+
+## Using External Custom Assets
+
+developers/docs/activities/development-guides#using-external-resources
+
+TODO: code sample
+
+## Using Party Data
+
+TODO: make sure this is relevant/works
+
+TODO: code sample
+

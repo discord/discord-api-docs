@@ -1,16 +1,10 @@
-# Introducing Rich Presence
-
-> danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+# Using Rich Presence with the Game SDK
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
-If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
+## Step 1: Get the SDK
 
-## Step 0: Get the SDK
-
-> warn
-> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started).
+First, check out the guide on [Getting Started with the Game SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started). Make sure to [download the SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-1-get-the-sdk) and [configure your app](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-2-create-your-app) so that you're ready to integrate Rich Presence.
 
 ## So, how does it work?
 
@@ -30,6 +24,8 @@ These six callbacks make up the entirety of what you need to implement. Behind t
 The header file also contains the `Discord_RunCallbacks()` function. This invokes any pending callbacks from Discord on the calling thread (it's thread safe!).
 
 ## Initialization
+
+TODO: can probably remove most of this section and link to Getting Started
 
 The first step in implementing Rich Presence is [creating an application](#APPLICATIONS). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
@@ -256,6 +252,8 @@ Secrets are obfuscated data of your choosing. They could be match ids, player id
 
 ## Rich Presence Field Requirements
 
+TODO: maybe move to overview
+
 All fields in the `DiscordRichPresence` object are entirely optional. Anything you choose to omit simply won't be displayed; the UI will dynamically adapt from the full Rich Presence object all the way down to the basic presence view. We highly encourage you to include as many fields as you can to make your game as attractive and interactive for other players as possible. However, if you choose to be a bit more selective, here's a handy table for what each piece of Rich Presence requires:
 
 ###### Rich Presence Field Requirements
@@ -277,15 +275,6 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 |   joinSecret   |                |            |    x    |      x      |
 | spectateSecret |                |     x      |         |             |
 |    instance    |                |            |         |             |
-
-## Your New Developer Dashboard
-
-Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
-
-OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#APPLICATIONS) to check it out!
-
-> warn
-> **Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
 
 ## A note on testing and Game Detection
 
