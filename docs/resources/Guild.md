@@ -390,6 +390,53 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 > info
 > BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
 
+
+### Supplemental Guild Member Object
+
+Additional information about a participating user's join source in a [guild](#DOCS_RESOURCES_GUILD/guild-object).
+
+###### Supplemental Guild Member Structure
+
+| Field              | Type                                                             | Description                                                                                              |
+| -------------------|------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| member             | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | The associated guild member                                                                              |
+| join_source_type   | integer                                                          | [How the user joined the guild](#DOCS_RESOURCES_GUILD/supplemental-guild-member-object-join-source-type) |
+| source_invite_code | ?string                                                          | The invite code or vanity used to join the guild, if applicable                                          |
+| inviter_id         | ?snowflake                                                       | The ID of the user who invited the user to the guild, if applicable                                      |
+| integration_type?  | ?integer                                                         | The type of integration that added the user to the guild, if applicable                                  |
+
+###### Join Source Type
+
+| Value | Name                       | Description                                                                                                             |
+|-------|----------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| 0     | UNSPECIFIED                | The user joined the guild through an unknown source                                                                     |
+| 1     | BOT                        | The user was added to the guild by a bot using the [`guilds.join` OAuth2 scope](#DOCS_RESOURCES_GUILD/add-guild-member) |
+| 2     | INTEGRATION                | The user was added to the guild by an integration (e.g. Twitch)                                                         |
+| 3     | DISCOVERY                  | The user joined the guild through guild discovery                                                                       |
+| 4     | HUB                        | The user joined the guild through a student hub                                                                         |
+| 5     | INVITE                     | The user joined the guild through an invite                                                                             |
+| 6     | VANITY_URL                 | The user joined the guild through a vanity URL                                                                          |
+| 7     | MANUAL_MEMBER_VERIFICATION | The user was accepted into the guild after applying for membership                                                      |
+
+###### Example Supplemental Guild Member
+
+```json
+{
+  "member": {
+    "user": {},
+    "nick": "NOT API SUPPORT",
+    "avatar": null,
+    "roles": [],
+    "joined_at": "2015-04-26T06:26:56.936000+00:00",
+    "deaf": false,
+    "mute": false
+  },
+  "source_invite_code": "41i3n5",
+  "join_source_type": 5,
+  "inviter_id": "1081004946872352958"
+}
+```
+
 ### Integration Object
 
 ###### Integration Structure
@@ -935,7 +982,7 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 | limit | integer   | max number of members to return (1-1000) | 1       |
 | after | snowflake | the highest user id in the previous page | 0       |
 
-## Search Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/search
+## Query Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/search
 
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects whose username or nickname starts with a provided string.
 
@@ -948,6 +995,100 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 |-------|---------|------------------------------------------------------------|---------|
 | query | string  | Query string to match username(s) and nickname(s) against. |         |
 | limit | integer | max number of members to return (1-1000)                   | 1       |
+
+# Search Guild Members % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members-search
+
+Returns [supplemental guild member](#DOCS_RESOURCES_GUILD/supplemental-guild-member-object) objects containing [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that match a specified query. Requires the `MANAGE_GUILD` permission.
+
+This endpoint utilizes Elasticsearch to power results. This means that while it is very powerful, it's also tricky to use and reliant on the index, meaning results may not be immediately available for a recently-joined member.
+
+> warn
+> If the guild you are searching is not yet indexed, the endpoint will return a 202 accepted response. The response body will not contain any search results, and will look similar to an error response:
+>
+> ```js
+> {
+>  "message": "Index not yet available. Try again later",
+>  "code": 110000,
+>  "documents_indexed": 0,
+>  "retry_after": 15
+> }
+> ```
+>
+> You should retry the request after the timeframe specified in the `retry_after` field. If the `retry_after` field is `0`, you should retry the request after a short delay.
+
+###### JSON Params
+
+| Field      | Type                                                                                                             | Description                                                                                                            |
+|------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| limit?     | integer                                                                                                          | Max number of members to return (1-1000, default 25)                                                                   |
+| sort?      | integer                                                                                                          | The [sorting algorithm](#DOCS_RESOURCES_GUILD/search-guild-members-member-sort-type) to use (default `JOINED_AT_DESC`) |
+| or_query?  | [member filter](#DOCS_RESOURCES_GUILD/search-guild-members-member-filter-structure) object                       | The filter criteria to match against members using OR logic                                                            |
+| and_query? | [member filter](#DOCS_RESOURCES_GUILD/search-guild-members-member-filter-structure) object                       | The filter criteria to match against members using AND logic                                                           |
+| before?    | [member pagination filter](#DOCS_RESOURCES_GUILD/search-guild-members-member-pagination-filter-structure) object | Get members before this member                                                                                         |
+| after?     | [member pagination filter](#DOCS_RESOURCES_GUILD/search-guild-members-member-pagination-filter-structure) object | Get members after this member                                                                                          |
+
+###### Member Sort Type
+
+| Value | Name           | Description                                                 |
+|-------|----------------|------------------------------------------------------------ |
+| 1     | JOINED_AT_DESC | Sort by when the user joined the guild descending (default) |
+| 2     | JOINED_AT_ASC  | Sort by when the user joined the guild ascending            |
+| 3     | USER_ID_DESC   | Sort by when the user joined Discord descending             |
+| 4     | USER_ID_ASC    | Sort by when the user joined Discord ascending              |
+
+###### Member Filter Structure
+
+| Field               | Type                                                                                   | Description                                                                                                                              | Queries                 |
+|---------------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------ |
+| user_id?            | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (snowflake) | Query to match member IDs against                                                                                                        | `or_query`, `range`     |
+| usernames?          | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (string)    | Query to match display name(s), username(s), and nickname(s) against                                                                     | `or_query`              |
+| role_ids?           | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (snowflake) | IDs of roles to match members against                                                                                                    | `or_query`, `and_query` |
+| guild_joined_at?    | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (integer)   | When the user joined the guild                                                                                                           | `range`                 |
+| safety_signals?     | [safety signals](#safety-signals-structure) object                                     | Safety signals to match members against                                                                                                  |
+| is_pending?         | boolean                                                                                | Whether the member has not yet passed the guild's [member verification](#DOCS_RESOURCES_GUILDS/membership-screening-object) requirements | `true`, `false`         |
+| did_rejoin?         | boolean                                                                                | Whether the member left and rejoined the guild                                                                                           | `true`, `false`         |
+| join_source_type?   | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (integer)   | [How the user joined the guild](#DOCS_RESOURCES_GUILD/supplemental-guild-member-object-join-source-type)                                 | `or_query`              |
+| source_invite_code? | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (string)    | The invite code or vanity used to join the guild                                                                                         | `or_query`              |
+
+###### Safety Signals Structure
+
+| Field                         | Type                                                                                 | Description                                                                                                                                                                          | Queries         |
+|-------------------------------|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| unusual_dm_activity_until?    | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (integer) | When the member's unusual DM activity flag will expire                                                                                                                               | `range`         |
+| communication_disabled_until? | [query](#DOCS_RESOURCES_GUILD/search-guild-members-query-structure) object (integer) | When the member's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire                                                                    | `range`         |
+| unusual_account_activity?     | boolean                                                                              | Whether unusual account activity is detected                                                                                                                                         | `true`, `false` |
+| automod_quarantined_username? | boolean                                                                              | Whether the member has been indefinitely quarantined by [an AutoMod Rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) for their username, display name, or nickname | `true`, `false` |
+
+###### Query Structure
+
+| Field      | Type                                                                                   | Description                                                            |
+|------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| or_query?  | array[snowflake \| string \| integer]                                                  | The values to match against using OR logic (1-100 characters, max 10)  |
+| and_query? | array[snowflake \| string \| integer]                                                  | The values to match against using AND logic (1-100 characters, max 10) |
+| range?     | [range query](#DOCS_RESOURCES_GUILD/search-guild-members-range-query-structure) object | The range of values to match against                                   |
+
+###### Range Query Structure
+
+| Field | Type                 | Description                          |
+|-------|----------------------|--------------------------------------|
+| gte?  | snowflake \| integer | Inclusive lower bound value to match |
+| lte?  | snowflake \| integer | Inclusive upper bound value to match |
+
+###### Member Pagination Filter Structure
+
+| Field           | Type      | Description                                     |
+|-----------------|-----------|-------------------------------------------------|
+| user_id         | snowflake | The ID of the user to paginate past             |
+| guild_joined_at | integer   | When the user to paginate past joined the guild |
+
+###### Response Body
+
+| Field              | Type                                                                                                                   | Description                       |
+|--------------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------- |
+| guild_id           | snowflake                                                                                                              | The ID of the guild searched      |
+| members            | array[[supplemental guild member](#DOCS_RESOURCES_GUILD/search-guild-members-supplemental-guild-member-object) object] | The resulting members             |
+| page_result_count  | integer                                                                                                                | The number of results returned    |
+| total_result_count | integer                                                                                                                | The total number of results found |
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
