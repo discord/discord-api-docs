@@ -212,7 +212,7 @@ There are a number of ways you can respond to an interaction:
 | Name                                    | Value | Description                                                                                                                                                                                            |
 |-----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | PONG                                    | 1     | ACK a `Ping`                                                                                                                                                                                           |
-| CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                                                                                                               |
+| CHANNEL_MESSAGE_WITH_SOURCE        '\   | 4     | respond to an interaction with a message                                                                                                                                                               |
 | DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                                                                                                            |
 | DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state                                                                                          |
 | UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                                                                                                         |
@@ -269,9 +269,11 @@ Not all message fields are currently supported.
 > warn
 > If your application responds with user data, you should use [`allowed_mentions`](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object) to filter which mentions in the content actually ping.
 
-###### Callback
+## Interaction Callback
 
-When responding to an interaction received, you can make a `POST` request to `/interactions/<interaction_id>/<interaction_token>/callback`. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **If you send this request for an interaction received over HTTP, respond to the original HTTP request with a 202 and no body.**
+When responding to an interaction received, you can make a `POST` request to `/interactions/<interaction_id>/<interaction_token>/callback`. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload.
+
+**If you send this request for an interaction received over HTTP, respond to the original HTTP request with a 202 and no body.**
 
 ```py
 import requests
@@ -292,7 +294,7 @@ r = requests.post(url, json=json)
 
 <Collapsible title="Inline HTTP Reponse Behavior" icon="code">
     > warn
-    > The documentation in this section is a discouraged way of responding to interactions now. We highly recommend using the [HTTP callback method](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-callback) to receive results and any potential error.
+    > The documentation in this section is a discouraged way of responding to interactions now. We highly recommend using the [HTTP callback method](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback) to receive results and any potential error.
 
     Your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
 
@@ -319,6 +321,43 @@ r = requests.post(url, json=json)
     If you are receiving Interactions over the gateway, you **have to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
 </Collapsible>
 
+###### Interaction Callback Response Object
+
+| Field       | Type                                                                                                                                        | Description                                                |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                 | The interaction object associated with the                 |
+| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-resource-object) | The resource that was created by the interaction response. |
+
+###### Interaction Callback Object
+
+| Field                       | Type      | Description                                                                                         |
+|-----------------------------|-----------|-----------------------------------------------------------------------------------------------------|
+| id                          | snowflake |                                                                                                     |
+| type                        | integer   | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) |
+| activity_instance_id?       | string    | The instance id of the activity if one was launched or joined                                       |
+| response_message_id?        | snowflake | The id of the message that was created by the interaction                                           |
+| response_message_loading?   | boolean   | Whether or not the mesage is in a loading state                                                     |
+| response_message_ephemeral? | boolean   | Whether or not the response message was ephemeral                                                   |
+
+###### Interaction Callback Resource Object
+
+| Field                | Type                                                                                                                                                  | Description                                                                                                                    |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| type                 | integer                                                                                                                                               | [Interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) |
+| activity_instance?\* | [Activity instance resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-activity-instance-resource) | Represents the activity launched by this interaction.                                                                          |
+| message?\*\*         | [message object](#DOCS_RESOURCES_MESSAGE/message-object)                                                                                              | The message created by the interaction.                                                                                        |
+
+\* Only present if type is `LAUNCH_ACTIVITY`.
+
+\*\* Only present if type is either `CHANNEL_MESSAGE_WITH_SOURCE` or `UPDATE_MESSAGE`.
+
+###### Interaction Callback Activity Instance Resource
+
+| Field | Type   | Description                                                    |
+|-------|--------|----------------------------------------------------------------|
+| id    | string | The instance id of the activity if one was launched or joined. |
+
+
 ## Followup Messages
 
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
@@ -340,9 +379,16 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond to an i
 
 ## Create Interaction Response % POST /interactions/\{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/callback
 
-Create a response to an Interaction. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `200` [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+Create a response to an Interaction. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `204` unless `with_response` is set to `true` which returns `200` with the body as  [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
 This endpoint also supports file attachments similar to the webhook endpoints. Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on uploading files and `multipart/form-data` requests.
+
+###### Query String Params
+
+| Field          | Type                                             | Description                                                                           |
+|----------------|--------------------------------------------------|---------------------------------------------------------------------------------------|
+| with_response? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include a [interaction callback response] as the response instead of a 204 |
+
 
 ## Get Original Interaction Response % GET /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/@original
 
