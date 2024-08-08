@@ -393,7 +393,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ### Supplemental Guild Member Object
 
-Additional information about a participating user's join source in a [guild](#DOCS_RESOURCES_GUILD/guild-object).
+Additional information about a user's join source in a [guild](#DOCS_RESOURCES_GUILD/guild-object).
 
 ###### Supplemental Guild Member Structure
 
@@ -407,16 +407,16 @@ Additional information about a participating user's join source in a [guild](#DO
 
 ###### Join Source Type
 
-| Value | Name                       | Description                                                                                                             |
-|-------|----------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| 0     | UNSPECIFIED                | The user joined the guild through an unknown source                                                                     |
-| 1     | BOT                        | The user was added to the guild by a bot using the [`guilds.join` OAuth2 scope](#DOCS_RESOURCES_GUILD/add-guild-member) |
-| 2     | INTEGRATION                | The user was added to the guild by an integration (e.g. Twitch)                                                         |
-| 3     | DISCOVERY                  | The user joined the guild through guild discovery                                                                       |
-| 4     | HUB                        | The user joined the guild through a student hub                                                                         |
-| 5     | INVITE                     | The user joined the guild through an invite                                                                             |
-| 6     | VANITY_URL                 | The user joined the guild through a vanity URL                                                                          |
-| 7     | MANUAL_MEMBER_VERIFICATION | The user was accepted into the guild after applying for membership                                                      |
+| Name                       | Value | Description                                                                                                             |
+|----------------------------|-------|-------------------------------------------------------------------------------------------------------------------------|
+| UNSPECIFIED                | 0     | The user joined the guild through an unknown source                                                                     |
+| BOT                        | 1     | The user was added to the guild by a bot using the [`guilds.join` OAuth2 scope](#DOCS_RESOURCES_GUILD/add-guild-member) |
+| INTEGRATION                | 2     | The user was added to the guild by an integration (e.g. Twitch)                                                         |
+| DISCOVERY                  | 3     | The user joined the guild through guild discovery                                                                       |
+| HUB                        | 4     | The user joined the guild through a student hub                                                                         |
+| INVITE                     | 5     | The user joined the guild through an invite                                                                             |
+| VANITY_URL                 | 6     | The user joined the guild through a vanity URL                                                                          |
+| MANUAL_MEMBER_VERIFICATION | 7     | The user was accepted into the guild after applying for membership                                                      |
 
 ###### Example Supplemental Guild Member
 
@@ -1029,12 +1029,12 @@ This endpoint utilizes Elasticsearch to power results. This means that while it 
 
 ###### Member Sort Type
 
-| Value | Name           | Description                                                 |
-|-------|----------------|------------------------------------------------------------ |
-| 1     | JOINED_AT_DESC | Sort by when the user joined the guild descending (default) |
-| 2     | JOINED_AT_ASC  | Sort by when the user joined the guild ascending            |
-| 3     | USER_ID_DESC   | Sort by when the user joined Discord descending             |
-| 4     | USER_ID_ASC    | Sort by when the user joined Discord ascending              |
+| Name           | Value | Description                                                 |
+|----------------|-------|------------------------------------------------------------ |
+| JOINED_AT_DESC | 1     | Sort by when the user joined the guild descending (default) |
+| JOINED_AT_ASC  | 2     | Sort by when the user joined the guild ascending            |
+| USER_ID_DESC   | 3     | Sort by when the user joined Discord descending             |
+| USER_ID_ASC    | 4     | Sort by when the user joined Discord ascending              |
 
 ###### Member Filter Structure
 
@@ -1063,8 +1063,8 @@ This endpoint utilizes Elasticsearch to power results. This means that while it 
 
 | Field      | Type                                                                                   | Description                                                            |
 |------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------|
-| or_query?  | array[snowflake \| string \| integer]                                                  | The values to match against using OR logic (1-100 characters, max 10)  |
-| and_query? | array[snowflake \| string \| integer]                                                  | The values to match against using AND logic (1-100 characters, max 10) |
+| or_query?  | array of snowflakes,  strings, or integers                                             | The values to match against using OR logic (1-100 characters, max 10)  |
+| and_query? | array of snowflakes,  strings, or integers                                             | The values to match against using AND logic (1-100 characters, max 10) |
 | range?     | [range query](#DOCS_RESOURCES_GUILD/search-guild-members-range-query-structure) object | The range of values to match against                                   |
 
 ###### Range Query Structure
@@ -1083,12 +1083,12 @@ This endpoint utilizes Elasticsearch to power results. This means that while it 
 
 ###### Response Body
 
-| Field              | Type                                                                                                                   | Description                       |
-|--------------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------- |
-| guild_id           | snowflake                                                                                                              | The ID of the guild searched      |
-| members            | array[[supplemental guild member](#DOCS_RESOURCES_GUILD/search-guild-members-supplemental-guild-member-object) object] | The resulting members             |
-| page_result_count  | integer                                                                                                                | The number of results returned    |
-| total_result_count | integer                                                                                                                | The total number of results found |
+| Field              | Type                                                                                                                      | Description                       |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------- |
+| guild_id           | snowflake                                                                                                                 | The ID of the guild searched      |
+| members            | array of [supplemental guild member](#DOCS_RESOURCES_GUILD/search-guild-members-supplemental-guild-member-object) objects | The resulting members             |
+| page_result_count  | integer                                                                                                                   | The number of results returned    |
+| total_result_count | integer                                                                                                                   | The total number of results found |
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
