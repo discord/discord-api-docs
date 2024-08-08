@@ -1063,8 +1063,8 @@ This endpoint utilizes Elasticsearch to power results. This means that while it 
 
 | Field      | Type                                                                                   | Description                                                            |
 |------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------|
-| or_query?  | array of snowflakes,  strings, or integers                                             | The values to match against using OR logic (1-100 characters, max 10)  |
-| and_query? | array of snowflakes,  strings, or integers                                             | The values to match against using AND logic (1-100 characters, max 10) |
+| or_query?  | array of snowflakes, strings, or integers                                              | The values to match against using OR logic (1-100 characters, max 10)  |
+| and_query? | array of snowflakes, strings, or integers                                              | The values to match against using AND logic (1-100 characters, max 10) |
 | range?     | [range query](#DOCS_RESOURCES_GUILD/search-guild-members-range-query-structure) object | The range of values to match against                                   |
 
 ###### Range Query Structure
