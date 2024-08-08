@@ -25,9 +25,10 @@ Now let's take a look at what custom Rich Presence data you can set when setting
 
 ![Image of where Rich Presence data appears in Discord profiles for Activities](annotated-presence-data-activities.png)
 
-Two small things to note about the above image:
+Three small things to note about the image above:
 1. `large_image` and `small_image` are both in the `assets` object, which you can see below in the [table below](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/activity-partial-object). They're labeled with the keys so it's more clear how they appear on a Discord profile.
 2. You can't set App Name when setting presence—it's always the name configured in your [app's settings](https://discord.com/developers/applications).
+3. Depending on the `type` you set when updating presence, the behavior and layout for some fields (like `small_image` and `large_text`) may slightly change.
 
 ## Updating Presence
 
@@ -101,7 +102,7 @@ To create this display, here is what the `setActivity()` code would look like:
 > The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY) for more details on topics like instantiating the Embedded App SDK and authenticating users.
 ```js
 await discordSdk.commands.setActivity({
-  activity: {
+  activity: { 
     type: 0,
     state: 'Traveling with a Group',
     details: 'in Mainframe Map',
@@ -124,6 +125,26 @@ await discordSdk.commands.setActivity({
 
 ## Using External Custom Assets
 
-developers/docs/activities/development-guides#using-external-resources
+Typically when building an Activity, you need to be aware of the proxy and [how to use external resources](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/using-external-resources). However, lucikly for you (and the writer of this guide), image URLs in fields for features like Rich Presence don't need to jump through hoops.
 
-TODO: code sample
+As mentioned in the [Rich Presence overview](#DOCS_RICH_PRESENCE_OVERVIEW/assets), you have more than 300 custom assets or if you want to use your stored images from somewhere else, you can specify an external URL for `large_image` or `small_image` within the `assets` object.
+
+<Collapsible title="Example setting presence with an external asset" icon="code">
+
+> info
+> The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+```js
+await discordSdk.commands.setActivity({
+  activity: { 
+    type: 2,
+    state: 'Broken Code and Hearts (club edit)',
+    details: 'DJ Wump',
+    assets: {
+      large_image: 'https://example.com/album-covers/dj-wump/broken-code-and-hearts-club-edit.jpg',
+      large_text: 'Listening to a track',
+    }
+  }
+});
+```
+</Collapsible>
+
