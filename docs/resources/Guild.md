@@ -1071,8 +1071,8 @@ This endpoint utilizes Elasticsearch to power results. This means that while it 
 
 | Field | Type                 | Description                          |
 |-------|----------------------|--------------------------------------|
-| gte?  | snowflake \| integer | Inclusive lower bound value to match |
-| lte?  | snowflake \| integer | Inclusive upper bound value to match |
+| gte?  | snowflake or integer | Inclusive lower bound value to match |
+| lte?  | snowflake or integer | Inclusive upper bound value to match |
 
 ###### Member Pagination Filter Structure
 
