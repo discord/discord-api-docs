@@ -1,5 +1,11 @@
 # Change Log
 
+## User App Install Count
+
+#### August 9, 2024
+
+We've added an approximate user install count to the [Application object](#DOCS_RESOURCES_APPLICATION/application-object) for user-installable apps. You can also view an app's install counts in the developer portal.
+
 ## Voice State Endpoints
 
 #### August 5, 2024
