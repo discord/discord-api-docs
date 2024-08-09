@@ -86,12 +86,12 @@ We'll come back to this page later in this guide when we are ready to set up our
 ### Register a Primary Entry Point App command
 [Register a `PRIMARY_ENTRY_POINT` app command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type). For new apps that go through the Activities-Getting Started flow, a new app command with type `PRIMARY_ENTRY_POINT` and handler `DISCORD_LAUNCH_ACTIVITY` will automatically get created. For apps that went through the flow during the Activities developer preview, you will need to manually register the app command.
 
-### Make your app user installable
+### Make Your App User Installable
 Make your app user installable, so after the user launches your activity,
 - the user will have faster access to your app
 - your app will have the ability to direct message the user.
 
-Configure the default install settings to support user-installs (#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP/default-install-settings) section. Then [request the `applications.commands` scope with the `embedded-apps-sdk`](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-5-authorizing-authenticating-user).
+[Configure the default install settings to support user-installs](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP/default-install-settings) section. Then [request the `applications.commands` scope with the `embedded-apps-sdk`](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-5-authorizing-authenticating-user).
 
 ### Find Your OAuth2 Credentials
 
