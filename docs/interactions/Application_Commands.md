@@ -30,8 +30,10 @@ Application commands are native ways to interact with apps in the Discord client
 | integration_types?         | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [Installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available, only for globally-scoped commands. Defaults to your app's [configured contexts](#DOCS_RESOURCES_APPLICATION/installation-context/setting-supported-installation-contexts) | all         |
 | contexts?                  | ?list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                 | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands.                           | all         |
 | version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                                       | all         |
+| handler                    | one of [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/handler-types) | Determines whether the interaction is handled by the app's interactions handler or by Discord | PRIMARY_ENTRY_POINT |
 
 \* `options` can only be set for application commands of type `CHAT_INPUT`.
+\* `handler` can only be set for application commands of type `PRIMARY_ENTRY_POINT` for applications with the `EMBEDDED` flag (i.e. applications that have an Activity).
 
 > danger
 > `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or use `contexts` to disable globally-scoped commands inside of DMs with your app
@@ -43,7 +45,7 @@ Application commands are native ways to interact with apps in the Discord client
 | CHAT_INPUT | 1    | Slash commands; a text-based command that shows up when a user types `/`  |
 | USER       | 2    | A UI-based command that shows up when you right click or tap on a user    |
 | MESSAGE    | 3    | A UI-based command that shows up when you right click or tap on a message |
-
+| PRIMARY_ENTRY_POINT | 4 | A UI-based command that represents the primary way to use an App (e.g. launching an activity)
 
 ###### Application Command Option Structure
 
@@ -103,6 +105,16 @@ Application commands are native ways to interact with apps in the Discord client
 
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
+###### Handler Types
+| Name                     | Value | Note                                                                                                                                                       |
+|--------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| APP_HANDLER              | 1     | The app handles the interaction.                                                                                                                           |
+| DISCORD_LAUNCH_ACTIVITY  | 2     | Discord handles the interaction by launching an Activity and sending a follow-up message in chat without coordinating with the app's interactions handler. |
+
+Use `APP_HANDLER` to get an interaction token when launching an activity. The interaction token can be used for other features like sending custom follow-up messages in chat. The app can decide when and if to use the interaction token.
+
+Use `DISCORD_LAUNCH_ACTIVITY` for the simplest setup without an interactions handler. Discord will provide the content of the follow-up message and determine when to send the message.
+
 ## Authorizing Your Application
 
 Application commands do not depend on a bot user in the guild; they use the [interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope which can be used independently, but is also automatically included with the `bot` scope.
@@ -126,6 +138,8 @@ Guild commands are specific to the guild you specify when making them. Guild com
 - Your app **cannot** have two global `USER` commands with the same name
 - Your app **can** have a global and guild `CHAT_INPUT` command with the same name
 - Your app **can** have a global `CHAT_INPUT` and `USER` command with the same name
+- Your app can only have one `PRIMARY_ENTRY_POINT` global command
+- Your app cannot have a `PRIMARY_ENTRY_POINT` guild command
 - Multiple apps **can** have commands with the same names
 
 This list is non-exhaustive. In general, remember that command names must be unique per application, per type, and within each scope (global and guild).
