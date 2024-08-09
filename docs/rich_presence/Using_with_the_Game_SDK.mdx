@@ -30,6 +30,9 @@ Note that this layout may be subject to change without warning. This information
 impaired eyesight to understand the potential layout of this information in a user interface.
 </Collapsible>
 
+> info
+> For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](#DOCS_BEST_PRACTICES_DESIGNING_YOUR_DATA_FOR_RICH_PRESENCE).
+
 ## Activities Manager
 
 As you probably learned when setting up your app, the Game SDK has a handful of [manager classes](#DOCS_DEVELOPER_TOOLS_GAME_SDK/managers) that are specialized to either help you build a feature in your 3rd party game, or integrate your game with Discord. The **[`ActivitiesManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities)** class is responsible for Rich Presence and sending invites, so that's where we'll spend our focus.
@@ -141,7 +144,7 @@ In the example above, there was an **Ask to Join** button that a user could clic
 
 To get the **Ask to Join** button to appear under the Rich Presence data for a 3rd party game, you have to send along a few fields: `ActivityParty.Id`, `ActivityParty.Size.CurrentSize`, `ActivityParty.Size.MaxSize`, and `ActivitySecrets.Join`.
 
-To see what you need for each Rich Presence feature, you can view the [Activity Action Field Requirements](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK/rich-presence-field-requirements) table below.
+To see what you need for each Rich Presence feature, you can view the [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/ctivity-action-field-requirements) table.
 
 ### Handling Ask to Join
 
@@ -180,30 +183,6 @@ To keep security on the up and up, Discord requires that you properly hash/encod
 
 Secrets are obfuscated data of your choosing. They could be match ids, player ids, lobby ids, etc. You should send us data that someone else's game client would need to join their friend. If you can't or don't want to support those actions, you don't need to send us secrets.
 
-## Rich Presence Field Requirements
-
-All fields in the `DiscordRichPresence` object are entirely optional. Anything you choose to omit simply won't be displayed; the UI will dynamically adapt from the full Rich Presence object all the way down to the basic presence view. We highly encourage you to include as many fields as you can to make your game as attractive and interactive for other players as possible. However, if you choose to be a bit more selective, here's a handy table for what each piece of Rich Presence requires:
-
-###### Rich Presence Field Requirements
-
-|     Field      | Custom Artwork | Joining | Ask to Join |
-|:--------------:|:--------------:|:-------:|:-----------:|
-|     state      |                |         |             |
-|    details     |                |         |             |
-| startTimestamp |                |         |             |
-|  endTimestamp  |                |         |             |
-| largeImageKey  |       x        |         |             |
-| smallImageKey  |       x        |         |             |
-| largeImageText |       x        |         |             |
-| smallImageText |       x        |         |             |
-|    partyId     |                |    x    |      x      |
-|   partySize    |                |    x    |      x      |
-|    partyMax    |                |    x    |      x      |
-|  matchSecret   |                |         |             |
-|   joinSecret   |                |    x    |      x      |
-| spectateSecret |                |         |             |
-|    instance    |                |         |             |
-
 ## FAQ
 
 Below are answers to some common questions about integrating Rich Presence with your game.
@@ -219,7 +198,7 @@ Throughout development, make sure you have your `errored()` and `disconnected()`
 
 #### Q: What happens if someone has more than one game running that supports Rich Presence?
 
-Due to recent changes in our infrastructure for support of multi-activities, the behavior of multiple connected Rich Presence apps has changed from what it was before. Previously, whichever application was focused would be the presence that was shown. With the recent changes, the application that connected _first_ is now displayed.
+The application that connected _first_ is displayed.
 
 However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party, playing Game A that allows you to send Join invites, and playing Game B that allows you to send Spectate invites, you'll be able to send invites to all three simultaneously!
 

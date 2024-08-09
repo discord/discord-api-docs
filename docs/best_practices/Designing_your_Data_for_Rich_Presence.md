@@ -1,18 +1,12 @@
 # Best Practices for Rich Presence
 
-> danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+Rich Presence lets you display actionable data in a Discord user's profile about what they're up to in your game or app. This guide is intended to show some best practices on how to make that data the best it can be.
 
-Rich Presence is a new feature from Discord that allows you to surface unique, interesting, and actionable data inside a Discord user’s profile when they play your game! This guide is intended to show some best practices on how to make that data the best it can be. It will include images and code samples; for full technical documentation, see our developer documentation.
-
-If you take away one thing from this guide, let it be this:
-
-> warn
-> Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.
+If you don't already know about Rich Presence, read [Rich Presence Overview](#DOCS_RICH_PRESENCE_OVERVIEW) first.
 
 ## How should you think about the data you show?
 
-The data in your players’ profiles is the first thing that others on Discord will see about your game, both those familiar with it and those who have never played. It should answer two questions: can I play with my friend right now, and if not, when can I? Show data like:
+The data in your players’ profiles is the first thing that others on Discord will see about your game or app, both those familiar with it and those who have never seen it before. It should answer two questions: can I play with my friend right now, and if not, when can I? Show data like:
 
 - What the player is currently doing
 - How much time has elapsed or remains (if applicable)
@@ -107,13 +101,5 @@ Ready to launch a Rich Presence integration for your game? If so, we recommend l
   - Discord _and_ non-Discord users in the party?
 - Are you able to post invites to Discord without any additional in-game setup or configuration?
 - Are you properly removing data from the presence payload when someone can no longer send invites?
-  - A `joinSecret` should not be sent if the player can't invite anyone!
-
-#### Spectating
-
-- Have you successfully implemented spectate invites for your game if applicable?
-- Is your game's spectate mode true spectating?
-  - We do _not_ allow using the Spectate button as a pseudo-Join button.
-- Are you properly removing data from the presence payload when someone can no longer spectate?
-  - A `spectateSecret` should not be sent if the player can't be spectated!
+  - A Join secret should not be sent if the player can't invite anyone!
 
