@@ -102,10 +102,6 @@ Represents a pack of standard stickers.
 
 Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given sticker ID.
 
-## Get Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
-
-Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) object for the given sticker pack ID.
-
 ## List Sticker Packs % GET /sticker-packs
 
 Returns a list of available sticker packs.
@@ -115,6 +111,10 @@ Returns a list of available sticker packs.
 | Field         | Type                                                                         |
 |---------------|------------------------------------------------------------------------------|
 | sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
+
+## Get Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
+
+Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) object for the given sticker pack ID.
 
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
