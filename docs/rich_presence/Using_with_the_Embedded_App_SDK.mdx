@@ -21,7 +21,7 @@ While this is okay, it's really limited and doesn't provide much context about w
 
 ### Custom Rich Presence Data
 
-Now let's take a look at what custom Rich Presence data you can set when setting a user's presence. The [types for these fields](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/setactivity-fields) and [examples](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/example) are in the sections below, but for now let's just get an idea of what we're working with:
+Now let's take a look at what custom Rich Presence data you can set when updating a user's presence. The [types for these fields](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/setactivity-fields) and [examples](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/example) are in the sections below, but for now let's just get an idea of what we're working with:
 
 ![Image of where Rich Presence data appears in Discord profiles for Activities](annotated-presence-data-activities.png)
 
@@ -129,7 +129,7 @@ Typically when building an Activity, you need to be aware of the proxy and [how 
 
 As mentioned in the [Rich Presence overview](#DOCS_RICH_PRESENCE_OVERVIEW/assets), you have more than 300 custom assets or if you want to use your stored images from somewhere else, you can specify an external URL for `large_image` or `small_image` within the `assets` object.
 
-<Collapsible title="Example setting presence with an external asset" icon="code">
+<Collapsible title="Example setting presence with an external asset" icon="code" open>
 
 > info
 > The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY) for more details on topics like instantiating the Embedded App SDK and authenticating users.

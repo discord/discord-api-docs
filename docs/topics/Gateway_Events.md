@@ -1047,8 +1047,6 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Types
 
-TODO: update
-
 | ID | Name      | Format              | Example                              |
 |----|-----------|---------------------|--------------------------------------|
 | 0  | Playing   | Playing {name}      | "Playing Rocket League"              |

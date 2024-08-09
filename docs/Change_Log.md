@@ -1379,7 +1379,7 @@ Rich Presence is now live and available for all developers! Rich Presence allows
 - Allowing users to post invitations to join their party or spectate their game in chat
 - Displaying "Spectate" and "Ask to Join" buttons on users' profiles
 
-For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
+For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_OVERVIEW)!
 
 ## Breaking Change: API & Gateway Below v6 Discontinued
 
