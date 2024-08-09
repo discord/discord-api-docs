@@ -33,6 +33,7 @@ Application commands are native ways to interact with apps in the Discord client
 | handler                    | one of [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/handler-types)                                                                   | Determines whether the interaction is handled by the app's interactions handler or by Discord                                                                                                                                                                                       | PRIMARY_ENTRY_POINT |
 
 \* `options` can only be set for application commands of type `CHAT_INPUT`.
+
 \* `handler` can only be set for application commands of type `PRIMARY_ENTRY_POINT` for applications with the `EMBEDDED` flag (i.e. applications that have an Activity).
 
 > danger
@@ -106,10 +107,10 @@ Application commands are native ways to interact with apps in the Discord client
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
 ###### Handler Types
-| Name                    | Value | Note                                                                                                                                                       |
-|-------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| APP_HANDLER             | 1     | The app handles the interaction.                                                                                                                           |
-| DISCORD_LAUNCH_ACTIVITY | 2     | Discord handles the interaction by launching an Activity and sending a follow-up message in chat without coordinating with the app's interactions handler. |
+| Name                    | Value | Note                                                                                                                                                      |
+|-------------------------|-------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| APP_HANDLER             | 1     | The app handles the interaction                                                                                                                           |
+| DISCORD_LAUNCH_ACTIVITY | 2     | Discord handles the interaction by launching an Activity and sending a follow-up message in chat without coordinating with the app's interactions handler |
 
 Use `APP_HANDLER` to get an interaction token when launching an activity. The interaction token can be used for other features like sending custom follow-up messages in chat. The app can decide when and if to use the interaction token.
 
@@ -138,8 +139,8 @@ Guild commands are specific to the guild you specify when making them. Guild com
 - Your app **cannot** have two global `USER` commands with the same name
 - Your app **can** have a global and guild `CHAT_INPUT` command with the same name
 - Your app **can** have a global `CHAT_INPUT` and `USER` command with the same name
-- Your app can only have one `PRIMARY_ENTRY_POINT` global command
-- Your app cannot have a `PRIMARY_ENTRY_POINT` guild command
+- Your app **can only have one** `PRIMARY_ENTRY_POINT` global command
+- Your app **cannot** have a `PRIMARY_ENTRY_POINT` guild command
 - Multiple apps **can** have commands with the same names
 
 This list is non-exhaustive. In general, remember that command names must be unique per application, per type, and within each scope (global and guild).
