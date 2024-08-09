@@ -1,6 +1,6 @@
 # Using Rich Presence with the Game SDK
 
-The [Game SDK](#DEVELOPERS_DOCS_DEVELOPER_TOOLS_GAME_SDK) helps you build your 3rd party game, and integrate it with Discord. One of its specialties is making it easy to bring your game's data to Discord using [Rich Presence](#DOCS_RICH_PRESENCE_OVERVIEW), which is what this guide will cover.
+The [Game SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK) helps you build your 3rd party game, and integrate it with Discord. One of its specialties is making it easy to bring your game's data to Discord using [Rich Presence](#DOCS_RICH_PRESENCE_OVERVIEW), which is what this guide will cover.
 
 Before we dig in, make sure you've gone through the guide on [Getting Started with the Game SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started). This guide expects that you've already [downloaded the SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-1-get-the-sdk),  [configured your app](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-2-create-your-app), and [gotten up and running with a basic example](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-3-start-coding).
 
@@ -66,11 +66,11 @@ Below are the fields we'll be paying attention to as we're passing presence data
 |------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | State      | string                                                                                | the player's current party status                               |
 | Details    | string                                                                                | what the player is currently doing                              |
-| Timestamps | [ActivityTimestamps](#DOCS_GAME_SDK_ACTIVITIES/data-models-activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
-| Assets     | [ActivityAssets](#DOCS_GAME_SDK_ACTIVITIES/data-models-activityassets-struct)         | assets to display on the player's profile                       |
-| Party      | [ActivityParty](#DOCS_GAME_SDK_ACTIVITIES/data-models-activityparty-struct)           | information about the player's party                            |
-| Secrets    | [ActivitySecrets](#DOCS_GAME_SDK_ACTIVITIES/data-models-activitysecrets-struct)       | secret passwords for joining the player's game   |
-| Instance | bool | whether this activity is an instanced context, like a match |
+| Timestamps    | [ActivityTimestamps](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
+| Assets        | [ActivityAssets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityassets-struct)         | assets to display on the player's profile                       |
+| Party         | [ActivityParty](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityparty-struct)           | information about the player's party                            |
+| Secrets       | [ActivitySecrets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct)       | secret passwords for joining the player's game   |
+| Instance   | bool                                                                                  | whether this activity is an instanced context, like a match     |
 
 ### UpdateActivity Example
 
@@ -144,7 +144,7 @@ In the example above, there was an **Ask to Join** button that a user could clic
 
 To get the **Ask to Join** button to appear under the Rich Presence data for a 3rd party game, you have to send along a few fields: `ActivityParty.Id`, `ActivityParty.Size.CurrentSize`, `ActivityParty.Size.MaxSize`, and `ActivitySecrets.Join`.
 
-To see what you need for each Rich Presence feature, you can view the [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/ctivity-action-field-requirements) table.
+To see what you need for each Rich Presence feature, you can view the [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activity-action-field-requirements) table.
 
 ### Handling Ask to Join
 

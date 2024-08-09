@@ -1537,7 +1537,7 @@ No arguments
 
 | Field  | Type   | Description                                                                                                           |
 |--------|--------|-----------------------------------------------------------------------------------------------------------------------|
-| secret | string | the [`join_secret`](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) for the given invite |
+| secret | string | the [`join_secret`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct) for the given invite |
 
 ###### Example Activity Join Dispatch Payload
 
@@ -1559,7 +1559,7 @@ No arguments
 
 | Field  | Type   | Description                                                                                                               |
 |--------|--------|---------------------------------------------------------------------------------------------------------------------------|
-| secret | string | the [`spectate_secret`](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) for the given invite |
+| secret | string | the [`spectate_secret`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct) for the given invite |
 
 ###### Example Activity Spectate Dispatch Payload
 

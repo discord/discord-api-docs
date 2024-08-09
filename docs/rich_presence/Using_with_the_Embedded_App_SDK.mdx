@@ -21,12 +21,12 @@ While this is okay, it's really limited and doesn't provide much context about w
 
 ### Custom Rich Presence Data
 
-Now let's take a look at what custom Rich Presence data you can set when updating a user's presence. The [types for these fields](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/setactivity-fields) and [examples](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/example) are in the sections below, but for now let's just get an idea of what we're working with:
+Now let's take a look at what custom Rich Presence data you can set when updating a user's presence. The [types for these fields](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK/setactivity-fields) and [examples](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK/setactivity-example) are in the sections below, but for now let's just get an idea of what we're working with:
 
 ![Image of where Rich Presence data appears in Discord profiles for Activities](annotated-presence-data-activities.png)
 
 Three small things to note about the image above:
-1. `large_image` and `small_image` are both in the `assets` object, which you can see below in the [table below](#DOCS_RICH_PRESENCE_USING_THE_EMBEDDED_APP_SDK/activity-partial-object). They're labeled with the keys so it's more clear how they appear on a Discord profile.
+1. `large_image` and `small_image` are both in the `assets` object, which you can see below in the [table below](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK/activity-partial-object). They're labeled with the keys so it's more clear how they appear on a Discord profile.
 2. You can't set App Name when setting presence—it's always the name configured in your [app's settings](https://discord.com/developers/applications).
 3. Depending on the `type` you set when updating presence, the behavior and layout for some fields (like `small_image` and `large_text`) may slightly change.
 
