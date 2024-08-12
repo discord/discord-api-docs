@@ -48,7 +48,7 @@ Before you start developing, there are a couple of notes to keep in mind about t
 
 With that out of the way, let's start coding. Didn't think we'd get there so fast, did ya? _Think again!_ The dropdowns are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
 
-<Collapsible title="Code Primer for Unity (Csharp)" icon="code">
+<Collapsible title="Code Primer for Unity (C#)" icon="code">
 - Open up that SDK zip that you downloaded.
 - Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
 - Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGame SDK`
@@ -74,7 +74,7 @@ You're now free to use other functionality in the SDK! Make sure to call `discor
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
 </Collapsible>
 
-<Collapsible title="Code Primer for Non-Unity Projects (Csharp)" icon="code">
+<Collapsible title="Code Primer for Non-Unity Projects (C#)" icon="code">
 - Open up that SDK zip that you downloaded.
 - Create a folder in your project directory called `DiscordGame SDK` and copy the contents of the `csharp/` folder to it
 - Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
@@ -143,7 +143,7 @@ DiscordCreate(DISCORD_VERSION, &params, &app.core);
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/c/main.c` in the SDK zip file.
 </Collapsible>
 
-<Collapsible title="Code Primer for Unreal Engine 4 (Cpp)" icon="code">
+<Collapsible title="Code Primer for Unreal Engine 4 (C++)" icon="code">
 First, you'll want to copy the header files and `.cpp` files to a folder somewhere in your project directory. For ease of a quickstart example, you can put them right inside your `Source/your-project-name` folder; I'd put them in a containing folder called something like `discord-files/`.
 
 Second, you'll want to copy the `.dll` and `.lib` files from the `lib/x86_64` folder of the downloaded zip. These files should be put in `your-project-name/Binaries/Win64/`. For win32, take the files from `x86/` and put them, in `your-project-name/Binaries/Win32`.
@@ -226,7 +226,7 @@ Make sure you've got `core->RunCallbacks()` going every frame!
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
 </Collapsible>
 
-<Collapsible title="Code Primer for No Engine (Cpp)" icon="code">
+<Collapsible title="Code Primer for No Engine (C++)" icon="code">
 In your project folder, you'll want to make something like a "discord-files" folder, for organization. In that folder, copy all the `.h` and `.cpp` files from the zip.
 You want to include all the header and source files respectively in your project
 
