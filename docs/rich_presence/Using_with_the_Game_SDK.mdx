@@ -62,15 +62,15 @@ Below are the fields we'll be paying attention to as we're passing presence data
 > info
 > All fields are optional and nullable
 
-| Name       | Type                                                                                  | Description                                                     |
-|------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| State      | string                                                                                | the player's current party status                               |
-| Details    | string                                                                                | what the player is currently doing                              |
-| Timestamps    | [ActivityTimestamps](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
-| Assets        | [ActivityAssets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityassets-struct)         | assets to display on the player's profile                       |
-| Party         | [ActivityParty](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityparty-struct)           | information about the player's party                            |
-| Secrets       | [ActivitySecrets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct)       | secret passwords for joining the player's game   |
-| Instance   | bool                                                                                  | whether this activity is an instanced context, like a match     |
+| Name       | Type                                                                           | Description                                                     |
+|------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| State      | string                                                                         | the player's current party status                               |
+| Details    | string                                                                         | what the player is currently doing                              |
+| Timestamps | [ActivityTimestamps](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
+| Assets     | [ActivityAssets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityassets-struct)         | assets to display on the player's profile                       |
+| Party      | [ActivityParty](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityparty-struct)           | information about the player's party                            |
+| Secrets    | [ActivitySecrets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct)       | secret passwords for joining the player's game                  |
+| Instance   | bool                                                                           | whether this activity is an instanced context, like a match     |
 
 ### UpdateActivity Example
 

@@ -1535,8 +1535,8 @@ No arguments
 
 ###### Activity Join Dispatch Data Structure
 
-| Field  | Type   | Description                                                                                                           |
-|--------|--------|-----------------------------------------------------------------------------------------------------------------------|
+| Field  | Type   | Description                                                                                     |
+|--------|--------|-------------------------------------------------------------------------------------------------|
 | secret | string | the [`join_secret`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct) for the given invite |
 
 ###### Example Activity Join Dispatch Payload
@@ -1557,8 +1557,8 @@ No arguments
 
 ###### Activity Spectate Dispatch Data Structure
 
-| Field  | Type   | Description                                                                                                               |
-|--------|--------|---------------------------------------------------------------------------------------------------------------------------|
+| Field  | Type   | Description                                                                                         |
+|--------|--------|-----------------------------------------------------------------------------------------------------|
 | secret | string | the [`spectate_secret`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct) for the given invite |
 
 ###### Example Activity Spectate Dispatch Payload
