@@ -1,5 +1,11 @@
 # Change Log
 
+## Get Guild Role Endpoint
+
+#### August 12, 2024
+
+Need to get just one role, not the whole role list? Use the new [Get Guild Role](#DOCS_RESOURCES_GUILD/get-guild-role) endpoint to fetch a single role by ID.
+
 ## User App Install Count
 
 #### August 9, 2024

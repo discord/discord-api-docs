@@ -1113,6 +1113,10 @@ On success, this endpoint returns a 200 success response with the following body
 
 Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
 
+## Get Guild Role % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
+
+Returns a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object for the specified role.
+
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-create) Gateway event. All JSON params are optional.
