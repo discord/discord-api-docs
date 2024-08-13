@@ -199,15 +199,15 @@ First, we open a UDP connection to the IP and port provided in the Ready payload
 
 ## Encryption Modes
 
-| Mode                               | Key                             | Nonce                                                                  | Status                |
-|------------------------------------|---------------------------------|------------------------------------------------------------------------|-----------------------|
-| AEAD AES256-GCM (RTP Size)         | aead_aes256_gcm_rtpsize         | 32-bit incremental integer value, appended to payload                  | Available (Preferred) |
-| AEAD XChaCha20 Poly1305 (RTP Size) | aead_xchacha20_poly1305_rtpsize | 32-bit incremental integer value, appended to payload                  | Available (Required)  |
-| XSalsa20 Poly1305 Lite (RTP Size)  | xsalsa20_poly1305_lite_rtpsize  | 32-bit incremental integer value, appended to payload                  | Deprecated            |
-| AEAD AES256-GCM                    | aead_aes256_gcm                 | 32-bit incremental integer value, appended to payload                  | Deprecated            |
-| XSalsa20 Poly1305                  | xsalsa20_poly1305               | Copy of RTP header                                                     | Deprecated            |               
-| XSalsa20 Poly1305 Suffix           | xsalsa20_poly1305_suffix        | 24 random bytes                                                        | Deprecated            |
-| XSalsa20 Poly1305 Lite             | xsalsa20_poly1305_lite          | 32-bit incremental integer value, appended to payload                  | Deprecated            | 
+| Mode                               | Key                             | Nonce                                                 | Status                |
+|------------------------------------|---------------------------------|-------------------------------------------------------|-----------------------|
+| AEAD AES256-GCM (RTP Size)         | aead_aes256_gcm_rtpsize         | 32-bit incremental integer value, appended to payload | Available (Preferred) |
+| AEAD XChaCha20 Poly1305 (RTP Size) | aead_xchacha20_poly1305_rtpsize | 32-bit incremental integer value, appended to payload | Available (Required)  |
+| XSalsa20 Poly1305 Lite (RTP Size)  | xsalsa20_poly1305_lite_rtpsize  | 32-bit incremental integer value, appended to payload | Deprecated            |
+| AEAD AES256-GCM                    | aead_aes256_gcm                 | 32-bit incremental integer value, appended to payload | Deprecated            |
+| XSalsa20 Poly1305                  | xsalsa20_poly1305               | Copy of RTP header                                    | Deprecated            |
+| XSalsa20 Poly1305 Suffix           | xsalsa20_poly1305_suffix        | 24 random bytes                                       | Deprecated            |
+| XSalsa20 Poly1305 Lite             | xsalsa20_poly1305_lite          | 32-bit incremental integer value, appended to payload | Deprecated            |
 
 >warn
 >The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
