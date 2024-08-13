@@ -4,16 +4,20 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GAT
 
 ## Voice Gateway Versioning
 
-To ensure that you have the most up-to-date information, please use [version 4](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) documented here will reflect what you receive over the socket.
+To ensure that you have the most up-to-date information, please use [version 8](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) documented here will reflect what you receive over the socket.
 
 ###### Gateway Versions
 
-| Version | Status      | WebSocket URL Append |
-|---------|-------------|----------------------|
-| 4       | recommended | ?v=4                 |
-| 3       | available   | ?v=3                 |
-| 2       | available   | ?v=2                 |
-| 1       | default     | ?v=1 or omit         |
+| Version | Status      | WebSocket URL Append | Change                                                                 |
+|---------|-------------|----------------------|------------------------------------------------------------------------|
+| 8       | recommended | ?v=8                 | Added server message buffering, missed messages re-delivered on resume |
+| 7       | available   | ?v=7                 | Added channel options opcode                                           |
+| 6       | available   | ?v=6                 | Added code version opcode                                              |
+| 5       | available   | ?v=5                 | Added video sink wants opcode                                          |
+| 4       | default     | ?v=4 or omit         | Changed speaking status to bitmask from boolean                        |
+| 3       | deprecated  | ?v=3                 | Added video                                                            |
+| 2       | deprecated  | ?v=2                 | Changed heartbeat reply from server to heartbeak ACK opcode            |
+| 1       | deprecated  | ?v=1                 | Initial version                                                        |
 
 ## Connecting to Voice
 
@@ -101,30 +105,34 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 In order to maintain your WebSocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice):
 
-###### Example Hello Payload below V3
-
-```json
-{
-  "heartbeat_interval": 41250
-}
-```
-
-###### Example Hello Payload since V3
+###### Example Hello Payload
 
 ```json
 {
   "op": 8,
   "d": {
-    "heartbeat_interval": 41250
+    "heartbeat_interval": 41250,
   }
 }
 ```
 
-This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
-
 After receiving [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice), you should send [Opcode 3 Heartbeat](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice)—which contains an integer nonce—every elapsed interval:
 
-###### Example Heartbeat Payload
+###### Example Heartbeat Payload since V8
+
+```json
+{
+  "op": 3,
+  "d": {
+    "t": 1501184119561,
+    "seq_ack": 10
+  }
+}
+```
+
+Since voice gateway version 8, heartbeat messages must include `seq_ack` which contains the sequence number of last numbered message received from the gateway. See [Buffered Resume](#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume) for more information.
+
+###### Example Heartbeat Payload below V8
 
 ```json
 {
@@ -135,7 +143,18 @@ After receiving [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice), y
 
 In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) that contains the previously sent nonce:
 
-###### Example Heartbeat ACK Payload
+###### Example Heartbeat ACK Payload since V8
+
+```json
+{
+  "op": 6,
+  "d": {
+    "t": 1501184119561
+  }
+}
+```
+
+###### Example Heartbeat ACK Payload below V8
 
 ```json
 {
@@ -245,7 +264,21 @@ When there's a break in the sent data, the packet transmission shouldn't simply 
 
 When your client detects that its connection has been severed, it should open a new WebSocket connection. Once the new connection has been opened, your client should send an [Opcode 7 Resume](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload:
 
-###### Example Resume Connection Payload
+###### Example Resume Connection Payload Since V8
+
+```json
+{
+  "op": 7,
+  "d": {
+    "server_id": "41771983423143937",
+    "session_id": "my_session_id",
+    "token": "my_token",
+    "seq_ack": 10
+  }
+}
+```
+
+###### Example Resume Connection Payload Before V8
 
 ```json
 {
@@ -270,6 +303,34 @@ If successful, the Voice server will respond with an [Opcode 9 Resumed](#DOCS_TO
 ```
 
 If the resume is unsuccessful—for example, due to an invalid session—the WebSocket connection will close with the appropriate [close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-voice-close-event-codes). You should then follow the [Connecting](#DOCS_TOPICS_VOICE_CONNECTIONS/connecting-to-voice) flow to reconnect.
+
+### Buffered Resume
+
+Since voice gateway version 8, the gateway can resend buffered messages that have been lost upon resume. To support this, the gateway includes a sequence number with all messages that may need to be re-sent.
+
+###### Example Message With Sequence Number
+
+```json
+{
+  "op": 5,
+  "d": {
+    "speaking": 0,
+    "delay": 0,
+    "ssrc": 110
+  },
+  "seq": 10
+}
+```
+
+A client using voice gateway version 8 must include the last sequence number they received under the data `d` key as `seq_ack` in both the [Opcode 3 Heartbeat](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and [Opcode 7 Resume](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payloads.
+
+If no sequence numbered messages have been received, `seq_ack` can be omitted or included with a value of -1.
+
+The gateway server uses a fixed bit length sequence number and handles wrapping the sequence number around. Since voice gateway messages will always arrive in order, a client only needs to retain the last sequence number they have seen.
+
+If the session is successfully resumed the voice gateway will respond with an [Opcode 9 Resumed](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and will re-send any messages that the client did not receive.
+
+The resume may be unsuccessful if the voice gateway buffer for the session no longer contains a message that has been missed. In this case the session will be closed and you should then follow the [Connecting](#DOCS_TOPICS_VOICE_CONNECTIONS/connecting-to-voice) flow to reconnect.
 
 #### IP Discovery
 
