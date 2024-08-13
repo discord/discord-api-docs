@@ -216,7 +216,7 @@ The RTP size variants determine the unencrypted size of the RTP header in [the s
 
 The voice gateway will report what encryption modes are available in [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
 
-Voice gateway compatible modes will always include `aead_xchacha20_poly1305_rtpsize` but may not include `aead_aes256_gcm_rtpsize` depending on the underlying hardware. You must support at least one of `aead_xchacha20_poly1305_rtpsize`. You should prefer to use `aead_aes256_gcm_rtpsize` when it is available.
+Voice gateway compatible modes will always include `aead_xchacha20_poly1305_rtpsize` but may not include `aead_aes256_gcm_rtpsize` depending on the underlying hardware. You must support `aead_xchacha20_poly1305_rtpsize`. You should prefer to use `aead_aes256_gcm_rtpsize` when it is available.
 
 Include your selected mode in [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
 
