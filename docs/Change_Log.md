@@ -4,7 +4,7 @@
 
 #### August 13, 2024
 
-Added documentation for voice [encryption modes](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice-encryption-modes) `aead_aes256_gcm_rtpsize` and `aead_xchacha20_poly1305_rtpsize` while announcing the deprecation of all `xsalsa20_poly1305*` variants and `aead_aes256_gcm`.
+Added documentation for voice [encryption modes](#DOCS_TOPICS_VOICE_CONNECTIONS/encryption-modes) `aead_aes256_gcm_rtpsize` and `aead_xchacha20_poly1305_rtpsize` while announcing the deprecation of all `xsalsa20_poly1305*` variants and `aead_aes256_gcm`.
 
 Removed the default option for voice gateway version - once this is deprecated you must pass a voice gateway version. See [Voice Gateway Versioning](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning) for futher details.
 
