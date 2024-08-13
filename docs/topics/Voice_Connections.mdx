@@ -324,7 +324,7 @@ Since voice gateway version 8, the gateway can resend buffered messages that hav
 
 A client using voice gateway version 8 must include the last sequence number they received under the data `d` key as `seq_ack` in both the [Opcode 3 Heartbeat](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and [Opcode 7 Resume](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payloads.
 
-If no numbered messages have been received, `seq_ack` can be omitted or included with a value of -1.
+If no sequence numbered messages have been received, `seq_ack` can be omitted or included with a value of -1.
 
 The gateway server uses a fixed bit length sequence number and handles wrapping the sequence number around. Since voice gateway messages will always arrive in order, a client only needs to retain the last sequence number they have seen.
 
