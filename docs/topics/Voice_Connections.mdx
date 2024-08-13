@@ -87,14 +87,14 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 ```json
 {
-    "op": 2,
-    "d": {
-        "ssrc": 1,
-        "ip": "127.0.0.1",
-        "port": 1234,
-        "modes": ["xsalsa20_poly1305", "xsalsa20_poly1305_suffix", "xsalsa20_poly1305_lite"],
-        "heartbeat_interval": 1
-    }
+  "op": 2,
+  "d": {
+    "ssrc": 1,
+    "ip": "127.0.0.1",
+    "port": 1234,
+    "modes": ["xsalsa20_poly1305", "xsalsa20_poly1305_suffix", "xsalsa20_poly1305_lite"],
+    "heartbeat_interval": 1
+  }
 }
 ```
 
@@ -165,34 +165,60 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODE
 
 ## Establishing a Voice UDP Connection
 
-Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice WebSocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice):
+Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. 
+
+##### Example Ready Payload
+
+```json
+{
+  "op": 2,
+  "d": {
+    ...,
+    "modes": ["aead_aes256_gcm_rtpsize", "aead_xchacha20_poly1305_rtpsize", "xsalsa20_poly1305_lite_rtpsize"]
+  }
+}
+```
+
+First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice WebSocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice):
 
 ###### Example Select Protocol Payload
 
 ```json
 {
-    "op": 1,
-    "d": {
-        "protocol": "udp",
-        "data": {
-            "address": "127.0.0.1",
-            "port": 1337,
-            "mode": "xsalsa20_poly1305_lite"
-        }
+  "op": 1,
+  "d": {
+    "protocol": "udp",
+    "data": {
+      "address": "127.0.0.1",
+      "port": 1337,
+      "mode": "aead_aes256_gcm_rtpsize"
     }
+  }
 }
 ```
 
 ###### Encryption Modes
 
-| Mode   | Key                      | Nonce Bytes                                                            | Generating Nonce                      |
-|--------|--------------------------|------------------------------------------------------------------------|---------------------------------------|
-| Normal | xsalsa20_poly1305        | The nonce bytes are the RTP header                                     | Copy the RTP header                   |
-| Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes              |
-| Lite   | xsalsa20_poly1305_lite   | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value |
+| Mode                               | Key                             | Nonce                                                                  | Status                |
+|------------------------------------|---------------------------------|------------------------------------------------------------------------|-----------------------|
+| AEAD AES256-GCM (RTP Size)         | aead_aes256_gcm_rtpsize         | 32-bit incremental integer value, appended to payload                  | Available (Preferred) |
+| AEAD XChaCha20 Poly1305 (RTP Size) | aead_xchacha20_poly1305_rtpsize | 32-bit incremental integer value, appended to payload                  | Available (Required)  |
+| XSalsa20 Poly1305 Lite (RTP Size)  | xsalsa20_poly1305_lite_rtpsize  | 32-bit incremental integer value, appended to payload                  | Deprecated            |
+| AEAD AES256-GCM                    | aead_aes256_gcm                 | 32-bit incremental integer value, appended to payload                  | Deprecated            |
+| XSalsa20 Poly1305                  | xsalsa20_poly1305               | Copy of RTP header                                                     | Deprecated            |               
+| XSalsa20 Poly1305 Suffix           | xsalsa20_poly1305_suffix        | 24 random bytes                                                        | Deprecated            |
+| XSalsa20 Poly1305 Lite             | xsalsa20_poly1305_lite          | 32-bit incremental integer value, appended to payload                  | Deprecated            | 
 
 >warn
 >The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
+
+The RTP size variants determine the unencrypted size of the RTP header in [the same way as SRTP](https://tools.ietf.org/html/rfc3711#section-3.1), which considers CSRCs and (optionally) the extension preamble to be part of the unencrypted header. The deprecated variants use a fixed size unencrypted header for RTP.
+
+The voice gateway will report what encryption modes are available in [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
+
+Voice gateway compatible modes will always include `aead_xchacha20_poly1305_rtpsize` but may not include `aead_aes256_gcm_rtpsize` depending on the underlying hardware. You must support at least one of `aead_xchacha20_poly1305_rtpsize`. You should prefer to use `aead_aes256_gcm_rtpsize` when it is available.
+
+Include your selected mode in [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
 
 Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice) voice data:
 
@@ -200,11 +226,11 @@ Finally, the voice server will respond with a [Opcode 4 Session Description](#DO
 
 ```json
 {
-    "op": 4,
-    "d": {
-        "mode": "xsalsa20_poly1305_lite",
-        "secret_key": [ ...251, 100, 11...]
-    }
+  "op": 4,
+  "d": {
+      "mode": "aead_aes256_gcm_rtpsize",
+      "secret_key": [ ...251, 100, 11...]
+  }
 }
 ```
 
@@ -241,12 +267,12 @@ The following flags can be used as a bitwise mask. For example `5` would be prio
 
 ```json
 {
-    "op": 5,
-    "d": {
-        "speaking": 5,
-        "delay": 0,
-        "ssrc": 1
-    }
+  "op": 5,
+  "d": {
+    "speaking": 5,
+    "delay": 0,
+    "ssrc": 1
+  }
 }
 ```
 
