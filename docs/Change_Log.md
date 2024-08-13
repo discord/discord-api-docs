@@ -6,17 +6,20 @@
 
 Added documentation for voice [encryption modes](#DOCS_TOPICS_VOICE_CONNECTIONS/encryption-modes) `aead_aes256_gcm_rtpsize` and `aead_xchacha20_poly1305_rtpsize` while announcing the deprecation of all `xsalsa20_poly1305*` variants and `aead_aes256_gcm`. Deprecated encryption modes will be discontinued as of November 18th, 2024.
 
-> warn
-> We have removed the default option for voice gateway version - once this is deprecated you must pass a voice gateway version. This deprecation will take effect as of November 18th, 2024. See [Voice Gateway Versioning](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning) for futher details.
+> danger
+> Deprecated encryption modes will be discontinued as of November 18th, 2024. 
 
 ## Voice Gateway Version 8 and Deprecation of Versions < 4
 
 #### August 13, 2024
 
-The voice gateway now supports a resume which re-sends lost messages. Use voice gateway version 8 and refer to [Buffered Resume](#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume).
+We are officially deprecating some very old voice gateway versions (> 7 years ago). 
 
-> warn
-> We are officially deprecating some very old voice gateway versions (> 7 years ago). Deprecated voice gateway versions will be discontinued as of November 18th, 2024. See [Voice Gateway Versioning](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning) for futher details.
+- The voice gateway now supports a resume which re-sends lost messages. Use voice gateway version 8 and refer to [Buffered Resume](#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume).
+- We have removed the default option for voice gateway version. Once this is deprecated, you must pass a voice gateway version. 
+
+> danger
+> You will be required to pass a voice gateway version and deprecated voice gateway versions will be discontinued as of November 18th, 2024. See [Voice Gateway Versioning](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning) for futher details.
 
 ## Get Guild Role Endpoint
 
