@@ -14,7 +14,7 @@ Removed the default option for voice gateway version - once this is deprecated y
 
 The voice gateway now supports a resume which re-sends lost messages. Use voice gateway version 8 and refer to [Buffered Resume](#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume).
 
-We are officially deprecating some very old voice gateway versions (> 7 years ago) and the default voice gateway version will soon be version 4. Deprecated voice gateway versions will be discontinued as of November 18th, 2024.
+We are officially deprecating some very old voice gateway versions (> 7 years ago). Deprecated voice gateway versions will be discontinued as of November 18th, 2024.
 
 ## Get Guild Role Endpoint
 
