@@ -4,7 +4,7 @@
 
 ### August 13, 2024
 
-The voice gateway now supports a resume which re-sends lost messages. Use voice gateway version 8 and refer to [Buffered Resume] (#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume).
+The voice gateway now supports a resume which re-sends lost messages. Use voice gateway version 8 and refer to [Buffered Resume](#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume).
 
 We are officially deprecating some very old voice gateway versions (> 7 years ago) and the default voice gateway version will soon be version 4.
 
