@@ -109,10 +109,10 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Activity Structure
 
-| Field     | Type    | Description                                                                                                        |
-|-----------|---------|--------------------------------------------------------------------------------------------------------------------|
-| type      | integer | [type of message activity](#DOCS_RESOURCES_MESSAGE/message-object-message-activity-types)                          |
-| party_id? | string  | party_id from a [Rich Presence event](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) |
+| Field     | Type    | Description                                                                               |
+|-----------|---------|-------------------------------------------------------------------------------------------|
+| type      | integer | [type of message activity](#DOCS_RESOURCES_MESSAGE/message-object-message-activity-types) |
+| party_id? | string  | party_id from a Rich Presence event                                                       |
 
 ###### Message Activity Types
 

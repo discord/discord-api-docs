@@ -25,7 +25,7 @@ Voice states can now be accessed over the HTTP API! Apps can use the new [Get Cu
 The [`SET_ACTIVITY` RPC command](#DOCS_TOPICS_RPC/setactivity) has been updated to support 3 additional [activity types](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types): Listening (`2`), Watching (`3`), and Competing (`5`). Previously, it only accepted Playing (`0`).
 
 > warn
-> The [Game SDK](#DOCS_GAME_SDK_ACTIVITIES) has not been updated to support setting [`ActivityType`](#DOCS_GAME_SDK_ACTIVITIES/data-models-activitytype-enum), and is still limited to read-only (to handle events that you receive from Discord).
+> The [Game SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) has not been updated to support setting [`ActivityType`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitytype-enum), and is still limited to read-only (to handle events that you receive from Discord).
 
 ## Application Emoji
 
@@ -701,14 +701,14 @@ In **late January or early February**, all servers will be migrated to the new b
 
 To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
 
-- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
-- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
-- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
-- [Images](#DOCS_GAME_SDK_IMAGES/)
-- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
-- [Networking](#DOCS_GAME_SDK_NETWORKING/)
-- [Storage](#DOCS_GAME_SDK_STORAGE/)
-- [Store](#DOCS_GAME_SDK_STORE/) [purchases and discounts]
+- [Achievements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/achievements)
+- [Applications](#DOCS_DEVELOPER_TOOLS_GAME_SDK/applications)
+- [Voice](#DOCS_DEVELOPER_TOOLS_GAME_SDK/voice)
+- [Images](#DOCS_DEVELOPER_TOOLS_GAME_SDK/images)
+- [Lobbies](#DOCS_DEVELOPER_TOOLS_GAME_SDK/lobbies)
+- [Networking](#DOCS_DEVELOPER_TOOLS_GAME_SDK/networking)
+- [Storage](#DOCS_DEVELOPER_TOOLS_GAME_SDK/storage)
+- [Store](#DOCS_DEVELOPER_TOOLS_GAME_SDK/store) [purchases and discounts]
 
 This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
 
@@ -969,7 +969,7 @@ The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require paginati
 - To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
 - Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_MESSAGE/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
 - The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
-- The `name` and `description` fields for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct).
+- The `name` and `description` fields for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct).
 - Existing attachments must be specified when [`PATCH`ing messages with new attachments](#DOCS_REFERENCE/editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
 - Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
 
@@ -1251,7 +1251,7 @@ We've added a new endpoint for deleting all reactions of a specific emoji from a
 
 #### February 26, 2020
 
-The [Spectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
+The [Spectate](#DOCS_DEVELOPER_TOOLS_GAME_SDK/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
 
 ## Gateway Intents
 
@@ -1285,9 +1285,9 @@ Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resul
 
 #### November 14, 2019
 
-We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/setuserachievement) method.
+We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#setuserachievement) method.
 
-Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_GETTING_STARTED/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
+Get the latest at the top of the [Getting Started](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-1-get-the-sdk) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 
 ## Changes to Special Channels
 
@@ -1305,7 +1305,7 @@ You can now get more precise rate limit reset times, via a new request header. C
 
 #### July 18, 2019
 
-You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way).
+You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#the-api-way).
 
 ## Additional Team Information
 
@@ -1323,7 +1323,7 @@ Additional information has been documented to support [Server Nitro Boosting](ht
 
 #### April 29, 2019
 
-The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_GETTING_STARTED/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
+The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started) and check out the relevant functions in the [Activity Manager](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities).
 
 ## New Invite Object Fields
 
@@ -1397,7 +1397,7 @@ Rich Presence is now live and available for all developers! Rich Presence allows
 - Allowing users to post invitations to join their party or spectate their game in chat
 - Displaying "Spectate" and "Ask to Join" buttons on users' profiles
 
-For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
+For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_OVERVIEW)!
 
 ## Breaking Change: API & Gateway Below v6 Discontinued
 
