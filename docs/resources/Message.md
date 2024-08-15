@@ -351,15 +351,7 @@ There are multiple message types that have a `message_reference` object.
 - These are automatic messages sent after a poll has ended and the results have been finalized. (type 46)
 - These messages have `message_id` and `channel_id`, which point to the original poll message. The `channel_id` will be the same as that of the poll.
 - The author will be the same as the author of the poll and will be mentioned.
-- These messages contain a `poll_result` embed that can have the following fields:
-  - `poll_question_text` contains the question text from the original poll message.    
-  - `victor_answer_votes` contains the number of votes for the answer(s) with the most votes.
-  - `total_votes` contains the total number of votes in the poll.
-  - `victor_answer_id` contains the id for the winning answer, if applicable. 
-  - `victor_answer_text` contains the text for the winning answer, if applicable.
-  - `victor_answer_emoji_id` contains the id for the emoji associated with the winning answer, if applicable.
-  - `victor_answer_emoji_name` contains the name of the emoji associated with the winning answer, if applicable.
-  - `victor_answer_emoji_animated` specifies whether the emoji associated with the winning answer is animated, if applicable.         
+- These messages contain a [`poll_result` embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-type)
 
 #### Voice Messages
 
@@ -438,15 +430,15 @@ The reaction count details object contains a breakdown of normal and super react
 
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
-| Type        | Description                                                                                             |
-|-------------|---------------------------------------------------------------------------------------------------------|
-| rich        | generic embed rendered from embed attributes                                                            |
-| image       | image embed                                                                                             |
-| video       | video embed                                                                                             |
-| gifv        | animated gif image embed rendered as a video embed                                                      |
-| article     | article embed                                                                                           |
-| link        | link embed                                                                                              |
-| poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/message-reference-content-attribution-poll-result-messages) |
+| Type        | Description                                                                                    |
+|-------------|------------------------------------------------------------------------------------------------|
+| rich        | generic embed rendered from embed attributes                                                   |
+| image       | image embed                                                                                    |
+| video       | video embed                                                                                    |
+| gifv        | animated gif image embed rendered as a video embed                                             |
+| article     | article embed                                                                                  |
+| link        | link embed                                                                                     |
+| poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-type) |
 
 ###### Embed Thumbnail Structure
 
@@ -526,6 +518,23 @@ All of the following limits are measured inclusively. Leading and trailing white
 Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
 Embeds are deduplicated by URL.  If a message contains multiple embeds with the same URL, only the first is shown.
+
+#### Embed Fields by Embed Type
+
+[Embed field objects](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure) are used to include additional data in key-value pairs. Below is a reference of possible embed fields for each of the following embed types. 
+
+###### Poll Result Embed Type
+
+| Embed Field Name              | Embed Field Value Description                              |
+|-------------------------------|------------------------------------------------------------|
+| poll_question_text            | the question text from the original poll                   |
+| victor_answer_votes           | number of votes for the answer(s) with the most votes      |
+| total_votes                   | total number of votes in the poll                          |
+| victor_answer_id?             | the id for the winning answer                              |
+| victor_answer_text?           | the text for the winning answer                            |
+| victor_answer_emoji_id?       | the id for an emoji associated with the winning answer     |
+| victor_answer_emoji_name?     | the name of an emoji associated with the winning answer    |
+| victor_answer_emoji_animated? | if an emoji associated with the winning answer is animated |
 
 ### Attachment Object
 
