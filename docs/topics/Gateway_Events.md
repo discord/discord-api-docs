@@ -341,6 +341,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Guild Soundboard Sound Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sound-create)                   | Guild soundboard sound was created                                                                                                             |
 | [Guild Soundboard Sound Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sound-update)                   | Guild soundboard sound was updated                                                                                                             |
 | [Guild Soundboard Sound Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sound-delete)                   | Guild soundboard sound was deleted                                                                                                             |
+| [Guild Soundboard Sounds Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sounds-update)                 | Guild soundboard sounds were updated                                                                                                           |
 | [Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/soundboard-sounds)                                           | Response to [Request Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/request-soundboard-sounds)                                                 |
 | [Integration Create](#DOCS_TOPICS_GATEWAY_EVENTS/integration-create)                                         | Guild integration was created                                                                                                                  |
 | [Integration Update](#DOCS_TOPICS_GATEWAY_EVENTS/integration-update)                                         | Guild integration was updated                                                                                                                  |
@@ -851,6 +852,10 @@ Sent when a guild soundboard sound is deleted.
 |----------|-----------|----------------------------------|
 | sound_id | snowflake | ID of the sound that was deleted |
 | guild_id | snowflake | ID of the guild the sound was in |
+
+#### Guild Soundboard Sounds Update
+
+Sent when multiple guild soundboard sounds are updated. The inner payload is an array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects.
 
 #### Soundboard Sounds
 
