@@ -2,7 +2,7 @@
 
 Users can play soundboard sounds in voice channels, triggering a Voice Channel Effect Send Gateway event for users connected to the voice channel.
 
-There is a set of [default sounds](#DOCS_RESOURCES_SOUNDBOARD/list-soundboard-default-sounds) available to all users. Soundboard sounds can also be [created in a guild](#DOCS_RESOURCES_SOUNDBOARD/create-guild-soundboard-sound); users will be able to use the sounds in the guild, and Nitro subscribers can use them in all guilds.
+There is a set of [default sounds](#DOCS_RESOURCES_SOUNDBOARD/list-default-soundboard-sounds) available to all users. Soundboard sounds can also be [created in a guild](#DOCS_RESOURCES_SOUNDBOARD/create-guild-soundboard-sound); users will be able to use the sounds in the guild, and Nitro subscribers can use them in all guilds.
 
 Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Request Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/request-soundboard-sounds).
 
