@@ -141,6 +141,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10057  | Unknown guild template                                                                                                        |
 | 10059  | Unknown discoverable server category                                                                                          |
 | 10060  | Unknown sticker                                                                                                               |
+| 10061  | Unknown sticker pack                                                                                                          |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 10065  | Unknown voice state                                                                                                           |
