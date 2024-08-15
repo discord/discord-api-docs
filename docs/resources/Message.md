@@ -428,8 +428,6 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Types
 
-Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
-
 | Type        | Description                                                                                    |
 |-------------|------------------------------------------------------------------------------------------------|
 | rich        | generic embed rendered from embed attributes                                                   |
@@ -521,9 +519,9 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 
 #### Embed Fields by Embed Type
 
-[Embed field objects](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure) are used to include additional data in key-value pairs. Below is a reference of possible embed fields for each of the following embed types. 
+Certain embed types are used to power special UIs. These embeds use [fields](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure) to include additional data in key-value pairs. Below is a reference of possible embed fields for each of the following embed types. 
 
-###### Poll Result Embed Type
+###### Poll Result Embed Fields
 
 | Embed Field Name              | Embed Field Value Description                              |
 |-------------------------------|------------------------------------------------------------|
