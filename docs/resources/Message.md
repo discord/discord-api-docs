@@ -351,7 +351,7 @@ There are multiple message types that have a `message_reference` object.
 - These are automatic messages sent after a poll has ended and the results have been finalized. (type 46)
 - These messages have `message_id` and `channel_id`, which point to the original poll message. The `channel_id` will be the same as that of the poll.
 - The author will be the same as the author of the poll and will be mentioned.
-- These messages contain a [`poll_result` embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-type)
+- These messages contain a [`poll_result` embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-fields)
 
 #### Voice Messages
 
@@ -428,15 +428,15 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Types
 
-| Type        | Description                                                                                    |
-|-------------|------------------------------------------------------------------------------------------------|
-| rich        | generic embed rendered from embed attributes                                                   |
-| image       | image embed                                                                                    |
-| video       | video embed                                                                                    |
-| gifv        | animated gif image embed rendered as a video embed                                             |
-| article     | article embed                                                                                  |
-| link        | link embed                                                                                     |
-| poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-type) |
+| Type        | Description                                                                                      |
+|-------------|--------------------------------------------------------------------------------------------------|
+| rich        | generic embed rendered from embed attributes                                                     |
+| image       | image embed                                                                                      |
+| video       | video embed                                                                                      |
+| gifv        | animated gif image embed rendered as a video embed                                               |
+| article     | article embed                                                                                    |
+| link        | link embed                                                                                       |
+| poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-fields) |
 
 ###### Embed Thumbnail Structure
 
