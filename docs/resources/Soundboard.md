@@ -42,7 +42,7 @@ Requires the `SPEAK` and `USE_SOUNDBOARD` permissions, and also the `USE_EXTERNA
 | sound_id         | snowflake | the id of the soundboard sound to play                                                           |
 | source_guild_id? | snowflake | the id of the guild the soundboard sound is from, required to play sounds from different servers |
 
-## List Soundboard Default Sounds % GET /soundboard-default-sounds
+## List Default Soundboard Sounds % GET /soundboard-default-sounds
 
 Returns an array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects that can be used by all users.
 
