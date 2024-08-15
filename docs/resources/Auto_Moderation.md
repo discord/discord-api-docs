@@ -59,26 +59,27 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ###### Trigger Types
 Characterizes the type of content which can trigger the rule.
 
-| Trigger Type   | Value | Description                                                          | Max per Guild |
-|----------------|-------|----------------------------------------------------------------------|---------------|
-| KEYWORD        | 1     | check if content contains words from a user defined list of keywords | 6             |
-| SPAM           | 3     | check if content represents generic spam                             | 1             |
-| KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets   | 1             |
-| MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed          | 1             |
+| Trigger Type   | Value | Description                                                                 | Max per Guild |
+|----------------|-------|-----------------------------------------------------------------------------|---------------|
+| KEYWORD        | 1     | check if content contains words from a user defined list of keywords        | 6             |
+| SPAM           | 3     | check if content represents generic spam                                    | 1             |
+| KEYWORD_PRESET | 4     | check if content contains words from internal pre-defined wordsets          | 1             |
+| MENTION_SPAM   | 5     | check if content contains more unique mentions than allowed                 | 1             |
+| MEMBER_PROFILE | 6     | check if member profile contains words from a user defined list of keywords | 1             |
 
 ###### Trigger Metadata
 
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field                           | Type                                                                                                              | Associated Trigger Types | Description                                                                       |
-|---------------------------------|-------------------------------------------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------|
-| keyword_filter                  | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content (Maximum of 1000)                |
-| regex_patterns                  | array of strings **                                                                                               | KEYWORD                  | regular expression patterns which will be matched against content (Maximum of 10) |
-| presets                         | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content         |
-| allow_list                      | array of strings ***                                                                                              | KEYWORD, KEYWORD_PRESET  | substrings which should not trigger the rule (Maximum of 100 or 1000)             |
-| mention_total_limit             | integer                                                                                                           | MENTION_SPAM             | total number of unique role and user mentions allowed per message (Maximum of 50) |
-| mention_raid_protection_enabled | boolean                                                                                                           | MENTION_SPAM             | whether to automatically detect mention raids                                     |
+| Field                           | Type                                                                                                              | Associated Trigger Types                | Description                                                                       |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------|-----------------------------------------------------------------------------------|
+| keyword_filter                  | array of strings *                                                                                                | KEYWORD, MEMBER_PROFILE                 | substrings which will be searched for in content (Maximum of 1000)                |
+| regex_patterns                  | array of strings **                                                                                               | KEYWORD, MEMBER_PROFILE                 | regular expression patterns which will be matched against content (Maximum of 10) |
+| presets                         | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET                          | the internally pre-defined wordsets which will be searched for in content         |
+| allow_list                      | array of strings ***                                                                                              | KEYWORD, KEYWORD_PRESET, MEMBER_PROFILE | substrings which should not trigger the rule (Maximum of 100 or 1000)             |
+| mention_total_limit             | integer                                                                                                           | MENTION_SPAM                            | total number of unique role and user mentions allowed per message (Maximum of 50) |
+| mention_raid_protection_enabled | boolean                                                                                                           | MENTION_SPAM                            | whether to automatically detect mention raids                                     |
 
 \* A keyword can be a phrase which contains multiple words. [Wildcard symbols](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies) can be used to customize how each keyword will be matched. Each keyword must be 60 characters or less.
 
@@ -88,12 +89,12 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 ###### Trigger Metadata Field Limits
 
-| Field          | Trigger Type   | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
-|----------------|----------------|------------------|---------------------------|
-| keyword_filter | KEYWORD        | 1000             | 60                        |
-| regex_patterns | KEYWORD        | 10               | 260                       |
-| allow_list     | KEYWORD        | 100              | 60                        |
-| allow_list     | KEYWORD_PRESET | 1000             | 60                        |
+| Field          | Trigger Types           | MAX ARRAY LENGTH | MAX CHARACTERS PER STRING |
+|----------------|-------------------------|------------------|---------------------------|
+| keyword_filter | KEYWORD, MEMBER_PROFILE | 1000             | 60                        |
+| regex_patterns | KEYWORD, MEMBER_PROFILE | 10               | 260                       |
+| allow_list     | KEYWORD, MEMBER_PROFILE | 100              | 60                        |
+| allow_list     | KEYWORD_PRESET          | 1000             | 60                        |
 
 
 ###### Keyword Preset Types
@@ -109,9 +110,10 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 Indicates in what event context a rule should be checked.
 
-| Event Type   | Value | Description                                         |
-|--------------|-------|-----------------------------------------------------|
-| MESSAGE_SEND | 1     | when a member sends or edits a message in the guild |
+| Event Type    | Value | Description                                         |
+|---------------|-------|-----------------------------------------------------|
+| MESSAGE_SEND  | 1     | when a member sends or edits a message in the guild |
+| MEMBER_UPDATE | 2     | when a member edits their profile                   |
 
 
 ###### Keyword Matching Strategies
@@ -169,11 +171,12 @@ An action which will execute whenever a rule is triggered.
 
 ###### Action Types
 
-| Action Type        | Value | Description                                                                                                                                                |
-|--------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| BLOCK_MESSAGE      | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
-| SEND_ALERT_MESSAGE | 2     | logs user content to a specified channel                                                                                                                   |
-| TIMEOUT            | 3     | timeout user for a specified duration *                                                                                                                    |
+| Action Type              | Value | Description                                                                                                                                                |
+|--------------------------|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| BLOCK_MESSAGE            | 1     | blocks a member's message and prevents it from being posted. A custom explanation can be specified and shown to members whenever their message is blocked. |
+| SEND_ALERT_MESSAGE       | 2     | logs user content to a specified channel                                                                                                                   |
+| TIMEOUT                  | 3     | timeout user for a specified duration *                                                                                                                    |
+| BLOCK_MEMBER_INTERACTION | 4     | prevents a member from using text, voice, or other interactions                                                                                            |
 
 \* A `TIMEOUT` action can only be set up for `KEYWORD` and `MENTION_SPAM` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 

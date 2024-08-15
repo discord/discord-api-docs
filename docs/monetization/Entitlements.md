@@ -1,3 +1,5 @@
+# Entitlements
+
 ## Entitlement Resource
 
 Entitlements in Discord represent that a user or guild has access to a premium offering in your application.

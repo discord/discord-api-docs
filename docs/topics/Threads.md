@@ -44,10 +44,12 @@ Public threads are viewable by everyone who can view the parent channel of the t
 
 Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
-## Active & Archived Threads
+## Locked Threads
+Users (including bot users) without the `MANAGE_THREADS` permission are more restricted in locked threads. Users won't be able to create or update messages in locked threads, or update properties like its title or tags. Additionally, some user activity like deleting messages and adding or removing reactions will *only* be allowed in locked threads if that thread is also active (or un-archived).
 
-> warn
-> Starting on March 6, threads will be able to be locked and archived independently. Read details about the upcoming changes to the `locked` field in the [Change Log entry](#DOCS_CHANGE_LOG/update-to-locked-threads).
+If a user or bot user has the `MANAGE_THREADS` permission, they will still be able to make changes to the thread and messages.
+
+## Active & Archived Threads
 
 Every thread can be either active or archived. Changing a thread from archived -> active is referred to as unarchiving the thread. Threads that have `locked` set to true can only be unarchived by a user with the `MANAGE_THREADS` permission.
 
@@ -57,7 +59,7 @@ Because of this constraint, the gateway protocol is designed to ensure that bots
 
 Threads do not count against the max-channels limit in a guild, but there is a limit on the maximum number of active threads in a guild.
 
-Threads automatically archive after a period of inactivity (as a server approaches the max thread limit this timer will automatically lower, but never below the `auto_archive_duration`). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
+Threads automatically archive after a period of inactivity. As a server approaches the max thread limit this timer will automatically lower, usually not below the `auto_archive_duration`. In very busy channels, threads set to a 7 day auto archive may archive earlier to help avoid the server becoming "full"). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
 
 ## Permissions
 
@@ -119,12 +121,12 @@ Threads do not explicitly set the `nsfw` field. All threads in a channel marked 
 
 ## New Message Types
 
-Threads introduce a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), and repurpose some others:
+Threads introduce a few [message types](#DOCS_RESOURCES_MESSAGE/message-object-message-types), and repurpose some others:
 
 - `RECIPIENT_ADD` and `RECIPIENT_REMOVE` have been repurposed to also send when a user is added to or removed from a thread by someone else
 - `CHANNEL_NAME_CHANGE` has been repurposed and is sent when the thread's name is changed
-- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
-- `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) field that points to the message from which the thread was started.
+- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_MESSAGE/message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
+- `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](#DOCS_RESOURCES_MESSAGE/message-reference-structure) field that points to the message from which the thread was started.
 
 ## Enumerating threads
 

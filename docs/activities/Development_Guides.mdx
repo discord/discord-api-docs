@@ -227,11 +227,15 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 
 The aforementioned "sandbox" is enforced by a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). We have some notable exceptions to our CSP, meaning application clients may make requests to these URLs without hitting the proxy and therefore without establishing mappings. Notable exceptions include:
 
-- `https://discord.com`
-- `https://canary.discord.com`
-- `https://ptb.discord.com`
-- `https://cdn.discordapp.com`
-- `https://media.discordapp.net`
+- `https://discord.com/api/`
+- `https://canary.discord.com/api/`
+- `https://ptb.discord.com/api/`
+- `https://cdn.discordapp.com/attachments/`
+- `https://cdn.discordapp.com/avatars/`
+- `https://cdn.discordapp.com/icons/`
+- `https://media.discordapp.net/attachments/`
+- `https://media.discordapp.net/avatars/`
+- `https://media.discordapp.net/icons/`
 
 ---
 
@@ -631,7 +635,8 @@ There are scenarios where instead of using a relative url (`/path/to/my/thing`) 
 1. The protocol you wish to use
 2. Your application's client id
 3. The discord proxy domain
-4. Whatever you need to list
+4. The `/.proxy` path prefix
+5. Whatever you need to list
 
 Here's an example of how to build a full url, using the URL constructor:
 
@@ -640,13 +645,13 @@ const protocol = `https`;
 const clientId = '<YOUR CLIENT ID>';
 const proxyDomain = 'discordsays.com';
 const resourcePath = '/foo/bar.jpg';
-const url = new URL(`${protocol}://${clientId}.${proxyDomain}${resourcePath}`);
+const url = new URL(`${protocol}://${clientId}.${proxyDomain}/.proxy${resourcePath}`);
 ```
 
 In other words, given an application client id of `12345678`
-| Relative Path | Full Path                                    |
-|---------------|----------------------------------------------|
-| /foo/bar.jpg  | https://12345678.discordsays.com/foo/bar.jpg |
+| Relative Path | Full Path                                           |
+|---------------|-----------------------------------------------------|
+| /foo/bar.jpg  | https://12345678.discordsays.com/.proxy/foo/bar.jpg |
 
 ---
 
@@ -699,6 +704,12 @@ async function setupApp() {
 Do not trust data coming from the Discord client as truth. It's fine to use this data in your application locally, but assume any data coming from the Discord Client could be falsified. That includes data about the current user, their nitro status, their current channel, etc. If you need this information in a trusted manner, contact Discord API directly from your application's server, with the user token you received from completing the OAuth2 flow.
 
 Furthermore, data coming from the Discord client is not sanitized beforehand.  Things like usernames and channel names are arbitrary user input.  Make sure to sanitize these strings or use `.textContent` (for example) to display them safely in your UI.
+
+#### Using Cookies
+
+To set a cookie for your activity to use in network requests through the proxy, make sure the cookie's domain matches your app's full `{clientId}.discordsays.com` domain. You will also need to explicitly set `SameSite=None Partitioned` on the cookie. `SameSite=None` is needed as browsers refuse to store or send cookies with higher restriction levels for any navigation within an iframe. `Partitioned` then limits the use of that cookie to only Discord's iframes.
+
+Rest assured: other activities will not be able to make requests with your activity's cookie, thanks to the Content Security Policy (CSP) limiting requests only to your own app's proxy.
 
 ---
 

@@ -80,6 +80,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | USE_EXTERNAL_SOUNDS                    | `0x0000200000000000` `(1 << 45)` | Allows the usage of custom soundboard sounds from other servers                                                                                                                                                                                            | V            |
 | SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                                                                                                                              | T, V, S      |
 | SEND_POLLS                             | `0x0002000000000000` `(1 << 49)` | Allows sending polls                                                                                                                                                                                                                                       | T, V, S      |
+| USE_EXTERNAL_APPS                      | `0x0004000000000000` `(1 << 50)` | Allows user-installed apps to send public responses. When disabled, users will still be allowed to use their apps but the responses will be ephemeral. This only applies to apps not also installed to the server.                                         | T, V, S      |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
@@ -202,7 +203,7 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
 | icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)                                                                              |
 | unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
-| position       | integer                                                                      | position of this role                                                                                                           |
+| position       | integer                                                                      | position of this role (roles with the same position are sorted by id)                                                           |
 | permissions    | string                                                                       | permission bit set                                                                                                              |
 | managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
 | mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
@@ -244,9 +245,9 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 
 ###### Role Flags
 
-| Flag      | Value  | Description                                                                                              |
-|-----------|--------|----------------------------------------------------------------------------------------------------------|
-| IN_PROMPT | 1 << 0 | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
+| Flag      | Value    | Description                                                                                              |
+|-----------|----------|----------------------------------------------------------------------------------------------------------|
+| IN_PROMPT | `1 << 0` | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 

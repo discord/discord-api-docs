@@ -31,13 +31,13 @@ The main difference is that the request has `duration` which eventually becomes 
 
 ###### Poll Create Request Object Structure
 
-| Field             | Type                                                                                                | Description                                                                              |
-|-------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| question          | [Poll Media Object](#DOCS_RESOURCES_POLL/poll-media-object-poll-media-object-structure)             | The question of the poll. Only `text` is supported.                                      |
-| answers           | List of [Poll Answer Objects](#DOCS_RESOURCES_POLL/poll-answer-object-poll-answer-object-structure) | Each of the answers available in the poll, up to 10                                      |
-| duration          | integer                                                                                             | Number of hours the poll should be open for, up to 7 days                                |
-| allow_multiselect | boolean                                                                                             | Whether a user can select multiple answers                                               |
-| layout_type?      | integer                                                                                             | The [layout type](#DOCS_RESOURCES_POLL/layout-type) of the poll. Defaults to... DEFAULT! |
+| Field              | Type                                                                                                | Description                                                                              |
+|--------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| question           | [Poll Media Object](#DOCS_RESOURCES_POLL/poll-media-object-poll-media-object-structure)             | The question of the poll. Only `text` is supported.                                      |
+| answers            | List of [Poll Answer Objects](#DOCS_RESOURCES_POLL/poll-answer-object-poll-answer-object-structure) | Each of the answers available in the poll, up to 10                                      |
+| duration?          | integer                                                                                             | Number of hours the poll should be open for, up to 32 days. Defaults to 24               |
+| allow_multiselect? | boolean                                                                                             | Whether a user can select multiple answers. Defaults to false                            |
+| layout_type?       | integer                                                                                             | The [layout type](#DOCS_RESOURCES_POLL/layout-type) of the poll. Defaults to... DEFAULT! |
 
 ### Layout Type
 
@@ -115,11 +115,11 @@ If `answer_counts` does not contain an entry for a particular answer, then there
 
 # Poll Endpoints
 
-For creating a poll, see [Create Message](#DOCS_RESOURCES_CHANNEL/create-message). After creation, the poll message cannot be edited.
+For creating a poll, see [Create Message](#DOCS_RESOURCES_MESSAGE/create-message). After creation, the poll message cannot be edited.
 
 Apps are not allowed to vote on polls. No rights! :)
 
-## Get Answer Voters % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/answers/{answer_id#DOCS_RESOURCES_POLL/poll-answer-object}
+## Get Answer Voters % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_MESSAGE/message-object}/answers/{answer_id#DOCS_RESOURCES_POLL/poll-answer-object}
 
 Get a list of users that voted for this specific answer.
 
@@ -136,8 +136,8 @@ Get a list of users that voted for this specific answer.
 |-------|---------------------------------------------------|---------------------------------|
 | users | array of [user](#DOCS_RESOURCES_USER/user-object) | Users who voted for this answer |
 
-## End Poll % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/expire
+## End Poll % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/polls/{message.id#DOCS_RESOURCES_MESSAGE/message-object}/expire
 
 Immediately ends the poll. You cannot end polls from other users.
 
-Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
+Returns a [message](#DOCS_RESOURCES_MESSAGE/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.

@@ -1,5 +1,192 @@
 # Change Log
 
+## Voice Encryption Modes
+
+#### August 13, 2024
+
+Added documentation for voice [encryption modes](#DOCS_TOPICS_VOICE_CONNECTIONS/encryption-modes) `aead_aes256_gcm_rtpsize` and `aead_xchacha20_poly1305_rtpsize` while announcing the deprecation of all `xsalsa20_poly1305*` variants and `aead_aes256_gcm`. Deprecated encryption modes will be discontinued as of November 18th, 2024.
+
+> danger
+> Deprecated encryption modes will be discontinued as of November 18th, 2024. 
+
+## Voice Gateway Version 8 and Deprecation of Versions < 4
+
+#### August 13, 2024
+
+We are officially deprecating some very old voice gateway versions (> 7 years ago). 
+
+- The voice gateway now supports a resume which re-sends lost messages. Use voice gateway version 8 and refer to [Buffered Resume](#DOCS_TOPICS_VOICE_CONNECTIONS/buffered-resume).
+- We have removed the default option for voice gateway version. Once this is deprecated, you must pass a voice gateway version. 
+
+> danger
+> You will be required to pass a voice gateway version and deprecated voice gateway versions will be discontinued as of November 18th, 2024. See [Voice Gateway Versioning](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning) for futher details.
+
+## Get Guild Role Endpoint
+
+#### August 12, 2024
+
+Need to get just one role, not the whole role list? Use the new [Get Guild Role](#DOCS_RESOURCES_GUILD/get-guild-role) endpoint to fetch a single role by ID.
+
+## User App Install Count
+
+#### August 9, 2024
+
+We've added an approximate user install count to the [Application object](#DOCS_RESOURCES_APPLICATION/application-object) for user-installable apps. You can also view an app's install counts in the developer portal.
+
+## Voice State Endpoints
+
+#### August 5, 2024
+
+Voice states can now be accessed over the HTTP API! Apps can use the new [Get Current User Voice State](#DOCS_RESOURCES_VOICE/get-current-user-voice-state) and [Get User Voice State](#DOCS_RESOURCES_VOICE/get-user-voice-state) endpoints to fetch a user's voice state without a Gateway connection.
+
+## Supported Activity Types for SET_ACTIVITY
+
+#### July 25, 2024
+
+The [`SET_ACTIVITY` RPC command](#DOCS_TOPICS_RPC/setactivity) has been updated to support 3 additional [activity types](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types): Listening (`2`), Watching (`3`), and Competing (`5`). Previously, it only accepted Playing (`0`).
+
+> warn
+> The [Game SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) has not been updated to support setting [`ActivityType`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitytype-enum), and is still limited to read-only (to handle events that you receive from Discord).
+
+## Application Emoji
+
+#### July 18, 2024
+
+You can now upload emojis for your application in your [app's settings](https://discord.com/developers/applications) and use them as custom emojis anywhere on Discord.
+
+- Up to 2000 emojis per app
+- Support for user-installable apps
+- Can be [managed via the API](#DOCS_RESOURCES_EMOJI/create-application-emoji) with a bot token
+
+## Activities Proxy CSP Update
+
+#### July 17, 2024
+
+> danger
+> This entry includes breaking changes
+
+This change will be rolled out to all existing applications on **August 28, 2024**.
+
+We will be updating our Content Security Policy (CSP) for the Activities Domain (`https://<application_id>.discordsays.com`). This represents a **breaking change** for **all Activities**, and as such we have a migration plan in order.
+
+our CSP will be updated as follows:
+
+- all requests must be made through `https://<application_id>.discordsays.com/.proxy/`, and requests to other paths on the `discordsays.com` domain will be blocked.
+- requests to `https://discord.com/api/` will be permitted, but other paths on the `discord.com` domain will be blocked.
+- Only allowed paths on `cdn.discordapp.com` and `media.discordapp.net` will be permitted such as `/attachments/`, `/icons/`, and `/avatars/`.
+- nested child iframes must also mount paths prepended by `/.proxy/`
+
+As of [embedded-app-sdk v1.4.0](https://github.com/discord/embedded-app-sdk/releases/tag/v1.4.0) we have updated `patchUrlMappings` to automatically route requests through `/.proxy/`, so updating your SDK version calling `patchUrlMappings` is a good first step. If you are unfamiliar with `patchUrlMappings`, please consult the [documentation](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/using-external-resources).
+
+All Application IDs created after `07/17/2024 12:00:00` UTC (applicationID greater than `1263102905548800000`) will also automatically have the new CSP applied. Testing your production code on a new application created after this date is a suggested way for developers to test compliance with this new CSP.
+
+## Message Forwarding rollout
+
+#### July 15, 2024
+
+We are slowly rolling out the message forwarding feature to users. This feature allows callers to create a message using `message_reference.type = FORWARD` and have the API generate a `message_snapshot` for the sent message. The feature has [some limitations](#DOCS_RESOURCES_MESSAGE/message-reference-types) and the snapshot is a minimal version of a standard `MessageObject`, but does capture the core parts of a message.
+
+The resulting message will look something like:
+```json
+{
+  "id": "1255957733279273083",
+  "message_reference": {
+    "type": 1, // Forward
+    ...
+  }
+  "message_snapshots": [
+    {
+      "message": {
+        "content": "original message",
+        "embeds": [...],
+        "attachments": [...],
+        ...
+      }
+    }
+  ],
+  ...
+}
+```
+
+We have applied stricter rate limits for this feature based on the following:
+- number of forwards sent by the user
+- total attachment size
+
+###### API Updates since preview
+
+This was [previously announced](https://discord.com/channels/613425648685547541/697138785317814292/1233463756160503859) but note that the final API has a few changes since the API was first previewed:
+- [`message snapshot`](#DOCS_RESOURCES_MESSAGE/message-snapshot-object) objects don't include a `guild` field anymore since the `message_reference` already provides that information
+- forwarded messages have a distinctive `message_reference` type of `FORWARD` now
+
+## Banners in Get Current User Guilds
+
+#### July 9, 2024
+
+[`GET /users/@me/guilds`](#DOCS_RESOURCES_USER/get-current-user-guilds) now includes each guild's `banner` field! This enables apps using OAuth2 with the `guilds` scope to display guild banners.
+
+## User-Installed Apps General Availability
+
+#### June 27, 2024
+
+> danger
+> This entry includes breaking changes
+
+Back in March, we announced [the beta for user-installed apps](#DOCS_CHANGE_LOG/userinstallable-apps-preview). After listening and making updates based on feedback from developers and modmins, we're excited to announce that user-installed apps are now considered generally available and can be used in all servers (regardless of size).
+
+With this update, there are a few API and behavioral updates for user-installed apps.
+
+###### API Updates
+
+- `user_id` has been removed from the `interaction_metadata` field on messages. Instead, you can use the `id` field in the nested `user` object. See the [Message Interaction Metadata Object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object) for details.
+- User-installed apps are now limited to creating a maximum of 5 [follow-ups](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/followup-messages) when responding to interactions. This only affects the [Create Followup Message endpoint](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message), and apps installed to the server are unaffected.
+- On [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure), the value of `authorizing_integration_owners` is now correctly serialized as a string. Previously, the `"0"` value was incorrectly serialized as a number.
+- `app_permissions` on [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) now correctly represents the permissions for user-installed apps. Previously, the value was incorrect for user-installed apps.
+- Updating a message can result in a `400` response if the content of the message was blocked by AutoMod, which may be particularly important for [deferred messages](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction).
+- Interaction responses are no longer forced to be ephemeral for servers with over 25 members.
+
+###### New `Use External Apps` Permission
+
+A new [`USE_EXTERNAL_APPS` (`1 << 50`) permission](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) was added, and is enabled for servers by default. The new permission lets modmins control whether user-installed apps can post public replies in a server. If `Use External Apps` is disabled and your app is *not* installed to the server, your app’s responses will be ephemeral for the end user.
+
+Read more in the [Moderating Apps on Discord Help Center article](https://support.discord.com/hc/en-us/articles/23957313048343-Moderating-Apps-on-Discord#h_01HZQQQEADYVN2CM4AX4EZGKHM).
+
+###### Updated Defaults for New Apps
+
+- Newly-created apps now default to having both "User Install" *and* "Guild Install" [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) enabled. This can be updated in the **Installation** tab in an [app's settings](https://discord.com/developers/applications).
+- Newly-created apps now default to using the "Discord Provided Link" [install link](#DOCS_RESOURCES_APPLICATION/install-links). This can be updated in the **Installation** tab in an [app's settings](https://discord.com/developers/applications).
+- If Discord Provided Link is selected as the install link type, `application.commands` scope is added to both installation contexts.
+
+## Premium Apps: New Premium Button Style & Deep Linking URL Schemes
+
+#### June 17, 2024
+
+**New Premium Button Style**
+
+Introduces a new `premium` [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) to be used with a `sku_id` which points to an active [SKU](#DOCS_MONETIZATION_SKUS/sku-object). This allows developers to customize their premium experience by returning specific subscription or one-time purchase products.
+
+Learn more about using [button components with interactions](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons).
+
+> warn
+> This change deprecates Interaction Response Type 10
+
+The `PREMIUM_REQUIRED (10)` interaction response type is now deprecated in favor of using custom premium buttons. This will continue to function but may be eventually unsupported. It is recommended to migrate your bots to use the more flexible [premium button component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles).
+
+Learn more about [gating features with premium interactions](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions).
+
+**Deep Linking URL Schemes for SKUs and Store**
+
+Introduces two new url schemes for linking directly to the Application Directory. When these links are used in chat, they are rendered as rich embeds that users can interact with to launch an app's store or open a SKU detail modal.
+
+- New [Store URL Scheme](#DOCS_MONETIZATION_MANAGING_YOUR_STORE/linking-to-your-store): `https://discord.com/application-directory/:appID/store`
+- New [SKU URL Scheme](#DOCS_MONETIZATION_SKUS/linking-to-your-skus): `https://discord.com/application-directory/:appID/store/:skuID`
+
+## Auto Moderation Member Profile Rule
+
+#### May 31, 2024
+
+- Add Auto Moderation `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This rule type will check if a member's profile contains disallowed keywords.
+- Add Auto Moderation `BLOCK_MEMBER_INTERACTION` [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) currently available for the `MEMBER_PROFILE` rule [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types). This action will "quarantine" the member to some extent and prevent them from performing most interactions within a specific server.
+
 ## Premium Apps: One-Time Purchases and Store
 
 #### April 24, 2024
@@ -23,7 +210,7 @@ To explore these features, eligibility details, and how to enable monetization f
 
 The following were added to our public Monetization documentation with this update:
 
-- New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types) 
+- New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)
 - New [Entitlement Object Types](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types)
 - [Consume an Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/consume-an-entitlement) API endpoint
 - `consumed` field on the [Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS) resource
@@ -37,16 +224,13 @@ Update permissions necessary to modify the `flags` field when calling the [Modif
 
 #### April 2, 2024
 
-For apps with [Monetization](#DOCS_MONETIZATION_OVERVIEW) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings. 
+For apps with [Monetization](#DOCS_MONETIZATION_OVERVIEW) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings.
 
 You can find the export at the bottom of the `Monetization → Analytics` tab of your app to export data points such as `sales_count`, `sales_amount`, `sales_currencies`, `cancellation_count`, `refund_amount`, and `refund_count`, aggregated by each of your offerings for the selected month.
 
 ## User-Installable Apps Preview
 
 #### March 18, 2024
-
-> preview
-> User-installable apps are currently in preview. During the preview, there are major [limitations and known bugs](#DOCS_CHANGE_LOG/march-18-2024-limitations-and-known-issues), and API details are subject to change.
 
 Apps can now be installed to users—making them easier to install, discover, and access across Discord. User-installed apps can be used across all of a user's servers, within their (G)DMs, and in DMs with the app's bot user.
 
@@ -60,7 +244,7 @@ This change introduces new concepts and fields across the API that apps will now
 - [Installation context](#DOCS_RESOURCES_APPLICATION/installation-context) defines how an app was installed: to a user, a guild (server), or both. Currently, apps will default to only support the guild installation context, but the default may change in the future.
 - Commands can also support one or both installation contexts, with the default being the same as the app's supported installation context(s) at the time of command creation.
 - [Interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) defines where a command can be used in Discord—within guilds, DM with your app's bot user, and/or within group DMs and DMs other than with your app's bot user.
-- The installation flow for apps have been updated so users can select whether they want to install an app to their account or to a server. 
+- The installation flow for apps have been updated so users can select whether they want to install an app to their account or to a server.
 
 **API Fields:**
 - New `integration_types_config` field for [Applications](#DOCS_RESOURCES_APPLICATION/application-object) include the default scopes and permissions for app's supported installation contexts
@@ -68,9 +252,9 @@ This change introduces new concepts and fields across the API that apps will now
 - New `context` field for [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) indicates the [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) where an interaction was triggered from.
 - New `authorizing_integration_owners` field for [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) includes a mapping of installation contexts that the interaction was authorized for, to related snowflakes for that context. Read [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) for details.
 - `app_permissions` is now always serialized for interactions to indicate what [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) your app has access to in the context its' responding. For (G)DMs with other users, it will include the `ATTACH_FILES | EMBED_LINKS | MENTION_EVERYONE`, and for DMs with the app's bot user it will also contain `USE_EXTERNAL_EMOJIS` for the bot’s DM
-- New `interaction_metadata` on [Messages](#DOCS_RESOURCES_CHANNEL/message-object) that are created as part of an interaction response (either a response or follow-up). See [Message Interaction Metadata Object](#DOCS_RESOURCES_CHANNEL/message-interaction-metadata-object) for details.
+- New `interaction_metadata` on [Messages](#DOCS_RESOURCES_MESSAGE/message-object) that are created as part of an interaction response (either a response or follow-up). See [Message Interaction Metadata Object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object) for details.
 - `dm_permission` field for [Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) is deprecated. Apps should use `contexts` instead.
-- `interaction` field for [Messages](#DOCS_RESOURCES_CHANNEL/message-object) is deprecated. Apps should use `interaction_metadata` instead.
+- `interaction` field for [Messages](#DOCS_RESOURCES_MESSAGE/message-object) is deprecated. Apps should use `interaction_metadata` instead.
 
 ###### Limitations and Known Issues
 
@@ -106,13 +290,13 @@ endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK
 
 #### February 12, 2024
 
-The [Create message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
+The [Create message](#DOCS_RESOURCES_MESSAGE/create-message) endpoint now supports an `enforce_nonce` parameter. When set to true, the message will be deduped for the same sender within a few minutes. If a message was created with the same nonce, no new message will be created and the previous message will be returned instead. This behavior will become the default for this endpoint in a future API version.
 
 ## Limit Number of Fields in Embeds
 
 #### December 19, 2023
 
-[Embed objects](#DOCS_RESOURCES_CHANNEL/embed-object) are now limited more explicitly to 25 [embed fields](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
+[Embed objects](#DOCS_RESOURCES_MESSAGE/embed-object) are now limited more explicitly to 25 [embed fields](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure). If you pass more than 25 fields within the an embed's `fields` property, an error will be returned.
 
 Previously, only the first 25 embed fields would be displayed within the embed but no error was returned.
 
@@ -125,10 +309,10 @@ Previously, only the first 25 embed fields would be displayed within the embed b
 
 To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
 
-* `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
-* `CREATE_EVENTS`: `1 << 44`
+- `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
+- `CREATE_EVENTS`: `1 << 44`
 
-These allow for creating new expressions and events, as well as editing and deleting those created by the current user.  
+These allow for creating new expressions and events, as well as editing and deleting those created by the current user.
 
 > warn
 > These were rolled out in July 2023 to users and roles and have been added to our developer documentation but **are not yet available to app developers**. We will share an update here when these new permissions are available in your apps.
@@ -138,17 +322,17 @@ These allow for creating new expressions and events, as well as editing and dele
 
 #### What’s Happening?
 
-As outlined in [a blog post earlier this year](https://discord.com/blog/encryption-for-voice-and-video-on-discord), we are experimenting with end-to-end encryption (e2ee) for voice and video channels. 
+As outlined in [a blog post earlier this year](https://discord.com/blog/encryption-for-voice-and-video-on-discord), we are experimenting with end-to-end encryption (e2ee) for voice and video channels.
 
 End-to-end encryption is designed to only allow the participants in a call to decipher its contents. One of the protocols we’re experimenting with is called Messaging Layer Security, which we believe would allow us to deliver end-to-end encryption at scale. Intermediaries, including platforms like Discord, are unable to access the content of communications encrypted with end-to-end encryption.
 
 #### How do I prepare for the changes?
 
-During this testing phase, there is nothing developers need to do to support end-to-end encryption. Voice channels will automatically downgrade to documented, non-e2ee protocols when a bot user joins the channel. This is transparent to the connecting client but may result in a slight delay between establishing a connection and receiving audio. 
+During this testing phase, there is nothing developers need to do to support end-to-end encryption. Voice channels will automatically downgrade to documented, non-e2ee protocols when a bot user joins the channel. This is transparent to the connecting client but may result in a slight delay between establishing a connection and receiving audio.
 
 #### What is planned for the future?
 
-We will be continuing our testing and will share updates along with developer documentation and sample code once it is available. 
+We will be continuing our testing and will share updates along with developer documentation and sample code once it is available.
 
 Once this information is published, we will provide developers with a substantial timeframe to implement end-to-end encryption when interacting with voice and video.
 
@@ -172,7 +356,7 @@ Previously, some message edit interaction response actions would use the default
 ## Premium App Subscriptions Now Available in the EU and UK
 #### Oct 19, 2023
 
-Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription.
 
 > info
 > New features for Premium App Subscriptions are documented in the [App Subscriptions overview](#DOCS_MONETIZATION_OVERVIEW) and in [the changelog for the previous App Subscriptions release](#DOCS_CHANGE_LOG/premium-app-subscriptions-available-in-the-us).
@@ -182,7 +366,7 @@ To learn more about eligibility details and how to enable monetization for your 
 ## Global Rate Limit added to discordapp.com/*
 #### Oct 17, 2023
 
-We have added a global rate limit for API requests made to `discordapp.com/*` and may further restrict requests in the future. 
+We have added a global rate limit for API requests made to `discordapp.com/*` and may further restrict requests in the future.
 
 To limit impact on your app, please make sure you are making calls to `discord.com/*`.
 
@@ -196,7 +380,7 @@ Refer to the [API Reference](https://discord.com/developers/docs/reference) for 
 ## Premium App Subscriptions Available in the US
 #### Sep 26, 2023
 
-Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription. 
+Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription.
 
 - Manage subscription SKUs in the Developer Portal
 - View monetization analytics in the Developer Portal
@@ -206,7 +390,7 @@ Starting today, eligible US-based developers can monetize their verified apps wi
   - [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements) `GET /applications/<application.id>/entitlements`
   - [Create Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/create-test-entitlement) `POST /applications/<application.id>/entitlements`
   - [Delete Test Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
-- [Gateway Events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE` 
+- [Gateway Events](#DOCS_MONETIZATION_ENTITLEMENTS/gateway-events) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE`
 - New [`PREMIUM_REQUIRED (10)` interaction response type](#DOCS_MONETIZATION_ENTITLEMENTS/premiumrequired-interaction-response) is available to prompt users to upgrade
 - New `entitlements` field, which is an array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/) objects, available in interaction data payloads when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure)
 
@@ -538,14 +722,14 @@ In **late January or early February**, all servers will be migrated to the new b
 
 To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
 
-- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
-- [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
-- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
-- [Images](#DOCS_GAME_SDK_IMAGES/)
-- [Lobbies](#DOCS_GAME_SDK_LOBBIES/)
-- [Networking](#DOCS_GAME_SDK_NETWORKING/)
-- [Storage](#DOCS_GAME_SDK_STORAGE/)
-- [Store](#DOCS_GAME_SDK_STORE/) [purchases and discounts]
+- [Achievements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/achievements)
+- [Applications](#DOCS_DEVELOPER_TOOLS_GAME_SDK/applications)
+- [Voice](#DOCS_DEVELOPER_TOOLS_GAME_SDK/voice)
+- [Images](#DOCS_DEVELOPER_TOOLS_GAME_SDK/images)
+- [Lobbies](#DOCS_DEVELOPER_TOOLS_GAME_SDK/lobbies)
+- [Networking](#DOCS_DEVELOPER_TOOLS_GAME_SDK/networking)
+- [Storage](#DOCS_DEVELOPER_TOOLS_GAME_SDK/storage)
+- [Store](#DOCS_DEVELOPER_TOOLS_GAME_SDK/store) [purchases and discounts]
 
 This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
 
@@ -620,7 +804,7 @@ Check out the [forums topic](#DOCS_TOPICS_THREADS/forums) for more information o
 
 As of today, [message content](#DOCS_TOPICS_GATEWAY/message-content-intent) is a privileged intent for all verified apps *and* apps eligible for verification. More details about why it's becoming a privileged intent and how to apply for it is in the [Help Center FAQ](https://support-dev.discord.com/hc/articles/4404772028055-Message-Content-Privileged-Intent-FAQ).
 
-Any app that does not have the message content intent configured in its app's settings within the Developer Portal wiIl receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
+Any app that does not have the message content intent configured in its app's settings within the Developer Portal will receive empty values in fields that expose message content across Discord's APIs (including the `content`, `embeds`, `attachments`, and `components` fields). These restrictions do not apply for messages that a bot or app sends, in DMs that it receives, or in messages in which it is mentioned.
 
 #### If your app is verified
 
@@ -804,9 +988,9 @@ The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require paginati
 - `GET /channels/{channel.id}/threads/active` is decommissioned in favor of [`GET /guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-guild-threads).
 - Starting in v10, you must specify the message content intent (`1 << 15`) to receive content-related fields in message dispatches. Read more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 - To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
-- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
+- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_MESSAGE/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
 - The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
-- The `name` and `description` fields for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct).
+- The `name` and `description` fields for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct).
 - Existing attachments must be specified when [`PATCH`ing messages with new attachments](#DOCS_REFERENCE/editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
 - Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
 
@@ -899,7 +1083,7 @@ You can now include buttons on messages sent by your app, whether they're bot me
 
 The addition of message components means new fields and response types:
 
-- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
+- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_MESSAGE/message-object)
 - New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type), valid only for component-based interactions
 
 ## API v9
@@ -983,15 +1167,15 @@ Inline Replies have been added to our documentation. They behave differently in 
 
 - Inline replies are type `19` in v8, but remain type `0` in v6
 - You can now add a `message_reference` on message create to create a reply
-- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
-- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_MESSAGE/message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)
 - [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
 
 ## Stickers
 
 #### November 13, 2020
 
-Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_MESSAGE/message-object) object.
 
 ## Gateway v6 Intent Restrictions
 
@@ -1059,7 +1243,7 @@ Documented `permissions_new`, `allow_new`, and `deny_new` as string-serialized p
 
 #### May 11, 2020
 
-The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) API moving forwards.
+The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object) API moving forwards.
 
 ## New Properties on Guild Members Chunk Event
 
@@ -1073,13 +1257,13 @@ The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) gatew
 
 We've added a way to specify mentions in a more granular form. This change also begins the start of a 60 day deprecation cycle on legacy mention behavior. Read more:
 
-- [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Allowed mentions object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)
 
 ## New Invite Events and Reactions Endpoint
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
 
-- [Delete All Reactions for Emoji](#DOCS_RESOURCES_CHANNEL/delete-all-reactions-for-emoji)
+- [Delete All Reactions for Emoji](#DOCS_RESOURCES_MESSAGE/delete-all-reactions-for-emoji)
 - [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create)
 - [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete)
 - [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji)
@@ -1088,7 +1272,7 @@ We've added a new endpoint for deleting all reactions of a specific emoji from a
 
 #### February 26, 2020
 
-The [Spectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
+The [Spectate](#DOCS_DEVELOPER_TOOLS_GAME_SDK/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
 
 ## Gateway Intents
 
@@ -1122,9 +1306,9 @@ Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resul
 
 #### November 14, 2019
 
-We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/setuserachievement) method.
+We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#setuserachievement) method.
 
-Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_GETTING_STARTED/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
+Get the latest at the top of the [Getting Started](#DOCS_DEVELOPER_TOOLS_GAME_SDK/step-1-get-the-sdk) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 
 ## Changes to Special Channels
 
@@ -1142,7 +1326,7 @@ You can now get more precise rate limit reset times, via a new request header. C
 
 #### July 18, 2019
 
-You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way).
+You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#the-api-way).
 
 ## Additional Team Information
 
@@ -1154,13 +1338,13 @@ Additional information around Teams has been added to both the API and the docum
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_MESSAGE/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 
 #### April 29, 2019
 
-The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_GETTING_STARTED/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
+The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started) and check out the relevant functions in the [Activity Manager](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities).
 
 ## New Invite Object Fields
 
@@ -1204,7 +1388,7 @@ We released server changes that allow guilds to represent an incomplete state of
 
 #### February 5, 2018
 
-Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
+Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_MESSAGE/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
 ## Enhancement: Get Guild Emoji Endpoint
 
@@ -1234,7 +1418,7 @@ Rich Presence is now live and available for all developers! Rich Presence allows
 - Allowing users to post invitations to join their party or spectate their game in chat
 - Displaying "Spectate" and "Ask to Join" buttons on users' profiles
 
-For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
+For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_OVERVIEW)!
 
 ## Breaking Change: API & Gateway Below v6 Discontinued
 
@@ -1284,7 +1468,7 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
   - `is_private` removed
   - [`type`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) is now an integer
   - `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
-- [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
-  - [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
+- [Message](#DOCS_RESOURCES_MESSAGE/message-object) Object
+  - [`type`](#DOCS_RESOURCES_MESSAGE/message-object-message-types) added to support system messages
 - [Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence-gateway-presence-update-structure) Object
   - `idle_since` renamed to `since`

@@ -20,7 +20,7 @@ You'll discover the full power of apps as you explore the documentation and buil
 
 ### Send and manage messages
 
-Messages are (of course) a core part of using Discord, and the same is true for apps. Apps can send messages in different ways—they can call the **[Create Message endpoint](#DOCS_RESOURCES_CHANNEL/create-message)**, create and execute [webhooks](#DOCS_RESOURCES_WEBHOOK), or send messages when responding to [interactions](#DOCS_INTERACTIONS_OVERVIEW). Apps can also manage messages if they have the proper permissions, which is discussed in the [Channel](#DOCS_RESOURCES_CHANNEL) documentation.
+Messages are (of course) a core part of using Discord, and the same is true for apps. Apps can send messages in different ways—they can call the **[Create Message endpoint](#DOCS_RESOURCES_MESSAGE/create-message)**, create and execute [webhooks](#DOCS_RESOURCES_WEBHOOK), or send messages when responding to [interactions](#DOCS_INTERACTIONS_OVERVIEW). Apps can also manage messages if they have the proper permissions, which is discussed in the [Channel](#DOCS_RESOURCES_CHANNEL) documentation.
 
 ### Interact with users
 
@@ -38,7 +38,7 @@ With the right API endpoints and proper [permissions](#DOCS_TOPICS_PERMISSIONS),
 
 Apps can use **[role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA)** to associate third-party metadata (like stats or account type) with Discord users. When server admins install the app, they'll be able to set up roles based on criteria linked to that metadata. You can explore more in the [configuring metadata for linked roles](#DOCS_TUTORIALS_CONFIGURING_APP_METADATA_FOR_LINKED_ROLES) tutorial.
 
-Apps can also update a user's **[rich presence](#DOCS_RICH_PRESENCE_HOW_TO)** information in Discord to make it easy for them to customize their profile with games and other activities.
+Apps can also update a user's **[rich presence](#DOCS_RICH_PRESENCE_OVERVIEW)** information in Discord to make it easy for them to customize their profile with games and other activities.
 
 ### Add premium features
 
@@ -67,7 +67,7 @@ There are a handful of different APIs that you can pick and choose from based on
 
 ### HTTP API
 
-The **HTTP API** is a REST API that lets you interact and modify core Discord resources like [channels](#DOCS_RESOURCES_CHANNEL), [servers (or guilds)](#DOCS_RESOURCES_GUILD), [users](#DOCS_RESOURCES_USER), and [messages](#DOCS_RESOURCES_CHANNEL/message-object). 
+The **HTTP API** is a REST API that lets you interact and modify core Discord resources like [channels](#DOCS_RESOURCES_CHANNEL), [servers (or guilds)](#DOCS_RESOURCES_GUILD), [users](#DOCS_RESOURCES_USER), and [messages](#DOCS_RESOURCES_MESSAGE/message-object). 
 
 Use the HTTP API to:
 - Retrieve information about a resource
@@ -91,17 +91,13 @@ Read details about using the Gateway API in the [API reference](#DOCS_REFERENCE/
 Well, would you look at the time? With the basics out of the way, it's time to start building your Discord app! You can explore the reset of the documentation, go to your [Apps](https://discord.com/developers/applications), or explore the beginner resources below.
 
 <Container>
-  <Card title="Developing your First Discord App" link="#DOCS_QUICK_START_GETTING_STARTED">
+  <Card title="Developing your First Discord App" link="#DOCS_QUICK_START_GETTING_STARTED" icon="AppsIcon">
     Tutorial to develop and run your first Discord app with sample code for many developer features
   </Card>
-  <Card title="Building an Activity on Discord" link="#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY">
+  <Card title="Building an Activity on Discord" link="#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY" icon="ActivitiesIcon">
     Tutorial to develop an Activity using the Embedded App SDK
   </Card>
-  <Card title="Explore developer tools" link="#DOCS_TOPICS_COMMUNITY_RESOURCES">
+  <Card title="Explore developer tools" link="#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES" icon="WrenchIcon">
     Explore the Embedded App SDK and community-built library and tools to make speed up and simplify development
   </Card>
 </Container>
-
-
-
-

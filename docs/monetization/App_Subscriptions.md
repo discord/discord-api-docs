@@ -8,8 +8,8 @@ Once you've confirmed eligibility for your app and team, you will be able to set
 
 When creating subscriptions, you will need to choose between user or guild subscriptions:
 
--   **User Subscriptions**: Offers premium features to an individual user across any server where your app installed.
--   **Guild Subscriptions**: Provides premium benefits to all members within a specific server.
+- **User Subscriptions**: Offers premium features to an individual user across any server where your app installed.
+- **Guild Subscriptions**: Provides premium benefits to all members within a specific server.
 
 Currently, you can only have one published subscription SKU for your app, so you cannot offer both types of subscriptions.
 
@@ -19,10 +19,10 @@ Once you have an idea what type of subscription you want to offer for your app, 
 
 Once an app has a published SKU, there are 4 ways users will be able to subscribe:
 
--   Server admins can use the **Integrations** tab within a server's settings menu
--   Bot user profiles include an Upgrade button
--   App Directory profiles offer a Premium tab containing subscription details and an Upgrade option
--   Attempting to run a premium command will display the Upgrade button in the response
+- Server admins can use the **Integrations** tab within a server's settings menu
+- Bot user profiles include an Upgrade button
+- App Directory profiles offer a Premium tab containing subscription details and an Upgrade option
+- Attempting to run a premium command will display the Upgrade button in the response
 
 If you don't have any premium commands, your users will still be able to upgrade to your premium app via the Integrations settings menu, bot user profiles and App Directory profiles.
 
@@ -30,11 +30,39 @@ If you don't have any premium commands, your users will still be able to upgrade
 
 When a user subscribes to your app, there are a few things you will need to implement in your code to check for subscription status and access.
 
--   Gating your App with Premium Interactions
--   Working with Entitlements
--   Handling Gateway Events for Entitlements
+- Gating your App with Premium Interactions
+- Working with Entitlements
+- Handling Gateway Events for Entitlements
 
 ### Gating Premium Interactions
+
+Each interaction payload includes an `entitlements` field containing an array of full [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object). You can use this field to determine if the user or guild is subscribed to your app. If the user or guild is not subscribed and you wish to present them with a means to do so you can use a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` attached. You may also use these buttons to present users with options to make a [One-Time Purchase](#DOCS_MONETIZATION_ONE-TIME_PURCHASES).
+
+```javascript
+return new JsonResponse({
+    type: 4, // InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+    data: {
+        content: "This command requires Nelly Premium! Upgrade now to get access to these features!",
+        components: [{
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+                {
+                    type: MessageComponentTypes.BUTTON,
+                    style: 6, // ButtonStyleTypes.PREMIUM
+                    sku_id: '1234965026943668316',
+                },
+            ],
+        }]
+    },
+});
+```
+
+![A premium button](premium-button.png)
+
+#### Type 10 Interaction Response
+
+> warn
+> `PREMIUM_REQUIRED` type 10 interaction response is deprecated. Please use `ButtonStyle.PREMIUM` to handle purchases.
 
 Interactions like [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) commonly respond to users with a message or modal response. If you'd like to make a command only available to users with a subscription, you can reply with a `PREMIUM_REQUIRED` interaction response `type: 10`. Users without a subscription will be prompted to upgrade when they attempt to use these commands.
 

@@ -362,7 +362,7 @@ Used to get a channel the client is in.
 | user_limit   | integer                                                                  | (voice) user limit of voice channel (0 for none)                 |
 | position     | integer                                                                  | position of channel in channel list                              |
 | voice_states | array of [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects | (voice) channel's voice states                                   |
-| messages     | array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects       | (text) channel's messages                                        |
+| messages     | array of [message](#DOCS_RESOURCES_MESSAGE/message-object) objects       | (text) channel's messages                                        |
 
 ###### Example Get Channel Command Payload
 
@@ -992,6 +992,9 @@ Used to update a user's Rich Presence.
 
 ###### Set Activity Argument Structure
 
+> info
+> When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Playing (`0`), Listening (`2`), Watching (`3`), or Competing (`5`).
+
 | Field    | Type                                                           | Description                             |
 |----------|----------------------------------------------------------------|-----------------------------------------|
 | pid      | integer                                                        | the application's process id            |
@@ -1477,7 +1480,7 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#D
 | Field      | Type                                                     | Description                               |
 |------------|----------------------------------------------------------|-------------------------------------------|
 | channel_id | string                                                   | id of channel where notification occurred |
-| message    | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification  |
+| message    | [message](#DOCS_RESOURCES_MESSAGE/message-object) object | message that generated this notification  |
 | icon_url   | string                                                   | icon url of the notification              |
 | title      | string                                                   | title of the notification                 |
 | body       | string                                                   | body of the notification                  |
@@ -1532,9 +1535,9 @@ No arguments
 
 ###### Activity Join Dispatch Data Structure
 
-| Field  | Type   | Description                                                                                                           |
-|--------|--------|-----------------------------------------------------------------------------------------------------------------------|
-| secret | string | the [`join_secret`](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) for the given invite |
+| Field  | Type   | Description                                                                                     |
+|--------|--------|-------------------------------------------------------------------------------------------------|
+| secret | string | the [`join_secret`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct) for the given invite |
 
 ###### Example Activity Join Dispatch Payload
 
@@ -1554,9 +1557,9 @@ No arguments
 
 ###### Activity Spectate Dispatch Data Structure
 
-| Field  | Type   | Description                                                                                                               |
-|--------|--------|---------------------------------------------------------------------------------------------------------------------------|
-| secret | string | the [`spectate_secret`](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) for the given invite |
+| Field  | Type   | Description                                                                                         |
+|--------|--------|-----------------------------------------------------------------------------------------------------|
+| secret | string | the [`spectate_secret`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct) for the given invite |
 
 ###### Example Activity Spectate Dispatch Payload
 

@@ -112,6 +112,10 @@ Returns a list of available sticker packs.
 |---------------|------------------------------------------------------------------------------|
 | sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
 
+## Get Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
+
+Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) object for the given sticker pack ID.
+
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
 Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.

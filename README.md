@@ -1,4 +1,4 @@
-# Discord Official API Documentation
+# Discord API Documentation
 
 This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
 
@@ -8,27 +8,7 @@ We welcome your contributions!
 
 -   Issue tracker: Discord API bugs
 -   Discussions: Discord API feature and improvement requests
--   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md)
-
-## Markdown Syntax
-
-This repository uses special markdown syntax that helps style the resulting web version of the documentation.
-
-### H6 Headings
-
-H6 headings should be used above tables and code blocks to properly label them.
-
-### Linking
-
-Links between docs can be achieved by using a hash symbol (#), plus the markdown file name, plus a slash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
-
-```md
-[Links to README.md H6](#README/h6-headings)
-```
-
-### Alert Boxes
-
-Alert boxes are achieved by using a block quote that has one of 'warn', 'danger' or 'info' on the first line.
+-   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md) for types of changes accepted and specific markdown syntax used in the documentation.
 
 ## Need some help?
 
@@ -40,4 +20,4 @@ The [Unofficial Discord API server](https://discord.gg/discord-api) is a common 
 
 ## License
 
-Except as otherwise noted, the Discord API Documentation and other content in this repository is licensed under the Creative Commons Attribution-ShareAlike 4.0 License (see [LICENSE](https://github.com/discord/discord-api-docs/blob/main/LICENSE)), and code samples in this repository are licensed under the MIT License (see [LICENSE-CODE](https://github.com/discord/discord-api-docs/blob/main/LICENSE-CODE)). These licenses do not grant you rights to use any of Discord’s trademarks or other brand features. Please see the [Discord Developer Terms of Service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service) for more information about use of Discord’s brand features and APIs.
+Except as otherwise noted, the Discord API Documentation and other content in this repository is licensed under the Creative Commons Attribution-ShareAlike 4.0 License (see [LICENSE](https://github.com/discord/discord-api-docs/blob/main/LICENSE)), and code samples in this repository are licensed under the MIT License (see [LICENSE-CODE](https://github.com/discord/discord-api-docs/blob/main/LICENSE-CODE)). These licenses do not grant you rights to use any of Discord’s trademarks or other brand features. Please see the [Discord Developer Terms of Service](https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service) for more information about use of Discord’s brand features and APIs.

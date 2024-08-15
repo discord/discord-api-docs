@@ -18,6 +18,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | application_id                 | snowflake                                                                                                                             | ID of the application this interaction is for                                                                                                                                                                                                                        |
 | type                           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)                                   | Type of interaction                                                                                                                                                                                                                                                  |
 | data?\*                        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data)                                   | Interaction data payload                                                                                                                                                                                                                                             |
+| guild?                         | [partial guild](#DOCS_RESOURCES_GUILD/guild-object) object                                                                            | Guild that the interaction was sent from                                                                                                                                                                                                                             |
 | guild_id?                      | snowflake                                                                                                                             | Guild that the interaction was sent from                                                                                                                                                                                                                             |
 | channel?                       | [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                      | Channel that the interaction was sent from                                                                                                                                                                                                                           |
 | channel_id?                    | snowflake                                                                                                                             | Channel that the interaction was sent from                                                                                                                                                                                                                           |
@@ -25,7 +26,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | user?                          | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                       | User object for the invoking user, if invoked in a DM                                                                                                                                                                                                                |
 | token                          | string                                                                                                                                | Continuation token for responding to the interaction                                                                                                                                                                                                                 |
 | version                        | integer                                                                                                                               | Read-only property, always `1`                                                                                                                                                                                                                                       |
-| message?                       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                                              | For components, the message they were attached to                                                                                                                                                                                                                    |
+| message?                       | [message](#DOCS_RESOURCES_MESSAGE/message-object) object                                                                              | For components, the message they were attached to                                                                                                                                                                                                                    |
 | app_permissions\*\*\*          | string                                                                                                                                | Bitwise set of permissions the app has in the source location of the interaction                                                                                                                                                                                     |
 | locale?\*\*\*\*                | string                                                                                                                                | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                                                                                                                                    |
 | guild_locale?                  | string                                                                                                                                | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                                                                                                                                                                                |
@@ -127,8 +128,8 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 | members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
 | roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
 | channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
-| messages?     | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_CHANNEL/message-object) objects  | the ids and partial Message objects |
-| attachments?  | Map of Snowflakes to [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | the ids and attachment objects      |
+| messages?     | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_MESSAGE/message-object) objects  | the ids and partial Message objects |
+| attachments?  | Map of Snowflakes to [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects     | the ids and attachment objects      |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
@@ -150,10 +151,10 @@ All options have names, and an option can either be a parameter and input value-
 
 ### Message Interaction Object
 
-This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
+This is sent on the [message object](#DOCS_RESOURCES_MESSAGE/message-object) when the message is a response to an Interaction without an existing message.
 
 > info
-> This means responses to [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) do not include this property, instead including a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object as components _always_ exist on preexisting messages.
+> This means responses to [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) do not include this property, instead including a [message reference](#DOCS_RESOURCES_MESSAGE/message-reference-structure) object as components _always_ exist on preexisting messages.
 
 ###### Message Interaction Structure
 
@@ -208,22 +209,22 @@ There are a number of ways you can respond to an interaction:
 
 ###### Interaction Callback Type
 
-| Name                                    | Value | Description                                                                                                   |
-|-----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------|
-| PONG                                    | 1     | ACK a `Ping`                                                                                                  |
-| CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                      |
-| DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |
-| DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
-| UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                |
-| APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
-| MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                  |
-| PREMIUM_REQUIRED\*\*\*                  | 10    | respond to an interaction with an upgrade button, only available for apps with monetization enabled           |
+| Name                                    | Value | Description                                                                                                                                                                                            |
+|-----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PONG                                    | 1     | ACK a `Ping`                                                                                                                                                                                           |
+| CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                                                                                                               |
+| DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                                                                                                            |
+| DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state                                                                                          |
+| UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                                                                                                         |
+| APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                                                                                                          |
+| MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                                                                                                           |
+| PREMIUM_REQUIRED\*\*\*                  | 10    | [**Deprecated**](#DOCS_CHANGE_LOG/premium-apps-new-premium-button-style-deep-linking-url-schemes); respond to an interaction with an upgrade button, only available for apps with monetization enabled |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
-\*\*\* Not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
+\*\*\* This response type is deprecated. Learn more about [migrating to premium buttons](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions). `PREMIUM_REQUIRED` response type is not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
 
 ###### Interaction Callback Data Structure
 
@@ -236,11 +237,11 @@ Not all message fields are currently supported.
 |-------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | tts?              | boolean                                                                          | is the response TTS                                                                                                                                                                                                    |
 | content?          | string                                                                           | message content                                                                                                                                                                                                        |
-| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)                          | supports up to 10 embeds                                                                                                                                                                                               |
-| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)              | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                                                                                                             |
-| flags?            | integer                                                                          | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, and `SUPPRESS_NOTIFICATIONS` can be set) |
+| embeds?           | array of [embeds](#DOCS_RESOURCES_MESSAGE/embed-object)                          | supports up to 10 embeds                                                                                                                                                                                               |
+| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)              | [allowed mentions](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object) object                                                                                                                                             |
+| flags?            | integer                                                                          | [message flags](#DOCS_RESOURCES_MESSAGE/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, and `SUPPRESS_NOTIFICATIONS` can be set) |
 | components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)                    | message components                                                                                                                                                                                                     |
-| attachments? \*   | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | attachment objects with filename and description                                                                                                                                                                       |
+| attachments? \*   | array of partial [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects | attachment objects with filename and description                                                                                                                                                                       |
 | poll?             | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object           | A poll!                                                                                                                                                                                                                |
 
 \* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
@@ -263,7 +264,7 @@ Not all message fields are currently supported.
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal    |
 
 > warn
-> If your application responds with user data, you should use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping.
+> If your application responds with user data, you should use [`allowed_mentions`](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object) to filter which mentions in the content actually ping.
 
 When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
 
@@ -347,18 +348,21 @@ Deletes the initial Interaction response. Returns `204 No Content` on success.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
 
+> info
+> Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
+
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups.
 
 `flags` can be set to `64` to mark the message as ephemeral, except when it is the first followup message to a deferred Interactions Response. In that case, the `flags` field will be ignored, and the ephemerality of the message will be determined by the `flags` value in your original ACK.
 
-## Get Followup Message % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Get Followup Message % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
 
 Returns a followup message for an Interaction. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
 
 Deletes a followup message for an Interaction. Returns `204 No Content` on success.

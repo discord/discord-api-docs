@@ -2,9 +2,9 @@
 
 Developers now have the ability to set up a Store page in the Developer Portal. To set up your Premium App's Store view take the following steps:
 
-- Create a SKU 
+- Create a SKU
 - Add a SKU image and benefits
-- Implement the SKU into your app 
+- Implement the SKU into your app
 - Publish a SKU to your store view with the click of a button.
 
 ## Adding SKUs to your Store
@@ -12,6 +12,7 @@ Developers now have the ability to set up a Store page in the Developer Portal. 
 Once you've created SKUs for an [App Subscription](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS) or [One-Time Purchase](#DOCS_MONETIZATION_ONE-TIME_PURCHASES), you can add those SKUs to your Store to make them available for purchase by your users.
 
 ### Manage SKUs
+
 While creating and editing SKUs in your [app's settings](https://discord.com/developers/applications) on the `Monetization -> Manage SKUs` tab, you have a few options for managing your SKUs visibility and publishing to your users:
 
 - **Add to store**: Will add a published SKU to your Store
@@ -23,6 +24,7 @@ While creating and editing SKUs in your [app's settings](https://discord.com/dev
 > We will have more updates on publishing SKUs to the API vs the Store as we release more monetization features.
 
 ### Manage Store
+
 Under the `Monetization -> Manage Store` tab, you can organize your SKUs for both subscriptions and items. You can add new or existing SKUs or update the order your SKUs appear to your users in the Store.
 
 > info
@@ -48,3 +50,14 @@ Currently, you can only have one active App Subscription SKU for your app. If yo
 As you build out your One-Time Purchase SKUs, you can add as many durable and consumable items to your Store as needed by your app.
 
 ![Items in your Store View](premium-items.png)
+
+## Linking To Your Store
+
+You can link directly to your Store using our Application Directory Store URL scheme:
+
+`https://discord.com/application-directory/:appID/store`
+
+- When used in chat, it will render as a rich embed that allows users to launch a modal to your Store
+- When used as a direct URL in a browser, it will take the user to your store in the Application Directory on web
+
+![Embed for direct link to Store](store_embed.png)
