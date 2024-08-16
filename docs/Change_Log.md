@@ -1,3 +1,7 @@
+---
+showTOC: false
+---
+
 # Change Log
 
 ## Voice Encryption Modes
@@ -284,7 +288,7 @@ To learn more about how to get started building your own Activity, check out the
 > This entry includes breaking changes
 
 The [Get Guild Prune Count](#DOCS_RESOURCES_GUILD/get-guild-prune-count) and [Begin Guild Prune](#DOCS_RESOURCES_GUILD/begin-guild-prune)
-endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement ₍^ >ヮ<^₎ .ᐟ.ᐟ
+endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement `₍^ >ヮ<^₎ .ᐟ.ᐟ`.
 
 ## Enforced Nonces on Create Message Endpoint
 
