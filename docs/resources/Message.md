@@ -523,7 +523,7 @@ Certain embed types are used to power special UIs. These embeds use [fields](#DO
 
 ###### Poll Result Embed Fields
 
-| Embed Field Name              | Embed Field Value Description                              |
+| Field                         | Description                                                |
 |-------------------------------|------------------------------------------------------------|
 | poll_question_text            | question text from the original poll                   |
 | victor_answer_votes           | number of votes for the answer(s) with the most votes      |
