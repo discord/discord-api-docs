@@ -525,13 +525,13 @@ Certain embed types are used to power special UIs. These embeds use [fields](#DO
 
 | Embed Field Name              | Embed Field Value Description                              |
 |-------------------------------|------------------------------------------------------------|
-| poll_question_text            | the question text from the original poll                   |
+| poll_question_text            | question text from the original poll                   |
 | victor_answer_votes           | number of votes for the answer(s) with the most votes      |
 | total_votes                   | total number of votes in the poll                          |
-| victor_answer_id?             | the id for the winning answer                              |
-| victor_answer_text?           | the text for the winning answer                            |
-| victor_answer_emoji_id?       | the id for an emoji associated with the winning answer     |
-| victor_answer_emoji_name?     | the name of an emoji associated with the winning answer    |
+| victor_answer_id?             | id for the winning answer                              |
+| victor_answer_text?           | text for the winning answer                            |
+| victor_answer_emoji_id?       | id for an emoji associated with the winning answer     |
+| victor_answer_emoji_name?     | name of an emoji associated with the winning answer    |
 | victor_answer_emoji_animated? | if an emoji associated with the winning answer is animated |
 
 ### Attachment Object
