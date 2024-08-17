@@ -58,7 +58,7 @@ Returns a list of the guild's soundboard sounds. Includes `user` fields if the b
 
 ## Get Guild Soundboard Sound % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/soundboard-sounds/{sound.id#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object}
 
-Returns a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object for the given sound id. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the the `CREATE_GUILD_EXPRESSIONS` permission.
+Returns a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object for the given sound id. Includes the `user` field if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
 ## Create Guild Soundboard Sound % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/soundboard-sounds
 
