@@ -1,7 +1,7 @@
 ---
 title: "Breaking Change: Version 6"
 date: "2017-07-19T07:00:00.000Z"
-breaking: false
+breaking: true
 ---
 
 * [Channel](#DOCS_RESOURCES_CHANNEL/channel-object) Object

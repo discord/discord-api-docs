@@ -65,6 +65,7 @@ breaking: ${file.breaking ? "true" : "false"}
       .replace(/[ _:&,/*]/g, "-")
       .replace(/---/g, "-")
       .replace(/--/g, "-");
+  // eslint-disable-next-line no-undef
   console.log(slug);
   await fs.writeFile(`./docs/change_log/${slug}.md`, content);
 }

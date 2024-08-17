@@ -1,7 +1,7 @@
 ---
 title: "Breaking Change: Default Channels"
 date: "2017-08-03T07:00:00.000Z"
-breaking: false
+breaking: true
 ---
 
 After today, we are changing how default channels function. The "default" channel for a given user is now the channel with the highest position that their permissions allow them to see. New guilds will no longer have a default channel with the same id as the guild. Existing guilds will not have their #general channel id changed. It is possible, if permissions are set in such a way, that a user will not have a default channel in a guild.

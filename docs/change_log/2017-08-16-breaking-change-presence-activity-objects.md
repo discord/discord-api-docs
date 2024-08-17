@@ -1,7 +1,7 @@
 ---
 title: "Breaking Change: Presence Activity Objects"
 date: "2017-08-16T07:00:00.000Z"
-breaking: false
+breaking: true
 ---
 
 The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) for [Gateway Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence) and [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update) payloads is no longer optional when the activity object is not null.
