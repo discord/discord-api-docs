@@ -1,0 +1,7 @@
+---
+title: "Interaction Channel Data"
+date: "2023-04-06T07:00:00.000Z"
+breaking: false
+---
+
+Interactions now contain a `channel` field which is a partial channel object and guaranteed to contain `id` and `type`. We recommend that you begin using this channel field to identify the source channel of the interaction, and may deprecate the existing `channel_id` field in the future. See the [interaction documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) for more details.

@@ -1,9 +1,3 @@
----
-showTOC: false
----
-
-# Change Log
-
 ## Voice Encryption Modes
 
 #### August 13, 2024
@@ -547,10 +541,10 @@ At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS
 
 ## Thread Member Details and Pagination
 
+#### Jan 09, 2023
+
 > danger
 > This entry includes breaking changes
-
-#### Jan 09, 2023
 
 A new `member` field was added to the [thread member object](#DOCS_RESOURCES_CHANNEL/thread-member-object). `member` is a [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) that will be included within returned thread member objects when the new `with_member` field is set to `true` in the [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) (`GET /channels/<channel_id>/thread-members`) and [Get Thread Member](#DOCS_RESOURCES_CHANNEL/get-thread-member) (`GET /channels/<channel_id>/thread-members/<user_id>`) endpoints.
 
@@ -864,10 +858,10 @@ The value of `min_length` must be greater or equal to `0`, and the value of `max
 
 ## Add Subcommand Groups and Subcommands to Message Interaction Objects
 
+#### July 1, 2022
+
 > danger
 > This entry includes breaking changes
-
-#### July 1, 2022
 
 While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
 
@@ -892,10 +886,10 @@ After this change, the `name` field for the original interaction payload will st
 
 ## Changes to Bot Permissions for Interactions and Webhooks
 
+#### Jun 29, 2022
+
 > danger
 > This entry includes breaking changes
-
-#### Jun 29, 2022
 
 #### Upcoming Changes
 
@@ -924,12 +918,12 @@ Interaction payloads now contain an `app_permissions` field whose value is the c
 
 For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
 
-
 ## Message Content in Auto Moderation events
 
 #### Jun 21, 2022
 
-#### Breaking Changes
+> danger
+> This entry includes breaking changes
 
 In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
 
@@ -954,6 +948,9 @@ Add new [Auto Moderation feature](#DOCS_RESOURCES_AUTO_MODERATION) which enables
 ## Updated Command Permissions
 
 #### Apr 27, 2022
+
+> danger
+> This entry includes breaking changes
 
 Application command permissions have been updated to add more granular control and access to commands in Discord. You can read the major changes below, and [the updated documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for details.
 
@@ -1264,6 +1261,8 @@ We've added a way to specify mentions in a more granular form. This change also 
 - [Allowed mentions object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)
 
 ## New Invite Events and Reactions Endpoint
+
+#### March 2, 2020
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
 
