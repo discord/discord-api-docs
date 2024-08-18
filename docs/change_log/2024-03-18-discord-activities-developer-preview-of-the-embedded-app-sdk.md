@@ -2,6 +2,9 @@
 title: "Discord Activities: Developer Preview of the Embedded App SDK"
 date: "2024-03-18T07:00:00.000Z"
 breaking: false
+topics:
+- "Embedded App SDK"
+- "Activities"
 ---
 
 Discord Developers can now build Activities!

@@ -2,6 +2,8 @@
 title: "Premium App Subscriptions Available in the US"
 date: "2023-09-26T07:00:00.000Z"
 breaking: false
+topics:
+- "Premium Apps"
 ---
 
 Starting today, eligible US-based developers can monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription.

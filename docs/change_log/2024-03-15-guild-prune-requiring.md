@@ -1,5 +1,5 @@
 ---
-title: "Guild Prune Requiring "
+title: "Guild Prune Requiring"
 date: "2024-03-15T07:00:00.000Z"
 breaking: true
 ---

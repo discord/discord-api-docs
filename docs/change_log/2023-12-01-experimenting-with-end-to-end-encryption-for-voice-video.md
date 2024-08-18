@@ -2,6 +2,8 @@
 title: "Experimenting with End-to-End Encryption for Voice & Video"
 date: "2023-12-01T08:00:00.000Z"
 breaking: false
+topics:
+- "Voice"
 ---
 
 #### What’s Happening?

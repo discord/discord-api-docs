@@ -2,6 +2,8 @@
 title: "User-Installable Apps Preview"
 date: "2024-03-18T07:00:00.000Z"
 breaking: false
+topics:
+- "User Apps"
 ---
 
 Apps can now be installed to users—making them easier to install, discover, and access across Discord. User-installed apps can be used across all of a user's servers, within their (G)DMs, and in DMs with the app's bot user.

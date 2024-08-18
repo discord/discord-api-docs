@@ -2,6 +2,8 @@
 title: "Premium App Subscriptions Now Available in the EU and UK"
 date: "2023-10-19T07:00:00.000Z"
 breaking: false
+topics:
+- "Premium Apps"
 ---
 
 Starting today, eligible developers based in EU and UK can now monetize their verified apps with App Subscriptions. [App Subscriptions](#DOCS_MONETIZATION_OVERVIEW) let you to charge your users for premium functionality with a recurring, monthly subscription.

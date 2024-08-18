@@ -2,6 +2,8 @@
 title: "Premium App Subscriptions: New Ways for Testing App Subscriptions"
 date: "2023-11-29T08:00:00.000Z"
 breaking: false
+topics:
+- "Premium Apps"
 ---
 
 Following feedback on Premium App Subscriptions, we've made it easier for developers to test their app subscriptions. The goal is to provide you with flexibility during testing and prevent you from having to use live payment methods.
