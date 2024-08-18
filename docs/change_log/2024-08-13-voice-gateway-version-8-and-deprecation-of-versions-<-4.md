@@ -2,6 +2,9 @@
 title: "Voice Gateway Version 8 and Deprecation of Versions < 4"
 date: "2024-08-13T07:00:00.000Z"
 breaking: false
+topics:
+- "Gateway"
+- "Voice"
 ---
 
 We are officially deprecating some very old voice gateway versions (> 7 years ago).
