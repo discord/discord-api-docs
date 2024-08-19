@@ -10,14 +10,14 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 
 ###### SKU Structure
 
-| Field          | Type      | Description                                                                                                                 |
-|----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------|
-| id             | snowflake | ID of SKU                                                                                                                   |
-| type           | integer   | [Type of SKU](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)                                                                 |
-| application_id | snowflake | ID of the parent application                                                                                                |
-| name           | string    | Customer-facing name of your premium offering                                                                               |
-| slug           | string    | System-generated URL slug based on the SKU's name                                                                           |
-| flags          | integer   | [SKU flags](#DOCS_MONETIZATION_SKUS/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field          | Type      | Description                                                                                                             |
+|----------------|-----------|-------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake | ID of SKU                                                                                                               |
+| type           | integer   | [Type of SKU](#DOCS_RESOURCES_SKU/sku-object-sku-types)                                                                 |
+| application_id | snowflake | ID of the parent application                                                                                            |
+| name           | string    | Customer-facing name of your premium offering                                                                           |
+| slug           | string    | System-generated URL slug based on the SKU's name                                                                       |
+| flags          | integer   | [SKU flags](#DOCS_RESOURCES_SKU/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### SKU Example
 
@@ -64,68 +64,6 @@ The `flags` field can be used to differentiate user and server subscriptions wit
 | AVAILABLE          | `1 << 2` | SKU is available for purchase                                                                                             |
 | GUILD_SUBSCRIPTION | `1 << 7` | Recurring SKU that can be purchased by a user and applied to a single server. Grants access to every user in that server. |
 | USER_SUBSCRIPTION  | `1 << 8` | Recurring SKU purchased by a user for themselves. Grants access to the purchasing user in every server.                   |
-
-## Customizing Your SKUs
-
-Within your app's settings, you're able to customize details about your premium offering:
-
-- A name for your premium SKU, max 80 characters.
-- A description for your premium SKU, max 160 characters
-- An icon for your premium SKU
-
-![Example SKU customization](sku-customization.png)
-
-### Adding Benefits to Your SKU
-
-You're able to customize a list of up to 6 benefits to explain your premium offering to users. Benefits are displayed on the App Directory and during the purchase and cancellation flows, and each can have:
-
-- A name, max 80 characters
-- A description, max 160 characters
-- An emoji, standard or custom
-
-![Example of SKU benefits](sku-benefits.png)
-
-#### Using a Unicode Emoji
-
-To set an icon using a standard Unicode emoji, enter the emoji in the `Unicode Emoji or Custom Emoji Name` field.
-
-> info
-> Using an emoji keyboard can make it easier to pick an icon to display alongside your SKU benefit.  
-> MacOS: `control + command + space bar` 
-> Windows: `Windows + .`
-
-![Set a unicode emoji](sku-unicode.png)
-
-#### Using a Custom Emoji
-
-To use a custom emoji, set a value for both fields:
-
-- Name of your custom emoji
-- ID of the custom emoji
-
-> info
-> You can find the ID of the emoji in the Discord app by escaping the emoji in a message with a backslash character `\`. For example, `\:uwu:` will render with the name and ID of the emoji.
-
-![Set a custom emoji](sku-custom.png)
-
-## Publishing Your SKUs
-
-When you're ready to launch, you can go to your [app's settings](https://discord.com/developers/applications) and change your SKU to "Published", and your premium offering will be live and available for purchase by users.
-
-From then on, we'll send you daily dashboard emails containing information about purchases, cancellations, and other premium information.
-
-Congratulations on going live! 🥳
-
-## Linking to your SKUs
-
-You can link directly to a specific SKU using our Application Directory Store URL scheme:
-
-`https://discord.com/application-directory/:appID/store/:skuID`
-
-- When used in chat, it will render as a rich embed that allows users to launch a modal to view either the SKU details or checkout flow
-- When used as a direct URL in a browser, it will take the user to your product in the Application Directory on web
-
-![Embed for direct link to SKU](sku_embed.png)
 
 ## List SKUs % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/skus
 

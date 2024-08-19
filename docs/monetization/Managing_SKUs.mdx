@@ -1,0 +1,222 @@
+# Managing SKUs
+
+The premium items and subscriptions you offer in your app are represented by SKUs. **SKU** stands for Stock Keeping Unit, and it's a unique identifier for each of your premium offerings.
+
+[SKUs](#DOCS_RESOURCES_SKU) are the building blocks of your premium offerings and you can manage them in the Developer Portal.
+
+---
+
+## Creating a SKU
+
+To create a new SKU, navigate to your [app's settings](https://discord.com/developers/applications) and select the `Monetization -> Manage SKUs` tab. From there, you can create a new SKU by clicking the `Create SKU` button.
+
+When you click on `Create SKU`, you have the option to select from the following:
+
+- **User Subscription**: An auto-recurring subscription that grants benefits to one user in all servers
+- **Guild Subscription**: An auto-recurring subscription that grants benefits to all users in one server
+- **Consumable**: A one-time purchase that provides a temporary benefit, which is consumed upon use.
+- **Durable**: A one-time purchase that grants a permanent addition or enhancement.
+
+Once you select the SKU type, enter a name for your SKU to continue.
+
+### SKU Limitations
+
+There are some limitations to the number of SKUs you can create:
+- You can create up to 50 total SKUs per app.
+- Currently, you can only have **one** published subscription SKU per app (user or guild).
+- SKU prices must be be selected from the list of available prices.
+
+> info 
+> If you need more SKUs than the 50 limit, consider creating a consumable in-app currency SKU that can be used to purchase items that are tracked in your app.
+
+---
+
+## Customizing Your SKUs
+
+Once you've created a SKU, you can customize it to match your app's branding and the benefits you want to offer. You can customize:
+
+- A name for your premium SKU, max 80 characters.
+- A description for your premium SKU, max 160 characters
+- An image for your premium SKU
+- A price for your premium SKU
+
+Your list of benefits displayed on the Premium App Store view, the App Directory, and during the purchase and cancellation flows to explain to users the benefits of your premium offering. These benefits can have:
+- Up to 6 benefits
+- An emoji, standard or custom
+- A name, max 80 characters
+- A description, max 160 characters
+
+![Example of SKU benefits](sku-benefits.png)
+
+### Pricing Your SKUs
+
+When setting the price for your SKU, 
+
+Subscription SKUs are automatically charged each month unless cancelled. Changing the price of this SKU will only change it for new subscribers. Existing subscribers will continue to be charged the existing price.
+
+<Collapsible title="Using Unicode Emoji" icon="view">
+To set an icon using a standard Unicode emoji, enter the emoji in the `Unicode Emoji or Custom Emoji Name` field.
+
+> info
+> Using an emoji keyboard can make it easier to pick an icon to display alongside your SKU benefit.  
+> MacOS: `control + command + space bar` 
+> Windows: `Windows + .`
+
+![Set a unicode emoji](sku-unicode.png)
+</Collapsible>
+
+<Collapsible title="Using a Custom Emoji" icon="view">
+To use a custom emoji, set a value for both fields:
+
+- Name of your custom emoji
+- ID of the custom emoji
+
+> info
+> You can find the ID of the emoji in the Discord app by escaping the emoji in a message with a backslash character `\`. For example, `\:uwu:` will render with the name and ID of the emoji.
+
+![Set a custom emoji](sku-custom.png)
+</Collapsible>
+
+---
+
+## Publishing and Unpublishing SKUs
+
+When you first create a SKU, it will be in an `Unavailable` state. This means that the SKU is not yet available for purchase by users. You can edit the SKU to add a price, benefits, and other details before publishing it.
+
+While creating and editing SKUs in your [app's settings](https://discord.com/developers/applications) on the `Monetization -> Manage SKUs` tab, you have a few options for managing your SKUs visibility and publishing to your users:
+
+- Publish SKU
+- Unpublish SKU
+- Delete SKU
+
+### Publishing a SKU
+
+When publishing a SKU, you have the option to make it **Available via the Store and API** or **Available via the API Only**.
+
+#### Publishing to Store & API
+
+Available to be purchased and visible in your app's store.
+
+#### Publishing to API Only
+
+You can only make API calls or use th Embedded App SDK to grant entitlements for this SKU.
+
+### Unpublishing a SKU
+
+This action unpublishes a SKU from the Store and the API. Unpublished SKUs will not be available for purchase by users.
+
+> warn
+> **User Impact of Unpublishing a SKU**
+- For subscription SKUs, subscriptions will not be renewed for users and guilds that have this SKU at the end of the billing period.
+- Users and guilds will still be entitled to the SKU until the end of the billing period.
+- For consumable and durable SKUs, users will still be entitled to the SKU if they purchased it before it was unpublished.
+- Does not delete a SKU.
+
+
+### Deleting a SKU
+
+Deletes a SKU in the UI and makes it unavailable for publishing. Deleted SKUs are still listed when calling [List SKUs](#DOCS_RESOURCES_SKU/list-skus) in the API. 
+
+> warn
+> **User Impact of Deleting a SKU**
+- For subscription SKUs, users and guilds will be immediately unsubscribed from the SKU. Their entitlement will still be valid until the end of the billing period.
+- For consumable and durable SKUs, users will still be entitled to the SKU if they purchased it before it was unpublished.
+
+---
+
+## Editing a Published SKU
+If you wish to change a SKU that is published, you can do so at any time by first unpublishing the currently published one. Keep in mind that when you unpublish a SKU, it is no longer available for sale, but users who have already subscribed will remain subscribed and you must continue to make the premium offering available to them until the end of their subscription.
+
+### Changing a Subscription SKU Price
+
+When you change the price of a user or guild subscription SKU, it will only affect new subscribers. Existing subscribers will continue to be charged the price of the SKU at the time they subscribed.
+
+---
+
+## Integrating SKUs in Your App
+
+After you've published your SKUs, you are ready to start implementing your premium features in your app. See our guides to get started: 
+
+- [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS)
+- [Implementing One-Time Purchases](#DOCS_MONETIZATION_IMPLEMENTING_ONE-TIME_PURCHASES) 
+- Implementing IAP (In-App Purchases) in Activities (✨ coming soon ✨)
+
+--- 
+
+## Promoting your Premium Offerings
+
+Once you've created and published your SKUs, you can promote them to your users. Here are a few ways to promote your premium offerings:
+
+- Users can view your subscriptions and items that have been published to your Store
+- Link directly to a specific SKU
+- Link directly to your Store
+- Include a button with a [premium button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) in message components
+- When building an activity, you can use the Embedded App SDK to offer in-activity purchases
+
+### User Access to Your Store
+
+Users can access an App's store page from the Bot User's profile in a server. This allows users to view an available subscription and one-time purchases, select a subscription to view its perks, benefits and details, and make a purchase directly from an App's Store page.
+
+> info
+> Only subscriptions and items that have been published to the Store will be visible to users in the Store view.
+
+#### Accessing your Store view from a Bot User's Profile
+![Accessing the store as a user](botuser-profile.png)
+
+#### Subscriptions in Your Store View
+![Subscriptions in your Store View](premium-subscriptions.png)
+
+#### items in Your Store View
+![Items in your Store View](premium-items.png)
+
+---
+### Linking to a Specific SKU
+
+You can link directly to a specific SKU using our Application Directory Store URL scheme:
+
+`https://discord.com/application-directory/:appID/store/:skuID`
+
+- When used in chat, it will render as a rich embed that allows users to launch a modal to view either the SKU details or checkout flow
+- When used as a direct URL in a browser, it will take the user to your product in the Application Directory on web
+
+![Embed for direct link to SKU](sku_embed.png)
+
+--- 
+
+### Linking To Your Store
+
+You can link directly to your Store using our Application Directory Store URL scheme:
+
+`https://discord.com/application-directory/:appID/store`
+
+- When used in chat, it will render as a rich embed that allows users to launch a modal to your Store
+- When used as a direct URL in a browser, it will take the user to your store in the Application Directory on web
+
+![Embed for direct link to Store](store_embed.png)
+
+---
+
+### Including a Premium Button in Message Components
+
+You can prompt users to purchase item or subscription SKUs using a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id`. You can use this premium button style anywhere you would you normally use message components, such as in a command response.
+
+```javascript
+return new JsonResponse({
+    type: 4, // InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
+    data: {
+        content: "This command requires Nelly Premium! Upgrade now to get access to these features!",
+        components: [{
+            type: MessageComponentTypes.ACTION_ROW,
+            components: [
+                {
+                    type: MessageComponentTypes.BUTTON,
+                    style: 6, // ButtonStyleTypes.PREMIUM
+                    sku_id: '1234965026943668316',
+                },
+            ],
+        }]
+    },
+});
+```
+
+![A premium button](premium-button.png)
