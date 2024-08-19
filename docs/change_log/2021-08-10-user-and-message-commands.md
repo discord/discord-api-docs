@@ -1,7 +1,6 @@
 ---
 title: "User and Message Commands"
-date: "2021-08-10T07:00:00.000Z"
-breaking: false
+date: "2021-08-10"
 ---
 
 [User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future.

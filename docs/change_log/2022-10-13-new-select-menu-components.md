@@ -1,7 +1,6 @@
 ---
 title: "New Select Menu Components"
-date: "2022-10-13T07:00:00.000Z"
-breaking: false
+date: "2022-10-13"
 ---
 
 Four new select menu [component types](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) have been added to make it easier to populate selects with common resources in Discord:

@@ -1,6 +1,6 @@
 ---
 title: "GameSDK Feature Deprecation"
-date: "2022-11-09T08:00:00.000Z"
+date: "2022-11-09"
 breaking: true
 ---
 

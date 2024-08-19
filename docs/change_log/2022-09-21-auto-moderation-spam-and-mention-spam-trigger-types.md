@@ -1,7 +1,6 @@
 ---
 title: "Auto Moderation Spam and Mention Spam Trigger Types"
-date: "2022-09-21T07:00:00.000Z"
-breaking: false
+date: "2022-09-21"
 ---
 
 Two new [trigger types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) were added to Auto Moderation:

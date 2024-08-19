@@ -1,6 +1,6 @@
 ---
 title: "Message Content is a Privileged Intent"
-date: "2022-09-01T07:00:00.000Z"
+date: "2022-09-01"
 breaking: true
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: "Min and Max Length for Command Options"
-date: "2022-07-01T07:00:00.000Z"
-breaking: false
+date: "2022-07-01"
 ---
 
 Application [command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) of type `STRING` now includes optional `min_length` and `max_length` fields to control the length of text a user can input.

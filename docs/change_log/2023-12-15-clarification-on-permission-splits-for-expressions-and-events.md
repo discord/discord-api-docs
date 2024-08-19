@@ -1,7 +1,6 @@
 ---
 title: "Clarification on Permission Splits for Expressions and Events"
-date: "2023-12-15T08:00:00.000Z"
-breaking: false
+date: "2023-12-15"
 ---
 
 > info

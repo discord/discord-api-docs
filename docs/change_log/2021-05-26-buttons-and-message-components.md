@@ -1,7 +1,6 @@
 ---
 title: "Buttons and Message Components"
-date: "2021-05-26T07:00:00.000Z"
-breaking: false
+date: "2021-05-26"
 ---
 
 Message components are now available with our first two components: a layout-based `ActionRow` and...buttons!

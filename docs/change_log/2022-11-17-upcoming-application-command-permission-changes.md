@@ -1,6 +1,6 @@
 ---
 title: "Upcoming Application Command Permission Changes"
-date: "2022-11-17T08:00:00.000Z"
+date: "2022-11-17"
 breaking: true
 ---
 

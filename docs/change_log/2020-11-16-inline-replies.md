@@ -1,7 +1,6 @@
 ---
 title: "Inline Replies"
-date: "2020-11-16T08:00:00.000Z"
-breaking: false
+date: "2020-11-16"
 ---
 
 Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:

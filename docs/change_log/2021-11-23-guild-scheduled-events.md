@@ -1,7 +1,6 @@
 ---
 title: "Guild Scheduled Events"
-date: "2021-11-23T08:00:00.000Z"
-breaking: false
+date: "2021-11-23"
 ---
 
 * Add official support for `guild_scheduled_events` field on `Guild` resource sent with `GUILD_CREATE` event

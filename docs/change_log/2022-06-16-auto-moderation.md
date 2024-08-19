@@ -1,7 +1,6 @@
 ---
 title: "Auto Moderation"
-date: "2022-06-16T07:00:00.000Z"
-breaking: false
+date: "2022-06-16"
 ---
 
 Add new [Auto Moderation feature](#DOCS_RESOURCES_AUTO_MODERATION) which enables guilds to moderate message content based on keywords, harmful links, and unwanted spam. This change includes:

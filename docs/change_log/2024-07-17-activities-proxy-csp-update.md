@@ -1,6 +1,6 @@
 ---
 title: "Activities Proxy CSP Update"
-date: "2024-07-17T07:00:00.000Z"
+date: "2024-07-17"
 breaking: true
 ---
 

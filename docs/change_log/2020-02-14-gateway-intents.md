@@ -1,7 +1,6 @@
 ---
 title: "Gateway Intents"
-date: "2020-02-14T08:00:00.000Z"
-breaking: false
+date: "2020-02-14"
 ---
 
 We've added documentation around a brand new feature: [Gateway Intents!](#DOCS_TOPICS_GATEWAY/gateway-intents) Gateway Intents are a great way to specify which events you want to receive from our gateway. Go on, save yourself some bandwidth and CPU usage.

@@ -1,7 +1,6 @@
 ---
 title: "Message Forwarding rollout"
-date: "2024-07-15T07:00:00.000Z"
-breaking: false
+date: "2024-07-15"
 ---
 
 We are slowly rolling out the message forwarding feature to users. This feature allows callers to create a message using `message_reference.type = FORWARD` and have the API generate a `message_snapshot` for the sent message. The feature has [some limitations](#DOCS_RESOURCES_MESSAGE/message-reference-types) and the snapshot is a minimal version of a standard `MessageObject`, but does capture the core parts of a message.

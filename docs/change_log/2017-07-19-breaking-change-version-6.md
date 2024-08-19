@@ -1,6 +1,6 @@
 ---
 title: "Breaking Change: Version 6"
-date: "2017-07-19T07:00:00.000Z"
+date: "2017-07-19"
 breaking: true
 ---
 

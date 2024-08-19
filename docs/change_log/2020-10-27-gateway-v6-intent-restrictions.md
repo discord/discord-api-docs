@@ -1,7 +1,6 @@
 ---
 title: "Gateway v6 Intent Restrictions"
-date: "2020-10-27T07:00:00.000Z"
-breaking: false
+date: "2020-10-27"
 ---
 
 The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) for further details.

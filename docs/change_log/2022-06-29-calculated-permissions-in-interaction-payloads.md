@@ -1,7 +1,6 @@
 ---
 title: "Calculated Permissions in Interaction Payloads"
-date: "2022-06-29T07:00:00.000Z"
-breaking: false
+date: "2022-06-29"
 ---
 
 Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any channel overwrites). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).

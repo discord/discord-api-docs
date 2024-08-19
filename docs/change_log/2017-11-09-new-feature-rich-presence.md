@@ -1,7 +1,6 @@
 ---
 title: "New Feature: Rich Presence"
-date: "2017-11-09T08:00:00.000Z"
-breaking: false
+date: "2017-11-09"
 ---
 
 Rich Presence is now live and available for all developers! Rich Presence allows developers to closely integrate with Discord in a number of new, cool ways like:

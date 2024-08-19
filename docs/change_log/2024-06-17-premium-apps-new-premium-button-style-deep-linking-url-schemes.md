@@ -1,7 +1,6 @@
 ---
 title: "Premium Apps: New Premium Button Style & Deep Linking URL Schemes"
-date: "2024-06-17T07:00:00.000Z"
-breaking: false
+date: "2024-06-17"
 ---
 
 **New Premium Button Style**

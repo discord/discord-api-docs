@@ -1,7 +1,6 @@
 ---
 title: "Premium App Subscriptions: New Ways for Testing App Subscriptions"
-date: "2023-11-29T08:00:00.000Z"
-breaking: false
+date: "2023-11-29"
 topics:
 - "Premium Apps"
 ---

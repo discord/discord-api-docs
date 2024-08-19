@@ -1,7 +1,6 @@
 ---
 title: "User-Installable Apps Preview"
-date: "2024-03-18T07:00:00.000Z"
-breaking: false
+date: "2024-03-18"
 topics:
 - "User Apps"
 ---

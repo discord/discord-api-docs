@@ -1,7 +1,6 @@
 ---
 title: "GameSDK Version 2.5.5"
-date: "2019-11-14T08:00:00.000Z"
-breaking: false
+date: "2019-11-14"
 ---
 
 We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#setuserachievement) method.

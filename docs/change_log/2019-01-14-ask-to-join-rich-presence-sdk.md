@@ -1,7 +1,6 @@
 ---
 title: "Ask to Join & Rich Presence SDK"
-date: "2019-01-14T08:00:00.000Z"
-breaking: false
+date: "2019-01-14"
 ---
 
 Ask to Join no longer requires approval or whitelisting to use. You are welcome to create in-game UI, but all Ask to Join requests are also now handled by the Discord overlay.

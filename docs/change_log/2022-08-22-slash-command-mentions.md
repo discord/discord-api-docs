@@ -1,7 +1,6 @@
 ---
 title: "Slash Command Mentions"
-date: "2022-08-22T07:00:00.000Z"
-breaking: false
+date: "2022-08-22"
 ---
 
 This week, [Slash Command mentions](#DOCS_REFERENCE/message-formatting) are rolling out across all Discord clients (for Android, mentions are limited to the [React Native client](https://discord.com/blog/android-react-native-framework-update)). Clicking a Slash Command mention will auto-populate the command in the user's message input.

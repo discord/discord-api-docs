@@ -1,7 +1,6 @@
 ---
 title: "Guild Member Timeouts"
-date: "2021-12-20T08:00:00.000Z"
-breaking: false
+date: "2021-12-20"
 ---
 
 Add new documentation for the recently released guild member timeout feature.

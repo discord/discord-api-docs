@@ -1,7 +1,6 @@
 ---
 title: "Premium App Subscriptions Now Available in the EU and UK"
-date: "2023-10-19T07:00:00.000Z"
-breaking: false
+date: "2023-10-19"
 topics:
 - "Premium Apps"
 ---

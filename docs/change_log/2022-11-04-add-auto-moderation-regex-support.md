@@ -1,7 +1,6 @@
 ---
 title: "Add Auto Moderation Regex Support"
-date: "2022-11-04T07:00:00.000Z"
-breaking: false
+date: "2022-11-04"
 ---
 
 Auto Moderation rules with [trigger\_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) `KEYWORD` now support

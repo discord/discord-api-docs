@@ -1,7 +1,6 @@
 ---
 title: "Forum Channels Release"
-date: "2022-09-14T07:00:00.000Z"
-breaking: false
+date: "2022-09-14"
 ---
 
 Forum channels ([`GUILD_FORUM` or `15`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)) have been released to all community servers. `GUILD_FORUM` channels are a new channel type that only supports threads, which display differently than in text (`GUILD_TEXT`) channels.

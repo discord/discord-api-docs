@@ -1,6 +1,6 @@
 ---
 title: "Semi-Breaking Change: Very Large Bot Sharding"
-date: "2018-01-03T08:00:00.000Z"
+date: "2018-01-03"
 breaking: true
 ---
 

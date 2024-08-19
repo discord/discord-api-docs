@@ -1,7 +1,6 @@
 ---
 title: "Delete Ephemeral Messages"
-date: "2022-10-20T07:00:00.000Z"
-breaking: false
+date: "2022-10-20"
 ---
 
 Ephemeral interaction responses and follow-ups can now be deleted with a valid interaction token using the following endpoints:

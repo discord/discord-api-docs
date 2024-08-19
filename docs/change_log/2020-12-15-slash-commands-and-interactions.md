@@ -1,7 +1,6 @@
 ---
 title: "Slash Commands and Interactions"
-date: "2020-12-15T08:00:00.000Z"
-breaking: false
+date: "2020-12-15"
 ---
 
 Slash Commands are here! There's a *lot* to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/).

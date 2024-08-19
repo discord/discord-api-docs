@@ -1,6 +1,6 @@
 ---
 title: "Breaking Change: Default Channels"
-date: "2017-08-03T07:00:00.000Z"
+date: "2017-08-03"
 breaking: true
 ---
 

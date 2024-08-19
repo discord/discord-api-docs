@@ -1,6 +1,6 @@
 ---
 title: "Updated Command Permissions"
-date: "2022-04-27T07:00:00.000Z"
+date: "2022-04-27"
 breaking: true
 ---
 

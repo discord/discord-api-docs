@@ -1,6 +1,6 @@
 ---
 title: "Add Subcommand Groups and Subcommands to Message Interaction Objects"
-date: "2022-07-01T07:00:00.000Z"
+date: "2022-07-01"
 breaking: true
 ---
 

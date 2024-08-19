@@ -1,7 +1,6 @@
 ---
 title: "Global Rate Limit added to discordapp.com/*"
-date: "2023-10-17T07:00:00.000Z"
-breaking: false
+date: "2023-10-17"
 ---
 
 We have added a global rate limit for API requests made to `discordapp.com/*` and may further restrict requests in the future.

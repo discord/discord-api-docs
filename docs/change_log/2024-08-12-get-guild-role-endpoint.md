@@ -1,7 +1,6 @@
 ---
 title: "Get Guild Role Endpoint"
-date: "2024-08-12T07:00:00.000Z"
-breaking: false
+date: "2024-08-12"
 topics:
 - "HTTP API"
 ---

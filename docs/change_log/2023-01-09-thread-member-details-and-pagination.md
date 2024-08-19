@@ -1,6 +1,6 @@
 ---
 title: "Thread Member Details and Pagination"
-date: "2023-01-09T08:00:00.000Z"
+date: "2023-01-09"
 breaking: true
 ---
 

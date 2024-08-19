@@ -1,7 +1,6 @@
 ---
 title: "User App Install Count"
-date: "2024-08-09T07:00:00.000Z"
-breaking: false
+date: "2024-08-09"
 topics:
 - "User Apps"
 ---

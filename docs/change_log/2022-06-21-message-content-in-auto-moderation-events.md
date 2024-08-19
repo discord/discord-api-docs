@@ -1,6 +1,6 @@
 ---
 title: "Message Content in Auto Moderation events"
-date: "2022-06-21T07:00:00.000Z"
+date: "2022-06-21"
 breaking: true
 ---
 

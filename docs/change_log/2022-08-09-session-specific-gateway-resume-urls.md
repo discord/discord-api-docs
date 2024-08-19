@@ -1,7 +1,6 @@
 ---
 title: "Session-specific Gateway Resume URLs"
-date: "2022-08-09T07:00:00.000Z"
-breaking: false
+date: "2022-08-09"
 ---
 
 > warn

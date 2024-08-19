@@ -1,7 +1,6 @@
 ---
 title: "New GUILD_MEDIA channel type"
-date: "2023-08-01T07:00:00.000Z"
-breaking: false
+date: "2023-08-01"
 ---
 
 * Add the [`GUILD_MEDIA` (16) channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types). `GUILD_MEDIA` channels only support threads, similar to `GUILD_FORUM` channels.

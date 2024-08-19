@@ -1,7 +1,6 @@
 ---
 title: "Voice Gateway Version 8 and Deprecation of Versions < 4"
-date: "2024-08-13T07:00:00.000Z"
-breaking: false
+date: "2024-08-13"
 topics:
 - "Gateway"
 - "Voice"

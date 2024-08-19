@@ -1,6 +1,6 @@
 ---
 title: "User-Installed Apps General Availability"
-date: "2024-06-27T07:00:00.000Z"
+date: "2024-06-27"
 breaking: true
 ---
 

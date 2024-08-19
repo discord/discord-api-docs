@@ -1,7 +1,6 @@
 ---
 title: "Unique usernames on Discord"
-date: "2023-05-03T07:00:00.000Z"
-breaking: false
+date: "2023-05-03"
 ---
 
 > warn

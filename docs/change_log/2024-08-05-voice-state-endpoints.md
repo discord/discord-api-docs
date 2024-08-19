@@ -1,7 +1,6 @@
 ---
 title: "Voice State Endpoints"
-date: "2024-08-05T07:00:00.000Z"
-breaking: false
+date: "2024-08-05"
 topics:
 - "Voice"
 - "HTTP API"

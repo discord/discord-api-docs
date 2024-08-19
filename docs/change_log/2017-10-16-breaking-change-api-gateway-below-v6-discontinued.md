@@ -1,6 +1,6 @@
 ---
 title: "Breaking Change: API & Gateway Below v6 Discontinued"
-date: "2017-10-16T07:00:00.000Z"
+date: "2017-10-16"
 breaking: true
 ---
 

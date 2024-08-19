@@ -1,7 +1,6 @@
 ---
 title: "CSV Export for Premium App Analytics"
-date: "2024-04-02T07:00:00.000Z"
-breaking: false
+date: "2024-04-02"
 ---
 
 For apps with [Monetization](#DOCS_MONETIZATION_OVERVIEW) enabled, we have released the ability to export your SKU analytics to CSV. These exports allow you to use your preferred data tools to report on your premium offerings.

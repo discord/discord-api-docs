@@ -1,7 +1,6 @@
 ---
 title: "Add Application Connections Metadata and Linked Roles"
-date: "2022-12-12T08:00:00.000Z"
-breaking: false
+date: "2022-12-12"
 ---
 
 Introducing [linked roles](https://discord.com/blog/connected-accounts-functionality-boost-linked-roles) as well as the ability for all developers to set up their own linked roles with an application. This includes:

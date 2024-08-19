@@ -1,7 +1,6 @@
 ---
 title: "Changes to Slash Command Response Types and Flags"
-date: "2021-03-05T08:00:00.000Z"
-breaking: false
+date: "2021-03-05"
 ---
 
 Changes to interaction response types have been made to support better designs for application commands:

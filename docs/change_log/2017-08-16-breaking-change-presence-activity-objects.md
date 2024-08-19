@@ -1,6 +1,6 @@
 ---
 title: "Breaking Change: Presence Activity Objects"
-date: "2017-08-16T07:00:00.000Z"
+date: "2017-08-16"
 breaking: true
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: "New Invite Events and Reactions Endpoint"
-date: "2020-03-02T08:00:00.000Z"
-breaking: false
+date: "2020-03-02"
 ---
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:

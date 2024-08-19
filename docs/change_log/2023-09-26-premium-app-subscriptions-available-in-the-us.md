@@ -1,7 +1,6 @@
 ---
 title: "Premium App Subscriptions Available in the US"
-date: "2023-09-26T07:00:00.000Z"
-breaking: false
+date: "2023-09-26"
 topics:
 - "Premium Apps"
 ---

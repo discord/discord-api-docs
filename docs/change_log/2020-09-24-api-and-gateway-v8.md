@@ -1,7 +1,6 @@
 ---
 title: "API and Gateway V8"
-date: "2020-09-24T07:00:00.000Z"
-breaking: false
+date: "2020-09-24"
 ---
 
 We've introduced API and Gateway v8! Changes are noted throughout the documentation, and you can also read [this commit in our docs repo](https://github.com/discord/discord-api-docs/commit/545ff4a7883e5eee7ee91d19a5e5d760a0730033) for a full diff.

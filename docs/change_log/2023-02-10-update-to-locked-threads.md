@@ -1,7 +1,6 @@
 ---
 title: "Update to Locked Threads"
-date: "2023-02-10T08:00:00.000Z"
-breaking: false
+date: "2023-02-10"
 ---
 
 ### Upcoming Changes

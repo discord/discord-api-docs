@@ -1,6 +1,6 @@
 ---
 title: "Changes to Bot Permissions for Interactions and Webhooks"
-date: "2022-06-29T07:00:00.000Z"
+date: "2022-06-29"
 breaking: true
 ---
 

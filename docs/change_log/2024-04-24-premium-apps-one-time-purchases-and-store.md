@@ -1,7 +1,6 @@
 ---
 title: "Premium Apps: One-Time Purchases and Store"
-date: "2024-04-24T07:00:00.000Z"
-breaking: false
+date: "2024-04-24"
 ---
 
 Two new features are now available for Premium Apps: One-Time Purchases and Stores.

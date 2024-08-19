@@ -1,7 +1,6 @@
 ---
 title: "Updated Thread Permissions"
-date: "2021-09-16T07:00:00.000Z"
-breaking: false
+date: "2021-09-16"
 ---
 
 Thread permissions have been updated and simplified:

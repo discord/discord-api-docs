@@ -1,7 +1,6 @@
 ---
 title: "Application Command Permissions"
-date: "2021-04-05T07:00:00.000Z"
-breaking: false
+date: "2021-04-05"
 ---
 
 Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands now support [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions)!
