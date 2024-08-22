@@ -12,25 +12,25 @@ Application commands are native ways to interact with apps in the Discord client
 
 ###### Application Command Structure
 
-| Field                      | Type                                                                                                                                           | Description                                                                                                                                                                                                                                                                         | Valid Types         |
-|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| id                         | snowflake                                                                                                                                      | Unique ID of command                                                                                                                                                                                                                                                                | all                 |
-| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                                                                                                                                    | all                 |
-| application_id             | snowflake                                                                                                                                      | ID of the parent application                                                                                                                                                                                                                                                        | all                 |
-| guild_id?                  | snowflake                                                                                                                                      | Guild ID of the command, if not global                                                                                                                                                                                                                                              | all                 |
-| name                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                                                                                                                   | all                 |
-| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                                                                                                                                             | all                 |
-| description                | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                                                                                                                                                                             | all                 |
-| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`                                                                                                                                                                               | all                 |
-| options? \*                | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command, max of 25                                                                                                                                                                                                                                               | CHAT_INPUT          |
-| default_member_permissions | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                                                                                                             | all                 |
-| dm_permission?             | boolean                                                                                                                                        | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                                                                                                       | all                 |
-| default_permission?        | ?boolean                                                                                                                                       | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                                                                                                                  | all                 |
-| nsfw?                      | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands), defaults to `false`                                                                                                                                              | all                 |
-| integration_types?         | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                                      | [Installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available, only for globally-scoped commands. Defaults to your app's [configured contexts](#DOCS_RESOURCES_APPLICATION/installation-context/setting-supported-installation-contexts) | all                 |
-| contexts?                  | ?list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)                 | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands.                           | all                 |
-| version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                                       | all                 |
-| handler                    | one of [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/handler-types)                                                                   | Determines whether the interaction is handled by the app's interactions handler or by Discord                                                                                                                                                                                       | PRIMARY_ENTRY_POINT |
+| Field                      | Type                                                                                                                                 | Description                                                                                                                                                                                                                                                                         | Valid Types         |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
+| id                         | snowflake                                                                                                                            | Unique ID of command                                                                                                                                                                                                                                                                | all                 |
+| type?                      | one of [command types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                 | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                                                                                                                                    | all                 |
+| application_id             | snowflake                                                                                                                            | ID of the parent application                                                                                                                                                                                                                                                        | all                 |
+| guild_id?                  | snowflake                                                                                                                            | Guild ID of the command, if not global                                                                                                                                                                                                                                              | all                 |
+| name                       | string                                                                                                                               | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                                                                                                                                   | all                 |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                                                                                                                                             | all                 |
+| description                | string                                                                                                                               | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                                                                                                                                                                             | all                 |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                | Localization dictionary for `description` field. Values follow the same restrictions as `description`                                                                                                                                                                               | all                 |
+| options? \*                | array of [command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)  | Parameters for the command, max of 25                                                                                                                                                                                                                                               | CHAT_INPUT          |
+| default_member_permissions | ?string                                                                                                                              | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                                                                                                                                             | all                 |
+| dm_permission?             | boolean                                                                                                                              | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                                                                                                       | all                 |
+| default_permission?        | ?boolean                                                                                                                             | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                                                                                                                  | all                 |
+| nsfw?                      | boolean                                                                                                                              | Indicates whether the command is [age-restricted](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/agerestricted-commands), defaults to `false`                                                                                                                                              | all                 |
+| integration_types?         | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                            | [Installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available, only for globally-scoped commands. Defaults to your app's [configured contexts](#DOCS_RESOURCES_APPLICATION/installation-context/setting-supported-installation-contexts) | all                 |
+| contexts?                  | ?list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)       | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands.                           | all                 |
+| version                    | snowflake                                                                                                                            | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                                       | all                 |
+| handler?                   | one of [command handler types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-handler-types) | Determines whether the interaction is handled by the app's interactions handler or by Discord                                                                                                                                                                                       | PRIMARY_ENTRY_POINT |
 
 \* `options` can only be set for application commands of type `CHAT_INPUT`.
 
@@ -41,12 +41,12 @@ Application commands are native ways to interact with apps in the Discord client
 
 ###### Application Command Types
 
-| Name       | Type | Description                                                               |
-|------------|------|---------------------------------------------------------------------------|
-| CHAT_INPUT | 1    | Slash commands; a text-based command that shows up when a user types `/`  |
-| USER       | 2    | A UI-based command that shows up when you right click or tap on a user    |
-| MESSAGE    | 3    | A UI-based command that shows up when you right click or tap on a message |
-| PRIMARY_ENTRY_POINT | 4 | A UI-based command that represents the primary way to use an App (e.g. launching an activity)
+| Name                | Type | Description                                                                             |
+|---------------------|------|-----------------------------------------------------------------------------------------|
+| CHAT_INPUT          | 1    | Slash commands; a text-based command that shows up when a user types `/`                |
+| USER                | 2    | A UI-based command that shows up when you right click or tap on a user                  |
+| MESSAGE             | 3    | A UI-based command that shows up when you right click or tap on a message               |
+| PRIMARY_ENTRY_POINT | 4    | A UI-based command that represents the primary way to invoke an app's [Activity](#TODO) |
 
 ###### Application Command Option Structure
 
@@ -104,17 +104,16 @@ Application commands are native ways to interact with apps in the Discord client
 | name_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name` |
 | value               | string, integer, or double \*                                         | Value for the choice, up to 100 characters if string                                        |
 
-\* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
+\* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types) that the choice belongs to.
 
-###### Handler Types
-| Name                    | Value | Note                                                                                                                                                      |
-|-------------------------|-------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| APP_HANDLER             | 1     | The app handles the interaction                                                                                                                           |
-| DISCORD_LAUNCH_ACTIVITY | 2     | Discord handles the interaction by launching an Activity and sending a follow-up message in chat without coordinating with the app's interactions handler |
+###### Entry Point Command Handler Types
 
-Use `APP_HANDLER` to get an interaction token when launching an activity. The interaction token can be used for other features like sending custom follow-up messages in chat. The app can decide when and if to use the interaction token.
+| Name                    | Value | Note                                                                                                                       |
+|-------------------------|-------|----------------------------------------------------------------------------------------------------------------------------|
+| APP_HANDLER             | 1     | The app handles the interaction using an interaction token                                                                 |
+| DISCORD_LAUNCH_ACTIVITY | 2     | Discord handles the interaction by launching an Activity and sending a follow-up message without coordinating with the app |
 
-Use `DISCORD_LAUNCH_ACTIVITY` for the simplest setup without an interactions handler. Discord will provide the content of the follow-up message and determine when to send the message.
+Details about Entry Point command handler types are in the [Entry Point handlers](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/#entry-point-handlers) section.
 
 ## Authorizing Your Application
 
@@ -302,9 +301,6 @@ Command permissions can be updated with the [`PUT /applications/{application.id}
 - Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
 
 ### Syncing and Unsyncing Permissions
-
-> warn
-> This section only applies to the current permissions configuration behavior. It does not apply to guilds that are migrated to the new permissions configuration behavior (starting on December 16, 2022). Read more [in the changelog](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes).
 
 The command permissions interface can be accessed in the client by navigating to `Server Settings` > `Integrations`, then clicking `Manage` to the right of an installed app. At the top of the interface, users can edit permissions for a specific user, role, or channel. By default, these top-level permissions will apply to all of an app's commands. However, each permission can also be unsynced and customized for individual commands to provide more granular control.
 
@@ -966,6 +962,29 @@ When someone uses a message command, your application will receive an interactio
     "version": 1
 }
 ```
+
+## Entry Point Commands
+
+An app's Entry Point command is a [slash command](#TODO) that serves as the primary way for users to open the app's [Activity](#TODO) from the [App Launcher](https://support.discord.com/hc/articles/21334461140375-Using-Apps-on-Discord#h_01HRQSA6C8TRHS722P1H3HW1TV). 
+
+For the Entry Point command to be visible to users, the app must have Activities enabled. You can read about enabling Activities in the [Activity documentation](#TODO).
+
+TODO: asset
+
+
+
+### Entry Point handlers
+
+When a user invokes an app's Entry Point command, the value of [`handler`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) will determine how the interaction is handled:
+
+- For `APP_HANDLER` (type `1`), the app is responsible for [responding the the interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction). It can respond by launching the app's associated Activity using the `LAUNCH_ACTIVITY` (type `12`) [interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/#interaction-response-object-interaction-callback-type), or take another action (like sending a follow-up message in channel).
+- For `DISCORD_LAUNCH_ACTIVITY` (type `2`), Discord will handle the interaction automatically by launching the associated Activity and sending a follow-up message to the channel where the Activity was launched. TODO: does this encompass everything?
+
+### Default Entry Point command
+
+When [you enable Activities](#TODO), an Entry Point command called "Launch" is automatically created for your app with the [`DISCORD_LAUNCH_ACTIVITY` handler](#TODO). 
+
+
 
 ## Autocomplete
 

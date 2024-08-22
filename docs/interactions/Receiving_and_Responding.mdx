@@ -212,7 +212,7 @@ There are a number of ways you can respond to an interaction:
 | Name                                    | Value | Description                                                                                                                                                                                            |
 |-----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | PONG                                    | 1     | ACK a `Ping`                                                                                                                                                                                           |
-| CHANNEL_MESSAGE_WITH_SOURCE        '\   | 4     | respond to an interaction with a message                                                                                                                                                               |
+| CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                                                                                                               |
 | DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                                                                                                            |
 | DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state                                                                                          |
 | UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                                                                                                         |
@@ -227,7 +227,7 @@ There are a number of ways you can respond to an interaction:
 
 \*\*\* This response type is deprecated. Learn more about [migrating to premium buttons](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions). `PREMIUM_REQUIRED` response type is not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
 
-\*\*\*\* Requires the application to have enable Activities. [Learn more about building Activities on Discord](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/overview).
+\*\*\*\* Only available when an app has enabled Activities. [Learn more about building Activities](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/overview).
 
 ###### Interaction Callback Data Structure
 
