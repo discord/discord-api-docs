@@ -30,7 +30,7 @@ Application commands are native ways to interact with apps in the Discord client
 | integration_types?         | list of [integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types)                            | [Installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) where the command is available, only for globally-scoped commands. Defaults to your app's [configured contexts](#DOCS_RESOURCES_APPLICATION/installation-context/setting-supported-installation-contexts) | all                 |
 | contexts?                  | ?list of [interaction context types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types)       | [Interaction context(s)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands. By default, all interaction context types included for new commands.                           | all                 |
 | version                    | snowflake                                                                                                                            | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                                       | all                 |
-| handler?                   | one of [command handler types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-handler-types) | Determines whether the interaction is handled by the app's interactions handler or by Discord                                                                                                                                                                                       | PRIMARY_ENTRY_POINT |
+| handler?                   | one of [command handler types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types) | Determines whether the interaction is handled by the app's interactions handler or by Discord                                                                                                                                                                                       | PRIMARY_ENTRY_POINT |
 
 \* `options` can only be set for application commands of type `CHAT_INPUT`.
 
@@ -104,7 +104,7 @@ Application commands are native ways to interact with apps in the Discord client
 | name_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name` |
 | value               | string, integer, or double \*                                         | Value for the choice, up to 100 characters if string                                        |
 
-\* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types) that the choice belongs to.
+\* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
 ###### Entry Point Command Handler Types
 
@@ -113,7 +113,7 @@ Application commands are native ways to interact with apps in the Discord client
 | APP_HANDLER             | 1     | The app handles the interaction using an interaction token                                                                 |
 | DISCORD_LAUNCH_ACTIVITY | 2     | Discord handles the interaction by launching an Activity and sending a follow-up message without coordinating with the app |
 
-Details about Entry Point command handler types are in the [Entry Point handlers](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/#entry-point-handlers) section.
+Details about Entry Point command handler types are in the [Entry Point handlers](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers) section.
 
 ## Authorizing Your Application
 
@@ -971,7 +971,9 @@ For the Entry Point command to be visible to users, the app must have Activities
 
 TODO: asset
 
+TODO: global
 
+TODO: user-installable
 
 ### Entry Point handlers
 
@@ -982,9 +984,9 @@ When a user invokes an app's Entry Point command, the value of [`handler`](#DOCS
 
 ### Default Entry Point command
 
-When [you enable Activities](#TODO), an Entry Point command called "Launch" is automatically created for your app with the [`DISCORD_LAUNCH_ACTIVITY` handler](#TODO). 
+When [you enable Activities](#TODO), an Entry Point command called "Launch" is automatically created for your app with  `DISCORD_LAUNCH_ACTIVITY` (type `2`) set as the [Entry Point handler](#TODO). You can retrieve details, like the command ID, for the automatically-created Entry Point command calling the [Get Global Application Commands](##DOCS_INTERACTIONS_APPLICATION_COMMANDS/#get-global-application-commands) endpoint and looking for the "Launch" command.
 
-
+TODO: updating? or just link to guide.
 
 ## Autocomplete
 

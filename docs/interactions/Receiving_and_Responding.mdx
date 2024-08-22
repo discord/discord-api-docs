@@ -340,7 +340,7 @@ r = requests.post(url, json=json)
 | Field                | Type                                                                                                                                                  | Description                                                                                                                    |
 |----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | type                 | integer                                                                                                                                               | [Interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) |
-| activity_instance?\* | [Activity instance resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-activity-instance-resource) | Represents the activity launched by this interaction.                                                                          |
+| activity_instance?\* | [Activity instance resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-activity-instance-resource) | Represents the Activity launched by this interaction.                                                                          |
 | message?\*\*         | [message object](#DOCS_RESOURCES_MESSAGE/message-object)                                                                                              | Message created by the interaction.                                                                                            |
 
 \* Only present if type is `LAUNCH_ACTIVITY`.
@@ -351,7 +351,7 @@ r = requests.post(url, json=json)
 
 | Field | Type   | Description                                                |
 |-------|--------|------------------------------------------------------------|
-| id    | string | Instance ID of the activity if one was launched or joined. |
+| id    | string | Instance ID of the Activity if one was launched or joined. |
 
 
 ## Followup Messages
