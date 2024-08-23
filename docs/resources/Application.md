@@ -258,7 +258,7 @@ Returns a serialized activity instance, if it exists. Useful for [preventing unw
 ###### Activity Instance Object
 
 | Field          | Type                                                                                                        | Description                                                                              |
-| ---------------|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+|----------------|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
 | application_id | snowflake                                                                                                   | [Application](#DOCS_RESOURCES_APPLICATION/application-object) ID                         |
 | instance_id    | string                                                                                                      | Activity [Instance](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/activity-instance-management) ID |
 | launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                         |
@@ -271,12 +271,12 @@ Returns a serialized activity instance, if it exists. Useful for [preventing unw
 
 The Activity Location is an object that describes the location in which an activity instance is running.
 
-| Field      | Description
-|------------|----------------------
-| id         | The unique identifier for the location
-| kind       | [Activity Location Kind Enum](#DOCS_RESOURCES_APPLICATION/get-application-activity-instance-activity-location-kind-enum)
-| channel_id | The id of the [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)
-| guild_id?  | The id of the [Guild](#DOCS_RESOURCES_GUILD/guild-object)
+| Field      | Description                                                                                                              |
+|------------|--------------------------------------------------------------------------------------------------------------------------|
+| id         | The unique identifier for the location                                                                                   |
+| kind       | [Activity Location Kind Enum](#DOCS_RESOURCES_APPLICATION/get-application-activity-instance-activity-location-kind-enum) |
+| channel_id | The id of the [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                          |
+| guild_id?  | The id of the [Guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                |
 
 ###### Activity Location Kind Enum
 
