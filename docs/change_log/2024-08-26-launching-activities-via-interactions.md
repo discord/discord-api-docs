@@ -1,6 +1,6 @@
 ---
 title: "Launching Activities via Interactions"
-date: "2024-08-13"
+date: "2024-08-26"
 topics:
 - "Embedded App SDK"
 - "Activities"
