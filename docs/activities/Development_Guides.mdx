@@ -837,13 +837,13 @@ Activities are surfaced through iframes in the Discord app. The activity website
 
 It is theoretically possible for a malicious client to mock Discord's RPC protocol or load one activity website when launching another. Because the activity is loaded inside Discord, the RPC protocol is active, and the activity is none the wiser.
 
-To enable an activity to "lock down" activity access, we encourage utilizing the `get_activity_instance` API, found at `discord.com/api/applications/<application_id>/activity-instance/<instance_id>'`. The route requires a Bot token of the application. It returns a serialized active activity instance for the given application, if found, otherwise it returns a 404. Here are two example responses:
+To enable an activity to "lock down" activity access, we encourage utilizing the `get_activity_instance` API, found at `discord.com/api/applications/<application_id>/activity-instances/<instance_id>'`. The route requires a Bot token of the application. It returns a serialized active activity instance for the given application, if found, otherwise it returns a 404. Here are two example responses:
 
 ```javascript
-curl https://discord.com/api/applications/1215413995645968394/activity-instance/i-1234567890-gc-912952092627435520-912954213460484116 -H 'Authorization: Bot <bot token>'
+curl https://discord.com/api/applications/1215413995645968394/activity-instances/i-1234567890-gc-912952092627435520-912954213460484116 -H 'Authorization: Bot <bot token>'
 {"message": "404: Not Found", "code": 0}
 
-curl https://discord.com/api/applications/1215413995645968394/activity-instance/i-1276580072400224306-gc-912952092627435520-912954213460484116 -H 'Authorization: Bot <bot token>'
+curl https://discord.com/api/applications/1215413995645968394/activity-instances/i-1276580072400224306-gc-912952092627435520-912954213460484116 -H 'Authorization: Bot <bot token>'
 {"application_id":"1215413995645968394","instance_id":"i-1276580072400224306-gc-912952092627435520-912954213460484116","launch_id":"1276580072400224306","location":{"id":"gc-912952092627435520-912954213460484116","kind":"gc","channel_id":"912954213460484116","guild_id":"912952092627435520"},"users":["205519959982473217"]}
 ```
 

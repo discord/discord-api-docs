@@ -233,7 +233,7 @@ Edit properties of the app associated with the requesting bot user. Only propert
 
 \*\* To update an Interactions endpoint URL via the API, the URL must be valid according to the [Receiving an Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) documentation.
 
-## Get Application Activity Instance % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/activity-instance/{instance_id}
+## Get Application Activity Instance % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/activity-instances/{instance_id}
 
 Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/preventing-unwanted-activity-sessions).
 
