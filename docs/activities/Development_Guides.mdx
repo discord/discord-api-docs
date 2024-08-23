@@ -426,9 +426,9 @@ User Experience
 
 An [Entry Point command](#TODO) is required for users to be able to launch your Activity from the [App Launcher menu](https://support.discord.com/hc/articles/21334461140375-Using-Apps-on-Discord#h_01HRQSA6C8TRHS722P1H3HW1TV) in Discord.
 
-When you enable Activities in your [app's settings](http://discord.com/developers/applications), a [default Entry Point command](#TODO) is automatically created for your app. The default Entry Point command will use the `DISCORD_LAUNCH_ACTIVITY` (type `2`) [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types), which means that Discord automatically launches your Activity for the user and posts a follow-up message into the channel where it was launched from.
+When you enable Activities in your [app's settings](http://discord.com/developers/applications), a [default Entry Point command](#TODO) is automatically created for your app. The default Entry Point command will use the `DISCORD_LAUNCH_ACTIVITY` (`2`) [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types), which means that Discord automatically launches your Activity for the user and posts a follow-up message into the channel where it was launched from.
 
-If you want to handle sending messages yourself, you can update the handler to be `APP_HANDLER` (type `1`). Details about Entry Point command handlers is in the [Entry Point command documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers).
+If you want to handle sending messages yourself, you can update the handler to be `APP_HANDLER` (`1`). Details about Entry Point command handlers is in the [Entry Point command documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers).
 
 #### Customizing Entry Point Commands
 
