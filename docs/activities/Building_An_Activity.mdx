@@ -71,27 +71,17 @@ After you create your app, you'll land on the **General Overview** page of the a
 
 Navigate to `Activities -> Getting Started` in the sidebar.
 
-Review this page and press 'Get Started' to make your app eligible for being embedded.
+Review this page and press **Get Started** to enable Activities for your app.
 
 ![Configure your Activity](activities/getting-started-activities.png)
 
-From the `Activities` section of the developer portal, you can configure:
+From the **Activities** page in your app's settings, you can customize details, settings, and assets related to your Activity. We'll come back to this page later in this guide when we are ready to set up our URL Mappings.
 
-- URL Mappings
-- Settings
-- Art Assets
+#### Entry Point Command
 
-We'll come back to this page later in this guide when we are ready to set up our URL Mappings.
+When you enable Activities for your app, a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) is the primary way for users to launch your Activity in Discord.
 
-### Register a Primary Entry Point App command
-[Register a `PRIMARY_ENTRY_POINT` app command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type). For new apps that go through the Activities-Getting-Started flow, a new app command with type `PRIMARY_ENTRY_POINT` and handler `DISCORD_LAUNCH_ACTIVITY` will automatically get created. For some apps that went through the flow during the Activities developer preview, you will need to manually register the app command.
-
-### Make Your App User Installable
-Make your app user installable, so after the user launches your activity,
-- the user will have faster access to your app
-- your app will have the ability to direct message the user.
-
-[Configure the default install settings to support user-installs](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP/default-install-settings) section. Then [request the `applications.commands` scope with the `embedded-apps-sdk`](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY/step-5-authorizing-authenticating-user).
+By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) and [development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
 
 ### Find Your OAuth2 Credentials
 
