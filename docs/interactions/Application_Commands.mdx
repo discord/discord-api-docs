@@ -46,7 +46,7 @@ Application commands are native ways to interact with apps in the Discord client
 | CHAT_INPUT          | 1    | Slash commands; a text-based command that shows up when a user types `/`                |
 | USER                | 2    | A UI-based command that shows up when you right click or tap on a user                  |
 | MESSAGE             | 3    | A UI-based command that shows up when you right click or tap on a message               |
-| PRIMARY_ENTRY_POINT | 4    | A UI-based command that represents the primary way to invoke an app's [Activity](#TODO) |
+| PRIMARY_ENTRY_POINT | 4    | A UI-based command that represents the primary way to invoke an app's [Activity](#DOCS_ACTIVITIES_OVERVIEW) |
 
 ###### Application Command Option Structure
 
@@ -462,7 +462,9 @@ Slash commands can also have groups and subcommands to further organize commands
 
 When someone uses a slash command, your application will receive an interaction:
 
-<Collapsible title="Example Interaction" description="View sample payload for Slash Command interactions" icon="code">
+###### Example Interaction
+
+<Collapsible title="Slash Command Interaction" description="View sample payload for Slash Command interactions" icon="code">
 
 ```json
 {
@@ -808,7 +810,9 @@ User commands are application commands that appear on the context menu (right cl
 
 When someone uses a user command, your application will receive an interaction:
 
-<Collapsible title="Example Interaction" description="View sample payload for User Command interactions" icon="code">
+###### Example Interaction
+
+<Collapsible title="User Command Interaction" description="View sample payload for User Command interactions" icon="code">
 
 ```json
 {
@@ -897,7 +901,9 @@ Message commands are application commands that appear on the context menu (right
 
 When someone uses a message command, your application will receive an interaction:
 
-<Collapsible title="Example Interaction" description="View sample payload for Message Command interactions" icon="code">
+###### Example Interaction
+
+<Collapsible title="Message Command Interaction" description="View sample payload for Message Command interactions" icon="code">
 
 ```json
 {
@@ -991,14 +997,14 @@ For the Entry Point command to be visible to users, an app must have [Activities
 
 When a user invokes an app's Entry Point command, the value of [`handler`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) will determine how the interaction is handled:
 
-- For `APP_HANDLER` (`1`), the app is responsible for [responding the the interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction). It can respond by launching the app's associated Activity using the `LAUNCH_ACTIVITY` (type `12`) [interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/#interaction-response-object-interaction-callback-type), or take another action (like sending a follow-up message in channel).
+- For `APP_HANDLER` (`1`), the app is responsible for [responding to the interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction). It can respond by launching the app's associated Activity using the `LAUNCH_ACTIVITY` (type `12`) [interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/#interaction-response-object-interaction-callback-type), or take another action (like sending a follow-up message in channel).
 - For `DISCORD_LAUNCH_ACTIVITY` (`2`), Discord will handle the interaction automatically by launching the associated Activity and sending a message to the channel where it was launched.
 
 ### Default Entry Point command
 
-When you enable Activities, an Entry Point command (named "Launch") is automatically created for your app with  `DISCORD_LAUNCH_ACTIVITY` (`2`) set as the [Entry Point handler](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers). You can retrieve details for the automatically-created command, like its ID, by calling the [Get Global Application Commands](##DOCS_INTERACTIONS_APPLICATION_COMMANDS/#get-global-application-commands) endpoint and looking for the "Launch" command.
+When you enable Activities, an Entry Point command (named "Launch") is automatically created for your app with  `DISCORD_LAUNCH_ACTIVITY` (`2`) set as the [Entry Point handler](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers). You can retrieve details for the automatically-created command, like its ID, by calling the [Get Global Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/#get-global-application-commands) endpoint and looking for the "Launch" command.
 
-TODO: updating? or just link to guide.
+Details about updating or replacing the default Entry Point command is in the [Setting Up an Entry Point Command guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
 
 ## Autocomplete
 

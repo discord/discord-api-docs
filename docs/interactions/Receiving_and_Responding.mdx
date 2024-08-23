@@ -319,7 +319,7 @@ r = requests.post(url, json=json)
 | Field       | Type                                                                                                                                        | Description                                                |
 |-------------|---------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                 | The interaction object associated with the                 |
-| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-resource-object) | The resource that was created by the interaction response. |
+| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response. |
 
 ###### Interaction Callback Object
 
@@ -337,7 +337,7 @@ r = requests.post(url, json=json)
 | Field                | Type                                                                                                                                                  | Description                                                                                                                    |
 |----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | type                 | integer                                                                                                                                               | [Interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) |
-| activity_instance?\* | [Activity instance resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-activity-instance-resource) | Represents the Activity launched by this interaction.                                                                          |
+| activity_instance?\* | [Activity instance resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-activity-instance-resource) | Represents the Activity launched by this interaction.                                                                          |
 | message?\*\*         | [message object](#DOCS_RESOURCES_MESSAGE/message-object)                                                                                              | Message created by the interaction.                                                                                            |
 
 \* Only present if type is `LAUNCH_ACTIVITY`.
