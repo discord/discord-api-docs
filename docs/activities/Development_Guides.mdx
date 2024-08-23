@@ -840,10 +840,10 @@ It is theoretically possible for a malicious client to mock Discord's RPC protoc
 To enable an activity to "lock down" activity access, we encourage utilizing the `get_activity_instance` API, found at `discord.com/api/applications/<application_id>/activity-instance/<instance_id>'`. The route requires a Bot token of the application. It returns a serialized active activity instance for the given application, if found, otherwise it returns a 404. Here are two example responses:
 
 ```javascript
-curl https://discord.com/api/applications/987654321987654321/instances/987654321987654321 -H 'Authorization: Bot <bot token>'
+curl https://discord.com/api/applications/987654321987654321/activity-instance/987654321987654321 -H 'Authorization: Bot <bot token>'
 {"message": "404: Not Found", "code": 0}
 
-curl https://discord.com/api/applications/987654321987654321/instances/987654321987654321 -H 'Authorization: Bot <bot token>'
+curl https://discord.com/api/applications/987654321987654321/activity-instance/987654321987654321 -H 'Authorization: Bot <bot token>'
 {"application_id":"937798149664288788","instance_id":"987654321987654321","launch_id":"987654321987654321","location":{"id":"gc-912952092627435520-912954213460484116","kind":"gc","channel_id":"912954213460484116","guild_id":"912952092627435520"},"users":["205519959982473217"]}
 ```
 
