@@ -309,6 +309,32 @@ r = requests.post(url, json=json)
 > info
 > Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
 
+### Interaction Callback Response Object
+
+###### Interaction Callback Response Structure
+
+| Field       | Type                                                                                                                                 | Description              |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| interaction | [callback interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-response-object-callback-interaction-object) | the callback interaction |
+| resource    | ?[callback resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-response-object-callback-resource-object)      | the callback resource    |
+
+###### Callback Interaction Object
+
+| Field                      | Type                                                                                                | Description                                                    |
+|----------------------------|-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| id                         | snowflake                                                                                           | the ID of the interaction                                      |
+| type                       | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | the type of the interaction                                    |
+| response_message_id        | ?snowflake                                                                                          | the ID of the created response message                         |
+| response_message_loading   | ?boolean                                                                                            | whether the response message is a `loading` message (deferred) |
+| response_message_ephemeral | ?boolean                                                                                            | whether the response message is ephemeral                      |
+
+###### Callback Resource Object
+
+| Field   | Type                                                     | Description                                                                                                                        |
+|---------|----------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| type    | integer                                                  | the [interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) |
+| message | [message](#DOCS_RESOURCES_MESSAGE/message-object) object | the created message                                                                                                                |
+
 ## Followup Messages
 
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
@@ -330,9 +356,19 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond to an i
 
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
 
-Create a response to an Interaction from the gateway. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object). Returns `204 No Content`.
+Create a response to an Interaction from the gateway. Body is an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object).
+
+If `with_response` is missing or `false`, this endpoint will return `204 No Content`.
+
+If `with_response` is set to `true`, this endpoint will return a [interaction callback response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-response-object) object on success. This will be the default behavior in API v11.
 
 This endpoint also supports file attachments similar to the webhook endpoints. Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on uploading files and `multipart/form-data` requests.
+
+###### Query String Params
+
+| Field          | Type                                             | Description                                                        | Required | Default |
+|----------------|--------------------------------------------------|--------------------------------------------------------------------|----------|---------|
+| with_response? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | when `true`, will return the created interaction callback response | false    | false   |
 
 ## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
