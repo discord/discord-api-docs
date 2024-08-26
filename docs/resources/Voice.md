@@ -1,3 +1,7 @@
+---
+sidebar_label: Voice
+---
+
 # Voice Resource
 
 ### Voice State Object

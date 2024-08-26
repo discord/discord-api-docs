@@ -1,3 +1,7 @@
+---
+sidebar_label: Invite
+---
+
 # Invite Resource
 
 ### Invite Object

@@ -1,3 +1,7 @@
+---
+sidebar_label: Overview
+---
+
 # Monetizing Your Discord App
 
 Premium Apps is a set of monetization features for apps on Discord that allows developers to:

@@ -1,3 +1,7 @@
+---
+sidebar_label: Stage Instance
+---
+
 # Stage Instance Resource
 
 A _Stage Instance_ holds information about a live stage.

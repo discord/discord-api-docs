@@ -1,3 +1,7 @@
+---
+sidebar_label: Webhook
+---
+
 # Webhook Resource
 
 Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
