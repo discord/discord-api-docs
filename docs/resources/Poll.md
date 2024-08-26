@@ -1,3 +1,7 @@
+---
+sidebar_label: Poll
+---
+
 # Poll Resource
 
 A poll is... well... a poll! It holds information about a poll!

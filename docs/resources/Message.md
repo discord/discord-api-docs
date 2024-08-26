@@ -1,3 +1,7 @@
+---
+sidebar_label: Message
+---
+
 # Messages Resource
 
 ### Message Object

@@ -1,3 +1,7 @@
+---
+sidebar_label: Sticker
+---
+
 # Sticker Resource
 
 ### Sticker Object

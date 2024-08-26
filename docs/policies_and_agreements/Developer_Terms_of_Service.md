@@ -1,3 +1,7 @@
+---
+sidebar_label: Developer Terms of Service
+---
+
 # Discord Developer Terms of Service
 
 > info
