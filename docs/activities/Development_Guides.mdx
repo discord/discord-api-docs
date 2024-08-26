@@ -32,6 +32,9 @@ These guides include suggested development practices, SDK commands, and user flo
   <Card title="Open Share Moment Dialog" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/open-share-moment-dialog">
     Open a dialog to share media from your application to a channel, DM, or GDM.
   </Card>
+  <Card title="Setting Up an Entry Point Command" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command">
+    Configure a command that allows users to open your Activity from the App Launcher.
+  </Card>
   <Card title="Encourage Hardware Acceleration" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/encourage-hardware-acceleration">
     Open a dialog to enable hardware acceleration for compute-intensive applications.
   </Card>
@@ -416,6 +419,47 @@ User Experience
 
 ![share-moment-dialog](activities/share-moment-dialog-example.png)
 
+---
+
+### Setting Up an Entry Point Command
+
+An [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) is required for users to be able to launch your Activity from the [App Launcher menu](https://support.discord.com/hc/articles/21334461140375-Using-Apps-on-Discord#h_01HRQSA6C8TRHS722P1H3HW1TV) in Discord.
+
+When you enable Activities in your [app's settings](http://discord.com/developers/applications), a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) is automatically created for your app. The default Entry Point command will use the `DISCORD_LAUNCH_ACTIVITY` (`2`) [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types), which means that Discord automatically launches your Activity for the user and posts a follow-up message into the channel where it was launched from.
+
+If you want to handle sending messages yourself, you can update the handler to be `APP_HANDLER` (`1`). Details about Entry Point command handlers is in the [Entry Point command documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers).
+
+#### Customizing the Default Entry Point Command
+
+Entry Point commands can be customized in the same way as other [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS). Since Entry Point commands can only be [global](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command), you'll use the HTTP endpoints for global  commands:
+- **Edit your existing Entry Point command's name or details** using the [Edit Global Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) endpoint. If you don't know the ID for your app's Entry Point command, use the [Get Global Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-global-application-commands) endpoint to retrieve it.
+- **Make a different (option-less) command your Entry Point command** by updating its [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types) to `PRIMARY_ENTRY_POINT` (type `4`). Your app can only have one Entry Point command, so if your app already has one, you must first [delete](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/delete-global-application-command) it or [update](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) its [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types).
+
+#### Creating an Entry Point Command
+
+To create a new Entry Point command, you can call the [Create Global Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command) endpoint and set the [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types) to `PRIMARY_ENTRY_POINT` (type `4`).
+
+Your command payload may look something like this:
+
+```json
+{
+  "name": "launch",
+  "description": "Launch Realms of Wumpus",
+  // PRIMARY_ENTRY_POINT is type 4
+  "type": 4,
+  // DISCORD_LAUNCH_ACTIVITY is handler value 2
+  "handler": 2,
+  // integration_types and contexts define where your command can be used (see below)
+  "integration_types": [0, 1],
+  "contexts": [0, 1, 2]
+}
+```
+
+In addition to the `type` and `handler` values, the command payload includes `integration_types` and `contexts` which let you configure when and where your command can be used:
+- `integration_types` defines the [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) where your command is available (to a server, to a user's account, or both). If you don't set `integration_types` when creating a command, it will default to your app's [currently-supported installation contexts](#DOCS_RESOURCES_APPLICATION/setting-supported-installation-contexts).
+- `contexts` defines the [interaction contexts](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-context-types) where a command can be run in Discord (in a server, in a DM with your app, and/or in DMs and Group DMs with other users).
+
+Details about both of these fields are in the [command contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation.
 
 ---
 
