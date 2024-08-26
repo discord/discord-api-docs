@@ -316,9 +316,9 @@ r = requests.post(url, json=json)
 
 ###### Interaction Callback Response Object
 
-| Field       | Type                                                                                                                                        | Description                                                |
-|-------------|---------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                 | The interaction object associated with the                 |
+| Field       | Type                                                                                                                                 | Description                                                |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                          | The interaction object associated with the                 |
 | resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response. |
 
 ###### Interaction Callback Object
@@ -329,16 +329,16 @@ r = requests.post(url, json=json)
 | type                        | integer   | [Interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) |
 | activity_instance_id?       | string    | Instance ID of the Activity if one was launched or joined                                           |
 | response_message_id?        | snowflake | ID of the message that was created by the interaction                                               |
-| response_message_loading?   | boolean   | Whether or not the mesage is in a loading state                                                     |
+| response_message_loading?   | boolean   | Whether or not the message is in a loading state                                                    |
 | response_message_ephemeral? | boolean   | Whether or not the response message was ephemeral                                                   |
 
 ###### Interaction Callback Resource Object
 
-| Field                | Type                                                                                                                                                  | Description                                                                                                                    |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| type                 | integer                                                                                                                                               | [Interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) |
+| Field                | Type                                                                                                                                           | Description                                                                                                                    |
+|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| type                 | integer                                                                                                                                        | [Interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) |
 | activity_instance?\* | [Activity instance resource](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-activity-instance-resource) | Represents the Activity launched by this interaction.                                                                          |
-| message?\*\*         | [message object](#DOCS_RESOURCES_MESSAGE/message-object)                                                                                              | Message created by the interaction.                                                                                            |
+| message?\*\*         | [message object](#DOCS_RESOURCES_MESSAGE/message-object)                                                                                       | Message created by the interaction.                                                                                            |
 
 \* Only present if type is `LAUNCH_ACTIVITY`.
 

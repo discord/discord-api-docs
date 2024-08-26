@@ -433,7 +433,7 @@ If you want to handle sending messages yourself, you can update the handler to b
 
 Entry Point commands can be customized in the same way as other [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS). Since Entry Point commands can only be [global](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command), you'll use the HTTP endpoints for global  commands:
 - **Edit your existing Entry Point command's name or details** using the [Edit Global Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) endpoint. If you don't know the ID for your app's Entry Point command, use the [Get Global Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-global-application-commands) endpoint to retrieve it.
-- **Make a different command your Entry Point command** by updating its [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types) to `PRIMARY_ENTRY_POINT` (type `4`). Your app can only have one Entry Point command, so if your app already has one, you must first [delete](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/delete-global-application-command) it or [update](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) its [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types).
+- **Make a different (option-less) command your Entry Point command** by updating its [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types) to `PRIMARY_ENTRY_POINT` (type `4`). Your app can only have one Entry Point command, so if your app already has one, you must first [delete](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/delete-global-application-command) it or [update](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) its [command `type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types).
 
 #### Creating an Entry Point Command
 
@@ -447,7 +447,7 @@ Your command payload may look something like this:
   "description": "Launch Realms of Wumpus",
   // PRIMARY_ENTRY_POINT is type 4
   "type": 4,
-  // PRIMARY_ENTRY_POINT is handler value 2
+  // DISCORD_LAUNCH_ACTIVITY is handler value 2
   "handler": 2,
   // integration_types and contexts define where your command can be used (see below)
   "integration_types": [0, 1],
