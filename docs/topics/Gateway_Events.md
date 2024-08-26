@@ -363,6 +363,7 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
 | [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start)                                                     | User started typing in a channel                                                                                                               |
 | [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update)                                                       | Properties about the user changed                                                                                                              |
+| [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                     |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
@@ -1258,6 +1259,30 @@ Sent when a user starts typing in a channel.
 Sent when properties about the current bot's user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
+
+#### Voice Channel Effect Send
+
+Sent when someone sends an effect, such as an emoji reaction or a soundboard sound, in a voice channel the current user is connected to.
+
+###### Voice Channel Effect Send Event Fields
+
+| Field           | Type                                                | Description                                                                                                                                     |
+|-----------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| channel_id      | snowflake                                           | ID of the channel the effect was sent in                                                                                                        |
+| guild_id        | snowflake                                           | ID of the guild the effect was sent in                                                                                                          |
+| user_id         | snowflake                                           | ID of the user who sent the effect                                                                                                              |
+| emoji?          | ?[emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | The emoji sent, for emoji reaction and soundboard effects                                                                                       |
+| animation_type? | ?integer                                            | The [type of emoji animation](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send-animation-types), for emoji reaction and soundboard effects |
+| animation_id?   | integer                                             | The ID of the emoji animation, for emoji reaction and soundboard effects                                                                        |
+| sound_id?       | snowflake or integer                                | The ID of the soundboard sound, for soundboard effects                                                                                          |
+| sound_volume?   | double                                              | The volume of the soundboard sound, from 0 to 1, for soundboard effects                                                                         |
+
+###### Animation Types
+
+| Type    | Value | Description                                 |
+|---------|-------|---------------------------------------------|
+| PREMIUM | 0     | A fun animation, sent by a Nitro subscriber |
+| BASIC   | 1     | The standard animation                      |
 
 #### Voice State Update
 

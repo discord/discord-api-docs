@@ -1,3 +1,7 @@
+---
+sidebar_label: Building an Activity
+---
+
 # Building Your First Activity in Discord
 
 > preview
@@ -71,17 +75,17 @@ After you create your app, you'll land on the **General Overview** page of the a
 
 Navigate to `Activities -> Getting Started` in the sidebar.
 
-Review this page and press 'Get Started' to make your app eligible for being embedded.
+Review this page and press **Get Started** to enable Activities for your app.
 
 ![Configure your Activity](activities/getting-started-activities.png)
 
-From the `Activities` section of the developer portal, you can configure:
+From the **Activities** page in your app's settings, you can customize details, settings, and assets related to your Activity. We'll come back to this page later in this guide when we are ready to set up our URL Mappings.
 
-- URL Mappings
-- Settings
-- Art Assets
+#### Entry Point Command
 
-We'll come back to this page later in this guide when we are ready to set up our URL Mappings.
+When you enable Activities for your app, a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) is the primary way for users to launch your Activity in Discord.
+
+By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) and [development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
 
 ### Find Your OAuth2 Credentials
 
@@ -326,8 +330,8 @@ This diagram illustrates the common pattern for granting a user an OAuth2 access
 
 We will be implementing this pattern in this tutorial, but more example implementations can also be found in this sample project:
 
-- [Back-end code](https://github.com/discord/embedded-app-sdk/blob/main/examples/discord-embedded-app-starter/packages/server/src/app.ts)
-- [Front-end code](https://github.com/discord/embedded-app-sdk/blob/main/examples/discord-embedded-app-starter/packages/client/src/main.ts)
+- [Back-end code](https://github.com/discord/embedded-app-sdk-examples/blob/main/discord-embedded-app-starter/packages/server/src/app.ts)
+- [Front-end code](https://github.com/discord/embedded-app-sdk-examples/blob/main/discord-embedded-app-starter/packages/client/src/main.ts)
 
 </Collapsible>
 
@@ -447,6 +451,7 @@ async function setupDiscordSdk() {
     scope: [
       "identify",
       "guilds",
+      "applications.commands"
     ],
   });
 
@@ -483,7 +488,7 @@ document.querySelector('#app').innerHTML = `
 `;
 ```
 
-Now if we relaunch our app, we'll be prompted to authorize with Discord using the `identify` and `guilds` scopes.
+Now if we relaunch our app, we'll be prompted to authorize with Discord using the `identify`, `guilds`, and `applications.commands` scopes.
 
 ![Prompt to authorize Activity](activities/tutorial-auth.png)
 
@@ -615,10 +620,10 @@ This is an intentionally simple example to get you started with the communicatio
 You can now explore our more extensive [development guides](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES) and [design patterns](#DOCS_ACTIVITIES_DESIGN_PATTERNS) to consider when building your app.
 
 ### Sample projects to try out next
-- Start with a blank slate using our [Discord Activity Starter](https://github.com/discord/embedded-app-sdk/tree/main/examples/discord-activity-starter) project
-- Try out the full range of SDK features in our [Embedded App SDK Playground](https://github.com/discord/embedded-app-sdk/tree/main/examples/sdk-playground)
-- Support multiplayer & state management using our [React Colyseus](https://github.com/discord/embedded-app-sdk/tree/main/examples/react-colyseus) project
-- Learn more about working with game engines and the [Nested Messages](https://github.com/discord/embedded-app-sdk/tree/main/examples/nested-messages) project
+- Start with a blank slate using our [Discord Activity Starter](https://github.com/discord/embedded-app-sdk-examples/tree/main/discord-activity-starter) project
+- Try out the full range of SDK features in our [Embedded App SDK Playground](https://github.com/discord/embedded-app-sdk-examples/tree/main/sdk-playground)
+- Support multiplayer & state management using our [React Colyseus](https://github.com/discord/embedded-app-sdk-examples/tree/main/react-colyseus) project
+- Learn more about working with game engines and the [Nested Messages](https://github.com/discord/embedded-app-sdk-examples/tree/main/nested-messages) project
 
 ### Support & Feedback
 During this Developer Preview, you can get support and report issues:

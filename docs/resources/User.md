@@ -1,3 +1,7 @@
+---
+sidebar_label: User
+---
+
 # Users Resource
 
 Users in Discord are generally considered the base entity. Users can spawn across the entire platform, be members of

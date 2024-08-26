@@ -97,12 +97,21 @@ const validLinks = new Map<string, string[]>([
 ]);
 
 // Gather valid links
+const changelogAnchors = [];
 for (const [name, raw] of docFiles) {
   const keyName = `DOCS${name.replaceAll("/", "_").toUpperCase()}`;
   if (!validLinks.has(keyName)) {
     validLinks.set(keyName, []);
   }
   const validAnchors = validLinks.get(keyName)!;
+
+  // The changelog is unique in that each entry acts as it's own potential page,
+  // and each entry can be represented in a single page under it's own H2.
+  // This collects all potential change-log pages, and adds them to the list of
+  // available anchors under `/change_log`.
+  if (name.startsWith("/change_log/")) {
+    changelogAnchors.push(name.split("/")[2].slice(11));
+  }
 
   let parentAnchor = "";
   let multilineCode = false;
@@ -126,6 +135,9 @@ for (const [name, raw] of docFiles) {
     validAnchors.push(`${parentAnchor}${anchor}`);
   }
 }
+
+// Add changelog anchors to the list of valid links
+validLinks.get("DOCS_CHANGE_LOG")?.push(...changelogAnchors);
 
 const results = new Map<string, github.AnnotationProperties[]>();
 

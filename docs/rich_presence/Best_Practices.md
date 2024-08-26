@@ -1,3 +1,7 @@
+---
+sidebar_label: Best Practices
+---
+
 # Best Practices for Rich Presence
 
 Rich Presence lets you display actionable data in a Discord user's profile about what they're up to in your game or app. This guide is intended to show some best practices on how to make that data the best it can be.
