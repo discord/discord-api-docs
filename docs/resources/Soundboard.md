@@ -1,6 +1,6 @@
 # Soundboard Resource
 
-Users can play soundboard sounds in voice channels, triggering a Voice Channel Effect Send Gateway event for users connected to the voice channel.
+Users can play soundboard sounds in voice channels, triggering a [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event for users connected to the voice channel.
 
 There is a set of [default sounds](#DOCS_RESOURCES_SOUNDBOARD/list-default-soundboard-sounds) available to all users. Soundboard sounds can also be [created in a guild](#DOCS_RESOURCES_SOUNDBOARD/create-guild-soundboard-sound); users will be able to use the sounds in the guild, and Nitro subscribers can use them in all guilds.
 
@@ -31,7 +31,7 @@ https://cdn.discordapp.com/soundboard-sounds/{sound_id}
 
 ## Send Soundboard Sound % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/send-soundboard-sound
 
-Send a soundboard sound to a voice channel the user is connected to. Fires a Voice Channel Effect Send Gateway event.
+Send a soundboard sound to a voice channel the user is connected to. Fires a [Voice Channel Effect Send]#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event.
 
 Requires the `SPEAK` and `USE_SOUNDBOARD` permissions, and also the `USE_EXTERNAL_SOUNDS` permission if the sound is from a different server. Additionally, requires the user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) to not have `deaf`, `self_deaf`, `mute`, or `suppress` enabled.
 
