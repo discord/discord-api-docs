@@ -237,3 +237,55 @@ Edit properties of the app associated with the requesting bot user. Only propert
 \* Only limited intent flags (`GATEWAY_PRESENCE_LIMITED`, `GATEWAY_GUILD_MEMBERS_LIMITED`, and `GATEWAY_MESSAGE_CONTENT_LIMITED`) can be updated via the API.
 
 \*\* To update an Interactions endpoint URL via the API, the URL must be valid according to the [Receiving an Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) documentation.
+
+## Get Application Activity Instance % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/activity-instances/{instance_id}
+
+Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/preventing-unwanted-activity-sessions).
+
+
+###### Example Activity Instance
+
+```json
+{
+  "application_id": "1215413995645968394",
+  "instance_id": "i-1276580072400224306-gc-912952092627435520-912954213460484116",
+  "launch_id": "1276580072400224306",
+  "location": {
+    "id": "gc-912952092627435520-912954213460484116",
+    "kind": "gc",
+    "channel_id": "912954213460484116",
+    "guild_id": "912952092627435520"
+  },
+  "users": ["205519959982473217"],
+}
+```
+
+###### Activity Instance Object
+
+| Field          | Type                                                                                                        | Description                                                                              |
+|----------------|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| application_id | snowflake                                                                                                   | [Application](#DOCS_RESOURCES_APPLICATION/application-object) ID                         |
+| instance_id    | string                                                                                                      | Activity [Instance](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/activity-instance-management) ID |
+| launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                         |
+| location       | [Activity Location](#DOCS_RESOURCES_APPLICATION/get-application-activity-instance-activity-location-object) | The Location the instance is runnning in                                                 |
+| users          | array of snowflakes, [user](#DOCS_RESOURCES_USER/user-object) ids                                           | The IDs of the Users currently connected to the instance                                 |
+
+
+
+###### Activity Location Object
+
+The Activity Location is an object that describes the location in which an activity instance is running.
+
+| Field      | Type                                                                                                                     | Description                                                     |
+|------------|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| id         | string                                                                                                                   | The unique identifier for the location                          |
+| kind       | [Activity Location Kind Enum](#DOCS_RESOURCES_APPLICATION/get-application-activity-instance-activity-location-kind-enum) | Enum describing kind of location                                |
+| channel_id | snowflake                                                                                                                | The id of the [Channel](#DOCS_RESOURCES_CHANNEL/channel-object) |
+| guild_id?  | ?snowflake                                                                                                               | The id of the [Guild](#DOCS_RESOURCES_GUILD/guild-object)       |
+
+###### Activity Location Kind Enum
+
+| Enum | Description                                            |
+|------|--------------------------------------------------------|
+| 'gc' | The Location is a Guild Channel                        |
+| 'pc' | The Location is a Private Channel, such as a DM or GDM |
