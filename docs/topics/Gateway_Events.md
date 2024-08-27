@@ -557,14 +557,14 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 #### Entitlement Create
 
 > danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_CREATE` event will have an `ends_at` value of null. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-upcoming-entitlement-migration) for more information.
+> Starting on October 1st, 2024, the `ENTITLEMENT_CREATE` event will have an `ends_at` value of null. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information.
 
 Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object.
 
 #### Entitlement Update
 
 > danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-upcoming-entitlement-migration) for more information.
+> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information.
 
 Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
 
@@ -1308,7 +1308,7 @@ Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i
 #### Subscription Create
 
 > info
-> Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-resource) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
+> Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
 
 Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App is created. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object).
 

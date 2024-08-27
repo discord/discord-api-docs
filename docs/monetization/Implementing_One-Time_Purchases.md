@@ -1,6 +1,6 @@
 # Implementing One-Time Purchases
 
-One-time purchases enable you to charge your users for premium functionality with in-app items. Before you can add one-time purchases to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_MONETIZATION_OVERVIEW/eligibility-checklist) in your [app's settings](https://discord.com/developers/applications).
+One-time purchases enable you to charge your users for premium functionality with in-app items. Before you can add one-time purchases to your app, you must complete the [Monetization Eligibility Checklist](#DOCS_MONETIZATION_ENABLING_MONETIZATION/step-2-complete-the-eligibility-criteria) in your [app's settings](https://discord.com/developers/applications).
 
 Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_RESOURCES_SKU) (stock-keeping unit) to represent your app's premium offering via subscriptions or items.
 
@@ -91,7 +91,7 @@ To enable it, first make sure you have a payment method on file in `User Setting
 
 Once you enabled Application Test Mode successfully, you should now see an orange bar across the top of your screen with the name of your app.
 
-You can now navigate to your [Store](#DOCS_MONETIZATION_MANAGING_YOUR_STORE) page and purchase your one-time purchase items without being charged.
+You can now navigate to your Store page and purchase your one-time purchase items without being charged.
 
 The entitlements tied to items that are purchased in Application Test Mode can be identified by entitlements with a `type` value of 4 to represent `TEST_MODE_PURCHASE`.
 

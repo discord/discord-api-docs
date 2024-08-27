@@ -10,7 +10,7 @@ Two new features are now available for Premium Apps: One-Time Purchases and Stor
 * **Durable Items**: A one-time purchase that is permanent and is not subject to either renewal or consumption, such as lifetime access to an app's premium features.
 * **Consumable Items**: A one-time, non-renewable purchase that provides access, such as a temporary power-up or boost in a game.
 
-Learn more about implementing [One-Time Purchases](#DOCS_MONETIZATION_ONE-TIME_PURCHASES).
+Learn more about [Implementing One-Time Purchases](#DOCS_MONETIZATION_IMPLEMENTING_ONE-TIME_PURCHASES).
 
 **A Store for Your Premium App**
 
@@ -22,7 +22,7 @@ To explore these features, eligibility details, and how to enable monetization f
 
 The following were added to our public Monetization documentation with this update:
 
-* New [SKU Object Types](#DOCS_MONETIZATION_SKUS/sku-object-sku-types)
-* New [Entitlement Object Types](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types)
-* [Consume an Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/consume-an-entitlement) API endpoint
-* `consumed` field on the [Entitlement](#DOCS_MONETIZATION_ENTITLEMENTS) resource
+* New [SKU Object Types](#DOCS_RESOURCES_SKU/sku-object-sku-types)
+* New [Entitlement Object Types](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object-entitlement-types)
+* [Consume an Entitlement](#DOCS_RESOURCES_ENTITLEMENT/consume-an-entitlement) API endpoint
+* `consumed` field on the [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) resource

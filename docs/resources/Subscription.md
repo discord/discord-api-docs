@@ -42,7 +42,7 @@ TODO
 | INACTIVE | 3     | The subscription is inactive and not being charged. |
 
 > info
-> Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-resource) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
+> Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
 
 Subscriptions can start at and change between any of these statuses at any time.
 
