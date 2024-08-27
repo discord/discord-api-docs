@@ -25,12 +25,29 @@ When creating subscriptions, you will need to choose between user or guild subsc
 - Subscriptions on Discord grant an [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) to a user that grants them access to a specific [SKU](#DOCS_RESOURCES_SKU).
 - When a user purchases your subscription SKU, Discord creates an Entitlement for the user (or guild) and that specific Subscription SKU. 
 - You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
-- This entitlement is now available via the `LIST Entitlements` API endpoint.
+- This entitlement will be available via the `LIST Entitlements` API endpoint.
 - This entitlement will be available on `Interaction Payloads` initiated from the entitled user or users in a guild (for guild subscriptions).
 - This subscription will be available via the `LIST Subscriptions` API endpoint.
-- This entitlement is granted indefinitely until the user decides to cancel their subscription.
+- This entitlement is granted and updated with a new `ends_at` date for each succesful billing interval until the user decides to cancel their subscription.
+- When a user cancels their subscription, you will **not** receive an `ENTITLEMENT_UPDATE` with a new `ends_at` value, the entitlement will just expire at the current `ends_at` value.
+
+> danger
+> **Starting on October 1st, 2024**, the `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-upcoming-entitlement-migration) for more information on what is changing and how to prepare.
+
+<Collapsible title="How App Subscriptions Work - Starting October 1st, 2024" icon="warning">
+
+- Subscriptions on Discord grant an [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) to a user that grants them access to a specific [SKU](#DOCS_RESOURCES_SKU).
+- When a user purchases your subscription SKU, Discord creates an Entitlement for the user (or guild) and that specific Subscription SKU. 
+- You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
+- This entitlement will be available via the `LIST Entitlements` API endpoint.
+- This entitlement will be available on `Interaction Payloads` initiated from the entitled user or users in a guild (for guild subscriptions).
+- This subscription will be available via the `LIST Subscriptions` API endpoint.
+- This entitlement is granted indefinitely until the user decides to cancel their subscription. `ends_at` will be null.
 - When a user cancels their subscription, you will receive an `ENTITLEMENT_UPDATE` event with an `ends_at` timestamp representing when the subscription ends and when related premium functionality should be revoked.
 - If the user changes their mind and reactivates their subscription, you will receive another `ENTITLEMENT_UPDATE` event setting the `ends_at` timestamp to null.
+
+ Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-upcoming-entitlement-migration) for more information on what is changing and how to prepare.
+</Collapsible>
 
 ---
 
@@ -43,51 +60,56 @@ Once an app has a published SKU, there are 4 ways users will be able to subscrib
 - Server admins can use the **Integrations** tab within a server's settings menu
 - Bot user profiles include an Upgrade button
 - App Directory profiles offer a Premium tab containing subscription details and an Upgrade option
-- Attempting to run a premium command will display the Upgrade button in the response
+- Developers can include a button with premium button style in message components to prompt users to subscribe
 
-If you don't have any premium commands, your users will still be able to upgrade to your premium app via the Integrations settings menu, bot user profiles and App Directory profiles.
+If you don't have any premium commands, your users will still be able to upgrade to your premium app via the Integrations settings menu, Bot User profiles, and App Directory profiles.
 
 ---
 
-## Implementing App Subscriptions
+## Implementing App Subscriptions in Your App
 
 When a user subscribes to your app, there are a few things you will need to implement in your code to check for subscription status and access.
 
 - Working with Entitlements
-- Handling Gateway Events for Entitlements
-- Using the Entitlement API
-- Gating your App with Premium Interactions
+- Controlling Access to Premium Features
+- Prompting Users to Subscribe
 - Using the Subscription API for Lifecycle Management
----
 
 ### Working with Entitlements
 
-When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your premium offering. You can keep track of entitlements using Gateway Events and the HTTP API.
+When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your premium offering. You can keep track of entitlements using [Gateway Events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements), the [HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
 
-### Handling Gateway Events for Entitlements
+#### Accessing Entitlements with Gateway Events
 
 When users subscribe or renew a subscription with your app, Discord will emit [Entitlement gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements).
 
+For subscription SKUs, you will receive the following events:
+
 - `ENTITLEMENT_CREATE`: When a user subscribes to your app.
 - `ENTITLEMENT_UPDATE`: When a user renews their subscription.
-- `ENTITLEMENT_DELETE`: When Discord refunds a subscription or removes an entitlement and when a developer [deletes a Test Entitlement](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement).
+- `ENTITLEMENT_DELETE`: When Discord refunds a subscription, removes an entitlement, or when a developer [deletes a Test Entitlement](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement).
 
 > danger
 > **Starting on October 1st, 2024**, the `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-upcoming-entitlement-migration) for more information on what is changing and how to prepare.
 
-### Using the Entitlement API
+#### Accessing Entitlements with the HTTP API
 
 For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_Id=XYZ` query params.
 
-For example, you might keep track of our entitlements in a database and check a user's subscription status before performing a cron job or other task.
+For example, you might keep track of our entitlements in a database and check if a user still has access to a specific SKU before performing a cron job or other task.
 
-### Checking Entitlements in Interactions
+#### Accessing Entitlements on Interaction Payloads
 
-Each interaction payload includes an `entitlements` field containing an array of full [entitlement objects](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object). You can use this field to determine if the user or guild is subscribed to your app. 
+Entitlements are also available on the `Interaction Payload` when a user interacts with your app. You can find the entitlements on the `entitlements` field of the `Interaction Payload` when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING). You can use this field to determine if the user or guild is subscribed to your app. 
 
-### Prompting Users to Upgrade
+### Controlling Access to Premium Features
+Depending on your app's needs, you can use a combination of the above methods to keep track of user and guild entitlements and grant perks to users who have subscribed to your app.
 
-If the user or guild is not subscribed and you wish to present them with a option to doing so, you can use a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` attached. You may also use these buttons to present users with options to make a [One-Time Purchase](#DOCS_MONETIZATION_IMPLEMENTING_ONE-TIME_PURCHASES).
+### Prompting Users to Subscribe
+
+When a user attempts to use a premium feature without a subscription, you can prompt them to subscribe to your app. 
+
+You can do this by sending a message with a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)  with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering. You may also use these buttons to present users with options to make a [One-Time Purchase](#DOCS_MONETIZATION_IMPLEMENTING_ONE-TIME_PURCHASES).
 
 ```javascript
 return new JsonResponse({
@@ -114,10 +136,14 @@ return new JsonResponse({
 
 ## Using the Subscription API
 
-In addition to the Entitlement API, you can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to manage the lifecycle of your app subscriptions. This API allows you to list all subscriptions for your app for reporting purposes and to check on the status of subscriptions.
-
 > info 
-> When implementing monetization in your app, you should consider Entitlements to be the source of truth for a user's access to a specifuc SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
+> When implementing monetization, [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) are considered to be the source of truth for a user's access to a specific SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
+
+In addition to the Entitlement API, you can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to check on the status of your app subscriptions. This API allows you to list all subscriptions for your app for reporting purposes and to check on the status of subscriptions without having to access entitlements directly.
+
+- [List SKU Subscriptions](#DOCS_RESOURCES_SKU/list-sku-subscriptions): List all subscriptions for a specific SKU in your app.
+- [Get SKU Subscription](#DOCS_RESOURCES_SKU/get-sku-subscription): Get a specific subscription in your app.
+- [Subscription Gateway Events](#DOCS_TOPICS_GATEWAY_EVENTS/subscriptions): Discord will emit gateway events when a subscription is created, updated, and very rarely, deleted.
 
 ---
 
@@ -128,7 +154,7 @@ In addition to the Entitlement API, you can use the [Subscription API](#DOCS_RES
 
 ### Testing Your Implementation with Test Entitlements
 
-You can test your implementation by [creating](#DOCS_RESOURCES_ENTITLEMENT/create-test-entitlement) and [deleting](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement) entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
+You can test your implementation by [creating](#DOCS_RESOURCES_ENTITLEMENT/create-test-entitlement) and [deleting](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
 > info
 > Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.

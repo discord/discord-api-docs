@@ -1,5 +1,5 @@
 ---
-sidebar_label: SKUs
+sidebar_label: SKU
 ---
 
 # SKU Resource

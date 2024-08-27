@@ -15,7 +15,7 @@ When you click on `Create SKU`, you have the option to select from the following
 - **User Subscription**: An auto-recurring subscription that grants benefits to one user in all servers
 - **Guild Subscription**: An auto-recurring subscription that grants benefits to all users in one server
 - **Consumable**: A one-time purchase that provides a temporary benefit, which is consumed upon use.
-- **Durable**: A one-time purchase that grants a permanent addition or enhancement.
+- **Durable**: A one-time purchase that **grants** a permanent addition or enhancement.
 
 Once you select the SKU type, enter a name for your SKU to continue.
 
@@ -28,6 +28,9 @@ There are some limitations to the number of SKUs you can create:
 
 > info 
 > If you need more SKUs than the 50 limit, consider creating a consumable in-app currency SKU that can be used to purchase items that are tracked in your app.
+
+> preview
+> Have multiple subscriptions? We are currently working on support for developers to offer multiple types of subscriptions. Stay tuned for updates!
 
 ---
 
@@ -50,7 +53,7 @@ Your list of benefits displayed on the Premium App Store view, the App Directory
 
 ### Pricing Your SKUs
 
-When setting the price for your SKU, 
+When setting the price for your SKU, you can select from a list of predefined prices. The prices are automatically converted to the user's local currency based on their locale.
 
 Subscription SKUs are automatically charged each month unless cancelled. Changing the price of this SKU will only change it for new subscribers. Existing subscribers will continue to be charged the existing price.
 
@@ -99,7 +102,7 @@ Available to be purchased and visible in your app's store.
 
 #### Publishing to API Only
 
-You can only make API calls or use th Embedded App SDK to grant entitlements for this SKU.
+You can only make API calls or use the Embedded App SDK to grant entitlements for this SKU.
 
 ### Unpublishing a SKU
 
@@ -145,7 +148,7 @@ After you've published your SKUs, you are ready to start implementing your premi
 
 ## Promoting your Premium Offerings
 
-Once you've created and published your SKUs, you can promote them to your users. Here are a few ways to promote your premium offerings:
+Once you've published and integrated your SKUs, you can promote them to your users. Here are a few ways to promote your premium offerings:
 
 - Users can view your subscriptions and items that have been published to your Store
 - Link directly to a specific SKU
@@ -153,20 +156,20 @@ Once you've created and published your SKUs, you can promote them to your users.
 - Include a button with a [premium button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) in message components
 - When building an activity, you can use the Embedded App SDK to offer in-activity purchases
 
-### User Access to Your Store
+### Viewable in Your Store
 
-Users can access an App's store page from the Bot User's profile in a server. This allows users to view an available subscription and one-time purchases, select a subscription to view its perks, benefits and details, and make a purchase directly from an App's Store page.
+Users can access an app's Store page from the Bot User's profile in a server. This allows users to view an available subscription and one-time purchases, select a subscription to view its perks, benefits and details, and make a purchase directly from an app's Store page.
 
 > info
-> Only subscriptions and items that have been published to the Store will be visible to users in the Store view.
+> Only subscriptions and items that have been published to the Store will be visible to users on the Store page.
 
-#### Accessing your Store view from a Bot User's Profile
+#### Accessing your Store page from a Bot User's Profile
 ![Accessing the store as a user](botuser-profile.png)
 
-#### Subscriptions in Your Store View
+#### Subscriptions in Your Store page
 ![Subscriptions in your Store View](premium-subscriptions.png)
 
-#### items in Your Store View
+#### Items in Your Store page
 ![Items in your Store View](premium-items.png)
 
 ---
@@ -185,12 +188,12 @@ You can link directly to a specific SKU using our Application Directory Store UR
 
 ### Linking To Your Store
 
-You can link directly to your Store using our Application Directory Store URL scheme:
+You can link directly to your Store page using our Application Directory Store URL scheme:
 
 `https://discord.com/application-directory/:appID/store`
 
-- When used in chat, it will render as a rich embed that allows users to launch a modal to your Store
-- When used as a direct URL in a browser, it will take the user to your store in the Application Directory on web
+- When used in chat, it will render as a rich embed that allows users to launch a modal to your Store page
+- When used as a direct URL in a browser, it will take the user to your Store page in the Application Directory on web
 
 ![Embed for direct link to Store](store_embed.png)
 

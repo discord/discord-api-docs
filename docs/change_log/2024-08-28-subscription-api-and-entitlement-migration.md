@@ -1,5 +1,5 @@
 ---
-title: " Premium Apps: Entitlement Migration and New Subscription API"
+title: "Premium Apps: Entitlement Migration and New Subscription API"
 date: "2024-08-28"
 topics:
 - "Premium Apps"

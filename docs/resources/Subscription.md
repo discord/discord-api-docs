@@ -1,3 +1,7 @@
+---
+sidebar_label: Subscription
+---
+
 # Subscription Resource
 
 Subscriptions in Discord represent a user making recurring payments for at least one SKU over an ongoing period. Successful payments grant the user access to entitlements associated with the SKU.
