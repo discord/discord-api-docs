@@ -557,18 +557,20 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 #### Entitlement Create
 
 > danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_CREATE` event will have an `ends_at` value of null. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information.
+> Starting on October 1st, 2024, the `ENTITLEMENT_CREATE` event will have an `ends_at` value of null. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
 
 Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object.
 
 #### Entitlement Update
 
 > danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information.
+> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
 
 Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
 
-When a user's subscription is cancelled, you will receive an `ENTITLEMENT_UPDATE` event with an `ends_at` date for when that entitlement will end. You will also receive an `ENTITLEMENT_UPDATE` event if a user uncancels their subscription, with an updated `ends_at` field reflecting a null value.
+For subscription entitlements, when a user's subscription is renewed you will receive an `ENTITLEMENT_UPDATE` event with a new `ends_at` date that reflects the end of the new billing period.
+
+If a user cancels their subscription, you will stop receiving `ENTITLEMENT_UPDATE` events that update the `ends_at` value.
 
 #### Entitlement Delete
 
@@ -1312,7 +1314,7 @@ Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i
 
 Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App is created. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object).
 
-A Subscription's `status` can be either **inactive** or **active** when this event is received. If the `status` is **inactive**, the payment has not been processed yet. You can expect a `SUBSCRIPTION_CREATE` event with the `status` of **active** once the payment has been processed successfully. If you don't receive a `SUBSCRIPTION_CREATE` event with the `status` of **active** within a reasonable amount of time, the payment has failed, and the subscription continues to be considered **inactive**.
+A Subscription's `status` can be either **inactive** or **active** when this event is received. You will receive subsequent `SUBSCRIPTION_UPDATE` events if the `status` is updated to **active**. As a best practice, you should not grant any perks to users until the entitlements are created.
 
 #### Subscription Update
 

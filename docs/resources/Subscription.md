@@ -26,11 +26,17 @@ If the user cancels the subscription, the `canceled_at` timestamp reflects when 
 
 ### Subscription Example
 
-> danger
-> TODO: Finish this
-
 ```json
-TODO
+{
+  "id": "1278078770116427839", 
+  "user_id": "1088605110638227537", 
+  "sku_ids": ["1158857122189168803"], 
+  "entitlement_ids": [], 
+  "current_period_start": "2024-08-27T19:48:44.406602+00:00", 
+  "current_period_end": "2024-09-27T19:48:44.406602+00:00", 
+  "status": 0, 
+  "canceled_at": null
+}
 ```
 
 ### Subscription Statuses

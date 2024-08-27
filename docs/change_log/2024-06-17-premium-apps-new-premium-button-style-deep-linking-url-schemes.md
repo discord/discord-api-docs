@@ -14,7 +14,7 @@ Learn more about using [button components with interactions](#DOCS_INTERACTIONS_
 
 The `PREMIUM_REQUIRED (10)` interaction response type is now deprecated in favor of using custom premium buttons. This will continue to function but may be eventually unsupported. It is recommended to migrate your bots to use the more flexible [premium button component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles).
 
-Learn more about [gating features with premium interactions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/gating-access-to-premium-features).
+Learn more about [gating features with premium interactions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/prompting-users-to-subscribe).
 
 **Deep Linking URL Schemes for SKUs and Store**
 
