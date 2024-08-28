@@ -7,6 +7,7 @@ sidebar_label: Overview
 ![Monetizing Your Discord App](monetization-overview.png)
 
 ### Offer native payment and checkout in your app using our Monetization APIs.
+
 Premium Apps lets you prompt customers to start subscriptions or purchase one-time items with our easy-to-use checkout and payment process. Discord notifies your app of the user's purchase, allowing you to grant access to your premium features.
 
 - Sell monthly recurring [subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for your app's premium functionality within Discord
@@ -18,6 +19,7 @@ Premium Apps lets you prompt customers to start subscriptions or purchase one-ti
 ---
 
 ## Components of a Premium App
+
 To integrate a premium feature into your application, there are three primary components of our Monetization API:
 
 - [SKUs](#DOCS_RESOURCES_SKU) represent specific items or subscription options your app offers. Each SKU is a unique offering.
@@ -25,14 +27,17 @@ To integrate a premium feature into your application, there are three primary co
 - [Subscriptions](#DOCS_RESOURCES_SUBSCRIPTION) represent an ongoing agreement where a user commits to paying for an entitlement on a recurring basis until canceled.
 
 ### Types of SKUs
+
 There are two types of SKUs that you can create for your app:
 
 #### One-Time Purchase SKUs
+
 A one-time purchase SKU represents a single item or feature that a user can purchase once. Developers can offer two types of one-time purchases:
 - Durable items: Items that a user can purchase once and keep forever. For example, a user might purchase a "premium" upgrade that unlocks premium features in an app.
 - Consumable items: Items that a user can purchase once and use up. For example, a user might purchase a "boost" item that gives them a temporary boost in an app.
 
 #### Subscription SKUs
+
 A subscription SKU represents a recurring purchase that a user can subscribe to for a set period of time. Developers can offer two types of subscriptions:
 
 - User subscriptions: A user subscribes to a SKU for themselves. In this case, only the purchasing user is considered entitled to the SKU.

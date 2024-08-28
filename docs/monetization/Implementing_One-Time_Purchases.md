@@ -38,7 +38,7 @@ When creating items for one-time purchase, you can choose between durable and co
 
 When a user purchases a one-time purchase SKU, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your consumable or durable item.
 
-Depending on your app's features, you can use a combination of [Gateway Events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of entitlements to users who have purchased items in your app.
+Depending on your app's features, you can use a combination of [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of entitlements to users who have purchased items in your app.
 
 ### Accessing Entitlements with Gateway Events
 When a user purchases a SKU, Discord will emit an [`ENTITLEMENT_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements) event. This event will contain the entitlement object that represents the user's access to the SKU. You can use this event to keep track of the user's entitlements in near-time. For One-Time Purchases, you may also receive an `ENTITLEMENT_DELETE` event if the user's entitlement is revoked.

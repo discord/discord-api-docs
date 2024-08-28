@@ -17,13 +17,13 @@ We are migrating our entitlement system to a new behavior where entitlements wil
 - Discord-managed Subscription entitlements will have an `type` value of `PURCHASE` (type `1`) instead of `APPLICATION_SUBSCRIPTION` (type `8`).
 
 ### Migration Plan & Guide:
-As of October 1, 2024, all existing entitlements that grant access to user-subscription and guild-subscription SKUs, will automatically transfer to the new system on their renewal date. This means we will have a month-long migration window to allow all of your entitlements to migrate to the new system upon renewal.
+As of **October 1, 2024**, all existing entitlements that grant access to user-subscription and guild-subscription SKUs, will automatically transfer to the new system on their renewal date. This means we will have a month-long migration window to allow all of your entitlements to migrate to the new system upon renewal.
 
 Developers are advised to update their systems to handle the new `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` events according to the following migration guide before the rollout date to avoid service disruptions.
 
 ### Introducing a New Subscription API
-With the new entitlement behavior, entitlements for subscription SKUs will no longer emit events at the start of a new subscription billing period. Instead, subscription lifecycle management can be handled through the newly introduced Subscription API.
-Developers should refer to the [Subscription resource](#DOCS_RESOURCES_SUBSCRIPTION) for information on calling the Subscription API and responding to Subscription events. For a more in-depth implementation, see our [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/using-the-subscription-api) guide. You can start using this API now.
+With the new entitlement behavior, entitlements for subscription SKUs will no longer emit events at the start of a new subscription billing period. Instead, subscription lifecycle management can be handled through the new [Subscription API](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/using-the-subscription-api).
+Developers should refer to the [Subscription resource](#DOCS_RESOURCES_SUBSCRIPTION) for information on calling the Subscription API and responding to Subscription events. For in-depth implementation details, see our [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/using-the-subscription-api) guide. You can start using this API now.
 
 ### Monetization Documentation Updates
 As part of these changes, we've updated the documentation for Premium Apps. 
@@ -34,10 +34,10 @@ As part of these changes, we've updated the documentation for Premium Apps.
 
 ### Subscription Entitlement Migration Guide
 
-Starting on October 1, 2024, we will be migrating our existing entitlement system to a new behavior where entitlements do not expire until explicitly canceled. This migration guide outlines the changes and impacts of this migration on developers and guides how to manage these changes effectively.
+Starting on **October 1, 2024**, we will be migrating our existing entitlement system to a new behavior where **entitlements do not expire until explicitly canceled**. This migration guide outlines the changes and impacts of this migration on developers and guides how to manage these changes effectively.
 
-> info
-> With this update, entitlements for subscription SKUs will no longer emit events when a new subscription billing period begins. If you need to know when a subscription has been renewed, we have introduced a [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and related [Subscription Gateway Events](#DOCS_TOPICS_GATEWAY_EVENTS/subscriptions).
+> warn
+> With this update, entitlements for subscription SKUs will no longer emit events when a new subscription billing period begins. If you need to know when a subscription has been renewed, use the new [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and related [Subscription Gateway Events](#DOCS_TOPICS_GATEWAY_EVENTS/subscriptions).
 
 ### Current System
 
@@ -49,7 +49,7 @@ Currently, entitlements for Subscription SKUs purchased through Discord have:
 ### New System
 
 Post-migration, entitlements for Subscription SKUs purchased through Discord will:
--  No longer have an end date (`ends_at` will be null) until the user decides to cancel the subscription.
+-  No longer have an end date (`ends_at` will be `null`) until the user decides to cancel the subscription.
 -  Now have an entitlement `type` value of `PURCHASE` (type `1`).
 -  No `ENTITLEMENT_UPDATE` events will be triggered until the subscription is canceled.
 

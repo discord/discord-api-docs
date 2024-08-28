@@ -1318,11 +1318,11 @@ A Subscription's `status` can be either **inactive** or **active** when this eve
 
 #### Subscription Update
 
-Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App has been updated. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object).
+Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App has been updated. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) object.
 
 #### Subscription Delete
 
-Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App has been deleted. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object).
+Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App has been deleted. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) object.
 
 ### Polls
 

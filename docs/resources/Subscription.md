@@ -22,7 +22,7 @@ Subscriptions in Discord represent a user making recurring payments for at least
 
 The start of a subscription is determined by its ID. When the subscription renews, its current period is updated.
 
-If the user cancels the subscription, the `canceled_at` timestamp reflects when they did so. The subscription will enter the `ENDING` status.
+If the user cancels the subscription, the subscription will enter the `ENDING` status and the `canceled_at` timestamp will reflect the time of the cancellation.
 
 ### Subscription Example
 
@@ -43,14 +43,14 @@ If the user cancels the subscription, the `canceled_at` timestamp reflects when 
 
 | Type     | Value | Description                                         |
 |----------|-------|-----------------------------------------------------|
-| ACTIVE   | 1     | The subscription is active and scheduled to renew.  |
-| ENDING   | 2     | The subscription is active but will not renew.      |
-| INACTIVE | 3     | The subscription is inactive and not being charged. |
+| ACTIVE   | 1     | Subscription is active and scheduled to renew.  |
+| ENDING   | 2     | Subscription is active but will not renew.      |
+| INACTIVE | 3     | Subscription is inactive and not being charged. |
 
 > info
 > Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
 
-Subscriptions can start at and change between any of these statuses at any time.
+Subscriptions can start and change between any of these statuses at any time.
 
 Status is *not* related to the current period. A subscription could be `ACTIVE` outside its current period or `INACTIVE` within its current period. 
 
@@ -64,7 +64,7 @@ Returns all subscriptions containing the SKU, filtered by user. Returns a list o
 |----------|-----------|-------------------------------------------------------------------------------|---------|
 | before?  | snowflake | List subscriptions before this ID                                             | absent  |
 | after?   | snowflake | List subscriptions after this ID                                              | absent  |
-| limit?   | integer   | The number of results to return (1-100)                                       | 50      |
+| limit?   | integer   | Number of results to return (1-100)                                           | 50      |
 | user_id? | snowflake | User ID for which to return subscriptions. Required except for OAuth queries. | absent  |
 
 ## Get SKU Subscription % GET /skus/{sku.id#DOCS_RESOURCES_SKU/sku-object}/subscriptions/{subscription.id#DOCS_MONETIZATION_SUBSCRIPTIONS/subscription-object}
