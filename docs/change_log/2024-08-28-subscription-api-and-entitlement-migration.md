@@ -17,7 +17,7 @@ We are migrating our entitlement system to a new behavior where entitlements wil
 - Discord-managed Subscription entitlements will have an `type` value of `PURCHASE` (type `1`) instead of `APPLICATION_SUBSCRIPTION` (type `8`).
 
 ### Migration Plan & Guide:
-As of **October 1, 2024**, all existing entitlements that grant access to user-subscription and guild-subscription SKUs, will automatically transfer to the new system on their renewal date. This means we will have a month-long migration window to allow all of your entitlements to migrate to the new system upon renewal.
+As of **October 1, 2024**, all existing entitlements that grant access to user-subscription and guild-subscription SKUs will automatically transfer to the new system on their renewal date. This means we will have a month-long migration window to allow all of your entitlements to migrate to the new system upon renewal.
 
 Developers are advised to update their systems to handle the new `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` events according to the following migration guide before the rollout date to avoid service disruptions.
 

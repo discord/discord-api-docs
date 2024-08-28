@@ -580,7 +580,7 @@ Entitlement deletions are infrequent, and occur when:
 
 - Discord issues a refund for a subscription
 - Discord removes an entitlement from a user via internal tooling
-- Discord deletes an App-Managed entitlement they created via the API
+- Discord deletes an app-managed entitlement they created via the API
 
 Entitlements are _not_ deleted when they expire.
 
