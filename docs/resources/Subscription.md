@@ -41,8 +41,8 @@ If the user cancels the subscription, the subscription will enter the `ENDING` s
 
 ### Subscription Statuses
 
-| Type     | Value | Description                                         |
-|----------|-------|-----------------------------------------------------|
+| Type     | Value | Description                                     |
+|----------|-------|-------------------------------------------------|
 | ACTIVE   | 1     | Subscription is active and scheduled to renew.  |
 | ENDING   | 2     | Subscription is active but will not renew.      |
 | INACTIVE | 3     | Subscription is inactive and not being charged. |
