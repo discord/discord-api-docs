@@ -334,6 +334,9 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Stage Instance Create](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-create)                                   | Stage instance was created                                                                                                                     |
 | [Stage Instance Update](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-update)                                   | Stage instance was updated                                                                                                                     |
 | [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
+| [Subscription Create](#DOCS_TOPICS_GATEWAY_EVENTS/subscription-create)                                       | Premium App Subscription was created                                                                                                           |
+| [Subscription Update](#DOCS_TOPICS_GATEWAY_EVENTS/subscription-update)                                       | Premium App Subscription was updated                                                                                                           |
+| [Subscription Delete](#DOCS_TOPICS_GATEWAY_EVENTS/subscription-delete)                                       | Premium App Subscription was deleted                                                                                                           |
 | [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start)                                                     | User started typing in a channel                                                                                                               |
 | [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update)                                                       | Properties about the user changed                                                                                                              |
 | [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                     |
@@ -553,15 +556,33 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 #### Entitlement Create
 
-Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object.
+> danger
+> Starting on October 1st, 2024, the `ENTITLEMENT_CREATE` event will have an `ends_at` value of null. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
+
+Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object.
 
 #### Entitlement Update
 
-Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. When an entitlement for a subscription is renewed, the `ends_at` field may have an updated value with the new expiration date.
+> danger
+> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
+
+Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
+
+For subscription entitlements, when a user's subscription is renewed you will receive an `ENTITLEMENT_UPDATE` event with a new `ends_at` date that reflects the end of the new billing period.
+
+If a user cancels their subscription, you will stop receiving `ENTITLEMENT_UPDATE` events that update the `ends_at` value.
 
 #### Entitlement Delete
 
-Sent when an entitlement is deleted. The inner payload is an [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) object. Entitlements are not deleted when they expire.
+Sent when an entitlement is deleted. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
+
+Entitlement deletions are infrequent, and occur when:
+
+- Discord issues a refund for a subscription
+- Discord removes an entitlement from a user via internal tooling
+- Discord deletes an app-managed entitlement they created via the API
+
+Entitlements are _not_ deleted when they expire.
 
 ### Guilds
 
@@ -1283,6 +1304,25 @@ Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. I
 #### Stage Instance Delete
 
 Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
+
+### Subscriptions
+
+#### Subscription Create
+
+> info
+> Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
+
+Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App is created. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object).
+
+A Subscription's `status` can be either **inactive** or **active** when this event is received. You will receive subsequent `SUBSCRIPTION_UPDATE` events if the `status` is updated to **active**. As a best practice, you should not grant any perks to users until the entitlements are created.
+
+#### Subscription Update
+
+Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App has been updated. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) object.
+
+#### Subscription Delete
+
+Sent when a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) for a Premium App has been deleted. Inner payload is a [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) object.
 
 ### Polls
 

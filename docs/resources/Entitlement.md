@@ -1,8 +1,12 @@
-# Entitlements
+---
+sidebar_label: Entitlement
+---
 
-## Entitlement Resource
+# Entitlements Resource
 
-Entitlements in Discord represent that a user or guild has access to a premium offering in your application.
+Entitlements in Discord represent that a user or guild has access to a premium offering in your application. 
+
+Refer to the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW) for more information on how to use Entitlements in your app.
 
 ### Entitlement Object
 
@@ -14,7 +18,7 @@ Entitlements in Discord represent that a user or guild has access to a premium o
 | sku_id         | snowflake         | ID of the SKU                                                                               |
 | application_id | snowflake         | ID of the parent application                                                                |
 | user_id?       | snowflake         | ID of the user that is granted access to the entitlement's sku                              |
-| type           | integer           | [Type of entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object-entitlement-types) |
+| type           | integer           | [Type of entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object-entitlement-types)     |
 | deleted        | boolean           | Entitlement was deleted                                                                     |
 | starts_at?     | ISO8601 timestamp | Start date at which the entitlement is valid. Not present when using test entitlements.     |
 | ends_at?       | ISO8601 timestamp | Date at which the entitlement is no longer valid. Not present when using test entitlements. |
@@ -90,9 +94,9 @@ Returns all entitlements for a given app, active and expired.
 ]
 ```
 
-## Consume an Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}/consume
+## Consume an Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}/consume
 
-For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](#DOCS_MONETIZATION_ENTITLEMENTS/list-entitlements).
+For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements).
 
 Returns a `204 No Content` on success.
 
@@ -120,81 +124,8 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 }
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object}
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 
 Returns `204 No Content` on success.
-
----
-
-## Gateway Events
-
-### New Entitlement
-
-`ENTITLEMENT_CREATE`
-
-Fires when a user subscribes to a SKU. Contains an entitlement object.
-
-```json
-{
-  "id": "1083167266843000832",
-  "sku_id": "1083142056391606272",
-  "application_id": "1083108937882013696",
-  "user_id": "1072239583707664384",
-  "promotion_id": null,
-  "type": 8,
-  "deleted": false,
-  "gift_code_flags": 0,
-  "consumed": false,
-  "starts_at": "2023-03-08T23:19:58.010876+00:00",
-  "ends_at": "2023-04-08T23:19:58.010876+00:00",
-  "subscription_id": "1083167255652597760"
-}
-```
-
-### Updated Entitlement
-
-`ENTITLEMENT_UPDATE`
-
-Fires when a user's subscription renews for the next billing period. The `ends_at` field will have an updated value with the new expiration date.
-
-If a user's subscription is cancelled, you will _not_ receive an `ENTITLEMENT_DELETE` event. Instead, you will simply not receive an `UPDATE` event with a new `ends_at` date at the end of the billing period.
-
-### Deleted Entitlement
-
-`ENTITLEMENT_DELETE`
-
-Fires when a user's entitlement is deleted. Entitlement deletions are infrequent, and occur when:
-
-- Discord issues a refund for a subscription
-- Discord removes an entitlement from a user via internal tooling
-
-Entitlements are _not_ deleted when they expire.
-
----
-
-## Using Entitlements in Interactions
-
-### PREMIUM_REQUIRED Interaction Response
-
-If your app has monetization enabled, it will have access to a new [`PREMIUM_REQUIRED` interaction response (`type: 10`)](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type). This can be sent in response to all interaction types except for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING`. The response does not allow returning the `content`, `embeds`, or `attachments` fields.
-
-This response will create an ephemeral message shown to the user that ran the interaction, instructing them that whatever they tried to do requires the premium benefits of your app. It also contains an "Upgrade" button to subscribe. The response message is static, but will be automatically updated with the name of your premium SKU.
-
-![Interaction Response](monetization-interaction-response.png)
-
-```js
-return res.send({
-  type: InteractionResponseType.PREMIUM_REQUIRED, // This has a value of 10
-  data: {},
-});
-```
-
----
-
-### Checking Entitlements in Interactions
-
-To check what the current guild or user has entitlements to, your app can inspect the `entitlements` field. `entitlements` is an array of [entitlement objects](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) for the current guild and user.
-
-You can reference `entitlements` during interactions to handle subscription status, rather than fetching entitlements from the API or your database.
