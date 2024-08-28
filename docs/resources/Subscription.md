@@ -50,9 +50,11 @@ If the user cancels the subscription, the subscription will enter the `ENDING` s
 > info
 > Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
 
-Subscriptions can start and change between any of these statuses at any time.
+Subscriptions can start and change between any of these statuses within the current period. A subscription can be `ACTIVE` outside its current period or `INACTIVE` within its current period. 
 
-Status is *not* related to the current period. A subscription could be `ACTIVE` outside its current period or `INACTIVE` within its current period. 
+Some examples of this behavior include:
+- While a failed payment is being retried, the subscription would remain `ACTIVE` until it succeeds or our system determines the payment is not recoverable.
+- A refund or chargeback during the current period would make the subscription `INACTIVE`.
 
 ## List SKU Subscriptions % GET /skus/{sku.id#DOCS_RESOURCES_SKU/sku-object}/subscriptions
 
