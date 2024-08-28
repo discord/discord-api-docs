@@ -43,9 +43,9 @@ If the user cancels the subscription, the subscription will enter the `ENDING` s
 
 | Type     | Value | Description                                     |
 |----------|-------|-------------------------------------------------|
-| ACTIVE   | 1     | Subscription is active and scheduled to renew.  |
-| ENDING   | 2     | Subscription is active but will not renew.      |
-| INACTIVE | 3     | Subscription is inactive and not being charged. |
+| ACTIVE   | 0     | Subscription is active and scheduled to renew.  |
+| ENDING   | 1     | Subscription is active but will not renew.      |
+| INACTIVE | 2     | Subscription is inactive and not being charged. |
 
 > info
 > Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
