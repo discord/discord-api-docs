@@ -8,17 +8,17 @@ Subscriptions in Discord represent a user making recurring payments for at least
 
 ## Subscription Object
 
-| Field                | Type                | Description                                                                                                                                    |
-|----------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                   | snowflake           | The ID of the subscription                                                                                                                     |
-| user_id              | snowflake           | The ID of the user who is subscribed                                                                                                           |
-| sku_ids              | array of snowflakes | List of SKUs subscribed to                                                                                                                     |
-| entitlement_ids      | array of snowflakes | List of entitlements granted for this subscription                                                                                             |
-| current_period_start | ISO8601 timestamp   | The start of the current subscription period                                                                                                   |
-| current_period_end   | ISO8601 timestamp   | The end of the current subscription period                                                                                                     |
-| status               | SubscriptionStatus  | The current status of the subscription                                                                                                         |
-| canceled_at          | ISO8601 timestamp?  | When the subscription was canceled                                                                                                             |
-| country?             | string              | The ISO3166-1 alpha-2 country code of the payment source used to purchase the subscription. Missing unless queried with a private OAuth scope. |
+| Field                | Type                | Description                                                                                                                                |
+|----------------------|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| id                   | snowflake           | ID of the subscription                                                                                                                     |
+| user_id              | snowflake           | ID of the user who is subscribed                                                                                                           |
+| sku_ids              | array of snowflakes | List of SKUs subscribed to                                                                                                                 |
+| entitlement_ids      | array of snowflakes | List of entitlements granted for this subscription                                                                                         |
+| current_period_start | ISO8601 timestamp   | Start of the current subscription period                                                                                                   |
+| current_period_end   | ISO8601 timestamp   | End of the current subscription period                                                                                                     |
+| status               | SubscriptionStatus  | Current status of the subscription                                                                                                         |
+| canceled_at          | ISO8601 timestamp?  | When the subscription was canceled                                                                                                         |
+| country?             | string              | ISO3166-1 alpha-2 country code of the payment source used to purchase the subscription. Missing unless queried with a private OAuth scope. |
 
 The start of a subscription is determined by its ID. When the subscription renews, its current period is updated.
 
