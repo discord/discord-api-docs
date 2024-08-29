@@ -384,12 +384,17 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Flags
 
-| Flag                  | Value    | Description                                           | Editable |
-|-----------------------|----------|-------------------------------------------------------|----------|
-| DID_REJOIN            | `1 << 0` | Member has left and rejoined the guild                | false    |
-| COMPLETED_ONBOARDING  | `1 << 1` | Member has completed onboarding                       | false    |
-| BYPASSES_VERIFICATION | `1 << 2` | Member is exempt from guild verification requirements | true     |
-| STARTED_ONBOARDING    | `1 << 3` | Member has started onboarding                         | false    |
+| Flag                            | Value    | Description                                                                  | Editable |
+|---------------------------------|----------|------------------------------------------------------------------------------|----------|
+| DID_REJOIN                      | `1 << 0` | Member has left and rejoined the guild                                       | false    |
+| COMPLETED_ONBOARDING            | `1 << 1` | Member has completed onboarding                                              | false    |
+| BYPASSES_VERIFICATION           | `1 << 2` | Member is exempt from guild verification requirements                        | true     |
+| STARTED_ONBOARDING              | `1 << 3` | Member has started onboarding                                                | false    |
+| IS_GUEST                        | `1 << 4` | Member is a guest and can only access the voice channel they were invited to | false    |
+| STARTED_HOME_ACTIONS            | `1 << 5` | Member has started Server Guide new member actions                           | false    |
+| COMPLETED_HOME_ACTIONS          | `1 << 6` | Member has completed Server Guide new member actions                         | false    |
+| AUTOMOD_QUARANTINED_USERNAME    | `1 << 7` | Member's username, display name, or nickname is blocked by AutoMod           | false    |
+| DM_SETTINGS_UPSELL_ACKNOWLEDGED | `1 << 9` | Member has dismissed the DM settings upsell                                  | false    |
 
 > info
 > BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
