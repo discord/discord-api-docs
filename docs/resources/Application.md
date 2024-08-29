@@ -23,7 +23,6 @@ sidebar_label: Application
 | terms_of_service_url?              | string                                                                                                                                | URL of the app's Terms of Service                                                                                                                                                                                                          |
 | privacy_policy_url?                | string                                                                                                                                | URL of the app's Privacy Policy                                                                                                                                                                                                            |
 | owner?                             | partial [user](#DOCS_RESOURCES_USER/user-object) object                                                                               | Partial user object for the owner of the app                                                                                                                                                                                               |
-| summary *(deprecated)*             | string                                                                                                                                | **deprecated and will be removed in v11.** An empty string.                                                                                                                                                                                |
 | verify_key                         | string                                                                                                                                | Hex encoded key for verification in interactions and the GameSDK's [GetTicket](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getticket)                                                    |
 | team                               | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object                                                                            | If the app belongs to a team, this will be a list of the members of that team                                                                                                                                                              |
 | guild_id?                          | snowflake                                                                                                                             | Guild associated with the app. For example, a developer support server.                                                                                                                                                                    |
@@ -82,7 +81,6 @@ sidebar_label: Application
   },
   "primary_sku_id": "172150183260323840",
   "slug": "test",
-  "summary": "",
   "team": {
     "icon": "dd9b7dcfdf5351b9c3de0fe167bacbe1",
     "id": "531992624043786253",
