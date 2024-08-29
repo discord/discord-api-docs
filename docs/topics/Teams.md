@@ -11,7 +11,7 @@ To create or be a member on a team, you must [enable 2FA for your Discord accoun
 Once you create a team, you'll land on the **Team Information** page where you can fill out details and start inviting other Discord users to join your team. Since users added to a team have access to any apps that team owns, use caution when adding new team members.
 
 > info
-> Currently, only the team Owner and team Admins can invite or remove additional users.
+> Only the team Owner and team Admins can invite or remove additional users.
 
 ## Adding Apps to a Team
 
