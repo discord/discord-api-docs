@@ -154,6 +154,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10070  | Unknown Guild Scheduled Event                                                                                                 |
 | 10071  | Unknown Guild Scheduled Event User                                                                                            |
 | 10087  | Unknown Tag                                                                                                                   |
+| 10097  | Unknown sound                                                                                                                 |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
@@ -191,6 +192,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30039  | Maximum number of stickers reached                                                                                            |
 | 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
+| 30045  | Maximum number of soundboard sounds reached                                                                                   |
 | 30046  | Maximum number of edits to messages older than 1 hour reached. Try again later                                                |
 | 30047  | Maximum number of pinned threads in a forum channel has been reached                                                          |
 | 30048  | Maximum number of tags in a forum channel has been reached                                                                    |
@@ -272,6 +274,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
 | 50110  | The provided file is invalid.                                                                                                 |
+| 50123  | The provided file type is invalid.                                                                                            |
 | 50124  | The provided file duration exceeds maximum of 5.2 seconds.                                                                    |
 | 50131  | Owner cannot be pending member                                                                                                |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
@@ -279,6 +282,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
+| 50151  | The specified emoji is invalid                                                                                                |
 | 50159  | Voice messages do not support additional content.                                                                             |
 | 50160  | Voice messages must have a single audio attachment.                                                                           |
 | 50161  | Voice messages must have supporting metadata.                                                                                 |
@@ -286,6 +290,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50173  | You cannot send voice messages in this channel.                                                                               |
 | 50178  | The user account must first be verified                                                                                       |
+| 50192  | The provided file does not have a valid duration.                                                                             |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
