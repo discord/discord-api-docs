@@ -282,10 +282,13 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | files[n] \*\*     | file contents                                                                        | the contents of the file being sent/edited                      |
 | payload_json \*\* | string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | attachments \*\*  | array of partial [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
+| poll \*\*\*       | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object               | A poll!                                                         |
 
 \* Requires an application-owned webhook.
 
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
+
+\*\*\* Polls can only be added when editing a deferred interaction response.
 
 ## Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
 
