@@ -135,6 +135,7 @@ The connection object that the user has attached.
 
 | Value           | Name                |
 |-----------------|---------------------|
+| amazon-music    | Amazon Music        |
 | battlenet       | Battle.net          |
 | bungie          | Bungie.net          |
 | domain          | Domain              |
