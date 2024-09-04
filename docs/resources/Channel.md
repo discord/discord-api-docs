@@ -483,10 +483,6 @@ Post a typing indicator for the specified channel, which expires after 10 second
 
 Generally bots should **not** use this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
 
-## Get Pinned Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins
-
-Returns all pinned messages in the channel as an array of [message](#DOCS_RESOURCES_MESSAGE/message-object) objects.
-
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Adds a recipient to a Group DM using their access token.
