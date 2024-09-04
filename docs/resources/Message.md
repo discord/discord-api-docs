@@ -873,3 +873,6 @@ Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+## Get Pinned Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins
+
+Returns all pinned messages in the channel as an array of [message](#DOCS_RESOURCES_MESSAGE/message-object) objects.
