@@ -8,8 +8,6 @@ There are several different types of components; this documentation will outline
 
 Components are a field on the [message object](#DOCS_RESOURCES_MESSAGE/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) or other interaction.
 
-The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) components.
-
 ### Component Object
 
 ###### Component Types
