@@ -669,7 +669,7 @@ The number of shards you run must be a multiple of the shard number provided whe
 
 The [Get Gateway Bot endpoint](#DOCS_TOPICS_GATEWAY/get-gateway-bot) will always return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any changes.
 
-The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 3)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
+The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 5)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
 
 ## Get Gateway % GET /gateway
 

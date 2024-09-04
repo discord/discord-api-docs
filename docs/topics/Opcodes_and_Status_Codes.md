@@ -205,6 +205,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
 | 40012  | Connection has been revoked                                                                                                   |
+| 40018  | Only consumable SKUs can be consumed                                                                                          |
+| 40019  | You can only delete sandbox entitlements.                                                                                     |
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
@@ -216,6 +218,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40066  | There are no tags available that can be set by non-moderators                                                                 |
 | 40067  | A tag is required to create a forum post in this channel                                                                      |
 | 40074  | An entitlement has already been granted for this resource                                                                     |
+| 40094  | This interaction has hit the maximum number of follow up messages                                                             |
 | 40333  | Cloudflare is blocking your request. This can often be resolved by setting a proper [User Agent](#DOCS_REFERENCE/user-agent)  |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |

@@ -1,3 +1,7 @@
+---
+sidebar_label: User
+---
+
 # Users Resource
 
 Users in Discord are generally considered the base entity. Users can spawn across the entire platform, be members of
@@ -131,6 +135,7 @@ The connection object that the user has attached.
 
 | Value           | Name                |
 |-----------------|---------------------|
+| amazon-music    | Amazon Music        |
 | battlenet       | Battle.net          |
 | bungie          | Bungie.net          |
 | domain          | Domain              |

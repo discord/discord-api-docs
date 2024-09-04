@@ -1,3 +1,7 @@
+---
+sidebar_label: Channel
+---
+
 # Channels Resource
 
 ### Channel Object

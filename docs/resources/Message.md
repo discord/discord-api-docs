@@ -1,3 +1,7 @@
+---
+sidebar_label: Message
+---
+
 # Messages Resource
 
 ### Message Object
@@ -377,7 +381,7 @@ The encoding, and the waveform details, are an implementation detail and may cha
 | message\* | partial [message](#DOCS_RESOURCES_MESSAGE/message-object) object | minimal subset of fields in the forwarded message |
 
 \* The current subset of message fields consists of:
-`type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`.
+`type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`, `stickers`, `sticker_items`, and `components`.
 
 > info
 > While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
