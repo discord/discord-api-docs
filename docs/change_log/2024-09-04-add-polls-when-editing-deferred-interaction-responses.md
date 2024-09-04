@@ -1,6 +1,6 @@
 ---
 title: "Add Polls when Editing Deferred Interaction Responses"
-date: "2024-08-20"
+date: "2024-09-04"
 topics:
 - "Interactions"
 ---
