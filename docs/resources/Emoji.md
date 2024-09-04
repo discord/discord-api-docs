@@ -1,3 +1,7 @@
+---
+sidebar_label: Emoji
+---
+
 # Emoji Resource
 
 > warn

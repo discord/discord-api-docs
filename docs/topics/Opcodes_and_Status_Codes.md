@@ -30,7 +30,7 @@ In order to prevent broken reconnect loops, you should consider some close codes
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                | true      |
 | 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          | true      |
 | 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-events) to Discord. Don't do that!                                                                                                                                    | true      |
-| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identifying).                                                                                                                                                  | true      |
+| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identifying), or this session has been invalidated.                                                                                                            | true      |
 | 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY_EVENTS/identify) is incorrect.                                                                                                                          | false     |
 | 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                          | true      |
 | 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY_EVENTS/resume) the session was invalid. Reconnect and start a new session.                                                                                                | true      |
@@ -141,6 +141,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10057  | Unknown guild template                                                                                                        |
 | 10059  | Unknown discoverable server category                                                                                          |
 | 10060  | Unknown sticker                                                                                                               |
+| 10061  | Unknown sticker pack                                                                                                          |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 10065  | Unknown voice state                                                                                                           |
@@ -204,6 +205,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
 | 40012  | Connection has been revoked                                                                                                   |
+| 40018  | Only consumable SKUs can be consumed                                                                                          |
+| 40019  | You can only delete sandbox entitlements.                                                                                     |
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
@@ -215,6 +218,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40066  | There are no tags available that can be set by non-moderators                                                                 |
 | 40067  | A tag is required to create a forum post in this channel                                                                      |
 | 40074  | An entitlement has already been granted for this resource                                                                     |
+| 40094  | This interaction has hit the maximum number of follow up messages                                                             |
 | 40333  | Cloudflare is blocking your request. This can often be resolved by setting a proper [User Agent](#DOCS_REFERENCE/user-agent)  |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |

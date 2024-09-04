@@ -39,6 +39,11 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 ### Alert Boxes
 
 Alert boxes are created using a block quote that has one of 'warn', 'danger', 'info', or 'preview' on the first line. 
+For example:
+```
+> warn
+> Something that requires warning here
+```
 
 ![Alert options](images/alerts.png)
 
@@ -50,7 +55,12 @@ There are a few reusable MDX components that can be used on pages with the `mdx`
 
 Collapsibles allow you to show/hide content on a page that may be secondary to the page's primary content. They have four fields that can be set: `title`, `description`, `icon`, and an `open` flag (which makes the collapsible element open by default).
 
-Available options for `icon` are `"list"`, `"view"`, `"question"`, and `"code"`.
+Available options for `icon`:
+- `"list"`
+- `"view"`
+- `"question"`
+- `"code"`
+- `"warning"`
 
 ###### Example
 

@@ -1,10 +1,15 @@
-<LocalePicker />
+---
+sidebar_label: Getting Started
+---
 
 # Building your first Discord app
 
-Discord apps let you customize and extend Discord using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript, and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
+[Discord apps](#DOCS_QUICK_START_OVERVIEW_OF_APPS) let you customize and extend Discord using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
 
-We'll be building a Discord app that lets server members play rock-paper-scissors (with 7 choices instead of the usual 3). This guide is beginner-focused, but it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+> info
+> If you're interested in building a game or social experience in an iframe, you can follow the tutorial for [building an Activity](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY)
+
+We'll be building a Discord app that lets users play rock-paper-scissors (with 7 choices instead of 3). This guide is beginner-focused, but it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
 <Collapsible title="What we'll be building" icon="view">
 Here's what the finished app will look like:
@@ -13,10 +18,10 @@ Here's what the finished app will look like:
 
 To make the user flow a bit more explicit:
 
-1. User 1 initiates a new game and picks their object using the app's `/challenge` slash command
+1. User A initiates a new game and picks their object using the app's `/challenge` slash command
 2. A message is sent to channel with a button inviting others to accept the challenge
-3. User 2 presses the **Accept** button
-4. User 2 is sent an ephemeral message where they select their object of choice
+3. User B presses the **Accept** button
+4. User B is sent an ephemeral message where they select their object of choice
 5. The result of the game is posted back into the original channel for all to see
 </Collapsible>
 
@@ -24,10 +29,57 @@ To make the user flow a bit more explicit:
 - **[GitHub repository](https://github.com/discord/discord-example-app)** where the code from this guide lives along with some additional feature-specific code examples.
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, a library that provides types and helper functions for Discord apps.
 - **[Express](https://expressjs.com)**, a popular JavaScript web framework we'll use to create a server where Discord can send us requests.
-- **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
+- **[ngrok](https://ngrok.com/)**, a tool that lets us tunnel our local server to a public URL where Discord can send requests.
 </Collapsible>
 
 ---
+
+## Step 0: Project Setup
+
+Before we get started, you'll need to set up your local environment and get the project code from the [sample app repository](https://github.com/discord/discord-example-app).
+
+> info
+> We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but you can use your preferred development environment.
+
+If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install that first.
+
+After NodeJS is installed, open your command line and clone the project code:
+
+```
+git clone https://github.com/discord/discord-example-app.git
+```
+
+Then navigate to the directory and install the project's dependencies:
+
+```
+# navigate to directory
+cd discord-example-app
+
+# install dependencies
+npm install
+```
+
+
+<Collapsible title="Project structure" description="Overview of the project structure for the sample app used in this tutorial" icon="code">
+```
+├── examples    -> short, feature-specific sample apps
+│   ├── app.js  -> finished app.js code
+│   ├── button.js
+│   ├── command.js
+│   ├── modal.js
+│   ├── selectMenu.js
+├── .env        -> your credentials and IDs
+├── app.js      -> main entrypoint for app
+├── commands.js -> slash command payloads + helpers
+├── game.js     -> logic specific to Rock, Paper, Scissors
+├── utils.js    -> utility functions and constants
+├── package.json
+├── README.md
+└── .gitignore
+```
+</Collapsible>
+
+With that out of the way, open your new project in the code editor of your choice, and we'll move ahead to setting up your Discord app.
 
 ## Step 1: Creating an app
 
@@ -39,126 +91,114 @@ Enter a name for your app, then press **Create**.
 
 After you create your app, you'll land on the **General Overview** page of the app's settings where you can update basic information about your app like its description and icon. You'll also see an **Application ID** and **Interactions Endpoint URL**, which we'll use a bit later in the guide.
 
-### Configuring your bot
+### Fetching your credentials
 
-Next we'll configure the [bot user](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts) for your app, which allows it to appear and behave similarly to other server members.
-
-On the left hand sidebar click **Bot**. On this page, you can configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by other users.
-
-<Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
-Intents determine which events Discord will send your app when you're creating a [Gateway API connection](#DOCS_TOPICS_GATEWAY). For example, if you want your app to do something when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
-
-Some intents are [privileged](#DOCS_TOPICS_GATEWAY/privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents appear and can be toggled on the **Bot** page in your app's settings. Standard, non-privileged intents don't require any additional permissions or configurations.
-
-More information about intents and a full list of available intents, along with their associated events, is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
-</Collapsible>
-
-![Bot tab in app settings](app-add-bot.png)
-
-There's also a **Token** section on the **Bot** page, which allows you to copy and reset your bot's token.
-
-Bot tokens are used to authorize API requests and carry your bot user's permissions, making them *highly sensitive*. Make sure to *never* share your token or check it into any kind of version control.
-
-Go ahead and copy the token, and store the token somewhere safe (like in a password manager).
+We'll need to set up and fetch a few sensitive values for your app, like its token and ID.
 
 > warn
-> You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe.
+> Your token is used to authorize API requests and carry your app's permissions, so they are *highly* sensitive. Make sure to never share your token or check it into any kind of version control.
+
+Back in your project folder, rename the `.env.sample` file to `.env`. This is where we'll store all of your app's credentials.
+
+We'll need three values from your app's settings for your `.env` file:
+
+- On the **General Information** page, copy the value for **Application ID**. In `.env`, replace `<YOUR_APP_ID>` with the ID you copied.
+- Back on the **General Information** page, copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
+- On the **Bot** page under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
+
+> warn
+> You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe (like in a password manager).
+
+Now that you have the credentials you need, lets configure your bot user and installation settings.
+
+### Configuring your bot
+
+Newly-created apps have a bot user enabled by default. Bot users allow your app to appear and behave similarly to other server members when it's [installed to a server](#DOCS_QUICK_START_OVERVIEW_OF_APPS/where-are-apps-installed).
+
+On the left hand sidebar in your app's settings, there's a **Bot** page (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by other users.
+
+<Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
+Intents determine which events Discord will send your app when you're creating a [Gateway API connection](#DOCS_TOPICS_GATEWAY). For example, if you want your app to perform an action when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
+
+Some intents are [privileged](#DOCS_TOPICS_GATEWAY/privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents can be toggled on the **Bot** page in your app's settings, but they must be approved before you [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified). Standard, non-privileged intents don't require any additional permissions or configurations.
+
+More information about intents and a full list of available intents (along with their associated events) is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
+</Collapsible>
+
+For now, we don't need to configure anything additional here, but you may need to in the future depending on your app's use case. Let's go ahead and get our app ready for installation.
+
+### Choosing installation contexts
+
+Now we'll select where your app can be installed in Discord, which is determined by the [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context) that your app supports.
+
+<Collapsible title="What are installation contexts?" description="Overview of where apps can be installed" icon="question">
+**Installation contexts** determine where your app can be installed: to servers, to users, or both. Apps can choose which installation contexts they support within the app's settings. 
+
+- Apps installed in a **[server context](#DOCS_RESOURCES_APPLICATION/server-context)** (server-installed apps) must be authorized by a server member with the `MANAGE_GUILD` permission, and are visible to all members of the server.
+- Apps installed in a **[user context](#DOCS_RESOURCES_APPLICATION/user-context)** (user-installed apps) are visible only to the authorizing user, and therefore don't require any server-specific permissions. Apps installed to a user context are visible across all of the user's servers, DMs, and GDMs—however, they're limited to using commands.
+</Collapsible>
+
+Click on **Installation** in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected.
+
+> info
+> Some apps may only want to support one installation context—for example, a moderation app may only support a server context. However, by default, we recommend supporting both installation contexts. For detailed information about supporting user-installed apps, you can read the [user-installable app tutorial](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP).
+
+### Setting up an install link
+
+[Install links](#DOCS_RESOURCES_APPLICATION/install-links) provide an easy way for users to install your app in Discord. We'll set up the default [Discord Provided Link](#DOCS_RESOURCES_APPLICATION/discord-provided-link), but you can read more about the different type of install links in the [Application documentation](#DOCS_RESOURCES_APPLICATION/types-of-install-links).
+
+On the **Installation** page, go to the **Install Link** section and select "Discord Provided Link" if it's not already selected.
+
+When Discorded Provided Link is selected, a new **Default Install Settings** section will appear, which we'll configure next.
 
 ### Adding scopes and bot permissions
 
-Apps need approval from installing users to perform actions in Discord (like creating a slash command or fetching a list of server members). Let's select a few scopes and permissions to request before installing the app.
+Apps need approval from installing users to perform actions in Discord (like creating a slash command or fetching a list of server members). Let's add scopes and permissions before installing the app.
 
 <Collapsible title="What are scopes and permissions?" description="Introduction to scopes and bot permissions" icon="question">
-When creating an app, scopes and permissions determine what your app can do and access in Discord servers.
+When creating an app, scopes and permissions determine what your app can do and access in Discord.
 
 - [OAuth2 Scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) determine what data access and actions your app can take, granted on behalf of an installing or authenticating user.
-- [Permissions](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) are the granular permissions for your bot user, the same as other users in Discord have. They can be approved by the installing user or later updated within server settings or with [permission overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites).
+- [Permissions](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) are the granular permissions for your bot user, the same as other users in Discord have. They can be approved by the installing user or later updated within server settings or with [permission overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Since apps installed to a user context can only respond to commands, these permissions are only relevant to apps installed to a server.
 </Collapsible>
 
-Click on **OAuth2** in the left sidebar, then select **URL generator**.
+On the **Installation** page in the **Default Install Settings** section:
+- For **User Install**, add the `applications.commands` scope
+- For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
-> info
-> The URL generator creates an installation link based on the scopes and permissions you select for your app. You can use the link to install the app onto your own server, or share it with others so they can install it.
-
-For now, just add the **`bot` scope**, which adds your bot user.
-
-After you select `bot`, you can also select different permissions for your bot. For now, just check **Send Messages**.
+![Default Install Settings](getting-started-default-install.png)
 
 See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), or read more on [permissions](#DOCS_TOPICS_PERMISSIONS) in the documentation.
 
 ### Installing your app
 
-Once you add scopes, you should see a URL that you can copy to install your app.
-
-![URL generator screenshot](url-generator.png)
-
 > info
-> When developing apps, you should build and test in a server that isn't actively used by others. If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+> When developing apps, you should build and test on your user account (for user-installable apps) and in a server that isn't actively used by others (for server-installable apps). If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 
-Copy the URL from above, and paste it into your browser. You'll be guided through the installation flow, where you should make sure you're installing your app on a server where you can develop and test it.
+Once you add scopes, copy the URL from the **Install Link** section from before.
 
-After installing your app, you can head over to your server and see that it has joined ✨
+Since our app is supporting both installation contexts, we'll install your new app to both a test server and your user account so that we can test in both [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context).
 
-With your app configured and installed, let's start developing it.
+###### Install to server
+
+To install your app to your test server, copy the default Install Link for your app from the **Installation** page. Paste the link in your browser and hit enter, then select "Add to server" in the installation prompt.
+
+Select your test server, and follow the installation prompt. Once your app is added to your test server, you should see it appear in the member list.
+
+###### Install to user account
+
+Next, install your app to your user account. Paste the same Install Link in your browser and hit enter. This time, select "Add to my apps" in the installation prompt.
+
+Follow the installation prompt to install your app to your user account. Once it's installed you can open a DM with it.
 
 ---
 
 ## Step 2: Running your app
 
-All of the code used in the example app can be found in [the GitHub repository](https://github.com/discord/discord-example-app).
-
-To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) documentation.
-
-### Remixing the project
-
-This guide uses Glitch, which lets you clone and develop within your browser. If you'd prefer to develop your app locally, there's instructions on using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally).
+With your app configured and installed to your test server and account, let's take a look at the code.
 
 > info
-> While Glitch is great for development and testing, [it has technical restrictions](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
-
-To start, **[remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/import/git?url=https://github.com/discord/discord-example-app.git)**.
-
-Once you remix the project, you'll land on a new Glitch project.
-
-<Collapsible title="Glitch project interface" description="Overview of Glitch's project interface" icon="view">
-![Glitch project overview](glitch-project.png)
-
-- Your **project name** is a unique name for your project, found in the upper-left corner
-- **`.env`** is the file where all of your credentials for your app will be stored
-- **Logs** are where your project's output is found—this is helpful to see if the app is running or information about any errors your app encounters
-- The **Share** button in the top-right corner is where you'll find the live project URL, which you'll need to set up interactivity later in this guide
-</Collapsible>
-
-#### Project structure
-
-All of the files for the project are on the left-hand side of your Glitch project. Below is an overview of the main folders and files:
-
-```
-├── examples    -> short, feature-specific sample apps
-│   ├── app.js  -> finished app.js code
-│   ├── button.js
-│   ├── command.js
-│   ├── modal.js
-│   ├── selectMenu.js
-├── .env        -> your credentials and IDs
-├── app.js      -> main entrypoint for app
-├── commands.js -> slash command payloads + helpers
-├── game.js     -> logic specific to RPS
-├── utils.js    -> utility functions and enums
-├── package.json
-├── README.md
-└── .gitignore
-```
-
-### Adding credentials
-
-There's already some code in your `app.js` file, but you'll need your app's token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
-
-First, copy your bot user's token from earlier and paste it in the **`DISCORD_TOKEN`** variable in your `.env` file.
-
-Next, navigate to your app's **General Overview** page, then copy the **App ID** and **Public Key**. Paste the values in your `.env` file as **`APP_ID`** and **`PUBLIC_KEY`**.
-
-With your credentials configured, let's install and handle slash commands.
+> To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) documentation.
 
 ### Installing slash commands
 
@@ -169,18 +209,16 @@ The project contains a `register` script you can use to install the commands in 
 
 If you want to customize your commands or add additional ones, you can reference the command structure in the [commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure).
 
-Run the `register` script by clicking **Terminal** at the bottom of your Glitch project and pasting the following command:
+In your terminal within the project folder, run the following command:
 
 ```
 npm run register
 ```
 
-Hit enter to run the command.
-
 If you navigate back to your server, you should see the slash commands appear. But if you try to run them, nothing will happen since your app isn't receiving or handling any requests from Discord.
 
 <Collapsible title="What are Discord's APIs?" description="Overview of Discord's HTTP and Gateway APIs" icon="question">
-Discord has two APIs that you can mix-and-match to build apps:
+Apps have access to [APIs](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-apis-can-apps-use) that you can mix-and-match to build apps:
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** is a REST-like API for general operations like sending and updating data in Discord, or fetching data about a resource.
 - **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is a WebSocket-based API that is helpful for maintaining state or listening to events happening in a Discord server. We won't be using it in this guide, but more information about how to create a Gateway connection and the different events you can listen to are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
@@ -190,28 +228,61 @@ Discord has two APIs that you can mix-and-match to build apps:
 
 ## Step 3: Handling interactivity
 
-To enable your app to receive slash command requests (and other interactions), Discord needs a public URL to send them. This URL can be configured in your app's settings as **Interaction Endpoint URL**.
+To enable your app to receive slash command and other interactions requests, Discord needs a public URL to send them. This URL can be configured in your app's settings as **Interaction Endpoint URL**.
+
+### Set up a public endpoint
+
+To set up a public endpoint, we'll start our app which runs an [Express](https://expressjs.com/) server, then use [ngrok](https://ngrok.com/) to expose our server publicly. 
+
+First, go to your project's folder and run the following to start your app:
+
+```
+npm run start
+```
+
+There should be output indiciating your app is running on port `3000`. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) documentation.
+
+> info 
+> By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
+
+Next, we'll start our ngrok tunnel. If you don't have ngrok installed locally, you can install it by following the instructions on the [ngrok download page](https://ngrok.com/download).
+
+After ngrok is installed, open a new terminal and create a public endpoint that will forward requests to your Express server:
+
+```
+ngrok http 3000
+```
+
+You should see your connection open with output similar to the following:
+
+```
+Tunnel Status                 online
+Version                       2.0/2.0
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    https://1234-someurl.ngrok.io -> localhost:3000
+
+Connections                  ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00
+```
+
+We'll use **Forwarding** URL as the publicly-accessible URL where Discord will send interactions requests in the next step.
 
 ### Adding an interaction endpoint URL
 
-Glitch projects have a public URL exposed by default. Copy your project's URL by clicking the **Share** button in the top right corner, then copy the "Live site" project link near the bottom of the modal.
+Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok forwarding URL and append `/interactions`.
 
-> info
-> If you're developing locally, there are instructions for tunneling requests to your local environment [on the GitHub README](https://github.com/discord/discord-example-app#running-app-locally).
-
-With the link copied, go to your app's settings from [the developer portal](https://discord.com/developers/applications).
-
-On your app's **General Information** page, there's an **Interactive Endpoint URL** option, where you can paste your app's URL and append `/interactions` to it, which is where the Express app is configured to listen for requests.
-
-![Interactions endpoint URL in app settings](interactions-url.png)
+![Interactions Endpoint URL](getting-started-interactions-endpoint.png)
 
 Click **Save Changes** and ensure your endpoint is successfully verified.
 
-The sample app handles verification in two ways:
+> info
+> If you have troubles verifying your endpoint, make sure both ngrok and your app are running on the same port, and that you've copied the ngrok URL correctly
+
+The verification is handled automatically by the sample app in two ways:
 - It uses the `PUBLIC_KEY` and [discord-interactions package](https://github.com/discord/discord-interactions-js#usage) with a wrapper function (imported from `utils.js`) that makes it conform to [Express's `verify` interface](http://expressjs.com/en/5x/api.html#express.json). This is run on every incoming request to your app.
 - It responds to incoming `PING` requests.
 
-You can learn more about preparing your app to receive interactions in [the interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction).
+You can learn more about preparing your app to receive interactions in [the interactions documentation](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions).
 
 ### Handling slash command requests
 
@@ -231,7 +302,7 @@ if (name === 'test') {
 }
 ```
 
-The code above is responding to the interaction with a message in the channel it originated from. You can see all available response types, like responding with a modal, [in the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+The code above is responding to the interaction with a message in the channel, DM, or Group DM it originated from. You can see all available response types, like responding with a modal, [in the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
 
 > info
 > `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
@@ -262,7 +333,10 @@ To handle the `/challenge` command, add the following code after the `if name ==
 ```javascript
 // "challenge" command
 if (name === 'challenge' && id) {
-    const userId = req.body.member.user.id;
+    // Interaction context
+    const context = req.body.context;
+    // User ID is in user field for (G)DMs, and member for servers
+    const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
     // User's object choice
     const objectName = req.body.data.options[0].value;
 
@@ -295,12 +369,11 @@ if (name === 'challenge' && id) {
 }
 ```
 
-
 > info
-> If you aren't sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on GitHub](https://github.com/discord/discord-example-app/blob/main/app.js).
+> If you aren't sure where to paste the code, you can see the full code in `examples/app.js`.
 
 The above code is doing a few things:
-1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`).
+1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`). If the interaction is run in a server (`context === 0`), the user ID will be nested in the `member` object. If it's in a DM or Group DM, it will be in the `user` object.
 2. Adds a new game to the `activeGames` object using the interaction ID. The active game records the `userId` and `objectName`.
 3. Sends a message back to the channel with a button with a `custom_id` of `accept_button_<SOME_ID>`.
 
@@ -424,9 +497,11 @@ const componentId = data.custom_id;
     const gameId = componentId.replace('select_choice_', '');
 
     if (activeGames[gameId]) {
+      // Interaction context
+      const context = req.body.context;
       // Get user ID and object choice for responding user
-      const userId = req.body.member.user.id;
-      const objectName = data.values[0];
+      // User ID is in user field for (G)DMs, and member for servers
+      const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
       // Calculate result from helper function
       const resultStr = getResult(activeGames[gameId], {
         id: userId,
@@ -478,9 +553,19 @@ Finally, the results are sent in the channel using the `CHANNEL_MESSAGE_WITH_SOU
 
 Congrats on building your first Discord app! 🤖
 
-Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible:
-- Read **[the documentation](#DOCS_INTRO)** for in-depth information about API features
-- Browse the `examples/` folder in this project for smaller, feature-specific code examples
-- Check out **[community resources](#DOCS_TOPICS_COMMUNITY_RESOURCES)** for language-specific tools maintained by community members
-- Read our tutorial on [hosting Discord apps on Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
-- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs
+Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible.
+
+<Container>
+  <Card title="Overview of Apps" link="#DOCS_QUICK_START_OVERVIEW_OF_APPS" icon="AppsIcon">
+    Explore the platform features and APIs you have access to when building an app on Discord
+  </Card>
+  <Card title="Explore developer tools" link="#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES" icon="WrenchIcon">
+    Explore 1st party and community-built libraries and tools to speed up and simplify your development
+  </Card>
+  <Card title="Developing User-Installable Apps" link="#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP" icon="UserIcon">
+    Tutorial on building and handling interactions for apps installed to a user
+  </Card>
+  <Card title="Discord Developers" link="https://discord.gg/discord-developers" icon="GlobeEarthIcon">
+    Join our community to ask questions about the API, attend events hosted by the Discord platform team, and interact with other devs
+  </Card>
+</Container>

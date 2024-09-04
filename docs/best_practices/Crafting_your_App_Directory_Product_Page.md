@@ -1,3 +1,7 @@
+---
+sidebar_label: Crafting your App Directory Product Page
+---
+
 # Best Practices for App Directory Product Pages
 
 So you’ve made an app on Discord and are ready to opt in to discovery on the App Directory! Or maybe you have already listed your app but aren’t seeing as much traction to it as you’d like? Whatever stage you’re at, this guide has some tips and tricks from your friendly Discord Staff members to help boost performance of your App Directory Product Page.

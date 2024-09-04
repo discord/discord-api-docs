@@ -1,3 +1,7 @@
+---
+sidebar_label: Guild
+---
+
 # Guild Resource
 
 Guilds in Discord represent an isolated collection of users and channels, and are often referred to as "servers" in the UI.
@@ -380,12 +384,17 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Flags
 
-| Flag                  | Value    | Description                                           | Editable |
-|-----------------------|----------|-------------------------------------------------------|----------|
-| DID_REJOIN            | `1 << 0` | Member has left and rejoined the guild                | false    |
-| COMPLETED_ONBOARDING  | `1 << 1` | Member has completed onboarding                       | false    |
-| BYPASSES_VERIFICATION | `1 << 2` | Member is exempt from guild verification requirements | true     |
-| STARTED_ONBOARDING    | `1 << 3` | Member has started onboarding                         | false    |
+| Flag                            | Value    | Description                                                                  | Editable |
+|---------------------------------|----------|------------------------------------------------------------------------------|----------|
+| DID_REJOIN                      | `1 << 0` | Member has left and rejoined the guild                                       | false    |
+| COMPLETED_ONBOARDING            | `1 << 1` | Member has completed onboarding                                              | false    |
+| BYPASSES_VERIFICATION           | `1 << 2` | Member is exempt from guild verification requirements                        | true     |
+| STARTED_ONBOARDING              | `1 << 3` | Member has started onboarding                                                | false    |
+| IS_GUEST                        | `1 << 4` | Member is a guest and can only access the voice channel they were invited to | false    |
+| STARTED_HOME_ACTIONS            | `1 << 5` | Member has started Server Guide new member actions                           | false    |
+| COMPLETED_HOME_ACTIONS          | `1 << 6` | Member has completed Server Guide new member actions                         | false    |
+| AUTOMOD_QUARANTINED_USERNAME    | `1 << 7` | Member's username, display name, or nickname is blocked by AutoMod           | false    |
+| DM_SETTINGS_UPSELL_ACKNOWLEDGED | `1 << 9` | Member has dismissed the DM settings upsell                                  | false    |
 
 > info
 > BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
@@ -1113,6 +1122,10 @@ On success, this endpoint returns a 200 success response with the following body
 
 Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
 
+## Get Guild Role % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
+
+Returns a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object for the specified role.
+
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-create) Gateway event. All JSON params are optional.
@@ -1338,46 +1351,3 @@ Modifies the onboarding configuration of the guild. Returns a 200 with the [Onbo
 | default_channel_ids | array of snowflakes                                                                                             | Channel IDs that members get opted into automatically      |
 | enabled             | boolean                                                                                                         | Whether onboarding is enabled in the guild                 |
 | mode                | [onboarding mode](#DOCS_RESOURCES_GUILD/guild-onboarding-object-onboarding-mode)                                | Current mode of onboarding                                 |
-
-## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
-
-Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
-
-###### JSON Params
-
-| Field                       | Type               | Description                                    |
-|-----------------------------|--------------------|------------------------------------------------|
-| channel_id?                 | snowflake          | the id of the channel the user is currently in |
-| suppress?                   | boolean            | toggles the user's suppress state              |
-| request_to_speak_timestamp? | ?ISO8601 timestamp | sets the user's request to speak               |
-
-###### Caveats
-
-There are currently several caveats for this endpoint:
-
-- `channel_id` must currently point to a stage channel.
-- current user must already have joined `channel_id`.
-- You must have the `MUTE_MEMBERS` permission to unsuppress yourself. You can always suppress yourself.
-- You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
-- You are able to set `request_to_speak_timestamp` to any present or future time.
-
-## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
-
-Updates another user's voice state. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
-
-###### JSON Params
-
-| Field      | Type      | Description                                    |
-|------------|-----------|------------------------------------------------|
-| channel_id | snowflake | the id of the channel the user is currently in |
-| suppress?  | boolean   | toggles the user's suppress state              |
-
-###### Caveats
-
-There are currently several caveats for this endpoint:
-
-- `channel_id` must currently point to a stage channel.
-- User must already have joined `channel_id`.
-- You must have the `MUTE_MEMBERS` permission. (Since suppression is the only thing that is available currently.)
-- When unsuppressed, non-bot users will have their `request_to_speak_timestamp` set to the current time. Bot users will not.
-- When suppressed, the user will have their `request_to_speak_timestamp` removed.
