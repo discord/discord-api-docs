@@ -65,7 +65,7 @@ For subscription SKUs, you will receive the following events:
 
 ### Accessing Entitlements with the HTTP API
 
-For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_Id=XYZ` query params.
+For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_id=XYZ` query params.
 
 For example, you might keep track of our entitlements in a database and check if a user still has access to a specific SKU before performing a cron job or other task.
 
