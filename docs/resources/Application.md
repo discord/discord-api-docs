@@ -165,7 +165,7 @@ Apps that support the user installation context are visible across all of an aut
 
 By default, newly-created apps only support installation to guilds.
 
-You can update which installation contexts your app supports in your [app's settings](https://discord.com/developers/applications). On the **Installation** page under the **Authorization Methods** section, you can select the installation contexts your app supports.
+You can update which installation contexts your app supports in your [app's settings](https://discord.com/developers/applications). On the **Installation** page under the **Installation Contexts** section, you can select the installation contexts your app supports.
 
 > info
 > If you update your app to support a new installation context, you will need to update your existing [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) if you want them to be supported in the new context. Details are in the [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation.
