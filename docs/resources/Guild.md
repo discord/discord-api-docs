@@ -128,6 +128,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 | Feature                                   | Description                                                                                                                   |
 |-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| ACTIVITY_FEED_DISABLED_BY_USER            | guild has disabled the activity feed                                                                                          |
+| ACTIVITY_FEED_ENABLED_BY_USER             | guild has enabled the activity feed                                                                                           |
 | ANIMATED_BANNER                           | guild has access to set an animated guild banner image                                                                        |
 | ANIMATED_ICON                             | guild has access to set an animated guild icon                                                                                |
 | APPLICATION_COMMAND_PERMISSIONS_V2        | guild is using the [old permissions configuration behavior](#DOCS_CHANGE_LOG/upcoming-application-command-permission-changes) |
@@ -158,12 +160,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Mutable Guild Features
 
-| Features             | Required Permissions | Effects                                                   |
-|----------------------|----------------------|-----------------------------------------------------------|
-| COMMUNITY            | Administrator        | Enables Community Features in the guild                   |
-| DISCOVERABLE         | Administrator*       | Enables discovery in the guild, making it publicly listed |
-| INVITES_DISABLED     | Manage Guild         | Pauses all invites/access to the server                   |
-| RAID_ALERTS_DISABLED | Manage Guild         | Disables alerts for join raids                            |
+| Features                       | Required Permissions | Effects                                                   |
+|--------------------------------|----------------------|-----------------------------------------------------------|
+| ACTIVITY_FEED_DISABLED_BY_USER | Manage Guild         | Disables the activity feed                                |
+| ACTIVITY_FEED_ENABLED_BY_USER  | Manage Guild         | Enables the activity feed                                 |
+| COMMUNITY                      | Administrator        | Enables Community Features in the guild                   |
+| DISCOVERABLE                   | Administrator*       | Enables discovery in the guild, making it publicly listed |
+| INVITES_DISABLED               | Manage Guild         | Pauses all invites/access to the server                   |
+| RAID_ALERTS_DISABLED           | Manage Guild         | Disables alerts for join raids                            |
 
 \* Server also must be passing all discovery requirements
 
