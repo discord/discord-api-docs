@@ -1,3 +1,7 @@
+---
+sidebar_label: Voice
+---
+
 # Voice Resource
 
 ### Voice State Object
@@ -53,3 +57,54 @@ Used to represent a user's voice connection status.
 ## List Voice Regions % GET /voice/regions
 
 Returns an array of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+
+## Get Current User Voice State % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+
+Returns the current user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) in the guild.
+
+## Get User Voice State % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+
+Returns the specified user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) in the guild.
+
+## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+
+Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
+
+###### JSON Params
+
+| Field                       | Type               | Description                                    |
+|-----------------------------|--------------------|------------------------------------------------|
+| channel_id?                 | snowflake          | the id of the channel the user is currently in |
+| suppress?                   | boolean            | toggles the user's suppress state              |
+| request_to_speak_timestamp? | ?ISO8601 timestamp | sets the user's request to speak               |
+
+###### Caveats
+
+There are currently several caveats for this endpoint:
+
+- `channel_id` must currently point to a stage channel.
+- current user must already have joined `channel_id`.
+- You must have the `MUTE_MEMBERS` permission to unsuppress yourself. You can always suppress yourself.
+- You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
+- You are able to set `request_to_speak_timestamp` to any present or future time.
+
+## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+
+Updates another user's voice state. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
+
+###### JSON Params
+
+| Field      | Type      | Description                                    |
+|------------|-----------|------------------------------------------------|
+| channel_id | snowflake | the id of the channel the user is currently in |
+| suppress?  | boolean   | toggles the user's suppress state              |
+
+###### Caveats
+
+There are currently several caveats for this endpoint:
+
+- `channel_id` must currently point to a stage channel.
+- User must already have joined `channel_id`.
+- You must have the `MUTE_MEMBERS` permission. (Since suppression is the only thing that is available currently.)
+- When unsuppressed, non-bot users will have their `request_to_speak_timestamp` set to the current time. Bot users will not.
+- When suppressed, the user will have their `request_to_speak_timestamp` removed.

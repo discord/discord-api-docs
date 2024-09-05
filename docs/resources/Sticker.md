@@ -1,3 +1,7 @@
+---
+sidebar_label: Sticker
+---
+
 # Sticker Resource
 
 ### Sticker Object
@@ -13,7 +17,6 @@ Represents a sticker that can be sent in messages.
 | name        | string                                          | name of the sticker                                                                   |
 | description | ?string                                         | description of the sticker                                                            |
 | tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 200 characters)                     |
-| asset?      | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                 |
 | type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)               |
 | format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types) |
 | available?  | boolean                                         | whether this guild sticker can be used, may be false due to loss of Server Boosts     |
@@ -50,7 +53,6 @@ Incidentally the client will always use a name generated from an emoji as the va
   "type": 1,
   "format_type": 3,
   "description": "Wumpus waves hello",
-  "asset": "",
   "pack_id": "847199849233514549",
   "sort_value": 12
 }
@@ -111,6 +113,10 @@ Returns a list of available sticker packs.
 | Field         | Type                                                                         |
 |---------------|------------------------------------------------------------------------------|
 | sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
+
+## Get Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
+
+Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) object for the given sticker pack ID.
 
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 

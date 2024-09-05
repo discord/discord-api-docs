@@ -1,37 +1,21 @@
-# Rich Presence Best Practices
+---
+sidebar_label: Best Practices
+---
 
-> danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_GETTING_STARTED/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+# Best Practices for Rich Presence
 
-Rich Presence is a new feature from Discord that allows you to surface unique, interesting, and actionable data inside a Discord user’s profile when they play your game! This guide is intended to show some best practices on how to make that data the best it can be. It will include images and code samples; for full technical documentation, see our developer documentation.
+Rich Presence lets you display actionable data in a Discord user's profile about what they're up to in your game or app. This guide is intended to show some best practices on how to make that data the best it can be.
 
-If you take away one thing from this guide, let it be this:
-
-> warn
-> Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.
-
-## Who should use Rich Presence?
-
-Rich Presence is a powerful way to integrate your game with Discord. To do it most effectively, you should think about its purpose and how well (or not) it matches with your game and your implementation. Rich Presence is designed for these three things:
-
-1. Show interesting, unique, actionable data in a user’s profile
-2. Allow friends to spectate each other’s games
-3. Join a friend’s in-game party or server directly from Discord
-
-We certainly don’t want to stifle creativity, especially for games that can use Rich Presence in an interesting way. However, keep in mind that this sort of gameplay is what it was designed for, and how players will normally interact with it.
-
-If you want to do something creative, wacky, funky, or otherwise out-there with Rich Presence for your players and aren’t sure if you can, feel free to drop us a line at [gamedevs@discord.com](mailto:gamedevs@discord.com). We’re always happy to help!
+If you don't already know about Rich Presence, read [the overview](#DOCS_RICH_PRESENCE_OVERVIEW) first.
 
 ## How should you think about the data you show?
 
-The data in your players’ profiles is the first thing that others on Discord will see about your game, both those familiar with it and those who have never played. It should answer two questions: can I play with my friend right now, and if not, when can I? Show data like:
+The data in your players’ profiles is the first thing that others on Discord will see about your game or app, both those familiar with it and those who have never seen it before. It should answer whether someone can play with their friend right now and show data like:
 
 - What the player is currently doing
 - How much time has elapsed or remains (if applicable)
 - Their party state
 - Your cool artwork!
-
-For a great real world example, check out [Holodrive](https://store.steampowered.com/app/370770/Holodrive/) for free on Steam!
 
 ## Tips
 
@@ -86,3 +70,41 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 |:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
 | ![Screenshot of a rich presence icon that is too dark to see clearly](rp-bad-art.png) | ![Screenshot of a rich presence icon that is clear and detailed](rp-good-art.png) |
 |      The image is dark and unfocused. Highly-detailed images can be hard to see.      |             This image is bright and matches the details. Let's help!             |
+
+
+## Launch Checklist
+
+Ready to launch a Rich Presence integration for your game? If so, we recommend looking over this checklist one last time to ensure that your integration is as great as it can be!
+
+#### Profile Strings
+
+- Have you made use of all available fields where appropriate?
+- Do your strings fit on their own lines without line wrapping?
+  - Did you check on the smaller profile pop out?
+- Do they clearly communicate:
+  - What the player is currently doing?
+  - If the player is in a group or playing alone?
+  - If the player is in a state where they can party up?
+
+#### Artwork
+
+- Is your artwork high resolution?
+- Are your images at least 1024x1024 pixels?
+- Is it clean, interesting, and descriptive without being too highly detailed?
+- Do you have artwork for every different state? Don't forget your default state/main menu!
+- Did you make use of tooltips and the small image where appropriate?
+
+#### Joining
+
+> info
+> Since all Activities presence data has a **Join Activity** button, Join Invites are only applicable when building with the [Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
+
+- Have you successfully implemented join invites for your game if applicable?
+- Does the state of the invite properly represent the party/group in-game with regards to:
+  - Size?
+  - Open slots?
+  - Discord _and_ non-Discord users in the party?
+- Are you able to post invites to Discord without any additional in-game setup or configuration?
+- Are you properly removing data from the presence payload when someone can no longer send invites?
+  - A Join secret should not be sent if the player can't invite anyone!
+
