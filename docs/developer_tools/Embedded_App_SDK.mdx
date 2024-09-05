@@ -793,6 +793,7 @@ Developers may use the following events alongside the `subscribe()` SDK method t
 | [ACTIVITY_LAYOUT_MODE_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activitylayoutmodeupdate)                     | Received when a user changes the layout mode in the Discord client                        |
 | [ORIENTATION_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationupdate)                                     | Received when screen orientation changes                                                  |
 | [CURRENT_USER_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/currentuserupdate)                                    | Received when the current user object changes                                             |
+| [CURRENT_GUILD_MEMBER_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/currentguildmemberupdate)                     | Received when the current guild member object changes                                     |
 | [THERMAL_STATE_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/thermalstateupdate)                                  | Received when Android or iOS thermal states are surfaced to the Discord app               |
 | [ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activityinstanceparticipantsupdate) | Received when the number of instance participants changes                                 |
 | [ENTITLEMENT_CREATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/entitlementcreate)                                     | Received when an entitlement is created for a SKU                                         |
@@ -972,6 +973,32 @@ Received when the current user object changes.
   "bot": false,
   "flags": 1,
   "premium_type": 2
+}
+```
+
+---
+
+### CURRENT_GUILD_MEMBER_UPDATE
+
+Received when the current guild member object changes.
+
+#### Required Scopes
+
+- guilds.members.read
+
+#### Sample Event Payload
+
+```javascript
+{
+  "user_id": "7173771622812225536",
+  "nick": "beef_supreme",
+  "guild_id": "613425648685547541"
+  "avatar": "abcdefg",
+  "avatar_decoration_data": {
+    "asset": "abcdefg",
+    "sku_id": "123456789"
+  },
+  "color_string": "ffff00"
 }
 ```
 
