@@ -29,7 +29,7 @@ An emoji cannot have both subscription roles and non-subscription roles.
 Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.  
 Emojis cannot be converted between normal and premium after creation.
 
-###### Appication-Owned Emoji
+###### Application-Owned Emoji
 
 An application can own up to 2000 emojis that can only be used by that app.
 App emojis can be managed using the API with a bot token, or using the app's settings in the portal.
