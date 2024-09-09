@@ -252,8 +252,6 @@ Each manager class contains its own functions and events used to interact with D
 | [`OverlayManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/overlay)     | for interacting with Discord's built-in overlay            |
 | [`UserManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/users)          | for fetching user data for a given id and the current user |
 
-</Collapsible>
-
 ### Using Functions in the SDK
 
 Most functions in the Discord Game SDK, uh, _function_ in a similar way. They take whatever parameters are required for the function to do its job—a user id, the requested size for an image, etc.—and a callback by means of a function pointer. That callback is fired when the function completes its work, letting you handle events without worrying about piping asynchronously-returned data to the right context.
