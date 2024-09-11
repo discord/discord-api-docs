@@ -2,9 +2,6 @@
 
 Welcome to the documentation for the Discord Game SDK! We're glad you made it. The Game SDK helps you develop your 3rd party game or app, and integrate it with Discord.
 
-> danger
-> Many Game SDK features—including Achievements, Applications, Voice, Images, Lobbies, Networking, Storage, Store (purchases and discounts), and selling SKUs— have been deprecated. This page contains managers that aren't deprecated, but **they are not being actively developed**. 
-
 ---
 
 ## Getting Started
@@ -24,11 +21,11 @@ These files are comprised of two parts: a "stub", and fallback modules. What tha
 
 ### Step 2: Create your App
 
-Next, we need to set up the application for your game. An [app](#DOCS_RESOURCES_APPLICATION) is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
+Next, we need to set up the application for your game. An [app](#DOCS_RESOURCES_APPLICATION) is the base "entity" in Discord for your game.
 
 Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
 
-Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
+Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application! Now that your app is made, let's dive into some more setup.
 
 > warn
 > If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
@@ -249,29 +246,11 @@ This class is in charge of the creation of a few "manager" sub-classes to intera
 
 Each manager class contains its own functions and events used to interact with Discord in the context of the manager:
 
-| Name                                                           | Description                                                                                 |
-|----------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| [`ActivityManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) | for Rich Presence and game invites                                                          |
-| [`OverlayManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/overlay)     | for interacting with Discord's built-in overlay                                             |
-| [`StoreManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/store)         | for all things entitlements and SKUs; purchases, discounts, and selling SKUs are deprecated |
-| [`UserManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/users)          | for fetching user data for a given id and the current user                                  |
-
-Many managers in the Game SDK have been deprecated. You can see the deprecated managers in the dropdown below, and find the old documentation for each deprecated manager in the [deprecated section](#DOCS_DEVELOPER_TOOLS_GAME_SDK/deprecated) below.
-
-<Collapsible title="Deprecated managers" icon="list">
-
-| Name                  | Description                                                                  |
-|-----------------------|------------------------------------------------------------------------------|
-| `AchievementManager`  | for achievements!                                                            |
-| `ApplicationManager`  | for retrieving a user's OAuth2 bearer token, locale, and current game branch |
-| `ImageManager`        | for getting data about images on Discord, like user avatars or chat images   |
-| `LobbyManager`        | for multiplayer lobbies                                                      |
-| `NetworkManager`      | for all your networking layer needs                                          |
-| `RelationshipManager` | for users' social relationships across Discord, including friends list       |
-| `StorageManager`      | for saving game data to the disk and the cloud                               |
-| `VoiceManager`        | to make use of Discord's awesome voice chat                                  |
-
-</Collapsible>
+| Name                                                           | Description                                                |
+|----------------------------------------------------------------|------------------------------------------------------------|
+| [`ActivityManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) | for Rich Presence and game invites                         |
+| [`OverlayManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/overlay)     | for interacting with Discord's built-in overlay            |
+| [`UserManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/users)          | for fetching user data for a given id and the current user |
 
 ### Using Functions in the SDK
 
@@ -317,7 +296,6 @@ Discord passes a number of environment variables down to the SDK. These are acce
 | DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getoauth2token)     | the connected user's bearer token                                                                            |
 | DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getcurrentlocale) | the language that Discord is in for the connected user                                                       |
 | DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getcurrentbranch) | the branch of the running application that the user has launched                                             |
-| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Storage.md#getpath)                            | the path to which Discord will save files if you're using the StorageManager                                 |
 
 ### Error Handling
 
@@ -341,7 +319,7 @@ You should begin your integration by setting up this callback to help you debug.
 
 While integrating the Discord Game SDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
 
-We know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! 
+We know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you!
 
 <Collapsible title="How do I test locally while developing?" icon="question">
 
@@ -556,30 +534,6 @@ Returns an `ActivityManager`.
 var activityManager = discord.GetActivityManager();
 ```
 
-#### GetRelationshipManager
-
-Fetches an instance of the manager for interfacing with relationships in the SDK.
-
-Returns a `RelationshipManager`.
-
-###### Example
-
-```cs
-var relationshipManager = discord.GetRelationshipManager();
-```
-
-#### GetImageManager
-
-Fetches an instance of the manager for interfacing with images in the SDK.
-
-Returns an `ImageManager`.
-
-###### Example
-
-```cs
-var imageManager = discord.GetImageManager();
-```
-
 #### GetUserManager
 
 Fetches an instance of the manager for interfacing with users in the SDK.
@@ -592,30 +546,6 @@ Returns an `UserManager`.
 var userManager = discord.GetUserManager();
 ```
 
-#### GetLobbyManager
-
-Fetches an instance of the manager for interfacing with lobbies in the SDK.
-
-Returns a `LobbyManager`.
-
-###### Example
-
-```cs
-var lobbyManager = discord.GetLobbyManager();
-```
-
-#### GetNetworkManager
-
-Fetches an instance of the manager for interfacing with networking in the SDK.
-
-Returns an `NetworkManager`.
-
-###### Example
-
-```cs
-var networkManager = discord.GetNetworkManager();
-```
-
 #### GetOverlayManager
 
 Fetches an instance of the manager for interfacing with the overlay in the SDK.
@@ -626,66 +556,6 @@ Returns an `OverlayManager`.
 
 ```cs
 var overlayManager = discord.GetOverlayManager();
-```
-
-#### GetApplicationManager
-
-Fetches an instance of the manager for interfacing with applications in the SDK.
-
-Returns an `ApplicationManager`.
-
-###### Example
-
-```cs
-var applicationManager = discord.GetApplicationManager();
-```
-
-#### GetStorageManager
-
-Fetches an instance of the manager for interfacing with storage in the SDK.
-
-Returns a `StorageManager`.
-
-###### Example
-
-```cs
-var storageManager = discord.GetStorageManager();
-```
-
-#### GetStoreManager
-
-Fetches an instance of the manager for interfacing with SKUs and Entitlements in the SDK.
-
-Returns a `StoreManager`.
-
-###### Example
-
-```cs
-var storeManager = discord.GetStoreManager();
-```
-
-#### GetVoiceManager
-
-Fetches an instance of the manager for interfacing with voice chat in the SDK.
-
-Returns a `VoiceManager`.
-
-###### Example
-
-```cs
-var voiceManager = discord.GetVoiceManager();
-```
-
-#### GetAchievementManager
-
-Fetches an instance of the manager for interfacing with achievements in the SDK.
-
-Returns an `AchievementManager`.
-
-###### Example
-
-```cs
-var achievementManager = discord.GetAchievementManager();
 ```
 
 ## Activities
@@ -1067,36 +937,13 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 // Use secrets to receive back the information needed to add the user to the group/party/match
 activityManager.OnActivityJoin += secret => {
     Console.WriteLine("OnJoin {0}", secret);
-    lobbyManager.ConnectLobbyWithActivitySecret(secret, (Discord.Result result, ref Discord.Lobby lobby) =>
-    {
-        Console.WriteLine("Connected to lobby: {0}", lobby.Id);
-        // Connect to voice chat, used in this case to actually know in overlay if your successful in connecting.
-        lobbyManager.ConnectVoice(lobby.Id, (Discord.Result voiceResult) => {
+    // Now update your internal systems to reflect the user as joined
 
-            if (voiceResult == Discord.Result.Ok)
-            {
-                Console.WriteLine("New User Connected to Voice! Say Hello! Result: {0}", voiceResult);
-            }
-            else
-            {
-                Console.WriteLine("Failed with Result: {0}", voiceResult);
-            };
-        });
-		//Connect to given lobby with lobby Id
-        lobbyManager.ConnectNetwork(lobby.Id);
-        lobbyManager.OpenNetworkChannel(lobby.Id, 0, true);
-        foreach (var user in lobbyManager.GetMemberUsers(lobby.Id))
-        {
-			//Send a hello message to everyone in the lobby
-            lobbyManager.SendNetworkMessage(lobby.Id, user.Id, 0,
-                Encoding.UTF8.GetBytes(String.Format("Hello, {0}!", user.Username)));
-        }
-		//Sends this off to a Activity callback named here as 'UpdateActivity' passing in the discord instance details and lobby details
-        UpdateActivity(discord, lobby);
-    });
+		// Sends this off to a Activity callback named here as 'UpdateActivity' passing in the discord instance details
+    UpdateActivity(discord);
 };
 
-void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
+void UpdateActivity(Discord.Discord discord)
     {
     	//Creates a Static String for Spectate Secret.
         string discordSpectateSecret = "wdn3kvj320r8vk3";
@@ -1115,10 +962,10 @@ void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
                 LargeText = "Inside the Arena!",
             },
             Party = {
-                Id = lobby.Id.ToString(),
+                Id = <Party/match/group id here>,
                 Size = {
-                    CurrentSize = lobbyManager.MemberCount(lobby.Id),
-                    MaxSize = (int)lobby.Capacity,
+                    CurrentSize = ...,
+                    MaxSize = ...,
                 },
             },
             Secrets = {
@@ -1425,8 +1272,6 @@ Opens the overlay widget for voice settings for the currently connected applicat
 ![Screenshot of the Voice Settings modal for an application](game-overlay-sdk-voice-settings.png)
 </Collapsible>
 
-Also, when connected to a lobby's voice channel, the overlay will show a widget that allows users to locally mute, deafen, and adjust the volume of others.
-
 Returns a `Discord.Result` via callback.
 
 ###### Example
@@ -1672,514 +1517,3 @@ userManager.GetUser(450795363658366976, (Discord.Result result, ref Discord.User
 });
 ```
 </Collapsible>
-
-## Store
-
-> danger
-> Selling SKUs and the purchase and discount features are deprecated. Some documentation has been removed to reflect this, but [the previous documentation in full can be viewed on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Store.md)
-
-If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
-
-### Data Models
-
-#### SKU Struct
-
-| name  | type     | description              |
-|-------|----------|--------------------------|
-| Id    | Int64    | the unique ID of the SKU |
-| Type  | SkuType  | what sort of SKU it is   |
-| Name  | string   | the name of the SKU      |
-| Price | SkuPrice | the price of the SKU     |
-
-#### SkuType Enum
-
-| name        | value | description                                    |
-|-------------|-------|------------------------------------------------|
-| Application | 1     | SKU is a game                                  |
-| DLC         | 2     | SKU is a DLC                                   |
-| Consumable  | 3     | SKU is a consumable (in-app purchase)          |
-| Bundle      | 4     | SKU is a bundle (comprising the other 3 types) |
-
-#### SkuPrice Struct
-
-| name     | type   | description                       |
-|----------|--------|-----------------------------------|
-| Amount   | UInt32 | the amount of money the SKU costs |
-| Currency | string | the currency the amount is in     |
-
-#### Entitlement Struct
-
-| name  | type            | description                                     |
-|-------|-----------------|-------------------------------------------------|
-| Id    | Int64           | the unique ID of the entitlement                |
-| Type  | EntitlementType | the kind of entitlement it is                   |
-| SkuId | Int64           | the ID of the SKU to which the user is entitled |
-
-#### EntitlementType Enum
-
-| name                | value | description                                                    |
-|---------------------|-------|----------------------------------------------------------------|
-| Purchase            | 1     | entitlement was purchased                                      |
-| PremiumSubscription | 2     | entitlement for a Discord Nitro subscription                   |
-| DeveloperGift       | 3     | entitlement was gifted by a developer                          |
-| TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode    |
-| FreePurchase        | 5     | entitlement was granted when the SKU was free                  |
-| UserGift            | 6     | entitlement was gifted by another user                         |
-| PremiumPurchase     | 7     | entitlement was claimed by user for free as a Nitro Subscriber |
-
-#### Limited Payment Data Object
-
-| name          | type   | description                          |
-|---------------|--------|--------------------------------------|
-| id            | string | unique ID of the payment             |
-| currency      | string | the currency the payment was made in |
-| amount        | int    | the amount paid                      |
-| tax           | int    | the amount of tax                    |
-| tax_inclusive | bool   | whether the amount is tax-inclusive  |
-
-### Functions
-
-#### FetchSkus
-
-Fetches the list of SKUs for the connected application, readying them for iteration.
-
-> warn
-> Only SKUs that have a price set will be fetched. If you aren't seeing any SKUs being returned, make sure they have a price set!
-
-Returns `Discord.Result` via callback.
-
-###### Example
-
-<Collapsible title="FetchSkus Example" icon="code">
-
-```cs
-storeManager.FetchSkus((result) =>
-{
-  if (result == Discord.Result.Ok)
-  {
-    Console.WriteLine("Got skus! Now I can iterate over them!");
-  }
-});
-```
-</Collapsible>
-
-#### CountSkus
-
-Get the number of SKUs readied by `FetchSkus()`.
-
-Returns `Int32`.
-
-###### Example
-
-<Collapsible title="CountSkus Example" icon="code">
-
-```cs
-for (int i = 0; i < storeManager.CountSkus(); i++)
-{
-  var sku = storeManager.GetSkuAt(i);
-  Console.WriteLine("Sku is {0}", sku.Name);
-}
-```
-</Collapsible>
-
-
-#### GetSku
-
-Gets a SKU by its ID. You must call `FetchSkus()` first before being able to access SKUs in this way.
-
-Returns `Discord.Sku`.
-
-###### Parameters
-
-| name  | type  | description              |
-|-------|-------|--------------------------|
-| skuId | Int64 | the ID of the SKU to get |
-
-###### Example
-
-<Collapsible title="GetSku Example" icon="code">
-
-```cs
-storeManager.FetchSkus((_) => {});
-var sku = storeManager.GetSku(276467180839763999);
-Console.WriteLine("Sku is {0}", sku.Name);
-```
-
-</Collapsible>
-
-#### GetSkuAt
-
-Gets a SKU by index when iterating over SKUs. You must call `FetchSkus()` first before being able to access SKUs in this way.
-
-Returns `Discord.Sku`.
-
-###### Parameters
-
-| name  | type  | description               |
-|-------|-------|---------------------------|
-| index | Int32 | the index at which to get |
-
-###### Example
-
-<Collapsible title="GetSkuAt Example" icon="code">
-
-```cs
-storeManager.FetchSkus((result) =>
-{
-  for (int i = 0; i < storeManager.CountSkus(); i++)
-  {
-    var sku = storeManager.GetSkuAt(i);
-    Console.WriteLine("Sku is {0}", sku.Name);
-}
-});
-```
-
-</Collapsible>
-
-#### FetchEntitlements
-
-Fetches a list of entitlements to which the user is entitled. Applications, DLC, and Bundles will always be returned. Consumables will be returned until they are consumed by the application via the HTTP endpoint.
-
-Returns `Discord.Result` via callback.
-
-###### Example
-
-<Collapsible title="FetchEntitlements Example" icon="code">
-
-```cs
-storeManager.FetchEntitlements((result) =>
-{
-  if (result == Discord.Result.Ok)
-  {
-    Console.WriteLine("Got entitlements!");
-  }
-});
-```
-
-</Collapsible>
-
-#### CountEntitlements
-
-Get the number of entitlements readied by `FetchEntitlements()`. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
-
-Returns `Int32`.
-
-###### Example
-
-<Collapsible title="CountEntitlements Example" icon="code">
-
-```cs
-storeManager.FetchEntitlements((result) =>
-{
-  for (int i = 0; i < storeManager.CountEntitlements(); i++)
-  {
-    var entitlement = storeManager.GetEntitlementAt(i);
-    Console.WriteLine("Entitlement is {0}", entitlement.Name);
-  }
-});
-```
-</Collapsible>
-
-#### GetEntitlement
-
-Gets an entitlement by its id. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
-
-Returns `Discord.Entitlement`.
-
-###### Parameters
-
-| name          | type  | description                      |
-|---------------|-------|----------------------------------|
-| entitlementId | Int64 | the ID of the entitlement to get |
-
-###### Example
-
-<Collapsible title="GetEntitlement Example" icon="code">
-
-```cs
-storeManager.FetchEntitlements((result) =>
-{
-  var entitlement = storeManager.GetEntitlement(276467180839763999);
-  Console.WriteLine("Entitlement is {0}", entitlement.Name);
-});
-```
-
-</Collapsible>
-
-#### GetEntitlementAt
-
-Gets an entitlement by index when iterating over a user's entitlements. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
-
-Returns `Discord.Entitlement`.
-
-###### Parameters
-
-| name  | type  | description               |
-|-------|-------|---------------------------|
-| index | Int32 | the index at which to get |
-
-###### Example
-
-<Collapsible title="GetEntitlementAt Example" icon="code">
-
-```cs
-storeManager.FetchEntitlements((result) =>
-{
-  for (int i = 0; i < storeManager.CountEntitlements(); i++)
-  {
-    var entitlement = storeManager.GetEntitlementAt(i);
-    Console.WriteLine("Entitlement is {0}", entitlement.Name);
-  }
-});
-```
-</Collapsible>
-
-
-#### HasSkuEntitlement
-
-Returns whether or not the user is entitled to the given SKU ID. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
-
-Returns `bool`.
-
-###### Parameters
-
-| name  | type  | description                |
-|-------|-------|----------------------------|
-| skuId | Int64 | the ID of the SKU to check |
-
-###### Example
-
-<Collapsible title="HasSkuEntitlement Example" icon="code">
-
-```cs
-storeManager.FetchEntitlements((result) =>
-{
-  if (storeManager.HasSkuEntitlement(276467180839763999))
-  {
-    Console.WriteLine("User has entitlement to this SKU");
-  }
-  else
-  {
-    Console.WriteLine("How are you even running this right now...");
-  }
-});
-```
-
-</Collapsible>
-
-### Events
-
-#### OnEntitlementCreate
-
-Fires when the connected user receives a new entitlement, either through purchase or through a developer grant.
-
-###### Parameters
-
-| name        | type                | description                               |
-|-------------|---------------------|-------------------------------------------|
-| entitlement | Discord.Entitlement | the entitlement the user has been granted |
-
-#### OnEntitlementDelete
-
-Fires when the connected user loses an entitlement, either by expiration, revocation, or consumption in the case of consumable entitlements.
-
-###### Parameters
-
-| name        | type                | description                       |
-|-------------|---------------------|-----------------------------------|
-| entitlement | Discord.Entitlement | the entitlement the user has lost |
-
-### HTTP Endpoints
-
-The following are HTTP requests, and should be handled by your game server (rather than a client). You can refer to the [reference documentation](#DOCS_REFERENCE/authentication) for information on authenticating HTTP requests using your app's bot token.
-
-#### Get Entitlements % GET /applications/\{application.id#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started\}/entitlements
-
-Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
-
-###### Query String Params
-
-| name           | type                                             | description                                                                                                                    |
-|----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| user_id?       | snowflake                                        | the user id to look up entitlements for                                                                                        
-| sku_ids?       | comma-delimited set of snowflakes                | (optional) the list SKU ids to check entitlements for                                                                          |
-| with_payments? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_DEVELOPER_TOOLS_GAME_SDK/limited-payment-data-object) for each entitlement |
-| before?        | snowflake                                        | retrieve entitlements before this time                                                                                         |
-| after?         | snowflake                                        | retrieve entitlements after this time                                                                                          |
-| limit?         | int                                              | number of entitlements to return, 1-100, default 100                                                                           |
-| guild_id?      | snowflake                                        | the guild id to look up entitlements for                                                                                       |
-| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether or not ended entitlements should be omitted                                                                            |
-
-###### Example
-
-<Collapsible title="Get Entitlements Example" icon="code">
-
-```
-curl https://discord.com/api/v6/applications/461618159171141643/entitlements?user_id=53908232506183680&sku_ids=53908232599983680&with_payments=true&limit=1 \
--H "Authorization: Bearer <token>" \
--H "Accept: application/json"
-
-// Returns
-
-{
-  [
-    {
-      "user_id": "53908232506183680",
-      "sku_id": "53908232599983680",
-      "application_id": "461618159171141643",
-      "id": "53908232506183999",
-      "type": 1,
-      "payment": {
-        "id": "538491076055400999",
-        "currency": "usd",
-        "amount": 999,
-        "tax": 0,
-        "tax_inclusive": false
-      }
-    }
-  ]
-}
-```
-</Collapsible>
-
-#### Get Entitlement % GET /applications/\{application.id#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started\}/entitlements/\{entitlement.id#DOCS_DEVELOPER_TOOLS_GAME_SDK/entitlement-struct\}
-
-Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
-
-###### Query String Params
-
-| name          | type                                             | description                                                                                                     |
-|---------------|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| with_payment? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | returns [limited payment data](#DOCS_DEVELOPER_TOOLS_GAME_SDK/limited-payment-data-object) for each entitlement |
-
-###### Example
-
-<Collapsible title="Get Entitlement Example" icon="code">
-
-```
-curl https://discord.com/api/v6/applications/461618159171141643/entitlements/53908232506183999?with_payment=true \
--H "Authorization: Bearer <token>" \
--H "Accept: application/json"
-
-// Returns
-
-{
-  "user_id": "53908232506183680",
-  "sku_id": "53908232599983680",
-  "application_id": "461618159171141643",
-  "id": "53908232506183999",
-  "type": 3,
-  "payment": {
-    "id": "538491076055400999",
-    "currency": "usd",
-    "amount": 999,
-    "tax": 0,
-    "tax_inclusive": false
-  }
-}
-```
-</Collapsible>
-
-#### Get SKUs % GET /applications/\{application.id#DOCS_DEVELOPER_TOOLS_GAME_SDK/getting-started\}/skus
-
-Get all SKUs for an application.
-
-###### Example
-
-<Collapsible title="Get SKUs Example" icon="code">
-
-```
-curl https://discord.com/api/v6/applications/461618159171141643/skus \
--H "Authorization: Bearer <token>" \
--H "Accept: application/json"
-
-// Returns
-
-{
-  [
-    {
-      "id": "53908232599983680",
-      "type": 1,
-      "dependent_sku_id": null,
-      "application_id": "461618159171141643",
-      "manifest_labels": ["461618159171111111"],
-      "name": "My Awesome Test Game",
-      "access_type": 1,
-      "features": [1, 2, 3],
-      "system_requirements": {},
-      "content_ratings": {},
-      "release_date": "1999-01-01",
-      "legal_notice": {},
-      "price_tier": 1099,
-      "price": {},
-      "premium": false,
-      "locales": ["en-US"],
-      "bundled_skus": null
-    }
-  ]
-}
-```
-
-</Collapsible>
-
-## Deprecated
-
-> danger
-> The following Game SDK managers have been deprecated. In each section, we link to the previous documentation for each of the managers on GitHub, but generally these features shouldn't be used and may be decommissioned without notice.
-
-### Achievements
-
-There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
-
-Anyway—Discord has achievements! Show your players just how successful they are.
-
-[Achievements Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md)
-
-### Applications
-
-> info
-> If you're looking for information about Discord apps, you can read the [Applications](#DOCS_RESOURCES_APPLICATION)
-
-The Applications manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
-
-[Application Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md)
-
-### Voice
-
-The Voice manager can help integrate voice with your game! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md#connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](#DOCS_DEVELOPER_TOOLS_GAME_SDK/openvoicesettings) in the Overlay manager.
-
-The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
-
-[Voice Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Discord_Voice.md)
-
-### Images
-
-Discord is like a book; it's better with pictures. The image manager helps you fetch image data for images in Discord, including user's avatars. They worked hard to pick out those photos and gifs. Show them you care, too.
-
-[Image Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Images.md)
-
-### Lobbies
-
-Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze.
-
-[Lobby Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md)
-
-### Networking
-
-Need a networking layer? Have a networking layer! This manager handles all things packets so you can get data from player to player and make your multiplayer...work. 
-
-[Networking Manager docs on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Networking.md)
-
-### Relationships
-
-This manager helps you access the relationships your players have made on Discord. Unfortunately, it won't help them make relationships IRL. They're on their own for that. It lets you access a user's relationships, filter those relationships based on a given criteria, and build a user's friends list.
-
-[Relationships Manager docs on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Relationships.md)
-
-### Storage
-
-The Storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user — no need to worry about your little brother overwriting your save file.
-
-Creating this manager will also spawn an IO thread for async reads and writes, so unless you really want to be blocking, you don't need to be!
-
-[Storage Manager documentation on GitHub](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Storage.md)
