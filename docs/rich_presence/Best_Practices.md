@@ -26,7 +26,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-![Examples of a a good rich presence string that is concise and easy to read, and a bad string that is too long to fit on one line](rp-short-strings.png)
+![Example of a good rich presence string that is concise and easy to read compared to a bad string that is too long to fit on one line](rp-short-strings.png)
 
 ### Make it Actionable!
 
@@ -36,7 +36,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-![Examples of good rich presence strings that show a game mode of "Ranked: Control Point" and that the user is "In Queue (2 of 3)", and a bad string that reads "Rank 9999" ](rp-actionable.png)
+![Examples of good rich presence strings that show a game mode of "Ranked: Control Point" and that the user is "In Queue (2 of 3)" compared to a bad string that reads "Rank 9999" ](rp-actionable.png)
 
 ### Use ALL of the fields (where applicable)!
 
@@ -46,7 +46,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-![Examples of a good rich presence string that takes advantage of storing less important information in tooltips, and a bad string that is hard to read at a glance](rp-all-fields.png)
+![Example of a good rich presence string that takes advantage of storing less important information in tooltips compared to a bad string that is hard to read at a glance](rp-all-fields.png)
 
 ### Have interesting, expressive art!
 
@@ -57,7 +57,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-![Examples of a good rich presence icon that is clear and detailed, and a bad icon that is too dark to see clearly](rp-good-art.png)
+![Example of a good rich presence icon that is clear and detailed compard to a bad icon that is too dark to see clearly](rp-good-art.png)
 
 
 ## Launch Checklist
