@@ -57,7 +57,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-![Example of a good rich presence icon that is clear and detailed compard to a bad icon that is too dark to see clearly](rp-good-art.png)
+![Example of a good rich presence icon that is clear and detailed compared to a bad icon that is too dark to see clearly](rp-good-art.png)
 
 
 ## Launch Checklist
