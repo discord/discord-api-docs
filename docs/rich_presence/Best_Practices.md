@@ -26,10 +26,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-|                                             Bad                                              |                                                Good                                                 |
-|:--------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
-| ![A rich presence string that is too long and does not fit on one line](rp-long-strings.png) | ![Screenshot of a good rich presence string that is concise and easy to read](rp-short-strings.png) |
-|       The data wraps onto multiple lines. It’s repetitive, slower to read, and messy.        |                          The data all fits on one line per string. Clean!                           |
+![Examples of a a good rich presence string that is concise and easy to read, and a bad string that is too long to fit on one line](rp-short-strings.png)
 
 ### Make it Actionable!
 
@@ -39,10 +36,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-|                                           Bad                                            |                                                                     Good                                                                     |
-|:----------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------:|
-|    ![Screenshot of a rich presence string reading "Rank 9999"](rp-non-actionable.png)    | ![Screenshot of a good rich presence string shows a game mode of "Ranked: Control Point" and that the user is in a queue](rp-actionable.png) |
-| While Rank 9999 is impressive, it doesn’t present any actionable data for their friends. |                           This player is in queue for something I want to play. Let's ask to join that open spot!                            |
+![Examples of good rich presence strings that show a game mode of "Ranked: Control Point" and that the user is "In Queue (2 of 3)", and a bad string that reads "Rank 9999" ](rp-actionable.png)
 
 ### Use ALL of the fields (where applicable)!
 
@@ -52,10 +46,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-|                                               Bad                                               |                                                              Good                                                               |
-|:-----------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|
-| ![Screenshot of a rich presence string that is hard to read at a glance](rp-not-all-fields.png) | ![Screenshot of a good rich presence that takes advantage of storing less important information in tooltips](rp-all-fields.png) |
-|      The map name takes up space and makes the player's status harder to read at a glance.      |               Moving the name of the map to the tooltip makes the data cleaner and frees up space for the score.                |
+![Examples of a good rich presence string that takes advantage of storing less important information in tooltips, and a bad string that is hard to read at a glance](rp-all-fields.png)
 
 ### Have interesting, expressive art!
 
@@ -66,10 +57,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-|                                          Bad                                          |                                       Good                                        |
-|:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
-| ![Screenshot of a rich presence icon that is too dark to see clearly](rp-bad-art.png) | ![Screenshot of a rich presence icon that is clear and detailed](rp-good-art.png) |
-|      The image is dark and unfocused. Highly-detailed images can be hard to see.      |             This image is bright and matches the details. Let's help!             |
+![Examples of a good rich presence icon that is clear and detailed, and a bad icon that is too dark to see clearly](rp-good-art.png)
 
 
 ## Launch Checklist
@@ -97,7 +85,7 @@ Ready to launch a Rich Presence integration for your game? If so, we recommend l
 #### Joining
 
 > info
-> Since all Activities presence data has a **Join Activity** button, Join Invites are only applicable when building with the [Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
+> Since all Activities presence data has a **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
 
 - Have you successfully implemented join invites for your game if applicable?
 - Does the state of the invite properly represent the party/group in-game with regards to:

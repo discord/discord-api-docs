@@ -17,7 +17,7 @@ The rest of the guide assumes you've already developed an [app](#DOCS_QUICK_STAR
 
 ### Default Rich Presence Data
 
-By default, when a user is connected to your Activity, the app's icon will appear on their profile. If the user viewing the profile has the ability to join, a "Join Activity" button will be displayed as well.
+By default, when a user is connected to your Activity, the app's icon will appear on their profile. If the user viewing the profile has the ability to join, an "Ask to Join" button will be displayed as well.
 
 ![Example of default Rich Presence data for an Activity](default-presence-activities.png)
 
@@ -32,7 +32,7 @@ Now let's see what custom presence data can look like when a user joins your Act
 A few small things to note about the above image:
 1. `large_image` and `small_image` are both in the `assets` object, which you can see below in the [table below](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK/activity-partial-object). They're labeled with the object's keys to make it more clear how they appear in a Discord profile.
 2. You can't set App Name when setting presence—it's always the name configured in your [app's settings](https://discord.com/developers/applications).
-3. Depending on the `type` you set when updating presence, the behavior and layout for some fields (particularly `small_image` and `large_text`).
+3. The state `(1 of max_party)` badge will only render when a party field is provided. Otherwise, state will be shown in a line of text below details.
 
 ## Updating Presence
 
