@@ -26,8 +26,7 @@ Before we dig in, it's helpful to understand what Rich Presence data you can set
 | Second badge in last row below title   | state          | If provided with a `partySize` and `partyMax`                               |
 | Second badge in last row below title   | partySize      | In parenthesis next to the `state`, first number in the format `(1 of 4)`   |
 | Second badge in last row below title   | partyMax       | In parenthesis next to the `state`, second number in the format `(1 of 4)`  |
-| First button at the bottom             | joinSecret     | Button has the text "Ask to Join"                                           |
-| Second button at the bottom            | spectateSecret | Button has the text "Spectate"                                              |
+| Button at the bottom                   | joinSecret     | Button has the text **Ask to Join**                                         |
 | Large image to the left of any content | largeImageKey  | Four rows high, includes the title but not the bottom buttons               |
 | Small image to the left of any content | smallImageKey  | Small icon inset on the bottom right of the `largeImageKey`                 |
 
@@ -88,10 +87,7 @@ Our code sample in this section is based on the data from the example from befor
 
 ![Example of presence data with buttons](game-sdk-presence-example.png)
 
-This example contains two buttons—the **Ask to Join** button and the **Spectate** button. The **Ask to Join** button will be covered more in the following sections, but if you don't want it included, you can remove the `Party` and `Secret` fields.
-
-> warn
-> While the example shows a **Spectating** button, support for spectating was removed and you can ignore references to it.
+The **Ask to Join** button will be covered more in the following sections, but if you don't want it included, you can remove the `Party` and `Secret` fields.
 
 <Collapsible title="Example calling UpdateActivity function" icon="code" open>
 
@@ -179,13 +175,13 @@ activityManager.OnActivityJoinRequest += user =>
 ```
 </Collapsible>
 
-The Ask to Join request persists for 30 seconds after the request is received. Therefore, keep these two points in mind:
+The **Ask to Join** request persists for 30 seconds after the request is received. Therefore, keep these two points in mind:
 - Ensure you call [`RunCallbacks()`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/runcallbacks) as frequently as possible to ensure your game client is up to date with any data from Discord
-- If the player is in a state in which they cannot interact with an Ask to Join request—like in the middle of a match—you should not send `ActivitySecrets.Join` in the presence payload
+- If the player is in a state in which they cannot interact with an **Ask to Join** request—like in the middle of a match—you should not send `ActivitySecrets.Join` in the presence payload
 
 ## Secrets
 
-Security is of the utmost importance to us here at Discord, and we know it is for you, too. That's why we want to make sure that you properly understand  `ActivitySecrets.Join` so that your game data is safe and secure over the wire.
+Security is of the utmost importance to us here at Discord, and we know it is for you, too. That's why we want to make sure that you properly understand `ActivitySecrets.Join` so that your game data is safe and secure over the wire.
 
 To keep security on the up and up, Discord requires that you properly hash/encode/encrypt/put-a-padlock-on-and-swallow-the-key-but-wait-then-how-would-you-open-it your secrets.
 
@@ -208,7 +204,7 @@ Throughout development, make sure you have your `errored()` and `disconnected()`
 
 The application that connected _first_ is displayed.
 
-However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party, playing Game A that allows you to send Join invites, and playing Game B that allows you to send Spectate invites, you'll be able to send invites to all three simultaneously!
+However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party and playing Game A that allows you to send **Ask to Join** invites, you'll be able to send invites to both simultaneously!
 
 #### Q: What if someone looking at my profile or an invite doesn't own the game?
 
