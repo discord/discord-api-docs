@@ -1,3 +1,7 @@
+---
+sidebar_label: Emoji
+---
+
 # Emoji Resource
 
 > warn
@@ -24,6 +28,13 @@ Roles with the `integration_id` tag being the guild's guild_subscription integra
 An emoji cannot have both subscription roles and non-subscription roles.  
 Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.  
 Emojis cannot be converted between normal and premium after creation.
+
+###### Application-Owned Emoji
+
+An application can own up to 2000 emojis that can only be used by that app.
+App emojis can be managed using the API with a bot token, or using the app's settings in the portal.
+The `USE_EXTERNAL_EMOJIS` permission is not required to use app emojis.
+The `user` field of an app emoji object represents the team member that uploaded the emoji from the app's settings, or the bot user if uploaded using the API.
 
 ###### Emoji Example
 

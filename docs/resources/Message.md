@@ -1,3 +1,7 @@
+---
+sidebar_label: Message
+---
+
 # Messages Resource
 
 ### Message Object
@@ -39,7 +43,7 @@ Represents a message sent in a channel within Discord.
 | message_reference?        | [message reference](#DOCS_RESOURCES_MESSAGE/message-reference-structure) object                                                           | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
 | message_snapshots? \[5\]  | array of [message snapshot](#DOCS_RESOURCES_MESSAGE/message-snapshot-object) objects                                                      | the message associated with the `message_reference`. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                       |
 | referenced_message? \[4\] | ?[message object](#DOCS_RESOURCES_MESSAGE/message-object)                                                                                 | the message associated with the message_reference                                                                                                                                                                                                                       |
-| interaction_metadata?     | [message interaction metadata object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object-message-interaction-metadata-structure) | [In preview](#DOCS_CHANGE_LOG/userinstallable-apps-preview). Sent if the message is sent as a result of an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                  |
+| interaction_metadata?     | [message interaction metadata object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object-message-interaction-metadata-structure) | [In preview](#DOCS_CHANGE_LOG/user-installable-apps-preview). Sent if the message is sent as a result of an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                 |
 | interaction?              | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure)        | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                                  |
 | thread?                   | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                                  | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                                                                                                                                            |
 | components? \[2\]         | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                     | sent if the message contains components like buttons, action rows, or other interactive components                                                                                                                                                                      |
@@ -104,15 +108,16 @@ Represents a message sent in a channel within Discord.
 | GUILD_INCIDENT_REPORT_RAID                   | 38    | true      |
 | GUILD_INCIDENT_REPORT_FALSE_ALARM            | 39    | true      |
 | PURCHASE_NOTIFICATION                        | 44    | true      |
+| POLL_RESULT                                  | 46    | true      |
 
 \* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
 ###### Message Activity Structure
 
-| Field     | Type    | Description                                                                                                        |
-|-----------|---------|--------------------------------------------------------------------------------------------------------------------|
-| type      | integer | [type of message activity](#DOCS_RESOURCES_MESSAGE/message-object-message-activity-types)                          |
-| party_id? | string  | party_id from a [Rich Presence event](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) |
+| Field     | Type    | Description                                                                               |
+|-----------|---------|-------------------------------------------------------------------------------------------|
+| type      | integer | [type of message activity](#DOCS_RESOURCES_MESSAGE/message-object-message-activity-types) |
+| party_id? | string  | party_id from a Rich Presence event                                                       |
 
 ###### Message Activity Types
 
@@ -345,6 +350,13 @@ There are multiple message types that have a `message_reference` object.
 - These messages have `message_id`, `channel_id`, and `guild_id`.
 - These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
 
+###### Poll result messages
+
+- These are automatic messages sent after a poll has ended and the results have been finalized. (type 46)
+- These messages have `message_id` and `channel_id`, which point to the original poll message. The `channel_id` will be the same as that of the poll.
+- The author will be the same as the author of the poll and will be mentioned.
+- These messages contain a [`poll_result` embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-fields)
+
 #### Voice Messages
 
 Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the following properties.
@@ -369,7 +381,7 @@ The encoding, and the waveform details, are an implementation detail and may cha
 | message\* | partial [message](#DOCS_RESOURCES_MESSAGE/message-object) object | minimal subset of fields in the forwarded message |
 
 \* The current subset of message fields consists of:
-`type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`.
+`type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`, `stickers`, `sticker_items`, and `components`.
 
 > info
 > While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
@@ -420,16 +432,15 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Types
 
-Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
-
-| Type    | Description                                        |
-|---------|----------------------------------------------------|
-| rich    | generic embed rendered from embed attributes       |
-| image   | image embed                                        |
-| video   | video embed                                        |
-| gifv    | animated gif image embed rendered as a video embed |
-| article | article embed                                      |
-| link    | link embed                                         |
+| Type        | Description                                                                                      |
+|-------------|--------------------------------------------------------------------------------------------------|
+| rich        | generic embed rendered from embed attributes                                                     |
+| image       | image embed                                                                                      |
+| video       | video embed                                                                                      |
+| gifv        | animated gif image embed rendered as a video embed                                               |
+| article     | article embed                                                                                    |
+| link        | link embed                                                                                       |
+| poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-fields) |
 
 ###### Embed Thumbnail Structure
 
@@ -509,6 +520,23 @@ All of the following limits are measured inclusively. Leading and trailing white
 Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
 Embeds are deduplicated by URL.  If a message contains multiple embeds with the same URL, only the first is shown.
+
+#### Embed Fields by Embed Type
+
+Certain embed types are used to power special UIs. These embeds use [fields](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure) to include additional data in key-value pairs. Below is a reference of possible embed fields for each of the following embed types. 
+
+###### Poll Result Embed Fields
+
+| Field                         | Description                                                |
+|-------------------------------|------------------------------------------------------------|
+| poll_question_text            | question text from the original poll                       |
+| victor_answer_votes           | number of votes for the answer(s) with the most votes      |
+| total_votes                   | total number of votes in the poll                          |
+| victor_answer_id?             | id for the winning answer                                  |
+| victor_answer_text?           | text for the winning answer                                |
+| victor_answer_emoji_id?       | id for an emoji associated with the winning answer         |
+| victor_answer_emoji_name?     | name of an emoji associated with the winning answer        |
+| victor_answer_emoji_animated? | if an emoji associated with the winning answer is animated |
 
 ### Attachment Object
 

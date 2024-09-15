@@ -5,7 +5,7 @@ The Gateway API lets apps open secure WebSocket connections with Discord to rece
 > info
 > In *most* cases, performing REST operations on Discord resources can be done using the [HTTP API](#DOCS_REFERENCE/http-api) rather than the Gateway API. 
 
-The Gateway is Discord's form of real-time communication used by clients (including apps), so there are nuances and data passed that simply isn't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and pieces. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway (or at least those that matter for apps).
+The Gateway is Discord's form of real-time communication used by clients (including apps), so there are nuances and data passed that simply isn't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and pieces. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway (or at least those that matter for apps).
 
 ## Gateway Events
 
@@ -338,6 +338,7 @@ GUILD_INVITES (1 << 6)
   - INVITE_DELETE
 
 GUILD_VOICE_STATES (1 << 7)
+  - VOICE_CHANNEL_EFFECT_SEND
   - VOICE_STATE_UPDATE
 
 GUILD_PRESENCES (1 << 8) **
@@ -668,7 +669,7 @@ The number of shards you run must be a multiple of the shard number provided whe
 
 The [Get Gateway Bot endpoint](#DOCS_TOPICS_GATEWAY/get-gateway-bot) will always return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any changes.
 
-The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 3)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
+The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 5)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
 
 ## Get Gateway % GET /gateway
 
