@@ -1,3 +1,7 @@
+---
+sidebar_label: Guild Template
+---
+
 # Guild Template Resource
 
 ### Guild Template Object

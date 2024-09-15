@@ -24,7 +24,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | Name                                     | Description                                                                                                                                                                             |
 |------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | activities.read                          | allows your app to fetch data from a user's "Now Playing/Recently Played" list — not currently available for apps                                                                       |
-| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                |
+| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities))                 |
 | applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                            |
 | applications.builds.upload               | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                           |
 | applications.commands                    | allows your app to add [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) to a guild - included by default with the `bot` scope                                                       |
@@ -269,7 +269,7 @@ Discord's API provides bot users, which are a separate type of user dedicated to
 ### Bot vs User Accounts
 
 > warn
-> Developers must abide by the [terms of service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+> Developers must abide by the [terms of service](https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
 
 Bot users have a few differences compared to standard Discord users:
 

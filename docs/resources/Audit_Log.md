@@ -1,3 +1,7 @@
+---
+sidebar_label: Audit Log
+---
+
 # Audit Logs Resource
 
 ## Audit Logs

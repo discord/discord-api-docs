@@ -8,8 +8,6 @@ There are several different types of components; this documentation will outline
 
 Components are a field on the [message object](#DOCS_RESOURCES_MESSAGE/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) or other interaction.
 
-The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) components.
-
 ### Component Object
 
 ###### Component Types
@@ -90,16 +88,16 @@ Buttons are interactive components that render in messages. They can be clicked 
 
 ###### Button Structure
 
-| Field      | Type                                                | Description                                                                                                             |
-|------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| type       | integer                                             | `2` for a button                                                                                                        |
-| style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles)                                     |
-| label?     | string                                              | Text that appears on the button; max 80 characters                                                                      |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                                                            |
-| custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                                                         |
-| sku_id?    | snowflake                                           | Identifier for a purchasable [SKU](#DOCS_MONETIZATION_SKUS/sku-object), only available when using premium-style buttons |
-| url?       | string                                              | URL for link-style buttons                                                                                              |
-| disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                                                    |
+| Field      | Type                                                | Description                                                                                                         |
+|------------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                             | `2` for a button                                                                                                    |
+| style      | integer                                             | A [button style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles)                                 |
+| label?     | string                                              | Text that appears on the button; max 80 characters                                                                  |
+| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                                                        |
+| custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                                                     |
+| sku_id?    | snowflake                                           | Identifier for a purchasable [SKU](#DOCS_RESOURCES_SKU/sku-object), only available when using premium-style buttons |
+| url?       | string                                              | URL for link-style buttons                                                                                          |
+| disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                                                |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 

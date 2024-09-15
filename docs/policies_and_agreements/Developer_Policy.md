@@ -1,3 +1,7 @@
+---
+sidebar_label: Developer Policy
+---
+
 # Discord Developer Policy
 
 > info
