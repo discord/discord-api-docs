@@ -382,9 +382,9 @@ This endpoint also supports file attachments similar to the webhook endpoints. R
 
 ###### Query String Params
 
-| Field          | Type                                             | Description                                                                           |
-|----------------|--------------------------------------------------|---------------------------------------------------------------------------------------|
-| with_response? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include a [interaction callback response] as the response instead of a 204 |
+| Field          | Type                                             | Description                                                                                                                                                                |
+|----------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_response? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include an [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-response-object) as the response |
 
 
 ## Get Original Interaction Response % GET /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/@original
