@@ -204,11 +204,185 @@ First, we open a UDP connection to the IP and port provided in the Ready payload
 }
 ```
 
-## Encrypting and Sending Voice
+## End-to-End Encryption (DAVE Protocol)
+
+Since September 2024, Discord is migrating voice and video in DMs, Group DMs, voice channels, and Go Live streams to use end-to-end encryption (E2EE).
+
+>info
+>You are not immediately required to support the E2EE protocol, as calls will automatically upgrade/downgrade to/from E2EE depending on the support of clients in the call. Non-E2EE connections to voice in DMs, Group DMs, voice channels, and Go Live streams will soon be deprecated and will be discontinued (after at least a six month deprecation window).
+
+This section is a high-level overview of how to support Discord's audio & video end-to-end encryption (DAVE) protocol, centered around the voice gateway opcodes necessary for the protocol. The most thorough documentation on the DAVE protocol is found in the [Protocol Whitepaper](https://daveprotocol.com). You may additionally be able to leverage or refer to our open-source library [libdave](https://github.com/discord/libdave) to assist your implementation. The exact format of the DAVE protocol opcodes is detailed in the [Voice Gateway Opcodes section of the protocol whitepaper](https://daveprotocol.com/#voice-gateway-opcodes).
+
+When a call is E2EE, all members of the call exchange keys via a [Messaging Layer Security](https://www.rfc-editor.org/rfc/rfc9420.html) (MLS) group. This group is used to derive per-sender ratcheted media keys (known only to the participants of the group) to encrypt/decrypt media frames sent in the call.
+
+### Binary Websocket Messages
+
+To reduce overhead, some of the new DAVE protocol opcodes are sent as binary instead of JSON text. See the binary column in the [Voice Opcodes Table](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to identify these opcodes. Binary websocket messages have the following format:
+
+| Field           | Description                                                   | Size           |
+|-----------------|---------------------------------------------------------------|----------------|
+| Sequence Number | OPTIONAL unsigned integer sequence number for buffered resume | 2 bytes        |
+| Opcode          | Unsigned integer opcode value                                 | 1 bytes        |
+| Payload         | Binary message payload (format defined by opcode)             | Variable bytes |
+
+Sequence numbers are only sent from the server to the client. Whether the sequence number is included depends on the opcode. Currently all server-sent binary opcodes require the sequence number. See [Resuming Voice Connection](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection) for further details on how sequence numbers are used when present.
+
+### Indicating DAVE Protocol Support
+
+Include the highest DAVE protocol version you support in [Opcode 1 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) as `max_dave_protocol_version`. Sending version 0, or omitting the `max_dave_protocol_version` field, indicates no DAVE protocol support.
+
+The voice gateway specifies the initial protocol version in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) under `dave_protocol_version`. This may be any non-discontinued protocol version equal to or less than your supported protocol version.
+
+>warn
+>Clients must retain backwards-compatibility of any non-discontinued DAVE protocol versions. The voice gateway selects the lowest shared protocol version for the call.
+
+### Protocol Transitions
+
+The voice gateway negotiates protocol version and MLS group transitions, to ensure the continuity of media being sent for the call. This can occur when the call is upgrading/downgrading to/from E2EE (in the initial transition phase), changing protocol versions, or when the MLS group is changing. 
+
+Some opcodes include a transition ID. After preparing local state necessary to perform the transition, send [Opcode 23 DAVE Protocol Transition Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to indicate to the voice gateway that you are ready to execute the transition. When all participants are ready or when a timeout has been reached, the voice gateway dispatches [Opcode 22 DAVE Protocol Execute Transition](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to confirm execution of the transition. The transition execution is what indicates to media senders that they can begin sending media with the new protocol context (e.g. without E2EE after a downgrade, with a new protocol version after a protocol version change, or using a new key ratchet after a group participant change).
+
+#### Downgrade
+
+Downgrades to protocol version 0 are announced via [Opcode 21 DAVE Protocol Prepare Transition](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). This can occur during the transition phase when a client that does not support the protocol joins the call. When this transition is executed, senders should stop sending media using the protocol format.
+
+#### Protocol Version Change & Upgrade
+
+Protocol version transitions (including upgrades from protocol version 0) are announced via [Opcode 24 DAVE Protocol Prepare Epoch](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). In addition to the `transition_id`, this opcode includes the `epoch_id` for the upcoming MLS epoch. 
+
+Receiving [Opcode 24 DAVE Protocol Prepare Epoch](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) with `epoch_id = 1` indicates that a new MLS group is being created. Participants must:
+- prepare a local MLS group with the parameters appropriate for the DAVE protocol version
+- generate and send [Opcode 26 DAVE MLS Key Package](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to deliver a new MLS key package to the voice gateway
+
+When the `epoch_id` is greater than 1, the protocol version of the existing MLS group is changing.
+
+When the transition is executed, senders must start sending media using the new protocol context (e.g. formatted for the new protocol version or using a new key ratchet).
+
+#### MLS Group Changes
+
+When the participants of the MLS group must change, existing participants receive an [Opcode 29 DAVE MLS Announce Commit Transition](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) whereas new members being added to the group receive [Opcode 30 DAVE MLS Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). Both opcodes include the transition ID and binary MLS Commit or MLS Welcome message.
+
+To prepare for the protocol transition, existing group members must apply the commit to progress their local MLS group to the correct next state. [Opcode 23 DAVE Protocol Transition Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) is sent when the MLS commit has been processed.
+
+Welcomed members send [Opcode 23 DAVE Protocol Transition Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) after succesfully joining the group received in the MLS Welcome message.
+
+### External Sender
+
+The voice gateway must be an external sender of the MLS group, so that it can send external MLS proposals to add and remove call participants when appropriate (i.e. proposing the addition of new members when they connect and the removal of previous members when they disconnect).
+
+DAVE protocol participants only process proposals which arrive from the external sender, and not from any other group members. The external sender only sends Add or Remove proposals.
+
+The voice gateway uses [Opcode 25 DAVE MLS External Sender Package](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to provide the external sender public key and credential to MLS group participants. This message may be sent immediately on voice gateway connection or at a later time when the call is upgrading to use the DAVE protocol.
+
+Group creators must include the external sender they receive from the voice gateway in their MLS group extensions when creating the group. Welcomed group members ensure that the expected external sender extension is present in the group they are about to join.
+
+### Joining the MLS Group
+
+Except for the initial creation of the first group for the call, joining the MLS group always occurs after receiving [Opcode 30 DAVE MLS Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). 
+
+#### Key Packages
+
+To be proposed to be added to the MLS group, pending members must send an MLS key package via [Opcode 26 DAVE MLS Key Package](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). Key packages are only used one time, and a new key package must be generated each time pending member is waiting to be added or re-added to the group.
+
+##### Identity Public Key
+
+MLS participants use an asymmetric keypair for MLS message signatures and authentication. The public key of this keypair is included in the key package and MLS tree. It is known to other participants in the call and is leveraged for out-of-band identity verification.
+
+You can choose to generate a new ephemeral keypair for every protocol call or use the same persistent keypair at all times.
+
+#### Initial Group
+
+When there is not yet an MLS group (e.g. a transport-only encrypted call is upgrading or two members have just joined a new call) all pending group members create a local group using the MLS parameters defined by the DAVE protocol version and including the voice gateway external sender received via [Opcode 25 DAVE MLS External Sender Package](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). Every pending member of the group has the chance to produce the initial commit that creates the MLS group with `epoch = 1`.
+
+Pending group members receive add proposals for every other pending group member from the voice gateway. If an additional pending member joins while there is not yet an MLS group, they receive all in-flight proposal messages.
+
+Proposal and commit handling follows the same process whether or not there is an established group. See [Proposals and Commits](#DOCS_TOPICS_VOICE_CONNECTIONS/proposals-and-commits)
+
+#### Welcome
+
+Pending group members receive a welcome message from another group member which adds them to the MLS group. This is dispatched from the voice gateway via [Opcode 30 DAVE MLS Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
+
+#### Invalid Group
+
+If the group received in an [Opcode 30 DAVE MLS Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) or [Opcode 29 DAVE MLS Announce Commit Transition](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) is unprocessable, the member receiving the unprocessable message sends [Opcode 31 DAVE MLS Invalid Commit Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to the voice gateway. Additionally, the local group state is reset and a new key package is generated and sent to the voice gateway via [Opcode 26 DAVE MLS Key Package](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
+
+This causes the voice gateway to propose the removal and re-addition of the requesting member.
+
+### Proposals and Commits
+
+The voice gateway dispatches proposals which must be appended or revoked via [Opcode 27 DAVE MLS Proposals](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). All members of the established or pending MLS group must append or revoke the proposals they receive, and then produce an MLS commit message and optionally an MLS welcome message (when committing add proposals which add new members) which they send to the voice gateway via [Opcode 28 DAVE MLS Commit Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
+
+In each epoch, the voice gateway dispatches the "winning" commit via [Opcode 29 DAVE MLS Announce Commit Transition](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and optionally the associated welcome messages via [Opcode 30 DAVE MLS Welcome](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice). The voice gateway broadcasts the first valid commit and welcome(s) it sees in the given epoch, and drops any commits later received for the out-of-date epoch. All dispatched unrevoked proposals in the epoch must be included in the commit for it to be valid. All members added in the epoch must be welcomed for the welcome to be valid.
+
+### Audio Frame E2EE
+
+While transport-encryption operates at the packet level, E2EE enabled by the DAVE protocol operates at the frame level.
+
+When any DAVE protocol is enabled for a call, the full contents of OPUS frames sent and received by call participants are end-to-end encrypted.
+
+#### ULEB128 Encoding
+
+Some fields in the protocol frame payload use (ULEB128 encoding)[https://en.wikipedia.org/wiki/LEB128#Unsigned_LEB128]. This is a variable-length code compression to represent arbitrarily large unsigned integers in a small number of bytes.
+
+#### Payload Format
+
+| Field                      | Description                                                | Size           |
+|----------------------------|------------------------------------------------------------|----------------|
+| E2EE OPUS Frame            | Ciphertext for E2EE OPUS frame                             | Variable bytes |
+| AES-GCM Auth. Tag          | Truncated AES128-GCM AEAD Authentication Tag               | 8 bytes        |
+| ULEB128 Nonce              | ULEB128 synchronization nonce                              | Variable bytes |
+| ULEB128 Unencrypted Ranges | ULEB128 offset/length pairs of E2EE frame unencrypted data | Variable bytes |
+| Supplemental Data Size     | Unsigned integer bytes size of supplemental data           | 1 byte         |
+| Magic Marker               | 0xFAFA marker to assist with protocol frame identification | 2 bytes        |
+
+The E2EE OPUS frame is the full ciphertext resulting from the AES128-GCM AEAD encryption described below. The authentication tag is an 8-byte truncated version of the authentication tag resulting from the AEAD encryption.
+
+The ULEB128 nonce is a variable length representation of the nonce used for encryption/decryption.
+
+The ULEB128 unencrypted ranges field is empty (0 bytes) for OPUS frames, because the full contents of the frame are encrypted.
+
+The supplemental data size is the sum of bytes required for:
+  - 8-byte authentication tag
+  - Variable length ULEB128 nonce
+  - Variable length ULEB128 unencrypted ranges
+  - 1 byte supplemental data size
+  - 2 byte magic marker
+
+The magic marker is a constant 2-byte value 0xFAFA. This is used by media receivers to detect protocol frames as well as by the SFU to avoid sending protocol frames to non-protocol-supporting receivers during transition periods.
+
+#### Frame Encryption
+
+Media frames are encrypted for E2EE using AES128-GCM.
+
+##### Sender Key Derivation
+
+Each media sender has a ratcheted per-sender key. There is a new per-sender ratchet created in each MLS group epoch. The initial secret for each sender's ratchet is an exported 16-byte secret from the MLS group. Keys are retrieved from the ratchet via a generation counter derived from the most-significant byte of the 4-byte nonce.
+
+For very long lived epochs, the nonce wrap-around must be handled so the generation does not also wrap back around to 0.
+
+See the [Sender Key Derivation section of the Protocol Whitepaper](https://daveprotocol.com/#sender-key-derivation) for the detailed process.
+
+##### Nonce
+
+The nonce passed to the AES128-GCM encryption and decryption functions is a full 12-byte nonce, but the protocol only uses at most 4-bytes. The 12-byte nonce can be expanded from a 4-byte truncated nonce by setting the 8 most significant bytes of the nonce to zero, with the 4 least significant bytes carrying the value of the truncated nonce.
+
+The generation used for the sender's key ratchet is retrieved from the most-significant byte of the 4-byte nonce (i.e., the 4th least significant byte of the full 12-byte nonce).
+
+##### Authentication Tag
+
+The authentication tag resulting from the AES128-GCM encryption is truncated to 8 bytes. Some implementations may provide the desired tag length as a parameter whereas some may always return the full 12-byte tag from which the 4 least significant bytes should be removed.
+
+##### AEAD Additional Data
+
+OPUS frames are fully encrypted and no additional data is passed to the AEAD.
+
+## Transport Encryption and Sending Voice
+
+Transport encryption between the client and the selective forwarding unit (SFU) is still used even in E2EE calls.
 
 Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
 
-### Encryption Modes
+### Transport Encryption Modes
 
 | Mode                               | Key                             | Nonce                                                 | Status                |
 |------------------------------------|---------------------------------|-------------------------------------------------------|-----------------------|
@@ -234,7 +408,7 @@ Voice gateway compatible modes will always include `aead_xchacha20_poly1305_rtps
 
 Include your selected mode in [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice).
 
-Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice) voice data:
+Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) that includes the `mode` and `secret_key`, a 32 byte array used for [transport encryption and sending](#DOCS_TOPICS_VOICE_CONNECTIONS/transport-encryption-and-sending-voice) voice data:
 
 ###### Example Session Description Payload
 
@@ -368,7 +542,7 @@ If the session is successfully resumed the voice gateway will respond with an [O
 
 The resume may be unsuccessful if the voice gateway buffer for the session no longer contains a message that has been missed. In this case the session will be closed and you should then follow the [Connecting](#DOCS_TOPICS_VOICE_CONNECTIONS/connecting-to-voice) flow to reconnect.
 
-#### IP Discovery
+## IP Discovery
 
 Generally routers on the Internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send the following UDP packet to your voice port (all numeric are big endian):
 

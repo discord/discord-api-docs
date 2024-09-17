@@ -48,19 +48,31 @@ Our voice gateways have their own set of opcodes and close codes.
 
 ###### Voice Opcodes
 
-| Code | Name                | Sent By           | Description                                              |
-|------|---------------------|-------------------|----------------------------------------------------------|
-| 0    | Identify            | client            | Begin a voice websocket connection.                      |
-| 1    | Select Protocol     | client            | Select the voice protocol.                               |
-| 2    | Ready               | server            | Complete the websocket handshake.                        |
-| 3    | Heartbeat           | client            | Keep the websocket connection alive.                     |
-| 4    | Session Description | server            | Describe the session.                                    |
-| 5    | Speaking            | client and server | Indicate which users are speaking.                       |
-| 6    | Heartbeat ACK       | server            | Sent to acknowledge a received client heartbeat.         |
-| 7    | Resume              | client            | Resume a connection.                                     |
-| 8    | Hello               | server            | Time to wait between sending heartbeats in milliseconds. |
-| 9    | Resumed             | server            | Acknowledge a successful session resume.                 |
-| 13   | Client Disconnect   | server            | A client has disconnected from the voice channel         |
+| Code | Name                                | Sent By           | Description                                              | Binary |
+|------|-------------------------------------|-------------------|----------------------------------------------------------|--------|
+| 0    | Identify                            | client            | Begin a voice websocket connection.                      |        |
+| 1    | Select Protocol                     | client            | Select the voice protocol.                               |        |
+| 2    | Ready                               | server            | Complete the websocket handshake.                        |        |
+| 3    | Heartbeat                           | client            | Keep the websocket connection alive.                     |        |
+| 4    | Session Description                 | server            | Describe the session.                                    |        |
+| 5    | Speaking                            | client and server | Indicate which users are speaking.                       |        |
+| 6    | Heartbeat ACK                       | server            | Sent to acknowledge a received client heartbeat.         |        |
+| 7    | Resume                              | client            | Resume a connection.                                     |        |
+| 8    | Hello                               | server            | Time to wait between sending heartbeats in milliseconds. |        |
+| 9    | Resumed                             | server            | Acknowledge a successful session resume.                 |        |
+| 11   | Clients Connect                     | server            | One or more clients have connected to the voice channel  |        |
+| 13   | Client Disconnect                   | server            | A client has disconnected from the voice channel         |        |
+| 21   | DAVE Prepare Transition             | server            | A downgrade from the DAVE protocol is upcoming           |        |
+| 22   | DAVE Execute Transition             | server            | Execute a previously announced protocol transition       |        |
+| 23   | DAVE Transition Ready               | client            | Acknowledge readiness previously announced transition    |        |
+| 24   | DAVE Prepare Epoch                  | server            | A DAVE protocol version or group change is upcoming      |        |
+| 25   | DAVE MLS External Sender            | server            | Credential and public key for MLS external sender        | X      |
+| 26   | DAVE MLS Key Package                | client            | MLS Key Package for pending group member                 | X      |
+| 27   | DAVE MLS Proposals                  | server            | MLS Proposals to be appended or revoked                  | X      |
+| 28   | DAVE MLS Commit Welcome             | client            | MLS Commit with optional MLS Welcome messages            | X      |
+| 29   | DAVE MLS Announce Commit Transition | server            | MLS Commit to be processed for upcoming transition       |        |
+| 30   | DAVE MLS Welcome                    | server            | MLS Welcome to group for upcoming transition             | X      |
+| 31   | DAVE MLS Invalid Commit Welcome     | client            | Flag invalid commit or welcome, request re-add           |        |
 
 ###### Voice Close Event Codes
 
@@ -77,7 +89,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4012 | Unknown protocol         | We didn't recognize the [protocol](#DOCS_TOPICS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
 | 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
 | 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
+| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/transport-encryption-and-sending-voice).                                    |
 
 ## HTTP
 
