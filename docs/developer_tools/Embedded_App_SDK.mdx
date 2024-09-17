@@ -55,8 +55,11 @@ Resolves when your app has successfully connected to the Discord client.
 
 No scopes required
 
-#### Returns
-Promise\<void\>
+#### Signature
+
+<Monospace>
+ready(): Promise\<void\>
+</Monospace>
 
 #### SDK Usage
 
@@ -82,8 +85,11 @@ Used to subscribe to a specific event from the list of [SDK Events](#DOCS_DEVELO
 
 Depends on the event. Refer to the Required Scopes for the specific event you are subscribing to.
 
-#### Returns
-Promise\<EventEmitter\>
+#### Signature
+
+<Monospace>
+subscribe\<Event\>(event: [Event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events), listener: (data: EventPayloadData\<Event\>) => void, ...subscribeArgs: Partial\<EventPayloadData\<Event\>\>): Promise\<[EventEmitter](https://nodejs.org/docs/latest/api/events.html)\>
+</Monospace>
 
 #### Usage
 
@@ -106,8 +112,13 @@ Used to unsubscribe to [SDK Events](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-e
 
 No scopes required
 
-#### Returns
-Promise\<EventEmitter\>
+#### Signature
+
+_The `EventPayloadData` will vary based on the event you are unsubscribing from. See the specific [event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events) for details._
+
+<Monospace>
+unsubscribe\<Event\>(event: [Event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events), listener: (data: EventPayloadData\<Event\>) => void, ...subscribeArgs: Partial\<EventPayloadData\<Event\>\>): Promise\<[EventEmitter](https://nodejs.org/docs/latest/api/events.html)\>
+</Monospace>
 
 #### Usage
 
@@ -130,21 +141,11 @@ Used to close your app with a specified code and reason.
 
 No scopes required
 
-#### Returns
-void
+#### Signature
 
-#### RPC Close Codes
-| Name              | Code |
-|-------------------|------|
-| CLOSE_NORMAL      | 1000 |
-| CLOSE_UNSUPPORTED | 1003 |
-| CLOSE_ABNORMAL    | 1006 |
-| INVALID_CLIENTID  | 4000 |
-| INVALID_ORIGIN    | 4001 |
-| RATELIMITED       | 4002 |
-| TOKEN_REVOKED     | 4003 |
-| INVALID_VERSION   | 4004 |
-| INVALID_ENCODING  | 4005 |
+<Monospace>
+close(code: [RPCCloseCodes](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/rpcclosecodes), message: string): void
+</Monospace>
 
 #### SDK Usage
 
@@ -193,8 +194,11 @@ Authenticate an existing client with your app.
 
 No scopes required
 
-#### Returns
-Promise\<[AuthenticateResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authenticateresponse)\>
+#### Signature
+
+<Monospace>
+authenticate(args: [AuthenticateRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authenticaterequest)): Promise\<[AuthenticateResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authenticateresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -219,8 +223,11 @@ Authorize a new client with your app.
 
 No scopes required
 
-#### Returns
-Promise\<[AuthorizeResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorizeresponse)\>
+#### Signature
+
+<Monospace>
+authorize(args: [AuthorizeRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorizerequest)): Promise\<[AuthorizeResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorizeresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -269,19 +276,11 @@ Forward logs to your own logger.
 
 No scopes required
 
-#### Level Parameter
+#### Signature
 
-`captureLog` requires a `level` parameter which matches the javascript [console](https://developer.mozilla.org/en-US/docs/Web/API/console) log levels.
-The supported values for `level` are:
-- `debug`
-- `log`
-- `info`
-- `warn`
-- `error`
-
-#### Returns
-
-Promise\<void\>
+<Monospace>
+captureLog(args: [CaptureLogRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/capturelogrequest)): Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -307,9 +306,11 @@ Presents a modal dialog to allow enabling of hardware acceleration.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<[EncourageHardwareAccelerationResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/encouragehardwareaccelerationresponse)\>
+<Monospace>
+encourageHardwareAcceleration(): Promise\<[EncourageHardwareAccelerationResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/encouragehardwareaccelerationresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -323,7 +324,6 @@ await discordSdk.commands.encourageHardwareAcceleration();
 
 Returns information about the channel for a provided channel ID.
 
-
 #### Supported Platforms
 | Web | iOS | Android |
 |-----|-----|---------|
@@ -334,9 +334,11 @@ Returns information about the channel for a provided channel ID.
 - [guilds] for guild channels
 - [guilds, dm_channels.read] for GDM channels. dm_channels.read requires approval from Discord.
 
-#### Returns
+#### Signature
 
-Promise\<[GetChannelResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelresponse)\>
+<Monospace>
+getChannel(args: [GetChannelRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelrequest)): Promise\<[GetChannelResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelresponse)\>
+</Monospace>
 
 #### Usage
 ```js
@@ -360,9 +362,11 @@ Returns permissions for the current user in the currently connected channel.
 
 - guilds.members.read
 
-#### Returns
+#### Signature
 
-Promise\<[GetChannelPermissionsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelpermissionsresponse)\>
+<Monospace>
+getChannelPermissions(): Promise\<[GetChannelPermissionsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelpermissionsresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -392,9 +396,11 @@ Returns all participants connected to the instance.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<[GetInstanceConnectedParticipantsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getinstanceconnectedparticipantsresponse)\>
+<Monospace>
+getInstanceConnectedParticipants(): Promise\<[GetInstanceConnectedParticipantsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getinstanceconnectedparticipantsresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -417,9 +423,11 @@ Returns information about supported platform behaviors.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<[GetPlatformBehaviorsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getplatformbehaviorsresponse)\>
+<Monospace>
+getPlatformBehaviors(): Promise\<[GetPlatformBehaviorsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getplatformbehaviorsresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -449,9 +457,11 @@ Presents the file upload flow in the Discord client.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<[InitiateImageUploadResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/initiateimageuploadresponse)\>
+<Monospace>
+initiateImageUpload(): Promise\<[InitiateImageUploadResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/initiateimageuploadresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -474,9 +484,11 @@ Allows for opening an external link from within the Discord client.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<void\>
+<Monospace>
+openExternalLink(args: [OpenExternalLinkRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openexternallinkrequest)): Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -501,9 +513,11 @@ Presents a modal dialog with Channel Invite UI without requiring additional OAut
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<void\>
+<Monospace>
+openInviteDialog(): Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -526,9 +540,11 @@ Presents a modal dialog to share media to a channel or direct message.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<void\>
+<Monospace>
+openInviteDialog(args: [OpenInviteDialogRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openinvitedialogrequest)) Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -556,9 +572,11 @@ Read the guide on [Using Rich Presence with the Embedded App SDK](#DOCS_RICH_PRE
 
 - rpc.activities.write
 
-#### Returns
+#### Signature
 
-Promise\<[Activity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activity)\>
+<Monospace>
+setActivity(args: [SetActivityRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setactivityrequest)): Promise\<[Activity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activity)\>
+</Monospace>
 
 #### Usage
 
@@ -587,9 +605,11 @@ Set whether or not the PIP (picture-in-picture) is interactive.
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<[SetConfigResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfigresponse)\>
+<Monospace>
+setConfig(args: [SetConfigRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfigrequest)): Promise\<[SetConfigResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfigresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -614,9 +634,11 @@ Locks the application to specific orientations in each of the supported layout m
 
 No scopes required
 
-#### Returns
+#### Signature
 
-Promise\<void\>
+<Monospace>
+setOrientationLockState(args: [SetOrientationLockStateRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setorientationlockstaterequest)): Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -652,9 +674,11 @@ Returns the current user's locale.
 
 - identify
 
-#### Returns
+#### Signature
 
-Promise\<[UserSettingsGetLocaleResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/usersettingsgetlocaleresponse)\>
+<Monospace>
+userSettingsGetLocale(): Promise\<[UserSettingsGetLocaleResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/usersettingsgetlocaleresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -969,6 +993,12 @@ No scopes required
 | height?   | number |
 | width?    | number |
 
+#### AuthenticateRequest
+
+| Property      | Type           |
+|---------------|----------------|
+| access_token? | string \| null |
+
 #### AuthenticateResponse
 
 | Property     | Type                                                              |
@@ -978,6 +1008,19 @@ No scopes required
 | scopes       | string\[\]                                                        |
 | expires      | string                                                            |
 | application  | [Application](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/application) |
+
+#### AuthorizeRequest
+
+| Property               | Type                                                                |
+|------------------------|---------------------------------------------------------------------|
+| client_id              | string                                                              |
+| scope                  | [OAuthScopes](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/oauthscopes)[] |
+| response_type?         | 'code' \| 'token'                                                   |
+| code_challenge?        | string                                                              |
+| state?                 | string                                                              |
+| prompt?                | 'none'                                                              |
+| code_challenge_method? | 'S256'                                                              |
+
 
 #### AuthorizeResponse
 
@@ -991,6 +1034,13 @@ No scopes required
 |----------|--------|
 | asset    | string |
 | sku_id?  | string |
+
+#### CaptureLogRequest
+
+| Property | Type                                                                |
+|----------|---------------------------------------------------------------------|
+| level    | [ConsoleLevel](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/consolelevel) |
+| message  | string                                                              |
 
 #### ChannelMention
 
@@ -1094,6 +1144,12 @@ No scopes required
 | Property    | Type             |
 |-------------|------------------|
 | permissions | bigint \| string |
+
+#### GetChannelRequest
+
+| Property   | Type   |
+|------------|--------|
+| channel_id | string |
 
 #### GetChannelResponse
 
@@ -1204,6 +1260,18 @@ No scopes required
 | channel_id? | string |
 | guild_id?   | string |
 
+#### OpenExternalLinkRequest
+
+| Property | Type   |
+|----------|--------|
+| url      | string |
+
+#### OpenInviteDialogRequest
+
+| Property | Type   |
+|----------|--------|
+| mediaUrl | string |
+
 #### Party
 
 | Property | Type           |
@@ -1226,11 +1294,31 @@ No scopes required
 | join?    | string |
 | match?   | string |
 
+#### SetActivityRequest
+
+| Property | Type                                                        |
+|----------|-------------------------------------------------------------|
+| activity | [Activity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activity) |
+
+#### SetConfigRequest
+
+| Property            | Type    |
+|---------------------|---------|
+| use_interactive_pip | boolean |
+
 #### SetConfigResponse
 
 | Property            | Type    |
 |---------------------|---------|
 | use_interactive_pip | boolean |
+
+#### SetOrientationLockStateRequest
+
+| Property                      | Type                                                                                |
+|-------------------------------|-------------------------------------------------------------------------------------|
+| lock_state                    | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
+| picture_in_picture_lock_state | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
+| grid_lock_state               | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
 
 #### Timestamp
 
@@ -1310,6 +1398,16 @@ No scopes required
 | GUILD_DIRECTORY     | 14    |
 | GUILD_FORUM         | 15    |
 
+#### ConsoleLevel
+
+| Value   |
+|---------|
+| 'error' |
+| 'log'   |
+| 'warn'  |
+| 'debug' |
+| 'info'  |
+
 #### OrientationLockStateTypeObject
 
 | Name      | Value |
@@ -1345,3 +1443,46 @@ No scopes required
 | FOCUSED   | 0     |
 | PIP       | 1     |
 | GRID      | 2     |
+
+#### OAuthScopes
+
+| Value                        |
+|------------------------------|
+| 'bot'                        |
+| 'rpc'                        |
+| 'identify'                   |
+| 'connections'                |
+| 'email'                      |
+| 'guilds'                     |
+| 'guilds.join'                |
+| 'guilds.members.read'        |
+| 'gdm.join'                   |
+| 'messages.read'              |
+| 'rpc.notifications.read'     |
+| 'rpc.voice.write'            |
+| 'rpc.voice.read'             |
+| 'rpc.activities.write'       |
+| 'webhook.incoming'           |
+| 'applications.commands'      |
+| 'applications.builds.upload' |
+| 'applications.builds.read'   |
+| 'applications.store.update'  |
+| 'applications.entitlements'  |
+| 'relationships.read'         |
+| 'activities.read'            |
+| 'activities.write'           |
+| 'dm_channels.read';          |
+
+#### RPCCloseCodes
+
+| Name              | Code |
+|-------------------|------|
+| CLOSE_NORMAL      | 1000 |
+| CLOSE_UNSUPPORTED | 1003 |
+| CLOSE_ABNORMAL    | 1006 |
+| INVALID_CLIENTID  | 4000 |
+| INVALID_ORIGIN    | 4001 |
+| RATELIMITED       | 4002 |
+| TOKEN_REVOKED     | 4003 |
+| INVALID_VERSION   | 4004 |
+| INVALID_ENCODING  | 4005 |
