@@ -219,13 +219,13 @@ When a call is E2EE, all members of the call exchange keys via a [Messaging Laye
 
 To reduce overhead, some of the new DAVE protocol opcodes are sent as binary instead of JSON text. See the binary column in the [Voice Opcodes Table](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) to identify these opcodes. Binary websocket messages have the following format:
 
-| Field           | Description                                                   | Size           |
-|-----------------|---------------------------------------------------------------|----------------|
-| Sequence Number | OPTIONAL unsigned integer sequence number for buffered resume | 2 bytes        |
-| Opcode          | Unsigned integer opcode value                                 | 1 bytes        |
-| Payload         | Binary message payload (format defined by opcode)             | Variable bytes |
+| Field           | Description                                                        | Size           |
+|-----------------|--------------------------------------------------------------------|----------------|
+| Sequence Number | OPTIONAL (server -> client only) big-endian uint16 sequence number | 2 bytes        |
+| Opcode          | Unsigned integer opcode value                                      | 1 bytes        |
+| Payload         | Binary message payload (format defined by opcode)                  | Variable bytes |
 
-Sequence numbers are only sent from the server to the client. Whether the sequence number is included depends on the opcode. Currently all server-sent binary opcodes require the sequence number. See [Resuming Voice Connection](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection) for further details on how sequence numbers are used when present.
+Sequence numbers are only sent from the server to the client, and all server-sent binary opcodes require the sequence number. See [Resuming Voice Connection](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection) for further details on how sequence numbers are used when present.
 
 ### Indicating DAVE Protocol Support
 
