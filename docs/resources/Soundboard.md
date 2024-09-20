@@ -40,7 +40,6 @@ Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Re
 
 ###### Example Guild Soundboard Sound
 
-
 ```json
 {
   "name": "Yay",
