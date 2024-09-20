@@ -142,6 +142,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | INVITES_DISABLED                          | guild has paused invites, preventing new users from joining                                                                   |
 | INVITE_SPLASH                             | guild has access to set an invite splash background                                                                           |
 | MEMBER_VERIFICATION_GATE_ENABLED          | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                                   |
+| MORE_SOUNDBOARD                           | guild has increased custom soundboard sound slots                                                                             |
 | MORE_STICKERS                             | guild has increased custom sticker slots                                                                                      |
 | NEWS                                      | guild has access to create announcement channels                                                                              |
 | PARTNERED                                 | guild is partnered                                                                                                            |
@@ -150,6 +151,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | ROLE_ICONS                                | guild is able to set role icons                                                                                               |
 | ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                            |
 | ROLE_SUBSCRIPTIONS_ENABLED                | guild has enabled role subscriptions                                                                                          |
+| SOUNDBOARD                                | guild has created soundboard sounds                                                                                           |
 | TICKETED_EVENTS_ENABLED                   | guild has enabled ticketed events                                                                                             |
 | VANITY_URL                                | guild has access to set a vanity URL                                                                                          |
 | VERIFIED                                  | guild is verified                                                                                                             |

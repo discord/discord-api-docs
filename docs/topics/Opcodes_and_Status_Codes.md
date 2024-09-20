@@ -6,19 +6,20 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 ###### Gateway Opcodes
 
-| Code | Name                  | Client Action | Description                                                                             |
-|------|-----------------------|---------------|-----------------------------------------------------------------------------------------|
-| 0    | Dispatch              | Receive       | An event was dispatched.                                                                |
-| 1    | Heartbeat             | Send/Receive  | Fired periodically by the client to keep the connection alive.                          |
-| 2    | Identify              | Send          | Starts a new session during the initial handshake.                                      |
-| 3    | Presence Update       | Send          | Update the client's presence.                                                           |
-| 4    | Voice State Update    | Send          | Used to join/leave or move between voice channels.                                      |
-| 6    | Resume                | Send          | Resume a previous session that was disconnected.                                        |
-| 7    | Reconnect             | Receive       | You should attempt to reconnect and resume immediately.                                 |
-| 8    | Request Guild Members | Send          | Request information about offline guild members in a large guild.                       |
-| 9    | Invalid Session       | Receive       | The session has been invalidated. You should reconnect and identify/resume accordingly. |
-| 10   | Hello                 | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.            |
-| 11   | Heartbeat ACK         | Receive       | Sent in response to receiving a heartbeat to acknowledge that it has been received.     |
+| Code | Name                      | Client Action | Description                                                                             |
+|------|---------------------------|---------------|-----------------------------------------------------------------------------------------|
+| 0    | Dispatch                  | Receive       | An event was dispatched.                                                                |
+| 1    | Heartbeat                 | Send/Receive  | Fired periodically by the client to keep the connection alive.                          |
+| 2    | Identify                  | Send          | Starts a new session during the initial handshake.                                      |
+| 3    | Presence Update           | Send          | Update the client's presence.                                                           |
+| 4    | Voice State Update        | Send          | Used to join/leave or move between voice channels.                                      |
+| 6    | Resume                    | Send          | Resume a previous session that was disconnected.                                        |
+| 7    | Reconnect                 | Receive       | You should attempt to reconnect and resume immediately.                                 |
+| 8    | Request Guild Members     | Send          | Request information about offline guild members in a large guild.                       |
+| 9    | Invalid Session           | Receive       | The session has been invalidated. You should reconnect and identify/resume accordingly. |
+| 10   | Hello                     | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.            |
+| 11   | Heartbeat ACK             | Receive       | Sent in response to receiving a heartbeat to acknowledge that it has been received.     |
+| 31   | Request Soundboard Sounds | Send          | Request information about soundboard sounds in a set of guilds.                         |
 
 ###### Gateway Close Event Codes
 
@@ -138,6 +139,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10015  | Unknown webhook                                                                                                               |
 | 10016  | Unknown webhook service                                                                                                       |
 | 10020  | Unknown session                                                                                                               |
+| 10021  | Unknown Asset                                                                                                                 |
 | 10026  | Unknown ban                                                                                                                   |
 | 10027  | Unknown SKU                                                                                                                   |
 | 10028  | Unknown Store Listing                                                                                                         |
@@ -164,6 +166,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10070  | Unknown Guild Scheduled Event                                                                                                 |
 | 10071  | Unknown Guild Scheduled Event User                                                                                            |
 | 10087  | Unknown Tag                                                                                                                   |
+| 10097  | Unknown sound                                                                                                                 |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
@@ -201,6 +204,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30039  | Maximum number of stickers reached                                                                                            |
 | 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
+| 30045  | Maximum number of soundboard sounds reached                                                                                   |
 | 30046  | Maximum number of edits to messages older than 1 hour reached. Try again later                                                |
 | 30047  | Maximum number of pinned threads in a forum channel has been reached                                                          |
 | 30048  | Maximum number of tags in a forum channel has been reached                                                                    |
@@ -284,12 +288,16 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
+| 50110  | The provided file is invalid.                                                                                                 |
+| 50123  | The provided file type is invalid.                                                                                            |
+| 50124  | The provided file duration exceeds maximum of 5.2 seconds.                                                                    |
 | 50131  | Owner cannot be pending member                                                                                                |
 | 50132  | Ownership cannot be transferred to a bot user                                                                                 |
 | 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
 | 50144  | Cannot mix subscription and non subscription roles for an emoji                                                               |
 | 50145  | Cannot convert between premium emoji and normal emoji                                                                         |
 | 50146  | Uploaded file not found.                                                                                                      |
+| 50151  | The specified emoji is invalid                                                                                                |
 | 50159  | Voice messages do not support additional content.                                                                             |
 | 50160  | Voice messages must have a single audio attachment.                                                                           |
 | 50161  | Voice messages must have supporting metadata.                                                                                 |
@@ -297,6 +305,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50163  | Cannot delete guild subscription integration                                                                                  |
 | 50173  | You cannot send voice messages in this channel.                                                                               |
 | 50178  | The user account must first be verified                                                                                       |
+| 50192  | The provided file does not have a valid duration.                                                                             |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
