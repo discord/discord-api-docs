@@ -1,3 +1,7 @@
+---
+sidebar_label: Soundboard
+---
+
 # Soundboard Resource
 
 Users can play soundboard sounds in voice channels, triggering a [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event for users connected to the voice channel.
@@ -21,6 +25,34 @@ Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Re
 | available  | boolean                                         | whether this sound can be used, may be false due to loss of Server Boosts |
 | user?      | [user](#DOCS_RESOURCES_USER/user-object) object | the user who created this sound                                           |
 
+###### Example Default Soundboard Sound
+
+```json
+{
+  "name": "quack",
+  "sound_id": "1",
+  "volume": 1.0,
+  "emoji_id": null,
+  "emoji_name": "🦆",
+  "available": true
+}
+```
+
+###### Example Guild Soundboard Sound
+
+
+```json
+{
+  "name": "Yay",
+  "sound_id": "1106714396018884649",
+  "volume": 1,
+  "emoji_id": "989193655938064464",
+  "emoji_name": null,
+  "guild_id": "613425648685547541",
+  "available": true
+}
+```
+
 ### Sound Files
 
 A soundboard sound can be retrieved in MP3 or Ogg format at the URL:
@@ -31,9 +63,9 @@ https://cdn.discordapp.com/soundboard-sounds/{sound_id}
 
 ## Send Soundboard Sound % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/send-soundboard-sound
 
-Send a soundboard sound to a voice channel the user is connected to. Fires a [Voice Channel Effect Send]#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event.
+Send a soundboard sound to a voice channel the user is connected to. Fires a [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event.
 
-Requires the `SPEAK` and `USE_SOUNDBOARD` permissions, and also the `USE_EXTERNAL_SOUNDS` permission if the sound is from a different server. Additionally, requires the user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) to not have `deaf`, `self_deaf`, `mute`, or `suppress` enabled.
+Requires the `SPEAK` and `USE_SOUNDBOARD` permissions, and also the `USE_EXTERNAL_SOUNDS` permission if the sound is from a different server. Additionally, requires the user to be connected to the voice channel, having a [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) without `deaf`, `self_deaf`, `mute`, or `suppress` enabled.
 
 ###### JSON Params
 
