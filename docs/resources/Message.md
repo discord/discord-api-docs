@@ -363,7 +363,7 @@ Voice messages are messages with the `IS_VOICE_MESSAGE` flag. They have the foll
 
 - They cannot be edited.
 - Only a single audio attachment is allowed. No content, stickers, etc...
-- The [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) has additional fields: `duration_secs` and `waveform`.
+- The [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) has additional fields: `duration_secs` and `waveform`. The `Content-Type` of the attachment must begin with `audio/` to respect these fields.
 
 The `waveform` is intended to be a preview of the entire voice message, with 1 byte per datapoint encoded in base64. Clients sample the recording at most
 once per 100 milliseconds, but will downsample so that no more than 256 datapoints are in the waveform.
