@@ -1150,6 +1150,9 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | start? | integer | Unix time (in milliseconds) of when the activity started |
 | end?   | integer | Unix time (in milliseconds) of when the activity ends    |
 
+> info
+> For Listening and Watching activities, you can include both start and end timestamps to display a time bar.
+
 ###### Activity Emoji
 
 | Field     | Type      | Description                   |
