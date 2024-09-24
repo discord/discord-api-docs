@@ -4,35 +4,82 @@ sidebar_label: Overview
 
 # Overview of Activities
 
-![Building Discord Activities](activities/activities-hero-2.png)
+![Building Discord Activities](activities/activities-hero.png)
 
-### The channel is your canvas
+Activities are multiplayer games and social experiences that can be launched in Discord. Activities can integrate with Discord features like user identity, voice and chat, profile data, and native monetization.
 
-Activities are multiplayer games and social experiences in Discord. Under the hood, an Activity is a web application hosted in an iframe within the Discord client. Once a user connects to your Activity, your app can request information using Discord APIs and gateway events to build rich, interactive experiences for your players. 
-
-Whether you're developing a multiplayer game, a new social experience, or another creative idea, your Activity will be built with the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK). The SDK handles all of the communication between Discord and your app, making it easier to do common tasks like managing connected users, supporting mobile clients, and debugging your Activity.
-
-A few examples of Activities built by Discord are [Putt Party](https://support.discord.com/hc/en-us/articles/5101932219671-Putt-Party-FAQ), [Sketch Heads](https://support.discord.com/hc/en-us/articles/4409235005207-Sketch-Heads-FAQ), and [Jamspace Whiteboard](https://support.discord.com/hc/en-us/articles/14042410493847-Jamspace-Whiteboard-FAQ). TODO: remove?
-
-The Embedded App SDK uses the RPC API to handle the communication between Discord and your Activity. These guides will help you start building the next big thing on Discord.
+Under the hood, Activities are single page web apps hosted in an iframe which communicate with Discord clients using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK). Read about Activities built by other developers in our [case studies](https://discord.com/build#case-studies).
 
 <Container>
   <Card title="How Activities Work" link="#DOCS_ACTIVITIES_HOW_ACTIVITIES_WORK">
-    Learn more about how Activities are run in Discord.
+    Learn more about the lifecycle of Activities and how they run in Discord clients.
   </Card>
   <Card title="Build Your First Discord Activity" link="#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY">
-    Get started building an Activity using the Embedded App SDK.
+    Follow the guide to build your first Activity using the Embedded App SDK.
   </Card>
-  <Card title="Common Development Patterns" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES">
-    Explore common development patterns to make building Activities simpler.
+  <Card title="Activity Development Patterns" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES">
+    Explore common development patterns and practices to make building Activities simpler.
   </Card>
 </Container>
 
 ---
 
-## Embedded App SDK
+## Launching Activities in Discord
 
-TODO
+After you have Activities enabled in your [app's settings](https://discord.com/developers/applications), your app can launch Activities in two ways:
+1. When a user invokes your app's Entry Point command in the App Launcher
+2. By responding to an interaction with the `LAUNCH_ACTIVITY` callback type
+
+Each of these are covered in more detail in the below sections.
+
+### Entry Point Command
+
+Activities are primarily opened by users invoking your app's [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) in the App Launcher.
+
+When you enable Activities for your app, a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) called "Launch" is created for your app. Discord automatically handles responding to the default Entry Point command invocation, but you can change this behavior by updating its [handler type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-entry-point-command-handler-types).
+
+Read more about setting up Entry Point commands in the [development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
+
+### Interaction Response
+
+Activities can be launched in response to most of your app's interactions (like when a command is invoked, or when a user clicks a button from your app). To open an Activity in response to an interaction, you can set use the `LAUNCH_ACTIVITY` (type `12`) [interaction callback type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+
+Launching an Activity in response to an interaction is limited to `APPLICATION_COMMAND` (`2`), `MESSAGE_COMPONENT` (`3`), and `MODAL_SUBMIT` (`5`) [interaction types](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type).
+
+---
+
+## Developing Activities
+
+Whether you're developing a multiplayer game, a new social experience, or another creative idea, your Activity will be built as a web app that is run in an iframe in Discord on desktop, mobile, and web. You can get started by following the guide on [Building an Activity using the Embedded App SDK](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY).
+
+The below sections contain some information about communicating with Discord clients and sample projects you can use as a starting point, but more technical details about how Activities are run in Discord is covered on the [How Activities Work](#DOCS_ACTIVITIES_HOW_ACTIVITIES_WORK) page.
+
+### Embedded App SDK
+
+The [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) handles all of the communication between Discord and your app, making it easier to do common tasks like managing connected users, supporting mobile clients, and debugging your Activity. 
+
+The Embedded App SDK offers different events and commands to handle the communication between Discord and your Activity, which are covered more below.
+
+#### Commands
+
+The SDK has a set of commands you can call to interact with a Discord client, given you have the appropriate scopes. This is helpful when you want to do things like:
+
+- **Authorize and authenticate clients**. New clients can be authorized using `authorize`, and existing clients can be authenticated using `authenticate()`
+- **Fetch information about your Activity**. For example, [`getInstanceConnectedParticipants()`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getinstanceconnectedparticipants) can be used to retrieve all users connected to your Activity instance. 
+- **Update information for your Activity or an authenticated user**. For example, [`openShareMomentDialog()`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/opensharemomentdialog) can be used to let an authenticated user share media related to your Activity.
+
+Read the [Embedded App SDK documentation](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-commands) for a full list of commands, and details about each command.
+
+#### Events
+
+The SDK also has events you can subscribe (or unsubscribe) to for things happening in a connected client that are relevant to your Activity, given you have the appropriate scopes. This is helpful when you want to do things like:
+
+- **Handle connection and errors**
+- **Listen to updates about a connected user**. For example, [`ORIENTATION_UPDATE`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationupdate) is sent when the screen orientation changes for a user, and voice-related changes like [`SPEAKING_START`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/speakingstart) and [`SPEAKING_STOP`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/speakingstop) like there's a change in their voice state.
+- **Listen to events related to your Activity instance**. For example, [`ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activityinstanceparticipantsupdate) is sent when the number of instance participants changes.
+
+Read the [Embedded App SDK documentation](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events) for a full list of events, and details for each event.
+
 
 ---
 
@@ -47,10 +94,7 @@ We've published some sample apps on [GitHub](https://github.com/discord/embedded
   <Card title="Embedded App SDK Playground" link="https://github.com/discord/embedded-app-sdk-examples/tree/main/sdk-playground">
     This reference example implements the commands and events available to you within the Embedded App SDK.
   </Card>
-  <Card title="Multiplayer + State Management" link="https://github.com/colyseus/discord-embedded-app-sdk">
-    This example uses React Colyseus to demonstrate state management in a multiplayer experience.
-  </Card>
-  <Card title="Nested Framework App" link="https://github.com/discord/embedded-app-sdk-examples/tree/main/nested-messages">
-    This reference example demonstrates an Activity using a nested framework like a game engine.
+  <Card title="Community Samples" link="https://github.com/discord/embedded-app-sdk-examples?tab=readme-ov-file#community-curated-examples">
+    Take a look at the table of samples Activities published by the community, which includes specific frameworks like Colyseus.
   </Card>
 </Container>
