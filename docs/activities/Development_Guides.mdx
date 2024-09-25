@@ -134,7 +134,7 @@ To run your locally hosted application, follow the instructions for [Launching y
 Although it is possible to test your application locally, we recommend developing and testing against the Discord proxy. This is helpful to make sure all URLs behave as expected before your application runs in production. One technique to enable testing locally against the proxy is to use a network tunneling tool, such as [cloudflared](https://github.com/cloudflare/cloudflared#installing-cloudflared). A typical pattern is for each developer to have their own "development-only" application. To set up a local environment to run through Discord's proxy, you will need to do the following:
 
 1. Create a new application in the Discord Developer portal.
-2. Enable the Developer Preview for Activities.
+2. Enable Activities for your app.
 3. Set up the application's [URL mapping](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping).
 4. Locally, spin up your web server.
 5. Install and run a tunnel solution, such as [cloudflared](https://github.com/cloudflare/cloudflared#installing-cloudflared). You will point it to your local web server.
@@ -168,8 +168,8 @@ Follow the instructions for [Launching your Application from the Discord Client]
 
 The flow for setting up your production application is very similar:
 
-1. If not made yet, create a new application
-2. Enable the Developer Preview for Activities.
+1. If not made yet, create a new application.
+2. Enable Activities for your app.
 3. Set up the application's [URL Mapping](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping). The URL for your application's html should be set to the `/` route.
 4. Follow the instructions for [Launching your Application from the Discord Client](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/launch-your-application-from-the-discord-client)). Application URL Override should not be enabled.
 
@@ -210,7 +210,7 @@ Because your application is "sandboxed", it will be unable to make network reque
 #### How to set a URL Mapping
 
 > preview
-> This is only possible once the Developer Preview Activities is enabled on your application.
+> This is only possible once Activities are enabled on your application.
 
 To add or modify your application's URL mappings, click on `Activities -> URL Mappings` and set the prefix and target values for each mapping as needed.
 
