@@ -3,50 +3,74 @@ showTOC: false
 sidebar_label: Intro
 ---
 
-![Welcome to the Discord Developer Platform](docs-header.svg)
+<Hero title="Build Where the World Plays" subheading="Build social games, experiences, and integrations for millions of users on Discord" />
 
-# Welcome to the Discord Developer Platform
+## Get Started
 
-The Discord developer platform lets you develop apps to customize and extend Discord for millions of users. A toolkit of [APIs](#DOCS_REFERENCE) and [resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) pair splendidly with a supportive community to help you build bots, integrate 3rd party services, and add Discord support to your game.
+Learn more about what apps can do on Discord or jump right into building your own.
 
-<Button href="https://discord.com/developers/docs/getting-started" color="brand">Get Started</Button>
+<Container>
+  <Card title="Overview of Apps" link="#DOCS_QUICK_START_OVERVIEW_OF_APPS" icon="AppsIcon">
+    Learn more about the different types of apps you can build on Discord and how users can interact with them
+  </Card>
+  <Card title="Build your First Discord App" link="#DOCS_QUICK_START_GETTING_STARTED" icon="RobotIcon">
+    Follow the guide to build a Discord app with interactive features like commands and message components.
+  </Card>
+  <Card title="Build a Discord Activity" link="#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY" icon="GameControllerIcon">
+    Follow the guide to build an Activity in Discord using the Embedded App SDK.
+  </Card>
+</Container>
 
----
+## Discover Platform Features
 
-## Explore the Platform
+Learn about different features and explore their reference documentation to bring your idea to life.
 
-#### Engage with Users
+<Container>
+  <Card title="Messaging" link="#DOCS_RESOURCES_MESSAGE" icon="ChatIcon">
+    Send, retrieve, and manage messages in channels where your app has access.
+  </Card>
+  <Card title="Message Components" link="#DOCS_INTERACTIONS_OVERVIEW/message-components" icon="SparklesIcon">
+    Add interactive elements like buttons and select menus in messages sent by your app.
+  </Card>
+  <Card title="Commands" link="#DOCS_INTERACTIONS_OVERVIEW/commands" icon="SlashBoxIcon">
+    Create interactive entry points for your app's features that can be accesssed across Discord.
+  </Card>
+  <Card title="Activities" link="#DOCS_ACTIVITIES_OVERVIEW" icon="GameControllerIcon">
+    Build embedded games and social experiences that are launchable in Discord.
+  </Card>
+  <Card title="Monetization" link="#DOCS_MONETIZATION_OVERVIEW" icon="PiggyBankIcon">
+    Integrate native monetization features like subscriptions and one-time purchases.
+  </Card>
+  <Card title="Rich Presence" link="#DOCS_RICH_PRESENCE_OVERVIEW" icon="UserIcon">
+    Display actionable data in a user's profile about what they're doing in your game or app.
+  </Card>
+</Container>
 
-Add interactivity to your app with [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) and [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS) to build engaging experiences in the place where users are already hanging out.
+## Explore the APIs
 
-#### Customize Servers
+Learn about some of the different APIs Discord apps have access to
 
-Customize Discord servers by using apps to do things like [send messages](#DOCS_RESOURCES_MESSAGE/create-message), modify [channels](#DOCS_RESOURCES_CHANNEL) and [guilds](#DOCS_RESOURCES_GUILD), [integrate with AutoMod](#DOCS_RESOURCES_AUTO_MODERATION), or [connect to voice](#DOCS_TOPICS_VOICE_CONNECTIONS).
+<Container>
+  <Card title="HTTP API" link="#DOCS_REFERENCE/http-api">
+    Fetch information about and modify core Discord resources like channels, servers, users, and messages.
+  </Card>
+  <Card title="Gateway API" link="#DOCS_REFERENCE/gateway-websocket-api" >
+    Receive and send realtime events over a WebSocket connection for things happening in Discord.
+  </Card>
+</Container>
 
-Plus, use the [Gateway API](#DOCS_TOPICS_GATEWAY) to respond to [real-time events](#DOCS_TOPICS_GATEWAY_EVENTS/receive-events) happening in a server, like when a reaction is added to a message.
+## Find Support
 
-#### Connect Metadata
+Reach out to the community or developer support to get support and stay updated about API changes.
 
-Link and update metadata to enhance Discord for users. Add [Rich Presence](#DOCS_RICH_PRESENCE_OVERVIEW) to display live data on users' profiles, or [connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA) to make it easy for admins to create roles using metadata associated with your app.
-
-#### Build Interactive Activities and Games
-
-Currently in Developer Preview, the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) allows you to build [Activities](#DOCS_ACTIVITIES_OVERVIEW), such as multiplayer games or social experiences, that run inside Discord.
-
-## Discover Developer Resources
-
-#### Find Tools and Libraries
-
-The Discord developer community has built and maintained a ton of different [libraries and tools](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES/libraries) over the years. No matter your experience level or language of choice, there are resources to speed up and simplify app development for you over on the [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) page.
-
-You can also check out our [Postman collections](https://www.postman.com/discord-api) to try and test API endpoints.
-
-#### Connect with Support
-
-- Join the [Discord Developers server](https://discord.gg/discord-developers) for support, discussion, and events about the Discord developer platform.
-- Explore the [Developer Help Center](https://support-dev.discord.com/hc) to find articles about common topics and questions, or to reach directly out to our developer support team.
-- Use our [GitHub](https://github.com/discord/discord-api-docs) to report API bugs, start a discussion about a developer feature request, or suggest an edit to our open source developer documentation.
-
-So go ahead and [build an app](https://discord.com/developers/applications)! We can’t wait to see what you make.
-
-— Discord
+<Container>
+  <Card title="Discord Developer Server" link="https://discord.gg/discord-developers" icon="ClydeIcon">
+   Join our community for support, API announcements, and events hosted by Discord staff.
+  </Card>
+  <Card title="Find us on GitHub" link="https://github.com/discord/discord-api-docs" icon="ForumIcon">
+    Visit us on GitHub to report API bugs, provide platform feature requests, or to suggest updates to the documentation.
+  </Card>
+  <Card title="Developer Help Center" link="https://support-dev.discord.com" icon="UnknownGameIcon">
+    Find articles on common topics and questions, or reach directly out to the developer support team.
+  </Card>
+</Container>
