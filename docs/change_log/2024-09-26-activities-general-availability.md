@@ -7,7 +7,7 @@ topics:
 - "Premium Apps"
 ---
 
-Following up on [the rollout of the App Launcher](https://discord.com/blog/discover-more-ways-to-play-with-apps-now-anywhere-on-discord), we’re excited to announce that [Activities](#DOCS_ACTIVITIES_OVERVIEW) are now generally available for developers. In addition to API stability, general availability means that apps with Activities can now be [verified](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified), [discoverable](#DOCS_DISCOVERY_ENABLING_DISCOVERY) in the App Directory, and [implement monetization](#DOCS_MONETIZATION_OVERVIEW).
+Following up on [the rollout of the App Launcher](https://discord.com/blog/discover-more-ways-to-play-with-apps-now-anywhere-on-discord), we’re excited to announce that [Activities](#DOCS_ACTIVITIES_OVERVIEW) are now generally available for developers. In addition to API stability, this means that apps with Activities can now be [verified](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified), [discoverable](#DOCS_DISCOVERY_ENABLING_DISCOVERY) in the App Directory, and [implement monetization](#DOCS_MONETIZATION_OVERVIEW).
 
 ### Recent API Updates
 
