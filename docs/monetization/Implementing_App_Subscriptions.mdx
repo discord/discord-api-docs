@@ -73,13 +73,23 @@ For example, you might keep track of our entitlements in a database and check if
 
 Entitlements are also available on the `Interaction Payload` when a user interacts with your app. You can find the entitlements on the `entitlements` field of the `Interaction Payload` when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING). You can use this field to determine if the user or guild is subscribed to your app. 
 
+### Accessing Entitlements with the Embedded App SDK
+
+When using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also [access a user's entitlements](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements). Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
+
 ---
 
 ## Prompting Users to Subscribe
 
+### Responding with a Premium Button
+
 [Responding with a premium button](#DOCS_MONETIZATION_MANAGING_SKUS/responding-with-a-premium-button) gives you the ability to prompt users to subscribe to your app when they attempt to use a premium feature without a subscription.
 
 You can do this by sending a message with a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering. 
+
+### Starting a Purchase from an Activity
+
+If you are using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also launch the purchase flow for a specific SKU using the SDK. Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
 
 ---
 

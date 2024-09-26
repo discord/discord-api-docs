@@ -1,15 +1,17 @@
 ---
-sidebar_label: Crafting your App Directory Product Page
+sidebar_label: Best Practices
 ---
 
-# Best Practices for App Directory Product Pages
+# Discovery Best Practices
 
 So you’ve made an app on Discord and are ready to opt in to discovery on the App Directory! Or maybe you have already listed your app but aren’t seeing as much traction to it as you’d like? Whatever stage you’re at, this guide has some tips and tricks from your friendly Discord Staff members to help boost performance of your App Directory Product Page.
 
 > info
 > This guide references settings and information you can set up and modify within your [app's settings](https://discord.com/developers/applications). If you don't have an app yet, you can follow the [Getting Started guide](#DOCS_QUICK_START_GETTING_STARTED).
 
-## The Elevator Pitch: Quickly tell your users what your app does
+## The Elevator Pitch
+
+### Quickly tell your users what your app does
 
 App descriptions should convey the value of your app and what it does. Make your app descriptions punchy and to the point - letting folks know what your app does in simple terms while also exciting the potential user to add the app and start using it.
 
@@ -42,7 +44,9 @@ On the **App Directory** tab, there is an **Expanded Description** field near th
 
 When writing your app's Expanded Description, the first thing you do should be to convey the value of the app to users. After the value is clear, continue on with how to get started with your app after it’s installed. 
 
-## Show Your Story: Include as many relevant visuals as possible
+## Show Your Story
+
+### Include as many relevant visuals as possible
 
 #### Show Your App's Functionality
 
@@ -58,13 +62,17 @@ Other images you may want to include are ones related to your app’s lore (if a
 
 After adding some images, make a quick screen recording to demonstrate your app’s functionality. Videos are awesome but it's definitely helpful to include images as well, especially for folks who may not watch the entire video.
 
-## Find Your Users: Utilize search to your advantage
+## Find Your Users
+
+### Utilize search to your advantage
 
 Think of up to five words that describe your app and add them as tags (see image below for an example). Consider what categories your app would fit under or keywords users would type into the search bar when looking for apps to add to their servers.
 
 ![App tags which help categorize apps and make them more searchable](bp-productpage-tags.png)
 
-## Support Your Users: Engage with your users directly
+## Support Your Users
+
+### Engage with your users directly
 
 Your app’s support server is a paramount part of your App Product Page. It’s important to ensure your app has a dedicated server and channel for communication between your app’s users and its developers and maintainers.
 
@@ -79,7 +87,9 @@ Some ways you can successfully use your support server includes:
 
 For general best practices on how to run a server, check out our [Community page](https://discord.com/community).
 
-## General Housekeeping: Final checks to make sure you’re ready to go
+## General Housekeeping
+
+### Final checks to make sure you’re ready to go
 
 Before you can click the final “Enable Discovery” button, ensure that your App Directory Product Page complies with the rest of Discord’s Directory eligibility criteria, [app content requirements](https://support-dev.discord.com/hc/en-us/articles/9489299950487-App-Directory-App-Content-Requirements-Policy) and Developer [Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383) and [Policy](https://support-dev.discord.com/hc/en-us/articles/8563934450327).
 

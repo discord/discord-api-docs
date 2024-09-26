@@ -41,13 +41,20 @@ When a user purchases a one-time purchase SKU, an entitlement is created. [Entit
 Depending on your app's features, you can use a combination of [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of entitlements to users who have purchased items in your app.
 
 ### Accessing Entitlements with Gateway Events
+
 When a user purchases a SKU, Discord will emit an [`ENTITLEMENT_CREATE`](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements) event. This event will contain the entitlement object that represents the user's access to the SKU. You can use this event to keep track of the user's entitlements in near-time. For One-Time Purchases, you may also receive an `ENTITLEMENT_DELETE` event if the user's entitlement is revoked.
 
 ### Accessing Entitlements with the HTTP API
+
 Entitlements are available via the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) endpoint. You can filter entitlements by a specific user or set of SKUs by using the `?user_id=XYZ` or `?sku_ids=XYZ` query parameters.
 
 ### Accessing Entitlements on Interaction Payloads
+
 Entitlements are also available on the `Interaction Payload` when a user interacts with your app. You can find the entitlements on the `entitlements` field of the `Interaction Payload` when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
+
+### Accessing Entitlements with the Embedded App SDK
+
+When using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also [access a user's entitlements](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements). Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
 
 Depending on your app's needs, you can use a combination of these methods to keep track of user entitlements.
 
@@ -70,10 +77,15 @@ Consuming the entitlement will update the entitlement to return a true value in 
 
 ## Prompting Users to Purchase an Item
 
+### Responding with a Premium Button
+
 [Responding with a premium button](#DOCS_MONETIZATION_MANAGING_SKUS/responding-with-a-premium-button) gives you the ability to prompt users to subscribe to your app when they attempt to use a premium feature without a subscription.
 
 You can do this by sending a message with a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering. 
 
+### Starting a Purchase from an Activity
+
+If you are using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also launch the purchase flow for a specific SKU using the SDK. Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
 
 ---
 
