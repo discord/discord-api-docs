@@ -68,7 +68,7 @@ When mapping SKUs to premium perks, keep the following in mind:
 
 The methods for listing SKUs automatically localize currency and prices. 
 
-This means `sku.price` has both a number `amount` attribute and a string `currency` attribute. Properly rendering the price expected units depending on currency can be challenging given the large number of currencies.  The Embedded App SDK provides a `PriceUtils` utility to make this easier.
+This means `sku.price` has a number `amount` attribute and a string `currency` attribute. Properly rendering prices with proper currency can be challenging, given the large number of currencies.  The Embedded App SDK provides a `PriceUtils` utility to make this easier.
 
 ```javascript
 import {PriceUtils} from '@discord/embedded-app-sdk';
