@@ -1,0 +1,565 @@
+<LocalePicker currentLocale="id-ID" />
+
+# Membangun aplikasi Discord pertama Anda
+
+[Aplikasi Discord](#DOCS_QUICK_START_OVERVIEW_OF_APPS) memungkinkan Anda menyesuaikan dan memperluas Discord menggunakan kumpulan API dan fitur interaktif. Panduan ini akan memandu Anda membangun aplikasi Discord pertama Anda menggunakan JavaScript dan pada akhirnya Anda akan memiliki aplikasi yang menggunakan perintah slash, mengirim pesan, dan menanggapi interaksi komponen.
+
+> info
+> Jika Anda tertarik untuk membangun game atau pengalaman sosial dalam iframe, Anda dapat mengikuti tutorial untuk [membangun Aktivitas](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY)
+
+Kita akan membangun aplikasi Discord yang memungkinkan pengguna bermain batu-gunting-kertas (dengan 7 pilihan, bukan 3). Panduan ini difokuskan untuk pemula, tetapi mengasumsikan pemahaman dasar tentang [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+
+<Collapsible title="Apa yang akan kita buat" icon="view">
+Berikut tampilan aplikasi yang sudah jadi:
+
+![Demo contoh aplikasi](getting-started-demo.gif)
+
+Untuk membuat alur pengguna sedikit lebih eksplisit:
+
+1. Pengguna A memulai permainan baru dan memilih objek mereka menggunakan perintah garis miring `/challenge` aplikasi
+2. Pesan dikirim ke saluran dengan tombol yang mengundang orang lain untuk menerima tantangan
+3. Pengguna B menekan tombol **Terima**
+4. Pengguna B dikirimi pesan singkat di mana mereka memilih objek pilihan mereka
+5. Hasil permainan diposkan kembali ke saluran asli agar semua orang dapat melihatnya
+</Collapsible>
+
+<Collapsible title="Sumber daya yang digunakan dalam panduan ini" description="Ikhtisar alat dan teknologi yang akan kita gunakan" icon="list">
+- **[Repositori GitHub](https://github.com/discord/discord-example-app)** tempat kode dari panduan ini berada beserta beberapa contoh kode khusus fitur tambahan.
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, pustaka yang menyediakan tipe dan fungsi pembantu untuk aplikasi Discord.
+- **[Express](https://expressjs.com)**, kerangka kerja web JavaScript populer yang akan kita gunakan untuk membuat server tempat Discord dapat mengirimkan permintaan kepada kita.
+- **[ngrok](https://ngrok.com/)**, alat yang memungkinkan kita menyalurkan server lokal kita ke URL publik tempat Discord dapat mengirimkan permintaan.
+</Collapsible>
+
+---
+
+## Langkah 0: Penyiapan Proyek
+
+Sebelum kita mulai, Anda perlu menyiapkan lingkungan lokal dan mendapatkan kode proyek dari [repositori aplikasi contoh](https://github.com/discord/discord-example-app).
+
+> info
+> Kami akan mengembangkan aplikasi kami secara lokal dengan sedikit bantuan dari [ngrok](https://ngrok.com/), tetapi Anda dapat menggunakan lingkungan pengembangan pilihan Anda.
+
+Jika Anda belum menginstal [NodeJS](https://nodejs.org/en/download/), instal terlebih dahulu.
+
+Setelah NodeJS terinstal, buka baris perintah Anda dan klon kode proyek:
+
+```
+git clone https://github.com/discord/discord-example-app.git
+```
+
+Kemudian navigasikan ke direktori dan instal dependensi proyek:
+
+```
+# navigasikan ke direktori
+cd discord-example-app
+
+# instal dependensi
+npm install
+```
+
+<Collapsible title="Struktur proyek" description="Ikhtisar struktur proyek untuk aplikasi contoh yang digunakan dalam tutorial ini" icon="kode">
+```
+├── contoh -> contoh aplikasi singkat khusus fitur
+│ ├── app.js -> kode app.js yang sudah selesai
+│ ├── button.js
+│ ├── command.js
+│ ├── modal.js
+│ ├── selectMenu.js
+├── .env -> kredensial dan ID Anda
+├── app.js -> titik masuk utama untuk aplikasi
+├── commands.js -> muatan perintah slash + helper
+├── game.js -> logika khusus untuk Rock, Paper, Scissors
+├── utils.js -> fungsi utilitas dan konstanta
+├── package.json
+├── README.md
+└── .gitignore
+```
+</Collapsible>
+
+Setelah itu, buka proyek baru Anda di editor kode pilihan Anda, dan kita akan lanjut menyiapkan aplikasi Discord Anda.
+
+## Langkah 1: Membuat aplikasi
+
+Pertama, Anda perlu membuat aplikasi di portal pengembang jika belum memilikinya:
+
+<Button href="https://discord.com/developers/applications?new_application=true" color="brand">Buat Aplikasi</Button>
+
+Masukkan nama untuk aplikasi Anda, lalu tekan **Buat**.
+
+Setelah membuat aplikasi, Anda akan diarahkan ke halaman **Gambaran Umum** pada pengaturan aplikasi, tempat Anda dapat memperbarui informasi dasar tentang aplikasi, seperti deskripsi dan ikonnya. Anda juga akan melihat **ID Aplikasi** dan **URL Titik Akhir Interaksi**, yang akan kami gunakan nanti dalam panduan ini.
+
+### Mengambil kredensial Anda
+
+Kami perlu menyiapkan dan mengambil beberapa nilai sensitif untuk aplikasi Anda, seperti token dan ID-nya.
+
+> peringatan
+> Token Anda digunakan untuk mengotorisasi permintaan API dan membawa izin aplikasi Anda, sehingga sangat sensitif. Pastikan untuk tidak pernah membagikan token Anda atau memeriksanya ke kontrol versi apa pun.
+
+Kembali ke folder proyek Anda, ganti nama file `.env.sample` menjadi `.env`. Di sinilah kami akan menyimpan semua kredensial aplikasi Anda.
+
+Kami akan memerlukan tiga nilai dari pengaturan aplikasi Anda untuk file `.env` Anda:
+
+- Pada halaman **Informasi Umum**, salin nilai untuk **ID Aplikasi**. Di `.env`, ganti `<YOUR_APP_ID>` dengan ID yang Anda salin.
+
+- Kembali ke Halaman **Informasi Umum**, salin nilai untuk **Kunci Publik**, yang digunakan untuk memastikan permintaan HTTP berasal dari Discord. Di `.env`, ganti `<YOUR_PUBLIC_KEY>` dengan nilai yang Anda salin.
+
+- Di halaman **Bot** di bawah **Token**, klik "Reset Token" untuk membuat token bot baru. Di `.env`, ganti `<YOUR_BOT_TOKEN>` dengan token baru Anda.
+
+> peringatan
+> Anda tidak akan dapat melihat token Anda lagi kecuali Anda membuatnya kembali, jadi pastikan untuk menyimpannya di tempat yang aman (seperti di pengelola kata sandi).
+
+Sekarang setelah Anda memiliki kredensial yang Anda butuhkan, mari konfigurasikan pengguna bot dan pengaturan instalasi Anda.
+
+### Mengonfigurasi bot Anda
+
+Aplikasi yang baru dibuat memiliki pengguna bot yang diaktifkan secara default. Pengguna bot mengizinkan aplikasi Anda muncul dan berperilaku serupa dengan anggota server lain saat [diinstal ke server](#DOCS_QUICK_START_OVERVIEW_OF_APPS/where-are-apps-installed).
+
+Di bilah sisi kiri dalam pengaturan aplikasi Anda, ada halaman **Bot** (tempat kami mengambil token). Di halaman ini, Anda juga dapat mengonfigurasi pengaturan seperti [intent istimewa](#DOCS_TOPICS_GATEWAY/privileged-intents) atau apakah aplikasi dapat diinstal oleh pengguna lain.
+
+<Collapsible title="Apa itu intent?" description="Pendahuluan tentang intent standar dan istimewa" icon="question">
+Intent menentukan peristiwa mana yang akan dikirim Discord ke aplikasi Anda saat Anda membuat [koneksi API Gateway](#DOCS_TOPICS_GATEWAY). Misalnya, jika Anda ingin aplikasi Anda melakukan tindakan saat pengguna menambahkan reaksi ke pesan, Anda dapat meneruskan intent `GUILD_MESSAGE_REACTIONS` (`1 << 10`).
+
+Beberapa intent bersifat [istimewa](#DOCS_TOPICS_GATEWAY/privileged-intents), artinya intent tersebut mengizinkan aplikasi Anda mengakses data yang mungkin dianggap sensitif (seperti konten pesan). Intent yang istimewa dapat diaktifkan pada halaman **Bot** di setelan aplikasi Anda, tetapi intent tersebut harus disetujui sebelum Anda [memverifikasi aplikasi Anda](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified). Intent standar yang tidak istimewa tidak memerlukan izin atau konfigurasi tambahan apa pun.
+
+Informasi selengkapnya tentang intent dan daftar lengkap intent yang tersedia (beserta peristiwa terkaitnya) ada di [Dokumentasi Gateway](#DOCS_TOPICS_GATEWAY/gateway-intents).
+</Collapsible>
+
+Untuk saat ini, kami tidak perlu mengonfigurasi apa pun tambahan di sini, tetapi Anda mungkin perlu melakukannya di masa mendatang, tergantung pada kasus penggunaan aplikasi Anda. Mari kita lanjutkan dan persiapkan aplikasi kita untuk diinstal.
+
+### Memilih konteks instalasi
+
+Sekarang kita akan memilih tempat aplikasi Anda dapat diinstal di Discord, yang ditentukan oleh [konteks instalasi](#DOCS_RESOURCES_APPLICATION/installation-context) yang didukung aplikasi Anda.
+
+<Collapsible title="Apa itu konteks instalasi?" description="Ikhtisar tempat aplikasi dapat diinstal" icon="question">
+**Konteks instalasi** menentukan tempat aplikasi Anda dapat diinstal: ke server, ke pengguna, atau keduanya. Aplikasi dapat memilih konteks instalasi mana yang didukungnya dalam pengaturan aplikasi. - Aplikasi yang diinstal dalam **[konteks server](#DOCS_RESOURCES_APPLICATION/server-context)** (aplikasi yang diinstal server) harus diotorisasi oleh anggota server dengan izin `MANAGE_GUILD`, dan dapat dilihat oleh semua anggota server.
+
+- Aplikasi yang diinstal dalam **[konteks pengguna](#DOCS_RESOURCES_APPLICATION/user-context)** (aplikasi yang diinstal pengguna) hanya dapat dilihat oleh pengguna yang mengotorisasi, dan oleh karena itu tidak memerlukan izin khusus server. Aplikasi yang diinstal pada konteks pengguna dapat dilihat di semua server, DM, dan GDM pengguna—namun, aplikasi tersebut terbatas untuk menggunakan perintah.
+
+</Collapsible>
+
+Klik **Instalasi** di bilah sisi kiri, lalu di bawah **Konteks Instalasi** pastikan "Instalasi Pengguna" dan "Instalasi Guild" dipilih.
+
+> info
+> Beberapa aplikasi mungkin hanya ingin mendukung satu konteks penginstalan—misalnya, aplikasi moderasi mungkin hanya mendukung konteks server. Namun, secara default, kami sarankan untuk mendukung kedua konteks penginstalan. Untuk informasi terperinci tentang mendukung aplikasi yang diinstal pengguna, Anda dapat membaca [tutorial aplikasi yang dapat diinstal pengguna](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP).
+
+### Menyiapkan tautan penginstalan
+
+[Tautan penginstalan](#DOCS_RESOURCES_APPLICATION/install-links) menyediakan cara mudah bagi pengguna untuk menginstal aplikasi Anda di Discord. Kami akan menyiapkan [Tautan yang Disediakan Discord](#DOCS_RESOURCES_APPLICATION/discord-provided-link) default, tetapi Anda dapat membaca lebih lanjut tentang berbagai jenis tautan penginstalan di [Dokumentasi aplikasi](#DOCS_RESOURCES_APPLICATION/types-of-install-links).
+
+Pada halaman **Instalasi**, buka bagian **Tautan Instal** dan pilih "Tautan yang Disediakan Discord" jika belum dipilih.
+
+Saat Tautan yang Disediakan Discord dipilih, bagian **Pengaturan Instal Default** baru akan muncul, yang akan kita konfigurasikan selanjutnya.
+
+### Menambahkan cakupan dan izin bot
+
+Aplikasi memerlukan persetujuan dari pengguna yang menginstal untuk melakukan tindakan di Discord (seperti membuat perintah garis miring atau mengambil daftar anggota server). Mari tambahkan cakupan dan izin sebelum menginstal aplikasi.
+
+<Judul yang dapat dilipat="Apa itu cakupan dan izin?" description="Pendahuluan tentang cakupan dan izin bot" icon="question">
+Saat membuat aplikasi, cakupan dan izin menentukan apa yang dapat dilakukan dan diakses aplikasi Anda di Discord.
+
+- [Cakupan OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) menentukan akses data dan tindakan apa yang dapat dilakukan aplikasi Anda, yang diberikan atas nama pengguna yang memasang atau mengautentikasi.
+- [Izin](#DOCS_TOPICS_PERMISSIONS/permission-overwrites) adalah izin terperinci untuk pengguna bot Anda, sama seperti yang dimiliki pengguna lain di Discord. Izin tersebut dapat disetujui oleh pengguna yang memasang atau diperbarui kemudian dalam pengaturan server atau dengan [penimpaan izin](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Karena aplikasi yang dipasang ke konteks pengguna hanya dapat merespons perintah, izin ini hanya relevan dengan aplikasi yang dipasang ke server.
+</Collapsible>
+
+Pada **Halaman **Instalasi** di bagian **Pengaturan Instal Default**:
+- Untuk **Instalasi Pengguna**, tambahkan cakupan `applications.commands`
+- Untuk **Instalasi Guild**, tambahkan cakupan `applications.commands` dan cakupan `bot`. Saat Anda memilih `bot`, menu **Izin** baru akan muncul untuk memilih izin pengguna bot. Pilih izin apa pun yang Anda inginkan untuk aplikasi Anda—untuk saat ini, saya akan memilih `Kirim Pesan`.
+
+![Pengaturan Instal Default](getting-started-default-install.png)
+
+Lihat daftar semua [cakupan OAuth2](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), atau baca selengkapnya tentang [izin](#DOCS_TOPICS_PERMISSIONS) dalam dokumentasi.
+
+### Menginstal aplikasi Anda
+
+> info
+> Saat mengembangkan aplikasi, Anda harus membuat dan menguji pada akun pengguna Anda (untuk aplikasi yang dapat diinstal pengguna) dan di server yang tidak digunakan secara aktif oleh orang lain (untuk aplikasi yang dapat diinstal server). Jika Anda belum memiliki server sendiri, Anda dapat [membuatnya secara gratis](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
+
+Setelah Anda menambahkan cakupan, salin URL dari bagian **Install Link** dari sebelumnya.
+
+Karena aplikasi kami mendukung kedua konteks instalasi, kami akan menginstal aplikasi baru Anda ke server pengujian dan akun pengguna Anda sehingga kami dapat menguji di kedua [konteks instalasi](#DOCS_RESOURCES_APPLICATION/installation-context).
+
+###### Instal ke server
+
+Untuk menginstal aplikasi Anda ke server pengujian, salin Tautan Instalasi default untuk aplikasi Anda dari halaman **Instalasi**. Tempel tautan di peramban Anda dan tekan enter, lalu pilih "Tambahkan ke server" di prompt penginstalan.
+
+Pilih server pengujian Anda, dan ikuti prompt penginstalan. Setelah aplikasi Anda ditambahkan ke server pengujian, Anda akan melihatnya muncul di daftar anggota.
+
+###### Instal ke akun pengguna
+
+Selanjutnya, instal aplikasi Anda ke akun pengguna Anda. Tempel Tautan Instal yang sama di peramban Anda dan tekan enter. Kali ini, pilih "Tambahkan ke aplikasi saya" di prompt penginstalan.
+
+Ikuti prompt penginstalan untuk menginstal aplikasi Anda ke akun pengguna Anda. Setelah diinstal, Anda dapat membuka DM dengannya.
+
+---
+
+## Langkah 2: Menjalankan aplikasi Anda
+
+Setelah aplikasi Anda dikonfigurasi dan diinstal ke server pengujian dan akun Anda, mari kita lihat kodenya.
+
+> info
+> Untuk membuat pengembangan sedikit lebih sederhana, aplikasi menggunakan [discord-interactions](https://github.com/discord/discord-interactions-js), yang menyediakan tipe dan fungsi pembantu. Jika Anda lebih suka menggunakan bahasa atau pustaka lain, lihat dokumentasi [Sumber Daya Komunitas](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES).
+
+### Menginstal perintah slash
+
+> info
+> Untuk menginstal perintah slash, aplikasi menggunakan [`node-fetch`](https://github.com/node-fetch/node-fetch). Anda dapat melihat implementasi untuk instalasi di `utils.js` dalam fungsi `DiscordRequest()`.
+
+Proyek ini berisi skrip `register` yang dapat Anda gunakan untuk menginstal perintah di `ALL_COMMANDS`, yang didefinisikan di bagian bawah `commands.js`. Menginstal perintah sebagai perintah global dengan memanggil titik akhir [`PUT /applications/<APP_ID>/commands`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/bulk-overwrite-global-application-commands) API HTTP.
+
+Jika Anda ingin menyesuaikan perintah atau menambahkan perintah tambahan, Anda dapat merujuk struktur perintah dalam [dokumentasi perintah](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure).
+
+Di terminal Anda dalam folder proyek, jalankan perintah berikut:
+
+```
+npm run register
+```
+
+Jika Anda menavigasi kembali ke server Anda, Anda akan melihat perintah garis miring muncul. Namun, jika Anda mencoba menjalankannya, tidak akan terjadi apa-apa karena aplikasi Anda tidak menerima atau menangani permintaan apa pun dari Discord.
+
+<Collapsible title="Apa itu API Discord?" description="Gambaran Umum HTTP dan Gateway API Discord" icon="question">
+Aplikasi memiliki akses ke [API](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-apis-can-apps-use) yang dapat Anda gabungkan untuk membuat aplikasi:
+
+- **[HTTP API](#DOCS_REFERENCE/http-api)** adalah API seperti REST untuk operasi umum seperti mengirim dan memperbarui data di Discord, atau mengambil data tentang suatu sumber daya.
+- **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** adalah API berbasis WebSocket yang berguna untuk mempertahankan status atau mendengarkan peristiwa yang terjadi di server Discord. Kami tidak akan menggunakannya dalam panduan ini, tetapi informasi lebih lanjut tentang cara membuat koneksi Gateway dan berbagai peristiwa yang dapat Anda dengarkan ada di [Dokumentasi Gateway](#DOCS_TOPICS_GATEWAY).
+
+---
+
+## Langkah 3: Menangani interaktivitas
+
+Agar aplikasi Anda dapat menerima perintah slash dan permintaan interaksi lainnya, Discord memerlukan URL publik untuk mengirimkannya. URL ini dapat dikonfigurasi dalam pengaturan aplikasi Anda sebagai **URL Titik Akhir Interaksi**.
+
+### Menyiapkan titik akhir publik
+
+Untuk menyiapkan titik akhir publik, kita akan memulai aplikasi kita yang menjalankan server [Express](https://expressjs.com/), lalu menggunakan [ngrok](https://ngrok.com/) untuk mengekspos server kita secara publik.
+
+Pertama, masuk ke folder proyek Anda dan jalankan perintah berikut untuk memulai aplikasi Anda:
+
+```
+npm run start
+```
+
+Akan muncul output yang menunjukkan aplikasi Anda berjalan pada port `3000`. Di balik layar, aplikasi kita siap menangani interaksi dari Discord, yang mencakup verifikasi header permintaan keamanan dan menanggapi permintaan `PING`. Kita akan melewatkan banyak detail dalam tutorial ini, tetapi detail tentang mempersiapkan aplikasi untuk interaksi ada dalam dokumentasi [Ikhtisar Interaksi](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions).
+
+> info
+> Secara default, server akan mendengarkan permintaan yang dikirim ke port 3000, tetapi jika Anda ingin mengubah port, Anda dapat menentukan variabel `PORT` dalam file `.env` Anda.
+
+Selanjutnya, kita akan memulai terowongan ngrok kita. Jika Anda belum menginstal ngrok secara lokal, Anda dapat menginstalnya dengan mengikuti petunjuk di [halaman unduhan ngrok](https://ngrok.com/download).
+
+Setelah ngrok terinstal, buka terminal baru dan buat titik akhir publik yang akan meneruskan permintaan ke server Express Anda:
+
+```
+ngrok http 3000
+```
+
+Anda akan melihat koneksi Anda terbuka dengan output yang mirip dengan berikut ini:
+
+```
+Status Terowongan daring
+Versi 2.0/2.0
+Antarmuka Web http://127.0.0.1:4040
+Penerusan https://1234-someurl.ngrok.io -> localhost:3000
+
+Koneksi ttl opn rt1 rt5 p50 p90
+0 0 0,00 0,00 0,00 0,00
+```
+
+Kita akan menggunakan URL **Penerusan** sebagai URL yang dapat diakses publik tempat Discord akan mengirimkan permintaan interaksi pada langkah berikutnya.
+
+### Menambahkan URL titik akhir interaksi
+
+Buka [setelan aplikasi](https://discord.com/developers/applications) dan pada halaman **Informasi Umum** di bawah **URL Titik Akhir Interaksi**, tempel URL penerusan ngrok baru Anda dan tambahkan `/interactions`.
+
+![URL Titik Akhir Interaksi](getting-started-interactions-endpoint.png)
+
+Klik **Simpan Perubahan** dan pastikan titik akhir Anda berhasil diverifikasi.
+
+> info
+> Jika Anda mengalami masalah saat memverifikasi titik akhir, pastikan ngrok dan aplikasi Anda berjalan pada port yang sama, dan Anda telah menyalin URL ngrok dengan benar
+
+Verifikasi ditangani secara otomatis oleh aplikasi contoh dengan dua cara:
+- Aplikasi menggunakan `PUBLIC_KEY` dan [paket discord-interactions](https://github.com/discord/discord-interactions-js#usage) dengan fungsi pembungkus (diimpor dari `utils.js`) yang membuatnya sesuai dengan [antarmuka `verify` Express](http://expressjs.com/en/5x/api.html#express.json). Ini dijalankan pada setiap permintaan masuk ke aplikasi Anda.
+- Aplikasi merespons permintaan `PING` yang masuk.
+
+Anda dapat mempelajari lebih lanjut tentang mempersiapkan aplikasi Anda untuk menerima interaksi dalam [dokumentasi interaksi](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions).
+
+### Menangani permintaan perintah slash
+
+Setelah titik akhir diverifikasi, navigasikan ke file `app.js` proyek Anda dan temukan blok kode yang menangani perintah `/test`:
+
+```javascript
+// perintah "test"
+if (name === 'test') {
+// Kirim pesan ke saluran tempat perintah dipicu
+return res.send({
+type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+data: {
+// Mengambil emoji acak untuk dikirim dari fungsi helper
+content: 'hello world ' + getRandomEmoji(),
+},
+});
+}
+```
+
+Kode di atas merespons interaksi dengan pesan di saluran, DM, atau DM Grup tempat asalnya. Anda dapat melihat semua jenis respons yang tersedia, seperti merespons dengan modal, [dalam dokumentasi](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type).
+
+> info
+> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` adalah konstanta [diekspor dari `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+
+Buka server Anda dan pastikan perintah garis miring `/test` aplikasi Anda berfungsi. Saat Anda memicunya, aplikasi Anda akan mengirim pesan yang berisi "hello world" diikuti oleh emoji acak.
+
+Di bagian berikut, kami akan menambahkan perintah tambahan yang menggunakan opsi perintah garis miring, tombol, dan menu pilihan untuk membangun permainan batu-gunting-kertas.
+
+---
+
+## Langkah 4: Menambahkan komponen pesan
+
+Perintah `/challenge` akan menjadi cara kerja rock-paper-sc kita
+Permainan bergaya issors dimulai. Saat perintah dipicu, aplikasi akan mengirim komponen pesan ke saluran, yang akan memandu pengguna untuk menyelesaikan permainan.
+
+### Menambahkan perintah dengan opsi
+
+Perintah `/challenge`, yang disebut `CHALLENGE_COMMAND` dalam `commands.js`, memiliki serangkaian `opsi`. Dalam aplikasi kami, opsi adalah objek yang mewakili berbagai hal yang dapat dipilih pengguna saat bermain batu-gunting-kertas, yang dibuat menggunakan kunci `RPSChoices` dalam `game.js`.
+
+Anda dapat membaca lebih lanjut tentang opsi perintah dan strukturnya [dalam dokumentasi](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
+
+> info
+> Meskipun panduan ini tidak akan banyak membahas berkas `game.js`, jangan ragu untuk mencoba-coba dan mengubah perintah atau opsi dalam perintah.
+
+<Collapsible title="Menangani interaksi perintah" description="Kode untuk menangani perintah tantangan dan menanggapi dengan pesan yang berisi tombol" icon="code" open>
+
+Untuk menangani perintah `/challenge`, tambahkan kode berikut setelah blok if `if name === “test”`:
+
+```javascript
+// perintah "challenge"
+if (name === 'challenge' && id) {
+// Konteks interaksi
+const context = req.body.context;
+// ID Pengguna ada di kolom pengguna untuk (G)DM, dan member untuk server
+const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
+// Pilihan objek Pengguna
+const objectName = req.body.data.options[0].value;
+
+// Buat permainan aktif menggunakan ID pesan sebagai ID permainan
+activeGames[id] = {
+id: userId,
+objectName,
+};
+
+return res.send({
+type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+data: {
+content: `Tantangan gunting batu kertas dari <@${userId}>`,
+components: [
+{
+type: MessageComponentTypes.ACTION_ROW,
+components: [
+{
+type: MessageComponentTypes.BUTTON,
+// Tambahkan ID game untuk digunakan nanti
+custom_id: `accept_button_${req.body.id}`,
+label: 'Accept',
+style: ButtonStyleTypes.PRIMARY,
+},
+],
+},
+],
+},
+});
+}
+```
+
+> info
+> Jika Anda tidak yakin di mana harus menempelkan kode, Anda dapat melihat kode lengkapnya di `examples/app.js`.
+
+Kode di atas melakukan beberapa hal:
+1. Menguraikan isi permintaan untuk mendapatkan ID pengguna yang memicu perintah slash (`userId`), dan opsi (pilihan objek) yang mereka pilih (`objectName`). Jika interaksi dijalankan di server (`context === 0`), ID pengguna akan disarangkan di objek `member`. Jika berada di DM atau DM Grup, ID tersebut akan berada di objek `user`.
+2. Menambahkan permainan baru ke objek `activeGames` menggunakan ID interaksi. Permainan aktif mencatat `userId` dan `objectName`.
+3. Mengirim pesan kembali ke saluran dengan tombol dengan `custom_id` `accept_button_<SOME_ID>`.
+
+> memperingatkan
+> Kode contoh menggunakan objek sebagai penyimpanan dalam memori, tetapi untuk aplikasi produksi Anda harus menggunakan basis data.
+
+Saat mengirim pesan dengan [komponen pesan](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), muatan individual ditambahkan ke array `components`. Komponen yang dapat ditindaklanjuti (seperti tombol) harus berada di dalam [baris tindakan](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), yang dapat Anda lihat dalam contoh kode.
+
+Perhatikan `custom_id` unik yang dikirim dengan komponen pesan, dalam hal ini `accept_button_` dengan ID permainan aktif yang ditambahkan padanya. `custom_id` dapat digunakan untuk menangani permintaan yang dikirim Discord kepada Anda saat seseorang berinteraksi dengan komponen tersebut, yang akan Anda lihat sebentar lagi.
+
+Sekarang saat Anda menjalankan perintah `/challenge` dan memilih opsi, aplikasi Anda akan mengirim pesan dengan tombol **Terima**. Mari tambahkan kode untuk menangani penekanan tombol.
+
+</Collapsible>
+
+<Collapsible title="Menangani interaksi tombol" description="Kode untuk menangani klik tombol dan menanggapi dengan pesan sementara" icon="kode" open>
+
+Saat pengguna berinteraksi dengan komponen pesan, Discord akan mengirimkan permintaan dengan [jenis interaksi](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) `3` (atau nilai `MESSAGE_COMPONENT` saat menggunakan `discord-interactions`).
+
+Untuk menyiapkan pengendali tombol, kita akan memeriksa `jenis` interaksi, diikuti dengan mencocokkan `custom_id`.
+
+Tempel kode berikut di bawah pengendali tipe untuk `APPLICATION_COMMAND`:
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id ditetapkan dalam payload saat mengirim komponen pesan
+const componentId = data.custom_id;
+
+if (componentId.startsWith('accept_button_')) {
+// dapatkan ID game terkait
+const gameId = componentId.replace('accept_button_', '');
+// Hapus pesan dengan token di badan permintaan
+const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`; coba {
+tunggu res.kirim({
+jenis: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+data: {
+// Mengambil emoji acak untuk dikirim dari fungsi pembantu
+content: 'Apa objek pilihan Anda?',
+// Menunjukkan bahwa itu akan menjadi pesan sementara
+flags: InteractionResponseFlags.EPHEMERAL,
+components: [
+{
+type: MessageComponentTypes.ACTION_ROW,
+components: [
+{
+type: MessageComponentTypes.STRING_SELECT,
+// Tambahkan ID game
+custom_id: `select_choice_${gameId}`,
+options: getShuffledOptions(),
+},
+],
+},
+],
+},
+});
+// Hapus pesan sebelumnya
+await DiscordRequest(endpoint, { method: 'DELETE' });
+} catch (err) {
+console.error('Terjadi kesalahan saat mengirim pesan:', err); }
+}
+}
+```
+
+Kode di atas:
+1. Memeriksa `custom_id` yang cocok dengan yang awalnya kami kirim (dalam kasus ini, dimulai dengan `accept_button_`). ID kustom juga memiliki ID permainan aktif yang ditambahkan, jadi kami menyimpannya di `gameID`.
+2. [Menghapus pesan asli](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) yang memanggil webhook menggunakan `node-fetch` dan meneruskan interaksi unik `token` di badan permintaan. Ini dilakukan untuk membersihkan saluran, dan agar pengguna lain tidak dapat mengeklik tombol.
+3. Menanggapi permintaan dengan mengirimkan pesan yang berisi menu pilihan dengan pilihan objek untuk permainan. Muatannya akan terlihat cukup mirip dengan yang sebelumnya, dengan pengecualian array `options` dan `flags: 64`, [yang menunjukkan bahwa pesan tersebut bersifat sementara](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
+
+Array `options` diisi menggunakan metode `getShuffledOptions()` dalam `game.js`, yang memanipulasi nilai `RPSChoices` agar sesuai dengan bentuk [opsi komponen pesan](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure).
+
+</Collapsible>
+
+<Collapsible title="Menangani interaksi menu pilihan" description="Kode untuk menanggapi interaksi menu pilihan dan memperbarui status permainan" icon="kode" open>
+
+Hal terakhir yang perlu ditambahkan adalah kode untuk menangani interaksi menu pilihan, dan untuk mengirim hasil permainan ke saluran.
+
+Karena menu pilihan hanyalah komponen pesan lainnya, kode untuk menangani interaksinya akan hampir identik dengan tombol.
+
+Ubah kode di atas untuk menangani menu pilihan:
+
+```javascript
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id ditetapkan dalam payload saat mengirim komponen pesan
+const componentId = data.custom_id;
+
+if (componentId.startsWith('accept_button_')) {
+// dapatkan ID permainan terkait
+const gameId = componentId.replace('accept_button_', ''); // Hapus pesan dengan token di badan permintaan
+const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`; coba {
+tunggu res.kirim({
+ketik: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+data: {
+konten: 'Apa objek pilihan Anda?',
+// Menunjukkan bahwa itu akan menjadi pesan sementara
+bendera: InteractionResponseFlags.EPHEMERAL,
+komponen: [
+{
+ketik: MessageComponentTypes.ACTION_ROW,
+komponen: [
+{
+ketik: MessageComponentTypes.STRING_SELECT,
+// Tambahkan ID game
+id_khusus: `select_choice_${gameId}`,
+opsi: getShuffledOptions(),
+},
+],
+},
+],
+},
+});
+// Hapus pesan sebelumnya
+tunggu DiscordRequest(titik akhir, { metode: 'HAPUS' });
+} tangkap (kesalahan) {
+konsol.kesalahan('Kesalahan saat mengirim pesan:', kesalahan); }
+} else if (componentId.startsWith('select_choice_')) {
+// dapatkan ID game terkait
+const gameId = componentId.replace('select_choice_', '');
+
+if (activeGames[gameId]) {
+// Konteks interaksi
+const context = req.body.context;
+// Dapatkan ID pengguna dan pilihan objek untuk pengguna yang merespons
+// ID pengguna ada di kolom pengguna untuk (G)DM, dan member untuk server
+const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
+// Hitung hasil dari fungsi helper
+const resultStr = getResult(activeGames[gameId], {
+id: userId,
+objectName,
+});
+
+// Hapus game dari penyimpanan
+delete activeGames[gameId]; // Perbarui pesan dengan token di badan permintaan
+const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+
+try {
+// Kirim hasil
+await res.send({
+type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+data: { content: resultStr },
+});
+// Perbarui pesan sementara
+await DiscordRequest(endpoint, {
+method: 'PATCH',
+body: {
+content: 'Nice choice ' + getRandomEmoji(),
+components: []
+}
+})
+;
+} catch (err) {
+console.error('Terjadi kesalahan saat mengirim pesan:', err);
+}
+}
+}
+}
+```
+
+Mirip dengan kode sebelumnya, kode di atas mendapatkan ID pengguna dan pilihan objek mereka dari permintaan interaksi.
+
+Informasi tersebut, beserta ID pengguna asli dan pilihan dari objek `activeGames`, diteruskan ke fungsi `getResult()`. `getResult()` menentukan pemenangnya, lalu membuat string yang dapat dibaca untuk dikirim kembali ke saluran.
+
+Kami juga memanggil webhook lain, kali ini untuk [memperbarui pesan sementara tindak lanjut](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) karena tidak dapat dihapus.
+
+Terakhir, hasilnya dikirim di saluran menggunakan tipe respons interaksi `CHANNEL_MESSAGE_WITH_SOURCE`.
+
+</Collapsible>
+
+....dan selesai 🎊 Lanjutkan dan uji aplikasi Anda dan pastikan semuanya berfungsi.
+
+---
+
+## Langkah selanjutnya
+
+Selamat telah membangun aplikasi Discord pertama Anda! 🤖
+
+Semoga Anda mempelajari sedikit tentang aplikasi Discord, cara mengonfigurasinya, dan cara membuatnya interaktif. Dari sini, Anda dapat terus membangun aplikasi Anda atau menjelajahi hal-hal lain yang memungkinkan.
+
+<Container>
+<Card title="Ikhtisar Aplikasi" link="#DOCS_QUICK_START_OVERVIEW_OF_APPS" icon="AppsIcon">
+Jelajahi fitur platform dan API yang dapat Anda akses saat membuat aplikasi di Discord
+</Card>
+<Card title="Jelajahi alat pengembang" link="#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES" icon="WrenchIcon">
+Jelajahi pustaka dan alat pihak pertama dan yang dibuat komunitas untuk mempercepat dan menyederhanakan pengembangan Anda
+</Card>
+<Card title="Mengembangkan Aplikasi yang Dapat Diinstal Pengguna" link="#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP" icon="UserIcon">
+Tutorial tentang membangun dan menangani interaksi untuk aplikasi yang diinstal ke pengguna
+</Card>
+<Card title="Pengembang Discord" link="https://discord.gg/discord-developers" ikon="GlobeEarthIcon">
+Bergabunglah dengan komunitas kami untuk mengajukan pertanyaan tentang API, menghadiri acara yang diselenggarakan oleh tim platform Discord, dan berinteraksi dengan pengembang lain
+</Card>
+</Container>
