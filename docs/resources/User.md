@@ -47,6 +47,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | premium_type?           | integer                                                                              | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
 | public_flags?           | integer                                                                              | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
 | avatar_decoration_data? | ?[avatar decoration data](#DOCS_RESOURCES_USER/avatar-decoration-data-object) object | data for the user's avatar decoration                                                                | identify              |
+| clan? | ?[clan](#DOCS_RESOURCES_USER/clan-data-object) object |  data related to the user's clan identity, including guild association, tag, and badge.                                                                | identify              |
 
 ###### Example User
 
@@ -66,6 +67,12 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "avatar_decoration_data": {
     "sku_id": "1144058844004233369",
     "asset": "a_fed43ab12698df65902ba06727e20c0e"
+  },
+  "clan": {
+    "identity_guild_id": "1234567890123456789",
+    "identity_enabled": true,
+    "tag": "u0044\u0049\u0053\u0043",
+    "badge": "972a21b5140307824ee09d388620aacd"
   }
 }
 ```
@@ -111,6 +118,19 @@ The data for the user's [avatar decoration](https://support.discord.com/hc/en-us
 |--------|-----------|----------------------------------------------------------------|
 | asset  | string    | the [avatar decoration hash](#DOCS_REFERENCE/image-formatting) |
 | sku_id | snowflake | id of the avatar decoration's SKU                              |
+
+### Clan Data Object
+
+The data for a user's [clan](https://support.discord.com/hc/en-us/articles/23187611406999-Guilds-FAQ) configuration.
+
+###### Clan Data Structure
+
+| Field               | Type       | Description                                                                 |
+|---------------------|------------|-----------------------------------------------------------------------------|
+| identity_guild_id    | snowflake  | The unique identifier of the clan's guild or group.                         |
+| identity_enabled     | boolean    | Indicates whether the clan's identity feature is enabled.                   |
+| tag                 | string     | The tag or abbreviation associated with the clan.                           |
+| badge               | string     | The hash of the image or icon representing the clan's badge.                |
 
 ### Connection Object
 
