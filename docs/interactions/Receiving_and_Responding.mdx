@@ -320,16 +320,16 @@ r = requests.post(url, json=json)
 
 ###### Interaction Callback Response Object
 
-| Field       | Type                                                                                                                                 | Description                                                |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-object)          | The interaction object associated with the                 |
-| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response. |
+| Field       | Type                                                                                                                                 | Description                                                        |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-object)          | The interaction object associated with the interaction response.   |
+| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response.         |
 
 ###### Interaction Callback Object
 
 | Field                       | Type      | Description                                                                                         |
 |-----------------------------|-----------|-----------------------------------------------------------------------------------------------------|
-| id                          | snowflake |                                                                                                     |
+| id                          | snowflake | ID of the interaction                                                                               |
 | type                        | integer   | [Interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) |
 | activity_instance_id?       | string    | Instance ID of the Activity if one was launched or joined                                           |
 | response_message_id?        | snowflake | ID of the message that was created by the interaction                                               |
