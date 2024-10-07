@@ -17,4 +17,4 @@ We updated our previous entitlement migration guide to provide more up-to-date i
 
 View the [updated migration guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api).
 
-To see a full diff of the changes, refer to this pull request: [Entitlement Migration Guide Updates](#REPLACE_WITH_GITHUB_PR).
+To see a full diff of the changes, refer to this pull request: [Entitlement Migration Guide Updates](https://github.com/discord/discord-api-docs/pull/7201).
