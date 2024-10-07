@@ -273,6 +273,8 @@ Not all message fields are currently supported.
 
 When responding to an interaction received, you can make a `POST` request to `/interactions/<interaction_id>/<interaction_token>/callback`. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload.
 
+If you are receiving Interactions over the gateway, you **have to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
+
 **If you send this request for an interaction received over HTTP, respond to the original HTTP request with a 202 and no body.**
 
 ```py
@@ -292,8 +294,8 @@ r = requests.post(url, json=json)
 > info
 > Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
 
-<Collapsible title="Inline HTTP Reponse Behavior" icon="code">
-    Your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
+<Collapsible title="Inline HTTP Response Behavior" icon="code">
+    If you receive interactions over HTTP, your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
 
     ```py
     @app.route('/', methods=['POST'])
@@ -314,8 +316,6 @@ r = requests.post(url, json=json)
                 }
             })
     ```
-
-    If you are receiving Interactions over the gateway, you **have to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
 </Collapsible>
 
 ###### Interaction Callback Response Object
