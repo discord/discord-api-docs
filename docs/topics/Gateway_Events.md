@@ -591,7 +591,7 @@ Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS
 #### Entitlement Update
 
 > danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
+> Starting on October 1, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with an `ends_at` value when the subscription ends. See the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
 
 Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
 
