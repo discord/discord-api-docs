@@ -880,7 +880,14 @@ Sent when a guild soundboard sound is deleted.
 
 #### Guild Soundboard Sounds Update
 
-Sent when multiple guild soundboard sounds are updated. The inner payload is an array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects.
+Sent when multiple guild soundboard sounds are updated.
+
+###### Guild Soundboard Sounds Update Event Fields
+
+| Field             | Type                                                                                    | Description                   |
+|-------------------|-----------------------------------------------------------------------------------------|-------------------------------|
+| soundboard_sounds | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects | The guild's soundboard sounds |
+| guild_id          | snowflake                                                                               | ID of the guild               |
 
 #### Soundboard Sounds
 
