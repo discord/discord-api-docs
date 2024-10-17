@@ -39,6 +39,7 @@ Because entitlements are granted indefinitely and don't update on renewal or can
 | `SUBSCRIPTION_CREATE` | Subscription is created                    | `status` is either `0 (active)` if an entitlement has been granted or `1 (ending)` if an entitlement has not yet been granted |
 | `SUBSCRIPTION_UPDATE` | Subscription is granted an entitlement     | `status` is `0 (active)`                                                                                                      |
 | `SUBSCRIPTION_UPDATE` | Subscription is renewed                    | `current_period_start`, `current_period_end` timestamps updated                                                               |
+| `SUBSCRIPTION_UPDATE` | Subscription is upgraded or downgraded     | `sku_ids`, `entitlement_ids`, `renewal_sku_ids` may be updated                                                                |
 | `SUBSCRIPTION_UPDATE` | Subscription is canceled                   | `canceled_at` timestamp updated,  `status` is `1 (ending)`                                                                    |
 | `SUBSCRIPTION_UPDATE` | Subscription ends                          | `status` is `2 (inactive)`, this event is processed asynchronously and will not be immediate                                  |
 | `SUBSCRIPTION_UPDATE` | Subscription is resumed/uncanceled by user | `status` is `0 (active)`                                                                                                      |
@@ -60,7 +61,7 @@ For subscription SKUs, you will receive the following entitlement events:
 | Event                | Description                                                                                                                                                        |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ENTITLEMENT_CREATE` | When a user is granted an entitlement to your app's subscription SKU                                                                                               |
-| `ENTITLEMENT_UPDATE` | When a subscription ends                                                                                                                                           |
+| `ENTITLEMENT_UPDATE` | When an entitlement to a subscription SKU ends                                                                                                                     |
 | `ENTITLEMENT_DELETE` | When Discord refunds a subscription, removes an entitlement, or when a developer [deletes a Test Entitlement](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement) |
 
 ### Accessing Entitlements with the HTTP API
@@ -91,6 +92,94 @@ You can do this by sending a message with a [button](#DOCS_INTERACTIONS_MESSAGE_
 
 If you are using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also launch the purchase flow for a specific SKU using the SDK. Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
 
+### Purchasing from the Store Page
+
+Users can start, upgrade, or downgrade their subscription from your app's [Store](#DOCS_MONETIZATION_MANAGING_SKUS/viewing-your-store-page) page. You can link directly to your Store page using our [Application Directory Store URL scheme](#DOCS_MONETIZATION_MANAGING_SKUS/linking-to-your-store).
+
+---
+
+## Supporting Subscriptions
+
+To support subscriptions in your app, you need to [create a subscription SKU](#DOCS_MONETIZATION_MANAGING_SKUS/creating-a-sku) and handle the following scenarios:
+
+### Starting a new subscription
+
+When a user subscribes to a new subscription, you will receive the following events:
+
+| Event                 | Event Trigger                                                                                                                                                         |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SUBSCRIPTION_CREATE` | when the subscription is initially created. `status` is `0 (active)` if the entitlement has been granted or `1 (ending)` if the entitlement has not yet been granted. |
+| `ENTITLEMENT_CREATE`  | when the user is granted an entitlement for the new subscription                                                                                                      |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_id`, `sku_id`, and `status` (`0 (active)`)                                                                     |
+
+### Cancelling an existing subscription
+
+Users can cancel their subscription at any time from their Subscription settings.
+
+When a user cancels their subscription, you will receive the following events:
+
+| Event                 | Event Trigger                                                                                                                       |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated to end with a `status` of `1 (ending)` and `canceled_at` is set to the timestamp the user canceled |
+
+The user's subscription and entitlement are still valid until the subscription `current_period_end` is reached.
+
+If the subscription is not resumed before the subscription `current_period_end`, it will end and you will receive the following events:
+
+| Event                 | Event Trigger                                                              |
+|-----------------------|----------------------------------------------------------------------------|
+| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `status` of `2 (inactive)`       |
+
+### Resuming a cancelled subscription
+
+Users can resume their subscription at any time before the `current_period_end` is reached in their Subscription settings.
+
+When a user resumes their subscription, you will receive the following events:
+
+| Event                 | Event Trigger                                                                                             |
+|-----------------------|-----------------------------------------------------------------------------------------------------------|
+| `SUBSCRIPTION_UPDATE` | when the subscription is set to continue with a `status` of `0 (active)` and `canceled_at` is set to null |
+
+---
+
+## Supporting Upgrades and Downgrades
+
+If you offer multiple subscription tiers in your app, users can upgrade or downgrade their subscription at any time from your [Store page](#DOCS_MONETIZATION_MANAGING_SKUS/viewing-your-store-page) or their App Subscription settings.
+
+To create multiple subscription tiers, you will need to [create multiple subscription SKUs](#DOCS_MONETIZATION_MANAGING_SKUS/creating-a-sku) and support the following scenarios in your app:
+
+### Upgrading an existing subscription
+
+If an user is on a lower tier subscription and upgrades to subscription tier that is the same price or higher, the user is charged the difference in price between the two subscriptions and the subscription period resets at the time of upgrading.
+
+When the subscription is upgraded, the current entitlement for the lower tier will end immediately and you will receive the following events:
+
+| Event                 | Event Trigger                                                                                                          |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------|
+| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                             |
+| `ENTITLEMENT_CREATE`  | when a new entitlement is created for the upgrade subscription SKU                                                     |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_id`, `sku_id`, `current_period_start`, `current_period_end` |
+
+
+### Downgrading an existing subscription
+
+If an user is on a higher tier subscription and downgrades to a lower tier subscription, the user is not charged immediately because the price is lower than what was already paid.
+
+The user has already paid for their current plan until `subscription.current_period_end` so their current plan will be valid until then and you will receive the following event:
+
+| Event                 | Event Trigger                                                                                    |
+|-----------------------|--------------------------------------------------------------------------------------------------|
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated to reflect the renewal SKU ID in `subscription.renewal_sku_ids` |
+
+Once the user's current subscription expires on `subscription.current_period_end`, you will receive the following events:
+
+| Event                 | Event Trigger                                                                                                          |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------|
+| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                             |
+| `ENTITLEMENT_CREATE`  | when a new entitlement is created for the downgraded subscription SKU                                                  |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_id`, `sku_id`, `current_period_start`, `current_period_end` |
+
 ---
 
 ## Using the Subscription API
@@ -98,7 +187,7 @@ If you are using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) 
 > info 
 > When implementing monetization, [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) should be considered the source of truth for a user's access to a specific SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
 
-You can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to check on the status of your app subscriptions. This API allows you to list all subscriptions for your app for reporting purposes and to check on the status of subscriptions without having to access entitlements directly.
+You can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to check on the status of your app subscriptions. This API allows you to list subscriptions by user for reporting purposes and to check on the status of subscriptions without having to access entitlements directly.
 
 - [List SKU Subscriptions](#DOCS_RESOURCES_SUBSCRIPTION/list-sku-subscriptions): List all subscriptions for a specific SKU in your app.
 - [Get SKU Subscription](#DOCS_RESOURCES_SUBSCRIPTION/get-sku-subscription): Get a specific subscription in your app.
