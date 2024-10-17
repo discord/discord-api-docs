@@ -1,0 +1,94 @@
+---
+sidebar_label: Webhook Events
+---
+
+# Webhook Events
+
+Webhook events are one-way events sent over HTTP to notify your app that an event that you're subscribed to occured. Unlike events that are [sent over Gateway connections](#TODO), events sent over webhooks are not realtime or guaranteed to be in order.
+
+
+TODO: callout incoming webhooks
+
+## Acknowledging Events
+
+TODO
+
+
+## Event Payloads
+
+### Payload Structure
+
+Structure of the webhook payload
+
+| Field          | Type                       | Description                                                |
+|----------------|----------------------------|------------------------------------------------------------|
+| version        | integer                    | Version scheme for the webhook event. Currently always `1` |
+| application_id | snowflake                  | Your app's ID                                              |
+| type           | string TODO VERIFY         | [Webhook type](#TODO), either `EVENT` or `PING`            |
+| event?         | [event body](#TODO) object | Event data payload                                         |
+
+### Event Body Object
+
+| Field     | Type   | Description                                                                                  |
+|-----------|--------|----------------------------------------------------------------------------------------------|
+| type      | string | [Webhook event type](#TODO)                                                                  |
+| timestamp | string | Timestamp of when the event occurred (in ISO8601 format)                                     |
+| data?     | object | Event body for the event. The shaped depends on the type of event being receieved. TODO link |
+
+## Webhook Events
+
+TODO: intro
+
+| Name                            | Description                                             |
+|---------------------------------|---------------------------------------------------------|
+| [Application Authorized](#TODO) | Sent when an app was authorized by a user TODO: descrip |
+| [Entitlement Create](#TODO)     | Entitlement was created                                 |
+| [Quest User Enrollment](#TODO)  | TODO                                                    |
+
+#### Application Authorized
+
+TODO
+
+###### Application Authorized Structure
+
+| Field             | Type                  | Description                                                                                                         |
+|-------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------|
+| integration_type? | integer               | The type of authorization that occurred, whether the application was authorized for a guild (0) or a user (1). TODO |
+| user              | [user object](#TODO)  | user who authorized the app                                                                                         |
+| scopes            | array of strings      | list of [scopes](#TODO) the user authorized                                                                         |
+| guild?            | [guild object](#TODO) | Guild which app was authorized for, if applicable                                                                   |
+
+
+###### Application Authorized Example
+
+```json
+TODO
+```
+
+#### Entitlement Create
+
+TODO
+
+###### Entitlement Create Structure
+
+TODO: point to entitlement create docs
+
+###### Entitlement Create Example
+
+```json
+TODO
+```
+
+#### Quest User Enrollment
+
+TODO
+
+###### Quest User Enrollment Structure
+
+TODO
+
+###### Quest User Enrollment Example
+
+```json
+TODO
+```
