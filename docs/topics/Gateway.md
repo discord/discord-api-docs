@@ -3,7 +3,7 @@
 The Gateway API lets apps open secure WebSocket connections with Discord to receive events about actions that take place in a server/guild, like when a channel is updated or a role is created. There are a few cases where apps will *also* use Gateway connections to update or request resources, like when updating voice state.
 
 > info
-> In *most* cases, performing REST operations on Discord resources can be done using the [HTTP API](#DOCS_REFERENCE/http-api) rather than the Gateway API. 
+> In *most* cases, performing REST operations on Discord resources can be done using the [HTTP API](#DOCS_REFERENCE/http-api) rather than the Gateway API.
 
 The Gateway is Discord's form of real-time communication used by clients (including apps), so there are nuances and data passed that simply isn't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and pieces. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway (or at least those that matter for apps).
 
@@ -469,7 +469,7 @@ Apps **without** the intent will receive empty values in fields that contain use
 - Content in messages that an app sends
 - Content in DMs with the app
 - Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
-- Content of the message a [message context menu command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) is used on 
+- Content of the message a [message context menu command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) is used on
 
 ## Rate Limiting
 
@@ -575,27 +575,33 @@ When connecting to the gateway as a bot user, guilds that the bot is a part of w
 
 ## Sharding
 
-As apps grow and are added to an increasing number of guilds, some developers may find it necessary to divide portions of their app's operations across multiple processes. As such, the Gateway implements a method of user-controlled guild sharding which allows apps to split events across a number of Gateway connections. Guild sharding is entirely controlled by an app, and requires no state-sharing between separate connections to operate. While all apps *can* enable sharding, it's not necessary for apps in a smaller number of guilds. 
+As apps grow and are added to an increasing number of guilds, some developers may find it necessary to divide portions of their app's operations across multiple processes. As such, the Gateway implements a method of user-controlled guild sharding which allows apps to split events across a number of Gateway sessions. Guild sharding is entirely controlled by an app, and requires no state-sharing between separate sessions to operate. While all apps *can* enable sharding, it's not necessary for apps in a smaller number of guilds.
 
 > warn
-> Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding. 
+> Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding.
 
-To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0.
+Sessions that would like to only receive events from a subset of guilds should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array is `shard_id`, the zero-based integer value of the current shard, while the second is `num_shards` and represents the total number of shards.
 
 > info
 > The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field
 
-To calculate which events will be sent to which shard, the following formula can be used:
+A certain gateway session is only subscribed to events from guilds with a `guild_id` that satisfies the following formula, using the `shard_id` and `num_shards` that the session provided in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event:
 
 ###### Sharding Formula
 
 ```python
-shard_id = (guild_id >> 22) % num_shards
+(guild_id >> 22) % num_shards == shard_id
 ```
 
-As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
+Every session with `shard_id = 0` will be subscribed to DMs and other non-guild related events.
 
-Note that `num_shards` does not relate to (or limit) the total number of potential sessions. It is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly-distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic for more fine-tuned load balancing, or to orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
+As an example, if you wanted to split events equally between three shards, you'd use the following values for `shard` for each session: `[0, 3]`, `[1, 3]`, and `[2, 3]`. DMs would only be sent to the `[0, 3]` shard.
+
+Note that `num_shards` does not relate to (or limit) the total number of potential sessions, and can be different between multiple sessions existing at the same time. It is only used to decide whether an event will be sent to the associated session using the [Sharding Formula](#DOCS_TOPICS_GATEWAY/sharding-sharding-formula) above. In the simple case like the example above, where every session has the same `num_shards` and the sessions respective `shard_id`'s cover every value from `0` to `num_shards - 1`, the events will be split evenly between the sessions. This is probably how most bots will operate.
+
+On the other hand, sessions do not have to be identified in an evenly-distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values, in which case events may be sent to multiple sessions. For example, two sessions with the respective `shard` arrays `[2, 3]` and `[4, 5]` will both receive events from the guild with id `613425648685547541` (you can open up Python and check for yourself that `2 == (613425648685547541 >> 22) % 3` and `4 == (613425648685547541 >> 22) % 5`).
+
+This allows you to create sessions that will handle more or less traffic for more fine-tuned load balancing, or to orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
 
 ###### Max Concurrency
 
