@@ -18,18 +18,6 @@ When creating subscriptions, you will need to choose between user or guild subsc
 
 ## How App Subscriptions Work
 
-> danger
-> **Starting on October 1st, 2024**, the`ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what is changing and how to prepare.
-
-- When a user purchases your subscription SKU, Discord creates an [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) for the user (or guild) and that specific Subscription [SKU](#DOCS_RESOURCES_SKU). 
-- You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
-- This entitlement will be available via the `LIST Entitlements` API endpoint.
-- This entitlement will be available on `Interaction Payloads` initiated from the entitled user or users in a guild (for guild subscriptions).
-- This subscription will be available via the `LIST Subscriptions` API endpoint.
-- This entitlement is granted and updated with a new `ends_at` date for each succesful billing interval until the user decides to cancel their subscription.
-- When a user cancels their subscription, you will **not** receive an `ENTITLEMENT_UPDATE` with a new `ends_at` value, the entitlement will just expire at the current `ends_at` value.
-
-<Collapsible title="How App Subscriptions Work - Starting October 1st, 2024" icon="warning">
 - When a user purchases your subscription SKU, Discord creates an [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) for the user (or guild) and that specific Subscription [SKU](#DOCS_RESOURCES_SKU). 
 - You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
 - This entitlement will be available via the `LIST Entitlements` API endpoint.
@@ -38,8 +26,6 @@ When creating subscriptions, you will need to choose between user or guild subsc
 - This entitlement is granted indefinitely until the user decides to cancel their subscription. `ends_at` will be null.
 - When a user cancels their subscription, your app will not receive any entitlement events.
 - When a subscription ends, the entitlement to the subscription will end. Developers will receive an `ENTITLEMENT_UPDATE` event with an `ends_at` timestamp indicating when the subscription ended.
-
- Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what is changing and how to prepare.
 
 ### Using Subscription Events for the Subscription Lifecycle
 
@@ -57,32 +43,24 @@ Because entitlements are granted indefinitely and don't update on renewal or can
 | `SUBSCRIPTION_UPDATE` | Subscription ends                          | `status` is `2 (inactive)`, this event is processed asynchronously and will not be immediate                                  |
 | `SUBSCRIPTION_UPDATE` | Subscription is resumed/uncanceled by user | `status` is `0 (active)`                                                                                                      |
 
-> info
-> These docs will be incorporated into the main documentation on November 1, 2024.
-
-</Collapsible>
-
 ---
 
 ## Working with Entitlements
 
-When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your consumable or durable item.
+When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your app's premium features.
 
-Depending on your app's features, you can use a combination of [Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of user and guild entitlements and grant perks to users who have subscribed to your app.
+Depending on your app's features, you can use a combination of [Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of user and guild entitlements and grant features to users who are subscribed to your app.
 
 ### Accessing Entitlements with Gateway Events
 
-> danger
-> **Starting on October 1, 2024**, the `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what is changing and how to prepare. The docs will be updated on November 1, 2024 to reflect the new behavior.
-
-When users subscribe or renew a subscription with your app, Discord will emit [Entitlement Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements).
+When users make a purchase in your app, Discord will emit [Entitlement Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements).
 
 For subscription SKUs, you will receive the following entitlement events:
 
 | Event                | Description                                                                                                                                                        |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ENTITLEMENT_CREATE` | When a user is granted an entitlement to your app's subscription SKU                                                                                               |
-| `ENTITLEMENT_UPDATE` | When a subscription is resumed, renewed, or canceled                                                                                                               |
+| `ENTITLEMENT_UPDATE` | When a subscription ends                                                                                                                                           |
 | `ENTITLEMENT_DELETE` | When Discord refunds a subscription, removes an entitlement, or when a developer [deletes a Test Entitlement](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement) |
 
 ### Accessing Entitlements with the HTTP API
@@ -143,7 +121,7 @@ This method will not let you test out the full payment flow in Discord but will 
 
 If you'd like to test the full payment flow for your app, you can do so by interacting with your Store page or a [premium styled button](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/prompting-users-to-subscribe). Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
 
-After checkout, you will have a live subscription that includes a `starts_at` and `ends_at` value. If you cancel this subscription, it will remain an active entitlement until the `ends_at` timestamp. This subscription will renew until canceled and can be used in testing subscription renewals in your app.
+After checkout, you will have a live subscription. This subscription will renew until canceled and can be used in testing subscription renewals in your app.  If you cancel this subscription, it will remain an active entitlement until the end of the subscription billing period, represented by the `period_ends_at` field on the [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object). 
 
 > info
 > You can only delete entitlements created using the [create entitlement](#DOCS_RESOURCES_ENTITLEMENT/create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use Test Entitlements.

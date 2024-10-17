@@ -587,18 +587,19 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 #### Entitlement Create
 
+> warn
+>  Note: The`ENTITLEMENT_CREATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
+
 Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object.
 
 #### Entitlement Update
 
-> danger
-> Starting on October 1, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with an `ends_at` value when the subscription ends. See the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information.
+> warn
+>  Note: The`ENTITLEMENT_UPDATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
 
 Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
 
-For subscription entitlements, when a user's subscription is renewed you will receive an `ENTITLEMENT_UPDATE` event with a new `ends_at` date that reflects the end of the new billing period.
-
-If a user cancels their subscription, you will stop receiving `ENTITLEMENT_UPDATE` events that update the `ends_at` value.
+For subscription entitlements, this event is triggered only when a user's subscription ends, providing an `ends_at` timestamp that indicates the end of the entitlement.
 
 #### Entitlement Delete
 
