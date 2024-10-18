@@ -64,7 +64,7 @@ Each interaction is sent with the following headers:
 -   `X-Signature-Ed25519` as a signature
 -   `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time you receive an [event](#TODO)**. If the signature fails validation, your app should respond with a `401` error code.
+Using your favorite security library, you **must validate the request each time you receive an event**. If the signature fails validation, your app should respond with a `401` error code.
 
 <Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="code">
 Below are some code examples that show how to validate the headers sent in event requests.
@@ -143,12 +143,12 @@ Webhook events are wrapped in an outer payload, with an inner `event` object.
 
 Structure of the outer webhook payload
 
-| Field          | Type                                                               | Description                                                |
-|----------------|--------------------------------------------------------------------|------------------------------------------------------------|
-| version        | integer                                                            | Version scheme for the webhook event. Currently always `1` |
-| application_id | snowflake                                                          | ID of your app                                             |
-| type           | string                                                             | [Webhook type](#TODO), either `"EVENT"` or `"PING"`        |
-| event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                         |
+| Field          | Type                                                               | Description                                                                             |
+|----------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| version        | integer                                                            | Version scheme for the webhook event. Currently always `1`                              |
+| application_id | snowflake                                                          | ID of your app                                                                          |
+| type           | string                                                             | [Webhook type](#DOCS_EVENTS_WEBHOOK_EVENTS/webhook-types), either `"EVENT"` or `"PING"` |
+| event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                                                      |
 
 #### Webhook Types
 
@@ -176,24 +176,24 @@ The table below includes the different webhook event types your app can subscrib
 
 The event type corresponds to the `type` field in the [event body object](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object).
 
-| Name                                                                         | Type                     | Description                                             |
-|------------------------------------------------------------------------------|--------------------------|---------------------------------------------------------|
-| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user TODO: descrip |
-| [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                 |
-| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | TODO                                                    |
+| Name                                                                         | Type                     | Description                                                                 |
+|------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------|
+| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their user account |
+| [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                                     |
+| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | TODO                                                                        |
 
 #### Application Authorized
 
-`APPLICATION_AUTHORIZED` is fired when the app is added to a server or user account.
+`APPLICATION_AUTHORIZED` is sent when the app is added to a server or user account.
 
 ###### Application Authorized Structure
 
-| Field             | Type                  | Description                                                                                                             |
-|-------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------|
-| integration_type? | integer               | The type of authorization that occurred, whether the application was authorized for a guild (`0`) or a user (`1`). TODO |
-| user              | [user object](#TODO)  | User who authorized the app                                                                                             |
-| scopes            | array of strings      | List of [scopes](#TODO) the user authorized                                                                             |
-| guild?            | [guild object](#TODO) | Guild which app was authorized for, when integration type is `0`                                                        |
+| Field             | Type                                                               | Description                                                                                                                                                                                                             |
+|-------------------|--------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| integration_type? | integer                                                            | [Installation context](#DDOCS_RESOURCES_APPLICATION/application-object-application-integration-types) for the authorization. Either guild (`0`) if installed to a server or user (`1`) if installed to a user's account |
+| user              | [user object](#DOCS_RESOURCES_USER/user-object-user-structure)     | User who authorized the app                                                                                                                                                                                             |
+| scopes            | array of strings                                                   | List of [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) the user authorized                                                                                                                                |
+| guild?            | [guild object](#DOCS_RESOURCES_GUILD/guild-object-guild-structure) | Server which app was authorized for (when integration type is `0`)                                                                                                                                                      |
 
 
 ###### Application Authorized Example
@@ -221,7 +221,7 @@ The event type corresponds to the `type` field in the [event body object](#DOCS_
 
 #### Entitlement Create
 
-Sent when an [entitlement](#DOCS_RESOURCES_ENTITLEMENT) is created when a user purchases or is granted one of your app's SKUs. Refer to the [Monetization documentation](#DOCS_MONETIZATION_OVERVIEW) for details.
+`ENTITLEMENT_CREATE` is sent bhen an [entitlement](#DOCS_RESOURCES_ENTITLEMENT) is created when a user purchases or is otherwise granted one of your app's SKUs. Refer to the [Monetization documentation](#DOCS_MONETIZATION_OVERVIEW) for details.
 
 ###### Entitlement Create Structure
 
