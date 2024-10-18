@@ -6,16 +6,17 @@ sidebar_label: Overview
 
 Apps can listen to events happening in Discord to stay up-to-date with changes and updates to servers, users, and the app itself.
 
-There are many event types that can be accessed using different transport methods:
-- **[Gateway events](#TODO)** are sent over a WebSocket connection between your app and Discord, and is the primary way to receive and send events. **Most events are only available via Gateway connections.**
-- **[Webhook events](#TODO)** are sent to your app's [webhook event URL](#TODO) over HTTP.
-- **[SDK events](#TODO)** are sent to your app when using the Embedded App SDK.
 
 The following sections cover basic information about configuring your app and receiving events.
 
 ## Receiving Events
 
-TODO
+There are many event types that can be accessed using different transport methods:
+- **[Gateway events](#TODO)** are sent over a WebSocket connection between your app and Discord, and is the primary way to receive and send events. **Most events are only available via Gateway connections.**
+- **[Webhook events](#TODO)** are sent to your app's [webhook event URL](#TODO) over HTTP.
+- **[SDK events](#TODO)** are sent to your app when using the Embedded App SDK.
+
+Read details about the different transport methods below.
 
 ### Using Gateway
 
@@ -46,10 +47,121 @@ TODO
 
 ### Webhook Events
 
-TODO
+To receive webhook events, you'll need to configure your app's **Webhook Event URL** in your app's settings.
+
+### Configuring a Webhook Events URL
+
+A **Webhook Events URL** is a public endpoint for your app where Discord can send your app HTTP-based events. If your app is using [Gateway events](#DOCS_TOPICS_GATEWAY), you don't need to configure a Webhook Events URL.
+
+#### Setting Up an Endpoint
+
+Before you can add a Webhook Events URL to your app, your endpoint must be prepared for two things ahead of time:
+
+1. Acknowledging `"PING"` events from Discord
+2. Validate security-related request headers (`X-Signature-Ed25519` and `X-Signature-Timestamp`)
+
+If either of these are not complete, your Webhook Events URL will not be validated. Details on acknowledging PING events and validating security-related headers are below.
+
+###### Acknowledging PING requests
+
+When adding your Webhook Events URL, Discord will send a `POST` request with a `PING` payload with a `type: "PING"` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has `type: 1`).
+
+<Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING events" icon="code">
+To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:
+
+```py
+@app.route('/', methods=['POST'])
+def my_command():
+    if request.json["type"] == 'PING':
+        return jsonify({
+            "type": 1
+        })
+```
+</Collapsible> 
+
+###### Validating Security Request Headers
+
+The internet is a scary place, especially for people hosting public, unauthenticated endpoints. To receive events via HTTP, there are some security steps you **must** take before your app is eligible to receive requests.
+
+Each interaction is sent with the following headers:
+
+-   `X-Signature-Ed25519` as a signature
+-   `X-Signature-Timestamp` as a timestamp
+
+Using your favorite security library, you **must validate the request each time you receive an [event](#TODO)**. If the signature fails validation, your app should respond with a `401` error code.
+
+<Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="code">
+Below are some code examples that show how to validate the headers sent in event requests.
+
+**JavaScript**
+
+```js
+const nacl = require("tweetnacl");
+
+// Your public key can be found on your application in the Developer Portal
+const PUBLIC_KEY = "APPLICATION_PUBLIC_KEY";
+
+const signature = req.get("X-Signature-Ed25519");
+const timestamp = req.get("X-Signature-Timestamp");
+const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
+
+const isVerified = nacl.sign.detached.verify(
+    Buffer.from(timestamp + body),
+    Buffer.from(signature, "hex"),
+    Buffer.from(PUBLIC_KEY, "hex")
+);
+
+if (!isVerified) {
+    return res.status(401).end("invalid request signature");
+}
+```
+
+**Python**
+
+```py
+from nacl.signing import VerifyKey
+from nacl.exceptions import BadSignatureError
+
+# Your public key can be found on your application in the Developer Portal
+PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
+
+verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
+
+signature = request.headers["X-Signature-Ed25519"]
+timestamp = request.headers["X-Signature-Timestamp"]
+body = request.data.decode("utf-8")
+
+try:
+    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
+except BadSignatureError:
+    abort(401, 'invalid request signature')
+```
+</Collapsible> 
+
+In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your Webhook Events URL and alert you via email and System DM.
+
+We recommend checking out our [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES/interactions) and the libraries found there.
+
+#### Adding an Webhook Events Endpoint URL
+
+After you have a public endpoint to use as your app's Event Webhooks URL, you can add it to your app by going to your [app's settings](https://discord.com/developers/applications).
+
+On the **Webhooks** page, look for the **Endpoint URL** field. Paste your public URL that is set up to acknowledge `PING` messages and correctly handles security-related signature headers.
+
+After you configure your Webhook Events URL, you can [enable and subscribe to events](#DOCS_EVENTS_WEBHOOK_EVENTS/subscribing-to-events) on the same page.
 
 ## Next Steps
 
-TODO
+<Container>
+  <Card title="Gateway Events" link="#DOCS_EVENTS_GATEWAY">
+    Gateway is the primary apps receive events on Discord. Read details about using the Gateway and receiving Gateway Events.
+  </Card>
+  <Card title="Webhook Events" link="#DOCS_EVENTS_WEBHOOK_EVENTS">
+    Read details about receiving and responding a small number of HTTP-based Webhook Events.
+  </Card>
+  <Card title="Embedded App SDK Events" link="#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events">
+    Read details about subscribing and receiving events specific to your Activity using the Embedded App SDK.
+  </Card>
+</Container>
 
 
