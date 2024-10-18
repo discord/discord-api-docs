@@ -37,7 +37,7 @@ sidebar_label: Application
 | interactions_endpoint_url?         | ?string                                                                                                                               | [Interactions endpoint URL](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) for the app                                                                                                                              |
 | role_connections_verification_url? | ?string                                                                                                                               | Role connection verification URL for the app                                                                                                                                                                                               |
 | event_webhooks_url?                | ?string                                                                                                                               | [Event webhooks URL](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) for the app to receive webhook events                                                                                                                               |
-| event_webhooks_status              | integer                                                                                                                               | If [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS) are enabled for the app. `1` (default) means disabled, `2` means enabled, and `3` means disabled by Discord                                                                               |
+| event_webhooks_status              | [event webhook status](#DOCS_RESOURCES_APPLICATION/application-object-application-event-webhook-status)                               | If [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS) are enabled for the app. `1` (default) means disabled, `2` means enabled, and `3` means disabled by Discord                                                                               |
 | event_webhooks_types?              | array of strings                                                                                                                      | List of [Webhook event types](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) the app subscribes to                                                                                                                                               |
 | tags?                              | array of strings                                                                                                                      | List of tags describing the content and functionality of the app. Max of 5 tags.                                                                                                                                                           |
 | install_params?                    | [install params](#DOCS_RESOURCES_APPLICATION/install-params-object) object                                                            | Settings for the app's default in-app authorization link, if enabled                                                                                                                                                                       |
@@ -77,6 +77,8 @@ sidebar_label: Application
   "name": "Baba O-Riley",
   "interactions_endpoint_url": null,
   "role_connections_verification_url": null,
+  "event_webhooks_url": null,
+  "event_webhooks_status": 1,
   "owner": {
     "avatar": null,
     "discriminator": "1738",
@@ -121,6 +123,16 @@ Where an app can be installed, also called its supported [installation contexts]
 | Field                  | Type                                                                       | Description                                                                      |
 |------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
 | oauth2_install_params? | [install params object](#DOCS_RESOURCES_APPLICATION/install-params-object) | Install params for each installation context's default in-app authorization link |
+
+###### Application Event Webhook Status
+
+Status indicating whether event webhooks are enabled or disabled for an application.
+
+| Name                  | Value | Description                                                      |
+|-----------------------|-------|------------------------------------------------------------------|
+| `DISABLED`            | `1`   | Webhook events are disabled by developer                         |
+| `ENABLED`             | `2`   | Webhook events are enabled by developer                          |
+| `DISABLED_BY_DISCORD` | `3`   | Webhook events are disabled by Discord, usually do to inactivity |
 
 ###### Application Flags
 
@@ -237,7 +249,7 @@ Edit properties of the app associated with the requesting bot user. Only propert
 | interactions_endpoint_url \*\*    | string                                                                                                                                | [Interactions endpoint URL](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) for the app                                                                                                                              |
 | tags                              | array of strings                                                                                                                      | List of tags describing the content and functionality of the app (max of 20 characters per tag). Max of 5 tags.                                                                                                                            |
 | event_webhooks_url                | string                                                                                                                                | [Event webhooks URL](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) for the app to receive webhook events                                                                                                                               |
-| event_webhooks_status             | integer                                                                                                                               | If [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS) are enabled for the app. `1` to disable, and `2` to enable                                                                                                                                |
+| event_webhooks_status             | [event webhook status](#DOCS_RESOURCES_APPLICATION/application-object-application-event-webhook-status)                               | If [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS) are enabled for the app. `1` to disable, and `2` to enable                                                                                                                                |
 | event_webhooks_types              | array of strings                                                                                                                      | List of [Webhook event types](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) to subscribe to                                                                                                                                                     |
 
 \* Only limited intent flags (`GATEWAY_PRESENCE_LIMITED`, `GATEWAY_GUILD_MEMBERS_LIMITED`, and `GATEWAY_MESSAGE_CONTENT_LIMITED`) can be updated via the API.

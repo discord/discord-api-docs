@@ -36,25 +36,23 @@ A **Webhook Events URL** is a public endpoint for your app where Discord can sen
 
 Before you can add a Webhook Events URL to your app, your endpoint must be prepared for two things ahead of time:
 
-1. Acknowledging `"PING"` events from Discord
+1. Acknowledging `PING` events from Discord
 2. Validate security-related request headers (`X-Signature-Ed25519` and `X-Signature-Timestamp`)
 
 If either of these are not complete, your Webhook Events URL will not be validated. Details on acknowledging PING events and validating security-related headers are below.
 
 ###### Acknowledging PING requests
 
-When adding your Webhook Events URL, Discord will send a `POST` request with a `PING` payload with a `type: "PING"` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has `type: 1`).
+When adding your Webhook Events URL, Discord will send a `POST` request with a `PING` payload with a `type: 1` to your endpoint. Your app is expected to acknowledge the request by returning a `204` response with an empty body.
 
 <Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING events" icon="code">
-To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:
+To properly acknowledge a `PING` payload, return a `204` response with no body:
 
 ```py
 @app.route('/', methods=['POST'])
 def my_command():
     if request.json["type"] == 'PING':
-        return jsonify({
-            "type": 1
-        })
+        return Response(status=204)
 ```
 </Collapsible> 
 
@@ -117,7 +115,7 @@ except BadSignatureError:
 ```
 </Collapsible> 
 
-In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your Webhook Events URL and alert you via email and System DM.
+In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your Webhook Events URL and alert you via email.
 
 We recommend checking out our [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) and the libraries found there.
 
@@ -132,11 +130,9 @@ After you configure your Webhook Events URL, you can [enable and subscribe to ev
 
 ## Responding to Events
 
-When your Webhook Event URL receives a webhook event, your app should respond with a `200` (Success) status code **within 3 seconds** to indicate that you successfully received it.
+When your Webhook Event URL receives a webhook event, your app should respond with a `204` status code with no body **within 3 seconds** to acknowledge that your app successfully received it. If your app doesn't respond to the webhook event, Discord will retry sending it several times using exponential backoff for up to 10 minutes.
 
-If your app doesn't respond to the webhook event, Discord will retry sending it several times using exponential backoff for up to 10 minutes. TODO: verify
-
-If your app doesn't acknowledge that it received events, Discord will consider your endpoint inactive and eventually stop sending new events. TODO: verify
+If your app fails to respond too often, Discord will stop sending you webhook events and notify you via email.
 
 ## Webhook Event Payloads
 
@@ -146,19 +142,19 @@ Webhook events are wrapped in an outer payload, with an inner `event` object.
 
 Structure of the outer webhook payload
 
-| Field          | Type                                                               | Description                                                                             |
-|----------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| version        | integer                                                            | Version scheme for the webhook event. Currently always `1`                              |
-| application_id | snowflake                                                          | ID of your app                                                                          |
-| type           | string                                                             | [Webhook type](#DOCS_EVENTS_WEBHOOK_EVENTS/webhook-types), either `"EVENT"` or `"PING"` |
-| event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                                                      |
+| Field          | Type                                                               | Description                                                    |
+|----------------|--------------------------------------------------------------------|----------------------------------------------------------------|
+| version        | integer                                                            | Version scheme for the webhook event. Currently always `1`     |
+| application_id | snowflake                                                          | ID of your app                                                 |
+| type           | [webhook type](#DOCS_EVENTS_WEBHOOK_EVENTS/webhook-types)          | Type of webhook, either `0` for PING or `1` for webhook events |
+| event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                             |
 
 #### Webhook Types
 
-| Type  | Value     | Description                                                                                             |
-|-------|-----------|---------------------------------------------------------------------------------------------------------|
-| PING  | `"PING"`  | PING event sent to verify your Webhook Event URL is active                                              |
-| Event | `"EVENT"` | Webhook event (details for event in [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object) |
+| Type  | Value | Description                                                                                             |
+|-------|-------|---------------------------------------------------------------------------------------------------------|
+| PING  | `0`   | PING event sent to verify your Webhook Event URL is active                                              |
+| Event | `1`   | Webhook event (details for event in [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object) |
 
 #### Event Body Object
 
@@ -205,7 +201,7 @@ The event type corresponds to the `type` field in the [event body object](#DOCS_
 {
   "version": 1,
   "application_id": "1234560123453231555",
-  "type": "EVENT",
+  "type": 1,
   "event": {
     "type": "APPLICATION_AUTHORIZED",
     "timestamp": "2024-10-18T14:42:53.064834",
@@ -233,7 +229,26 @@ The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-ob
 ###### Entitlement Create Example
 
 ```json
-TODO
+{
+  "version": 1,
+  "application_id": "1234560123453231555",
+  "type": 1,
+  "event": {
+    "type": "ENTITLEMENT_CREATE",
+    "timestamp": "2024-10-18T18:41:21.109604",
+    "data": {
+      "application_id": "1234560123453231555",
+      "consumed": false,
+      "deleted": false,
+      "gift_code_flags": 0,
+      "id": "1234505980407808808",
+      "promotion_id": null,
+      "sku_id": "123489045643835123",
+      "type": 4,
+      "user_id": "111178765189277770"
+    }
+  }
+}
 ```
 
 #### Quest User Enrollment
