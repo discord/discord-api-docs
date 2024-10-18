@@ -180,7 +180,7 @@ The event type corresponds to the `type` field in the [event body object](#DOCS_
 |------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------|
 | [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their user account |
 | [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                                     |
-| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | TODO                                                                        |
+| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | User was added to a Quest (currently unavailable)                                                                        |
 
 #### Application Authorized
 
@@ -221,7 +221,7 @@ The event type corresponds to the `type` field in the [event body object](#DOCS_
 
 #### Entitlement Create
 
-`ENTITLEMENT_CREATE` is sent bhen an [entitlement](#DOCS_RESOURCES_ENTITLEMENT) is created when a user purchases or is otherwise granted one of your app's SKUs. Refer to the [Monetization documentation](#DOCS_MONETIZATION_OVERVIEW) for details.
+`ENTITLEMENT_CREATE` is sent when an [entitlement](#DOCS_RESOURCES_ENTITLEMENT) is created when a user purchases or is otherwise granted one of your app's SKUs. Refer to the [Monetization documentation](#DOCS_MONETIZATION_OVERVIEW) for details.
 
 ###### Entitlement Create Structure
 
@@ -235,14 +235,7 @@ TODO
 
 #### Quest User Enrollment
 
-TODO
+> warn
+> This event cannot be receive by apps at this time. It's documented because it appears on the Webhooks settings page.
 
-###### Quest User Enrollment Structure
-
-TODO
-
-###### Quest User Enrollment Example
-
-```json
-TODO
-```
+`QUEST_USER_ENROLLMENT` is sent when a user is added to a Quest on Discord.
