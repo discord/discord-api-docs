@@ -40,7 +40,7 @@ Structure of the outer webhook payload
 | Field          | Type                                                               | Description                                                |
 |----------------|--------------------------------------------------------------------|------------------------------------------------------------|
 | version        | integer                                                            | Version scheme for the webhook event. Currently always `1` |
-| application_id | snowflake                                                          | Your app's ID                                              |
+| application_id | snowflake                                                          | ID of your app                                             |
 | type           | string                                                             | [Webhook type](#TODO), either `"EVENT"` or `"PING"`        |
 | event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                         |
 
@@ -48,27 +48,29 @@ Structure of the outer webhook payload
 
 The event body contains high-level data about the event, like the type and time it was triggered.
 
-The inner `data` object contains information specific to the [event type](#TODO).
+The inner `data` object contains information specific to the [event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types).
 
-| Field     | Type   | Description                                                                                  |
-|-----------|--------|----------------------------------------------------------------------------------------------|
-| type      | string | [Event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types)                                        |
-| timestamp | string | Timestamp of when the event occurred (in ISO8601 format)                                     |
-| data?     | object | Event body for the event. The shaped depends on the type of event being receieved. TODO link |
+| Field     | Type   | Description                                                                                        |
+|-----------|--------|----------------------------------------------------------------------------------------------------|
+| type      | string | [Event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types)                                              |
+| timestamp | string | Timestamp of when the event occurred in [ISO8601 format](#DOCS_REFERENCE/iso8601-datetime)         |
+| data?     | object | Data for the event. The shape depends on the [event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) |
 
 ## Event Types
 
 The table below includes the different webhook event types your app can subscribe to.
 
-| Name                                                                         | Description                                             |
-|------------------------------------------------------------------------------|---------------------------------------------------------|
-| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | Sent when an app was authorized by a user TODO: descrip |
-| [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | Entitlement was created                                 |
-| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | TODO                                                    |
+The event type corresponds to the `type` field in the [event body object](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object).
+
+| Name                                                                         | Type                     | Description                                             |
+|------------------------------------------------------------------------------|--------------------------|---------------------------------------------------------|
+| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user TODO: descrip |
+| [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                 |
+| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | TODO                                                    |
 
 #### Application Authorized
 
-The `APPLICATION_AUTHORIZED` event is fired when the app is added to a server or user account.
+`APPLICATION_AUTHORIZED` is fired when the app is added to a server or user account.
 
 ###### Application Authorized Structure
 
@@ -76,8 +78,8 @@ The `APPLICATION_AUTHORIZED` event is fired when the app is added to a server or
 |-------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------|
 | integration_type? | integer               | The type of authorization that occurred, whether the application was authorized for a guild (`0`) or a user (`1`). TODO |
 | user              | [user object](#TODO)  | User who authorized the app                                                                                             |
-| scopes            | array of strings      | list of [scopes](#TODO) the user authorized                                                                             |
-| guild?            | [guild object](#TODO) | Guild which app was authorized for, if applicable                                                                       |
+| scopes            | array of strings      | List of [scopes](#TODO) the user authorized                                                                             |
+| guild?            | [guild object](#TODO) | Guild which app was authorized for, when integration type is `0`                                                        |
 
 
 ###### Application Authorized Example
@@ -105,7 +107,7 @@ The `APPLICATION_AUTHORIZED` event is fired when the app is added to a server or
 
 #### Entitlement Create
 
-Sent when an entitlement is created.
+Sent when an [entitlement](#DOCS_RESOURCES_ENTITLEMENT) is created when a user purchases or is granted one of your app's SKUs. Refer to the [Monetization documentation](#DOCS_MONETIZATION_OVERVIEW) for details.
 
 ###### Entitlement Create Structure
 
