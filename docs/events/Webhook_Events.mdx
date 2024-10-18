@@ -62,7 +62,7 @@ def my_command():
 
 The internet is a scary place, especially for people hosting public, unauthenticated endpoints. To receive events via HTTP, there are some security steps you **must** take before your app is eligible to receive requests.
 
-Each interaction is sent with the following headers:
+Each webhook is sent with the following headers:
 
 -   `X-Signature-Ed25519` as a signature
 -   `X-Signature-Timestamp` as a timestamp
@@ -119,7 +119,7 @@ except BadSignatureError:
 
 In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your Webhook Events URL and alert you via email and System DM.
 
-We recommend checking out our [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES/interactions) and the libraries found there.
+We recommend checking out our [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) and the libraries found there.
 
 #### Adding an Webhook Events Endpoint URL
 
