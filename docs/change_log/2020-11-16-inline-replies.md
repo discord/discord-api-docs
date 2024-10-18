@@ -9,4 +9,4 @@ Inline Replies have been added to our documentation. They behave differently in 
 * You can now add a `message_reference` on message create to create a reply
 * A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_MESSAGE/message-object)
 * A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)
-* [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+* [Message Create](#DOCS_EVENTS_GATEWAY_EVENTS/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.

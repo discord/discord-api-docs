@@ -105,7 +105,7 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
 
@@ -140,7 +140,7 @@ Same as above, except this call does not require authentication and returns no u
 
 ## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional
@@ -162,7 +162,7 @@ Same as above, except this call does not require authentication, does not accept
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.

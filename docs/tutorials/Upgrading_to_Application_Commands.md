@@ -128,17 +128,17 @@ Permissions for specific roles, users, and channels can be updated by your app i
 
 ## Handling Commands
 
-Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
+Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_EVENTS_GATEWAY_EVENTS/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
 
 > warn
-> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components` while `poll` will be omitted. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
+> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components` while `poll` will be omitted. You can read more in the [message content intent](#DOCS_EVENTS_GATEWAY/message-content-intent) section.
 
 For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
 ### Adding an Interactions Endpoint URL
 
 > info
-> This step is specific to receiving interactions over HTTP. If you prefer to use the [Gateway](#DOCS_TOPICS_GATEWAY), this step won't be applicable to your app.
+> This step is specific to receiving interactions over HTTP. If you prefer to use the [Gateway](#DOCS_EVENTS_GATEWAY), this step won't be applicable to your app.
 
 Before your app can receive interactions, you’ll need to set up an **Interaction Endpoint URL** in your app settings. This endpoint should be a public URL where Discord can send all interactions-related requests.
 

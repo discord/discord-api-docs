@@ -115,14 +115,14 @@ Now that you have the credentials you need, lets configure your bot user and ins
 
 Newly-created apps have a bot user enabled by default. Bot users allow your app to appear and behave similarly to other server members when it's [installed to a server](#DOCS_QUICK_START_OVERVIEW_OF_APPS/where-are-apps-installed).
 
-On the left hand sidebar in your app's settings, there's a **Bot** page (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](#DOCS_TOPICS_GATEWAY/privileged-intents) or whether it can be installed by other users.
+On the left hand sidebar in your app's settings, there's a **Bot** page (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](#DOCS_EVENTS_GATEWAY/privileged-intents) or whether it can be installed by other users.
 
 <Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
-Intents determine which events Discord will send your app when you're creating a [Gateway API connection](#DOCS_TOPICS_GATEWAY). For example, if you want your app to perform an action when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
+Intents determine which events Discord will send your app when you're creating a [Gateway API connection](#DOCS_EVENTS_GATEWAY). For example, if you want your app to perform an action when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
 
-Some intents are [privileged](#DOCS_TOPICS_GATEWAY/privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents can be toggled on the **Bot** page in your app's settings, but they must be approved before you [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified). Standard, non-privileged intents don't require any additional permissions or configurations.
+Some intents are [privileged](#DOCS_EVENTS_GATEWAY/privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents can be toggled on the **Bot** page in your app's settings, but they must be approved before you [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified). Standard, non-privileged intents don't require any additional permissions or configurations.
 
-More information about intents and a full list of available intents (along with their associated events) is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
+More information about intents and a full list of available intents (along with their associated events) is in the [Gateway documentation](#DOCS_EVENTS_GATEWAY/gateway-intents).
 </Collapsible>
 
 For now, we don't need to configure anything additional here, but you may need to in the future depending on your app's use case. Let's go ahead and get our app ready for installation.
@@ -221,7 +221,7 @@ If you navigate back to your server, you should see the slash commands appear. B
 Apps have access to [APIs](#DOCS_QUICK_START_OVERVIEW_OF_APPS/what-apis-can-apps-use) that you can mix-and-match to build apps:
 
 - **[HTTP API](#DOCS_REFERENCE/http-api)** is a REST-like API for general operations like sending and updating data in Discord, or fetching data about a resource.
-- **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is a WebSocket-based API that is helpful for maintaining state or listening to events happening in a Discord server. We won't be using it in this guide, but more information about how to create a Gateway connection and the different events you can listen to are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
+- **[Gateway API](#DOCS_REFERENCE/gateway-websocket-api)** is a WebSocket-based API that is helpful for maintaining state or listening to events happening in a Discord server. We won't be using it in this guide, but more information about how to create a Gateway connection and the different events you can listen to are in the [Gateway documentation](#DOCS_EVENTS_GATEWAY).
 </Collapsible>
 
 ---

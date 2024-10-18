@@ -83,7 +83,7 @@ console.log(`The price is ${displayPrice}!`);
 
 When a user purchases a SKU, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your premium product.
 
-Depending on your app's features, you can use a combination of the [Embedded App SDK events](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements), [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of entitlements to users who have purchased items in your app.
+Depending on your app's features, you can use a combination of the [Embedded App SDK events](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements), [Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of entitlements to users who have purchased items in your app.
 
 ### Fetching Entitlements with the Embedded App SDK
 
@@ -138,7 +138,7 @@ const handleEntitlementCreate = () => {
 discordSdk.subscribe('ENTITLEMENT_CREATE', handleEntitlementCreate);
 ```
 
-You can also subscribe to the `ENTITLEMENT_CREATE` event using the [Gateway API](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements) to receive the event in your app's backend or use the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) HTTP API endpoint to fetch a user's entitlements.
+You can also subscribe to the `ENTITLEMENT_CREATE` event using the [Gateway API](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements) to receive the event in your app's backend or use the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) HTTP API endpoint to fetch a user's entitlements.
 
 ---
 

@@ -68,14 +68,14 @@ Because entitlements are granted indefinitely and don't update on renewal or can
 
 When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your consumable or durable item.
 
-Depending on your app's features, you can use a combination of [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of user and guild entitlements and grant perks to users who have subscribed to your app.
+Depending on your app's features, you can use a combination of [Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of user and guild entitlements and grant perks to users who have subscribed to your app.
 
 ### Accessing Entitlements with Gateway Events
 
 > danger
 > **Starting on October 1, 2024**, the `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information on what is changing and how to prepare. The docs will be updated on November 1, 2024 to reflect the new behavior.
 
-When users subscribe or renew a subscription with your app, Discord will emit [Entitlement Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/entitlements).
+When users subscribe or renew a subscription with your app, Discord will emit [Entitlement Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements).
 
 For subscription SKUs, you will receive the following entitlement events:
 
@@ -124,7 +124,7 @@ You can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to check on the
 
 - [List SKU Subscriptions](#DOCS_RESOURCES_SUBSCRIPTION/list-sku-subscriptions): List all subscriptions for a specific SKU in your app.
 - [Get SKU Subscription](#DOCS_RESOURCES_SUBSCRIPTION/get-sku-subscription): Get a specific subscription in your app.
-- [Subscription Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS/subscriptions): Discord will emit gateway events when a subscription is created, updated, and very rarely, deleted.
+- [Subscription Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/subscriptions): Discord will emit gateway events when a subscription is created, updated, and very rarely, deleted.
 
 ---
 

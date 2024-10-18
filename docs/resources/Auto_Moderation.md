@@ -214,7 +214,7 @@ Get a single rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 
 ## Create Auto Moderation Rule % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
-Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) Gateway event.
+Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Create](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-rule-create) Gateway event.
 
 > info
 > This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
@@ -243,7 +243,7 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 
 ## Modify Auto Moderation Rule % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
-Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) Gateway event.
+Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Update](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-rule-update) Gateway event.
 
 > info
 > Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
@@ -270,7 +270,7 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 
 ## Delete Auto Moderation Rule % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
-Delete a rule. Returns a `204` on success. Fires an [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) Gateway event.
+Delete a rule. Returns a `204` on success. Fires an [Auto Moderation Rule Delete](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-rule-delete) Gateway event.
 
 > info
 > This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).

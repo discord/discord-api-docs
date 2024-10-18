@@ -174,10 +174,10 @@ This is sent on the [message object](#DOCS_RESOURCES_MESSAGE/message-object) whe
 
 When a user interacts with your app, your app will receive an **[Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. Your app can receive an interaction in one of two ways:
 
--   Via [Interaction Create](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) gateway event
+-   Via [Interaction Create](#DOCS_EVENTS_GATEWAY_EVENTS/interaction-create) gateway event
 -   Via outgoing webhook
 
-These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
+These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_EVENTS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
 
 If you want to receive interactions via HTTP-based outgoing webhooks, you must configure an Interactions Endpoint URL for your app. You can read about preparing and adding an Interactions Endpoint URL to your app in the [Preparing for Interactions](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) section in Interactions Overview.
 

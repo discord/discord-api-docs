@@ -190,7 +190,7 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
-Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update) Gateway event.
+Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_EVENTS_GATEWAY_EVENTS/user-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
@@ -241,7 +241,7 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
-Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) Gateway event and a [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
+Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-delete) Gateway event and a [Guild Member Remove](#DOCS_EVENTS_GATEWAY_EVENTS/guild-member-remove) Gateway event.
 
 ## Create DM % POST /users/@me/channels
 
@@ -258,7 +258,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) Gateway event.
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](#DOCS_EVENTS_GATEWAY_EVENTS/channel-create) Gateway event.
 
 > warn
 > This endpoint is limited to 10 active group DMs.

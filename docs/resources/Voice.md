@@ -68,7 +68,7 @@ Returns the specified user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-obj
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
-Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
+Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-state-update) Gateway event.
 
 ###### JSON Params
 
@@ -90,7 +90,7 @@ There are currently several caveats for this endpoint:
 
 ## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Updates another user's voice state. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) Gateway event.
+Updates another user's voice state. Fires a [Voice State Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-state-update) Gateway event.
 
 ###### JSON Params
 
