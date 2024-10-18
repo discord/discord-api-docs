@@ -4,9 +4,9 @@ sidebar_label: Webhook Events
 
 # Webhook Events
 
-Webhook events are one-way events sent to your app over HTTP to notify you when an event occured. Unlike events that are [sent over Gateway connections](#TODO), events sent over webhooks are not realtime or guaranteed to be in order.
+Webhook events are one-way events sent to your app over HTTP to notify you when an event occured. Unlike events that are [sent over Gateway connections](#DOCS_EVENTS_GATEWAY), events sent over webhooks are not realtime or guaranteed to be in order.
 
-While [outgoing webhooks](#DOCS_RESOURCES_WEBHOOK) are triggered by an external service, webhook events (i.e. incoming webhooks) are triggered by events happening in Discord. Since your app is the one receiving the events over HTTP, you need to set up a URL and subscribe to events. TODO.
+While [outgoing webhooks](#DOCS_RESOURCES_WEBHOOK) are triggered by an external service, webhook events (i.e. incoming webhooks) are triggered by events happening in Discord. This means your app will need to set up a public URL where you can receive HTTP events, which is detailed in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) section.
 
 ## Subscribing to Events
 
@@ -14,14 +14,14 @@ To configure webhook events, you'll need to configure your URL and select the ev
 
 In your [app's settings](https://discord.com/developers/applications), navigate to the **Webhooks** page from the left-hand sidebar then complete the following:
 
-1. Under **Endpoint**, add a public URL that is set up to receive and acknowledge webhook events. Details about setting up a Webhook Events URL is in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-webhook-events) section.
+1. Under **Endpoint**, add a public URL that is set up to receive and acknowledge webhook events. Details about setting up a Webhook Events URL is in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) section.
 2. Enable Events by clicking the toggle in the **Events** section
 3. Select the [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) you want your app to receive
 4. Click **Save Changes**
 
 If your URL is successfully verified, your app should begin receiving the events you selected.
 
-## Preparing for Webhook Events
+## Preparing for Events
 
 To receive webhook events, you'll need to configure your app's **Webhook Event URL** in your app's settings.
 
