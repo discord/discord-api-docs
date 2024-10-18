@@ -1,14 +1,14 @@
 ---
-sidebar_label: Outgoing Webhook
+sidebar_label: Incoming Webhook
 ---
 
 # Webhook Resource
 
-Outgoing webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
+Incoming webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
 
 ### Webhook Object
 
-Used to represent a webhook.
+Used to represent an incoming webhook.
 
 ###### Webhook Structure
 

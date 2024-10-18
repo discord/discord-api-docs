@@ -6,7 +6,7 @@ sidebar_label: Webhook Events
 
 Webhook events are one-way events sent to your app over HTTP to notify you when an event occured. Unlike events that are [sent over Gateway connections](#DOCS_EVENTS_GATEWAY), events sent over webhooks are not realtime or guaranteed to be in order.
 
-While [outgoing webhooks](#DOCS_RESOURCES_WEBHOOK) are triggered by an external service, webhook events (i.e. incoming webhooks) are triggered by events happening in Discord. This means your app will need to set up a public URL where you can receive HTTP events, which is detailed in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) section.
+While [incoming webhooks](#DOCS_RESOURCES_WEBHOOK) are triggered by an external service, webhook events (i.e. outgoing webhooks) are triggered by events happening in Discord. This means your app will need to set up a public URL where you can receive HTTP events, which is detailed in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) section.
 
 ## Subscribing to Events
 
