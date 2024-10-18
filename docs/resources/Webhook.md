@@ -33,6 +33,9 @@ Used to represent a webhook.
 
 ###### Webhook Types
 
+> info
+> These types don't include [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS), which are outgoing webhooks sent to your app by Discord. See [Webhook Events](#DOCS_EVENTS_WEBHOOK_EVENTS) for details.
+
 | Value | Name             | Description                                                                                                    |
 |-------|------------------|----------------------------------------------------------------------------------------------------------------|
 | 1     | Incoming         | Incoming Webhooks can post messages to channels with a generated token                                         |
