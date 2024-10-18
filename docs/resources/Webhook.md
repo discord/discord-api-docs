@@ -1,14 +1,16 @@
 ---
-sidebar_label: Incoming Webhook
+sidebar_label: Webhook
 ---
 
 # Webhook Resource
 
-Incoming webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
+Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
+
+Apps can also subscribe to webhook events (i.e. outgoing webhooks) when events happen *in* Discord, which is detailed in the [Webhook Events](#DOCS_EVENTS_WEBHOOK_EVENTS) documentation.
 
 ### Webhook Object
 
-Used to represent an incoming webhook.
+Used to represent a webhook.
 
 ###### Webhook Structure
 
