@@ -150,7 +150,14 @@ Structure of the outer webhook payload
 | type           | string                                                             | [Webhook type](#TODO), either `"EVENT"` or `"PING"`        |
 | event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                         |
 
-### Event Body Object
+#### Webhook Types
+
+| Type  | Value     | Description                                                                                             |
+|-------|-----------|---------------------------------------------------------------------------------------------------------|
+| PING  | `"PING"`  | PING event sent to verify your Webhook Event URL is active                                              |
+| Event | `"EVENT"` | Webhook event (details for event in [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object) |
+
+#### Event Body Object
 
 The event body contains high-level data about the event, like the type and time it was triggered.
 
@@ -161,6 +168,7 @@ The inner `data` object contains information specific to the [event type](#DOCS_
 | type      | string | [Event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types)                                              |
 | timestamp | string | Timestamp of when the event occurred in [ISO8601 format](#DOCS_REFERENCE/iso8601-datetime)         |
 | data?     | object | Data for the event. The shape depends on the [event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) |
+
 
 ## Event Types
 
