@@ -259,7 +259,7 @@ In return, you will receive an access token (without a refresh token):
 
 ## Bot Users
 
-Discord's API provides bot users, which are a separate type of user dedicated to automation. Bot users are automatically added to all apps, and are authenticated using the bot token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bot users have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY).
+Discord's API provides bot users, which are a separate type of user dedicated to automation. Bot users are automatically added to all apps, and are authenticated using the bot token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bot users have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_EVENTS_GATEWAY).
 
 
 ### Bot vs User Accounts

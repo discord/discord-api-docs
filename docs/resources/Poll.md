@@ -144,4 +144,4 @@ Get a list of users that voted for this specific answer.
 
 Immediately ends the poll. You cannot end polls from other users.
 
-Returns a [message](#DOCS_RESOURCES_MESSAGE/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
+Returns a [message](#DOCS_RESOURCES_MESSAGE/message-object) object. Fires a [Message Update](#DOCS_EVENTS_GATEWAY_EVENTS/message-update) Gateway event.

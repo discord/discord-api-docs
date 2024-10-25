@@ -4,11 +4,11 @@ sidebar_label: Soundboard
 
 # Soundboard Resource
 
-Users can play soundboard sounds in voice channels, triggering a [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event for users connected to the voice channel.
+Users can play soundboard sounds in voice channels, triggering a [Voice Channel Effect Send](#DOCS_EVENTS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event for users connected to the voice channel.
 
 There is a set of [default sounds](#DOCS_RESOURCES_SOUNDBOARD/list-default-soundboard-sounds) available to all users. Soundboard sounds can also be [created in a guild](#DOCS_RESOURCES_SOUNDBOARD/create-guild-soundboard-sound); users will be able to use the sounds in the guild, and Nitro subscribers can use them in all guilds.
 
-Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Request Soundboard Sounds](#DOCS_TOPICS_GATEWAY_EVENTS/request-soundboard-sounds).
+Soundboard sounds in a set of guilds can be retrieved over the Gateway using [Request Soundboard Sounds](#DOCS_EVENTS_GATEWAY_EVENTS/request-soundboard-sounds).
 
 ### Soundboard Sound Object
 
@@ -62,7 +62,7 @@ https://cdn.discordapp.com/soundboard-sounds/{sound_id}
 
 ## Send Soundboard Sound % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/send-soundboard-sound
 
-Send a soundboard sound to a voice channel the user is connected to. Fires a [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event.
+Send a soundboard sound to a voice channel the user is connected to. Fires a [Voice Channel Effect Send](#DOCS_EVENTS_GATEWAY_EVENTS/voice-channel-effect-send) Gateway event.
 
 Requires the `SPEAK` and `USE_SOUNDBOARD` permissions, and also the `USE_EXTERNAL_SOUNDS` permission if the sound is from a different server. Additionally, requires the user to be connected to the voice channel, having a [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) without `deaf`, `self_deaf`, `mute`, or `suppress` enabled.
 
@@ -93,7 +93,7 @@ Returns a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object)
 
 ## Create Guild Soundboard Sound % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/soundboard-sounds
 
-Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sound-create) Gateway event.
+Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sound-create) Gateway event.
 
 > info
 > Soundboard sounds have a max file size of 512kb and a max duration of 5.2 seconds.
@@ -113,7 +113,7 @@ Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSI
 
 ## Modify Guild Soundboard Sound % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/soundboard-sounds/{sound.id#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object}
 
-Modify the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sound-update) Gateway event.
+Modify the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sound-update) Gateway event.
 
 > warn
 > All parameters to this endpoint are optional.
@@ -132,7 +132,7 @@ Modify the given soundboard sound. For sounds created by the current user, requi
 
 ## Delete Guild Soundboard Sound % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/soundboard-sounds/{sound.id#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object}
 
-Delete the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Soundboard Sound Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-soundboard-sound-delete) Gateway event.
+Delete the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Soundboard Sound Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sound-delete) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.

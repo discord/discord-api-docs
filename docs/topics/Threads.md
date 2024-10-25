@@ -6,7 +6,7 @@ Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANN
 
 ## Backwards Compatibility
 
-Threads are only available in API v9 and above. Bots that do not update to API v9 or above will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create)). Bots on API v8 will still receive gateway events for Interactions.
+Threads are only available in API v9 and above. Bots that do not update to API v9 or above will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_EVENTS_GATEWAY_EVENTS/message-create)). Bots on API v8 will still receive gateway events for Interactions.
 
 The list of gateway events that may be dropped includes, but is not limited to:
 
@@ -76,9 +76,9 @@ Finally, threads are treated slightly differently from channels in the gateway p
 
 ## Gateway Events
 
-- [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) contains a field, `threads`, which is an array of channel objects. This represents all active threads in the guild that the current user is able to view.
-- When a thread is created, updated, or deleted, a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create), [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update), or [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete) event is sent. Like their channel counterparts, these just contain a thread.
-- Since the gateway only syncs active threads that the user can see, if a user _gains_ access to a channel, then the gateway may need to sync the active threads in that channel to the user. It will send a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event for this.
+- [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) contains a field, `threads`, which is an array of channel objects. This represents all active threads in the guild that the current user is able to view.
+- When a thread is created, updated, or deleted, a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create), [Thread Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-update), or [Thread Delete](#DOCS_EVENTS_GATEWAY_EVENTS/thread-delete) event is sent. Like their channel counterparts, these just contain a thread.
+- Since the gateway only syncs active threads that the user can see, if a user _gains_ access to a channel, then the gateway may need to sync the active threads in that channel to the user. It will send a [Thread List Sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync) event for this.
 
 ## Thread Membership
 
@@ -91,20 +91,20 @@ Membership is tracked in an array of [thread member](#DOCS_RESOURCES_CHANNEL/thr
 
 ### Syncing for the current user
 
-- A [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway Event is always sent when the current user is added to or removed from a thread.
-- A [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) Gateway Event is sent whenever the current user's [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object is updated.
+- A [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) Gateway Event is always sent when the current user is added to or removed from a thread.
+- A [Thread Member Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-member-update) Gateway Event is sent whenever the current user's [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object is updated.
 - Certain API calls, such as listing archived threads and search will return an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects for any returned threads the current user is a member of. Other API calls, such as getting a channel will return the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user as a property on the channel, if the current user is a member of the thread.
-- The [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) Gateway Event will contain a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object as a property on any returned threads the current is a member of.
-- The [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway Event will contain a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object as a property of the thread if the current user is a member of, and the user has recently gained access to view the parent channel.
-- The [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) Gateway Event will contain an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects for any returned threads the current user is a member of.
+- The [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) Gateway Event will contain a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object as a property on any returned threads the current is a member of.
+- The [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) Gateway Event will contain a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object as a property of the thread if the current user is a member of, and the user has recently gained access to view the parent channel.
+- The [Thread List Sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync) Gateway Event will contain an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects for any returned threads the current user is a member of.
 
 ### Syncing for other users
 
 > info
-> These require the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents)
+> These require the `GUILD_MEMBERS` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents)
 
 - An API `GET` call to [`/channels/<channel_id>/thread-members`](#DOCS_RESOURCES_CHANNEL/list-thread-members) which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
-- The [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway Event which will include all users who were added to or removed from a thread by an action.
+- The [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) Gateway Event which will include all users who were added to or removed from a thread by an action.
 
 ## Editing & Deleting Threads
 
@@ -143,9 +143,9 @@ Webhooks can send messages to threads by using the `thread_id` query parameter. 
 
 ## Details about Thread Access and Syncing
 
-While the syncing of threads is similar to channels, there are two important differences that are relevant for [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) and [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events:
+While the syncing of threads is similar to channels, there are two important differences that are relevant for [Thread List Sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync) and [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) events:
 
-1. The [Gateway](#DOCS_TOPICS_GATEWAY) will only sync threads that the app has permission to view
+1. The [Gateway](#DOCS_EVENTS_GATEWAY) will only sync threads that the app has permission to view
 2. The Gateway will only sync threads once the app has "subscribed" to the guild. For context, in Discord's official clients, a subscription happens when the user visits a channel in the guild.
 
 These differences mean there is some unique behavior that is worth going into.
@@ -156,7 +156,7 @@ These differences mean there is some unique behavior that is worth going into.
 
 When an app is added to a private thread, it likely doesn't have that thread in memory yet since it doesn't have permission to view it.
 
-Private threads are only synced to you if you are a member or a moderator. Whenever a user is added to a private thread, the Gateway also sends a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) event. This ensures the client always has a non-null value for that thread.
+Private threads are only synced to you if you are a member or a moderator. Whenever a user is added to a private thread, the Gateway also sends a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) event. This ensures the client always has a non-null value for that thread.
 
 > info
 > The `THREAD_CREATE` event is also sent when the user is a moderator (and thus would already have the channel in memory).
@@ -165,33 +165,33 @@ Private threads are only synced to you if you are a member or a moderator. Whene
 
 Upon connecting to the Gateway, apps will be automatically subscribed to thread events and active threads.
 
-However, when a non-app is added to a public thread but hasn't subscribed to threads, it may not have that thread in memory yet (which is a requirement for Discord's clients). Because of this, the Gateway will send a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) event when a user is added to _any_ thread, even if the event is not necessary for apps.
+However, when a non-app is added to a public thread but hasn't subscribed to threads, it may not have that thread in memory yet (which is a requirement for Discord's clients). Because of this, the Gateway will send a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) event when a user is added to _any_ thread, even if the event is not necessary for apps.
 
 ### Channel Access
 
 #### Gaining Access to Channels
 
-When an app gains access to a channel (for example, they're given the moderator role), they likely won't have the threads in memory for that channel since the Gateway only syncs threads that the client has permission to view. To account for this, a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event is sent.
+When an app gains access to a channel (for example, they're given the moderator role), they likely won't have the threads in memory for that channel since the Gateway only syncs threads that the client has permission to view. To account for this, a [Thread List Sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync) event is sent.
 
-The [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event contains a `channel_ids` array, which is the IDs of all channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then ingest any threads that were in the event.
+The [Thread List Sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync) event contains a `channel_ids` array, which is the IDs of all channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then ingest any threads that were in the event.
 
 #### Losing Access to Channels
 
-When an app loses access to a channel, the Gateway does **not** send it [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete) event (or any equivalent thread-specific event). Instead, the app will receive the event that caused its permissions on the channel to change.
+When an app loses access to a channel, the Gateway does **not** send it [Thread Delete](#DOCS_EVENTS_GATEWAY_EVENTS/thread-delete) event (or any equivalent thread-specific event). Instead, the app will receive the event that caused its permissions on the channel to change.
 
-If an app wanted to track when it lost access to any thread, it's possible but difficult as it would need to handle all cases correctly. Usually, events that cause permission changes are a [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) event.
+If an app wanted to track when it lost access to any thread, it's possible but difficult as it would need to handle all cases correctly. Usually, events that cause permission changes are a [Guild Role Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-role-update), [Guild Member Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-member-update) or [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) event.
 
 > info
 > Discord's clients check their permissions *first* when performing an action. That way, even if it has some stale data, it does not end up acting on it.
 
-Additionally, when a user or app loses access to a channel, they are not removed from the thread and will continue to be reported as a member of that thread. However, they will **not** receive any new Gateway events unless they are removed from the thread, in which case they will receive a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) event.
+Additionally, when a user or app loses access to a channel, they are not removed from the thread and will continue to be reported as a member of that thread. However, they will **not** receive any new Gateway events unless they are removed from the thread, in which case they will receive a [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) event.
 
 ### Unarchiving a Thread
 
 When a thread is unarchived, there is no guarantee that an app has the thread or its member status in memory. To account for this, the Gateway will send two events (in the listed order):
 
-1. A [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update) event, which contains the full channel object.
-2. A [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update) event, which is sent to all members of the unarchived thread. Discord's clients only load active threads into memory on start, so this event is sent even if it may not be relevant to most apps.
+1. A [Thread Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-update) event, which contains the full channel object.
+2. A [Thread Member Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-member-update) event, which is sent to all members of the unarchived thread. Discord's clients only load active threads into memory on start, so this event is sent even if it may not be relevant to most apps.
 
 ## Forums
 
@@ -220,7 +220,7 @@ Threads in thread-only channels have the same permissions behavior as threads in
 
 It's worth calling out a few details about fields specific to thread-only channels that may be important to keep in mind:
 
-- The `last_message_id` field is the ID of the most recently created thread in that channel. As with messages, your app will not receive a `CHANNEL_UPDATE` event when the field is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events.
+- The `last_message_id` field is the ID of the most recently created thread in that channel. As with messages, your app will not receive a `CHANNEL_UPDATE` event when the field is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) events.
 - The `topic` field is what is shown in the "Guidelines" section within the Discord client.
 - The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on thread-only channels as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - The `available_tags` field can be set when creating or updating a channel, which determines which tags can be set on individual threads within the thread's `applied_tags` field.
