@@ -1075,6 +1075,20 @@ An application command furnished with localizations might look like this:
 }
 ```
 
+### Locale fallbacks
+
+For application commands, there are built-in fallbacks in case a user's locale isn't present in the localizations. If the fallback locale is also missing, it will use the default.
+
+> warn
+> You should make sure to include your default value in its proper locale key, otherwise it may use a fallback value unexpectedly. For example, if your default value is `en-US`, but you don't specify the `en-US` value in your localizations, users with `en-US` selected will see the `en-GB` value if it's specified.
+> For example, if you have a command with the default name "color", and your localizations specify only the `en-GB` value as "colour", users in the `en-US` locale will see "colour" because the `en-US` key is missing.
+
+| Locale | Fallback |
+|--------|----------|
+| en-US  | en-GB    |
+| en-GB  | en-US    |
+| es-419 | es-ES    |
+
 ### Retrieving localized commands
 
 While most endpoints that return application command objects will return the `name_localizations` and `description_localizations` fields, some will not by default. This includes `GET` endpoints that return all of an application's guild or global commands. Instead, those endpoints will supply additional `name_localized` or `description_localized` fields, which only contain the localization relevant to the requester's locale. (The full dictionaries can still be obtained by supplying the appropriate query argument).
