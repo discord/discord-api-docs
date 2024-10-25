@@ -182,7 +182,7 @@ The role connection object that an application has attached to a user.
 
 ## Get Current User % GET /users/@me
 
-Returns the [user](#DOCS_RESOURCES_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
+Returns the [user](#DOCS_RESOURCES_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email if the user has one.
 
 ## Get User % GET /users/{user.id#DOCS_RESOURCES_USER/user-object}
 

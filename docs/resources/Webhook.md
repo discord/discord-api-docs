@@ -139,6 +139,9 @@ Returns a list of guild [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object
 
 Returns the new [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object for the given id.
 
+This request requires the `MANAGE_WEBHOOKS` permission unless the application making the request owns the
+webhook. [(see: webhook.application_id)](#DOCS_RESOURCES_WEBHOOK/webhook-object)
+
 ## Get Webhook with Token % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
 Same as above, except this call does not require authentication and returns no user in the webhook object.

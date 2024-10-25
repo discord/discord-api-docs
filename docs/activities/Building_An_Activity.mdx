@@ -134,22 +134,6 @@ Details about installation contexts is in the [Application documentation](#DOCS_
 
 Click on **Installation** in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected. This will make sure users can launch our app's Activity across Discord servers, DMs, and Group DMs.
 
-### Enable Activities
-
-Next, we'll need to enable Activities for your app. On the left hand sidebar under **Activities**, click **Getting Started**.
-
-Review this page and press **Enable**.
-
-![Enabling Activities in Settings](activities/getting-started-activities.png)
-
-After enabling Activities, you'll see the different Activity-related pages in your app's settings under the **Activities** section. Across these pages, you'll be able to update information like supported platforms, upload assets, and configure Activity-specific settings. We'll come back to this section later in the guide to set up URL mappings.
-
-#### Default Entry Point Command
-
-When you enable Activities for your app, a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) is the primary way for users to launch your Activity in Discord.
-
-By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) and [development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
-
 ### Add a Redirect URI
 
 Next, we'll add a Redirect URI, which is where a user is typically redirected to after authorizing with your app when going through the standard OAuth flow. While setting up a Redirect URI is required, the Embedded App SDK automatically handles redirecting users back to your Activity when the RPC [`authorize` command](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorize) is called.
@@ -187,7 +171,6 @@ Back in your app's settings, click on **OAuth2** on the sidebar:
 <Collapsible title="Step 2 Checkpoint" icon="list" open>
 
 By the end of Step 2, make sure you have:
-- Created a Discord app with Activities enabled
 - Set up a placeholder Redirect URI
 - Added your app's Client ID and Client Secret to your project's `.env` file.
 </Collapsible>
@@ -252,7 +235,7 @@ document.querySelector('#app').innerHTML = `
 </Collapsible>
 
 > warn
-> **Time to leave your browser behind**<br />Once you add the SDK to your app, you will **not** be able to view your app inside your web browser. In the next step, we will run your Activity inside of Discord. In the next step, we will go over how to view you app in Discord.
+> **Time to leave your browser behind**<br />Once you add the SDK to your app, you will **not** be able to view your app inside your web browser. In the next step, we will run your Activity inside of Discord. In the next step, we will go over how to view your app in Discord.
 
 <Collapsible title="Step 3 Checkpoint" icon="list" open>
 
@@ -266,7 +249,7 @@ By the end of Step 3, make sure you have:
 
 ## Step 4: Running your app in Discord
 
-Let's ensure everything is wired up correctly, then run the Activity in Discord.
+Let's ensure everything is wired up correctly, enable activities via the dev portal, and then run the Activity in Discord.
 
 ### Run your app
 
@@ -322,6 +305,21 @@ Back in your app's settings, click on the **URL Mappings** page under **Activiti
 
 Read details about URL Mapping [in the development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping).
 
+### Enable Activities
+
+Next, we'll need to enable Activities for your app. On the left hand sidebar under **Activities**, click **Settings**.
+
+Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
+
+![Enabling Activities in Settings](activities/enable-activities.png)
+
+#### Default Entry Point Command
+
+When you enable Activities for your app, a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) is the primary way for users to launch your Activity in Discord.
+
+By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) and [development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
+
+
 ### Running your Activity in Discord
 
 Now that we are pointing Discord to our locally running app, we can launch the Activity in Discord!
@@ -342,6 +340,7 @@ We're looking pretty good so far, but we haven't wired up any Discord functional
 By the end of Step 4, make sure you have:
 - Set up a public endpoint
 - Added an Activity URL Mapping in your app's settings
+- Enabled Activities for your app
 - Successfully launched your Activity in Discord
 </Collapsible>
 
