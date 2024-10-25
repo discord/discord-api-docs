@@ -58,62 +58,14 @@ def my_command():
 
 ###### Validating Security Request Headers
 
-The internet is a scary place, especially for people hosting public, unauthenticated endpoints. To receive events via HTTP, there are some security steps you **must** take before your app is eligible to receive requests.
+To receive events via HTTP, there are some security steps you **must** take before your app is eligible to receive requests.
 
 Each webhook is sent with the following headers:
 
 -   `X-Signature-Ed25519` as a signature
 -   `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time you receive an event**. If the signature fails validation, your app should respond with a `401` error code.
-
-<Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="code">
-Below are some code examples that show how to validate the headers sent in event requests.
-
-**JavaScript**
-
-```js
-const nacl = require("tweetnacl");
-
-// Your public key can be found on your application in the Developer Portal
-const PUBLIC_KEY = "APPLICATION_PUBLIC_KEY";
-
-const signature = req.get("X-Signature-Ed25519");
-const timestamp = req.get("X-Signature-Timestamp");
-const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
-
-const isVerified = nacl.sign.detached.verify(
-    Buffer.from(timestamp + body),
-    Buffer.from(signature, "hex"),
-    Buffer.from(PUBLIC_KEY, "hex")
-);
-
-if (!isVerified) {
-    return res.status(401).end("invalid request signature");
-}
-```
-
-**Python**
-
-```py
-from nacl.signing import VerifyKey
-from nacl.exceptions import BadSignatureError
-
-# Your public key can be found on your application in the Developer Portal
-PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
-
-verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
-
-signature = request.headers["X-Signature-Ed25519"]
-timestamp = request.headers["X-Signature-Timestamp"]
-body = request.data.decode("utf-8")
-
-try:
-    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
-except BadSignatureError:
-    abort(401, 'invalid request signature')
-```
-</Collapsible> 
+Using your favorite security library, you **must validate the request each time you receive an event**. If the signature fails validation, your app should respond with a `401` error code. Code examples of validating security headers is in the [Interactions documentation](#DOCS_INTERACTIONS_OVERVIEW/setting-up-an-endpoint-validating-security-request-headers).
 
 In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your Webhook Events URL and alert you via email and System DM.
 
@@ -177,7 +129,7 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 
 | Name                                                                         | Value                    | Description                                                                 |
 |------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------|
-| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their user account |
+| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their account |
 | [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                                     |
 | [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | User was added to a Quest (currently unavailable)                           |
 
