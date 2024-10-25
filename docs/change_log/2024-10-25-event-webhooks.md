@@ -7,8 +7,6 @@ topics:
 
 ---
 
-# Webhook Events
-
 You can now subscribe to a limited number of HTTP-based outgoing [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) after [configuring a webhook events URL](#DOCS_EVENTS_WEBHOOK_EVENTS/configuring-a-webhook-events-url). Currently, 3 events are available: `APPLICATION_AUTHORIZED`, `ENTITLEMENT_CREATE`, and `QUEST_USER_ENROLLMENT`. Read the [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS) documentation for details on subscribing and using webhook events.
 
 > info
