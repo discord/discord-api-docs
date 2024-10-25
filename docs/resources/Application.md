@@ -128,11 +128,11 @@ Where an app can be installed, also called its supported [installation contexts]
 
 Status indicating whether event webhooks are enabled or disabled for an application.
 
-| Name                  | Value | Description                                                      |
-|-----------------------|-------|------------------------------------------------------------------|
-| `DISABLED`            | `1`   | Webhook events are disabled by developer                         |
-| `ENABLED`             | `2`   | Webhook events are enabled by developer                          |
-| `DISABLED_BY_DISCORD` | `3`   | Webhook events are disabled by Discord, usually do to inactivity |
+| Name                  | Value | Description                                                       |
+|-----------------------|-------|-------------------------------------------------------------------|
+| `DISABLED`            | `1`   | Webhook events are disabled by developer                          |
+| `ENABLED`             | `2`   | Webhook events are enabled by developer                           |
+| `DISABLED_BY_DISCORD` | `3`   | Webhook events are disabled by Discord, usually due to inactivity |
 
 ###### Application Flags
 
