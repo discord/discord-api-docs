@@ -51,7 +51,7 @@ To properly acknowledge a `PING` payload, return a `204` response with no body:
 ```py
 @app.route('/', methods=['POST'])
 def my_command():
-    if request.json["type"] == 'PING':
+    if request.json["type"] == 0:
         return Response(status=204)
 ```
 </Collapsible> 
