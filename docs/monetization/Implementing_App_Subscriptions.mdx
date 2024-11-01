@@ -19,7 +19,7 @@ When creating subscriptions, you will need to choose between user or guild subsc
 ## How App Subscriptions Work
 
 > danger
-> **Starting on October 1st, 2024**, the`ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information on what is changing and how to prepare.
+> **Starting on October 1st, 2024**, the`ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what is changing and how to prepare.
 
 - When a user purchases your subscription SKU, Discord creates an [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) for the user (or guild) and that specific Subscription [SKU](#DOCS_RESOURCES_SKU). 
 - You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
@@ -39,7 +39,7 @@ When creating subscriptions, you will need to choose between user or guild subsc
 - When a user cancels their subscription, your app will not receive any entitlement events.
 - When a subscription ends, the entitlement to the subscription will end. Developers will receive an `ENTITLEMENT_UPDATE` event with an `ends_at` timestamp indicating when the subscription ended.
 
- Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information on what is changing and how to prepare.
+ Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what is changing and how to prepare.
 
 ### Using Subscription Events for the Subscription Lifecycle
 
@@ -73,7 +73,7 @@ Depending on your app's features, you can use a combination of [Gateway events](
 ### Accessing Entitlements with Gateway Events
 
 > danger
-> **Starting on October 1, 2024**, the `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information on what is changing and how to prepare. The docs will be updated on November 1, 2024 to reflect the new behavior.
+> **Starting on October 1, 2024**, the `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` event behavior described below is changing. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what is changing and how to prepare. The docs will be updated on November 1, 2024 to reflect the new behavior.
 
 When users subscribe or renew a subscription with your app, Discord will emit [Entitlement Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements).
 
