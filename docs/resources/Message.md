@@ -143,6 +143,7 @@ Represents a message sent in a channel within Discord.
 | FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | `1 << 8`  | this message failed to mention some roles and add their members to the thread     |
 | SUPPRESS_NOTIFICATIONS                 | `1 << 12` | this message will not trigger push and desktop notifications                      |
 | IS_VOICE_MESSAGE                       | `1 << 13` | this message is a voice message                                                   |
+| IS_FORWARDED_MESSAGE                   | `1 << 14` | this message is a forwarded message                                               |
 
 ###### Example Message
 
