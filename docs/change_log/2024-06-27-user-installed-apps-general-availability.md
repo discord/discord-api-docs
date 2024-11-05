@@ -4,7 +4,7 @@ date: "2024-06-27"
 breaking: true
 ---
 
-Back in March, we announced [the beta for user-installed apps](#DOCS_CHANGE_LOG/user-installable-apps-preview). After listening and making updates based on feedback from developers and modmins, we're excited to announce that user-installed apps are now considered generally available and can be used in all servers (regardless of size).
+Back in March, we announced [the beta for user-installed apps](#DOCS_CHANGE_LOG/userinstallable-apps-preview). After listening and making updates based on feedback from developers and modmins, we're excited to announce that user-installed apps are now considered generally available and can be used in all servers (regardless of size).
 
 With this update, there are a few API and behavioral updates for user-installed apps.
 
