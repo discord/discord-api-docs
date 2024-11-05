@@ -15,6 +15,6 @@ We updated our previous entitlement migration guide to provide more up-to-date i
 - The `ends_at` value on the [entitlement object](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) is set when the subscription ends.
 - To receive the value of when a subscription was canceled, you should listen for the `SUBSCRIPTION_UPDATE` events or use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION).
 
-View the [updated migration guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration).
+View the [updated migration guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api).
 
 To see a full diff of the changes, refer to this pull request: [Entitlement Migration Guide Updates](https://github.com/discord/discord-api-docs/pull/7201).

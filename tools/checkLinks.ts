@@ -2,7 +2,14 @@ import { readdirSync, statSync, readFileSync } from "node:fs";
 import path from "node:path";
 import chalk from "chalk";
 import * as github from "@actions/core";
+import * as yaml from "js-yaml";
 const cwd = process.env.GITHUB_ACTIONS ? process.env.GITHUB_WORKSPACE! : process.cwd();
+
+interface Frontmatter {
+  title?: string;
+  date?: string;
+  breaking: boolean;
+}
 
 function importDirectory(directory: string, extensions: string[], subdirectories = true) {
   try {
@@ -110,7 +117,17 @@ for (const [name, raw] of docFiles) {
   // This collects all potential change-log pages, and adds them to the list of
   // available anchors under `/change_log`.
   if (name.startsWith("/change_log/")) {
-    changelogAnchors.push(name.split("/")[2].slice(11));
+    const frontmatter = raw.split("---")[1];
+    const parsedFrontmatter = yaml.load(frontmatter) as Frontmatter;
+    const title = parsedFrontmatter?.title;
+    if (title) {
+      const anchor = title
+        .replace(/[^ A-Z0-9]/gi, "")
+        .trim()
+        .replace(/ +/g, "-")
+        .toLowerCase();
+      changelogAnchors.push(anchor);
+    }
   }
 
   let parentAnchor = "";
