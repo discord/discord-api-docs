@@ -18,17 +18,17 @@ Before we dig in, it's helpful to understand what Rich Presence data you can set
 ![Graphical representation of the legend for rich presence details](rp-legend.png)
 
 <Collapsible title="Table with text representation of the fields above" icon="view">
-| location                               | field name     | notes                                                                       |
-|----------------------------------------|----------------|-----------------------------------------------------------------------------|
-| First row below title                  | details        |                                                                             |
-| Second row below title                 | state          |                                                                             |
-| Second row below title                 | partySize      | In parenthesis next to the `state`, first number in the format `(1 of 10)`  |
-| Second row below title                 | partyMax       | In parenthesis next to the `state`, second number in the format `(1 of 10)` |
-| Third row below title                  | startTimestamp | Converted to a format such as `01:33 elapsed`                               |
-| First button at the bottom             | joinSecret     | Button has the text "Ask to join"                                           |
-| Second button at the bottom            | spectateSecret | Button has the text "Spectate"                                              |
-| Large image to the left of any content | largeImageKey  | Four rows high, includes the title but not the bottom buttons               |
-| Small image to the left of any content | smallImageKey  | Small icon inset on the bottom right of the `largeImageKey`                 |
+| location                               | field name     | notes                                                                      |
+|----------------------------------------|----------------|----------------------------------------------------------------------------|
+| First row below title                  | details        |                                                                            |
+| Second row below title                 | state          | If provided with no `partySize` or `partyMax`                              |
+| First badge in last row below title    | startTimestamp | Converted to a `mm:ss` format such as `12:01`                              |
+| Second badge in last row below title   | state          | If provided with a `partySize` and `partyMax`                              |
+| Second badge in last row below title   | partySize      | In parenthesis next to the `state`, first number in the format `(1 of 4)`  |
+| Second badge in last row below title   | partyMax       | In parenthesis next to the `state`, second number in the format `(1 of 4)` |
+| Button at the bottom                   | joinSecret     | Button has the text **Ask to Join**                                        |
+| Large image to the left of any content | largeImageKey  | Four rows high, includes the title but not the bottom buttons              |
+| Small image to the left of any content | smallImageKey  | Small icon inset on the bottom right of the `largeImageKey`                |
 
 Note that this layout may be subject to change without warning. This information is only provided to help those with
 impaired eyesight to understand the potential layout of this information in a user interface.
@@ -87,10 +87,7 @@ Our code sample in this section is based on the data from the example from befor
 
 ![Example of presence data with buttons](game-sdk-presence-example.png)
 
-This example contains two buttons—the **Ask to Join** button and the **Spectate** button. The **Ask to Join** button will be covered more in the following sections, but if you don't want it included, you can remove the `Party` and `Secret` fields.
-
-> warn
-> While the example shows a **Spectating** button, support for spectating was removed and you can ignore references to it.
+The **Ask to Join** button will be covered more in the following sections, but if you don't want it included, you can remove the `Party` and `Secret` fields.
 
 <Collapsible title="Example calling UpdateActivity function" icon="code" open>
 
@@ -178,13 +175,13 @@ activityManager.OnActivityJoinRequest += user =>
 ```
 </Collapsible>
 
-The Ask to Join request persists for 30 seconds after the request is received. Therefore, keep these two points in mind:
+The **Ask to Join** request persists for 30 seconds after the request is received. Therefore, keep these two points in mind:
 - Ensure you call [`RunCallbacks()`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/runcallbacks) as frequently as possible to ensure your game client is up to date with any data from Discord
-- If the player is in a state in which they cannot interact with an Ask to Join request—like in the middle of a match—you should not send `ActivitySecrets.Join` in the presence payload
+- If the player is in a state in which they cannot interact with an **Ask to Join** request—like in the middle of a match—you should not send `ActivitySecrets.Join` in the presence payload
 
 ## Secrets
 
-Security is of the utmost importance to us here at Discord, and we know it is for you, too. That's why we want to make sure that you properly understand  `ActivitySecrets.Join` so that your game data is safe and secure over the wire.
+Security is of the utmost importance to us here at Discord, and we know it is for you, too. That's why we want to make sure that you properly understand `ActivitySecrets.Join` so that your game data is safe and secure over the wire.
 
 To keep security on the up and up, Discord requires that you properly hash/encode/encrypt/put-a-padlock-on-and-swallow-the-key-but-wait-then-how-would-you-open-it your secrets.
 
@@ -207,7 +204,7 @@ Throughout development, make sure you have your `errored()` and `disconnected()`
 
 The application that connected _first_ is displayed.
 
-However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party, playing Game A that allows you to send Join invites, and playing Game B that allows you to send Spectate invites, you'll be able to send invites to all three simultaneously!
+However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party and playing Game A that allows you to send **Ask to Join** invites, you'll be able to send invites to both simultaneously!
 
 #### Q: What if someone looking at my profile or an invite doesn't own the game?
 
@@ -219,7 +216,7 @@ Currently, the SDK does not support this. Party slot information is determined b
 
 #### Q: Can I send images via the payload rather than uploading them to my app's settings?
 
-Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image).
+Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image).
 
 #### Q: OK—I've got it working! Now, how do I make my integration look _awesome_?
 

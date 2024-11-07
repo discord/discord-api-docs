@@ -17,7 +17,7 @@ The rest of the guide assumes you've already developed an [app](#DOCS_QUICK_STAR
 
 ### Default Rich Presence Data
 
-By default, when a user is connected to your Activity, the app's icon will appear on their profile. If the user viewing the profile has the ability to join, a "Join Activity" button will be displayed as well.
+By default, when a user is connected to your Activity, the app's icon will appear on their profile. If the user viewing the profile has the ability to join, an "Ask to Join" button will be displayed as well.
 
 ![Example of default Rich Presence data for an Activity](default-presence-activities.png)
 
@@ -32,7 +32,7 @@ Now let's see what custom presence data can look like when a user joins your Act
 A few small things to note about the above image:
 1. `large_image` and `small_image` are both in the `assets` object, which you can see below in the [table below](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK/activity-partial-object). They're labeled with the object's keys to make it more clear how they appear in a Discord profile.
 2. You can't set App Name when setting presence—it's always the name configured in your [app's settings](https://discord.com/developers/applications).
-3. Depending on the `type` you set when updating presence, the behavior and layout for some fields (particularly `small_image` and `large_text`).
+3. The state `(1 of max_party)` badge will only render when a party field is provided. Otherwise, state will be shown in a line of text below details.
 
 ## Updating Presence
 
@@ -43,7 +43,7 @@ As you start exploring the Rich Presence docs, you'll start seeing the word "act
 
 When Rich Presence was introduced, the underlying object that contains presence data was called an "activity" (long before the Embedded App SDK), which is what the RPC [`SET_ACTIVITY` command](#DOCS_TOPICS_RPC/setactivity) is referencing. And that's *also* why the Embedded App SDK's wrapper around the RPC command is called `setActivity()` yet isn't really related to setting the state for the kind of Activity that *you're* building.
 
-We know, it's confusing ¯\\_(⊙︿⊙)_/¯ — the naming was logical at the time because it was really about the user's activity in a 3rd party game or service, but now it sorta feels like activity-ception. Understanding the nuances here aren't super important, and it's why we have guides like this one. But as they say...the more you (at least sort of) know.
+We know, it's confusing ¯\\\_(⊙︿⊙)\_/¯ — the naming was logical at the time because it was really about the user's activity in a 3rd party game or service, but now it sorta feels like activity-ception. Understanding the nuances here aren't super important, and it's why we have guides like this one. But as they say...the more you (at least sort of) know.
 </Collapsible>
 
 ### rpc.activities.write Scope
@@ -74,7 +74,7 @@ const { code } = await discordSdk.commands.authorize({
 
 ### setActivity Fields
 
-When calling [`setActivity()`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setactivity), you are expected to pass a partial [activity object](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-structure).
+When calling [`setActivity()`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setactivity), you are expected to pass a partial [activity object](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-structure).
 
 Below is a table with many of the available fields for the activity partial. Some were left out since they don't have an effect for Activities.
 
@@ -85,12 +85,12 @@ Below is a table with many of the available fields for the activity partial. Som
 
 | field      | type                                                                                 | description                                                                                                                              |
 |------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| type       | integer                                                                              | [Activity](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types) type, which determines the header text for the Rich Presence data |
+| type       | integer                                                                              | [Activity](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-types) type, which determines the header text for the Rich Presence data |
 | state      | string                                                                               | User's current party status                                                                                                              |
 | details    | string                                                                               | What the player is currently doing in your Activity                                                                                      |
-| timestamps | [timestamps](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps to display stand and/or end times                                                                                        |
-| assets     | [assets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images used for the Rich Presence data (and their hover texts)                                                                           |
-| party      | [party](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                          |
+| timestamps | [timestamps](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps to display start and/or end times                                                                                        |
+| assets     | [assets](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images used for the Rich Presence data (and their hover texts)                                                                           |
+| party      | [party](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                          |
 
 ### setActivity Example
 
@@ -108,13 +108,13 @@ To create this sort of Rich Presence, here is what the `setActivity()` code woul
 await discordSdk.commands.setActivity({
   activity: { 
     type: 0,
-    state: 'Traveling with a Group',
-    details: 'in Mainframe Map',
+    details: 'Traveling with a group',
+    state: 'In Mainframe',
     assets: {
       large_image: 'main-game-image',
       large_text: 'in a group',
       small_image: 'map-mainframe',
-      small_text: 'in Mainframe'
+      small_text: 'in mainframe'
     },
     timestamps: {
       start: 1723137832

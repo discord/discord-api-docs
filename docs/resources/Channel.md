@@ -228,7 +228,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 
 [Threads](#DOCS_TOPICS_THREADS) can be either `archived` or `active`.  Archived threads are generally immutable.  To send a message or add a reaction, a thread must first be unarchived.  The API will helpfully automatically unarchive a thread when sending a message in that thread.
 
-Unlike with channels, the API will only sync updates to users about threads the current user can view.  When receiving a [guild create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) payload, the API will only include active threads the current user can view.  Threads inside of private channels are completely private to the members of that private channel.  As such, when _gaining_ access to a channel the API sends a [thread list sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync), which includes all active threads in that channel.
+Unlike with channels, the API will only sync updates to users about threads the current user can view.  When receiving a [guild create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) payload, the API will only include active threads the current user can view.  Threads inside of private channels are completely private to the members of that private channel.  As such, when _gaining_ access to a channel the API sends a [thread list sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync), which includes all active threads in that channel.
 
 Threads also track membership.  Users must be added to a thread before sending messages in them.  The API will helpfully automatically add users to a thread when sending a message in that thread.
 
@@ -309,7 +309,7 @@ A thread member object contains information about a user that has joined a threa
 | flags           | integer                                                          | Any user-thread settings, currently only used for notifications |
 | member? \* \*\* | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | Additional information about the user                           |
 
-\* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) event.
+\* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) event.
 
 \*\* The `member` field is only present when `with_member` is set to `true` when calling [List Thread Members](#DOCS_RESOURCES_CHANNEL/list-thread-members) or [Get Thread Member](#DOCS_RESOURCES_CHANNEL/get-thread-member).
 
@@ -356,7 +356,7 @@ Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel
 
 ###### JSON Params (Group DM)
 
-Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event.
+Fires a [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) Gateway event.
 
 | Field | Type   | Description                  |
 |-------|--------|------------------------------|
@@ -365,7 +365,7 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway eve
 
 ###### JSON Params (Guild channel)
 
-Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
+Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
 | Field                               | Type                                                                            | Description                                                                                                                                                                                                                                                                                                                      | Channel Type                                   |
 |-------------------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|
@@ -397,7 +397,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 
 When setting `archived` to `false`, when `locked` is also `false`, only the `SEND_MESSAGES` permission is required.
 
-Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
+Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
 | Field                 | Type                | Description                                                                                                                                                                                               |
 |-----------------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -412,7 +412,7 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY_EVENTS/channel-delete) Gateway event (or [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete) if the channel was a thread).
+Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_EVENTS_GATEWAY_EVENTS/channel-delete) Gateway event (or [Thread Delete](#DOCS_EVENTS_GATEWAY_EVENTS/thread-delete) if the channel was a thread).
 
 > warn
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
@@ -425,7 +425,7 @@ Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` per
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
-Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
+Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) Gateway event. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -444,7 +444,7 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 ## Create Channel Invite % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
-Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create) Gateway event.
+Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires an [Invite Create](#DOCS_EVENTS_GATEWAY_EVENTS/invite-create) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -463,14 +463,14 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
-Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update) Gateway event. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
+Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) Gateway event. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Follow Announcement Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/followers
 
-Follow an Announcement Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](#DOCS_RESOURCES_CHANNEL/followed-channel-object) object. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event for the target channel.
+Follow an Announcement Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](#DOCS_RESOURCES_CHANNEL/followed-channel-object) object. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event for the target channel.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -483,7 +483,7 @@ Follow an Announcement Channel to send messages to a target channel. Requires th
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
 
-Post a typing indicator for the specified channel, which expires after 10 seconds. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start) Gateway event.
+Post a typing indicator for the specified channel, which expires after 10 seconds. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_EVENTS_GATEWAY_EVENTS/typing-start) Gateway event.
 
 Generally bots should **not** use this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
 
@@ -493,7 +493,7 @@ Returns all pinned messages in the channel as an array of [message](#DOCS_RESOUR
 
 ## Pin Message % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
 
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
+Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
 
 > warn
 > The max pinned messages is 50.
@@ -503,7 +503,7 @@ Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a
 
 ## Unpin Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
 
-Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
+Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-pins-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -525,7 +525,7 @@ Removes a recipient from a Group DM.
 
 ## Start Thread from Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}/threads
 
-Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and a [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update) Gateway event.
+Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) and a [Message Update](#DOCS_EVENTS_GATEWAY_EVENTS/message-update) Gateway event.
 
 When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-or-media-channel) or a `GUILD_MEDIA` channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
@@ -542,7 +542,7 @@ When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread that is not connected to an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
+Creates a new thread that is not connected to an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -561,7 +561,7 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 
 ## Start Thread in Forum or Media Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread in a forum or a media channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_MESSAGE/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) Gateway event.
+Creates a new thread in a forum or a media channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_MESSAGE/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) and [Message Create](#DOCS_EVENTS_GATEWAY_EVENTS/message-create) Gateway event.
 
 - The type of the created thread is `PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
@@ -610,19 +610,19 @@ Creates a new thread in a forum or a media channel, and sends a message within t
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
-Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) and a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) Gateway event.
+Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) and a [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) Gateway event.
 
 ## Add Thread Member % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response if the member is successfully added or was already a member of the thread. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
+Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response if the member is successfully added or was already a member of the thread. Fires a [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) Gateway event.
 
 ## Leave Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
-Removes the current user from a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
+Removes the current user from a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) Gateway event.
 
 ## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) Gateway event.
+Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update) Gateway event.
 
 ## Get Thread Member % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -646,7 +646,7 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 When `with_member` is set to `true`, the results will be paginated and each thread member object will include a `member` field containing a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object.
 
 > warn
-> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
+> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_EVENTS_GATEWAY/privileged-intents) is enabled for your application.
 
 ###### Query String Params
 

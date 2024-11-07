@@ -1,8 +1,5 @@
 # How Activities Work
 
-> preview
-> Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
-
 Activities are web applications that run in an iframe within Discord on desktop, mobile and web. In order to achieve this, we use the [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) protocol to enable secure communication between your application and Discord.
 
 The [Embedded App SDK](https://github.com/discord/embedded-app-sdk) simplifies this process by managing the `postMessage` protocol on your behalf. For details on available commands and their usage, consult the [SDK Reference](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK). Our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects) provide practical examples of how to implement these features.

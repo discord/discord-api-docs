@@ -83,7 +83,7 @@ Now that you have the credentials you need, we'll configure your app to support 
 
 ### Add Guild Members intent
 
-The sample app fetches members in the server when constructing a fake game leaderboard. Getting server members requires a special permission called a [privileged intent](#DOCS_TOPICS_GATEWAY/privileged-intents), so we'll add that to our app.
+The sample app fetches members in the server when constructing a fake game leaderboard. Getting server members requires a special permission called a [privileged intent](#DOCS_EVENTS_GATEWAY/privileged-intents), so we'll add that to our app.
 
 Go to the **Bot** page and find the **Privileged Gateway Intents** section. Toggle "Server Member Intent" to be active.
 
@@ -355,7 +355,7 @@ There are two fields additional fields to know about that can be helpful in this
 
 ###### `interaction_metadata`
 
-Messages created in response to an interaction will include an [`interaction_metadata` object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object-message-interaction-metadata-structure) which includes metadata related to the interaction.
+Messages created in response to an interaction will include an [`interaction_metadata` object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object) which includes metadata related to the interaction.
 
 ###### `authorizing_integration_owners`
 

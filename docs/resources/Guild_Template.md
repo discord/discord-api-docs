@@ -10,19 +10,19 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 
 ###### Guild Template Structure
 
-| Field                   | Type                                                       | Description                                            |
-|-------------------------|------------------------------------------------------------|--------------------------------------------------------|
-| code                    | string                                                     | the template code (unique ID)                          |
-| name                    | string                                                     | template name                                          |
-| description             | ?string                                                    | the description for the template                       |
-| usage_count             | integer                                                    | number of times this template has been used            |
-| creator_id              | snowflake                                                  | the ID of the user who created the template            |
-| creator                 | [user](#DOCS_RESOURCES_USER/user-object) object            | the user who created the template                      |
-| created_at              | ISO8601 timestamp                                          | when this template was created                         |
-| updated_at              | ISO8601 timestamp                                          | when this template was last synced to the source guild |
-| source_guild_id         | snowflake                                                  | the ID of the guild this template is based on          |
-| serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild snapshot this template contains              |
-| is_dirty                | ?boolean                                                   | whether the template has unsynced changes              |
+| Field                   | Type                                                       | Description                                                                      |
+|-------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------|
+| code                    | string                                                     | the template code (unique ID)                                                    |
+| name                    | string                                                     | template name                                                                    |
+| description             | ?string                                                    | the description for the template                                                 |
+| usage_count             | integer                                                    | number of times this template has been used                                      |
+| creator_id              | snowflake                                                  | the ID of the user who created the template                                      |
+| creator                 | [user](#DOCS_RESOURCES_USER/user-object) object            | the user who created the template                                                |
+| created_at              | ISO8601 timestamp                                          | when this template was created                                                   |
+| updated_at              | ISO8601 timestamp                                          | when this template was last synced to the source guild                           |
+| source_guild_id         | snowflake                                                  | the ID of the guild this template is based on                                    |
+| serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild snapshot this template contains; placeholder IDs are given as integers |
+| is_dirty                | ?boolean                                                   | whether the template has unsynced changes                                        |
 
 ###### Example Guild Template Object
 
@@ -105,7 +105,7 @@ Returns a [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object)
 
 ## Create Guild from Guild Template % POST /guilds/templates/{template.code#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object}
 
-Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) Gateway event.
+Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) Gateway event.
 
 > warn
 > This endpoint can be used only by bots in less than 10 guilds.

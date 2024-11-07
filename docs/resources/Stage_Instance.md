@@ -54,7 +54,7 @@ Below are some definitions related to stages.
   - `MOVE_MEMBERS`
 - **Topic**: This is the blurb that gets shown below the channel's name, among other places.
 - **Public**: A Stage instance is public when it has a `privacy_level` of `PUBLIC`. While a guild has a public Stage instance:
-  - Users in the Stage can have the Stage show in their [activities](#DOCS_TOPICS_GATEWAY_EVENTS/presence).
+  - Users in the Stage can have the Stage show in their [activities](#DOCS_EVENTS_GATEWAY_EVENTS/presence).
   - [Invites](#DOCS_RESOURCES_INVITE/invite-object) to the Stage channel will have the `stage_instance` field.
 
 ## Auto Closing
@@ -63,7 +63,7 @@ When a Stage channel has no speakers for a certain period of time (on the order 
 
 ## Create Stage Instance % POST /stage-instances
 
-Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure). Fires a [Stage Instance Create](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-create) Gateway event.
+Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure). Fires a [Stage Instance Create](#DOCS_EVENTS_GATEWAY_EVENTS/stage-instance-create) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -88,7 +88,7 @@ Gets the stage instance associated with the Stage channel, if it exists.
 
 ## Modify Stage Instance % PATCH /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Updates fields of an existing Stage instance. Returns the updated [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure). Fires a [Stage Instance Update](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-update) Gateway event.
+Updates fields of an existing Stage instance. Returns the updated [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure). Fires a [Stage Instance Update](#DOCS_EVENTS_GATEWAY_EVENTS/stage-instance-update) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -104,7 +104,7 @@ Requires the user to be a moderator of the Stage channel.
 
 ## Delete Stage Instance % DELETE /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Deletes the Stage instance. Returns `204 No Content`. Fires a [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete) Gateway event.
+Deletes the Stage instance. Returns `204 No Content`. Fires a [Stage Instance Delete](#DOCS_EVENTS_GATEWAY_EVENTS/stage-instance-delete) Gateway event.
 
 Requires the user to be a moderator of the Stage channel.
 

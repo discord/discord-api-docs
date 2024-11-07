@@ -6,14 +6,17 @@ topics:
 breaking: true
 ---
 
-We are migrating our entitlement system to a new behavior where entitlements will not end until explicitly canceled, representing a breaking change for subscription management. We are introducing a [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and [Subscription Events](#DOCS_TOPICS_GATEWAY_EVENTS/subscriptions) to allow handling subscription-related events.
+> info
+> Updates to this Change Log entry was published on **October 7, 2024** to reflect up-to-date information. See the [new Change Log entry](#DOCS_CHANGE_LOG/updates-to-entitlement-migration-guide) for details on updates.
+
+We are migrating our entitlement system to a new behavior where entitlements will not end until explicitly canceled, representing a breaking change for subscription management. We are introducing a [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and [Subscription Events](#DOCS_EVENTS_GATEWAY_EVENTS/subscriptions) to allow handling subscription-related events.
 
 > warn
 > This change will be rolled out to all existing applications that have entitlements for user and guild subscription SKUs, starting on October 1, 2024.
 
 #### Entitlement Migration Details
 - `ENTITLEMENT_CREATE` events will now be triggered with a null `ends_at` value for all ongoing subscriptions, indicating an indefinite entitlement.
-- `ENTITLEMENT_UPDATE` events will occur only when a subscription is canceled, with the `ends_at` value indicating the end date.
+- `ENTITLEMENT_UPDATE` events will occur only when a subscription ends, with the `ends_at` value indicating the end date.
 - Discord-managed Subscription entitlements will have an `type` value of `PURCHASE` (type `1`) instead of `APPLICATION_SUBSCRIPTION` (type `8`).
 
 ### Migration Plan & Guide:
@@ -37,7 +40,7 @@ As part of these changes, we've updated the documentation for Premium Apps.
 Starting on **October 1, 2024**, we will be migrating our existing entitlement system to a new behavior where **entitlements do not expire until explicitly canceled**. This migration guide outlines the changes and impacts of this migration on developers and guides how to manage these changes effectively.
 
 > warn
-> With this update, entitlements for subscription SKUs will no longer emit events when a new subscription billing period begins. If you need to know when a subscription has been renewed, use the new [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and related [Subscription Gateway Events](#DOCS_TOPICS_GATEWAY_EVENTS/subscriptions).
+> With this update, entitlements for subscription SKUs will no longer emit events when a new subscription billing period begins. If you need to know when a subscription has been renewed, use the new [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and related [Subscription Gateway Events](#DOCS_EVENTS_GATEWAY_EVENTS/subscriptions).
 
 ### Current System
 
@@ -56,7 +59,7 @@ Post-migration, entitlements for Subscription SKUs purchased through Discord wil
 ### Migration Timeline
 
 - **Migration Start Date:** October 1, 2024
-- **Migration End Date:** October 31, 2024
+- **Migration End Date:** November 1, 2024
 
 ### Migration Impacts
 
@@ -65,7 +68,8 @@ Post-migration, entitlements for Subscription SKUs purchased through Discord wil
 - **During Migration Window:**
     - These will automatically transfer to the new system.
     - A new `ENTITLEMENT_CREATE` event will be triggered to indicate the migration. This does not indicate a net new entitlement.
-    - No further events will be generated until cancellation, which will then trigger an `ENTITLEMENT_UPDATE` event.
+    - No further events will be generated until the entitlement ends, which will then trigger an `ENTITLEMENT_UPDATE` event.
+    - The `ends_at` value in the `ENTITLEMENT_UPDATE` event and in the Entitlement API will indicate the timestamp when the entitlement ends.
 
 ### 2) Existing Entitlements Set to End
 
@@ -79,12 +83,12 @@ Post-migration, entitlements for Subscription SKUs purchased through Discord wil
     - Adjust your system to handle `ends_at` being null, which now indicates an indefinite entitlement.
     - Adjust your system not to expect type `APPLICATION_SUBSCRIPTION` (type `8`) for Discord-managed subscription entitlements.
 - **Post-Migration:**
-    - Monitor for `ENTITLEMENT_CREATE` and `ENTITLEMENT_UPDATE` events.
-    - Update your handling of `ends_at` timestamps to manage cancellations effectively.
+    - Monitor for `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `SUBSCRIPTION_CREATE`, and `SUBSCRIPTION_UPDATE` events.
+    - Update any references to an entitlement `ends_at` timestamps, which now indicate the ending of an entitlement. If you need to know when a subscription's period ends, use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) and related [Subscription Gateway Events](#DOCS_EVENTS_GATEWAY_EVENTS/subscriptions).
 
 <Collapsible title="Entitlement Migration Example Scenario" description="Step-by-step example of an entitlement upgrading to the new entitlement system" icon="view" open>
 - The Entitlement Migration begins on October 1, 2024
 - You have an existing user subscription that has an existing `ends_at` timestamp for October 10, 2024.
-- If the subscription renews successfully, you will receive an `ENTITLEMENT_UPDATE` event on October 10, 2024, with an `ends_at` value of null
-- If you receive an `ENTITLEMENT_UPDATE` event with an `ends_at` timestamp, the entitlement for this subscription is expected to end at the timestamp value unless you receive subsequent `ENTITLEMENT_UPDATE` events between the cancellation and the `ends_at` value.
+- If the subscription renews successfully, you will receive an `ENTITLEMENT_CREATE` event on October 10, 2024, with an `ends_at` value of null
+- ~~If you receive an `ENTITLEMENT_UPDATE` event with an `ends_at` timestamp, the entitlement for this subscription is expected to end at the timestamp value unless you receive subsequent `ENTITLEMENT_UPDATE` events between the cancellation and the `ends_at` value.~~
 </Collapsible>

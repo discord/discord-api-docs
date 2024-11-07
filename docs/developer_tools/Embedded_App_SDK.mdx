@@ -4,9 +4,6 @@ sidebar_label: Embedded App SDK
 
 # Embedded App SDK Reference
 
-> preview
-> Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
-
 The Embedded App SDK handles making RPC calls between your application and Discord. It is designed to assist developers in developing interactive Activities like games.
 
 To learn more about building Activities, check out our [Building an Activity](#DOCS_ACTIVITIES_BUILDING_AN_ACTIVITY) tutorial or explore our [Sample Projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
@@ -55,6 +52,12 @@ Resolves when your app has successfully connected to the Discord client.
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+ready(): Promise\<void\>
+</Monospace>
+
 #### SDK Usage
 
 ```js
@@ -79,6 +82,12 @@ Used to subscribe to a specific event from the list of [SDK Events](#DOCS_DEVELO
 
 Depends on the event. Refer to the Required Scopes for the specific event you are subscribing to.
 
+#### Signature
+
+<Monospace>
+subscribe\<Event\>(event: [Event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events), listener: (data: EventPayloadData\<Event\>) => void, ...subscribeArgs: Partial\<EventPayloadData\<Event\>\>): Promise\<[EventEmitter](https://nodejs.org/docs/latest/api/events.html)\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -99,6 +108,14 @@ Used to unsubscribe to [SDK Events](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-e
 #### Required Scopes
 
 No scopes required
+
+#### Signature
+
+_The `EventPayloadData` will vary based on the event you are unsubscribing from. See the specific [event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events) for details._
+
+<Monospace>
+unsubscribe\<Event\>(event: [Event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events), listener: (data: EventPayloadData\<Event\>) => void, ...subscribeArgs: Partial\<EventPayloadData\<Event\>\>): Promise\<[EventEmitter](https://nodejs.org/docs/latest/api/events.html)\>
+</Monospace>
 
 #### Usage
 
@@ -121,18 +138,11 @@ Used to close your app with a specified code and reason.
 
 No scopes required
 
-#### RPC Close Codes
-| Name              | Code |
-|-------------------|------|
-| CLOSE_NORMAL      | 1000 |
-| CLOSE_UNSUPPORTED | 1003 |
-| CLOSE_ABNORMAL    | 1006 |
-| INVALID_CLIENTID  | 4000 |
-| INVALID_ORIGIN    | 4001 |
-| RATELIMITED       | 4002 |
-| TOKEN_REVOKED     | 4003 |
-| INVALID_VERSION   | 4004 |
-| INVALID_ENCODING  | 4005 |
+#### Signature
+
+<Monospace>
+close(code: [RPCCloseCodes](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/rpcclosecodes), message: string): void
+</Monospace>
 
 #### SDK Usage
 
@@ -154,17 +164,18 @@ Developers can use these commands to interact with the Discord client. The follo
 | [encourageHardwareAcceleration](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/encouragehardwareacceleration)       | Presents a modal dialog to allow enabling of hardware acceleration                       |
 | [getChannel](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannel)                                             | Returns information about the channel, per the channel_id                                |
 | [getChannelPermissions](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelpermissions)                       | Returns permissions for the current user in the currently connected channel              |
-| [getEntitlements](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements)                                   | Not available during Developer Preview                                                   |
+| [getEntitlements](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements)                                   | Returns a list of entitlements for the current user                                      |
 | [getInstanceConnectedParticipants](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getinstanceconnectedparticipants) | Returns all participants connected to the instance                                       |
 | [getPlatformBehaviors](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getplatformbehaviors)                         | Returns information about supported platform behaviors                                   |
-| [getSkus](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getskus)                                                   | Not available during Developer Preview                                                   |
+| [getSkus](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getskus)                                                   | Returns a list of your app's SKUs                                                        |
 | [initiateImageUpload](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/initiateimageupload)                           | Presents the file upload flow in the Discord client                                      |
 | [openExternalLink](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openexternallink)                                 | Allows for opening an external link from within the Discord client                       |
 | [openInviteDialog](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openinvitedialog)                                 | Presents a modal dialog with Channel Invite UI without requiring additional OAuth scopes |
 | [openShareMomentDialog](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/opensharemomentdialog)                       | Presents a modal dialog to share media to a channel or DM                                |
 | [setActivity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setactivity)                                           | Modifies how your activity's rich presence is displayed in the Discord client            |
+| [setConfig](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfig)                                               | Set whether or not the PIP (picture-in-picture) is interactive                           |
 | [setOrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setorientationlockstate)                   | Set options for orientation and picture-in-picture (PIP) modes                           |
-| [startPurchase](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/startpurchase)                                       | Not available during Developer Preview                                                   |
+| [startPurchase](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/startpurchase)                                       | Launches the purchase flow for a specific SKU, per the sku_id                            |
 | [userSettingsGetLocale](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/usersettingsgetlocale)                       | Returns the current user's locale                                                        |
 
 ### authenticate()
@@ -179,6 +190,12 @@ Authenticate an existing client with your app.
 #### Required Scopes
 
 No scopes required
+
+#### Signature
+
+<Monospace>
+authenticate(args: [AuthenticateRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authenticaterequest)): Promise\<[AuthenticateResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authenticateresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -202,6 +219,12 @@ Authorize a new client with your app.
 #### Required Scopes
 
 No scopes required
+
+#### Signature
+
+<Monospace>
+authorize(args: [AuthorizeRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorizerequest)): Promise\<[AuthorizeResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorizeresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -250,15 +273,11 @@ Forward logs to your own logger.
 
 No scopes required
 
-#### Level Parameter
+#### Signature
 
-`captureLog` requires a `level` parameter which matches the javascript [console](https://developer.mozilla.org/en-US/docs/Web/API/console) log levels.
-The supported values for `level` are:
-- `debug`
-- `log`
-- `info`
-- `warn`
-- `error`
+<Monospace>
+captureLog(args: [CaptureLogRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/capturelogrequest)): Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -284,6 +303,12 @@ Presents a modal dialog to allow enabling of hardware acceleration.
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+encourageHardwareAcceleration(): Promise\<[EncourageHardwareAccelerationResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/encouragehardwareaccelerationresponse)\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -296,7 +321,6 @@ await discordSdk.commands.encourageHardwareAcceleration();
 
 Returns information about the channel for a provided channel ID.
 
-
 #### Supported Platforms
 | Web | iOS | Android |
 |-----|-----|---------|
@@ -306,6 +330,12 @@ Returns information about the channel for a provided channel ID.
 
 - [guilds] for guild channels
 - [guilds, dm_channels.read] for GDM channels. dm_channels.read requires approval from Discord.
+
+#### Signature
+
+<Monospace>
+getChannel(args: [GetChannelRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelrequest)): Promise\<[GetChannelResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelresponse)\>
+</Monospace>
 
 #### Usage
 ```js
@@ -329,6 +359,12 @@ Returns permissions for the current user in the currently connected channel.
 
 - guilds.members.read
 
+#### Signature
+
+<Monospace>
+getChannelPermissions(): Promise\<[GetChannelPermissionsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getchannelpermissionsresponse)\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -339,8 +375,28 @@ await discordSdk.commands.getChannelPermissions();
 
 ### getEntitlements()
 
-> preview
-> Coming soon! Not available during Developer Preview
+Returns a list of entitlements for the current user.
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+No scopes required
+
+#### Signature
+
+<Monospace>
+getEntitlements(): Promise\<[GetEntitlementsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlementsresponse)\>
+</Monospace>
+
+#### Usage
+
+```js
+await discordSdk.commands.getEntitlements();
+```
 
 ---
 
@@ -356,6 +412,12 @@ Returns all participants connected to the instance.
 #### Required Scopes
 
 No scopes required
+
+#### Signature
+
+<Monospace>
+getInstanceConnectedParticipants(): Promise\<[GetInstanceConnectedParticipantsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getinstanceconnectedparticipantsresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -378,6 +440,12 @@ Returns information about supported platform behaviors.
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+getPlatformBehaviors(): Promise\<[GetPlatformBehaviorsResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getplatformbehaviorsresponse)\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -388,8 +456,28 @@ await discordSdk.commands.getPlatformBehaviors();
 
 ### getSkus()
 
-> preview
-> Coming soon! Not available during Developer Preview
+Returns a list of SKU objects. SKUs without prices are automatically filtered out.
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+No scopes required
+
+#### Signature
+
+<Monospace>
+getSkus(): Promise\<[GetSkusResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getskusresponse)\>
+</Monospace>
+
+#### Usage
+
+```js
+await discordSdk.commands.getSkus();
+```
 
 ---
 
@@ -405,6 +493,12 @@ Presents the file upload flow in the Discord client.
 #### Required Scopes
 
 No scopes required
+
+#### Signature
+
+<Monospace>
+initiateImageUpload(): Promise\<[InitiateImageUploadResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/initiateimageuploadresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -426,6 +520,12 @@ Allows for opening an external link from within the Discord client.
 #### Required Scopes
 
 No scopes required
+
+#### Signature
+
+<Monospace>
+openExternalLink(args: [OpenExternalLinkRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openexternallinkrequest)): Promise\<void\>
+</Monospace>
 
 #### Usage
 
@@ -450,6 +550,12 @@ Presents a modal dialog with Channel Invite UI without requiring additional OAut
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+openInviteDialog(): Promise\<void\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -471,6 +577,12 @@ Presents a modal dialog to share media to a channel or direct message.
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+openInviteDialog(args: [OpenInviteDialogRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openinvitedialogrequest)) Promise\<void\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -483,7 +595,7 @@ await discordSdk.commands.openShareMomentDialog({
 
 ### setActivity()
 
-Modifies how your Activity's Rich Presence data is displayed in the Discord client. The inner `activity` field is a partial [Activity object](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-structure).
+Modifies how your Activity's Rich Presence data is displayed in the Discord client. The inner `activity` field is a partial [Activity object](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-structure).
 
 Read the guide on [Using Rich Presence with the Embedded App SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK) for more usage details.
 
@@ -496,6 +608,12 @@ Read the guide on [Using Rich Presence with the Embedded App SDK](#DOCS_RICH_PRE
 #### Required Scopes
 
 - rpc.activities.write
+
+#### Signature
+
+<Monospace>
+setActivity(args: [SetActivityRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setactivityrequest)): Promise\<[Activity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activity)\>
+</Monospace>
 
 #### Usage
 
@@ -524,6 +642,12 @@ Set whether or not the PIP (picture-in-picture) is interactive.
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+setConfig(args: [SetConfigRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfigrequest)): Promise\<[SetConfigResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfigresponse)\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -547,6 +671,12 @@ Locks the application to specific orientations in each of the supported layout m
 
 No scopes required
 
+#### Signature
+
+<Monospace>
+setOrientationLockState(args: [SetOrientationLockStateRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setorientationlockstaterequest)): Promise\<void\>
+</Monospace>
+
 #### Usage
 
 ```js
@@ -563,8 +693,28 @@ await discordSdk.commands.setOrientationLockState({
 
 ### startPurchase()
 
-> preview
-> Coming soon! Not available during Developer Preview
+Launches the purchase flow for a specific SKU ID.
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ⛔️  | ⛔️      |
+
+#### Required Scopes
+
+No scopes required
+
+#### Signature
+
+<Monospace>
+startPurchase(args: [StartPurchaseRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/startpurchaserequest)): Promise\<[StartPurchaseResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/startpurchaseresponse)\>
+</Monospace>
+
+#### Usage
+
+```js
+await discordSdk.commands.startPurchase({sku_id: skuId});
+```
 
 ---
 
@@ -580,6 +730,12 @@ Returns the current user's locale.
 #### Required Scopes
 
 - identify
+
+#### Signature
+
+<Monospace>
+userSettingsGetLocale(): Promise\<[UserSettingsGetLocaleResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/usersettingsgetlocaleresponse)\>
+</Monospace>
 
 #### Usage
 
@@ -605,7 +761,7 @@ Developers may use the following events alongside the `subscribe()` SDK method t
 | [CURRENT_USER_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/currentuserupdate)                                    | Received when the current user object changes                                             |
 | [THERMAL_STATE_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/thermalstateupdate)                                  | Received when Android or iOS thermal states are surfaced to the Discord app               |
 | [ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activityinstanceparticipantsupdate) | Received when the number of instance participants changes                                 |
-| [ENTITLEMENT_CREATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/entitlementcreate)                                     | Not available during Developer Preview                                                    |
+| [ENTITLEMENT_CREATE](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/entitlementcreate)                                     | Received when an entitlement is created for a SKU                                         |
 
 
 ### READY
@@ -841,3 +997,602 @@ No scopes required
 
 > preview
 > Coming soon! Not available during Developer Preview
+
+## SDK Interfaces
+
+#### Activity
+
+| Property        | Type                                                                  |
+|-----------------|-----------------------------------------------------------------------|
+| name            | string                                                                |
+| type            | number                                                                |
+| url?            | string \| null                                                        |
+| created_at?     | number \| null                                                        |
+| timestamps?     | [Timestamp](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/timestamp) \| null |
+| application_id? | string \| null                                                        |
+| details?        | string \| null                                                        |
+| state?          | string \| null                                                        |
+| emoji?          | [Emoji](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/emoji) \| null         |
+| party?          | [Party](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/party) \| null         |
+| assets?         | [Assets](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/assets) \| null       |
+| secrets?        | [Secrets](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/secrets) \| null     |
+| instance?       | boolean \| null                                                       |
+| flags?          | number \| null                                                        |
+
+#### Assets
+
+| Property     | Type           |
+|--------------|----------------|
+| large_image? | string \| null |
+| large_text?  | string \| null |
+| small_image? | string \| null |
+| small_text?  | string \| null |
+
+#### Application
+
+| Property    | Type           |
+|-------------|----------------|
+| description | string         |
+| icon        | string \| null |
+| id          | string         |
+| rpc_origins | string\[\]     |
+| name        | string         |
+
+#### Attachment
+
+| Property  | Type   |
+|-----------|--------|
+| id        | string |
+| filename  | string |
+| size      | number |
+| url       | string |
+| proxy_url | string |
+| height?   | number |
+| width?    | number |
+
+#### AuthenticateRequest
+
+| Property      | Type           |
+|---------------|----------------|
+| access_token? | string \| null |
+
+#### AuthenticateResponse
+
+| Property     | Type                                                              |
+|--------------|-------------------------------------------------------------------|
+| access_token | string                                                            |
+| user         | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)               |
+| scopes       | string\[\]                                                        |
+| expires      | string                                                            |
+| application  | [Application](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/application) |
+
+#### AuthorizeRequest
+
+| Property               | Type                                                                |
+|------------------------|---------------------------------------------------------------------|
+| client_id              | string                                                              |
+| scope                  | [OAuthScopes](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/oauthscopes)[] |
+| response_type?         | 'code' \| 'token'                                                   |
+| code_challenge?        | string                                                              |
+| state?                 | string                                                              |
+| prompt?                | 'none'                                                              |
+| code_challenge_method? | 'S256'                                                              |
+
+
+#### AuthorizeResponse
+
+| Property | Type   |
+|----------|--------|
+| code     | string |
+
+#### AvatarDecorationData
+
+| Property | Type   |
+|----------|--------|
+| asset    | string |
+| sku_id?  | string |
+
+#### CaptureLogRequest
+
+| Property | Type                                                                |
+|----------|---------------------------------------------------------------------|
+| level    | [ConsoleLevel](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/consolelevel) |
+| message  | string                                                              |
+
+#### ChannelMention
+
+| Property | Type   |
+|----------|--------|
+| id       | string |
+| guild_id | string |
+| type     | number |
+| name     | string |
+
+#### Embed
+
+| Property Name | Property Type                                                         |
+|---------------|-----------------------------------------------------------------------|
+| title?        | string                                                                |
+| type?         | string                                                                |
+| description?  | string                                                                |
+| url?          | string                                                                |
+| timestamp?    | string                                                                |
+| color?        | number                                                                |
+| footer?       | [EmbedFooter](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedfooter)     |
+| image?        | Image                                                                 |
+| thumbnail?    | Image                                                                 |
+| video?        | [Video](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/video)                 |
+| provider?     | [EmbedProvider](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedprovider) |
+| author?       | [EmbedAuthor](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedauthor)     |
+| fields?       | [EmbedField](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedfield)[]     |
+
+#### EmbedAuthor
+
+| Property        | Type   |
+|-----------------|--------|
+| name?           | string |
+| url?            | string |
+| icon_url?       | string |
+| proxy_icon_url? | string |
+
+#### EmbedField
+
+| Property | Type    |
+|----------|---------|
+| name     | string  |
+| value    | string  |
+| inline   | boolean |
+
+#### EmbedFooter
+
+| Property        | Type   |
+|-----------------|--------|
+| text            | string |
+| icon_url?       | string |
+| proxy_icon_url? | string |
+
+#### EmbedProvider
+
+| Property | Type   |
+|----------|--------|
+| name?    | string |
+| url?     | string |
+
+#### Emoji
+
+| Property        | Property                                            |
+|-----------------|-----------------------------------------------------|
+| id              | string                                              |
+| name?           | string                                              |
+| roles?          | string[]                                            |
+| user?           | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) |
+| require_colons? | boolean                                             |
+| managed?        | boolean                                             |
+| animated?       | boolean                                             |
+| available?      | boolean                                             |
+
+#### EncourageHardwareAccelerationResponse
+
+| Property | Type    |
+|----------|---------|
+| enabled  | boolean |
+
+#### Entitlement
+
+| Property Name       | Property Type |
+|---------------------|---------------|
+| id                  | string        |
+| sku_id              | string        |
+| application_id      | string        |
+| user_id             | string        |
+| gift_code_flags     | number        |
+| type                | number        |
+| gifter_user_id?     | string        |
+| branches?           | string[]      |
+| starts_at?          | string        |
+| ends_at?            | string        |
+| parent_id?          | string        |
+| consumed?           | boolean       |
+| deleted?            | boolean       |
+| gift_code_batch_id? | string        |
+
+#### GetChannelPermissionsResponse
+
+| Property    | Type             |
+|-------------|------------------|
+| permissions | bigint \| string |
+
+#### GetChannelRequest
+
+| Property   | Type   |
+|------------|--------|
+| channel_id | string |
+
+#### GetChannelResponse
+
+| Property     | Type                                                                            |
+|--------------|---------------------------------------------------------------------------------|
+| id           | string                                                                          |
+| type         | [ChannelTypesObject](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channeltypesobject) |
+| guild_id     | string \| null                                                                  |
+| name         | string \| null                                                                  |
+| topic        | string \| null                                                                  |
+| bitrate      | number \| null                                                                  |
+| user_limit   | number \| null                                                                  |
+| position     | number \| null                                                                  |
+| voice_states | [UserVoiceState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/uservoicestate)[]       |
+| messages     | [Message](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/message)[]                     |
+
+#### GetEntitlementsResponse
+
+| Property     | Type                                                                |
+|--------------|---------------------------------------------------------------------|
+| entitlements | [Entitlement](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/entitlement)[] |
+
+#### GetInstanceConnectedParticipantsResponse
+
+| Property     | Type                                                  |
+|--------------|-------------------------------------------------------|
+| participants | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)[] |
+
+#### GetPlatformBehaviorsResponse
+
+| Property                | Type    |
+|-------------------------|---------|
+| iosKeyboardResizesView? | boolean |
+
+#### GetSkusResponse
+
+| Property | Type                                                |
+|----------|-----------------------------------------------------|
+| skus     | [Sku](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sku)[] |
+
+#### GuildMember
+
+| Property  | Type                                                |
+|-----------|-----------------------------------------------------|
+| user      | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) |
+| nick?     | string \| null                                      |
+| roles     | string[]                                            |
+| joined_at | string                                              |
+| deaf      | boolean                                             |
+| mute      | boolean                                             |
+
+#### Image
+
+| Property   | Type   |
+|------------|--------|
+| url?       | string |
+| proxy_url? | string |
+| height?    | number |
+| width?     | number |
+
+#### InitiateImageUploadResponse
+
+| Property  | Type   |
+|-----------|--------|
+| image_url | string |
+
+#### Message
+
+| Property            | Type                                                                            |
+|---------------------|---------------------------------------------------------------------------------|
+| id                  | string                                                                          |
+| channel_id          | string                                                                          |
+| guild_id?           | string                                                                          |
+| author              | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)                             |
+| member?             | [GuildMember](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/guildmember)               |
+| content             | string                                                                          |
+| timestamp           | string                                                                          |
+| edited_timestamp?   | string                                                                          |
+| tts                 | boolean                                                                         |
+| mention_everyone    | boolean                                                                         |
+| mentions            | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)[]                           |
+| mention_roles       | string[]                                                                        |
+| mention_channels?   | [ChannelMention](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channelmention)[]       |
+| attachments         | [Attachment](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/attachment)[]               |
+| embeds              | [Embed](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embed)[]                         |
+| reactions?          | [Reaction](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/reaction)[]                   |
+| nonce?              | string                                                                          |
+| pinned              | boolean                                                                         |
+| webhook_id?         | string                                                                          |
+| type                | number                                                                          |
+| activity?           | [MessageActivity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messageactivity)       |
+| application?        | [MessageApplication](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messageapplication) |
+| message_reference?  | [MessageReference](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messagereference)     |
+| flags?              | number                                                                          |
+| stickers?           | Sticker[]                                                                       |
+| referenced_message? | [Message](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/message)                       |
+
+#### MessageActivity
+
+| Property  | Type   |
+|-----------|--------|
+| type      | number |
+| party_id? | string |
+
+#### MessageApplication
+
+| Property     | Type   |
+|--------------|--------|
+| id           | string |
+| cover_image? | string |
+| description  | string |
+| icon?        | string |
+| name         | string |
+
+#### MessageReference
+
+| Property    | Type   |
+|-------------|--------|
+| message_id? | string |
+| channel_id? | string |
+| guild_id?   | string |
+
+#### OpenExternalLinkRequest
+
+| Property | Type   |
+|----------|--------|
+| url      | string |
+
+#### OpenInviteDialogRequest
+
+| Property | Type   |
+|----------|--------|
+| mediaUrl | string |
+
+#### Party
+
+| Property | Type           |
+|----------|----------------|
+| id?      | string \| null |
+| size?    | number[]       |
+
+#### Reaction
+
+| Property | Type                                                  |
+|----------|-------------------------------------------------------|
+| count    | number                                                |
+| me       | boolean                                               |
+| emoji    | [Emoji](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/emoji) |
+
+#### Secrets
+
+| Property | Type   |
+|----------|--------|
+| join?    | string |
+| match?   | string |
+
+#### SetActivityRequest
+
+| Property | Type                                                        |
+|----------|-------------------------------------------------------------|
+| activity | [Activity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/activity) |
+
+#### SetConfigRequest
+
+| Property            | Type    |
+|---------------------|---------|
+| use_interactive_pip | boolean |
+
+#### SetConfigResponse
+
+| Property            | Type    |
+|---------------------|---------|
+| use_interactive_pip | boolean |
+
+#### SetOrientationLockStateRequest
+
+| Property                      | Type                                                                                          |
+|-------------------------------|-----------------------------------------------------------------------------------------------|
+| lock_state                    | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
+| picture_in_picture_lock_state | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
+| grid_lock_state               | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
+
+#### Sku
+
+| Property       | Type                                                                  |
+|----------------|-----------------------------------------------------------------------|
+| id             | string                                                                |
+| type           | [SkuTypeObject](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/skutypeobject) |
+| price          | [SkuPrice](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/skuprice)           |
+| application_id | string                                                                |
+| flags          | number                                                                |
+| release_date   | string \| null                                                        |
+
+#### SkuPrice
+
+| Property | Type   |
+|----------|--------|
+| amount   | number |
+| currency | string |
+
+#### StartPurchaseRequest
+
+| Property | Type   |
+|----------|--------|
+| sku_id   | string |
+
+#### StartPurchaseResponse
+
+| Value                                                                       |
+|-----------------------------------------------------------------------------|
+| [Entitlement](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/entitlement)[] \| null |
+
+#### Timestamp
+
+| Property | Type   |
+|----------|--------|
+| start    | number |
+| end      | number |
+
+#### User
+
+| Property               | Type                                                                                |
+|------------------------|-------------------------------------------------------------------------------------|
+| username               | string                                                                              |
+| discriminator          | string                                                                              |
+| id                     | string                                                                              |
+| avatar                 | string \| null                                                                      |
+| avatar_decoration_data | [AvatarDecorationData](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/avatardecorationdata) |
+| public_flags           | number                                                                              |
+| global_name            | string \| null                                                                      |
+| bot                    | boolean                                                                             |
+| flags?                 | number \| null                                                                      |
+| premium_type?          | number \| null                                                                      |
+| nickname?              | string \| null                                                                      |
+
+#### UserSettingsGetLocaleResponse
+
+| Property | Type   |
+|----------|--------|
+| locale   | string |
+
+#### UserVoiceState
+
+| Property    | Type                                                            |
+|-------------|-----------------------------------------------------------------|
+| mute        | boolean                                                         |
+| nick        | string                                                          |
+| user        | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)             |
+| voice_state | [VoiceState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/voicestate) |
+| volume      | number                                                          |
+
+#### Video
+
+| Property | Type   |
+|----------|--------|
+| url?     | string |
+| height?  | number |
+| width?   | number |
+
+#### VoiceState
+
+| Property  | Type    |
+|-----------|---------|
+| mute      | boolean |
+| deaf      | boolean |
+| self_mute | boolean |
+| self_deaf | boolean |
+| suppress  | boolean |
+
+## SDK Enums
+
+#### ChannelTypesObject
+
+| Name                | Value |
+|---------------------|-------|
+| UNHANDLED           | -1    |
+| DM                  | 1     |
+| GROUP_DM            | 3     |
+| GUILD_TEXT          | 0     |
+| GUILD_VOICE         | 2     |
+| GUILD_CATEGORY      | 4     |
+| GUILD_ANNOUNCEMENT  | 5     |
+| GUILD_STORE         | 6     |
+| ANNOUNCEMENT_THREAD | 10    |
+| PUBLIC_THREAD       | 11    |
+| PRIVATE_THREAD      | 12    |
+| GUILD_STAGE_VOICE   | 13    |
+| GUILD_DIRECTORY     | 14    |
+| GUILD_FORUM         | 15    |
+
+#### ConsoleLevel
+
+| Value   |
+|---------|
+| 'error' |
+| 'log'   |
+| 'warn'  |
+| 'debug' |
+| 'info'  |
+
+#### OrientationLockStateTypeObject
+
+| Name      | Value |
+|-----------|-------|
+| UNHANDLED | -1    |
+| UNLOCKED  | 1     |
+| PORTRAIT  | 2     |
+| LANDSCAPE | 3     |
+
+#### ThermalStateTypeObject
+
+| Name      | Value |
+|-----------|-------|
+| UNHANDLED | -1    |
+| NOMINAL   | 0     |
+| FAIR      | 1     |
+| SERIOUS   | 2     |
+| CRITICAL  | 3     |
+
+#### OrientationTypeObject
+
+| Name      | Value |
+|-----------|-------|
+| UNHANDLED | -1    |
+| PORTRAIT  | 0     |
+| LANDSCAPE | 1     |
+
+#### LayoutModeTypeObject
+
+| Name      | Value |
+|-----------|-------|
+| UNHANDLED | -1    |
+| FOCUSED   | 0     |
+| PIP       | 1     |
+| GRID      | 2     |
+
+#### OAuthScopes
+
+| Value                        |
+|------------------------------|
+| 'bot'                        |
+| 'rpc'                        |
+| 'identify'                   |
+| 'connections'                |
+| 'email'                      |
+| 'guilds'                     |
+| 'guilds.join'                |
+| 'guilds.members.read'        |
+| 'gdm.join'                   |
+| 'messages.read'              |
+| 'rpc.notifications.read'     |
+| 'rpc.voice.write'            |
+| 'rpc.voice.read'             |
+| 'rpc.activities.write'       |
+| 'webhook.incoming'           |
+| 'applications.commands'      |
+| 'applications.builds.upload' |
+| 'applications.builds.read'   |
+| 'applications.store.update'  |
+| 'applications.entitlements'  |
+| 'relationships.read'         |
+| 'activities.read'            |
+| 'activities.write'           |
+| 'dm_channels.read';          |
+
+#### RPCCloseCodes
+
+| Name              | Code |
+|-------------------|------|
+| CLOSE_NORMAL      | 1000 |
+| CLOSE_UNSUPPORTED | 1003 |
+| CLOSE_ABNORMAL    | 1006 |
+| INVALID_CLIENTID  | 4000 |
+| INVALID_ORIGIN    | 4001 |
+| RATELIMITED       | 4002 |
+| TOKEN_REVOKED     | 4003 |
+| INVALID_VERSION   | 4004 |
+| INVALID_ENCODING  | 4005 |
+
+#### SkuTypeObject
+
+| Name         | Value |
+|--------------|-------|
+| UNHANDLED    | -1    |
+| APPLICATION  | 1     |
+| DLC          | 2     |
+| CONSUMABLE   | 3     |
+| BUNDLE       | 4     |
+| SUBSCRIPTION | 5     |

@@ -6,6 +6,8 @@ sidebar_label: Webhook
 
 Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
 
+Apps can also subscribe to webhook events (i.e. outgoing webhooks) when events happen *in* Discord, which is detailed in the [Webhook Events](#DOCS_EVENTS_WEBHOOK_EVENTS) documentation.
+
 ### Webhook Object
 
 Used to represent a webhook.
@@ -30,6 +32,9 @@ Used to represent a webhook.
 \* These fields will be absent if the webhook creator has since lost access to the guild where the followed channel resides
 
 ###### Webhook Types
+
+> info
+> These types don't include [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS), which are outgoing webhooks sent to your app by Discord. See [Webhook Events](#DOCS_EVENTS_WEBHOOK_EVENTS) for details.
 
 | Value | Name             | Description                                                                                                    |
 |-------|------------------|----------------------------------------------------------------------------------------------------------------|
@@ -105,7 +110,7 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
 
@@ -134,13 +139,16 @@ Returns a list of guild [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object
 
 Returns the new [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object for the given id.
 
+This request requires the `MANAGE_WEBHOOKS` permission unless the application making the request owns the
+webhook. [(see: webhook.application_id)](#DOCS_RESOURCES_WEBHOOK/webhook-object)
+
 ## Get Webhook with Token % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
 Same as above, except this call does not require authentication and returns no user in the webhook object.
 
 ## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional
@@ -162,7 +170,7 @@ Same as above, except this call does not require authentication, does not accept
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.

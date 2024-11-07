@@ -174,10 +174,10 @@ This is sent on the [message object](#DOCS_RESOURCES_MESSAGE/message-object) whe
 
 When a user interacts with your app, your app will receive an **[Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. Your app can receive an interaction in one of two ways:
 
--   Via [Interaction Create](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) gateway event
+-   Via [Interaction Create](#DOCS_EVENTS_GATEWAY_EVENTS/interaction-create) gateway event
 -   Via outgoing webhook
 
-These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
+These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` [Gateway Event](#DOCS_EVENTS_GATEWAY_EVENTS/interaction-create) may be handled by connected clients, while the webhook method detailed below does not require a connected client.
 
 If you want to receive interactions via HTTP-based outgoing webhooks, you must configure an Interactions Endpoint URL for your app. You can read about preparing and adding an Interactions Endpoint URL to your app in the [Preparing for Interactions](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) section in Interactions Overview.
 
@@ -273,6 +273,8 @@ Not all message fields are currently supported.
 
 When responding to an interaction received, you can make a `POST` request to `/interactions/<interaction_id>/<interaction_token>/callback`. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload.
 
+If you are receiving Interactions over the gateway, you **have to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
+
 **If you send this request for an interaction received over HTTP, respond to the original HTTP request with a 202 and no body.**
 
 ```py
@@ -292,8 +294,8 @@ r = requests.post(url, json=json)
 > info
 > Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
 
-<Collapsible title="Inline HTTP Reponse Behavior" icon="code">
-    Your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
+<Collapsible title="Inline HTTP Response Behavior" icon="code">
+    If you receive interactions over HTTP, your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
 
     ```py
     @app.route('/', methods=['POST'])
@@ -314,22 +316,20 @@ r = requests.post(url, json=json)
                 }
             })
     ```
-
-    If you are receiving Interactions over the gateway, you **have to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
 </Collapsible>
 
 ###### Interaction Callback Response Object
 
-| Field       | Type                                                                                                                                 | Description                                                |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-object)          | The interaction object associated with the                 |
-| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response. |
+| Field       | Type                                                                                                                                 | Description                                                      |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| interaction | [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-object)          | The interaction object associated with the interaction response. |
+| resource?   | [interaction resource object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response.       |
 
 ###### Interaction Callback Object
 
 | Field                       | Type      | Description                                                                                         |
 |-----------------------------|-----------|-----------------------------------------------------------------------------------------------------|
-| id                          | snowflake |                                                                                                     |
+| id                          | snowflake | ID of the interaction                                                                               |
 | type                        | integer   | [Interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) |
 | activity_instance_id?       | string    | Instance ID of the Activity if one was launched or joined                                           |
 | response_message_id?        | snowflake | ID of the message that was created by the interaction                                               |
@@ -382,9 +382,9 @@ This endpoint also supports file attachments similar to the webhook endpoints. R
 
 ###### Query String Params
 
-| Field          | Type                                             | Description                                                                           |
-|----------------|--------------------------------------------------|---------------------------------------------------------------------------------------|
-| with_response? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include a [interaction callback response] as the response instead of a 204 |
+| Field          | Type                                             | Description                                                                                                                                                                |
+|----------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_response? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether to include an [interaction callback object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-callback-interaction-callback-response-object) as the response |
 
 
 ## Get Original Interaction Response % GET /webhooks/\{application.id#DOCS_RESOURCES_APPLICATION/application-object\}/\{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object\}/messages/@original

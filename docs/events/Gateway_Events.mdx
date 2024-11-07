@@ -1,3 +1,7 @@
+---
+sidebar_label: Gateway Events
+---
+
 # Gateway Events
 
 Gateway connections are WebSockets, meaning they're bidirectional and either side of the WebSocket can send events to the other. The following events are split up into two types:
@@ -5,16 +9,16 @@ Gateway connections are WebSockets, meaning they're bidirectional and either sid
 - **Send events** are Gateway events sent by an app to Discord (like when identifying with the Gateway)
 - **Receive events** are Gateway events that are sent by Discord to an app. These events typically represent something happening inside of a server where an app is installed, like a channel being updated.
 
-All Gateway events are encapsulated in a [Gateway event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure).
+All Gateway events are encapsulated in a [Gateway event payload](#DOCS_EVENTS_GATEWAY_EVENTS/payload-structure).
 
-For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
+For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_EVENTS_GATEWAY).
 
 > warn
 > Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
 
 ### Event Names
 
-In practice, event names are UPPER-CASED with under_scores joining each word in the name. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) would be `VOICE_STATE_UPDATE`.
+In practice, event names are UPPER-CASED with under_scores joining each word in the name. For instance, [Channel Create](#DOCS_EVENTS_GATEWAY_EVENTS/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-state-update) would be `VOICE_STATE_UPDATE`.
 
 For readability, event names in the following documentation are typically left in Title Case.
 
@@ -26,7 +30,7 @@ Gateway event payloads have a common structure, but the contents of the associat
 |-------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | op    | integer                 | [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes), which indicates the payload type                                |
 | d     | ?mixed (any JSON value) | Event data                                                                                                                                       |
-| s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/sending-heartbeats) |
+| s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_EVENTS_GATEWAY/resuming) and [heartbeating](#DOCS_EVENTS_GATEWAY/sending-heartbeats) |
 | t     | ?string \*              | Event name                                                                                                                                       |
 
 \* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)).
@@ -44,37 +48,38 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 ## Send Events
 
-Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by an app to Discord through a Gateway connection.
+Send events are Gateway events encapsulated in an [event payload](#DOCS_EVENTS_GATEWAY_EVENTS/payload-structure), and are sent by an app to Discord through a Gateway connection.
 
 > info
 > Previously, Gateway send events were labeled as commands
 
-| Name                                                                       | Description                                               |
-|----------------------------------------------------------------------------|-----------------------------------------------------------|
-| [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify)                           | Triggers the initial handshake with the gateway           |
-| [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)                               | Resumes a dropped gateway connection                      |
-| [Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat)                         | Maintains an active gateway connection                    |
-| [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) | Requests members for a guild                              |
-| [Update Voice State](#DOCS_TOPICS_GATEWAY_EVENTS/update-voice-state)       | Joins, moves, or disconnects the app from a voice channel |
-| [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates an app's presence                                 |
+| Name                                                                               | Description                                               |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------|
+| [Identify](#DOCS_EVENTS_GATEWAY_EVENTS/identify)                                   | Triggers the initial handshake with the gateway           |
+| [Resume](#DOCS_EVENTS_GATEWAY_EVENTS/resume)                                       | Resumes a dropped gateway connection                      |
+| [Heartbeat](#DOCS_EVENTS_GATEWAY_EVENTS/heartbeat)                                 | Maintains an active gateway connection                    |
+| [Request Guild Members](#DOCS_EVENTS_GATEWAY_EVENTS/request-guild-members)         | Requests members for a guild                              |
+| [Request Soundboard Sounds](#DOCS_EVENTS_GATEWAY_EVENTS/request-soundboard-sounds) | Requests soundboard sounds in a set of guilds             |
+| [Update Voice State](#DOCS_EVENTS_GATEWAY_EVENTS/update-voice-state)               | Joins, moves, or disconnects the app from a voice channel |
+| [Update Presence](#DOCS_EVENTS_GATEWAY_EVENTS/update-presence)                     | Updates an app's presence                                 |
 
 #### Identify
 
 Used to trigger the initial handshake with the gateway.
 
-Details about identifying is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/identifying).
+Details about identifying is in the [Gateway documentation](#DOCS_EVENTS_GATEWAY/identifying).
 
 ###### Identify Structure
 
 | Field            | Type                                                                  | Description                                                                                                                    | Default |
 |------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|---------|
 | token            | string                                                                | Authentication token                                                                                                           | -       |
-| properties       | object                                                                | [Connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties)                                   | -       |
+| properties       | object                                                                | [Connection properties](#DOCS_EVENTS_GATEWAY_EVENTS/identify-identify-connection-properties)                                   | -       |
 | compress?        | boolean                                                               | Whether this connection supports compression of packets                                                                        | false   |
 | large_threshold? | integer                                                               | Value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
-| shard?           | array of two integers (shard_id, num_shards)                          | Used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
-| presence?        | [update presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence) object | Presence structure for initial presence information                                                                            | -       |
-| intents          | integer                                                               | [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                    | -       |
+| shard?           | array of two integers (shard_id, num_shards)                          | Used for [Guild Sharding](#DOCS_EVENTS_GATEWAY/sharding)                                                                       | -       |
+| presence?        | [update presence](#DOCS_EVENTS_GATEWAY_EVENTS/update-presence) object | Presence structure for initial presence information                                                                            | -       |
+| intents          | integer                                                               | [Gateway Intents](#DOCS_EVENTS_GATEWAY/gateway-intents) you wish to receive                                                    | -       |
 
 ###### Identify Connection Properties
 
@@ -122,7 +127,7 @@ Details about identifying is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 
 Used to replay missed events when a disconnected client resumes.
 
-Details about resuming are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/resuming).
+Details about resuming are in the [Gateway documentation](#DOCS_EVENTS_GATEWAY/resuming).
 
 ###### Resume Structure
 
@@ -147,9 +152,9 @@ Details about resuming are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/r
 
 #### Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello) payload is received. The inner `d` key is the last sequence number—`s`—received by the client. If you have not yet received one, send `null`.
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Opcode 10 Hello](#DOCS_EVENTS_GATEWAY_EVENTS/hello) payload is received. The inner `d` key is the last sequence number—`s`—received by the client. If you have not yet received one, send `null`.
 
-Details about heartbeats are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/sending-heartbeats).
+Details about heartbeats are in the [Gateway documentation](#DOCS_EVENTS_GATEWAY/sending-heartbeats).
 
 ###### Example Heartbeat
 
@@ -162,7 +167,7 @@ Details about heartbeats are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY
 
 #### Request Guild Members
 
-Used to request all members for a guild or a list of guilds. When initially connecting, if you don't have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild is over 75k members, it will only send members who are in voice, plus the member for you (the connecting user). Otherwise, if a guild has over `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify)), it will only send members who are online, have a role, have a nickname, or are in a voice channel, and if it has under `large_threshold` members, it will send all members. If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request all members for a guild or a list of guilds. When initially connecting, if you don't have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents), or if the guild is over 75k members, it will only send members who are in voice, plus the member for you (the connecting user). Otherwise, if a guild has over `large_threshold` members (value in the [Gateway Identify](#DOCS_EVENTS_GATEWAY_EVENTS/identify)), it will only send members who are online, have a role, have a nickname, or are in a voice channel, and if it has under `large_threshold` members, it will send all members. If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_EVENTS_GATEWAY_EVENTS/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
@@ -181,7 +186,7 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
-| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) response                                 | false                      |
+| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_EVENTS_GATEWAY_EVENTS/guild-members-chunk) response                                 | false                      |
 
 > info
 > Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
@@ -195,6 +200,27 @@ Due to our privacy and infrastructural concerns with this feature, there are som
     "guild_id": "41771983444115456",
     "query": "",
     "limit": 0
+  }
+}
+```
+
+#### Request Soundboard Sounds
+
+Used to request soundboard sounds for a list of guilds. The server will send [Soundboard Sounds](#DOCS_EVENTS_GATEWAY_EVENTS/soundboard-sounds) events for each guild in response.
+
+###### Request Soundboard Sounds Structure
+
+| Field     | Type                | Description                                    |
+|-----------|---------------------|------------------------------------------------|
+| guild_ids | array of snowflakes | IDs of the guilds to get soundboard sounds for |
+
+###### Example Request Soundboard Sounds
+
+```json
+{
+  "op": 31,
+  "d": {
+    "guild_ids": ["613425648685547541", "81384788765712384"]
   }
 }
 ```
@@ -235,8 +261,8 @@ Sent by the client to indicate a presence or status update.
 | Field      | Type                                                                     | Description                                                                                 |
 |------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | since      | ?integer                                                                 | Unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| activities | array of [activity](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) objects | User's activities                                                                           |
-| status     | string                                                                   | User's new [status](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence-status-types)               |
+| activities | array of [activity](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object) objects | User's activities                                                                           |
+| status     | string                                                                   | User's new [status](#DOCS_EVENTS_GATEWAY_EVENTS/update-presence-status-types)               |
 | afk        | boolean                                                                  | Whether or not the client is afk                                                            |
 
 ###### Status Types
@@ -268,83 +294,88 @@ Sent by the client to indicate a presence or status update.
 
 ## Receive Events
 
-Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
+Receive events are Gateway events encapsulated in an [event payload](#DOCS_EVENTS_GATEWAY_EVENTS/payload-structure), and are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
 
 | Name                                                                                                         | Description                                                                                                                                    |
 |--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello)                                                                   | Defines the heartbeat interval                                                                                                                 |
-| [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready)                                                                   | Contains the initial state information                                                                                                         |
-| [Resumed](#DOCS_TOPICS_GATEWAY_EVENTS/resumed)                                                               | Response to [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)                                                                                       |
-| [Reconnect](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect)                                                           | Server is going away, client should reconnect to gateway and resume                                                                            |
-| [Invalid Session](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session)                                               | Failure response to [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) or [Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume) or invalid active session |
-| [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY_EVENTS/application-command-permissions-update) | Application command permission was updated                                                                                                     |
-| [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create)                       | Auto Moderation rule was created                                                                                                               |
-| [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update)                       | Auto Moderation rule was updated                                                                                                               |
-| [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete)                       | Auto Moderation rule was deleted                                                                                                               |
-| [Auto Moderation Action Execution](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution)             | Auto Moderation rule was triggered and an action was executed (e.g. a message was blocked)                                                     |
-| [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create)                                                 | New guild channel created                                                                                                                      |
-| [Channel Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-update)                                                 | Channel was updated                                                                                                                            |
-| [Channel Delete](#DOCS_TOPICS_GATEWAY_EVENTS/channel-delete)                                                 | Channel was deleted                                                                                                                            |
-| [Channel Pins Update](#DOCS_TOPICS_GATEWAY_EVENTS/channel-pins-update)                                       | Message was pinned or unpinned                                                                                                                 |
-| [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create)                                                   | Thread created, also sent when being added to a private thread                                                                                 |
-| [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update)                                                   | Thread was updated                                                                                                                             |
-| [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete)                                                   | Thread was deleted                                                                                                                             |
-| [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync)                                             | Sent when gaining access to a channel, contains all active threads in that channel                                                             |
-| [Thread Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-member-update)                                     | [Thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                                 |
-| [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update)                                   | Some user(s) were added to or removed from a thread                                                                                            |
-| [Entitlement Create](#DOCS_TOPICS_GATEWAY_EVENTS/entitlement-create)                                         | Entitlement was created                                                                                                                        |
-| [Entitlement Update](#DOCS_TOPICS_GATEWAY_EVENTS/entitlement-update)                                         | Entitlement was updated or renewed                                                                                                             |
-| [Entitlement Delete](#DOCS_TOPICS_GATEWAY_EVENTS/entitlement-delete)                                         | Entitlement was deleted                                                                                                                        |
-| [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
-| [Guild Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
-| [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
-| [Guild Audit Log Entry Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                            |
-| [Guild Ban Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-add)                                                   | User was banned from a guild                                                                                                                   |
-| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-ban-remove)                                             | User was unbanned from a guild                                                                                                                 |
-| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-emojis-update)                                       | Guild emojis were updated                                                                                                                      |
-| [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update)                                   | Guild stickers were updated                                                                                                                    |
-| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-integrations-update)                           | Guild integration was updated                                                                                                                  |
-| [Guild Member Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-add)                                             | New user joined a guild                                                                                                                        |
-| [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove)                                       | User was removed from a guild                                                                                                                  |
-| [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update)                                       | Guild member was updated                                                                                                                       |
-| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk)                                       | Response to [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members)                                                         |
-| [Guild Role Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-create)                                           | Guild role was created                                                                                                                         |
-| [Guild Role Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-update)                                           | Guild role was updated                                                                                                                         |
-| [Guild Role Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-role-delete)                                           | Guild role was deleted                                                                                                                         |
-| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-create)                     | Guild scheduled event was created                                                                                                              |
-| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-update)                     | Guild scheduled event was updated                                                                                                              |
-| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-delete)                     | Guild scheduled event was deleted                                                                                                              |
-| [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-user-add)                 | User subscribed to a guild scheduled event                                                                                                     |
-| [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-scheduled-event-user-remove)           | User unsubscribed from a guild scheduled event                                                                                                 |
-| [Integration Create](#DOCS_TOPICS_GATEWAY_EVENTS/integration-create)                                         | Guild integration was created                                                                                                                  |
-| [Integration Update](#DOCS_TOPICS_GATEWAY_EVENTS/integration-update)                                         | Guild integration was updated                                                                                                                  |
-| [Integration Delete](#DOCS_TOPICS_GATEWAY_EVENTS/integration-delete)                                         | Guild integration was deleted                                                                                                                  |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create)                                         | User used an interaction, such as an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/)                                           |
-| [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create)                                                   | Invite to a channel was created                                                                                                                |
-| [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete)                                                   | Invite to a channel was deleted                                                                                                                |
-| [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create)                                                 | Message was created                                                                                                                            |
-| [Message Update](#DOCS_TOPICS_GATEWAY_EVENTS/message-update)                                                 | Message was edited                                                                                                                             |
-| [Message Delete](#DOCS_TOPICS_GATEWAY_EVENTS/message-delete)                                                 | Message was deleted                                                                                                                            |
-| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY_EVENTS/message-delete-bulk)                                       | Multiple messages were deleted at once                                                                                                         |
-| [Message Reaction Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-add)                                     | User reacted to a message                                                                                                                      |
-| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove)                               | User removed a reaction from a message                                                                                                         |
-| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-all)                       | All reactions were explicitly removed from a message                                                                                           |
-| [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji)                   | All reactions for a given emoji were explicitly removed from a message                                                                         |
-| [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                               | User was updated                                                                                                                               |
-| [Stage Instance Create](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-create)                                   | Stage instance was created                                                                                                                     |
-| [Stage Instance Update](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-update)                                   | Stage instance was updated                                                                                                                     |
-| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
-| [Subscription Create](#DOCS_TOPICS_GATEWAY_EVENTS/subscription-create)                                       | Premium App Subscription was created                                                                                                           |
-| [Subscription Update](#DOCS_TOPICS_GATEWAY_EVENTS/subscription-update)                                       | Premium App Subscription was updated                                                                                                           |
-| [Subscription Delete](#DOCS_TOPICS_GATEWAY_EVENTS/subscription-delete)                                       | Premium App Subscription was deleted                                                                                                           |
-| [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start)                                                     | User started typing in a channel                                                                                                               |
-| [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update)                                                       | Properties about the user changed                                                                                                              |
-| [Voice Channel Effect Send](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                     |
-| [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
-| [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
-| [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
-| [Message Poll Vote Add](#DOCS_TOPICS_GATEWAY_EVENTS/message-poll-vote-add)                                   | User voted on a poll                                                                                                                           |
-| [Message Poll Vote Remove](#DOCS_TOPICS_GATEWAY_EVENTS/message-poll-vote-remove)                             | User removed a vote on a poll                                                                                                                  |
+| [Hello](#DOCS_EVENTS_GATEWAY_EVENTS/hello)                                                                   | Defines the heartbeat interval                                                                                                                 |
+| [Ready](#DOCS_EVENTS_GATEWAY_EVENTS/ready)                                                                   | Contains the initial state information                                                                                                         |
+| [Resumed](#DOCS_EVENTS_GATEWAY_EVENTS/resumed)                                                               | Response to [Resume](#DOCS_EVENTS_GATEWAY_EVENTS/resume)                                                                                       |
+| [Reconnect](#DOCS_EVENTS_GATEWAY_EVENTS/reconnect)                                                           | Server is going away, client should reconnect to gateway and resume                                                                            |
+| [Invalid Session](#DOCS_EVENTS_GATEWAY_EVENTS/invalid-session)                                               | Failure response to [Identify](#DOCS_EVENTS_GATEWAY_EVENTS/identify) or [Resume](#DOCS_EVENTS_GATEWAY_EVENTS/resume) or invalid active session |
+| [Application Command Permissions Update](#DOCS_EVENTS_GATEWAY_EVENTS/application-command-permissions-update) | Application command permission was updated                                                                                                     |
+| [Auto Moderation Rule Create](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-rule-create)                       | Auto Moderation rule was created                                                                                                               |
+| [Auto Moderation Rule Update](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-rule-update)                       | Auto Moderation rule was updated                                                                                                               |
+| [Auto Moderation Rule Delete](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-rule-delete)                       | Auto Moderation rule was deleted                                                                                                               |
+| [Auto Moderation Action Execution](#DOCS_EVENTS_GATEWAY_EVENTS/auto-moderation-action-execution)             | Auto Moderation rule was triggered and an action was executed (e.g. a message was blocked)                                                     |
+| [Channel Create](#DOCS_EVENTS_GATEWAY_EVENTS/channel-create)                                                 | New guild channel created                                                                                                                      |
+| [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update)                                                 | Channel was updated                                                                                                                            |
+| [Channel Delete](#DOCS_EVENTS_GATEWAY_EVENTS/channel-delete)                                                 | Channel was deleted                                                                                                                            |
+| [Channel Pins Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-pins-update)                                       | Message was pinned or unpinned                                                                                                                 |
+| [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create)                                                   | Thread created, also sent when being added to a private thread                                                                                 |
+| [Thread Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-update)                                                   | Thread was updated                                                                                                                             |
+| [Thread Delete](#DOCS_EVENTS_GATEWAY_EVENTS/thread-delete)                                                   | Thread was deleted                                                                                                                             |
+| [Thread List Sync](#DOCS_EVENTS_GATEWAY_EVENTS/thread-list-sync)                                             | Sent when gaining access to a channel, contains all active threads in that channel                                                             |
+| [Thread Member Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-member-update)                                     | [Thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                                 |
+| [Thread Members Update](#DOCS_EVENTS_GATEWAY_EVENTS/thread-members-update)                                   | Some user(s) were added to or removed from a thread                                                                                            |
+| [Entitlement Create](#DOCS_EVENTS_GATEWAY_EVENTS/entitlement-create)                                         | Entitlement was created                                                                                                                        |
+| [Entitlement Update](#DOCS_EVENTS_GATEWAY_EVENTS/entitlement-update)                                         | Entitlement was updated or renewed                                                                                                             |
+| [Entitlement Delete](#DOCS_EVENTS_GATEWAY_EVENTS/entitlement-delete)                                         | Entitlement was deleted                                                                                                                        |
+| [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create)                                                     | Lazy-load for unavailable guild, guild became available, or user joined a new guild                                                            |
+| [Guild Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-update)                                                     | Guild was updated                                                                                                                              |
+| [Guild Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-delete)                                                     | Guild became unavailable, or user left/was removed from a guild                                                                                |
+| [Guild Audit Log Entry Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-audit-log-entry-create)                     | A guild audit log entry was created                                                                                                            |
+| [Guild Ban Add](#DOCS_EVENTS_GATEWAY_EVENTS/guild-ban-add)                                                   | User was banned from a guild                                                                                                                   |
+| [Guild Ban Remove](#DOCS_EVENTS_GATEWAY_EVENTS/guild-ban-remove)                                             | User was unbanned from a guild                                                                                                                 |
+| [Guild Emojis Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-emojis-update)                                       | Guild emojis were updated                                                                                                                      |
+| [Guild Stickers Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-stickers-update)                                   | Guild stickers were updated                                                                                                                    |
+| [Guild Integrations Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-integrations-update)                           | Guild integration was updated                                                                                                                  |
+| [Guild Member Add](#DOCS_EVENTS_GATEWAY_EVENTS/guild-member-add)                                             | New user joined a guild                                                                                                                        |
+| [Guild Member Remove](#DOCS_EVENTS_GATEWAY_EVENTS/guild-member-remove)                                       | User was removed from a guild                                                                                                                  |
+| [Guild Member Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-member-update)                                       | Guild member was updated                                                                                                                       |
+| [Guild Members Chunk](#DOCS_EVENTS_GATEWAY_EVENTS/guild-members-chunk)                                       | Response to [Request Guild Members](#DOCS_EVENTS_GATEWAY_EVENTS/request-guild-members)                                                         |
+| [Guild Role Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-role-create)                                           | Guild role was created                                                                                                                         |
+| [Guild Role Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-role-update)                                           | Guild role was updated                                                                                                                         |
+| [Guild Role Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-role-delete)                                           | Guild role was deleted                                                                                                                         |
+| [Guild Scheduled Event Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-scheduled-event-create)                     | Guild scheduled event was created                                                                                                              |
+| [Guild Scheduled Event Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-scheduled-event-update)                     | Guild scheduled event was updated                                                                                                              |
+| [Guild Scheduled Event Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-scheduled-event-delete)                     | Guild scheduled event was deleted                                                                                                              |
+| [Guild Scheduled Event User Add](#DOCS_EVENTS_GATEWAY_EVENTS/guild-scheduled-event-user-add)                 | User subscribed to a guild scheduled event                                                                                                     |
+| [Guild Scheduled Event User Remove](#DOCS_EVENTS_GATEWAY_EVENTS/guild-scheduled-event-user-remove)           | User unsubscribed from a guild scheduled event                                                                                                 |
+| [Guild Soundboard Sound Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sound-create)                   | Guild soundboard sound was created                                                                                                             |
+| [Guild Soundboard Sound Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sound-update)                   | Guild soundboard sound was updated                                                                                                             |
+| [Guild Soundboard Sound Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sound-delete)                   | Guild soundboard sound was deleted                                                                                                             |
+| [Guild Soundboard Sounds Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-soundboard-sounds-update)                 | Guild soundboard sounds were updated                                                                                                           |
+| [Soundboard Sounds](#DOCS_EVENTS_GATEWAY_EVENTS/soundboard-sounds)                                           | Response to [Request Soundboard Sounds](#DOCS_EVENTS_GATEWAY_EVENTS/request-soundboard-sounds)                                                 |
+| [Integration Create](#DOCS_EVENTS_GATEWAY_EVENTS/integration-create)                                         | Guild integration was created                                                                                                                  |
+| [Integration Update](#DOCS_EVENTS_GATEWAY_EVENTS/integration-update)                                         | Guild integration was updated                                                                                                                  |
+| [Integration Delete](#DOCS_EVENTS_GATEWAY_EVENTS/integration-delete)                                         | Guild integration was deleted                                                                                                                  |
+| [Interaction Create](#DOCS_EVENTS_GATEWAY_EVENTS/interaction-create)                                         | User used an interaction, such as an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/)                                           |
+| [Invite Create](#DOCS_EVENTS_GATEWAY_EVENTS/invite-create)                                                   | Invite to a channel was created                                                                                                                |
+| [Invite Delete](#DOCS_EVENTS_GATEWAY_EVENTS/invite-delete)                                                   | Invite to a channel was deleted                                                                                                                |
+| [Message Create](#DOCS_EVENTS_GATEWAY_EVENTS/message-create)                                                 | Message was created                                                                                                                            |
+| [Message Update](#DOCS_EVENTS_GATEWAY_EVENTS/message-update)                                                 | Message was edited                                                                                                                             |
+| [Message Delete](#DOCS_EVENTS_GATEWAY_EVENTS/message-delete)                                                 | Message was deleted                                                                                                                            |
+| [Message Delete Bulk](#DOCS_EVENTS_GATEWAY_EVENTS/message-delete-bulk)                                       | Multiple messages were deleted at once                                                                                                         |
+| [Message Reaction Add](#DOCS_EVENTS_GATEWAY_EVENTS/message-reaction-add)                                     | User reacted to a message                                                                                                                      |
+| [Message Reaction Remove](#DOCS_EVENTS_GATEWAY_EVENTS/message-reaction-remove)                               | User removed a reaction from a message                                                                                                         |
+| [Message Reaction Remove All](#DOCS_EVENTS_GATEWAY_EVENTS/message-reaction-remove-all)                       | All reactions were explicitly removed from a message                                                                                           |
+| [Message Reaction Remove Emoji](#DOCS_EVENTS_GATEWAY_EVENTS/message-reaction-remove-emoji)                   | All reactions for a given emoji were explicitly removed from a message                                                                         |
+| [Presence Update](#DOCS_EVENTS_GATEWAY_EVENTS/presence-update)                                               | User was updated                                                                                                                               |
+| [Stage Instance Create](#DOCS_EVENTS_GATEWAY_EVENTS/stage-instance-create)                                   | Stage instance was created                                                                                                                     |
+| [Stage Instance Update](#DOCS_EVENTS_GATEWAY_EVENTS/stage-instance-update)                                   | Stage instance was updated                                                                                                                     |
+| [Stage Instance Delete](#DOCS_EVENTS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
+| [Subscription Create](#DOCS_EVENTS_GATEWAY_EVENTS/subscription-create)                                       | Premium App Subscription was created                                                                                                           |
+| [Subscription Update](#DOCS_EVENTS_GATEWAY_EVENTS/subscription-update)                                       | Premium App Subscription was updated                                                                                                           |
+| [Subscription Delete](#DOCS_EVENTS_GATEWAY_EVENTS/subscription-delete)                                       | Premium App Subscription was deleted                                                                                                           |
+| [Typing Start](#DOCS_EVENTS_GATEWAY_EVENTS/typing-start)                                                     | User started typing in a channel                                                                                                               |
+| [User Update](#DOCS_EVENTS_GATEWAY_EVENTS/user-update)                                                       | Properties about the user changed                                                                                                              |
+| [Voice Channel Effect Send](#DOCS_EVENTS_GATEWAY_EVENTS/voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                     |
+| [Voice State Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
+| [Voice Server Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
+| [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
+| [Message Poll Vote Add](#DOCS_EVENTS_GATEWAY_EVENTS/message-poll-vote-add)                                   | User voted on a poll                                                                                                                           |
+| [Message Poll Vote Remove](#DOCS_EVENTS_GATEWAY_EVENTS/message-poll-vote-remove)                             | User removed a vote on a poll                                                                                                                  |
 
 #### Hello
 
@@ -371,7 +402,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that an app 
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
+`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) events.
 
 ###### Ready Event Fields
 
@@ -382,16 +413,16 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds             | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | Guilds the user is in                                                                                     |
 | session_id         | string                                                                               | Used for resuming connections                                                                             |
 | resume_gateway_url | string                                                                               | Gateway URL for resuming connections                                                                      |
-| shard?             | array of two integers (shard_id, num_shards)                                         | [Shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| shard?             | array of two integers (shard_id, num_shards)                                         | [Shard information](#DOCS_EVENTS_GATEWAY/sharding) associated with this session, if sent when identifying |
 | application        | partial [application object](#DOCS_RESOURCES_APPLICATION/application-object)         | Contains `id` and `flags`                                                                                 |
 
 #### Resumed
 
-The resumed event is dispatched when a client has sent a [resume payload](#DOCS_TOPICS_GATEWAY_EVENTS/resume) to the gateway (for resuming existing sessions).
+The resumed event is dispatched when a client has sent a [resume payload](#DOCS_EVENTS_GATEWAY_EVENTS/resume) to the gateway (for resuming existing sessions).
 
 #### Reconnect
 
-The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This can occur at any point in the gateway connection lifecycle, even before/in place of receiving a [Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello) event. A few seconds after the reconnect event is dispatched, the connection may be closed by the server.
+The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This can occur at any point in the gateway connection lifecycle, even before/in place of receiving a [Hello](#DOCS_EVENTS_GATEWAY_EVENTS/hello) event. A few seconds after the reconnect event is dispatched, the connection may be closed by the server.
 
 ###### Example Gateway Reconnect
 
@@ -406,11 +437,11 @@ The reconnect event is dispatched when a client should reconnect to the gateway 
 
 Sent to indicate one of at least three different situations:
 
-- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify)
-- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume)
+- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_EVENTS_GATEWAY_EVENTS/identify)
+- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_EVENTS_GATEWAY_EVENTS/resume)
 - the gateway has invalidated an active session and is requesting client action
 
-The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_TOPICS_GATEWAY/connecting) and [Resuming](#DOCS_TOPICS_GATEWAY/resuming) for more information.
+The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_EVENTS_GATEWAY/connecting) and [Resuming](#DOCS_EVENTS_GATEWAY/resuming) for more information.
 
 ###### Example Gateway Invalid Session
 
@@ -467,7 +498,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
-\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive the `content` and `matched_content` fields
+\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_EVENTS_GATEWAY/gateway-intents) is required to receive the `content` and `matched_content` fields
 
 ### Channels
 
@@ -477,7 +508,7 @@ Sent when a new guild channel is created, relevant to the current user. The inne
 
 #### Channel Update
 
-Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` and `GUILD_MEDIA` channels).
+Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_EVENTS_GATEWAY_EVENTS/message-create) events (or [Thread Create](#DOCS_EVENTS_GATEWAY_EVENTS/thread-create) events for `GUILD_FORUM` and `GUILD_MEDIA` channels).
 
 This event may reference roles or guild members that no longer exist in the guild.
 
@@ -494,7 +525,7 @@ Sent when a thread is created, relevant to the current user, or when the current
 
 #### Thread Update
 
-Sent when a thread is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) events.
+Sent when a thread is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_EVENTS_GATEWAY_EVENTS/message-create) events.
 
 #### Thread Delete
 
@@ -526,7 +557,7 @@ Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) obje
 
 #### Thread Members Update
 
-Sent when anyone is added to or removed from a thread.  If the current user does not have the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), then this event will only be sent if the current user was added to or removed from the thread.
+Sent when anyone is added to or removed from a thread.  If the current user does not have the `GUILD_MEMBERS` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents), then this event will only be sent if the current user was added to or removed from the thread.
 
 ###### Thread Members Update Event Fields
 
@@ -538,7 +569,7 @@ Sent when anyone is added to or removed from a thread.  If the current user does
 | added_members?\*    | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | Users who were added to the thread                        |
 | removed_member_ids? | array of snowflakes                                                            | ID of the users who were removed from the thread          |
 
-\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and nullable [presence](#DOCS_TOPICS_GATEWAY_EVENTS/presence) objects for each added thread member.
+\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and nullable [presence](#DOCS_EVENTS_GATEWAY_EVENTS/presence) objects for each added thread member.
 
 #### Channel Pins Update
 
@@ -556,21 +587,19 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 #### Entitlement Create
 
-> danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_CREATE` event will have an `ends_at` value of null. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
+> warn
+>  Note: The`ENTITLEMENT_CREATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
 
 Sent when an entitlement is created. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object.
 
 #### Entitlement Update
 
-> danger
-> Starting on October 1st, 2024, the `ENTITLEMENT_UPDATE` event behavior will be changing. You will no longer receive an `ENTITLEMENT_UPDATE` event on successful renewal When a user cancels, you will receive an `ENTITLEMENT_UPDATE` events with a valid `ends_at` value reflecting when their subscription ends. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/subscription-api-and-entitlement-migration) for more information.
+> warn
+>  Note: The`ENTITLEMENT_UPDATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](#DOCS_CHANGE_LOG/premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
 
 Sent when an entitlement is updated. The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object. 
 
-For subscription entitlements, when a user's subscription is renewed you will receive an `ENTITLEMENT_UPDATE` event with a new `ends_at` date that reflects the end of the new billing period.
-
-If a user cancels their subscription, you will stop receiving `ENTITLEMENT_UPDATE` events that update the `ends_at` value.
+For subscription entitlements, this event is triggered only when a user's subscription ends, providing an `ends_at` timestamp that indicates the end of the entitlement.
 
 #### Entitlement Delete
 
@@ -590,7 +619,7 @@ Entitlements are _not_ deleted when they expire.
 
 This event can be sent in three different scenarios:
 
-1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY_EVENTS/guild-delete) event.
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_EVENTS_GATEWAY_EVENTS/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_EVENTS_GATEWAY_EVENTS/guild-delete) event.
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
@@ -614,12 +643,13 @@ The inner payload can be:
 | members                | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | Users in the guild                                                                                                         |
 | channels               | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | Channels in the guild                                                                                                      |
 | threads                | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | All active threads in the guild that current user has permission to view                                                   |
-| presences              | array of partial [presence update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update) objects                      | Presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold` |
+| presences              | array of partial [presence update](#DOCS_EVENTS_GATEWAY_EVENTS/presence-update) objects                      | Presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold` |
 | stage_instances        | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects                      | Stage instances in the guild                                                                                               |
 | guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
+| soundboard_sounds      | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects                      | Soundboard sounds in the guild                                                                                             |
 
 > warn
-> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
 
 #### Guild Update
 
@@ -696,7 +726,7 @@ Sent when a guild integration is updated.
 #### Guild Member Add
 
 > warn
-> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+> If using [Gateway Intents](#DOCS_EVENTS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
 Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object with an extra `guild_id` key:
 
@@ -709,7 +739,7 @@ Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_
 #### Guild Member Remove
 
 > warn
-> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+> If using [Gateway Intents](#DOCS_EVENTS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
 Sent when a user is removed from a guild (leave/kick/ban).
 
@@ -723,7 +753,7 @@ Sent when a user is removed from a guild (leave/kick/ban).
 #### Guild Member Update
 
 > warn
-> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+> If using [Gateway Intents](#DOCS_EVENTS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
 Sent when a guild member is updated. This will also fire when the user object of a guild member changes.
 
@@ -736,6 +766,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | user                          | a [user](#DOCS_RESOURCES_USER/user-object) object                             | User                                                                                                                                                                                                                                 |
 | nick?                         | ?string                                                                       | Nickname of the user in the guild                                                                                                                                                                                                    |
 | avatar                        | ?string                                                                       | Member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                       |
+| banner                        | ?string                                                                       | Member's [guild banner hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                       |
 | joined_at                     | ?ISO8601 timestamp                                                            | When the user joined the guild                                                                                                                                                                                                       |
 | premium_since?                | ?ISO8601 timestamp                                                            | When the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                             |
 | deaf?                         | boolean                                                                       | Whether the user is deafened in voice channels                                                                                                                                                                                       |
@@ -747,7 +778,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 #### Guild Members Chunk
 
-Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members).
+Sent in response to [Guild Request Members](#DOCS_EVENTS_GATEWAY_EVENTS/request-guild-members).
 You can use the `chunk_index` and `chunk_count` to calculate how many chunks are left for your request.
 
 ###### Guild Members Chunk Event Fields
@@ -756,11 +787,11 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 |-------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | guild_id    | snowflake                                                                  | ID of the guild                                                                                |
 | members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | Set of guild members                                                                           |
-| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (0 <= chunk\_index < chunk\_count)        |
+| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (`0 <= chunk\_index < chunk\_count`)      |
 | chunk_count | integer                                                                    | Total number of expected chunks for this response                                              |
 | not_found?  | array                                                                      | When passing an invalid ID to `REQUEST_GUILD_MEMBERS`, it will be returned here                |
-| presences?  | array of [presence](#DOCS_TOPICS_GATEWAY_EVENTS/presence) objects          | When passing `true` to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
-| nonce?      | string                                                                     | Nonce used in the [Guild Members Request](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members)   |
+| presences?  | array of [presence](#DOCS_EVENTS_GATEWAY_EVENTS/presence) objects          | When passing `true` to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
+| nonce?      | string                                                                     | Nonce used in the [Guild Members Request](#DOCS_EVENTS_GATEWAY_EVENTS/request-guild-members)   |
 
 #### Guild Role Create
 
@@ -795,19 +826,19 @@ Sent when a guild role is deleted.
 | guild_id | snowflake | ID of the guild |
 | role_id  | snowflake | ID of the role  |
 
-### Guild Scheduled Event Create
+#### Guild Scheduled Event Create
 
 Sent when a guild scheduled event is created. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
-### Guild Scheduled Event Update
+#### Guild Scheduled Event Update
 
 Sent when a guild scheduled event is updated. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
-### Guild Scheduled Event Delete
+#### Guild Scheduled Event Delete
 
 Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
-### Guild Scheduled Event User Add
+#### Guild Scheduled Event User Add
 
 Sent when a user has subscribed to a guild scheduled event.
 
@@ -819,7 +850,7 @@ Sent when a user has subscribed to a guild scheduled event.
 | user_id                  | snowflake | ID of the user                  |
 | guild_id                 | snowflake | ID of the guild                 |
 
-### Guild Scheduled Event User Remove
+#### Guild Scheduled Event User Remove
 
 Sent when a user has unsubscribed from a guild scheduled event.
 
@@ -830,6 +861,47 @@ Sent when a user has unsubscribed from a guild scheduled event.
 | guild_scheduled_event_id | snowflake | ID of the guild scheduled event |
 | user_id                  | snowflake | ID of the user                  |
 | guild_id                 | snowflake | ID of the guild                 |
+
+#### Guild Soundboard Sound Create
+
+Sent when a guild soundboard sound is created. The inner payload is a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object.
+
+#### Guild Soundboard Sound Update
+
+Sent when a guild soundboard sound is updated. The inner payload is a [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) object.
+
+#### Guild Soundboard Sound Delete
+
+Sent when a guild soundboard sound is deleted.
+
+###### Guild Soundboard Sound Delete Event Fields
+
+| Field    | Type      | Description                      |
+|----------|-----------|----------------------------------|
+| sound_id | snowflake | ID of the sound that was deleted |
+| guild_id | snowflake | ID of the guild the sound was in |
+
+#### Guild Soundboard Sounds Update
+
+Sent when multiple guild soundboard sounds are updated.
+
+###### Guild Soundboard Sounds Update Event Fields
+
+| Field             | Type                                                                                    | Description                   |
+|-------------------|-----------------------------------------------------------------------------------------|-------------------------------|
+| soundboard_sounds | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects | The guild's soundboard sounds |
+| guild_id          | snowflake                                                                               | ID of the guild               |
+
+#### Soundboard Sounds
+
+Includes a guild's list of soundboard sounds. Sent in response to [Request Soundboard Sounds](#DOCS_EVENTS_GATEWAY_EVENTS/request-soundboard-sounds).
+
+###### Soundboard Sounds Event Fields
+
+| Field             | Type                                                                                    | Description                   |
+|-------------------|-----------------------------------------------------------------------------------------|-------------------------------|
+| soundboard_sounds | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects | The guild's soundboard sounds |
+| guild_id          | snowflake                                                                               | ID of the guild               |
 
 ### Integrations
 
@@ -905,7 +977,7 @@ Sent when an invite is deleted.
 ### Messages
 
 > warn
-> Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](#DOCS_TOPICS_GATEWAY/list-of-intents), and the message object won't include `guild_id` or `member`.
+> Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](#DOCS_EVENTS_GATEWAY/list-of-intents), and the message object won't include `guild_id` or `member`.
 
 #### Message Create
 
@@ -921,7 +993,7 @@ Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES
 
 #### Message Update
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_MESSAGE/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create).
+Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_MESSAGE/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_EVENTS_GATEWAY_EVENTS/message-create).
 
 > warn
 > The value for `tts` will always be false in message updates.
@@ -1015,7 +1087,7 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 #### Presence Update
 
 > warn
-> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
+> If you are using [Gateway Intents](#DOCS_EVENTS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
 
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 
@@ -1029,8 +1101,8 @@ A user's presence is their current state on a guild. This event is sent when a u
 | user          | [user](#DOCS_RESOURCES_USER/user-object) object                          | User whose presence is being updated         |
 | guild_id      | snowflake                                                                | ID of the guild                              |
 | status        | string                                                                   | Either "idle", "dnd", "online", or "offline" |
-| activities    | array of [activity](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) objects | User's current activities                    |
-| client_status | [client_status](#DOCS_TOPICS_GATEWAY_EVENTS/client-status-object) object | User's platform-dependent status             |
+| activities    | array of [activity](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object) objects | User's current activities                    |
+| client_status | [client_status](#DOCS_EVENTS_GATEWAY_EVENTS/client-status-object) object | User's platform-dependent status             |
 
 #### Client Status Object
 
@@ -1049,34 +1121,34 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | Field           | Type                                                                                 | Description                                                                                                                      |
 |-----------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | name            | string                                                                               | Activity's name                                                                                                                  |
-| type            | integer                                                                              | [Activity type](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-types)                                                      |
+| type            | integer                                                                              | [Activity type](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                              | Stream URL, is validated when type is 1                                                                                          |
 | created_at      | integer                                                                              | Unix timestamp (in milliseconds) of when the activity was added to the user's session                                            |
-| timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
+| timestamps?     | [timestamps](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
 | application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
 | details?        | ?string                                                                              | What the player is currently doing                                                                                               |
 | state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
-| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
-| party?          | [party](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
-| assets?         | [assets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
-| secrets?        | [secrets](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-secrets) object       | Secrets for Rich Presence joining and spectating                                                                                 |
+| emoji?          | ?[emoji](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
+| party?          | [party](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
+| assets?         | [assets](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
+| secrets?        | [secrets](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-secrets) object       | Secrets for Rich Presence joining and spectating                                                                                 |
 | instance?       | boolean                                                                              | Whether or not the activity is an instanced game session                                                                         |
-| flags?          | integer                                                                              | [Activity flags](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-flags) `OR`d together, describes what the payload includes |
-| buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
+| flags?          | integer                                                                              | [Activity flags](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-flags) `OR`d together, describes what the payload includes |
+| buttons?        | array of [buttons](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
 > info
 > Bot users are only able to set `name`, `state`, `type`, and `url`.
 
 ###### Activity Types
 
-| ID | Name      | Format              | Example                              |
-|----|-----------|---------------------|--------------------------------------|
-| 0  | Playing   | Playing {name}      | "Playing Rocket League"              |
-| 1  | Streaming | Streaming {details} | "Streaming Rocket League"            |
-| 2  | Listening | Listening to {name} | "Listening to Spotify"               |
-| 3  | Watching  | Watching {name}     | "Watching YouTube Together"          |
-| 4  | Custom    | {emoji} {state}     | ":smiley: I am cool"                 |
-| 5  | Competing | Competing in {name} | "Competing in Arena World Champions" |
+| ID | Name      | Format                | Example                              |
+|----|-----------|-----------------------|--------------------------------------|
+| 0  | Playing   | Playing `{name}`      | "Playing Rocket League"              |
+| 1  | Streaming | Streaming `{details}` | "Streaming Rocket League"            |
+| 2  | Listening | Listening to `{name}` | "Listening to Spotify"               |
+| 3  | Watching  | Watching `{name}`     | "Watching YouTube Together"          |
+| 4  | Custom    | `{emoji}` `{state}`   | ":smiley: I am cool"                 |
+| 5  | Competing | Competing in `{name}` | "Competing in Arena World Champions" |
 
 > info
 > The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
@@ -1087,6 +1159,9 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 |--------|---------|----------------------------------------------------------|
 | start? | integer | Unix time (in milliseconds) of when the activity started |
 | end?   | integer | Unix time (in milliseconds) of when the activity ends    |
+
+> info
+> For Listening and Watching activities, you can include both start and end timestamps to display a time bar.
 
 ###### Activity Emoji
 
@@ -1107,9 +1182,9 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 | Field        | Type   | Description                                                                                  |
 |--------------|--------|----------------------------------------------------------------------------------------------|
-| large_image? | string | See [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
+| large_image? | string | See [Activity Asset Image](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
 | large_text?  | string | Text displayed when hovering over the large image of the activity                            |
-| small_image? | string | See [Activity Asset Image](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
+| small_image? | string | See [Activity Asset Image](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
 | small_text?  | string | Text displayed when hovering over the small image of the activity                            |
 
 ###### Activity Asset Image
@@ -1231,7 +1306,7 @@ Sent when someone sends an effect, such as an emoji reaction or a soundboard sou
 | guild_id        | snowflake                                           | ID of the guild the effect was sent in                                                                                                          |
 | user_id         | snowflake                                           | ID of the user who sent the effect                                                                                                              |
 | emoji?          | ?[emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | The emoji sent, for emoji reaction and soundboard effects                                                                                       |
-| animation_type? | ?integer                                            | The [type of emoji animation](#DOCS_TOPICS_GATEWAY_EVENTS/voice-channel-effect-send-animation-types), for emoji reaction and soundboard effects |
+| animation_type? | ?integer                                            | The [type of emoji animation](#DOCS_EVENTS_GATEWAY_EVENTS/voice-channel-effect-send-animation-types), for emoji reaction and soundboard effects |
 | animation_id?   | integer                                             | The ID of the emoji animation, for emoji reaction and soundboard effects                                                                        |
 | sound_id?       | snowflake or integer                                | The ID of the soundboard sound, for soundboard effects                                                                                          |
 | sound_volume?   | double                                              | The volume of the soundboard sound, from 0 to 1, for soundboard effects                                                                         |
