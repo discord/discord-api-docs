@@ -1337,9 +1337,11 @@ No scopes required
 
 #### OpenExternalLinkResponse
 
-| Property | Type    |
-|----------|---------|
-| opened   | boolean |
+> **Note:** `{ opened: null }` is returned on older Discord clients that do not report the result of the open link action.
+
+| Property | Type            |
+|----------|-----------------|
+| opened   | boolean \| null |
 
 #### OpenInviteDialogRequest
 
