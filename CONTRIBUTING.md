@@ -81,7 +81,7 @@ Buttons are simply... clickable buttons. They take `href` and `color` as argumen
 ![Button MDX Component](images/mdx-button.png)
 
 ```markdown
-<Button href="https://discord.com/developers/docs/getting-started" color="brand">click the button!</Button>
+<LinkButton to="https://discord.com/developers/docs/getting-started" color="brand">click the button!</LinkButton>
 ```
 
 #### Cards
