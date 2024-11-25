@@ -64,15 +64,16 @@ Returns all entitlements for a given app, active and expired.
 
 ###### Query String Params
 
-| param          | type                                             | description                                          |
-|----------------|--------------------------------------------------|------------------------------------------------------|
-| user_id?       | snowflake                                        | User ID to look up entitlements for                  |
-| sku_ids?       | comma-delimited set of snowflakes                | Optional list of SKU IDs to check entitlements for   |
-| before?        | snowflake                                        | Retrieve entitlements before this entitlement ID     |
-| after?         | snowflake                                        | Retrieve entitlements after this entitlement ID      |
-| limit?         | integer                                          | Number of entitlements to return, 1-100, default 100 |
-| guild_id?      | snowflake                                        | Guild ID to look up entitlements for                 |
-| exclude_ended? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not ended entitlements should be omitted  |
+| param            | type                                             | description                                                                                                                |
+|------------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| user_id?         | snowflake                                        | User ID to look up entitlements for                                                                                        |
+| sku_ids?         | comma-delimited set of snowflakes                | Optional list of SKU IDs to check entitlements for                                                                         |
+| before?          | snowflake                                        | Retrieve entitlements before this entitlement ID                                                                           |
+| after?           | snowflake                                        | Retrieve entitlements after this entitlement ID                                                                            |
+| limit?           | integer                                          | Number of entitlements to return, 1-100, default 100                                                                       |
+| guild_id?        | snowflake                                        | Guild ID to look up entitlements for                                                                                       |
+| exclude_ended?   | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not ended entitlements should be omitted. Defaults to false, ended entitlements are included by default.        |
+| exclude_deleted? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not deleted entitlements should be omitted. Defaults to true, deleted entitlements are not included by default. |
 
 ```json
 [
@@ -92,6 +93,28 @@ Returns all entitlements for a given app, active and expired.
     "subscription_id": "1019653835926409216"
   }
 ]
+```
+
+## Get Entitlement % GET /applications/{application.id#DOS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}
+
+Returns an entitlement.
+
+```json
+{
+  "id": "1019653849998299136",
+  "sku_id": "1019475255913222144",
+  "application_id": "1019370614521200640",
+  "user_id": "771129655544643584",
+  "promotion_id": null,
+  "type": 8,
+  "deleted": false,
+  "gift_code_flags": 0,
+  "consumed": false,
+  "starts_at": "2022-09-14T17:00:18.704163+00:00",
+  "ends_at": "2022-10-14T17:00:18.704163+00:00",
+  "guild_id": "1015034326372454400",
+  "subscription_id": "1019653835926409216"
+}
 ```
 
 ## Consume an Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}/consume
