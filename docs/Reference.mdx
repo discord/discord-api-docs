@@ -235,6 +235,10 @@ Clients may append more information and metadata to the _end_ of this string as 
 > warn
 > Client requests that do not have a valid User Agent specified may be blocked and return a [Cloudflare error](https://support.cloudflare.com/hc/en-us/articles/360029779472-Troubleshooting-Cloudflare-1XXX-errors).
 
+### Content Type
+
+Clients using the HTTP API must provide a valid `Content-Type` header, either `application/json`, `application/x-www-form-urlencoded`, or `multipart/form-data`, except where specified. Failing to do so will result in a `50035` "Invalid form body" error.
+
 ### Rate Limiting
 
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
