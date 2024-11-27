@@ -139,12 +139,13 @@ The connection object that the user has attached.
 | battlenet       | Battle.net          |
 | bungie          | Bungie.net          |
 | bluesky         | Bluesky             |
+| crunchyroll     | Crunchyroll         |
 | domain          | Domain              |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
 | facebook        | Facebook            |
 | github          | GitHub              |
-| instagram       | Instagram           |
+| instagram *     | Instagram           |
 | leagueoflegends | League of Legends   |
 | mastodon        | Mastodon            |
 | paypal          | PayPal              |
