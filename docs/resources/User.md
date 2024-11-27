@@ -138,12 +138,13 @@ The connection object that the user has attached.
 | amazon-music    | Amazon Music        |
 | battlenet       | Battle.net          |
 | bungie          | Bungie.net          |
+| crunchyroll     | Crunchyroll         |
 | domain          | Domain              |
 | ebay            | eBay                |
 | epicgames       | Epic Games          |
 | facebook        | Facebook            |
 | github          | GitHub              |
-| instagram       | Instagram           |
+| instagram *     | Instagram           |
 | leagueoflegends | League of Legends   |
 | paypal          | PayPal              |
 | playstation     | PlayStation Network |
