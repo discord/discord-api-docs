@@ -12,18 +12,18 @@ Refer to the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW) for more infor
 
 ###### Entitlement Structure
 
-| Field          | Type               | Description                                                                                 |
-|----------------|--------------------|---------------------------------------------------------------------------------------------|
-| id             | snowflake          | ID of the entitlement                                                                       |
-| sku_id         | snowflake          | ID of the SKU                                                                               |
-| application_id | snowflake          | ID of the parent application                                                                |
-| user_id?       | snowflake          | ID of the user that is granted access to the entitlement's sku                              |
-| type           | integer            | [Type of entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object-entitlement-types)     |
-| deleted        | boolean            | Entitlement was deleted                                                                     |
-| starts_at      | ?ISO8601 timestamp | Start date at which the entitlement is valid. Not present when using test entitlements.     |
-| ends_at        | ?ISO8601 timestamp | Date at which the entitlement is no longer valid. Not present when using test entitlements. |
-| guild_id?      | snowflake          | ID of the guild that is granted access to the entitlement's sku                             |
-| consumed?      | boolean            | For consumable items, whether or not the entitlement has been consumed                      |
+| Field          | Type               | Description                                                                             |
+|----------------|--------------------|-----------------------------------------------------------------------------------------|
+| id             | snowflake          | ID of the entitlement                                                                   |
+| sku_id         | snowflake          | ID of the SKU                                                                           |
+| application_id | snowflake          | ID of the parent application                                                            |
+| user_id?       | snowflake          | ID of the user that is granted access to the entitlement's sku                          |
+| type           | integer            | [Type of entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object-entitlement-types) |
+| deleted        | boolean            | Entitlement was deleted                                                                 |
+| starts_at      | ?ISO8601 timestamp | Start date at which the entitlement is valid.                                           |
+| ends_at        | ?ISO8601 timestamp | Date at which the entitlement is no longer valid.                                       |
+| guild_id?      | snowflake          | ID of the guild that is granted access to the entitlement's sku                         |
+| consumed?      | boolean            | For consumable items, whether or not the entitlement has been consumed                  |
 
 ###### Entitlement Example
 
