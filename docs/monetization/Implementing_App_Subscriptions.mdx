@@ -110,7 +110,7 @@ When a user subscribes to a new subscription, you will receive the following eve
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `SUBSCRIPTION_CREATE` | when the subscription is initially created. `status` is `0 (active)` if the entitlement has been granted or `1 (ending)` if the entitlement has not yet been granted. |
 | `ENTITLEMENT_CREATE`  | when the user is granted an entitlement for the new subscription                                                                                                      |
-| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_id`, `sku_id`, and `status` (`0 (active)`)                                                                     |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_ids`, `renewal_sku_ids`, and `status` (`0 (active)`)                                                                     |
 
 ### Cancelling an existing subscription
 
@@ -159,7 +159,7 @@ When the subscription is upgraded, the current entitlement for the lower tier wi
 |-----------------------|------------------------------------------------------------------------------------------------------------------------|
 | `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                             |
 | `ENTITLEMENT_CREATE`  | when a new entitlement is created for the upgrade subscription SKU                                                     |
-| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_id`, `sku_id`, `current_period_start`, `current_period_end` |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_ids`, `sku_ids`, `current_period_start`, `current_period_end` |
 
 
 ### Downgrading an existing subscription
@@ -178,7 +178,7 @@ Once the user's current subscription expires on `subscription.current_period_end
 |-----------------------|------------------------------------------------------------------------------------------------------------------------|
 | `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                             |
 | `ENTITLEMENT_CREATE`  | when a new entitlement is created for the downgraded subscription SKU                                                  |
-| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_id`, `sku_id`, `current_period_start`, `current_period_end` |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_ids`, `sku_ids`, `current_period_start`, `current_period_end` |
 
 ---
 
