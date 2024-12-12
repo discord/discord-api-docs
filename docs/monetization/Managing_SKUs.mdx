@@ -19,11 +19,19 @@ When you click on `Create SKU`, you have the option to select from the following
 
 Once you select the SKU type, enter a name for your SKU to continue.
 
+### Creating Subscription Tiers
+
+You can create multiple subscription tiers to offer different benefits at different price points. Each tier can have its own set of benefits and price and is represented by unique SKUs.
+
+To support upgrading and downgrading between subscription tiers, see our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/supporting-upgrades-and-downgrades).
+
+![Supporting multiple subscription tiers](multisub.png)
+
 ### SKU Limitations
 
 There are some limitations to the number of SKUs you can create:
 - You can create up to 50 total SKUs per app.
-- Currently, you can only have **one** published subscription SKU per app (user or guild).
+- You can offer either user subscription SKUs or guild subscription SKUs, but not both simultaneously.
 - SKU prices must be selected from the list of available prices.
 
 > info 
@@ -162,7 +170,7 @@ Users can access an app's Store page from the Bot User's profile in a server. Th
 ![Accessing the store as a user](botuser-profile.png)
 
 #### Subscriptions in Your Store page
-![Subscriptions in your Store View](premium-subscriptions.png)
+![Subscriptions in your Store View](multisub.png)
 
 #### Items in Your Store page
 ![Items in your Store View](premium-items.png)
