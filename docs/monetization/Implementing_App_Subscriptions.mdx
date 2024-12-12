@@ -110,7 +110,7 @@ When a user subscribes to a new subscription, you will receive the following eve
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `SUBSCRIPTION_CREATE` | when the subscription is initially created. `status` is `0 (active)` if the entitlement has been granted or `1 (ending)` if the entitlement has not yet been granted. |
 | `ENTITLEMENT_CREATE`  | when the user is granted an entitlement for the new subscription                                                                                                      |
-| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_ids`, `renewal_sku_ids`, and `status` (`0 (active)`)                                                                     |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_ids`, `renewal_sku_ids`, and `status` (`0 (active)`)                                                           |
 
 ### Cancelling an existing subscription
 
@@ -155,10 +155,10 @@ If an user is on a lower tier subscription and upgrades to subscription tier tha
 
 When the subscription is upgraded, the current entitlement for the lower tier will end immediately and you will receive the following events:
 
-| Event                 | Event Trigger                                                                                                          |
-|-----------------------|------------------------------------------------------------------------------------------------------------------------|
-| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                             |
-| `ENTITLEMENT_CREATE`  | when a new entitlement is created for the upgrade subscription SKU                                                     |
+| Event                 | Event Trigger                                                                                                            |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------|
+| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                               |
+| `ENTITLEMENT_CREATE`  | when a new entitlement is created for the upgrade subscription SKU                                                       |
 | `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_ids`, `sku_ids`, `current_period_start`, `current_period_end` |
 
 
@@ -174,10 +174,10 @@ The user has already paid for their current plan until `subscription.current_per
 
 Once the user's current subscription expires on `subscription.current_period_end`, you will receive the following events:
 
-| Event                 | Event Trigger                                                                                                          |
-|-----------------------|------------------------------------------------------------------------------------------------------------------------|
-| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                             |
-| `ENTITLEMENT_CREATE`  | when a new entitlement is created for the downgraded subscription SKU                                                  |
+| Event                 | Event Trigger                                                                                                            |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------|
+| `ENTITLEMENT_UPDATE`  | when the current entitlement ends. `ends_at` gets updated with a timestamp                                               |
+| `ENTITLEMENT_CREATE`  | when a new entitlement is created for the downgraded subscription SKU                                                    |
 | `SUBSCRIPTION_UPDATE` | when the subscription is updated with the new `entitlement_ids`, `sku_ids`, `current_period_start`, `current_period_end` |
 
 ---
