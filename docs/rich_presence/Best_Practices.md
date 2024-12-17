@@ -36,7 +36,7 @@ The data in your players’ profiles is the first thing that others on Discord w
 
 ###### Examples
 
-![Examples of good rich presence strings that show a game mode of "Ranked: Control Point" and that the user is "In Queue (2 of 3)" compared to a bad string that reads "Rank 9999" ](rp-actionable.png)
+![Examples of good rich presence strings that show a game mode of "Ranked: Control Point" and that the user is "In Queue (2 of 3)" compared to a bad string that reads "Rank 9999"](rp-actionable.png)
 
 ### Use ALL of the fields (where applicable)!
 
@@ -58,7 +58,6 @@ The data in your players’ profiles is the first thing that others on Discord w
 ###### Examples
 
 ![Example of a good rich presence icon that is clear and detailed compared to a bad icon that is too dark to see clearly](rp-good-art.png)
-
 
 ## Launch Checklist
 
@@ -85,7 +84,7 @@ Ready to launch a Rich Presence integration for your game? If so, we recommend l
 #### Joining
 
 > info
-> Since all Activities presence data has a **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
+> Since all Activities presence data has an **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
 
 - Have you successfully implemented join invites for your game if applicable?
 - Does the state of the invite properly represent the party/group in-game with regards to:
@@ -95,4 +94,3 @@ Ready to launch a Rich Presence integration for your game? If so, we recommend l
 - Are you able to post invites to Discord without any additional in-game setup or configuration?
 - Are you properly removing data from the presence payload when someone can no longer send invites?
   - A Join secret should not be sent if the player can't invite anyone!
-
