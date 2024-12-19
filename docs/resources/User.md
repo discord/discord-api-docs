@@ -138,6 +138,7 @@ The connection object that the user has attached.
 | amazon-music    | Amazon Music        |
 | battlenet       | Battle.net          |
 | bungie          | Bungie.net          |
+| bluesky         | Bluesky             |
 | crunchyroll     | Crunchyroll         |
 | domain          | Domain              |
 | ebay            | eBay                |
@@ -146,6 +147,7 @@ The connection object that the user has attached.
 | github          | GitHub              |
 | instagram *     | Instagram           |
 | leagueoflegends | League of Legends   |
+| mastodon        | Mastodon            |
 | paypal          | PayPal              |
 | playstation     | PlayStation Network |
 | reddit          | Reddit              |
