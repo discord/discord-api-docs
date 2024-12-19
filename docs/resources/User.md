@@ -72,23 +72,23 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value     | Name                     | Description                                                                                                                                    |
-|-----------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `1 << 0`  | STAFF                    | Discord Employee                                                                                                                               |
-| `1 << 1`  | PARTNER                  | Partnered Server Owner                                                                                                                         |
-| `1 << 2`  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
-| `1 << 3`  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
-| `1 << 6`  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
-| `1 << 7`  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
-| `1 << 8`  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
-| `1 << 9`  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
-| `1 << 10` | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
-| `1 << 14` | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
-| `1 << 16` | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
-| `1 << 17` | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
-| `1 << 18` | CERTIFIED_MODERATOR      | Moderator Programs Alumni                                                                                                                      |
-| `1 << 19` | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
-| `1 << 22` | ACTIVE_DEVELOPER         | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
+| Name                     | Value     | Description                                                                                                                                    |
+|--------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| STAFF                    | `1 << 0`  | Discord Employee                                                                                                                               |
+| PARTNER                  | `1 << 1`  | Partnered Server Owner                                                                                                                         |
+| HYPESQUAD                | `1 << 2`  | HypeSquad Events Member                                                                                                                        |
+| BUG_HUNTER_LEVEL_1       | `1 << 3`  | Bug Hunter Level 1                                                                                                                             |
+| HYPESQUAD_ONLINE_HOUSE_1 | `1 << 6`  | House Bravery Member                                                                                                                           |
+| HYPESQUAD_ONLINE_HOUSE_2 | `1 << 7`  | House Brilliance Member                                                                                                                        |
+| HYPESQUAD_ONLINE_HOUSE_3 | `1 << 8`  | House Balance Member                                                                                                                           |
+| PREMIUM_EARLY_SUPPORTER  | `1 << 9`  | Early Nitro Supporter                                                                                                                          |
+| TEAM_PSEUDO_USER         | `1 << 10` | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
+| BUG_HUNTER_LEVEL_2       | `1 << 14` | Bug Hunter Level 2                                                                                                                             |
+| VERIFIED_BOT             | `1 << 16` | Verified Bot                                                                                                                                   |
+| VERIFIED_DEVELOPER       | `1 << 17` | Early Verified Bot Developer                                                                                                                   |
+| CERTIFIED_MODERATOR      | `1 << 18` | Moderator Programs Alumni                                                                                                                      |
+| BOT_HTTP_INTERACTIONS    | `1 << 19` | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| ACTIVE_DEVELOPER         | `1 << 22` | User is an [Active Developer](https://support-dev.discord.com/hc/articles/10113997751447)                                                      |
 
 ###### Premium Types
 
