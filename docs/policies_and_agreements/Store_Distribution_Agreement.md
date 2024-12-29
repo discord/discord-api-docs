@@ -1,3 +1,7 @@
+---
+sidebar_label: Discord Store Distribution Agreement for Developers (Self-Service)
+---
+
 # Discord Store Distribution Agreement for Developers (Self-Service)
 
 This Discord Store Distribution Agreement for Developers (“Agreement”) is by and between Discord, Inc., with a principal office located at 444 De Haro Street, San Francisco, California 94107 (“Discord”), and the person or entity identified in the “Legal Name” field in connection with the process of agreeing to this Agreement (“Developer”). Such process is referred to in this Agreement as the “Agreement Process”. The effective date of this Agreement is date on which Discord provides Developer with notice of its acceptance (“Effective Date”).
