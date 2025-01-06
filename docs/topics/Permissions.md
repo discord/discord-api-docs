@@ -30,7 +30,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 ###### Bitwise Permission Flags
 
-| Permission                             | Value                            | Description                                                                                                                                                                                                                                                | Channel Type |
+| Permission                             | Value                            | Description                                                                                                                                                                                                                                                | Channel Type (Abbreviated) |
 |----------------------------------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
 | CREATE_INSTANT_INVITE                  | `0x0000000000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                                                                                                                                         | T, V, S      |
 | KICK_MEMBERS \*                        | `0x0000000000000002` `(1 << 1)`  | Allows kicking members                                                                                                                                                                                                                                     |              |
@@ -81,6 +81,12 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                                                                                                                              | T, V, S      |
 | SEND_POLLS                             | `0x0002000000000000` `(1 << 49)` | Allows sending polls                                                                                                                                                                                                                                       | T, V, S      |
 | USE_EXTERNAL_APPS                      | `0x0004000000000000` `(1 << 50)` | Allows user-installed apps to send public responses. When disabled, users will still be allowed to use their apps but the responses will be ephemeral. This only applies to apps not also installed to the server.                                         | T, V, S      |
+
+| Channel Type (Abbreviated) | Description |
+| -- | -- | -- |
+| T | Text |
+| V | Voice |
+| S | Stage |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
