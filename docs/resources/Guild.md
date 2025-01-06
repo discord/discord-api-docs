@@ -1384,7 +1384,7 @@ Modifies the incident actions of the guild. Returns a 200 with the [Incidents Da
 ###### JSON Params
 
 > info
-> Both `invites_disabled_until` and `dms_disabled_until` can be disabled for a maximal timespan of 24 hours in the future.
+> Both `invites_disabled_until` and `dms_disabled_until` can be enabled for a maximal timespan of 24 hours in the future.
 
 | Field                   | Type                  | Description                                  |
 |-------------------------|-----------------------|----------------------------------------------|
