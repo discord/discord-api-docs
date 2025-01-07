@@ -82,11 +82,11 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | SEND_POLLS                             | `0x0002000000000000` `(1 << 49)` | Allows sending polls                                                                                                                                                                                                                                       | T, V, S                    |
 | USE_EXTERNAL_APPS                      | `0x0004000000000000` `(1 << 50)` | Allows user-installed apps to send public responses. When disabled, users will still be allowed to use their apps but the responses will be ephemeral. This only applies to apps not also installed to the server.                                         | T, V, S                    |
 
-| Channel Type (Abbreviated) | Description | Channel Type                                                                                    |
-|----------------------------|-------------|-------------------------------------------------------------------------------------------------|
-| T                          | Text        | GUILD_TEXT, GUILD_ANNOUNCEMENT, ANNOUNCEMENT_THREAD, PUBLIC_THREAD, PRIVATE_THREAD, GUILD_FORUM |
-| V                          | Voice       | GUILD_VOICE                                                                                     |
-| S                          | Stage       | GUILD_STAGE_VOICE                                                                               |
+| Channel Type (Abbreviated) | Description | Channel Types                                            |
+|----------------------------|-------------|----------------------------------------------------------|
+| T                          | Text        | GUILD_TEXT, GUILD_ANNOUNCEMENT, GUILD_FORUM, GUILD_MEDIA |
+| V                          | Voice       | GUILD_VOICE                                              |
+| S                          | Stage       | GUILD_STAGE_VOICE                                        |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
