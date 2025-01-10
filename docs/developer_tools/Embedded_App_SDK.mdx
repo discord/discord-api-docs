@@ -175,6 +175,7 @@ Developers can use these commands to interact with the Discord client. The follo
 | [setActivity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setactivity)                                           | Modifies how your activity's rich presence is displayed in the Discord client            |
 | [setConfig](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setconfig)                                               | Set whether or not the PIP (picture-in-picture) is interactive                           |
 | [setOrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/setorientationlockstate)                   | Set options for orientation and picture-in-picture (PIP) modes                           |
+| [shareLink](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sharelink)                                               | Presents a modal for the user to share a link to your activity with custom query params  |
 | [startPurchase](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/startpurchase)                                       | Launches the purchase flow for a specific SKU, per the sku_id                            |
 | [userSettingsGetLocale](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/usersettingsgetlocale)                       | Returns the current user's locale                                                        |
 
@@ -687,6 +688,39 @@ await discordSdk.commands.setOrientationLockState({
   picture_in_picture_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
   grid_lock_state: Common.OrientationLockStateTypeObject.UNLOCKED
 });
+```
+
+---
+
+
+### shareLink()
+
+Presents the user with a modal to share a link 
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ⛔️  | ⛔️      |
+
+#### Required Scopes
+
+No scopes required
+
+#### Signature
+
+<Monospace>
+shareLink(args: [ShareLinkRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sharelinkrequest)): Promise\<[ShareLinkResponse](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sharelinkresponse)\>\<void\>
+</Monospace>
+
+#### Usage
+
+```js
+const { success } = await discordSdk.commands.shareLink({
+  message: 'This message is shared alongside the link!',
+  referrer_id: 'some_referrer_id',
+  custom_id: 'some_custom_id',
+});
+success ? console.log('User shared link!') : console.log('User did not share link!');
 ```
 
 ---
@@ -1397,6 +1431,20 @@ No scopes required
 | lock_state                    | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
 | picture_in_picture_lock_state | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
 | grid_lock_state               | [OrientationLockState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/orientationlockstatetypeobject) |
+
+#### ShareLinkRequest
+
+| Property    | Type           |
+|-------------|----------------|
+| message     | string \| null |
+| referrer_id | string \| null |
+| custom_id   | string \| null |
+
+#### ShareLinkResponse
+
+| Property | Type    |
+|----------|---------|
+| success  | boolean |
 
 #### Sku
 
