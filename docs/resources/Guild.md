@@ -673,8 +673,8 @@ In guilds with [Membership Screening](https://support.discord.com/hc/en-us/artic
 |------------------------|--------------------|----------------------------------------|
 | invites_disabled_until | ?ISO8601 timestamp | when invites get enabled again         |
 | dms_disabled_until     | ?ISO8601 timestamp | when direct messages get enabled again |
-| dm_spam_detected_at    | ?ISO8601 timestamp | when the dm spam was detected at       |
-| raid_detected_at       | ?ISO8601 timestamp | when the raid was detected at          |
+| dm_spam_detected_at?   | ?ISO8601 timestamp | when the dm spam was detected at       |
+| raid_detected_at?      | ?ISO8601 timestamp | when the raid was detected at          |
 
 ###### Example Incidents Data
 
