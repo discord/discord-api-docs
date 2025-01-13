@@ -902,7 +902,7 @@ const { success } = await DiscordRPC.commands.shareLink({
 });
 success ? console.log('User shared link!') : console.log('User did not share link!');
 ```
-Calling `shareLink` will prompt the user with a modal to share the link. The `success` returned indicates if the link was shared or copied. Note that we did not add a `referrer_id` in this example, as the user ID will automatically be appended as a referrer if left empty.
+Calling `shareLink` will prompt the user with a modal to share the link. The `success` returned indicates if the link was shared or copied. Note that we did not add a `referrer_id` in this example, as the user ID of the user sharing the link will automatically be appended as a referrer if left empty.
 
 So now that the initial user has shared a link, what happens when their friend receives the message and clicks the link?
 Clicking the link (or Play from the Embed) will launch the activity and pass the `customId` and `referredId` to the SDK. From there you can resolve the IDs and grant the rewards as promised.
