@@ -96,6 +96,13 @@ These guides include suggested development practices, SDK commands, and user flo
   </Card>
 </Container>
 
+## Links
+<Container>
+  <Card title="Prompting Users to Share Incentivized Links" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links">
+    Have your users share links to your activity, with tracking and incentives.
+  </Card>
+</Container>
+
 ## Assets & Metadata
 <Container>
   <Card title="Setting Up Activity Metadata" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata">
@@ -878,6 +885,35 @@ This example is being done entirely on the client, however, a more common patter
 - Serve all of the application's avatar/nicknames via the application's server
 
 ---
+
+### Prompting Users to Share Incentivized Links
+Virality is a valuable way to grow your userbase and your application. In order to leverage network effects, we suggest using our SDK's `shareLink` command to prompt users to share so-called "incentivized links" and receive rewards for sharing.
+
+An example reward would be something like free coins (or any other in-game resource) for users who click the link and for those who shared the link.
+
+To share the link, use `shareLink`.
+```javascript
+// custom ID creation, persistence, and resolution is up to you as a developer
+const customId = await createPromotionalCustomId();
+
+const { success } = await DiscordRPC.commands.shareLink({
+  message: 'Click this link to redeem 5 free coins!',
+  custom_id: customId,
+});
+success ? console.log('User shared link!') : console.log('User did not share link!');
+```
+Calling `shareLink` will prompt the user with a modal to share the link. The `success` returned indicates if the link was shared or copied. Note that we did not add a `referrer_id` in this example, as the user ID will automatically be appended as a referrer if left empty.
+
+So now that the initial user has shared a link, what happens when their friend receives the message and clicks the link?
+Clicking the link (or Play from the Embed) will launch the activity and pass the `customId` and `referredId` to the SDK. From there you can resolve the IDs and grant the rewards as promised.
+
+```javascript
+// for illustrative purposes -- this must be implemented by you as a developer
+await resolvePromotion({
+  customId: DiscordRPC.customId, // your promotional ID, which corresponds to granting reward (coins)
+  refererId: DiscordRPC.referredId, // the user ID of the initial user who shared the link
+});
+```
 
 ### Preventing unwanted activity sessions
 
