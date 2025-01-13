@@ -887,33 +887,86 @@ This example is being done entirely on the client, however, a more common patter
 ---
 
 ### Prompting Users to Share Incentivized Links
-Virality is a valuable way to grow your userbase and your application. In order to leverage network effects, we suggest using our SDK's `shareLink` command to prompt users to share so-called "incentivized links" and receive rewards for sharing.
 
-An example reward would be something like free coins (or any other in-game resource) for users who click the link and for those who shared the link.
+Incentivized sharing can help grow your application through network effects. This guide covers implementing a reward system for users who share links and those who click them.
 
-To share the link, use `shareLink`.
+#### Implementation Overview
+1. Create and track promotional campaigns
+2. Prompt users to share links
+3. Handle incoming referrals
+4. Distribute rewards safely
+
+#### Sharing Links
+
+When implementing sharing, you'll need to:
+1. Generate a unique ID for tracking the promotion
+2. Call the `shareLink` command
+3. Track the share attempt
+
 ```javascript
-// custom ID creation, persistence, and resolution is up to you as a developer
+// Generate a unique ID for this promotion
+// This could be per-campaign, per-user, or per-share depending on your needs
 const customId = await createPromotionalCustomId();
 
-const { success } = await DiscordRPC.commands.shareLink({
-  message: 'Click this link to redeem 5 free coins!',
-  custom_id: customId,
-});
-success ? console.log('User shared link!') : console.log('User did not share link!');
-```
-Calling `shareLink` will prompt the user with a modal to share the link. The `success` returned indicates if the link was shared or copied. Note that we did not add a `referrer_id` in this example, as the user ID of the user sharing the link will automatically be appended as a referrer if left empty.
+try {
+    const { success } = await DiscordRPC.commands.shareLink({
+        message: 'Click this link to redeem 5 free coins!',
+        custom_id: customId,
+        // referrer_id is optional - if omitted, the current user's ID is used
+    });
 
-So now that the initial user has shared a link, what happens when their friend receives the message and clicks the link?
-Clicking the link (or Play from the Embed) will launch the activity and pass the `customId` and `referredId` to the SDK. Once launched, the SDK will expose the `customId` and `refererId` and you can resolve the IDs and grant the rewards as promised.
+    if (success) {
+        // Track successful share for analytics/limiting
+        await trackSuccessfulShare(customId);
+    }
+} catch (error) {
+    // Handle share failures appropriately
+    console.error('Failed to share link:', error);
+}
+```
+
+#### Handling Incoming Referrals
+When a user clicks a shared link, your activity will launch with referral data available through the SDK:
 
 ```javascript
-// for illustrative purposes -- this must be implemented by you as a developer
-await resolvePromotion({
-  customId: DiscordRPC.customId, // your promotional ID, which corresponds to granting reward (coins)
-  refererId: DiscordRPC.referredId, // the user ID of the initial user who shared the link
-});
+// Early in your activity's initialization
+async function handleReferral() {
+    // Validate the referral data
+    if (!DiscordRPC.customId || !DiscordRPC.refererId) {
+        return;
+    }
+
+    try {
+        // Verify this is a valid promotion and hasn't expired
+        const promotion = await validatePromotion(DiscordRPC.customId);
+        if (!promotion) {
+            console.log('Invalid or expired promotion');
+            return;
+        }
+
+        // Prevent self-referrals
+        if (DiscordRPC.refererId === currentUserId) {
+            console.log('Self-referrals not allowed');
+            return;
+        }
+
+        // Grant rewards to both users
+        await grantRewards({
+            promotionId: DiscordRPC.customId,
+            refererId: DiscordRPC.refererId,
+            newUserId: currentUserId
+        });
+    } catch (error) {
+        console.error('Failed to process referral:', error);
+    }
+}
 ```
+
+#### Link Sharing Best Practices
+- Generate unique, non-guessable `customId`s
+- Track and validate referrals to prevent abuse
+- Handle edge cases like expired promotions gracefully
+- Consider implementing cool-down periods between shares
 
 ### Preventing unwanted activity sessions
 
