@@ -91,6 +91,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
 | 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
 | 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/transport-encryption-and-sending-voice).                                    |
+| 4020 | Bad request              | You sent a malformed request |
 
 ## HTTP
 
