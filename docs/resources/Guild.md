@@ -1279,6 +1279,9 @@ Returns the [widget](#DOCS_RESOURCES_GUILD/guild-widget-object) for the guild. F
 
 Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the `MANAGE_GUILD` permission. `code` will be null if a vanity url for the guild is not set.
 
+> info
+> This endpoint is required to get the usage count of the vanity invite, but the invite code can be accessed as `vanity_url_code` in the [guild object](#DOCS_RESOURCES_GUILD/guild-object) without having the `MANAGE_GUILD` permission.
+
 ###### Example Partial Invite Object
 
 ```json
