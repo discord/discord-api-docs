@@ -487,12 +487,13 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Thumbnail Structure
 
-| Field      | Type    | Description                                                     |
-|------------|---------|-----------------------------------------------------------------|
-| url        | string  | source url of thumbnail (only supports http(s) and attachments) |
-| proxy_url? | string  | a proxied url of the thumbnail                                  |
-| height?    | integer | height of thumbnail                                             |
-| width?     | integer | width of thumbnail                                              |
+| Field      | Type    | Description                                                                                                                                   |
+|------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| url        | string  | source url of thumbnail (only supports http(s) and attachments)                                                                               |
+| proxy_url? | string  | a proxied url of the thumbnail                                                                                                                |
+| height?    | integer | height of thumbnail                                                                                                                           |
+| width?     | integer | width of thumbnail                                                                                                                            |
+| flags?     | integer | [embed media flags](#DOCS_RESOURCES_MESSAGE/embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### Embed Video Structure
 
