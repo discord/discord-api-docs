@@ -167,12 +167,12 @@ Details about heartbeats are in the [Gateway documentation](#DOCS_EVENTS_GATEWAY
 
 #### Request Guild Members
 
-Used to request all members for a guild or a list of guilds. When initially connecting, if you don't have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents), or if the guild is over 75k members, it will only send members who are in voice, plus the member for you (the connecting user). Otherwise, if a guild has over `large_threshold` members (value in the [Gateway Identify](#DOCS_EVENTS_GATEWAY_EVENTS/identify)), it will only send members who are online, have a role, have a nickname, or are in a voice channel, and if it has under `large_threshold` members, it will send all members. If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_EVENTS_GATEWAY_EVENTS/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request all members for a guild. When initially connecting, the [Guild Create](#DOCS_EVENTS_GATEWAY_EVENTS/guild-create) event contains a subset of the guild's members. If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_EVENTS_GATEWAY_EVENTS/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
 - `GUILD_PRESENCES` intent is required to set `presences = true`. Otherwise, it will always be false
-- `GUILD_MEMBERS` intent is required to request the entire member list—`(query=‘’, limit=0<=n)`
+- `GUILD_MEMBERS` intent is required to request the entire member list—`(query="", limit=0<=n)`
 - You will be limited to requesting 1 `guild_id` per request
 - Requesting a prefix (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
@@ -640,7 +640,7 @@ The inner payload can be:
 | unavailable?           | boolean                                                                                                      | `true` if this guild is unavailable due to an outage                                                                       |
 | member_count           | integer                                                                                                      | Total number of members in this guild                                                                                      |
 | voice_states           | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects                             | States of members currently in voice channels; lacks the `guild_id` key                                                    |
-| members                | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | Users in the guild                                                                                                         |
+| members \*             | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | Subset of users in the guild                                                                                               |
 | channels               | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | Channels in the guild                                                                                                      |
 | threads                | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | All active threads in the guild that current user has permission to view                                                   |
 | presences              | array of partial [presence update](#DOCS_EVENTS_GATEWAY_EVENTS/presence-update) objects                      | Presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold` |
@@ -648,8 +648,11 @@ The inner payload can be:
 | guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
 | soundboard_sounds      | array of [soundboard sound](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) objects                      | Soundboard sounds in the guild                                                                                             |
 
-> warn
-> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+\* The `members` field contains these members:
+
+* If you don't have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_EVENTS_GATEWAY/gateway-intents), or if the guild is over 75k members, it will only send members who are in voice, plus the member for you (the connecting user)
+* Otherwise, if a guild has over `large_threshold` members (configurable in [Gateway Identify](#DOCS_EVENTS_GATEWAY_EVENTS/identify)), it will only send members who are online, have a role, have a nickname, or are in a voice channel.
+* Otherwise (if it has under `large_threshold` members), it will send all members.
 
 #### Guild Update
 
