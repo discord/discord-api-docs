@@ -449,21 +449,22 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Structure
 
-| Field        | Type                                                                                       | Description                                                                                          |
-|--------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| title?       | string                                                                                     | title of embed                                                                                       |
-| type?        | string                                                                                     | [type of embed](#DOCS_RESOURCES_MESSAGE/embed-object-embed-types) (always "rich" for webhook embeds) |
-| description? | string                                                                                     | description of embed                                                                                 |
-| url?         | string                                                                                     | url of embed                                                                                         |
-| timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                                                                           |
-| color?       | integer                                                                                    | color code of the embed                                                                              |
-| footer?      | [embed footer](#DOCS_RESOURCES_MESSAGE/embed-object-embed-footer-structure) object         | footer information                                                                                   |
-| image?       | [embed image](#DOCS_RESOURCES_MESSAGE/embed-object-embed-image-structure) object           | image information                                                                                    |
-| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_MESSAGE/embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                |
-| video?       | [embed video](#DOCS_RESOURCES_MESSAGE/embed-object-embed-video-structure) object           | video information                                                                                    |
-| provider?    | [embed provider](#DOCS_RESOURCES_MESSAGE/embed-object-embed-provider-structure) object     | provider information                                                                                 |
-| author?      | [embed author](#DOCS_RESOURCES_MESSAGE/embed-object-embed-author-structure) object         | author information                                                                                   |
-| fields?      | array of [embed field](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure) objects | fields information, max of 25                                                                        |
+| Field        | Type                                                                                       | Description                                                                                                                       |
+|--------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| title?       | string                                                                                     | title of embed                                                                                                                    |
+| type?        | string                                                                                     | [type of embed](#DOCS_RESOURCES_MESSAGE/embed-object-embed-types) (always "rich" for webhook embeds)                              |
+| description? | string                                                                                     | description of embed                                                                                                              |
+| url?         | string                                                                                     | url of embed                                                                                                                      |
+| timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                                                                                                        |
+| color?       | integer                                                                                    | color code of the embed                                                                                                           |
+| footer?      | [embed footer](#DOCS_RESOURCES_MESSAGE/embed-object-embed-footer-structure) object         | footer information                                                                                                                |
+| image?       | [embed image](#DOCS_RESOURCES_MESSAGE/embed-object-embed-image-structure) object           | image information                                                                                                                 |
+| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_MESSAGE/embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                                             |
+| video?       | [embed video](#DOCS_RESOURCES_MESSAGE/embed-object-embed-video-structure) object           | video information                                                                                                                 |
+| provider?    | [embed provider](#DOCS_RESOURCES_MESSAGE/embed-object-embed-provider-structure) object     | provider information                                                                                                              |
+| author?      | [embed author](#DOCS_RESOURCES_MESSAGE/embed-object-embed-author-structure) object         | author information                                                                                                                |
+| fields?      | array of [embed field](#DOCS_RESOURCES_MESSAGE/embed-object-embed-field-structure) objects | fields information, max of 25                                                                                                     |
+| flags?       | integer                                                                                    | [embed flags](#DOCS_RESOURCES_MESSAGE/embed-object-embed-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### Embed Types
 
@@ -476,6 +477,13 @@ The reaction count details object contains a breakdown of normal and super react
 | article     | article embed                                                                                    |
 | link        | link embed                                                                                       |
 | poll_result | [poll result embed](#DOCS_RESOURCES_MESSAGE/embed-fields-by-embed-type-poll-result-embed-fields) |
+
+###### Embed Flags
+
+| Flag                       | Value    | Description                                                                                                 |
+|----------------------------|----------|-------------------------------------------------------------------------------------------------------------|
+| CONTAINS_EXPLICIT_MEDIA    | `1 << 4` | this embed was flagged as [sensitive content](https://support.discord.com/hc/en-us/articles/18210995019671) |
+| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a reply to an activity card and is no longer displayed                                        |
 
 ###### Embed Thumbnail Structure
 
@@ -497,12 +505,19 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Image Structure
 
-| Field      | Type    | Description                                                 |
-|------------|---------|-------------------------------------------------------------|
-| url        | string  | source url of image (only supports http(s) and attachments) |
-| proxy_url? | string  | a proxied url of the image                                  |
-| height?    | integer | height of image                                             |
-| width?     | integer | width of image                                              |
+| Field      | Type    | Description                                                                                                                                   |
+|------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| url        | string  | source url of image (only supports http(s) and attachments)                                                                                   |
+| proxy_url? | string  | a proxied url of the image                                                                                                                    |
+| height?    | integer | height of image                                                                                                                               |
+| width?     | integer | width of image                                                                                                                                |
+| flags?     | integer | [embed media flags](#DOCS_RESOURCES_MESSAGE/embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+
+###### Embed Media Flags
+
+| Flag        | Value    | Description            |
+|-------------|----------|------------------------|
+| IS_ANIMATED | `1 << 5` | this image is animated |
 
 ###### Embed Provider Structure
 
@@ -580,30 +595,38 @@ Certain embed types are used to power special UIs. These embeds use [fields](#DO
 > info
 > For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 
-| Field          | Type      | Description                                                                                                                                      |
-|----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| id             | snowflake | attachment id                                                                                                                                    |
-| filename       | string    | name of file attached                                                                                                                            |
-| title?         | string    | the title of the file                                                                                                                            |
-| description?   | string    | description for the file (max 1024 characters)                                                                                                   |
-| content_type?  | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                          |
-| size           | integer   | size of file in bytes                                                                                                                            |
-| url            | string    | source url of file                                                                                                                               |
-| proxy_url      | string    | a proxied url of file                                                                                                                            |
-| height?        | ?integer  | height of file (if image)                                                                                                                        |
-| width?         | ?integer  | width of file (if image)                                                                                                                         |
-| ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                                                                             |
-| duration_secs? | float     | the duration of the audio file (currently for voice messages)                                                                                    |
-| waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                          |
-| flags?         | integer   | [attachment flags](#DOCS_RESOURCES_MESSAGE/attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field              | Type                                                           | Description                                                                                                                                      |
+|--------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                 | snowflake                                                      | attachment id                                                                                                                                    |
+| filename           | string                                                         | name of file attached                                                                                                                            |
+| title?             | string                                                         | the title of the file                                                                                                                            |
+| description?       | string                                                         | description for the file (max 1024 characters)                                                                                                   |
+| content_type?      | string                                                         | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                          |
+| size               | integer                                                        | size of file in bytes                                                                                                                            |
+| url                | string                                                         | source url of file                                                                                                                               |
+| proxy_url          | string                                                         | a proxied url of file                                                                                                                            |
+| height?            | ?integer                                                       | height of file (if image)                                                                                                                        |
+| width?             | ?integer                                                       | width of file (if image)                                                                                                                         |
+| ephemeral? \*      | boolean                                                        | whether this attachment is ephemeral                                                                                                             |
+| duration_secs?     | float                                                          | the duration of the audio file (currently for voice messages)                                                                                    |
+| waveform?          | string                                                         | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                          |
+| flags?             | integer                                                        | [attachment flags](#DOCS_RESOURCES_MESSAGE/attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| clip_participants? | array of [user](#DOCS_RESOURCES_USER/user-object) objects      | for Clips, array of users who were in the stream                                                                                                 |
+| clip_created_at?   | ISO8601 timestamp                                              | for Clips, when the clip was created                                                                                                             |
+| application?       | ?[application](#DOCS_RESOURCES_APPLICATION/application-object) | for Clips, the application in the stream, if recognized                                                                                          |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
 ###### Attachment Flags
 
-| Flag     | Value    | Description                                                       |
-|----------|----------|-------------------------------------------------------------------|
-| IS_REMIX | `1 << 2` | this attachment has been edited using the remix feature on mobile |
+| Flag                    | Value    | Description                                                                                                      |
+|-------------------------|----------|------------------------------------------------------------------------------------------------------------------|
+| IS_CLIP                 | `1 << 0` | this attachment is a [Clip from a stream](https://support.discord.com/hc/en-us/articles/16861982215703)          |
+| IS_THUMBNAIL            | `1 << 1` | this attachment is the thumbnail of a thread in a media channel, displayed in the grid but not on the message    |
+| IS_REMIX                | `1 << 2` | this attachment has been edited using the remix feature on mobile                                                |
+| IS_SPOILER              | `1 << 3` | this attachment was marked as a spoiler and is blurred until clicked                                             |
+| CONTAINS_EXPLICIT_MEDIA | `1 << 4` | this attachment was flagged as [sensitive content](https://support.discord.com/hc/en-us/articles/18210995019671) |
+| IS_ANIMATED             | `1 << 5` | this attachment is an animated image                                                                             |
 
 ### Channel Mention Object
 
