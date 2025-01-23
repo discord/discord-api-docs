@@ -257,19 +257,20 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure             | Example                         |
-|-------------------------|-----------------------|---------------------------------|
-| User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
-| User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
-| Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
-| Role                    | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
-| Slash Command \*\*      | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
-| Standard Emoji          | Unicode Characters    | 🦶                              |
-| Custom Emoji            | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
-| Custom Emoji (Animated) | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
-| Unix Timestamp          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
-| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
-| Guild Navigation        | `<id:TYPE>`           | `<id:customize>`                |
+| Type                    | Structure                   | Example                                         |
+|-------------------------|-----------------------------|-------------------------------------------------|
+| User                    | `<@USER_ID>`                | `<@80351110224678912>`                          |
+| User \*                 | `<@!USER_ID>`               | `<@!80351110224678912>`                         |
+| Channel                 | `<#CHANNEL_ID>`             | `<#103735883630395392>`                         |
+| Role                    | `<@&ROLE_ID>`               | `<@&165511591545143296>`                        |
+| Slash Command \*\*      | `</NAME:COMMAND_ID>`        | `</airhorn:816437322781949972>`                 |
+| Standard Emoji          | Unicode Characters          | 🦶                                              |
+| Custom Emoji            | `<:NAME:ID>`                | `<:mmLol:216154654256398347>`                   |
+| Custom Emoji (Animated) | `<a:NAME:ID>`               | `<a:b1nzy:392938283556143104>`                  |
+| Unix Timestamp          | `<t:TIMESTAMP>`             | `<t:1618953630>`                                |
+| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>`       | `<t:1618953630:d>`                              |
+| Guild Navigation        | `<id:TYPE>`                 | `<id:customize>`                                |
+| Soundmoji \*\*\*        | `<sound:GUILD_ID:SOUND_ID>` | `<sound:613425648685547541:987654321987654321>` |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
@@ -278,6 +279,8 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
 
 \*\* Subcommands and subcommand groups can also be mentioned by using respectively `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>`.
+
+\*\*\* `GUILD_ID` should be `0` when a [default sound](#DOCS_RESOURCES_SOUNDBOARD/list-default-soundboard-sounds) is used. 
 
 ###### Timestamp Styles
 
@@ -529,3 +532,18 @@ For example:
 | ja     | Japanese              | 日本語              |
 | zh-TW  | Chinese, Taiwan       | 繁體中文            |
 | ko     | Korean                | 한국어                 |
+
+
+## Sounds
+
+#### Base URL
+
+```
+https://cdn.discordapp.com/
+```
+
+###### Endpoints
+
+| Type             | Path                                                                             |
+|------------------|----------------------------------------------------------------------------------|
+| Soundboard Sound | soundboard-sounds/[sound_id](#DOCS_RESOURCES_SOUNDBOARD/soundboard-sound-object) |
