@@ -1389,6 +1389,6 @@ Modifies the incident actions of the guild. Returns a 200 with the [Incidents Da
 | Field                   | Type                  | Description                                  |
 |-------------------------|-----------------------|----------------------------------------------|
 | invites_disabled_until? | ?ISO8601 timestamp \* | when invites will be enabled again           |
-| dms_disabled_until?     | ?ISO8601 timestamp \* | when direct messages will be enabled again |
+| dms_disabled_until?     | ?ISO8601 timestamp \* | when direct messages will be enabled again   |
 
 \* Supplying `null` disables the action.
