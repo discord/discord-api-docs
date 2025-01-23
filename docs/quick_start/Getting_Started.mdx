@@ -502,6 +502,10 @@ const componentId = data.custom_id;
       // Get user ID and object choice for responding user
       // User ID is in user field for (G)DMs, and member for servers
       const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
+
+      // User's object choice
+      const objectName = data.values[0];
+
       // Calculate result from helper function
       const resultStr = getResult(activeGames[gameId], {
         id: userId,
