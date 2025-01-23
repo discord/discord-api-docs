@@ -229,7 +229,7 @@ Sequence numbers are only sent from the server to the client, and all server-sen
 
 ### Indicating DAVE Protocol Support
 
-Include the highest DAVE protocol version you support in [Opcode 1 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) as `max_dave_protocol_version`. Sending version 0, or omitting the `max_dave_protocol_version` field, indicates no DAVE protocol support.
+Include the highest DAVE protocol version you support in [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) as `max_dave_protocol_version`. Sending version 0, or omitting the `max_dave_protocol_version` field, indicates no DAVE protocol support.
 
 The voice gateway specifies the initial protocol version in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) under `dave_protocol_version`. This may be any non-discontinued protocol version equal to or less than your supported protocol version.
 
