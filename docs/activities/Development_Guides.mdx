@@ -930,7 +930,7 @@ When a user clicks a shared link, your activity will launch with referral data a
 // Early in your activity's initialization
 async function handleReferral() {
     // Validate the referral data
-    if (!DiscordRPC.customId || !DiscordRPC.refererId) {
+    if (!DiscordRPC.customId || !DiscordRPC.referrerId) {
         return;
     }
 
@@ -943,7 +943,7 @@ async function handleReferral() {
         }
 
         // Prevent self-referrals
-        if (DiscordRPC.refererId === currentUserId) {
+        if (DiscordRPC.referrerId === currentUserId) {
             console.log('Self-referrals not allowed');
             return;
         }
@@ -951,7 +951,7 @@ async function handleReferral() {
         // Grant rewards to both users
         await grantRewards({
             promotionId: DiscordRPC.customId,
-            refererId: DiscordRPC.refererId,
+            referrerId: DiscordRPC.referrerId,
             newUserId: currentUserId
         });
     } catch (error) {
