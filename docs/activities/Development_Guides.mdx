@@ -96,6 +96,13 @@ These guides include suggested development practices, SDK commands, and user flo
   </Card>
 </Container>
 
+## Growth and Referrals
+<Container>
+  <Card title="Prompting Users to Share Incentivized Links" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links">
+    Encourage your users to share links to your activity by adding tracking and offering rewards for engagement.
+  </Card>
+</Container>
+
 ## Assets & Metadata
 <Container>
   <Card title="Setting Up Activity Metadata" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata">
@@ -812,7 +819,7 @@ Here's a basic example for retrieving a user's avatar and username
 
 ```javascript
 // We'll be referencing the user object returned from authenticate
-const {user} = await DiscordRPC.commands.authenticate({
+const {user} = await discordSdk.commands.authenticate({
   access_token: accessToken,
 });
 
@@ -839,13 +846,13 @@ Here's an example of how to retrieve the user's guild-specific avatar and nickna
 
 ```javascript
 // We'll be referencing the user object returned from authenticate
-const {user} = await DiscordRPC.commands.authenticate({
+const {user} = await discordSdk.commands.authenticate({
   access_token: accessToken,
 });
 
 // When using the proxy, you may instead replace `https://discord.com` with `/discord`
 // or whatever url mapping you have chosen via the developer portal
-fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
+fetch(`https://discord.com/api/users/@me/guilds/${discordSdk.guildId}/member`, {
   method: 'GET',
   headers: {
     Authorization: `Bearer ${accessToken}`,
@@ -858,7 +865,7 @@ fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
     let guildAvatarSrc = '';
     // Retrieve the guild-specific avatar, and fallback to the user's avatar
     if (guildsMembersRead?.avatar) {
-      guildAvatarSrc = `https://cdn.discordapp.com/guilds/${DiscordRPC.guildId}/users/${user.id}/avatars/${guildsMembersRead.avatar}.png?size=256`;
+      guildAvatarSrc = `https://cdn.discordapp.com/guilds/${discordSdk.guildId}/users/${user.id}/avatars/${guildsMembersRead.avatar}.png?size=256`;
     } else if (user.avatar) {
       guildAvatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     } else {
@@ -876,6 +883,88 @@ This example is being done entirely on the client, however, a more common patter
 - Store the user's access token on the application server
 - Retrieve the user's guild-specific avatar and nickname via the application's server
 - Serve all of the application's avatar/nicknames via the application's server
+
+---
+
+### Prompting Users to Share Incentivized Links
+
+Incentivized sharing can help grow your Activity through network effects. This guide covers implementing a reward system for users who share links and those who click them.
+
+#### Implementation Overview
+1. Create and track an incentivized link for a promotional campaign, then prompt users to share the link
+2. Handle incoming referrals and grant valid rewards
+
+#### Sharing Links
+
+When implementing sharing, you'll need to:
+1. Generate a unique ID for tracking the promotion
+2. Call the [`shareLink`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sharelink) command
+3. Track the share attempt
+
+```javascript
+// Generate a unique ID for this promotion
+// This could be per-campaign, per-user, or per-share depending on your needs
+const customId = await createPromotionalCustomId();
+
+try {
+    const { success } = await discordSdk.commands.shareLink({
+        message: 'Click this link to redeem 5 free coins!',
+        custom_id: customId,
+        // referrer_id is optional - if omitted, the current user's ID is used
+    });
+
+    if (success) {
+        // Track successful share for analytics/limiting
+        await trackSuccessfulShare(customId);
+    }
+} catch (error) {
+    // Handle share failures appropriately
+    console.error('Failed to share link:', error);
+}
+```
+
+#### Handling Incoming Referrals
+When a user clicks a shared link, your activity will launch with referral data available through the SDK:
+
+```javascript
+// Early in your activity's initialization
+async function handleReferral() {
+    // Validate the referral data
+    if (!discordSdk.customId || !discordSdk.referrerId) {
+        return;
+    }
+
+    try {
+        // Verify this is a valid promotion and hasn't expired
+        const promotion = await validatePromotion(discordSdk.customId);
+        if (!promotion) {
+            console.log('Invalid or expired promotion');
+            return;
+        }
+
+        // Prevent self-referrals
+        if (discordSdk.referrerId === currentUserId) {
+            console.log('Self-referrals not allowed');
+            return;
+        }
+
+        // Grant rewards to both users
+        await grantRewards({
+            promotionId: discordSdk.customId,
+            referrerId: discordSdk.referrerId,
+            newUserId: currentUserId
+        });
+    } catch (error) {
+        console.error('Failed to process referral:', error);
+    }
+}
+```
+
+#### Link Sharing Best Practices
+- Generate unique, non-guessable `customId`s
+- Track and validate referrals to prevent abuse
+- Handle edge cases like expired promotions gracefully
+- Consider implementing cool-down periods between shares
 
 ---
 
