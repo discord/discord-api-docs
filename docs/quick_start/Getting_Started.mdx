@@ -398,8 +398,8 @@ Paste the following code under the type handler for `APPLICATION_COMMAND`s:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id set in payload when sending message component
-const componentId = data.custom_id;
+  // custom_id set in payload when sending message component
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // get the associated game ID
@@ -435,6 +435,7 @@ const componentId = data.custom_id;
       console.error('Error sending message:', err);
     }
   }
+  return;
 }
 ```
 
@@ -536,6 +537,7 @@ const componentId = data.custom_id;
       }
     }
   }
+  return;
 }
 ```
 
