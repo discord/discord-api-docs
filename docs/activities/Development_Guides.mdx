@@ -819,7 +819,7 @@ Here's a basic example for retrieving a user's avatar and username
 
 ```javascript
 // We'll be referencing the user object returned from authenticate
-const {user} = await DiscordRPC.commands.authenticate({
+const {user} = await discordSdk.commands.authenticate({
   access_token: accessToken,
 });
 
@@ -846,13 +846,13 @@ Here's an example of how to retrieve the user's guild-specific avatar and nickna
 
 ```javascript
 // We'll be referencing the user object returned from authenticate
-const {user} = await DiscordRPC.commands.authenticate({
+const {user} = await discordSdk.commands.authenticate({
   access_token: accessToken,
 });
 
 // When using the proxy, you may instead replace `https://discord.com` with `/discord`
 // or whatever url mapping you have chosen via the developer portal
-fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
+fetch(`https://discord.com/api/users/@me/guilds/${discordSdk.guildId}/member`, {
   method: 'GET',
   headers: {
     Authorization: `Bearer ${accessToken}`,
@@ -865,7 +865,7 @@ fetch(`https://discord.com/api/users/@me/guilds/${DiscordRPC.guildId}/member`, {
     let guildAvatarSrc = '';
     // Retrieve the guild-specific avatar, and fallback to the user's avatar
     if (guildsMembersRead?.avatar) {
-      guildAvatarSrc = `https://cdn.discordapp.com/guilds/${DiscordRPC.guildId}/users/${user.id}/avatars/${guildsMembersRead.avatar}.png?size=256`;
+      guildAvatarSrc = `https://cdn.discordapp.com/guilds/${discordSdk.guildId}/users/${user.id}/avatars/${guildsMembersRead.avatar}.png?size=256`;
     } else if (user.avatar) {
       guildAvatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`;
     } else {
@@ -907,7 +907,7 @@ When implementing sharing, you'll need to:
 const customId = await createPromotionalCustomId();
 
 try {
-    const { success } = await DiscordRPC.commands.shareLink({
+    const { success } = await discordSdk.commands.shareLink({
         message: 'Click this link to redeem 5 free coins!',
         custom_id: customId,
         // referrer_id is optional - if omitted, the current user's ID is used
@@ -930,28 +930,28 @@ When a user clicks a shared link, your activity will launch with referral data a
 // Early in your activity's initialization
 async function handleReferral() {
     // Validate the referral data
-    if (!DiscordRPC.customId || !DiscordRPC.referrerId) {
+    if (!discordSdk.customId || !discordSdk.referrerId) {
         return;
     }
 
     try {
         // Verify this is a valid promotion and hasn't expired
-        const promotion = await validatePromotion(DiscordRPC.customId);
+        const promotion = await validatePromotion(discordSdk.customId);
         if (!promotion) {
             console.log('Invalid or expired promotion');
             return;
         }
 
         // Prevent self-referrals
-        if (DiscordRPC.referrerId === currentUserId) {
+        if (discordSdk.referrerId === currentUserId) {
             console.log('Self-referrals not allowed');
             return;
         }
 
         // Grant rewards to both users
         await grantRewards({
-            promotionId: DiscordRPC.customId,
-            referrerId: DiscordRPC.referrerId,
+            promotionId: discordSdk.customId,
+            referrerId: discordSdk.referrerId,
             newUserId: currentUserId
         });
     } catch (error) {
