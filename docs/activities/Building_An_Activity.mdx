@@ -509,7 +509,7 @@ async function setupDiscordSdk() {
   const { access_token } = await response.json();
 
   // Authenticate with Discord client (using the access_token)
-  auth = await discordSdk.commands.authenticate({
+  const auth = await discordSdk.commands.authenticate({
     access_token,
   });
 
