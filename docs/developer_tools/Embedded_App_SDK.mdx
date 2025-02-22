@@ -1092,13 +1092,13 @@ No scopes required
 
 #### Application
 
-| Property     | Type             |
-|--------------|------------------|
-| description  | string           |
-| icon?        | string \| null   |
-| id           | string           |
-| rpc_origins? | string[]         |
-| name         | string           |
+| Property     | Type           |
+|--------------|----------------|
+| description  | string         |
+| icon?        | string \| null |
+| id           | string         |
+| rpc_origins? | string[]       |
+| name         | string         |
 
 #### Attachment
 
@@ -1240,22 +1240,22 @@ No scopes required
 
 #### Entitlement
 
-| Property            | Type               |
-|---------------------|--------------------|
-| id                  | string             |
-| sku_id              | string             |
-| application_id      | string             |
-| user_id             | string             |
-| gift_code_flags     | number             |
-| type                | string \| number   |
-| gifter_user_id?     | string \| null     |
-| branches?           | string[] \| null   |
-| starts_at?          | string \| null     |
-| ends_at?            | string \| null     |
-| parent_id?          | string \| null     |
-| consumed?           | boolean \| null    |
-| deleted?            | boolean \| null    |
-| gift_code_batch_id? | string \| null     |
+| Property            | Type             |
+|---------------------|------------------|
+| id                  | string           |
+| sku_id              | string           |
+| application_id      | string           |
+| user_id             | string           |
+| gift_code_flags     | number           |
+| type                | string \| number |
+| gifter_user_id?     | string \| null   |
+| branches?           | string[] \| null |
+| starts_at?          | string \| null   |
+| ends_at?            | string \| null   |
+| parent_id?          | string \| null   |
+| consumed?           | boolean \| null  |
+| deleted?            | boolean \| null  |
+| gift_code_batch_id? | string \| null   |
 
 #### GetChannelPermissionsResponse
 
@@ -1347,24 +1347,24 @@ No scopes required
 
 #### Message
 
-| Property            | Type                                                                                    |
-|---------------------|-----------------------------------------------------------------------------------------|
-| id                  | string                                                                                  |
-| channel_id          | string                                                                                  |
-| guild_id?           | string \| null                                                                          |
-| author?             | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) \| null                             |
-| member?             | [GuildMember](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/guildmember) \| null               |
-| content             | string                                                                                  |
-| timestamp           | string                                                                                  |
-| edited_timestamp?   | string \| null                                                                          |
-| tts                 | boolean                                                                                 |
-| mention_everyone    | boolean                                                                                 |
-| mentions            | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)[]                                   |
-| mention_roles       | string[]                                                                                |
-| mention_channels    | [ChannelMention](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channelmention)[]               |
-| attachments         | [Attachment](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/attachment)[]                       |
-| embeds              | [Embed](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embed)[]                                 |
-| reactions?          | [Reaction](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/reaction)[] \| null                   |
+| Property          | Type                                                                      |
+|-------------------|---------------------------------------------------------------------------|
+| id                | string                                                                    |
+| channel_id        | string                                                                    |
+| guild_id?         | string \| null                                                            |
+| author?           | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) \| null               |
+| member?           | [GuildMember](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/guildmember) \| null |
+| content           | string                                                                    |
+| timestamp         | string                                                                    |
+| edited_timestamp? | string \| null                                                            |
+| tts               | boolean                                                                   |
+| mention_everyone  | boolean                                                                   |
+| mentions          | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)[]                     |
+| mention_roles     | string[]                                                                  |
+| mention_channels  | [ChannelMention](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channelmention)[] |
+| attachments       | [Attachment](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/attachment)[]         |
+| embeds            | [Embed](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embed)[]                   |
+| reactions?        | [Reaction](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/reaction)[] \| null     |
 | nonce?              | string | number \| null                                                                 |
 | pinned              | boolean                                                                                 |
 | webhook_id?         | string \| null                                                                          |
