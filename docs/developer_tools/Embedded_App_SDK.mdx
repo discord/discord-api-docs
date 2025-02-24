@@ -154,7 +154,7 @@ discordSdk.close(RPCCloseCodes.CLOSE_NORMAL, "You exited from app");
 
 ## SDK Commands
 
-Developers can use these commands to interact with the Discord client. The following SDK commands are prefixed with `.commands`, such as, `discordSDK.commands.authenticate`. 
+Developers can use these commands to interact with the Discord client. The following SDK commands are prefixed with `.commands`, such as, `discordSDK.commands.authenticate`.
 
 | Name                                                                                                        | Description                                                                              |
 |-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
@@ -283,9 +283,9 @@ captureLog(args: [CaptureLogRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/capt
 #### Usage
 
 ```js
-await discordSdk.commands.captureLog({ 
+await discordSdk.commands.captureLog({
   level: 'log',
-  message: 'This is my log message!' 
+  message: 'This is my log message!'
 });
 ```
 
@@ -531,7 +531,7 @@ openExternalLink(args: [OpenExternalLinkRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_
 #### Usage
 
 ```js
-await discordSdk.commands.openExternalLink({ 
+await discordSdk.commands.openExternalLink({
   url: 'string url'
 });
 ```
@@ -588,7 +588,7 @@ openInviteDialog(args: [OpenInviteDialogRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_
 
 ```js
 await discordSdk.commands.openShareMomentDialog({
-  mediaUrl: 'DISCORD_CDN_URL' 
+  mediaUrl: 'DISCORD_CDN_URL'
 });
 ```
 
@@ -619,11 +619,11 @@ setActivity(args: [SetActivityRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/se
 #### Usage
 
 ```js
-await discordSdk.commands.setActivity({ 
-  activity: { 
-    type: 0, 
+await discordSdk.commands.setActivity({
+  activity: {
+    type: 0,
     details: 'Details',
-    state: 'Playing' 
+    state: 'Playing'
   }
 });
 ```
@@ -683,7 +683,7 @@ setOrientationLockState(args: [SetOrientationLockStateRequest](#DOCS_DEVELOPER_T
 ```js
 import {Common} from '@discord/embedded-app-sdk';
 
-await discordSdk.commands.setOrientationLockState({ 
+await discordSdk.commands.setOrientationLockState({
   lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
   picture_in_picture_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
   grid_lock_state: Common.OrientationLockStateTypeObject.UNLOCKED
@@ -695,7 +695,7 @@ await discordSdk.commands.setOrientationLockState({
 
 ### shareLink()
 
-Presents the user with a modal to share a link 
+Presents the user with a modal to share a link
 
 #### Supported Platforms
 | Web | iOS | Android |
@@ -1092,25 +1092,25 @@ No scopes required
 
 #### Application
 
-| Property    | Type           |
-|-------------|----------------|
-| description | string         |
-| icon        | string \| null |
-| id          | string         |
-| rpc_origins | string\[\]     |
-| name        | string         |
+| Property     | Type           |
+|--------------|----------------|
+| description  | string         |
+| icon?        | string \| null |
+| id           | string         |
+| rpc_origins? | string[]       |
+| name         | string         |
 
 #### Attachment
 
-| Property  | Type   |
-|-----------|--------|
-| id        | string |
-| filename  | string |
-| size      | number |
-| url       | string |
-| proxy_url | string |
-| height?   | number |
-| width?    | number |
+| Property  | Type           |
+|-----------|----------------|
+| id        | string         |
+| filename  | string         |
+| size      | number         |
+| url       | string         |
+| proxy_url | string         |
+| height?   | number \| null |
+| width?    | number \| null |
 
 #### AuthenticateRequest
 
@@ -1124,7 +1124,7 @@ No scopes required
 |--------------|-------------------------------------------------------------------|
 | access_token | string                                                            |
 | user         | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)               |
-| scopes       | string\[\]                                                        |
+| scopes       | string[]                                                          |
 | expires      | string                                                            |
 | application  | [Application](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/application) |
 
@@ -1134,12 +1134,11 @@ No scopes required
 |------------------------|---------------------------------------------------------------------|
 | client_id              | string                                                              |
 | scope                  | [OAuthScopes](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/oauthscopes)[] |
-| response_type?         | 'code' \| 'token'                                                   |
+| response_type?         | 'code'                                                              |
 | code_challenge?        | string                                                              |
 | state?                 | string                                                              |
 | prompt?                | 'none'                                                              |
 | code_challenge_method? | 'S256'                                                              |
-
 
 #### AuthorizeResponse
 
@@ -1149,10 +1148,10 @@ No scopes required
 
 #### AvatarDecorationData
 
-| Property | Type   |
-|----------|--------|
-| asset    | string |
-| sku_id?  | string |
+| Property | Type           |
+|----------|----------------|
+| asset    | string         |
+| sku_id?  | string \| null |
 
 #### CaptureLogRequest
 
@@ -1172,30 +1171,30 @@ No scopes required
 
 #### Embed
 
-| Property Name | Property Type                                                         |
-|---------------|-----------------------------------------------------------------------|
-| title?        | string                                                                |
-| type?         | string                                                                |
-| description?  | string                                                                |
-| url?          | string                                                                |
-| timestamp?    | string                                                                |
-| color?        | number                                                                |
-| footer?       | [EmbedFooter](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedfooter)     |
-| image?        | Image                                                                 |
-| thumbnail?    | Image                                                                 |
-| video?        | [Video](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/video)                 |
-| provider?     | [EmbedProvider](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedprovider) |
-| author?       | [EmbedAuthor](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedauthor)     |
-| fields?       | [EmbedField](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedfield)[]     |
+| Property     | Type                                                                          |
+|--------------|-------------------------------------------------------------------------------|
+| title?       | string \| null                                                                |
+| type?        | string \| null                                                                |
+| description? | string \| null                                                                |
+| url?         | string \| null                                                                |
+| timestamp?   | string \| null                                                                |
+| color?       | number \| null                                                                |
+| footer?      | [EmbedFooter](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedfooter) \| null     |
+| image?       | Image \| null                                                                 |
+| thumbnail?   | Image \| null                                                                 |
+| video?       | Video \| null                                                                 |
+| provider?    | [EmbedProvider](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedprovider) \| null |
+| author?      | [EmbedAuthor](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedauthor) \| null     |
+| fields?      | [EmbedField](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embedfield)[] \| null     |
 
 #### EmbedAuthor
 
-| Property        | Type   |
-|-----------------|--------|
-| name?           | string |
-| url?            | string |
-| icon_url?       | string |
-| proxy_icon_url? | string |
+| Property        | Type           |
+|-----------------|----------------|
+| name?           | string \| null |
+| url?            | string \| null |
+| icon_url?       | string \| null |
+| proxy_icon_url? | string \| null |
 
 #### EmbedField
 
@@ -1207,31 +1206,31 @@ No scopes required
 
 #### EmbedFooter
 
-| Property        | Type   |
-|-----------------|--------|
-| text            | string |
-| icon_url?       | string |
-| proxy_icon_url? | string |
+| Property        | Type           |
+|-----------------|----------------|
+| text            | string         |
+| icon_url?       | string \| null |
+| proxy_icon_url? | string \| null |
 
 #### EmbedProvider
 
-| Property | Type   |
-|----------|--------|
-| name?    | string |
-| url?     | string |
+| Property | Type           |
+|----------|----------------|
+| name?    | string \| null |
+| url?     | string \| null |
 
 #### Emoji
 
-| Property        | Property                                            |
-|-----------------|-----------------------------------------------------|
-| id              | string                                              |
-| name?           | string                                              |
-| roles?          | string[]                                            |
-| user?           | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) |
-| require_colons? | boolean                                             |
-| managed?        | boolean                                             |
-| animated?       | boolean                                             |
-| available?      | boolean                                             |
+| Property        | Type                                                        |
+|-----------------|-------------------------------------------------------------|
+| id              | string                                                      |
+| name?           | string \| null                                              |
+| roles?          | string[] \| null                                            |
+| user?           | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) \| null |
+| require_colons? | boolean \| null                                             |
+| managed?        | boolean \| null                                             |
+| animated?       | boolean \| null                                             |
+| available?      | boolean \| null                                             |
 
 #### EncourageHardwareAccelerationResponse
 
@@ -1241,22 +1240,22 @@ No scopes required
 
 #### Entitlement
 
-| Property Name       | Property Type |
-|---------------------|---------------|
-| id                  | string        |
-| sku_id              | string        |
-| application_id      | string        |
-| user_id             | string        |
-| gift_code_flags     | number        |
-| type                | number        |
-| gifter_user_id?     | string        |
-| branches?           | string[]      |
-| starts_at?          | string        |
-| ends_at?            | string        |
-| parent_id?          | string        |
-| consumed?           | boolean       |
-| deleted?            | boolean       |
-| gift_code_batch_id? | string        |
+| Property            | Type             |
+|---------------------|------------------|
+| id                  | string           |
+| sku_id              | string           |
+| application_id      | string           |
+| user_id             | string           |
+| gift_code_flags     | number           |
+| type                | string \| number |
+| gifter_user_id?     | string \| null   |
+| branches?           | string[] \| null |
+| starts_at?          | string \| null   |
+| ends_at?            | string \| null   |
+| parent_id?          | string \| null   |
+| consumed?           | boolean \| null  |
+| deleted?            | boolean \| null  |
+| gift_code_batch_id? | string \| null   |
 
 #### GetChannelPermissionsResponse
 
@@ -1276,12 +1275,12 @@ No scopes required
 |--------------|---------------------------------------------------------------------------------|
 | id           | string                                                                          |
 | type         | [ChannelTypesObject](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channeltypesobject) |
-| guild_id     | string \| null                                                                  |
-| name         | string \| null                                                                  |
-| topic        | string \| null                                                                  |
-| bitrate      | number \| null                                                                  |
-| user_limit   | number \| null                                                                  |
-| position     | number \| null                                                                  |
+| guild_id?    | string \| null                                                                  |
+| name?        | string \| null                                                                  |
+| topic?       | string \| null                                                                  |
+| bitrate?     | number \| null                                                                  |
+| user_limit?  | number \| null                                                                  |
+| position?    | number \| null                                                                  |
 | voice_states | [UserVoiceState](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/uservoicestate)[]       |
 | messages     | [Message](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/message)[]                     |
 
@@ -1333,12 +1332,12 @@ No scopes required
 
 #### Image
 
-| Property   | Type   |
-|------------|--------|
-| url?       | string |
-| proxy_url? | string |
-| height?    | number |
-| width?     | number |
+| Property   | Type           |
+|------------|----------------|
+| url?       | string \| null |
+| proxy_url? | string \| null |
+| height?    | number \| null |
+| width?     | number \| null |
 
 #### InitiateImageUploadResponse
 
@@ -1348,59 +1347,59 @@ No scopes required
 
 #### Message
 
-| Property            | Type                                                                            |
-|---------------------|---------------------------------------------------------------------------------|
-| id                  | string                                                                          |
-| channel_id          | string                                                                          |
-| guild_id?           | string                                                                          |
-| author              | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)                             |
-| member?             | [GuildMember](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/guildmember)               |
-| content             | string                                                                          |
-| timestamp           | string                                                                          |
-| edited_timestamp?   | string                                                                          |
-| tts                 | boolean                                                                         |
-| mention_everyone    | boolean                                                                         |
-| mentions            | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)[]                           |
-| mention_roles       | string[]                                                                        |
-| mention_channels?   | [ChannelMention](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channelmention)[]       |
-| attachments         | [Attachment](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/attachment)[]               |
-| embeds              | [Embed](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embed)[]                         |
-| reactions?          | [Reaction](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/reaction)[]                   |
-| nonce?              | string                                                                          |
-| pinned              | boolean                                                                         |
-| webhook_id?         | string                                                                          |
-| type                | number                                                                          |
-| activity?           | [MessageActivity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messageactivity)       |
-| application?        | [MessageApplication](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messageapplication) |
-| message_reference?  | [MessageReference](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messagereference)     |
-| flags?              | number                                                                          |
-| stickers?           | Sticker[]                                                                       |
-| referenced_message? | [Message](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/message)                       |
+| Property          | Type                                                                      |
+|-------------------|---------------------------------------------------------------------------|
+| id                | string                                                                    |
+| channel_id        | string                                                                    |
+| guild_id?         | string \| null                                                            |
+| author?           | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user) \| null               |
+| member?           | [GuildMember](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/guildmember) \| null |
+| content           | string                                                                    |
+| timestamp         | string                                                                    |
+| edited_timestamp? | string \| null                                                            |
+| tts               | boolean                                                                   |
+| mention_everyone  | boolean                                                                   |
+| mentions          | [User](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/user)[]                     |
+| mention_roles     | string[]                                                                  |
+| mention_channels  | [ChannelMention](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/channelmention)[] |
+| attachments       | [Attachment](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/attachment)[]         |
+| embeds            | [Embed](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/embed)[]                   |
+| reactions?        | [Reaction](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/reaction)[] \| null     |
+| nonce?              | string | number \| null                                                                 |
+| pinned              | boolean                                                                                 |
+| webhook_id?         | string \| null                                                                          |
+| type                | number                                                                                  |
+| activity?           | [MessageActivity](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messageactivity) \| null       |
+| application?        | [MessageApplication](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messageapplication) \| null |
+| message_reference?  | [MessageReference](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/messagereference) \| null     |
+| flags?              | number                                                                                  |
+| stickers?           | Sticker[] \| null                                                                       |
+| referenced_message? | [Message](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/message) \| null                       |
 
 #### MessageActivity
 
-| Property  | Type   |
-|-----------|--------|
-| type      | number |
-| party_id? | string |
+| Property  | Type           |
+|-----------|----------------|
+| type      | number         |
+| party_id? | string \| null |
 
 #### MessageApplication
 
-| Property     | Type   |
-|--------------|--------|
-| id           | string |
-| cover_image? | string |
-| description  | string |
-| icon?        | string |
-| name         | string |
+| Property     | Type           |
+|--------------|----------------|
+| id           | string         |
+| cover_image? | string \| null |
+| description  | string         |
+| icon?        | string \| null |
+| name         | string         |
 
 #### MessageReference
 
-| Property    | Type   |
-|-------------|--------|
-| message_id? | string |
-| channel_id? | string |
-| guild_id?   | string |
+| Property    | Type           |
+|-------------|----------------|
+| message_id? | string \| null |
+| channel_id? | string \| null |
+| guild_id?   | string \| null |
 
 #### OpenExternalLinkRequest
 
@@ -1425,10 +1424,10 @@ No scopes required
 
 #### Party
 
-| Property | Type           |
-|----------|----------------|
-| id?      | string \| null |
-| size?    | number[]       |
+| Property | Type             |
+|----------|------------------|
+| id?      | string \| null   |
+| size?    | number[] \| null |
 
 #### Reaction
 
@@ -1473,11 +1472,11 @@ No scopes required
 
 #### ShareLinkRequest
 
-| Property    | Type           |
-|-------------|----------------|
-| message     | string \| null |
-| referrer_id | string \| null |
-| custom_id   | string \| null |
+| Property     | Type   |
+|--------------|--------|
+| referrer_id? | string |
+| custom_id?   | string |
+| message      | string |
 
 #### ShareLinkResponse
 
@@ -1490,6 +1489,7 @@ No scopes required
 | Property       | Type                                                                  |
 |----------------|-----------------------------------------------------------------------|
 | id             | string                                                                |
+| name           | string                                                                |
 | type           | [SkuTypeObject](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/skutypeobject) |
 | price          | [SkuPrice](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/skuprice)           |
 | application_id | string                                                                |
@@ -1519,24 +1519,22 @@ No scopes required
 
 | Property | Type   |
 |----------|--------|
-| start    | number |
-| end      | number |
+| start?   | number |
+| end?     | number |
 
 #### User
 
-| Property               | Type                                                                                |
-|------------------------|-------------------------------------------------------------------------------------|
-| username               | string                                                                              |
-| discriminator          | string                                                                              |
-| id                     | string                                                                              |
-| avatar                 | string \| null                                                                      |
-| avatar_decoration_data | [AvatarDecorationData](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/avatardecorationdata) |
-| public_flags           | number                                                                              |
-| global_name            | string \| null                                                                      |
-| bot                    | boolean                                                                             |
-| flags?                 | number \| null                                                                      |
-| premium_type?          | number \| null                                                                      |
-| nickname?              | string \| null                                                                      |
+| Property               | Type                                                                                        |
+|------------------------|---------------------------------------------------------------------------------------------|
+| id                     | string                                                                                      |
+| username               | string                                                                                      |
+| discriminator          | string                                                                                      |
+| global_name?           | string \| null                                                                              |
+| avatar?                | string \| null                                                                              |
+| avatar_decoration_data | [AvatarDecorationData](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/avatardecorationdata) \| null |
+| bot                    | boolean                                                                                     |
+| flags?                 | number \| null                                                                              |
+| premium_type?          | number \| null                                                                              |
 
 #### UserSettingsGetLocaleResponse
 
@@ -1556,11 +1554,11 @@ No scopes required
 
 #### Video
 
-| Property | Type   |
-|----------|--------|
-| url?     | string |
-| height?  | number |
-| width?   | number |
+| Property | Type           |
+|----------|----------------|
+| url?     | string \| null |
+| height?  | number \| null |
+| width?   | number \| null |
 
 #### VoiceState
 
@@ -1666,7 +1664,7 @@ No scopes required
 | 'relationships.read'         |
 | 'activities.read'            |
 | 'activities.write'           |
-| 'dm_channels.read';          |
+| 'dm_channels.read'           |
 
 #### RPCCloseCodes
 
