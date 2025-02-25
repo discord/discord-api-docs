@@ -111,7 +111,7 @@ Commands are requests made to the RPC socket by a client.
 | [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices)          | used to send info about certified hardware devices              |
 | [SET_ACTIVITY](#DOCS_TOPICS_RPC/setactivity)                           | used to update a user's Rich Presence                           |
 | [SEND_ACTIVITY_JOIN_INVITE](#DOCS_TOPICS_RPC/sendactivityjoininvite)   | used to consent to a Rich Presence Ask to Join request          |
-| [CLOSE_ACTIVITY_REQUEST](#DOCS_TOPICS_RPC/closeactivityrequest)        | used to reject a Rich Presence Ask to Join request              |
+| [CLOSE_ACTIVITY_JOIN_REQUEST](#DOCS_TOPICS_RPC/closeactivityjoinrequest)        | used to reject a Rich Presence Ask to Join request              |
 
 Events are payloads sent over the socket to a client that correspond to events in Discord.
 
@@ -1058,22 +1058,22 @@ Used to accept an Ask to Join request.
 }
 ```
 
-#### CLOSE_ACTIVITY_REQUEST
+#### CLOSE_ACTIVITY_JOIN_REQUEST
 
 Used to reject an Ask to Join request.
 
-###### Close Activity Request Argument Structure
+###### Close Activity Join Request Argument Structure
 
 | Field   | Type      | Description                   |
 |---------|-----------|-------------------------------|
 | user_id | snowflake | the id of the requesting user |
 
-###### Example Close Activity Request Payload
+###### Example Close Activity Join Request Payload
 
 ```json
 {
   "nonce": "5dc0c062-98c6-47a0-8922-15aerg126",
-  "cmd": "CLOSE_ACTIVITY_REQUEST",
+  "cmd": "CLOSE_ACTIVITY_JOIN_REQUEST",
   "args": {
     "user_id": "53908232506183680"
   }
@@ -1252,8 +1252,6 @@ No arguments
 
 #### VOICE_SETTINGS_UPDATE
 
-###### Voice Settings Argument Structure
-
 No arguments. Dispatches the [Get Voice Settings](#DOCS_TOPICS_RPC/getvoicesettings) response.
 
 ###### Example Voice Settings Dispatch Payload
@@ -1358,9 +1356,9 @@ No arguments
 | Field        | Type              | Description                                     |
 |--------------|-------------------|-------------------------------------------------|
 | state        | string            | one of the voice connection states listed below |
-| hostname     | string            | hostname of the connected voice server          |
-| pings        | array of integers | last 20 pings (in ms)                           |
-| average_ping | integer           | average ping (in ms)                            |
+| hostname     | string            | hostname of the connected voice server (`null` if state is `AWAITING_ENDPOINT`)          |
+| pings        | array of [ping](#DOCS_TOPICS_RPC/voiceconnectionstatus-voice-connection-ping-object) objects  | all accumulated pings since voice join                           |
+| average_ping | float           | average ping (in ms)                            |
 | last_ping    | integer           | last ping (in ms)                               |
 
 ###### Voice Connection States
@@ -1377,6 +1375,13 @@ No arguments
 | VOICE_CONNECTED    | TCP connected, Voice connected    |
 | NO_ROUTE           | No route to host                  |
 | ICE_CHECKING       | WebRTC ice checking               |
+
+###### Voice Connection Ping Object
+
+| Field             | Type             | Description                                                                |
+|-------------------|------------------|----------------------------------------------------------------------------|
+| time         | integer           | The time the ping was sent                                                                  |
+| value            | integer            | The latency of the ping (in ms)                                       |
 
 ###### Example Voice Connection Status Dispatch Payload
 
