@@ -91,27 +91,27 @@ Commands are requests made to the RPC socket by a client.
 
 ###### RPC Commands
 
-| Name                                                                   | Description                                                     |
-|------------------------------------------------------------------------|-----------------------------------------------------------------|
-| [DISPATCH](#DOCS_TOPICS_RPC/commands-and-events-rpc-events)            | event dispatch                                                  |
-| [AUTHORIZE](#DOCS_TOPICS_RPC/authorize)                                | used to authorize a new client with your app                    |
-| [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate)                          | used to authenticate an existing client with your app           |
-| [GET_GUILD](#DOCS_TOPICS_RPC/getguild)                                 | used to retrieve guild information from the client              |
-| [GET_GUILDS](#DOCS_TOPICS_RPC/getguilds)                               | used to retrieve a list of guilds from the client               |
-| [GET_CHANNEL](#DOCS_TOPICS_RPC/getchannel)                             | used to retrieve channel information from the client            |
-| [GET_CHANNELS](#DOCS_TOPICS_RPC/getchannels)                           | used to retrieve a list of channels for a guild from the client |
-| [SUBSCRIBE](#DOCS_TOPICS_RPC/subscribe)                                | used to subscribe to an RPC event                               |
-| [UNSUBSCRIBE](#DOCS_TOPICS_RPC/unsubscribe)                            | used to unsubscribe from an RPC event                           |
-| [SET_USER_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setuservoicesettings)       | used to change voice settings of users in voice channels        |
-| [SELECT_VOICE_CHANNEL](#DOCS_TOPICS_RPC/selectvoicechannel)            | used to join or leave a voice channel, group dm, or dm          |
-| [GET_SELECTED_VOICE_CHANNEL](#DOCS_TOPICS_RPC/getselectedvoicechannel) | used to get the current voice channel the client is in          |
-| [SELECT_TEXT_CHANNEL](#DOCS_TOPICS_RPC/selecttextchannel)              | used to join or leave a text channel, group dm, or dm           |
-| [GET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/getvoicesettings)                | used to retrieve the client's voice settings                    |
-| [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings)                | used to set the client's voice settings                         |
-| [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices)          | used to send info about certified hardware devices              |
-| [SET_ACTIVITY](#DOCS_TOPICS_RPC/setactivity)                           | used to update a user's Rich Presence                           |
-| [SEND_ACTIVITY_JOIN_INVITE](#DOCS_TOPICS_RPC/sendactivityjoininvite)   | used to consent to a Rich Presence Ask to Join request          |
-| [CLOSE_ACTIVITY_JOIN_REQUEST](#DOCS_TOPICS_RPC/closeactivityjoinrequest)        | used to reject a Rich Presence Ask to Join request              |
+| Name                                                                     | Description                                                     |
+|--------------------------------------------------------------------------|-----------------------------------------------------------------|
+| [DISPATCH](#DOCS_TOPICS_RPC/commands-and-events-rpc-events)              | event dispatch                                                  |
+| [AUTHORIZE](#DOCS_TOPICS_RPC/authorize)                                  | used to authorize a new client with your app                    |
+| [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate)                            | used to authenticate an existing client with your app           |
+| [GET_GUILD](#DOCS_TOPICS_RPC/getguild)                                   | used to retrieve guild information from the client              |
+| [GET_GUILDS](#DOCS_TOPICS_RPC/getguilds)                                 | used to retrieve a list of guilds from the client               |
+| [GET_CHANNEL](#DOCS_TOPICS_RPC/getchannel)                               | used to retrieve channel information from the client            |
+| [GET_CHANNELS](#DOCS_TOPICS_RPC/getchannels)                             | used to retrieve a list of channels for a guild from the client |
+| [SUBSCRIBE](#DOCS_TOPICS_RPC/subscribe)                                  | used to subscribe to an RPC event                               |
+| [UNSUBSCRIBE](#DOCS_TOPICS_RPC/unsubscribe)                              | used to unsubscribe from an RPC event                           |
+| [SET_USER_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setuservoicesettings)         | used to change voice settings of users in voice channels        |
+| [SELECT_VOICE_CHANNEL](#DOCS_TOPICS_RPC/selectvoicechannel)              | used to join or leave a voice channel, group dm, or dm          |
+| [GET_SELECTED_VOICE_CHANNEL](#DOCS_TOPICS_RPC/getselectedvoicechannel)   | used to get the current voice channel the client is in          |
+| [SELECT_TEXT_CHANNEL](#DOCS_TOPICS_RPC/selecttextchannel)                | used to join or leave a text channel, group dm, or dm           |
+| [GET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/getvoicesettings)                  | used to retrieve the client's voice settings                    |
+| [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings)                  | used to set the client's voice settings                         |
+| [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices)            | used to send info about certified hardware devices              |
+| [SET_ACTIVITY](#DOCS_TOPICS_RPC/setactivity)                             | used to update a user's Rich Presence                           |
+| [SEND_ACTIVITY_JOIN_INVITE](#DOCS_TOPICS_RPC/sendactivityjoininvite)     | used to consent to a Rich Presence Ask to Join request          |
+| [CLOSE_ACTIVITY_JOIN_REQUEST](#DOCS_TOPICS_RPC/closeactivityjoinrequest) | used to reject a Rich Presence Ask to Join request              |
 
 Events are payloads sent over the socket to a client that correspond to events in Discord.
 
@@ -1353,13 +1353,13 @@ No arguments
 
 ###### Voice Connection Status Dispatch Data Structure
 
-| Field        | Type              | Description                                     |
-|--------------|-------------------|-------------------------------------------------|
-| state        | string            | one of the voice connection states listed below |
-| hostname     | string            | hostname of the connected voice server (`null` if state is `AWAITING_ENDPOINT`)          |
-| pings        | array of [ping](#DOCS_TOPICS_RPC/voiceconnectionstatus-voice-connection-ping-object) objects  | all accumulated pings since voice join                           |
-| average_ping | float           | average ping (in ms)                            |
-| last_ping    | integer           | last ping (in ms)                               |
+| Field        | Type                                                                                         | Description                                                                     |
+|--------------|----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| state        | string                                                                                       | one of the voice connection states listed below                                 |
+| hostname     | string                                                                                       | hostname of the connected voice server (`null` if state is `AWAITING_ENDPOINT`) |
+| pings        | array of [ping](#DOCS_TOPICS_RPC/voiceconnectionstatus-voice-connection-ping-object) objects | all accumulated pings since voice join                                          |
+| average_ping | float                                                                                        | average ping (in ms)                                                            |
+| last_ping    | integer                                                                                      | last ping (in ms)                                                               |
 
 ###### Voice Connection States
 
@@ -1378,10 +1378,10 @@ No arguments
 
 ###### Voice Connection Ping Object
 
-| Field             | Type             | Description                                                                |
-|-------------------|------------------|----------------------------------------------------------------------------|
-| time         | integer           | The time the ping was sent                                                                  |
-| value            | integer            | The latency of the ping (in ms)                                       |
+| Field | Type    | Description                     |
+|-------|---------|---------------------------------|
+| time  | integer | The time the ping was sent      |
+| value | integer | The latency of the ping (in ms) |
 
 ###### Example Voice Connection Status Dispatch Payload
 
