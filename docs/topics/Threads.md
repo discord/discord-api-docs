@@ -111,7 +111,7 @@ Membership is tracked in an array of [thread member](#DOCS_RESOURCES_CHANNEL/thr
 Threads can be edited and deleted with the existing `PATCH` and `DELETE` endpoints to edit a channel.
 
 - Deleting a thread requires the `MANAGE_THREADS` permission.
-- Editing a thread to set `archived` to `false` only requires the current user has already been added to the thread. If `locked` is true, then the user must have `MANAGE_THREADS`
+- Editing a thread to set `archived` to `false` only requires the current user has already been added to the thread. If `locked` is true, then the user must have created the thread or have `MANAGE_THREADS`
 - Editing a thread to change the `name`, `archived`, `auto_archive_duration` fields requires `MANAGE_THREADS` or that the current user is the thread creator
 - Editing a thread to change `rate_limit_per_user` or `locked` requires `MANAGE_THREADS`
 
