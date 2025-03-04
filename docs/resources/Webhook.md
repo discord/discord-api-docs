@@ -194,10 +194,11 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 
 ###### Query String Params
 
-| Field     | Type                                             | Description                                                                                                                                                                                  | Required |
-|-----------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| wait      | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
-| thread_id | snowflake                                        | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived.                                                                              | false    |
+| Field           | Type                                             | Description                                                                                                                                                                                  | Required |
+|-----------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| wait            | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
+| thread_id       | snowflake                                        | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived.                                                                              | false    |
+| with_components | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether to allow sending (non-interactive) components for non-application-owned webhooks (defaults to `false`; ignored for application-owned webhooks)                                       | false    |
 
 ###### JSON/Form Params
 
@@ -218,8 +219,7 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | applied_tags      | array of snowflakes                                                                  | array of tag ids to apply to the thread (requires the webhook channel to be a forum or media channel)                                                                                                    | false                              |
 | poll              | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object               | A poll!                                                                                                                                                                                                  | one of content, file, embeds, poll |
 
-
-\* Requires an application-owned webhook.
+\* Application-owned webhooks can always send components. Non-application-owned webhooks cannot send interactive components, and the field will be ignored unless they set the `with_components` query param.
 
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
@@ -275,9 +275,10 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 ###### Query String Params
 
-| Field     | Type      | Description                        | Required |
-|-----------|-----------|------------------------------------|----------|
-| thread_id | snowflake | id of the thread the message is in | false    |
+| Field           | Type                                             | Description                                                                                                                                            | Required |
+|-----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| thread_id       | snowflake                                        | id of the thread the message is in                                                                                                                     | false    |
+| with_components | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether to allow sending (non-interactive) components for non-application-owned webhooks (defaults to `false`; ignored for application-owned webhooks) | false    |
 
 ###### JSON/Form Params
 
@@ -292,7 +293,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | attachments \*\*  | array of partial [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 | poll \*\*\*       | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object               | A poll!                                                         |
 
-\* Requires an application-owned webhook.
+\* Application-owned webhooks can always send components. Non-application-owned webhooks cannot send interactive components, and the field will be ignored unless they set the `with_components` query param.
 
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
