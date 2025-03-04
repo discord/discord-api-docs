@@ -10,7 +10,7 @@ Two new features are now available for Premium Apps: One-Time Purchases and Stor
 * **Durable Items**: A one-time purchase that is permanent and is not subject to either renewal or consumption, such as lifetime access to an app's premium features.
 * **Consumable Items**: A one-time, non-renewable purchase that provides access, such as a temporary power-up or boost in a game.
 
-Learn more about [Implementing One-Time Purchases](#DOCS_MONETIZATION_IMPLEMENTING_ONE-TIME_PURCHASES).
+Learn more about [Implementing One-Time Purchases](#DOCS_MONETIZATION_IMPLEMENTING_ONE_TIME_PURCHASES).
 
 **A Store for Your Premium App**
 

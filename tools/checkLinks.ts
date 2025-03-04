@@ -106,7 +106,7 @@ const validLinks = new Map<string, string[]>([
 // Gather valid links
 const changelogAnchors = [];
 for (const [name, raw] of docFiles) {
-  const keyName = `DOCS${name.replaceAll("/", "_").toUpperCase()}`;
+  const keyName = `DOCS${name.replaceAll("/", "_").replaceAll("-", "_").toUpperCase()}`;
   if (!validLinks.has(keyName)) {
     validLinks.set(keyName, []);
   }
