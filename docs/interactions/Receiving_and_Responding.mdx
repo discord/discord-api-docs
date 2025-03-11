@@ -250,7 +250,7 @@ Not all message fields are currently supported.
 | attachments? \*\* | array of partial [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects | Attachment objects with filename and description                                                                                                                                                                       |
 | poll?             | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                 |
 
-\* If you create a callback with the [type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` you can only set `EPHEMERAL` as flag.
+\* If you create a callback with the [type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` the only valid [message flag](#DOCS_RESOURCES_MESSAGE/message-object-message-flags) you may use is `EPHEMERAL`.
 
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
