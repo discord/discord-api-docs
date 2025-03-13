@@ -153,7 +153,6 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 | Field                     | Type                                             | Description                                                 |
 |---------------------------|--------------------------------------------------|-------------------------------------------------------------|
 | with_counts?              | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether the invite should contain approximate member counts |
-| with_expiration?          | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether the invite should contain the expiration date       |
 | guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite        |
 
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
