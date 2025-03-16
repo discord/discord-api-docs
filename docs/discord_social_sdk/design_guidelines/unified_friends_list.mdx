@@ -1,0 +1,80 @@
+---
+sidebar_label: Unified Friends List
+---
+
+[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Design Guidelines](#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES) > {sidebar_label}
+
+# {sidebar_label}
+
+This guide provides best practices and design guidelines for integrating a unified friends list within your game. The unified friends list is a crucial feature that allows players to see and interact with their friends across different platforms and games, enhancing their overall social gaming experience.
+
+By following this guide, you will learn how to:
+
+- Implement sectioning to organize friends by availability and game status.
+- Display the Discord badge to indicate universal communication capabilities.
+- Prioritize and display different identities based on the player's relationship with the game and Discord.
+- Ensure consistency and familiarity in naming conventions to reduce confusion and enhance user experience.
+
+These design guidelines are intended to help you create a seamless and intuitive friends list that leverages Discord's social features to their fullest potential. Let's get started!
+
+## Sectioning
+
+Sections are ordered by descending availability to help users find friends they can play with.
+
+The **Online — GameTitle** section shows friends who are online in the same game and are compatible to play with.
+
+The **Online — Elsewhere** section shows friends who are online but not in the same game. However, they can be messaged or invited to play the game.
+
+![Sectioning Friends List](social-sdk/design-guidelines/UFL-02.png)
+
+## Discord = Communication 
+
+Show the Discord badge next to a player's name when they are **online elsewhere** and have **connected their Discord** account. Provisional accounts will not have a badge.
+
+The Discord logo represents **universal communication**. It aims to convey to users: “As a player, I know I can message or invite this friend to play a game anywhere Discord is present.” This means via phone, computer, and even console.
+
+![Discord logo represents universal communication](social-sdk/design-guidelines/UFL-03.png)
+
+## Identities
+
+If the friend **owns the game**, display their in-game identity (username). Prioritize what users are already familiar with.
+
+If the friend does not own the game, use their **Discord Display Name**.
+
+If the friend does not own the game nor have a linked Discord account, fall back to their **Provisional identity**.
+
+![Displaying different relationships](social-sdk/design-guidelines/UFL-04.png)
+
+## Examples of friends lists
+
+A player's **console ID** is effectively their **game ID**, as consoles require this. As such, it's likely the set of names players will be most familiar with.
+
+The examples to the right show how the hierarchy translates to consoles.
+
+![Examples of friends lists](social-sdk/design-guidelines/UFL-05.png)
+
+## How did we land here?
+
+It reduces sudden **name changes** within the game, which can be confusing to the player, and reduce erratic UI-width shifts.
+
+It's also **scalable** and **inclusive** of provisional accounts who do not have Discord accounts connected.
+
+![How did we land here?](social-sdk/design-guidelines/animated/UFL-06.gif)
+
+## Discord Display Names
+
+When referring to a player's Discord Identity, please use their **Discord Display Name**, and not their username.
+
+![Discord display names](social-sdk/design-guidelines/UFL-07.png)
+
+---
+
+## Resources 
+
+- [Development Guide: Creating a Unified Friends List](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST)
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | initial release |
