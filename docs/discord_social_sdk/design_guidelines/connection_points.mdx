@@ -1,0 +1,45 @@
+---
+sidebar_label: Connection Points
+---
+
+[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Design Guidelines](#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES) > Connection Points
+
+# Connection Points
+
+This guide provides best practices and design guidelines for integrating key connection points within your game. Connection points are crucial touchpoints where players can login to Discord, enhancing their overall gaming experience.
+
+## Signing in
+
+If the game has account management, then this connection point is **required**, otherwise it is not.
+
+Discord's sign-in button is presented as the **primary option** to log-in for the player amongst the list of **external identity-providers** due to providing deeper user-benefits than a standard OAuth login.
+
+Please use the [**Blurple Button**](#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_BRANDING_GUIDELINES/buttons) button styling for the sign-in connection point.
+
+![Signing In](social-sdk/design-guidelines/ConnectionPoints-03.png)
+
+## Friends list
+
+If the player has not connected their Discord account yet, they will see a **persistent call-to-action** in their friend's list until they connect.
+
+Select your preferred _button-styling_ for the friends list connection point (see Brand guidelines section).
+
+After the player connects their account, the connection point is no longer visible.
+
+![Friends List](social-sdk/design-guidelines/ConnectionPoints-04.png)
+
+## Content Guidelines
+
+Please use the strings shown here within the relevant contexts. 
+
+These connection point strings should be consistent across all games that use the Discord Social SDK to help the user build recognition, trust, and understanding when taking this action.
+
+![Content Guidelines](social-sdk/design-guidelines/ConnectionPoints-05.png)
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | initial release |
