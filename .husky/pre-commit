@@ -1,0 +1,4 @@
+npm run fix:tables
+npm run test:links
+npm run test:build
+git update-index --again
