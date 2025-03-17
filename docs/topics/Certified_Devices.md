@@ -48,6 +48,21 @@ Each time you update, send a full array of `devices`, sorted by your preferred p
 
 For each device in the `SET_CERTIFIED_DEVICES` payload, there is an `id` field. This `id` should be the Windows device's UUID, retrieved through the native Windows API. You'll get back something that looks like `{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}`.
 
+For Windows, you can get every single device UUID using this PowerShell command:
+```pwsh
+Get-PnpDevice | Where-Object { $_.Class -match "AudioEndpoint" } | Select-Object -Property FriendlyName, InstanceId
+```
+And you'd get a fancypants list like this you'd reduce to your device:
+```
+FriendlyName                                       InstanceId
+------------                                       ----------
+Discord Developer Documentation                    SWD\MMDEVAPI\{0.0.0.00000000}.{543DCDBC-73CB-4ABB-BDBB-74F46394B846}
+Certified Device Example                           SWD\MMDEVAPI\{0.0.1.00000000}.{334F1830-714B-434D-83B4-A26590892F56}
+```
+> info
+> Make sure you convert the UUID here to lowercase
+
+
 > info
 > On macOS, the `id` will be the name of the device.
 
