@@ -10,19 +10,19 @@ Threads are only available in API v9 and above. Bots that do not update to API v
 
 The list of gateway events that may be dropped includes, but is not limited to:
 
-- MESSAGE_CREATE
-- MESSAGE_DELETE
-- MESSAGE_DELETE_BULK
-- MESSAGE_REACTION_ADD
-- MESSAGE_REACTION_REMOVE
-- MESSAGE_REACTION_REMOVE_ALL
-- MESSAGE_REACTION_REMOVE_EMOJI
-- MESSAGE_UPDATE
-- THREAD_CREATE
-- THREAD_UPDATE
-- THREAD_DELETE
-- THREAD_MEMBER_UPDATE
-- THREAD_MEMBERS_UPDATE
+- [MESSAGE_CREATE](#message-create)
+- [MESSAGE_DELETE](#message-delete)
+- [MESSAGE_DELETE_BULK](#message-delete-bulk)
+- [MESSAGE_REACTION_ADD](#message-reaction-add)
+- [MESSAGE_REACTION_REMOVE](#message-reaction-remove)
+- [MESSAGE_REACTION_REMOVE_ALL](#message-reaction-remove-all)
+- [MESSAGE_REACTION_REMOVE_EMOJI](#message-reaction-remove-emoji)
+- [MESSAGE_UPDATE](#message-update)
+- [THREAD_CREATE](#thread-create)
+- [THREAD_UPDATE](#thread-update)
+- [THREAD_DELETE](#thread-delete)
+- [THREAD_MEMBER_UPDATE](#thread-member-update)
+- [THREAD_MEMBERS_UPDATE](#thread-members-update)
 
 ## Thread Fields
 
@@ -239,3 +239,44 @@ All fields for threads in thread-only channels can be found in the [channel reso
 ### Forum and Media Channel Formatting
 
 In thread-only channels, the first message in a thread and the channel topic can both contain markdown for bulleted lists and headings (unlike text channels).
+
+## Event Explanations
+
+### MESSAGE_CREATE
+Occurs when a new message is created in a text or DM channel. It contains the message's content and metadata, such as the author and timestamp.
+
+### MESSAGE_DELETE
+Triggered when a message is deleted. This event contains the message's ID and related details.
+
+### MESSAGE_DELETE_BULK
+This event is triggered when multiple messages are deleted at once. It provides an array of message IDs that were deleted.
+
+### MESSAGE_REACTION_ADD
+Fired when a user adds a reaction (emoji) to a message. It includes details such as the user ID, emoji, and message ID.
+
+### MESSAGE_REACTION_REMOVE
+Occurs when a user removes a reaction from a message. It contains similar details as the `MESSAGE_REACTION_ADD` event.
+
+### MESSAGE_REACTION_REMOVE_ALL
+Triggered when all reactions are removed from a message. This event does not contain information about the specific reactions that were removed.
+
+### MESSAGE_REACTION_REMOVE_EMOJI
+Fires when a specific emoji reaction is removed from all messages in a server or channel. It includes the emoji details and the message IDs it was removed from.
+
+### MESSAGE_UPDATE
+Occurs when an existing message is updated. This event includes both the previous and the new content of the message.
+
+### THREAD_CREATE
+Triggered when a new thread is created within a channel. It includes the thread's metadata, such as the ID, name, and associated channel.
+
+### THREAD_UPDATE
+Fires when a thread's properties are updated, such as the name, archiving status, or participant list.
+
+### THREAD_DELETE
+Occurs when a thread is deleted. This event provides the thread's ID and associated channel details.
+
+### THREAD_MEMBER_UPDATE
+Triggered when there is a change in a member's status in a thread, such as joining or leaving the thread.
+
+### THREAD_MEMBERS_UPDATE
+This event is fired when the list of members in a thread is updated, such as when users are added or removed.
