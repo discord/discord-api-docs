@@ -29,7 +29,7 @@
 		"test:tables": "npx markdown-table-formatter \"docs/**/*.{md,mdx}\" --check",
 		"fix:tables": "npx markdown-table-formatter \"docs/**/*.{md,mdx}\"",
 		"decorate:docs": "node tools/doxygen/generate-social-sdk-mapping.js && node tools/doxygen/decorate-social-sdk-references.js",
-		"prepare": "npx is-ci || npx husky"
+		"prepare": "is-ci || husky"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.10.1",
