@@ -1,0 +1,269 @@
+---
+sidebar_label: Account Linking with Discord
+---
+import PublicClient from '../partials/callouts/public-client.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+
+[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+
+# {sidebar_label}
+
+## Overview
+This guide explains how to authenticate users with their existing Discord accounts via OAuth2, enabling seamless login and access to Discord features.
+
+### Flexible Account Options
+If a player does not have a Discord account, you can use the SDK to [create a provisional account](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_USING_PROVISIONAL_ACCOUNTS) instead so that they can still access your game's features.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- Read the [Core Concepts](#DOCS_DISCORD_SOCIAL_SDK_CORE_CONCEPTS) guide to understand:
+  - OAuth2 authentication flow
+  - Discord application setup
+  - SDK initialization
+- Set up your development environment with:
+  - Discord application created in the [Developer Portal](https://discord.com/developers/applications)
+  - Discord Social SDK downloaded and configured
+  - Basic SDK integration working (initialization and connection)
+
+If you haven't completed these prerequisites, we recommend first following the [Getting Started](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED) guide.
+
+---
+
+
+## Our Authentication Flow
+
+OAuth2 is the standard authentication flow that allows users to sign in using their Discord account. The process follows these steps:
+
+1. [Request authorization](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD/step-1-request-authorization): Your game sends an authentication request to Discord.
+2. [User Approval](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD/step-2-user-approval): The user approves the request, granting access to your application.
+3. [Receive Authorization Code](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD/step-3-receiving-the-authorization-code): After approval, Discord redirects the user to your app with an authorization code.
+4. [Exchange for Tokens](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD/step-4-exchanging-the-authorization-code-for-an-access-token): The authorization code is exchanged for:
+   - Access Token, which is valid for ~7 days
+   - Refresh Token, used to obtain a new access token
+
+### OAuth2 using the Discord Social SDK
+
+- If the Discord client has [overlay support](https://support.discord.com/hc/en-us/articles/217659737-Game-Overlay-101) (Windows only), the OAuth2 login modal appears in your game instead of opening a browser.
+- The SDK automatically handles redirects, simplifying the authentication flow.
+- Some security measures, such as CSRF protection, are built-in, but you should always follow best practices to secure your app.
+
+---
+
+## Requesting Access Tokens
+
+### Step 0: Configure OAuth2 Redirects
+For OAuth2 to work correctly, you must **register the correct redirect URIs** for your app in the **Discord Developer Portal**.
+
+| Platform    | Redirect URI                                                                               |
+|-------------|--------------------------------------------------------------------------------------------|
+| **Desktop** | `http://127.0.0.1/callback`                                                                |
+| **Mobile**  | `discord-APP_ID:/authorize/callback` _(replace `APP_ID` with your Discord application ID)_ |
+
+### Step 1: Request Authorization 
+
+The SDK provides helper methods to simplify OAuth2 login.
+
+Use the [`Client::Authorize`] method to initiate authorization and allow the user to approve access.
+
+#### Authorization Scopes
+
+One of the required arguments to [`Client::Authorize`] is scopes, which is the set of permissions that you are requesting. We recommend using [`Client::GetDefaultPresenceScopes`], but you can choose whatever scopes you need.
+
+#### Authorization Code Verifier
+
+If you are using [`Client::GetToken`] in [Step 4](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD/step-4-exchanging-the-authorization-code-for-an-access-token), you will need to specify a "code challenge" and "code verifier" in your requests. We'll spare you the boring details of how that works (woo… crypto), as we've made a simple function to create these for you, [`Client::CreateAuthorizationCodeVerifier`], which you can use to generate the code challenge and verifier.
+
+```cpp
+// Create a code verifier and challenge if using GetToken
+auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+discordpp::AuthorizationArgs args{};
+args.SetClientId(YOUR_DISCORD_APPLICATION_ID);
+args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+args.SetCodeChallenge(codeVerifier.Challenge());
+
+client->Authorize(args, [client, codeVerifier](discordpp::ClientResult result, std::string code, std::string redirectUri) {
+  if (!result.Successful()) {
+    std::cerr << "❌ Authorization Error: " << result.Error() << std::endl;
+  } else {
+    std::cout << "✅ Authorization successful! Next step: exchange code for an access token \n";
+  }
+});
+```
+
+### Step 2: User Approval
+
+After calling [`Client::Authorize`], the SDK will open a browser window, Discord client, or an in-game overlay to prompt the user to approve the request.
+
+### Step 3: Receiving the Authorization Code
+
+Once the user approves the request from Step 2, Discord will redirect the user back to your app with an authorization code that you can use to exchange for an access token.
+
+### Step 4: Exchanging the Authorization Code for an Access Token
+
+#### Token Exchange for Public Clients
+
+<PublicClient />
+
+If your app does not have a backend server, enable `Public Client` in the Discord Developer Portal and use [`Client::GetToken`] to automatically exchange the authorization code for a token.
+
+We will also need the code verifier used to generate the code challenge in Step 1.
+
+```cpp
+client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+  [client](discordpp::ClientResult result,
+    std::string accessToken,
+    std::string refreshToken,
+    discordpp::AuthorizationTokenType tokenType,
+    int32_t expiresIn,
+    std::string scope) {
+    std::cout << "🔓 Access token received! Establishing connection...\n";
+    // Next step: Update the token in the client and connect to Discord
+  });
+```
+
+#### Server-to-Server Get Token Exchange
+
+If your application uses a backend server and does **not** have `Public Client` enabled, you can manually exchange the authorization code for an access token using the Discord API.
+
+``` python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = 'YOUR_CLIENT_ID'
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
+
+def exchange_code(code, redirect_uri):
+    data = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': redirect_uri
+    }
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+    r.raise_for_status()
+    return r.json()
+```
+
+#### Example Response
+
+```json
+{
+  "access_token": "<access token>",
+  "token_type": "Bearer",
+  "expires_in": 604800,
+  "refresh_token": "<refresh token>",
+  "scope": "sdk.social_layer"
+}
+```
+
+---
+
+## Working with Tokens
+
+Once you've received your access token, you'll want to set the token in the SDK. You can use [`Client::UpdateToken`] to do that. At this point, you're authorized and ready to go! You'll want to store the player's access token and refresh tokens somewhere.
+
+Please note that the `access_token` values do expire. You'll need to use the `refresh_token` to refresh the player's access token.
+
+```cpp
+client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, ACCESS_TOKEN_VALUE, [client](discordpp::ClientResult result) {
+  client->Connect();
+);
+```
+
+---
+
+## Refreshing Access Tokens
+
+Access tokens expire after 7 days, requiring refresh tokens to get a new one.
+
+### Refreshing Access Tokens for Public Clients
+
+<PublicClient />
+
+The easiest way to refresh tokens is using the SDK's [`Client::RefreshToken`] method.
+
+``` cpp
+client->RefreshToken();
+```
+
+### Server-to-Server Token Refresh
+
+If you're handling authentication on your server, send an API request to refresh the token.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = 'YOUR_CLIENT_ID'
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
+
+def refresh_token(refresh_token):
+    data = {
+        'grant_type': 'refresh_token',
+        'refresh_token': refresh_token
+    }
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+    r.raise_for_status()
+    return r.json()
+```
+
+---
+
+## Revoking Access Tokens
+
+If a user wants to disconnect their Discord account or if a token is compromised, you can revoke access and refresh tokens.
+
+### Server-to-Server Token Revocation
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = 'YOUR_CLIENT_ID'
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
+
+def revoke_token(access_or_refresh_token):
+    data = {'token': access_or_refresh_token}
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+    r.raise_for_status()
+```
+
+---
+
+## Next Steps
+
+Now that you've successfully implemented account linking with Discord, you can integrate more social features into your game.
+
+<Container>
+  <Card title="Design: Signing In" link="#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_SIGNING_IN" icon="PaintPaletteIcon">
+    Design guidelines for account linking and user authentication
+  </Card>
+  <Card title="Creating a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST" icon="ListViewIcon">
+    Combine Discord and game friends into a single list for easy management.
+  </Card>
+  <Card title="Setting Rich Presence" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE" icon="UserStatusIcon">
+    Display game status and information to Discord friends.
+  </Card>  
+</Container>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | initial release |
+
+{/* Autogenerated Reference Links */}
+[`Client::Authorize`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468
+[`Client::CreateAuthorizationCodeVerifier`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aba6adc1f978e7bf4c5433c560e1ad704
+[`Client::GetDefaultPresenceScopes`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7648bd1d2f7d9a86ebd0edb8bef12b5c
+[`Client::GetToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aaee636f91fb1ea3465157c20313b702c
+[`Client::RefreshToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a187af0f99f94b3b9a4ad4302f6a443e7
+[`Client::UpdateToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
