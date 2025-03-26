@@ -33,7 +33,7 @@ As part of these changes, we've updated the documentation for Premium Apps.
 - Created a new [Enabling Monetization](#DOCS_MONETIZATION_ENABLING_MONETIZATION) page to cover setting up your team, managing payouts, and enabling monetization for your apps
 - Created a new [Managing SKUs](#DOCS_MONETIZATION_MANAGING_SKUS/creating-a-sku) page to document how to create, update, publish, and promote your SKUs
 - Moved and added [Entitlement](#DOCS_RESOURCES_ENTITLEMENT), [SKU](#DOCS_RESOURCES_SKU) and [Subscription](#DOCS_RESOURCES_SUBSCRIPTION) resources to the **Resources** section
-- Updated guides for [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) and [Implementing One-Time Purchases](#DOCS_MONETIZATION_IMPLEMENTING_ONE-TIME_PURCHASES)
+- Updated guides for [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) and [Implementing One-Time Purchases](#DOCS_MONETIZATION_IMPLEMENTING_ONE_TIME_PURCHASES)
 
 ### Subscription Entitlement Migration Guide
 
