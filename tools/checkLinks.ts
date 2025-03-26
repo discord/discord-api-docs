@@ -106,7 +106,7 @@ const validLinks = new Map<string, string[]>([
 // Gather valid links
 const changelogAnchors = [];
 for (const [name, raw] of docFiles) {
-  const keyName = `DOCS${name.replaceAll("/", "_").toUpperCase()}`;
+  const keyName = `DOCS${name.replaceAll("/", "_").replaceAll("-", "_").toUpperCase()}`;
   if (!validLinks.has(keyName)) {
     validLinks.set(keyName, []);
   }
@@ -115,8 +115,8 @@ for (const [name, raw] of docFiles) {
   // The changelog is unique in that each entry acts as it's own potential page,
   // and each entry can be represented in a single page under it's own H2.
   // This collects all potential change-log pages, and adds them to the list of
-  // available anchors under `/change_log`.
-  if (name.startsWith("/change_log/")) {
+  // available anchors under `/change-log`.
+  if (name.startsWith("/change-log/")) {
     const frontmatter = raw.split("---")[1];
     const parsedFrontmatter = yaml.load(frontmatter) as Frontmatter;
     const title = parsedFrontmatter?.title;

@@ -1,0 +1,972 @@
+---
+sidebar_label: Using Standalone C++
+---
+import AppCreationSteps from './partials/getting-started.mdx'
+import ConsoleAccess from '../partials/callouts/console-access.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+import DylibMacError from './partials/dylib-mac-error.mdx';
+
+[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > {sidebar_label}
+
+# Getting Started with C++ and the Discord Social SDK
+
+## Overview
+
+This guide will walk you through integrating the Discord Social SDK into a new standalone C++ project. By the end, you'll have an application that can:
+
+- Authenticate users with Discord
+- Set up logging and status monitoring
+- Start the SDK and establish a connection
+- Request the number of Discord friends the player has
+- Set the player's rich presence for your game
+
+### Prerequisites
+
+We are going to make a simple C++ console application for this guide. Make sure you have the following prerequisites:
+
+- Basic understanding of C++ and your platform's build system
+- C++ Compiler and Build System that supports [C++17](https://en.cppreference.com/w/cpp/17) or greater.
+- A network connection that can access Discord's API endpoints.
+
+Let's walk through the steps in detail.
+
+---
+
+<AppCreationSteps />
+
+---
+
+## Step 4: Download the Discord SDK for C++
+
+1. Click on the `Downloads` link under the Discord Social SDK section of the sidebar.
+2. Select the latest version from the version dropdown and download the SDK for C++.
+
+### Runtime Dependencies
+
+When shipping with the Social SDK, ensure you bundle the runtime dependencies:
+- **Windows:** Ensure `discord_partner_sdk.dll` is in your executable directory.
+- **Linux/macOS:** Make sure the `libdiscord_partner_sdk.so/libdiscord_partner_sdk.dylib` files are accessible via `LD_LIBRARY_PATH` or placed next to your binary.
+
+---
+
+## Step 5: Project Setup
+
+To utilize the Discord Social SDK with C++, the following requirements must be met:
+
+- `discordpp.h` is included in your C++ source code.
+- The appropriate SDK libraries for your platform are linked in your build system:
+    - **Windows:** `discord_partner_sdk.dll`
+    - **Linux**: `discord_partner_sdk.so`
+    - **macOS:** `discord_partner_sdk.dylib`
+
+All of which can be found in the SDK download archive.
+
+> info
+> 💡 **Troubleshooting Tip:** If you encounter unresolved external symbols, ensure the SDK library is correctly linked in your build system.
+
+Let's see this in action by starting with a folder for our project and the Social SDK dependency:
+
+```
+mkdir MyGame
+cd MyGame
+mkdir lib
+```
+
+Unzip the Social SDK archive into the `lib` directory. You should end up with a `discord_social_sdk` folder under `lib` when complete.
+
+Within the `MyGame` directory, create a `CMakeLists.txt` file:
+
+```
+touch CMakeLists.txt
+```
+
+Add the following contents to the `CMakeLists.txt` file to set up the Social SDK dependency appropriately for your operating system:
+
+```
+cmake_minimum_required(VERSION 3.10)
+project(DiscordSDKExample)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+add_executable(DiscordSDKExample main.cpp)
+
+# Define some handy Social SDK variables
+set(DISCORD_SDK_ROOT "${CMAKE_SOURCE_DIR}/lib/discord_social_sdk")
+set(DISCORD_SDK_LIB_DIR "${DISCORD_SDK_ROOT}/lib/release")
+set(DISCORD_SDK_BIN_DIR "${DISCORD_SDK_ROOT}/bin/release")
+set(DISCORD_SDK_INCLUDE_DIR "${DISCORD_SDK_ROOT}/include")
+
+# Include for Social SDK headers
+target_include_directories(DiscordSDKExample PRIVATE ${DISCORD_SDK_INCLUDE_DIR})
+
+# Platform-specific Social SDK library paths
+if(WIN32)
+    set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/discord_partner_sdk.lib")
+    set(DISCORD_SHARED_LIB "${DISCORD_SDK_BIN_DIR}/discord_partner_sdk.dll")
+elseif(APPLE)
+    set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
+    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
+else() # Linux
+    set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
+    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
+endif()
+
+# Link the Social SDK library
+target_link_libraries(DiscordSDKExample PRIVATE ${DISCORD_LIB_PATH})
+
+# Set the runtime search path (RPATH) for Linux and macOS
+if(UNIX)
+    # Use RPATH when building
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+    # Set the RPATH to use the lib directory relative to the executable
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+    if(APPLE)
+        set(CMAKE_INSTALL_RPATH "@executable_path")
+    endif()
+endif()
+
+# Copy Social SDK shared library to output directory, so it's available at runtime.
+add_custom_command(TARGET DiscordSDKExample POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${DISCORD_SHARED_LIB}"
+    $&lt;TARGET_FILE_DIR:DiscordSDKExample&gt;
+)
+```
+
+Create a main.cpp file:
+
+```
+touch main.cpp
+```
+
+Let's add the following code to `main.cpp`:
+
+```cpp
+#define DISCORDPP_IMPLEMENTATION
+#include "discordpp.h"
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <functional>
+#include <csignal>
+
+// Replace with your Discord Application ID
+const uint64_t APPLICATION_ID = 123456789012345678;
+
+// Create a flag to stop the application
+std::atomic<bool> running = true;
+
+// Signal handler to stop the application
+void signalHandler(int signum) {
+  running.store(false);
+}
+
+int main() {
+  std::signal(SIGINT, signalHandler);
+  std::cout << "🚀 Initializing Discord SDK...\n";
+
+  // Create our Discord Client
+  auto client = std::make_shared<discordpp::Client>();
+
+  // Keep application running to allow SDK to receive events and callbacks
+  while (running) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+
+  return 0;
+}
+```
+
+Compile and run the project:
+
+```
+mkdir build && cd build
+cmake ..
+cmake --build .
+./DiscordSDKExample
+```
+
+Although we've not done much yet other than create an instance of the client, you should see the following output printed to the console:
+```
+🚀 Initializing Discord SDK...
+```
+
+### Troubleshooting
+<DylibMacError />
+
+---
+
+## Step 6: Setting Up SDK Event Handling
+
+Let's add some event handlers to monitor what's happening with our Discord connection. We'll set up two important callbacks:
+
+1. A logging callback to see what the SDK is doing
+2. A status callback to know when we can start using Discord features
+
+### Adding Logging Support
+First, let's add logging so we can see what's happening:
+
+```cpp
+client->AddLogCallback([](auto message, auto severity) {
+  std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
+}, discordpp::LoggingSeverity::Info);
+```
+
+### Monitoring Connection Status
+Next, let's add a status callback that tells us when we're ready to use Discord features:
+
+```cpp
+client->SetStatusChangedCallback([client](discordpp::Client::Status status, discordpp::Client::Error error, int32_t errorDetail) {
+  std::cout << "🔄 Status changed: " << discordpp::Client::StatusToString(status) << std::endl;
+
+  if (status == discordpp::Client::Status::Ready) {
+    std::cout << "✅ Client is ready! You can now call SDK functions.\n";
+  } else if (error != discordpp::Client::Error::None) {
+    std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
+  }
+});
+```
+
+<Collapsible title="main.cpp with event handling" icon="code">
+
+```cpp
+#define DISCORDPP_IMPLEMENTATION
+#include "discordpp.h"
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <functional>
+#include <csignal>
+
+// Replace with your Discord Application ID
+const uint64_t APPLICATION_ID = 123456789012345678;
+
+// Create a flag to stop the application
+std::atomic<bool> running = true;
+
+// Signal handler to stop the application
+void signalHandler(int signum) {
+    running.store(false);
+}
+
+int main() {
+    std::signal(SIGINT, signalHandler);
+    std::cout << "🚀 Initializing Discord SDK...\n";
+
+    // Create Discord Client
+    auto client = std::make_shared<discordpp::Client>();
+
+    // Set up logging callback
+    client->AddLogCallback([](auto message, auto severity) {
+      std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
+    }, discordpp::LoggingSeverity::Info);
+
+    // Set up status callback to monitor client connection
+    client->SetStatusChangedCallback([client](discordpp::Client::Status status, discordpp::Client::Error error, int32_t errorDetail) {
+      std::cout << "🔄 Status changed: " << discordpp::Client::StatusToString(status) << std::endl;
+
+      if (status == discordpp::Client::Status::Ready) {
+        std::cout << "✅ Client is ready! You can now call SDK functions.\n";
+      } else if (error != discordpp::Client::Error::None) {
+        std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
+      }
+    });
+
+    // Keep application running to allow SDK to receive events and callbacks
+    while (running) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    return 0;
+}
+```
+</Collapsible>
+
+> info
+> Most Discord features won't work until the status is [`Client::Status::Ready`]. The status callback lets you know
+> exactly when you can start using them.
+
+### What These Callbacks Do
+
+- The **logging callback** shows you what's happening behind the scenes
+- The **status callback** tells you when you're connected and ready to use Discord features
+
+> info
+> At this point, these callbacks **won't get called** since the client setup is not yet complete. However, very soon we
+> will be using them to view debug information and see what our connection status is!
+
+To get to a [`Client::Status::Ready`] state, we need to authenticate with Discord. We'll do that shortly.
+
+---
+
+## Step 7: Run Callbacks
+
+Once you've registered callbacks with the SDK, you'll need to execute them in the event loop of your program. Add something like this to your game's main event loop or tick function.
+
+Let's add [`RunCallbacks`] to our main loop:
+
+```cpp
+ // Keep application running to allow SDK to receive events and callbacks
+  while (running) {
+    discordpp::RunCallbacks();
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+```
+
+---
+
+## Step 8: Account Linking with Discord
+
+In this step, we'll implement OAuth2 authentication to support account-linking with Discord. This process will:
+1. Open the Discord app or a browser window for Discord login
+2. Get an authorization code
+3. Exchange it for an access token
+4. Connect to Discord
+
+### Add the Authentication Code
+
+Add this code to your `main.cpp` after setting up the status callback:
+
+```cpp
+// Generate OAuth2 code verifier for authentication
+auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+
+// Set up authentication arguments
+discordpp::AuthorizationArgs args{};
+args.SetClientId(APPLICATION_ID);
+args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+args.SetCodeChallenge(codeVerifier.Challenge());
+
+// Begin authentication process
+client->Authorize(args, [client, codeVerifier](auto result, auto code, auto redirectUri) {
+  if (!result.Successful()) {
+    std::cerr << "❌ Authentication Error: " << result.Error() << std::endl;
+    return;
+  } else {
+    std::cout << "✅ Authorization successful! Getting access token...\n";
+
+    // Exchange auth code for access token
+    client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+      [client](discordpp::ClientResult result,
+      std::string accessToken,
+      std::string refreshToken,
+      discordpp::AuthorizationTokenType tokenType,
+      int32_t expiresIn,
+      std::string scope) {
+        std::cout << "🔓 Access token received! Establishing connection...\n";
+        // Next Step: Update the token and connect
+    });
+  }
+});
+```
+
+### What's Happening Here?
+
+1. We create a code verifier for OAuth2 PKCE security
+2. Set up authorization arguments with your app ID and required scopes
+3. Start the auth flow with [`Client::Authorize`], which opens a browser
+4. When authorized, we exchange the code for an access token
+
+> warn
+> Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+
+### Testing It Out
+
+1. Build and run your program
+2. A browser window should open asking you to authorize your app
+3. After authorizing, watch the console for the "🔓 Access token received!" message
+
+If you run into any issues:
+- Double check your APPLICATION_ID is correct
+- Ensure you've added the redirect URL in your Discord Developer Portal
+- Check the console for specific error messages
+
+<Collapsible title="main.cpp with Account Linking" icon="code">
+```cpp
+#define DISCORDPP_IMPLEMENTATION
+#include "discordpp.h"
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <functional>
+#include <csignal>
+
+// Replace with your Discord Application ID
+const uint64_t APPLICATION_ID = 123456789012345678;
+
+// Create a flag to stop the application
+std::atomic<bool> running = true;
+
+// Signal handler to stop the application
+void signalHandler(int signum) {
+    running.store(false);
+}
+
+int main() {
+    std::signal(SIGINT, signalHandler);
+    std::cout << "🚀 Initializing Discord SDK...\n";
+
+    // Create our Discord Client
+    auto client = std::make_shared<discordpp::Client>();
+
+    // Set up logging callback
+    client->AddLogCallback([](auto message, auto severity) {
+      std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
+    }, discordpp::LoggingSeverity::Info);
+
+    // Set up status callback to monitor client connection
+    client->SetStatusChangedCallback([client](discordpp::Client::Status status, discordpp::Client::Error error, int32_t errorDetail) {
+      std::cout << "🔄 Status changed: " << discordpp::Client::StatusToString(status) << std::endl;
+
+      if (status == discordpp::Client::Status::Ready) {
+        std::cout << "✅ Client is ready! You can now call SDK functions.\n";
+      } else if (error != discordpp::Client::Error::None) {
+        std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
+      }
+    });
+
+    // Generate OAuth2 code verifier for authentication
+    auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+
+    // Set up authentication arguments
+    discordpp::AuthorizationArgs args{};
+    args.SetClientId(APPLICATION_ID);
+    args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+    args.SetCodeChallenge(codeVerifier.Challenge());
+
+    // Begin authentication process
+    client->Authorize(args, [client, codeVerifier](auto result, auto code, auto redirectUri) {
+      if (!result.Successful()) {
+        std::cerr << "❌ Authentication Error: " << result.Error() << std::endl;
+        return;
+      } else {
+        std::cout << "✅ Authorization successful! Getting access token...\n";
+
+        // Exchange auth code for access token
+        client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+          [client](discordpp::ClientResult result,
+          std::string accessToken,
+          std::string refreshToken,
+          discordpp::AuthorizationTokenType tokenType,
+          int32_t expiresIn,
+          std::string scope) {
+            std::cout << "🔓 Access token received! Establishing connection...\n";
+            // Next Step: Update the token and connect
+        });
+      }
+    });
+
+    // Keep application running to allow SDK to receive events and callbacks
+    while (running) {
+      discordpp::RunCallbacks();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    return 0;
+}
+```
+</Collapsible>
+
+---
+
+## Step 9: Connect the SDK to Discord 
+Now that we have our access token, let's connect to Discord! This involves two steps:
+1. Updating the SDK with our access token with [`Client::UpdateToken`].
+2. Establishing the connection with [`Client::Connect`].
+
+Find the comment ``// Next Step: Update the token and connect`` within `client->UpdateToken()`, and add the
+following code after:
+
+```cpp
+// Next Step: Update the token and connect
+client->UpdateToken(discordpp::AuthorizationTokenType::Bearer,  accessToken, [client](discordpp::ClientResult result) {
+  if(result.Successful()) {
+    std::cout << "🔑 Token updated, connecting to Discord...\n";
+    client->Connect();
+  }
+});
+```
+
+### What's Happening Here?
+
+1. `client->UpdateToken()` tells the SDK to use our access token for Discord API calls
+2. Once the token is updated, we call `client->Connect()` in the callback
+3. The SDK will begin connecting asynchronously
+4. Our status callback (from Step 6) will tell us when we're ready
+
+> info
+> Watch your console output! You should see status updates as the connection is established.
+
+### Testing the Connection
+
+1. Run your program
+2. Watch for these status messages in order:
+   - "🔑 Token updated, connecting to Discord..."
+   - "🔄 Status changed: Connecting" (also "Connected" and "Ready")
+   - "✅ Client is ready! You can now call SDK functions."
+
+### Troubleshooting
+
+If you don't see "Ready" status:
+- Check that your access token is valid
+- Ensure you have internet connectivity
+- Look for error messages in the status callback
+- Verify your `APPLICATION_ID` is correct
+
+Now that your client is in a ready state, we can start implementing Discord social features.
+
+<Collapsible title="main.cpp with SDK connection" icon="code">
+```cpp
+#define DISCORDPP_IMPLEMENTATION
+#include "discordpp.h"
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <functional>
+#include <csignal>
+
+// Replace with your Discord Application ID
+const uint64_t APPLICATION_ID = 1349146942634065960;
+
+// Create a flag to stop the application
+std::atomic<bool> running = true;
+
+// Signal handler to stop the application
+void signalHandler(int signum) {
+    running.store(false);
+}
+
+int main() {
+    std::signal(SIGINT, signalHandler);
+    std::cout << "🚀 Initializing Discord SDK...\n";
+
+    // Create our Discord Client
+    auto client = std::make_shared<discordpp::Client>();
+
+    // Set up logging callback
+    client->AddLogCallback([](auto message, auto severity) {
+      std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
+    }, discordpp::LoggingSeverity::Info);
+
+    // Set up status callback to monitor client connection
+    client->SetStatusChangedCallback([client](discordpp::Client::Status status, discordpp::Client::Error error, int32_t errorDetail) {
+      std::cout << "🔄 Status changed: " << discordpp::Client::StatusToString(status) << std::endl;
+
+      if (status == discordpp::Client::Status::Ready) {
+        std::cout << "✅ Client is ready! You can now call SDK functions.\n";
+      } else if (error != discordpp::Client::Error::None) {
+        std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
+      }
+    });
+
+    // Generate OAuth2 code verifier for authentication
+    auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+
+    // Set up authentication arguments
+    discordpp::AuthorizationArgs args{};
+    args.SetClientId(APPLICATION_ID);
+    args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+    args.SetCodeChallenge(codeVerifier.Challenge());
+
+    // Begin authentication process
+    client->Authorize(args, [client, codeVerifier](auto result, auto code, auto redirectUri) {
+      if (!result.Successful()) {
+        std::cerr << "❌ Authentication Error: " << result.Error() << std::endl;
+        return;
+      } else {
+        std::cout << "✅ Authorization successful! Getting access token...\n";
+
+        // Exchange auth code for access token
+        client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+          [client](discordpp::ClientResult result,
+          std::string accessToken,
+          std::string refreshToken,
+          discordpp::AuthorizationTokenType tokenType,
+          int32_t expiresIn,
+          std::string scope) {
+            std::cout << "🔓 Access token received! Establishing connection...\n";
+            // Next Step: Update the token and connect
+            client->UpdateToken(discordpp::AuthorizationTokenType::Bearer,  accessToken, [client](discordpp::ClientResult result) {
+              if(result.Successful()) {
+                std::cout << "🔑 Token updated, connecting to Discord...\n";
+                client->Connect();
+              }
+            });
+        });
+      }
+    });
+
+    // Keep application running to allow SDK to receive events and callbacks
+    while (running) {
+      discordpp::RunCallbacks();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    return 0;
+}
+```
+</Collapsible>
+
+---
+
+## Step 10: Access Discord Relationships
+
+Let's access the user's Discord relationships (friends list) and display the count. This will help you understand how to access and use Discord data in your game.
+
+Within `client->SetStatusChangedCallback()`, add the following after `status == discordpp::Client::Status::Ready`
+code to view how many friends you have in Discord:
+
+```cpp
+// Access initial relationships data
+std::cout << "👥 Friends Count: " << client->GetRelationships().size() << std::endl;
+```
+
+### What This Code Does
+2. [`Client::GetRelationships`] gives you immediate access to the current friend list
+
+### Example Output
+
+```
+👥 Friends Count: 42
+```
+
+### Testing It Out
+
+1. Run your program
+2. Wait for the initial friend count
+
+> info
+> This relationship data forms the foundation for features like friend lists, activity feeds, and multiplayer invites!
+
+### Troubleshooting
+
+If you're not seeing relationship data:
+- Verify your OAuth2 scopes include relationships access
+- Ensure you're connected (Status::Ready)
+- Check that you have friends on Discord
+- Look for errors in the logging callback
+
+Next, we'll learn how to show your game's activity on Discord with Rich Presence!
+
+<Collapsible title="main.cpp with friends count" icon="code">
+```cpp
+#define DISCORDPP_IMPLEMENTATION
+#include "discordpp.h"
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <functional>
+#include <csignal>
+
+// Replace with your Discord Application ID
+const uint64_t APPLICATION_ID = 1349146942634065960;
+
+// Create a flag to stop the application
+std::atomic<bool> running = true;
+
+// Signal handler to stop the application
+void signalHandler(int signum) {
+    running.store(false);
+}
+
+int main() {
+    std::signal(SIGINT, signalHandler);
+    std::cout << "🚀 Initializing Discord SDK...\n";
+
+    // Create our Discord Client
+    auto client = std::make_shared<discordpp::Client>();
+
+    // Set up logging callback
+    client->AddLogCallback([](auto message, auto severity) {
+      std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
+    }, discordpp::LoggingSeverity::Info);
+
+    // Set up status callback to monitor client connection
+    client->SetStatusChangedCallback([client](discordpp::Client::Status status, discordpp::Client::Error error, int32_t errorDetail) {
+      std::cout << "🔄 Status changed: " << discordpp::Client::StatusToString(status) << std::endl;
+
+      if (status == discordpp::Client::Status::Ready) {
+        std::cout << "✅ Client is ready! You can now call SDK functions.\n";
+
+        // Access initial relationships data
+        std::cout << "👥 Friends Count: " << client->GetRelationships().size() << std::endl;
+
+      } else if (error != discordpp::Client::Error::None) {
+        std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
+      }
+    });
+
+    // Generate OAuth2 code verifier for authentication
+    auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+
+    // Set up authentication arguments
+    discordpp::AuthorizationArgs args{};
+    args.SetClientId(APPLICATION_ID);
+    args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+    args.SetCodeChallenge(codeVerifier.Challenge());
+
+    // Begin authentication process
+    client->Authorize(args, [client, codeVerifier](auto result, auto code, auto redirectUri) {
+      if (!result.Successful()) {
+        std::cerr << "❌ Authentication Error: " << result.Error() << std::endl;
+        return;
+      } else {
+        std::cout << "✅ Authorization successful! Getting access token...\n";
+
+        // Exchange auth code for access token
+        client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+          [client](discordpp::ClientResult result,
+          std::string accessToken,
+          std::string refreshToken,
+          discordpp::AuthorizationTokenType tokenType,
+          int32_t expiresIn,
+          std::string scope) {
+            std::cout << "🔓 Access token received! Establishing connection...\n";
+            // Next Step: Update the token and connect
+            client->UpdateToken(discordpp::AuthorizationTokenType::Bearer,  accessToken, [client](discordpp::ClientResult result) {
+              if(result.Successful()) {
+                std::cout << "🔑 Token updated, connecting to Discord...\n";
+                client->Connect();
+              }
+            });
+        });
+      }
+    });
+
+    // Keep application running to allow SDK to receive events and callbacks
+    while (running) {
+      discordpp::RunCallbacks();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    return 0;
+}
+```
+</Collapsible>
+
+---
+
+## Step 11: Set Rich Presence
+
+Let's show your game's activity on Discord using Rich Presence. This feature lets players see what others are doing in your game directly in their Discord friends list.
+
+### Add Rich Presence Code
+
+Right after the line where we called `client->GetRelationships()` let's add the following code to set the your rich
+presence:
+
+```cpp
+// Configure rich presence details
+discordpp::Activity activity;
+activity.SetType(discordpp::ActivityTypes::Playing);
+activity.SetState("In Competitive Match");
+activity.SetDetails("Rank: Diamond II");
+
+// Update rich presence
+client->UpdateRichPresence(activity, [](discordpp::ClientResult result) {
+  if(result.Successful()) {
+    std::cout << "🎮 Rich Presence updated successfully!\n";
+  } else {
+    std::cerr << "❌ Rich Presence update failed";
+  }
+});
+```
+
+### What This Code Does
+1. Creates an [`Activity`] object to represent what the player is doing
+2. Sets basic information like:
+  - The activity type (Playing)
+  - Current state ("In Competitive Match")
+  - Additional details ("Rank: Diamond II")
+3. Updates your rich presence on Discord
+
+### Testing It Out
+1. Run your program
+2. Watch for the console message "🎮 Rich Presence updated successfully!"
+3. Check your Discord profile, you should see:
+  - "Playing [Your Game]"
+  - "In Competitive Match"
+  - "Rank: Diamond II"
+
+### Troubleshooting
+
+If you don't see your presence:
+
+- Ensure you're connected ([`Client::Status::Ready`])
+- Check the callback for error messages
+- Verify your activity settings are valid
+- Make sure you're not invisible on Discord
+
+<Collapsible title="main.cpp complete" icon="code">
+```cpp
+#define DISCORDPP_IMPLEMENTATION
+#include "discordpp.h"
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <functional>
+#include <csignal>
+
+// Replace with your Discord Application ID
+const uint64_t APPLICATION_ID = 1349146942634065960;
+
+// Create a flag to stop the application
+std::atomic<bool> running = true;
+
+// Signal handler to stop the application
+void signalHandler(int signum) {
+    running.store(false);
+}
+
+int main() {
+    std::signal(SIGINT, signalHandler);
+    std::cout << "🚀 Initializing Discord SDK...\n";
+
+    // Create our Discord Client
+    auto client = std::make_shared<discordpp::Client>();
+
+    // Set up logging callback
+    client->AddLogCallback([](auto message, auto severity) {
+      std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
+    }, discordpp::LoggingSeverity::Info);
+
+    // Set up status callback to monitor client connection
+    client->SetStatusChangedCallback([client](discordpp::Client::Status status, discordpp::Client::Error error, int32_t errorDetail) {
+      std::cout << "🔄 Status changed: " << discordpp::Client::StatusToString(status) << std::endl;
+
+      if (status == discordpp::Client::Status::Ready) {
+        std::cout << "✅ Client is ready! You can now call SDK functions.\n";
+
+        // Access initial relationships data
+        std::cout << "👥 Friends Count: " << client->GetRelationships().size() << std::endl;
+
+        // Configure rich presence details
+        discordpp::Activity activity;
+        activity.SetType(discordpp::ActivityTypes::Playing);
+        activity.SetState("In Competitive Match");
+        activity.SetDetails("Rank: Diamond II");
+
+        // Update rich presence
+        client->UpdateRichPresence(activity, [](discordpp::ClientResult result) {
+          if(result.Successful()) {
+            std::cout << "🎮 Rich Presence updated successfully!\n";
+          } else {
+            std::cerr << "❌ Rich Presence update failed";
+          }
+        });
+
+      } else if (error != discordpp::Client::Error::None) {
+        std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
+      }
+    });
+
+    // Generate OAuth2 code verifier for authentication
+    auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+
+    // Set up authentication arguments
+    discordpp::AuthorizationArgs args{};
+    args.SetClientId(APPLICATION_ID);
+    args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+    args.SetCodeChallenge(codeVerifier.Challenge());
+
+    // Begin authentication process
+    client->Authorize(args, [client, codeVerifier](auto result, auto code, auto redirectUri) {
+      if (!result.Successful()) {
+        std::cerr << "❌ Authentication Error: " << result.Error() << std::endl;
+        return;
+      } else {
+        std::cout << "✅ Authorization successful! Getting access token...\n";
+
+        // Exchange auth code for access token
+        client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+          [client](discordpp::ClientResult result,
+          std::string accessToken,
+          std::string refreshToken,
+          discordpp::AuthorizationTokenType tokenType,
+          int32_t expiresIn,
+          std::string scope) {
+            std::cout << "🔓 Access token received! Establishing connection...\n";
+            // Next Step: Update the token and connect
+            client->UpdateToken(discordpp::AuthorizationTokenType::Bearer,  accessToken, [client](discordpp::ClientResult result) {
+              if(result.Successful()) {
+                std::cout << "🔑 Token updated, connecting to Discord...\n";
+                client->Connect();
+              }
+            });
+        });
+      }
+    });
+
+    // Keep application running to allow SDK to receive events and callbacks
+    while (running) {
+      discordpp::RunCallbacks();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    return 0;
+}
+```
+</Collapsible>
+
+--- 
+
+## Conclusion
+
+Congratulations! You've successfully integrated the Discord Social SDK into your C++ application. Let's review what you've accomplished:
+
+### What You've Built
+- ✅ Created a Discord application and configured OAuth2
+- ✅ Set up SDK logging and status monitoring
+- ✅ Implemented user authentication flow
+- ✅ Retrieved Discord relationships data
+- ✅ Added Rich Presence support
+
+### Key Concepts Learned
+- How to initialize and configure the Discord SDK
+- Managing authentication and connections
+- Working with Discord's social features
+- Handling asynchronous callbacks
+- Monitoring SDK status and events
+
+---
+
+## Next Steps
+
+You have successfully set up the Discord Social SDK with C++ and authenticated with Discord! You can now use the SDK to add more social features in your project.
+
+<Container>
+  <Card title="Creating a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST" icon="ListViewIcon">
+    Create a unified friends list combining Discord and game-specific friendships
+  </Card>
+  <Card title="Setting Rich Presence" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE" icon="UserStatusIcon">
+    Customize your game's rich presence to show more advanced information and game invites
+  </Card>
+  <Card title="Managing Game Invites" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES" icon="InboxIcon">
+    Allow players to invite friends to join their game session or party.
+  </Card>
+</Container>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | initial release |
+
+{/* Autogenerated Reference Links */}
+[`Activity`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Activity.html#ab87f0347d870044bb26d8f7e50cb4c1d
+[`Client::Authorize`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468
+[`Client::Connect`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a873a844c7c4c72e9e693419bb3e290aa
+[`Client::GetRelationships`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ad481849835cd570f0e03adafcf90125d
+[`Client::UpdateToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
+[`RunCallbacks`]: https://discord.com/developers/docs/social-sdk/namespacediscordpp.html#ab5dd8cf274f581ee1885de5816be3c29
