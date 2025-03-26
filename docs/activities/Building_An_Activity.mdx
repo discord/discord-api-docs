@@ -88,7 +88,7 @@ npm install
 npm run dev
 ```
 
-If you visit http://localhost:5173/ you should see a vanilla JS frontend template running with [Vite](https://vitejs.dev/).
+If you visit http://localhost:3000/ you should see a vanilla JS frontend template running with [Vite](https://vitejs.dev/).
 
 While it's not much at the moment, in the following steps we'll connect it to the backend services, make it runnable in Discord, and power it up by populating it with data we pull from Discord APIs.
 
@@ -162,11 +162,11 @@ cp example.env .env
 > **Secure Your Secrets**<br /> Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` are *highly* sensitive secrets. Never share either secrets or check them into any kind of version control.
 
 Back in your app's settings, click on **OAuth2** on the sidebar:
-1. **Client ID**: Copy the value for Client ID and add it to your `.env` file as **`VITE_DISCORD_CLIENT_ID`**. This is the public ID that Discord associates with your app, and is almost always the same as your App ID.
+1. **Client ID**: Copy the value for Client ID and add it to your `.env` file as **`VITE_CLIENT_ID`**. This is the public ID that Discord associates with your app, and is almost always the same as your App ID.
 2. **Client Secret**: Copy the value for Client Secret and add it to your `.env` as **`DISCORD_CLIENT_SECRET`**. This is a private, sensitive identifier that your app will use to grant an OAuth2 `access_token`, and should never be shared or checked into version control.
 
 > info
-> **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `DISCORD_CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. You can read details in the [Vite documentation](https://vitejs.dev/guide/env-and-mode).
+> **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. You can read details in the [Vite documentation](https://vitejs.dev/guide/env-and-mode).
 
 <Collapsible title="Step 2 Checkpoint" icon="list" open>
 
@@ -265,7 +265,7 @@ Your app should start and you should see output similar to the following:
 ```
 VITE v5.0.12  ready in 100 ms
 
-➜  Local:   http://localhost:5173/
+➜  Local:   http://localhost:3000/
 ➜  Network: use --host to expose
 ➜  press h + enter to show help
 ```
@@ -276,10 +276,10 @@ We'll use the Local URL as our publicly-accessible URL in the next step.
 
 Next, we'll need to set up the public endpoint that serves the Activity's frontend. To do that, we'll create a tunnel with a reverse proxy. While we'll be using [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) in this guide, you can use [ngrok](https://ngrok.com/docs) or another reverse proxy solution if you prefer.
 
-While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `5173`):
+While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `3000`):
 
 ```
-cloudflared tunnel --url http://localhost:5173
+cloudflared tunnel --url http://localhost:3000
 ```
 
 When you run `cloudflared`, the tunnel will generate a public URL and you'll see output similar to the following:
@@ -680,7 +680,7 @@ At this point, you should have your Activity up and running. For Step 7, you sho
 
 Congrats on building your first Activity! 🎉
 
-This is an intentionally simple example to get you started with the communication between your Activity and Discord using the Embedded App SDK and APIs. From here, you can explore the [Activities documentation](#DOCS_ACTIVITIES_OVERVIEW) and other resources. 
+This is an intentionally simple example to get you started with the communication between your Activity and Discord using the Embedded App SDK and APIs. From here, you can explore the [Activities documentation](#DOCS_ACTIVITIES_OVERVIEW) and other resources.
 
 <Container>
   <Card title="Development Guides" link="#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES" icon="WrenchIcon">
