@@ -2,6 +2,13 @@
 
 See the [README](https://github.com/discord/discord-api-docs/blob/main/README.md) for licensing and legal information.
 
+## Pre-requisites
+
+To contribute to the documentation, you need to have [Node.js](https://nodejs.org/en/download/) installed on your machine.
+The recommended version is the latest LTS version. 
+After you install it, run `npm install` to install the required dependencies.
+This will setup a pre-commit hook to ensure that the changes you are commiting are formatted correctly.
+
 ## Types of Changes
 
 ### Wanted Changes
