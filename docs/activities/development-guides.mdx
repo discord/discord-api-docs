@@ -996,7 +996,7 @@ This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_D
 2. On the Custom Links page, click `Create New` to create a new link.
 3. You will need to upload an image with an aspect ratio of 43:24.
 4. Title, and description is also required.
-5. All other fields are optional but you are able to customize the primary button's label as well as add a referrer_id and custom_id to the link. Explicit referrer_id and custom_id on the link itself will always override the set referrer_id and custom_id.
+5. All other fields are optional but you are able to customize the primary button's label as well as acustom_id to the link. An explicit `custom_id` query parameter on the link itself will always override the set custom_id.
 6. Click Save.
 
 #### Editing a Link
@@ -1007,7 +1007,7 @@ This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_D
 
 #### Copying a Link
 
-Once you're satisfied with your changes you can click on the copy icon on the row, it'll change colors to green indicating that it copied to your clipboard. You are now able to share this link anywhere. The link will look like: `https://discord.com/activities/<your Activity ID>?link_id=0-123456789`. Even if you've set a `referrer_id` and/or a `custom_id`, it won't be explicitly included in the link but will be loaded once a user clicks on the link. You can then further shorten this URL if you'd like.
+Once you're satisfied with your changes you can click on the copy icon on the row, it'll change colors to green indicating that it copied to your clipboard. You are now able to share this link anywhere. The link will look like: `https://discord.com/activities/<your Activity ID>?link_id=0-123456789`. Even if you've set a `custom_id`, it won't be explicitly included in the link but will be loaded once a user clicks on the link. You can then further shorten this URL if you'd like.
 
 #### Deleting a Link
 
@@ -1020,6 +1020,12 @@ Once you're satisfied with your changes you can click on the copy icon on the ro
 - Generate unique, non-guessable `customId`s
 - Track and validate referrals to prevent abuse
 - Gracefully handle expirations in your activity for any custom links that are limited time but still live off-platform.
+
+#### User Experience
+
+![custom-link-embed](activities/custom-link-embed.png)
+
+Users will see an embed with your information displayed. Clicking "Play" opens the activity and passes through the `custom_id` you've set. A `referrer_id` will be present for links shared on Discord.
 
 ---
 
