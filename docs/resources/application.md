@@ -285,7 +285,7 @@ Returns a serialized activity instance, if it exists. Useful for [preventing unw
 | application_id | snowflake                                                                                                   | [Application](#DOCS_RESOURCES_APPLICATION/application-object) ID                         |
 | instance_id    | string                                                                                                      | Activity [Instance](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/activity-instance-management) ID |
 | launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                         |
-| location       | [Activity Location](#DOCS_RESOURCES_APPLICATION/get-application-activity-instance-activity-location-object) | Location the instance is runnning in                                                     |
+| location       | [Activity Location](#DOCS_RESOURCES_APPLICATION/get-application-activity-instance-activity-location-object) | Location the instance is running in                                                      |
 | users          | array of snowflakes, [user](#DOCS_RESOURCES_USER/user-object) IDs                                           | IDs of the Users currently connected to the instance                                     |
 
 
