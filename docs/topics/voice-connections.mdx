@@ -553,3 +553,20 @@ Generally routers on the Internet mask or obfuscate UDP ports through a process 
 | SSRC    | Unsigned integer                                               | 4 bytes  |
 | Address | Null-terminated string in response                             | 64 bytes |
 | Port    | Unsigned short                                                 | 2 bytes  |
+
+## Disconnecting from Voice
+
+To disconnect from the voice channel, you must first close the UDP and WebSocket connections. Then, we need to send an [Opcode 4 Gateway Voice State Update](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway) payload with the channel ID set to null.
+
+###### Gateway Voice State Update to Disconnect Example
+
+```json
+{
+  "op": 4,
+  "d": {
+    "guild_id": "41771983423143937",
+    "channel_id": null
+  }
+}
+```
+This will disconnect the bot from the voice channel that it is in within that guild.
