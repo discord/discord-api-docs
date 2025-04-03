@@ -397,7 +397,7 @@ https://cdn.discordapp.com/attachments/1012345678900020080/1234567891233211234/m
 ## Uploading Files
 
 > info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `10 MiB` by default.
+> The file upload size limit applies to each file in a request. The default limit is `10 MiB` for all users, but may be higher for users depending on their [Nitro](https://support.discord.com/hc/en-us/articles/115000435108-What-are-Nitro-Nitro-Basic) status or by the server's [Boost Tier](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583). The `attachment_size_limit` value provided [when working with interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) is calculated as the maximum of these values.
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
