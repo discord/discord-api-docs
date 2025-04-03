@@ -717,7 +717,6 @@ shareLink(args: [ShareLinkRequest](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sharel
 ```js
 const { success } = await discordSdk.commands.shareLink({
   message: 'This message is shared alongside the link!',
-  referrer_id: 'some_referrer_id',
   custom_id: 'some_custom_id',
 });
 success ? console.log('User shared link!') : console.log('User did not share link!');
@@ -1472,11 +1471,10 @@ No scopes required
 
 #### ShareLinkRequest
 
-| Property     | Type   |
-|--------------|--------|
-| referrer_id? | string |
-| custom_id?   | string |
-| message      | string |
+| Property   | Type   |
+|------------|--------|
+| custom_id? | string |
+| message    | string |
 
 #### ShareLinkResponse
 
