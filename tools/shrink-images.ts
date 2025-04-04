@@ -3,6 +3,7 @@
 import { execSync } from "child_process";
 import fs from "fs";
 import MagicString from "magic-string";
+import path from "path";
 
 const allFiles = execSync("git ls-files", { encoding: "utf-8" }).toString().split("\n");
 
@@ -44,23 +45,27 @@ for (const image of badImages) {
   const references = imageReferences ?? alternateImageReferences ?? [];
 
   if (references.length === 0) {
-    console.log(`Remove ${image}`);
+    // console.log(`Remove ${image}`);
     // fs.rmSync(image);
     continue;
   }
 
   console.log(image, references.length);
-  // console.log(`magick ${image} -quality 80 ${webpPath}`);
-  // for (const [doc, imagePath, lineNumber] of references) {
-  //   // console.log(`  ${doc}:${lineNumber} - ${imagePath}`);
+  const webpPath = image.replace(/.(png|jpeg|jpg|gif|svg)$/, ".webp");
+  console.log(`magick ${image} -quality 80 ${webpPath}`);
+  for (const [doc, imagePath, lineNumber] of references) {
+    // console.log(`  ${doc}:${lineNumber} - ${imagePath}`);
 
-  //   const lines = docContents[doc].split("\n");
-  //   const s = new MagicString(lines[lineNumber - 1]);
-  //   s.replace(".png)", ".webp)");
-  //   // console.log(`Rewrote ${doc}:${lineNumber} - ${imagePath}`);
-  //   lines[lineNumber - 1] = s.toString();
-  //   docContents[doc] = lines.join("\n");
-  // }
+    const lines = docContents[doc].split("\n");
+    const s = new MagicString(lines[lineNumber - 1]);
+    const ext = path.extname(imagePath);
+    s.replace(ext, ".webp");
+    if (ext === ".jpg" || ext === ".jpeg") {
+      console.error(`Rewrote ${doc}:${lineNumber} - ${imagePath}`);
+      lines[lineNumber - 1] = s.toString();
+      docContents[doc] = lines.join("\n");
+    }
+  }
 }
 
 for (const doc of docs) {
