@@ -6,7 +6,7 @@ sidebar_label: Poll
 
 A poll is... well... a poll! It holds information about a poll!
 
-![Example message containing a poll](example-poll.png)
+![Example message containing a poll](example-poll.webp)
 
 ### Poll Object
 

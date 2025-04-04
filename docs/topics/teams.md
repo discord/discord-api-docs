@@ -6,7 +6,7 @@ Teams are groups of developers (or other Discord users) who want to collaborate 
 
 To create or be a member on a team, you must [enable 2FA for your Discord account](https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Two-Factor-Authentication). After you have 2FA enabled, create a team by navigating to the [Teams page](https://discord.com/developers/teams) then clicking the "New Team" button.
 
-![Screenshot of the Teams page](team-page.png)
+![Screenshot of the Teams page](team-page.webp)
 
 Once you create a team, you'll land on the **Team Information** page where you can fill out details and start inviting other Discord users to join your team. Since users added to a team have access to any apps that team owns, use caution when adding new team members.
 
@@ -21,7 +21,7 @@ Once your team is set up, you can create or transfer apps that will be owned by 
 
 To create a new app that belongs to a team, select the team from the **Team** dropdown in the app creation modal. If you want to keep the app under your own account's ownership, choose `Personal`:
 
-![Screenshot of the create application modal with a Team selected](create-team-owned-app.png)
+![Screenshot of the create application modal with a Team selected](create-team-owned-app.webp)
 
 ### Transferring an App
 
@@ -30,7 +30,7 @@ To transfer an existing app to a team, navigate to the [Application](https://dis
 > danger
 > Once an app has been transferred to a team, it _cannot_ be transferred back.
 
-![Screenshot of where to find the button to transfer an Application to a team](transfer-app-to-team.png)
+![Screenshot of where to find the button to transfer an Application to a team](transfer-app-to-team.webp)
 
 ## Team Member Roles
 

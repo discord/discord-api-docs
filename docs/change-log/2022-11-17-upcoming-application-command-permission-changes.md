@@ -70,7 +70,7 @@ If a command-level configuration does not exist for the given context, the syste
 
 Below is a simplified flowchart that illustrates how permissions will be applied by the Discord client after the new changes take effect.
 
-![Flowchart with an overview of the new permissions configurations logic](new-permissions-flowchart.svg)
+![Flowchart with an overview of the new permissions configurations logic](new-permissions-flowchart.webp)
 
 #### 2. `APPLICATION_COMMAND_PERMISSIONS_V2` Guild Feature
 

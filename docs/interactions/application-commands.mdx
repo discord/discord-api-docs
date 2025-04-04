@@ -2,7 +2,7 @@
 
 Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a message's context menu (top-right menu or right-clicking in a message), and a user's context menu (right-clicking on a user).
 
-![Client interfaces showing the different types of application commands](command-types.png)
+![Client interfaces showing the different types of application commands](command-types.webp)
 
 ## Application Command Object
 
@@ -610,7 +610,7 @@ We'll start by defining the top-level information for `/permissions`:
 }
 ```
 
-![A command with no arguments. It says /permissions](command.png)
+![A command with no arguments. It says /permissions](command.webp)
 
 Now we have a command named `permissions`. We want this command to be able to affect users and roles. Rather than making two separate commands, we can use subcommand groups. We want to use subcommand groups here because we are grouping commands on a similar resource: `user` or `role`.
 
@@ -680,7 +680,7 @@ Now that we've effectively made `user` and `role` "folders", we want to be able 
 }
 ```
 
-![A command with grouped subcommands. It says /permissions user get](command-with-groups-subcommands.png)
+![A command with grouped subcommands. It says /permissions user get](command-with-groups-subcommands.webp)
 
 Now, we need some arguments! If we chose `user`, we need to be able to pick a user; if we chose `role`, we need to be able to pick a role. We also want to be able to pick between guild-level permissions and channel-specific permissions. For that, we can use optional arguments:
 
@@ -785,7 +785,7 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
 
 And, done! The JSON looks a bit complicated, but what we've ended up with is a single command that can be scoped to multiple actions, and then further scoped to a particular resource, and then even _further_ scope with optional arguments. Here's what it looks like all put together.
 
-![A command with grouped subcommands and parameters. It says /permissions user get with arguments for a user and a channel.](command-with-groups-subcommands-parameters.png)
+![A command with grouped subcommands and parameters. It says /permissions user get with arguments for a user and a channel.](command-with-groups-subcommands-parameters.webp)
 
 ## User Commands
 
@@ -806,7 +806,7 @@ User commands are application commands that appear on the context menu (right cl
 }
 ```
 
-![An example user command. The context menu has an Apps section open to a High Five command](user-command.png)
+![An example user command. The context menu has an Apps section open to a High Five command](user-command.webp)
 
 When someone uses a user command, your application will receive an interaction:
 
@@ -897,7 +897,7 @@ Message commands are application commands that appear on the context menu (right
 }
 ```
 
-![An example message command. The context menu has an Apps section open to a Bookmark command](message-command.png)
+![An example message command. The context menu has an Apps section open to a Bookmark command](message-command.webp)
 
 When someone uses a message command, your application will receive an interaction:
 
@@ -980,7 +980,7 @@ When someone uses a message command, your application will receive an interactio
 An Entry Point command serves as the primary way for users to open an app's [Activity](#DOCS_ACTIVITIES_OVERVIEW) from the [App Launcher](https://support.discord.com/hc/articles/21334461140375-Using-Apps-on-Discord#h_01HRQSA6C8TRHS722P1H3HW1TV).
 
 For the Entry Point command to be visible to users, an app must have [Activities](#DOCS_ACTIVITIES_OVERVIEW) enabled.
-![Entry Point command in App Launcher](command-entry-point.png)
+![Entry Point command in App Launcher](command-entry-point.webp)
 
 ###### Example Entry Point Command
 

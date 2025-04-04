@@ -164,7 +164,7 @@ https://funky-jogging-bunny.trycloudflare.com
 
 In the Discord Developer Portal, update the Application URL mapping for `/` url to `funky-jogging-bunny.trycloudflare.com` to match your network tunnel address and save your changes.
 
-![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](activities/url-mapping-tutorial.webp)
 
 > warn
 > If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
@@ -218,7 +218,7 @@ Because your application is "sandboxed", it will be unable to make network reque
 
 To add or modify your application's URL mappings, click on `Activities -> URL Mappings` and set the prefix and target values for each mapping as needed.
 
-![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](activities/url-mapping-tutorial.webp)
 
 #### Prefix/Target formatting rules
 
@@ -233,7 +233,7 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 | ✅ DO                                                 | ❌ DON'T                                                    |
 |------------------------------------------------------|------------------------------------------------------------|
 | Requests mapped correctly                            | Requests to /foo/bar will incorrectly be sent to `foo.com` |
-| ![url-mapping-do.png](activities/url-mapping-do.png) | ![url-mapping-dont.png](activities/url-mapping-dont.png)   |
+| ![url-mapping-do.png](activities/url-mapping-do.webp) | ![url-mapping-dont.png](activities/url-mapping-dont.png)   |
 
 #### Exceptions
 
@@ -338,7 +338,7 @@ discordSdk.commands.openExternalLink({
 
 #### User Experience
 
-![external-link-modal](activities/external-link-modal.png)
+![external-link-modal](activities/external-link-modal.webp)
 
 Users will see a modal inside the Discord app notifying them whether or not they want to proceed. By clicking **_Trust this Domain_**, users will not see a modal for that specific domain again.
 
@@ -373,7 +373,7 @@ try {
 
 User Experience
 
-![Invite Dialog UI](activities/invite-dialog.png)
+![Invite Dialog UI](activities/invite-dialog.webp)
 
 Users will see a modal inside the Discord app allowing them to send an invite to a channel, friend, or copy an invite link to share manually.
 
@@ -426,7 +426,7 @@ await discordSdk.commands.openShareMomentDialog({mediaUrl});
 
 User Experience
 
-![share-moment-dialog](activities/share-moment-dialog-example.png)
+![share-moment-dialog](activities/share-moment-dialog-example.webp)
 
 ---
 
@@ -494,7 +494,7 @@ console.log(`Hardware Acceleration is ${enabled === true ? 'enabled' : 'disabled
 
 #### User Experience
 
-![encourage-hardware-acceleration-modal](activities/encourage-hardware-acceleration-modal.png)
+![encourage-hardware-acceleration-modal](activities/encourage-hardware-acceleration-modal.webp)
 
 
 ---
@@ -508,7 +508,7 @@ By default, your Activity will be launchable on web/desktop. To enable or disabl
 - Select `Activities` -> `Settings` in the left-side of the developer portal, or visit `https://discord.com/developers/<your app id>/embedded/settings`
 - From check the appropriate checkboxes in the developer portal, and save your changes
 
-![supported-platforms](activities/supported-platforms.png)
+![supported-platforms](activities/supported-platforms.webp)
 
 ---
 
@@ -613,7 +613,7 @@ discordSdk.commands.setOrientationLockState({
 
 It's also possible to configure an application with a default orientation lock state via the Developer Portal. Using this method, the Discord app will apply the orientation lock when launching the application before the SDK has been initialized. This can create a smoother application launch flow where the application starts in the correct orientation rather than switching to the correct orientation after some delay after the application requests an orientation lock via the SDK. The Developer Portal supports setting a different default orientation lock states for phones versus tablets.
 
-![default-orientation-lock-state](activities/default_orientation_lock_state.png)
+![default-orientation-lock-state](activities/default_orientation_lock_state.webp)
 
 #### Subscribing to Screen Orientation Updates
 
@@ -764,7 +764,7 @@ Rest assured: other activities will not be able to make requests with your activ
 
 When a user clicks "Join Application", they expect to enter the same application that their friends are participating in. Whether the application is a shared drawing canvas, board game, collaborative playlist, or first-person shooter; the two users should have access to the same shared data. In this documentation, we refer to this shared data as an **application instance**.
 
-![join-application](activities/join-application.png)
+![join-application](activities/join-application.webp)
 
 The Embedded App SDK allows your app to talk bidirectionally with the Discord Client. The `instanceId` is necessary for your application, as well as Discord, to understand which unique instance of an application it is talking to.
 
