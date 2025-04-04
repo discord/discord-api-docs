@@ -30,7 +30,7 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 - Click `New Application`, and choose a name
 - Copy your **Public Key** and **Application ID**, and put them somewhere locally (we'll need these later)
 
-![IDs found in app settings](cloudflare-general-overview.png)
+![IDs found in app settings](cloudflare-general-overview.webp)
 
 - Now click on the **Bot** tab on the left sidebar.
 - Grab the `token` for your bot, and store it somewhere safe (I like to put these tokens in a password manager like [1password](https://1password.com/) or [lastpass](https://www.lastpass.com/)).
@@ -45,7 +45,7 @@ Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) require
 - Click on the `OAuth2` tab, and choose the `URL Generator`. Click the `bot` and `applications.commands` scopes.
 - Check the boxes next to `Send Messages` and `Use Slash Commands`, then copy the `Generated URL`.
 
-![Configuring bot permissions in app settings](cloudflare-url-generator.png)
+![Configuring bot permissions in app settings](cloudflare-url-generator.webp)
 
 - Paste the URL into the browser and follow the OAuth flow, selecting the server where you'd like to develop and test your bot.
 
@@ -211,13 +211,13 @@ When a user types a slash command, Discord will send an HTTP request to a public
 $ npm run ngrok
 ```
 
-![ngrok forwarding address](cloudflare-ngrok.png)
+![ngrok forwarding address](cloudflare-ngrok.webp)
 
 This is going to bounce requests off of an external endpoint, and forward them to your machine. Copy the HTTPS link provided by the tool. It should look something like `https://8098-24-22-245-250.ngrok.io`.
 
 Now head back to the Discord Developer Dashboard, and update the `Interactions Endpoint URL` for your app:
 
-![Interactions Endpoint URL](cloudflare-interactions-endpoint.png)
+![Interactions Endpoint URL](cloudflare-interactions-endpoint.webp)
 
 This is the process we'll use for local testing and development. When you've published your app to Cloudflare, you will **want to update this field to use your Cloudflare Worker URL.**
 

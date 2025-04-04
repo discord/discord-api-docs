@@ -45,7 +45,7 @@ For example:
 > Something that requires warning here
 ```
 
-![Alert options](images/alerts.png)
+![Alert options](images/alerts.webp)
 
 ### MDX Components
 
@@ -64,7 +64,7 @@ Available options for `icon`:
 
 ###### Example
 
-![Collapsible MDX Component with the list icon](images/mdx-collapsible.png)
+![Collapsible MDX Component with the list icon](images/mdx-collapsible.webp)
 
 ```markdown
 <Collapsible title="Title" description="Description text" icon="list">
@@ -78,7 +78,7 @@ Buttons are simply... clickable buttons. They take `href` and `color` as argumen
 
 ###### Example
 
-![Button MDX Component](images/mdx-button.png)
+![Button MDX Component](images/mdx-button.webp)
 
 ```markdown
 <LinkButton to="https://discord.com/developers/docs/getting-started" color="brand">click the button!</LinkButton>
@@ -90,7 +90,7 @@ Cards let you display links in a card format. They accept two arguments, `title`
 
 ###### Example
 
-![Card MDX Component](images/mdx-card.png)
+![Card MDX Component](images/mdx-card.webp)
 
 ```markdown
 <Card title="Card Title" link="https://discord.com/developers/docs/getting-started">
