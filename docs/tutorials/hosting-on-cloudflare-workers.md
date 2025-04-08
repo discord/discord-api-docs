@@ -4,7 +4,7 @@ sidebar_label: Hosting on Cloudflare Workers
 
 # Hosting a Reddit API Discord app on Cloudflare Workers
 
-When building Discord apps, your app can receive common events from the client as [webhooks](/docs/resources/webhook) when users interact with your app through interactions like [application commands](/docs/interactions/application-commands) or [message components](/docs/interactions/message-components).
+When building Discord apps, your app can receive common events from the client as [webhooks](/docs/resources/webhook) when users interact with your app through interactions like [application commands](/docs/interactions/application-commands) or [message components](/docs/components/reference).
 
 Discord will send these events to a pre-configured HTTPS endpoint (called an Interactions Endpoint URL in an app's configuration) as a JSON payload with details about the event.
 
@@ -350,6 +350,6 @@ In case you need to reference any of the code, you can find the repo [on GitHub]
 
 With your app built and deployed, you can start customizing it to be your own:
 
-- Use **[message components](/docs/interactions/message-components)** in your app to add more interactivity (like buttons and select menus).
+- Use **[message components](/docs/components/reference)** in your app to add more interactivity (like buttons and select menus).
 - Take a look at different **[public APIs](https://github.com/public-apis/public-apis)** on GitHub.
 - Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other developers.

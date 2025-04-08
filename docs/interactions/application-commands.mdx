@@ -121,7 +121,7 @@ Details about Entry Point command handler types are in the [Entry Point handlers
 
 ## Authorizing Your Application
 
-Application commands do not depend on a bot user in the guild; they use the [interactions](/docs/interactions/receiving-and-responding#) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope which can be used independently, but is also automatically included with the `bot` scope.
+Application commands do not depend on a bot user in the guild; they use the [interactions](/docs/interactions/receiving-and-responding) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope which can be used independently, but is also automatically included with the `bot` scope.
 
 When requesting this scope, we "shortcut" the OAuth2 flow similar to adding a bot. You don't need to complete the flow, exchange for a token, or any of that.
 

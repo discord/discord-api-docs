@@ -81,7 +81,7 @@ Consuming the entitlement will update the entitlement to return a true value in 
 
 [Responding with a premium button](/docs/monetization/managing-skus#responding-with-a-premium-button) gives you the ability to prompt users to subscribe to your app when they attempt to use a premium feature without a subscription.
 
-You can do this by sending a message with a [button](/docs/interactions/message-components#buttons) with a [premium style](/docs/interactions/message-components#button-object-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering. 
+You can do this by sending a message with a [button](/docs/components/reference#button) with a [premium style](/docs/components/reference#button-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering.  
 
 ### Starting a Purchase from an Activity
 

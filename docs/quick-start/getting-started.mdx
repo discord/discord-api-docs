@@ -394,7 +394,7 @@ The above code is doing a few things:
 The sample code uses an object as in-memory storage, but for production apps you should use a database.
 :::
 
-When sending a message with [message components](/docs/interactions/message-components#what-is-a-component), the individual payloads are appended to a `components` array. Actionable components (like buttons) need to be inside of an [action row](/docs/interactions/message-components#action-rows), which you can see in the code sample.
+When sending a message with [message components](/docs/components/reference), the individual payloads are appended to a `components` array. Actionable components (like buttons) need to be inside of an [action row](/docs/components/reference#action-row), which you can see in the code sample.
 
 Note the unique `custom_id` sent with message components, in this case `accept_button_` with the active game's ID appended to it. A `custom_id` can be used to handle requests that Discord sends you when someone interacts with the component, which you'll see in a moment.
 
@@ -458,7 +458,7 @@ The above code:
 2. [Deletes the original message](/docs/interactions/receiving-and-responding#delete-original-interaction-response) calling a webhook using `node-fetch` and passing the unique interaction `token` in the request body. This is done to clean up the channel, and so other users can't click the button.
 3. Responds to the request by sending a message that contains a select menu with the object choices for the game. The payload should look fairly similar to the previous one, with the exception of the `options` array and `flags: 64`, [which indicates that the message is ephemeral](/docs/interactions/receiving-and-responding#create-followup-message).
 
-The `options` array is populated using the `getShuffledOptions()` method in `game.js`, which manipulates the `RPSChoices` values to conform to the shape of [message component options](/docs/interactions/message-components#select-menu-object-select-option-structure).
+The `options` array is populated using the `getShuffledOptions()` method in `game.js`, which manipulates the `RPSChoices` values to conform to the shape of [string select options](/docs/components/reference#string-select-select-option-structure).
 
 </Collapsible>
 

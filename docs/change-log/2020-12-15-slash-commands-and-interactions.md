@@ -3,7 +3,7 @@ title: "Slash Commands and Interactions"
 date: "2020-12-15"
 ---
 
-Slash Commands are here! There's a *lot* to cover, so go check out specific documentation under [Slash Commands](/docs/interactions/application-commands#).
+Slash Commands are here! There's a *lot* to cover, so go check out specific documentation under [Slash Commands](/docs/interactions/application-commands).
 
 Slash Commands include some new features for webhooks as well:
 
