@@ -105,6 +105,10 @@ These guides include suggested development practices, SDK commands, and user flo
   <Card title="Creating and Managing Custom Incentivized Links" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/creating-and-managing-custom-incentivized-links">
     For off-platform sharing of rewards, promotions, or limited time experiences.
   </Card>
+
+  <Card title="Generating a Custom Link Within Your Activity" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/generating-a-custom-link-within-your-activity">
+    An API to be able to generate ephemeral links with a customizable embed.
+  </Card>
 </Container>
 
 ## Assets & Metadata
@@ -994,7 +998,7 @@ This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_D
 2. On the Custom Links page, click `Create New` to create a new link.
 3. You will need to upload an image with an aspect ratio of 43:24.
 4. Title, and description is also required.
-5. All other fields are optional but you are able to customize the primary button's label as well as acustom_id to the link. An explicit `custom_id` query parameter on the link itself will always override the set custom_id.
+5. `custom_id` is an optional field, an explicit `custom_id` query parameter on the link itself will always override the set custom_id.
 6. Click Save.
 
 #### Editing a Link
@@ -1024,6 +1028,40 @@ Once you're satisfied with your changes you can click on the copy icon on the ro
 ![custom-link-embed](activities/custom-link-embed.png)
 
 Users will see an embed with your information displayed. Clicking "Play" opens the activity and passes through the `custom_id` you've set. A `referrer_id` will be present for links shared on Discord.
+
+---
+
+### Generating a Custom Link Within Your Activity
+
+This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links) within your activity, and using the `shareLink` API to share the link.
+
+#### Generating a Link
+
+```
+// Convert an image array buffer to base64 string
+const image = base64EncodedImage;
+
+// Generate the quick activity link
+const linkIdResponse = await fetch(`${env.discordAPI}/applications/${env.applicationId}/quick-links/`, {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+  body: {
+	  custom_id: 'user_123/game_456'
+	  description: 'I just beat level 10 with a perfect score',
+	  title: 'Check out my high score!',
+      image,
+  }
+});
+const {link_id} = await linkIdResponse.json();
+
+// Open the Share modal with the generated link
+const {success} = await discordSdk.commands.shareLink({
+  linkId: link_id
+});
+success ? console.log('User shared link!') : console.log('User did not share link!');
+```
 
 ---
 
