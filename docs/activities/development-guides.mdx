@@ -101,6 +101,14 @@ These guides include suggested development practices, SDK commands, and user flo
   <Card title="Prompting Users to Share Incentivized Links" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links">
     Encourage your users to share links to your activity by adding tracking and offering rewards for engagement.
   </Card>
+
+  <Card title="Creating and Managing Custom Incentivized Links" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/creating-and-managing-custom-incentivized-links">
+    For off-platform sharing of rewards, promotions, or limited time experiences.
+  </Card>
+
+  <Card title="Generating a Custom Link Within Your Activity" link="#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/generating-a-custom-link-within-your-activity">
+    An API to be able to generate ephemeral links with a customizable embed.
+  </Card>
 </Container>
 
 ## Assets & Metadata
@@ -977,6 +985,90 @@ async function handleReferral() {
 - Handle edge cases like expired promotions gracefully
 - Consider implementing cool-down periods between shares
 - Do not override the `referrer_id` query parameter directly. When present, `referrer_id` is expected to be a Discord snowflake-type user ID, otherwise it will be set to the message's author id.
+
+---
+
+### Creating and Managing Custom Incentivized Links
+
+This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links) through the dev portal, and then retrieving the link to be able to share it off-platform. Incentivized Links are used to customize how the embed appears to users.
+
+#### Creating a Link
+
+1. In your Application's portal, visit the Custom Links page under the Activities heading in the navigation pane.
+2. On the Custom Links page, click `Create New` to create a new link.
+3. You will need to upload an image with an aspect ratio of 43:24.
+4. Title, and description are also required.
+5. `custom_id` is an optional field, an explicit `custom_id` query parameter on the link itself will always override the set `custom_id`.
+6. Click Save.
+
+#### Editing a Link
+
+1. Click on a row to open up the modal with all of the data loaded in ready for your edits.
+2. Change the description to something else.
+3. Click Update.
+
+#### Copying a Link
+
+Once you're satisfied with your changes you can click on the copy icon on the row, it'll change colors to green indicating that it copied to your clipboard. You are now able to share this link anywhere. The link will look like: `https://discord.com/activities/<your Activity ID>?link_id=0-123456789`. Even if you've set a `custom_id`, it won't be explicitly included in the link but will be loaded once a user clicks on the link. You can then further shorten this URL if you'd like.
+
+#### Deleting a Link
+
+1. Click on the trash icon on the row of the link you're trying to delete.
+2. You'll have a confirm dialog pop up.
+
+> warn
+> Deleting is irreversible and immediate. Ensure that your link isn't in active use before deleting and/or that your activity gracefully handles any click-throughs from the link.
+
+#### Best Practices
+
+- Generate unique, non-guessable `customId`s
+- Track and validate referrals to prevent abuse
+- Gracefully handle expirations in your activity for any custom links that are limited time but still live off-platform.
+
+#### User Experience
+
+![custom-link-embed](activities/custom-link-embed.png)
+
+Users will see an embed with your information displayed. Clicking "Play" opens the activity and passes through the `custom_id` you've set. A `referrer_id` will be present for links shared on Discord.
+
+---
+
+### Generating a Custom Link Within Your Activity
+
+This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links) within your activity, and using the `shareLink` API to share the link.
+
+* Allows you to customize the way the link is presented to users via the embed
+* Can be generated on-demand within your activity
+* Ephemeral, 30 day TTL
+* Does not show up in the developer portal
+
+#### Generating a Link
+
+```
+// Convert an image array buffer to base64 string
+const image = base64EncodedImage;
+
+// Generate the quick activity link
+const linkIdResponse = await fetch(`${env.discordAPI}/applications/${env.applicationId}/quick-links/`, {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+  body: {
+    custom_id: 'user_123/game_456'
+    description: 'I just beat level 10 with a perfect score',
+    title: 'Check out my high score!',
+    image,
+  }
+});
+const {link_id} = await linkIdResponse.json();
+
+// Open the Share modal with the generated link
+const {success} = await discordSdk.commands.shareLink({
+  linkId: link_id
+});
+success ? console.log('User shared link!') : console.log('User did not share link!');
+```
 
 ---
 
