@@ -990,7 +990,7 @@ async function handleReferral() {
 
 ### Creating and Managing Custom Incentivized Links
 
-This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links) through the dev portal, and then retrieving the link to be able to share it off-platform.
+This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links) through the dev portal, and then retrieving the link to be able to share it off-platform. The main purpose of these links is the ability to customize how they're presented to users via the embed.
 
 #### Creating a Link
 
@@ -1037,6 +1037,11 @@ Users will see an embed with your information displayed. Clicking "Play" opens t
 
 This guide covers creating a customizable [Incentivized Link](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/prompting-users-to-share-incentivized-links) within your activity, and using the `shareLink` API to share the link.
 
+* Allows you to customize the way the link is presented to users via the embed
+* Can be generated on-demand within your activity
+* Ephemeral, 30 day TTL
+* Does not show up in the developer portal
+
 #### Generating a Link
 
 ```
@@ -1050,10 +1055,10 @@ const linkIdResponse = await fetch(`${env.discordAPI}/applications/${env.applica
     Authorization: `Bearer ${accessToken}`,
   },
   body: {
-	  custom_id: 'user_123/game_456'
-	  description: 'I just beat level 10 with a perfect score',
-	  title: 'Check out my high score!',
-      image,
+    custom_id: 'user_123/game_456'
+    description: 'I just beat level 10 with a perfect score',
+    title: 'Check out my high score!',
+    image,
   }
 });
 const {link_id} = await linkIdResponse.json();
