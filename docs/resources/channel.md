@@ -715,3 +715,21 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 | threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the private, archived threads the current user has joined                                    |
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
+
+## Create Channel Tag % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/tags
+
+Creates a new tag in the forum or media channel. Requires the `MANAGE_CHANNELS` permission. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Update](#DOCS_EVENTS_GATEWAY_EVENTS/channel-update) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params
+
+| Field       | Type       | Description                                                                                                    |
+|-------------|------------|----------------------------------------------------------------------------------------------------------------|
+| name        | string     | the name of the tag (0-20 characters)                                                                          |
+| moderated?  | boolean    | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
+| emoji_id?   | ?snowflake | the id of a guild's custom emoji \*                                                                            |
+| emoji_name? | ?string    | the unicode character of the emoji \*                                                                          |
+
+\* At most one of `emoji_id` and `emoji_name` may be set to a non-null value.
