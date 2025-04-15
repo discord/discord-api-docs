@@ -118,7 +118,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 | Link      | 5     | grey, navigates to a URL | `url`          |
 | Premium   | 6     | blurple                  | `sku_id`       |
 
-![An image showing the different button styles](button-styles.png)
+![An image showing the different button styles](images/button-styles.png)
 
 When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) including the message the button was on:
 
@@ -138,11 +138,11 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 
 Use different button styles to create a hierarchy. Use only one `Primary` button per group.
 
-![Example showing one primary button per button group](multiple-buttons-example-1.png)
+![Example showing one primary button per button group](images/multiple-buttons-example-1.png)
 
 If there are multiple buttons of equal significance, use the `Secondary` button style for all buttons
 
-![Example showing multiple buttons in a group with equal significance](multiple-buttons-example-2.png)
+![Example showing multiple buttons in a group with equal significance](images/multiple-buttons-example-2.png)
 
 ###### Premium Buttons
 
@@ -154,7 +154,7 @@ Premium buttons will automatically have:
 - SKU price
 - 34 character max for this button. Longer titles will be truncated
 
-![A premium button](premium-button.png)
+![A premium button](images/premium-button.png)
 
 ### Component Interaction Object
 
@@ -237,7 +237,7 @@ Premium buttons will automatically have:
 
 Select menus are interactive components that allow users to select one or more options from a dropdown list in messages. On desktop, clicking on a select menu opens a dropdown-style UI; on mobile, tapping a select menu opens up a half-sheet with the options.
 
-![A role select component on desktop](desktop-role-select-menu.png)
+![A role select component on desktop](images/desktop-role-select-menu.png)
 
 Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice(s) by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
@@ -507,7 +507,7 @@ Text inputs are an interactive component that render in modals. They can be used
 
 When defining a text input component, you can set attributes to customize the behavior and appearance of it. However, not all attributes will be returned in the [text input interaction payload](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-object-text-input-interaction).
 
-![A text input in a modal on desktop client](modal-desktop.png)
+![A text input in a modal on desktop client](images/modal-desktop.png)
 
 ###### Text Input Example
 

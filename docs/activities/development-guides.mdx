@@ -172,7 +172,7 @@ https://funky-jogging-bunny.trycloudflare.com
 
 In the Discord Developer Portal, update the Application URL mapping for `/` url to `funky-jogging-bunny.trycloudflare.com` to match your network tunnel address and save your changes.
 
-![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
 
 > warn
 > If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
@@ -189,7 +189,7 @@ The flow for setting up your production application is very similar:
 4. Follow the instructions for [Launching your Application from the Discord Client](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/launch-your-application-from-the-discord-client)). Application URL Override should not be enabled.
 
 This application now uses the same configuration it will use once it is fully published ✨.
-![application-test-mode-prod](activities/application-test-mode-prod.gif)
+![application-test-mode-prod](images/activities/application-test-mode-prod.gif)
 
 
 ---
@@ -226,7 +226,7 @@ Because your application is "sandboxed", it will be unable to make network reque
 
 To add or modify your application's URL mappings, click on `Activities -> URL Mappings` and set the prefix and target values for each mapping as needed.
 
-![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
 
 #### Prefix/Target formatting rules
 
@@ -241,7 +241,7 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 | ✅ DO                                                 | ❌ DON'T                                                    |
 |------------------------------------------------------|------------------------------------------------------------|
 | Requests mapped correctly                            | Requests to /foo/bar will incorrectly be sent to `foo.com` |
-| ![url-mapping-do.png](activities/url-mapping-do.png) | ![url-mapping-dont.png](activities/url-mapping-dont.png)   |
+| ![url-mapping-do.png](images/activities/url-mapping-do.png) | ![url-mapping-dont.png](images/activities/url-mapping-dont.png)   |
 
 #### Exceptions
 
@@ -291,7 +291,7 @@ The first section of Debug Logs are not your application logs but Discord specif
 
 When you scroll down the page, your application logs should be visible.
 
-![debug-logs-filtering](activities/debug-logs-filtering.gif)
+![debug-logs-filtering](images/activities/debug-logs-filtering.gif)
 
 #### Sharing Application Logs from Mobile
 
@@ -346,7 +346,7 @@ discordSdk.commands.openExternalLink({
 
 #### User Experience
 
-![external-link-modal](activities/external-link-modal.png)
+![external-link-modal](images/activities/external-link-modal.png)
 
 Users will see a modal inside the Discord app notifying them whether or not they want to proceed. By clicking **_Trust this Domain_**, users will not see a modal for that specific domain again.
 
@@ -381,7 +381,7 @@ try {
 
 User Experience
 
-![Invite Dialog UI](activities/invite-dialog.png)
+![Invite Dialog UI](images/activities/invite-dialog.png)
 
 Users will see a modal inside the Discord app allowing them to send an invite to a channel, friend, or copy an invite link to share manually.
 
@@ -434,7 +434,7 @@ await discordSdk.commands.openShareMomentDialog({mediaUrl});
 
 User Experience
 
-![share-moment-dialog](activities/share-moment-dialog-example.png)
+![share-moment-dialog](images/activities/share-moment-dialog-example.png)
 
 ---
 
@@ -502,7 +502,7 @@ console.log(`Hardware Acceleration is ${enabled === true ? 'enabled' : 'disabled
 
 #### User Experience
 
-![encourage-hardware-acceleration-modal](activities/encourage-hardware-acceleration-modal.png)
+![encourage-hardware-acceleration-modal](images/activities/encourage-hardware-acceleration-modal.png)
 
 
 ---
@@ -516,7 +516,7 @@ By default, your Activity will be launchable on web/desktop. To enable or disabl
 - Select `Activities` -> `Settings` in the left-side of the developer portal, or visit `https://discord.com/developers/<your app id>/embedded/settings`
 - From check the appropriate checkboxes in the developer portal, and save your changes
 
-![supported-platforms](activities/supported-platforms.png)
+![supported-platforms](images/activities/supported-platforms.png)
 
 ---
 
@@ -621,7 +621,7 @@ discordSdk.commands.setOrientationLockState({
 
 It's also possible to configure an application with a default orientation lock state via the Developer Portal. Using this method, the Discord app will apply the orientation lock when launching the application before the SDK has been initialized. This can create a smoother application launch flow where the application starts in the correct orientation rather than switching to the correct orientation after some delay after the application requests an orientation lock via the SDK. The Developer Portal supports setting a different default orientation lock states for phones versus tablets.
 
-![default-orientation-lock-state](activities/default_orientation_lock_state.png)
+![default-orientation-lock-state](images/activities/default_orientation_lock_state.png)
 
 #### Subscribing to Screen Orientation Updates
 
@@ -772,7 +772,7 @@ Rest assured: other activities will not be able to make requests with your activ
 
 When a user clicks "Join Application", they expect to enter the same application that their friends are participating in. Whether the application is a shared drawing canvas, board game, collaborative playlist, or first-person shooter; the two users should have access to the same shared data. In this documentation, we refer to this shared data as an **application instance**.
 
-![join-application](activities/join-application.png)
+![join-application](images/activities/join-application.png)
 
 The Embedded App SDK allows your app to talk bidirectionally with the Discord Client. The `instanceId` is necessary for your application, as well as Discord, to understand which unique instance of an application it is talking to.
 
@@ -1027,7 +1027,7 @@ Once you're satisfied with your changes you can click on the copy icon on the ro
 
 #### User Experience
 
-![custom-link-embed](activities/custom-link-embed.png)
+![custom-link-embed](images/activities/custom-link-embed.png)
 
 Users will see an embed with your information displayed. Clicking "Play" opens the activity and passes through the `custom_id` you've set. A `referrer_id` will be present for links shared on Discord.
 
@@ -1091,7 +1091,7 @@ curl https://discord.com/api/applications/1215413995645968394/activity-instances
 With this API, the activity's backend can verify that a client is in fact in an instance of that activity before allowing the client to participate in any meaningful gameplay. How an activity implements "session verification" is left to the developer's discretion. The solution can be as granular as gating specific features or as binary as not returning the activity HTML except for valid sessions.
 
 In the below flow diagram, we show how the server can deliver the activity website, only for valid users in a valid activity instance:
-![application-test-mode-prod](activities/activity-instance-validation.jpg)
+![application-test-mode-prod](images/activities/activity-instance-validation.jpg)
 
 ---
 
