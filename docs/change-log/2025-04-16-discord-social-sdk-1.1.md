@@ -1,6 +1,6 @@
 ---
 title: "Discord Social SDK Release 1.1"
-date: "2025-04-11"
+date: "2025-04-16"
 topics:
   - "Discord Social SDK"
 ---
