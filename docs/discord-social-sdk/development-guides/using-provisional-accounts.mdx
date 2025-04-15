@@ -193,16 +193,16 @@ Common error codes and solutions for the GetProvisionalToken method:
 
 Using these credentials, we'll create a limited Discord account just for your game and try to set the username for you according to the following:
 
-- For OIDC, a provisional account's display name will be the value of the preferred_username claim, if specified in the
-  ID token. This field is optional and should be between 1 and 32 characters. If not specified, the user's display
+- For OIDC, a provisional account's display name will be the value of the `preferred_username` claim, if specified in
+  the ID token. This field is optional and should be between 1 and 32 characters. If not specified, the user's display
   name will default to the user's unique username, which Discord generates on creation.
 - For [Steam session tickets](https://partner.steamgames.com/doc/features/auth), the display name of the user's Steam
   account is used as the provisional account's display name.
-- For [EOS Auth Access](https://dev.epicgames.com/docs/epic-account-services/auth/auth-interface) Tokens or ID Tokens,
+- For [EOS Auth](https://dev.epicgames.com/docs/epic-account-services/auth/auth-interface) Access Tokens or ID Tokens,
   the name of the user's Epic account is used as the provisional account's display name. EOS Connect ID Tokens do
   not expose any username, and thus the game will need to configure the display name with
   [`Client::UpdateProvisionalAccountDisplayName`].
-- For [Unity Services ID Tokens](https://docs.unity.com/ugs/en-us/manual/authentication/manual/unity-player-accounts),
+- For [Unity Services ID Tokens](https://services.docs.unity.com/docs/client-auth/),
   the display name of the user's Unity Player Account is used as the provisional account's display name.
 
 If you'd like to set the display name for a provisional account, you can use the [`Client::UpdateProvisionalAccountDisplayName`] method.
