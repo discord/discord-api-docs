@@ -586,33 +586,33 @@ For more detailed information and documentation around the Rich Presence feature
 
 #### Activity Struct
 
-| name          | type   | description                                         |
-|---------------|--------|-----------------------------------------------------|
-| applicationId | Int64  | your application id - this is a read-only field     |
-| name          | string | name of the application - this is a read-only field |
-| state         | string | the player's current party status                   |
-| details       | string | null                                                                         | what the player is currently doing                              |
-| timestamps    | [ActivityTimestamps](/docs/developer-tools/game-sdk#activitytimestamps-struct) | null | helps create elapsed/remaining timestamps on a player's profile |
-| assets        | [ActivityAssets](/docs/developer-tools/game-sdk#activityassets-struct) | null         | assets to display on the player's profile                       |
-| party         | [ActivityParty](/docs/developer-tools/game-sdk#activityparty-struct) | null           | information about the player's party                            |
-| secrets       | [ActivitySecrets](/docs/developer-tools/game-sdk#activitysecrets-struct) | null       | secret passwords for joining and spectating the player's game   |
-| instance      | bool | null                                                                           | whether this activity is an instanced context, like a match     |
+| name          | type                                                                            | description                                                     |
+|---------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| applicationId | Int64                                                                           | your application id - this is a read-only field                 |
+| name          | string                                                                          | name of the application - this is a read-only field             |
+| state         | string                                                                          | the player's current party status                               |
+| details?      | ?string                                                                         | what the player is currently doing                              |
+| timestamps?   | ?[ActivityTimestamps](/docs/developer-tools/game-sdk/activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
+| assets?       | ?[ActivityAssets](/docs/developer-tools/game-sdk/activityassets-struct)         | assets to display on the player's profile                       |
+| party?        | ?[ActivityParty](/docs/developer-tools/game-sdk/activityparty-struct)           | information about the player's party                            |
+| secrets?      | ?[ActivitySecrets](/docs/developer-tools/game-sdk/activitysecrets-struct)       | secret passwords for joining and spectating the player's game   |
+| instance?     | ?bool                                                                           | whether this activity is an instanced context, like a match     |
 
 #### ActivityTimestamps Struct
 
-| name  | type         | description                                            |
-|-------|--------------|--------------------------------------------------------|
-| start | Int64 | null | unix timestamp - send this to have an "elapsed" timer  |
-| end   | Int64 | null | unix timestamp - send this to have a "remaining" timer |
+| name   | type   | description                                            |
+|--------|--------|--------------------------------------------------------|
+| start? | ?Int64 | unix timestamp - send this to have an "elapsed" timer  |
+| end?   | ?Int64 | unix timestamp - send this to have a "remaining" timer |
 
 #### ActivityAssets Struct
 
-| name       | type          | description                                                                                  |
-|------------|---------------|----------------------------------------------------------------------------------------------|
-| largeImage | string | null | see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
-| largeText  | string | null | hover text for the large image                                                               |
-| smallImage | string | null | see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
-| smallText  | string | null | hover text for the small image                                                               |
+| name        | type    | description                                                                                  |
+|-------------|---------|----------------------------------------------------------------------------------------------|
+| largeImage? | ?string | see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
+| largeText?  | ?string | hover text for the large image                                                               |
+| smallImage? | ?string | see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
+| smallText?  | ?string | hover text for the small image                                                               |
 
 #### ActivityParty Struct
 
@@ -630,11 +630,11 @@ For more detailed information and documentation around the Rich Presence feature
 
 #### ActivitySecrets Struct
 
-| name     | type          | description                                  |
-|----------|---------------|----------------------------------------------|
-| match    | string | null | unique hash for the given match context      |
-| join     | string | null | unique hash for chat invites and Ask to Join |
-| spectate | string | null | unique hash for Spectate button              |
+| name      | type    | description                                  |
+|-----------|---------|----------------------------------------------|
+| match?    | ?string | unique hash for the given match context      |
+| join?     | ?string | unique hash for chat invites and Ask to Join |
+| spectate? | ?string | unique hash for Spectate button              |
 
 #### ActivityType Enum
 
