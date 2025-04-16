@@ -15,7 +15,7 @@ Used to represent a user's voice connection status.
 | guild_id?                  | snowflake                                                        | the guild id this voice state is for              |
 | channel_id                 | ?snowflake                                                       | the channel id this user is connected to          |
 | user_id                    | snowflake                                                        | the user id this voice state is for               |
-| member?                    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the guild member this voice state is for          |
+| member?                    | [guild member](/docs/resources/guild#guild-member-object) object | the guild member this voice state is for          |
 | session_id                 | string                                                           | the session id for this voice state               |
 | deaf                       | boolean                                                          | whether this user is deafened by the server       |
 | mute                       | boolean                                                          | whether this user is muted by the server          |
@@ -56,19 +56,19 @@ Used to represent a user's voice connection status.
 
 ## List Voice Regions % GET /voice/regions
 
-Returns an array of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+Returns an array of [voice region](/docs/resources/voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/docs/resources/channel#channel-object-channel-structure).
 
-## Get Current User Voice State % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+## Get Current User Voice State % GET /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/@me
 
-Returns the current user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) in the guild.
+Returns the current user's [voice state](/docs/resources/voice#voice-state-object) in the guild.
 
-## Get User Voice State % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+## Get User Voice State % GET /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/{user.id/docs/resources/user#user-object}
 
-Returns the specified user's [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) in the guild.
+Returns the specified user's [voice state](/docs/resources/voice#voice-state-object) in the guild.
 
-## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+## Modify Current User Voice State % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/@me
 
-Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-state-update) Gateway event.
+Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 
 ###### JSON Params
 
@@ -88,9 +88,9 @@ There are currently several caveats for this endpoint:
 - You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
 - You are able to set `request_to_speak_timestamp` to any present or future time.
 
-## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify User Voice State % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/{user.id/docs/resources/user#user-object}
 
-Updates another user's voice state. Fires a [Voice State Update](#DOCS_EVENTS_GATEWAY_EVENTS/voice-state-update) Gateway event.
+Updates another user's voice state. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 
 ###### JSON Params
 

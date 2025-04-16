@@ -6,7 +6,7 @@ date: "2023-12-15"
 > info
 > The existing behavior for `MANAGE_GUILD_EXPRESSIONS` and `MANAGE_EVENTS` will **not be changing**. These permissions will continue to allow your bot users to create, update and delete expressions/events. No action will be needed if you plan to continue using these permissions.
 
-To support added controls for expressions and events, new [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) were added for users and roles in July 2023:
+To support added controls for expressions and events, new [permissions](/docs/topics/permissions#permissions) were added for users and roles in July 2023:
 
 * `CREATE_GUILD_EXPRESSIONS`: `1 << 43`
 * `CREATE_EVENTS`: `1 << 44`

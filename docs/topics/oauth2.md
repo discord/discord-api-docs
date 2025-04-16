@@ -24,23 +24,23 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | Name                                     | Description                                                                                                                                                                             |
 |------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | activities.read                          | allows your app to fetch data from a user's "Now Playing/Recently Played" list — not currently available for apps                                                                       |
-| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities))                 |
+| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](/docs/developer-tools/game-sdk#activities))                 |
 | applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                            |
 | applications.builds.upload               | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                           |
-| applications.commands                    | allows your app to add [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) to a guild - included by default with the `bot` scope                                                       |
-| applications.commands.update             | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) using a Bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
-| applications.commands.permissions.update | allows your app to update [permissions for its commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) in a guild a user has permissions to                                      |
+| applications.commands                    | allows your app to add [commands](/docs/interactions/application-commands#) to a guild - included by default with the `bot` scope                                                       |
+| applications.commands.update             | allows your app to update its [commands](/docs/interactions/application-commands#) using a Bearer token - [client credentials grant](/docs/topics/oauth2#client-credentials-grant) only |
+| applications.commands.permissions.update | allows your app to update [permissions for its commands](/docs/interactions/application-commands#permissions) in a guild a user has permissions to                                      |
 | applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                                                          |
 | applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                      |
 | bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                              |
-| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-current-user-connections) to return linked third-party accounts                                                                |
+| connections                              | allows [/users/@me/connections](/docs/resources/user#get-current-user-connections) to return linked third-party accounts                                                                |
 | dm_channels.read                         | allows your app to see information about the user's DMs and group DMs - requires Discord approval                                                                                       |
-| email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                        |
-| gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                           |
-| guilds                                   | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                       |
-| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                           |
-| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                       |
-| identify                                 | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                              |
+| email                                    | enables [/users/@me](/docs/resources/user#get-current-user) to return an `email`                                                                                                        |
+| gdm.join                                 | allows your app to [join users to a group dm](/docs/resources/channel#group-dm-add-recipient)                                                                                           |
+| guilds                                   | allows [/users/@me/guilds](/docs/resources/user#get-current-user-guilds) to return basic information about all of a user's guilds                                                       |
+| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](/docs/resources/guild#add-guild-member) to be used for joining users to a guild                                                           |
+| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](/docs/resources/user#get-current-user-guild-member) to return a user's member information in a guild                                       |
+| identify                                 | allows [/users/@me](/docs/resources/user#get-current-user) without `email`                                                                                                              |
 | messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                   |
 | relationships.read                       | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                         |
 | role_connections.write                   | allows your app to update a user's connection and metadata for the app                                                                                                                  |
@@ -54,7 +54,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 
 > info
 > In order to add a user to a guild, your bot has to already belong to that guild.
-> `role_connections.write` cannot be used with the [Implicit grant type](#DOCS_TOPICS_OAUTH2/implicit-grant).
+> `role_connections.write` cannot be used with the [Implicit grant type](/docs/topics/oauth2#implicit-grant).
 
 ## State and Security
 
@@ -76,13 +76,13 @@ All calls to the OAuth2 endpoints require either HTTP Basic authentication or `c
 https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent&integration_type=0
 ```
 
-`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
+`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](/docs/topics/oauth2#state-and-security).
 
 When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
 
 `prompt` controls how the authorization flow handles existing authorizations. If a user has previously authorized your application with the requested scopes and prompt is set to `consent`, it will request them to reapprove their authorization. If set to `none`, it will skip the authorization screen and redirect them back to your redirect URI without requesting their authorization. For passthrough scopes, like `bot` and `webhook.incoming`, authorization is always required.
 
-The `integration_type` parameter specifies the [installation context](#DOCS_RESOURCES_APPLICATION/installation-context) for the authorization. The installation context determines where the application will be installed, and is only relevant when `scope` contains `applications.commands`. When set to 0 (GUILD_INSTALL) the application will be authorized for installation to a server, and when set to 1 (USER_INSTALL) the application will be authorized for installation to a user. The application must be configured in the Developer Portal to support the provided `integration_type`.
+The `integration_type` parameter specifies the [installation context](/docs/resources/application#installation-context) for the authorization. The installation context determines where the application will be installed, and is only relevant when `scope` contains `applications.commands`. When set to 0 (GUILD_INSTALL) the application will be authorized for installation to a server, and when set to 1 (USER_INSTALL) the application will be authorized for installation to a user. The application must be configured in the Developer Portal to support the provided `integration_type`.
 
 ###### Redirect URL Example
 
@@ -90,7 +90,7 @@ The `integration_type` parameter specifies the [installation context](#DOCS_RESO
 https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn
 ```
 
-`code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+`code` is now exchanged for the user's access token by making a `POST` request to the [token URL](/docs/topics/oauth2#shared-resources-oauth2-urls) with the following parameters:
 
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
@@ -134,7 +134,7 @@ In response, you will receive:
 }
 ```
 
-Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` is how long, in seconds, until the returned access token expires, allowing you to anticipate the expiration and refresh the token. To refresh, make another `POST` request to the [token URL](/docs/topics/oauth2#shared-resources-oauth2-urls) with the following parameters:
 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
@@ -161,11 +161,11 @@ def refresh_token(refresh_token):
   return r.json()
 ```
 
-Boom; fresh [access token response](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-response)!
+Boom; fresh [access token response](/docs/topics/oauth2#authorization-code-grant-access-token-response)!
 
 ###### Token Revocation Example
 
-To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](/docs/topics/oauth2#shared-resources-oauth2-urls) with the following parameters:
 
 - `token` - the access token or refresh token to revoke
 - `token_type_hint` *(optional)* - the `token` parameter's type—either `access_token` or `refresh_token`
@@ -203,7 +203,7 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 https://discord.com/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
-On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](#DOCS_TOPICS_OAUTH2/state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
+On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](/docs/topics/oauth2#state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
 
 ###### Redirect URL Example
 
@@ -215,9 +215,9 @@ There are tradeoffs in using the implicit grant flow. It is both quicker and eas
 
 ## Client Credentials Grant
 
-The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](/docs/topics/oauth2#shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
 
-You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
+You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) separated by spaces:
 
 > info
 > Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
@@ -259,7 +259,7 @@ In return, you will receive an access token (without a refresh token):
 
 ## Bot Users
 
-Discord's API provides bot users, which are a separate type of user dedicated to automation. Bot users are automatically added to all apps, and are authenticated using the bot token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bot users have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_EVENTS_GATEWAY).
+Discord's API provides bot users, which are a separate type of user dedicated to automation. Bot users are automatically added to all apps, and are authenticated using the bot token found in your [app's settings](https://discord.com/developers/applications). Unlike the normal OAuth2 flow, bot users have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](/docs/events/gateway).
 
 
 ### Bot vs User Accounts
@@ -272,7 +272,7 @@ Bot users have a few differences compared to standard Discord users:
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends or be added to or join Group DMs.
 3. [Verified bots](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) do not have a maximum number of guilds.
-4. Bots have an entirely separate set of [rate limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits).
+4. Bots have an entirely separate set of [rate limits](/docs/topics/rate-limits#rate-limits).
 
 ### Bot Authorization Flow
 
@@ -284,7 +284,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 |----------------------|-----------------------------------------------------------------------|
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
-| permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
+| permissions          | the [permissions](/docs/topics/permissions#) you're requesting        |
 | guild_id             | pre-fills the dropdown picker with a guild for the user               |
 | disable_guild_select | `true` or `false`—disallows the user from changing the guild dropdown |
 
@@ -294,7 +294,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 https://discord.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
 ```
 
-In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
+In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](/docs/topics/permissions#permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
@@ -305,9 +305,9 @@ If your bot is super specific to your private clubhouse, or you just don't like 
 
 ### Advanced Bot Authorization
 
-Devs can extend the bot authorization functionality. You can request additional scopes outside of `bot` and `applications.commands`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_TOPICS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot` and `applications.commands`, `response_type` is again mandatory; we will also automatically redirect the user to the first URI in your application's registered list unless `redirect_uri` is specified.
+Devs can extend the bot authorization functionality. You can request additional scopes outside of `bot` and `applications.commands`, which will prompt a continuation into a complete [authorization code grant flow](/docs/topics/oauth2#authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot` and `applications.commands`, `response_type` is again mandatory; we will also automatically redirect the user to the first URI in your application's registered list unless `redirect_uri` is specified.
 
-When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure of the relationship between your bot and the guild, consider requiring the Oauth2 code grant in your bot's settings. Enabling it requires anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](#DOCS_TOPICS_OAUTH2/authorization-code-grant). When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
+When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure of the relationship between your bot and the guild, consider requiring the Oauth2 code grant in your bot's settings. Enabling it requires anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](/docs/topics/oauth2#authorization-code-grant). When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
 
 ###### Extended Bot Authorization Access Token Example
 
@@ -370,11 +370,11 @@ When receiving the access code on redirect, there will be additional querystring
 
 ### Two-Factor Authentication Requirement
 
-For bots with [elevated permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
+For bots with [elevated permissions](/docs/topics/permissions#permissions-bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
 
 ## Webhooks
 
-Discord's webhook flow is a specialized version of an [authorization code](#DOCS_TOPICS_OAUTH2/authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
+Discord's webhook flow is a specialized version of an [authorization code](/docs/topics/oauth2#authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
 
 ###### URL Example
 
@@ -382,7 +382,7 @@ Discord's webhook flow is a specialized version of an [authorization code](#DOCS
 https://discord.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
-When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
+When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](/docs/resources/webhook#execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](/docs/topics/oauth2#authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
 
 ###### Webhook Token Response Example
 
@@ -407,13 +407,13 @@ When the user navigates to this URL, they will be prompted to select a channel i
 }
 ```
 
-From this object, you should store the `webhook.token` and `webhook.id`. See the [execute webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook) documentation for how to send messages with the webhook.
+From this object, you should store the `webhook.token` and `webhook.id`. See the [execute webhook](/docs/resources/webhook#execute-webhook) documentation for how to send messages with the webhook.
 
-Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
+Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](/docs/topics/rate-limits#rate-limits)!
 
 ## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object.
+Returns the bot's [application](/docs/resources/application#application-object) object.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 
@@ -423,10 +423,10 @@ Returns info about the current authorization. Requires authentication with a bea
 
 | Field       | Type                                                                         | Description                                                                       |
 |-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
+| application | partial [application](/docs/resources/application#application-object) object | the current application                                                           |
 | scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
 | expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user who has authorized, if the user has authorized with the `identify` scope |
+| user?       | [user](/docs/resources/user#user-object) object                              | the user who has authorized, if the user has authorized with the `identify` scope |
 
 ###### Example Authorization Information
 

@@ -3,14 +3,14 @@
 Permissions are a way to limit and grant certain abilities to users in Discord. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual roles or members on a per-channel basis.
 
 > info
-> [Application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) allow you to enable or disable specific commands for entire channels in addition to individual roles or users.
+> [Application command permissions](/docs/interactions/application-commands#permissions) allow you to enable or disable specific commands for entire channels in addition to individual roles or users.
 
 Permissions are stored in a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, it's recommended to deserialize the permissions using your preferred languages' Big Integer libraries. The total permissions integer can be determined by OR-ing (`|`) together each individual value, and flags can be checked using AND (`&`) operations.
 
 In API v8 and above, all permissions are serialized as strings, including the `allow` and `deny` fields in overwrites. Any new permissions are rolled back into the base field.
 
 > info
-> In [API v6 (now deprecated)](#DOCS_REFERENCE), the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
+> In [API v6 (now deprecated)](/docs/reference), the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -75,8 +75,8 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MODERATE_MEMBERS \*\*                  | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels                                                                                                        |                            |
 | VIEW_CREATOR_MONETIZATION_ANALYTICS \* | `0x0000020000000000` `(1 << 41)` | Allows for viewing role subscription insights                                                                                                                                                                                                              |                            |
 | USE_SOUNDBOARD                         | `0x0000040000000000` `(1 << 42)` | Allows for using soundboard in a voice channel                                                                                                                                                                                                             | V                          |
-| CREATE_GUILD_EXPRESSIONS               | `0x0000080000000000` `(1 << 43)` | Allows for creating emojis, stickers, and soundboard sounds, and editing and deleting those created by the current user. Not yet available to developers, [see changelog](#DOCS_CHANGE_LOG/clarification-on-permission-splits-for-expressions-and-events). |                            |
-| CREATE_EVENTS                          | `0x0000100000000000` `(1 << 44)` | Allows for creating scheduled events, and editing and deleting those created by the current user. Not yet available to developers, [see changelog](#DOCS_CHANGE_LOG/clarification-on-permission-splits-for-expressions-and-events).                        | V, S                       |
+| CREATE_GUILD_EXPRESSIONS               | `0x0000080000000000` `(1 << 43)` | Allows for creating emojis, stickers, and soundboard sounds, and editing and deleting those created by the current user. Not yet available to developers, [see changelog](/docs/change-log#clarification-on-permission-splits-for-expressions-and-events). |                            |
+| CREATE_EVENTS                          | `0x0000100000000000` `(1 << 44)` | Allows for creating scheduled events, and editing and deleting those created by the current user. Not yet available to developers, [see changelog](/docs/change-log#clarification-on-permission-splits-for-expressions-and-events).                        | V, S                       |
 | USE_EXTERNAL_SOUNDS                    | `0x0000200000000000` `(1 << 45)` | Allows the usage of custom soundboard sounds from other servers                                                                                                                                                                                            | V                          |
 | SEND_VOICE_MESSAGES                    | `0x0000400000000000` `(1 << 46)` | Allows sending voice messages                                                                                                                                                                                                                              | T, V, S                    |
 | SEND_POLLS                             | `0x0002000000000000` `(1 << 49)` | Allows sending polls                                                                                                                                                                                                                                       | T, V, S                    |
@@ -88,9 +88,9 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | V                          | Voice       | GUILD_VOICE                                              |
 | S                          | Stage       | GUILD_STAGE_VOICE                                        |
 
-**\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
+**\* These permissions require the owner account to use [two-factor authentication](/docs/topics/oauth2#twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
-**\*\* See [Permissions for Timed Out Members](#DOCS_TOPICS_PERMISSIONS/permissions-for-timed-out-members) to understand how permissions are temporarily modified for timed out users.**
+**\*\* See [Permissions for Timed Out Members](/docs/topics/permissions#permissions-for-timed-out-members) to understand how permissions are temporarily modified for timed out users.**
 
 Note that permission names may be referred to differently in the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Use Voice Activity" refers to USE_VAD, and "Timeout Members" refers to MODERATE_MEMBERS.
 
@@ -207,14 +207,14 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | name           | string                                                                       | role name                                                                                                                       |
 | color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
 | hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
-| icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)                                                                              |
+| icon?          | ?string                                                                      | role [icon hash](/docs/reference#image-formatting)                                                                              |
 | unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
 | position       | integer                                                                      | position of this role (roles with the same position are sorted by id)                                                           |
 | permissions    | string                                                                       | permission bit set                                                                                                              |
 | managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
 | mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
-| tags?          | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                                                                                                          |
-| flags          | integer                                                                      | [role flags](#DOCS_TOPICS_PERMISSIONS/role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| tags?          | [role tags](/docs/topics/permissions#role-object-role-tags-structure) object | the tags this role has                                                                                                          |
+| flags          | integer                                                                      | [role flags](/docs/topics/permissions#role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -253,7 +253,7 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 
 | Flag      | Value    | Description                                                                                              |
 |-----------|----------|----------------------------------------------------------------------------------------------------------|
-| IN_PROMPT | `1 << 0` | role can be selected by members in an [onboarding](#DOCS_RESOURCES_GUILD/guild-onboarding-object) prompt |
+| IN_PROMPT | `1 << 0` | role can be selected by members in an [onboarding](/docs/resources/guild#guild-onboarding-object) prompt |
 
 ## Permissions For Timed Out Members
 

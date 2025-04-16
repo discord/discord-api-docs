@@ -5,7 +5,7 @@ import LimitedAccessCallout from '../partials/callouts/limited-access.mdx';
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # {sidebar_label}
 
@@ -24,8 +24,8 @@ When linked:
 
 Before implementing Linked Channels, make sure you have:
 
-- [Set up the Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED)
-- An understanding of [Creating and Managing Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES)
+- [Set up the Discord Social SDK](/docs/discord-social-sdk/getting-started)
+- An understanding of [Creating and Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies)
 
 ---
 
@@ -69,7 +69,7 @@ To help you identify which channels are public or private, we have added a `isVi
 
 #### Linking A Lobby
 
-The lobby member must have the `CanLinkLobby` flag set to link a channel to a lobby. This flag is disabled by default and must be explicitly set using the [Lobby API](#DOCS_RESOURCES_LOBBY) for users you want elevated permissions. We recommend only toggling this on for the equivalent of the administrator/owner of a lobby.
+The lobby member must have the `CanLinkLobby` flag set to link a channel to a lobby. This flag is disabled by default and must be explicitly set using the [Lobby API](/docs/resources/lobby) for users you want elevated permissions. We recommend only toggling this on for the equivalent of the administrator/owner of a lobby.
 
 This allows you, as the game developer, to say, "Only the admins of this guild are allowed to configure the linked channel." 
 
@@ -116,14 +116,14 @@ struct GuildChannel {
 
 ### Saving a channel link selection
 
-Once the user has chosen a channel to link to, you can call [`Client::LinkChannelToLobby`] to set or change the channel a lobby is linked to. You can also use [`Client::UnlinkChannelFromLobby`] to remove the link. The conditions specified in [Linked Channel Requirements](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_LINKED_CHANNELS/channel-requirements) must be met for the given lobby, channel, and user.
+Once the user has chosen a channel to link to, you can call [`Client::LinkChannelToLobby`] to set or change the channel a lobby is linked to. You can also use [`Client::UnlinkChannelFromLobby`] to remove the link. The conditions specified in [Linked Channel Requirements](/docs/discord-social-sdk/development-guides_LINKED_CHANNELS/channel-requirements) must be met for the given lobby, channel, and user.
 
 ### Try It Out
 
 To test Linked Channels before building out a player interface, here are some steps you can follow to get things working in a prototype using the Discord API:
 
-1. Create a lobby using the **[Create Lobby](#DOCS_RESOURCES_LOBBY/create-lobby)** endpoint.
-2. Enable the `CanLinkLobby` flag (`1 << 0`) on your lobby member by either sending a request to the `/lobbies/<lobby_id>/members/<user_id>` endpoint or by including the member data in the body of the [Create Lobby](#DOCS_RESOURCES_LOBBY/create-lobby) request.
+1. Create a lobby using the **[Create Lobby](/docs/resources/lobby#create-lobby)** endpoint.
+2. Enable the `CanLinkLobby` flag (`1 << 0`) on your lobby member by either sending a request to the `/lobbies/<lobby_id>/members/<user_id>` endpoint or by including the member data in the body of the [Create Lobby](/docs/resources/lobby#create-lobby) request.
 3. Identify a Discord server text channel that your `lobby_member` has the specified permissions enabled for (again, read/write and manage channels) and grab the channel's id.
 4. Send a request to the `/lobbies/<lobby_id>/channel-linking` endpoint described above with the channel id.
 
@@ -295,13 +295,13 @@ int main() {
 ## Next Steps
 
 <Container>
-  <Card title="Creating a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST" icon="ListViewIcon">
+  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
     Combine Discord and game friends into a single list for easy management.
   </Card>
-  <Card title="Setting Rich Presence" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE" icon="UserStatusIcon">
+  <Card title="Setting Rich Presence" link="/docs/discord-social-sdk/development-guides/setting-rich-presence" icon="UserStatusIcon">
     Display game status and information to Discord friends.
   </Card>
-  <Card title="Managing Game Invites" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES" icon="InboxIcon">
+  <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
     Allow players to invite friends to join their game session or party.
   </Card>
 </Container>

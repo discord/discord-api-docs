@@ -1,12 +1,12 @@
 # Application Role Connection Metadata
 
-A representation of role connection metadata for an [application](#DOCS_RESOURCES_APPLICATION/).
+A representation of role connection metadata for an [application](/docs/resources/application#).
 
-When a guild has added a bot and that bot has configured its [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object) (in the developer portal), the application will render as a potential verification method in the guild's role verification configuration.
+When a guild has added a bot and that bot has configured its [`role_connections_verification_url`](/docs/resources/application#application-object) (in the developer portal), the application will render as a potential verification method in the guild's role verification configuration.
 
 If an application has configured role connection metadata, its metadata will appear in the role verification configuration when the application has been added as a verification method to the role.
 
-When a user connects their account using the bot's [`role_connections_verification_url`](#DOCS_RESOURCES_APPLICATION/application-object), the bot will [update a user's role connection with metadata](#DOCS_RESOURCES_USER/update-current-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
+When a user connects their account using the bot's [`role_connections_verification_url`](/docs/resources/application#application-object), the bot will [update a user's role connection with metadata](/docs/resources/user#update-current-user-application-role-connection) using the OAuth2 `role_connections.write` scope.
 
 ### Application Role Connection Metadata Object
 
@@ -14,12 +14,12 @@ When a user connects their account using the bot's [`role_connections_verificati
 
 | Field                      | Type                                                                                                                                                                                | Description                                                                                      |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| type                       | [ApplicationRoleConnectionMetadataType](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                                           |
+| type                       | [ApplicationRoleConnectionMetadataType](/docs/resources/application_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                                           |
 | key                        | string                                                                                                                                                                              | dictionary key for the metadata field (must be `a-z`, `0-9`, or `_` characters; 1-50 characters) |
 | name                       | string                                                                                                                                                                              | name of the metadata field (1-100 characters)                                                    |
-| name_localizations?        | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                                                | translations of the name                                                                         |
+| name_localizations?        | dictionary with keys in [available locales](/docs/reference#locales)                                                                                                                | translations of the name                                                                         |
 | description                | string                                                                                                                                                                              | description of the metadata field (1-200 characters)                                             |
-| description_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                                                | translations of the description                                                                  |
+| description_localizations? | dictionary with keys in [available locales](/docs/reference#locales)                                                                                                                | translations of the description                                                                  |
 
 ###### Application Role Connection Metadata Type
 
@@ -37,13 +37,13 @@ When a user connects their account using the bot's [`role_connections_verificati
 > info
 > Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
 
-## Get Application Role Connection Metadata Records % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connections/metadata
+## Get Application Role Connection Metadata Records % GET /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
 
-Returns a list of [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
+Returns a list of [application role connection metadata](/docs/resources/application_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
 
-## Update Application Role Connection Metadata Records % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/role-connections/metadata
+## Update Application Role Connection Metadata Records % PUT /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
 
-Updates and returns a list of [application role connection metadata](#DOCS_RESOURCES_APPLICATION_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
+Updates and returns a list of [application role connection metadata](/docs/resources/application_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
 
 > info
 > An application can have a maximum of 5 metadata records.

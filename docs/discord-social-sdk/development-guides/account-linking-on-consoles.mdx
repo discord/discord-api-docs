@@ -5,7 +5,7 @@ import ConsoleAccess from '../partials/callouts/console-access.mdx';
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # {sidebar_label}
 
@@ -24,7 +24,7 @@ By following this guide, you will learn how to:
 
 Before you begin, make sure you have:
 
-- Read the [Core Concepts](#DOCS_DISCORD_SOCIAL_SDK_CORE_CONCEPTS) guide to understand:
+- Read the [Core Concepts](/docs/discord-social-sdk/core-concepts) guide to understand:
   - OAuth2 authentication flow
   - Discord application setup
   - SDK initialization
@@ -35,7 +35,7 @@ Before you begin, make sure you have:
 
 <ConsoleAccess />
 
-If you haven't completed these prerequisites, we recommend following the [Getting Started](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED) guide.
+If you haven't completed these prerequisites, we recommend following the [Getting Started](/docs/discord-social-sdk/getting-started) guide.
 
 ---
 
@@ -92,11 +92,11 @@ If you plan to handle console authorization manually, you can follow these steps
 
 We'll be following the same OAuth2 device authorization flow as the automatic method, but you'll need to manually handle the polling and token exchange.
 
-1. [Request a device code from Discord](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_ON_CONSOLES/step-1-request-a-device-code-from-discord)
-2. [Display the user verification information](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_ON_CONSOLES/step-2-display-authorize-screen-with-qr-code-and-user-code) or open the authorization screen (optional)
-3. [Poll for the user's authorization](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_ON_CONSOLES/step-3-poll-for-users-authorization)
-4. [Exchange the device code for an access token](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_ON_CONSOLES/step-4-exchange-device-code-for-access-token)
-5. [Handle the token response](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_ON_CONSOLES/step-5-handle-token-response) and close authorization screen (optional)
+1. [Request a device code from Discord](/docs/discord-social-sdk/development-guides_ACCOUNT_LINKING_ON_CONSOLES/step-1-request-a-device-code-from-discord)
+2. [Display the user verification information](/docs/discord-social-sdk/development-guides_ACCOUNT_LINKING_ON_CONSOLES/step-2-display-authorize-screen-with-qr-code-and-user-code) or open the authorization screen (optional)
+3. [Poll for the user's authorization](/docs/discord-social-sdk/development-guides_ACCOUNT_LINKING_ON_CONSOLES/step-3-poll-for-users-authorization)
+4. [Exchange the device code for an access token](/docs/discord-social-sdk/development-guides_ACCOUNT_LINKING_ON_CONSOLES/step-4-exchange-device-code-for-access-token)
+5. [Handle the token response](/docs/discord-social-sdk/development-guides_ACCOUNT_LINKING_ON_CONSOLES/step-5-handle-token-response) and close authorization screen (optional)
 
 ### Step 1: Request a Device Code from Discord
 
@@ -277,7 +277,7 @@ client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken, [cli
 
 You'll want to store the access and refresh tokens for the player to use in future sessions.
 
-Please note that `access_token` values do expire. You'll need to make use of the `refresh_token` to refresh the player's token, which is covered under [Refreshing Access Tokens](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD/refreshing-access-tokens).
+Please note that `access_token` values do expire. You'll need to make use of the `refresh_token` to refresh the player's token, which is covered under [Refreshing Access Tokens](/docs/discord-social-sdk/development-guides/account-linking-with-discord#refreshing-access-tokens).
 
 ---
 
@@ -286,13 +286,13 @@ Please note that `access_token` values do expire. You'll need to make use of the
 Now that you've successfully implemented account linking with Discord on a console, you can integrate more social features into your game.
 
 <Container>
-  <Card title="Creating a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST" icon="ListViewIcon">
+  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
     Combine Discord and game friends into a single list for easy management.
   </Card>
-  <Card title="Setting Rich Presence" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE" icon="UserStatusIcon">
+  <Card title="Setting Rich Presence" link="/docs/discord-social-sdk/development-guides/setting-rich-presence" icon="UserStatusIcon">
     Display game status and information to Discord friends.
   </Card>
-  <Card title="Designing for Consoles" link="#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES" icon="PaintPaletteIcon">
+  <Card title="Designing for Consoles" link="/docs/discord-social-sdk/design-guidelines" icon="PaintPaletteIcon">
     Follow our design guidelines when integrating Discord features into a console game.
   </Card>
 </Container>

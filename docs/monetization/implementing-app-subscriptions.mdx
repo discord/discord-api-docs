@@ -2,8 +2,8 @@
 
 Charge users for premium app functionality with a recurring user or guild subscription.
 
-- Before you can add an app subscription to your app, you must [Enable Monetization](#DOCS_MONETIZATION_ENABLING_MONETIZATION) for your app.
-- Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](#DOCS_RESOURCES_SKU) (stock-keeping unit) to represent your subscription.
+- Before you can add an app subscription to your app, you must [Enable Monetization](/docs/monetization/enabling-monetization) for your app.
+- Once you've confirmed eligibility for your app and team, you will be able to set up a [SKU](/docs/resources/sku) (stock-keeping unit) to represent your subscription.
 
 ---
 
@@ -18,7 +18,7 @@ When creating subscriptions, you will need to choose between user or guild subsc
 
 ## How App Subscriptions Work
 
-- When a user purchases your subscription SKU, Discord creates an [Entitlement](#DOCS_RESOURCES_ENTITLEMENT) for the user (or guild) and that specific Subscription [SKU](#DOCS_RESOURCES_SKU). 
+- When a user purchases your subscription SKU, Discord creates an [Entitlement](/docs/resources/entitlement) for the user (or guild) and that specific Subscription [SKU](/docs/resources/sku). 
 - You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
 - This entitlement will be available via the `LIST Entitlements` API endpoint.
 - This entitlement will be available on `Interaction Payloads` initiated from the entitled user or users in a guild (for guild subscriptions).
@@ -48,13 +48,13 @@ Because entitlements are granted indefinitely and don't update on renewal or can
 
 ## Working with Entitlements
 
-When a user purchases a subscription, an entitlement is created. [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) represent the user's access to your app's premium features.
+When a user purchases a subscription, an entitlement is created. [Entitlements](/docs/resources/entitlement) represent the user's access to your app's premium features.
 
-Depending on your app's features, you can use a combination of [Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements), the [Entitlement HTTP API](#DOCS_RESOURCES_ENTITLEMENT), and [interaction payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) to keep track of user and guild entitlements and grant features to users who are subscribed to your app.
+Depending on your app's features, you can use a combination of [Gateway events](/docs/events/gateway-events#entitlements), the [Entitlement HTTP API](/docs/resources/entitlement), and [interaction payloads](/docs/interactions/receiving-and-responding) to keep track of user and guild entitlements and grant features to users who are subscribed to your app.
 
 ### Accessing Entitlements with Gateway Events
 
-When users make a purchase in your app, Discord will emit [Entitlement Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/entitlements).
+When users make a purchase in your app, Discord will emit [Entitlement Gateway events](/docs/events/gateway-events#entitlements).
 
 For subscription SKUs, you will receive the following entitlement events:
 
@@ -62,21 +62,21 @@ For subscription SKUs, you will receive the following entitlement events:
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ENTITLEMENT_CREATE` | When a user is granted an entitlement to your app's subscription SKU                                                                                               |
 | `ENTITLEMENT_UPDATE` | When an entitlement to a subscription SKU ends                                                                                                                     |
-| `ENTITLEMENT_DELETE` | When Discord refunds a subscription, removes an entitlement, or when a developer [deletes a Test Entitlement](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement) |
+| `ENTITLEMENT_DELETE` | When Discord refunds a subscription, removes an entitlement, or when a developer [deletes a Test Entitlement](/docs/resources/entitlement#delete-test-entitlement) |
 
 ### Accessing Entitlements with the HTTP API
 
-For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_id=XYZ` query params.
+For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](/docs/resources/entitlement#list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_id=XYZ` query params.
 
 For example, you might keep track of our entitlements in a database and check if a user still has access to a specific SKU before performing a cron job or other task.
 
 ### Accessing Entitlements on Interaction Payloads
 
-Entitlements are also available on the `Interaction Payload` when a user interacts with your app. You can find the entitlements on the `entitlements` field of the `Interaction Payload` when [receiving and responding to interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING). You can use this field to determine if the user or guild is subscribed to your app. 
+Entitlements are also available on the `Interaction Payload` when a user interacts with your app. You can find the entitlements on the `entitlements` field of the `Interaction Payload` when [receiving and responding to interactions](/docs/interactions/receiving-and-responding). You can use this field to determine if the user or guild is subscribed to your app. 
 
 ### Accessing Entitlements with the Embedded App SDK
 
-When using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also [access a user's entitlements](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/getentitlements). Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
+When using the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) to build an [Activity](/docs/activities/overview), you can also [access a user's entitlements](/docs/developer-tools/embedded-app-sdk#getentitlements). Check out the [Implementing In-App Purchases for Activities](/docs/monetization/implementing-iap-for-activities) guide to learn more about monetization with the Embedded App SDK.
 
 ---
 
@@ -84,23 +84,23 @@ When using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to bui
 
 ### Responding with a Premium Button
 
-[Responding with a premium button](#DOCS_MONETIZATION_MANAGING_SKUS/responding-with-a-premium-button) gives you the ability to prompt users to subscribe to your app when they attempt to use a premium feature without a subscription.
+[Responding with a premium button](/docs/monetization/managing-skus#responding-with-a-premium-button) gives you the ability to prompt users to subscribe to your app when they attempt to use a premium feature without a subscription.
 
-You can do this by sending a message with a [button](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) with a [premium style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering. 
+You can do this by sending a message with a [button](/docs/interactions/message-components#buttons) with a [premium style](/docs/interactions/message-components#button-object-button-styles) and a `sku_id` that allows the user to upgrade to your premium offering. 
 
 ### Starting a Purchase from an Activity
 
-If you are using the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) to build an [Activity](#DOCS_ACTIVITIES_OVERVIEW), you can also launch the purchase flow for a specific SKU using the SDK. Check out the [Implementing In-App Purchases for Activities](#DOCS_MONETIZATION_IMPLEMENTING_IAP_FOR_ACTIVITIES) guide to learn more about monetization with the Embedded App SDK.
+If you are using the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) to build an [Activity](/docs/activities/overview), you can also launch the purchase flow for a specific SKU using the SDK. Check out the [Implementing In-App Purchases for Activities](/docs/monetization/implementing-iap-for-activities) guide to learn more about monetization with the Embedded App SDK.
 
 ### Purchasing from the Store Page
 
-Users can start, upgrade, or downgrade their subscription from your app's [Store](#DOCS_MONETIZATION_MANAGING_SKUS/viewing-your-store-page) page. You can link directly to your Store page using our [Application Directory Store URL scheme](#DOCS_MONETIZATION_MANAGING_SKUS/linking-to-your-store).
+Users can start, upgrade, or downgrade their subscription from your app's [Store](/docs/monetization/managing-skus#viewing-your-store-page) page. You can link directly to your Store page using our [Application Directory Store URL scheme](/docs/monetization/managing-skus#linking-to-your-store).
 
 ---
 
 ## Supporting Subscriptions
 
-To support subscriptions in your app, you need to [create a subscription SKU](#DOCS_MONETIZATION_MANAGING_SKUS/creating-a-sku) and handle the following scenarios:
+To support subscriptions in your app, you need to [create a subscription SKU](/docs/monetization/managing-skus#creating-a-sku) and handle the following scenarios:
 
 ### Starting a new subscription
 
@@ -145,9 +145,9 @@ When a user resumes their subscription, you will receive the following events:
 
 ## Supporting Upgrades and Downgrades
 
-If you offer multiple subscription tiers in your app, users can upgrade or downgrade their subscription at any time from your [Store page](#DOCS_MONETIZATION_MANAGING_SKUS/viewing-your-store-page) or their App Subscription settings.
+If you offer multiple subscription tiers in your app, users can upgrade or downgrade their subscription at any time from your [Store page](/docs/monetization/managing-skus#viewing-your-store-page) or their App Subscription settings.
 
-To create multiple subscription tiers, you will need to [create multiple subscription SKUs](#DOCS_MONETIZATION_MANAGING_SKUS/creating-a-sku) and support the following scenarios in your app:
+To create multiple subscription tiers, you will need to [create multiple subscription SKUs](/docs/monetization/managing-skus#creating-a-sku) and support the following scenarios in your app:
 
 ### Upgrading an existing subscription
 
@@ -185,13 +185,13 @@ Once the user's current subscription expires on `subscription.current_period_end
 ## Using the Subscription API
 
 > info 
-> When implementing monetization, [Entitlements](#DOCS_RESOURCES_ENTITLEMENT) should be considered the source of truth for a user's access to a specific SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
+> When implementing monetization, [Entitlements](/docs/resources/entitlement) should be considered the source of truth for a user's access to a specific SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
 
-You can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to check on the status of your app subscriptions. This API allows you to list subscriptions by user for reporting purposes and to check on the status of subscriptions without having to access entitlements directly.
+You can use the [Subscription API](/docs/resources/subscription) to check on the status of your app subscriptions. This API allows you to list subscriptions by user for reporting purposes and to check on the status of subscriptions without having to access entitlements directly.
 
-- [List SKU Subscriptions](#DOCS_RESOURCES_SUBSCRIPTION/list-sku-subscriptions): List all subscriptions for a specific SKU in your app.
-- [Get SKU Subscription](#DOCS_RESOURCES_SUBSCRIPTION/get-sku-subscription): Get a specific subscription in your app.
-- [Subscription Gateway events](#DOCS_EVENTS_GATEWAY_EVENTS/subscriptions): Discord will emit gateway events when a subscription is created, updated, and very rarely, deleted.
+- [List SKU Subscriptions](/docs/resources/subscription#list-sku-subscriptions): List all subscriptions for a specific SKU in your app.
+- [Get SKU Subscription](/docs/resources/subscription#get-sku-subscription): Get a specific subscription in your app.
+- [Subscription Gateway events](/docs/events/gateway-events#subscriptions): Discord will emit gateway events when a subscription is created, updated, and very rarely, deleted.
 
 ---
 
@@ -199,18 +199,18 @@ You can use the [Subscription API](#DOCS_RESOURCES_SUBSCRIPTION) to check on the
 
 ### Using Test Entitlements
 
-You can test your implementation by [creating](#DOCS_RESOURCES_ENTITLEMENT/create-test-entitlement) and [deleting](#DOCS_RESOURCES_ENTITLEMENT/delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
+You can test your implementation by [creating](/docs/resources/entitlement#create-test-entitlement) and [deleting](/docs/resources/entitlement#delete-test-entitlement) test entitlements. These entitlements will allow you to test your premium offering in both a subscribed and unsubscribed state as a user or guild. 
 
-This method will not let you test out the full payment flow in Discord but will allow you to test your app's behavior when a user is subscribed or unsubscribed. See [Using Live Entitlements](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/using-live-entitlements) if you'd like to see the full payment flow.
+This method will not let you test out the full payment flow in Discord but will allow you to test your app's behavior when a user is subscribed or unsubscribed. See [Using Live Entitlements](/docs/monetization/implementing-app-subscriptions#using-live-entitlements) if you'd like to see the full payment flow.
 
 > info
 > Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
 
 ### Using Live Entitlements
 
-If you'd like to test the full payment flow for your app, you can do so by interacting with your Store page or a [premium styled button](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/prompting-users-to-subscribe). Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
+If you'd like to test the full payment flow for your app, you can do so by interacting with your Store page or a [premium styled button](/docs/monetization/implementing-app-subscriptions#prompting-users-to-subscribe). Any team members associated with your app will automatically see a 100% discount on the price of the subscription, allowing you to purchase without the use of live payment method. 
 
-After checkout, you will have a live subscription. This subscription will renew until canceled and can be used in testing subscription renewals in your app.  If you cancel this subscription, it will remain an active entitlement until the end of the subscription billing period, represented by the `period_ends_at` field on the [Subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object). 
+After checkout, you will have a live subscription. This subscription will renew until canceled and can be used in testing subscription renewals in your app.  If you cancel this subscription, it will remain an active entitlement until the end of the subscription billing period, represented by the `period_ends_at` field on the [Subscription](/docs/resources/subscription#subscription-object). 
 
 > info
-> You can only delete entitlements created using the [create entitlement](#DOCS_RESOURCES_ENTITLEMENT/create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use Test Entitlements.
+> You can only delete entitlements created using the [create entitlement](/docs/resources/entitlement#create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use Test Entitlements.

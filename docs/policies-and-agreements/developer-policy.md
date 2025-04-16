@@ -5,7 +5,7 @@ sidebar_label: Developer Policy
 # Discord Developer Policy
 
 > info
-> We’re updating our Developer Terms of Service and Developer Policy, effective July 8, 2024. Please review the updated Policy below and Terms [here](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_TERMS_OF_SERVICE). If you access or use the APIs on or after July 8, 2024, it means you agree to the updated Policy and Terms. Until then, the current [Developer Terms of Service](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Terms_of_Service.md) and [Developer Policy](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md) will apply.
+> We’re updating our Developer Terms of Service and Developer Policy, effective July 8, 2024. Please review the updated Policy below and Terms [here](/docs/policies-and-agreements/developer-terms-of-service). If you access or use the APIs on or after July 8, 2024, it means you agree to the updated Policy and Terms. Until then, the current [Developer Terms of Service](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Terms_of_Service.md) and [Developer Policy](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md) will apply.
 
 ## Effective date: July 8, 2024
 
@@ -17,17 +17,18 @@ Discord is a place where developers can come to build cool experiences to furthe
 
 ## Introduction
 
-This Discord Developer Policy is incorporated into the [Discord Developer Terms of Service](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_TERMS_OF_SERVICE) (“Developer Terms”), and you agree that it applies to your access to and use of our APIs in addition to the Developer Terms and other Terms. Capitalized terms not otherwise defined herein (including “API Data” and “Application”) have the meaning assigned to them in the Developer Terms. For clarity, the term “including” as used herein means “including without limitation.”
+This Discord Developer Policy is incorporated into the [Discord Developer Terms of Service](/docs/policies-and-agreements/developer-terms-of-service) (“Developer Terms”), and you agree that it applies to your access to and use of our APIs in addition to the Developer Terms and other Terms. Capitalized terms not otherwise defined herein (including “API Data” and “Application”) have the meaning assigned to them in the Developer Terms. For clarity, the term “including” as used herein means “including without limitation.”
 
 As described in the Developer Terms (including Section 9), we may take enforcement actions for any Enforcement Reason, including if we believe you or your Application have violated this Developer Policy. If you come across an Application that you believe violates any of these policies, [please report it to us](https://support.discord.com/hc/en-us/requests/new).
 
-Please check back here regularly, as we may update these policies from time to time, and your continued access to or use of the APIs after such updates go into effect means you accept and agree to them. Additional terms and policies may also apply to your access to or use of certain APIs (including as described in or available via our [Developer Portal](#DOCS_INTRO) or [Help Center](https://support-dev.discord.com/hc/en-us/categories/360000656491)).
+Please check back here regularly, as we may update these policies from time to time, and your continued access to or use of the APIs after such updates go into effect means you accept and agree to them. Additional terms and policies may also apply to your access to or use of certain APIs (including as described in or available via our [Developer Portal](/docs/intro) or [Help Center](https://support-dev.discord.com/hc/en-us/categories/360000656491)).
 
 ## Monetization Requirements
 
 All Applications attempting to monetize through our services must abide by Discord’s [Monetization Terms](https://support.discord.com/hc/en-us/articles/5330075836311) and [Monetization Policy](https://support.discord.com/hc/en-us/articles/10575066024983).
 
 Beginning on October 7, 2024, in regions where Discord supports monetization through its Premium Apps products, all developers who offer paid features or capabilities for their Application will be required to:
+
 - (i) support purchase of such features or capabilities through Discord’s Premium Apps products; and, 
 - (ii) offer such features or capabilities at prices on Discord that are no higher than the prices at which they are offered through other payment options.
 
@@ -51,6 +52,7 @@ Beginning on October 7, 2024, in regions where Discord supports monetization thr
 
 ## Respect Our Platform Rules
 **8. Do not use the APIs for any dangerous or illegal activity.** This includes, but is not limited to, activities that facilitate or promote:
+
 - Risks to physical safety;
 - Environmental damage; 
 - Financial scams; or,
@@ -99,6 +101,6 @@ Note that we require developers to notify Discord and affected users of potentia
 For the avoidance of doubt, the above policies apply in addition to the terms relating to API Data described in the Developer Terms (including Section 5 (User Privacy and Security)), and use of data includes how you access, collect, store, retain, transmit, share, and otherwise process it.
 
 ## API Limits
-As described in the [Developer Terms](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_TERMS_OF_SERVICE), Discord may set and enforce limits on your use of the APIs (e.g., by limiting the number of API requests that you may make, or the number of users you may serve) at our sole discretion. You agree to, and will not attempt to circumvent, such limitations we set for each API.
+As described in the [Developer Terms](/docs/policies-and-agreements/developer-terms-of-service), Discord may set and enforce limits on your use of the APIs (e.g., by limiting the number of API requests that you may make, or the number of users you may serve) at our sole discretion. You agree to, and will not attempt to circumvent, such limitations we set for each API.
 
 If you would like to use any API beyond these limits, you must obtain Discord’s express written consent. Discord may, at our discretion, decline such request or condition acceptance on your agreement to additional terms and/or charges for such use.

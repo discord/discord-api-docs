@@ -5,7 +5,7 @@ import LimitedAccessCallout from '../partials/callouts/limited-access.mdx';
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # Creating and Managing Lobbies
 
@@ -25,7 +25,7 @@ This guide will show you how to:
 
 Before you begin, make sure you have:
 
-- Set up the Discord Social SDK with our [Getting Started guide](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED)
+- Set up the Discord Social SDK with our [Getting Started guide](/docs/discord-social-sdk/getting-started)
 
 ---
 
@@ -60,7 +60,7 @@ There are two ways to manage lobbies:
 
 You can use the Discord HTTP API to create, update, and delete lobbies and manage lobby membership. 
 
-See the [Lobby](#DOCS_RESOURCES_LOBBY) API resource for available endpoints and [Using with Discord APIs](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_USING_WITH_DISCORD_APIS) for information on how to authenticate your requests.
+See the [Lobby](/docs/resources/lobby) API resource for available endpoints and [Using with Discord APIs](/docs/discord-social-sdk/development-guides/using-with-discord-apis) for information on how to authenticate your requests.
 
 > info
 > Clients will not be able to use [`Client::CreateOrJoinLobby`] or [`Client::LeaveLobby`] with lobbies created using the API.
@@ -72,7 +72,7 @@ The SDK client can also create and join lobbies. This works by associating a sec
 - The relevant SDK functions are [`Client::CreateOrJoinLobby`] and [`Client::LeaveLobby`].   
 - Lobby secrets are unique per game (ie: application). For example, use a new secret if you want to generate a new lobby at the end of the match. Calling [`Client::LeaveLobby`] and then [`Client::CreateOrJoinLobby`] with the same secret value will just re-add you to the same lobby.  
 - Calling [`Client::CreateOrJoinLobby`] while the user is already in the lobby will update their metadata (if included) instead.  
-- Discord's Rich Presence system supports syncing this secret, too.  Using this flow, clients can request to join another user's activity. When approved, the SDK will be given the secret, which you can access and join the associated lobby if you choose to do so. See the [Game Invites for Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES/creating-lobby-invites) example below.
+- Discord's Rich Presence system supports syncing this secret, too.  Using this flow, clients can request to join another user's activity. When approved, the SDK will be given the secret, which you can access and join the associated lobby if you choose to do so. See the [Game Invites for Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies#creating-lobby-invites) example below.
 - If you want to keep track of metadata for the lobby or the lobby members, you can use the [`Client::CreateOrJoinLobbyWithMetadata`] function. This function takes a JSON object as an argument, which will be stored with the lobby and the lobby members. This metadata can be retrieved using the discordpp::Client::GetLobbyHandle function.
 
 ```cpp
@@ -149,13 +149,13 @@ client->SetMessageCreatedCallback([&client](uint64_t messageId) {
 
 You can connect a lobby to a Discord text channel with Linked Channels. Linked Channels allows users to chat with each other in the lobby using Discord, even if they are not in the game.
 
-See our guide on [Linked Channels](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_LINKED_CHANNELS) for more information on how to link a channel to a lobby.
+See our guide on [Linked Channels](/docs/discord-social-sdk/development-guides_LINKED_CHANNELS) for more information on how to link a channel to a lobby.
 
 ---
 
 ## Joining Voice Chat
 
-See our guide on [Joining Voice Chat](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_JOINING_VOICE_CHAT) for more information on how to start a voice call in a lobby.
+See our guide on [Joining Voice Chat](/docs/discord-social-sdk/development-guides_JOINING_VOICE_CHAT) for more information on how to start a voice call in a lobby.
 
 --- 
 
@@ -163,7 +163,7 @@ See our guide on [Joining Voice Chat](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDE
 
 Your game can use lobbies and game invites to allow users to invite friends to join an existing lobby.
 
-Check out the [Using Game Invites with Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES/using-game-invites-with-lobbies) example to try it out in your game.
+Check out the [Using Game Invites with Lobbies](/docs/discord-social-sdk/development-guides/managing-game-invites#using-game-invites-with-lobbies) example to try it out in your game.
 
 ---
 
@@ -172,13 +172,13 @@ Check out the [Using Game Invites with Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOP
 With your game able to create and manage lobbies, you can now implement additional features:
 
 <Container>
-<Card title="Managing Game Invites" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES" icon="InboxIcon">
+<Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
     Allow players to invite friends to join their game session or party.
   </Card>
-  <Card title="Joining Voice Chat" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_JOINING_VOICE_CHAT" icon="VoiceNormalIcon">
+  <Card title="Joining Voice Chat" link="/docs/discord-social-sdk/development-guides_JOINING_VOICE_CHAT" icon="VoiceNormalIcon">
     Add voice communication to your lobbies.
   </Card>
-  <Card title="Linked Channels" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_LINKED_CHANNELS" icon="TextControllerIcon">
+  <Card title="Linked Channels" link="/docs/discord-social-sdk/development-guides_LINKED_CHANNELS" icon="TextControllerIcon">
     Connect lobbies to Discord text channels.
   </Card>
 </Container>

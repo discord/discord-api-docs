@@ -12,7 +12,7 @@ This changelog focuses only on the technical changes to be aware of to update yo
 
 ### Identifying migrated users
 
-The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](#DOCS_RESOURCES_USER/user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
+The new username system will rollout to users over time rather than all at once. The value of a single zero (`"0"`) in the [`discriminator` field](/docs/resources/user#user-object-user-structure) on a user will indicate that the user has been migrated to the new username system. Note that the discriminator for migrated users will *not* be 4-digits like a standard discriminator (it is `"0"`, not `"0000"`). The value of the `username` field will become the migrated user's unique username.
 
 After migration of all users is complete, the `discriminator` field may be removed.
 
