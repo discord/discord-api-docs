@@ -40,7 +40,7 @@ For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERS
 - `PORT` is the port of the RPC Server.
 - `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-To begin, you'll need to create an app. Head to [your apps](#APPLICATIONS) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
 When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
 

@@ -153,8 +153,6 @@ for (const [name, raw] of docFiles) {
   }
 }
 
-console.log(validLinks);
-
 // Add changelog anchors to the list of valid links
 validLinks.get("/docs/change-log")?.push(...changelogAnchors);
 
@@ -181,7 +179,6 @@ for (const [name, raw] of docFiles) {
     for (const match of concatIterables(markdownMatches, componentMatches)) {
       if (!match.groups) continue;
       const [page, anchor] = match.groups?.link.split("#") ?? [];
-      console.log(match.groups?.link, page, anchor);
       if (!validLinks.has(page)) {
         ownResults.push({
           title: `Base url ${chalk.blueBright(page)} does not exist`,

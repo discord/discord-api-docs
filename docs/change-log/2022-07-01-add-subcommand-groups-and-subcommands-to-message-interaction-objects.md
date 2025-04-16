@@ -4,7 +4,7 @@ date: "2022-07-01"
 breaking: true
 ---
 
-While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](/docs/interactions/receiving-and-responding#message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
+While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](/docs/interactions/receiving-and-responding#interaction-object-interaction-data) are unaffected by this change.
 
 #### Upcoming Changes
 
