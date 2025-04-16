@@ -60,4 +60,4 @@ async function setup() {
 
 This diagram illustrates the communication flow between your application and Discord in the sample code above.
 
-![Diagram of how Activities communicate with Discord](activities/embedded-app-flow-diagram.svg)
+![Diagram of how Activities communicate with Discord](images/activities/embedded-app-flow-diagram.svg)
