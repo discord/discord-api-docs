@@ -60,7 +60,7 @@ client->SendUserMessage(recipientId, message, [](auto result, uint64_t messageId
 In some situations, messages from your game with the Social SDK will also appear in Discord. This will happen for:
 
 - 1 on 1 chat when at least one of the users is a full Discord user
-- Lobby chat when the lobby is [linked to a Discord channel](/docs/discord-social-sdk/development-guides_LINKED_CHANNELS)
+- Lobby chat when the lobby is [linked to a Discord channel](/docs/discord-social-sdk/development-guides/linked-channels)
 - The message must have been sent by a user who is not banned on Discord.
 
 When messaging between provisional accounts or non-friends, channel ID and recipient ID is set to the other user's ID. These messages are sent ephemerally and do not persist within a channel. Because of that, you will not be able to resolve a [`ChannelHandle`] for them.
@@ -116,7 +116,7 @@ Now that you know how to send and receive messages, check out these other Discor
   <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
     Bring players together in a shared lobby with invites, text chat, and voice comms.
   </Card>
-  <Card title="Linked Channels" link="/docs/discord-social-sdk/development-guides_LINKED_CHANNELS" icon="TextControllerIcon">
+  <Card title="Linked Channels" link="/docs/discord-social-sdk/development-guides/linked-channels" icon="TextControllerIcon">
     Enable cross-platform text chat between a Discord channel and your game.
   </Card>
 </Container>

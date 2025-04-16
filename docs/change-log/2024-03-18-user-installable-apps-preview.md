@@ -7,7 +7,7 @@ topics:
 
 Apps can now be installed to users—making them easier to install, discover, and access across Discord. User-installed apps can be used across all of a user's servers, within their (G)DMs, and in DMs with the app's bot user.
 
-When creating or updating your app, you can choose which installation types your app supports on the **Installation** page in your [app's settings](https://discord.com/developers/applications). To quickly get started, you can follow the new [Developing a User-Installable App tutorial](/docs/tutorials/develing-a-user-installable-app) or read details about the new changes below.
+When creating or updating your app, you can choose which installation types your app supports on the **Installation** page in your [app's settings](https://discord.com/developers/applications). To quickly get started, you can follow the new [Developing a User-Installable App tutorial](/docs/tutorials/developing-a-user-installable-app) or read details about the new changes below.
 
 This change introduces new concepts and fields across the API that apps will now encounter—
 

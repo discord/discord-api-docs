@@ -8,4 +8,4 @@ Two new [trigger types](/docs/resources/auto-moderation#auto-moderation-rule-obj
 * `MENTION_SPAM` blocks messages that mention more than a set number of unique server members or roles. Apps can define the number (up to 50) using the `mention_total_limit` field in the [trigger metadata object](/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata) when creating or updating an Auto Moderation rule.
 * `SPAM` blocks links and messages that are identified as spam.
 
-More information can be found in the [Auto Moderation documentation](/docs/resorces/auto-moderation).
+More information can be found in the [Auto Moderation documentation](/docs/resources/auto-moderation).

@@ -14,7 +14,7 @@ When a user connects their account using the bot's [`role_connections_verificati
 
 | Field                      | Type                                                                                                                                                                                | Description                                                                                      |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| type                       | [ApplicationRoleConnectionMetadataType](/docs/resources/application_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                                           |
+| type                       | [ApplicationRoleConnectionMetadataType](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-type) | type of metadata value                                                                           |
 | key                        | string                                                                                                                                                                              | dictionary key for the metadata field (must be `a-z`, `0-9`, or `_` characters; 1-50 characters) |
 | name                       | string                                                                                                                                                                              | name of the metadata field (1-100 characters)                                                    |
 | name_localizations?        | dictionary with keys in [available locales](/docs/reference#locales)                                                                                                                | translations of the name                                                                         |
@@ -39,11 +39,11 @@ When a user connects their account using the bot's [`role_connections_verificati
 
 ## Get Application Role Connection Metadata Records % GET /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
 
-Returns a list of [application role connection metadata](/docs/resources/application_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
+Returns a list of [application role connection metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object) objects for the given application.
 
 ## Update Application Role Connection Metadata Records % PUT /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
 
-Updates and returns a list of [application role connection metadata](/docs/resources/application_ROLE_CONNECTION_METADATA/application-role-connection-metadata-object) objects for the given application.
+Updates and returns a list of [application role connection metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object) objects for the given application.
 
 > info
 > An application can have a maximum of 5 metadata records.

@@ -136,7 +136,7 @@ Returns nothing.
 
 ## Link Channel to Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/channel-linking
 
-Links an existing text channel to a lobby. See [Linked Channels](/docs/discord-social-sdk/development-guides_LINKED_CHANNELS) for more information.
+Links an existing text channel to a lobby. See [Linked Channels](/docs/discord-social-sdk/development-guides/linked-channels) for more information.
 
 Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](/docs/resources/lobby#lobby-member-object-lobby-member-flags).
 

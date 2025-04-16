@@ -460,7 +460,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ### Auto Moderation
 
-All [Auto Moderation](/docs/resorces/auto-moderation) related events are only sent to bot users which have the `MANAGE_GUILD` permission.
+All [Auto Moderation](/docs/resources/auto-moderation) related events are only sent to bot users which have the `MANAGE_GUILD` permission.
 
 #### Auto Moderation Rule Create
 
@@ -494,7 +494,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 | matched_keyword          | ?string                                                                                        | Word or phrase configured in the rule that triggered the rule                  |
 | matched_content ***      | ?string                                                                                        | Substring in content that triggered the rule                                   |
 
-\* `message_id` will not exist if message was blocked by [Auto Moderation](/docs/resorces/auto-moderation) or content was not part of any message
+\* `message_id` will not exist if message was blocked by [Auto Moderation](/docs/resources/auto-moderation) or content was not part of any message
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
@@ -645,7 +645,7 @@ The inner payload can be:
 | threads                | array of [channel](/docs/resources/channel#channel-object) objects                                           | All active threads in the guild that current user has permission to view                                                   |
 | presences              | array of partial [presence update](/docs/events/gateway-events#presence-update) objects                      | Presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold` |
 | stage_instances        | array of [stage instance](/docs/resources/stage-instance#stage-instance-object) objects                      | Stage instances in the guild                                                                                               |
-| guild_scheduled_events | array of [guild scheduled event](/docs/resources/guild_SCHEDULED_EVENT/guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
+| guild_scheduled_events | array of [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
 | soundboard_sounds      | array of [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) objects                      | Soundboard sounds in the guild                                                                                             |
 
 > warn
@@ -828,15 +828,15 @@ Sent when a guild role is deleted.
 
 #### Guild Scheduled Event Create
 
-Sent when a guild scheduled event is created. The inner payload is a [guild scheduled event](/docs/resources/guild_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+Sent when a guild scheduled event is created. The inner payload is a [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object.
 
 #### Guild Scheduled Event Update
 
-Sent when a guild scheduled event is updated. The inner payload is a [guild scheduled event](/docs/resources/guild_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+Sent when a guild scheduled event is updated. The inner payload is a [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object.
 
 #### Guild Scheduled Event Delete
 
-Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](/docs/resources/guild_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object.
 
 #### Guild Scheduled Event User Add
 
