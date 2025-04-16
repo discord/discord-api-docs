@@ -76,7 +76,7 @@ Gateway connections are persistent WebSockets which introduce more complexity th
 
 At a high-level, Gateway connections consist of the following cycle:
 
-![Flowchart with an overview of Gateway connection lifecycle](gateway-lifecycle.svg)
+![Flowchart with an overview of Gateway connection lifecycle](images/gateway-lifecycle.svg)
 
 1. App establishes a connection with the Gateway after fetching and caching a WSS URL using the [Get Gateway](#DOCS_EVENTS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_EVENTS_GATEWAY/get-gateway-bot) endpoint.
 2. Discord sends the app a [Hello (opcode `10`)](#DOCS_EVENTS_GATEWAY/hello-event) event containing a heartbeat interval in milliseconds. **Read the section on [Connecting](#DOCS_EVENTS_GATEWAY/connecting)**
