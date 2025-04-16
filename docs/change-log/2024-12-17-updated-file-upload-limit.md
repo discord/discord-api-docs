@@ -14,4 +14,4 @@ While this limit is already active for users and bot users, it hasn't yet been a
 - This change will take effect on January 16, 2025.
 - The 10 MiB limit will apply to both webhooks and interaction responses.
 
-For more information, check out [our documentation on file uploads](#DOCS_REFERENCE/uploading-files).
+For more information, check out [our documentation on file uploads](/docs/reference#uploading-files).

@@ -12,16 +12,16 @@ Represents a sticker that can be sent in messages.
 
 | Field       | Type                                            | Description                                                                           |
 |-------------|-------------------------------------------------|---------------------------------------------------------------------------------------|
-| id          | snowflake                                       | [id of the sticker](#DOCS_REFERENCE/image-formatting)                                 |
+| id          | snowflake                                       | [id of the sticker](/docs/reference#image-formatting)                                 |
 | pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                             |
 | name        | string                                          | name of the sticker                                                                   |
 | description | ?string                                         | description of the sticker                                                            |
 | tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 200 characters)                     |
-| type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)               |
-| format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types) |
+| type        | integer                                         | [type of sticker](/docs/resources/sticker#sticker-object-sticker-types)               |
+| format_type | integer                                         | [type of sticker format](/docs/resources/sticker#sticker-object-sticker-format-types) |
 | available?  | boolean                                         | whether this guild sticker can be used, may be false due to loss of Server Boosts     |
 | guild_id?   | snowflake                                       | id of the guild that owns this sticker                                                |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the guild sticker                                              |
+| user?       | [user](/docs/resources/user#user-object) object | the user that uploaded the guild sticker                                              |
 | sort_value? | integer                                         | the standard sticker's sort order within its pack                                     |
 
 \* A comma separated list of keywords is the format used in this field by standard stickers, but this is just a convention.
@@ -68,7 +68,7 @@ The smallest amount of data required to render a sticker. A partial sticker obje
 |-------------|-----------|---------------------------------------------------------------------------------------|
 | id          | snowflake | id of the sticker                                                                     |
 | name        | string    | name of the sticker                                                                   |
-| format_type | integer   | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types) |
+| format_type | integer   | [type of sticker format](/docs/resources/sticker#sticker-object-sticker-format-types) |
 
 ### Sticker Pack Object
 
@@ -79,12 +79,12 @@ Represents a pack of standard stickers.
 | Field             | Type                                                               | Description                                                               |
 |-------------------|--------------------------------------------------------------------|---------------------------------------------------------------------------|
 | id                | snowflake                                                          | id of the sticker pack                                                    |
-| stickers          | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects | the stickers in the pack                                                  |
+| stickers          | array of [sticker](/docs/resources/sticker#sticker-object) objects | the stickers in the pack                                                  |
 | name              | string                                                             | name of the sticker pack                                                  |
 | sku_id            | snowflake                                                          | id of the pack's SKU                                                      |
 | cover_sticker_id? | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
 | description       | string                                                             | description of the sticker pack                                           |
-| banner_asset_id?  | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
+| banner_asset_id?  | snowflake                                                          | id of the sticker pack's [banner image](/docs/reference#image-formatting) |
 
 ###### Example Sticker Pack
 
@@ -100,9 +100,9 @@ Represents a pack of standard stickers.
 }
 ```
 
-## Get Sticker % GET /stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Get Sticker % GET /stickers/{sticker.id/docs/resources/sticker#sticker-object}
 
-Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given sticker ID.
+Returns a [sticker](/docs/resources/sticker#sticker-object) object for the given sticker ID.
 
 ## List Sticker Packs % GET /sticker-packs
 
@@ -112,23 +112,23 @@ Returns a list of available sticker packs.
 
 | Field         | Type                                                                         |
 |---------------|------------------------------------------------------------------------------|
-| sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
+| sticker_packs | array of [sticker pack](/docs/resources/sticker#sticker-pack-object) objects |
 
-## Get Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
+## Get Sticker Pack % GET /sticker-packs/{pack.id/docs/resources/sticker#sticker-pack-object}
 
-Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) object for the given sticker pack ID.
+Returns a [sticker pack](/docs/resources/sticker#sticker-pack-object) object for the given sticker pack ID.
 
-## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
+## List Guild Stickers % GET /guilds/{guild.id/docs/resources/guild#guild-object}/stickers
 
-Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
+Returns an array of [sticker](/docs/resources/sticker#sticker-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Get Guild Sticker % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Get Guild Sticker % GET /guilds/{guild.id/docs/resources/guild#guild-object}/stickers/{sticker.id/docs/resources/sticker#sticker-object}
 
-Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given guild and sticker IDs. Includes the `user` field if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
+Returns a [sticker](/docs/resources/sticker#sticker-object) object for the given guild and sticker IDs. Includes the `user` field if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Create Guild Sticker % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
+## Create Guild Sticker % POST /guilds/{guild.id/docs/resources/guild#guild-object}/stickers
 
-Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
+Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [sticker](/docs/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
 Every guilds has five free sticker slots by default, and each Boost level will grant access to more slots.
 
@@ -136,7 +136,7 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 > warn
-> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
+> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](/docs/resources/guild#guild-object-guild-features). 
 
 > warn
 > Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
@@ -150,9 +150,9 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 | tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                      |
 | file        | file contents | the sticker file to upload, must be a PNG, APNG, GIF, or Lottie JSON file, max 512 KiB |
 
-## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Modify Guild Sticker % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/stickers/{sticker.id/docs/resources/sticker#sticker-object}
 
-Modify the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
+Modify the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [sticker](/docs/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
@@ -168,9 +168,9 @@ Modify the given sticker. For stickers created by the current user, requires eit
 | description | ?string | description of the sticker (2-100 characters)                     |
 | tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters) |
 
-## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+## Delete Guild Sticker % DELETE /guilds/{guild.id/docs/resources/guild#guild-object}/stickers/{sticker.id/docs/resources/sticker#sticker-object}
 
-Delete the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](#DOCS_EVENTS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
+Delete the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.

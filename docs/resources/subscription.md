@@ -50,17 +50,18 @@ If the user cancels the subscription, the subscription will enter the `ENDING` s
 | INACTIVE | 2     | Subscription is inactive and not being charged. |
 
 > info
-> Subscription status should not be used to grant perks. Use [entitlements](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS) for more information.
+> Subscription status should not be used to grant perks. Use [entitlements](/docs/resources/entitlement#entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](/docs/monetization/implementing-app-subscriptions) for more information.
 
-Subscriptions can start and change between any of these statuses within the current period. A subscription can be `ACTIVE` outside its current period or `INACTIVE` within its current period. 
+Subscriptions can start and change between any of these statuses within the current period. A subscription can be `ACTIVE` outside its current period or `INACTIVE` within its current period.
 
 Some examples of this behavior include:
+
 - While a failed payment is being retried, the subscription would remain `ACTIVE` until it succeeds or our system determines the payment is not recoverable.
 - A refund or chargeback during the current period would make the subscription `INACTIVE`.
 
-## List SKU Subscriptions % GET /skus/{sku.id#DOCS_RESOURCES_SKU/sku-object}/subscriptions
+## List SKU Subscriptions % GET /skus/{sku.id/docs/resources/sku#sku-object}/subscriptions
 
-Returns all subscriptions containing the SKU, filtered by user. Returns a list of [subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) objects.
+Returns all subscriptions containing the SKU, filtered by user. Returns a list of [subscription](/docs/resources/subscription#subscription-object) objects.
 
 ### Query String Params
 
@@ -71,6 +72,6 @@ Returns all subscriptions containing the SKU, filtered by user. Returns a list o
 | limit?   | integer   | Number of results to return (1-100)                                           | 50      |
 | user_id? | snowflake | User ID for which to return subscriptions. Required except for OAuth queries. | absent  |
 
-## Get SKU Subscription % GET /skus/{sku.id#DOCS_RESOURCES_SKU/sku-object}/subscriptions/{subscription.id#DOCS_MONETIZATION_SUBSCRIPTIONS/subscription-object}
+## Get SKU Subscription % GET /skus/{sku.id/docs/resources/sku#sku-object}/subscriptions/{subscription.id#DOCS_MONETIZATION_SUBSCRIPTIONS/subscription-object}
 
-Get a subscription by its ID. Returns a [subscription](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) object.
+Get a subscription by its ID. Returns a [subscription](/docs/resources/subscription#subscription-object) object.

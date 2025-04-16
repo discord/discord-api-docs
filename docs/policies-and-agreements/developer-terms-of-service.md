@@ -5,7 +5,7 @@ sidebar_label: Developer Terms of Service
 # Discord Developer Terms of Service
 
 > info
-> We’re updating our Developer Terms of Service and Developer Policy, effective July 8, 2024. Please review the updated Terms below and Policy [here](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_POLICY). If you access or use the APIs on or after July 8, 2024, it means you agree to the updated Terms and Policy. Until then, the current [Developer Terms of Service](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Terms_of_Service.md) and [Developer Policy](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md) will apply.
+> We’re updating our Developer Terms of Service and Developer Policy, effective July 8, 2024. Please review the updated Terms below and Policy [here](/docs/policies-and-agreements/developer-policy). If you access or use the APIs on or after July 8, 2024, it means you agree to the updated Terms and Policy. Until then, the current [Developer Terms of Service](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Terms_of_Service.md) and [Developer Policy](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md) will apply.
 
 ## Effective date: July 8, 2024
 
@@ -13,13 +13,13 @@ sidebar_label: Developer Terms of Service
 
 *For a link to the previous terms, please see **[here](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md)**. For a translated version in your selected language, as available, please see **[here](https://support-dev.discord.com/hc/articles/8562894815383)**.*
 
-Welcome! Thank you for your interest in Discord’s APIs, software development kits (“DDSDKs”), and other developer products and services and associated software (including those described in or available via our [Developer Portal](#DOCS_INTRO) (collectively, "APIs" or “Developer Platform”).
+Welcome! Thank you for your interest in Discord’s APIs, software development kits (“DDSDKs”), and other developer products and services and associated software (including those described in or available via our [Developer Portal](/docs/intro) (collectively, "APIs" or “Developer Platform”).
 
 These Developer Terms of Service (“Developer Terms”) apply to your access to and use of the APIs and set forth the legal obligations between us and you.
 
 When we say “Discord,” “we,” “us,” and “our” in these Developer Terms of Service, we mean Discord Inc., unless otherwise set forth in additional terms applicable to a given API.
 
-When we say “Terms” in these Developer Terms, we mean, collectively, these Developer Terms, our [Developer Documentation](#DOCS_INTRO) and any other applicable documentation we make available (“Documentation”), our [Discord Developer Policy](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_POLICY), our [Terms of Service](https://discord.com/terms) (including our [Discord Community Guidelines](https://discord.com/guidelines)), and any other applicable terms, policies, and guidelines we make available (including in our [Developer Portal](#DOCS_INTRO) or [Help Center](https://support-dev.discord.com/hc)). If there is a conflict between these Developer Terms and any additional terms, then these Developer Terms will control for that conflict. If you use other Discord services in connection with the APIs, then the terms for those other services also apply to you. Additional defined terms are described in Section 13 (Definitions) below.
+When we say “Terms” in these Developer Terms, we mean, collectively, these Developer Terms, our [Developer Documentation](/docs/intro) and any other applicable documentation we make available (“Documentation”), our [Discord Developer Policy](/docs/policies-and-agreements/developer-policy), our [Terms of Service](https://discord.com/terms) (including our [Discord Community Guidelines](https://discord.com/guidelines)), and any other applicable terms, policies, and guidelines we make available (including in our [Developer Portal](/docs/intro) or [Help Center](https://support-dev.discord.com/hc)). If there is a conflict between these Developer Terms and any additional terms, then these Developer Terms will control for that conflict. If you use other Discord services in connection with the APIs, then the terms for those other services also apply to you. Additional defined terms are described in Section 13 (Definitions) below.
 
 Important Note: Section 12(e) (Choice of Law; Dispute Resolution) incorporates the [dispute resolution provision](https://discord.com/terms#settling-disputes-between-you-and-discord) from our [Terms of Service](https://discord.com/terms), which includes an arbitration clause and class action waiver that applies to all U.S.-based Discord users. Please read this section carefully as it may significantly affect your legal rights, including your right to file a lawsuit in court.
 
@@ -40,7 +40,7 @@ You may be required or requested to provide certain information about yourself (
 ## Section 2: Use of the APIs
 
 ### a. License to you
-Subject to your compliance with the Terms, we grant you a limited, non-exclusive, non-sublicensable, non-transferable, non-assignable, revocable license to access and use the APIs and Documentation we make available to you solely as necessary to integrate with, develop, and operate your Application to the extent permitted under the Terms (including the [Developer Policy](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_POLICY). We reserve all rights, title, and interest not expressly granted in the Terms and you may not access or use the APIs or Documentation except as set forth in the Terms.
+Subject to your compliance with the Terms, we grant you a limited, non-exclusive, non-sublicensable, non-transferable, non-assignable, revocable license to access and use the APIs and Documentation we make available to you solely as necessary to integrate with, develop, and operate your Application to the extent permitted under the Terms (including the [Developer Policy](/docs/policies-and-agreements/developer-policy). We reserve all rights, title, and interest not expressly granted in the Terms and you may not access or use the APIs or Documentation except as set forth in the Terms.
 
 ## b. Restrictions
 
@@ -242,7 +242,7 @@ You may not assign, sublicense, delegate, or otherwise transfer any of your righ
 
 ## Section 13: Definitions
 
-- “APIs” (or “Developer Platform”) means, collectively, Discord’s APIs, software development kits (“SDKs”), and other developer services and associated software (including those described in or available via our [Developer Portal](#DOCS_INTRO)).
+- “APIs” (or “Developer Platform”) means, collectively, Discord’s APIs, software development kits (“SDKs”), and other developer services and associated software (including those described in or available via our [Developer Portal](/docs/intro)).
 - “API Data” means any data, information, or other content you obtain through the APIs (including personal data). API Data includes your developer credentials and access tokens.
 - “App Content” means any data, information, technology, materials, or other content that you or those acting on your behalf add to our services or otherwise make available to us in connection with the APIs or your Application (including as submitted, posted, or displayed by or through your Application).
 - “App Review” has the meaning set forth in Section 6.

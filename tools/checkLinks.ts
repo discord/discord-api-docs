@@ -106,7 +106,7 @@ const validLinks = new Map<string, string[]>([
 // Gather valid links
 const changelogAnchors = [];
 for (const [name, raw] of docFiles) {
-  const keyName = `DOCS${name.replaceAll("/", "_").replaceAll("-", "_").toUpperCase()}`;
+  const keyName = `/docs${name}`;
   if (!validLinks.has(keyName)) {
     validLinks.set(keyName, []);
   }
@@ -154,7 +154,7 @@ for (const [name, raw] of docFiles) {
 }
 
 // Add changelog anchors to the list of valid links
-validLinks.get("DOCS_CHANGE_LOG")?.push(...changelogAnchors);
+validLinks.get("/docs/change-log")?.push(...changelogAnchors);
 
 const results = new Map<string, github.AnnotationProperties[]>();
 
@@ -177,9 +177,8 @@ for (const [name, raw] of docFiles) {
     const componentMatches = line.matchAll(/(?:link|href)="(?!https?|mailto)(?<link>.+?)"/g);
 
     for (const match of concatIterables(markdownMatches, componentMatches)) {
-      const split = match.groups!.link.split("#")[1].split("/");
-      const page = split[0];
-      const anchor = split[1];
+      if (!match.groups) continue;
+      const [page, anchor] = match.groups?.link.split("#") ?? [];
       if (!validLinks.has(page)) {
         ownResults.push({
           title: `Base url ${chalk.blueBright(page)} does not exist`,

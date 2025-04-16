@@ -5,4 +5,4 @@ topics:
 - "HTTP API"
 ---
 
-Need to get just one role, not the whole role list? Use the new [Get Guild Role](#DOCS_RESOURCES_GUILD/get-guild-role) endpoint to fetch a single role by ID.
+Need to get just one role, not the whole role list? Use the new [Get Guild Role](/docs/resources/guild#get-guild-role) endpoint to fetch a single role by ID.

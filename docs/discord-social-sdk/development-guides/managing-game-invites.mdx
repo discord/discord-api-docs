@@ -4,7 +4,7 @@ sidebar_label: Managing Game Invites
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # {sidebar_label}
 
@@ -16,11 +16,11 @@ Game Invites allow users to invite others to join their game session or party. T
 
 Before you begin, make sure you have:
 
-- Set up the Discord Social SDK with our [Getting Started guide](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED)
-- Familiarized yourself with [Setting Rich Presence](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE)
+- Set up the Discord Social SDK with our [Getting Started guide](/docs/discord-social-sdk/getting-started)
+- Familiarized yourself with [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence)
 
 > info
-> Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](#DOCS_EVENTS_GATEWAY_EVENTS#activity-object). This is not to be confused with [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW), which are embedded games that can also set and display rich presence.
+> Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
 
 ---
 
@@ -28,7 +28,7 @@ Before you begin, make sure you have:
 
 Game invites, or activity invites, are powered by rich presence. 
 
-We covered the basics of [Setting Rich Presence](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE) in a previous guide but let's go over the key points again.
+We covered the basics of [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence) in a previous guide but let's go over the key points again.
 
 ### Setting Up Rich Presence
 
@@ -83,7 +83,7 @@ We're almost there! Let's add the join secret next so we can send and receive ga
 
 The last step is to add a join secret to your rich presence activity. 
 
-The `Join Secret` is a generic secret that you can use to [join a Discord lobby](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES), a game session, or something else. The game invite system is a way for players to share this secret value with other players - how you use it is up to you.
+The `Join Secret` is a generic secret that you can use to [join a Discord lobby](/docs/discord-social-sdk/development-guides/managing-lobbies), a game session, or something else. The game invite system is a way for players to share this secret value with other players - how you use it is up to you.
 
 You will also need to set the supported platforms for joining the game so that the Discord client can display the correct invite button for the user's platform.
 
@@ -247,7 +247,7 @@ client->SetActivityJoinCallback([&client](std::string joinSecret) {
 
 ## Using Game Invites with Lobbies
 
-Game invites can be used in conjunction with [Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES) to create a seamless experience for players to join a game session or party.
+Game invites can be used in conjunction with [Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies) to create a seamless experience for players to join a game session or party.
 
 When a player accepts a game invite, you can use the join secret to connect the two players in your game.
 
@@ -426,13 +426,13 @@ activity.SetSupportedPlatforms(
 ## Next Steps
 
 <Container>
-  <Card title="Creating a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST" icon="ListViewIcon">
+  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
     Combine Discord and game friends into a single list for easy management.
   </Card>
-  <Card title="Managing Lobbies" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES" icon="DoorEnterIcon">
+  <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
     Bring players together in a shared lobby with invites, text chat, and voice comms.
   </Card>
-  <Card title="Sending Direct Messages" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SENDING_DIRECT_MESSAGES" icon="InboxIcon">
+  <Card title="Sending Direct Messages" link="/docs/discord-social-sdk/development-guides/sending-direct-messages" icon="InboxIcon">
     Enable private messaging between players.
   </Card>
 </Container>
