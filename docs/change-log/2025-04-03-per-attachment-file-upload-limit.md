@@ -15,4 +15,4 @@ Starting today, file upload limits for apps are checked per-attachment rather th
 
 The interaction payload will also include a new `attachment_size_limit` key that specifies the maximum allowed attachment size. This limit may be higher than the default attachment size limit, depending on the guild's boost status or the invoking user's Nitro status.
 
-For more information, check out [our documentation on file uploads](#DOCS_REFERENCE/uploading-files).
+For more information, check out [our documentation on file uploads](/docs/reference#uploading-files).

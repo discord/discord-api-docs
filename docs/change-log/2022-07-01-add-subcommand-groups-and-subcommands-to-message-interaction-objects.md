@@ -4,11 +4,11 @@ date: "2022-07-01"
 breaking: true
 ---
 
-While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
+While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](/docs/interactions/receiving-and-responding#interaction-object-interaction-data) are unaffected by this change.
 
 #### Upcoming Changes
 
-Starting **July 18, 2022**, the `name` field for [message interaction objects](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command). In the future, we recommend not relying on this message interaction field.
+Starting **July 18, 2022**, the `name` field for [message interaction objects](/docs/interactions/receiving-and-responding#message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command). In the future, we recommend not relying on this message interaction field.
 
 The format of the value will be the different command levels (if they exist), separated by spaces:
 `<command name> <subcommand group name> <subcommand name>`

@@ -6,7 +6,7 @@ sidebar_label: Lobby
 
 ### Lobby Object
 
-Represents a lobby within Discord. See [Managing Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES) for more information.
+Represents a lobby within Discord. See [Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies) for more information.
 
 ###### Lobby Structure
 
@@ -15,10 +15,10 @@ Represents a lobby within Discord. See [Managing Lobbies](#DOCS_DISCORD_SOCIAL_S
 | id              | snowflake                                                                  | the id of this channel                                              |
 | application_id  | snowflake                                                                  | application that created the lobby                                  |
 | metadata        | ?dict<string, string>                                                      | dictionary of string key/value pairs. The max total length is 1000. |
-| members         | array of [lobby member](#DOCS_RESOURCES_LOBBY/lobby-member-object) objects | members of the lobby                                                |
+| members         | array of [lobby member](/docs/resources/lobby#lobby-member-object) objects | members of the lobby                                                |
 | linked_channel? | channel object                                                             | the guild channel linked to the lobby                               |
 
-### Lobby Member Object 
+### Lobby Member Object
 
 Represents a member of a lobby, including optional metadata and flags.
 
@@ -28,7 +28,7 @@ Represents a member of a lobby, including optional metadata and flags.
 |-----------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id        | snowflake             | the id of the user                                                                                                                                   |
 | metadata? | ?dict<string, string> | dictionary of string key/value pairs. The max total length is 1000.                                                                                  |
-| flags?    | integer               | [lobby member flags](#DOCS_RESOURCES_LOBBY/lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags?    | integer               | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### Lobby Member Flags
 
@@ -60,17 +60,17 @@ Represents a member of a lobby, including optional metadata and flags.
 
 Creates a new lobby, adding any of the specified members to it, if provided. 
 
-Returns a [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object.
+Returns a [lobby](/docs/resources/lobby#lobby-object) object.
 
 > info 
-> [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) clients will not be able to join or leave a lobby created using this API, such as [`Client::CreateOrJoinLobby`]. See [Managing Lobbies](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES) for more information.
+> [Discord Social SDK](/docs/discord-social-sdk/overview) clients will not be able to join or leave a lobby created using this API, such as [`Client::CreateOrJoinLobby`]. See [Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies) for more information.
 
 ### JSON Params
 
 | Field                 | Type                                                                       | Description                                                                                                                                                            |
 |-----------------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | metadata?             | ?dict<string, string>                                                      | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                           |
-| members?              | array of [lobby member](#DOCS_RESOURCES_LOBBY/lobby-member-object) objects | optional array of up to 25 users to be added to the lobby                                                                                                              |
+| members?              | array of [lobby member](/docs/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to be added to the lobby                                                                                                              |
 | idle_timeout_seconds? | integer                                                                    | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
 
 #### Lobby Member JSON Params
@@ -79,27 +79,27 @@ Returns a [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object.
 |-----------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id        | snowflake             | Discord user id of the user to add to the lobby                                                                                                      |
 | metadata? | ?dict<string, string> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                         |
-| flags?    | integer               | [lobby member flags](#DOCS_RESOURCES_LOBBY/lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags?    | integer               | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
-## Get Lobby % GET /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}
+## Get Lobby % GET /lobbies/{lobby.id/docs/resources/lobby#lobby-object}
 
-Returns a [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object for the specified lobby id, if it exists.
+Returns a [lobby](/docs/resources/lobby#lobby-object) object for the specified lobby id, if it exists.
 
-## Modify Lobby % PATCH /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}
+## Modify Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}
 
 Modifies the specified lobby with new values, if provided. 
 
-Returns the updated [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object.
+Returns the updated [lobby](/docs/resources/lobby#lobby-object) object.
 
 ### JSON Params
 
 | Field                 | Type                                                                       | Description                                                                                                                                                            |
 |-----------------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | metadata?             | ?dict<string, string>                                                      | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                         |
-| members?              | array of [lobby member](#DOCS_RESOURCES_LOBBY/lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby.                        |
+| members?              | array of [lobby member](/docs/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby.                        |
 | idle_timeout_seconds? | integer                                                                    | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
 
-## Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}
+## Delete Lobby % DELETE /lobbies/{lobby.id/docs/resources/lobby#lobby-object}
 
 Deletes the specified lobby if it exists.  
 
@@ -107,26 +107,26 @@ It is safe to call even if the lobby is already deleted as well.
 
 Returns nothing.
 
-## Add a Member to a Lobby % PUT /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Add a Member to a Lobby % PUT /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/members/{user.id/docs/resources/user#user-object}
 
 Adds the provided user to the specified lobby. If called when the user is already a member of the lobby will update fields such as metadata on that user instead. 
 
-Returns the [lobby member](#DOCS_RESOURCES_LOBBY/lobby-member-object) object.
+Returns the [lobby member](/docs/resources/lobby#lobby-member-object) object.
 
 ### JSON Params
 
 | Field     | Type                  | Description                                                                                                                                          |
 |-----------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | metadata? | ?dict<string, string> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                         |
-| flags?    | integer               | [lobby member flags](#DOCS_RESOURCES_LOBBY/lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags?    | integer               | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
-## Remove a Member from a Lobby % DELETE /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Remove a Member from a Lobby % DELETE /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/members/{user.id/docs/resources/user#user-object}
 
 Removes the provided user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
 
 Returns nothing.
 
-## Leave Lobby % DELETE /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}/members/@me
+## Leave Lobby % DELETE /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/members/@me
 
 Removes the current user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
 
@@ -134,13 +134,13 @@ Uses `Bearer` token for authorization.
 
 Returns nothing.
 
-## Link Channel to Lobby % PATCH /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}/channel-linking
+## Link Channel to Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/channel-linking
 
-Links an existing text channel to a lobby. See [Linked Channels](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_LINKED_CHANNELS) for more information.
+Links an existing text channel to a lobby. See [Linked Channels](/docs/discord-social-sdk/development-guides/linked-channels) for more information.
 
-Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](#DOCS_RESOURCES_LOBBY/lobby-member-object-lobby-member-flags).
+Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](/docs/resources/lobby#lobby-member-object-lobby-member-flags).
 
-Returns a [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object with a linked channel.
+Returns a [lobby](/docs/resources/lobby#lobby-object) object with a linked channel.
 
 ### JSON Params
 
@@ -148,15 +148,15 @@ Returns a [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object with a linked chann
 |-------------|-----------|------------------------------------------------------------------------------------------------------------------------|
 | channel_id? | snowflake | the id of the channel to link to the lobby. If not provided, will unlink any currently linked channels from the lobby. |
 
-## Unlink Channel from Lobby % PATCH /lobbies/{lobby.id#DOCS_RESOURCES_LOBBY/lobby-object}/channel-linking
+## Unlink Channel from Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/channel-linking
 
 Unlinks any currently linked channels from the specified lobby.
 
 Send a request to this endpoint with an empty body to unlink any currently linked channels from the specified lobby.
 
-Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](#DOCS_RESOURCES_LOBBY/lobby-member-object-lobby-member-flags).
+Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](/docs/resources/lobby#lobby-member-object-lobby-member-flags).
 
-Returns a [lobby](#DOCS_RESOURCES_LOBBY/lobby-object) object without a linked channel.
+Returns a [lobby](/docs/resources/lobby#lobby-object) object without a linked channel.
 
 <!-- Autogenerated Reference Links -->
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512

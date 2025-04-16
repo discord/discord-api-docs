@@ -4,22 +4,22 @@ sidebar_label: Webhook Events
 
 # Webhook Events
 
-Webhook events are one-way events sent to your app over HTTP to notify you when an event occured. Unlike events that are [sent over Gateway connections](#DOCS_EVENTS_GATEWAY), events sent over webhooks are not realtime or guaranteed to be in order.
+Webhook events are one-way events sent to your app over HTTP to notify you when an event occured. Unlike events that are [sent over Gateway connections](/docs/events/gateway), events sent over webhooks are not realtime or guaranteed to be in order.
 
-While [incoming webhooks](#DOCS_RESOURCES_WEBHOOK) are triggered by an external service, webhook events (i.e. outgoing webhooks) are triggered by events happening in Discord. This means your app will need to set up a public URL where you can receive HTTP events, which is detailed in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) section.
+While [incoming webhooks](/docs/resources/webhook) are triggered by an external service, webhook events (i.e. outgoing webhooks) are triggered by events happening in Discord. This means your app will need to set up a public URL where you can receive HTTP events, which is detailed in the [preparing for events](/docs/events/webhook-events#preparing-for-events) section.
 
 ## Subscribing to Events
 
 To configure webhook events, you'll need to configure your URL and select the events you want your app to receive.
 
 > info
-> The steps below walk through subscribing using the developer portal. If you prefer to use the API, you can call [Edit Current Application](#DOCS_RESOURCES_APPLICATION/edit-current-application).
+> The steps below walk through subscribing using the developer portal. If you prefer to use the API, you can call [Edit Current Application](/docs/resources/application#edit-current-application).
 
 In your [app's settings](https://discord.com/developers/applications), navigate to the **Webhooks** page from the left-hand sidebar then complete the following:
 
-1. Under **Endpoint**, add a public URL that is set up to receive and acknowledge webhook events. Details about setting up a Webhook Events URL is in the [preparing for events](#DOCS_EVENTS_WEBHOOK_EVENTS/preparing-for-events) section.
+1. Under **Endpoint**, add a public URL that is set up to receive and acknowledge webhook events. Details about setting up a Webhook Events URL is in the [preparing for events](/docs/events/webhook-events#preparing-for-events) section.
 2. Enable Events by clicking the toggle in the **Events** section.
-3. Select the [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) you want your app to receive.
+3. Select the [webhook events](/docs/events/webhook-events#event-types) you want your app to receive.
 4. Click **Save Changes**.
 
 If your URL is successfully verified, your app should begin receiving the events you selected.
@@ -30,7 +30,7 @@ To receive webhook events, you'll need to configure your app's **Webhook Event U
 
 ### Configuring a Webhook Events URL
 
-A **Webhook Events URL** is a public endpoint for your app where Discord can send your app HTTP-based events. If your app is using [Gateway events](#DOCS_EVENTS_GATEWAY), you don't need to configure a Webhook Events URL.
+A **Webhook Events URL** is a public endpoint for your app where Discord can send your app HTTP-based events. If your app is using [Gateway events](/docs/events/gateway), you don't need to configure a Webhook Events URL.
 
 #### Setting Up an Endpoint
 
@@ -46,7 +46,7 @@ If either of these are not complete, your Webhook Events URL will not be validat
 When adding your Webhook Events URL, Discord will send a `POST` request with a `PING` payload with a `type: 0` to your endpoint. Your app is expected to acknowledge the request by returning a `204` response with an empty body.
 
 > info
-> You must provide a valid `Content-Type` when responding to `PING`s. See [here](#DOCS_REFERENCE/http-api) for further information.
+> You must provide a valid `Content-Type` when responding to `PING`s. See [here](/docs/reference#http-api) for further information.
 
 <Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING events" icon="code">
 To properly acknowledge a `PING` payload, return a `204` response with no body:
@@ -68,11 +68,11 @@ Each webhook is sent with the following headers:
 -   `X-Signature-Ed25519` as a signature
 -   `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time you receive an event**. If the signature fails validation, your app should respond with a `401` error code. Code examples of validating security headers is in the [Interactions documentation](#DOCS_INTERACTIONS_OVERVIEW/setting-up-an-endpoint-validating-security-request-headers).
+Using your favorite security library, you **must validate the request each time you receive an event**. If the signature fails validation, your app should respond with a `401` error code. Code examples of validating security headers is in the [Interactions documentation](/docs/interactions/overview#setting-up-an-endpoint-validating-security-request-headers).
 
 In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your Webhook Events URL and alert you via email and System DM.
 
-We recommend checking out our [Community Resources](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) and the libraries found there.
+We recommend checking out our [Community Resources](/docs/developer-tools/community-resources) and the libraries found there.
 
 #### Adding an Webhook Events Endpoint URL
 
@@ -80,7 +80,7 @@ After you have a public endpoint to use as your app's Event Webhooks URL, you ca
 
 On the **Webhooks** page, look for the **Endpoint URL** field. Paste your public URL that is set up to acknowledge `PING` messages and correctly handles security-related signature headers.
 
-After you configure your Webhook Events URL, you can [enable and subscribe to events](#DOCS_EVENTS_WEBHOOK_EVENTS/subscribing-to-events) on the same page.
+After you configure your Webhook Events URL, you can [enable and subscribe to events](/docs/events/webhook-events#subscribing-to-events) on the same page.
 
 
 ## Responding to Events
@@ -101,40 +101,40 @@ Structure of the outer webhook payload
 |----------------|--------------------------------------------------------------------|----------------------------------------------------------------|
 | version        | integer                                                            | Version scheme for the webhook event. Currently always `1`     |
 | application_id | snowflake                                                          | ID of your app                                                 |
-| type           | [webhook type](#DOCS_EVENTS_WEBHOOK_EVENTS/webhook-types)          | Type of webhook, either `0` for PING or `1` for webhook events |
-| event?         | [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object | Event data payload                                             |
+| type           | [webhook type](/docs/events/webhook-events#webhook-types)          | Type of webhook, either `0` for PING or `1` for webhook events |
+| event?         | [event body](/docs/events/webhook-events#event-body-object) object | Event data payload                                             |
 
 #### Webhook Types
 
 | Type  | Value | Description                                                                                             |
 |-------|-------|---------------------------------------------------------------------------------------------------------|
 | PING  | `0`   | PING event sent to verify your Webhook Event URL is active                                              |
-| Event | `1`   | Webhook event (details for event in [event body](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object) object) |
+| Event | `1`   | Webhook event (details for event in [event body](/docs/events/webhook-events#event-body-object) object) |
 
 #### Event Body Object
 
 The event body contains high-level data about the event, like the type and time it was triggered.
 
-The inner `data` object contains information specific to the [event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types).
+The inner `data` object contains information specific to the [event type](/docs/events/webhook-events#event-types).
 
 | Field     | Type   | Description                                                                                        |
 |-----------|--------|----------------------------------------------------------------------------------------------------|
-| type      | string | [Event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types)                                              |
-| timestamp | string | Timestamp of when the event occurred in [ISO8601 format](#DOCS_REFERENCE/iso8601-datetime)         |
-| data?     | object | Data for the event. The shape depends on the [event type](#DOCS_EVENTS_WEBHOOK_EVENTS/event-types) |
+| type      | string | [Event type](/docs/events/webhook-events#event-types)                                              |
+| timestamp | string | Timestamp of when the event occurred in [ISO8601 format](/docs/reference#iso8601-datetime)         |
+| data?     | object | Data for the event. The shape depends on the [event type](/docs/events/webhook-events#event-types) |
 
 
 ## Event Types
 
 The table below includes the different webhook event types your app can subscribe to.
 
-The "Value" column corresponds to the event's `type` field value in the [event body object](#DOCS_EVENTS_WEBHOOK_EVENTS/event-body-object).
+The "Value" column corresponds to the event's `type` field value in the [event body object](/docs/events/webhook-events#event-body-object).
 
 | Name                                                                         | Value                    | Description                                                            |
 |------------------------------------------------------------------------------|--------------------------|------------------------------------------------------------------------|
-| [Application Authorized](#DOCS_EVENTS_WEBHOOK_EVENTS/application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their account |
-| [Entitlement Create](#DOCS_EVENTS_WEBHOOK_EVENTS/entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                                |
-| [Quest User Enrollment](#DOCS_EVENTS_WEBHOOK_EVENTS/quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | User was added to a Quest (currently unavailable)                      |
+| [Application Authorized](/docs/events/webhook-events#application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their account |
+| [Entitlement Create](/docs/events/webhook-events#entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                                |
+| [Quest User Enrollment](/docs/events/webhook-events#quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | User was added to a Quest (currently unavailable)                      |
 
 #### Application Authorized
 
@@ -144,10 +144,10 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 
 | Field             | Type                                                               | Description                                                                                                                                                                                                            |
 |-------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| integration_type? | integer                                                            | [Installation context](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) for the authorization. Either guild (`0`) if installed to a server or user (`1`) if installed to a user's account |
-| user              | [user object](#DOCS_RESOURCES_USER/user-object-user-structure)     | User who authorized the app                                                                                                                                                                                            |
-| scopes            | array of strings                                                   | List of [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) the user authorized                                                                                                                               |
-| guild?            | [guild object](#DOCS_RESOURCES_GUILD/guild-object-guild-structure) | Server which app was authorized for (when integration type is `0`)                                                                                                                                                     |
+| integration_type? | integer                                                            | [Installation context](/docs/resources/application#application-object-application-integration-types) for the authorization. Either guild (`0`) if installed to a server or user (`1`) if installed to a user's account |
+| user              | [user object](/docs/resources/user#user-object-user-structure)     | User who authorized the app                                                                                                                                                                                            |
+| scopes            | array of strings                                                   | List of [scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) the user authorized                                                                                                                               |
+| guild?            | [guild object](/docs/resources/guild#guild-object-guild-structure) | Server which app was authorized for (when integration type is `0`)                                                                                                                                                     |
 
 
 ###### Application Authorized Example
@@ -175,11 +175,11 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 
 #### Entitlement Create
 
-`ENTITLEMENT_CREATE` is sent when an [entitlement](#DOCS_RESOURCES_ENTITLEMENT) is created when a user purchases or is otherwise granted one of your app's SKUs. Refer to the [Monetization documentation](#DOCS_MONETIZATION_OVERVIEW) for details.
+`ENTITLEMENT_CREATE` is sent when an [entitlement](/docs/resources/entitlement) is created when a user purchases or is otherwise granted one of your app's SKUs. Refer to the [Monetization documentation](/docs/monetization/overview) for details.
 
 ###### Entitlement Create Structure
 
-The inner payload is an [entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object) object.
+The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-object) object.
 
 ###### Entitlement Create Example
 

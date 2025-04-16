@@ -14,41 +14,41 @@ Rich Presence lets you display actionable data in a Discord user's profile about
 
 There are three options when integrating Rich Presence. Depending on what you're building, you'll want to choose the right SDK for your project:
 
-- The **[Discord Social SDK](#DOCS_RICH_PRESENCE_OVERVIEW/discord-social-sdk)** allows you to build social features into your game or app, including friends lists, game invites, and more.
-- The **[Embedded App SDK](#DOCS_RICH_PRESENCE_OVERVIEW/embedded-app-sdk)** should be used if you're building an [Activity](#DOCS_ACTIVITIES_OVERVIEW) in Discord.
-- The **[Game SDK (legacy)](#DOCS_RICH_PRESENCE_OVERVIEW/game-sdk)** can be used if you're building an off-platform game or app and you want to integrate it into Discord.
+- The **[Discord Social SDK](/docs/rich-presence/overview#discord-social-sdk)** allows you to build social features into your game or app, including friends lists, game invites, and more.
+- The **[Embedded App SDK](/docs/rich-presence/overview#embedded-app-sdk)** should be used if you're building an [Activity](/docs/activities/overview) in Discord.
+- The **[Game SDK (legacy)](/docs/rich-presence/overview#game-sdk)** can be used if you're building an off-platform game or app and you want to integrate it into Discord.
 
-All SDKs use similar underlying primitives (like the [`SET_ACTIVITY` RPC command](#DOCS_TOPICS_RPC/setactivity)), so a lot is the same between them. But there are a few differences, like feature compatibility, which is covered in the sections below.
+All SDKs use similar underlying primitives (like the [`SET_ACTIVITY` RPC command](/docs/topics/rpc#setactivity)), so a lot is the same between them. But there are a few differences, like feature compatibility, which is covered in the sections below.
 
 > info 
 > Rich Presence data appears publicly on your Discord profile, so during development you should use a test account that only belongs to your private development server(s).
 
 ### Discord Social SDK
 
-The [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) is used for building social features directly into your game. When a user is playing your game, you can show what they're up to in their Discord profile and even prompt their friends to join in with game invites.
+The [Discord Social SDK](/docs/discord-social-sdk/overview) is used for building social features directly into your game. When a user is playing your game, you can show what they're up to in their Discord profile and even prompt their friends to join in with game invites.
 
 When integrating Rich Presence with an off-platform game, data can be shown about what a user is up to in your game. A "Join" button can also be configured to allow a user's friends to jump into their game and enable sending game invites.
 
-[Read about using Rich Presence with the Discord Social SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_DISCORD_SOCIAL_SDK)
+[Read about using Rich Presence with the Discord Social SDK](/docs/rich-presence/using-with-the-discord-social-sdk)
 
 ### Embedded App SDK
 
-The [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) is used to build Activities, which are multiplayer games and social experiences hosted in an iframe within Discord. The SDK handles communication between Discord and the Activity and helps integrate platform features (like Rich Presence!).
+The [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) is used to build Activities, which are multiplayer games and social experiences hosted in an iframe within Discord. The SDK handles communication between Discord and the Activity and helps integrate platform features (like Rich Presence!).
 
 After a user joins an Activity, Rich Presence can be used to dynamically show data about what that user is doing or playing, as well as prompt others to join in and play along.
 
-[Read about using Rich Presence with the Embedded App SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK)
+[Read about using Rich Presence with the Embedded App SDK](/docs/rich-presence/using-with-the-embedded-app-sdk)
 
 ### Game SDK
 
 > warn
-> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) for new features and updates.
+> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
 
-The [Game SDK](#DOCS_DEVELOPER_TOOLS_GAME_SDK) makes it easier to build 3rd party games and integrate them with Discord. While many features of the Game SDK are deprecated, it can still be used for a few use cases (like integrating Rich Presence!).
+The [Game SDK](/docs/developer-tools/game-sdk) makes it easier to build 3rd party games and integrate them with Discord. While many features of the Game SDK are deprecated, it can still be used for a few use cases (like integrating Rich Presence!).
 
 When integrating Rich Presence with an off-platform game, data can be shown about what a user is up to in your game. A "Join" button can also be configured to allow a user's friends to jump into their game.
 
-[Read about using Rich Presence with the Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
+[Read about using Rich Presence with the Game SDK](/docs/rich-presence/using-with-the-game-sdk)
 
 ## Adding Custom Art Assets
 
@@ -58,10 +58,10 @@ To add custom assets for Rich Presence, navigate to your [app's settings](https:
 
 ### Invite Image
 
-The Rich Presence invite image appears when [invites](#DOCS_DEVELOPER_TOOLS_GAME_SDK/sendinvite) are sent for a 3rd party game or app using the [Game SDK](#DOCS_RICH_PRESENCE_OVERVIEW/game-sdk). After uploading an invite image for your app, you can see a preview of it to the right (under "IRL Invite Image Example").
+The Rich Presence invite image appears when [invites](/docs/developer-tools/game-sdk#sendinvite) are sent for a 3rd party game or app using the [Game SDK](/docs/rich-presence/overview#game-sdk). After uploading an invite image for your app, you can see a preview of it to the right (under "IRL Invite Image Example").
 
 > info 
-> The invite image can be ignored if you're building using the [Embedded App SDK](#DOCS_RICH_PRESENCE_OVERVIEW/embedded-app-sdk). Invites sent using the Embedded App SDK's[`openInviteDialog()`](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/openinvitedialog) use the Activity's cover art.
+> The invite image can be ignored if you're building using the [Embedded App SDK](/docs/rich-presence/overview#embedded-app-sdk). Invites sent using the Embedded App SDK's[`openInviteDialog()`](/docs/developer-tools/embedded-app-sdk#openinvitedialog) use the Activity's cover art.
 
 ![Rich Presence invite image in app settings](images/rich-presence-invite-image.png)
 
@@ -69,10 +69,10 @@ The Rich Presence invite image appears when [invites](#DOCS_DEVELOPER_TOOLS_GAME
 
 Up to 300 custom assets can be added for your app to use when setting Rich Presence for a Discord user. These assets can be anything that help orient others to what a user is doing inside of your Activity or 3rd party game.
 
-If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
 
 > info
-> For tips on choosing assets, take a look at the [Rich Presence best practices guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES/have-interesting-expressive-art).
+> For tips on choosing assets, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices#have-interesting-expressive-art).
 
 When uploading Rich Presence assets, **the asset keys will automatically be changed to lowercase**. You can see this reflected in your app's settings after saving a newly-uploaded asset, and should keep it in mind when referencing any asset keys in your code.
 
@@ -83,18 +83,18 @@ When uploading Rich Presence assets, **the asset keys will automatically be chan
 > warn
 > The Rich Presence visualizer currently uses an outdated Discord UI, but can still be helpful as a quick-and-dirty reference for what your Rich Presence data will look like in Discord. 
 
-In your app's settings, there's a Rich Presence visualizer to make it easier to see what your uploaded [assets](#DOCS_RICH_PRESENCE_OVERVIEW/assets) will look like in the context of a Discord profile. To access the visualizer, navigate to your [app's settings](https://discord.com/developers/applications) and click **Rich Presence** on the left-hand sidebar. On the **Visualizer** page, you can fill out some custom strings, party information, and select your uploaded assets to see a preview.
+In your app's settings, there's a Rich Presence visualizer to make it easier to see what your uploaded [assets](/docs/rich-presence/overview#assets) will look like in the context of a Discord profile. To access the visualizer, navigate to your [app's settings](https://discord.com/developers/applications) and click **Rich Presence** on the left-hand sidebar. On the **Visualizer** page, you can fill out some custom strings, party information, and select your uploaded assets to see a preview.
 
 ## Start Building
 
 <Container>
-  <Card title="Using Rich Presence with the Embedded App SDK" link="#DOCS_RICH_PRESENCE_USING_WITH_THE_EMBEDDED_APP_SDK">
+  <Card title="Using Rich Presence with the Embedded App SDK" link="/docs/rich-presence/using-with-the-embedded-app-sdk">
     Guide on using Rich Presence in the Embedded App SDK while you're building an Activity
   </Card>
-  <Card title="Using Rich Presence with the Game SDK" link="#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK">
+  <Card title="Using Rich Presence with the Game SDK" link="/docs/rich-presence/using-with-the-game-sdk">
     Guide on using Rich Presence in the Game SDK
   </Card>
-  <Card title="Designing your Data for Rich Presence" link="#DOCS_RICH_PRESENCE_BEST_PRACTICES">
+  <Card title="Designing your Data for Rich Presence" link="/docs/rich-presence/best-practices">
     Best practices and launch checklist for when you're integrating Rich Presence with your game or app
   </Card>
 </Container>

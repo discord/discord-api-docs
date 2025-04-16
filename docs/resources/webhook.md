@@ -6,7 +6,7 @@ sidebar_label: Webhook
 
 Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
 
-Apps can also subscribe to webhook events (i.e. outgoing webhooks) when events happen *in* Discord, which is detailed in the [Webhook Events](#DOCS_EVENTS_WEBHOOK_EVENTS) documentation.
+Apps can also subscribe to webhook events (i.e. outgoing webhooks) when events happen *in* Discord, which is detailed in the [Webhook Events](/docs/events/webhook-events) documentation.
 
 ### Webhook Object
 
@@ -17,24 +17,24 @@ Used to represent a webhook.
 | Field             | Type                                                             | Description                                                                                                   |
 |-------------------|------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | id                | snowflake                                                        | the id of the webhook                                                                                         |
-| type              | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
+| type              | integer                                                          | the [type](/docs/resources/webhook#webhook-object-webhook-types) of the webhook                               |
 | guild_id?         | ?snowflake                                                       | the guild id this webhook is for, if any                                                                      |
 | channel_id        | ?snowflake                                                       | the channel id this webhook is for, if any                                                                    |
-| user?             | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
+| user?             | [user](/docs/resources/user#user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
 | name              | ?string                                                          | the default name of the webhook                                                                               |
-| avatar            | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
+| avatar            | ?string                                                          | the default user avatar [hash](/docs/reference#image-formatting) of the webhook                               |
 | token?            | string                                                           | the secure token of the webhook (returned for Incoming Webhooks)                                              |
 | application_id    | ?snowflake                                                       | the bot/OAuth2 application that created this webhook                                                          |
-| source_guild? *   | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild of the channel that this webhook is following (returned for Channel Follower Webhooks)              |
-| source_channel? * | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)                           |
-| url?              | string                                                           | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
+| source_guild? *   | partial [guild](/docs/resources/guild#guild-object) object       | the guild of the channel that this webhook is following (returned for Channel Follower Webhooks)              |
+| source_channel? * | partial [channel](/docs/resources/channel#channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)                           |
+| url?              | string                                                           | the url used for executing the webhook (returned by the [webhooks](/docs/topics/oauth2#webhooks) OAuth2 flow) |
 
 \* These fields will be absent if the webhook creator has since lost access to the guild where the followed channel resides
 
 ###### Webhook Types
 
 > info
-> These types don't include [webhook events](#DOCS_EVENTS_WEBHOOK_EVENTS), which are outgoing webhooks sent to your app by Discord. See [Webhook Events](#DOCS_EVENTS_WEBHOOK_EVENTS) for details.
+> These types don't include [webhook events](/docs/events/webhook-events), which are outgoing webhooks sent to your app by Discord. See [Webhook Events](/docs/events/webhook-events) for details.
 
 | Value | Name             | Description                                                                                                    |
 |-------|------------------|----------------------------------------------------------------------------------------------------------------|
@@ -108,14 +108,14 @@ Used to represent a webhook.
 }
 ```
 
-## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
+## Create Webhook % POST /channels/{channel.id/docs/resources/channel#channel-object}/webhooks
 
-Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Creates a new webhook and returns a [webhook](/docs/resources/webhook#webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
 
 - It does not contain the substrings `clyde` or `discord` (case-insensitive)
-- It follows the nickname guidelines in the [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with an exception that webhook names can be up to 80 characters
+- It follows the nickname guidelines in the [Usernames and Nicknames](/docs/resources/user#usernames-and-nicknames) documentation, with an exception that webhook names can be up to 80 characters
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -125,30 +125,30 @@ An error will be returned if a webhook name (`name`) is not valid. A webhook nam
 | Field   | Type                                      | Description                           |
 |---------|-------------------------------------------|---------------------------------------|
 | name    | string                                    | name of the webhook (1-80 characters) |
-| avatar? | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar  |
+| avatar? | ?[image data](/docs/reference#image-data) | image for the default webhook avatar  |
 
-## Get Channel Webhooks % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
+## Get Channel Webhooks % GET /channels/{channel.id/docs/resources/channel#channel-object}/webhooks
 
-Returns a list of channel [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
+Returns a list of channel [webhook](/docs/resources/webhook#webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
-## Get Guild Webhooks % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/webhooks
+## Get Guild Webhooks % GET /guilds/{guild.id/docs/resources/guild#guild-object}/webhooks
 
-Returns a list of guild [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
+Returns a list of guild [webhook](/docs/resources/webhook#webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
-## Get Webhook % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Get Webhook % GET /webhooks/{webhook.id/docs/resources/webhook#webhook-object}
 
-Returns the new [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object for the given id.
+Returns the new [webhook](/docs/resources/webhook#webhook-object) object for the given id.
 
 This request requires the `MANAGE_WEBHOOKS` permission unless the application making the request owns the
-webhook. [(see: webhook.application_id)](#DOCS_RESOURCES_WEBHOOK/webhook-object)
+webhook. [(see: webhook.application_id)](/docs/resources/webhook#webhook-object)
 
-## Get Webhook with Token % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Get Webhook with Token % GET /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
 
 Same as above, except this call does not require authentication and returns no user in the webhook object.
 
-## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Modify Webhook % PATCH /webhooks/{webhook.id/docs/resources/webhook#webhook-object}
 
-Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](/docs/resources/webhook#webhook-object) object on success. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional
@@ -161,27 +161,27 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 | Field      | Type                                      | Description                                        |
 |------------|-------------------------------------------|----------------------------------------------------|
 | name       | string                                    | the default name of the webhook                    |
-| avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
+| avatar     | ?[image data](/docs/reference#image-data) | image for the default webhook avatar               |
 | channel_id | snowflake                                 | the new channel id this webhook should be moved to |
 
-## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Modify Webhook with Token % PATCH /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
 
 Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
 
-## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Delete Webhook % DELETE /webhooks/{webhook.id/docs/resources/webhook#webhook-object}
 
-Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](#DOCS_EVENTS_GATEWAY_EVENTS/webhooks-update) Gateway event.
+Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-## Delete Webhook with Token % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Delete Webhook with Token % DELETE /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
 
 Same as above, except this call does not require authentication.
 
-## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Execute Webhook % POST /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
 
-Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests. Returns a message or `204 No Content` depending on the `wait` query parameter.
+Refer to [Uploading Files](/docs/reference#uploading-files) for details on attachments and `multipart/form-data` requests. Returns a message or `204 No Content` depending on the `wait` query parameter.
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, `components`, `file`, or `poll`.
@@ -196,9 +196,9 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 
 | Field           | Type                                             | Description                                                                                                                                                                                  | Required |
 |-----------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| wait            | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
+| wait            | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
 | thread_id       | snowflake                                        | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived.                                                                              | false    |
-| with_components | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether to allow sending (non-interactive) components for non-application-owned webhooks (defaults to `false`; ignored for application-owned webhooks)                                       | false    |
+| with_components | [boolean](/docs/reference#boolean-query-strings) | whether to allow sending (non-interactive) components for non-application-owned webhooks (defaults to `false`; ignored for application-owned webhooks)                                       | false    |
 
 ###### JSON/Form Params
 
@@ -208,25 +208,25 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | username          | string                                                                               | override the default username of the webhook                                                                                                                                                             | false                              |
 | avatar_url        | string                                                                               | override the default avatar of the webhook                                                                                                                                                               | false                              |
 | tts               | boolean                                                                              | true if this is a TTS message                                                                                                                                                                            | false                              |
-| embeds            | array of up to 10 [embed](#DOCS_RESOURCES_MESSAGE/embed-object) objects              | embedded `rich` content                                                                                                                                                                                  | one of content, file, embeds, poll |
-| allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)            | allowed mentions for the message                                                                                                                                                                         | false                              |
-| components \*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                                                                                               | false                              |
+| embeds            | array of up to 10 [embed](/docs/resources/message#embed-object) objects              | embedded `rich` content                                                                                                                                                                                  | one of content, file, embeds, poll |
+| allowed_mentions  | [allowed mention object](/docs/resources/message#allowed-mentions-object)            | allowed mentions for the message                                                                                                                                                                         | false                              |
+| components \*     | array of [message component](/docs/interactions/message-components#component-object) | the components to include with the message                                                                                                                                                               | false                              |
 | files[n] \*\*     | file contents                                                                        | the contents of the file being sent                                                                                                                                                                      | one of content, file, embeds, poll |
 | payload_json \*\* | string                                                                               | JSON encoded body of non-file params                                                                                                                                                                     | `multipart/form-data` only         |
-| attachments \*\*  | array of partial [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects     | attachment objects with filename and description                                                                                                                                                         | false                              |
-| flags             | integer                                                                              | [message flags](#DOCS_RESOURCES_MESSAGE/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set) | false                              |
+| attachments \*\*  | array of partial [attachment](/docs/resources/message#attachment-object) objects     | attachment objects with filename and description                                                                                                                                                         | false                              |
+| flags             | integer                                                                              | [message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set) | false                              |
 | thread_name       | string                                                                               | name of thread to create (requires the webhook channel to be a forum or media channel)                                                                                                                   | false                              |
 | applied_tags      | array of snowflakes                                                                  | array of tag ids to apply to the thread (requires the webhook channel to be a forum or media channel)                                                                                                    | false                              |
-| poll              | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object               | A poll!                                                                                                                                                                                                  | one of content, file, embeds, poll |
+| poll              | [poll](/docs/resources/poll#poll-create-request-object) request object               | A poll!                                                                                                                                                                                                  | one of content, file, embeds, poll |
 
 \* Application-owned webhooks can always send components. Non-application-owned webhooks cannot send interactive components, and the field will be ignored unless they set the `with_components` query param.
 
-\*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
+\*\* See [Uploading Files](/docs/reference#uploading-files) for details.
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
-## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
+## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/slack
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
@@ -235,9 +235,9 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | Field     | Type                                             | Description                                                                                                                                           | Required |
 |-----------|--------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | thread_id | snowflake                                        | id of the thread to send the message in                                                                                                               | false    |
-| wait      | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
+| wait      | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
+## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/github
 
 [Add a new webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring. The supported [events](https://docs.github.com/en/webhooks/webhook-events-and-payloads) are `commit_comment`, `create`, `delete`, `fork`, `issue_comment`, `issues`, `member`, `public`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `push`, `release`, `watch`, `check_run`, `check_suite`, `discussion`, and `discussion_comment`.
 
@@ -246,11 +246,11 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | Field     | Type                                             | Description                                                                                                                                           | Required |
 |-----------|--------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | thread_id | snowflake                                        | id of the thread to send the message in                                                                                                               | false    |
-| wait      | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
+| wait      | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+## Get Webhook Message % GET /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/messages/{message.id/docs/resources/message#message-object}
 
-Returns a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_MESSAGE/message-object) object on success.
+Returns a previously-sent webhook message from the same token. Returns a [message](/docs/resources/message#message-object) object on success.
 
 ###### Query String Params
 
@@ -258,13 +258,13 @@ Returns a previously-sent webhook message from the same token. Returns a [messag
 |-----------|-----------|------------------------------------|----------|
 | thread_id | snowflake | id of the thread the message is in | false    |
 
-## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+## Edit Webhook Message % PATCH /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/messages/{message.id/docs/resources/message#message-object}
 
-Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_MESSAGE/message-object) object on success.
+Edits a previously-sent webhook message from the same token. Returns a [message](/docs/resources/message#message-object) object on success.
 
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
-Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
+Refer to [Uploading Files](/docs/reference#uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
 > warn
@@ -278,28 +278,28 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | Field           | Type                                             | Description                                                                                                                                            | Required |
 |-----------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | thread_id       | snowflake                                        | id of the thread the message is in                                                                                                                     | false    |
-| with_components | [boolean](#DOCS_REFERENCE/boolean-query-strings) | whether to allow sending (non-interactive) components for non-application-owned webhooks (defaults to `false`; ignored for application-owned webhooks) | false    |
+| with_components | [boolean](/docs/reference#boolean-query-strings) | whether to allow sending (non-interactive) components for non-application-owned webhooks (defaults to `false`; ignored for application-owned webhooks) | false    |
 
 ###### JSON/Form Params
 
 | Field             | Type                                                                                 | Description                                                     |
 |-------------------|--------------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | content           | string                                                                               | the message contents (up to 2000 characters)                    |
-| embeds            | array of up to 10 [embed](#DOCS_RESOURCES_MESSAGE/embed-object) objects              | embedded `rich` content                                         |
-| allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_MESSAGE/allowed-mentions-object)            | allowed mentions for the message                                |
-| components \*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
+| embeds            | array of up to 10 [embed](/docs/resources/message#embed-object) objects              | embedded `rich` content                                         |
+| allowed_mentions  | [allowed mention object](/docs/resources/message#allowed-mentions-object)            | allowed mentions for the message                                |
+| components \*     | array of [message component](/docs/interactions/message-components#component-object) | the components to include with the message                      |
 | files[n] \*\*     | file contents                                                                        | the contents of the file being sent/edited                      |
 | payload_json \*\* | string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
-| attachments \*\*  | array of partial [attachment](#DOCS_RESOURCES_MESSAGE/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
-| poll \*\*\*       | [poll](#DOCS_RESOURCES_POLL/poll-create-request-object) request object               | A poll!                                                         |
+| attachments \*\*  | array of partial [attachment](/docs/resources/message#attachment-object) objects     | attached files to keep and possible descriptions for new files  |
+| poll \*\*\*       | [poll](/docs/resources/poll#poll-create-request-object) request object               | A poll!                                                         |
 
 \* Application-owned webhooks can always send components. Non-application-owned webhooks cannot send interactive components, and the field will be ignored unless they set the `with_components` query param.
 
-\*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
+\*\* See [Uploading Files](/docs/reference#uploading-files) for details.
 
 \*\*\* Polls can only be added when editing a deferred interaction response.
 
-## Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_MESSAGE/message-object}
+## Delete Webhook Message % DELETE /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/messages/{message.id/docs/resources/message#message-object}
 
 Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
 

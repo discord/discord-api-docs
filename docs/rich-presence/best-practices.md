@@ -6,7 +6,7 @@ sidebar_label: Best Practices
 
 Rich Presence lets you display actionable data in a Discord user's profile about what they're up to in your game or app. This guide is intended to show some best practices on how to make that data the best it can be.
 
-If you don't already know about Rich Presence, read [the overview](#DOCS_RICH_PRESENCE_OVERVIEW) first.
+If you don't already know about Rich Presence, read [the overview](/docs/rich-presence/overview) first.
 
 ## How should you think about the data you show?
 
@@ -84,7 +84,7 @@ Ready to launch a Rich Presence integration for your game? If so, we recommend l
 #### Joining
 
 > info
-> Since all Activities presence data has an **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](#DOCS_RICH_PRESENCE_USING_WITH_THE_GAME_SDK)
+> Since all Activities presence data has an **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](/docs/rich-presence/using-with-the-game-sdk)
 
 - Have you successfully implemented join invites for your game if applicable?
 - Does the state of the invite properly represent the party/group in-game with regards to:

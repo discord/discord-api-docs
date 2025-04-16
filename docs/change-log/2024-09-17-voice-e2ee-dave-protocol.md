@@ -5,13 +5,13 @@ topics:
 - "Voice"
 ---
 
-Introduced [high-level documentation](#DOCS_TOPICS_VOICE_CONNECTIONS) for Discord's Audio and Video End-to-End Encryption (DAVE) protocol, and the [new voice gateway opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) required to support it
+Introduced [high-level documentation](/docs/topics/voice-connections) for Discord's Audio and Video End-to-End Encryption (DAVE) protocol, and the [new voice gateway opcodes](/docs/topics/opcodes-and-status-codes#voice) required to support it
 
 ### **Developer Impact**
 
 Starting September 2024, Discord is migrating voice and video in DMs, Group DMs, voice channels, and Go Live streams to use end-to-end encryption (E2EE). 
 
-**Who this affects:** Any libraries or apps that support [Voice Connections](#DOCS_TOPICS_VOICE_CONNECTIONS).
+**Who this affects:** Any libraries or apps that support [Voice Connections](/docs/topics/voice-connections).
 
 You are not immediately required to support the E2EE protocol, as calls will automatically upgrade/downgrade to/from E2EE depending on the support of clients in the call.
 

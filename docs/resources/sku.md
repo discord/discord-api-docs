@@ -13,11 +13,11 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 | Field          | Type      | Description                                                                                                             |
 |----------------|-----------|-------------------------------------------------------------------------------------------------------------------------|
 | id             | snowflake | ID of SKU                                                                                                               |
-| type           | integer   | [Type of SKU](#DOCS_RESOURCES_SKU/sku-object-sku-types)                                                                 |
+| type           | integer   | [Type of SKU](/docs/resources/sku#sku-object-sku-types)                                                                 |
 | application_id | snowflake | ID of the parent application                                                                                            |
 | name           | string    | Customer-facing name of your premium offering                                                                           |
 | slug           | string    | System-generated URL slug based on the SKU's name                                                                       |
-| flags          | integer   | [SKU flags](#DOCS_RESOURCES_SKU/sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| flags          | integer   | [SKU flags](/docs/resources/sku#sku-object-sku-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### SKU Example
 
@@ -65,7 +65,7 @@ The `flags` field can be used to differentiate user and server subscriptions wit
 | GUILD_SUBSCRIPTION | `1 << 7` | Recurring SKU that can be purchased by a user and applied to a single server. Grants access to every user in that server. |
 | USER_SUBSCRIPTION  | `1 << 8` | Recurring SKU purchased by a user for themselves. Grants access to the purchasing user in every server.                   |
 
-## List SKUs % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/skus
+## List SKUs % GET /applications/{application.id/docs/resources/application#application-object}/skus
 
 Returns all SKUs for a given application. 
 
