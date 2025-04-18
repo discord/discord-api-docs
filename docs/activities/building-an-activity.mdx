@@ -4,9 +4,9 @@ sidebar_label: Quickstart
 
 # Building Your First Activity in Discord
 
-[Activities](#DOCS_ACTIVITIES_OVERVIEW) are web-based games and apps that can be run within Discord. Activities are embedded in iframes within the Discord client, and can be launched from the App Launcher or when responding to interactions.
+[Activities](/docs/activities/overview) are web-based games and apps that can be run within Discord. Activities are embedded in iframes within the Discord client, and can be launched from the App Launcher or when responding to interactions.
 
-If this is your first time learning about Activities, check out the [Activities Overview](#DOCS_ACTIVITIES_OVERVIEW) for more information and a collection of more advanced [sample projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
+If this is your first time learning about Activities, check out the [Activities Overview](/docs/activities/overview) for more information and a collection of more advanced [sample projects](/docs/activities/overview#sample-projects).
 
 ## Introduction
 
@@ -16,7 +16,7 @@ It assumes an understanding of [JavaScript](https://developer.mozilla.org/en-US/
 
 <Collapsible title="What we'll be building" icon="view">
 
-![Building Your First Activity Tutorial](activities/tutorial-hero.png)
+![Building Your First Activity Tutorial](images/activities/tutorial-hero.png)
 
 </Collapsible>
 
@@ -88,14 +88,14 @@ npm install
 npm run dev
 ```
 
-If you visit http://localhost:5173/ you should see a vanilla JS frontend template running with [Vite](https://vitejs.dev/).
+If you visit http://localhost:3000/ you should see a vanilla JS frontend template running with [Vite](https://vitejs.dev/).
 
 While it's not much at the moment, in the following steps we'll connect it to the backend services, make it runnable in Discord, and power it up by populating it with data we pull from Discord APIs.
 
 <Collapsible title="Step 1 Checkpoint" icon="list" open>
 
 By the end of Step 1, you should have:
-- An understanding of what Discord [Activities](#DOCS_ACTIVITIES_OVERVIEW) are
+- An understanding of what Discord [Activities](/docs/activities/overview) are
 - Developer Mode enabled on your Discord account
 - Cloned the [sample project](https://github.com/discord/getting-started-activity) to your development environment
 - Installed the front-end dependencies (in the `client` folder)
@@ -118,7 +118,7 @@ After you create your app, you'll land on the **General Overview** page of the a
 
 ### Choose installation contexts
 
-Apps in Discord can be installed to different **[installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context)**: servers, user accounts, or both.
+Apps in Discord can be installed to different **[installation contexts](/docs/resources/application#installation-context)**: servers, user accounts, or both.
 
 The recommended *and* default behavior for apps is supporting both installation contexts, which lets the installer to choose the context during the installation flow. However, you can change the default behavior by changing the supported installation contexts in your app's settings.
 
@@ -126,29 +126,29 @@ The recommended *and* default behavior for apps is supporting both installation 
 
 As mentioned, installation contexts determine where your app can be installed. The installation context affect things like who can manage the installation, where the app's commands can appear, and the data returned in response to interactions.
 
-- Apps installed in a **[server context](#DOCS_RESOURCES_APPLICATION/server-context)** (server-installed apps) must be authorized by a server member with the `MANAGE_GUILD` permission, and are visible to all members of the server.
-- Apps installed in a **[user context](#DOCS_RESOURCES_APPLICATION/user-context)** (user-installed apps) are visible only to the authorizing user, and therefore don't require any server-specific permissions. Apps installed to a user context are visible across all of the user's servers, DMs, and GDMs—however, they're limited to using commands.
+- Apps installed in a **[server context](/docs/resources/application#server-context)** (server-installed apps) must be authorized by a server member with the `MANAGE_GUILD` permission, and are visible to all members of the server.
+- Apps installed in a **[user context](/docs/resources/application#user-context)** (user-installed apps) are visible only to the authorizing user, and therefore don't require any server-specific permissions. Apps installed to a user context are visible across all of the user's servers, DMs, and GDMs—however, they're limited to using commands.
 
-Details about installation contexts is in the [Application documentation](#DOCS_RESOURCES_APPLICATION/installation-context) and the [Developing a User-Installable App tutorial](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP).
+Details about installation contexts is in the [Application documentation](/docs/resources/application#installation-context) and the [Developing a User-Installable App tutorial](/docs/tutorials/developing-a-user-installable-app).
 </Collapsible>
 
 Click on **Installation** in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected. This will make sure users can launch our app's Activity across Discord servers, DMs, and Group DMs.
 
 ### Add a Redirect URI
 
-Next, we'll add a Redirect URI, which is where a user is typically redirected to after authorizing with your app when going through the standard OAuth flow. While setting up a Redirect URI is required, the Embedded App SDK automatically handles redirecting users back to your Activity when the RPC [`authorize` command](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/authorize) is called.
+Next, we'll add a Redirect URI, which is where a user is typically redirected to after authorizing with your app when going through the standard OAuth flow. While setting up a Redirect URI is required, the Embedded App SDK automatically handles redirecting users back to your Activity when the RPC [`authorize` command](/docs/developer-tools/embedded-app-sdk#authorize) is called.
 
-You can learn more about the OAuth flow and redirect URIs in the [OAuth2 documentation](#DOCS_TOPICS_OAUTH2), but since we're only authorizing in an Activity, we'll just use a placeholder value (`https://127.0.0.1`) and let the Embedded App SDK handle the rest.
+You can learn more about the OAuth flow and redirect URIs in the [OAuth2 documentation](/docs/topics/oauth2), but since we're only authorizing in an Activity, we'll just use a placeholder value (`https://127.0.0.1`) and let the Embedded App SDK handle the rest.
 
 Click on **OAuth2** on the sidebar in your app's settings. Under **Redirects**, enter `https://127.0.0.1` as a placeholder value then click **Save Changes**.
 
-![Redirect URI in Activity Settings](activities/oauth2-redirect.png)
+![Redirect URI in Activity Settings](images/activities/oauth2-redirect.png)
 
 ### Fetch Your OAuth2 Credentials
 
 To use information related to a user (like their username) or a server (like the server's avatar), your app must be granted specific OAuth **scopes**.
 
-For our sample app, we'll be requesting three scopes: `identify` to access basic information about a user, `guilds` to access basic information about the servers a user is in, and `applications.commands` to install [commands](#DOCS_INTERACTIONS_OVERVIEW/commands). We'll request these later on in the guide, but a full list of scopes you can request is in the [OAuth2 documentation](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes).
+For our sample app, we'll be requesting three scopes: `identify` to access basic information about a user, `guilds` to access basic information about the servers a user is in, and `applications.commands` to install [commands](/docs/interactions/overview#commands). We'll request these later on in the guide, but a full list of scopes you can request is in the [OAuth2 documentation](/docs/topics/oauth2#shared-resources-oauth2-scopes).
 
 When requesting scopes later on, you'll need to pass your app's OAuth2 identifiers. For now, we'll copy these identifiers into your project's environment file.
 
@@ -162,11 +162,11 @@ cp example.env .env
 > **Secure Your Secrets**<br /> Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` are *highly* sensitive secrets. Never share either secrets or check them into any kind of version control.
 
 Back in your app's settings, click on **OAuth2** on the sidebar:
-1. **Client ID**: Copy the value for Client ID and add it to your `.env` file as **`VITE_DISCORD_CLIENT_ID`**. This is the public ID that Discord associates with your app, and is almost always the same as your App ID.
+1. **Client ID**: Copy the value for Client ID and add it to your `.env` file as **`VITE_CLIENT_ID`**. This is the public ID that Discord associates with your app, and is almost always the same as your App ID.
 2. **Client Secret**: Copy the value for Client Secret and add it to your `.env` as **`DISCORD_CLIENT_SECRET`**. This is a private, sensitive identifier that your app will use to grant an OAuth2 `access_token`, and should never be shared or checked into version control.
 
 > info
-> **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `DISCORD_CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. You can read details in the [Vite documentation](https://vitejs.dev/guide/env-and-mode).
+> **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. You can read details in the [Vite documentation](https://vitejs.dev/guide/env-and-mode).
 
 <Collapsible title="Step 2 Checkpoint" icon="list" open>
 
@@ -177,12 +177,12 @@ By the end of Step 2, make sure you have:
 
 ## Step 3: Setting Up the Embedded App SDK
 
-With our project and app set up, we're going to install and configure the [Embedded App SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) which we'll use extensively through the rest of this guide.
+With our project and app set up, we're going to install and configure the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) which we'll use extensively through the rest of this guide.
 
-The Embedded App SDK is a first-party SDK that handles the communication between Discord and your Activity with [commands](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-commands) to interact with the Discord client (like fetching information about the channel) and [events](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/sdk-events) to listen for user actions and changes in state (like when a user starts or stops speaking).
+The Embedded App SDK is a first-party SDK that handles the communication between Discord and your Activity with [commands](/docs/developer-tools/embedded-app-sdk#sdk-commands) to interact with the Discord client (like fetching information about the channel) and [events](/docs/developer-tools/embedded-app-sdk#sdk-events) to listen for user actions and changes in state (like when a user starts or stops speaking).
 
 > info
-> The events and commands available in the Embedded App SDK are a subset of the [RPC API](#DOCS_TOPICS_RPC) ones, so referencing the RPC documentation can be helpful to understand what's happening under the hood when developing Activities.
+> The events and commands available in the Embedded App SDK are a subset of the [RPC API](/docs/topics/rpc) ones, so referencing the RPC documentation can be helpful to understand what's happening under the hood when developing Activities.
 
 ### Install the SDK
 
@@ -200,7 +200,7 @@ Once installed, we need to import it into our client code and instantiate it to 
 
 To instantiate the SDK, we will use the environment variables we set up in Step 2.
 
-We also set up a check for the [`ready` event](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/ready) with an async/await function which allows us to output a log or perform other actions once the handshake was successful.
+We also set up a check for the [`ready` event](/docs/developer-tools/embedded-app-sdk#ready) with an async/await function which allows us to output a log or perform other actions once the handshake was successful.
 
 <Collapsible title="Add SDK initialization to frontend" description="Code for adding the Embedded App SDK" icon="code" open>
 
@@ -265,7 +265,7 @@ Your app should start and you should see output similar to the following:
 ```
 VITE v5.0.12  ready in 100 ms
 
-➜  Local:   http://localhost:5173/
+➜  Local:   http://localhost:3000/
 ➜  Network: use --host to expose
 ➜  press h + enter to show help
 ```
@@ -276,10 +276,10 @@ We'll use the Local URL as our publicly-accessible URL in the next step.
 
 Next, we'll need to set up the public endpoint that serves the Activity's frontend. To do that, we'll create a tunnel with a reverse proxy. While we'll be using [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) in this guide, you can use [ngrok](https://ngrok.com/docs) or another reverse proxy solution if you prefer.
 
-While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `5173`):
+While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `3000`):
 
 ```
-cloudflared tunnel --url http://localhost:5173
+cloudflared tunnel --url http://localhost:3000
 ```
 
 When you run `cloudflared`, the tunnel will generate a public URL and you'll see output similar to the following:
@@ -297,13 +297,13 @@ Because Activities are in a sandbox enviornment and go through the Discord proxy
 
 Back in your app's settings, click on the **URL Mappings** page under **Activities** on the left-hand sidebar. Enter the URL you generated from `cloudflared` in the previous step.
 
-![Configuring your URL Mapping](activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
 
 | PREFIX | TARGET                                  |
 |--------|-----------------------------------------|
 | `/`    | `funky-jogging-bunny.trycloudflare.com` |
 
-Read details about URL Mapping [in the development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/url-mapping).
+Read details about URL Mapping [in the development guide](/docs/activities/development-guides#url-mapping).
 
 ### Enable Activities
 
@@ -311,13 +311,13 @@ Next, we'll need to enable Activities for your app. On the left hand sidebar und
 
 Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
 
-![Enabling Activities in Settings](activities/enable-activities.png)
+![Enabling Activities in Settings](images/activities/enable-activities.png)
 
 #### Default Entry Point Command
 
-When you enable Activities for your app, a [default Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) is the primary way for users to launch your Activity in Discord.
+When you enable Activities for your app, a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](/docs/interactions/application-commands#entry-point-commands) is the primary way for users to launch your Activity in Discord.
 
-By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/entry-point-commands) and [development guide](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-an-entry-point-command).
+By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](/docs/interactions/application-commands#entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](/docs/interactions/application-commands#entry-point-commands) and [development guide](/docs/activities/development-guides#setting-up-an-entry-point-command).
 
 
 ### Running your Activity in Discord
@@ -328,10 +328,10 @@ Navigate to your Discord test server and, in any voice and or text channel, open
 
 Clicking on your app will launch your locally running app from inside Discord!
 
-![Running your activity](activities/start-activity.png)
+![Running your activity](images/activities/start-activity.png)
 
 > info
-> **Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/setting-up-activity-metadata).
+> **Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](/docs/activities/development-guides#setting-up-activity-metadata).
 
 We're looking pretty good so far, but we haven't wired up any Discord functionality yet. Let's do that next.
 
@@ -356,7 +356,7 @@ We will use `express` for this example, but any backend language or framework wi
 
 This diagram illustrates the common pattern for granting a user an OAuth2 access_token:
 
-![Flow diagram for Oauth2](activities/oauth-flow-diagram.svg)
+![Flow diagram for Oauth2](images/activities/oauth-flow-diagram.svg)
 
 We will be implementing this pattern in this tutorial, but more example implementations can also be found in this sample project:
 
@@ -435,7 +435,7 @@ You should output similar to the following:
 Server listening at http://localhost:3001
 ```
 
-We can now run our server and client-side apps in separate terminal windows. You can see other ways to set this up in the other [sample projects](#DOCS_ACTIVITIES_OVERVIEW/sample-projects).
+We can now run our server and client-side apps in separate terminal windows. You can see other ways to set this up in the other [sample projects](/docs/activities/overview#sample-projects).
 
 ### Calling external resources from your activity
 
@@ -444,7 +444,7 @@ Before we call your backend activity server, we need to be aware of the Discord 
 > info
 > For this tutorial, we are going to prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
 
-Learn more about this topic in the guides for [Constructing a Full URL](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/construct-a-full-url) and [Using External Resources](#DOCS_ACTIVITIES_DEVELOPMENT_GUIDES/using-external-resources).
+Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides#using-external-resources).
 
 ### Calling your backend server from your client
 
@@ -529,7 +529,7 @@ document.querySelector('#app').innerHTML = `
 
 Now if we relaunch our app, we'll be prompted to authorize with Discord using the `identify`, `guilds`, and `applications.commands` scopes.
 
-![Prompt to authorize Activity](activities/tutorial-auth.png)
+![Prompt to authorize Activity](images/activities/tutorial-auth.png)
 
 > warn
 > **Safe storage of tokens**<br />
@@ -592,7 +592,7 @@ setupDiscordSdk().then(() => {
 
 If you close and rejoin the Activity, you should now see the name of the current channel.
 
-![Discord Activities](activities/tutorial-channel-name.png)
+![Discord Activities](images/activities/tutorial-channel-name.png)
 
 <Collapsible title="Step 6 Checkpoint" icon="list" open>
 
@@ -608,12 +608,12 @@ By the end of Step 6, make sure you have:
 Since we requested the `identify` and `guilds` scopes, you can also use the authorized `access_token` we received earlier to fetch those resources via the API.
 
 In the following code block, we will:
-1. Call the [`GET /users/@me/guilds`](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint with `auth.access_token` to get a list of the guilds the authorizing user is in
+1. Call the [`GET /users/@me/guilds`](/docs/resources/user#get-current-user-guilds) endpoint with `auth.access_token` to get a list of the guilds the authorizing user is in
 2. Iterate over each guild to find the guild we are in based on the `guildId` defined in discordSdk
 3. Create a new HTML image element with the guild avatar and append it to our frontend
 
 > info
-> In this example, we use a pure `fetch` request to make the API call, but you can us one of the JavaScript [community-built libraries](#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES) if you prefer.
+> In this example, we use a pure `fetch` request to make the API call, but you can us one of the JavaScript [community-built libraries](/docs/developer-tools/community-resources) if you prefer.
 
 <Collapsible title="Fetching information about the current server" icon="code" open>
 
@@ -665,12 +665,12 @@ setupDiscordSdk().then(() => {
 
 If we relaunch our Activity, we will see the current server's avatar render in our Activity.
 
-![Discord Activities](activities/tutorial-hero.png)
+![Discord Activities](images/activities/tutorial-hero.png)
 
 <Collapsible title="Step 7 Checkpoint" icon="list" open>
 
 At this point, you should have your Activity up and running. For Step 7, you should have:
-- Updated your `client/main.js` code to fetch the guild information using the [`GET /users/@me/guilds`](#DOCS_RESOURCES_USER/get-current-user-guilds) API endpoint
+- Updated your `client/main.js` code to fetch the guild information using the [`GET /users/@me/guilds`](/docs/resources/user#get-current-user-guilds) API endpoint
 - Added a call to the new function in the callback for `setupDiscordSdk()`
 </Collapsible>
 
@@ -680,10 +680,10 @@ At this point, you should have your Activity up and running. For Step 7, you sho
 
 Congrats on building your first Activity! 🎉
 
-This is an intentionally simple example to get you started with the communication between your Activity and Discord using the Embedded App SDK and APIs. From here, you can explore the [Activities documentation](#DOCS_ACTIVITIES_OVERVIEW) and other resources. 
+This is an intentionally simple example to get you started with the communication between your Activity and Discord using the Embedded App SDK and APIs. From here, you can explore the [Activities documentation](/docs/activities/overview) and other resources.
 
 <Container>
-  <Card title="Development Guides" link="#DOCS_DEVELOPER_TOOLS_COMMUNITY_RESOURCES" icon="WrenchIcon">
+  <Card title="Development Guides" link="/docs/developer-tools/community-resources" icon="WrenchIcon">
     Follow our Activities Development Guides for suggested development practices and considerations.
   </Card>
   <Card title="Sample Activity Projects" link="https://github.com/discord/embedded-app-sdk-examples" icon="ForumIcon">

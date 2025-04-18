@@ -4,7 +4,7 @@ sidebar_label: Creating a Unified Friends List
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # Creating a Unified Friends List
 
@@ -19,9 +19,9 @@ A unified friends list combines both Discord and game-specific relationships in 
 ### Prerequisites
 
 Before you begin, make sure you have:
-- Set up the Discord Social SDK with [Getting Started Guide](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED)
-- Authenticated your users with [Development Guide: Account Linking](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_ACCOUNT_LINKING_WITH_DISCORD)
-- Understanding of relationship types with [Development Guide: Managing Relationships in Your Game](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_RELATIONSHIPS)
+- Set up the Discord Social SDK with [Getting Started Guide](/docs/discord-social-sdk/getting-started)
+- Authenticated your users with [Development Guide: Account Linking](/docs/discord-social-sdk/development-guides/account-linking-with-discord)
+- Understanding of relationship types with [Development Guide: Managing Relationships in Your Game](/docs/discord-social-sdk/development-guides/managing-relationships)
 
 ### Implementing a Unified Friends List
 
@@ -29,9 +29,9 @@ The Discord friend list is ultimately constructed from two entities: Relationshi
 
 ### Relationships
 
-[Relationships](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_RELATIONSHIPS) are how Discord models friends, friend requests, and more. All relationships for the current user are loaded when the Client connects. Each relationship has a target user id, and a type, such as `Friend`, `PendingOutgoing`, or `Blocked`. The set of all relationships can be queried with [`Client::GetRelationships`].
+[Relationships](/docs/discord-social-sdk/development-guides/managing-relationships) are how Discord models friends, friend requests, and more. All relationships for the current user are loaded when the Client connects. Each relationship has a target user id, and a type, such as `Friend`, `PendingOutgoing`, or `Blocked`. The set of all relationships can be queried with [`Client::GetRelationships`].
 
-To allow users to manage their relationships in your game, you should provide a way to accept or reject friend requests, block users, and manage pending requests. See [Development Guide: Managing Relationships in Your Game](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_RELATIONSHIPS) for implementation details.
+To allow users to manage their relationships in your game, you should provide a way to accept or reject friend requests, block users, and manage pending requests. See [Development Guide: Managing Relationships in Your Game](/docs/discord-social-sdk/development-guides/managing-relationships) for implementation details.
 
 ### Users
 
@@ -47,7 +47,7 @@ Presence is how Discord stores whether a user is currently online or not, as wel
 > info
 The SDK will only display activities associated with the current game, meaning you will not be able to see other game activities in Rich Presence, even if you can see them in the Discord client.
 
-See our [Design Guidelines: Status & Rich Presence](#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_STATUS_RICH_PRESENCE) for best practices on displaying presence information.
+See our [Design Guidelines: Status & Rich Presence](/docs/discord-social-sdk/design-guidelines/status-rich-presence) for best practices on displaying presence information.
 
 Let's combine  to create a unified friends list.
 
@@ -116,7 +116,7 @@ This will output the raw relationship data to the console. You can use this info
 
 ## Step 2: Organize Relationships
 
-Based on our design guidelines for a [Unified Friends List](#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_UNIFIED_FRIENDS_LIST), you should separate the player's friends list into three sections: `Online - GameTitle`, `Online - Elsewhere`, and `Offline`. 
+Based on our design guidelines for a [Unified Friends List](/docs/discord-social-sdk/design-guidelines/unified-friends-list), you should separate the player's friends list into three sections: `Online - GameTitle`, `Online - Elsewhere`, and `Offline`. 
 
 Because we are building a text console application, we will use emojis to represent the status of each friend but you can use your own design elements to convey status and presence in your game.
 
@@ -265,13 +265,13 @@ Now your friends list will automatically update when the presence of a friend ch
 Now that you have a unified friends list, you can build on your social features by allowing players to manage relationships, send game invites, and more. Check out our other guides for more information:
 
 <Container>
-  <Card title="Designing a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_UNIFIED_FRIENDS_LIST" icon="PaintPaletteIcon">
+  <Card title="Designing a Unified Friends List" link="/docs/discord-social-sdk/design-guidelines/unified-friends-list" icon="PaintPaletteIcon">
     Best practices for designing your Unified Friends List.
   </Card>
-  <Card title="Managing Relationships" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_RELATIONSHIPS" icon="UserStatusIcon">
+  <Card title="Managing Relationships" link="/docs/discord-social-sdk/development-guides/managing-relationships" icon="UserStatusIcon">
     Allow players to manage their friends, friend requests, and blocked users.
   </Card>
-  <Card title="Managing Game Invites" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES" icon="InboxIcon">
+  <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
     Allow players to invite friends to join their game session or party.
   </Card>
 </Container>

@@ -2,7 +2,7 @@
 
 Discord apps can be installed to servers, users, or both. This guide will walk you through building a basic game integration app that is installable to both Discord users and servers.
 
-While the tutorial will focus on supporting different [installation contexts](#DOCS_RESOURCES_APPLICATION/installation-context), we'll be building a basic game integration along the way with a wiki lookup with user-specific bookmarking and a server leaderboard. The app has four commands (`/link`, `/profile`, `/leaderboard`, and `/wiki`) that can be run in different installation and interaction contexts (which are concepts we'll dig into later in the tutorial).
+While the tutorial will focus on supporting different [installation contexts](/docs/resources/application#installation-context), we'll be building a basic game integration along the way with a wiki lookup with user-specific bookmarking and a server leaderboard. The app has four commands (`/link`, `/profile`, `/leaderboard`, and `/wiki`) that can be run in different installation and interaction contexts (which are concepts we'll dig into later in the tutorial).
 
 <Collapsible title="Resources used in this guide" description="Overview of the tools and technologies we'll use" icon="list">
 
@@ -83,13 +83,13 @@ Now that you have the credentials you need, we'll configure your app to support 
 
 ### Add Guild Members intent
 
-The sample app fetches members in the server when constructing a fake game leaderboard. Getting server members requires a special permission called a [privileged intent](#DOCS_EVENTS_GATEWAY/privileged-intents), so we'll add that to our app.
+The sample app fetches members in the server when constructing a fake game leaderboard. Getting server members requires a special permission called a [privileged intent](/docs/events/gateway#privileged-intents), so we'll add that to our app.
 
 Go to the **Bot** page and find the **Privileged Gateway Intents** section. Toggle "Server Member Intent" to be active.
 
 ### Choosing Supported Installation Contexts
 
-An app's **[installation context](#DOCS_RESOURCES_APPLICATION/installation-context)** defines how it's installed: to a server, to a user, or both.
+An app's **[installation context](/docs/resources/application#installation-context)** defines how it's installed: to a server, to a user, or both.
 
 We're going to configure our app to support both installation contexts, and while that's a good default for most apps, some apps may only make sense in one context or the other.
 
@@ -97,11 +97,11 @@ In your app's settings, go to the **Installation** page from the sidebar. Under 
 
 ### Configuring Default Install Settings
 
-The default install settings of your app determines the default [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) and [bot user permissions](#DOCS_TOPICS_PERMISSIONS) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope (which allows your app to install [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)) in the default install settings.
+The default install settings of your app determines the default [scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) and [bot user permissions](/docs/topics/permissions) for each supported installation context. At the moment, apps installed to a user context only support the `applications.commands` scope (which allows your app to install [commands](/docs/interactions/application-commands)) in the default install settings.
 
 ###### Update Install Link
 
-Before adding default install settings, we need to select Discord Provided Link for the app's [install link](#DOCS_RESOURCES_APPLICATION/install-links). Under the **Install Link** section, select `Discord Provided Link` from the dropdown if it isn't already selected (it should be by default). Once its selected, the **Default Install Settings** will appear.
+Before adding default install settings, we need to select Discord Provided Link for the app's [install link](/docs/resources/application#install-links). Under the **Install Link** section, select `Discord Provided Link` from the dropdown if it isn't already selected (it should be by default). Once its selected, the **Default Install Settings** will appear.
 
 ###### Adding Default Install Settings
 
@@ -110,11 +110,11 @@ Under the **Default Install Settings** section:
 - For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
 > info
-> Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) page.
+> Permissions for a bot user are very similar to permissions for other Discord users. Details about permissions, and a list of available permissions is on the [Permissions](/docs/topics/permissions#permissions-bitwise-permission-flags) page.
 
 After you've selected the scopes and permissions for your app, click **Save Changes**.
 
-![Installation settings in App Settings](user-install-settings.png)
+![Installation settings in App Settings](images/user-install-settings.png)
 
 ### Installing your app
 
@@ -134,16 +134,16 @@ Follow the installation prompt to install your app to your user account. Once it
 
 ## Step 2: Setting Up Commands
 
-Next, we'll register the [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) for our app. But before touching code, it's important to understand the concept of command contexts:
+Next, we'll register the [application commands](/docs/interactions/application-commands) for our app. But before touching code, it's important to understand the concept of command contexts:
 
 <Collapsible title="Contexts for application commands" description="A brief introduction to command contexts" icon="view" open="true">
 
 Commands have two context fields that can be set when creating or updating a command which let you limit the supported install methods and surfaces in Discord for that command:
 
-- **`integration_types`** lets you control which **[installation contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/installation-context)** a command is supported (user, guild, or both). For example, the `/link` and `/profile` commands we'll be creating are only available when the app is installed to a user.
-- **`contexts`** lets you set the **[interaction contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts)**, or the surfaces in Discord, where a command can be used (in a guild channel, in your bot user's DM, and within other DMs or GDMs). For example, the `/leaderboard` command we'll be creating is only available when the command is run from a guild channel.
+- **`integration_types`** lets you control which **[installation contexts](/docs/interactions/application-commands#installation-context)** a command is supported (user, guild, or both). For example, the `/link` and `/profile` commands we'll be creating are only available when the app is installed to a user.
+- **`contexts`** lets you set the **[interaction contexts](/docs/interactions/application-commands#interaction-contexts)**, or the surfaces in Discord, where a command can be used (in a guild channel, in your bot user's DM, and within other DMs or GDMs). For example, the `/leaderboard` command we'll be creating is only available when the command is run from a guild channel.
 
-More information and details about command contexts are in the [contexts](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts) documentation, but for now we'll get a better understanding of contexts by using them in our sample app.
+More information and details about command contexts are in the [contexts](/docs/interactions/application-commands#contexts) documentation, but for now we'll get a better understanding of contexts by using them in our sample app.
 </Collapsible>
 
 ### Commands in the sample project
@@ -158,7 +158,7 @@ We'll be setting up four commands for our sample app that all have *slightly* di
 | `/link`        | Link your game account to Discord                      | `USER_INSTALL`                              | `BOT_DM`                             |
 
 > info
-> The supported installation contexts for a command affects which interaction contexts you can set. Specifically, the `PRIVATE_CHANNEL` interaction context can only be included in `contexts` if `USER_INSTALL` is included in `integration_types` for the command. Read details in the [documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/contexts).
+> The supported installation contexts for a command affects which interaction contexts you can set. Specifically, the `PRIVATE_CHANNEL` interaction context can only be included in `contexts` if `USER_INSTALL` is included in `integration_types` for the command. Read details in the [documentation](/docs/interactions/application-commands#contexts).
 
 The payloads for our app's commands are in `commands.js` in the project folder in case you want to change any values or see what the command's context fields (`integration_types` and `contexts`) look like for each of the commands in the table above.
 
@@ -170,7 +170,7 @@ Now let's register your app's commands so you can see them in Discord. In your p
 npm run register
 ```
 
-The register command will call the [Create Global Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command) endpoint for each of the command payloads in `commands.js`.
+The register command will call the [Create Global Application Command](/docs/interactions/application-commands#create-global-application-command) endpoint for each of the command payloads in `commands.js`.
 
 After your new commands have been created, you can go into Discord and look for the commands in the surfaces where we made them available:
 - In **channels within the guild you installed your app**, you should see `/leaderboard`, `/wiki`, and `/profile`
@@ -196,7 +196,7 @@ First, go to your project's folder and run the following to start your app:
 npm run start
 ```
 
-There should be some output indiciating your app is running on port 3000. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](#DOCS_INTERACTIONS_OVERVIEW/preparing-for-interactions) documentation.
+There should be some output indiciating your app is running on port 3000. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](/docs/interactions/overview#preparing-for-interactions) documentation.
 
 > info 
 > By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
@@ -257,13 +257,13 @@ The payload below is condensed to be more readable, but your interaction request
 
 </Collapsible>
 
-To see which command was run, you can look at the [`data` object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data).
+To see which command was run, you can look at the [`data` object](/docs/interactions/receiving-and-responding#interaction-object-interaction-data).
 
 However, for this tutorial, we're going to focus more on the metadata related to installation and interaction contexts. There are a few metadata fields you'll want to pay attention to when building an app that can be installed to multiple interaction contexts—
 
 ###### `context`
 
-`context` tells you which [interaction context](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-contexts) the command was invoked from. Since I triggered the command from my app's DM the `context` is `1` (or `BOT_DM`).
+`context` tells you which [interaction context](/docs/interactions/application-commands#interaction-contexts) the command was invoked from. Since I triggered the command from my app's DM the `context` is `1` (or `BOT_DM`).
 
 With interaction context, something to keep in mind in `BOT_DM` is only the *DM with your bot user*. If you run the same command in a DM with your bestie, or in a group DM, the interaction context will be `PRIVATE_CHANNEL` (`2`).
 
@@ -276,7 +276,7 @@ The keys in the object are the relevant installation context(s) (`GUILD_INSTALL`
 > info
 > `authorizing_integration_owners` is not the same as the user that triggered the interaction. Information about the user that triggered the interaction is in the `user` object.
 
-Understanding the authorization owner can be helpful when handling interactions from message components for apps installed to a user, which is discussed more in the [message component interactions](#DOCS_TUTORIALS_DEVELOPING_A_USER_INSTALLABLE_APP/using-metadata-for-message-component-interactions) section. Or you can find technical details in the [Authorizing Integration Owners](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) documentation.
+Understanding the authorization owner can be helpful when handling interactions from message components for apps installed to a user, which is discussed more in the [message component interactions](/docs/tutorials/developing-a-user-installable-app#using-metadata-for-message-component-interactions) section. Or you can find technical details in the [Authorizing Integration Owners](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) documentation.
 
 ###### `app_permissions`
 
@@ -284,7 +284,7 @@ Understanding the authorization owner can be helpful when handling interactions 
 
 In the sample payload, the value is `"442368"`.
 
-These values can be helpful when deciding how you want your app to [respond to the interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction). For example, perhaps you want your app to respond ephemerally when a specific command is invoked from a server, which the sample app does for the `/profile` command.
+These values can be helpful when deciding how you want your app to [respond to the interaction](/docs/interactions/receiving-and-responding#responding-to-an-interaction). For example, perhaps you want your app to respond ephemerally when a specific command is invoked from a server, which the sample app does for the `/profile` command.
 
 ### Using metadata for command interactions
 
@@ -345,7 +345,7 @@ Message component interactions can be triggered by any user the component is vis
 
 Consider we added a new `/game` command supported in the `USER_INSTALL` installation context that a user could trigger to send a message to whatever guild or group DM they're in to ask others if they're interested in joining a game match:
 
-![Sample game command response](user-install-game-message.png)
+![Sample game command response](images/user-install-game-message.png)
 
 When someone clicks on the button, our app would care about two users when handling the interaction:
 1. User B, who clicked the "Join" button so our app can track who is interested in joining the match
@@ -355,7 +355,7 @@ There are two fields additional fields to know about that can be helpful in this
 
 ###### `interaction_metadata`
 
-Messages created in response to an interaction will include an [`interaction_metadata` object](#DOCS_RESOURCES_MESSAGE/message-interaction-metadata-object) which includes metadata related to the interaction.
+Messages created in response to an interaction will include an [`interaction_metadata` object](/docs/resources/message#message-interaction-metadata-object) which includes metadata related to the interaction.
 
 ###### `authorizing_integration_owners`
 
@@ -368,7 +368,7 @@ For user-installed apps, it can be used to differentiate between the user that i
 *Yay~!* At this point, you have an app that supports both installation contexts and understand the basics of using metadata to support different contexts. Now you can go explore the documentation for details, or play with the sample app to develop more complex features.
 
 <Container>
-  <Card title="Interactions documentation" link="#DOCS_INTERACTIONS_OVERVIEW">
+  <Card title="Interactions documentation" link="/docs/interactions/overview">
     Explore the Interactions documentation to learn more about receiving and responding to commands and message components
   </Card>
   <Card title="Github repository" link="https://github.com/discord/user-install-example">

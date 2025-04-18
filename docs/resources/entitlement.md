@@ -6,7 +6,7 @@ sidebar_label: Entitlement
 
 Entitlements in Discord represent that a user or guild has access to a premium offering in your application. 
 
-Refer to the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW) for more information on how to use Entitlements in your app.
+Refer to the [Monetization Overview](/docs/monetization/overview) for more information on how to use Entitlements in your app.
 
 ### Entitlement Object
 
@@ -18,7 +18,7 @@ Refer to the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW) for more infor
 | sku_id         | snowflake          | ID of the SKU                                                                           |
 | application_id | snowflake          | ID of the parent application                                                            |
 | user_id?       | snowflake          | ID of the user that is granted access to the entitlement's sku                          |
-| type           | integer            | [Type of entitlement](#DOCS_RESOURCES_ENTITLEMENT/entitlement-object-entitlement-types) |
+| type           | integer            | [Type of entitlement](/docs/resources/entitlement#entitlement-object-entitlement-types) |
 | deleted        | boolean            | Entitlement was deleted                                                                 |
 | starts_at      | ?ISO8601 timestamp | Start date at which the entitlement is valid.                                           |
 | ends_at        | ?ISO8601 timestamp | Date at which the entitlement is no longer valid.                                       |
@@ -58,7 +58,7 @@ Refer to the [Monetization Overview](#DOCS_MONETIZATION_OVERVIEW) for more infor
 | PREMIUM_PURCHASE         | 7     | Entitlement was claimed by user for free as a Nitro Subscriber |
 | APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription               |
 
-## List Entitlements % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
+## List Entitlements % GET /applications/{application.id/docs/resources/application#application-object}/entitlements
 
 Returns all entitlements for a given app, active and expired.
 
@@ -72,8 +72,8 @@ Returns all entitlements for a given app, active and expired.
 | after?           | snowflake                                        | Retrieve entitlements after this entitlement ID                                                                            |
 | limit?           | integer                                          | Number of entitlements to return, 1-100, default 100                                                                       |
 | guild_id?        | snowflake                                        | Guild ID to look up entitlements for                                                                                       |
-| exclude_ended?   | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not ended entitlements should be omitted. Defaults to false, ended entitlements are included by default.        |
-| exclude_deleted? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | Whether or not deleted entitlements should be omitted. Defaults to true, deleted entitlements are not included by default. |
+| exclude_ended?   | [boolean](/docs/reference#boolean-query-strings) | Whether or not ended entitlements should be omitted. Defaults to false, ended entitlements are included by default.        |
+| exclude_deleted? | [boolean](/docs/reference#boolean-query-strings) | Whether or not deleted entitlements should be omitted. Defaults to true, deleted entitlements are not included by default. |
 
 ```json
 [
@@ -95,7 +95,7 @@ Returns all entitlements for a given app, active and expired.
 ]
 ```
 
-## Get Entitlement % GET /applications/{application.id#DOS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}
+## Get Entitlement % GET /applications/{application.id#DOS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id/docs/resources/entitlement#entitlement-object}
 
 Returns an entitlement.
 
@@ -117,13 +117,13 @@ Returns an entitlement.
 }
 ```
 
-## Consume an Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}/consume
+## Consume an Entitlement % POST /applications/{application.id/docs/resources/application#application-object}/entitlements/{entitlement.id/docs/resources/entitlement#entitlement-object}/consume
 
-For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](#DOCS_RESOURCES_ENTITLEMENT/list-entitlements).
+For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](/docs/resources/entitlement#list-entitlements).
 
 Returns a `204 No Content` on success.
 
-## Create Test Entitlement % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements
+## Create Test Entitlement % POST /applications/{application.id/docs/resources/application#application-object}/entitlements
 
 Creates a test entitlement to a given SKU for a given guild or user. Discord will act as though that user or guild has entitlement to your premium offering.
 
@@ -147,7 +147,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 }
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id#DOCS_RESOURCES_ENTITLEMENT/entitlement-object}
+## Delete Test Entitlement % DELETE /applications/{application.id/docs/resources/application#application-object}/entitlements/{entitlement.id/docs/resources/entitlement#entitlement-object}
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 

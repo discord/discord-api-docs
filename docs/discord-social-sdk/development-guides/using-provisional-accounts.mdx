@@ -4,13 +4,13 @@ sidebar_label: Using Provisional Accounts
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # Using Provisional Accounts
 
 ## Overview
 
-Provisional accounts let players use Social SDK features in your game without linking a Discord account so all players can have a consistent gameplay experience. 
+Provisional accounts let players use Social SDK features in your game without linking a Discord account so all players can have a consistent gameplay experience.
 
 With provisional accounts, players can:
 
@@ -25,13 +25,13 @@ This guide will show you how to:
 
 1. Set up provisional accounts for your game
 2. Create and manage provisional accounts
-3. Handle account merging when users want to upgrade to full Discord 
+3. Handle account merging when users want to upgrade to full Discord
 
 ## Prerequisites
 
 Before you begin, make sure you have:
 
-- A basic understanding of how the SDK works from the [Getting Started Guide](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED)
+- A basic understanding of how the SDK works from the [Getting Started Guide](/docs/discord-social-sdk/getting-started)
 - An external authentication provider set up for your game
 
 ---
@@ -40,7 +40,6 @@ Before you begin, make sure you have:
 
 Think of provisional accounts as temporary Discord accounts that:
 
-- Are created automatically for your players
 - Work only with your game
 - Can be upgraded to full Discord accounts later
 - Persist between game sessions
@@ -122,7 +121,7 @@ The callback function will be invoked with an access token that expires in 1 hou
 
 You can use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or expires.
 
-> info 
+> info
 > When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to UpdateToken without interrupting the user's experience.
 
 #### Provisional Account Access Token Storage
@@ -141,6 +140,7 @@ If you are not using the [`Client::GetProvisionalToken`] method, you'll need to 
 | STEAM_SESSION_TICKET              | A Steam auth ticket for web generated with discord as the identity            |
 | EPIC_ONLINE_SERVICES_ACCESS_TOKEN | Access token for Epic Online Services. Supports EOS Auth access tokens        |
 | EPIC_ONLINE_SERVICES_ID_TOKEN     | ID token for Epic Online Services. Supports both EOS Auth + Connect ID tokens |
+| UNITY_SERVICES_ID_TOKEN           | Unity Services authentication ID token                                        |
 
 
 ```python
@@ -193,9 +193,17 @@ Common error codes and solutions for the GetProvisionalToken method:
 
 Using these credentials, we'll create a limited Discord account just for your game and try to set the username for you according to the following:
 
-- For OIDC, a provisional account's display name will be the value of the preferred_username claim, if specified in the ID token. This field is optional and should be between 1 and 32 characters. If not specified, the user's display name will default to the user's unique username, which Discord generates on creation.
-- For Steam session tickets, the display name of the user's Steam account is used as the provisional account's display name.
-- For EOS Auth Access Tokens or ID Tokens, the name of the user's Epic account is used as the provisional account's display name. EOS Connect ID Tokens do not expose any username, and thus the game will need to configure the display name with [`Client::UpdateProvisionalAccountDisplayName`].
+- For OIDC, a provisional account's display name will be the value of the `preferred_username` claim, if specified in
+  the ID token. This field is optional and should be between 1 and 32 characters. If not specified, the user's display
+  name will default to the user's unique username, which Discord generates on creation.
+- For [Steam session tickets](https://partner.steamgames.com/doc/features/auth), the display name of the user's Steam
+  account is used as the provisional account's display name.
+- For [EOS Auth](https://dev.epicgames.com/docs/epic-account-services/auth/auth-interface) Access Tokens or ID Tokens,
+  the name of the user's Epic account is used as the provisional account's display name. EOS Connect ID Tokens do
+  not expose any username, and thus the game will need to configure the display name with
+  [`Client::UpdateProvisionalAccountDisplayName`].
+- For [Unity Services ID Tokens](https://services.docs.unity.com/docs/client-auth/),
+  the display name of the user's Unity Player Account is used as the provisional account's display name.
 
 If you'd like to set the display name for a provisional account, you can use the [`Client::UpdateProvisionalAccountDisplayName`] method.
 
@@ -383,15 +391,15 @@ def unmerge_provisional_account(external_auth_token):
 Now that you've set up provisional accounts for your game, you can explore more features of the Discord Social SDK:
 
 <Container>
- <Card title="Design: Provisional Accounts" link="#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_PROVISIONAL_ACCOUNTS" icon="PaintPaletteIcon">
+ <Card title="Design: Provisional Accounts" link="/docs/discord-social-sdk/design-guidelines/provisional-accounts" icon="PaintPaletteIcon">
     Design guidelines for implementing provisional accounts in your game.
   </Card>
-  <Card title="Creating a Unified Friends List" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_CREATING_A_UNIFIED_FRIENDS_LIST" icon="ListViewIcon">
+  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
     Combine Discord and game friends into a single list for easy management.
   </Card>
-  <Card title="Setting Rich Presence" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE" icon="UserStatusIcon">
+  <Card title="Setting Rich Presence" link="/docs/discord-social-sdk/development-guides/setting-rich-presence" icon="UserStatusIcon">
     Display game status and information to Discord friends.
-  </Card>  
+  </Card>
 </Container>
 
 <SupportCallout />

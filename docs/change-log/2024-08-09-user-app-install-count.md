@@ -5,4 +5,4 @@ topics:
 - "User Apps"
 ---
 
-We've added an approximate user install count to the [Application object](#DOCS_RESOURCES_APPLICATION/application-object) for user-installable apps. You can also view an app's install counts in the developer portal.
+We've added an approximate user install count to the [Application object](/docs/resources/application#application-object) for user-installable apps. You can also view an app's install counts in the developer portal.

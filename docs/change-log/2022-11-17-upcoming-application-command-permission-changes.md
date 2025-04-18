@@ -4,14 +4,14 @@ date: "2022-11-17"
 breaking: true
 ---
 
-Based on feedback, we’re updating permissions for [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
+Based on feedback, we’re updating permissions for [application commands](/docs/interactions/application-commands) to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord.
 
 Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
 > info
-> Current permissions behavior is documented in [the application commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) and in [the changelog for the previous permissions update](#DOCS_CHANGE_LOG/updated-command-permissions)
+> Current permissions behavior is documented in [the application commands documentation](/docs/interactions/application-commands#permissions) and in [the changelog for the previous permissions update](/docs/change-log#updated-command-permissions)
 
-These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
+These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](/docs/interactions/application-commands#edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
 
 #### Types of command permission configurations
 
@@ -22,7 +22,7 @@ Discord’s clients determine whether a user can see or invoke a command based o
 
 * **Command-level permissions** are set up by an admin for a specific *command* in their server. These permissions affect only a specific command.
 * **App-level permissions** are set up by an admin for a specific *app* in their server. These permissions affect all commands for an app.
-* **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in *all* servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-using-default-permissions).
+* **`default_member_permissions`** are set up by an app when creating or updating a command. `default_member_permissions` apply to that command in *all* servers (unless an override exists). More information about `default_member_permissions` is [in the documentation](/docs/interactions/application-commands#application-command-permissions-object-using-default-permissions).
 
 The concepts of these permission configurations are not changing. But then of course, the question becomes…
 
@@ -70,18 +70,18 @@ If a command-level configuration does not exist for the given context, the syste
 
 Below is a simplified flowchart that illustrates how permissions will be applied by the Discord client after the new changes take effect.
 
-![Flowchart with an overview of the new permissions configurations logic](new-permissions-flowchart.svg)
+![Flowchart with an overview of the new permissions configurations logic](images/new-permissions-flowchart.svg)
 
 #### 2. `APPLICATION_COMMAND_PERMISSIONS_V2` Guild Feature
 
-We added a new [`APPLICATION_COMMAND_PERMISSIONS_V2` feature flag](#DOCS_RESOURCES_GUILD/guild-object-guild-features) which indicates whether that server is using **the current permissions logic**.
+We added a new [`APPLICATION_COMMAND_PERMISSIONS_V2` feature flag](/docs/resources/guild#guild-object-guild-features) which indicates whether that server is using **the current permissions logic**.
 
 * If the flag *is* present, that server is using the old command permissions behavior.
 * If the flag *is not* present, that server has migrated from the old command permissions behavior to the new behavior.
 
 ### Am I affected?
 
-Your app will only be affected if it uses the [`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) endpoint. This is a pretty restricted endpoint used to manage and update application command permissions on behalf of admins, meaning that it requires the `applications.commands.permissions.update` scope.
+Your app will only be affected if it uses the [`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`](/docs/interactions/application-commands#edit-application-command-permissions) endpoint. This is a pretty restricted endpoint used to manage and update application command permissions on behalf of admins, meaning that it requires the `applications.commands.permissions.update` scope.
 
 **If your app doesn’t use this endpoint, there’s nothing you need to prepare for these changes.**
 
@@ -103,7 +103,7 @@ else:
 ```
 
 > info
-> If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](#DOCS_RESOURCES_GUILD/get-guild).
+> If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](/docs/resources/guild#get-guild).
 
 **2. Modify the behavior based on your use case**
 

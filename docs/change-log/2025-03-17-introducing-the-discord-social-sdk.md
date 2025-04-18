@@ -26,10 +26,10 @@ Developers can request expanded access to these available features via the close
 
 New resources are available in the Developer Portal to help you get started with the Discord Social SDK:
 
-- [Getting Started Guides](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED) for C++, Unity and Unreal Engine.
-- [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) for building your game's social features.
-- [Design Guidelines](#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES) for designing your game's social features.
+- [Getting Started Guides](/docs/discord-social-sdk/getting-started) for C++, Unity and Unreal Engine.
+- [Development Guides](/docs/discord-social-sdk/development-guides) for building your game's social features.
+- [Design Guidelines](/docs/discord-social-sdk/design-guidelines) for designing your game's social features.
 - [SDK Reference](http://discord.com/developers/docs/social-sdk/index.html) is now available.
 - The Discord Social SDK binaries are available for download in the Developer Portal after enabling the Discord Social SDK for your application.
 
-To learn more about building with the Discord Social SDK, check out the [Discord Social SDK Overview](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW).
+To learn more about building with the Discord Social SDK, check out the [Discord Social SDK Overview](/docs/discord-social-sdk/overview).

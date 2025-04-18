@@ -20,11 +20,11 @@ Developers with monetization enabled can now create and publish multiple subscri
 - These settings are available under `User Settings → Subscriptions → App Subscriptions`.
 
 #### Subscription Object
-- New field `renewal_sku_ids` added to the [subscription object](#DOCS_RESOURCES_SUBSCRIPTION/subscription-object) response for `SUBSCRIPTION_UPDATE` events and API endpoints. 
+- New field `renewal_sku_ids` added to the [subscription object](/docs/resources/subscription#subscription-object) response for `SUBSCRIPTION_UPDATE` events and API endpoints. 
 - `renewal_sku_ids` is a list of snowflakes that indicate the SKU(s) that the user will be subscribed to at renewal.
 
 #### Updated Guide: Managing SKUs
-- The [Managing SKUs](#DOCS_MONETIZATION_MANAGING_SKUS/creating-a-sku) guide has been updated to include information about creating and managing multiple subscription SKUs.
+- The [Managing SKUs](/docs/monetization/managing-skus#creating-a-sku) guide has been updated to include information about creating and managing multiple subscription SKUs.
 
 #### Updated Guide: Implementing App Subscriptions
-- The [Implementing App Subscriptions](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/supporting-upgrades-and-downgrades) guide has been updated to include information about supporting upgrades and downgrades between multiple subscription SKUs.
+- The [Implementing App Subscriptions](/docs/monetization/implementing-app-subscriptions#supporting-upgrades-and-downgrades) guide has been updated to include information about supporting upgrades and downgrades between multiple subscription SKUs.

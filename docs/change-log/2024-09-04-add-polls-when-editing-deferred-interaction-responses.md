@@ -5,4 +5,4 @@ topics:
 - "Interactions"
 ---
 
-You can now create a poll while editing a deferred interaction response with the [Edit Original Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-original-interaction-response) endpoint. Poll away!
+You can now create a poll while editing a deferred interaction response with the [Edit Original Interaction Response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) endpoint. Poll away!

@@ -3,7 +3,7 @@
 # Game SDK
 
 > warn
-> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) for new features and updates.
+> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
 
 Welcome to the documentation for the Discord Game SDK! We're glad you made it. The Game SDK helps you develop your 3rd party game or app, and integrate it with Discord.
 
@@ -11,7 +11,7 @@ Welcome to the documentation for the Discord Game SDK! We're glad you made it. T
 
 ## Getting Started
 
-This section will walk you through the first few steps you need to take to get up-and-running with the Game SDK. After you download the SDK and configure your app, you can find more details in the [Using the SDK section](#DOCS_DEVELOPER_TOOLS_GAME_SDK/using-the-sdk).
+This section will walk you through the first few steps you need to take to get up-and-running with the Game SDK. After you download the SDK and configure your app, you can find more details in the [Using the SDK section](/docs/developer-tools/game-sdk#using-the-sdk).
 
 ### Step 1: Get the SDK
 
@@ -26,7 +26,7 @@ These files are comprised of two parts: a "stub", and fallback modules. What tha
 
 ### Step 2: Create your App
 
-Next, we need to set up the application for your game. An [app](#DOCS_RESOURCES_APPLICATION) is the base "entity" in Discord for your game.
+Next, we need to set up the application for your game. An [app](/docs/resources/application) is the base "entity" in Discord for your game.
 
 Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
 
@@ -232,11 +232,11 @@ You're ready to go! Check out the rest of the documentation for more info on how
 In your project folder, you'll want to make something like a "discord-files" folder, for organization. In that folder, copy all the `.h` and `.cpp` files from the zip.
 You want to include all the header and source files respectively in your project
 
-![Correct Files](cpp-files-sdk.png)
+![Correct Files](images/cpp-files-sdk.png)
 
 In your project settings, you'll want to include the relevant library (e.g. `discord_game_sdk.dll.lib`) as an additional dependency.
 
-![Linked Library](lib-linked-sdk.png)
+![Linked Library](images/lib-linked-sdk.png)
 
 - From there, you should be able to `#include "discord-files/discord.h"`, or whatever the path to that header file is, and have access to the code.
 </Collapsible>
@@ -253,9 +253,9 @@ Each manager class contains its own functions and events used to interact with D
 
 | Name                                                           | Description                                                |
 |----------------------------------------------------------------|------------------------------------------------------------|
-| [`ActivityManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activities) | for Rich Presence and game invites                         |
-| [`OverlayManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/overlay)     | for interacting with Discord's built-in overlay            |
-| [`UserManager`](#DOCS_DEVELOPER_TOOLS_GAME_SDK/users)          | for fetching user data for a given id and the current user |
+| [`ActivityManager`](/docs/developer-tools/game-sdk#activities) | for Rich Presence and game invites                         |
+| [`OverlayManager`](/docs/developer-tools/game-sdk#overlay)     | for interacting with Discord's built-in overlay            |
+| [`UserManager`](/docs/developer-tools/game-sdk#users)          | for fetching user data for a given id and the current user |
 
 ### Using Functions in the SDK
 
@@ -297,7 +297,7 @@ Discord passes a number of environment variables down to the SDK. These are acce
 
 | name                   | method                                                                                                                                                  | description                                                                                                  |
 |------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_DEVELOPER_TOOLS_GAME_SDK/testing-locally)                                                                                         | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
+| DISCORD_INSTANCE_ID    | [Local Testing](/docs/developer-tools/game-sdk#testing-locally)                                                                                         | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
 | DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getoauth2token)     | the connected user's bearer token                                                                            |
 | DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getcurrentlocale) | the language that Discord is in for the connected user                                                       |
 | DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md#getcurrentbranch) | the branch of the running application that the user has launched                                             |
@@ -566,11 +566,11 @@ var overlayManager = discord.GetOverlayManager();
 ## Activities
 
 > info
-> Looking to build a game inside of Discord? Check out the (other) [Activities](#DOCS_ACTIVITIES_OVERVIEW) and the [Embedded SDK](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK) documentation.
+> Looking to build a game inside of Discord? Check out the (other) [Activities](/docs/activities/overview) and the [Embedded SDK](/docs/developer-tools/embedded-app-sdk) documentation.
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too! Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile for their friends, encouraging them to group up and play together.
 
-For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](#DOCS_RICH_PRESENCE_OVERVIEW).
+For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](/docs/rich-presence/overview).
 
 ### Data Models
 
@@ -578,63 +578,63 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name          | type   | description                   |
 |---------------|--------|-------------------------------|
-| Id            | Int64  | the user's id                 |
-| Username      | string | their name                    |
-| Discriminator | string | the user's unique discrim     |
-| Avatar        | string | the hash of the user's avatar |
-| Bot           | bool   | if the user is a bot user     |
+| id            | Int64  | the user's id                 |
+| username      | string | their name                    |
+| discriminator | string | the user's unique discrim     |
+| avatar        | string | the hash of the user's avatar |
+| bot           | bool   | if the user is a bot user     |
 
 #### Activity Struct
 
-| name          | type                                                                           | description                                                     |
-|---------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| ApplicationId | Int64                                                                          | your application id - this is a read-only field                 |
-| Name          | string                                                                         | name of the application - this is a read-only field             |
-| State         | string                                                                         | the player's current party status                               |
-| Details       | string                                                                         | what the player is currently doing                              |
-| Timestamps    | [ActivityTimestamps](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
-| Assets        | [ActivityAssets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityassets-struct)         | assets to display on the player's profile                       |
-| Party         | [ActivityParty](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activityparty-struct)           | information about the player's party                            |
-| Secrets       | [ActivitySecrets](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activitysecrets-struct)       | secret passwords for joining and spectating the player's game   |
-| Instance      | bool                                                                           | whether this activity is an instanced context, like a match     |
+| name          | type                                                                            | description                                                     |
+|---------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| applicationId | Int64                                                                           | your application id - this is a read-only field                 |
+| name          | string                                                                          | name of the application - this is a read-only field             |
+| state         | string                                                                          | the player's current party status                               |
+| details?      | ?string                                                                         | what the player is currently doing                              |
+| timestamps?   | ?[ActivityTimestamps](/docs/developer-tools/game-sdk#activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
+| assets?       | ?[ActivityAssets](/docs/developer-tools/game-sdk#activityassets-struct)         | assets to display on the player's profile                       |
+| party?        | ?[ActivityParty](/docs/developer-tools/game-sdk#activityparty-struct)           | information about the player's party                            |
+| secrets?      | ?[ActivitySecrets](/docs/developer-tools/game-sdk#activitysecrets-struct)       | secret passwords for joining and spectating the player's game   |
+| instance?     | ?bool                                                                           | whether this activity is an instanced context, like a match     |
 
 #### ActivityTimestamps Struct
 
-| name  | type  | description                                            |
-|-------|-------|--------------------------------------------------------|
-| Start | Int64 | unix timestamp - send this to have an "elapsed" timer  |
-| End   | Int64 | unix timestamp - send this to have a "remaining" timer |
+| name   | type   | description                                            |
+|--------|--------|--------------------------------------------------------|
+| start? | ?Int64 | unix timestamp - send this to have an "elapsed" timer  |
+| end?   | ?Int64 | unix timestamp - send this to have a "remaining" timer |
 
 #### ActivityAssets Struct
 
-| name       | type   | description                                                                                  |
-|------------|--------|----------------------------------------------------------------------------------------------|
-| LargeImage | string | see [Activity Asset Image](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
-| LargeText  | string | hover text for the large image                                                               |
-| SmallImage | string | see [Activity Asset Image](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) |
-| SmallText  | string | hover text for the small image                                                               |
+| name        | type    | description                                                                                  |
+|-------------|---------|----------------------------------------------------------------------------------------------|
+| largeImage? | ?string | see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
+| largeText?  | ?string | hover text for the large image                                                               |
+| smallImage? | ?string | see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
+| smallText?  | ?string | hover text for the small image                                                               |
 
 #### ActivityParty Struct
 
 | name | type      | description                        |
 |------|-----------|------------------------------------|
-| Id   | string    | a unique identifier for this party |
-| Size | PartySize | info about the size of the party   |
+| id   | string    | a unique identifier for this party |
+| size | PartySize | info about the size of the party   |
 
 #### PartySize Struct
 
 | name        | type  | description                        |
 |-------------|-------|------------------------------------|
-| CurrentSize | Int32 | the current size of the party      |
-| MaxSize     | Int32 | the max possible size of the party |
+| currentSize | Int32 | the current size of the party      |
+| maxSize     | Int32 | the max possible size of the party |
 
 #### ActivitySecrets Struct
 
-| name     | type   | description                                  |
-|----------|--------|----------------------------------------------|
-| Match    | string | unique hash for the given match context      |
-| Join     | string | unique hash for chat invites and Ask to Join |
-| Spectate | string | unique hash for Spectate button              |
+| name      | type    | description                                  |
+|-----------|---------|----------------------------------------------|
+| match?    | ?string | unique hash for the given match context      |
+| join?     | ?string | unique hash for chat invites and Ask to Join |
+| spectate? | ?string | unique hash for Spectate button              |
 
 #### ActivityType Enum
 
@@ -647,7 +647,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Custom    | 4     |
 | Competing | 5     |
 
-For more details about the activity types, [see Gateway documentation](#DOCS_EVENTS_GATEWAY_EVENTS//activity-object-activity-types).
+For more details about the activity types, [see Gateway documentation](/docs/events/gateway-events#activity-object-activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 
@@ -677,17 +677,17 @@ If you want to hook up joining and spectating for your games, there are certain 
 |--------------------------------|:--------------:|:--------:|:----:|:-----------:|
 | State                          |                |          |      |             |
 | Details                        |                |          |      |             |
-| ActivityTimestamps.Start       |                |          |      |             |
-| ActivityTimestamps.End         |                |          |      |             |
-| ActivityAssets.LargeImage      |       x        |          |      |             |
-| ActivityAssets.SmallImage      |       x        |          |      |             |
-| ActivityAssets.LargeText       |       x        |          |      |             |
-| ActivityAssets.SmallText       |       x        |          |      |             |
-| ActivityParty.Id               |                |          |  x   |      x      |
-| ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
-| ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
-| ActivitySecrets.Join           |                |          |  x   |      x      |
-| ActivitySecrets.Spectate       |                |    x     |      |             |
+| ActivityTimestamps.start       |                |          |      |             |
+| ActivityTimestamps.end         |                |          |      |             |
+| ActivityAssets.largeImage      |       x        |          |      |             |
+| ActivityAssets.smallImage      |       x        |          |      |             |
+| ActivityAssets.largeText       |       x        |          |      |             |
+| ActivityAssets.smallText       |       x        |          |      |             |
+| ActivityParty.id               |                |          |  x   |      x      |
+| ActivityParty.size.currentSize |                |          |  x   |      x      |
+| ActivityParty.size.maxSize     |                |          |  x   |      x      |
+| ActivitySecrets.join           |                |          |  x   |      x      |
+| ActivitySecrets.spectate       |                |    x     |      |             |
 
 </Collapsible>
 
@@ -858,7 +858,7 @@ activityManager.OnActivityJoinRequest += user =>
 
 #### SendInvite
 
-Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](/docs/developer-tools/game-sdk#activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
@@ -1216,7 +1216,7 @@ overlayManager.SetLocked(true, (res) =>
 
 #### OpenActivityInvite
 
-Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_DEVELOPER_TOOLS_GAME_SDK/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
+Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](/docs/developer-tools/game-sdk#activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
@@ -1245,7 +1245,7 @@ overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (result) =>
 
 Opens the overlay modal for joining a Discord guild, given its invite code. An invite code for a server may look something like `fortnite` for a verified server—the full invite being `discord.gg/fortnite`—or something like `rjEeUJq` for a non-verified server, the full invite being `discord.gg/rjEeUJq`.
 
-Returns a `Discord.Result` via callback. Note that a successful `Discord.Result` response does not necessarily mean that the user has joined the guild. If you want more granular control over and knowledge about users joining your guild, you may want to look into implementing the [`guilds.join` OAuth2 scope in an authorization code grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) in conjunction with the [Add Guild Members](#DOCS_RESOURCES_GUILD/add-guild-member) endpoint.
+Returns a `Discord.Result` via callback. Note that a successful `Discord.Result` response does not necessarily mean that the user has joined the guild. If you want more granular control over and knowledge about users joining your guild, you may want to look into implementing the [`guilds.join` OAuth2 scope in an authorization code grant](/docs/topics/oauth2#authorization-code-grant) in conjunction with the [Add Guild Members](/docs/resources/guild#add-guild-member) endpoint.
 
 ###### Parameters
 
@@ -1274,7 +1274,7 @@ Opens the overlay widget for voice settings for the currently connected applicat
 
 <Collapsible title="Screenshot of the Voice Settings modal for an application" icon="view">
 
-![Screenshot of the Voice Settings modal for an application](game-overlay-sdk-voice-settings.png)
+![Screenshot of the Voice Settings modal for an application](images/game-overlay-sdk-voice-settings.png)
 </Collapsible>
 
 Returns a `Discord.Result` via callback.
@@ -1333,7 +1333,7 @@ overlayManager.OpenActivityInvite(ActivityActionType.Join, (result) =>
 
 And that invite modal looks like this!
 
-![Screenshot of an Invitation Modal in an application](game-overlay-sdk-invite.gif)
+![Screenshot of an Invitation Modal in an application](images/game-overlay-sdk-invite.gif)
 
 </Collapsible>
 
@@ -1377,9 +1377,9 @@ This manager helps retrieve basic user information for any user on Discord.
 #### GetCurrentUser
 
 > info
-> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_DEVELOPER_TOOLS_GAME_SDK/oncurrentuserupdate) callback to fire after instantiating the User manager.
+> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](/docs/developer-tools/game-sdk#oncurrentuserupdate) callback to fire after instantiating the User manager.
 
-Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESOURCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
+Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](/docs/resources/user#get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](/docs/topics/oauth2#authorization-code-grant) flow.
 
 Returns a `Discord.User`.
 
@@ -1422,7 +1422,7 @@ userManager.GetUser(userId, (Discord.Result result, ref Discord.User user) =>
 
 #### GetCurrentUserPremiumType
 
-Get the [PremiumType](#DOCS_DEVELOPER_TOOLS_GAME_SDK/premiumtype-enum) for the currently connected user.
+Get the [PremiumType](/docs/developer-tools/game-sdk#premiumtype-enum) for the currently connected user.
 
 Returns `Discord.PremiumType`.
 
@@ -1453,7 +1453,7 @@ switch (premiumType)
 
 #### CurrentUserHasFlag
 
-See whether or not the current user has a certain [UserFlag](#DOCS_DEVELOPER_TOOLS_GAME_SDK/userflag-enum) on their account.
+See whether or not the current user has a certain [UserFlag](/docs/developer-tools/game-sdk#userflag-enum) on their account.
 
 Returns `bool`.
 
@@ -1461,7 +1461,7 @@ Returns `bool`.
 
 | name | type                                                     | description                             |
 |------|----------------------------------------------------------|-----------------------------------------|
-| flag | [UserFlag](#DOCS_DEVELOPER_TOOLS_GAME_SDK/userflag-enum) | the flag to check on the user's account |
+| flag | [UserFlag](/docs/developer-tools/game-sdk#userflag-enum) | the flag to check on the user's account |
 
 ###### Example
 

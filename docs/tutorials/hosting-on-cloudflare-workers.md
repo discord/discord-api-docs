@@ -4,19 +4,19 @@ sidebar_label: Hosting on Cloudflare Workers
 
 # Hosting a Reddit API Discord app on Cloudflare Workers
 
-When building Discord apps, your app can receive common events from the client as [webhooks](#DOCS_RESOURCES_WEBHOOK) when users interact with your app through interactions like [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) or [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS).
+When building Discord apps, your app can receive common events from the client as [webhooks](/docs/resources/webhook) when users interact with your app through interactions like [application commands](/docs/interactions/application-commands) or [message components](/docs/interactions/message-components).
 
 Discord will send these events to a pre-configured HTTPS endpoint (called an Interactions Endpoint URL in an app's configuration) as a JSON payload with details about the event.
 
 This tutorial walks through building a Discord app powered by [`r/aww`](https://www.reddit.com/r/aww) using JavaScript:
 
-![Demo of Reddit API app](cloudflare-tutorial-demo.gif)
+![Demo of Reddit API app](images/cloudflare-tutorial-demo.gif)
 
 All of the code for this app can be found **[on GitHub](https://github.com/discord/cloudflare-sample-app)**.
 
 ### Features and technologies used
 
-- [Discord Interactions API](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) (specifically slash commands)
+- [Discord Interactions API](/docs/interactions/receiving-and-responding) (specifically slash commands)
 - [Cloudflare Workers](https://workers.cloudflare.com/) for hosting
 - [Reddit API](https://www.reddit.com/dev/api/) to send messages back to the user
 
@@ -30,7 +30,7 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 - Click `New Application`, and choose a name
 - Copy your **Public Key** and **Application ID**, and put them somewhere locally (we'll need these later)
 
-![IDs found in app settings](cloudflare-general-overview.png)
+![IDs found in app settings](images/cloudflare-general-overview.png)
 
 - Now click on the **Bot** tab on the left sidebar.
 - Grab the `token` for your bot, and store it somewhere safe (I like to put these tokens in a password manager like [1password](https://1password.com/) or [lastpass](https://www.lastpass.com/)).
@@ -40,12 +40,12 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 
 ## Adding bot permissions
 
-Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) required to create and use slash commands, as well as send messages in  channels.
+Now we'll configure the bot with [permissions](/docs/topics/permissions) required to create and use slash commands, as well as send messages in  channels.
 
 - Click on the `OAuth2` tab, and choose the `URL Generator`. Click the `bot` and `applications.commands` scopes.
 - Check the boxes next to `Send Messages` and `Use Slash Commands`, then copy the `Generated URL`.
 
-![Configuring bot permissions in app settings](cloudflare-url-generator.png)
+![Configuring bot permissions in app settings](images/cloudflare-url-generator.png)
 
 - Paste the URL into the browser and follow the OAuth flow, selecting the server where you'd like to develop and test your bot.
 
@@ -131,7 +131,7 @@ export const INVITE_COMMAND = {
 };
 ```
 
-The code to register commands lives in `register.js`. Commands can be [registered globally](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command), making them available for all servers with the app installed, or they can be [registered on a single server](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
+The code to register commands lives in `register.js`. Commands can be [registered globally](/docs/interactions/application-commands#create-global-application-command), making them available for all servers with the app installed, or they can be [registered on a single server](/docs/interactions/application-commands#create-guild-application-command).
 
 In this example - we'll just focus on global commands:
 
@@ -211,13 +211,13 @@ When a user types a slash command, Discord will send an HTTP request to a public
 $ npm run ngrok
 ```
 
-![ngrok forwarding address](cloudflare-ngrok.png)
+![ngrok forwarding address](images/cloudflare-ngrok.png)
 
 This is going to bounce requests off of an external endpoint, and forward them to your machine. Copy the HTTPS link provided by the tool. It should look something like `https://8098-24-22-245-250.ngrok.io`.
 
 Now head back to the Discord Developer Dashboard, and update the `Interactions Endpoint URL` for your app:
 
-![Interactions Endpoint URL](cloudflare-interactions-endpoint.png)
+![Interactions Endpoint URL](images/cloudflare-interactions-endpoint.png)
 
 This is the process we'll use for local testing and development. When you've published your app to Cloudflare, you will **want to update this field to use your Cloudflare Worker URL.**
 
@@ -345,6 +345,6 @@ router.post('/', async (request, env) => {
 
 With your app built and deployed, you can start customizing it to be your own:
 
-- Use **[message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** in your app to add more interactivity (like buttons and select menus).
+- Use **[message components](/docs/interactions/message-components)** in your app to add more interactivity (like buttons and select menus).
 - Take a look at different **[public APIs](https://github.com/public-apis/public-apis)** on GitHub.
 - Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other developers.

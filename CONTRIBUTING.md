@@ -52,7 +52,7 @@ For example:
 > Something that requires warning here
 ```
 
-![Alert options](images/alerts.png)
+![Alert options](static/images/alerts.png)
 
 ### MDX Components
 
@@ -63,6 +63,7 @@ There are a few reusable MDX components that can be used on pages with the `mdx`
 Collapsibles allow you to show/hide content on a page that may be secondary to the page's primary content. They have four fields that can be set: `title`, `description`, `icon`, and an `open` flag (which makes the collapsible element open by default).
 
 Available options for `icon`:
+
 - `"list"`
 - `"view"`
 - `"question"`
@@ -71,7 +72,7 @@ Available options for `icon`:
 
 ###### Example
 
-![Collapsible MDX Component with the list icon](images/mdx-collapsible.png)
+![Collapsible MDX Component with the list icon](static/images/mdx-collapsible.png)
 
 ```markdown
 <Collapsible title="Title" description="Description text" icon="list">
@@ -85,7 +86,7 @@ Buttons are simply... clickable buttons. They take `href` and `color` as argumen
 
 ###### Example
 
-![Button MDX Component](images/mdx-button.png)
+![Button MDX Component](static/images/mdx-button.png)
 
 ```markdown
 <LinkButton to="https://discord.com/developers/docs/getting-started" color="brand">click the button!</LinkButton>
@@ -97,7 +98,7 @@ Cards let you display links in a card format. They accept two arguments, `title`
 
 ###### Example
 
-![Card MDX Component](images/mdx-card.png)
+![Card MDX Component](static/images/mdx-card.png)
 
 ```markdown
 <Card title="Card Title" link="https://discord.com/developers/docs/getting-started">

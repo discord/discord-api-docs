@@ -4,7 +4,7 @@ sidebar_label: Setting Rich Presence
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-[Home](#DOCS_INTRO) > [Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_OVERVIEW) > [Development Guides](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES) > {sidebar_label}
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # {sidebar_label}
 
@@ -15,7 +15,7 @@ Rich Presence allows you to display detailed information about what players are 
 ### Prerequisites
 
 Before you begin, make sure you have:
-- [Set up the Discord Social SDK](#DOCS_DISCORD_SOCIAL_SDK_GETTING_STARTED)
+- [Set up the Discord Social SDK](/docs/discord-social-sdk/getting-started)
 - Connected to Discord with a valid client instance
 
 ---
@@ -29,7 +29,7 @@ Rich Presence allows you to display detailed information about players' actions 
 - Server member lists
 
 > info
-> Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](#DOCS_EVENTS_GATEWAY_EVENTS#activity-object). This is not to be confused with [Discord Activities](#DOCS_ACTIVITIES_OVERVIEW), which are embedded games that can also set and display rich presence.
+> Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
 
 Each [`Activity`] contains fields that describe the following:
 
@@ -42,7 +42,7 @@ Each [`Activity`] contains fields that describe the following:
 | `party`              | Party information        | Shows party size and capacity (e.g., "2 of 4")                                                        |
 | `timestamps`         | Activity duration        | Shows elapsed or remaining time                                                                       |
 | `assets`             | Custom artwork           | Game/map thumbnails and character icons                                                               |
-| `secrets`            | Join/spectate tokens     | Enable [Game Invite](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES) functionality |
+| `secrets`            | Join/spectate tokens     | Enable [Game Invite](/docs/discord-social-sdk/development-guides/managing-game-invites) functionality |
 | `supportedPlatforms` | Platform flags           | Control where join buttons appear                                                                     |
 
 See below for examples of how to set these fields in your code.
@@ -68,10 +68,10 @@ You can control how lines 2 and 3 are rendered in Discord, here's the breakdown:
 
 This diagram visually shows the field mapping:
 
-![Graphical representation of the legend for rich presence details](rp-legend.png)
+![Graphical representation of the legend for rich presence details](images/rp-legend.png)
 
 > info
-> For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES).
+> For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
 
 ---
 
@@ -79,7 +79,7 @@ This diagram visually shows the field mapping:
 
 The Rich Presence invite image appears when invites are sent for a 3rd party game or app using the Discord Social SDK. After uploading an invite image for your app, you can see a preview of it to the right (under "IRL Invite Image Example").
 
-![Rich Presence invite image in app settings](rich-presence-invite-image.png)
+![Rich Presence invite image in app settings](images/rich-presence-invite-image.png)
 
 ---
 
@@ -89,20 +89,20 @@ While integrating Rich Presence, you'll likely want to upload custom art assets 
 
 To add custom assets for Rich Presence, navigate to your app's settings and click Rich Presence on the left-hand sidebar. On the Art Assets page, you can upload two different types of assets.
 
-![Rich Presence invite image in app settings](rich-presence-invite-image.png)
+![Rich Presence invite image in app settings](images/rich-presence-invite-image.png)
 
 Up to 300 custom assets can be added to your app for later use when setting Rich Presence for a Discord user. These assets can be anything that help orient others to what a user is doing inside of your Activity or 3rd party game.
 
-If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
 
 > info
-> For tips on choosing assets, take a look at the [Rich Presence best practices guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES/have-interesting-expressive-art).
+> For tips on choosing assets, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices#have-interesting-expressive-art).
 
 When uploading Rich Presence assets, **the asset keys will automatically be changed to lowercase**. You can see this reflected in your app's settings after saving a newly uploaded asset, and you should keep it in mind when referencing any asset keys in your code.
 
-Once you've uploaded these assets, you can use the asset key to reference them in your code when [Setting Assets in Rich Presence](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_SETTING_RICH_PRESENCE/setting-assets).
+Once you've uploaded these assets, you can use the asset key to reference them in your code when [Setting Assets in Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence#setting-assets).
 
-![Rich Presence assets in app settings](rich-presence-asset-images.png)
+![Rich Presence assets in app settings](images/rich-presence-asset-images.png)
 
 ---
 
@@ -156,13 +156,13 @@ activity.SetAssets(assets);
 ```
 
 > info
-> If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](#DOCS_EVENTS_GATEWAY_EVENTS/activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+> If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
 
 ---
 
 ## Setting Party and Join Secret
 
-You can also include party details and a join secret in your Rich Presence to power Game Invites. Check out the [Game Invites guide](#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES) for more information.
+You can also include party details and a join secret in your Rich Presence to power Game Invites. Check out the [Game Invites guide](/docs/discord-social-sdk/development-guides/managing-game-invites) for more information.
 
 ```cpp
 
@@ -200,13 +200,13 @@ See the `ActivityGamePlatforms` enum for all supported platforms.
 Now that you've set up Rich Presence, you might want to explore:
 
 <Container>
-  <Card title="Managing Game Invites" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_GAME_INVITES" icon="InboxIcon">
+  <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
     Allow players to invite friends to join their game session or party.
   </Card>
-  <Card title="Managing Lobbies" link="#DOCS_DISCORD_SOCIAL_SDK_DEVELOPMENT_GUIDES_MANAGING_LOBBIES" icon="DoorEnterIcon">
+  <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
     Bring players together in a shared lobby with invites, text chat, and voice comms.
   </Card>
-  <Card title="Design Guidelines for Rich Presence" link="#DOCS_DISCORD_SOCIAL_SDK_DESIGN_GUIDELINES_STATUS_RICH_PRESENCE" icon="UserStatusIcon">
+  <Card title="Design Guidelines for Rich Presence" link="/docs/discord-social-sdk/design-guidelines/status-rich-presence" icon="UserStatusIcon">
     Best practices for Rich Presence UI/UX.
   </Card>
 </Container>

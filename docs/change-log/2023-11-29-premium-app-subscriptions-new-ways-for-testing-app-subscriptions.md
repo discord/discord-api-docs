@@ -8,6 +8,6 @@ topics:
 Following feedback on Premium App Subscriptions, we've made it easier for developers to test their app subscriptions. The goal is to provide you with flexibility during testing and prevent you from having to use live payment methods.
 
 * Team members will automatically receive a 100% discount on a subscription for your app, allowing you to test the end-to-end payment flow
-* Developers can create and delete [test entitlements](#DOCS_RESOURCES_ENTITLEMENT/create-test-entitlement) to toggle access to an application's premium features
+* Developers can create and delete [test entitlements](/docs/resources/entitlement#create-test-entitlement) to toggle access to an application's premium features
 
-Read more about [Testing your App Subscriptions Implementation](#DOCS_MONETIZATION_IMPLEMENTING_APP_SUBSCRIPTIONS/testing-your-app-subscription-implementation) for details.
+Read more about [Testing your App Subscriptions Implementation](/docs/monetization/implementing-app-subscriptions#testing-your-app-subscription-implementation) for details.
