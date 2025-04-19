@@ -21,36 +21,36 @@ The first step in implementing OAuth2 is [registering a developer application](h
 
 These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use. Requesting them from a user without approval from Discord may cause errors or undocumented behavior in the OAuth2 flow.
 
-| Name                                     | Description                                                                                                                                                                             |
-|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| activities.read                          | allows your app to fetch data from a user's "Now Playing/Recently Played" list — not currently available for apps                                                                       |
-| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](/docs/developer-tools/game-sdk#activities))                 |
-| applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                            |
-| applications.builds.upload               | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                           |
-| applications.commands                    | allows your app to add [commands](/docs/interactions/application-commands#) to a guild - included by default with the `bot` scope                                                       |
-| applications.commands.update             | allows your app to update its [commands](/docs/interactions/application-commands#) using a Bearer token - [client credentials grant](/docs/topics/oauth2#client-credentials-grant) only |
-| applications.commands.permissions.update | allows your app to update [permissions for its commands](/docs/interactions/application-commands#permissions) in a guild a user has permissions to                                      |
-| applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                                                          |
-| applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                      |
-| bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                              |
-| connections                              | allows [/users/@me/connections](/docs/resources/user#get-current-user-connections) to return linked third-party accounts                                                                |
-| dm_channels.read                         | allows your app to see information about the user's DMs and group DMs - requires Discord approval                                                                                       |
-| email                                    | enables [/users/@me](/docs/resources/user#get-current-user) to return an `email`                                                                                                        |
-| gdm.join                                 | allows your app to [join users to a group dm](/docs/resources/channel#group-dm-add-recipient)                                                                                           |
-| guilds                                   | allows [/users/@me/guilds](/docs/resources/user#get-current-user-guilds) to return basic information about all of a user's guilds                                                       |
-| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](/docs/resources/guild#add-guild-member) to be used for joining users to a guild                                                           |
-| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](/docs/resources/user#get-current-user-guild-member) to return a user's member information in a guild                                       |
-| identify                                 | allows [/users/@me](/docs/resources/user#get-current-user) without `email`                                                                                                              |
-| messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                   |
-| relationships.read                       | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                         |
-| role_connections.write                   | allows your app to update a user's connection and metadata for the app                                                                                                                  |
-| rpc                                      | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                       |
-| rpc.activities.write                     | for local rpc server access, this allows you to update a user's activity - requires Discord approval                                                                                    |
-| rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                |
-| rpc.voice.read                           | for local rpc server access, this allows you to read a user's voice settings and listen for voice events - requires Discord approval                                                    |
-| rpc.voice.write                          | for local rpc server access, this allows you to update a user's voice settings - requires Discord approval                                                                              |
-| voice                                    | allows your app to connect to voice on user's behalf and see all the voice members - requires Discord approval                                                                          |
-| webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                     |
+| Name                                     | Description                                                                                                                                                                            |
+|------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| activities.read                          | allows your app to fetch data from a user's "Now Playing/Recently Played" list — not currently available for apps                                                                      |
+| activities.write                         | allows your app to update a user's activity - not currently available for apps (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](/docs/developer-tools/game-sdk#activities))                |
+| applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                           |
+| applications.builds.upload               | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                          |
+| applications.commands                    | allows your app to add [commands](/docs/interactions/application-commands) to a guild - included by default with the `bot` scope                                                       |
+| applications.commands.update             | allows your app to update its [commands](/docs/interactions/application-commands) using a Bearer token - [client credentials grant](/docs/topics/oauth2#client-credentials-grant) only |
+| applications.commands.permissions.update | allows your app to update [permissions for its commands](/docs/interactions/application-commands#permissions) in a guild a user has permissions to                                     |
+| applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                                                         |
+| applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                     |
+| bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                             |
+| connections                              | allows [/users/@me/connections](/docs/resources/user#get-current-user-connections) to return linked third-party accounts                                                               |
+| dm_channels.read                         | allows your app to see information about the user's DMs and group DMs - requires Discord approval                                                                                      |
+| email                                    | enables [/users/@me](/docs/resources/user#get-current-user) to return an `email`                                                                                                       |
+| gdm.join                                 | allows your app to [join users to a group dm](/docs/resources/channel#group-dm-add-recipient)                                                                                          |
+| guilds                                   | allows [/users/@me/guilds](/docs/resources/user#get-current-user-guilds) to return basic information about all of a user's guilds                                                      |
+| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](/docs/resources/guild#add-guild-member) to be used for joining users to a guild                                                          |
+| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](/docs/resources/user#get-current-user-guild-member) to return a user's member information in a guild                                      |
+| identify                                 | allows [/users/@me](/docs/resources/user#get-current-user) without `email`                                                                                                             |
+| messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                  |
+| relationships.read                       | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                        |
+| role_connections.write                   | allows your app to update a user's connection and metadata for the app                                                                                                                 |
+| rpc                                      | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                      |
+| rpc.activities.write                     | for local rpc server access, this allows you to update a user's activity - requires Discord approval                                                                                   |
+| rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                               |
+| rpc.voice.read                           | for local rpc server access, this allows you to read a user's voice settings and listen for voice events - requires Discord approval                                                   |
+| rpc.voice.write                          | for local rpc server access, this allows you to update a user's voice settings - requires Discord approval                                                                             |
+| voice                                    | allows your app to connect to voice on user's behalf and see all the voice members - requires Discord approval                                                                         |
+| webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                    |
 
 > info
 > In order to add a user to a guild, your bot has to already belong to that guild.
@@ -284,7 +284,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 |----------------------|-----------------------------------------------------------------------|
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
-| permissions          | the [permissions](/docs/topics/permissions#) you're requesting        |
+| permissions          | the [permissions](/docs/topics/permissions) you're requesting         |
 | guild_id             | pre-fills the dropdown picker with a guild for the user               |
 | disable_guild_select | `true` or `false`—disallows the user from changing the guild dropdown |
 

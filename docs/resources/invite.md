@@ -144,7 +144,7 @@ Extra information about an invite, will extend the [invite](/docs/resources/invi
 }
 ```
 
-## Get Invite % GET /invites/{invite.code/docs/resources/invite#invite-object}
+## Get Invite % GET /invites/||FIXME||invite.code||/docs/resources/invite#invite-object||
 
 Returns an [invite](/docs/resources/invite#invite-object) object for the given code.
 
@@ -156,7 +156,7 @@ Returns an [invite](/docs/resources/invite#invite-object) object for the given c
 | with_expiration?          | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain the expiration date       |
 | guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite        |
 
-## Delete Invite % DELETE /invites/{invite.code/docs/resources/invite#invite-object}
+## Delete Invite % DELETE /invites/||FIXME||invite.code||/docs/resources/invite#invite-object||
 
 Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](/docs/resources/invite#invite-object) object on success. Fires an [Invite Delete](/docs/events/gateway-events#invite-delete) Gateway event.
 

@@ -59,7 +59,7 @@ Some examples of this behavior include:
 - While a failed payment is being retried, the subscription would remain `ACTIVE` until it succeeds or our system determines the payment is not recoverable.
 - A refund or chargeback during the current period would make the subscription `INACTIVE`.
 
-## List SKU Subscriptions % GET /skus/{sku.id/docs/resources/sku#sku-object}/subscriptions
+## List SKU Subscriptions % GET /skus/||FIXME||sku.id||/docs/resources/sku#sku-object||/subscriptions
 
 Returns all subscriptions containing the SKU, filtered by user. Returns a list of [subscription](/docs/resources/subscription#subscription-object) objects.
 
@@ -72,6 +72,6 @@ Returns all subscriptions containing the SKU, filtered by user. Returns a list o
 | limit?   | integer   | Number of results to return (1-100)                                           | 50      |
 | user_id? | snowflake | User ID for which to return subscriptions. Required except for OAuth queries. | absent  |
 
-## Get SKU Subscription % GET /skus/{sku.id/docs/resources/sku#sku-object}/subscriptions/{subscription.id#DOCS_MONETIZATION_SUBSCRIPTIONS/subscription-object}
+## Get SKU Subscription % GET /skus/||FIXME||sku.id||/docs/resources/sku#sku-object||/subscriptions/||FIXME||subscription.id||/docs/resources/subscription#subscription-object||
 
 Get a subscription by its ID. Returns a [subscription](/docs/resources/subscription#subscription-object) object.

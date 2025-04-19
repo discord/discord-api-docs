@@ -1,6 +1,6 @@
 # Application Role Connection Metadata
 
-A representation of role connection metadata for an [application](/docs/resources/application#).
+A representation of role connection metadata for an [application](/docs/resources/application).
 
 When a guild has added a bot and that bot has configured its [`role_connections_verification_url`](/docs/resources/application#application-object) (in the developer portal), the application will render as a potential verification method in the guild's role verification configuration.
 
@@ -37,11 +37,11 @@ When a user connects their account using the bot's [`role_connections_verificati
 > info
 > Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
 
-## Get Application Role Connection Metadata Records % GET /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
+## Get Application Role Connection Metadata Records % GET /applications/||FIXME||application.id||/docs/resources/application#application-object||/role-connections/metadata
 
 Returns a list of [application role connection metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object) objects for the given application.
 
-## Update Application Role Connection Metadata Records % PUT /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
+## Update Application Role Connection Metadata Records % PUT /applications/||FIXME||application.id||/docs/resources/application#application-object||/role-connections/metadata
 
 Updates and returns a list of [application role connection metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object) objects for the given application.
 

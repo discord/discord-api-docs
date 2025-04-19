@@ -88,15 +88,15 @@ The `user` field of an app emoji object represents the team member that uploaded
 }
 ```
 
-## List Guild Emojis % GET /guilds/{guild.id/docs/resources/guild#guild-object}/emojis
+## List Guild Emojis % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/emojis
 
 Returns a list of [emoji](/docs/resources/emoji#emoji-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Get Guild Emoji % GET /guilds/{guild.id/docs/resources/guild#guild-object}/emojis/{emoji.id/docs/resources/emoji#emoji-object}
+## Get Guild Emoji % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/emojis/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the the `CREATE_GUILD_EXPRESSIONS` permission.
 
-## Create Guild Emoji % POST /guilds/{guild.id/docs/resources/guild#guild-object}/emojis
+## Create Guild Emoji % POST /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/emojis
 
 Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
@@ -114,7 +114,7 @@ Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permis
 | image | [image data](/docs/reference#image-data) | the 128x128 emoji image         |
 | roles | array of snowflakes                      | roles allowed to use this emoji |
 
-## Modify Guild Emoji % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/emojis/{emoji.id/docs/resources/emoji#emoji-object}
+## Modify Guild Emoji % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/emojis/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Modify the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
@@ -131,14 +131,14 @@ Modify the given emoji. For emojis created by the current user, requires either 
 | name  | string               | name of the emoji               |
 | roles | ?array of snowflakes | roles allowed to use this emoji |
 
-## Delete Guild Emoji % DELETE /guilds/{guild.id/docs/resources/guild#guild-object}/emojis/{emoji.id/docs/resources/emoji#emoji-object}
+## Delete Guild Emoji % DELETE /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/emojis/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Delete the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-## List Application Emojis % GET /applications/{application.id/docs/resources/application#application-object}/emojis
+## List Application Emojis % GET /applications/||FIXME||application.id||/docs/resources/application#application-object||/emojis
 
 Returns an object containing a list of [emoji](/docs/resources/emoji#emoji-object) objects for the given application under the `items` key. Includes a `user` object for the team member that uploaded the emoji from the app's settings, or for the bot user if uploaded using the API.
 
@@ -164,11 +164,11 @@ Returns an object containing a list of [emoji](/docs/resources/emoji#emoji-objec
 }
 ```
 
-## Get Application Emoji % GET /applications/{application.id/docs/resources/application#application-object}/emojis/{emoji.id/docs/resources/emoji#emoji-object}
+## Get Application Emoji % GET /applications/||FIXME||application.id||/docs/resources/application#application-object||/emojis/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given application and emoji IDs. Includes the `user` field.
 
-## Create Application Emoji % POST /applications/{application.id/docs/resources/application#application-object}/emojis
+## Create Application Emoji % POST /applications/||FIXME||application.id||/docs/resources/application#application-object||/emojis
 
 Create a new emoji for the application. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success.
 
@@ -182,7 +182,7 @@ Create a new emoji for the application. Returns the new [emoji](/docs/resources/
 | name  | string                                   | name of the emoji       |
 | image | [image data](/docs/reference#image-data) | the 128x128 emoji image |
 
-## Modify Application Emoji % PATCH /applications/{application.id/docs/resources/application#application-object}/emojis/{emoji.id/docs/resources/emoji#emoji-object}
+## Modify Application Emoji % PATCH /applications/||FIXME||application.id||/docs/resources/application#application-object||/emojis/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Modify the given emoji. Returns the updated [emoji](/docs/resources/emoji#emoji-object) object on success.
 
@@ -192,6 +192,6 @@ Modify the given emoji. Returns the updated [emoji](/docs/resources/emoji#emoji-
 |-------|--------|-------------------|
 | name  | string | name of the emoji |
 
-## Delete Application Emoji % DELETE /applications/{application.id/docs/resources/application#application-object}/emojis/{emoji.id/docs/resources/emoji#emoji-object}
+## Delete Application Emoji % DELETE /applications/||FIXME||application.id||/docs/resources/application#application-object||/emojis/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Delete the given emoji. Returns `204 No Content` on success.

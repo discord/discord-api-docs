@@ -58,7 +58,7 @@ Refer to the [Monetization Overview](/docs/monetization/overview) for more infor
 | PREMIUM_PURCHASE         | 7     | Entitlement was claimed by user for free as a Nitro Subscriber |
 | APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription               |
 
-## List Entitlements % GET /applications/{application.id/docs/resources/application#application-object}/entitlements
+## List Entitlements % GET /applications/||FIXME||application.id||/docs/resources/application#application-object||/entitlements
 
 Returns all entitlements for a given app, active and expired.
 
@@ -95,7 +95,7 @@ Returns all entitlements for a given app, active and expired.
 ]
 ```
 
-## Get Entitlement % GET /applications/{application.id#DOS_RESOURCES_APPLICATION/application-object}/entitlements/{entitlement.id/docs/resources/entitlement#entitlement-object}
+## Get Entitlement % GET /applications/||FIXME||application.id||/docs/resources/application#application-object||/entitlements/||FIXME||entitlement.id||/docs/resources/entitlement#entitlement-object||
 
 Returns an entitlement.
 
@@ -117,13 +117,13 @@ Returns an entitlement.
 }
 ```
 
-## Consume an Entitlement % POST /applications/{application.id/docs/resources/application#application-object}/entitlements/{entitlement.id/docs/resources/entitlement#entitlement-object}/consume
+## Consume an Entitlement % POST /applications/||FIXME||application.id||/docs/resources/application#application-object||/entitlements/||FIXME||entitlement.id||/docs/resources/entitlement#entitlement-object||/consume
 
 For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](/docs/resources/entitlement#list-entitlements).
 
 Returns a `204 No Content` on success.
 
-## Create Test Entitlement % POST /applications/{application.id/docs/resources/application#application-object}/entitlements
+## Create Test Entitlement % POST /applications/||FIXME||application.id||/docs/resources/application#application-object||/entitlements
 
 Creates a test entitlement to a given SKU for a given guild or user. Discord will act as though that user or guild has entitlement to your premium offering.
 
@@ -147,7 +147,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 }
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id/docs/resources/application#application-object}/entitlements/{entitlement.id/docs/resources/entitlement#entitlement-object}
+## Delete Test Entitlement % DELETE /applications/||FIXME||application.id||/docs/resources/application#application-object||/entitlements/||FIXME||entitlement.id||/docs/resources/entitlement#entitlement-object||
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 

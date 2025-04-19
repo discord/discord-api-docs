@@ -60,7 +60,7 @@ A soundboard sound can be retrieved in MP3 or Ogg format at the URL:
 https://cdn.discordapp.com/soundboard-sounds/{sound_id}
 ```
 
-## Send Soundboard Sound % POST /channels/{channel.id/docs/resources/channel#channel-object}/send-soundboard-sound
+## Send Soundboard Sound % POST /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/send-soundboard-sound
 
 Send a soundboard sound to a voice channel the user is connected to. Fires a [Voice Channel Effect Send](/docs/events/gateway-events#voice-channel-effect-send) Gateway event.
 
@@ -77,7 +77,7 @@ Requires the `SPEAK` and `USE_SOUNDBOARD` permissions, and also the `USE_EXTERNA
 
 Returns an array of [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) objects that can be used by all users.
 
-## List Guild Soundboard Sounds % GET /guilds/{guild.id/docs/resources/guild#guild-object}/soundboard-sounds
+## List Guild Soundboard Sounds % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/soundboard-sounds
 
 Returns a list of the guild's soundboard sounds. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
@@ -87,11 +87,11 @@ Returns a list of the guild's soundboard sounds. Includes `user` fields if the b
 |-------|-----------------------------------------------------------------------------------------|
 | items | array of [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) objects |
 
-## Get Guild Soundboard Sound % GET /guilds/{guild.id/docs/resources/guild#guild-object}/soundboard-sounds/{sound.id/docs/resources/soundboard#soundboard-sound-object}
+## Get Guild Soundboard Sound % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/soundboard-sounds/||FIXME||sound.id||/docs/resources/soundboard#soundboard-sound-object||
 
 Returns a [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) object for the given sound id. Includes the `user` field if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Create Guild Soundboard Sound % POST /guilds/{guild.id/docs/resources/guild#guild-object}/soundboard-sounds
+## Create Guild Soundboard Sound % POST /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/soundboard-sounds
 
 Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Create](/docs/events/gateway-events#guild-soundboard-sound-create) Gateway event.
 
@@ -111,7 +111,7 @@ Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSI
 | emoji_id?   | ?snowflake | the id of the custom emoji for the soundboard sound                                            |
 | emoji_name? | ?string    | the unicode character of a standard emoji for the soundboard sound                             |
 
-## Modify Guild Soundboard Sound % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/soundboard-sounds/{sound.id/docs/resources/soundboard#soundboard-sound-object}
+## Modify Guild Soundboard Sound % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/soundboard-sounds/||FIXME||sound.id||/docs/resources/soundboard#soundboard-sound-object||
 
 Modify the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Update](/docs/events/gateway-events#guild-soundboard-sound-update) Gateway event.
 
@@ -130,7 +130,7 @@ Modify the given soundboard sound. For sounds created by the current user, requi
 | emoji_id   | ?snowflake | the id of the custom emoji for the soundboard sound                |
 | emoji_name | ?string    | the unicode character of a standard emoji for the soundboard sound |
 
-## Delete Guild Soundboard Sound % DELETE /guilds/{guild.id/docs/resources/guild#guild-object}/soundboard-sounds/{sound.id/docs/resources/soundboard#soundboard-sound-object}
+## Delete Guild Soundboard Sound % DELETE /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/soundboard-sounds/||FIXME||sound.id||/docs/resources/soundboard#soundboard-sound-object||
 
 Delete the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Soundboard Sound Delete](/docs/events/gateway-events#guild-soundboard-sound-delete) Gateway event.
 

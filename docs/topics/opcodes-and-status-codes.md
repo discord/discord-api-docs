@@ -357,7 +357,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ## RPC
 
-RPC is the [local Discord server](/docs/topics/rpc#) running on localhost. Access to the RPC server requires approval from Discord.
+RPC is the [local Discord server](/docs/topics/rpc) running on localhost. Access to the RPC server requires approval from Discord.
 
 ###### RPC Error Codes
 

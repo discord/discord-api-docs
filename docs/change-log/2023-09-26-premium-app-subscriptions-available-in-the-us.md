@@ -17,6 +17,6 @@ Starting today, eligible US-based developers can monetize their verified apps wi
   * [Delete Test Entitlement](/docs/resources/entitlement#delete-test-entitlement)  `DELETE /applications/<application.id>/entitlements/<entitlement.id>`
 * [Gateway Events](/docs/events/gateway-events#entitlements) for working with entitlements: `ENTITLEMENT_CREATE`, `ENTITLEMENT_UPDATE`, `ENTITLEMENT_DELETE`
 * New [`PREMIUM_REQUIRED (10)` interaction response type](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) is available to prompt users to upgrade
-* New `entitlements` field, which is an array of [entitlement](/docs/resources/entitlement#) objects, available in interaction data payloads when [receiving and responding to interactions](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure)
+* New `entitlements` field, which is an array of [entitlement](/docs/resources/entitlement) objects, available in interaction data payloads when [receiving and responding to interactions](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure)
 
 To learn more about eligibility details and how to enable monetization for your app, check out the [Monetization Overview](/docs/monetization/overview).

@@ -38,13 +38,13 @@ Represents a message sent in a channel within Discord.
 | type                      | integer                                                                                                                            | [type of message](/docs/resources/message#message-object-message-types)                                                                                                                                                                                                 |
 | activity?                 | [message activity](/docs/resources/message#message-object-message-activity-structure) object                                       | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
 | application?              | partial [application](/docs/resources/application#application-object) object                                                       | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                             |
-| application_id?           | snowflake                                                                                                                          | if the message is an [Interaction](/docs/interactions/receiving-and-responding#) or application-owned webhook, this is the id of the application                                                                                                                        |
+| application_id?           | snowflake                                                                                                                          | if the message is an [Interaction](/docs/interactions/receiving-and-responding) or application-owned webhook, this is the id of the application                                                                                                                         |
 | flags?                    | integer                                                                                                                            | [message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                 |
 | message_reference?        | [message reference](/docs/resources/message#message-reference-structure) object                                                    | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                       |
 | message_snapshots? \[5\]  | array of [message snapshot](/docs/resources/message#message-snapshot-object) objects                                               | the message associated with the `message_reference`. This is a minimal subset of fields in a message (e.g. `author` is excluded.)                                                                                                                                       |
 | referenced_message? \[4\] | ?[message object](/docs/resources/message#message-object)                                                                          | the message associated with the message_reference                                                                                                                                                                                                                       |
-| interaction_metadata?     | [message interaction metadata object](/docs/resources/message#message-interaction-metadata-object)                                 | Sent if the message is sent as a result of an [interaction](/docs/interactions/receiving-and-responding#)                                                                                                                                                               |
-| interaction?              | [message interaction object](/docs/interactions/receiving-and-responding#message-interaction-object-message-interaction-structure) | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](/docs/interactions/receiving-and-responding#)                                                                                                                  |
+| interaction_metadata?     | [message interaction metadata object](/docs/resources/message#message-interaction-metadata-object)                                 | Sent if the message is sent as a result of an [interaction](/docs/interactions/receiving-and-responding)                                                                                                                                                                |
+| interaction?              | [message interaction object](/docs/interactions/receiving-and-responding#message-interaction-object-message-interaction-structure) | **Deprecated in favor of `interaction_metadata`**; sent if the message is a response to an [interaction](/docs/interactions/receiving-and-responding)                                                                                                                   |
 | thread?                   | [channel](/docs/resources/channel#channel-object) object                                                                           | the thread that was started from this message, includes [thread member](/docs/resources/channel#thread-member-object) object                                                                                                                                            |
 | components? \[2\]         | array of [message components](/docs/interactions/message-components#component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                                                                                                                                                      |
 | sticker_items?            | array of [message sticker item objects](/docs/resources/sticker#sticker-item-object)                                               | sent if the message contains stickers                                                                                                                                                                                                                                   |
@@ -258,7 +258,7 @@ One of [Application Command Interaction Metadata](/docs/resources/message#messag
 | type                           | [interaction type](/docs/interactions/receiving-and-responding#interaction-object-interaction-type)                                   | Type of interaction                                                                                                                                                                                                                                                         |
 | user                           | [user](/docs/resources/user#user-object) object                                                                                       | User who triggered the interaction                                                                                                                                                                                                                                          |
 | authorizing_integration_owners | dictionary with keys of [application integration types](/docs/resources/application#application-object-application-integration-types) | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object)                                                         |
-| original_response_message_id?  | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding#)                                                                                                                                                     |
+| original_response_message_id?  | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding)                                                                                                                                                      |
 | target_user?                   | [user](/docs/resources/user#user-object) object                                                                                       | The user the command was run on, present only on [user command](/docs/interactions/application-commands#user-commands) interactions                                                                                                                                         |
 | target_message_id?             | snowflake                                                                                                                             | The ID of the message the command was run on, present only on [message command](/docs/interactions/application-commands#message-commands) interactions. The original response message will also have `message_reference` and `referenced_message` pointing to this message. |
                                                                                     
@@ -271,7 +271,7 @@ One of [Application Command Interaction Metadata](/docs/resources/message#messag
 | type                           | [interaction type](/docs/interactions/receiving-and-responding#interaction-object-interaction-type)                                   | Type of interaction                                                                                                                                                                                                 |
 | user                           | [user](/docs/resources/user#user-object) object                                                                                       | User who triggered the interaction                                                                                                                                                                                  |
 | authorizing_integration_owners | dictionary with keys of [application integration types](/docs/resources/application#application-object-application-integration-types) | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) |
-| original_response_message_id?  | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding#)                                                                                             |
+| original_response_message_id?  | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding)                                                                                              |
 | interacted_message_id          | snowflake                                                                                                                             | ID of the message that contained the interactive component                                                                                                                                                          |
 
 
@@ -283,7 +283,7 @@ One of [Application Command Interaction Metadata](/docs/resources/message#messag
 | type                            | [interaction type](/docs/interactions/receiving-and-responding#interaction-object-interaction-type)                                                                                                                                                                                                                         | Type of interaction                                                                                                                                                                                                 |
 | user                            | [user](/docs/resources/user#user-object) object                                                                                                                                                                                                                                                                             | User who triggered the interaction                                                                                                                                                                                  |
 | authorizing_integration_owners  | dictionary with keys of [application integration types](/docs/resources/application#application-object-application-integration-types)                                                                                                                                                                                       | IDs for installation context(s) related to an interaction. Details in [Authorizing Integration Owners Object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) |
-| original_response_message_id?   | snowflake                                                                                                                                                                                                                                                                                                                   | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding#)                                                                                             |
+| original_response_message_id?   | snowflake                                                                                                                                                                                                                                                                                                                   | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding)                                                                                              |
 | triggering_interaction_metadata | [Application Command Interaction Metadata](/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure) or [Message Component Interaction Metadata](/docs/resources/message#message-interaction-metadata-object-message-component-interaction-metadata-structure) object | Metadata for the interaction that was used to open the modal                                                                                                                                                        |
 
 
@@ -729,7 +729,7 @@ user 125 in the content.
 | total_months_subscribed      | integer   | the cumulative number of months that the user has been subscribed for |
 | is_renewal                   | boolean   | whether this notification is for a renewal rather than a new purchase |
 
-## Get Channel Messages % GET /channels/{channel.id/docs/resources/channel#channel-object}/messages
+## Get Channel Messages % GET /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages
 
 Retrieves the messages in a channel. Returns an array of [message](/docs/resources/message#message-object) objects on success.
 
@@ -749,13 +749,13 @@ If the current user is missing the `READ_MESSAGE_HISTORY` permission in the chan
 | after?  | snowflake | Get messages after this message ID       | absent  |
 | limit?  | integer   | Max number of messages to return (1-100) | 50      |
 
-## Get Channel Message % GET /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}
+## Get Channel Message % GET /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||
 
 Retrieves a specific message in the channel. Returns a [message](/docs/resources/message#message-object) object on success.
 
 If operating on a guild channel, this endpoint requires the current user to have the `VIEW_CHANNEL` and `READ_MESSAGE_HISTORY` permissions. If the channel is a voice channel, they must _also_ have the `CONNECT` permission.
 
-## Create Message % POST /channels/{channel.id/docs/resources/channel#channel-object}/messages
+## Create Message % POST /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages
 
 > warn
 > Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
@@ -815,28 +815,28 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 Examples for file uploads are available in [Uploading Files](/docs/reference#uploading-files).
 
-## Crosspost Message % POST /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/crosspost
+## Crosspost Message % POST /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/crosspost
 
 Crosspost a message in an Announcement Channel to following channels. This endpoint requires the `SEND_MESSAGES` permission, if the current user sent the message, or additionally the `MANAGE_MESSAGES` permission, for all other messages, to be present for the current user.
 
 Returns a [message](/docs/resources/message#message-object) object. Fires a [Message Update](/docs/events/gateway-events#message-update) Gateway event.
 
-## Create Reaction % PUT /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/reactions/{emoji/docs/resources/emoji#emoji-object}/@me
+## Create Reaction % PUT /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/reactions/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||/@me
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](/docs/events/gateway-events#message-reaction-add) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Delete Own Reaction % DELETE /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/reactions/{emoji/docs/resources/emoji#emoji-object}/@me
+## Delete Own Reaction % DELETE /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/reactions/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||/@me
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success. Fires a [Message Reaction Remove](/docs/events/gateway-events#message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Delete User Reaction % DELETE /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/reactions/{emoji/docs/resources/emoji#emoji-object}/{user.id/docs/resources/user#user-object}
+## Delete User Reaction % DELETE /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/reactions/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||/||FIXME||user.id||/docs/resources/user#user-object||
 
 Deletes another user's reaction. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Remove](/docs/events/gateway-events#message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Get Reactions % GET /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/reactions/{emoji/docs/resources/emoji#emoji-object}
+## Get Reactions % GET /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/reactions/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Get a list of users that reacted with this emoji. Returns an array of [user](/docs/resources/user#user-object) objects on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
@@ -856,16 +856,16 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 | NORMAL | 0     |
 | BURST  | 1     |
 
-## Delete All Reactions % DELETE /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/reactions
+## Delete All Reactions % DELETE /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/reactions
 
 Deletes all reactions on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove All](/docs/events/gateway-events#message-reaction-remove-all) Gateway event.
 
-## Delete All Reactions for Emoji % DELETE /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}/reactions/{emoji/docs/resources/emoji#emoji-object}
+## Delete All Reactions for Emoji % DELETE /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||/reactions/||FIXME||emoji.id||/docs/resources/emoji#emoji-object||
 
 Deletes all the reactions for a given emoji on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove Emoji](/docs/events/gateway-events#message-reaction-remove-emoji) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
-## Edit Message % PATCH /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}
+## Edit Message % PATCH /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||
 
 Edit a previously sent message. The fields `content`, `embeds`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
 
@@ -895,14 +895,14 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | payload_json     | string                                                                               | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/reference#uploading-files)                 |
 | attachments      | array of [attachment](/docs/resources/message#attachment-object) objects             | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/reference#uploading-files)                  |
 
-## Delete Message % DELETE /channels/{channel.id/docs/resources/channel#channel-object}/messages/{message.id/docs/resources/message#message-object}
+## Delete Message % DELETE /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](/docs/events/gateway-events#message-delete) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-## Bulk Delete Messages % POST /channels/{channel.id/docs/resources/channel#channel-object}/messages/bulk-delete
+## Bulk Delete Messages % POST /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/messages/bulk-delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](/docs/events/gateway-events#message-delete-bulk) Gateway event.
 

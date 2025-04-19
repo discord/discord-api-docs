@@ -194,7 +194,7 @@ For most objects, the change keys may be any field on the changed object. The fo
 | [Partial Role](/docs/topics/permissions#role-object)                                                                                           | `$add` and `$remove` as keys                                   | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
 | [Webhook](/docs/resources/webhook#webhook-object)                                                                                              | `avatar_hash` key (instead of `avatar`)                        |                                                                                                                                                                                                                                                             |
 
-## Get Guild Audit Log % GET /guilds/{guild.id/docs/resources/guild#guild-object}/audit-logs
+## Get Guild Audit Log % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/audit-logs
 
 Returns an [audit log](/docs/resources/audit-log#audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](/docs/topics/permissions#permissions-bitwise-permission-flags) permission.
 
