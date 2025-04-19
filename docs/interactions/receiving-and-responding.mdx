@@ -380,7 +380,7 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond to an i
 > info
 > The endpoints below are not bound to the application's [Global Rate Limit](/docs/topics/rate-limits#global-rate-limit).
 
-## Create Interaction Response % POST /interactions/\{interaction.id/docs/interactions/receiving-and-responding#interaction-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/callback
+## Create Interaction Response % POST /interactions/||FIXME||interaction.id||/docs/interactions/receiving-and-responding#interaction-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/callback
 
 Create a response to an Interaction. Body is an [interaction response](/docs/interactions/receiving-and-responding#interaction-response-object). Returns `204` unless `with_response` is set to `true` which returns `200` with the body as [interaction callback response](/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object).
 
@@ -393,19 +393,19 @@ This endpoint also supports file attachments similar to the webhook endpoints. R
 | with_response? | [boolean](/docs/reference#boolean-query-strings) | Whether to include an [interaction callback object](/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object) as the response |
 
 
-## Get Original Interaction Response % GET /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/@original
+## Get Original Interaction Response % GET /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/messages/@original
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](/docs/resources/webhook#get-webhook-message).
 
-## Edit Original Interaction Response % PATCH /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](/docs/resources/webhook#edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/messages/@original
 
 Deletes the initial Interaction response. Returns `204 No Content` on success.
 
-## Create Followup Message % POST /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}
+## Create Followup Message % POST /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||
 
 > info
 > Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
@@ -414,14 +414,14 @@ Create a followup message for an Interaction. Functions the same as [Execute Web
 
 When using this endpoint directly after responding to an interaction with `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`, this endpoint will function as [Edit Original Interaction Response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) for backwards compatibility. In this case, no new message will be created, and the loading message will be edited instead. The ephemeral flag will be ignored, and the value you provided in the initial defer response will be preserved, as an existing message's ephemeral state cannot be changed. This behavior is deprecated, and you should use the Edit Original Interaction Response endpoint in this case instead.
 
-## Get Followup Message % GET /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/\{message.id/docs/resources/channel#message-object\}
+## Get Followup Message % GET /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/messages/||FIXME||message.id||/docs/resources/channel#message-object||
 
 Returns a followup message for an Interaction. Functions the same as [Get Webhook Message](/docs/resources/webhook#get-webhook-message).
 
-## Edit Followup Message % PATCH /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/\{message.id/docs/resources/channel#message-object\}
+## Edit Followup Message % PATCH /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/messages/||FIXME||message.id||/docs/resources/channel#message-object||
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](/docs/resources/webhook#edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/\{message.id/docs/resources/channel#message-object\}
+## Delete Followup Message % DELETE /webhooks/||FIXME||application.id||/docs/resources/application#application-object||/||FIXME||interaction.token||/docs/interactions/receiving-and-responding#interaction-object||/messages/||FIXME||message.id||/docs/resources/channel#message-object||
 
 Deletes a followup message for an Interaction. Returns `204 No Content` on success.

@@ -187,7 +187,7 @@ The role connection object that an application has attached to a user.
 
 Returns the [user](/docs/resources/user#user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email if the user has one.
 
-## Get User % GET /users/{user.id/docs/resources/user#user-object}
+## Get User % GET /users/||FIXME||user.id||/docs/resources/user#user-object||
 
 Returns a [user](/docs/resources/user#user-object) object for a given user ID.
 
@@ -238,11 +238,11 @@ Returns a list of partial [guild](/docs/resources/guild#guild-object) objects th
 | limit       | integer                                          | max number of guilds to return (1-200)                     | false    | 200     |
 | with_counts | [boolean](/docs/reference#boolean-query-strings) | include approximate member and presence counts in response | false    | false   |
 
-## Get Current User Guild Member % GET /users/@me/guilds/{guild.id/docs/resources/guild#guild-object}/member
+## Get Current User Guild Member % GET /users/@me/guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/member
 
 Returns a [guild member](/docs/resources/guild#guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
 
-## Leave Guild % DELETE /users/@me/guilds/{guild.id/docs/resources/guild#guild-object}
+## Leave Guild % DELETE /users/@me/guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||
 
 Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](/docs/events/gateway-events#guild-delete) Gateway event and a [Guild Member Remove](/docs/events/gateway-events#guild-member-remove) Gateway event.
 
@@ -277,11 +277,11 @@ Create a new group DM channel with multiple users. Returns a [DM channel](/docs/
 
 Returns a list of [connection](/docs/resources/user#connection-object) objects. Requires the `connections` OAuth2 scope.
 
-## Get Current User Application Role Connection % GET /users/@me/applications/{application.id/docs/resources/application#application-object}/role-connection
+## Get Current User Application Role Connection % GET /users/@me/applications/||FIXME||application.id||/docs/resources/application#application-object||/role-connection
 
 Returns the [application role connection](/docs/resources/user#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
-## Update Current User Application Role Connection % PUT /users/@me/applications/{application.id/docs/resources/application#application-object}/role-connection
+## Update Current User Application Role Connection % PUT /users/@me/applications/||FIXME||application.id||/docs/resources/application#application-object||/role-connection
 
 Updates and returns the [application role connection](/docs/resources/user#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 

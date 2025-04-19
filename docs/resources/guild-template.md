@@ -99,11 +99,11 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 }
 ```
 
-## Get Guild Template % GET /guilds/templates/{template.code/docs/resources/guild-template#guild-template-object}
+## Get Guild Template % GET /guilds/templates/||FIXME||template.code||/docs/resources/guild-template#guild-template-object||
 
 Returns a [guild template](/docs/resources/guild-template#guild-template-object) object for the given code.
 
-## Create Guild from Guild Template % POST /guilds/templates/{template.code/docs/resources/guild-template#guild-template-object}
+## Create Guild from Guild Template % POST /guilds/templates/||FIXME||template.code||/docs/resources/guild-template#guild-template-object||
 
 Create a new guild based on a template. Returns a [guild](/docs/resources/guild#guild-object) object on success. Fires a [Guild Create](/docs/events/gateway-events#guild-create) Gateway event.
 
@@ -117,11 +117,11 @@ Create a new guild based on a template. Returns a [guild](/docs/resources/guild#
 | name  | string                                   | name of the guild (2-100 characters)    |
 | icon? | [image data](/docs/reference#image-data) | base64 128x128 image for the guild icon |
 
-## Get Guild Templates % GET /guilds/{guild.id/docs/resources/guild#guild-object}/templates
+## Get Guild Templates % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/templates
 
 Returns an array of [guild template](/docs/resources/guild-template#guild-template-object) objects. Requires the `MANAGE_GUILD` permission.
 
-## Create Guild Template % POST /guilds/{guild.id/docs/resources/guild#guild-object}/templates
+## Create Guild Template % POST /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/templates
 
 Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Returns the created [guild template](/docs/resources/guild-template#guild-template-object) object on success.
 
@@ -132,11 +132,11 @@ Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Return
 | name         | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 
-## Sync Guild Template % PUT /guilds/{guild.id/docs/resources/guild#guild-object}/templates/{template.code/docs/resources/guild-template#guild-template-object}
+## Sync Guild Template % PUT /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/templates/||FIXME||template.code||/docs/resources/guild-template#guild-template-object||
 
 Syncs the template to the guild's current state. Requires the `MANAGE_GUILD` permission. Returns the [guild template](/docs/resources/guild-template#guild-template-object) object on success.
 
-## Modify Guild Template % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/templates/{template.code/docs/resources/guild-template#guild-template-object}
+## Modify Guild Template % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/templates/||FIXME||template.code||/docs/resources/guild-template#guild-template-object||
 
 Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Returns the [guild template](/docs/resources/guild-template#guild-template-object) object on success.
 
@@ -147,6 +147,6 @@ Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Return
 | name?        | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 
-## Delete Guild Template % DELETE /guilds/{guild.id/docs/resources/guild#guild-object}/templates/{template.code/docs/resources/guild-template#guild-template-object}
+## Delete Guild Template % DELETE /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/templates/||FIXME||template.code||/docs/resources/guild-template#guild-template-object||
 
 Deletes the template. Requires the `MANAGE_GUILD` permission. Returns the deleted [guild template](/docs/resources/guild-template#guild-template-object) object on success.

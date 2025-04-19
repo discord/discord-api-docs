@@ -108,7 +108,7 @@ Used to represent a webhook.
 }
 ```
 
-## Create Webhook % POST /channels/{channel.id/docs/resources/channel#channel-object}/webhooks
+## Create Webhook % POST /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/webhooks
 
 Creates a new webhook and returns a [webhook](/docs/resources/webhook#webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
@@ -127,26 +127,26 @@ An error will be returned if a webhook name (`name`) is not valid. A webhook nam
 | name    | string                                    | name of the webhook (1-80 characters) |
 | avatar? | ?[image data](/docs/reference#image-data) | image for the default webhook avatar  |
 
-## Get Channel Webhooks % GET /channels/{channel.id/docs/resources/channel#channel-object}/webhooks
+## Get Channel Webhooks % GET /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/webhooks
 
 Returns a list of channel [webhook](/docs/resources/webhook#webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
-## Get Guild Webhooks % GET /guilds/{guild.id/docs/resources/guild#guild-object}/webhooks
+## Get Guild Webhooks % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/webhooks
 
 Returns a list of guild [webhook](/docs/resources/webhook#webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
-## Get Webhook % GET /webhooks/{webhook.id/docs/resources/webhook#webhook-object}
+## Get Webhook % GET /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||
 
 Returns the new [webhook](/docs/resources/webhook#webhook-object) object for the given id.
 
 This request requires the `MANAGE_WEBHOOKS` permission unless the application making the request owns the
 webhook. [(see: webhook.application_id)](/docs/resources/webhook#webhook-object)
 
-## Get Webhook with Token % GET /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
+## Get Webhook with Token % GET /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||
 
 Same as above, except this call does not require authentication and returns no user in the webhook object.
 
-## Modify Webhook % PATCH /webhooks/{webhook.id/docs/resources/webhook#webhook-object}
+## Modify Webhook % PATCH /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||
 
 Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](/docs/resources/webhook#webhook-object) object on success. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
@@ -164,22 +164,22 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 | avatar     | ?[image data](/docs/reference#image-data) | image for the default webhook avatar               |
 | channel_id | snowflake                                 | the new channel id this webhook should be moved to |
 
-## Modify Webhook with Token % PATCH /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
+## Modify Webhook with Token % PATCH /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||
 
 Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
 
-## Delete Webhook % DELETE /webhooks/{webhook.id/docs/resources/webhook#webhook-object}
+## Delete Webhook % DELETE /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||
 
 Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-## Delete Webhook with Token % DELETE /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
+## Delete Webhook with Token % DELETE /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||
 
 Same as above, except this call does not require authentication.
 
-## Execute Webhook % POST /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}
+## Execute Webhook % POST /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||
 
 Refer to [Uploading Files](/docs/reference#uploading-files) for details on attachments and `multipart/form-data` requests. Returns a message or `204 No Content` depending on the `wait` query parameter.
 
@@ -226,7 +226,7 @@ Refer to [Uploading Files](/docs/reference#uploading-files) for details on attac
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
-## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/slack
+## Execute Slack-Compatible Webhook % POST /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||/slack
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
@@ -237,7 +237,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | thread_id | snowflake                                        | id of the thread to send the message in                                                                                                               | false    |
 | wait      | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/github
+## Execute GitHub-Compatible Webhook % POST /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||/github
 
 [Add a new webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring. The supported [events](https://docs.github.com/en/webhooks/webhook-events-and-payloads) are `commit_comment`, `create`, `delete`, `fork`, `issue_comment`, `issues`, `member`, `public`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `push`, `release`, `watch`, `check_run`, `check_suite`, `discussion`, and `discussion_comment`.
 
@@ -248,7 +248,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | thread_id | snowflake                                        | id of the thread to send the message in                                                                                                               | false    |
 | wait      | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-## Get Webhook Message % GET /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/messages/{message.id/docs/resources/message#message-object}
+## Get Webhook Message % GET /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||
 
 Returns a previously-sent webhook message from the same token. Returns a [message](/docs/resources/message#message-object) object on success.
 
@@ -258,7 +258,7 @@ Returns a previously-sent webhook message from the same token. Returns a [messag
 |-----------|-----------|------------------------------------|----------|
 | thread_id | snowflake | id of the thread the message is in | false    |
 
-## Edit Webhook Message % PATCH /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/messages/{message.id/docs/resources/message#message-object}
+## Edit Webhook Message % PATCH /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||
 
 Edits a previously-sent webhook message from the same token. Returns a [message](/docs/resources/message#message-object) object on success.
 
@@ -299,7 +299,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 \*\*\* Polls can only be added when editing a deferred interaction response.
 
-## Delete Webhook Message % DELETE /webhooks/{webhook.id/docs/resources/webhook#webhook-object}/{webhook.token/docs/resources/webhook#webhook-object}/messages/{message.id/docs/resources/message#message-object}
+## Delete Webhook Message % DELETE /webhooks/||FIXME||webhook.id||/docs/resources/webhook#webhook-object||/||FIXME||webhook.token||/docs/resources/webhook#webhook-object||/messages/||FIXME||message.id||/docs/resources/message#message-object||
 
 Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
 

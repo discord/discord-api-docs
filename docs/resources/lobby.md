@@ -81,11 +81,11 @@ Returns a [lobby](/docs/resources/lobby#lobby-object) object.
 | metadata? | ?dict<string, string> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                         |
 | flags?    | integer               | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
-## Get Lobby % GET /lobbies/{lobby.id/docs/resources/lobby#lobby-object}
+## Get Lobby % GET /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||
 
 Returns a [lobby](/docs/resources/lobby#lobby-object) object for the specified lobby id, if it exists.
 
-## Modify Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}
+## Modify Lobby % PATCH /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||
 
 Modifies the specified lobby with new values, if provided. 
 
@@ -99,7 +99,7 @@ Returns the updated [lobby](/docs/resources/lobby#lobby-object) object.
 | members?              | array of [lobby member](/docs/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby.                        |
 | idle_timeout_seconds? | integer                                                                    | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
 
-## Delete Lobby % DELETE /lobbies/{lobby.id/docs/resources/lobby#lobby-object}
+## Delete Lobby % DELETE /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||
 
 Deletes the specified lobby if it exists.  
 
@@ -107,7 +107,7 @@ It is safe to call even if the lobby is already deleted as well.
 
 Returns nothing.
 
-## Add a Member to a Lobby % PUT /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/members/{user.id/docs/resources/user#user-object}
+## Add a Member to a Lobby % PUT /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||/members/||FIXME||user.id||/docs/resources/user#user-object||
 
 Adds the provided user to the specified lobby. If called when the user is already a member of the lobby will update fields such as metadata on that user instead. 
 
@@ -120,13 +120,13 @@ Returns the [lobby member](/docs/resources/lobby#lobby-member-object) object.
 | metadata? | ?dict<string, string> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                         |
 | flags?    | integer               | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
-## Remove a Member from a Lobby % DELETE /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/members/{user.id/docs/resources/user#user-object}
+## Remove a Member from a Lobby % DELETE /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||/members/||FIXME||user.id||/docs/resources/user#user-object||
 
 Removes the provided user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
 
 Returns nothing.
 
-## Leave Lobby % DELETE /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/members/@me
+## Leave Lobby % DELETE /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||/members/@me
 
 Removes the current user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
 
@@ -134,7 +134,7 @@ Uses `Bearer` token for authorization.
 
 Returns nothing.
 
-## Link Channel to Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/channel-linking
+## Link Channel to Lobby % PATCH /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||/channel-linking
 
 Links an existing text channel to a lobby. See [Linked Channels](/docs/discord-social-sdk/development-guides/linked-channels) for more information.
 
@@ -148,7 +148,7 @@ Returns a [lobby](/docs/resources/lobby#lobby-object) object with a linked chann
 |-------------|-----------|------------------------------------------------------------------------------------------------------------------------|
 | channel_id? | snowflake | the id of the channel to link to the lobby. If not provided, will unlink any currently linked channels from the lobby. |
 
-## Unlink Channel from Lobby % PATCH /lobbies/{lobby.id/docs/resources/lobby#lobby-object}/channel-linking
+## Unlink Channel from Lobby % PATCH /lobbies/||FIXME||lobby.id||/docs/resources/lobby#lobby-object||/channel-linking
 
 Unlinks any currently linked channels from the specified lobby.
 

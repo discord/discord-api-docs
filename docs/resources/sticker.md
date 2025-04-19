@@ -100,7 +100,7 @@ Represents a pack of standard stickers.
 }
 ```
 
-## Get Sticker % GET /stickers/{sticker.id/docs/resources/sticker#sticker-object}
+## Get Sticker % GET /stickers/||FIXME||sticker.id||/docs/resources/sticker#sticker-object||
 
 Returns a [sticker](/docs/resources/sticker#sticker-object) object for the given sticker ID.
 
@@ -114,19 +114,19 @@ Returns a list of available sticker packs.
 |---------------|------------------------------------------------------------------------------|
 | sticker_packs | array of [sticker pack](/docs/resources/sticker#sticker-pack-object) objects |
 
-## Get Sticker Pack % GET /sticker-packs/{pack.id/docs/resources/sticker#sticker-pack-object}
+## Get Sticker Pack % GET /sticker-packs/||FIXME||pack.id||/docs/resources/sticker#sticker-pack-object||
 
 Returns a [sticker pack](/docs/resources/sticker#sticker-pack-object) object for the given sticker pack ID.
 
-## List Guild Stickers % GET /guilds/{guild.id/docs/resources/guild#guild-object}/stickers
+## List Guild Stickers % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/stickers
 
 Returns an array of [sticker](/docs/resources/sticker#sticker-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Get Guild Sticker % GET /guilds/{guild.id/docs/resources/guild#guild-object}/stickers/{sticker.id/docs/resources/sticker#sticker-object}
+## Get Guild Sticker % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/stickers/||FIXME||sticker.id||/docs/resources/sticker#sticker-object||
 
 Returns a [sticker](/docs/resources/sticker#sticker-object) object for the given guild and sticker IDs. Includes the `user` field if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
-## Create Guild Sticker % POST /guilds/{guild.id/docs/resources/guild#guild-object}/stickers
+## Create Guild Sticker % POST /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/stickers
 
 Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [sticker](/docs/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
@@ -150,7 +150,7 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 | tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                      |
 | file        | file contents | the sticker file to upload, must be a PNG, APNG, GIF, or Lottie JSON file, max 512 KiB |
 
-## Modify Guild Sticker % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/stickers/{sticker.id/docs/resources/sticker#sticker-object}
+## Modify Guild Sticker % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/stickers/||FIXME||sticker.id||/docs/resources/sticker#sticker-object||
 
 Modify the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [sticker](/docs/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
@@ -168,7 +168,7 @@ Modify the given sticker. For stickers created by the current user, requires eit
 | description | ?string | description of the sticker (2-100 characters)                     |
 | tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters) |
 
-## Delete Guild Sticker % DELETE /guilds/{guild.id/docs/resources/guild#guild-object}/stickers/{sticker.id/docs/resources/sticker#sticker-object}
+## Delete Guild Sticker % DELETE /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/stickers/||FIXME||sticker.id||/docs/resources/sticker#sticker-object||
 
 Delete the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 

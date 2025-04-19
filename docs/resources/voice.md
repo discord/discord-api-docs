@@ -58,15 +58,15 @@ Used to represent a user's voice connection status.
 
 Returns an array of [voice region](/docs/resources/voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/docs/resources/channel#channel-object-channel-structure).
 
-## Get Current User Voice State % GET /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/@me
+## Get Current User Voice State % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/voice-states/@me
 
 Returns the current user's [voice state](/docs/resources/voice#voice-state-object) in the guild.
 
-## Get User Voice State % GET /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/{user.id/docs/resources/user#user-object}
+## Get User Voice State % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/voice-states/||FIXME||user.id||/docs/resources/user#user-object||
 
 Returns the specified user's [voice state](/docs/resources/voice#voice-state-object) in the guild.
 
-## Modify Current User Voice State % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/@me
+## Modify Current User Voice State % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/voice-states/@me
 
 Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 
@@ -88,7 +88,7 @@ There are currently several caveats for this endpoint:
 - You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
 - You are able to set `request_to_speak_timestamp` to any present or future time.
 
-## Modify User Voice State % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/voice-states/{user.id/docs/resources/user#user-object}
+## Modify User Voice State % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/voice-states/||FIXME||user.id||/docs/resources/user#user-object||
 
 Updates another user's voice state. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 

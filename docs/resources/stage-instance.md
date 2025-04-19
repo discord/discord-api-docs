@@ -82,11 +82,11 @@ Requires the user to be a moderator of the Stage channel.
 
 \* The stage moderator must have the `MENTION_EVERYONE` permission for this notification to be sent.
 
-## Get Stage Instance % GET /stage-instances/{channel.id/docs/resources/channel#channel-object}
+## Get Stage Instance % GET /stage-instances/||FIXME||channel.id||/docs/resources/channel#channel-object||
 
 Gets the stage instance associated with the Stage channel, if it exists.
 
-## Modify Stage Instance % PATCH /stage-instances/{channel.id/docs/resources/channel#channel-object}
+## Modify Stage Instance % PATCH /stage-instances/||FIXME||channel.id||/docs/resources/channel#channel-object||
 
 Updates fields of an existing Stage instance. Returns the updated [Stage instance](/docs/resources/stage-instance#stage-instance-object-stage-instance-structure). Fires a [Stage Instance Update](/docs/events/gateway-events#stage-instance-update) Gateway event.
 
@@ -102,7 +102,7 @@ Requires the user to be a moderator of the Stage channel.
 | topic?         | string  | The topic of the Stage instance (1-120 characters)                                                            |
 | privacy_level? | integer | The [privacy level](/docs/resources/stage-instance#stage-instance-object-privacy-level) of the Stage instance |
 
-## Delete Stage Instance % DELETE /stage-instances/{channel.id/docs/resources/channel#channel-object}
+## Delete Stage Instance % DELETE /stage-instances/||FIXME||channel.id||/docs/resources/channel#channel-object||
 
 Deletes the Stage instance. Returns `204 No Content`. Fires a [Stage Instance Delete](/docs/events/gateway-events#stage-instance-delete) Gateway event.
 

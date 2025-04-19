@@ -198,21 +198,21 @@ value of [action type](/docs/resources/auto-moderation#auto-moderation-action-ob
 Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
 Some [action types](/docs/resources/auto-moderation#auto-moderation-action-object-action-types) require additional permissions, e.g. the `TIMEOUT` action type requires an additional `MODERATE_MEMBERS` permission.
 
-## List Auto Moderation Rules for Guild % GET /guilds/{guild.id/docs/resources/guild#guild-object}/auto-moderation/rules
+## List Auto Moderation Rules for Guild % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/auto-moderation/rules
 
 Get a list of all rules currently configured for the guild. Returns a list of [auto moderation rule](/docs/resources/auto-moderation#auto-moderation-rule-object) objects for the given guild.
 
 > info
 > This endpoint requires the `MANAGE_GUILD` [permission](/docs/resources/auto-moderation#auto-moderation-permission-requirements).
 
-## Get Auto Moderation Rule % GET /guilds/{guild.id/docs/resources/guild#guild-object}/auto-moderation/rules/{auto_moderation_rule.id/docs/resources/auto-moderation#auto-moderation-rule-object}
+## Get Auto Moderation Rule % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/auto-moderation/rules/||FIXME||auto_moderation_rule.id||/docs/resources/auto-moderation#auto-moderation-rule-object||
 
 Get a single rule. Returns an [auto moderation rule](/docs/resources/auto-moderation#auto-moderation-rule-object) object.
 
 > info
 > This endpoint requires the `MANAGE_GUILD` [permission](/docs/resources/auto-moderation#auto-moderation-permission-requirements).
 
-## Create Auto Moderation Rule % POST /guilds/{guild.id/docs/resources/guild#guild-object}/auto-moderation/rules
+## Create Auto Moderation Rule % POST /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/auto-moderation/rules
 
 Create a new rule. Returns an [auto moderation rule](/docs/resources/auto-moderation#auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Create](/docs/events/gateway-events#auto-moderation-rule-create) Gateway event.
 
@@ -241,7 +241,7 @@ Create a new rule. Returns an [auto moderation rule](/docs/resources/auto-modera
 > See [Trigger Types](/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-types) for limits on how many rules of each trigger type can be created per guild.
 
 
-## Modify Auto Moderation Rule % PATCH /guilds/{guild.id/docs/resources/guild#guild-object}/auto-moderation/rules/{auto_moderation_rule.id/docs/resources/auto-moderation#auto-moderation-rule-object}
+## Modify Auto Moderation Rule % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/auto-moderation/rules/||FIXME||auto_moderation_rule.id||/docs/resources/auto-moderation#auto-moderation-rule-object||
 
 Modify an existing rule. Returns an [auto moderation rule](/docs/resources/auto-moderation#auto-moderation-rule-object) on success. Fires an [Auto Moderation Rule Update](/docs/events/gateway-events#auto-moderation-rule-update) Gateway event.
 
@@ -268,7 +268,7 @@ Modify an existing rule. Returns an [auto moderation rule](/docs/resources/auto-
 
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
-## Delete Auto Moderation Rule % DELETE /guilds/{guild.id/docs/resources/guild#guild-object}/auto-moderation/rules/{auto_moderation_rule.id/docs/resources/auto-moderation#auto-moderation-rule-object}
+## Delete Auto Moderation Rule % DELETE /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/auto-moderation/rules/||FIXME||auto_moderation_rule.id||/docs/resources/auto-moderation#auto-moderation-rule-object||
 
 Delete a rule. Returns a `204` on success. Fires an [Auto Moderation Rule Delete](/docs/events/gateway-events#auto-moderation-rule-delete) Gateway event.
 
