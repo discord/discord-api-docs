@@ -354,7 +354,7 @@ Users will see a modal inside the Discord app notifying them whether or not they
 
 ### Open Invite Dialog
 
-Getting an Application Channel Invite, as outlined in [these docs](https://discord.com/developers/docs/resources/invite#get-invite), is not granted by any OAuth scopes. Nonetheless, the `openInviteDialog` command is available via the SDK. This command opens the Application Channel Invite UI within the discord client without requiring additional OAuth scopes.
+Getting an Application Channel Invite, as outlined in [these docs](/docs/resources/invite#get-invite), is not granted by any OAuth scopes. Nonetheless, the `openInviteDialog` command is available via the SDK. This command opens the Application Channel Invite UI within the discord client without requiring additional OAuth scopes.
 
 This command returns an error when called from DM (Direct Message) contexts, so should only be called in Guild Voice or Text Channels. Similarly, this command returns an error if the user has invalid permissions for the channel, so using `getChannelPermissions` (requires OAuth scope `'guilds.members.read'`) is highly recommended.
 
@@ -821,7 +821,7 @@ discordSdk.unsubscribe(Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, updateParti
 
 ### Render Avatars and Names
 
-Check out detailed documentation on where and how Discord stores common image assets [here](https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints).
+Check out detailed documentation on where and how Discord stores common image assets [here](/docs/reference#image-formatting-cdn-endpoints).
 
 Here's a basic example for retrieving a user's avatar and username
 
@@ -1157,7 +1157,7 @@ All assets loaded by your application will respect [cache headers](https://devel
 
 ### Handling Rate Limits
 
-Be sure network requests made by your application's client and server will be able to respect Discord API's rate limiting [as described here](https://discord.com/developers/docs/topics/rate-limits).
+Be sure network requests made by your application's client and server will be able to respect Discord API's rate limiting [as described here](/docs/topics/rate-limits).
 
 See [this implementation in the Activity Starter project](https://github.com/discord/embedded-app-sdk-examples/blob/main/discord-activity-starter/packages/server/src/utils.ts) for an example of how to respect the `retry_after` header when you receive a 429 error.
 
