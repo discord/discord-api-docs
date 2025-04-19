@@ -1,6 +1,6 @@
 # Auto Moderation
 
-Auto Moderation is a feature which allows each [guild](/docs/resources/guild#) to set up rules that trigger based on some criteria. For example, a rule can trigger whenever a message contains a specific keyword.
+Auto Moderation is a feature which allows each [guild](/docs/resources/guild) to set up rules that trigger based on some criteria. For example, a rule can trigger whenever a message contains a specific keyword.
 
 Rules can be configured to automatically execute actions whenever they trigger. For example, if a user tries to send a message which contains a certain keyword, a rule can trigger and block the message before it is sent.
 

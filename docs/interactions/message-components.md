@@ -6,7 +6,7 @@ There are several different types of components; this documentation will outline
 
 ## What is a Component
 
-Components are a field on the [message object](/docs/resources/message#message-object), so you can use them whether you're sending messages or responding to a [slash command](/docs/interactions/application-commands#) or other interaction.
+Components are a field on the [message object](/docs/resources/message#message-object), so you can use them whether you're sending messages or responding to a [slash command](/docs/interactions/application-commands) or other interaction.
 
 ### Component Object
 
@@ -315,7 +315,7 @@ The payloads for the select menu components are detailed in the [select menu str
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type                  | integer                                                                                                                   | [Type](/docs/interactions/message-components#component-object-component-types) of select menu component (text: `3`, user: `5`, role: `6`, mentionable: `7`, channels: `8`) |
 | custom_id             | string                                                                                                                    | ID for the select menu; max 100 characters                                                                                                                                 |
-| options?\*            | array of [select options](/docs/interactions/message-components#select-menu-object-select-option-structure)               | Specified choices in a select menu (only required and available for string selects (type `3`); max 25                                                                      |
+| options?\*            | array of [select options](/docs/interactions/message-components#select-menu-object-select-option-structure)               | Specified choices in a select menu (only required and available for string selects (type `3`)); max 25                                                                      |
 | channel_types?\*\*    | array of [channel types](/docs/resources/channel#channel-object-channel-types)                                            | List of channel types to include in the channel select component (type `8`)                                                                                                |
 | placeholder?          | string                                                                                                                    | Placeholder text if nothing is selected; max 150 characters                                                                                                                |
 | default_values?\*\*\* | array of [default value objects](/docs/interactions/message-components#select-menu-object-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values`                   |

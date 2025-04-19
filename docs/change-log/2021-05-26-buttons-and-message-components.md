@@ -5,7 +5,7 @@ date: "2021-05-26"
 
 Message components are now available with our first two components: a layout-based `ActionRow` and...buttons!
 
-You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](/docs/interactions/message-components#).
+You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](/docs/interactions/message-components).
 
 The addition of message components means new fields and response types:
 

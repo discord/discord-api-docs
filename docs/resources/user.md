@@ -82,7 +82,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | `1 << 7`  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
 | `1 << 8`  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
 | `1 << 9`  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
-| `1 << 10` | TEAM_PSEUDO_USER         | User is a [team](/docs/topics/teams#)                                                                                                          |
+| `1 << 10` | TEAM_PSEUDO_USER         | User is a [team](/docs/topics/teams)                                                                                                           |
 | `1 << 14` | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
 | `1 << 16` | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
 | `1 << 17` | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
