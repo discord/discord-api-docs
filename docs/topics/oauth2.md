@@ -265,13 +265,13 @@ Discord's API provides bot users, which are a separate type of user dedicated to
 ### Bot vs User Accounts
 
 > warn
-> Developers must abide by the [terms of service](https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+> Developers must abide by the [terms of service](https://support-dev.discord.com/hc/en-us/articles/8562894815383), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
 
 Bot users have a few differences compared to standard Discord users:
 
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends or be added to or join Group DMs.
-3. [Verified bots](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) do not have a maximum number of guilds.
+3. [Verified bots](https://support-dev.discord.com/hc/en-us/articles/23926564536471) do not have a maximum number of guilds.
 4. Bots have an entirely separate set of [rate limits](/docs/topics/rate-limits#rate-limits).
 
 ### Bot Authorization Flow

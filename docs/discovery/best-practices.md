@@ -77,7 +77,7 @@ Think of up to five words that describe your app and add them as tags (see image
 Your app’s support server is a paramount part of your App Product Page. It’s important to ensure your app has a dedicated server and channel for communication between your app’s users and its developers and maintainers.
 
 > info
-> If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331-Enabling-Server-Discovery), be sure to include an invite link in the "links" section of your App Directory Product Page.
+> If your support server isn't [discoverable](https://support.discord.com/hc/en-us/articles/360030843331), be sure to include an invite link in the "links" section of your App Directory Product Page.
 
 Some ways you can successfully use your support server includes:
 
@@ -91,8 +91,8 @@ For general best practices on how to run a server, check out our [Community page
 
 ### Final checks to make sure you’re ready to go
 
-Before you can click the final “Enable Discovery” button, ensure that your App Directory Product Page complies with the rest of Discord’s Directory eligibility criteria, [app content requirements](https://support-dev.discord.com/hc/en-us/articles/9489299950487-App-Directory-App-Content-Requirements-Policy) and Developer [Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383) and [Policy](https://support-dev.discord.com/hc/en-us/articles/8563934450327).
+Before you can click the final “Enable Discovery” button, ensure that your App Directory Product Page complies with the rest of Discord’s Directory eligibility criteria, [app content requirements](https://support-dev.discord.com/hc/en-us/articles/9489299950487) and Developer [Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383) and [Policy](https://support-dev.discord.com/hc/en-us/articles/8563934450327).
 
-For more details about what this information entails, read our [Help Center article on Profile Pages](https://support-dev.discord.com/hc/en-us/articles/6378525413143-App-Directory-App-profile-pages).
+For more details about what this information entails, read our [Help Center article on Profile Pages](https://support-dev.discord.com/hc/en-us/articles/6378525413143).
 
 Now you're ready to publish your new App Directory profile and watch your app grow! If you haven’t already, join our official [Discord Developers server](https://discord.gg/discord-developers) to receive more information on how to update your apps. Way to go, Discord Developer!
