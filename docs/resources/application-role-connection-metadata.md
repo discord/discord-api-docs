@@ -34,8 +34,9 @@ When a user connects their account using the bot's [`role_connections_verificati
 | BOOLEAN_EQUAL                  | 7     | the metadata value (`integer`) is equal to the guild's configured value (`integer`; `1`)                                               |
 | BOOLEAN_NOT_EQUAL              | 8     | the metadata value (`integer`) is not equal to the guild's configured value (`integer`; `1`)                                           |
 
-> info
-> Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
+:::info
+Each metadata type offers a comparison operation that allows guilds to configure role requirements based on metadata values stored by the bot. Bots specify a `metadata value` for each user and guilds specify the required `guild's configured value` within the guild role settings.
+:::
 
 ## Get Application Role Connection Metadata Records % GET /applications/{application.id/docs/resources/application#application-object}/role-connections/metadata
 
@@ -45,5 +46,6 @@ Returns a list of [application role connection metadata](/docs/resources/applica
 
 Updates and returns a list of [application role connection metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object) objects for the given application.
 
-> info
-> An application can have a maximum of 5 metadata records.
+:::info
+An application can have a maximum of 5 metadata records.
+:::

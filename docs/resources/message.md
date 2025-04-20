@@ -10,11 +10,13 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Structure
 
-> info
-> Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](/docs/events/gateway-events#message-create).
+:::info
+Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](/docs/events/gateway-events#message-create).
+:::
 
-> warn
-> An app will receive empty values in the `content`, `embeds`, `attachments`, and `components` fields while `poll` will be omitted if they have not configured (or been approved for) the [`MESSAGE_CONTENT` privileged intent (`1 << 15`)](/docs/events/gateway#message-content-intent).
+:::warn
+An app will receive empty values in the `content`, `embeds`, `attachments`, and `components` fields while `poll` will be omitted if they have not configured (or been approved for) the [`MESSAGE_CONTENT` privileged intent (`1 << 15`)](/docs/events/gateway#message-content-intent).
+:::
 
 | Field                     | Type                                                                                                                               | Description                                                                                                                                                                                                                                                             |
 |---------------------------|------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -67,8 +69,9 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Types
 
-> warn
-> Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
+:::warn
+Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
+:::
 
 | Type                                         | Value | Deletable |
 |----------------------------------------------|-------|-----------|
@@ -419,8 +422,9 @@ The encoding, and the waveform details, are an implementation detail and may cha
 \* The current subset of message fields consists of:
 `type`, `content`, `embeds`, `attachments`, `timestamp`, `edited_timestamp`, `flags`, `mentions`, `mention_roles`, `stickers`, `sticker_items`, and `components`.
 
-> info
-> While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
+:::info
+While message snapshots are able to support nested snapshots, we currently limit the depth of nesting to 1.
+:::
 
 ### Reaction Object
 
@@ -578,8 +582,9 @@ Certain embed types are used to power special UIs. These embeds use [fields](/do
 
 ###### Attachment Structure
 
-> info
-> For the `attachments` array in Message Create/Edit requests, only the `id` is required.
+:::info
+For the `attachments` array in Message Create/Edit requests, only the `id` is required.
+:::
 
 | Field          | Type      | Description                                                                                                                                      |
 |----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -737,8 +742,9 @@ If operating on a guild channel, this endpoint requires the current user to have
 
 If the current user is missing the `READ_MESSAGE_HISTORY` permission in the channel, then no messages will be returned.
 
-> info
-> The `before`, `after`, and `around` parameters are mutually exclusive, only one may be passed at a time.
+:::info
+The `before`, `after`, and `around` parameters are mutually exclusive, only one may be passed at a time.
+:::
 
 ###### Query String Params
 
@@ -757,8 +763,9 @@ If operating on a guild channel, this endpoint requires the current user to have
 
 ## Create Message % POST /channels/{channel.id/docs/resources/channel#channel-object}/messages
 
-> warn
-> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::warn
+Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::
 
 Post a message to a guild text or DM channel. Returns a [message](/docs/resources/message#message-object) object. Fires a [Message Create](/docs/events/gateway-events#message-create) Gateway event. See [message formatting](/docs/reference#message-formatting) for more information on how to properly format messages.
 
@@ -778,8 +785,9 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 ###### JSON/Form Params
 
-> info
-> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll`.
+:::info
+When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll`.
+:::
 
 | Field              | Type                                                                                         | Description                                                                                                                                                                                                                       |
 |--------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -876,11 +884,13 @@ Returns a [message](/docs/resources/message#message-object) object. Fires a [Mes
 Refer to [Uploading Files](/docs/reference#uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
-> warn
-> Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
+:::warn
+Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
+:::
 
-> info
-> All parameters to this endpoint are optional and nullable.
+:::info
+All parameters to this endpoint are optional and nullable.
+:::
 
 ###### JSON/Form Params
 
@@ -899,8 +909,9 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](/docs/events/gateway-events#message-delete) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ## Bulk Delete Messages % POST /channels/{channel.id/docs/resources/channel#channel-object}/messages/bulk-delete
 
@@ -908,11 +919,13 @@ Delete multiple messages in a single request. This endpoint can only be used on 
 
 Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively).
 
-> warn
-> This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+:::warn
+This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 

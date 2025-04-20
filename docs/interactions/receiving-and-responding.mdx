@@ -89,8 +89,9 @@ While the `data` field is guaranteed to be present for all [interaction types](/
 
 ###### Application Command Data Structure
 
-> info
-> Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
+:::info
+Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
+:::
 
 | Field      | Type                                                                                                                                                                         | Description                                                                                                                                                                          |
 |------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -124,8 +125,9 @@ While the `data` field is guaranteed to be present for all [interaction types](/
 
 ###### Resolved Data Structure
 
-> info
-> If data for a Member is included, data for its corresponding User will also be included.
+:::info
+If data for a Member is included, data for its corresponding User will also be included.
+:::
 
 | Field         | Type                                                                                     | Description                     |
 |---------------|------------------------------------------------------------------------------------------|---------------------------------|
@@ -158,8 +160,9 @@ All options have names, and an option can either be a parameter and input value-
 
 This is sent on the [message object](/docs/resources/message#message-object) when the message is a response to an Interaction without an existing message.
 
-> info
-> This means responses to [Message Components](/docs/interactions/message-components#) do not include this property, instead including a [message reference](/docs/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
+:::info
+This means responses to [Message Components](/docs/interactions/message-components#) do not include this property, instead including a [message reference](/docs/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
+:::
 
 ###### Message Interaction Structure
 
@@ -201,8 +204,9 @@ Now that you've gotten the data from the user, it's time to respond to them.
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-> info
-> Interaction responses have the same header requirements as normal HTTP API requests. See [here](/docs/reference#http-api) for further information.
+:::info
+Interaction responses have the same header requirements as normal HTTP API requests. See [here](/docs/reference#http-api) for further information.
+:::
 
 There are a number of ways you can respond to an interaction:
 
@@ -263,8 +267,9 @@ Not all message fields are currently supported.
 
 ###### Modal
 
-> warn
-> Support for components in modals is currently limited to type 4 (Text Input).
+:::warn
+Support for components in modals is currently limited to type 4 (Text Input).
+:::
 
 | Field      | Type                                                          | Description                                                    |
 |------------|---------------------------------------------------------------|----------------------------------------------------------------|
@@ -272,8 +277,9 @@ Not all message fields are currently supported.
 | title      | string                                                        | Title of the popup modal, max 45 characters                    |
 | components | array of [components](/docs/interactions/message-components#) | Between 1 and 5 (inclusive) components that make up the modal  |
 
-> warn
-> If your application responds with user data, you should use [`allowed_mentions`](/docs/resources/message#allowed-mentions-object) to filter which mentions in the content actually ping.
+:::warn
+If your application responds with user data, you should use [`allowed_mentions`](/docs/resources/message#allowed-mentions-object) to filter which mentions in the content actually ping.
+:::
 
 ## Interaction Callback
 
@@ -297,8 +303,9 @@ json = {
 r = requests.post(url, json=json)
 ```
 
-> info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+:::info
+Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+:::
 
 <Collapsible title="Inline HTTP Response Behavior" icon="code">
     If you receive interactions over HTTP, your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](/docs/interactions/receiving-and-responding#interaction-response-object) object:
@@ -370,15 +377,17 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 -   [`POST /webhooks/<application_id>/<interaction_token>`](/docs/interactions/receiving-and-responding#create-followup-message) to send a new followup message
 -   [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](/docs/interactions/receiving-and-responding#edit-followup-message) to edit a message sent with that `token`
 
-> info
-> Interactions webhooks share the same rate limit properties as normal webhooks.
+:::info
+Interactions webhooks share the same rate limit properties as normal webhooks.
+:::
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond to an interaction within that amount of time.
 
 ### Endpoints
 
-> info
-> The endpoints below are not bound to the application's [Global Rate Limit](/docs/topics/rate-limits#global-rate-limit).
+:::info
+The endpoints below are not bound to the application's [Global Rate Limit](/docs/topics/rate-limits#global-rate-limit).
+:::
 
 ## Create Interaction Response % POST /interactions/\{interaction.id/docs/interactions/receiving-and-responding#interaction-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/callback
 
@@ -407,8 +416,9 @@ Deletes the initial Interaction response. Returns `204 No Content` on success.
 
 ## Create Followup Message % POST /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}
 
-> info
-> Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
+:::info
+Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
+:::
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](/docs/resources/webhook#execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups. You can use the `EPHEMERAL` [message flag](/docs/resources/message#message-object-message-flags) `1 << 6` (64) to send a message that only the user can see.
 

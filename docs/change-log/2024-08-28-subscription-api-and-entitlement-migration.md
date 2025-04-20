@@ -6,13 +6,15 @@ topics:
 breaking: true
 ---
 
-> info
-> Updates to this Change Log entry was published on **October 7, 2024** to reflect up-to-date information. See the [new Change Log entry](/docs/change-log#updates-to-entitlement-migration-guide) for details on updates.
+:::info
+Updates to this Change Log entry was published on **October 7, 2024** to reflect up-to-date information. See the [new Change Log entry](/docs/change-log#updates-to-entitlement-migration-guide) for details on updates.
+:::
 
 We are migrating our entitlement system to a new behavior where entitlements will not end until explicitly canceled, representing a breaking change for subscription management. We are introducing a [Subscription API](/docs/resources/subscription) and [Subscription Events](/docs/events/gateway-events#subscriptions) to allow handling subscription-related events.
 
-> warn
-> This change will be rolled out to all existing applications that have entitlements for user and guild subscription SKUs, starting on October 1, 2024.
+:::warn
+This change will be rolled out to all existing applications that have entitlements for user and guild subscription SKUs, starting on October 1, 2024.
+:::
 
 #### Entitlement Migration Details
 
@@ -44,8 +46,9 @@ As part of these changes, we've updated the documentation for Premium Apps.
 
 Starting on **October 1, 2024**, we will be migrating our existing entitlement system to a new behavior where **entitlements do not expire until explicitly canceled**. This migration guide outlines the changes and impacts of this migration on developers and guides how to manage these changes effectively.
 
-> warn
-> With this update, entitlements for subscription SKUs will no longer emit events when a new subscription billing period begins. If you need to know when a subscription has been renewed, use the new [Subscription API](/docs/resources/subscription) and related [Subscription Gateway Events](/docs/events/gateway-events#subscriptions).
+:::warn
+With this update, entitlements for subscription SKUs will no longer emit events when a new subscription billing period begins. If you need to know when a subscription has been renewed, use the new [Subscription API](/docs/resources/subscription) and related [Subscription Gateway Events](/docs/events/gateway-events#subscriptions).
+:::
 
 ### Current System
 

@@ -111,8 +111,9 @@ Extra information about an invite, will extend the [invite](/docs/resources/invi
 
 ### Invite Stage Instance Object
 
-> warn
-> This is deprecated.
+:::warn
+This is deprecated.
+:::
 
 ###### Invite Stage Instance Structure
 
@@ -160,5 +161,6 @@ Returns an [invite](/docs/resources/invite#invite-object) object for the given c
 
 Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](/docs/resources/invite#invite-object) object on success. Fires an [Invite Delete](/docs/events/gateway-events#invite-delete) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::

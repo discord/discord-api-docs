@@ -4,8 +4,9 @@ sidebar_label: Emoji
 
 # Emoji Resource
 
-> warn
-> Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+:::warn
+Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+:::
 
 ### Emoji Object
 
@@ -100,11 +101,13 @@ Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given guil
 
 Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
-> warn
-> Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+:::warn
+Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -118,11 +121,13 @@ Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permis
 
 Modify the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional.
+:::info
+All parameters to this endpoint are optional.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -135,8 +140,9 @@ Modify the given emoji. For emojis created by the current user, requires either 
 
 Delete the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ## List Application Emojis % GET /applications/{application.id/docs/resources/application#application-object}/emojis
 
@@ -172,8 +178,9 @@ Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given appl
 
 Create a new emoji for the application. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success.
 
-> warn
-> Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+:::warn
+Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+:::
 
 ###### JSON Params
 

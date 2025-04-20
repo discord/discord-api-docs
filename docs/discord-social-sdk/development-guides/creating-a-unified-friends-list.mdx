@@ -44,8 +44,9 @@ Presence is how Discord stores whether a user is currently online or not, as wel
 - Online Status: Online, Offline, Idle, etc.
 - Rich Presence: Any activities associated with the current game (or application in Discord parlance).  
 
-> info
+:::info
 The SDK will only display activities associated with the current game, meaning you will not be able to see other game activities in Rich Presence, even if you can see them in the Discord client.
+:::
 
 See our [Design Guidelines: Status & Rich Presence](/docs/discord-social-sdk/design-guidelines/status-rich-presence) for best practices on displaying presence information.
 
@@ -129,8 +130,9 @@ Let's update our `DisplayFriendsList` function to reflect our three sections and
 - We will sort each category alphabetically.
 - We will display each category separately.
 
-> info
-> This example is for reference only. Please make sure you use efficient data structures and cache data when appropriate to avoid performance issues in your game.
+:::info
+This example is for reference only. Please make sure you use efficient data structures and cache data when appropriate to avoid performance issues in your game.
+:::
 
 ```cpp
 void DisplayFriendsList(discordpp::Client& client) {
@@ -237,8 +239,9 @@ client->SetRelationshipDeletedCallback([&client](uint64_t userId, bool isDiscord
 
 Now your friends list will automatically update when relationships change, such as when you add a new friend, accept a friend request, or block a user.
 
-> warn
-> Note: Our example will rebuild the friends list from scratch every time a relationship changes. For performance reasons, you will want to update only the changed relationships.
+:::warn
+Note: Our example will rebuild the friends list from scratch every time a relationship changes. For performance reasons, you will want to update only the changed relationships.
+:::
 
 ## Step 4: Monitor Changes to Users 
 
@@ -255,8 +258,9 @@ client->SetUserUpdatedCallback([&client](uint64_t userId) {
 
 Now your friends list will automatically update when the presence of a friend changes, such as when they go online, offline or start playing your game.
 
-> warn
-> Note: Our example will rebuild the friends list from scratch every time a relationship changes. For performance reasons, you will want to update only the user or relationship that changed.
+:::warn
+Note: Our example will rebuild the friends list from scratch every time a relationship changes. For performance reasons, you will want to update only the user or relationship that changed.
+:::
 
 ---
 

@@ -91,15 +91,17 @@ If you are using the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) 
 
 ## Testing Your One-Time Purchase Implementation
 
-> warn
-> The method of testing purchases for One-Time Purchases differs from the method for App Subscriptions. **Do NOT use Test Entitlements for One-Time Purchases.**
+:::warn
+The method of testing purchases for One-Time Purchases differs from the method for App Subscriptions. **Do NOT use Test Entitlements for One-Time Purchases.**
+:::
 
 ### Using Application Test Mode
 
 While in Application Test Mode, you can freely make "purchases" of One-Time Purchase SKUs tied to your application. That means you can test buying your consumable and durable items by going through the In-App Purchase flow without any credit card charges.
 
-> info
-> You still need to have a valid payment method on file to "purchase" SKUs in Application Test Mode. It just won't be charged at checkout.
+:::info
+You still need to have a valid payment method on file to "purchase" SKUs in Application Test Mode. It just won't be charged at checkout.
+:::
 
 To enable it, first, make sure you have a payment method on file in `User Settings -> Billing` and then:
 
@@ -115,6 +117,7 @@ You can now navigate to your Store page and purchase your one-time purchase item
 
 The entitlements tied to items purchased in Application Test Mode can be identified by entitlements with a `type` value of 4 to represent `TEST_MODE_PURCHASE`.
 
-> warn
-> The "Go To SKU" button does not currently work. To purchase your SKU in test mode, go to your Store page.
+:::warn
+The "Go To SKU" button does not currently work. To purchase your SKU in test mode, go to your Store page.
+:::
 

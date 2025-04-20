@@ -31,8 +31,9 @@ When creating subscriptions, you will need to choose between user or guild subsc
 
 Because entitlements are granted indefinitely and don't update on renewal or cancellation, you can use subscription events to track the lifecycle of a subscription.
 
-> info
-> This is not a complete list of when events may occur. You should use the presence of an entitlement to determine if a user has access to your premium features. The Subscription API and related events are intended for reporting and lifecycle management purposes and **should not be used as the source of truth of whether a user has access to your premium features**.
+:::info
+This is not a complete list of when events may occur. You should use the presence of an entitlement to determine if a user has access to your premium features. The Subscription API and related events are intended for reporting and lifecycle management purposes and **should not be used as the source of truth of whether a user has access to your premium features**.
+:::
 
 | Event Name            | Subscription Behavior                      | Updated Fields                                                                                                                |
 |-----------------------|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
@@ -184,8 +185,9 @@ Once the user's current subscription expires on `subscription.current_period_end
 
 ## Using the Subscription API
 
-> info 
-> When implementing monetization, [Entitlements](/docs/resources/entitlement) should be considered the source of truth for a user's access to a specific SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
+:::info
+When implementing monetization, [Entitlements](/docs/resources/entitlement) should be considered the source of truth for a user's access to a specific SKU. The Subscription API is intended for reporting and lifecycle management purposes that happen outside the flow of a user's interaction with your app.
+:::
 
 You can use the [Subscription API](/docs/resources/subscription) to check on the status of your app subscriptions. This API allows you to list subscriptions by user for reporting purposes and to check on the status of subscriptions without having to access entitlements directly.
 
@@ -203,8 +205,9 @@ You can test your implementation by [creating](/docs/resources/entitlement#creat
 
 This method will not let you test out the full payment flow in Discord but will allow you to test your app's behavior when a user is subscribed or unsubscribed. See [Using Live Entitlements](/docs/monetization/implementing-app-subscriptions#using-live-entitlements) if you'd like to see the full payment flow.
 
-> info
-> Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
+:::info
+Test Entitlements do not have a `starts_at` or `ends_at` field as they are valid until they are deleted.
+:::
 
 ### Using Live Entitlements
 
@@ -212,5 +215,6 @@ If you'd like to test the full payment flow for your app, you can do so by inter
 
 After checkout, you will have a live subscription. This subscription will renew until canceled and can be used in testing subscription renewals in your app.  If you cancel this subscription, it will remain an active entitlement until the end of the subscription billing period, represented by the `period_ends_at` field on the [Subscription](/docs/resources/subscription#subscription-object). 
 
-> info
-> You can only delete entitlements created using the [create entitlement](/docs/resources/entitlement#create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use Test Entitlements.
+:::info
+You can only delete entitlements created using the [create entitlement](/docs/resources/entitlement#create-test-entitlement) endpoint. If you need to toggle access to your premium features during your development process, it is best to use Test Entitlements.
+:::
