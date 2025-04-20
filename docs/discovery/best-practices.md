@@ -91,7 +91,7 @@ For general best practices on how to run a server, check out our [Community page
 
 ### Final checks to make sure you’re ready to go
 
-Before you can click the final “Enable Discovery” button, ensure that your App Directory Product Page complies with the rest of Discord’s Directory eligibility criteria, [app content requirements](https://support-dev.discord.com/hc/en-us/articles/9489299950487) and Developer [Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383) and [Policy](https://support-dev.discord.com/hc/en-us/articles/8563934450327).
+Before you can click the final “Enable Discovery” button, ensure that your App Directory Product Page complies with the rest of Discord’s Directory eligibility criteria, [app content requirements](https://support-dev.discord.com/hc/en-us/articles/9489299950487) and Developer [Terms of Service](https://dis.gd/discord-developer-terms-of-service) and [Policy](https://dis.gd/discord-developer-policy).
 
 For more details about what this information entails, read our [Help Center article on Profile Pages](https://support-dev.discord.com/hc/en-us/articles/6378525413143).
 
