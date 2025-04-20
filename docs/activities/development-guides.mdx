@@ -442,7 +442,7 @@ User Experience
 
 An [Entry Point command](/docs/interactions/application-commands#entry-point-commands) is required for users to be able to launch your Activity from the [App Launcher menu](https://support.discord.com/hc/articles/21334461140375-Using-Apps-on-Discord#h_01HRQSA6C8TRHS722P1H3HW1TV) in Discord.
 
-When you enable Activities in your [app's settings](http://discord.com/developers/applications), a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) is automatically created for your app. The default Entry Point command will use the `DISCORD_LAUNCH_ACTIVITY` (`2`) [handler type](/docs/interactions/application-commands#application-command-object-entry-point-command-handler-types), which means that Discord automatically launches your Activity for the user and posts a follow-up message into the channel where it was launched from.
+When you enable Activities in your [app's settings](https://discord.com/developers/applications), a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) is automatically created for your app. The default Entry Point command will use the `DISCORD_LAUNCH_ACTIVITY` (`2`) [handler type](/docs/interactions/application-commands#application-command-object-entry-point-command-handler-types), which means that Discord automatically launches your Activity for the user and posts a follow-up message into the channel where it was launched from.
 
 If you want to handle sending messages yourself, you can update the handler to be `APP_HANDLER` (`1`). Details about Entry Point command handlers is in the [Entry Point command documentation](/docs/interactions/application-commands#entry-point-handlers).
 
