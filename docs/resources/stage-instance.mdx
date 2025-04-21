@@ -61,7 +61,8 @@ Below are some definitions related to stages.
 
 When a Stage channel has no speakers for a certain period of time (on the order of minutes), the Stage instance will be automatically deleted.
 
-## Create Stage Instance % POST /stage-instances
+## Create Stage Instance
+<Route type="POST">/stage-instances</Route>
 
 Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](/docs/resources/stage-instance#stage-instance-object-stage-instance-structure). Fires a [Stage Instance Create](/docs/events/gateway-events#stage-instance-create) Gateway event.
 
@@ -83,11 +84,13 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 \* The stage moderator must have the `MENTION_EVERYONE` permission for this notification to be sent.
 
-## Get Stage Instance % GET /stage-instances/{channel.id/docs/resources/channel#channel-object}
+## Get Stage Instance
+<Route type="GET">/stage-instances/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
 Gets the stage instance associated with the Stage channel, if it exists.
 
-## Modify Stage Instance % PATCH /stage-instances/{channel.id/docs/resources/channel#channel-object}
+## Modify Stage Instance
+<Route type="PATCH">/stage-instances/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
 Updates fields of an existing Stage instance. Returns the updated [Stage instance](/docs/resources/stage-instance#stage-instance-object-stage-instance-structure). Fires a [Stage Instance Update](/docs/events/gateway-events#stage-instance-update) Gateway event.
 
@@ -104,7 +107,8 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | topic?         | string  | The topic of the Stage instance (1-120 characters)                                                            |
 | privacy_level? | integer | The [privacy level](/docs/resources/stage-instance#stage-instance-object-privacy-level) of the Stage instance |
 
-## Delete Stage Instance % DELETE /stage-instances/{channel.id/docs/resources/channel#channel-object}
+## Delete Stage Instance
+<Route type="DELETE">/stage-instances/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
 Deletes the Stage instance. Returns `204 No Content`. Fires a [Stage Instance Delete](/docs/events/gateway-events#stage-instance-delete) Gateway event.
 

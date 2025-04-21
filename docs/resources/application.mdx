@@ -182,9 +182,8 @@ By default, newly-created apps only support installation to guilds.
 
 You can update which installation contexts your app supports in your [app's settings](https://discord.com/developers/applications). On the **Installation** page under the **Installation Contexts** section, you can select the installation contexts your app supports.
 
-:::info
-If you update your app to support a new installation context, you will need to update your existing [commands](/docs/interactions/application-commands#contexts) if you want them to be supported in the new context. Details are in the [Application Command](/docs/interactions/application-commands#contexts) documentation.
-:::
+> info
+> If you update your app to support a new installation context, you will need to update your existing [commands](/docs/interactions/application-commands#contexts) if you want them to be supported in the new context. Details are in the [Application Command](/docs/interactions/application-commands#contexts) documentation.
 
 ## Install Links
 
@@ -194,9 +193,8 @@ Install links provide an easy way for users to install your app in Discord. If y
 
 There are three options when configuring an install link for your app: "Discord Provided Link", "Custom URL", and "None". If you don't configure an install link (by selecting "None"), the "Add App" button will not appear for your app, and your app will not be eligible for the App Directory.
 
-:::info
-Note that install links are distinct from OAuth2 flows like the [authorization code grant](/docs/topics/oauth2#authorization-code-grant), which may additionally be required if you need to request user-specific [scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) like `identify` or `role_connections.write`.
-:::
+> info
+> Note that install links are distinct from OAuth2 flows like the [authorization code grant](/docs/topics/oauth2#authorization-code-grant), which may additionally be required if you need to request user-specific [scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) like `identify` or `role_connections.write`.
 
 #### Discord Provided Link
 
@@ -210,9 +208,8 @@ https://discord.com/oauth2/authorize?client_id=1234567895647001626
 
 Instead, these links will prompt the user for the scopes and bot user permissions configured in your Default Install Settings.
 
-:::info
-Discord Provided Links are limited to the `application.commands` and `bot` scopes
-:::
+> info
+> Discord Provided Links are limited to the `application.commands` and `bot` scopes
 
 #### Custom URL
 
@@ -226,17 +223,18 @@ You can configure your app's install link in your [app's settings](https://disco
 
 The Default Install Settings will appear on the **Installation** page when you have "Discord Provided Link" selected as your install link type.
 
-## Get Current Application % GET /applications/@me
+## Get Current Application
+<Route type="GET">/applications/@me</Route>
 
 Returns the [application](/docs/resources/application#application-object) object associated with the requesting bot user.
 
-## Edit Current Application % PATCH /applications/@me
+## Edit Current Application
+<Route type="PATCH">/applications/@me</Route>
 
 Edit properties of the app associated with the requesting bot user. Only properties that are passed will be updated. Returns the updated [application](/docs/resources/application#application-object) object on success.
 
-:::info
-All parameters to this endpoint are optional
-:::
+> info
+> All parameters to this endpoint are optional
 
 ###### JSON Params
 
@@ -260,10 +258,10 @@ All parameters to this endpoint are optional
 
 \*\* To update an Interactions endpoint URL via the API, the URL must be valid according to the [Receiving an Interaction](/docs/interactions/receiving-and-responding#receiving-an-interaction) documentation.
 
-## Get Application Activity Instance % GET /applications/{application.id/docs/resources/application#application-object}/activity-instances/{instance_id}
+## Get Application Activity Instance
+<Route>/applications/[\{application.id\}](/docs/resources/application#application-object)/activity-instances/[\{instance_id\}](/docs/resources/application#get-application-activity-instance-activity-instance-object)</Route>
 
 Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](/docs/activities/development-guides#preventing-unwanted-activity-sessions).
-
 
 ###### Example Activity Instance
 
@@ -291,7 +289,6 @@ Returns a serialized activity instance, if it exists. Useful for [preventing unw
 | launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                         |
 | location       | [Activity Location](/docs/resources/application#get-application-activity-instance-activity-location-object) | Location the instance is running in                                                      |
 | users          | array of snowflakes, [user](/docs/resources/user#user-object) IDs                                           | IDs of the Users currently connected to the instance                                     |
-
 
 
 ###### Activity Location Object

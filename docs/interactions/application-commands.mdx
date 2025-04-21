@@ -1156,7 +1156,8 @@ Details about accessing and using age-restricted commands is in [the Help Center
 For authorization, all endpoints take either a [bot token](/docs/reference#authentication) or [client credentials token](/docs/topics/oauth2#client-credentials-grant) for your application
 :::
 
-## Get Global Application Commands % GET /applications/\{application.id/docs/resources/application#application-object\}/commands
+## Get Global Application Commands
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
 
 :::warn
 The objects returned by this endpoint may be augmented with [additional fields if localization is active](/docs/interactions/application-commands#retrieving-localized-commands).
@@ -1170,7 +1171,8 @@ Fetch all of the global commands for your application. Returns an array of [appl
 |---------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | with_localizations? | [boolean](/docs/reference#boolean-query-strings) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
-## Create Global Application Command % POST /applications/\{application.id/docs/resources/application#application-object\}/commands
+## Create Global Application Command
+<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
 
 :::warn
 Creating a command with the same name as an existing command for your application will overwrite the old command.
@@ -1195,11 +1197,13 @@ Create a new global command. Returns `201` if a command with the same name does 
 | type?                       | one of [application command type](/docs/interactions/application-commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
-## Get Global Application Command % GET /applications/\{application.id/docs/resources/application#application-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}
+## Get Global Application Command
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Fetch a global command for your application. Returns an [application command](/docs/interactions/application-commands#application-command-object) object.
 
-## Edit Global Application Command % PATCH /applications/\{application.id/docs/resources/application#application-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}
+## Edit Global Application Command
+<Route type="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 :::info
 All parameters for this endpoint are optional.
@@ -1223,11 +1227,13 @@ Edit a global command. Returns `200` and an [application command](/docs/interact
 | contexts?                   | list of [interaction context types](/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types)                  | [Interaction context(s)](/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types) where the command can be used                                        |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
-## Delete Global Application Command % DELETE /applications/\{application.id/docs/resources/application#application-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}
+## Delete Global Application Command
+<Route type="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Deletes a global command. Returns `204 No Content` on success.
 
-## Bulk Overwrite Global Application Commands % PUT /applications/\{application.id/docs/resources/application#application-object\}/commands
+## Bulk Overwrite Global Application Commands
+<Route type="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
 
 Takes a list of application commands, overwriting the existing global command list for this application. Returns `200` and a list of [application command](/docs/interactions/application-commands#application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
@@ -1235,7 +1241,8 @@ Takes a list of application commands, overwriting the existing global command li
 This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
 :::
 
-## Get Guild Application Commands % GET /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands
+## Get Guild Application Commands
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
 
 :::warn
 The objects returned by this endpoint may be augmented with [additional fields if localization is active](/docs/interactions/application-commands#retrieving-localized-commands).
@@ -1249,7 +1256,8 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 |---------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | with_localizations? | [boolean](/docs/reference#boolean-query-strings) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
-## Create Guild Application Command % POST /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands
+## Create Guild Application Command
+<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
 
 :::danger
 Creating a command with the same name as an existing command for your application will overwrite the old command.
@@ -1271,11 +1279,13 @@ Create a new guild command. New guild commands will be available in the guild im
 | type?                       | one of [application command type](/docs/interactions/application-commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
-## Get Guild Application Command % GET /applications/\{application.id/docs/resources/application#application-object}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}
+## Get Guild Application Command
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Fetch a guild command for your application. Returns an [application command](/docs/interactions/application-commands#application-command-object) object.
 
-## Edit Guild Application Command % PATCH /applications/\{application.id/docs/resources/application#application-object}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}
+## Edit Guild Application Command
+<Route type="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 :::info
 All parameters for this endpoint are optional.
@@ -1296,11 +1306,15 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | default_permission?         | boolean                                                                                                                                        | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
-## Delete Guild Application Command % DELETE /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}
+## Delete Guild Application Command
+
+<Route type="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Delete a guild command. Returns `204 No Content` on success.
 
-## Bulk Overwrite Guild Application Commands % PUT /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands
+## Bulk Overwrite Guild Application Commands
+
+<Route type="PUT">/applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands</Route>
 
 Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](/docs/interactions/application-commands#application-command-object) objects.
 
@@ -1326,15 +1340,19 @@ This will overwrite **all** types of application commands: slash commands, user 
 | type?                       | one of [application command type](/docs/interactions/application-commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
-## Get Guild Application Command Permissions % GET /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/permissions
+## Get Guild Application Command Permissions
+
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
 
 Fetches permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
-## Get Application Command Permissions % GET /applications/\{application.id/docs/resources/application#application-object}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}/permissions
+## Get Application Command Permissions
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)/permissions</Route>
 
 Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
 
-## Edit Application Command Permissions % PUT /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/\{command.id/docs/interactions/application-commands#application-command-object\}/permissions
+## Edit Application Command Permissions
+<Route type="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)/permissions</Route>
 
 :::warn
 This endpoint will overwrite existing permissions for the command in that guild
@@ -1358,7 +1376,8 @@ Deleting or renaming a command will permanently delete all permissions for the c
 |-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
 | permissions | array of [application command permissions](/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild |
 
-## Batch Edit Application Command Permissions % PUT /applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands/permissions
+## Batch Edit Application Command Permissions
+<Route type="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
 
 :::danger
 This endpoint has been disabled with [updates to command permissions (Permissions v2)](/docs/change-log#updated-command-permissions). Instead, you can [edit each application command permissions](/docs/interactions/application-commands#edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](/docs/topics/rate-limits)).
