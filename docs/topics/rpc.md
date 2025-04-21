@@ -1,7 +1,8 @@
 # RPC
 
-> danger
-> For now, RPC is in a private beta. We are not currently accepting any new developers into the program at this time.
+:::danger
+For now, RPC is in a private beta. We are not currently accepting any new developers into the program at this time.
+:::
 
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
 
@@ -483,13 +484,14 @@ Used to change voice settings of users in voice channels
 | volume? | integer                                                        | set the volume of user (defaults to 100, min 0, max 200) |
 | mute?   | boolean                                                        | set the mute state of the user                           |
 
-> info
-> In the current release, we only support a single modifier of voice settings at a time over RPC.
-> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
-> lose the ability to change voice settings. Settings reset to what they were before being changed after the
-> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
-> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
-> be changed in the future.
+:::info
+In the current release, we only support a single modifier of voice settings at a time over RPC.
+If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
+lose the ability to change voice settings. Settings reset to what they were before being changed after the
+controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
+to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
+be changed in the future.
+:::
 
 ###### Pan Object
 
@@ -547,8 +549,9 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 | force      | boolean | forces a user to join a voice channel                           |
 | navigate   | boolean | after joining the voice channel, navigate to it in the client   |
 
-> warn
-> When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
+:::warn
+When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
+:::
 
 ###### Example Select Voice Channel Command Payload
 
@@ -735,13 +738,14 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 #### SET_VOICE_SETTINGS
 
-> info
-> In the current release, we only support a single modifier of voice settings at a time over RPC.
-> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
-> lose the ability to change voice settings. Settings reset to what they were before being changed after the
-> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
-> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
-> be changed in the future.
+:::info
+In the current release, we only support a single modifier of voice settings at a time over RPC.
+If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
+lose the ability to change voice settings. Settings reset to what they were before being changed after the
+controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
+to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
+be changed in the future.
+:::
 
 When setting voice settings, all fields are optional. Only passed fields are updated.
 
@@ -992,8 +996,9 @@ Used to update a user's Rich Presence.
 
 ###### Set Activity Argument Structure
 
-> info
-> When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Playing (`0`), Listening (`2`), Watching (`3`), or Competing (`5`).
+:::info
+When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Playing (`0`), Listening (`2`), Watching (`3`), or Competing (`5`).
+:::
 
 | Field    | Type                                                           | Description                             |
 |----------|----------------------------------------------------------------|-----------------------------------------|

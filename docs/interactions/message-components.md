@@ -474,8 +474,9 @@ The payloads for the select menu components are detailed in the [select menu str
 
 The `resolved` object is included in interaction payloads for user, role, mentionable, and channel select menu components. `resolved` contains a nested object with additional details about the selected options with the key of the resource type—`users`, `roles`, `channels`, and `members`.
 
-> info
-> `members` and `users` may both be present in the `resolved` object when a user is selected (in either a user select or mentionable select).
+:::info
+`members` and `users` may both be present in the `resolved` object when a user is selected (in either a user select or mentionable select).
+:::
 
 ###### Example Resolved Object
 

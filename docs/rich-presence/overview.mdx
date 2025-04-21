@@ -20,8 +20,9 @@ There are three options when integrating Rich Presence. Depending on what you're
 
 All SDKs use similar underlying primitives (like the [`SET_ACTIVITY` RPC command](/docs/topics/rpc#setactivity)), so a lot is the same between them. But there are a few differences, like feature compatibility, which is covered in the sections below.
 
-> info 
-> Rich Presence data appears publicly on your Discord profile, so during development you should use a test account that only belongs to your private development server(s).
+:::info
+Rich Presence data appears publicly on your Discord profile, so during development you should use a test account that only belongs to your private development server(s).
+:::
 
 ### Discord Social SDK
 
@@ -41,8 +42,9 @@ After a user joins an Activity, Rich Presence can be used to dynamically show da
 
 ### Game SDK
 
-> warn
-> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::warn
+**The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::
 
 The [Game SDK](/docs/developer-tools/game-sdk) makes it easier to build 3rd party games and integrate them with Discord. While many features of the Game SDK are deprecated, it can still be used for a few use cases (like integrating Rich Presence!).
 
@@ -60,8 +62,9 @@ To add custom assets for Rich Presence, navigate to your [app's settings](https:
 
 The Rich Presence invite image appears when [invites](/docs/developer-tools/game-sdk#sendinvite) are sent for a 3rd party game or app using the [Game SDK](/docs/rich-presence/overview#game-sdk). After uploading an invite image for your app, you can see a preview of it to the right (under "IRL Invite Image Example").
 
-> info 
-> The invite image can be ignored if you're building using the [Embedded App SDK](/docs/rich-presence/overview#embedded-app-sdk). Invites sent using the Embedded App SDK's[`openInviteDialog()`](/docs/developer-tools/embedded-app-sdk#openinvitedialog) use the Activity's cover art.
+:::info
+The invite image can be ignored if you're building using the [Embedded App SDK](/docs/rich-presence/overview#embedded-app-sdk). Invites sent using the Embedded App SDK's[`openInviteDialog()`](/docs/developer-tools/embedded-app-sdk#openinvitedialog) use the Activity's cover art.
+:::
 
 ![Rich Presence invite image in app settings](images/rich-presence-invite-image.png)
 
@@ -71,8 +74,9 @@ Up to 300 custom assets can be added for your app to use when setting Rich Prese
 
 If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
 
-> info
-> For tips on choosing assets, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices#have-interesting-expressive-art).
+:::info
+For tips on choosing assets, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices#have-interesting-expressive-art).
+:::
 
 When uploading Rich Presence assets, **the asset keys will automatically be changed to lowercase**. You can see this reflected in your app's settings after saving a newly-uploaded asset, and should keep it in mind when referencing any asset keys in your code.
 
@@ -80,8 +84,9 @@ When uploading Rich Presence assets, **the asset keys will automatically be chan
 
 ### Using the Visualizer
 
-> warn
-> The Rich Presence visualizer currently uses an outdated Discord UI, but can still be helpful as a quick-and-dirty reference for what your Rich Presence data will look like in Discord. 
+:::warn
+The Rich Presence visualizer currently uses an outdated Discord UI, but can still be helpful as a quick-and-dirty reference for what your Rich Presence data will look like in Discord. 
+:::
 
 In your app's settings, there's a Rich Presence visualizer to make it easier to see what your uploaded [assets](/docs/rich-presence/overview#assets) will look like in the context of a Discord profile. To access the visualizer, navigate to your [app's settings](https://discord.com/developers/applications) and click **Rich Presence** on the left-hand sidebar. On the **Visualizer** page, you can fill out some custom strings, party information, and select your uploaded assets to see a preview.
 

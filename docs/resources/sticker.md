@@ -132,14 +132,17 @@ Create a new sticker for the guild. Send a `multipart/form-data` body. Requires 
 
 Every guilds has five free sticker slots by default, and each Boost level will grant access to more slots.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-> warn
-> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](/docs/resources/guild#guild-object-guild-features). 
+:::warn
+Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](/docs/resources/guild#guild-object-guild-features). 
+:::
 
-> warn
-> Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
+:::warn
+Uploaded stickers are constrained to 5 seconds in length for animated stickers, and 320 x 320 pixels.
+:::
 
 ###### Form Params
 
@@ -154,11 +157,13 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 
 Modify the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [sticker](/docs/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional.
+:::info
+All parameters to this endpoint are optional.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -172,5 +177,6 @@ Modify the given sticker. For stickers created by the current user, requires eit
 
 Delete the given sticker. For stickers created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other stickers, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](/docs/events/gateway-events#guild-stickers-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::

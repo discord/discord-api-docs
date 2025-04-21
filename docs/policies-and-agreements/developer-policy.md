@@ -4,8 +4,9 @@ sidebar_label: Developer Policy
 
 # Discord Developer Policy
 
-> info
-> We’re updating our Developer Terms of Service and Developer Policy, effective July 8, 2024. Please review the updated Policy below and Terms [here](/docs/policies-and-agreements/developer-terms-of-service). If you access or use the APIs on or after July 8, 2024, it means you agree to the updated Policy and Terms. Until then, the current [Developer Terms of Service](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Terms_of_Service.md) and [Developer Policy](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md) will apply.
+:::info
+We’re updating our Developer Terms of Service and Developer Policy, effective July 8, 2024. Please review the updated Policy below and Terms [here](/docs/policies-and-agreements/developer-terms-of-service). If you access or use the APIs on or after July 8, 2024, it means you agree to the updated Policy and Terms. Until then, the current [Developer Terms of Service](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Terms_of_Service.md) and [Developer Policy](https://github.com/discord/discord-api-docs/blob/e5cd463cd1412df2e55fce8ecb81e7d1ed5755b0/docs/policies_and_agreements/Developer_Policy.md) will apply.
+:::
 
 ## Effective date: July 8, 2024
 

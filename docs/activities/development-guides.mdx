@@ -154,8 +154,9 @@ Although it is possible to test your application locally, we recommend developin
 4. Locally, spin up your web server.
 5. Install and run a tunnel solution, such as [cloudflared](https://github.com/cloudflare/cloudflared#installing-cloudflared). You will point it to your local web server.
 
-> info
-> Your web server can be HTTP and your network tunnel can upgrade the connection to HTTPS.
+:::info
+Your web server can be HTTP and your network tunnel can upgrade the connection to HTTPS.
+:::
 
 If using cloudflared, you will run the following command, replace `3000` with your web server's port.
 
@@ -174,8 +175,9 @@ In the Discord Developer Portal, update the Application URL mapping for `/` url 
 
 ![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
 
-> warn
-> If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
+:::warn
+If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
+:::
 
 Follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides#launch-your-application-from-the-discord-client). Application URL Override should not be enabled.
 
@@ -588,8 +590,9 @@ discordSdk.subscribe('THERMAL_STATE_UPDATE', handleThermalStateUpdate);
 
 Discord will publish the current thermal state upon event subscription, and it will also publish any thermal state changes that happen afterward.
 
-> info
-> On Android devices, the thermal state updates will only be available on Android 10 and higher.
+:::info
+On Android devices, the thermal state updates will only be available on Android 10 and higher.
+:::
 
 ---
 
@@ -747,8 +750,9 @@ async function setupApp() {
 }
 ```
 
-> info
-> Note: `patchUrlMappings` is modifying your browser's `fetch`, `WebSocket`, and `XMLHttpRequest.prototype.open` global variables. Depending on the library, you may see side effects from using this helper function. It should be used only when necessary.
+:::info
+Note: `patchUrlMappings` is modifying your browser's `fetch`, `WebSocket`, and `XMLHttpRequest.prototype.open` global variables. Depending on the library, you may see side effects from using this helper function. It should be used only when necessary.
+:::
 
 ---
 
@@ -1016,8 +1020,9 @@ Once you're satisfied with your changes you can click on the copy icon on the ro
 1. Click on the trash icon on the row of the link you're trying to delete.
 2. You'll have a confirm dialog pop up.
 
-> warn
-> Deleting is irreversible and immediate. Ensure that your link isn't in active use before deleting and/or that your activity gracefully handles any click-throughs from the link.
+:::warn
+Deleting is irreversible and immediate. Ensure that your link isn't in active use before deleting and/or that your activity gracefully handles any click-throughs from the link.
+:::
 
 #### Best Practices
 
@@ -1109,8 +1114,9 @@ To update your app's metadata in the Discord Developer Portal, navigate to the `
   - Leaving this field empty defaults to `Unlimited participants`.
   - Max Participants is also displayed under the name in the 2-up view.
 
-> info
-> An app can have a different application name and avatar from the application's bot username and avatar. Both sets of metadata are public-facing and may be visible in various situations when a user interacts with your app. You can view your bot's username on the `Settings -> Bot` tab.
+:::info
+An app can have a different application name and avatar from the application's bot username and avatar. Both sets of metadata are public-facing and may be visible in various situations when a user interacts with your app. You can view your bot's username on the `Settings -> Bot` tab.
+:::
 
 ---
 

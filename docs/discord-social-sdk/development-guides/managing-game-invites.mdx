@@ -19,8 +19,9 @@ Before you begin, make sure you have:
 - Set up the Discord Social SDK with our [Getting Started guide](/docs/discord-social-sdk/getting-started)
 - Familiarized yourself with [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence)
 
-> info
-> Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
+:::info
+Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
+:::
 
 ---
 
@@ -259,8 +260,9 @@ An example flow might look like this:
 - Once accepted, the new user receives the join secret, and their client can call CreateOrJoinLobby(joinSecret) to join the lobby
 - Finally, the original user can notice that the lobby membership has changed, so they publish a new Rich Presence update containing the updated party size information
 
-> info
-> These examples use client-side lobby management but can also be adapted for lobbies created on the server side.
+:::info
+These examples use client-side lobby management but can also be adapted for lobbies created on the server side.
+:::
 
 ### Game Invite with Lobby Example
 

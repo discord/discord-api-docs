@@ -139,8 +139,9 @@ To open an authorization screen after requesting the user code, use [`Client::Op
 client->OpenAuthorizeDeviceScreen(user_code);
 ```
 
-> info
-> You can also display the `verification_uri_complete` or `verification_uri` with `user_code` in your game's interface to allow the user to enter the code manually.
+:::info
+You can also display the `verification_uri_complete` or `verification_uri` with `user_code` in your game's interface to allow the user to enter the code manually.
+:::
 
 ![Authorization screen from using OpenAuthorizeDeviceScreen and GetTokenFromDevice](images/social-sdk/development-guides/authorize_device.png)
 

@@ -40,9 +40,11 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 
 Alert boxes are created using a block quote that has one of 'warn', 'danger', 'info', or 'preview' on the first line. 
 For example:
+
 ```
-> warn
-> Something that requires warning here
+:::warn
+Something that requires warning here
+:::
 ```
 
 ![Alert options](static/images/alerts.png)

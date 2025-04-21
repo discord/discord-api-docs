@@ -107,8 +107,9 @@ Returns a [guild template](/docs/resources/guild-template#guild-template-object)
 
 Create a new guild based on a template. Returns a [guild](/docs/resources/guild#guild-object) object on success. Fires a [Guild Create](/docs/events/gateway-events#guild-create) Gateway event.
 
-> warn
-> This endpoint can be used only by bots in less than 10 guilds.
+:::warn
+This endpoint can be used only by bots in less than 10 guilds.
+:::
 
 ###### JSON Params
 
