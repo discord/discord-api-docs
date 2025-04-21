@@ -182,8 +182,9 @@ By default, newly-created apps only support installation to guilds.
 
 You can update which installation contexts your app supports in your [app's settings](https://discord.com/developers/applications). On the **Installation** page under the **Installation Contexts** section, you can select the installation contexts your app supports.
 
-> info
-> If you update your app to support a new installation context, you will need to update your existing [commands](/docs/interactions/application-commands#contexts) if you want them to be supported in the new context. Details are in the [Application Command](/docs/interactions/application-commands#contexts) documentation.
+:::info
+If you update your app to support a new installation context, you will need to update your existing [commands](/docs/interactions/application-commands#contexts) if you want them to be supported in the new context. Details are in the [Application Command](/docs/interactions/application-commands#contexts) documentation.
+:::
 
 ## Install Links
 
@@ -193,8 +194,9 @@ Install links provide an easy way for users to install your app in Discord. If y
 
 There are three options when configuring an install link for your app: "Discord Provided Link", "Custom URL", and "None". If you don't configure an install link (by selecting "None"), the "Add App" button will not appear for your app, and your app will not be eligible for the App Directory.
 
-> info
-> Note that install links are distinct from OAuth2 flows like the [authorization code grant](/docs/topics/oauth2#authorization-code-grant), which may additionally be required if you need to request user-specific [scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) like `identify` or `role_connections.write`.
+:::info
+Note that install links are distinct from OAuth2 flows like the [authorization code grant](/docs/topics/oauth2#authorization-code-grant), which may additionally be required if you need to request user-specific [scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) like `identify` or `role_connections.write`.
+:::
 
 #### Discord Provided Link
 
@@ -208,8 +210,9 @@ https://discord.com/oauth2/authorize?client_id=1234567895647001626
 
 Instead, these links will prompt the user for the scopes and bot user permissions configured in your Default Install Settings.
 
-> info
-> Discord Provided Links are limited to the `application.commands` and `bot` scopes
+:::info
+Discord Provided Links are limited to the `application.commands` and `bot` scopes
+:::
 
 #### Custom URL
 
@@ -233,8 +236,9 @@ Returns the [application](/docs/resources/application#application-object) object
 
 Edit properties of the app associated with the requesting bot user. Only properties that are passed will be updated. Returns the updated [application](/docs/resources/application#application-object) object on success.
 
-> info
-> All parameters to this endpoint are optional
+:::info
+All parameters to this endpoint are optional
+:::
 
 ###### JSON Params
 
