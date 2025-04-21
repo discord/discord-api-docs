@@ -28,8 +28,9 @@ Rich Presence allows you to display detailed information about players' actions 
 - Friend lists
 - Server member lists
 
-> info
-> Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
+:::info
+Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
+:::
 
 Each [`Activity`] contains fields that describe the following:
 
@@ -47,8 +48,9 @@ Each [`Activity`] contains fields that describe the following:
 
 See below for examples of how to set these fields in your code.
 
-> info 
-> While we support multiple [`ActivityTypes`], games should use `ActivityTypes::Playing` for `type`. The SDK automatically associates activity with your game, so fields like `name` will always show your game's name.
+:::info
+While we support multiple [`ActivityTypes`], games should use `ActivityTypes::Playing` for `type`. The SDK automatically associates activity with your game, so fields like `name` will always show your game's name.
+:::
 
 ### Customizing Rich Presence
 
@@ -70,8 +72,9 @@ This diagram visually shows the field mapping:
 
 ![Graphical representation of the legend for rich presence details](images/rp-legend.png)
 
-> info
-> For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
+:::info
+For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
+:::
 
 ---
 
@@ -95,8 +98,9 @@ Up to 300 custom assets can be added to your app for later use when setting Rich
 
 If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
 
-> info
-> For tips on choosing assets, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices#have-interesting-expressive-art).
+:::info
+For tips on choosing assets, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices#have-interesting-expressive-art).
+:::
 
 When uploading Rich Presence assets, **the asset keys will automatically be changed to lowercase**. You can see this reflected in your app's settings after saving a newly uploaded asset, and you should keep it in mind when referencing any asset keys in your code.
 
@@ -155,8 +159,9 @@ assets.SetSmallText("Tank");
 activity.SetAssets(assets);
 ```
 
-> info
-> If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+:::info
+If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+:::
 
 ---
 

@@ -8,8 +8,9 @@ When developing an [Activity](/docs/activities/overview), the [Embedded App SDK]
 
 Rich Presence data can be thought of as an extension of your Activity—and leveling it up just a *little* makes it more interesting and relevant to the user playing your Activity (and their friends that might want to jump in and play). This guide provides an overview of the platform and technical knowledge you need to integrate Rich Presence with your existing Activity.
 
-> info
-> Not sure if you should be building with the Embedded App SDK? Read through [Choosing an SDK](/docs/rich-presence/overview#choosing-an-sdk) to understand your options when integrating Rich Presence with your app.
+:::info
+Not sure if you should be building with the Embedded App SDK? Read through [Choosing an SDK](/docs/rich-presence/overview#choosing-an-sdk) to understand your options when integrating Rich Presence with your app.
+:::
 
 The rest of the guide assumes you've already developed an [app](/docs/quick-start/overview-of-apps) that can launch an Activity. If you aren't at that point quite yet, you should follow the guide on [building your first Activity](/docs/activities/building-an-activity) before continuing.
 
@@ -54,8 +55,9 @@ To request the scope, your [`authorize()`](/docs/developer-tools/embedded-app-sd
 
 <Collapsible title="Example requesting rpc.activities.write with authorize()" icon="code">
 
-> info
-> The following example only focuses on calling `authorize()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like installing and instantiating the Embedded App SDK.
+:::info
+The following example only focuses on calling `authorize()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like installing and instantiating the Embedded App SDK.
+:::
 
 ```js
 // Authorize with Discord Client
@@ -80,8 +82,9 @@ Below is a table with many of the available fields for the activity partial. Som
 
 #### Activity partial object
 
-> info
-> All of the fields on the partial object are optional and nullable
+:::info
+All of the fields on the partial object are optional and nullable
+:::
 
 | field      | type                                                                                 | description                                                                                                                              |
 |------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
@@ -102,8 +105,9 @@ To create this sort of Rich Presence, here is what the `setActivity()` code woul
 
 <Collapsible title="Example calling setActivity() command" icon="code" open>
 
-> info
-> The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+:::info
+The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+:::
 ```js
 await discordSdk.commands.setActivity({
   activity: { 
@@ -135,8 +139,9 @@ As mentioned in the [Rich Presence overview](/docs/rich-presence/overview#assets
 
 <Collapsible title="Example setting presence with an external asset" icon="code" open>
 
-> info
-> The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+:::info
+The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+:::
 ```js
 await discordSdk.commands.setActivity({
   activity: { 

@@ -10,8 +10,9 @@ To create or be a member on a team, you must [enable 2FA for your Discord accoun
 
 Once you create a team, you'll land on the **Team Information** page where you can fill out details and start inviting other Discord users to join your team. Since users added to a team have access to any apps that team owns, use caution when adding new team members.
 
-> info
-> Only the team Owner and team Admins can invite or remove additional users.
+:::info
+Only the team Owner and team Admins can invite or remove additional users.
+:::
 
 ## Adding Apps to a Team
 
@@ -27,8 +28,9 @@ To create a new app that belongs to a team, select the team from the **Team** dr
 
 To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's **General Information** page, click "Transfer App to Team".
 
-> danger
-> Once an app has been transferred to a team, it _cannot_ be transferred back.
+:::danger
+Once an app has been transferred to a team, it _cannot_ be transferred back.
+:::
 
 ![Screenshot of where to find the button to transfer an Application to a team](images/transfer-app-to-team.png)
 

@@ -95,11 +95,13 @@ Returns a [soundboard sound](/docs/resources/soundboard#soundboard-sound-object)
 
 Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Create](/docs/events/gateway-events#guild-soundboard-sound-create) Gateway event.
 
-> info
-> Soundboard sounds have a max file size of 512kb and a max duration of 5.2 seconds.
+:::info
+Soundboard sounds have a max file size of 512kb and a max duration of 5.2 seconds.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -115,11 +117,13 @@ Create a new soundboard sound for the guild. Requires the `CREATE_GUILD_EXPRESSI
 
 Modify the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) object on success. Fires a [Guild Soundboard Sound Update](/docs/events/gateway-events#guild-soundboard-sound-update) Gateway event.
 
-> warn
-> All parameters to this endpoint are optional.
+:::warn
+All parameters to this endpoint are optional.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -134,5 +138,6 @@ Modify the given soundboard sound. For sounds created by the current user, requi
 
 Delete the given soundboard sound. For sounds created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other sounds, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Soundboard Sound Delete](/docs/events/gateway-events#guild-soundboard-sound-delete) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::

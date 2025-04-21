@@ -19,8 +19,9 @@ This SDK is intended for use by a single-page application. We recognize develope
 
 ## Sample Code and Activity Lifecycle Diagram
 
-> info
-> Below is a minimal example of setting up the SDK. Please see our [Sample Projects](/docs/activities/overview#sample-projects) for more complete sample applications.
+:::info
+Below is a minimal example of setting up the SDK. Please see our [Sample Projects](/docs/activities/overview#sample-projects) for more complete sample applications.
+:::
 
 ```javascript
 import {DiscordSDK} from '@discord/embedded-app-sdk';

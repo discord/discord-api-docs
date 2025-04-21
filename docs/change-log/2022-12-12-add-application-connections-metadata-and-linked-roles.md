@@ -11,5 +11,6 @@ Introducing [linked roles](https://discord.com/blog/connected-accounts-functiona
 * New [`role_connections.write`](/docs/topics/oauth2#shared-resources-oauth2-scopes) OAuth2 scope required to authenticate the below requests.
 * Endpoints to [retrieve](/docs/resources/user#get-current-user-application-role-connection) (`GET /users/@me/applications/{application.id}/role-connection`) and [update](/docs/resources/user#update-current-user-application-role-connection) (`PUT /users/@me/applications/{application.id}/role-connection`) a user's role connections, both of which return an [application role connection](/docs/resources/user#application-role-connection-object) object.
 
-> info
-> For a quick rundown on how to get started using linked roles, refer to the [tutorial](/docs/tutorials/configuring-app-metadata-for-linked-roles).
+:::info
+For a quick rundown on how to get started using linked roles, refer to the [tutorial](/docs/tutorials/configuring-app-metadata-for-linked-roles).
+:::

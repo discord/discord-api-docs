@@ -69,8 +69,9 @@ The `flags` field can be used to differentiate user and server subscriptions wit
 
 Returns all SKUs for a given application. 
 
-> info
-> Because of how our SKU and subscription systems work, you will see two SKUs for your subscription offering. For integration and testing entitlements for Subscriptions, you should use the SKU with `type: 5`.
+:::info
+Because of how our SKU and subscription systems work, you will see two SKUs for your subscription offering. For integration and testing entitlements for Subscriptions, you should use the SKU with `type: 5`.
+:::
 
 ```json
 [

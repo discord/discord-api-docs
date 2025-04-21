@@ -62,8 +62,9 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | options?    | [optional audit entry info](/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info) | Additional info for certain event types               |
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
-> warn
-> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
+:::warn
+For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
+:::
 
 ###### Audit Log Events
 
@@ -73,8 +74,9 @@ The **Object Changed** column notes which object's values may be included in the
 
 If no object is noted, there won't be a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` object](/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info).
 
-> info
-> You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
+:::info
+You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
+:::
 
 | Event                                       | Value | Description                                               | Object Changed                                                                                                                                   |
 |---------------------------------------------|-------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -173,8 +175,9 @@ Many audit log events include a `changes` array in their [entry object](/docs/re
 
 Some events don't follow the same pattern as other audit log events. Details about these exceptions are explained in [the next section](/docs/resources/audit-log#audit-log-change-object-audit-log-change-exceptions).
 
-> info
-> If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
+:::info
+If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
+:::
 
 
 | Field      | Type                                | Description                                                                                                                        |
