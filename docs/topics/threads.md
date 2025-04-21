@@ -67,8 +67,9 @@ Threads generally inherit permissions from the parent channel (e.g. if you can a
 
 Three permission bits are specific to threads: `CREATE_PUBLIC_THREADS`, `CREATE_PRIVATE_THREADS`, and `SEND_MESSAGES_IN_THREADS`.
 
-> warn
-> The `SEND_MESSAGES` permission has no effect in threads; users must have `SEND_MESSAGES_IN_THREADS` to talk in a thread.
+:::warn
+The `SEND_MESSAGES` permission has no effect in threads; users must have `SEND_MESSAGES_IN_THREADS` to talk in a thread.
+:::
 
 Private threads are similar to Group DMs, but in a guild: You must be invited to the thread to be able to view or participate in it, or be a moderator (`MANAGE_THREADS` permission).
 
@@ -100,8 +101,9 @@ Membership is tracked in an array of [thread member](/docs/resources/channel#thr
 
 ### Syncing for other users
 
-> info
-> These require the `GUILD_MEMBERS` [Gateway Intent](/docs/events/gateway#gateway-intents)
+:::info
+These require the `GUILD_MEMBERS` [Gateway Intent](/docs/events/gateway#gateway-intents)
+:::
 
 - An API `GET` call to [`/channels/<channel_id>/thread-members`](/docs/resources/channel#list-thread-members) which returns an array of [thread member](/docs/resources/channel#thread-member-object) objects.
 - The [Thread Members Update](/docs/events/gateway-events#thread-members-update) Gateway Event which will include all users who were added to or removed from a thread by an action.
@@ -158,8 +160,9 @@ When an app is added to a private thread, it likely doesn't have that thread in 
 
 Private threads are only synced to you if you are a member or a moderator. Whenever a user is added to a private thread, the Gateway also sends a [Thread Create](/docs/events/gateway-events#thread-create) event. This ensures the client always has a non-null value for that thread.
 
-> info
-> The `THREAD_CREATE` event is also sent when the user is a moderator (and thus would already have the channel in memory).
+:::info
+The `THREAD_CREATE` event is also sent when the user is a moderator (and thus would already have the channel in memory).
+:::
 
 #### Gaining Access to Public Threads
 
@@ -181,8 +184,9 @@ When an app loses access to a channel, the Gateway does **not** send it [Thread 
 
 If an app wanted to track when it lost access to any thread, it's possible but difficult as it would need to handle all cases correctly. Usually, events that cause permission changes are a [Guild Role Update](/docs/events/gateway-events#guild-role-update), [Guild Member Update](/docs/events/gateway-events#guild-member-update) or [Channel Update](/docs/events/gateway-events#channel-update) event.
 
-> info
-> Discord's clients check their permissions *first* when performing an action. That way, even if it has some stale data, it does not end up acting on it.
+:::info
+Discord's clients check their permissions *first* when performing an action. That way, even if it has some stale data, it does not end up acting on it.
+:::
 
 Additionally, when a user or app loses access to a channel, they are not removed from the thread and will continue to be reported as a member of that thread. However, they will **not** receive any new Gateway events unless they are removed from the thread, in which case they will receive a [Thread Members Update](/docs/events/gateway-events#thread-members-update) event.
 
@@ -199,15 +203,17 @@ A `GUILD_FORUM` (type `15`) channel is similar to a `GUILD_TEXT` channel, except
 
 Messages cannot be sent directly in forum channels.
 
-> info
-> More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079#h_01JAZAWCX4DXYK26BKT49DXMAQ)
+:::info
+More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079#h_01JAZAWCX4DXYK26BKT49DXMAQ)
+:::
 
 ## Media Channels
 
 A `GUILD_MEDIA` (type `16`) channel is similar to a `GUILD_FORUM` channel in that only threads can be created in them. Unless otherwise noted, threads in media channels behave in the same way as in forum channels - meaning they use the same endpoints and receive the same Gateway events. More information about media channels and how they appear in Discord can be found in the [media channels Help Center Article](https://creator-support.discord.com/hc/en-us/articles/14346342766743).
 
-> warn
-> `GUILD_MEDIA` channels are in beta and still being actively developed. The API and other technical details are subject to change.
+:::warn
+`GUILD_MEDIA` channels are in beta and still being actively developed. The API and other technical details are subject to change.
+:::
 
 
 ### Creating Threads in Forum and Media Channels

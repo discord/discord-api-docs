@@ -14,8 +14,9 @@ The first step in implementing OAuth2 is [registering a developer application](h
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
-> warn
-> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+:::warn
+In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+:::
 
 ###### OAuth2 Scopes
 
@@ -52,9 +53,10 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | voice                                    | allows your app to connect to voice on user's behalf and see all the voice members - requires Discord approval                                                                         |
 | webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                    |
 
-> info
-> In order to add a user to a guild, your bot has to already belong to that guild.
-> `role_connections.write` cannot be used with the [Implicit grant type](/docs/topics/oauth2#implicit-grant).
+:::info
+In order to add a user to a guild, your bot has to already belong to that guild.
+`role_connections.write` cannot be used with the [Implicit grant type](/docs/topics/oauth2#implicit-grant).
+:::
 
 ## State and Security
 
@@ -170,8 +172,9 @@ To disable an access or refresh token, you can revoke it by making a `POST` requ
 - `token` - the access token or refresh token to revoke
 - `token_type_hint` *(optional)* - the `token` parameter's type—either `access_token` or `refresh_token`
 
-> warn
-> When you revoke a token, any active access or refresh tokens associated with that authorization will be revoked, regardless of the `token` and `token_type_hint` values you pass in.
+:::warn
+When you revoke a token, any active access or refresh tokens associated with that authorization will be revoked, regardless of the `token` and `token_type_hint` values you pass in.
+:::
 
 ```python
 import requests
@@ -219,8 +222,9 @@ The client credential flow is a quick and easy way for bot developers to get the
 
 You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes) separated by spaces:
 
-> info
-> Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
+:::info
+Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
+:::
 
 ###### Client Credentials Token Request Example
 
@@ -264,8 +268,9 @@ Discord's API provides bot users, which are a separate type of user dedicated to
 
 ### Bot vs User Accounts
 
-> warn
-> Developers must abide by the [terms of service](https://dis.gd/discord-developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+:::warn
+Developers must abide by the [terms of service](https://dis.gd/discord-developer-terms-of-service), which includes refraining from automating standard user accounts (generally called "self-bots") outside of the OAuth2/bot API.
+:::
 
 Bot users have a few differences compared to standard Discord users:
 

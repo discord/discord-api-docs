@@ -3,8 +3,9 @@ title: "Unique usernames on Discord"
 date: "2023-05-03"
 ---
 
-> warn
-> Bot users will stay on the legacy username system for now. More details can be found on the [Developer Help Center article](https://support-dev.discord.com/hc/en-us/articles/13667755828631).
+:::warn
+Bot users will stay on the legacy username system for now. More details can be found on the [Developer Help Center article](https://support-dev.discord.com/hc/en-us/articles/13667755828631).
+:::
 
 Discord’s username system is changing. Discriminators are being removed and new, unique usernames and display names are being introduced. You can read more details about how changes to the username system affects non-bot users in the [general Help Center article](https://support.discord.com/hc/en-us/articles/12620128861463). To learn how it impacts bot users specifically, you can read the [Developer Help Center article](https://support-dev.discord.com/hc/en-us/articles/13667755828631).
 

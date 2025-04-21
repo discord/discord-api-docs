@@ -9,8 +9,9 @@ Introduces a new `premium` [button style](/docs/interactions/message-components#
 
 Learn more about using [button components with interactions](/docs/interactions/message-components#buttons).
 
-> warn
-> This change deprecates Interaction Response Type 10
+:::warn
+This change deprecates Interaction Response Type 10
+:::
 
 The `PREMIUM_REQUIRED (10)` interaction response type is now deprecated in favor of using custom premium buttons. This will continue to function but may be eventually unsupported. It is recommended to migrate your bots to use the more flexible [premium button component](/docs/interactions/message-components#button-object-button-styles).
 

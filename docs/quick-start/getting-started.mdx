@@ -6,8 +6,9 @@ sidebar_label: Getting Started
 
 [Discord apps](/docs/quick-start/overview-of-apps) let you customize and extend Discord using a collection of APIs and interactive features. This guide will walk you through building your first Discord app using JavaScript and by the end you'll have an app that uses slash commands, sends messages, and responds to component interactions.
 
-> info
-> If you're interested in building a game or social experience in an iframe, you can follow the tutorial for [building an Activity](/docs/activities/building-an-activity)
+:::info
+If you're interested in building a game or social experience in an iframe, you can follow the tutorial for [building an Activity](/docs/activities/building-an-activity)
+:::
 
 We'll be building a Discord app that lets users play rock-paper-scissors (with 7 choices instead of 3). This guide is beginner-focused, but it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
@@ -38,8 +39,9 @@ To make the user flow a bit more explicit:
 
 Before we get started, you'll need to set up your local environment and get the project code from the [sample app repository](https://github.com/discord/discord-example-app).
 
-> info
-> We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but you can use your preferred development environment.
+:::info
+We'll be developing our app locally with a little help from [ngrok](https://ngrok.com/), but you can use your preferred development environment.
+:::
 
 If you don't have [NodeJS](https://nodejs.org/en/download/) installed, install that first.
 
@@ -95,8 +97,9 @@ After you create your app, you'll land on the **General Information** page of th
 
 We'll need to set up and fetch a few sensitive values for your app, like its token and ID.
 
-> warn
-> Your token is used to authorize API requests and carry your app's permissions, so they are *highly* sensitive. Make sure to never share your token or check it into any kind of version control.
+:::warn
+Your token is used to authorize API requests and carry your app's permissions, so they are *highly* sensitive. Make sure to never share your token or check it into any kind of version control.
+:::
 
 Back in your project folder, rename the `.env.sample` file to `.env`. This is where we'll store all of your app's credentials.
 
@@ -106,8 +109,9 @@ We'll need three values from your app's settings for your `.env` file:
 - Back on the **General Information** page, copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
 - On the **Bot** page under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
 
-> warn
-> You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe (like in a password manager).
+:::warn
+You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe (like in a password manager).
+:::
 
 Now that you have the credentials you need, lets configure your bot user and installation settings.
 
@@ -140,8 +144,9 @@ Now we'll select where your app can be installed in Discord, which is determined
 
 Click on **Installation** in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected.
 
-> info
-> Some apps may only want to support one installation context—for example, a moderation app may only support a server context. However, by default, we recommend supporting both installation contexts. For detailed information about supporting user-installed apps, you can read the [user-installable app tutorial](/docs/tutorials/developing-a-user-installable-app).
+:::info
+Some apps may only want to support one installation context—for example, a moderation app may only support a server context. However, by default, we recommend supporting both installation contexts. For detailed information about supporting user-installed apps, you can read the [user-installable app tutorial](/docs/tutorials/developing-a-user-installable-app).
+:::
 
 ### Setting up an install link
 
@@ -172,8 +177,9 @@ See a list of all [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-sc
 
 ### Installing your app
 
-> info
-> When developing apps, you should build and test on your user account (for user-installable apps) and in a server that isn't actively used by others (for server-installable apps). If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977).
+:::info
+When developing apps, you should build and test on your user account (for user-installable apps) and in a server that isn't actively used by others (for server-installable apps). If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977).
+:::
 
 Once you add scopes, copy the URL from the **Install Link** section from before.
 
@@ -197,13 +203,15 @@ Follow the installation prompt to install your app to your user account. Once it
 
 With your app configured and installed to your test server and account, let's take a look at the code.
 
-> info
-> To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](/docs/developer-tools/community-resources) documentation.
+:::info
+To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, check out the [Community Resources](/docs/developer-tools/community-resources) documentation.
+:::
 
 ### Installing slash commands
 
-> info
-> To install slash commands, the app is using [`node-fetch`](https://github.com/node-fetch/node-fetch). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function.
+:::info
+To install slash commands, the app is using [`node-fetch`](https://github.com/node-fetch/node-fetch). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function.
+:::
 
 The project contains a `register` script you can use to install the commands in `ALL_COMMANDS`, which is defined at the bottom of `commands.js`. It installs the commands as global commands by calling the HTTP API's [`PUT /applications/<APP_ID>/commands`](/docs/interactions/application-commands#bulk-overwrite-global-application-commands) endpoint.
 
@@ -242,8 +250,9 @@ npm run start
 
 There should be output indiciating your app is running on port `3000`. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](/docs/interactions/overview#preparing-for-interactions) documentation.
 
-> info 
-> By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
+:::info
+By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
+:::
 
 Next, we'll start our ngrok tunnel. If you don't have ngrok installed locally, you can install it by following the instructions on the [ngrok download page](https://ngrok.com/download).
 
@@ -275,8 +284,9 @@ Go to your [app's settings](https://discord.com/developers/applications) and on 
 
 Click **Save Changes** and ensure your endpoint is successfully verified.
 
-> info
-> If you have troubles verifying your endpoint, make sure both ngrok and your app are running on the same port, and that you've copied the ngrok URL correctly
+:::info
+If you have troubles verifying your endpoint, make sure both ngrok and your app are running on the same port, and that you've copied the ngrok URL correctly
+:::
 
 The verification is handled automatically by the sample app in two ways:
 - It uses the `PUBLIC_KEY` and [discord-interactions package](https://github.com/discord/discord-interactions-js#usage) with a wrapper function (imported from `utils.js`) that makes it conform to [Express's `verify` interface](https://expressjs.com/en/5x/api.html#express.json). This is run on every incoming request to your app.
@@ -304,8 +314,9 @@ if (name === 'test') {
 
 The code above is responding to the interaction with a message in the channel, DM, or Group DM it originated from. You can see all available response types, like responding with a modal, [in the documentation](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type).
 
-> info
-> `InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::info
+`InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE` is a constant [exported from `discord-interactions`](https://github.com/discord/discord-interactions-js/blob/main/src/index.ts#L33)
+:::
 
 Go to your server and make sure your app's `/test` slash command works. When you trigger it, your app should send a message that contains “hello world” followed by a random emoji.
 
@@ -323,8 +334,9 @@ The `/challenge` command, called `CHALLENGE_COMMAND` in `commands.js`, has an ar
 
 You can read more about command options and their structure [in the documentation](/docs/interactions/application-commands#application-command-object-application-command-option-structure).
 
-> info
-> While this guide won't touch much on the `game.js` file, feel free to poke around and change commands or the options in the commands.
+:::info
+While this guide won't touch much on the `game.js` file, feel free to poke around and change commands or the options in the commands.
+:::
 
 <Collapsible title="Handling the command interaction" description="Code for handling the challenge command and responding with a message containing a button" icon="code" open>
 
@@ -369,16 +381,18 @@ if (name === 'challenge' && id) {
 }
 ```
 
-> info
-> If you aren't sure where to paste the code, you can see the full code in `examples/app.js`.
+:::info
+If you aren't sure where to paste the code, you can see the full code in `examples/app.js`.
+:::
 
 The above code is doing a few things:
 1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`). If the interaction is run in a server (`context === 0`), the user ID will be nested in the `member` object. If it's in a DM or Group DM, it will be in the `user` object.
 2. Adds a new game to the `activeGames` object using the interaction ID. The active game records the `userId` and `objectName`.
 3. Sends a message back to the channel with a button with a `custom_id` of `accept_button_<SOME_ID>`.
 
-> warn
-> The sample code uses an object as in-memory storage, but for production apps you should use a database.
+:::warn
+The sample code uses an object as in-memory storage, but for production apps you should use a database.
+:::
 
 When sending a message with [message components](/docs/interactions/message-components#what-is-a-component), the individual payloads are appended to a `components` array. Actionable components (like buttons) need to be inside of an [action row](/docs/interactions/message-components#action-rows), which you can see in the code sample.
 

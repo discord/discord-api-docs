@@ -2,8 +2,9 @@
 
 Rate limits exist across Discord's APIs to prevent spam, abuse, and service overload. Limits are applied to individual bots and users both on a per-route basis and globally. Individuals are determined using a request's authentication—for example, a bot token for a bot.
 
-> info
-> Because rate limits depend on a variety of factors and are subject to change, **rate limits should not be hard coded into your app**. Instead, your app should parse [response headers](/docs/topics/rate-limits#header-format-rate-limit-header-examples) to prevent hitting the limit, and to respond accordingly in case you do.
+:::info
+Because rate limits depend on a variety of factors and are subject to change, **rate limits should not be hard coded into your app**. Instead, your app should parse [response headers](/docs/topics/rate-limits#header-format-rate-limit-header-examples) to prevent hitting the limit, and to respond accordingly in case you do.
+:::
 
 **Per-route rate limits** exist for many individual endpoints, and may include the HTTP method (`GET`, `POST`, `PUT`, or `DELETE`). In some cases, per-route limits will be shared across a set of similar endpoints, indicated in the `X-RateLimit-Bucket` header. It's recommended to use this header as a unique identifier for a rate limit, which will allow you to group shared limits as you encounter them.
 
@@ -11,8 +12,9 @@ During calculation, per-route rate limits often account for top-level resources 
 
 **Global rate limits** apply to the total number of requests a bot or user makes, independent of any per-route limits. You can read more on [global rate limits](/docs/topics/rate-limits#global-rate-limit) below.
 
-> warn
-> [Routes for controlling emojis](/docs/resources/emoji#list-guild-emojis) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+:::warn
+[Routes for controlling emojis](/docs/resources/emoji#list-guild-emojis) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+:::
 
 ## Header Format
 

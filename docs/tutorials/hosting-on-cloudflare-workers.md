@@ -35,8 +35,9 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 - Now click on the **Bot** tab on the left sidebar.
 - Grab the `token` for your bot, and store it somewhere safe (I like to put these tokens in a password manager like [1password](https://1password.com/) or [lastpass](https://www.lastpass.com/)).
 
-> warn
-> For security reasons, you can only view your bot token once. If you misplace your token, you'll have to generate a new one.
+:::warn
+For security reasons, you can only view your bot token once. If you misplace your token, you'll have to generate a new one.
+:::
 
 ## Adding bot permissions
 
@@ -53,8 +54,9 @@ Now we'll configure the bot with [permissions](/docs/topics/permissions) require
 
 Cloudflare Workers are a convenient way to host Discord apps due to the free tier, simple development model, and automatically managed environment (no VMs!).
 
-> warn
-> When using Cloudflare Workers, your app won't be able to access non-ephemeral CDN media. For example, trying to fetch an image like `https://cdn.discordapp.com/attachments/1234/56789/my_image.png` would result in a `403` error. Cloudflare Workers are still able to access ephemeral CDN media.
+:::warn
+When using Cloudflare Workers, your app won't be able to access non-ephemeral CDN media. For example, trying to fetch an image like `https://cdn.discordapp.com/attachments/1234/56789/my_image.png` would result in a `403` error. Cloudflare Workers are still able to access ephemeral CDN media.
+:::
 
 - Visit the [Cloudflare Dashboard](https://dash.cloudflare.com/)
 - Click on the `Workers` tab, and create a new service using the same name as your Discord bot
@@ -72,8 +74,9 @@ $ wrangler secret put DISCORD_APPLICATION_ID
 
 You'll also need the Guild ID for the server where your app is installed. This can be found in the URL when you visit any channel in that server.
 
-> info
-> For example, if my URL was `https://discord.com/channels/123456/789101112`, the Guild ID is the first number—in this case **`123456`**.
+:::info
+For example, if my URL was `https://discord.com/channels/123456/789101112`, the Guild ID is the first number—in this case **`123456`**.
+:::
 
 Once you know your Guild ID, set that variable as well:
 
@@ -83,8 +86,9 @@ $ wrangler secret put DISCORD_TEST_GUILD_ID
 
 ## Running locally
 
-> info
-> This depends on the beta version of the `wrangler` package, which better supports ESM on Cloudflare Workers.
+:::info
+This depends on the beta version of the `wrangler` package, which better supports ESM on Cloudflare Workers.
+:::
 
 Let's start by cloning the repository and installing dependencies. This requires at least v16 of [Node.js](https://nodejs.org/en/):
 
@@ -340,8 +344,9 @@ router.post('/', async (request, env) => {
 
 ## Next steps
 
-> info
-> In case you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/cloudflare-sample-app)
+:::info
+In case you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/cloudflare-sample-app)
+:::
 
 With your app built and deployed, you can start customizing it to be your own:
 

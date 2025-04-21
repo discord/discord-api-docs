@@ -54,8 +54,9 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Types
 
-> warn
-> Type 10, 11 and 12 are only available in API v9 and above.
+:::warn
+Type 10, 11 and 12 are only available in API v9 and above.
+:::
 
 | Type                | ID | Description                                                                                                                                                |
 |---------------------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -330,8 +331,9 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 
 ###### Forum Tag Structure
 
-> info
-> When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `available_tags` only require the `name` field.
+:::info
+When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `available_tags` only require the `name` field.
+:::
 
 | Field      | Type       | Description                                                                                                    |
 |------------|------------|----------------------------------------------------------------------------------------------------------------|
@@ -351,11 +353,13 @@ Get a channel by ID. Returns a [channel](/docs/resources/channel#channel-object)
 
 Update a channel's settings. Returns a [channel](/docs/resources/channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters.
 
-> info
-> All parameters to this endpoint are optional
+:::info
+All parameters to this endpoint are optional
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params (Group DM)
 
@@ -417,21 +421,25 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/do
 
 Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](/docs/events/gateway-events#channel-update) Gateway event will fire for each of them. Returns a [channel](/docs/resources/channel#channel-object) object on success. Fires a [Channel Delete](/docs/events/gateway-events#channel-delete) Gateway event (or [Thread Delete](/docs/events/gateway-events#thread-delete) if the channel was a thread).
 
-> warn
-> Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
+:::warn
+Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
+:::
 
-> info
-> For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
+:::info
+For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ## Edit Channel Permissions % PUT /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/permissions/||FIXME||overwrite.id||/docs/resources/channel#overwrite-object||
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](/docs/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/permissions#permissions).
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -449,8 +457,9 @@ Returns a list of [invite](/docs/resources/invite#invite-object) objects (with [
 
 Create a new [invite](/docs/resources/invite#invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](/docs/resources/invite#invite-object) object. Fires an [Invite Create](/docs/events/gateway-events#invite-create) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -468,15 +477,17 @@ Create a new [invite](/docs/resources/invite#invite-object) object for the chann
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](/docs/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/permissions#permissions)
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ## Follow Announcement Channel % POST /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/followers
 
 Follow an Announcement Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](/docs/resources/channel#followed-channel-object) object. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event for the target channel.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -498,18 +509,21 @@ Returns all pinned messages in the channel as an array of [message](/docs/resour
 
 Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
-> warn
-> The max pinned messages is 50.
+:::warn
+The max pinned messages is 50.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ## Unpin Message % DELETE /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/pins/||FIXME||message.id||/docs/resources/message#message-object||
 
 Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ## Group DM Add Recipient % PUT /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/recipients/||FIXME||user.id||/docs/resources/user#user-object||
 
@@ -532,8 +546,9 @@ Creates a new thread from an existing message. Returns a [channel](/docs/resourc
 
 When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel, creates a `ANNOUNCEMENT_THREAD`. Does not work on a [`GUILD_FORUM`](/docs/resources/channel#start-thread-in-forum-or-media-channel) or a `GUILD_MEDIA` channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -547,8 +562,9 @@ When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on
 
 Creates a new thread that is not connected to an existing message. Returns a [channel](/docs/resources/channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/events/gateway-events#thread-create) Gateway event.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -575,11 +591,13 @@ Creates a new thread in a forum or a media channel, and sends a message within t
 - Files must be attached using a `multipart/form-data` body as described in [Uploading Files](/docs/reference#uploading-files).
 - Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
 
-> warn
-> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::warn
+Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and using `allowed_mentions` to prevent unexpected mentions.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON/Form Params
 
@@ -596,8 +614,9 @@ Creates a new thread in a forum or a media channel, and sends a message within t
 
 ###### Forum and Media Thread Message Params Object
 
-> info
-> When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
+:::info
+When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
+:::
 
 | Field             | Type                                                                                         | Description                                                                                                                                                                                              |
 |-------------------|----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -641,15 +660,17 @@ When `with_member` is set to `true`, the thread member object will include a `me
 
 ## List Thread Members % GET /channels/||FIXME||channel.id||/docs/resources/channel#channel-object||/thread-members
 
-> warn
-> Starting in API v11, this endpoint will always return paginated results. Paginated results can be enabled before API v11 by setting `with_member` to `true`. Read [the changelog](/docs/change-log#thread-member-details-and-pagination) for details.
+:::warn
+Starting in API v11, this endpoint will always return paginated results. Paginated results can be enabled before API v11 by setting `with_member` to `true`. Read [the changelog](/docs/change-log#thread-member-details-and-pagination) for details.
+:::
 
 Returns array of [thread members](/docs/resources/channel#thread-member-object) objects that are members of the thread.
 
 When `with_member` is set to `true`, the results will be paginated and each thread member object will include a `member` field containing a [guild member](/docs/resources/guild#guild-member-object) object.
 
-> warn
-> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](/docs/events/gateway#privileged-intents) is enabled for your application.
+:::warn
+This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](/docs/events/gateway#privileged-intents) is enabled for your application.
+:::
 
 ###### Query String Params
 

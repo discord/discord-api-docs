@@ -39,8 +39,9 @@ Let's walk through the steps in detail.
 1. Click on the `Downloads` link under the Discord Social SDK section of the sidebar.
 2. Select the latest version from the version dropdown and download the SDK for Unity.
 
-> info
-> A Unity sample project is available for download on this page, but we are not going to cover it in this guide. Explore it on your own after you finish this guide!
+:::info
+A Unity sample project is available for download on this page, but we are not going to cover it in this guide. Explore it on your own after you finish this guide!
+:::
 
 ---
 
@@ -153,11 +154,13 @@ This will hook up the API status changes to your text in the game. Then we'll ne
 - The **logging callback** shows you what's happening behind the scenes and is a powerful tool for debugging
 - The **status callback** tells you when you're connected and ready to use Discord features
 
-> info
-> The Unity plugin handles running the SDK callbacks for you in Unity, no need to use [`RunCallbacks`] like we do in the [C++ guide](/docs/discord-social-sdk/getting-started/using-c++).
+:::info
+The Unity plugin handles running the SDK callbacks for you in Unity, no need to use [`RunCallbacks`] like we do in the [C++ guide](/docs/discord-social-sdk/getting-started/using-c++).
+:::
 
-> info
-> Most Discord features won't work until the status is `Ready`. The status callback lets you know when you can start using them.
+:::info
+Most Discord features won't work until the status is `Ready`. The status callback lets you know when you can start using them.
+:::
 
 To get to a `Ready` state, we need to authenticate with Discord. Let's do that next.
 
@@ -219,8 +222,9 @@ and then we'll uncomment `loginButton.onClick.AddListener(StartOAuthFlow);` in y
 3. Start the auth flow with [`Client::Authorize`], which opens a browser
 4. When authorized, we exchange the code for an access token
 
-> warn
-> Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+:::warn
+Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+:::
 
 ### Testing It Out
 

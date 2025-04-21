@@ -13,8 +13,9 @@ All Gateway events are encapsulated in a [Gateway event payload](/docs/events/ga
 
 For more information about interacting with the Gateway, you can reference the [Gateway documentation](/docs/events/gateway).
 
-> warn
-> Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
+:::warn
+Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
+:::
 
 ### Event Names
 
@@ -50,8 +51,9 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 Send events are Gateway events encapsulated in an [event payload](/docs/events/gateway-events#payload-structure), and are sent by an app to Discord through a Gateway connection.
 
-> info
-> Previously, Gateway send events were labeled as commands
+:::info
+Previously, Gateway send events were labeled as commands
+:::
 
 | Name                                                                               | Description                                               |
 |------------------------------------------------------------------------------------|-----------------------------------------------------------|
@@ -89,8 +91,9 @@ Details about identifying is in the [Gateway documentation](/docs/events/gateway
 | browser | string | Your library name     |
 | device  | string | Your library name     |
 
-> warn
-> These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](/docs/change-log#updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
+:::warn
+These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](/docs/change-log#updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
+:::
 
 ###### Example Identify
 
@@ -188,8 +191,9 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 | nonce?     | string                           | nonce to identify the [Guild Members Chunk](/docs/events/gateway-events#guild-members-chunk) response                                 | false                      |
 
-> info
-> Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
+:::info
+Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
+:::
 
 ###### Example Request Guild Members
 
@@ -587,15 +591,17 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 #### Entitlement Create
 
-> warn
->  Note: The`ENTITLEMENT_CREATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](/docs/change-log#premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
+:::warn
+Note: The`ENTITLEMENT_CREATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](/docs/change-log#premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
+:::
 
 Sent when an entitlement is created. The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-object) object.
 
 #### Entitlement Update
 
-> warn
->  Note: The`ENTITLEMENT_UPDATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](/docs/change-log#premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
+:::warn
+Note: The`ENTITLEMENT_UPDATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](/docs/change-log#premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
+:::
 
 Sent when an entitlement is updated. The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-object) object. 
 
@@ -623,8 +629,9 @@ This event can be sent in three different scenarios:
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
-> note
-> During an outage, the guild object in scenarios 1 and 3 may be marked as unavailable.
+:::info
+During an outage, the guild object in scenarios 1 and 3 may be marked as unavailable.
+:::
 
 The inner payload can be:
 
@@ -648,8 +655,9 @@ The inner payload can be:
 | guild_scheduled_events | array of [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
 | soundboard_sounds      | array of [soundboard sound](/docs/resources/soundboard#soundboard-sound-object) objects                      | Soundboard sounds in the guild                                                                                             |
 
-> warn
-> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](/docs/events/gateway#gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+:::warn
+If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](/docs/events/gateway#gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+:::
 
 #### Guild Update
 
@@ -725,8 +733,9 @@ Sent when a guild integration is updated.
 
 #### Guild Member Add
 
-> warn
-> If using [Gateway Intents](/docs/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::warn
+If using [Gateway Intents](/docs/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::
 
 Sent when a new user joins a guild. The inner payload is a [guild member](/docs/resources/guild#guild-member-object) object with an extra `guild_id` key:
 
@@ -738,8 +747,9 @@ Sent when a new user joins a guild. The inner payload is a [guild member](/docs/
 
 #### Guild Member Remove
 
-> warn
-> If using [Gateway Intents](/docs/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::warn
+If using [Gateway Intents](/docs/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::
 
 Sent when a user is removed from a guild (leave/kick/ban).
 
@@ -752,8 +762,9 @@ Sent when a user is removed from a guild (leave/kick/ban).
 
 #### Guild Member Update
 
-> warn
-> If using [Gateway Intents](/docs/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::warn
+If using [Gateway Intents](/docs/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+:::
 
 Sent when a guild member is updated. This will also fire when the user object of a guild member changes.
 
@@ -976,8 +987,9 @@ Sent when an invite is deleted.
 
 ### Messages
 
-> warn
-> Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](/docs/events/gateway#list-of-intents), and the message object won't include `guild_id` or `member`.
+:::warn
+Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](/docs/events/gateway#list-of-intents), and the message object won't include `guild_id` or `member`.
+:::
 
 #### Message Create
 
@@ -995,8 +1007,9 @@ Sent when a message is created. The inner payload is a [message](/docs/resources
 
 Sent when a message is updated. The inner payload is a [message](/docs/resources/message#message-object) object with the same extra fields as [MESSAGE_CREATE](/docs/events/gateway-events#message-create).
 
-> warn
-> The value for `tts` will always be false in message updates.
+:::warn
+The value for `tts` will always be false in message updates.
+:::
 
 #### Message Delete
 
@@ -1086,13 +1099,15 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 
 #### Presence Update
 
-> warn
-> If you are using [Gateway Intents](/docs/events/gateway#gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
+:::warn
+If you are using [Gateway Intents](/docs/events/gateway#gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
+:::
 
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 
-> warn
-> The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
+:::warn
+The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
+:::
 
 ###### Presence Update Event Fields
 
@@ -1136,8 +1151,9 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | flags?          | integer                                                                              | [Activity flags](/docs/events/gateway-events#activity-object-activity-flags) `OR`d together, describes what the payload includes |
 | buttons?        | array of [buttons](/docs/events/gateway-events#activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
 
-> info
-> Bot users are only able to set `name`, `state`, `type`, and `url`.
+:::info
+Bot users are only able to set `name`, `state`, `type`, and `url`.
+:::
 
 ###### Activity Types
 
@@ -1150,8 +1166,9 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | 4  | Custom    | `{emoji}` `{state}`   | ":smiley: I am cool"                 |
 | 5  | Competing | Competing in `{name}` | "Competing in Arena World Champions" |
 
-> info
-> The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
+:::info
+The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
+:::
 
 ###### Activity Timestamps
 
@@ -1160,8 +1177,9 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | start? | integer | Unix time (in milliseconds) of when the activity started |
 | end?   | integer | Unix time (in milliseconds) of when the activity ends    |
 
-> info
-> For Listening and Watching activities, you can include both start and end timestamps to display a time bar.
+:::info
+For Listening and Watching activities, you can include both start and end timestamps to display a time bar.
+:::
 
 ###### Activity Emoji
 
@@ -1271,8 +1289,9 @@ When received over the gateway, the `buttons` field is an array of strings, whic
 }
 ```
 
-> warn
-> Clients may only update their game status 5 times per 20 seconds.
+:::warn
+Clients may only update their game status 5 times per 20 seconds.
+:::
 
 #### Typing Start
 
@@ -1326,8 +1345,9 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
 
-> warn
-> A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. You should attempt to disconnect from the currently connected voice server, and not attempt to reconnect until a new voice server is allocated.
+:::warn
+A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. You should attempt to disconnect from the currently connected voice server, and not attempt to reconnect until a new voice server is allocated.
+:::
 
 ###### Voice Server Update Event Fields
 
@@ -1384,8 +1404,9 @@ Sent when a [Stage instance](/docs/resources/stage-instance) has been deleted (i
 
 #### Subscription Create
 
-> info
-> Subscription status should not be used to grant perks. Use [entitlements](/docs/resources/entitlement#entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](/docs/monetization/implementing-app-subscriptions) for more information.
+:::info
+Subscription status should not be used to grant perks. Use [entitlements](/docs/resources/entitlement#entitlement-object) as an indication of whether a user should have access to a specific SKU. See our guide on [Implementing App Subscriptions](/docs/monetization/implementing-app-subscriptions) for more information.
+:::
 
 Sent when a [Subscription](/docs/resources/subscription) for a Premium App is created. Inner payload is a [Subscription](/docs/resources/subscription#subscription-object).
 

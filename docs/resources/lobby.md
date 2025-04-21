@@ -62,8 +62,9 @@ Creates a new lobby, adding any of the specified members to it, if provided.
 
 Returns a [lobby](/docs/resources/lobby#lobby-object) object.
 
-> info 
-> [Discord Social SDK](/docs/discord-social-sdk/overview) clients will not be able to join or leave a lobby created using this API, such as [`Client::CreateOrJoinLobby`]. See [Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies) for more information.
+:::info
+[Discord Social SDK](/docs/discord-social-sdk/overview) clients will not be able to join or leave a lobby created using this API, such as [`Client::CreateOrJoinLobby`]. See [Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies) for more information.
+:::
 
 ### JSON Params
 

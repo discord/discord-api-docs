@@ -62,8 +62,9 @@ You can use the Discord HTTP API to create, update, and delete lobbies and manag
 
 See the [Lobby](/docs/resources/lobby) API resource for available endpoints and [Using with Discord APIs](/docs/discord-social-sdk/development-guides/using-with-discord-apis) for information on how to authenticate your requests.
 
-> info
-> Clients will not be able to use [`Client::CreateOrJoinLobby`] or [`Client::LeaveLobby`] with lobbies created using the API.
+:::info
+Clients will not be able to use [`Client::CreateOrJoinLobby`] or [`Client::LeaveLobby`] with lobbies created using the API.
+:::
 
 ### Client-Side Lobby Management
 
@@ -107,8 +108,9 @@ Lobbies are intended to be ephemeral and should be cleaned up when the game/matc
 
 This value defaults to 5 minutes, and we expect that for most use cases, that will be ok. But we understand there are use cases such as "world chat" that might want to exist longer. The maximum value for this "idle time" will likely be 7 days, so that would mean that the lobby only gets deleted if no one connects to it for an entire week. This should give a good amount of permanence to lobbies when needed, but there may be rare cases where a lobby does need to be "rebuilt" if everyone is offline for an extended period.
 
-> info 
-> Lobbies created by the SDK client using the [`Client::CreateOrJoinLobby`] function currently have an additional limitation. The "secret" value used in this call expires after 30 days, so the lobby will still exist, but new users won't be able to join the lobby after that.
+:::info
+Lobbies created by the SDK client using the [`Client::CreateOrJoinLobby`] function currently have an additional limitation. The "secret" value used in this call expires after 30 days, so the lobby will still exist, but new users won't be able to join the lobby after that.
+:::
 
 ---
 

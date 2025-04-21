@@ -195,8 +195,9 @@ Returns a [user](/docs/resources/user#user-object) object for a given user ID.
 
 Modify the requester's user account settings. Returns a [user](/docs/resources/user#user-object) object on success. Fires a [User Update](/docs/events/gateway-events#user-update) Gateway event.
 
-> info
-> All parameters to this endpoint are optional.
+:::info
+All parameters to this endpoint are optional.
+:::
 
 ###### JSON Params
 
@@ -226,8 +227,9 @@ Returns a list of partial [guild](/docs/resources/guild#guild-object) objects th
 }
 ```
 
-> info
-> This endpoint returns 200 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
+:::info
+This endpoint returns 200 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
+:::
 
 ###### Query String Params
 
@@ -250,8 +252,9 @@ Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](/
 
 Create a new DM channel with a user. Returns a [DM channel](/docs/resources/channel#channel-object) object (if one already exists, it will be returned instead).
 
-> warn
-> You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+:::warn
+You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+:::
 
 ###### JSON Params
 
@@ -263,8 +266,9 @@ Create a new DM channel with a user. Returns a [DM channel](/docs/resources/chan
 
 Create a new group DM channel with multiple users. Returns a [DM channel](/docs/resources/channel#channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](/docs/events/gateway-events#channel-create) Gateway event.
 
-> warn
-> This endpoint is limited to 10 active group DMs.
+:::warn
+This endpoint is limited to 10 active group DMs.
+:::
 
 ###### JSON Params
 

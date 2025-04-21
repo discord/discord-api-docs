@@ -104,8 +104,9 @@ SCHEDULED --> CANCELED
 
 ### Guild Scheduled Event Recurrence Rule Object
 Discord's recurrence rule is a subset of the behaviors [defined in the iCalendar RFC](https://datatracker.ietf.org/doc/html/rfc5545) and implemented by [python's dateutil rrule](https://dateutil.readthedocs.io/en/stable/rrule.html)
-> warn
-> There are currently many limitations to this system. Please see "System limitations" below
+:::warn
+There are currently many limitations to this system. Please see "System limitations" below
+:::
 
 ###### Guild Scheduled Event Recurrence Rule Structure
 
@@ -273,11 +274,13 @@ Returns a list of [guild scheduled event](/docs/resources/guild-scheduled-event#
 
 Create a guild scheduled event in the guild. Returns a [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Create](/docs/events/gateway-events#guild-scheduled-event-create) Gateway event.
 
-> info
-> A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
+:::info
+A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
 ###### JSON Params
 
@@ -313,17 +316,21 @@ Get a guild scheduled event. Returns a [guild scheduled event](/docs/resources/g
 
 Modify a guild scheduled event. Returns the modified [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](/docs/events/gateway-events#guild-scheduled-event-update) Gateway event.
 
-> info
-> To start or end an event, use this endpoint to modify the event's [status](/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status) field.
+:::info
+To start or end an event, use this endpoint to modify the event's [status](/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status) field.
+:::
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
 
-> info
-> This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
+:::info
+This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
+:::
 
-> info
-> All parameters to this endpoint are optional
+:::info
+All parameters to this endpoint are optional
+:::
 
 ###### JSON Params
 
@@ -396,9 +403,9 @@ Any event with `'status': SCHEDULED` after a certain time interval (on the order
 
 NOTE: `entity_type` is expressed by name rather than value for readability
 
-> info
-> A user must be a member of the guild in order to access events for that guild unless the guild is lurkable. If a guild is lurkable,
-> events in that guild may be visible to lurkers depending on the event type and the permissions of any channels associated with the event.
+:::info
+A user must be a member of the guild in order to access events for that guild unless the guild is lurkable. If a guild is lurkable, events in that guild may be visible to lurkers depending on the event type and the permissions of any channels associated with the event.
+:::
 
 ### Permissions for events with entity_type: STAGE_INSTANCE
 

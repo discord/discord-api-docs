@@ -8,15 +8,17 @@ Based on feedback, we’re updating permissions for [application commands](/docs
 
 Server admins can begin to opt-in to the command permission changes outlined here on a per-server basis **starting on December 16, 2022**. However, changes will not be applied to all servers **until late January or early February**.
 
-> info
-> Current permissions behavior is documented in [the application commands documentation](/docs/interactions/application-commands#permissions) and in [the changelog for the previous permissions update](/docs/change-log#updated-command-permissions)
+:::info
+Current permissions behavior is documented in [the application commands documentation](/docs/interactions/application-commands#permissions) and in [the changelog for the previous permissions update](/docs/change-log#updated-command-permissions)
+:::
 
 These changes are focused on how configured permissions are used by Discord clients, so most apps will be unaffected. However, if your app uses the [Update Permissions endpoint](/docs/interactions/application-commands#edit-application-command-permissions) (`PUT /applications/<application_id>/guilds/<guild_id>/commands/<command_id>/permissions`), you may need to make updates and should read these changes carefully.
 
 #### Types of command permission configurations
 
-> info
-> The following information isn’t changing, but it’s helpful context to understand the changes.
+:::info
+The following information isn’t changing, but it’s helpful context to understand the changes.
+:::
 
 Discord’s clients determine whether a user can see or invoke a command based on three different permission configurations:
 
@@ -102,8 +104,9 @@ else:
      # Use new permissions behaviors when interacting with endpoint
 ```
 
-> info
-> If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](/docs/resources/guild#get-guild).
+:::info
+If you don’t have access to guild features already through Gateway events, you can fetch that information using the [`GET /guilds/<guild_id>` endpoint](/docs/resources/guild#get-guild).
+:::
 
 **2. Modify the behavior based on your use case**
 
