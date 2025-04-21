@@ -296,8 +296,7 @@ Most Discord features won't work until the status is [`Client::Status::Ready`]. 
 - The **status callback** tells you when you're connected and ready to use Discord features
 
 :::info
-At this point, these callbacks **won't get called** since the client setup is not yet complete. However, very soon we
-will be using them to view debug information and see what our connection status is!
+At this point, these callbacks **won't get called** since the client setup is not yet complete. However, very soon we will be using them to view debug information and see what our connection status is!
 :::
 
 To get to a [`Client::Status::Ready`] state, we need to authenticate with Discord. We'll do that shortly.

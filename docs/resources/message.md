@@ -70,7 +70,7 @@ An app will receive empty values in the `content`, `embeds`, `attachments`, and 
 ###### Message Types
 
 :::warn
-Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
+Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`. Additionally, type `21` is only available in API v9 and above.
 :::
 
 | Type                                         | Value | Deletable |

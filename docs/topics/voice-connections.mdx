@@ -67,9 +67,7 @@ With this information, we can move on to establishing a voice WebSocket connecti
 When sending a voice state update to change channels within the same guild, it is possible to receive a VOICE_SERVER_UPDATE with the same `endpoint` as the previous VOICE_SERVER_UPDATE. The `token` will be changed and you cannot re-use the previous session during a channel change, even if the endpoint remains the same.
 
 :::info
-Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive
-the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS`
-permission bypasses this limit and allows you to join regardless of the channel being full or not.
+Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS` permission bypasses this limit and allows you to join regardless of the channel being full or not.
 :::
 
 
