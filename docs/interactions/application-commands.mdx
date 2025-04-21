@@ -428,7 +428,7 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
 :::warn
-Slash commands can have a maximum of 8000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](/docs/interactions/application-commands#localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
+Slash commands can have a maximum of 8000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices. When [localization fields](/docs/interactions/application-commands#localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
 :::
 
 
@@ -1096,7 +1096,7 @@ An application command furnished with localizations might look like this:
 For application commands, there are built-in fallbacks in case a user's locale isn't present in the localizations. If the fallback locale is also missing, it will use the default.
 
 :::warn
-You should make sure to include your default value in its proper locale key, otherwise it may use a fallback value unexpectedly. For example, if your default value is `en-US`, but you don't specify the `en-US` value in your localizations, users with `en-US` selected will see the `en-GB` value if it's specified.  For example, if you have a command with the default name "color", and your localizations specify only the `en-GB` value as "colour", users in the `en-US` locale will see "colour" because the `en-US` key is missing.
+You should make sure to include your default value in its proper locale key, otherwise it may use a fallback value unexpectedly. For example, if your default value is `en-US`, but you don't specify the `en-US` value in your localizations, users with `en-US` selected will see the `en-GB` value if it's specified. For example, if you have a command with the default name "color", and your localizations specify only the `en-GB` value as "colour", users in the `en-US` locale will see "colour" because the `en-US` key is missing.
 :::
 
 | Locale | Fallback |

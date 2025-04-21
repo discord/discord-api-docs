@@ -68,11 +68,13 @@ The `user` field of an app emoji object represents the team member that uploaded
 
 ###### Custom Emoji Examples
 
->info
->In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emoji.
+:::info
+In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emoji.
+:::
 
->info
->In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
+:::info
+In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
+:::
 
 ```json
 {

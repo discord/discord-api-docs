@@ -8,8 +8,9 @@ To ensure that you have the most up-to-date information, please use [version 8](
 
 Previously if the version query string `v` was omitted the voice gateway would default to version 1. That behavior is being deprecated, in the future you must present a voice gateway version or your voice connection will be rejected.
  
->warn
->Versions below 4 as well as the default version behaviour will be discontinued as of November 18th, 2024. Connections without a version or with a version less than version 4 will be rejected as of this date.
+:::warn
+Versions below 4 as well as the default version behavior will be discontinued as of November 18th, 2024. Connections without a version or with a version less than version 4 will be rejected as of this date.
+:::
 
 ###### Gateway Versions
 
@@ -66,9 +67,7 @@ With this information, we can move on to establishing a voice WebSocket connecti
 When sending a voice state update to change channels within the same guild, it is possible to receive a VOICE_SERVER_UPDATE with the same `endpoint` as the previous VOICE_SERVER_UPDATE. The `token` will be changed and you cannot re-use the previous session during a channel change, even if the endpoint remains the same.
 
 :::info
-Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive
-the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS`
-permission bypasses this limit and allows you to join regardless of the channel being full or not.
+Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS` permission bypasses this limit and allows you to join regardless of the channel being full or not.
 :::
 
 
@@ -211,8 +210,9 @@ First, we open a UDP connection to the IP and port provided in the Ready payload
 
 Since September 2024, Discord is migrating voice and video in DMs, Group DMs, voice channels, and Go Live streams to use end-to-end encryption (E2EE).
 
->info
->You are not immediately required to support the E2EE protocol, as calls will automatically upgrade/downgrade to/from E2EE depending on the support of clients in the call. Non-E2EE connections to voice in DMs, Group DMs, voice channels, and Go Live streams will soon be deprecated and will be discontinued (after at least a six month deprecation window).
+:::info
+You are not immediately required to support the E2EE protocol, as calls will automatically upgrade/downgrade to/from E2EE depending on the support of clients in the call. Non-E2EE connections to voice in DMs, Group DMs, voice channels, and Go Live streams will soon be deprecated and will be discontinued (after at least a six month deprecation window).
+:::
 
 This section is a high-level overview of how to support Discord's audio & video end-to-end encryption (DAVE) protocol, centered around the voice gateway opcodes necessary for the protocol. The most thorough documentation on the DAVE protocol is found in the [Protocol Whitepaper](https://daveprotocol.com). You may additionally be able to leverage or refer to our open-source library [libdave](https://github.com/discord/libdave) to assist your implementation. The exact format of the DAVE protocol opcodes is detailed in the [Voice Gateway Opcodes section of the protocol whitepaper](https://daveprotocol.com/#voice-gateway-opcodes).
 
@@ -236,8 +236,9 @@ Include the highest DAVE protocol version you support in [Opcode 0 Identify](/do
 
 The voice gateway specifies the initial protocol version in [Opcode 4 Session Description](/docs/topics/opcodes-and-status-codes#voice) under `dave_protocol_version`. This may be any non-discontinued protocol version equal to or less than your supported protocol version.
 
->warn
->Clients must retain backwards-compatibility of any non-discontinued DAVE protocol versions. The voice gateway selects the lowest shared protocol version for the call.
+:::warn
+Clients must retain backwards-compatibility of any non-discontinued DAVE protocol versions. The voice gateway selects the lowest shared protocol version for the call.
+:::
 
 ### Protocol Transitions
 
@@ -397,11 +398,13 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 | XSalsa20 Poly1305 Suffix           | xsalsa20_poly1305_suffix        | 24 random bytes                                       | Deprecated            |
 | XSalsa20 Poly1305 Lite             | xsalsa20_poly1305_lite          | 32-bit incremental integer value, appended to payload | Deprecated            |
 
->warn 
->The deprecated encryption modes above will be discontinued as of November 18th, 2024. As of this date the voice gateway will not allow you to connect with one of the deprecated encryption modes.
+:::warn 
+The deprecated encryption modes above will be discontinued as of November 18th, 2024. As of this date the voice gateway will not allow you to connect with one of the deprecated encryption modes.
+:::
 
->warn
->The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
+:::warn
+The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
+:::
 
 The RTP size variants determine the unencrypted size of the RTP header in [the same way as SRTP](https://tools.ietf.org/html/rfc3711#section-3.1), which considers CSRCs and (optionally) the extension preamble to be part of the unencrypted header. The deprecated variants use a fixed size unencrypted header for RTP.
 
