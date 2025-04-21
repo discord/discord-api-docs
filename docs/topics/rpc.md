@@ -485,12 +485,7 @@ Used to change voice settings of users in voice channels
 | mute?   | boolean                                                        | set the mute state of the user                           |
 
 :::info
-In the current release, we only support a single modifier of voice settings at a time over RPC.
-If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
-lose the ability to change voice settings. Settings reset to what they were before being changed after the
-controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
-to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
-be changed in the future.
+In the current release, we only support a single modifier of voice settings at a time over RPC. If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously lose the ability to change voice settings. Settings reset to what they were before being changed after the controlling app disconnects. When an app that has previously set voice settings connects, the client will swap to that app's configured voice settings and lock voice settings again. This is a temporary situation that will be changed in the future.
 :::
 
 ###### Pan Object
@@ -739,12 +734,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 #### SET_VOICE_SETTINGS
 
 :::info
-In the current release, we only support a single modifier of voice settings at a time over RPC.
-If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
-lose the ability to change voice settings. Settings reset to what they were before being changed after the
-controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
-to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
-be changed in the future.
+In the current release, we only support a single modifier of voice settings at a time over RPC. If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously lose the ability to change voice settings. Settings reset to what they were before being changed after the controlling app disconnects. When an app that has previously set voice settings connects, the client will swap to that app's configured voice settings and lock voice settings again. This is a temporary situation that will be changed in the future.
 :::
 
 When setting voice settings, all fields are optional. Only passed fields are updated.
