@@ -65,7 +65,8 @@ The `flags` field can be used to differentiate user and server subscriptions wit
 | GUILD_SUBSCRIPTION | `1 << 7` | Recurring SKU that can be purchased by a user and applied to a single server. Grants access to every user in that server. |
 | USER_SUBSCRIPTION  | `1 << 8` | Recurring SKU purchased by a user for themselves. Grants access to the purchasing user in every server.                   |
 
-## List SKUs % GET /applications/||FIXME||application.id||/docs/resources/application#application-object||/skus
+## List SKUs
+<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/skus</Route>
 
 Returns all SKUs for a given application. 
 

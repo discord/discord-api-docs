@@ -260,7 +260,8 @@ by_month_day = [24]
 | NOVEMBER  | 11    |
 | DECEMBER  | 12    |
 
-## List Scheduled Events for Guild % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/scheduled-events
+## List Scheduled Events for Guild
+<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/scheduled-events</Route>
 
 Returns a list of [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) objects for the given guild.
 
@@ -270,7 +271,8 @@ Returns a list of [guild scheduled event](/docs/resources/guild-scheduled-event#
 |------------------|--------------------------------------------------|--------------------------------------------------|
 | with_user_count? | [boolean](/docs/reference#boolean-query-strings) | include number of users subscribed to each event |
 
-## Create Guild Scheduled Event % POST /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/scheduled-events
+## Create Guild Scheduled Event
+<Route type="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/scheduled-events</Route>
 
 Create a guild scheduled event in the guild. Returns a [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Create](/docs/events/gateway-events#guild-scheduled-event-create) Gateway event.
 
@@ -302,7 +304,8 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 \*\* Required for events with `'entity_type': EXTERNAL`
 
-## Get Guild Scheduled Event % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/scheduled-events/||FIXME||guild_scheduled_event.id||/docs/resources/guild-scheduled-event#guild-scheduled-event-object||
+## Get Guild Scheduled Event
+<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)</Route>
 
 Get a guild scheduled event. Returns a [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object on success.
 
@@ -312,7 +315,8 @@ Get a guild scheduled event. Returns a [guild scheduled event](/docs/resources/g
 |------------------|--------------------------------------------------|--------------------------------------------------|
 | with_user_count? | [boolean](/docs/reference#boolean-query-strings) | include number of users subscribed to this event |
 
-## Modify Guild Scheduled Event % PATCH /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/scheduled-events/||FIXME||guild_scheduled_event.id||/docs/resources/guild-scheduled-event#guild-scheduled-event-object||
+## Modify Guild Scheduled Event
+<Route type="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)</Route>
 
 Modify a guild scheduled event. Returns the modified [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](/docs/events/gateway-events#guild-scheduled-event-update) Gateway event.
 
@@ -355,11 +359,13 @@ All parameters to this endpoint are optional
 - `entity_metadata` with a `location` field must be provided
 - `scheduled_end_time` must be provided
 
-## Delete Guild Scheduled Event % DELETE /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/scheduled-events/||FIXME||guild_scheduled_event.id||/docs/resources/guild-scheduled-event#guild-scheduled-event-object||
+## Delete Guild Scheduled Event
+<Route type="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)</Route>
 
 Delete a guild scheduled event. Returns a `204` on success. Fires a [Guild Scheduled Event Delete](/docs/events/gateway-events#guild-scheduled-event-delete) Gateway event.
 
-## Get Guild Scheduled Event Users % GET /guilds/||FIXME||guild.id||/docs/resources/guild#guild-object||/scheduled-events/||FIXME||guild_scheduled_event.id||/docs/resources/guild-scheduled-event#guild-scheduled-event-object||/users
+## Get Guild Scheduled Event Users
+<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)/users</Route>
 
 Get a list of guild scheduled event users subscribed to a guild scheduled event. Returns a list of [guild scheduled event user](/docs/resources/guild-scheduled-event#guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
