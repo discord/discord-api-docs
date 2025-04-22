@@ -697,7 +697,8 @@ The [Get Gateway Bot endpoint](/docs/events/gateway#get-gateway-bot) will always
 
 The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 5)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](/docs/events/gateway#session-start-limit-object).
 
-## Get Gateway % GET /gateway
+## Get Gateway
+<Route type="GET">/gateway</Route>
 
 :::info
 This endpoint does not require authentication.
@@ -713,7 +714,9 @@ Returns an object with a valid WSS URL which the app can use when [Connecting](/
 }
 ```
 
-## Get Gateway Bot % GET /gateway/bot
+## Get Gateway Bot
+
+<Route type="GET">/gateway/bot</Route>
 
 :::warn
 This endpoint requires authentication using a valid bot token.
