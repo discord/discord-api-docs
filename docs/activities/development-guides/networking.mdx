@@ -18,8 +18,6 @@ While we currently only support websockets, we're working with our upstream prov
 
 WebRTC is not supported.
 
-Other guides are available in this [Networking](/docs/activities/development-guides#networking) section for using external network resources and constructing a full url versus relative urls.
-
 ---
 
 ## Construct A Full URL
@@ -51,7 +49,7 @@ In other words, given an application client id of `12345678`
 
 ## Using External Resources
 
-Activities in Discord are "sandboxed" via a Discord proxy. This is done to hide the users' IP addresses as well as block URLs from known malicious endpoints. To achieve this, the Discord Developer Portal has a section for [configuring URL Mappings](/docs/activities/development-guides#url-mapping) for your application.
+Activities in Discord are "sandboxed" via a Discord proxy. This is done to hide the users' IP addresses as well as block URLs from known malicious endpoints. To achieve this, the Discord Developer Portal has a section for [configuring URL Mappings](/docs/activities/development-guides/local-development#url-mapping) for your application.
 
 One edge-case of URL mappings is that third-party NPM modules or other resources may reference external (non-sandboxed) urls.
 

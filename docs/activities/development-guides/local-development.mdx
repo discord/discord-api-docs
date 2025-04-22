@@ -6,9 +6,9 @@ sidebar_label: Local Development
 
 ## Run Your Application Locally
 
-It is possible to load your application via a localhost port or other unique URL. This URL must support an HTTPS connection to load on the web/desktop Discord app (HTTPS is not required for mobile). The downside to this flow is that your application's network traffic will not pass through Discord's proxy, which means any requests made by the application will need to use a full URL instead of a ["mapped"](/docs/activities/development-guides#url-mapping) URL.
+It is possible to load your application via a localhost port or other unique URL. This URL must support an HTTPS connection to load on the web/desktop Discord app (HTTPS is not required for mobile). The downside to this flow is that your application's network traffic will not pass through Discord's proxy, which means any requests made by the application will need to use a full URL instead of a ["mapped"](/docs/activities/development-guides/local-development#url-mapping) URL.
 
-To run your locally hosted application, follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides#launch-your-application-from-the-discord-client) and set the Application URL Override to the address of your application's web server.
+To run your locally hosted application, follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides/local-development#launch-your-application-from-the-discord-client) and set the Application URL Override to the address of your application's web server.
 
 ### Running Your Application Through A Network Tunnel
 
@@ -16,7 +16,7 @@ Although it is possible to test your application locally, we recommend developin
 
 1. Create a new application in the Discord Developer portal.
 2. Enable Activities for your app.
-3. Set up the application's [URL mapping](/docs/activities/development-guides#url-mapping).
+3. Set up the application's [URL mapping](/docs/activities/development-guides/local-development#url-mapping).
 4. Locally, spin up your web server.
 5. Install and run a tunnel solution, such as [cloudflared](https://github.com/cloudflare/cloudflared#installing-cloudflared). You will point it to your local web server.
 
@@ -45,7 +45,7 @@ In the Discord Developer Portal, update the Application URL mapping for `/` url 
 If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
 :::
 
-Follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides#launch-your-application-from-the-discord-client). Application URL Override should not be enabled.
+Follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides/local-development#launch-your-application-from-the-discord-client). Application URL Override should not be enabled.
 
 ### Running Your Application In Production
 
@@ -53,8 +53,8 @@ The flow for setting up your production application is very similar:
 
 1. If not made yet, create a new application.
 2. Enable Activities for your app.
-3. Set up the application's [URL Mapping](/docs/activities/development-guides#url-mapping). The URL for your application's html should be set to the `/` route.
-4. Follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides#launch-your-application-from-the-discord-client)). Application URL Override should not be enabled.
+3. Set up the application's [URL Mapping](/docs/activities/development-guides/local-development#url-mapping). The URL for your application's html should be set to the `/` route.
+4. Follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides/local-development#launch-your-application-from-the-discord-client)). Application URL Override should not be enabled.
 
 This application now uses the same configuration it will use once it is fully published ✨.
 ![application-test-mode-prod](images/activities/application-test-mode-prod.gif)

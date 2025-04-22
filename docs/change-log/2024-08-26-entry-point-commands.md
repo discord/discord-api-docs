@@ -12,7 +12,7 @@ When creating or updating an Entry Point command, an [Entry Point handler](/docs
 - If the value is `DISCORD_LAUNCH_ACTIVITY` (`2`), Discord will automatically handle the interaction and send a follow-up message to the channel where the Entry Point command was invoked from.
 - If the value is `APP_HANDLER` (`1`), your app will receive an interaction token and will be responsible for responding to the interaction. In this case, you can launch your Activity using the `LAUNCH_ACTIVITY` (type `12`) [interaction callback](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type).
 
-More details about Entry Point commands can be found in the [Application Commands documentation](/docs/interactions/application-commands#entry-point-commands) and in the [Activity development guide](/docs/activities/development-guides#setting-up-an-entry-point-command).
+More details about Entry Point commands can be found in the [Application Commands documentation](/docs/interactions/application-commands#entry-point-commands) and in the [Activity development guide](/docs/activities/development-guides/user-actions#setting-up-an-entry-point-command).
 
 ### Default Entry Point Commands
 
