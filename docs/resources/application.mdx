@@ -226,11 +226,13 @@ You can configure your app's install link in your [app's settings](https://disco
 
 The Default Install Settings will appear on the **Installation** page when you have "Discord Provided Link" selected as your install link type.
 
-## Get Current Application % GET /applications/@me
+## Get Current Application
+<Route type="GET">/applications/@me</Route>
 
 Returns the [application](/docs/resources/application#application-object) object associated with the requesting bot user.
 
-## Edit Current Application % PATCH /applications/@me
+## Edit Current Application
+<Route type="PATCH">/applications/@me</Route>
 
 Edit properties of the app associated with the requesting bot user. Only properties that are passed will be updated. Returns the updated [application](/docs/resources/application#application-object) object on success.
 
@@ -260,10 +262,10 @@ All parameters to this endpoint are optional
 
 \*\* To update an Interactions endpoint URL via the API, the URL must be valid according to the [Receiving an Interaction](/docs/interactions/receiving-and-responding#receiving-an-interaction) documentation.
 
-## Get Application Activity Instance % GET /applications/{application.id/docs/resources/application#application-object}/activity-instances/{instance_id}
+## Get Application Activity Instance
+<Route>/applications/[\{application.id\}](/docs/resources/application#application-object)/activity-instances/[\{instance_id\}](/docs/resources/application#get-application-activity-instance-activity-instance-object)</Route>
 
 Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](/docs/activities/development-guides#preventing-unwanted-activity-sessions).
-
 
 ###### Example Activity Instance
 
@@ -291,7 +293,6 @@ Returns a serialized activity instance, if it exists. Useful for [preventing unw
 | launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                         |
 | location       | [Activity Location](/docs/resources/application#get-application-activity-instance-activity-location-object) | Location the instance is running in                                                      |
 | users          | array of snowflakes, [user](/docs/resources/user#user-object) IDs                                           | IDs of the Users currently connected to the instance                                     |
-
 
 
 ###### Activity Location Object

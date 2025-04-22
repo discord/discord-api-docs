@@ -123,7 +123,8 @@ For creating a poll, see [Create Message](/docs/resources/message#create-message
 
 Apps are not allowed to vote on polls. No rights! :)
 
-## Get Answer Voters % GET /channels/{channel.id/docs/resources/channel#channel-object}/polls/{message.id/docs/resources/message#message-object}/answers/{answer_id/docs/resources/poll#poll-answer-object}
+## Get Answer Voters
+<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/polls/[\{message.id\}](/docs/resources/message#message-object)/answers/[\{answer_id\}](/docs/resources/poll#poll-answer-object)</Route>
 
 Get a list of users that voted for this specific answer.
 
@@ -140,7 +141,8 @@ Get a list of users that voted for this specific answer.
 |-------|---------------------------------------------------|---------------------------------|
 | users | array of [user](/docs/resources/user#user-object) | Users who voted for this answer |
 
-## End Poll % POST /channels/{channel.id/docs/resources/channel#channel-object}/polls/{message.id/docs/resources/message#message-object}/expire
+## End Poll
+<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/polls/[\{message.id\}](/docs/resources/message#message-object)/expire</Route>
 
 Immediately ends the poll. You cannot end polls from other users.
 
