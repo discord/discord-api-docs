@@ -124,7 +124,7 @@ On the left hand sidebar in your app's settings, there's a **Bot** page (where w
 <Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
 Intents determine which events Discord will send your app when you're creating a [Gateway API connection](/docs/events/gateway). For example, if you want your app to perform an action when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
 
-Some intents are [privileged](/docs/events/gateway#privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents can be toggled on the **Bot** page in your app's settings, but they must be approved before you [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471). Standard, non-privileged intents don't require any additional permissions or configurations.
+Some intents are [privileged](/docs/events/gateway#privileged-intents), meaning they allow your app to access data that may be considered sensitive (like the contents of messages). Privileged intents can be toggled on the **Bot** page in your app's settings, but they must be approved before you [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified). Standard, non-privileged intents don't require any additional permissions or configurations.
 
 More information about intents and a full list of available intents (along with their associated events) is in the [Gateway documentation](/docs/events/gateway#gateway-intents).
 </Collapsible>
@@ -178,7 +178,7 @@ See a list of all [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-sc
 ### Installing your app
 
 :::info
-When developing apps, you should build and test on your user account (for user-installable apps) and in a server that isn't actively used by others (for server-installable apps). If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977).
+When developing apps, you should build and test on your user account (for user-installable apps) and in a server that isn't actively used by others (for server-installable apps). If you don't have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 :::
 
 Once you add scopes, copy the URL from the **Install Link** section from before.

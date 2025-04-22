@@ -204,7 +204,7 @@ A `GUILD_FORUM` (type `15`) channel is similar to a `GUILD_TEXT` channel, except
 Messages cannot be sent directly in forum channels.
 
 :::info
-More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079#h_01JAZAWCX4DXYK26BKT49DXMAQ)
+More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N)
 :::
 
 ## Media Channels

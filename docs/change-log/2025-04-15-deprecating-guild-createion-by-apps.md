@@ -26,4 +26,4 @@ If your app is affected, you will receive a migration plan via Discord System DM
 
 We understand this change may affect some legitimate use cases. If you have questions or believe your application
 requires continued access to guild creation functionality, please contact us through
-the [Developer Support portal](https://support-dev.discord.com/hc/en-us).
+the [Developer Support portal](https://support-dev.discord.com/hc).

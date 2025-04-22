@@ -4,7 +4,7 @@ sidebar_label: Upgrading to Application Commands
 
 # Upgrading Apps to Use Application Commands
 
-As [message content has become a privileged intent](https://support-dev.discord.com/hc/en-us/articles/4404772028055) for verified apps, [application commands](/docs/interactions/application-commands) are the primary way Discord users interact with apps. The three types of commands (slash commands, user commands, and message commands) act as entry points into apps, and can be registered globally or for a subset of guilds.
+As [message content has become a privileged intent](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) for verified apps, [application commands](/docs/interactions/application-commands) are the primary way Discord users interact with apps. The three types of commands (slash commands, user commands, and message commands) act as entry points into apps, and can be registered globally or for a subset of guilds.
 
 This guide is intended to provide developers with apps currently using message content with a resource to walk through implementing and designing commands. Throughout the guide, the terms "application commands" and "commands" are used interchangeably.
 
@@ -308,5 +308,5 @@ This can come in the form of a specific command that shows app usage, a message 
 Hopefully this guide was helpful in considering how to design and implement application commands. Below is a couple of follow-up resources you can use:
 
 - [Application command documentation](/docs/interactions/application-commands)—I know it's linked a bunch in this guide, but there's a reason!
-- Help center article on [message content intent alternatives](https://support-dev.discord.com/hc/en-us/articles/6383579033751)
-- The official [Discord Developers Server](https://discord.gg/discord-developers) where you can find API updates, ask questions about developing apps, and connect with other developers
+- Help center article on [message content intent workarounds](https://support-dev.discord.com/hc/en-us/articles/6383579033751-Message-Content-Intent-Alternatives-Workarounds)
+- The [DDevs server](https://discord.gg/discord-developers) where you can find API updates, ask questions about developing apps, and connect with other developers

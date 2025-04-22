@@ -4,7 +4,7 @@ Teams are groups of developers (or other Discord users) who want to collaborate 
 
 ## Creating a Team
 
-To create or be a member on a team, you must [enable 2FA for your Discord account](https://support.discord.com/hc/en-us/articles/219576828). After you have 2FA enabled, create a team by navigating to the [Teams page](https://discord.com/developers/teams) then clicking the "New Team" button.
+To create or be a member on a team, you must [enable 2FA for your Discord account](https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Two-Factor-Authentication). After you have 2FA enabled, create a team by navigating to the [Teams page](https://discord.com/developers/teams) then clicking the "New Team" button.
 
 ![Screenshot of the Teams page](images/team-page.png)
 
