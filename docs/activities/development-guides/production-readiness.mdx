@@ -4,6 +4,8 @@ sidebar_label: Production Readiness
 
 [Home](/docs/intro) > [Activities](/docs/activities/overview) > [Development Guides](/docs/activities/development-guides) > {sidebar_label}
 
+# Production Readiness
+
 ## Cache Busting
 
 All assets loaded by your application will respect [cache headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control). One exception is that Discord's application proxy will remove any cache headers for assets whose `content-type` headers include `text/html`. For all non-`text/html` content that your application plans to serve, be sure your application has a cache-busting strategy. This is often built into build processes. If your application has a static filename for its javascript or css, please be sure to implement cache busting techniques, for example [webpack enables creating a content hash and manifest](https://webpack.js.org/guides/caching/) as a part of the build process.
