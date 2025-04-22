@@ -998,11 +998,11 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### File Structure
 
 | Field    | Type                                                                            | Description                                                                                                                     |
-|----------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| type     | integer                                                                         | `13` for a file component                                                                                                       |
-| id?      | integer                                                                         | Optional identifier for component                                                                                               |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| type     | integer                                                                         | `13` for a file component                                                                                                        |
+| id?      | integer                                                                         | Optional identifier for component                                                                                                |
 | file     | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | This unfurled media item is unique in that it **only** supports attachment references using the `attachment://<filename>` syntax |
-| spoiler? | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                     |
+| spoiler? | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                      |
 
 ###### Example
 
