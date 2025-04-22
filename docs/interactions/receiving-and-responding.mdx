@@ -390,7 +390,7 @@ The endpoints below are not bound to the application's [Global Rate Limit](/docs
 :::
 
 ## Create Interaction Response
-<Route type="POST">/interactions/\{interaction.id/docs/interactions/receiving-and-responding#interaction-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/callback</Route>
+<Route type="POST">/interactions/[\{interaction.id}](/docs/interactions/receiving-and-responding#interaction-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/callback</Route>
 
 Create a response to an Interaction. Body is an [interaction response](/docs/interactions/receiving-and-responding#interaction-response-object). Returns `204` unless `with_response` is set to `true` which returns `200` with the body as [interaction callback response](/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object).
 
