@@ -70,7 +70,7 @@ An app will receive empty values in the `content`, `embeds`, `attachments`, and 
 ###### Message Types
 
 :::warn
-Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
+Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`. Additionally, type `21` is only available in API v9 and above.
 :::
 
 | Type                                         | Value | Deletable |
@@ -313,7 +313,7 @@ Information about the call in a private channel.
 | guild_id?           | snowflake | id of the originating message's guild                                                                                                   |
 | fail_if_not_exists? | boolean   | when sending, whether to error if the referenced message doesn't exist instead of sending as a normal (non-reply) message, default true |
 
-\* If `type` is unset, `DEFAULT` can be assumed in order to match the behaviour before message reference had types.
+\* If `type` is unset, `DEFAULT` can be assumed in order to match the behavior before message reference had types.
 In future API versions this will become a required field.
 
 \*\* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model. **Required for forwards.**
