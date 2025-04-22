@@ -1,6 +1,6 @@
 # Application Role Connection Metadata
 
-A representation of role connection metadata for an [application](/docs/resources/application#).
+A representation of role connection metadata for an [application](/docs/resources/application).
 
 When a guild has added a bot and that bot has configured its [`role_connections_verification_url`](/docs/resources/application#application-object) (in the developer portal), the application will render as a potential verification method in the guild's role verification configuration.
 

@@ -1,0 +1,1194 @@
+---
+sidebar_label: Component Reference
+---
+
+# Component Reference
+
+This document serves as a comprehensive reference for all available components. It covers three main categories:
+
+- **Layout Components** - For organizing and structuring content (Action Rows, Sections, Containers)
+- **Content Components** - For displaying static text, images, and files (Text Display, Media Gallery, Thumbnails)
+- **Interactive Components** - For user interactions (Buttons, Select Menus, Text Input)
+
+To use these components, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be sent on a per-message basis. This enables the new components system with the following changes:
+
+- The `content` and `embeds` fields will no longer work but you'll be able to use [Text Display](/docs/components/reference#text-display) and [Container](/docs/components/reference#container) as replacements
+- Attachments won't show by default - they must be exposed through components
+- The `poll` and `stickers` fields are disabled
+- A max of 10 top-level components and 30 total components in a message
+
+:::info
+[Legacy component behavior](/docs/components/reference#legacy-message-component-behavior) will continue to work but provide less flexibility and control over the message layout.
+:::
+
+For a practical guide on implementing these components, see our [Using Message Components](/docs/components/using-message-components) and [Using Modal Components](/docs/components/using-modal-components) documentation.
+
+---
+
+## What is a Component
+
+Components allow you to style and structure your messages, modals, and interactions. They are interactive elements that can create rich user experiences in your Discord applications.
+
+Components are a field on the [message object](/docs/resources/message#message-object) and [modal](/docs/interactions/receiving-and-responding#interaction-response-object-modal). You can use them when creating messages or responding to an interaction, like an [application command](/docs/interactions/application-commands).
+
+### Component Object
+
+###### Component Types
+
+The following is a complete table of available components. Details about each component are in the sections below.
+
+| Type | Name                                                                | Description                                                | Style       | Usage          |
+|------|---------------------------------------------------------------------|------------------------------------------------------------|-------------|----------------|
+| 1    | [Action Row](/docs/components/reference#action-row)                 | Container to display a row of interactive components       | Layout      | Message, Modal |
+| 2    | [Button](/docs/components/reference#button)                         | Button object                                              | Interactive | Message        |
+| 3    | [String Select](/docs/components/reference#string-select)           | Select menu for picking from defined text options          | Interactive | Message        |
+| 4    | [Text Input](/docs/components/reference#text-input)                 | Text input object                                          | Interactive | Modal          |
+| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                      | Interactive | Message        |
+| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                      | Interactive | Message        |
+| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)           | Interactive | Message        |
+| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                   | Interactive | Message        |
+| 9    | [Section](/docs/components/reference#section)                       | Container to display text alongside an accessory component | Layout      | Message        |
+| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                              | Content     | Message        |
+| 11   | [Thumbnail](/docs/components/reference#thumbnail)                   | Small image that can be used as an accessory               | Content     | Message        |
+| 12   | [Media Gallery](/docs/components/reference#media-gallery)           | Display images and other media                             | Content     | Message        |
+| 13   | [File](/docs/components/reference#file)                             | Displays an attached file                                  | Content     | Message        |
+| 14   | [Separator](/docs/components/reference#separator)                   | Component to add vertical padding between other components | Layout      | Message        |
+| 17   | [Container](/docs/components/reference#container)                   | Container that visually groups a set of components         | Layout      | Message        |
+
+## Anatomy of a Component
+
+All components have the following fields:
+
+| Field | Type    | Description                                                                              |
+|-------|---------|------------------------------------------------------------------------------------------|
+| type  | integer | The [type](/docs/components/reference#component-object-component-types) of the component |
+| id?   | integer | 32 bit integer used as an optional identifier for component                              |
+
+The `id` field is optional and is used to identify components in the response from an interaction that aren't interactive components. The `id` must be unique within the message and is generated sequentially if left empty. Generation of `id`s won't use another `id` that exists in the message if you have one defined for another component.
+
+###### Custom ID
+
+Additionally, interactive components like buttons and selects must have a `custom_id` field. The developer defines this field when sending the component payload, and it is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
+
+`custom_id` is only available on interactive components and must be unique per component. Multiple components on the same message must not share the same `custom_id`. This field is a string of a maximum of 100 characters and can be used flexibly to maintain state or pass through other important data.
+
+| Field     | Type   | Description                                      |
+|-----------|--------|--------------------------------------------------|
+| custom_id | string | Developer-defined identifier, max 100 characters |
+
+## Action Row
+
+An Action Row is a top-level layout component used in messages and modals.
+
+Action Rows can contain:
+
+- Up to 5 contextually grouped [buttons](/docs/components/reference#button)
+- A single [text input](/docs/components/reference#text-input)
+- A single select component ([string select](/docs/components/reference#string-select), [user select](/docs/components/reference#user-select), [role select](/docs/components/reference#role-select), [mentionable select](/docs/components/reference#mentionable-select), or [channel select](/docs/components/reference#channel-select))
+
+###### Action Row Structure
+
+| Field      | Type                                                                                      | Description                                                                                                                                       |
+|------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                   | `1` for action row component                                                                                                                      |
+| id?        | integer                                                                                   | Optional identifier for component                                                                                                                 |
+| components | array of [component objects](/docs/components/reference#component-object-component-types) | Up to 5 interactive [button](/docs/components/reference#button) components or a single [select](/docs/components/reference#user-select) component |
+
+###### Example
+
+```json
+"components":
+[
+  {
+    "type": 1,
+    "components": [
+        {
+            "type": 2,
+            "label": "Accept",
+            "style": 1,
+            "custom_id": "click_yes"
+        },
+        {
+            "type": 2,
+            "label": "Learn More",
+            "style": 5,
+            "url": "http://watchanimeattheoffice.com/"
+        },
+        {
+            "type": 2,
+            "label": "Decline",
+            "style": 4,
+            "custom_id": "click_no"
+        }
+    ]
+  }
+]
+```
+
+![Example of an Action Row with three buttons](images/components/action-row.png)
+
+## Button
+
+A Button is an interactive component that can only be used in messages. It creates clickable elements that users can interact with, sending an [interaction](/docs/interactions/receiving-and-responding#interaction-object) to your app when clicked.
+
+Buttons must be placed inside an [Action Row](/docs/components/reference#action-row) or a [Section](/docs/components/reference#section)'s `accessory` field.
+
+###### Button Structure
+
+| Field     | Type                                                | Description                                                                                                         |
+|-----------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| type      | integer                                             | `2` for a button                                                                                                    |
+| id?       | integer                                             | Optional identifier for component                                                                                   |
+| style     | integer                                             | A [button style](/docs/components/reference#button-button-styles)                                                   |
+| label?    | string                                              | Text that appears on the button; max 80 characters                                                                  |
+| emoji?    | partial [emoji](/docs/resources/emoji#emoji-object) | `name`, `id`, and `animated`                                                                                        |
+| custom_id | string                                              | Developer-defined identifier for the button; max 100 characters                                                     |
+| sku_id?   | snowflake                                           | Identifier for a purchasable [SKU](/docs/resources/sku#sku-object), only available when using premium-style buttons |
+| url?      | string                                              | URL for link-style buttons                                                                                          |
+| disabled? | boolean                                             | Whether the button is disabled (defaults to `false`)                                                                |
+
+Buttons come in various styles to convey different types of actions. These styles also define what fields are valid for a button.
+
+- Non-link and non-premium buttons **must** have a `custom_id`, and cannot have a `url` or a `sku_id`.
+- Link buttons **must** have a `url`, and cannot have a `custom_id`
+- Link buttons do not send an [interaction](/docs/interactions/receiving-and-responding#interaction-object) to your app when clicked
+- Premium buttons **must** contain a `sku_id`, and cannot have a `custom_id`, `label`, `url`, or `emoji`.
+- Premium buttons do not send an [interaction](/docs/interactions/receiving-and-responding#interaction-object) to your app when clicked
+
+###### Button Styles
+
+| Name      | Value | Action                                                         | Required Field |
+|-----------|-------|----------------------------------------------------------------|----------------|
+| Primary   | 1     | The most important or recommended action in a group of options | `custom_id`    |
+| Secondary | 2     | Alternative or supporting actions                              | `custom_id`    |
+| Success   | 3     | Positive confirmation or completion actions                    | `custom_id`    |
+| Danger    | 4     | An action with irreversible consequences                       | `custom_id`    |
+| Link      | 5     | Navigates to a URL                                             | `url`          |
+| Premium   | 6     | Purchase                                                       | `sku_id`       |
+
+###### Example
+
+```json
+"components":
+[
+  {
+    "type": 1,
+    "components": [
+        {
+            "type": 2,
+            "label": "Click me!",
+            "style": 1,
+            "custom_id": "clicked_me"
+        },
+    ]
+  }
+]
+```
+
+###### Button Interaction
+
+```json
+{
+    "version": 1,
+    "type": 3,
+    "token": "unique_interaction_token",
+    "message": {
+        "type": 0,
+        "tts": false,
+        "timestamp": "2021-05-19T02:12:51.710000+00:00",
+        "pinned": false,
+        "mentions": [],
+        "mention_roles": [],
+        "mention_everyone": false,
+        "id": "844397162624450620",
+        "flags": 32768,
+        "edited_timestamp": null,
+        "components": [
+            {
+              "type": 10,
+              "content": "This is a message with components."
+            },
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "type": 2,
+                        "label": "Click me!",
+                        "style": 1,
+                        "custom_id": "click_one"
+                    }
+                ]
+            }
+        ],
+        "channel_id": "345626669114982402",
+        "author": {
+            "username": "Mason",
+            "public_flags": 131141,
+            "id": "53908232506183680",
+            "discriminator": "1337",
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
+        },
+        "attachments": []
+    },
+    "member": {
+        "user": {
+            "username": "Mason",
+            "public_flags": 131141,
+            "id": "53908232506183680",
+            "discriminator": "1337",
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
+        },
+        "roles": [
+            "290926798626357999"
+        ],
+        "premium_since": null,
+        "permissions": "17179869183",
+        "pending": false,
+        "nick": null,
+        "mute": false,
+        "joined_at": "2017-03-13T19:19:14.040000+00:00",
+        "is_pending": false,
+        "deaf": false,
+        "avatar": null
+    },
+    "id": "846462639134605312",
+    "guild_id": "290926798626357999",
+    "data": {
+        "custom_id": "click_one",
+        "component_type": 2
+    },
+    "channel_id": "345626669114982999",
+    "application_id": "290926444748734465"
+}
+```
+
+### Button Design Guidelines
+
+###### General Button Content
+
+- 34 characters max with icon or emoji.
+- 38 characters max without icon or emoji.
+- Keep text concise and to the point.
+- Use clear and easily understandable language. Avoid jargon or overly technical terms.
+- Use verbs that indicate the outcome of the action.
+- Maintain consistency in language and tone across buttons.
+- Anticipate the need for translation and test for expansion or contraction in different languages.
+
+###### Multiple Buttons
+
+Use different button styles to create a hierarchy. Use only one `Primary` button per group.
+
+![Example showing one primary button per button group](images/multiple-buttons-example-1.png)
+
+If there are multiple buttons of equal significance, use the `Secondary` button style for all buttons.
+
+![Example showing multiple buttons in a group with equal significance](images/multiple-buttons-example-2.png)
+
+###### Premium Buttons
+
+Premium buttons will automatically have the following:
+
+- Shop Icon
+- SKU name
+- SKU price
+
+![A premium button](images/premium-button.png)
+
+## String Select
+
+A String Select is an interactive component that allows users to select one or more provided `options` in a message.
+
+String Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
+
+String Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+
+
+###### String Select Structure
+
+| Field        | Type                                                                                        | Description                                                                |
+|--------------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| type         | integer                                                                                     | `3` for string select                                                      |
+| id?          | integer                                                                                     | Optional identifier for component                                          |
+| custom_id    | string                                                                                      | ID for the select menu; max 100 characters                                 |
+| options      | array of [select options](/docs/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                 |
+| placeholder? | string                                                                                      | Placeholder text if nothing is selected or default; max 150 characters     |
+| min_values?  | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25 |
+| max_values?  | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25         |
+| disabled?    | boolean                                                                                     | Whether select menu is disabled (defaults to `false`)                      |
+
+###### Select Option Structure
+
+| Field        | Type                                                       | Description                                              |
+|--------------|------------------------------------------------------------|----------------------------------------------------------|
+| label        | string                                                     | User-facing name of the option; max 100 characters       |
+| value        | string                                                     | Dev-defined value of the option; max 100 characters      |
+| description? | string                                                     | Additional description of the option; max 100 characters |
+| emoji?       | partial [emoji](/docs/resources/emoji#emoji-object) object | `id`, `name`, and `animated`                             |
+| default?     | boolean                                                    | Will show this option as selected by default             |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 3,
+    "custom_id": "string_select",
+    "placeholder": "Favorite bug?",
+    "options": [
+      {
+        "label": "Ant",
+        "value": "ant",
+        "description": "(best option)",
+        "emoji": {"name": "🐜"}
+      },
+      {
+        "label": "Butterfly",
+        "value": "butterfly",
+        "emoji": {"name": "🦋"}
+      },
+      {
+        "label": "Catarpillar",
+        "value": "caterpillar",
+        "emoji": {"name": "🐛"}
+      }
+    ]
+  }
+]
+```
+
+![Example of a String Select with three options](images/components/string-select.png)
+
+###### String Select Interaction
+
+```json
+{
+    "application_id": "845027738276462632",
+    "channel_id": "772908445358620702",
+    "data": {
+        "component_type":3,
+        "custom_id": "class_select_1",
+        "values": [
+            "mage",
+            "rogue"
+        ]
+    },
+    "guild_id": "772904309264089089",
+    "id": "847587388497854464",
+    "member": {
+        "avatar": null,
+        "deaf": false,
+        "is_pending": false,
+        "joined_at": "2020-11-02T19:25:47.248000+00:00",
+        "mute": false,
+        "nick": "Bot Man",
+        "pending": false,
+        "permissions": "17179869183",
+        "premium_since": null,
+        "roles": [
+            "785609923542777878"
+        ],
+        "user":{
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+            "discriminator": "1337",
+            "id": "53908232506183680",
+            "public_flags": 131141,
+            "username": "Mason"
+        }
+    },
+    "message":{
+        "application_id": "845027738276462632",
+        "attachments": [],
+        "author": {
+            "avatar": null,
+            "bot": true,
+            "discriminator": "5284",
+            "id": "845027738276462632",
+            "public_flags": 0,
+            "username": "Interactions Test"
+        },
+        "channel_id": "772908445358620702",
+        "components": [
+            {
+              "type": 10,
+              "content": "Mason is looking for new arena partners. What classes do you play?"
+            },
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "type": 3,
+                        "placeholder": "Choose a class",
+                        "custom_id": "class_select_1",
+                        "max_values": 1,
+                        "min_values": 1,
+                        "options": [
+                            {
+                                "description": "Sneak n stab",
+                                "emoji":{
+                                    "id": "625891304148303894",
+                                    "name": "rogue"
+                                },
+                                "label": "Rogue",
+                                "value": "rogue"
+                            },
+                            {
+                                "description": "Turn 'em into a sheep",
+                                "emoji":{
+                                    "id": "625891304081063986",
+                                    "name": "mage"
+                                },
+                                "label": "Mage",
+                                "value": "mage"
+                            },
+                            {
+                                "description": "You get heals when I'm done doing damage",
+                                "emoji":{
+                                    "id": "625891303795982337",
+                                    "name": "priest"
+                                },
+                                "label": "Priest",
+                                "value": "priest"
+                            }
+                        ],
+                    }
+                ],
+            }
+        ],
+        "edited_timestamp": null,
+        "flags": 32768,
+        "id": "847587334500646933",
+        "interaction": {
+            "id": "847587333942935632",
+            "name": "dropdown",
+            "type": 2,
+            "user": {
+                "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+                "discriminator": "1337",
+                "id": "53908232506183680",
+                "public_flags": 131141,
+                "username": "Mason"
+            }
+        },
+        "mention_everyone": false,
+        "mention_roles":[],
+        "mentions":[],
+        "pinned": false,
+        "timestamp": "2021-05-27T21:29:27.956000+00:00",
+        "tts": false,
+        "type": 20,
+        "webhook_id": "845027738276462632"
+    },
+    "token": "UNIQUE_TOKEN",
+    "type": 3,
+    "version": 1
+}
+```
+
+###### Select Menu Resolved Object
+
+The `resolved` object is included in interaction payloads for user, role, mentionable, and channel select menu components. `resolved` contains a nested object with additional details about the selected options with the key of the resource type—`users`, `roles`, `channels`, and `members`.
+
+:::info
+`members` and `users` may both be present in the `resolved` object when a user is selected (in either a [user select](/docs/components/reference#user-select) or [mentionable select](/docs/components/reference#mentionable-select)).
+:::
+
+###### Example Resolved Object
+
+A sample `data` object (a subset of the interaction payload) for a channel select menu component:
+
+```json
+{
+    "component_type": 8,
+    "custom_id": "my_channel_select",
+    "resolved": {
+        "channels": {
+            "986678954901234567": {
+                "id": "986678954901234567",
+                "name": "general",
+                "permissions": "4398046511103",
+                "type": 0
+            }
+        }
+    },
+    "values": [
+        "986678954901234567"
+    ]
+}
+```
+
+## Text Input
+
+Text Input is an interactive component that allows users to enter free-form text responses in modals. It supports both short, single-line inputs and longer, multi-line paragraph inputs.
+
+Text Inputs can only be used within modals and must be placed inside an [Action Row](/docs/components/reference#action-row).
+
+When defining a text input component, you can set attributes to customize the behavior and appearance of it. However, not all attributes will be returned in the [text input interaction payload](/docs/components/reference#text-input-text-input-interaction).
+
+###### Text Input Structure
+
+| Field        | Type    | Description                                                                     |
+|--------------|---------|---------------------------------------------------------------------------------|
+| type         | integer | `4` for a text input                                                            |
+| id?          | integer | Optional identifier for component                                               |
+| custom_id    | string  | Developer-defined identifier for the input; max 100 characters                  |
+| style        | integer | The [Text Input Style](/docs/components/reference#text-input-text-input-styles) |
+| label        | string  | Label for this component; max 45 characters                                     |
+| min_length?  | integer | Minimum input length for a text input; min 0, max 4000                          |
+| max_length?  | integer | Maximum input length for a text input; min 1, max 4000                          |
+| required?    | boolean | Whether this component is required to be filled (defaults to `true`)            |
+| value?       | string  | Pre-filled value for this component; max 4000 characters                        |
+| placeholder? | string  | Custom placeholder text if the input is empty; max 100 characters               |
+
+###### Text Input Styles
+
+| Name      | Value | Description       |
+|-----------|-------|-------------------|
+| Short     | 1     | Single-line input |
+| Paragraph | 2     | Multi-line input  |
+
+###### Example
+
+```json
+// this is a modal
+{
+  "title": "My Cool Modal",
+  "custom_id": "cool_modal",
+  "components": [{
+    "type": 1,
+    "components": [{
+      "type": 4,
+      "custom_id": "name",
+      "label": "Name",
+      "style": 1,
+      "min_length": 1,
+      "max_length": 4000,
+      "placeholder": "John",
+      "required": true
+    }]
+  }]
+}
+```
+
+![A text input in a modal on desktop client](images/modal-desktop.png)
+
+###### Text Input Interaction
+
+```json
+{
+    "application_id": "845027738276462632",
+    "channel": {
+        "flags": 0,
+        "guild_id": "772904309264089089",
+        "id": "772908445358620702",
+        "last_message_id": "113817814796417433",
+        "name": "general",
+        "nsfw": false,
+        "parent_id": "1113560261366927532",
+        "permissions": "281474976710655",
+        "position": 0,
+        "rate_limit_per_user": 0,
+        "topic": null,
+        "type": 0
+    },
+    "channel_id": "772908445358620702",
+    "data": {
+        "components": [
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "custom_id": "name",
+                        "type": 4,
+                        "value": "John"
+                    }
+                ]
+            }
+        ],
+        "custom_id": "cool_modal"
+    },
+    "guild_id": "772904309264089089",
+    "id": "847587388497854464",
+    "member": {
+        "avatar": null,
+        "deaf": false,
+        "is_pending": false,
+        "joined_at": "2020-11-02T19:25:47.248000+00:00",
+        "mute": false,
+        "nick": null,
+        "pending": false,
+        "permissions": "17179869183",
+        "premium_since": null,
+        "roles": ["785609923542777878"],
+        "user": {
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+            "global_name": "Mason",
+            "discriminator": "0",
+            "id": "53908232506183680",
+            "public_flags": 131141,
+            "username": "Mason"
+        }
+    },
+    "token": "UNIQUE_TOKEN",
+    "type": 5,
+    "version": 1
+}
+```
+
+## User Select
+
+A User Select is an interactive component that allows users to select one or more users in a message. Options are automatically populated based on the server's available users.
+
+User Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
+
+User Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+
+###### User Select Structure
+
+| Field           | Type                                                                                                    | Description                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type            | integer                                                                                                 | `5` for user select                                                                                                                                      |
+| id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
+| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
+| default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
+| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
+| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+
+###### Select Default Value Structure
+
+| Field | Type      | Description                                                                   |
+|-------|-----------|-------------------------------------------------------------------------------|
+| id    | snowflake | ID of a user, role, or channel                                                |
+| type  | string    | Type of value that `id` represents. Either `"user"`, `"role"`, or `"channel"` |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 1,
+    "components": [
+      {
+        "type": 5,
+        "custom_id": "user_select",
+        "placeholder": "Select a user"
+      }
+    ]
+  }
+]
+```
+
+![Example of a User Select with two people and an app in a server](images/components/user-select.png)
+
+###### User Select Interaction
+
+Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
+
+## Role Select
+
+A Role Select is an interactive component that allows users to select one or more roles in a message. Options are automatically populated based on the server's available roles.
+
+Role Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
+
+Role Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+
+###### Role Select Structure
+
+| Field           | Type                                                                                                    | Description                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type            | integer                                                                                                 | `6` for role select                                                                                                                                      |
+| id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
+| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
+| default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
+| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
+| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 1,
+    "components": [
+      {
+        "type": 6,
+        "custom_id": "role_select",
+        "placeholder": "Which roles?",
+        "min_values": 1,
+        "max_values": 3
+      }
+    ]
+  }
+]
+```
+
+![Example of a Role Select allowing up to 3 choices](images/components/role-select.png)
+
+###### Role Select Interaction
+
+Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
+
+## Mentionable Select
+
+A Mentionable Select is an interactive component that allows users to select one or more mentionables in a message. Options are automatically populated based on available mentionables in the server.
+
+Mentionable Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s), your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
+
+Mentionable Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+
+###### Mentionable Select Structure
+
+| Field           | Type                                                                                                    | Description                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type            | integer                                                                                                 | `7` for mentionable select                                                                                                                               |
+| id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
+| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
+| default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
+| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
+| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 1,
+    "components": [
+      {
+        "type": 7,
+        "custom_id": "mentionable_select",
+        "placeholder": "Who?"
+      }
+    ]
+  }
+]
+```
+
+![Example of a Mentionable Select](images/components/mentionable-select.png)
+
+###### Mentionable Select Interaction
+
+Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
+
+## Channel Select
+
+A Channel Select is an interactive component that allows users to select one or more channels in a message. Options are automatically populated based on available channels in the server and can be filtered by channel types.
+
+Channel Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
+
+Channel Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+
+###### Channel Select Structure
+
+| Field           | Type                                                                                                    | Description                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type            | integer                                                                                                 | `8` for channel select                                                                                                                                   |
+| id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
+| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| channel_types?  | array of [channel types](/docs/resources/channel#channel-object-channel-types)                          | List of channel types to include in the channel select component                                                                                         |
+| placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
+| default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
+| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
+| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 1,
+    "components": [
+      {
+        "type": 8,
+        "custom_id": "channel_select",
+        "channel_types": [0],
+        "placeholder": "Which text channel?"
+      }
+    ]
+  }
+]
+```
+
+![Example of a Channel Select for text channels](images/components/channel-select.png)
+
+###### Channel Select Interaction
+
+Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
+
+## Section
+
+A Section is a top-level layout component that allows you to join text contextually with an accessory.
+
+Sections are only available in messages.
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+:::
+
+###### Section Structure
+
+| Field      | Type                                                                                                                  | Description                                                                                       |
+|------------|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                                               | `9` for section component                                                                         |
+| id?        | integer                                                                                                               | Optional identifier for component                                                                 |
+| components | array of [text display components](/docs/components/reference#text-display)                                           | One to three text components                                                                      |
+| accessory  | [thumbnail component](/docs/components/reference#thumbnail) or [button components](/docs/components/reference#button) | A thumbnail or a button component, with a future possibility of adding more compatible components |
+
+:::info
+Don't hardcode `components` to contain only text components. We may add other components in the future. Similarly, `accessory` may be expanded to include other components in the future.
+:::
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 9,
+    "components": [
+      {
+        "type": 10,
+        "content": "# Real Game v7.3"
+      },
+      {
+        "type": 10,
+        "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
+      },
+      {
+        "type": 10,
+        "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
+      }
+    ],
+    "accessory": {
+      "type": 11,
+      "media": {
+        "url": "https://websitewithopensourceimages/gamepreview.png"
+      }
+    }
+  }
+]
+```
+
+![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.png)
+
+## Text Display
+
+A Text Display is a top-level content component that allows you to add text to your message formatted with markdown and mention users and roles. This is similar to the `content` field of a message, but allows you to add multiple text components, controlling the layout of your message.
+
+Text Displays are only available in messages.
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+:::
+
+###### Text Display Structure
+
+| Field   | Type    | Description                                      |
+|---------|---------|--------------------------------------------------|
+| type    | integer | `10` for text display                            |
+| id?     | integer | Optional identifier for component                |
+| content | string  | Text that will be displayed similar to a message |
+Th
+###### Example
+
+```json
+"components": [
+  {
+    "type": 10,
+    "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spolier alert: ||these too!||"
+  }
+]
+```
+
+![Example of a Text Display with markdown](images/components/text-display.png)
+
+## Thumbnail
+
+A Thumbnail is a content component that is a small image only usable as an accessory in a [section](/docs/components/reference#section). The preview comes from an url or attachment through the [unfurled media item](/docs/components/reference#unfurled-media-item-structure) structure.
+
+Thumbnails are only available in messages as an accessory in a [section](/docs/components/reference#section).
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2), which can be activated on a per-message basis.
+:::
+
+###### Thumbnail Structure
+
+| Field        | Type                                                                            | Description                                                                     |
+|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| type         | integer                                                                         | `11` for thumbnail component                                                    |
+| id?          | integer                                                                         | Optional identifier for component                                               |
+| media        | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | A url or attachment                                                             |
+| description? | string                                                                          | Alt text for the media                                                          |
+| spoiler?     | boolean                                                                         | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false` |
+
+###### Example
+
+Check out the [Section example](/docs/components/reference#section-example) to see the thumbnail in use as an accessory.
+
+## Media Gallery
+
+A Media Gallery is a top-level content component that allows you to display 1-10 media attachments in an organized gallery format. Each item can have optional descriptions and can be marked as spoilers.
+
+Media Galleries are only available in messages.
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+:::
+
+###### Media Gallery Structure
+
+| Field | Type                                                                                                  | Description                       |
+|-------|-------------------------------------------------------------------------------------------------------|-----------------------------------|
+| type  | integer                                                                                               | `12` for media gallery component  |
+| id?   | integer                                                                                               | Optional identifier for component |
+| items | array of [media gallery items](/docs/components/reference#media-gallery-media-gallery-item-structure) | 1 to 10 media gallery items       |
+
+###### Media Gallery Item Structure
+
+| Field        | Type                                                                            | Description                                                                 |
+|--------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| media        | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | A url or attachment                                                         |
+| description? | string                                                                          | Alt text for the media                                                      |
+| spoiler?     | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false` |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 10,
+    "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
+  },
+  {
+    "type": 12,
+    "items": [
+      {
+        "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.png"},
+        "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
+      },
+      {
+        "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.png"},
+        "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
+      },
+      {
+        "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.png"},
+        "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
+      }
+    ]
+  }
+]
+```
+
+![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.png)
+
+## File
+
+A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload. This is similar to the `embeds` field of a message but allows you to control the layout of your message by using this anywhere as a component. Files are only available in messages.
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+:::
+
+###### File Structure
+
+| Field    | Type                                                                            | Description                                                                                                                     |
+|----------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| type     | integer                                                                         | `13` for a file component                                                                                                       |
+| id?      | integer                                                                         | Optional identifier for component                                                                                               |
+| file     | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | This unfurled media item is unique in that it **only** support attachment references using the `attachment://<filename>` syntax |
+| spoiler? | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                     |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 10,
+    "content": "# New game version released for testing!"
+  },
+  {
+    "type": 10,
+    "content": "Grab the game here:"
+  },
+  {
+    "type": 13,
+    "file": {
+      "url": "attachment://game.zip"
+    }
+  },
+  {
+    "type": 10,
+    "content": "Latest manual artwork here:"
+  },
+  {
+    "type": 13,
+    "file": {
+      "url": "attachment://manual.pdf"
+    }
+  }
+]
+```
+
+![Example of a File showing a download for a game and manual](images/components/file.png)
+
+## Separator
+
+A Separator is a top-level layout component that adds vertical padding and visual division between other components.
+
+Separators are only available in messages.
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+:::
+
+###### Separator Structure
+
+| Field    | Type    | Description                                                                             |
+|----------|---------|-----------------------------------------------------------------------------------------|
+| type     | integer | `14` for separator component                                                            |
+| id?      | integer | Optional identifier for component                                                       |
+| divider? | boolean | Whether a visual divider should be displayed in the component. Defaults to `true`       |
+| spacing? | integer | Size of separator padding—`1` for small padding, `2` for large padding. Defaults to `1` |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 10,
+    "content": "It's dangerous to go alone!"
+  },
+  {
+    "type": 14,
+    "divider": true,
+    "spacing": 1
+  },
+  {
+    "type": 10,
+    "content": "Take this."
+  }
+]
+```
+
+![Example of a separator with large spacing dividing content](images/components/separator.png)
+
+## Container
+
+A Container is a top-level layout component that holds up to 10 components. Containers are visually distinct from surrounding components and has an optional customizable color bar.
+
+Containers are only available in messages.
+
+:::info
+To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+:::
+
+###### Container Structure
+
+| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                           |
+|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                          |
+| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                                     |
+| components    | array of components | Up to 10 components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
+| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                            |
+| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                                      |
+
+###### Example
+
+```json
+"components": [
+  {
+    "type": 17,
+    "accent_color": 703487,
+    "components": [
+      {
+        "type": 10,
+        "content": "# You have encountered a wild coyote!"
+      },
+      {
+        "type": 12,
+        "items": [
+          {
+            "media": {"url": "https://websitewithopensourceimages/coyote.png"},
+          }
+        ]
+      },
+      {
+        "type": 10,
+        "content": "What would you like to do?"
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "custom_id": "pet_coyote",
+            "label": "Pet it!",
+            "style": 1
+          },
+          {
+            "type": 2,
+            "custom_id": "feed_coyote",
+            "label": "Attempt to feed it",
+            "style": 2
+          },
+          {
+            "type": 2,
+            "custom_id": "run_away",
+            "label": "Run away!",
+            "style": 4
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.png)
+
+## Unfurled Media Item Structure
+
+| Field         | Type     | Description                                                                                                                                      |
+|---------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| url           | string   | Supports arbitrary urls and `attachment://<filename>` references                                                                                 |
+| proxy_url?    | string   | The proxied url of the media item. This field is ignored and provided by the API as part of the response                                         |
+| height?       | ?integer | The height of the media item. This field is ignored and provided by the API as part of the response                                              |
+| width?        | ?integer | The width of the media item. This field is ignored and provided by the API as part of the response                                               |
+| content_type? | string   | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content. This field is ignored and provided by the API as part of the response |
+
+### Uploading a file
+
+To upload a file with your message, you'll need to send your payload as `multipart/form-data` (rather than `application/json`) and include your file with a valid filename in your payload. Details and examples for uploading files can be found in the [API Reference](/docs/reference#uploading-files).
+
+## Legacy Message Component Behavior
+
+Before the introduction of the `IS_COMPONENTS_V2` flag ([see changelog](/docs/change-log/2025-04-22-components-v2)), message components were sent in conjunction with message content. This means that you could send a message using a subset of the available components without setting the `IS_COMPONENTS_V2` flag, and the components would be included in the message content along with `content` and `embeds`.
+
+Apps using this Legacy Message Component behavior will continue to work as expected, but it is recommended to use the new `IS_COMPONENTS_V2` flag for new apps or features as they offer more options for layout and customization.
+
+Legacy Message Component Example
+
+```json
+{
+  "content": "This is a message with legacy components",
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 2,
+          "style": 1,
+          "label": "Click Me",
+          "custom_id": "click_me_1"
+        }
+      ]
+    }
+  ]
+}
+```
