@@ -61,7 +61,7 @@ Some examples of this behavior include:
 - A refund or chargeback during the current period would make the subscription `INACTIVE`.
 
 ## List SKU Subscriptions
-<Route type="GET">/skus/[\{sku.id\}](/docs/resources/sku#sku-object)/subscriptions</Route>
+<Route method="GET">/skus/[\{sku.id\}](/docs/resources/sku#sku-object)/subscriptions</Route>
 
 Returns all subscriptions containing the SKU, filtered by user. Returns a list of [subscription](/docs/resources/subscription#subscription-object) objects.
 
@@ -75,6 +75,6 @@ Returns all subscriptions containing the SKU, filtered by user. Returns a list o
 | user_id? | snowflake | User ID for which to return subscriptions. Required except for OAuth queries. | absent  |
 
 ## Get SKU Subscription
-<Route type="GET">/skus/[\{sku.id\}](/docs/resources/sku#sku-object)/subscriptions/[\{subscription.id\}](/docs/resources/subscription#subscription-object)</Route>
+<Route method="GET">/skus/[\{sku.id\}](/docs/resources/sku#sku-object)/subscriptions/[\{subscription.id\}](/docs/resources/subscription#subscription-object)</Route>
 
 Get a subscription by its ID. Returns a [subscription](/docs/resources/subscription#subscription-object) object.
