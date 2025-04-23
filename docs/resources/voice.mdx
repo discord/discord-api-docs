@@ -55,22 +55,22 @@ Used to represent a user's voice connection status.
 | custom     | boolean | whether this is a custom voice region (used for events/etc)           |
 
 ## List Voice Regions
-<Route type="GET">/voice/regions</Route>
+<Route method="GET">/voice/regions</Route>
 
 Returns an array of [voice region](/docs/resources/voice#voice-region-object) objects that can be used when setting a voice or stage channel's [`rtc_region`](/docs/resources/channel#channel-object-channel-structure).
 
 ## Get Current User Voice State
-<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/@me</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/@me</Route>
 
 Returns the current user's [voice state](/docs/resources/voice#voice-state-object) in the guild.
 
 ## Get User Voice State
-<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Returns the specified user's [voice state](/docs/resources/voice#voice-state-object) in the guild.
 
 ## Modify Current User Voice State
-<Route type="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/@me</Route>
+<Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/@me</Route>
 
 Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 
@@ -93,7 +93,7 @@ There are currently several caveats for this endpoint:
 - You are able to set `request_to_speak_timestamp` to any present or future time.
 
 ## Modify User Voice State
-<Route type="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Updates another user's voice state. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 

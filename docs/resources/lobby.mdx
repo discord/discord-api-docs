@@ -57,7 +57,7 @@ Represents a member of a lobby, including optional metadata and flags.
 ```
 
 ## Create Lobby
-<Route type="POST">/lobbies</Route>
+<Route method="POST">/lobbies</Route>
 
 Creates a new lobby, adding any of the specified members to it, if provided. 
 
@@ -84,12 +84,12 @@ Returns a [lobby](/docs/resources/lobby#lobby-object) object.
 | flags?    | integer                 | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ## Get Lobby
-<Route type="GET">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)</Route>
+<Route method="GET">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)</Route>
 
 Returns a [lobby](/docs/resources/lobby#lobby-object) object for the specified lobby id, if it exists.
 
 ## Modify Lobby
-<Route type="PATCH">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)</Route>
+<Route method="PATCH">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)</Route>
 
 Modifies the specified lobby with new values, if provided. 
 
@@ -104,7 +104,7 @@ Returns the updated [lobby](/docs/resources/lobby#lobby-object) object.
 | idle_timeout_seconds? | integer                                                                    | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
 
 ## Delete Lobby
-<Route type="DELETE">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)</Route>
+<Route method="DELETE">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)</Route>
 
 Deletes the specified lobby if it exists.  
 
@@ -113,7 +113,7 @@ It is safe to call even if the lobby is already deleted as well.
 Returns nothing.
 
 ## Add a Member to a Lobby
-<Route type="PUT">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/members/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="PUT">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/members/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Adds the provided user to the specified lobby. If called when the user is already a member of the lobby will update fields such as metadata on that user instead. 
 
@@ -127,14 +127,14 @@ Returns the [lobby member](/docs/resources/lobby#lobby-member-object) object.
 | flags?    | integer                 | [lobby member flags](/docs/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ## Remove a Member from a Lobby
-<Route type="DELETE">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/members/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="DELETE">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/members/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Removes the provided user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
 
 Returns nothing.
 
 ## Leave Lobby
-<Route type="DELETE">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/members/@me</Route>
+<Route method="DELETE">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/members/@me</Route>
 
 Removes the current user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
 
@@ -143,7 +143,7 @@ Uses `Bearer` token for authorization.
 Returns nothing.
 
 ## Link Channel to Lobby
-<Route type="PATCH">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/channel-linking</Route>
+<Route method="PATCH">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/channel-linking</Route>
 
 Links an existing text channel to a lobby. See [Linked Channels](/docs/discord-social-sdk/development-guides/linked-channels) for more information.
 
@@ -158,7 +158,7 @@ Returns a [lobby](/docs/resources/lobby#lobby-object) object with a linked chann
 | channel_id? | snowflake | the id of the channel to link to the lobby. If not provided, will unlink any currently linked channels from the lobby. |
 
 ## Unlink Channel from Lobby
-<Route type="PATCH">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/channel-linking</Route>
+<Route method="PATCH">/lobbies/[\{lobby.id\}](/docs/resources/lobby#lobby-object)/channel-linking</Route>
 
 Unlinks any currently linked channels from the specified lobby.
 

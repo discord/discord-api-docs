@@ -92,17 +92,17 @@ In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` ma
 ```
 
 ## List Guild Emojis
-<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis</Route>
 
 Returns a list of [emoji](/docs/resources/emoji#emoji-object) objects for the given guild. Includes `user` fields if the bot has the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission.
 
 ## Get Guild Emoji
-<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the the `CREATE_GUILD_EXPRESSIONS` permission.
 
 ## Create Guild Emoji
-<Route type="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis</Route>
+<Route method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis</Route>
 
 Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
@@ -123,7 +123,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | roles | array of snowflakes                      | roles allowed to use this emoji |
 
 ## Modify Guild Emoji
-<Route type="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
+<Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Modify the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [emoji](/docs/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
@@ -143,7 +143,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | roles | ?array of snowflakes | roles allowed to use this emoji |
 
 ## Delete Guild Emoji
-<Route type="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
+<Route method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Delete the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](/docs/events/gateway-events#guild-emojis-update) Gateway event.
 
@@ -152,7 +152,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
 ## List Application Emojis
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis</Route>
 
 Returns an object containing a list of [emoji](/docs/resources/emoji#emoji-object) objects for the given application under the `items` key. Includes a `user` object for the team member that uploaded the emoji from the app's settings, or for the bot user if uploaded using the API.
 
@@ -179,12 +179,12 @@ Returns an object containing a list of [emoji](/docs/resources/emoji#emoji-objec
 ```
 
 ## Get Application Emoji
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Returns an [emoji](/docs/resources/emoji#emoji-object) object for the given application and emoji IDs. Includes the `user` field.
 
 ## Create Application Emoji
-<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis</Route>
+<Route method="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis</Route>
 
 Create a new emoji for the application. Returns the new [emoji](/docs/resources/emoji#emoji-object) object on success.
 
@@ -200,7 +200,7 @@ Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to up
 | image | [image data](/docs/reference#image-data) | the 128x128 emoji image |
 
 ## Modify Application Emoji
-<Route type="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
+<Route method="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Modify the given emoji. Returns the updated [emoji](/docs/resources/emoji#emoji-object) object on success.
 
@@ -211,6 +211,6 @@ Modify the given emoji. Returns the updated [emoji](/docs/resources/emoji#emoji-
 | name  | string | name of the emoji |
 
 ## Delete Application Emoji
-<Route type="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
+<Route method="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/emojis/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Delete the given emoji. Returns `204 No Content` on success.
