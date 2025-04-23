@@ -835,25 +835,25 @@ Crosspost a message in an Announcement Channel to following channels. This endpo
 Returns a [message](/docs/resources/message#message-object) object. Fires a [Message Update](/docs/events/gateway-events#message-update) Gateway event.
 
 ## Create Reaction
-<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji/docs/resources/emoji#emoji-object}/@me</Route>
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji.id\}](/docs/resources/emoji#emoji-object)/@me</Route>
 
 Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Add](/docs/events/gateway-events#message-reaction-add) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
 ## Delete Own Reaction
-<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji/docs/resources/emoji#emoji-object}/@me</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji.id\}](/docs/resources/emoji#emoji-object)/@me</Route>
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success. Fires a [Message Reaction Remove](/docs/events/gateway-events#message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
 ## Delete User Reaction
-<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji/docs/resources/emoji#emoji-object}/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji.id\}](/docs/resources/emoji#emoji-object)/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Deletes another user's reaction. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Returns a 204 empty response on success. Fires a [Message Reaction Remove](/docs/events/gateway-events#message-reaction-remove) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
 ## Get Reactions
-<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji/docs/resources/emoji#emoji-object}</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Get a list of users that reacted with this emoji. Returns an array of [user](/docs/resources/user#user-object) objects on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
@@ -879,7 +879,7 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 Deletes all reactions on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove All](/docs/events/gateway-events#message-reaction-remove-all) Gateway event.
 
 ## Delete All Reactions for Emoji
-<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji/docs/resources/emoji#emoji-object}</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/reactions/[\{emoji.id\}](/docs/resources/emoji#emoji-object)</Route>
 
 Deletes all the reactions for a given emoji on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove Emoji](/docs/events/gateway-events#message-reaction-remove-emoji) Gateway event.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.

@@ -301,9 +301,9 @@ Application command permissions allow your app to enable or disable commands for
 Command permissions can only be updated using a [Bearer token](/docs/topics/oauth2#client-credentials-grant). Authenticating with a bot token will result in an error.
 :::
 
-A command's current permissions can be retrieved using the [`GET /applications/\{application.id}/guilds/\{guild.id}/commands/\{command.id}/permissions`](/docs/interactions/application-commands#get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
+A command's current permissions can be retrieved using the [`GET /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](/docs/interactions/application-commands#get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
 
-Command permissions can be updated with the [`PUT /applications/\{application.id}/guilds/\{guild.id}/commands/\{command.id}/permissions`](/docs/interactions/application-commands#edit-application-command-permissions) endpoint. To call the endpoint, apps must use a Bearer token that's authorized with the [`applications.commands.permissions.update`](/docs/topics/oauth2#shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
+Command permissions can be updated with the [`PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](/docs/interactions/application-commands#edit-application-command-permissions) endpoint. To call the endpoint, apps must use a Bearer token that's authorized with the [`applications.commands.permissions.update`](/docs/topics/oauth2#shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
 - Has [permission to Manage Guild and Manage Roles](/docs/topics/permissions) in the guild where the command is being edited
 - Has the ability to run the command being edited
 - Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](/docs/interactions/application-commands#application-command-permissions-object-application-command-permission-type))
@@ -1307,14 +1307,12 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
 ## Delete Guild Application Command
-
 <Route method="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Delete a guild command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Guild Application Commands
-
-<Route method="PUT">/applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands</Route>
+<Route method="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
 
 Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](/docs/interactions/application-commands#application-command-object) objects.
 
@@ -1341,7 +1339,6 @@ This will overwrite **all** types of application commands: slash commands, user 
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
 ## Get Guild Application Command Permissions
-
 <Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
 
 Fetches permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) objects.
