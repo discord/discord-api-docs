@@ -184,17 +184,17 @@ The role connection object that an application has attached to a user.
 | metadata          | object  | object mapping [application role connection metadata](/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
 
 ## Get Current User
-<Route type="GET">/users/@me</Route>
+<Route method="GET">/users/@me</Route>
 
 Returns the [user](/docs/resources/user#user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email if the user has one.
 
 ## Get User
-<Route type="GET">/users/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="GET">/users/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Returns a [user](/docs/resources/user#user-object) object for a given user ID.
 
 ## Modify Current User
-<Route type="PATCH">/users/@me</Route>
+<Route method="PATCH">/users/@me</Route>
 
 Modify the requester's user account settings. Returns a [user](/docs/resources/user#user-object) object on success. Fires a [User Update](/docs/events/gateway-events#user-update) Gateway event.
 
@@ -211,7 +211,7 @@ All parameters to this endpoint are optional.
 | banner   | ?[image data](/docs/reference#image-data) | if passed, modifies the user's banner                                            |
 
 ## Get Current User Guilds
-<Route type="GET">/users/@me/guilds</Route>
+<Route method="GET">/users/@me/guilds</Route>
 
 Returns a list of partial [guild](/docs/resources/guild#guild-object) objects the current user is a member of. For OAuth2, requires the `guilds` scope.
 
@@ -245,17 +245,17 @@ This endpoint returns 200 guilds by default, which is the maximum number of guil
 | with_counts | [boolean](/docs/reference#boolean-query-strings) | include approximate member and presence counts in response | false    | false   |
 
 ## Get Current User Guild Member
-<Route type="GET">/users/@me/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/member</Route>
+<Route method="GET">/users/@me/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/member</Route>
 
 Returns a [guild member](/docs/resources/guild#guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
 
 ## Leave Guild
-<Route type="DELETE">/users/@me/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)</Route>
+<Route method="DELETE">/users/@me/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)</Route>
 
 Leave a guild. Returns a 204 empty response on success. Fires a [Guild Delete](/docs/events/gateway-events#guild-delete) Gateway event and a [Guild Member Remove](/docs/events/gateway-events#guild-member-remove) Gateway event.
 
 ## Create DM
-<Route type="POST">/users/@me/channels</Route>
+<Route method="POST">/users/@me/channels</Route>
 
 Create a new DM channel with a user. Returns a [DM channel](/docs/resources/channel#channel-object) object (if one already exists, it will be returned instead).
 
@@ -270,7 +270,7 @@ You should not use this endpoint to DM everyone in a server about something. DMs
 | recipient_id | snowflake | the recipient to open a DM channel with |
 
 ## Create Group DM
-<Route type="POST">/users/@me/channels</Route>
+<Route method="POST">/users/@me/channels</Route>
 
 Create a new group DM channel with multiple users. Returns a [DM channel](/docs/resources/channel#channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. Fires a [Channel Create](/docs/events/gateway-events#channel-create) Gateway event.
 
@@ -286,17 +286,17 @@ This endpoint is limited to 10 active group DMs.
 | nicks         | dict             | a dictionary of user ids to their respective nicknames                 |
 
 ## Get Current User Connections
-<Route type="GET">/users/@me/connections</Route>
+<Route method="GET">/users/@me/connections</Route>
 
 Returns a list of [connection](/docs/resources/user#connection-object) objects. Requires the `connections` OAuth2 scope.
 
 ## Get Current User Application Role Connection
-<Route type="GET">/users/@me/applications/[\{application.id\}](/docs/resources/application#application-object)/role-connection</Route>
+<Route method="GET">/users/@me/applications/[\{application.id\}](/docs/resources/application#application-object)/role-connection</Route>
 
 Returns the [application role connection](/docs/resources/user#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 
 ## Update Current User Application Role Connection
-<Route type="PUT">/users/@me/applications/[\{application.id\}](/docs/resources/application#application-object)/role-connection</Route>
+<Route method="PUT">/users/@me/applications/[\{application.id\}](/docs/resources/application#application-object)/role-connection</Route>
 
 Updates and returns the [application role connection](/docs/resources/user#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
 

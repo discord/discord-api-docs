@@ -110,7 +110,7 @@ These types don't include [webhook events](/docs/events/webhook-events), which a
 ```
 
 ## Create Webhook
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/webhooks</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/webhooks</Route>
 
 Creates a new webhook and returns a [webhook](/docs/resources/webhook#webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
@@ -131,17 +131,17 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | avatar? | ?[image data](/docs/reference#image-data) | image for the default webhook avatar  |
 
 ## Get Channel Webhooks
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/webhooks</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/webhooks</Route>
 
 Returns a list of channel [webhook](/docs/resources/webhook#webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
 ## Get Guild Webhooks
-<Route type="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/webhooks</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/webhooks</Route>
 
 Returns a list of guild [webhook](/docs/resources/webhook#webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
 ## Get Webhook
-<Route type="GET">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="GET">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)</Route>
 
 Returns the new [webhook](/docs/resources/webhook#webhook-object) object for the given id.
 
@@ -149,12 +149,12 @@ This request requires the `MANAGE_WEBHOOKS` permission unless the application ma
 webhook. [(see: webhook.application_id)](/docs/resources/webhook#webhook-object)
 
 ## Get Webhook with Token
-<Route type="GET">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="GET">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
 
 Same as above, except this call does not require authentication and returns no user in the webhook object.
 
 ## Modify Webhook
-<Route type="PATCH">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="PATCH">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)</Route>
 
 Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](/docs/resources/webhook#webhook-object) object on success. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
@@ -175,12 +175,12 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | channel_id | snowflake                                 | the new channel id this webhook should be moved to |
 
 ## Modify Webhook with Token
-<Route type="PATCH">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="PATCH">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
 
 Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
 
 ## Delete Webhook
-<Route type="DELETE">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="DELETE">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)</Route>
 
 Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event.
 
@@ -189,12 +189,12 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
 ## Delete Webhook with Token
-<Route type="DELETE">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="DELETE">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
 
 Same as above, except this call does not require authentication.
 
 ## Execute Webhook
-<Route type="POST">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
+<Route method="POST">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)</Route>
 
 Refer to [Uploading Files](/docs/reference#uploading-files) for details on attachments and `multipart/form-data` requests. Returns a message or `204 No Content` depending on the `wait` query parameter.
 
@@ -246,7 +246,7 @@ For the webhook embed objects, you can set every field except `type` (it will be
 :::
 
 ## Execute Slack-Compatible Webhook
-<Route type="POST">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/slack</Route>
+<Route method="POST">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/slack</Route>
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
@@ -258,7 +258,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | wait      | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Execute GitHub-Compatible Webhook
-<Route type="POST">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/github</Route>
+<Route method="POST">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/github</Route>
 
 [Add a new webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring. The supported [events](https://docs.github.com/en/webhooks/webhook-events-and-payloads) are `commit_comment`, `create`, `delete`, `fork`, `issue_comment`, `issues`, `member`, `public`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `push`, `release`, `watch`, `check_run`, `check_suite`, `discussion`, and `discussion_comment`.
 
@@ -270,7 +270,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | wait      | [boolean](/docs/reference#boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Get Webhook Message
-<Route type="GET">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
+<Route method="GET">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Returns a previously-sent webhook message from the same token. Returns a [message](/docs/resources/message#message-object) object on success.
 
@@ -281,7 +281,7 @@ Returns a previously-sent webhook message from the same token. Returns a [messag
 | thread_id | snowflake | id of the thread the message is in | false    |
 
 ## Edit Webhook Message
-<Route type="PATCH">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
+<Route method="PATCH">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Edits a previously-sent webhook message from the same token. Returns a [message](/docs/resources/message#message-object) object on success.
 
@@ -325,7 +325,7 @@ All parameters to this endpoint are optional and nullable.
 \*\*\* Polls can only be added when editing a deferred interaction response.
 
 ## Delete Webhook Message
-<Route type="DELETE">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
+<Route method="DELETE">/webhooks/[\{webhook.id\}](/docs/resources/webhook#webhook-object)/[\{webhook.token\}](/docs/resources/webhook#webhook-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
 

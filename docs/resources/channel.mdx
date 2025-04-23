@@ -346,12 +346,12 @@ When updating a `GUILD_FORUM` or a `GUILD_MEDIA` channel, tag objects in `availa
 \* At most one of `emoji_id` and `emoji_name` may be set to a non-null value.
 
 ## Get Channel
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
 Get a channel by ID. Returns a [channel](/docs/resources/channel#channel-object) object.  If the channel is a thread, a [thread member](/docs/resources/channel#thread-member-object) object is included in the returned result.
 
 ## Modify Channel
-<Route type="PATCH">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
+<Route method="PATCH">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
 Update a channel's settings. Returns a [channel](/docs/resources/channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters.
 
@@ -420,7 +420,7 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/do
 | applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                 |
 
 ## Delete/Close Channel
-<Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
 Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](/docs/events/gateway-events#channel-update) Gateway event will fire for each of them. Returns a [channel](/docs/resources/channel#channel-object) object on success. Fires a [Channel Delete](/docs/events/gateway-events#channel-delete) Gateway event (or [Thread Delete](/docs/events/gateway-events#thread-delete) if the channel was a thread).
 
@@ -437,7 +437,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
 ## Edit Channel Permissions
-<Route type="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/channel#overwrite-object)</Route>
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/channel#overwrite-object)</Route>
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](/docs/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/permissions#permissions).
 
@@ -454,12 +454,12 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | type   | integer | 0 for a role or 1 for a member                                  |
 
 ## Get Channel Invites
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/invites</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/invites</Route>
 
 Returns a list of [invite](/docs/resources/invite#invite-object) objects (with [invite metadata](/docs/resources/invite#invite-metadata-object)) for the channel. Only usable for guild channels. Requires the `MANAGE_CHANNELS` permission.
 
 ## Create Channel Invite
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/invites</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/invites</Route>
 
 Create a new [invite](/docs/resources/invite#invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](/docs/resources/invite#invite-object) object. Fires an [Invite Create](/docs/events/gateway-events#invite-create) Gateway event.
 
@@ -480,7 +480,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
 ## Delete Channel Permission
-<Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/channel#overwrite-object)</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/channel#overwrite-object)</Route>
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](/docs/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/docs/topics/permissions#permissions)
 
@@ -489,7 +489,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
 ## Follow Announcement Channel
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/followers</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/followers</Route>
 
 Follow an Announcement Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](/docs/resources/channel#followed-channel-object) object. Fires a [Webhooks Update](/docs/events/gateway-events#webhooks-update) Gateway event for the target channel.
 
@@ -504,19 +504,19 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | webhook_channel_id | snowflake | id of target channel |
 
 ## Trigger Typing Indicator
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/typing</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/typing</Route>
 
 Post a typing indicator for the specified channel, which expires after 10 seconds. Returns a 204 empty response on success. Fires a [Typing Start](/docs/events/gateway-events#typing-start) Gateway event.
 
 Generally bots should **not** use this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
 
 ## Get Pinned Messages
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins</Route>
 
 Returns all pinned messages in the channel as an array of [message](/docs/resources/message#message-object) objects.
 
 ## Pin Message
-<Route type="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
@@ -529,7 +529,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
 ## Unpin Message
-<Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
@@ -538,7 +538,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
 ## Group DM Add Recipient
-<Route type="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/recipients/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/recipients/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Adds a recipient to a Group DM using their access token.
 
@@ -550,12 +550,12 @@ Adds a recipient to a Group DM using their access token.
 | nick         | string | nickname of the user being added                                      |
 
 ## Group DM Remove Recipient
-<Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/recipients/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/recipients/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Removes a recipient from a Group DM.
 
 ## Start Thread from Message
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/threads</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)/threads</Route>
 
 Creates a new thread from an existing message. Returns a [channel](/docs/resources/channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/events/gateway-events#thread-create) and a [Message Update](/docs/events/gateway-events#message-update) Gateway event.
 
@@ -574,7 +574,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
 
 ## Start Thread without Message
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads</Route>
 
 Creates a new thread that is not connected to an existing message. Returns a [channel](/docs/resources/channel#channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/events/gateway-events#thread-create) Gateway event.
 
@@ -595,7 +595,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 \* `type` currently defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
 ## Start Thread in Forum or Media Channel
-<Route type="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads</Route>
+<Route method="POST">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads</Route>
 
 Creates a new thread in a forum or a media channel, and sends a message within the created thread. Returns a [channel](/docs/resources/channel#channel-object), with a nested [message](/docs/resources/message#message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](/docs/events/gateway-events#thread-create) and [Message Create](/docs/events/gateway-events#message-create) Gateway event.
 
@@ -648,27 +648,27 @@ When sending a message, apps must provide a value for **at least one of** `conte
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, or `files[n]` is required.
 
 ## Join Thread
-<Route type="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/@me</Route>
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/@me</Route>
 
 Adds the current user to a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](/docs/events/gateway-events#thread-members-update) and a [Thread Create](/docs/events/gateway-events#thread-create) Gateway event.
 
 ## Add Thread Member
-<Route type="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response if the member is successfully added or was already a member of the thread. Fires a [Thread Members Update](/docs/events/gateway-events#thread-members-update) Gateway event.
 
 ## Leave Thread
-<Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/@me</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/@me</Route>
 
 Removes the current user from a thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](/docs/events/gateway-events#thread-members-update) Gateway event.
 
 ## Remove Thread Member
-<Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](/docs/events/gateway-events#thread-members-update) Gateway event.
 
 ## Get Thread Member
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/user#user-object)</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
 Returns a [thread member](/docs/resources/channel#thread-member-object) object for the specified user if they are a member of the thread, returns a 404 response otherwise.
 
@@ -681,7 +681,7 @@ When `with_member` is set to `true`, the thread member object will include a `me
 | with_member? | [boolean](/docs/reference#boolean-query-strings) | Whether to include a [guild member](/docs/resources/guild#guild-member-object) object for the thread member |
 
 ## List Thread Members
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/thread-members</Route>
 
 :::warn
 Starting in API v11, this endpoint will always return paginated results. Paginated results can be enabled before API v11 by setting `with_member` to `true`. Read [the changelog](/docs/change-log#thread-member-details-and-pagination) for details.
@@ -704,7 +704,7 @@ This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged
 | limit?       | integer                                          | Max number of thread members to return (1-100). Defaults to 100.                                             |
 
 ## List Public Archived Threads
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads/archived/public</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads/archived/public</Route>
 
 Returns archived threads in the channel that are public. When called on a `GUILD_TEXT` channel, returns threads of [type](/docs/resources/channel#channel-object-channel-types) `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel returns threads of [type](/docs/resources/channel#channel-object-channel-types) `ANNOUNCEMENT_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
@@ -724,7 +724,7 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
 ## List Private Archived Threads
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads/archived/private</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/threads/archived/private</Route>
 
 Returns archived threads in the channel that are of [type](/docs/resources/channel#channel-object-channel-types) `PRIVATE_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
 
@@ -744,7 +744,7 @@ Returns archived threads in the channel that are of [type](/docs/resources/chann
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
 ## List Joined Private Archived Threads
-<Route type="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/users/@me/threads/archived/private</Route>
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/users/@me/threads/archived/private</Route>
 
 Returns archived threads in the channel that are of [type](/docs/resources/channel#channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 

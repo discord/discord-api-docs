@@ -59,7 +59,7 @@ Refer to the [Monetization Overview](/docs/monetization/overview) for more infor
 | APPLICATION_SUBSCRIPTION | 8     | Entitlement was purchased as an app subscription               |
 
 ## List Entitlements
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements</Route>
 
 Returns all entitlements for a given app, active and expired.
 
@@ -97,7 +97,7 @@ Returns all entitlements for a given app, active and expired.
 ```
 
 ## Get Entitlement
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements/[\{entitlement.id\}](/docs/resources/entitlement#entitlement-object)</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements/[\{entitlement.id\}](/docs/resources/entitlement#entitlement-object)</Route>
 
 Returns an entitlement.
 
@@ -120,14 +120,14 @@ Returns an entitlement.
 ```
 
 ## Consume an Entitlement
-<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements/[\{entitlement.id\}](/docs/resources/entitlement#entitlement-object)/consume</Route>
+<Route method="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements/[\{entitlement.id\}](/docs/resources/entitlement#entitlement-object)/consume</Route>
 
 For One-Time Purchase consumable SKUs, marks a given entitlement for the user as consumed. The entitlement will have `consumed: true` when using [List Entitlements](/docs/resources/entitlement#list-entitlements).
 
 Returns a `204 No Content` on success.
 
 ## Create Test Entitlement
-<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements</Route>
+<Route method="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements</Route>
 
 Creates a test entitlement to a given SKU for a given guild or user. Discord will act as though that user or guild has entitlement to your premium offering.
 
@@ -152,7 +152,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 ```
 
 ## Delete Test Entitlement
-<Route type="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements/[\{entitlement.id\}](/docs/resources/entitlement#entitlement-object)</Route>
+<Route method="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/entitlements/[\{entitlement.id\}](/docs/resources/entitlement#entitlement-object)</Route>
 
 Deletes a currently-active test entitlement. Discord will act as though that user or guild _no longer has_ entitlement to your premium offering.
 
