@@ -177,7 +177,7 @@ Finally, create a new private channel, and add the new linked role.
 
 ### Token storage
 
-This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used.
+This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
 
 ### Advanced examples
 
