@@ -24,6 +24,10 @@ If you are sending components as part of a [webhook](/docs/resources/webhook) yo
 
 To send a message with a component, you need to set the `IS_COMPONENTS_V2` flag (`1<<15`) in your message's `flags` field. This can be done when using [Message Create](/docs/resources/message#create-message), [Execute Webhook](/docs/resources/webhook#execute-webhook), or [responding to an interaction](/docs/interactions/receiving-and-responding#create-followup-message).
 
+:::warn
+Setting the `IS_COMPONENTS_V2` message flag cannot be reverted: once the message has been sent, the flag cannot be removed from the message when editing the message.
+:::
+
 This flag indicates that the message contains components and disables traditional content and embeds.
 
 All content must be sent as components instead of using the standard message format.
