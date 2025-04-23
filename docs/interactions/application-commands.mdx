@@ -155,7 +155,7 @@ An app can have the following number of commands:
 - 5 global `MESSAGE` commands
 - 1 global `PRIMARY_ENTRY_POINT` command
 
-For all command types except `PRIMARY_ENTRY_POINT`, you can have the same amount of guild-specific commands per guild. 
+For all command types except `PRIMARY_ENTRY_POINT`, you can have the same amount of guild-specific commands per guild.
 
 :::danger
 There is a global rate limit of 200 application command creates per day, per guild
@@ -1019,7 +1019,7 @@ When a user invokes an app's Entry Point command, the value of [`handler`](/docs
 
 When you enable Activities, an Entry Point command (named "Launch") is automatically created for your app with  `DISCORD_LAUNCH_ACTIVITY` (`2`) set as the [Entry Point handler](/docs/interactions/application-commands#entry-point-handlers). You can retrieve details for the automatically-created command, like its ID, by calling the [Get Global Application Commands](/docs/interactions/application-commands#get-global-application-commands) endpoint and looking for the "Launch" command.
 
-Details about updating or replacing the default Entry Point command is in the [Setting Up an Entry Point Command guide](/docs/activities/development-guides#setting-up-an-entry-point-command).
+Details about updating or replacing the default Entry Point command is in the [Setting Up an Entry Point Command guide](/docs/activities/development-guides/user-actions#setting-up-an-entry-point-command).
 
 ## Autocomplete
 

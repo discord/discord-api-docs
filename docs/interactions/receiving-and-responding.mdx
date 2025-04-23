@@ -10,7 +10,7 @@ For [Slash Commands](/docs/interactions/application-commands#slash-commands), it
 
 For [User Commands](/docs/interactions/application-commands#user-commands) and [Message Commands](/docs/interactions/application-commands#message-commands), it includes the resolved user or message on which the action was taken.
 
-For [Message Components](/docs/interactions/message-components) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel`, `member` and other fields. You can find all the values in our data models below.
+For [Message Components](/docs/components/reference) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel`, `member` and other fields. You can find all the values in our data models below.
 
 ### Interaction Object
 
@@ -107,21 +107,21 @@ Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interaction
 
 ###### Message Component Data Structure
 
-| Field          | Type                                                                                                              | Description                                                                                                     |
-|----------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| custom_id      | string                                                                                                            | [`custom_id`](/docs/interactions/message-components#custom-id) of the component                                 |
-| component_type | integer                                                                                                           | [type](/docs/interactions/message-components#component-object-component-types) of the component                 |
-| values?\*      | array of [select option values](/docs/interactions/message-components#select-menu-object-select-option-structure) | Values the user selected in a [select menu](/docs/interactions/message-components#select-menu-object) component |
-| resolved?      | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure)           | Resolved entities from selected options                                                                         |
+| Field          | Type                                                                                                    | Description                                                                                     |
+|----------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| custom_id      | string                                                                                                  | [`custom_id`](/docs/components/reference#anatomy-of-a-component-custom-id) of the component     |
+| component_type | integer                                                                                                 | [type](/docs/components/reference#component-object-component-types) of the component            |
+| values?\*      | array of [select option values](/docs/components/reference#string-select-select-option-structure)       | Values the user selected in a [select menu](/docs/components/reference#string-select) component |
+| resolved?      | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                                                         |
 
 \* This is always present for select menu components
 
 ###### Modal Submit Data Structure
 
-| Field      | Type                                                                                    | Description                                                                 |
-|------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| custom_id  | string                                                                                  | [`custom_id`](/docs/interactions/message-components#custom-id) of the modal |
-| components | array of [message components](/docs/interactions/message-components#message-components) | Values submitted by the user                                                |
+| Field      | Type                                                                       | Description                                                                             |
+|------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| custom_id  | string                                                                     | [`custom_id`](/docs/components/reference#anatomy-of-a-component-custom-id) of the modal |
+| components | array of [message components](/docs/components/reference#component-object) | Values submitted by the user                                                            |
 
 ###### Resolved Data Structure
 
@@ -161,7 +161,7 @@ All options have names, and an option can either be a parameter and input value-
 This is sent on the [message object](/docs/resources/message#message-object) when the message is a response to an Interaction without an existing message.
 
 :::info
-This means responses to [Message Components](/docs/interactions/message-components) do not include this property, instead including a [message reference](/docs/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
+This means responses to [Message Components](/docs/components/reference) do not include this property, instead including a [message reference](/docs/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
 :::
 
 ###### Message Interaction Structure
@@ -192,13 +192,12 @@ An [Interaction](/docs/interactions/receiving-and-responding#interaction-object)
 -   [Slash Commands](/docs/interactions/application-commands#slash-commands-example-interaction)
 -   [User Commands](/docs/interactions/application-commands#user-commands-example-interaction)
 -   [Message Commands](/docs/interactions/application-commands#message-commands-example-interaction)
--   [Message Components](/docs/interactions/message-components#component-interaction-object-sample-component-interaction)
--   [Select Menu Message Components](/docs/interactions/message-components#select-menu-object-select-menu-interaction)
+-   [Message Components](/docs/components/reference#button-button-interaction)
+-   [Select Menu Message Components](/docs/components/reference#string-select-string-select-interaction)
 
 An explanation of all the fields can be found in our [data models](/docs/interactions/receiving-and-responding#interaction-object).
 
 Now that you've gotten the data from the user, it's time to respond to them.
-
 
 ## Responding to an Interaction
 
@@ -233,7 +232,7 @@ There are a number of ways you can respond to an interaction:
 | PREMIUM_REQUIRED                        | 10    | [**Deprecated**](/docs/change-log#premium-apps-new-premium-button-style-deep-linking-url-schemes); respond to an interaction with an upgrade button, only available for apps with [monetization](/docs/monetization/overview) enabled |
 | LAUNCH_ACTIVITY                         | 12    | Launch the Activity associated with the app. Only available for apps with [Activities](/docs/activities/overview) enabled                                                                                                             |
 
-\* Only valid for [component-based](/docs/interactions/message-components) interactions
+\* Only valid for [component-based](/docs/components/reference) interactions
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
@@ -251,7 +250,7 @@ Not all message fields are currently supported.
 | embeds?           | array of [embeds](/docs/resources/message#embed-object)                          | Supports up to 10 embeds                                                                                                                                                                                               |
 | allowed_mentions? | [allowed mentions](/docs/resources/message#allowed-mentions-object)              | [Allowed mentions](/docs/resources/message#allowed-mentions-object) object                                                                                                                                             |
 | flags? \*         | integer                                                                          | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, and `SUPPRESS_NOTIFICATIONS` can be set) |
-| components?       | array of [components](/docs/interactions/message-components)                     | Message components                                                                                                                                                                                                     |
+| components?       | array of [components](/docs/components/reference#component-object)               | Message components                                                                                                                                                                                                     |
 | attachments? \*\* | array of partial [attachment](/docs/resources/message#attachment-object) objects | Attachment objects with filename and description                                                                                                                                                                       |
 | poll?             | [poll](/docs/resources/poll#poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                 |
 
@@ -271,11 +270,11 @@ Not all message fields are currently supported.
 Support for components in modals is currently limited to type 4 (Text Input).
 :::
 
-| Field      | Type                                                         | Description                                                    |
-|------------|--------------------------------------------------------------|----------------------------------------------------------------|
-| custom_id  | string                                                       | Developer-defined identifier for the modal, max 100 characters |
-| title      | string                                                       | Title of the popup modal, max 45 characters                    |
-| components | array of [components](/docs/interactions/message-components) | Between 1 and 5 (inclusive) components that make up the modal  |
+| Field      | Type                                                               | Description                                                    |
+|------------|--------------------------------------------------------------------|----------------------------------------------------------------|
+| custom_id  | string                                                             | Developer-defined identifier for the modal, max 100 characters |
+| title      | string                                                             | Title of the popup modal, max 45 characters                    |
+| components | array of [components](/docs/components/reference#component-object) | Between 1 and 5 (inclusive) components that make up the modal  |
 
 :::warn
 If your application responds with user data, you should use [`allowed_mentions`](/docs/resources/message#allowed-mentions-object) to filter which mentions in the content actually ping.

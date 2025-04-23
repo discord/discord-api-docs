@@ -265,7 +265,7 @@ All parameters to this endpoint are optional
 ## Get Application Activity Instance
 <Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/activity-instances/[\{instance_id\}](/docs/resources/application#get-application-activity-instance-activity-instance-object)</Route>
 
-Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](/docs/activities/development-guides#preventing-unwanted-activity-sessions).
+Returns a serialized activity instance, if it exists. Useful for [preventing unwanted activity sessions](/docs/activities/development-guides/multiplayer-experience#preventing-unwanted-activity-sessions).
 
 ###### Example Activity Instance
 
@@ -286,13 +286,13 @@ Returns a serialized activity instance, if it exists. Useful for [preventing unw
 
 ###### Activity Instance Object
 
-| Field          | Type                                                                                                        | Description                                                                              |
-|----------------|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| application_id | snowflake                                                                                                   | [Application](/docs/resources/application#application-object) ID                         |
-| instance_id    | string                                                                                                      | Activity [Instance](/docs/activities/development-guides#activity-instance-management) ID |
-| launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                         |
-| location       | [Activity Location](/docs/resources/application#get-application-activity-instance-activity-location-object) | Location the instance is running in                                                      |
-| users          | array of snowflakes, [user](/docs/resources/user#user-object) IDs                                           | IDs of the Users currently connected to the instance                                     |
+| Field          | Type                                                                                                        | Description                                                                                                     |
+|----------------|-------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| application_id | snowflake                                                                                                   | [Application](/docs/resources/application#application-object) ID                                                |
+| instance_id    | string                                                                                                      | Activity [Instance](/docs/activities/development-guides/multiplayer-experience#activity-instance-management) ID |
+| launch_id      | snowflake                                                                                                   | Unique identifier for the launch                                                                                |
+| location       | [Activity Location](/docs/resources/application#get-application-activity-instance-activity-location-object) | Location the instance is running in                                                                             |
+| users          | array of snowflakes, [user](/docs/resources/user#user-object) IDs                                           | IDs of the Users currently connected to the instance                                                            |
 
 
 ###### Activity Location Object
