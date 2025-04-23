@@ -989,7 +989,9 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ## File
 
-A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload. This is similar to the `embeds` field of a message but allows you to control the layout of your message by using this anywhere as a component. Files are only available in messages.
+A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload.
+
+Files are only available in messages.
 
 :::info
 To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
