@@ -316,7 +316,7 @@ Back in your app's settings, click on the **URL Mappings** page under **Activiti
 |--------|-----------------------------------------|
 | `/`    | `funky-jogging-bunny.trycloudflare.com` |
 
-Read details about URL Mapping [in the development guide](/docs/activities/development-guides#url-mapping).
+Read details about URL Mapping [in the development guide](/docs/activities/development-guides/local-development#url-mapping).
 
 ### Enable Activities
 
@@ -330,7 +330,7 @@ Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
 
 When you enable Activities for your app, a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](/docs/interactions/application-commands#entry-point-commands) is the primary way for users to launch your Activity in Discord.
 
-By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](/docs/interactions/application-commands#entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](/docs/interactions/application-commands#entry-point-commands) and [development guide](/docs/activities/development-guides#setting-up-an-entry-point-command).
+By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](/docs/interactions/application-commands#entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](/docs/interactions/application-commands#entry-point-commands) and [development guide](/docs/activities/development-guides/user-actions#setting-up-an-entry-point-command).
 
 
 ### Running your Activity in Discord
@@ -346,7 +346,7 @@ Clicking on your app will launch your locally running app from inside Discord!
 :::info
 **Customizing your Activity**
 
-If you'd like to set images for your Activity, you can learn how to do that [here](/docs/activities/development-guides#setting-up-activity-metadata).
+If you'd like to set images for your Activity, you can learn how to do that [here](/docs/activities/development-guides/assets-and-metadata#setting-up-activity-metadata).
 :::
 
 We're looking pretty good so far, but we haven't wired up any Discord functionality yet. Let's do that next.
@@ -461,7 +461,7 @@ Before we call your backend activity server, we need to be aware of the Discord 
 For this tutorial, we are going to prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
 :::
 
-Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides#using-external-resources).
+Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides/networking#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides/networking#using-external-resources).
 
 ### Calling your backend server from your client
 
@@ -515,7 +515,7 @@ async function setupDiscordSdk() {
   // Retrieve an access_token from your activity's server
   // Note: We need to prefix our backend `/api/token` route with `/.proxy` to stay compliant with the CSP.
   // Read more about constructing a full URL and using external resources at
-  // https://discord.com/developers/docs/activities/development-guides#construct-a-full-url
+  // https://discord.com/developers/docs/activities/development-guides/networking#construct-a-full-url
   const response = await fetch("/.proxy/api/token", {
     method: "POST",
     headers: {
