@@ -625,7 +625,7 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 
 ### Allowed Mentions Object
 
-The allowed mention field allows for more granular control over mentions without various hacks to the message content. This will always validate against message content to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message content), and check against user/bot permissions.
+The allowed mention field allows for more granular control over mentions without various hacks to the message content. This will always validate against message content or [message component](docs/components/using-message-components) content to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message content or message component content), and check against user/bot permissions.
 
 ###### Allowed Mention Types
 
@@ -648,7 +648,7 @@ The allowed mention field allows for more granular control over mentions without
 
 Due to the complexity of possibilities, we have included a set of examples and behavior for the allowed mentions field.
 
-If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the content. This corresponds with existing behavior.
+If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the message content or message component content. This corresponds with existing behavior.
 
 In the example below we would ping @here (and also @role124 and @user123)
 
@@ -711,7 +711,7 @@ Due to possible ambiguities, not all configurations are valid. An _invalid_ conf
 Because `parse: ["users"]` and `users: [123, 124]` are both present, we would throw a validation error.
 This is because the conditions cannot be fulfilled simultaneously (they are mutually exclusive).
 
-Any entities with an ID included in the list of IDs can be mentioned. Note that the IDs of entities not present in the message's content will simply be ignored.
+Any entities with an ID included in the list of IDs can be mentioned. Note that the IDs of entities not present in the message content or message component content will simply be ignored.
 e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
 user 125 in the content.
 
