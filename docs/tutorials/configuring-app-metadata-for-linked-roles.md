@@ -37,7 +37,7 @@ Apps need approval from installing users to perform actions inside of Discord. S
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
 
 :::info
-See a list of all [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](/docs/topics/permissions) in the documentation.
+See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
 :::
 
 ### Installing your app
@@ -177,7 +177,7 @@ Finally, create a new private channel, and add the new linked role.
 
 ### Token storage
 
-This app largely relies on Discord's [OAuth2](/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
+This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used.
 
 ### Advanced examples
 
