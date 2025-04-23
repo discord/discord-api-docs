@@ -227,12 +227,12 @@ You can configure your app's install link in your [app's settings](https://disco
 The Default Install Settings will appear on the **Installation** page when you have "Discord Provided Link" selected as your install link type.
 
 ## Get Current Application
-<Route type="GET">/applications/@me</Route>
+<Route method="GET">/applications/@me</Route>
 
 Returns the [application](/docs/resources/application#application-object) object associated with the requesting bot user.
 
 ## Edit Current Application
-<Route type="PATCH">/applications/@me</Route>
+<Route method="PATCH">/applications/@me</Route>
 
 Edit properties of the app associated with the requesting bot user. Only properties that are passed will be updated. Returns the updated [application](/docs/resources/application#application-object) object on success.
 

@@ -1157,7 +1157,7 @@ For authorization, all endpoints take either a [bot token](/docs/reference#authe
 :::
 
 ## Get Global Application Commands
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
 
 :::warn
 The objects returned by this endpoint may be augmented with [additional fields if localization is active](/docs/interactions/application-commands#retrieving-localized-commands).
@@ -1172,7 +1172,7 @@ Fetch all of the global commands for your application. Returns an array of [appl
 | with_localizations? | [boolean](/docs/reference#boolean-query-strings) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Global Application Command
-<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
+<Route method="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
 
 :::warn
 Creating a command with the same name as an existing command for your application will overwrite the old command.
@@ -1198,12 +1198,12 @@ Create a new global command. Returns `201` if a command with the same name does 
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
 ## Get Global Application Command
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Fetch a global command for your application. Returns an [application command](/docs/interactions/application-commands#application-command-object) object.
 
 ## Edit Global Application Command
-<Route type="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
+<Route method="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 :::info
 All parameters for this endpoint are optional.
@@ -1228,12 +1228,12 @@ Edit a global command. Returns `200` and an [application command](/docs/interact
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
 ## Delete Global Application Command
-<Route type="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
+<Route method="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Deletes a global command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Global Application Commands
-<Route type="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
+<Route method="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/commands</Route>
 
 Takes a list of application commands, overwriting the existing global command list for this application. Returns `200` and a list of [application command](/docs/interactions/application-commands#application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
@@ -1242,7 +1242,7 @@ This will overwrite **all** types of application commands: slash commands, user 
 :::
 
 ## Get Guild Application Commands
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
 
 :::warn
 The objects returned by this endpoint may be augmented with [additional fields if localization is active](/docs/interactions/application-commands#retrieving-localized-commands).
@@ -1257,7 +1257,7 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 | with_localizations? | [boolean](/docs/reference#boolean-query-strings) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Guild Application Command
-<Route type="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
+<Route method="POST">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands</Route>
 
 :::danger
 Creating a command with the same name as an existing command for your application will overwrite the old command.
@@ -1280,12 +1280,12 @@ Create a new guild command. New guild commands will be available in the guild im
 | nsfw?                       | boolean                                                                                                                                        | Indicates whether the command is [age-restricted](/docs/interactions/application-commands#agerestricted-commands)                                                                       |
 
 ## Get Guild Application Command
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Fetch a guild command for your application. Returns an [application command](/docs/interactions/application-commands#application-command-object) object.
 
 ## Edit Guild Application Command
-<Route type="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
+<Route method="PATCH">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 :::info
 All parameters for this endpoint are optional.
@@ -1308,13 +1308,13 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 ## Delete Guild Application Command
 
-<Route type="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
+<Route method="DELETE">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)</Route>
 
 Delete a guild command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Guild Application Commands
 
-<Route type="PUT">/applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands</Route>
+<Route method="PUT">/applications/\{application.id/docs/resources/application#application-object\}/guilds/\{guild.id/docs/resources/guild#guild-object\}/commands</Route>
 
 Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](/docs/interactions/application-commands#application-command-object) objects.
 
@@ -1342,17 +1342,17 @@ This will overwrite **all** types of application commands: slash commands, user 
 
 ## Get Guild Application Command Permissions
 
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
 
 Fetches permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
 ## Get Application Command Permissions
-<Route type="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)/permissions</Route>
+<Route method="GET">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)/permissions</Route>
 
 Fetches permissions for a specific command for your application in a guild. Returns a [guild application command permissions](/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 ## Edit Application Command Permissions
-<Route type="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)/permissions</Route>
+<Route method="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/[\{command.id\}](/docs/interactions/application-commands#application-command-object)/permissions</Route>
 
 :::warn
 This endpoint will overwrite existing permissions for the command in that guild
@@ -1377,7 +1377,7 @@ Deleting or renaming a command will permanently delete all permissions for the c
 | permissions | array of [application command permissions](/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild |
 
 ## Batch Edit Application Command Permissions
-<Route type="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
+<Route method="PUT">/applications/[\{application.id\}](/docs/resources/application#application-object)/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/commands/permissions</Route>
 
 :::danger
 This endpoint has been disabled with [updates to command permissions (Permissions v2)](/docs/change-log#updated-command-permissions). Instead, you can [edit each application command permissions](/docs/interactions/application-commands#edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](/docs/topics/rate-limits)).
