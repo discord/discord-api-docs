@@ -806,11 +806,13 @@ When creating a message, apps must provide a value for **at least one of** `cont
 | files[n]?\*        | file contents                                                                     | Contents of the file being sent. See [Uploading Files](/docs/reference#uploading-files)                                                                                                                                           |
 | payload_json?      | string                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/reference#uploading-files)                                                                                             |
 | attachments?       | array of partial [attachment](/docs/resources/message#attachment-object) objects  | Attachment objects with filename and description. See [Uploading Files](/docs/reference#uploading-files)                                                                                                                          |
-| flags?             | integer                                                                           | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` and `SUPPRESS_NOTIFICATIONS` can be set)                          |
+| flags?\*\*         | integer                                                                           | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `SUPPRESS_NOTIFICATIONS` and `IS_COMPONENTS_V2` can be set)                          |
 | enforce_nonce?     | boolean                                                                           | If true and nonce is present, it will be checked for uniqueness in the past few minutes. If another message was created by the same author with the same nonce, that message will be returned and no new message will be created. |
 | poll?              | [poll](/docs/resources/poll#poll-create-request-object) request object            | A poll!                                                                                                                                                                                                                           |
 
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll` is required.
+
+\*\* When the flag `IS_COMPONENTS_V2` is set, the message can only contain `components`. Providing `content`, `embeds`, `sticker_ids`, `files[n]`, or `poll` will fail with a 400 BAD REQUEST response.
 
 ###### Example Request Body (application/json)
 
@@ -887,9 +889,9 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 ## Edit Message
 <Route type="PATCH">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Edit a previously sent message. The fields `content`, `embeds`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+Edit a previously sent message. The fields `content`, `embeds`, `flags` and `components` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
 
-When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
+When the `content` field is edited, the arrays `mentions` and `mention_roles` and the boolean `mention_everyone` in the message object will be reconstructed from scratch based on the new content. When the message flag `IS_COMPONENTS_V2` is set, the reconstructed arrays and boolean are based on the edited content in the `components` array. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
 Returns a [message](/docs/resources/message#message-object) object. Fires a [Message Update](/docs/events/gateway-events#message-update) Gateway event.
 
@@ -910,12 +912,14 @@ All parameters to this endpoint are optional and nullable.
 |------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | content          | string                                                                    | Message contents (up to 2000 characters)                                                                                                |
 | embeds           | array of [embed](/docs/resources/message#embed-object) objects            | Up to 10 `rich` embeds (up to 6000 characters)                                                                                          |
-| flags            | integer                                                                   | Edit the [flags](/docs/resources/message#message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| flags            | integer                                                                   | Edit the [flags](/docs/resources/message#message-object-message-flags) of a message (`SUPPRESS_EMBEDS` and `IS_COMPONENTS_V2` only)\*\* |
 | allowed_mentions | [allowed mention object](/docs/resources/message#allowed-mentions-object) | Allowed mentions for the message                                                                                                        |
 | components       | array of [message component](/docs/components/reference#component-object) | Components to include with the message                                                                                                  |
 | files[n]         | file contents                                                             | Contents of the file being sent/edited. See [Uploading Files](/docs/reference#uploading-files)                                          |
 | payload_json     | string                                                                    | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/reference#uploading-files)                 |
 | attachments      | array of [attachment](/docs/resources/message#attachment-object) objects  | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/reference#uploading-files)                  |
+
+\*\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, `files[n]`, or `poll` values in the initial message must be set to `null` first, otherwise it will fail with a 400 BAD REQUEST response.
 
 ## Delete Message
 <Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
