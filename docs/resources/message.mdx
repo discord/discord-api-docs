@@ -908,18 +908,18 @@ All parameters to this endpoint are optional and nullable.
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                                                                                                             |
-|------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| content          | string                                                                    | Message contents (up to 2000 characters)                                                                                                |
-| embeds           | array of [embed](/docs/resources/message#embed-object) objects            | Up to 10 `rich` embeds (up to 6000 characters)                                                                                          |
-| flags            | integer                                                                   | Edit the [flags](/docs/resources/message#message-object-message-flags) of a message (`SUPPRESS_EMBEDS` and `IS_COMPONENTS_V2` only)\*\* |
-| allowed_mentions | [allowed mention object](/docs/resources/message#allowed-mentions-object) | Allowed mentions for the message                                                                                                        |
-| components       | array of [message component](/docs/components/reference#component-object) | Components to include with the message                                                                                                  |
-| files[n]         | file contents                                                             | Contents of the file being sent/edited. See [Uploading Files](/docs/reference#uploading-files)                                          |
-| payload_json     | string                                                                    | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/reference#uploading-files)                 |
-| attachments      | array of [attachment](/docs/resources/message#attachment-object) objects  | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/reference#uploading-files)                  |
+| Field            | Type                                                                      | Description                                                                                                                         |
+|------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| content          | string                                                                    | Message contents (up to 2000 characters)                                                                                            |
+| embeds           | array of [embed](/docs/resources/message#embed-object) objects            | Up to 10 `rich` embeds (up to 6000 characters)                                                                                      |
+| flags\*          | integer                                                                   | Edit the [flags](/docs/resources/message#message-object-message-flags) of a message (`SUPPRESS_EMBEDS` and `IS_COMPONENTS_V2` only) |
+| allowed_mentions | [allowed mention object](/docs/resources/message#allowed-mentions-object) | Allowed mentions for the message                                                                                                    |
+| components       | array of [message component](/docs/components/reference#component-object) | Components to include with the message                                                                                              |
+| files[n]         | file contents                                                             | Contents of the file being sent/edited. See [Uploading Files](/docs/reference#uploading-files)                                      |
+| payload_json     | string                                                                    | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/reference#uploading-files)             |
+| attachments      | array of [attachment](/docs/resources/message#attachment-object) objects  | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/reference#uploading-files)              |
 
-\*\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, `files[n]`, or `poll` values in the initial message must be set to `null` first, otherwise it will fail with a 400 BAD REQUEST response.
+\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, `files[n]` or `poll` values in the initial message must be set to `null` first, otherwise it will fail with a 400 BAD REQUEST response.
 
 ## Delete Message
 <Route type="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
