@@ -625,7 +625,7 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 
 ### Allowed Mentions Object
 
-The allowed mention field allows for more granular control over mentions without various hacks to the message content. This will always validate against message content or [message component](docs/components/using-message-components) content to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message content or message component content), and check against user/bot permissions.
+The allowed mention field allows for more granular control over mentions without various hacks to the message. This will always validate against the message and components to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message), and check against user/bot permissions.
 
 ###### Allowed Mention Types
 
