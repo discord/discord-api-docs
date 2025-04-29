@@ -1080,7 +1080,7 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ## Container
 
-A Container is a top-level layout component that holds up to 10 components. Containers are visually distinct from surrounding components and have an optional customizable color bar.
+A Container is a top-level layout component. Containers are visually distinct from surrounding components and have an optional customizable color bar.
 
 Containers are only available in messages.
 
@@ -1090,13 +1090,13 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Container Structure
 
-| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                           |
-|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                          |
-| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                                     |
-| components    | array of components | Up to 10 components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
-| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                            |
-| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                                      |
+| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                  |
+|---------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                 |
+| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                            |
+| components    | array of components | Components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
+| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                   |
+| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                             |
 
 ###### Example
 
