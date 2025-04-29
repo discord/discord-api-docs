@@ -109,8 +109,8 @@ client->SetStatusChangedCallback([client](discordpp::Client::Status status, disc
         std::cout << "✅ Client is ready! You can now call SDK functions.\n";
         std::cout << "👥 Friends Count: " << client->GetRelationships().size() << std::endl;
         
-        SetRichPresence(*client);
-        DisplayFriendsList(*client);
+        SetRichPresence(client);
+        DisplayFriendsList(client);
 
     } else if (error != discordpp::Client::Error::None) {
         std::cerr << "❌ Connection Error: " << discordpp::Client::ErrorToString(error) << " - Details: " << errorDetail << std::endl;
@@ -142,7 +142,7 @@ This example is for reference only. Please make sure you use efficient data stru
 :::
 
 ```cpp
-void DisplayFriendsList(discordpp::Client& client) {
+void DisplayFriendsList(std::shared_ptr<discordpp::Client> client) {
     // Create vectors for each section
     std::vector<std::string> inGame;
     std::vector<std::string> online;
@@ -180,7 +180,10 @@ void DisplayFriendsList(discordpp::Client& client) {
         }
 
         // Categorize based on status
-        if (user->Status() != discordpp::StatusType::Offline) {
+        if (user->GameActivity()) {
+            // in game
+            inGame.push_back("🟣 " + str);
+        } else if (user->Status() != discordpp::StatusType::Offline) {
             // online
             online.push_back("🟢 " + str);
         } else {
