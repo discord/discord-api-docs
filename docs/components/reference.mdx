@@ -15,7 +15,7 @@ To use these components, you need to send the [message flag](/docs/resources/mes
 - The `content` and `embeds` fields will no longer work but you'll be able to use [Text Display](/docs/components/reference#text-display) and [Container](/docs/components/reference#container) as replacements
 - Attachments won't show by default - they must be exposed through components
 - The `poll` and `stickers` fields are disabled
-- Messages currently allow up to 10 top-level components and 30 total components
+- Messages allow up to 40 total components
 
 :::info
 [Legacy component behavior](/docs/components/reference#legacy-message-component-behavior) will continue to work but provide less flexibility and control over the message layout.
@@ -1171,6 +1171,10 @@ To upload a file with your message, you'll need to send your payload as `multipa
 Before the introduction of the `IS_COMPONENTS_V2` flag ([see changelog](/docs/change-log/2025-04-22-components-v2)), message components were sent in conjunction with message content. This means that you could send a message using a subset of the available components without setting the `IS_COMPONENTS_V2` flag, and the components would be included in the message content along with `content` and `embeds`.
 
 Apps using this Legacy Message Component behavior will continue to work as expected, but it is recommended to use the new `IS_COMPONENTS_V2` flag for new apps or features as they offer more options for layout and customization.
+
+:::info
+Legacy messages allow up to 5 action rows as top-level components
+:::
 
 Legacy Message Component Example
 
