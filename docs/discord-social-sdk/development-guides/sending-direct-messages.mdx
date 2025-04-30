@@ -51,7 +51,7 @@ client->SendUserMessage(recipientId, message, [](auto result, uint64_t messageId
   if (result.Successful()) {
     std::cout << "✅ Message sent successfully\n";
   } else {
-    std::cout << "❌ Failed to send message: " << result.GetError() << "\n";
+    std::cout << "❌ Failed to send message: " << result.Error() << "\n";
   }
 });
 ```

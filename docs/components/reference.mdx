@@ -15,7 +15,7 @@ To use these components, you need to send the [message flag](/docs/resources/mes
 - The `content` and `embeds` fields will no longer work but you'll be able to use [Text Display](/docs/components/reference#text-display) and [Container](/docs/components/reference#container) as replacements
 - Attachments won't show by default - they must be exposed through components
 - The `poll` and `stickers` fields are disabled
-- Messages currently allow up to 10 top-level components and 30 total components
+- Messages allow up to 40 total components
 
 :::info
 [Legacy component behavior](/docs/components/reference#legacy-message-component-behavior) will continue to work but provide less flexibility and control over the message layout.
@@ -833,12 +833,12 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Section Structure
 
-| Field      | Type                                                                                                                  | Description                                                                                       |
-|------------|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| type       | integer                                                                                                               | `9` for section component                                                                         |
-| id?        | integer                                                                                                               | Optional identifier for component                                                                 |
-| components | array of [text display components](/docs/components/reference#text-display)                                           | One to three text components                                                                      |
-| accessory  | [thumbnail component](/docs/components/reference#thumbnail) or [button components](/docs/components/reference#button) | A thumbnail or a button component, with a future possibility of adding more compatible components |
+| Field      | Type                                                                                                                 | Description                                                                                       |
+|------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                                              | `9` for section component                                                                         |
+| id?        | integer                                                                                                              | Optional identifier for component                                                                 |
+| components | array of [text display components](/docs/components/reference#text-display)                                          | One to three text components                                                                      |
+| accessory  | [thumbnail component](/docs/components/reference#thumbnail) or [button component](/docs/components/reference#button) | A thumbnail or a button component, with a future possibility of adding more compatible components |
 
 :::info
 Don't hardcode `components` to contain only text components. We may add other components in the future. Similarly, `accessory` may be expanded to include other components in the future.
@@ -989,7 +989,9 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ## File
 
-A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload. This is similar to the `embeds` field of a message but allows you to control the layout of your message by using this anywhere as a component. Files are only available in messages.
+A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload.
+
+Files are only available in messages.
 
 :::info
 To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
@@ -1080,7 +1082,7 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ## Container
 
-A Container is a top-level layout component that holds up to 10 components. Containers are visually distinct from surrounding components and have an optional customizable color bar.
+A Container is a top-level layout component. Containers are visually distinct from surrounding components and have an optional customizable color bar.
 
 Containers are only available in messages.
 
@@ -1090,13 +1092,13 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Container Structure
 
-| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                           |
-|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                          |
-| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                                     |
-| components    | array of components | Up to 10 components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
-| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                            |
-| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                                      |
+| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                  |
+|---------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                 |
+| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                            |
+| components    | array of components | Components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
+| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                   |
+| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                             |
 
 ###### Example
 
@@ -1171,6 +1173,10 @@ To upload a file with your message, you'll need to send your payload as `multipa
 Before the introduction of the `IS_COMPONENTS_V2` flag ([see changelog](/docs/change-log/2025-04-22-components-v2)), message components were sent in conjunction with message content. This means that you could send a message using a subset of the available components without setting the `IS_COMPONENTS_V2` flag, and the components would be included in the message content along with `content` and `embeds`.
 
 Apps using this Legacy Message Component behavior will continue to work as expected, but it is recommended to use the new `IS_COMPONENTS_V2` flag for new apps or features as they offer more options for layout and customization.
+
+:::info
+Legacy messages allow up to 5 action rows as top-level components
+:::
 
 Legacy Message Component Example
 
