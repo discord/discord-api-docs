@@ -924,7 +924,7 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | type         | integer                                                                         | `11` for thumbnail component                                                    |
 | id?          | integer                                                                         | Optional identifier for component                                               |
 | media        | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | A url or attachment                                                             |
-| description? | string                                                                          | Alt text for the media                                                          |
+| description? | string                                                                          | Alt text for the media, max 1024 characters                                     |
 | spoiler?     | boolean                                                                         | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false` |
 
 ###### Example
@@ -954,7 +954,7 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | Field        | Type                                                                            | Description                                                                 |
 |--------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
 | media        | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | A url or attachment                                                         |
-| description? | string                                                                          | Alt text for the media                                                      |
+| description? | string                                                                          | Alt text for the media, max 1024 characters                                 |
 | spoiler?     | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false` |
 
 ###### Example
