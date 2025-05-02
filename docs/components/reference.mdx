@@ -66,6 +66,10 @@ All components have the following fields:
 
 The `id` field is optional and is used to identify components in the response from an interaction that aren't interactive components. The `id` must be unique within the message and is generated sequentially if left empty. Generation of `id`s won't use another `id` that exists in the message if you have one defined for another component.
 
+::: info
+Messages preceding components V2 will contain an `id` of `0`, sending `0` is allowed but will be incremented to `1` then follow the numbering rule mentioned above.
+:::
+
 ###### Custom ID
 
 Additionally, interactive components like buttons and selects must have a `custom_id` field. The developer defines this field when sending the component payload, and it is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
