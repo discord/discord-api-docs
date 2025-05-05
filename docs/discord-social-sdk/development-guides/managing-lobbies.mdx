@@ -92,8 +92,10 @@ client->CreateOrJoinLobby("your-unique-lobby-secret",[client](discordpp::ClientR
 To remove a user from a lobby, use the [`Client::LeaveLobby`] function. Only lobbies created with [`Client::CreateOrJoinLobby`] can be left using [`Client::LeaveLobby`].
 
 ```cpp
+uint64_t lobbyId = 01234567890;
+
 // Leaving a lobby from the client
-client->LeaveLobby(01234567890, [](discordpp::ClientResult result, uint64_t lobbyId) {
+client->LeaveLobby(lobbyId, [&](discordpp::ClientResult result) {
   if(result.Successful()) {
     std::cout << "🎮 Left lobby successfully! Lobby Id: " << lobbyId << std::endl;
   } else {
@@ -121,7 +123,9 @@ Once you have a lobby created, lobby members can send messages to it using the [
 Clients can send messages to lobbies they are members of regardless of whether they joined the lobby using the client or server-side method.
 
 ```cpp
-client->SendLobbyMessage(01234567890, "Hello", [](discordpp::ClientResult result, uint64_t messageId) {
+uint64_t lobbyId = 01234567890;
+
+client->SendLobbyMessage(lobbyId, "Hello", [](discordpp::ClientResult result, uint64_t messageId) {
   if(result.Successful()) {
     std::cout << "📨 Message sent successfully!\n";
   } else {
