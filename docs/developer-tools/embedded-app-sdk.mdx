@@ -167,6 +167,7 @@ Developers can use these commands to interact with the Discord client. The follo
 | [getEntitlements](/docs/developer-tools/embedded-app-sdk#getentitlements)                                   | Returns a list of entitlements for the current user                                      |
 | [getInstanceConnectedParticipants](/docs/developer-tools/embedded-app-sdk#getinstanceconnectedparticipants) | Returns all participants connected to the instance                                       |
 | [getPlatformBehaviors](/docs/developer-tools/embedded-app-sdk#getplatformbehaviors)                         | Returns information about supported platform behaviors                                   |
+| [getRelationships](/docs/developer-tools/embedded-app-sdk#getrelationships)                                 | Returns the current user's relationships                                                 |
 | [getSkus](/docs/developer-tools/embedded-app-sdk#getskus)                                                   | Returns a list of your app's SKUs                                                        |
 | [initiateImageUpload](/docs/developer-tools/embedded-app-sdk#initiateimageupload)                           | Presents the file upload flow in the Discord client                                      |
 | [openExternalLink](/docs/developer-tools/embedded-app-sdk#openexternallink)                                 | Allows for opening an external link from within the Discord client                       |
@@ -451,6 +452,35 @@ getPlatformBehaviors(): Promise\<[GetPlatformBehaviorsResponse](/docs/developer-
 
 ```js
 await discordSdk.commands.getPlatformBehaviors();
+```
+
+---
+
+
+### getRelationships()
+
+Returns the current user's relationships.
+
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+- relationships.read
+
+#### Signature
+
+<Monospace>
+getRelationships(): Promise\<[GetRelationshipsResponse](/docs/developer-tools/embedded-app-sdk#getrelationshipsresponse)\>
+</Monospace>
+
+#### Usage
+
+```js
+await discordSdk.commands.getRelationships();
 ```
 
 ---
@@ -795,8 +825,8 @@ Developers may use the following events alongside the `subscribe()` SDK method t
 | [CURRENT_GUILD_MEMBER_UPDATE](/docs/developer-tools/embedded-app-sdk#currentguildmemberupdate)                     | Received when the current guild member object changes                                     |
 | [THERMAL_STATE_UPDATE](/docs/developer-tools/embedded-app-sdk#thermalstateupdate)                                  | Received when Android or iOS thermal states are surfaced to the Discord app               |
 | [ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE](/docs/developer-tools/embedded-app-sdk#activityinstanceparticipantsupdate) | Received when the number of instance participants changes                                 |
+| [RELATIONSHIP_UPDATE](/docs/developer-tools/embedded-app-sdk#relationshipupdate)                                   | Received when a relationship of the current user is updated                               |
 | [ENTITLEMENT_CREATE](/docs/developer-tools/embedded-app-sdk#entitlementcreate)                                     | Received when an entitlement is created for a SKU                                         |
-
 
 ### READY
 
@@ -1051,6 +1081,36 @@ No scopes required
   ]
 }
 ```
+---
+
+### RELATIONSHIP_UPDATE
+
+Received when a relationship of the current user is updated.
+
+#### Required Scopes
+
+- relationships.read
+
+#### Sample Event Payload
+```javascript
+{
+  "type": 1,
+  "user": {
+      "id": "7173771622812225536",
+      "username": "beef_supreme",
+      "discriminator": "0",
+      "global_name": "Dis Cord",
+      "avatar": "abcdefg",
+      "avatar_decoration_data": {
+        "asset": "abcdefg",
+        "sku_id": "123456789"
+      },
+      "bot": false,
+      "flags": 1,
+      "premium_type": 2
+  }
+}
+```
 
 ---
 
@@ -1302,6 +1362,12 @@ Coming soon! Not available during Developer Preview
 |-------------------------|---------|
 | iosKeyboardResizesView? | boolean |
 
+#### GetRelationshipsResponse
+
+| Property      | Type                                                                  |
+|---------------|-----------------------------------------------------------------------|
+| relationships | [Relationship](/docs/developer-tools/embedded-app-sdk#relationship)[] |
+
 #### GetSkusResponse
 
 | Property | Type                                                |
@@ -1437,6 +1503,13 @@ Coming soon! Not available during Developer Preview
 | count    | number                                                |
 | me       | boolean                                               |
 | emoji    | [Emoji](/docs/developer-tools/embedded-app-sdk#emoji) |
+
+#### Relationship
+
+| Property | Type   |
+|----------|--------|
+| type     | number |
+| user     | [User](/docs/developer-tools/embedded-app-sdk#user) |
 
 #### Secrets
 
