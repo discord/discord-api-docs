@@ -208,7 +208,7 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | id             | snowflake                                                                    | role id                                                                                                                         |
 | name           | string                                                                       | role name                                                                                                                       |
 | color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
-| colors         | [role colors](/docs/topics/permissions#role-colors-structure) object         | the role colors                                                                                                                 |
+| colors         | [role colors](/docs/topics/permissions#role-colors-object) object         | the role colors                                                                                                                 |
 | hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
 | icon?          | ?string                                                                      | role [icon hash](/docs/reference#image-formatting)                                                                              |
 | unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
@@ -234,7 +234,7 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 | available_for_purchase?  | null      | whether this role is available for purchase        |
 | guild_connections?       | null      | whether this role is a guild's linked role         |
 
-###### Role Colors Structure
+###### Role Colors Object
 
 This object will always be filled with `primary_color` being the role's `color`. The other fields cannot be filled if the guild does not have the gradient colors feature.
 
