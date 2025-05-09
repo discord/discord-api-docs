@@ -98,8 +98,8 @@ Action Rows can contain:
 
 ```json
 {
-  "components":
-  [
+  "flags": 32768
+  "components": [
     {
       "type": 1,
       "components": [
@@ -172,8 +172,8 @@ Buttons come in various styles to convey different types of actions. These style
 
 ```json
 {
-  "components":
-  [
+  "flags": 32768,
+  "components": [
     {
       "type": 1,
       "components": [
@@ -334,6 +334,7 @@ String Selects must be placed inside an [Action Row](/docs/components/reference#
 
 ```json
 {
+  "flags": 32768,
   "components": [
     {
       "type": 3,
@@ -671,18 +672,21 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 ###### Example
 
 ```json
-[
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 5,
-        "custom_id": "user_select",
-        "placeholder": "Select a user"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 5,
+          "custom_id": "user_select",
+          "placeholder": "Select a user"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a User Select with two people and an app in a server](images/components/user-select.png)
@@ -715,20 +719,23 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 ###### Example
 
 ```json
-[
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 6,
-        "custom_id": "role_select",
-        "placeholder": "Which roles?",
-        "min_values": 1,
-        "max_values": 3
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 6,
+          "custom_id": "role_select",
+          "placeholder": "Which roles?",
+          "min_values": 1,
+          "max_values": 3
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Role Select allowing up to 3 choices](images/components/role-select.png)
@@ -761,18 +768,21 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 ###### Example
 
 ```json
-[
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 7,
-        "custom_id": "mentionable_select",
-        "placeholder": "Who?"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 7,
+          "custom_id": "mentionable_select",
+          "placeholder": "Who?"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Mentionable Select](images/components/mentionable-select.png)
@@ -806,19 +816,22 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 ###### Example
 
 ```json
-[
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 8,
-        "custom_id": "channel_select",
-        "channel_types": [0],
-        "placeholder": "Which text channel?"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 8,
+          "custom_id": "channel_select",
+          "channel_types": [0],
+          "placeholder": "Which text channel?"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Channel Select for text channels](images/components/channel-select.png)
@@ -853,31 +866,34 @@ Don't hardcode `components` to contain only text components. We may add other co
 ###### Example
 
 ```json
-[
-  {
-    "type": 9,
-    "components": [
-      {
-        "type": 10,
-        "content": "# Real Game v7.3"
-      },
-      {
-        "type": 10,
-        "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
-      },
-      {
-        "type": 10,
-        "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
-      }
-    ],
-    "accessory": {
-      "type": 11,
-      "media": {
-        "url": "https://websitewithopensourceimages/gamepreview.png"
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 9,
+      "components": [
+        {
+          "type": 10,
+          "content": "# Real Game v7.3"
+        },
+        {
+          "type": 10,
+          "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
+        },
+        {
+          "type": 10,
+          "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
+        }
+      ],
+      "accessory": {
+        "type": 11,
+        "media": {
+          "url": "https://websitewithopensourceimages/gamepreview.png"
+        }
       }
     }
-  }
-]
+  ]
+}
 ```
 
 ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.png)
@@ -903,12 +919,15 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-[
-  {
-    "type": 10,
-    "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spolier alert: ||these too!||"
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spolier alert: ||these too!||"
+    }
+  ]
+}
 ```
 
 ![Example of a Text Display with markdown](images/components/text-display.png)
@@ -966,29 +985,32 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-[
-  {
-    "type": 10,
-    "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
-  },
-  {
-    "type": 12,
-    "items": [
-      {
-        "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.png"},
-        "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
-      },
-      {
-        "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.png"},
-        "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
-      },
-      {
-        "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.png"},
-        "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
+    },
+    {
+      "type": 12,
+      "items": [
+        {
+          "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.png"},
+          "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
+        },
+        {
+          "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.png"},
+          "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
+        },
+        {
+          "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.png"},
+          "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.png)
@@ -1015,32 +1037,35 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-[
-  {
-    "type": 10,
-    "content": "# New game version released for testing!"
-  },
-  {
-    "type": 10,
-    "content": "Grab the game here:"
-  },
-  {
-    "type": 13,
-    "file": {
-      "url": "attachment://game.zip"
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "# New game version released for testing!"
+    },
+    {
+      "type": 10,
+      "content": "Grab the game here:"
+    },
+    {
+      "type": 13,
+      "file": {
+        "url": "attachment://game.zip"
+      }
+    },
+    {
+      "type": 10,
+      "content": "Latest manual artwork here:"
+    },
+    {
+      "type": 13,
+      "file": {
+        "url": "attachment://manual.pdf"
+      }
     }
-  },
-  {
-    "type": 10,
-    "content": "Latest manual artwork here:"
-  },
-  {
-    "type": 13,
-    "file": {
-      "url": "attachment://manual.pdf"
-    }
-  }
-]
+  ]
+}
 ```
 
 ![Example of a File showing a download for a game and manual](images/components/file.png)
@@ -1067,21 +1092,24 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-[
-  {
-    "type": 10,
-    "content": "It's dangerous to go alone!"
-  },
-  {
-    "type": 14,
-    "divider": true,
-    "spacing": 1
-  },
-  {
-    "type": 10,
-    "content": "Take this."
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "It's dangerous to go alone!"
+    },
+    {
+      "type": 14,
+      "divider": true,
+      "spacing": 1
+    },
+    {
+      "type": 10,
+      "content": "Take this."
+    }
+  ]
+}
 ```
 
 ![Example of a separator with large spacing dividing content](images/components/separator.png)
@@ -1109,53 +1137,56 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-[
-  {
-    "type": 17,
-    "accent_color": 703487,
-    "components": [
-      {
-        "type": 10,
-        "content": "# You have encountered a wild coyote!"
-      },
-      {
-        "type": 12,
-        "items": [
-          {
-            "media": {"url": "https://websitewithopensourceimages/coyote.png"},
-          }
-        ]
-      },
-      {
-        "type": 10,
-        "content": "What would you like to do?"
-      },
-      {
-        "type": 1,
-        "components": [
-          {
-            "type": 2,
-            "custom_id": "pet_coyote",
-            "label": "Pet it!",
-            "style": 1
-          },
-          {
-            "type": 2,
-            "custom_id": "feed_coyote",
-            "label": "Attempt to feed it",
-            "style": 2
-          },
-          {
-            "type": 2,
-            "custom_id": "run_away",
-            "label": "Run away!",
-            "style": 4
-          }
-        ]
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "accent_color": 703487,
+      "components": [
+        {
+          "type": 10,
+          "content": "# You have encountered a wild coyote!"
+        },
+        {
+          "type": 12,
+          "items": [
+            {
+              "media": {"url": "https://websitewithopensourceimages/coyote.png"},
+            }
+          ]
+        },
+        {
+          "type": 10,
+          "content": "What would you like to do?"
+        },
+        {
+          "type": 1,
+          "components": [
+            {
+              "type": 2,
+              "custom_id": "pet_coyote",
+              "label": "Pet it!",
+              "style": 1
+            },
+            {
+              "type": 2,
+              "custom_id": "feed_coyote",
+              "label": "Attempt to feed it",
+              "style": 2
+            },
+            {
+              "type": 2,
+              "custom_id": "run_away",
+              "label": "Run away!",
+              "style": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.png)
