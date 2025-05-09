@@ -66,10 +66,6 @@ All components have the following fields:
 
 The `id` field is optional and is used to identify components in the response from an interaction that aren't interactive components. The `id` must be unique within the message and is generated sequentially if left empty. Generation of `id`s won't use another `id` that exists in the message if you have one defined for another component.
 
-::: info
-Messages preceding components V2 will contain an `id` of `0`, sending `0` is allowed but will be incremented to `1` then follow the numbering rule mentioned above.
-:::
-
 ###### Custom ID
 
 Additionally, interactive components like buttons and selects must have a `custom_id` field. The developer defines this field when sending the component payload, and it is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
@@ -1175,6 +1171,8 @@ To upload a file with your message, you'll need to send your payload as `multipa
 ## Legacy Message Component Behavior
 
 Before the introduction of the `IS_COMPONENTS_V2` flag ([see changelog](/docs/change-log/2025-04-22-components-v2)), message components were sent in conjunction with message content. This means that you could send a message using a subset of the available components without setting the `IS_COMPONENTS_V2` flag, and the components would be included in the message content along with `content` and `embeds`.
+
+Messages preceding components V2 will contain an `id` of `0`, sending back `0` is allowed but will be incremented to 1, then generated sequentially while avoiding duplicates.
 
 Apps using this Legacy Message Component behavior will continue to work as expected, but it is recommended to use the new `IS_COMPONENTS_V2` flag for new apps or features as they offer more options for layout and customization.
 
