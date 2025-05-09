@@ -208,6 +208,7 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | id             | snowflake                                                                    | role id                                                                                                                         |
 | name           | string                                                                       | role name                                                                                                                       |
 | color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
+| colors         | [role colors](/docs/topics/permissions#role-colors-structure) object         | the role colors                                                                                                                 |
 | hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
 | icon?          | ?string                                                                      | role [icon hash](/docs/reference#image-formatting)                                                                              |
 | unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
@@ -233,6 +234,26 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 | available_for_purchase?  | null      | whether this role is available for purchase        |
 | guild_connections?       | null      | whether this role is a guild's linked role         |
 
+###### Role Colors Structure
+
+This object will always be filled with `primary_color` being the role's `color`. The other fields cannot be filled if the guild does not have the gradient colors feature.
+
+| Field            | Type     | Description                                                                                  |
+|------------------|----------|----------------------------------------------------------------------------------------------|
+| primary_color    | integer  | the role primary color, this is always the same as the role's `color`                        |
+| secondary_color  | ?integer | the role secondary color, this will make the role gradient between the other provided colors |
+| tertiary_color   | ?integer | the role tertiary color, this will make the role gradient between the other provided colors  |
+
+###### Default Role Colors Object
+
+```json
+"colors": {
+  "primary_color": 0,
+  "secondary_color": null,
+  "tertiary_color": null
+}
+```
+
 ###### Example Role
 
 ```json
@@ -240,6 +261,11 @@ Tags with type `null` represent booleans. They will be present and set to `null`
   "id": "41771983423143936",
   "name": "WE DEM BOYZZ!!!!!!",
   "color": 3447003,
+  "colors": {
+    "primary_color": 3447003,
+    "secondary_color": null,
+    "tertiary_color": null
+  },
   "hoist": true,
   "icon": "cf3ced8600b777c9486c6d8d84fb4327",
   "unicode_emoji": null,
