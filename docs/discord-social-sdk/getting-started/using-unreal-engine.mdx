@@ -256,7 +256,7 @@ Add this code to the `Ready` section of `OnStatusChanged`:
 ```cpp
   if (Status == EDiscordClientStatus::Ready) {
     UE_LOG(LogTemplateCharacter, Log, TEXT("Connected to Discord! Ready to go! You can now start using Discord features."));
-    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), client->GetRelationships().Num());
+    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), Discord->Client->GetRelationships().Num());
   }
 ```
 
@@ -295,7 +295,7 @@ Add this code to the `Ready` section of `OnStatusChanged`:
 ```cpp
   if (Status == EDiscordClientStatus::Ready) {
     UE_LOG(LogTemplateCharacter, Log, TEXT("Connected to Discord! Ready to go! You can now start using Discord features."));
-    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), client->GetRelationships().Num());
+    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), Discord->Client->GetRelationships().Num());
 
     UE_LOG(LogTemplateCharacter, Log, TEXT("Connected to Discord! Ready to go! You can now start using Discord features."));
     UDiscordActivity* Activity = NewObject<UDiscordActivity>();
