@@ -1,0 +1,45 @@
+---
+sidebar_label: Social Settings
+---
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Design Guidelines](/docs/discord-social-sdk/design-guidelines) > Social Settings
+
+# Social Settings
+
+## Evolving with users
+
+Discord is listening to feedback and releasing settings for players to tailor their social experience to their needs. These settings will continue to change and evolve with the SDK and Discord client.
+
+Discord Social SDK settings are global, meaning they will impact all games that use the Discord Social SDK. These settings live in the Discord client.
+
+![Evolving with users](images/social-sdk/design-guidelines/SocialSettings-02.webp)
+
+## Main entrypoint
+
+An entrypoint is required in games to
+[send players to the relevant Discord client settings page](/docs/discord-social-sdk/development-guides/sending-direct-messages#ingame-direct-message-settings).
+Only players who have their Discord account connected should see this.
+
+Exactly like the auth flow, players will be redirected to the Discord client to manage their social settings. If they do not have the client, the browser will be the fallback.
+
+![Main entrypoint](images/social-sdk/design-guidelines/SocialSettings-03.webp)
+
+## Content guidelines
+
+The official settings title for players is "Discord Social Experience." Use this language when referring to Social SDK settings to players.
+
+The description is optional, but if your game settings has the space, we recommend describing what users should expect to find when they navigate to Discord.
+
+![Content guidelines](images/social-sdk/design-guidelines/SocialSettings-04.webp)
+
+---
+
+## Resources
+
+- [Development Guide: Direct Messages](/docs/discord-social-sdk/development-guides/sending-direct-messages)
+
+## Change Log
+
+| Date         | Changes         |
+|--------------|-----------------|
+| May 08, 2025 | initial release |
