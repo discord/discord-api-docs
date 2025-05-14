@@ -1,0 +1,151 @@
+---
+sidebar_label: Development Guides
+showTOC: true
+subpages:
+ - development-guides/local-development.mdx
+ - development-guides/user-actions.mdx
+ - development-guides/mobile.mdx
+ - development-guides/layout.mdx
+ - development-guides/networking.mdx
+ - development-guides/multiplayer-experience.mdx
+ - development-guides/growth-and-referrals.mdx
+ - development-guides/assets-and-metadata.mdx
+ - development-guides/production-readiness.mdx
+---
+
+[Home](/docs/intro) > [Activities](/docs/activities/overview) > Development Guides
+
+# Activity Development Guides
+
+These guides include suggested development practices, SDK commands, and user flows for you to consider while building your Activity. These will help to provide your users with a consistent and clear experience while interacting with your application.
+
+## Local Development
+<Container>
+  <Card title="Run Your Application Locally" link="/docs/activities/development-guides/local-development#run-your-application-locally">
+    Get up and running with a local development application.
+  </Card>
+  <Card title="Launch Your App from Discord" link="/docs/activities/development-guides/local-development#launch-your-application-from-the-discord-client">
+    How to launch your app on mobile and desktop Discord clients.
+  </Card>
+  <Card title="Setup URL Mapping" link="/docs/activities/development-guides/local-development#url-mapping">
+    Configure the Discord proxy to allow network requests to necessary external endpoints.
+  </Card>
+  <Card title="Logging" link="/docs/activities/development-guides/local-development#logging">
+    How to use the various levels of logging while building your application.
+  </Card>
+</Container>
+
+## User Actions
+<Container>
+  <Card title="Open External Link" link="/docs/activities/development-guides/user-actions#open-external-link">
+    Open an external link from within your app.
+  </Card>
+  <Card title="Open Invite Dialog" link="/docs/activities/development-guides/user-actions#open-invite-dialog">
+    Open the Application Channel Invite dialog within Discord.
+  </Card>
+  <Card title="Open Share Moment Dialog" link="/docs/activities/development-guides/user-actions#open-share-moment-dialog">
+    Open a dialog to share media from your application to a channel, DM, or GDM.
+  </Card>
+  <Card title="Setting Up an Entry Point Command" link="/docs/activities/development-guides/user-actions#setting-up-an-entry-point-command">
+    Configure a command that allows users to open your Activity from the App Launcher.
+  </Card>
+  <Card title="Encourage Hardware Acceleration" link="/docs/activities/development-guides/user-actions#encourage-hardware-acceleration">
+    Open a dialog to enable hardware acceleration for compute-intensive applications.
+  </Card>
+</Container>
+
+## Mobile
+<Container>
+  <Card title="Supporting Mobile Platforms" link="/docs/activities/development-guides/mobile#supported-platforms-web-ios-android">
+    Update your application settings to support iOS and Android.
+  </Card>
+  <Card title="Mobile Safe Areas" link="/docs/activities/development-guides/mobile#mobile-safe-areas">
+    Ensure that your app's assets fall within mobile-safe areas.
+  </Card>
+  <Card title="Mobile Thermal States" link="/docs/activities/development-guides/mobile#mobile-thermal-states">
+    Respond to thermal state changes surfaced from iOS and Android.
+  </Card>
+</Container>
+
+## Layout
+<Container>
+  <Card title="Application Orientation" link="/docs/activities/development-guides/layout#application-orientation">
+    Configure and subscribe to changes in application orientation.
+  </Card>
+  <Card title="Application Layout Mode" link="/docs/activities/development-guides/layout#application-layout-mode">
+    Subscribe to layout mode changes to update your application's user interface.
+  </Card>
+</Container>
+
+## Networking
+<Container>
+  <Card title="Activity Proxy Considerations" link="/docs/activities/development-guides/networking#activity-proxy-considerations">
+    Working with our Activity Proxy
+  </Card>
+  <Card title="Construct a Full URL" link="/docs/activities/development-guides/networking#construct-a-full-url">
+    Generate a full URL when working with network requests.
+  </Card>
+  <Card title="Using External Resources" link="/docs/activities/development-guides/networking#using-external-resources">
+    Allow network requests to external resources from inside the Discord proxy.
+  </Card>
+  <Card title="Security Considerations" link="/docs/activities/development-guides/networking#security-considerations">
+    Keep things safe and secure in your Activity.
+  </Card>
+</Container>
+
+## Multiplayer Experience
+<Container>
+  <Card title="Instance Management" link="/docs/activities/development-guides/multiplayer-experience#activity-instance-management">
+    Managing instances to ensure users join the same instance as their friends.
+  </Card>
+  <Card title="Instance Participants" link="/docs/activities/development-guides/multiplayer-experience#instance-participants">
+    Use the SDK to fetch the users currently connected to an instance.
+  </Card>
+  <Card title="Render Avatars and Names" link="/docs/activities/development-guides/multiplayer-experience#render-avatars-and-names">
+    Retrieve and render the usernames and avatars of users connected to your application.
+  </Card>
+  <Card title="Preventing Unwanted Activity Sessions" link="/docs/activities/development-guides/multiplayer-experience#preventing-unwanted-activity-sessions">
+    Validating activity sessions are via a Discord client before adding them to an instance's session.
+  </Card>
+</Container>
+
+## Growth and Referrals
+<Container>
+  <Card title="Prompting Users to Share Incentivized Links" link="/docs/activities/development-guides/growth-and-referrals#prompting-users-to-share-incentivized-links">
+    Encourage your users to share links to your activity by adding tracking and offering rewards for engagement.
+  </Card>
+
+  <Card title="Creating and Managing Custom Incentivized Links" link="/docs/activities/development-guides/growth-and-referrals#creating-and-managing-custom-incentivized-links">
+    For off-platform sharing of rewards, promotions, or limited time experiences.
+  </Card>
+
+  <Card title="Generating a Custom Link Within Your Activity" link="/docs/activities/development-guides/growth-and-referrals#generating-a-custom-link-within-your-activity">
+    An API to be able to generate ephemeral links with a customizable embed.
+  </Card>
+</Container>
+
+## Assets & Metadata
+<Container>
+  <Card title="Setting Up Activity Metadata" link="/docs/activities/development-guides/assets-and-metadata#setting-up-activity-metadata">
+    Best practices for configuring how your application shows up in Discord.
+  </Card>
+   <Card title="Setting Up Art Assets" link="/docs/activities/development-guides/assets-and-metadata#setting-up-activity-art-assets">
+    Best practices for configuring how your application shows up in Discord.
+  </Card>
+</Container>
+
+## Production Readiness
+<Container>
+  <Card title="Cache Busting" link="/docs/activities/development-guides/production-readiness#cache-busting">
+    Manage asset caching in your application and the Discord Activity proxy.
+  </Card>
+  <Card title="Handling Rate Limits" link="/docs/activities/development-guides/production-readiness#handling-rate-limits">
+    Stay within rate limits to keep the fun going in your Activity.
+  </Card>
+  <Card title="Static IP Addresses" link="/docs/activities/development-guides/production-readiness#static-ip-addresses">
+    Network routing considerations when preparing your Activity for production use.
+  </Card>
+  <Card title="Backward Compatibility" link="/docs/activities/development-guides/production-readiness#backward-compatibility">
+    Future-proof your application and support new commands as they become available in the SDK.
+  </Card>
+</Container>
