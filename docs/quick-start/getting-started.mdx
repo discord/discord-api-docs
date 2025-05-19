@@ -301,14 +301,20 @@ With the endpoint verified, navigate to your project's `app.js` file and find th
 ```javascript
 // "test" command
 if (name === 'test') {
-    // Send a message into the channel where command was triggered from
-    return res.send({
+  // Send a message into the channel where command was triggered from
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        // Fetches a random emoji to send from a helper function
-        content: 'hello world ' + getRandomEmoji(),
+      flags: InteractionResponseFlags.IS_COMPONENTS_V2,
+      components: [
+        {
+          type: MessageComponentTypes.TEXT_DISPLAY,
+          // Fetches a random emoji to send from a helper function
+          content: `hello world ${getRandomEmoji()}`
+        }
+      ]
     },
-    });
+  });
 }
 ```
 
@@ -345,39 +351,44 @@ To handle the `/challenge` command, add the following code after the `if name ==
 ```javascript
 // "challenge" command
 if (name === 'challenge' && id) {
-    // Interaction context
-    const context = req.body.context;
-    // User ID is in user field for (G)DMs, and member for servers
-    const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
-    // User's object choice
-    const objectName = req.body.data.options[0].value;
+  // Interaction context
+  const context = req.body.context;
+  // User ID is in user field for (G)DMs, and member for servers
+  const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
+  // User's object choice
+  const objectName = req.body.data.options[0].value;
 
-    // Create active game using message ID as the game ID
-    activeGames[id] = {
-        id: userId,
-        objectName,
-    };
+  // Create active game using message ID as the game ID
+  activeGames[id] = {
+    id: userId,
+    objectName,
+  };
 
-    return res.send({
+  return res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-        content: `Rock papers scissors challenge from <@${userId}>`,
-        components: [
+      flags: InteractionResponseFlags.IS_COMPONENTS_V2,
+      components: [
         {
-            type: MessageComponentTypes.ACTION_ROW,
-            components: [
-            {
-                type: MessageComponentTypes.BUTTON,
-                // Append the game ID to use later on
-                custom_id: `accept_button_${req.body.id}`,
-                label: 'Accept',
-                style: ButtonStyleTypes.PRIMARY,
-            },
-            ],
+          type: MessageComponentTypes.TEXT_DISPLAY,
+          // Fetches a random emoji to send from a helper function
+          content: `Rock papers scissors challenge from <@${userId}>`,
         },
-        ],
+        {
+          type: MessageComponentTypes.ACTION_ROW,
+          components: [
+            {
+              type: MessageComponentTypes.BUTTON,
+              // Append the game ID to use later on
+              custom_id: `accept_button_${req.body.id}`,
+              label: 'Accept',
+              style: ButtonStyleTypes.PRIMARY,
+            },
+          ],
+        },
+      ],
     },
-    });
+  });
 }
 ```
 
@@ -424,11 +435,13 @@ if (type === InteractionType.MESSAGE_COMPONENT) {
       await res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          // Fetches a random emoji to send from a helper function
-          content: 'What is your object of choice?',
           // Indicates it'll be an ephemeral message
-          flags: InteractionResponseFlags.EPHEMERAL,
+          flags: InteractionResponseFlags.EPHEMERAL | InteractionResponseFlags.IS_COMPONENTS_V2,
           components: [
+            {
+              type: MessageComponentTypes.TEXT_DISPLAY,
+              content: 'What is your object of choice?',
+            },
             {
               type: MessageComponentTypes.ACTION_ROW,
               components: [
@@ -472,8 +485,8 @@ Modify the code above to handle the select menu:
 
 ```javascript
 if (type === InteractionType.MESSAGE_COMPONENT) {
-// custom_id set in payload when sending message component
-const componentId = data.custom_id;
+  // custom_id set in payload when sending message component
+  const componentId = data.custom_id;
 
   if (componentId.startsWith('accept_button_')) {
     // get the associated game ID
@@ -484,10 +497,13 @@ const componentId = data.custom_id;
       await res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: 'What is your object of choice?',
           // Indicates it'll be an ephemeral message
-          flags: InteractionResponseFlags.EPHEMERAL,
+          flags: InteractionResponseFlags.EPHEMERAL | InteractionResponseFlags.IS_COMPONENTS_V2,
           components: [
+            {
+              type: MessageComponentTypes.TEXT_DISPLAY,
+              content: 'What is your object of choice?',
+            },
             {
               type: MessageComponentTypes.ACTION_ROW,
               components: [
@@ -517,10 +533,7 @@ const componentId = data.custom_id;
       // Get user ID and object choice for responding user
       // User ID is in user field for (G)DMs, and member for servers
       const userId = context === 0 ? req.body.member.user.id : req.body.user.id;
-
-      // User's object choice
       const objectName = data.values[0];
-
       // Calculate result from helper function
       const resultStr = getResult(activeGames[gameId], {
         id: userId,
@@ -536,21 +549,34 @@ const componentId = data.custom_id;
         // Send results
         await res.send({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: { content: resultStr },
+          data: {
+            flags: InteractionResponseFlags.IS_COMPONENTS_V2,
+            components: [
+              {
+                type: MessageComponentTypes.TEXT_DISPLAY,
+                content: resultStr
+              }
+            ]
+            },
         });
         // Update ephemeral message
         await DiscordRequest(endpoint, {
           method: 'PATCH',
           body: {
-            content: 'Nice choice ' + getRandomEmoji(),
-            components: []
-          }
+            components: [
+              {
+                type: MessageComponentTypes.TEXT_DISPLAY,
+                content: 'Nice choice ' + getRandomEmoji()
+              }
+            ],
+          },
         });
       } catch (err) {
         console.error('Error sending message:', err);
       }
     }
   }
+
   return;
 }
 ```
