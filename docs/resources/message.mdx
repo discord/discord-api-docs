@@ -147,7 +147,9 @@ Type `19` and `20` are only available in API v8 and above. In v6, they are repre
 | SUPPRESS_NOTIFICATIONS                 | `1 << 12` | this message will not trigger push and desktop notifications                      |
 | IS_VOICE_MESSAGE                       | `1 << 13` | this message is a voice message                                                   |
 | HAS_SNAPSHOT                           | `1 << 14` | this message has a snapshot (via Message Forwarding)                              |
-| IS_COMPONENTS_V2                       | `1 << 15` | allows you to create fully [component](/docs/components/overview)-driven messages |
+| IS_COMPONENTS_V2 \*                    | `1 << 15` | allows you to create fully [component](/docs/components/overview)-driven messages |
+
+\* Once a message has been sent with this flag, it can't be removed from that message.
 
 ###### Example Message
 
