@@ -241,7 +241,7 @@ Discord may strip certain characters from message content, like invalid unicode 
 
 \*\* See [Uploading Files](/docs/reference#uploading-files) for details.
 
-\*\*\* When the flag `IS_COMPONENTS_V2` is set, the webhook message can only contain `components`. Providing `content, `embeds`, `files[n]` or `poll` will fail with a 400 BAD REQUEST response.
+\*\*\* When the flag `IS_COMPONENTS_V2` is set, the webhook message can only contain `components`. Providing `content`, `embeds`, `files[n]` or `poll` will fail with a 400 BAD REQUEST response.
 
 :::info
 For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
