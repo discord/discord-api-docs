@@ -325,13 +325,14 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | PNG    | .png        |
 | WebP   | .webp       |
 | GIF    | .gif        |
+| AVIF   | .avif       |
 | Lottie | .json       |
 
 ###### CDN Endpoints
 
 | Type                        | Path                                                                                                                                                                                                                                                                                                                                                                          | Supports             |
 |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
-| Custom Emoji                | emojis/[emoji_id](/docs/resources/emoji#emoji-object).png                                                                                                                                                                                                                                                                                                                     | PNG, JPEG, WebP, GIF |
+| Custom Emoji                | emojis/[emoji_id](/docs/resources/emoji#emoji-object).png \*\*\*\*\*                                                                                                                                                                                                                                                                                                           | PNG, JPEG, WebP, GIF, AVIF |
 | Guild Icon                  | icons/[guild_id](/docs/resources/guild#guild-object)/[guild_icon](/docs/resources/guild#guild-object).png \*                                                                                                                                                                                                                                                                  | PNG, JPEG, WebP, GIF |
 | Guild Splash                | splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_splash](/docs/resources/guild#guild-object).png                                                                                                                                                                                                                                                                | PNG, JPEG, WebP      |
 | Guild Discovery Splash      | discovery-splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_discovery_splash](/docs/resources/guild#guild-object).png                                                                                                                                                                                                                                            | PNG, JPEG, WebP      |
@@ -360,6 +361,8 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](/docs/resources/sticker#sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+
+\*\*\*\*\* For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. WebP and AVIF formats must be requested as WebP since they don't convert well to other formats. The Discord client uses WebP for all emojis displayed in-app. See the [Emoji Resource](/docs/resources/emoji) page for more details.
 
 :::info
 Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
