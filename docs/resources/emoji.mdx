@@ -30,6 +30,12 @@ An emoji cannot have both subscription roles and non-subscription roles.
 Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.  
 Emojis cannot be converted between normal and premium after creation.
 
+###### Emoji Formats
+
+Emoji can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. All emoji (regardless of original format) can be served as WebP. We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. The Discord client uses WebP for all emoji displayed in-app.
+
+Still WebP emoji can be requested using the `.webp` file extension. For animated WebP emoji, use the `.webp` extension with the `?animated=true` query parameter.
+
 ###### Application-Owned Emoji
 
 An application can own up to 2000 emojis that can only be used by that app.
@@ -108,6 +114,10 @@ Create a new emoji for the guild. Requires the `CREATE_GUILD_EXPRESSIONS` permis
 
 :::warn
 Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+:::
+
+:::info
+We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](/docs/resources/emoji#emoji-object-emoji-formats) section above for more details.
 :::
 
 :::info
@@ -190,6 +200,10 @@ Create a new emoji for the application. Returns the new [emoji](/docs/resources/
 
 :::warn
 Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/docs/topics/opcodes-and-status-codes#json).
+:::
+
+:::info
+We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](/docs/resources/emoji#emoji-object-emoji-formats) section above for more details.
 :::
 
 ###### JSON Params
