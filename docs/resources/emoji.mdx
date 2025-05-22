@@ -32,9 +32,9 @@ Emojis cannot be converted between normal and premium after creation.
 
 ###### Emoji Formats
 
-Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. All emojis (regardless of original format) can be served as WebP. We highly recommend that developers request emojis as WebP for maximum performance and compatibility. The Discord client uses WebP for all emojis displayed in-app.
+Emoji can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. All emoji (regardless of original format) can be served as WebP. We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. The Discord client uses WebP for all emoji displayed in-app.
 
-Still WebP emojis can be requested using the `.webp` file extension. For animated WebP emojis, use the `.webp` extension with the `?animated=true` query parameter.
+Still WebP emoji can be requested using the `.webp` file extension. For animated WebP emoji, use the `.webp` extension with the `?animated=true` query parameter.
 
 ###### Application-Owned Emoji
 
@@ -117,7 +117,7 @@ Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to up
 :::
 
 :::info
-We highly recommend requesting emojis as WebP for maximum performance and compatibility. See the Emoji Formats section above for more details.
+We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](#emoji-object-emoji-formats) section above for more details.
 :::
 
 :::info
@@ -203,7 +203,7 @@ Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to up
 :::
 
 :::info
-We highly recommend requesting emojis as WebP for maximum performance and compatibility. See the [Emoji Formats](#emoji-object-emoji-formats) section above for more details.
+We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](#emoji-object-emoji-formats) section above for more details.
 :::
 
 ###### JSON Params
