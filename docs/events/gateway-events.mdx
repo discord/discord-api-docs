@@ -428,6 +428,10 @@ The resumed event is dispatched when a client has sent a [resume payload](/docs/
 
 The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This can occur at any point in the gateway connection lifecycle, even before/in place of receiving a [Hello](/docs/events/gateway-events#hello) event. A few seconds after the reconnect event is dispatched, the connection may be closed by the server.
 
+:::warn
+If you plan on resuming your session, remember that closing your websocket connection with a `1000` or `1001` close code will invalidate your current session. Instead, you should use a different close code such as 1005 (Empty) or close the underlying TCP connection directly. Please see the sections on [disconnecting](/docs/events/gateway#disconnecting) and [resuming](/docs/events/gateway-events#resume) for further information.
+:::
+
 ###### Example Gateway Reconnect
 
 ```json
