@@ -4,15 +4,15 @@ sidebar_label: Integrating Moderation
 import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
-{/*
-Script for converting mermaid sequence diagrams to SVG.
-
-# docker run --rm -u `id -u`:`id -g` -v "$(pwd):/data" minlag/mermaid-cli -i "/data/$file" -o "/data/$filename.svg" -t dark -b transparent
-*/}
-
 [Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # Moderation with the Discord Social SDK
+
+{/*
+Script for converting mermaid sequence diagrams to SVG.
+
+# docker run --rm -u `id -u`:`id -g` -v "$(pwd):/data" minlag/mermaid-cli -i "/data/$file" -o "/data/$filename.svg" -t dark -b '#313338'
+*/}
 
 This guide will walk you through integrating and managing content moderation for your game when using the Discord Social SDK.
 
@@ -264,7 +264,9 @@ At this time, there is no API to look up if a player's Discord account has been 
 
 If you wish to tie your in-game moderation policies to a specific Discord server that you own, such as your official community server, you are able to retrieve ban information for your Discord Server via our REST APIs.
 
-See the references for the REST endpoints[`{guild.id}/guilds/{guild.id}/bans`](/docs/resources/guild#guild-object) or [`/guilds/{guild.id}/bans/{user.id}`](https://www.notion.so/Text-and-Voice-Moderation-1d0f46fd48aa80eda914cd3134d65afb?pvs=21) for more information on retrieving all bans for your guild, or ban information for a specific user within your guild.
+See the references for the REST endpoints[`{guild.id}/guilds/{guild.id}/bans`](/docs/resources/guild#get-guild-bans)
+or [`/guilds/{guild.id}/bans/{user.id}`](/docs/resources/guild#get-guild-ban)
+for more information on retrieving all bans for your guild, or ban information for a specific user within your guild.
 
 ## Voice Chat Moderation
 
