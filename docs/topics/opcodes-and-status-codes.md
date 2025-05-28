@@ -88,10 +88,13 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
 | 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
 | 4012 | Unknown protocol         | We didn't recognize the [protocol](/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
+| 4014 | Disconnected             | Disconnect indiviual client (you were kicked, the main gateway session was dropped, etc.). Should not reconnect.                                 |
 | 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](/docs/topics/voice-connections#resuming-voice-connection).                                           |
 | 4016 | Unknown encryption mode  | We didn't recognize your [encryption](/docs/topics/voice-connections#transport-encryption-and-sending-voice).                                    |
 | 4020 | Bad request              | You sent a malformed request                                                                                                                     |
+| 4021 | Disconnected             | Disconnect due to rate limit exceeded. Should not reconnect.                                                                                     |
+| 4022 | Disconnected             | Disconnect all clients (channel deleted, voice server changed, etc,). Should not reconnect.                                                      |
+
 
 ## HTTP
 
