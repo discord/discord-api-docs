@@ -93,7 +93,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4016 | Unknown encryption mode  | We didn't recognize your [encryption](/docs/topics/voice-connections#transport-encryption-and-sending-voice).                                    |
 | 4020 | Bad request              | You sent a malformed request                                                                                                                     |
 | 4021 | Disconnected             | Disconnect due to rate limit exceeded. Should not reconnect.                                                                                     |
-| 4022 | Disconnected             | Disconnect all clients (channel deleted, voice server changed, etc,). Should not reconnect.                                                      |
+| 4022 | Disconnected             | Disconnect all clients (channel deleted, voice server changed, etc.). Should not reconnect.                                                      |
 
 
 ## HTTP
