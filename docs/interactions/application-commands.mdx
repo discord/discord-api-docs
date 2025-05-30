@@ -291,8 +291,6 @@ The interaction contexts for a command determines where in the Discord client it
 
 There are three [interaction context types](/docs/interactions/receiving-and-responding#interaction-object-interaction-context-types) that correspond to different surfaces: `GUILD` (`0`), `BOT_DM` (`1`), and `PRIVATE_CHANNEL` (`2`). However, the `PRIVATE_CHANNEL` interaction context is only meaningful for commands installed to a user (when the command's `integration_types` includes `USER_INSTALL`).
 
-By default, `contexts` includes all interaction context types.
-
 ## Permissions
 
 Application command permissions allow your app to enable or disable commands for up to 100 users, roles, and channels within a guild. Command permissions can also be updated by users in the client if they have the necessary permissions.
