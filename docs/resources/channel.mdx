@@ -510,33 +510,6 @@ Post a typing indicator for the specified channel, which expires after 10 second
 
 Generally bots should **not** use this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
 
-## Get Pinned Messages
-<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins</Route>
-
-Returns all pinned messages in the channel as an array of [message](/docs/resources/message#message-object) objects.
-
-## Pin Message
-<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
-
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
-
-:::warn
-The max pinned messages is 50.
-:::
-
-:::info
-This endpoint supports the `X-Audit-Log-Reason` header.
-:::
-
-## Unpin Message
-<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
-
-Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
-
-:::info
-This endpoint supports the `X-Audit-Log-Reason` header.
-:::
-
 ## Group DM Add Recipient
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/recipients/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
