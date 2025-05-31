@@ -965,7 +965,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Get Channel Pins
 <Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins</Route>
 
-Retrieves a list of pins in a channel. Returns an array of [message pin](/docs/resources/message#message-pin-object)s.
+Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission. If the user is missing the `READ_MESSAGE_HISTORY` permission in the channel, then no pins will be returned.
 
 ###### Query String Params
 
@@ -974,10 +974,17 @@ Retrieves a list of pins in a channel. Returns an array of [message pin](/docs/r
 | before? | ISO8601 timestamp | Get messages pinned before this timestamp | absent  |
 | limit?  | integer           | Max number of pins to return (1-50)       | 50      |
 
+###### Response Structure
+
+| Field    | Type                                                                       |
+| -------- | -------------------------------------------------------------------------- |
+| items    | array of [message pin](/docs/resources/message#message-pin-object) objects |
+| has_more | boolean                                                                    |
+
 ## Pin Message
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
