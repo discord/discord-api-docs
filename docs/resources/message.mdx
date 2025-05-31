@@ -742,7 +742,7 @@ user 125 in the content.
 ###### Message Pin Object Struture
 
 | Field     | Type                                                     | Description                     |
-| --------- | -------------------------------------------------------- | ------------------------------- |
+|-----------|----------------------------------------------------------|---------------------------------|
 | pinned_at | ISO8601 timestamp                                        | the time the message was pinned |
 | message   | [message](/docs/resources/message#message-object) object | the pinned message              |
 
@@ -970,14 +970,14 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 ###### Query String Params
 
 | Field   | Type              | Description                               | Default |
-| ------- | ----------------- | ----------------------------------------- | ------- |
+|---------|-------------------|-------------------------------------------|---------|
 | before? | ISO8601 timestamp | Get messages pinned before this timestamp | absent  |
 | limit?  | integer           | Max number of pins to return (1-50)       | 50      |
 
 ###### Response Structure
 
 | Field    | Type                                                                       |
-| -------- | -------------------------------------------------------------------------- |
+|----------|----------------------------------------------------------------------------|
 | items    | array of [message pin](/docs/resources/message#message-pin-object) objects |
 | has_more | boolean                                                                    |
 
