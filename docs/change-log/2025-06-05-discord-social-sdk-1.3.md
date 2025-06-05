@@ -17,7 +17,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 - [`Client::SetSpeakerMode`] is now deprecated. Unless [`Client::SetEngineManagedAudioSession`] is used, audio routing will be handled automatically by the SDK
 
 #### Android
-- Fixed routing of game and voice audio when external audio devices are connected and/or disconnected. [`Client:SetEngineManagedAudioSession`] has been added to communicate that the SDK should not manage audio routing and automatically enter and leave `MODE_IN_COMMUNICATION` when joining and leaving calls.
+- Fixed routing of game and voice audio when external audio devices are connected and/or disconnected. [`Client::SetEngineManagedAudioSession`] has been added to communicate that the SDK should not manage audio routing and automatically enter and leave `MODE_IN_COMMUNICATION` when joining and leaving calls.
 - Fixed an issue with the Authorize method when a device configuration change needs to restart the activity
 
 #### iOS
