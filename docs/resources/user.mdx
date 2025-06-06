@@ -107,10 +107,11 @@ The data for the user's [avatar decoration](https://support.discord.com/hc/en-us
 
 ###### Avatar Decoration Data Structure
 
-| Field  | Type      | Description                                                    |
-|--------|-----------|----------------------------------------------------------------|
-| asset  | string    | the [avatar decoration hash](/docs/reference#image-formatting) |
-| sku_id | snowflake | id of the avatar decoration's SKU                              |
+| Field      | Type      | Description                                                    |
+|------------|-----------|----------------------------------------------------------------|
+| asset      | string    | the [avatar decoration hash](/docs/reference#image-formatting) |
+| expires_at | ?integer  | Unix time (in seconds) of when the avatar decoration expires   |
+| sku_id     | snowflake | id of the avatar decoration's SKU                              |
 
 ### Connection Object
 
