@@ -132,11 +132,12 @@ The table below includes the different webhook event types your app can subscrib
 
 The "Value" column corresponds to the event's `type` field value in the [event body object](/docs/events/webhook-events#event-body-object).
 
-| Name                                                                         | Value                    | Description                                                            |
-|------------------------------------------------------------------------------|--------------------------|------------------------------------------------------------------------|
-| [Application Authorized](/docs/events/webhook-events#application-authorized) | `APPLICATION_AUTHORIZED` | Sent when an app was authorized by a user to a server or their account |
-| [Entitlement Create](/docs/events/webhook-events#entitlement-create)         | `ENTITLEMENT_CREATE`     | Entitlement was created                                                |
-| [Quest User Enrollment](/docs/events/webhook-events#quest-user-enrollment)   | `QUEST_USER_ENROLLMENT`  | User was added to a Quest (currently unavailable)                      |
+| Name                                                                             | Value                      | Description                                                            |
+|----------------------------------------------------------------------------------|----------------------------|------------------------------------------------------------------------|
+| [Application Authorized](/docs/events/webhook-events#application-authorized)     | `APPLICATION_AUTHORIZED`   | Sent when an app was authorized by a user to a server or their account |
+| [Application Deauthorized](/docs/events/webhook-events#application-deauthorized) | `APPLICATION_DEAUTHORIZED` | Sent when an app was deauthorized by a user                            |
+| [Entitlement Create](/docs/events/webhook-events#entitlement-create)             | `ENTITLEMENT_CREATE`       | Entitlement was created                                                |
+| [Quest User Enrollment](/docs/events/webhook-events#quest-user-enrollment)       | `QUEST_USER_ENROLLMENT`    | User was added to a Quest (currently unavailable)                      |
 
 #### Application Authorized
 
@@ -167,6 +168,35 @@ The "Value" column corresponds to the event's `type` field value in the [event b
       "scopes": [
         "applications.commands"
       ],
+      "user": {
+        // user data
+      }
+    }
+  }
+}
+```
+
+#### Application Deauthorized
+
+`APPLICATION_DEAUTHORIZED` is sent when the app is deauthorized by a user.
+
+###### Application Deauthorized Structure
+
+| Field | Type                                                           | Description                   |
+|-------|----------------------------------------------------------------|-------------------------------|
+| user  | [user object](/docs/resources/user#user-object-user-structure) | User who deauthorized the app |
+
+###### Application Deauthorized Example
+
+```json
+{
+  "version": 1,
+  "application_id": "1234560123453231555",
+  "type": 1,
+  "event": {
+    "type": "APPLICATION_DEAUTHORIZED",
+    "timestamp": "2024-10-18T14:42:53.064834",
+    "data": {
       "user": {
         // user data
       }
