@@ -1193,13 +1193,16 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ## Unfurled Media Item Structure
 
-| Field         | Type     | Description                                                                                                                                      |
-|---------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| url           | string   | Supports arbitrary urls and `attachment://<filename>` references                                                                                 |
-| proxy_url?    | string   | The proxied url of the media item. This field is ignored and provided by the API as part of the response                                         |
-| height?       | ?integer | The height of the media item. This field is ignored and provided by the API as part of the response                                              |
-| width?        | ?integer | The width of the media item. This field is ignored and provided by the API as part of the response                                               |
-| content_type? | string   | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content. This field is ignored and provided by the API as part of the response |
+| Field            | Type      | Description                                                                                                                                      |
+|------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| url              | string    | Supports arbitrary urls and `attachment://<filename>` references                                                                                 |
+| proxy_url?       | string    | The proxied url of the media item. This field is ignored and provided by the API as part of the response                                         |
+| height?          | ?integer  | The height of the media item. This field is ignored and provided by the API as part of the response                                              |
+| width?           | ?integer  | The width of the media item. This field is ignored and provided by the API as part of the response                                               |
+| content_type?    | string    | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content. This field is ignored and provided by the API as part of the response |
+| attachment_id?\* | snowflake | The id of the uploaded attachment. This field is ignored and provided by the API as part of the response                                         |
+
+\* Only present if the media item was uploaded as an attachment.
 
 ### Uploading a file
 
