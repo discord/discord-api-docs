@@ -19,8 +19,9 @@ This guide will walk you through integrating the Discord Social SDK into an Unre
 - Start the SDK and establish a connection
 - Request the number of Discord friends the player has
 
-> info
-> For the initial launch, the Unreal plugin has a name of `DiscordPartnerSDK` but this name will be changing to `DiscordSocialSDK` in a future version
+:::info
+For the initial launch, the Unreal plugin has a name of `DiscordPartnerSDK` but this name will be changing to `DiscordSocialSDK` in a future version
+:::
 
 ### Prerequisites
 
@@ -43,8 +44,9 @@ Let's walk through the steps in detail.
 1. Click on the `Downloads` link under the Discord Social SDK section of the sidebar.
 2. Select the latest version from the version dropdown and download the SDK for Unreal Engine.
 
-> info
-> A Unreal Engine sample project is available for download on this page, but we are not going to cover it in this guide. Explore it on your own after you finish this guide!
+:::info
+A Unreal Engine sample project is available for download on this page, but we are not going to cover it in this guide. Explore it on your own after you finish this guide!
+:::
 
 ---
 
@@ -54,8 +56,9 @@ Let's walk through the steps in detail.
 
 Select Third Person Unreal project (C++ language). We'll set the project name to `DiscordSocialUnreal`.
 
-> info
-> The code samples below assume the project name is `DiscordSocialUnreal`. If you use a different name, make sure to replace it in the code.
+:::info
+The code samples below assume the project name is `DiscordSocialUnreal`. If you use a different name, make sure to replace it in the code.
+:::
 
 Wait for the shaders to compile. This can take a while.
 
@@ -67,8 +70,9 @@ Create a new directory named `Plugins` in the base of your project directory (`D
 
 Extract the Discord SDK archive in the Plugins directory. You should end up with a directory called `DiscordPartnerSDK` inside of Plugins `DiscordSocialUnreal/Plugins/DiscordPartnerSDK`.
 
-> info
-> Double check the name of the `DiscordPartnerSDK` folder once you've extracted it. It may change between versions and you'll need to add the correct name in the code below.
+:::info
+Double check the name of the `DiscordPartnerSDK` folder once you've extracted it. It may change between versions and you'll need to add the correct name in the code below.
+:::
 
 Reload Unreal Editor and open the project. It should ask if you'd like to recompile the `DiscordPartnerSDK` plugin on launch.
 
@@ -228,8 +232,9 @@ If Discord is open on your computer, you should see a prompt to authorize the co
 
 If the connection is successful, you should see a message in the Unreal Editor console that says, "Connected to Discord! Ready to go! You can now start using Discord features."
 
-> info
-> Most Discord features won't work until the status is `Ready`. The status callback lets you know when you can start using them.
+:::info
+Most Discord features won't work until the status is `Ready`. The status callback lets you know when you can start using them.
+:::
 
 ### Troubleshooting
 
@@ -251,7 +256,7 @@ Add this code to the `Ready` section of `OnStatusChanged`:
 ```cpp
   if (Status == EDiscordClientStatus::Ready) {
     UE_LOG(LogTemplateCharacter, Log, TEXT("Connected to Discord! Ready to go! You can now start using Discord features."));
-    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), client->GetRelationships().Num());
+    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), Discord->Client->GetRelationships().Num());
   }
 ```
 
@@ -290,7 +295,7 @@ Add this code to the `Ready` section of `OnStatusChanged`:
 ```cpp
   if (Status == EDiscordClientStatus::Ready) {
     UE_LOG(LogTemplateCharacter, Log, TEXT("Connected to Discord! Ready to go! You can now start using Discord features."));
-    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), client->GetRelationships().Num());
+    UE_LOG(LogTemplateCharacter, Log, TEXT("👥 Friends Count: %d"), Discord->Client->GetRelationships().Num());
 
     UE_LOG(LogTemplateCharacter, Log, TEXT("Connected to Discord! Ready to go! You can now start using Discord features."));
     UDiscordActivity* Activity = NewObject<UDiscordActivity>();

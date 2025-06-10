@@ -77,21 +77,24 @@ Our voice gateways have their own set of opcodes and close codes.
 
 ###### Voice Close Event Codes
 
-| Code | Description              | Explanation                                                                                                                                      |
-|------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode           | You sent an invalid [opcode](/docs/topics/opcodes-and-status-codes#voice-voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent an invalid payload in your [identifying](/docs/events/gateway-events#identify) to the Gateway.                                          |
-| 4003 | Not authenticated        | You sent a payload before [identifying](/docs/events/gateway-events#identify) with the Gateway.                                                  |
-| 4004 | Authentication failed    | The token you sent in your [identify](/docs/events/gateway-events#identify) payload is incorrect.                                                |
-| 4005 | Already authenticated    | You sent more than one [identify](/docs/events/gateway-events#identify) payload. Stahp.                                                          |
-| 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                 |
-| 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
-| 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
-| 4012 | Unknown protocol         | We didn't recognize the [protocol](/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
-| 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](/docs/topics/voice-connections#resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](/docs/topics/voice-connections#transport-encryption-and-sending-voice).                                    |
-| 4020 | Bad request              | You sent a malformed request                                                                                                                     |
+| Code | Description                   | Explanation                                                                                                                                      |
+|------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| 4001 | Unknown opcode                | You sent an invalid [opcode](/docs/topics/opcodes-and-status-codes#voice-voice-opcodes).                                                         |
+| 4002 | Failed to decode payload      | You sent an invalid payload in your [identifying](/docs/events/gateway-events#identify) to the Gateway.                                          |
+| 4003 | Not authenticated             | You sent a payload before [identifying](/docs/events/gateway-events#identify) with the Gateway.                                                  |
+| 4004 | Authentication failed         | The token you sent in your [identify](/docs/events/gateway-events#identify) payload is incorrect.                                                |
+| 4005 | Already authenticated         | You sent more than one [identify](/docs/events/gateway-events#identify) payload. Stahp.                                                          |
+| 4006 | Session no longer valid       | Your session is no longer valid.                                                                                                                 |
+| 4009 | Session timeout               | Your session has timed out.                                                                                                                      |
+| 4011 | Server not found              | We can't find the server you're trying to connect to.                                                                                            |
+| 4012 | Unknown protocol              | We didn't recognize the [protocol](/docs/topics/voice-connections#establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4014 | Disconnected                  | Disconnect individual client (you were kicked, the main gateway session was dropped, etc.). Should not reconnect.                                |
+| 4015 | Voice server crashed          | The server crashed. Our bad! Try [resuming](/docs/topics/voice-connections#resuming-voice-connection).                                           |
+| 4016 | Unknown encryption mode       | We didn't recognize your [encryption](/docs/topics/voice-connections#transport-encryption-and-sending-voice).                                    |
+| 4020 | Bad request                   | You sent a malformed request                                                                                                                     |
+| 4021 | Disconnected: Rate Limited    | Disconnect due to rate limit exceeded. Should not reconnect.                                                                                     |
+| 4022 | Disconnected: Call Terminated | Disconnect all clients due to call terminated (channel deleted, voice server changed, etc.). Should not reconnect.                               |
+
 
 ## HTTP
 
@@ -357,7 +360,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ## RPC
 
-RPC is the [local Discord server](/docs/topics/rpc#) running on localhost. Access to the RPC server requires approval from Discord.
+RPC is the [local Discord server](/docs/topics/rpc) running on localhost. Access to the RPC server requires approval from Discord.
 
 ###### RPC Error Codes
 

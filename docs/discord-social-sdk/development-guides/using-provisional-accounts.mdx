@@ -78,6 +78,7 @@ We currently support the following provider types:
 - OpenID Connect (OIDC)
 - Steam Session Tickets
 - Epic Online Services (EOS)
+- Unity
 
 ---
 
@@ -121,8 +122,9 @@ The callback function will be invoked with an access token that expires in 1 hou
 
 You can use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or expires.
 
-> info
-> When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to UpdateToken without interrupting the user's experience.
+:::info
+When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to UpdateToken without interrupting the user's experience.
+:::
 
 #### Provisional Account Access Token Storage
 

@@ -61,8 +61,9 @@ To utilize the Discord Social SDK with C++, the following requirements must be m
 
 All of which can be found in the SDK download archive.
 
-> info
-> 💡 **Troubleshooting Tip:** If you encounter unresolved external symbols, ensure the SDK library is correctly linked in your build system.
+:::info
+💡 **Troubleshooting Tip:** If you encounter unresolved external symbols, ensure the SDK library is correctly linked in your build system.
+:::
 
 Let's see this in action by starting with a folder for our project and the Social SDK dependency:
 
@@ -285,18 +286,18 @@ int main() {
 ```
 </Collapsible>
 
-> info
-> Most Discord features won't work until the status is [`Client::Status::Ready`]. The status callback lets you know
-> exactly when you can start using them.
+:::info
+Most Discord features won't work until the status is [`Client::Status::Ready`]. The status callback lets you know exactly when you can start using them.
+:::
 
 ### What These Callbacks Do
 
 - The **logging callback** shows you what's happening behind the scenes
 - The **status callback** tells you when you're connected and ready to use Discord features
 
-> info
-> At this point, these callbacks **won't get called** since the client setup is not yet complete. However, very soon we
-> will be using them to view debug information and see what our connection status is!
+:::info
+At this point, these callbacks **won't get called** since the client setup is not yet complete. However, very soon we will be using them to view debug information and see what our connection status is!
+:::
 
 To get to a [`Client::Status::Ready`] state, we need to authenticate with Discord. We'll do that shortly.
 
@@ -370,8 +371,9 @@ client->Authorize(args, [client, codeVerifier](auto result, auto code, auto redi
 3. Start the auth flow with [`Client::Authorize`], which opens a browser
 4. When authorized, we exchange the code for an access token
 
-> warn
-> Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+:::warn
+Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+:::
 
 ### Testing It Out
 
@@ -498,8 +500,9 @@ client->UpdateToken(discordpp::AuthorizationTokenType::Bearer,  accessToken, [cl
 3. The SDK will begin connecting asynchronously
 4. Our status callback (from Step 6) will tell us when we're ready
 
-> info
-> Watch your console output! You should see status updates as the connection is established.
+:::info
+Watch your console output! You should see status updates as the connection is established.
+:::
 
 ### Testing the Connection
 
@@ -640,8 +643,9 @@ std::cout << "👥 Friends Count: " << client->GetRelationships().size() << std:
 1. Run your program
 2. Wait for the initial friend count
 
-> info
-> This relationship data forms the foundation for features like friend lists, activity feeds, and multiplayer invites!
+:::info
+This relationship data forms the foundation for features like friend lists, activity feeds, and multiplayer invites!
+:::
 
 ### Troubleshooting
 

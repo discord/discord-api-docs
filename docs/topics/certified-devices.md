@@ -48,8 +48,9 @@ Each time you update, send a full array of `devices`, sorted by your preferred p
 
 For each device in the `SET_CERTIFIED_DEVICES` payload, there is an `id` field. This `id` should be the Windows device's UUID, retrieved through the native Windows API. You'll get back something that looks like `{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}`.
 
-> info
-> On macOS, the `id` will be the name of the device.
+:::info
+On macOS, the `id` will be the name of the device.
+:::
 
 ###### Microphone Id Example
 

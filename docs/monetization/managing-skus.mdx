@@ -34,8 +34,9 @@ There are some limitations to the number of SKUs you can create:
 - You can offer either user subscription SKUs or guild subscription SKUs, but not both simultaneously.
 - SKU prices must be selected from the list of available prices.
 
-> info 
-> If you need more SKUs than the 50 limit, consider creating a consumable in-app currency SKU that can be used to purchase items that are tracked in your app.
+:::info
+If you need more SKUs than the 50 limit, consider creating a consumable in-app currency SKU that can be used to purchase items that are tracked in your app.
+:::
 
 ---
 
@@ -65,10 +66,13 @@ Subscription SKUs are automatically charged each month unless canceled. Changing
 <Collapsible title="Using Unicode Emoji" icon="view">
 To set an icon using a standard Unicode emoji, enter the emoji in the `Unicode Emoji or Custom Emoji Name` field.
 
-> info
-> Using an emoji keyboard can make it easier to pick an icon to display alongside your SKU benefit.  
-> MacOS: `control + command + space bar` 
-> Windows: `Windows + .`
+:::info
+Using an emoji keyboard can make it easier to pick an icon to display alongside your SKU benefit.
+
+MacOS: `control + command + space bar`
+
+Windows: `Windows + .`
+:::
 
 ![Set a unicode emoji](images/sku-unicode.png)
 </Collapsible>
@@ -79,8 +83,9 @@ To use a custom emoji, set a value for both fields:
 - Name of your custom emoji
 - ID of the custom emoji
 
-> info
-> You can find the ID of the emoji in the Discord app by escaping the emoji in a message with a backslash character `\`. For example, `\:uwu:` will render with the name and ID of the emoji.
+:::info
+You can find the ID of the emoji in the Discord app by escaping the emoji in a message with a backslash character `\`. For example, `\:uwu:` will render with the name and ID of the emoji.
+:::
 
 ![Set a custom emoji](images/sku-custom.png)
 </Collapsible>
@@ -111,8 +116,9 @@ You can only make API calls or use the Embedded App SDK to grant entitlements fo
 
 ### Unpublishing a SKU
 
-> warn
-> **Danger:** Unpublishing a SKU can affect your users' existing subscriptions and entitlements
+:::warn
+**Danger:** Unpublishing a SKU can affect your users' existing subscriptions and entitlements
+:::
 
 Unpublishing a SKU removes it from the Store and the API, making it unavailable for purchase.
 
@@ -124,8 +130,9 @@ Unpublishing a SKU has the following effects:
 
 ### Deleting a SKU
 
-> warn
-> **Danger:** Deleting a SKU can affect your users' existing subscriptions and entitlements
+:::warn
+**Danger:** Deleting a SKU can affect your users' existing subscriptions and entitlements
+:::
 
 Deletes a SKU in the UI and makes it unavailable for publishing. Deleted SKUs are still listed when calling [List SKUs](/docs/resources/sku#list-skus) in the API. 
 
@@ -163,8 +170,9 @@ After you've published your SKUs, you are ready to start implementing your premi
 
 Users can access an app's Store page from the Bot User's profile in a server. This allows users to view an available subscription and one-time purchases, select a subscription to view its perks, benefits, and details, and make a purchase directly from an app's Store page.
 
-> info
-> Only subscriptions and items that have been published to the Store will be visible to users on the Store page.
+:::info
+Only subscriptions and items that have been published to the Store will be visible to users on the Store page.
+:::
 
 #### Accessing your Store page from a Bot User's Profile
 ![Accessing the store as a user](images/botuser-profile.png)
@@ -205,7 +213,7 @@ You can link directly to your Store page using our Application Directory Store U
 
 ## Responding with a Premium Button
 
-You can prompt users to purchase item or subscription SKUs using a [button](/docs/interactions/message-components#buttons) with a [premium style](/docs/interactions/message-components#button-object-button-styles) and a `sku_id`. You can use this premium button style anywhere you would use message components, such as in a command response.
+You can prompt users to purchase item or subscription SKUs using a [button](/docs/components/reference#button) with a [premium style](/docs/components/reference#button-button-styles) and a `sku_id`. You can use this premium button style anywhere you would use message components, such as in a command response.
 
 ```javascript
 return new JsonResponse({

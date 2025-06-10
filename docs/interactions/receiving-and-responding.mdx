@@ -10,7 +10,7 @@ For [Slash Commands](/docs/interactions/application-commands#slash-commands), it
 
 For [User Commands](/docs/interactions/application-commands#user-commands) and [Message Commands](/docs/interactions/application-commands#message-commands), it includes the resolved user or message on which the action was taken.
 
-For [Message Components](/docs/interactions/message-components#) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel`, `member` and other fields. You can find all the values in our data models below.
+For [Message Components](/docs/components/reference) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel`, `member` and other fields. You can find all the values in our data models below.
 
 ### Interaction Object
 
@@ -30,7 +30,7 @@ For [Message Components](/docs/interactions/message-components#) it includes ide
 | user?                          | [user](/docs/resources/user#user-object) object                                                                                       | User object for the invoking user, if invoked in a DM                                                                                                                                                                                                                |
 | token                          | string                                                                                                                                | Continuation token for responding to the interaction                                                                                                                                                                                                                 |
 | version                        | integer                                                                                                                               | Read-only property, always `1`                                                                                                                                                                                                                                       |
-| message?                       | [message](/docs/resources/message#message-object) object                                                                              | For components, the message they were attached to                                                                                                                                                                                                                    |
+| message?                       | [message](/docs/resources/message#message-object) object                                                                              | For components or modals triggered by components, the message they were attached to                                                                                                                                                                                  |
 | app_permissions\*\*\*          | string                                                                                                                                | Bitwise set of permissions the app has in the source location of the interaction                                                                                                                                                                                     |
 | locale?\*\*\*\*                | string                                                                                                                                | Selected [language](/docs/reference#locales) of the invoking user                                                                                                                                                                                                    |
 | guild_locale?                  | string                                                                                                                                | [Guild's preferred locale](/docs/resources/guild#guild-object), if invoked in a guild                                                                                                                                                                                |
@@ -89,8 +89,9 @@ While the `data` field is guaranteed to be present for all [interaction types](/
 
 ###### Application Command Data Structure
 
-> info
-> Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
+:::info
+Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions.
+:::
 
 | Field      | Type                                                                                                                                                                         | Description                                                                                                                                                                          |
 |------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -106,26 +107,27 @@ While the `data` field is guaranteed to be present for all [interaction types](/
 
 ###### Message Component Data Structure
 
-| Field          | Type                                                                                                              | Description                                                                                                     |
-|----------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| custom_id      | string                                                                                                            | [`custom_id`](/docs/interactions/message-components#custom-id) of the component                                 |
-| component_type | integer                                                                                                           | [type](/docs/interactions/message-components#component-object-component-types) of the component                 |
-| values?\*      | array of [select option values](/docs/interactions/message-components#select-menu-object-select-option-structure) | Values the user selected in a [select menu](/docs/interactions/message-components#select-menu-object) component |
-| resolved?      | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure)           | Resolved entities from selected options                                                                         |
+| Field          | Type                                                                                                    | Description                                                                                     |
+|----------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| custom_id      | string                                                                                                  | [`custom_id`](/docs/components/reference#anatomy-of-a-component-custom-id) of the component     |
+| component_type | integer                                                                                                 | [type](/docs/components/reference#component-object-component-types) of the component            |
+| values?\*      | array of [select option values](/docs/components/reference#string-select-select-option-structure)       | Values the user selected in a [select menu](/docs/components/reference#string-select) component |
+| resolved?      | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                                                         |
 
 \* This is always present for select menu components
 
 ###### Modal Submit Data Structure
 
-| Field      | Type                                                                                    | Description                                                                 |
-|------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| custom_id  | string                                                                                  | [`custom_id`](/docs/interactions/message-components#custom-id) of the modal |
-| components | array of [message components](/docs/interactions/message-components#message-components) | Values submitted by the user                                                |
+| Field      | Type                                                                       | Description                                                                             |
+|------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| custom_id  | string                                                                     | [`custom_id`](/docs/components/reference#anatomy-of-a-component-custom-id) of the modal |
+| components | array of [message components](/docs/components/reference#component-object) | Values submitted by the user                                                            |
 
 ###### Resolved Data Structure
 
-> info
-> If data for a Member is included, data for its corresponding User will also be included.
+:::info
+If data for a Member is included, data for its corresponding User will also be included.
+:::
 
 | Field         | Type                                                                                     | Description                     |
 |---------------|------------------------------------------------------------------------------------------|---------------------------------|
@@ -158,8 +160,9 @@ All options have names, and an option can either be a parameter and input value-
 
 This is sent on the [message object](/docs/resources/message#message-object) when the message is a response to an Interaction without an existing message.
 
-> info
-> This means responses to [Message Components](/docs/interactions/message-components#) do not include this property, instead including a [message reference](/docs/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
+:::info
+This means responses to [Message Components](/docs/components/reference) do not include this property, instead including a [message reference](/docs/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
+:::
 
 ###### Message Interaction Structure
 
@@ -189,20 +192,20 @@ An [Interaction](/docs/interactions/receiving-and-responding#interaction-object)
 -   [Slash Commands](/docs/interactions/application-commands#slash-commands-example-interaction)
 -   [User Commands](/docs/interactions/application-commands#user-commands-example-interaction)
 -   [Message Commands](/docs/interactions/application-commands#message-commands-example-interaction)
--   [Message Components](/docs/interactions/message-components#component-interaction-object-sample-component-interaction)
--   [Select Menu Message Components](/docs/interactions/message-components#select-menu-object-select-menu-interaction)
+-   [Message Components](/docs/components/reference#button-button-interaction)
+-   [Select Menu Message Components](/docs/components/reference#string-select-string-select-interaction)
 
 An explanation of all the fields can be found in our [data models](/docs/interactions/receiving-and-responding#interaction-object).
 
 Now that you've gotten the data from the user, it's time to respond to them.
 
-
 ## Responding to an Interaction
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-> info
-> Interaction responses have the same header requirements as normal HTTP API requests. See [here](/docs/reference#http-api) for further information.
+:::info
+Interaction responses have the same header requirements as normal HTTP API requests. See [here](/docs/reference#http-api) for further information.
+:::
 
 There are a number of ways you can respond to an interaction:
 
@@ -229,7 +232,7 @@ There are a number of ways you can respond to an interaction:
 | PREMIUM_REQUIRED                        | 10    | [**Deprecated**](/docs/change-log#premium-apps-new-premium-button-style-deep-linking-url-schemes); respond to an interaction with an upgrade button, only available for apps with [monetization](/docs/monetization/overview) enabled |
 | LAUNCH_ACTIVITY                         | 12    | Launch the Activity associated with the app. Only available for apps with [Activities](/docs/activities/overview) enabled                                                                                                             |
 
-\* Only valid for [component-based](/docs/interactions/message-components#) interactions
+\* Only valid for [component-based](/docs/components/reference) interactions
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
@@ -247,11 +250,11 @@ Not all message fields are currently supported.
 | embeds?           | array of [embeds](/docs/resources/message#embed-object)                          | Supports up to 10 embeds                                                                                                                                                                                               |
 | allowed_mentions? | [allowed mentions](/docs/resources/message#allowed-mentions-object)              | [Allowed mentions](/docs/resources/message#allowed-mentions-object) object                                                                                                                                             |
 | flags? \*         | integer                                                                          | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, and `SUPPRESS_NOTIFICATIONS` can be set) |
-| components?       | array of [components](/docs/interactions/message-components#)                    | Message components                                                                                                                                                                                                     |
+| components?       | array of [components](/docs/components/reference#component-object)               | Message components                                                                                                                                                                                                     |
 | attachments? \*\* | array of partial [attachment](/docs/resources/message#attachment-object) objects | Attachment objects with filename and description                                                                                                                                                                       |
 | poll?             | [poll](/docs/resources/poll#poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                 |
 
-\* If you create a callback with the [type](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` the only valid [message flag](/docs/resources/message#message-object-message-flags) you may use is `EPHEMERAL`.
+\* If you create a callback with the [type](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` the only valid [message flag](/docs/resources/message#message-object-message-flags) you may use is `EPHEMERAL`. If you'd like to create a component based message with `IS_COMPONENTS_V2` you must do that with the [followup](/docs/interactions/receiving-and-responding#followup-messages) message, not this one.
 
 \*\* See [Uploading Files](/docs/reference#uploading-files) for details.
 
@@ -263,17 +266,19 @@ Not all message fields are currently supported.
 
 ###### Modal
 
-> warn
-> Support for components in modals is currently limited to type 4 (Text Input).
+:::warn
+Support for components in modals is currently limited to type 4 (Text Input).
+:::
 
-| Field      | Type                                                          | Description                                                    |
-|------------|---------------------------------------------------------------|----------------------------------------------------------------|
-| custom_id  | string                                                        | Developer-defined identifier for the modal, max 100 characters |
-| title      | string                                                        | Title of the popup modal, max 45 characters                    |
-| components | array of [components](/docs/interactions/message-components#) | Between 1 and 5 (inclusive) components that make up the modal  |
+| Field      | Type                                                               | Description                                                    |
+|------------|--------------------------------------------------------------------|----------------------------------------------------------------|
+| custom_id  | string                                                             | Developer-defined identifier for the modal, max 100 characters |
+| title      | string                                                             | Title of the popup modal, max 45 characters                    |
+| components | array of [components](/docs/components/reference#component-object) | Between 1 and 5 (inclusive) components that make up the modal  |
 
-> warn
-> If your application responds with user data, you should use [`allowed_mentions`](/docs/resources/message#allowed-mentions-object) to filter which mentions in the content actually ping.
+:::warn
+If your application responds with user data, you should use [`allowed_mentions`](/docs/resources/message#allowed-mentions-object) to filter which mentions in the content actually ping.
+:::
 
 ## Interaction Callback
 
@@ -297,8 +302,9 @@ json = {
 r = requests.post(url, json=json)
 ```
 
-> info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+:::info
+Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
+:::
 
 <Collapsible title="Inline HTTP Response Behavior" icon="code">
     If you receive interactions over HTTP, your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](/docs/interactions/receiving-and-responding#interaction-response-object) object:
@@ -370,17 +376,20 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 -   [`POST /webhooks/<application_id>/<interaction_token>`](/docs/interactions/receiving-and-responding#create-followup-message) to send a new followup message
 -   [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](/docs/interactions/receiving-and-responding#edit-followup-message) to edit a message sent with that `token`
 
-> info
-> Interactions webhooks share the same rate limit properties as normal webhooks.
+:::info
+Interactions webhooks share the same rate limit properties as normal webhooks.
+:::
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond to an interaction within that amount of time.
 
 ### Endpoints
 
-> info
-> The endpoints below are not bound to the application's [Global Rate Limit](/docs/topics/rate-limits#global-rate-limit).
+:::info
+The endpoints below are not bound to the application's [Global Rate Limit](/docs/topics/rate-limits#global-rate-limit).
+:::
 
-## Create Interaction Response % POST /interactions/\{interaction.id/docs/interactions/receiving-and-responding#interaction-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/callback
+## Create Interaction Response
+<Route method="POST">/interactions/[\{interaction.id\}](/docs/interactions/receiving-and-responding#interaction-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/callback</Route>
 
 Create a response to an Interaction. Body is an [interaction response](/docs/interactions/receiving-and-responding#interaction-response-object). Returns `204` unless `with_response` is set to `true` which returns `200` with the body as [interaction callback response](/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object).
 
@@ -393,35 +402,43 @@ This endpoint also supports file attachments similar to the webhook endpoints. R
 | with_response? | [boolean](/docs/reference#boolean-query-strings) | Whether to include an [interaction callback object](/docs/interactions/receiving-and-responding#interaction-callback-interaction-callback-response-object) as the response |
 
 
-## Get Original Interaction Response % GET /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/@original
+## Get Original Interaction Response
+<Route method="GET">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/@original</Route>
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](/docs/resources/webhook#get-webhook-message).
 
-## Edit Original Interaction Response % PATCH /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/@original
+## Edit Original Interaction Response
+<Route method="PATCH">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/@original</Route>
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](/docs/resources/webhook#edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/@original
+## Delete Original Interaction Response
+<Route method="DELETE">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/@original</Route>
 
 Deletes the initial Interaction response. Returns `204 No Content` on success.
 
-## Create Followup Message % POST /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}
+## Create Followup Message
+<Route method="POST">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)</Route>
 
-> info
-> Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
+:::info
+Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](/docs/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
+:::
 
-Create a followup message for an Interaction. Functions the same as [Execute Webhook](/docs/resources/webhook#execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups. You can use the `EPHEMERAL` [message flag](/docs/resources/message#message-object-message-flags) `1 << 6` (64) to send a message that only the user can see.
+Create a followup message for an Interaction. Functions the same as [Execute Webhook](/docs/resources/webhook#execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups. You can use the `EPHEMERAL` [message flag](/docs/resources/message#message-object-message-flags) `1 << 6` (64) to send a message that only the user can see. You can also use the `IS_COMPONENTS_V2` [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (32768) to send a [component](/docs/components/reference)-based message.
 
 When using this endpoint directly after responding to an interaction with `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`, this endpoint will function as [Edit Original Interaction Response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) for backwards compatibility. In this case, no new message will be created, and the loading message will be edited instead. The ephemeral flag will be ignored, and the value you provided in the initial defer response will be preserved, as an existing message's ephemeral state cannot be changed. This behavior is deprecated, and you should use the Edit Original Interaction Response endpoint in this case instead.
 
-## Get Followup Message % GET /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/\{message.id/docs/resources/channel#message-object\}
+## Get Followup Message
+<Route method="GET">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Returns a followup message for an Interaction. Functions the same as [Get Webhook Message](/docs/resources/webhook#get-webhook-message).
 
-## Edit Followup Message % PATCH /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/\{message.id/docs/resources/channel#message-object\}
+## Edit Followup Message
+<Route method="PATCH">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](/docs/resources/webhook#edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/\{application.id/docs/resources/application#application-object\}/\{interaction.token/docs/interactions/receiving-and-responding#interaction-object\}/messages/\{message.id/docs/resources/channel#message-object\}
+## Delete Followup Message
+<Route method="DELETE">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
 Deletes a followup message for an Interaction. Returns `204 No Content` on success.

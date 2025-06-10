@@ -4,15 +4,21 @@ sidebar_label: Using with the Game SDK
 
 # Using Rich Presence with the Game SDK
 
-> warn
-> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::warn
+**The Game SDK has been archived.**
+
+We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects.
+
+Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::
 
 The [Game SDK](/docs/developer-tools/game-sdk) helps you build 3rd party games and integrate them with Discord. One of its specialties is making it easy to bring your game's data to Discord using [Rich Presence](/docs/rich-presence/overview), which this guide will cover.
 
 Before we dig in, make sure you've gone through the guide on [Getting Started with the Game SDK](/docs/developer-tools/game-sdk#getting-started). This guide expects that you've already [downloaded the SDK](/docs/developer-tools/game-sdk#step-1-get-the-sdk),  [configured your app](/docs/developer-tools/game-sdk#step-2-create-your-app), and [gotten up and running with a basic example](/docs/developer-tools/game-sdk#step-3-start-coding).
 
-> info
-> Not sure if you should be building with the Game SDK? Read through [Choosing an SDK](/docs/rich-presence/overview#choosing-an-sdk) to understand your options when integrating Rich Presence.
+:::info
+Not sure if you should be building with the Game SDK? Read through [Choosing an SDK](/docs/rich-presence/overview#choosing-an-sdk) to understand your options when integrating Rich Presence.
+:::
 
 ## Understanding Rich Presence Data
 
@@ -37,8 +43,9 @@ Note that this layout may be subject to change without warning. This information
 impaired eyesight to understand the potential layout of this information in a user interface.
 </Collapsible>
 
-> info
-> For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
+:::info
+For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
+:::
 
 ## Activities Manager
 
@@ -66,8 +73,9 @@ When calling `UpdateActivity()`, you'll be expected to pass the [activity](/docs
 
 Below are the fields we'll be paying attention to as we're passing presence data for a user.
 
-> info
-> All fields are optional and nullable
+:::info
+All fields are optional and nullable
+:::
 
 | Name       | Type                                                                           | Description                                                     |
 |------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
@@ -83,8 +91,9 @@ Below are the fields we'll be paying attention to as we're passing presence data
 
 Now let's take a look at a code example for updating presence data.
 
-> info
-> All of the code samples in this guide are in C#, but there are some similar examples in other languages [on GitHub](https://github.com/msciotti/discord-game-sdk-test-apps).
+:::info
+All of the code samples in this guide are in C#, but there are some similar examples in other languages [on GitHub](https://github.com/msciotti/discord-game-sdk-test-apps).
+:::
 
 Our code sample in this section is based on the data from the example from before:
 
@@ -94,8 +103,9 @@ The **Ask to Join** button will be covered more in the following sections, but i
 
 <Collapsible title="Example calling UpdateActivity function" icon="code" open>
 
-> info
-> The following example only focuses on using `UpdateActivity()`. You can read the [Getting Started](/docs/developer-tools/game-sdk#getting-started) and [Using the SDK](/docs/developer-tools/game-sdk#using-the-sdk) sections for more general information about using the Game SDK.
+:::info
+The following example only focuses on using `UpdateActivity()`. You can read the [Getting Started](/docs/developer-tools/game-sdk#getting-started) and [Using the SDK](/docs/developer-tools/game-sdk#using-the-sdk) sections for more general information about using the Game SDK.
+:::
 
 ```cs
 var activity = new Discord.Activity
@@ -223,4 +233,4 @@ Yes! In addition to uploading an asset and specifying its name, you can also spe
 
 #### Q: OK—I've got it working! Now, how do I make my integration look _awesome_?
 
-I'm happy ~~we preempted your question~~ you asked! Check out our [Rich Presence Best Practices](/docs/rich-presence/best-practices#) guide for a rundown on how to make your integration the best that it can be!
+I'm happy ~~we preempted your question~~ you asked! Check out our [Rich Presence Best Practices](/docs/rich-presence/best-practices) guide for a rundown on how to make your integration the best that it can be!

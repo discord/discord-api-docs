@@ -39,8 +39,9 @@ Let's walk through the steps in detail.
 1. Click on the `Downloads` link under the Discord Social SDK section of the sidebar.
 2. Select the latest version from the version dropdown and download the SDK for Unity.
 
-> info
-> A Unity sample project is available for download on this page, but we are not going to cover it in this guide. Explore it on your own after you finish this guide!
+:::info
+A Unity sample project is available for download on this page, but we are not going to cover it in this guide. Explore it on your own after you finish this guide!
+:::
 
 ---
 
@@ -49,10 +50,11 @@ Let's walk through the steps in detail.
 Let's set up your Unity project to include the Social SDK package and add the necessary objects and scripts to use it.
 
 1. Create a new 2D project in Unity Hub using Unity version 2021.3 or later
-2. Open **Window > Package Manager**
-3. Click **+ > Add package from tarball...**
-4. In your project add a `Scripts` folder and create a `DiscordManager.cs` script
-5. Add the following code to `DiscordManager.cs`:
+2. Either:
+    1. Unzip the zip file in the Unity `Packages` folder, or
+    2. Unzip the zip file and [Install Package from Disk](https://docs.unity3d.com/Manual/upm-ui-local.html). Make sure the folder is in a directory that won't get moved or deleted as your Unity project will load it from that location.
+3. In your project add a `Scripts` folder and create a `DiscordManager.cs` script
+4. Add the following code to `DiscordManager.cs`:
 ```cs
 using UnityEngine;
 using UnityEngine.UI;
@@ -153,11 +155,13 @@ This will hook up the API status changes to your text in the game. Then we'll ne
 - The **logging callback** shows you what's happening behind the scenes and is a powerful tool for debugging
 - The **status callback** tells you when you're connected and ready to use Discord features
 
-> info
-> The Unity plugin handles running the SDK callbacks for you in Unity, no need to use [`RunCallbacks`] like we do in the [C++ guide](/docs/discord-social-sdk/getting-started/using-c++).
+:::info
+The Unity plugin handles running the SDK callbacks for you in Unity, no need to use [`RunCallbacks`] like we do in the [C++ guide](/docs/discord-social-sdk/getting-started/using-c++).
+:::
 
-> info
-> Most Discord features won't work until the status is `Ready`. The status callback lets you know when you can start using them.
+:::info
+Most Discord features won't work until the status is `Ready`. The status callback lets you know when you can start using them.
+:::
 
 To get to a `Ready` state, we need to authenticate with Discord. Let's do that next.
 
@@ -219,8 +223,9 @@ and then we'll uncomment `loginButton.onClick.AddListener(StartOAuthFlow);` in y
 3. Start the auth flow with [`Client::Authorize`], which opens a browser
 4. When authorized, we exchange the code for an access token
 
-> warn
-> Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+:::warn
+Never log or store access tokens insecurely! They should be treated as sensitive credentials.
+:::
 
 ### Testing It Out
 

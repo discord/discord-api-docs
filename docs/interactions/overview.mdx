@@ -31,17 +31,17 @@ Details about creating commands and handling command interactions are in the [Ap
 
 ### Message Components
 
-**[Message components](/docs/interactions/message-components)** are interactive elements that can be included in the content of a message that your app sends in Discord. 
+**[Message components](/docs/components/reference)** are interactive elements that can be included in the content of a message that your app sends in Discord. 
 
 ![Button message components in a message](images/overview-components.png)
 
 The main interactive components that apps can send in messages include:
 
-- [Buttons](/docs/interactions/message-components#buttons) are clickable components that can be customized with different styles, texts, and emoji.
-- [Static select menus](/docs/interactions/message-components#select-menus) are components that a user can open to see a list of developer-defined select options with custom labels and descriptions.
-- [Auto-populated select menus](/docs/interactions/message-components#select-menu-types) are a set of four different select components that are populated with contextual Discord resources, like a list of users or channels in a server.
+- [Buttons](/docs/components/reference#button) are clickable components that can be customized with different styles, texts, and emoji.
+- [Static select menus](/docs/components/reference#string-select) are components that a user can open to see a list of developer-defined select options with custom labels and descriptions.
+- [Auto-populated select menus](/docs/components/reference#string-select) are a set of four different select components that are populated with contextual Discord resources, like a list of users or channels in a server.
 
-A list of all message components and details on sending and receiving component interactions is in the [Message Components](/docs/interactions/message-components) documentation.
+A list of all message components and details on sending and receiving component interactions is in the [Message Components](/docs/components/reference) documentation.
 
 ### Modals
 
@@ -49,7 +49,7 @@ A list of all message components and details on sending and receiving component 
 
 ![Modals in the Discord client](images/overview-modals.png)
 
-The only interactive component that modals can contain are [text inputs](/docs/interactions/message-components#text-inputs), which allow users to fill out single-or-multi line form inputs.
+The only interactive component that modals can contain are [text inputs](/docs/components/reference#text-input), which allow users to fill out single-or-multi line form inputs.
 
 Details about creating and using modals is in the [Receiving and Responding](/docs/interactions/receiving-and-responding#interaction-response-object-modal) documentation.
 
@@ -80,8 +80,9 @@ If either of these are not complete, your Interactions Endpoint URL will not be 
 
 When adding your Interactions Endpoint URL, Discord will send a `POST` request with a `PING` payload with a `type: 1` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has the same `type: 1`). Details about interaction responses are in the [Receiving and Responding documentation](/docs/interactions/receiving-and-responding).
 
-> info
-> You must provide a valid `Content-Type` when responding to `PING`s. See [here](/docs/reference#http-api) for further information.
+:::info
+You must provide a valid `Content-Type` when responding to `PING`s. See [here](/docs/reference#http-api) for further information.
+:::
 
 <Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING interactions" icon="code">
 To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:

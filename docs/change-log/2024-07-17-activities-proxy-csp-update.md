@@ -15,6 +15,6 @@ our CSP will be updated as follows:
 * Only allowed paths on `cdn.discordapp.com` and `media.discordapp.net` will be permitted such as `/attachments/`, `/icons/`, and `/avatars/`.
 * nested child iframes must also mount paths prepended by `/.proxy/`
 
-As of [embedded-app-sdk v1.4.0](https://github.com/discord/embedded-app-sdk/releases/tag/v1.4.0) we have updated `patchUrlMappings` to automatically route requests through `/.proxy/`, so updating your SDK version calling `patchUrlMappings` is a good first step. If you are unfamiliar with `patchUrlMappings`, please consult the [documentation](/docs/activities/development-guides#using-external-resources).
+As of [embedded-app-sdk v1.4.0](https://github.com/discord/embedded-app-sdk/releases/tag/v1.4.0) we have updated `patchUrlMappings` to automatically route requests through `/.proxy/`, so updating your SDK version calling `patchUrlMappings` is a good first step. If you are unfamiliar with `patchUrlMappings`, please consult the [documentation](/docs/activities/development-guides/networking#using-external-resources).
 
 All Application IDs created after `07/17/2024 12:00:00` UTC (applicationID greater than `1263102905548800000`) will also automatically have the new CSP applied. Testing your production code on a new application created after this date is a suggested way for developers to test compliance with this new CSP.

@@ -111,8 +111,11 @@ With our project set up, let's create our app and configure the Activity. Create
 
 Enter a name for your app, select a development team, then press **Create**.
 
-> info
-> **Development Team Access** <br />Launching a non-distributed Activity is limited to you or members of the developer team, so if you're collaborating with others during development, create a [developer team](https://discord.com/developers/teams) and set it to the owner when you create the app.
+:::info
+**Development Team Access**
+
+Launching a non-distributed Activity is limited to you or members of the developer team, so if you're collaborating with others during development, create a [developer team](https://discord.com/developers/teams) and set it to the owner when you create the app.
+:::
 
 After you create your app, you'll land on the **General Overview** page of the app's settings, where you can update basic information about your app like its description and icon.
 
@@ -158,15 +161,21 @@ In the root of your project, there is an `example.env` file. From the root of yo
 cp example.env .env
 ```
 
-> warn
-> **Secure Your Secrets**<br /> Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` are *highly* sensitive secrets. Never share either secrets or check them into any kind of version control.
+:::warn
+**Secure Your Secrets**
+
+Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` are *highly* sensitive secrets. Never share either secrets or check them into any kind of version control.
+:::
 
 Back in your app's settings, click on **OAuth2** on the sidebar:
 1. **Client ID**: Copy the value for Client ID and add it to your `.env` file as **`VITE_CLIENT_ID`**. This is the public ID that Discord associates with your app, and is almost always the same as your App ID.
 2. **Client Secret**: Copy the value for Client Secret and add it to your `.env` as **`DISCORD_CLIENT_SECRET`**. This is a private, sensitive identifier that your app will use to grant an OAuth2 `access_token`, and should never be shared or checked into version control.
 
-> info
-> **Why is there a VITE_ prefix before our Client ID?**<br />Prefixing the `CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. You can read details in the [Vite documentation](https://vitejs.dev/guide/env-and-mode).
+:::info
+**Why is there a VITE_ prefix before our Client ID?**
+
+Prefixing the `CLIENT_ID` environment variable with `VITE_` makes it accessible to our client-side code. This security measure ensures that only the variables you intend to be accessible in the browser are available, and all other environment variables remain private. You can read details in the [Vite documentation](https://vitejs.dev/guide/env-and-mode).
+:::
 
 <Collapsible title="Step 2 Checkpoint" icon="list" open>
 
@@ -181,8 +190,9 @@ With our project and app set up, we're going to install and configure the [Embed
 
 The Embedded App SDK is a first-party SDK that handles the communication between Discord and your Activity with [commands](/docs/developer-tools/embedded-app-sdk#sdk-commands) to interact with the Discord client (like fetching information about the channel) and [events](/docs/developer-tools/embedded-app-sdk#sdk-events) to listen for user actions and changes in state (like when a user starts or stops speaking).
 
-> info
-> The events and commands available in the Embedded App SDK are a subset of the [RPC API](/docs/topics/rpc) ones, so referencing the RPC documentation can be helpful to understand what's happening under the hood when developing Activities.
+:::info
+The events and commands available in the Embedded App SDK are a subset of the [RPC API](/docs/topics/rpc) ones, so referencing the RPC documentation can be helpful to understand what's happening under the hood when developing Activities.
+:::
 
 ### Install the SDK
 
@@ -234,8 +244,11 @@ document.querySelector('#app').innerHTML = `
 
 </Collapsible>
 
-> warn
-> **Time to leave your browser behind**<br />Once you add the SDK to your app, you will **not** be able to view your app inside your web browser. In the next step, we will run your Activity inside of Discord. In the next step, we will go over how to view your app in Discord.
+:::warn
+**Time to leave your browser behind**
+
+Once you add the SDK to your app, you will **not** be able to view your app inside your web browser. In the next step, we will run your Activity inside of Discord. In the next step, we will go over how to view your app in Discord.
+:::
 
 <Collapsible title="Step 3 Checkpoint" icon="list" open>
 
@@ -303,7 +316,7 @@ Back in your app's settings, click on the **URL Mappings** page under **Activiti
 |--------|-----------------------------------------|
 | `/`    | `funky-jogging-bunny.trycloudflare.com` |
 
-Read details about URL Mapping [in the development guide](/docs/activities/development-guides#url-mapping).
+Read details about URL Mapping [in the development guide](/docs/activities/development-guides/local-development#url-mapping).
 
 ### Enable Activities
 
@@ -317,7 +330,7 @@ Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
 
 When you enable Activities for your app, a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) called "Launch" is automatically created. This [Entry Point command](/docs/interactions/application-commands#entry-point-commands) is the primary way for users to launch your Activity in Discord.
 
-By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](/docs/interactions/application-commands#entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](/docs/interactions/application-commands#entry-point-commands) and [development guide](/docs/activities/development-guides#setting-up-an-entry-point-command).
+By default, interactions with this command will result in Discord opening your Activity for the user and posting a message in the channel where it was launched from. However, if you prefer to handle the interactions in your app, you can update the [`handler` field](/docs/interactions/application-commands#entry-point-handlers) or create your own. Additional details are in the Entry Point command [documentation](/docs/interactions/application-commands#entry-point-commands) and [development guide](/docs/activities/development-guides/user-actions#setting-up-an-entry-point-command).
 
 
 ### Running your Activity in Discord
@@ -330,8 +343,11 @@ Clicking on your app will launch your locally running app from inside Discord!
 
 ![Running your activity](images/activities/start-activity.png)
 
-> info
-> **Customizing your Activity** <br/> If you'd like to set images for your Activity, you can learn how to do that [here](/docs/activities/development-guides#setting-up-activity-metadata).
+:::info
+**Customizing your Activity**
+
+If you'd like to set images for your Activity, you can learn how to do that [here](/docs/activities/development-guides/assets-and-metadata#setting-up-activity-metadata).
+:::
 
 We're looking pretty good so far, but we haven't wired up any Discord functionality yet. Let's do that next.
 
@@ -441,18 +457,21 @@ We can now run our server and client-side apps in separate terminal windows. You
 
 Before we call your backend activity server, we need to be aware of the Discord proxy and understand how to avoid any Content Security Policy (CSP) issues.
 
-> info
-> For this tutorial, we are going to prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
+:::info
+For this tutorial, we are going to prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
+:::
 
-Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides#using-external-resources).
+Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides/networking#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides/networking#using-external-resources).
 
 ### Calling your backend server from your client
 
 We're almost there! Now, we need our client application to communicate with our server so we can start the OAuth process and get an access token.
 
-> info
-> **What is vite.config.js?**<br />
-> To allow our frontend app to call our Express server, Vite requires us to set up a proxy for `/api/*` to our backend server, which is running on port 3001. In their docs, you can learn more about [Vite](https://vitejs.dev/).
+:::info
+**What is vite.config.js?**
+
+To allow our frontend app to call our Express server, Vite requires us to set up a proxy for `/api/*` to our backend server, which is running on port 3001. In their docs, you can learn more about [Vite](https://vitejs.dev/).
+:::
 
 <Collapsible title="Calling the backend server" description="Code for authorizing and authenticating" icon="code" open>
 
@@ -496,7 +515,7 @@ async function setupDiscordSdk() {
   // Retrieve an access_token from your activity's server
   // Note: We need to prefix our backend `/api/token` route with `/.proxy` to stay compliant with the CSP.
   // Read more about constructing a full URL and using external resources at
-  // https://discord.com/developers/docs/activities/development-guides#construct-a-full-url
+  // https://discord.com/developers/docs/activities/development-guides/networking#construct-a-full-url
   const response = await fetch("/.proxy/api/token", {
     method: "POST",
     headers: {
@@ -531,9 +550,11 @@ Now if we relaunch our app, we'll be prompted to authorize with Discord using th
 
 ![Prompt to authorize Activity](images/activities/tutorial-auth.png)
 
-> warn
-> **Safe storage of tokens**<br />
-> Access tokens and refresh tokens are powerful, and should be treated similarly to passwords or other highly-sensitive data. Store both types of tokens securely and in an encrypted manner.
+:::warn
+**Safe storage of tokens**
+
+Access tokens and refresh tokens are powerful, and should be treated similarly to passwords or other highly-sensitive data. Store both types of tokens securely and in an encrypted manner.
+:::
 
 <Collapsible title="Step 5 Checkpoint" icon="list" open>
 
@@ -612,8 +633,9 @@ In the following code block, we will:
 2. Iterate over each guild to find the guild we are in based on the `guildId` defined in discordSdk
 3. Create a new HTML image element with the guild avatar and append it to our frontend
 
-> info
-> In this example, we use a pure `fetch` request to make the API call, but you can us one of the JavaScript [community-built libraries](/docs/developer-tools/community-resources) if you prefer.
+:::info
+In this example, we use a pure `fetch` request to make the API call, but you can us one of the JavaScript [community-built libraries](/docs/developer-tools/community-resources) if you prefer.
+:::
 
 <Collapsible title="Fetching information about the current server" icon="code" open>
 

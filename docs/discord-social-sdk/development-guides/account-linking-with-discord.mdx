@@ -111,7 +111,7 @@ If your app does not have a backend server, enable `Public Client` in the Discor
 We will also need the code verifier used to generate the code challenge in Step 1.
 
 ```cpp
-client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+client->GetToken(YOUR_DISCORD_APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
   [client](discordpp::ClientResult result,
     std::string accessToken,
     std::string refreshToken,
@@ -185,7 +185,21 @@ Access tokens expire after 7 days, requiring refresh tokens to get a new one.
 The easiest way to refresh tokens is using the SDK's [`Client::RefreshToken`] method.
 
 ``` cpp
-client->RefreshToken();
+client->RefreshToken(
+      YOUR_DISCORD_APPLICATION_ID, GetRefreshToken(),
+      [client](discordpp::ClientResult result, std::string accessToken,
+               std::string refreshToken,
+               discordpp::AuthorizationTokenType tokenType, int32_t expiresIn,
+               std::string scope) {
+        if (!result.Successful()) {
+          std::cout << "❌ Error refreshing token: " << result.Error()
+                    << std::endl;
+          return;
+        }
+
+        // Update token and connect
+        UpdateToken(client, refreshToken, accessToken);
+      });
 ```
 
 ### Server-to-Server Token Refresh

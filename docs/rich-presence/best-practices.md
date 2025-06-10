@@ -83,8 +83,9 @@ Ready to launch a Rich Presence integration for your game? If so, we recommend l
 
 #### Joining
 
-> info
-> Since all Activities presence data has an **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](/docs/rich-presence/using-with-the-game-sdk)
+:::info
+Since all Activities presence data has an **Ask to Join** button, Join Invites are only applicable when building with the [Game SDK](/docs/rich-presence/using-with-the-game-sdk)
+:::
 
 - Have you successfully implemented join invites for your game if applicable?
 - Does the state of the invite properly represent the party/group in-game with regards to:

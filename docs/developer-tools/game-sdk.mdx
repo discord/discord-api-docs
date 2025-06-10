@@ -2,8 +2,13 @@
 
 # Game SDK
 
-> warn
-> **The Game SDK has been archived.**<br />We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects. <br />Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::warn
+**The Game SDK has been archived.**
+
+We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects.
+
+Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::
 
 Welcome to the documentation for the Discord Game SDK! We're glad you made it. The Game SDK helps you develop your 3rd party game or app, and integrate it with Discord.
 
@@ -32,8 +37,9 @@ Head over to our [developer site](https://discord.com/developers/) and create an
 
 Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application! Now that your app is made, let's dive into some more setup.
 
-> warn
-> If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
+:::warn
+If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
+:::
 
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
@@ -328,8 +334,9 @@ We know that getting a test build of a game on two separate machines can be both
 
 <Collapsible title="How do I test locally while developing?" icon="question">
 
-> info
-> Value from environment variable `DISCORD_INSTANCE_ID`
+:::info
+Value from environment variable `DISCORD_INSTANCE_ID`
+:::
 
 By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
 
@@ -356,8 +363,9 @@ var discord = new Discord(applicationId, Discord.CreateFlags.Default);
 
 This will set the environment variable only within the context of the running process, so don't worry about messing up global stuff.
 
-> danger
-> If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
+:::danger
+If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
+:::
 
 </Collapsible>
 
@@ -471,8 +479,9 @@ var discord = new Discord(53908232506183680, (UInt64)Discord.CreateFlags.Default
 
 Destroys the instance. Wave goodbye, Nelly! You monster. In C# land, this is `Dispose()`.
 
-> info
-> The C++ binding does not include a `destroy()` method, as the destructor for the Core does the work for you.
+:::info
+The C++ binding does not include a `destroy()` method, as the destructor for the Core does the work for you.
+:::
 
 Returns `void`.
 
@@ -565,8 +574,9 @@ var overlayManager = discord.GetOverlayManager();
 
 ## Activities
 
-> info
-> Looking to build a game inside of Discord? Check out the (other) [Activities](/docs/activities/overview) and the [Embedded SDK](/docs/developer-tools/embedded-app-sdk) documentation.
+:::info
+Looking to build a game inside of Discord? Check out the (other) [Activities](/docs/activities/overview) and the [Embedded SDK](/docs/developer-tools/embedded-app-sdk) documentation.
+:::
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too! Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile for their friends, encouraging them to group up and play together.
 
@@ -735,8 +745,9 @@ activityManager.RegisterSteam(1938123);
 
 Sets a user's presence in Discord to a new activity. This has a rate limit of 5 updates per 20 seconds.
 
-> info
-> It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+:::info
+It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+:::
 
 Returns a `Discord.Result` via callback.
 
@@ -1136,8 +1147,9 @@ activityManager.UpdateActivity(activity, (result) =>
 
 ## Overlay
 
-> warn
-> The overlay is only supported on Windows for DirectX or OpenGL games. Linux, Mac, and games using Vulkan are not supported. [Click here for more info.](https://support.discord.com/hc/en-us/articles/217659737-Games-Overlay-101)
+:::warn
+The overlay is only supported on Windows for DirectX or OpenGL games. Linux, Mac, and games using Vulkan are not supported. [Click here for more info.](https://support.discord.com/hc/en-us/articles/217659737-Games-Overlay-101)
+:::
 
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It gives you the current state of the overlay for the user, and allows you to update that state.
 
@@ -1376,8 +1388,9 @@ This manager helps retrieve basic user information for any user on Discord.
 
 #### GetCurrentUser
 
-> info
-> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](/docs/developer-tools/game-sdk#oncurrentuserupdate) callback to fire after instantiating the User manager.
+:::info
+Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](/docs/developer-tools/game-sdk#oncurrentuserupdate) callback to fire after instantiating the User manager.
+:::
 
 Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](/docs/resources/user#get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](/docs/topics/oauth2#authorization-code-grant) flow.
 

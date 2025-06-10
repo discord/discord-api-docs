@@ -45,14 +45,17 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 
 ### Alert Boxes
 
-Alert boxes are created using a block quote that has one of 'warn', 'danger', 'info', or 'preview' on the first line. 
-For example:
+Alert boxes are created by placing a line with 3 colons (`:::`) before and after the text. The first 3 colons must be followed by a label specifying the alert box type. For example, to create a warning alert:
+
 ```
-> warn
-> Something that requires warning here
+:::warn
+Something that requires warning here
+:::
 ```
 
-![Alert options](static/images/alerts.png)
+Currently the following types are available: `info`, `warn`, `danger` and `preview`
+
+![Available alert types](static/images/alerts.png)
 
 ### MDX Components
 

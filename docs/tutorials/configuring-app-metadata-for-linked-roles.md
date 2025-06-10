@@ -6,8 +6,9 @@ Apps can define their own [role connection metadata](/docs/resources/application
 
 This tutorial walks through building a Discord app in JavaScript with linked roles support.
 
-> info
-> All of the sample code used in this tutorial can be found in the [`linked-roles-sample` GitHub repo](https://github.com/discord/linked-roles-sample)
+:::info
+All of the sample code used in this tutorial can be found in the [`linked-roles-sample` GitHub repo](https://github.com/discord/linked-roles-sample)
+:::
 
 ---
 
@@ -15,15 +16,17 @@ This tutorial walks through building a Discord app in JavaScript with linked rol
 
 The first thing we’ll do is create an app through the [developer dashboard](https://discord.com/developers/applications). If you already have an app created, you can jump right to the [Running your app](/docs/tutorials/configuring-app-metadata-for-linked-roles#running-your-app) section.
 
-> info
-> Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](/docs/quick-start/getting-started). 
+:::info
+Basic steps to create an app are outlined below, but a more detailed walkthrough is in the [Getting Started guide](/docs/quick-start/getting-started). 
+:::
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
 - Click **New Application** in the upper right corner, then select a name and create your app
 - Click on the **Bot** tab on the left sidebar. On that page, click **Reset Token** and store the token somewhere safe (like in a password manager)
 
-> warn
-> Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.
+:::warn
+Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.
+:::
 
 ### Adding scopes
 
@@ -33,8 +36,9 @@ Apps need approval from installing users to perform actions inside of Discord. S
 - Check the `bot` scope
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
 
-> info
-> See a list of all [OAuth2 scopes](https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](https://discord.com/developers/docs/topics/permissions) in the documentation.
+:::info
+See a list of all [OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes), or read more on [user permissions](/docs/topics/permissions) in the documentation.
+:::
 
 ### Installing your app
 
@@ -50,8 +54,9 @@ All of the code used in the example app can be found in the [GitHub repository](
 
 This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok in the README if you'd prefer.
 
-> info
-> While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+:::info
+While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+:::
 
 To start, [remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/remix/linked-role-discord-bot)
 
@@ -81,8 +86,9 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 
 There's already some code in your `server.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
 
-> warn
-> It bears repeating that you should never check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
+:::warn
+It bears repeating that you should never check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
+:::
 
 First, copy your bot user’s token from earlier and paste it in the `DISCORD_TOKEN` variable in your `.env` file.
 
@@ -98,8 +104,9 @@ Go back to the OAuth2 -> General tab in the Discord developer portal, and add a 
 
 Go to the General Information tab in the developer portal, and scroll down to the `Linked Roles Verification Url` field. Paste the base URL to your Glitch app, add the `/linked-role` route, then save.
 
-> info
-> For the Glitch project used in the screenshots, the verification URL would be `https://adjoining-crawling-yamamomo.glitch.me/linked-role`
+:::info
+For the Glitch project used in the screenshots, the verification URL would be `https://adjoining-crawling-yamamomo.glitch.me/linked-role`
+:::
 
 ![Verify endpoint](images/linked-roles-verify-endpoint.png)
 
@@ -150,8 +157,9 @@ Give the role a name, save it, then click on `Links`. Click the `Add requirement
 
 To acquire your newly created role, click the server name in the upper left corner of the screen, and select `Linked Roles`. Click on your role, and it will present the opportunity to connect your account.
 
-> info
-> When you connect your account, one of the scopes requested in the OAuth flow is `role_connections.write`, which is required for an app to update a user's role connection information.
+:::info
+When you connect your account, one of the scopes requested in the OAuth flow is `role_connections.write`, which is required for an app to update a user's role connection information.
+:::
 
 ![Connect accounts](images/linked-roles-connect-account.png)
 
@@ -169,7 +177,7 @@ Finally, create a new private channel, and add the new linked role.
 
 ### Token storage
 
-This app largely relies on Discord's [OAuth2](https://discord.com/developers/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
+This app largely relies on Discord's [OAuth2](/docs/topics/oauth2) implementation to obtain access tokens. This model of user based authentication relies on storing refresh tokens, and using them to acquire access tokens. The example code in [`src/storage.js`](https://github.com/discord/linked-roles-sample/blob/main/src/storage.js) uses in-memory storage to manage these tokens, but for any production deployment a database with persistent storage should be used. 
 
 ### Advanced examples
 
