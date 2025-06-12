@@ -259,7 +259,8 @@ Not all message fields are currently supported.
   |
 | attachments? \*\* | array of partial [attachment](/docs/resources/message#attachment-object) objects | Attachment objects with filename and description                                                                                                                                                                                                             
   |
-| poll?             | [poll](/docs/resources/poll#poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                                                       |
+| poll?             | [poll](/docs/resources/poll#poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                                                       
+  |
 
 \* If you create a callback with the [type](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` the only valid [message flag](/docs/resources/message#message-object-message-flags) you may use is `EPHEMERAL`. If you'd like to create a component based message with `IS_COMPONENTS_V2` you must do that with the [followup](/docs/interactions/receiving-and-responding#followup-messages) message, not this one.
 
