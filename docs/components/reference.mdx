@@ -1033,6 +1033,8 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | id?      | integer                                                                         | Optional identifier for component                                                                                                |
 | file     | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | This unfurled media item is unique in that it **only** supports attachment references using the `attachment://<filename>` syntax |
 | spoiler? | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                      |
+| name     | string                                                                          | The name of the file. This field is ignored and provided by the API as part of the response                                      |
+| size     | integer                                                                         | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
 
 ###### Example
 
