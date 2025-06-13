@@ -47,6 +47,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | premium_type?           | integer                                                                              | the [type of Nitro subscription](/docs/resources/user#user-object-premium-types) on a user's account | identify              |
 | public_flags?           | integer                                                                              | the public [flags](/docs/resources/user#user-object-user-flags) on a user's account                  | identify              |
 | avatar_decoration_data? | ?[avatar decoration data](/docs/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                | identify              |
+| collectibles?           | ?[collectibles](/docs/resources/user#collectibles) object                            | data for the user's collectibles                                                                     | identify              |
 
 ###### Example User
 
@@ -66,6 +67,14 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "avatar_decoration_data": {
     "sku_id": "1144058844004233369",
     "asset": "a_fed43ab12698df65902ba06727e20c0e"
+  },
+  "collectibles": {
+    "nameplate": {
+      "sku_id": "2247558840304243311",
+      "asset": "nameplates/nameplates/twilight/",
+      "label": "",
+      "palette": "cobalt"
+    }
   }
 }
 ```
@@ -111,6 +120,30 @@ The data for the user's [avatar decoration](https://support.discord.com/hc/en-us
 |--------|-----------|----------------------------------------------------------------|
 | asset  | string    | the [avatar decoration hash](/docs/reference#image-formatting) |
 | sku_id | snowflake | id of the avatar decoration's SKU                              |
+
+### Collectibles
+
+The collectibles the user has, excluding Avatar Decorations and Profile Effects.
+
+###### Collectible Structure
+
+| Field      | Type   | Description                                                                            |
+|------------|--------|----------------------------------------------------------------------------------------|
+| nameplate? | object | object mapping of [nameplate data](/docs/resources/user#nameplate-nameplate-structure) |
+
+
+### Nameplate
+
+The nameplate the user has.
+
+###### Nameplate Structure
+
+| Field   | Type      | Description                                                                                                                                          |
+|---------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| sku_id  | snowflake | id of the nameplate SKU                                                                                                                              |
+| asset   | string    | path to the [nameplate asset](/docs/reference#image-formatting)                                                                                      |
+| label   | string    | the label of this nameplate. Currently unused                                                                                                        |
+| palette | string    | background color of the nameplate, one of: `crimson`, `berry`, `sky`, `teal`, `forest`, `bubble_gum`, `violet`, `cobalt`, `clover`, `lemon`, `white` |
 
 ### Connection Object
 
