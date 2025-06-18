@@ -10,7 +10,17 @@ The Social SDK [recommends](https://discord.com/developers/docs/discord-social-s
 
 There are several options to address this:
 
-## 1. Map the Unicode characters to ASCII
+## Use a font family that supports Unicode
+
+A family such as [Noto](https://notofonts.github.io/) aims to have broad Unicode support. If a font cannot render a Display Name, consider rendering it with a fallback font, or in the extreme case, choose a font with broad Unicode support for the Friends List. 
+
+**Tradeoffs:**
+
+- One font family may not include 100% overlap with what Discord supports.
+- A font that supports Unicode may not mesh with your game's aesthetics.
+- Engine support is limited, especially for characters that rely on UTF surrogate pairs.
+
+## Map the Unicode characters to ASCII
 
 A library such as [Unidecode](https://metacpan.org/pod/Text::Unidecode) (which has been ported to many different languages) can map many Unicode characters to an ASCII equivalent. If you detect that a Display Name has characters that cannot be rendered, consider passing it through a library to transliterate the Display Name to ASCII.
 
@@ -21,17 +31,8 @@ A library such as [Unidecode](https://metacpan.org/pod/Text::Unidecode) (which h
 - Similarly, most libraries assume English is the target language.
 - Users may not appreciate their display names being changed without their knowledge or consent.
 
-## 2. Use a font family that supports Unicode
 
-A family such as [Noto](https://notofonts.github.io/) aims to have broad Unicode support. If a font cannot render a Display Name, consider rendering it with a fallback font, or in the extreme case, choose a font with broad Unicode support for the Friends List. 
-
-**Tradeoffs:**
-
-- One font family may not include 100% overlap with what Discord supports.
-- A font that supports Unicode may not mesh with your game's aesthetics.
-- Engine support is limited, especially for characters that rely on UTF surrogate pairs.
-
-## 3. Use the Discord Username as a Fallback
+## Use the Discord Username as a Fallback
 
 If a Display Name is not renderable at all, consider falling back to the user's [`Username`](https://discord.com/developers/docs/slayer-sdk/classdiscordpp_1_1UserHandle.html#a0eda41fe18b50bce373fb5a1b88cb411).
 
