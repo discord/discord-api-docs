@@ -79,7 +79,10 @@ const generateMapping = async () => {
           const url = `${BASE_URL}/${refid}.html#${memberId}`;
           // Keep the discordpp:: prefix in the symbol name
           const symbol = `${name}::${memberName}`;
-          mapping[symbol] = url;
+
+          if (!(symbol in mapping)) {
+            mapping[symbol] = url;
+          }
         }
       }
     }
