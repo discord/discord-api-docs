@@ -972,6 +972,7 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 | Field   | Type              | Description                               | Default |
 |---------|-------------------|-------------------------------------------|---------|
 | before? | ISO8601 timestamp | Get messages pinned before this timestamp | absent  |
+| after?  | ISO8601 timestamp | Get messages pinned after this timestamp  | absent  |
 | limit?  | integer           | Max number of pins to return (1-50)       | 50      |
 
 ###### Response Structure
@@ -980,6 +981,12 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 |----------|----------------------------------------------------------------------------|
 | items    | array of [message pin](/docs/resources/message#message-pin-object) objects |
 | has_more | boolean                                                                    |
+
+###### Example
+
+If you want to get 100 pins you'd send these two requests:
+`GET /channels/:id/messages/pins?limit=50`
+`GET /channels/:id/messages/pins?limit=50&after={pins[pins.len() - 1].pinned_at}`
 
 ## Pin Message
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
@@ -1003,14 +1010,14 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 <Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins</Route>
 
 Gets the first 50 pinned messages in a channel, returning an array of [message](/docs/resources/message#message-object) objects on success.
-This endpoint is deprecated. Use the one above instead.
+This endpoint is deprecated. Use [Get Channel Pins](/docs/resources/message#get-channel-pins) instead.
 
 ## Pin Message (deprecated)
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-This endpoint is deprecated. It functions the same as its non-deprecated counterpart.
+This endpoint is deprecated. Use [Pin Message](/docs/resources/message#pin-message) instead.
 
 ## Unpin Message (deprecated)
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-This endpoint is deprecated. It functions the same as its non-deprecated counterpart.
+This endpoint is deprecated. Use [Unpin Message](/docs/resources/message#unpin-message) instead.
