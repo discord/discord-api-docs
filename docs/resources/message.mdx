@@ -267,8 +267,8 @@ One of [Application Command Interaction Metadata](/docs/resources/message#messag
 | original_response_message_id?  | snowflake                                                                                                                             | ID of the original response message, present only on [follow-up messages](/docs/interactions/receiving-and-responding)                                                                                                                                                      |
 | target_user?                   | [user](/docs/resources/user#user-object) object                                                                                       | The user the command was run on, present only on [user command](/docs/interactions/application-commands#user-commands) interactions                                                                                                                                         |
 | target_message_id?             | snowflake                                                                                                                             | The ID of the message the command was run on, present only on [message command](/docs/interactions/application-commands#message-commands) interactions. The original response message will also have `message_reference` and `referenced_message` pointing to this message. |
-                                                                                    
-                                                                                                             
+
+
 ###### Message Component Interaction Metadata Structure
 
 | Field                          | Type                                                                                                                                  | Description                                                                                                                                                                                                         |
@@ -566,7 +566,7 @@ Embeds are deduplicated by URL.  If a message contains multiple embeds with the 
 
 #### Embed Fields by Embed Type
 
-Certain embed types are used to power special UIs. These embeds use [fields](/docs/resources/message#embed-object-embed-field-structure) to include additional data in key-value pairs. Below is a reference of possible embed fields for each of the following embed types. 
+Certain embed types are used to power special UIs. These embeds use [fields](/docs/resources/message#embed-object-embed-field-structure) to include additional data in key-value pairs. Below is a reference of possible embed fields for each of the following embed types.
 
 ###### Poll Result Embed Fields
 
@@ -736,6 +736,15 @@ user 125 in the content.
 | tier_name                    | string    | the name of the tier that the user is subscribed to                   |
 | total_months_subscribed      | integer   | the cumulative number of months that the user has been subscribed for |
 | is_renewal                   | boolean   | whether this notification is for a renewal rather than a new purchase |
+
+### Message Pin Object
+
+###### Message Pin Object Struture
+
+| Field     | Type                                                     | Description                     |
+|-----------|----------------------------------------------------------|---------------------------------|
+| pinned_at | ISO8601 timestamp                                        | the time the message was pinned |
+| message   | [message](/docs/resources/message#message-object) object | the pinned message              |
 
 ## Get Channel Messages
 <Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages</Route>
@@ -952,3 +961,63 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | Field    | Type                | Description                               |
 |----------|---------------------|-------------------------------------------|
 | messages | array of snowflakes | an array of message ids to delete (2-100) |
+
+## Get Channel Pins
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins</Route>
+
+Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission. If the user is missing the `READ_MESSAGE_HISTORY` permission in the channel, then no pins will be returned.
+
+###### Query String Params
+
+| Field   | Type              | Description                               | Default |
+|---------|-------------------|-------------------------------------------|---------|
+| before? | ISO8601 timestamp | Get messages pinned before this timestamp | absent  |
+| after?  | ISO8601 timestamp | Get messages pinned after this timestamp  | absent  |
+| limit?  | integer           | Max number of pins to return (1-50)       | 50      |
+
+###### Response Structure
+
+| Field    | Type                                                                       |
+|----------|----------------------------------------------------------------------------|
+| items    | array of [message pin](/docs/resources/message#message-pin-object) objects |
+| has_more | boolean                                                                    |
+
+###### Example
+
+If you want to get 100 pins you'd send these two requests:
+`GET /channels/:id/messages/pins?limit=50`
+`GET /channels/:id/messages/pins?limit=50&after={pins[pins.len() - 1].pinned_at}`
+
+## Pin Message
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
+
+Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
+
+## Unpin Message
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
+
+Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
+
+## Get Pinned Messages (deprecated)
+<Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins</Route>
+
+Gets the first 50 pinned messages in a channel, returning an array of [message](/docs/resources/message#message-object) objects on success.
+This endpoint is deprecated. Use [Get Channel Pins](/docs/resources/message#get-channel-pins) instead.
+
+## Pin Message (deprecated)
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
+
+This endpoint is deprecated. Use [Pin Message](/docs/resources/message#pin-message) instead.
+
+## Unpin Message (deprecated)
+<Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
+
+This endpoint is deprecated. Use [Unpin Message](/docs/resources/message#unpin-message) instead.
