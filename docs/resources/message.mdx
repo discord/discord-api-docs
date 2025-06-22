@@ -650,9 +650,9 @@ The allowed mention field allows for more granular control over mentions without
 
 Due to the complexity of possibilities, we have included a set of examples and behavior for the allowed mentions field.
 
-If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the message content or message component content. This corresponds with existing behavior.
+If the `allowed_mentions` field is not passed in the body, mentions will be parsed based on the content of the message and its components, except in interactions, where only user mentions are parsed by default. You will need to configure `allowed_mentions` in order to ping `@everyone`, `@here` or roles.
 
-In the example below we would ping @here (and also @role124 and @user123)
+In the example below, we would ping @here (and also @role124 and @user123):
 
 ```json
 {
