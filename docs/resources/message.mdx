@@ -972,7 +972,6 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 | Field   | Type              | Description                               | Default |
 |---------|-------------------|-------------------------------------------|---------|
 | before? | ISO8601 timestamp | Get messages pinned before this timestamp | absent  |
-| after?  | ISO8601 timestamp | Get messages pinned after this timestamp  | absent  |
 | limit?  | integer           | Max number of pins to return (1-50)       | 50      |
 
 ###### Response Structure
@@ -986,7 +985,7 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 
 If you want to get 100 pins you'd send these two requests:
 `GET /channels/:id/messages/pins?limit=50`
-`GET /channels/:id/messages/pins?limit=50&after={pins[pins.len() - 1].pinned_at}`
+`GET /channels/:id/messages/pins?limit=50&before={pins[pins.len() - 1].pinned_at}`
 
 ## Pin Message
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
