@@ -1,11 +1,11 @@
 ---
 title: "Paginated Pin Endpoints"
-date: "2025-04-29"
+date: "2025-06-23"
 topics:
 - "HTTP API"
 ---
 
-We've added new endpoints to manage paginated pins in channels. These endpoints allow you to retrieve and manage pinned messages in a more efficient way, especially for channels with a large number of pinned messages. As part of this change we have deprecated the old endpoints for pinned messages.
+We've added new endpoints to manage paginated pins in channels. These endpoints allow you to retrieve and manage pinned messages in a more efficient way, especially for channels with a large number of pinned messages. As part of this change we have deprecated the old endpoints for pinned messages. Switching to the new endpoints should be straightforward, as they maintain similar functionality but with improved pagination support.
 
 #### New Endpoints
 
