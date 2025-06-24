@@ -236,7 +236,7 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 
 ###### Role Colors Object
 
-This object will always be filled with `primary_color` being the role's `color`. Other fileds can only be set to a non-null value if the guild has the `ENHANCED_ROLE_COLORS` [guild feature](/docs/resources/guild#guild-object-guild-features).
+This object will always be filled with `primary_color` being the role's `color`. Other fields can only be set to a non-null value if the guild has the `ENHANCED_ROLE_COLORS` [guild feature](/docs/resources/guild#guild-object-guild-features).
 
 | Field            | Type     | Description                                                                                  |
 |------------------|----------|----------------------------------------------------------------------------------------------|
