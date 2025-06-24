@@ -1150,6 +1150,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | instance?       | boolean                                                                              | Whether or not the activity is an instanced game session                                                                         |
 | flags?          | integer                                                                              | [Activity flags](/docs/events/gateway-events#activity-object-activity-flags) `OR`d together, describes what the payload includes |
 | buttons?        | array of [buttons](/docs/events/gateway-events#activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
+| metadata        | [metadata activity object]()                                                         | The metadata of this activity, only available if it is a custom activity type                                                    |
 
 :::info
 Bot users are only able to set `name`, `state`, `type`, and `url`.
@@ -1246,6 +1247,12 @@ When received over the gateway, the `buttons` field is an array of strings, whic
 |-------|--------|--------------------------------------------------------|
 | label | string | Text shown on the button (1-32 characters)             |
 | url   | string | URL opened when clicking the button (1-512 characters) |
+
+###### Activity Metadata
+
+| Field | Type    | Description                                                                             |
+|-------|---------|-----------------------------------------------------------------------------------------|
+| label | string? | The activity status label; either `question`, `think`, `love`, `recommend` or `excited` |
 
 ###### Example Activity
 
