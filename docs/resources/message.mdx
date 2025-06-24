@@ -697,7 +697,7 @@ If you want to completely suppress all mentions in the message, you can configur
 ```
 
 
-It is important to note that the `parse` field is **mutually exclusive** with the other fields. In the example below, only the `1234` role's members and the `5678` user mentions would be parsed, but **not** the `@here` at the beginning. Passing a `Falsy` value like `null` or an empty array into the `users` field does not trigger a validation error.
+It is important to note that the `parse` field is **mutually exclusive** with the other fields. In the example below, only the `1234` role and the `5678` user mentions would be parsed, but **not** the `@here` at the beginning. Passing a falsy value such as `null` or an empty array into the `users` field does not trigger a validation error.
 
 ```json
 {
@@ -710,8 +710,7 @@ It is important to note that the `parse` field is **mutually exclusive** with th
 ```
 
 
-In this next example, **only** `@everyone` would be parsed, as well as users `1234` and `5678` in case they suppressed
-`@everyone` mentions in their settings.
+In this next example, **only** `@everyone` would be parsed, as well as users `1234` and `5678` in case they suppressed `@everyone` mentions in their settings.
 
 ```json
 {
