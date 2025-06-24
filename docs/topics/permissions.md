@@ -244,6 +244,11 @@ This object will always be filled with `primary_color` being the role's `color`.
 | secondary_color  | ?integer | the role secondary color, this will make the role gradient between the other provided colors |
 | tertiary_color   | ?integer | the role tertiary color, this will make the role gradient between the other provided colors  |
 
+:::info
+If you provide a `tertiary_color`, you must follow the holographic style preset. Which is:
+`primary_color = 11127295`, `secondary_color = 16759788`, and `tertiary_color = 16761760`.
+:::
+
 ###### Default Role Colors Object
 
 ```json
