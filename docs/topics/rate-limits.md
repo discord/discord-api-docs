@@ -113,7 +113,7 @@ All bots can make up to 50 requests per second to our API. If no authorization h
 
 Global rate limit issues generally show up as repeatedly getting banned from the Discord API when your bot starts (see below). If your bot gets temporarily Cloudflare banned from the Discord API every once in a while, it is most likely **not** a global rate limit issue. You probably had a spike of errors that was not properly handled and hit our error threshold.
 
-If you are experiencing repeated Cloudflare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
+If you are experiencing repeated Cloudflare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/rate-limit](https://dis.gd/rate-limit).
 
 [Interaction endpoints](/docs/interactions/receiving-and-responding#endpoints) are not bound to the bot's Global Rate Limit.
 
