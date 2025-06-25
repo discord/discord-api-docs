@@ -15,6 +15,6 @@ We've added new endpoints to manage paginated pins in channels. These endpoints 
 
 #### Deprecated Endpoints
 
-- **[Get Pinned Messages](/docs/resources/message#get-pinned-messages-deprecated)**: This endpoint has been deprecated in favor of the new paginated pin endpoints.
+- **[Get Pinned Messages](/docs/resources/message#get-pinned-messages-deprecated)**
 - **[Pin Message](/docs/resources/message#pin-message-deprecated)**
 - **[Unpin Message](/docs/resources/message#unpin-message-deprecated)**
