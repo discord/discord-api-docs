@@ -203,22 +203,25 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 
 ###### Role Structure
 
-| Field          | Type                                                                         | Description                                                                                                                     |
-|----------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| id             | snowflake                                                                    | role id                                                                                                                         |
-| name           | string                                                                       | role name                                                                                                                       |
-| color          | integer                                                                      | integer representation of hexadecimal color code                                                                                |
-| hoist          | boolean                                                                      | if this role is pinned in the user listing                                                                                      |
-| icon?          | ?string                                                                      | role [icon hash](/docs/reference#image-formatting)                                                                              |
-| unicode_emoji? | ?string                                                                      | role unicode emoji                                                                                                              |
-| position       | integer                                                                      | position of this role (roles with the same position are sorted by id)                                                           |
-| permissions    | string                                                                       | permission bit set                                                                                                              |
-| managed        | boolean                                                                      | whether this role is managed by an integration                                                                                  |
-| mentionable    | boolean                                                                      | whether this role is mentionable                                                                                                |
-| tags?          | [role tags](/docs/topics/permissions#role-object-role-tags-structure) object | the tags this role has                                                                                                          |
-| flags          | integer                                                                      | [role flags](/docs/topics/permissions#role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field          | Type                                                                          | Description                                                                                                                     |
+|----------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake                                                                     | role id                                                                                                                         |
+| name           | string                                                                        | role name                                                                                                                       |
+| color*         | integer                                                                       | integer representation of hexadecimal color code                                                                                |
+| colors         | [role colors](/docs/topics/permissions#role-object-role-colors-object) object | the role's colors                                                                                                               |
+| hoist          | boolean                                                                       | if this role is pinned in the user listing                                                                                      |
+| icon?          | ?string                                                                       | role [icon hash](/docs/reference#image-formatting)                                                                              |
+| unicode_emoji? | ?string                                                                       | role unicode emoji                                                                                                              |
+| position       | integer                                                                       | position of this role (roles with the same position are sorted by id)                                                           |
+| permissions    | string                                                                        | permission bit set                                                                                                              |
+| managed        | boolean                                                                       | whether this role is managed by an integration                                                                                  |
+| mentionable    | boolean                                                                       | whether this role is mentionable                                                                                                |
+| tags?          | [role tags](/docs/topics/permissions#role-object-role-tags-structure) object  | the tags this role has                                                                                                          |
+| flags          | integer                                                                       | [role flags](/docs/topics/permissions#role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
+
+\* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
 ###### Role Tags Structure
 
@@ -233,6 +236,31 @@ Tags with type `null` represent booleans. They will be present and set to `null`
 | available_for_purchase?  | null      | whether this role is available for purchase        |
 | guild_connections?       | null      | whether this role is a guild's linked role         |
 
+###### Role Colors Object
+
+This object will always be filled with `primary_color` being the role's `color`. Other fields can only be set to a non-null value if the guild has the `ENHANCED_ROLE_COLORS` [guild feature](/docs/resources/guild#guild-object-guild-features).
+
+| Field           | Type     | Description                                                                                            |
+|-----------------|----------|--------------------------------------------------------------------------------------------------------|
+| primary_color   | integer  | the primary color for the role                                                                         |
+| secondary_color | ?integer | the secondary color for the role, this will make the role a gradient between the other provided colors |
+| tertiary_color  | ?integer | the tertiary color for the role, this will turn the gradient into a holographic style                  |
+
+:::info
+When sending `tertiary_color` the API enforces the role color to be a holographic style with values of:
+`primary_color = 11127295`, `secondary_color = 16759788`, and `tertiary_color = 16761760`.
+:::
+
+###### Default Role Colors Object
+
+```json
+"colors": {
+  "primary_color": 0,
+  "secondary_color": null,
+  "tertiary_color": null
+}
+```
+
 ###### Example Role
 
 ```json
@@ -240,6 +268,11 @@ Tags with type `null` represent booleans. They will be present and set to `null`
   "id": "41771983423143936",
   "name": "WE DEM BOYZZ!!!!!!",
   "color": 3447003,
+  "colors": {
+    "primary_color": 3447003,
+    "secondary_color": null,
+    "tertiary_color": null
+  },
   "hoist": true,
   "icon": "cf3ced8600b777c9486c6d8d84fb4327",
   "unicode_emoji": null,

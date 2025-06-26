@@ -159,6 +159,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | VERIFIED                                  | guild is verified                                                                                                             |
 | VIP_REGIONS                               | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                               |
 | WELCOME_SCREEN_ENABLED                    | guild has enabled the welcome screen                                                                                          |
+| ENHANCED_ROLE_COLORS                      | guild is able to set gradient colors to roles                                                                                 |
 
 ###### Mutable Guild Features
 
@@ -824,6 +825,11 @@ Returns the [guild](/docs/resources/guild#guild-object) object for the given id.
       "permissions": "49794752",
       "position": 0,
       "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
       "hoist": false,
       "managed": false,
       "mentionable": false
@@ -1225,15 +1231,18 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field         | Type                                      | Description                                                                                                                    | Default                        |
-|---------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| name          | string                                    | name of the role, max 100 characters                                                                                           | "new role"                     |
-| permissions   | string                                    | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
-| color         | integer                                   | RGB color value                                                                                                                | 0                              |
-| hoist         | boolean                                   | whether the role should be displayed separately in the sidebar                                                                 | false                          |
-| icon          | ?[image data](/docs/reference#image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
-| unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
-| mentionable   | boolean                                   | whether the role should be mentionable                                                                                         | false                          |
+| Field         | Type                                                                          | Description                                                                                                                    | Default                                                                                       |
+|---------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| name          | string                                                                        | name of the role, max 100 characters                                                                                           | "new role"                                                                                    |
+| permissions   | string                                                                        | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild                                                                |
+| color*        | integer                                                                       | RGB color value                                                                                                                | 0                                                                                             |
+| colors        | [role colors](/docs/topics/permissions#role-object-role-colors-object) object | the role's colors                                                                                                              | [default role colors object](/docs/topics/permissions#role-object-default-role-colors-object) |
+| hoist         | boolean                                                                       | whether the role should be displayed separately in the sidebar                                                                 | false                                                                                         |
+| icon          | ?[image data](/docs/reference#image-data)                                     | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                                                                                          |
+| unicode_emoji | ?string                                                                       | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                                                                                          |
+| mentionable   | boolean                                                                       | whether the role should be mentionable                                                                                         | false                                                                                         |
+
+\* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
 ## Modify Guild Role Positions
 <Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/roles</Route>
@@ -1268,15 +1277,18 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                                                                                    |
-|---------------|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| name          | string                                   | name of the role, max 100 characters                                                                                           |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              |
-| color         | integer                                  | RGB color value                                                                                                                |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 |
-| icon          | [image data](/docs/reference#image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
-| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) |
-| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         |
+| Field         | Type                                                                          | Description                                                                                                                    |
+|---------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| name          | string                                                                        | name of the role, max 100 characters                                                                                           |
+| permissions   | string                                                                        | bitwise value of the enabled/disabled permissions                                                                              |
+| color*        | integer                                                                       | RGB color value                                                                                                                |
+| colors        | [role colors](/docs/topics/permissions#role-object-role-colors-object) object | the role's colors                                                                                                              |
+| hoist         | boolean                                                                       | whether the role should be displayed separately in the sidebar                                                                 |
+| icon          | [image data](/docs/reference#image-data)                                      | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
+| unicode_emoji | string                                                                        | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) |
+| mentionable   | boolean                                                                       | whether the role should be mentionable                                                                                         |
+
+\* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
 ## Modify Guild MFA Level
 <Route method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/mfa</Route>
