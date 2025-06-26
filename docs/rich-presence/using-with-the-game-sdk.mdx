@@ -1,0 +1,236 @@
+---
+sidebar_label: Using with the Game SDK
+---
+
+# Using Rich Presence with the Game SDK
+
+:::warn
+**The Game SDK has been archived.**
+
+We recommend using the [Discord Social SDK](/docs/discord-social-sdk/overview) for new projects.
+
+Existing projects using the Game SDK will continue to work, but we encourage you to migrate to the [Discord Social SDK](/docs/discord-social-sdk/overview) for new features and updates.
+:::
+
+The [Game SDK](/docs/developer-tools/game-sdk) helps you build 3rd party games and integrate them with Discord. One of its specialties is making it easy to bring your game's data to Discord using [Rich Presence](/docs/rich-presence/overview), which this guide will cover.
+
+Before we dig in, make sure you've gone through the guide on [Getting Started with the Game SDK](/docs/developer-tools/game-sdk#getting-started). This guide expects that you've already [downloaded the SDK](/docs/developer-tools/game-sdk#step-1-get-the-sdk),  [configured your app](/docs/developer-tools/game-sdk#step-2-create-your-app), and [gotten up and running with a basic example](/docs/developer-tools/game-sdk#step-3-start-coding).
+
+:::info
+Not sure if you should be building with the Game SDK? Read through [Choosing an SDK](/docs/rich-presence/overview#choosing-an-sdk) to understand your options when integrating Rich Presence.
+:::
+
+## Understanding Rich Presence Data
+
+Before we dig in, it's helpful to understand what Rich Presence data you can set when updating a user's presence data. We'll explain the specific fields below, but for now let's just take a look at what we're working with:
+
+![Graphical representation of the legend for rich presence details](images/rp-legend.png)
+
+<Collapsible title="Table with text representation of the fields above" icon="view">
+| location                               | field name     | notes                                                                      |
+|----------------------------------------|----------------|----------------------------------------------------------------------------|
+| First row below title                  | details        |                                                                            |
+| Second row below title                 | state          | If provided with no `partySize` or `partyMax`                              |
+| First badge in last row below title    | startTimestamp | Converted to a `mm:ss` format such as `12:01`                              |
+| Second badge in last row below title   | state          | If provided with a `partySize` and `partyMax`                              |
+| Second badge in last row below title   | partySize      | In parenthesis next to the `state`, first number in the format `(1 of 4)`  |
+| Second badge in last row below title   | partyMax       | In parenthesis next to the `state`, second number in the format `(1 of 4)` |
+| Button at the bottom                   | joinSecret     | Button has the text **Ask to Join**                                        |
+| Large image to the left of any content | largeImageKey  | Four rows high, includes the title but not the bottom buttons              |
+| Small image to the left of any content | smallImageKey  | Small icon inset on the bottom right of the `largeImageKey`                |
+
+Note that this layout may be subject to change without warning. This information is only provided to help those with
+impaired eyesight to understand the potential layout of this information in a user interface.
+</Collapsible>
+
+:::info
+For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
+:::
+
+## Activities Manager
+
+As you likely learned when setting up your app, the Game SDK has a handful of specialized [manager classes](/docs/developer-tools/game-sdk#managers). The **[`ActivitiesManager`](/docs/developer-tools/game-sdk#activities)** is responsible for integrating Rich Presence and sending invites, so that's where we'll spend our focus in this guide.
+
+Like other Game SDK managers, the `ActivitiesManager` class has a handful of  [functions](/docs/developer-tools/game-sdk#functions) and [events](/docs/developer-tools/game-sdk#functions) that are used when building Rich Presence support. We'll touch on the ones important to presence below.
+
+### Fetching Activity Manager
+
+In your code, you'll need to fetch the `ActivityManager` to call its functions and listen to events. In your code, you can call the `GetActivityManager()` function:
+
+```cs
+var activityManager = discord.GetActivityManager();
+```
+
+## Updating Presence
+
+The most important function when integrating Rich Presence using the Game SDK will be [`UpdateActivity()`](/docs/developer-tools/game-sdk#updateactivity). This is how you will send your game data to Discord to update a user's presence data. You should call `UpdateActivity()` any time something important in the presence payload changes.
+
+### UpdateActivity Fields
+
+When calling `UpdateActivity()`, you'll be expected to pass the [activity](/docs/developer-tools/game-sdk#activity-struct) fields besides your `ApplicationId` and `Name` (which are both read-only).
+
+#### Partial Activity Struct
+
+Below are the fields we'll be paying attention to as we're passing presence data for a user.
+
+:::info
+All fields are optional and nullable
+:::
+
+| Name       | Type                                                                           | Description                                                     |
+|------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| State      | string                                                                         | the player's current party status                               |
+| Details    | string                                                                         | what the player is currently doing                              |
+| Timestamps | [ActivityTimestamps](/docs/developer-tools/game-sdk#activitytimestamps-struct) | helps create elapsed/remaining timestamps on a player's profile |
+| Assets     | [ActivityAssets](/docs/developer-tools/game-sdk#activityassets-struct)         | assets to display on the player's profile                       |
+| Party      | [ActivityParty](/docs/developer-tools/game-sdk#activityparty-struct)           | information about the player's party                            |
+| Secrets    | [ActivitySecrets](/docs/developer-tools/game-sdk#activitysecrets-struct)       | secret passwords for joining the player's game                  |
+| Instance   | bool                                                                           | whether this activity is an instanced context, like a match     |
+
+### UpdateActivity Example
+
+Now let's take a look at a code example for updating presence data.
+
+:::info
+All of the code samples in this guide are in C#, but there are some similar examples in other languages [on GitHub](https://github.com/msciotti/discord-game-sdk-test-apps).
+:::
+
+Our code sample in this section is based on the data from the example from before:
+
+![Example of presence data with buttons](images/game-sdk-presence-example.png)
+
+The **Ask to Join** button will be covered more in the following sections, but if you don't want it included, you can remove the `Party` and `Secret` fields.
+
+<Collapsible title="Example calling UpdateActivity function" icon="code" open>
+
+:::info
+The following example only focuses on using `UpdateActivity()`. You can read the [Getting Started](/docs/developer-tools/game-sdk#getting-started) and [Using the SDK](/docs/developer-tools/game-sdk#using-the-sdk) sections for more general information about using the Game SDK.
+:::
+
+```cs
+var activity = new Discord.Activity
+{
+  State = "In Group",
+  Details = "In 3v3 Arena | 0-2 | Bo5",
+  Timestamps =
+  {
+      Start = 1723218695,
+  },
+  Assets =
+  {
+      LargeImage = "map-woods", // using asset from app's settings
+      LargeText = "Playing in the Misty Woods",
+      SmallImage = "https://example.com/battlerite/users/example-user.jpg", // you can also use URLs
+      SmallText = "Example User",
+  },
+  Party =
+  {
+      Id = "party-abc123",
+      Size = {
+          CurrentSize = 3,
+          MaxSize = 3,
+      },
+  },
+  Secrets =
+  {
+      Join = "foo joinSecret",
+  },
+  Instance = true,
+
+};
+
+activityManager.UpdateActivity(activity, (result) =>
+{
+    if (result == Discord.Result.Ok)
+    {
+        Console.WriteLine("Success!");
+    }
+    else
+    {
+        Console.WriteLine("Failed");
+    }
+});
+```
+</Collapsible>
+
+## Asking to Join
+
+In the example above, there was an **Ask to Join** button that a user could click to ask to join a game match directly from Discord.
+
+### Adding the Ask to Join Button
+
+To get the **Ask to Join** button to appear under the presence data for a 3rd party game, you should send along a few fields: `ActivityParty.Id`, `ActivityParty.Size.CurrentSize`, `ActivityParty.Size.MaxSize`, and `ActivitySecrets.Join`.
+
+To see what you need for each Rich Presence feature, you can view the [Activity Action Field Requirements](/docs/developer-tools/game-sdk#activity-action-field-requirements) table.
+
+### Handling Ask to Join
+
+To listen for when someone clicks the button, you'll use the [`OnActivityJoinRequest` event](/docs/developer-tools/game-sdk#onactivityjoinrequest). This will include a [user](/docs/developer-tools/game-sdk#user-struct) for the individual that clicked the button.
+
+As an example, let's say we updated Player A's presence data, and Player B found the **Ask to Join** button on their profile and proceeded to click it. At that point, your app will receive an `OnActivityJoinRequest`. Your game should surface this to Player A to confirm they wish to play with Player B.
+
+After you confirm that Player A is game, you will call [`SendRequestReply`](/docs/developer-tools/game-sdk#sendrequestreply) with Player B's `userId` and a `reply` field with an [`ActivityJoinRequestReply` value](/docs/developer-tools/game-sdk#activityjoinrequestreply-enum).
+
+<Collapsible title="Example Listening to Ask to Join Request" icon="code">
+
+```cs
+activityManager.OnActivityJoinRequest += user =>
+{
+    Console.WriteLine("Join request from: {0}", user.Id);
+    activityManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes, (res) =>
+    {
+      if (res == Discord.Result.Ok)
+      {
+        Console.WriteLine("Responded successfully");
+      }
+    });
+}
+```
+</Collapsible>
+
+The **Ask to Join** request persists for 30 seconds after the request is received. Therefore, keep these two points in mind:
+- Ensure you call [`RunCallbacks()`](/docs/developer-tools/game-sdk#runcallbacks) as frequently as possible to ensure your game client is up to date with any data from Discord
+- If the player is in a state in which they cannot interact with an **Ask to Join** request—like in the middle of a match—you should not send `ActivitySecrets.Join` in the presence payload
+
+## Secrets
+
+Security is of the utmost importance to us here at Discord, and we know it is for you, too. That's why we want to make sure that you properly understand `ActivitySecrets.Join` so that your game data is safe and secure over the wire.
+
+To keep security on the up and up, Discord requires that you properly hash/encode/encrypt/put-a-padlock-on-and-swallow-the-key-but-wait-then-how-would-you-open-it your secrets.
+
+Secrets are obfuscated data of your choosing. They could be match ids, player ids, lobby ids, etc. You should send us data that someone else's game client would need to join their friend. If you can't or don't want to support those actions, you don't need to send us secrets.
+
+## FAQ
+
+Below are answers to some common questions about integrating Rich Presence with your 3rd party game.
+
+#### Q: I see "Playing MyGame", but no Rich Presence data.
+
+There's a couple things that could be going on:
+
+- If you're running two instances of the Discord client, check both!
+- Double check that your `Discord_Initialize()` function is correct.
+
+Throughout development, make sure you have your `errored()` and `disconnected()` callbacks hooked up for debugging. You can open up the console in Discord and look for errors pertaining to `SET_ACTIVITY` for more information as well.
+
+#### Q: What happens if someone has more than one game running that supports Rich Presence?
+
+The application that connected _first_ is displayed.
+
+However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party and playing Game A that allows you to send **Ask to Join** invites, you'll be able to send invites to both simultaneously!
+
+#### Q: What if someone looking at my profile or an invite doesn't own the game?
+
+Anyone can see your profile data, whether they own the game or not. They'll only be able to interact with chat invites or profile buttons if they own the game and have launched it at least once. Otherwise, the invite/button tooltip will show "Game Not Detected".
+
+#### Q: Do join invitations allow players to select the number of open slots?
+
+Currently, the SDK does not support this. Party slot information is determined by the party data you sent in your presence payload.
+
+#### Q: Can I send images via the payload rather than uploading them to my app's settings?
+
+Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image).
+
+#### Q: OK—I've got it working! Now, how do I make my integration look _awesome_?
+
+I'm happy ~~we preempted your question~~ you asked! Check out our [Rich Presence Best Practices](/docs/rich-presence/best-practices) guide for a rundown on how to make your integration the best that it can be!

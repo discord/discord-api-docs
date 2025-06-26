@@ -1,0 +1,110 @@
+---
+sidebar_label: Using Message Components
+---
+
+# Using Message Components
+
+## Overview 
+
+Message components are a powerful way to add interactivity to your messages. They allow you to create rich, interactive experiences for your users, making it easier for them to engage with your content.
+
+:::info
+If you are sending components as part of a [webhook](/docs/resources/webhook) you'll need to use the [`?with_components=true`](/docs/resources/webhook#execute-webhook-query-string-params) query param otherwise they'll be ignored.
+:::
+
+### Prerequisites
+
+- You must have a Discord account and be a member of the Discord Developer Portal.
+- You must have a Discord application created in the Discord Developer Portal.
+- You must have the necessary permissions to send messages in the channel where you want to use components.
+
+---
+
+## Sending a Message with a Component
+
+To send a message with a component, you need to set the `IS_COMPONENTS_V2` flag (`1<<15`) in your message's `flags` field. This can be done when using [Message Create](/docs/resources/message#create-message), [Execute Webhook](/docs/resources/webhook#execute-webhook), or [responding to an interaction](/docs/interactions/receiving-and-responding#create-followup-message).
+
+:::warn
+Setting the `IS_COMPONENTS_V2` message flag cannot be reverted: once the message has been sent, the flag cannot be removed from the message when editing the message.
+:::
+
+This flag indicates that the message contains components and disables traditional content and embeds.
+
+All content must be sent as components instead of using the standard message format.
+
+```json
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "This is a message using the Text Display component"
+    }
+  ]
+}
+```
+
+## Sending a Message with Multiple Components
+
+To send a message with multiple components, you can include multiple component objects in your message's `components` field. This field allows you to specify an array of components that will be included in the message.
+
+```json
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "This is a Text Display component."
+    },
+    {
+      "type": 10,
+      "content": "This is another Text Display component!"
+    }
+  ]
+}
+```
+
+## Nesting Components with Layout Components
+
+You can also nest components within layout components. This gives you more flexibility in displaying information, images, and interactive components to your users. Check out the [list of components](/docs/components/reference#component-object-component-types) for a complete list of available layout components.
+
+For example, you can create a message with an Action Row component that contains multiple Button components.
+
+```json
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "This is a message with v2 components"
+    },
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 2,
+          "style": 1,
+          "label": "Click Me",
+          "custom_id": "click_me_1"
+        },
+        {
+          "type": 2,
+          "style": 2,
+          "label": "Click Me Too",
+          "custom_id": "click_me_2"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Using Message Components with Interactions
+
+When a user interacts with an interactive message component, your app will [receive an interaction event](/docs/interactions/overview). This event contains information about the interaction, including the type of interaction and the component that was interacted with.
+
+See the [list of supported component types](/docs/components/reference#component-object-component-types) for a list of interactive message components and their interaction event payloads.
+
+You can use this information to respond to the interaction, update the message, or perform other actions, such as displaying a modal based on the user's input.
+
+Check out the [Interactions documentation](/docs/interactions/overview) for more information on handling interactions and responding to user input from interactive components.
