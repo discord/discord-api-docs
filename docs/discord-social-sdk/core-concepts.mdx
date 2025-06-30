@@ -111,7 +111,7 @@ The default presence features include:
 * [Presence & Rich Presence](/docs/discord-social-sdk/core-concepts#presence-rich-presence)
 
 The Social SDK provides the helper method [`Client::GetDefaultPresenceScopes`], which returns `openid sdk.social_layer_presence`,
-that you can use when setting up your OAuth2 flow, for integrations that only needs the above functionality.
+that you can use when setting up your OAuth2 flow, for integrations that only need the above functionality.
 
 :::warn
 With only the default presence scopes, your game will not be able to use any of the limited access
@@ -120,7 +120,7 @@ communications features.
 
 ### Default Communication Scopes
 
-The communications features are currently available but have limited access. Those features **require** the following scope
+The communications features are currently available but have limited access. Those features **require** the scope
 of `sdk.social_layer`, which includes the `sdk.social_layer_presence` scope but also allows your app to use those limited features on behalf of the user.
 
 - `openid`
