@@ -152,6 +152,46 @@ client->SetMessageCreatedCallback([&client](uint64_t messageId) {
 ```
 
 ---
+## Getting Lobby Chat History
+
+You can retrieve previous messages from a lobby using the [`Client::GetLobbyMessagesWithLimit`] function. This allows you to fetch chat history for display when users join a lobby or need to see previous conversations.
+
+The function takes a lobby ID and a limit parameter to specify how many recent messages to retrieve.
+
+**Important limitations:**
+- Only a maximum of 200 messages and up to 72 hours of history can be retrieved
+- Only messages from lobbies the user is currently a member of can be retrieved
+
+```cpp
+const uint64_t lobbyId = 01234567890;
+const uint32_t messageLimit = 50; // Number of recent messages to retrieve (max 200)
+
+client->GetLobbyMessagesWithLimit(
+  lobbyId, messageLimit,
+  [](const discordpp::ClientResult &result, const std::vector<discordpp::MessageHandle> &messages) {
+    if (result.Successful()) {
+      std::cout << "? Retrieved " << messages.size()
+                << " messages from lobby chat history!\n";
+
+      // Process the messages (they are returned in chronological order)
+      for (const auto &message : messages) {
+        std::cout << "Message: " << message.Content() << std::endl;
+      }
+    } else {
+      std::cerr << "? Failed to retrieve lobby chat history\n";
+    }
+  });
+```
+
+The messages are returned as a list of [`MessageHandle`] objects, ordered chronologically from oldest to newest.
+Each [`MessageHandle`] contains the message content, author information, and timestamp.
+
+This is particularly useful for:
+- Displaying recent chat when a user joins a lobby
+- Implementing chat history scrollback features
+- Preserving conversation context across game sessions
+
+---
 
 ## Linking a Channel to Lobby
 
@@ -206,6 +246,7 @@ With your game able to create and manage lobbies, you can now implement addition
 [`ChannelHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1ChannelHandle.html#ac32096b2ef15c5c220e9b7b92253cc46
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
 [`Client::CreateOrJoinLobbyWithMetadata`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a5c84fa76c73cf3c0bfd68794ca5595c1
+[`Client::GetLobbyMessagesWithLimit`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a0586192e85caf548b8b321f1cb21301f
 [`Client::LeaveLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8c78f797240b35d721383461a2e62926
 [`Client::SendLobbyMessage`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a779e0483f51dc99f0db3dd761d22ab6f
 [`Client::SetMessageCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28325a8e8c688a84ac851da4bc86e148
