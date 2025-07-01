@@ -48,7 +48,7 @@
 		"mdast-util-to-markdown": "^2.1.0",
 		"prettier": "^3.2.5",
 		"remark": "^15.0.1",
-		"tsx": "^4.10.2",
+		"tsx": "^4.20.3",
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.0.0-alpha.12"
 	},
