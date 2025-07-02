@@ -1,0 +1,184 @@
+---
+sidebar_label: Implementing IAP for Activities
+---
+
+# Implementing In-App Purchases for Activities
+
+In-App Purchases (IAP) for [Activities](/docs/activities/overview) allows developers to easily monetize their Activity by allowing users to buy premium subscriptions or items natively in Discord. This guide will walk you through the process of implementing monetization using the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk).
+
+Before you can add premium products with the Embedded App SDK in an Activity, you must [Enable Monetization](/docs/monetization/enabling-monetization) for your app.
+
+---
+
+## Key Concepts
+
+Before implementing monetization in your app, it's important to understand the features of Discord you'll be working with:
+
+- **SKUs**: Represent your app's premium products.
+- **Entitlements**: Represent the user's access to your premium products.
+- **Subscriptions**: Represent an ongoing agreement for a user to pay for an entitlement on a recurring basis until canceled.
+
+You can learn more about these concepts in the [Monetization Overview](/docs/monetization/overview).
+
+--- 
+
+## Working with SKUs
+
+SKUs represent the premium products you offer in your app. Before you can start implementing monetization in your app, you will need to create a SKU for each premium product.
+
+To learn more about creating and managing SKUs and the different types of SKUs you can create, see the [Managing SKUs](/docs/monetization/managing-skus) guide.
+
+### Publishing SKUs for Activities
+
+When publishing SKUs, you can choose to publish them to your **Store and the API** or **API Only**. Which method you select will depend on the purchase experience you want to offer your users.
+
+#### Published to Store and the API
+
+- Your SKUs will be visible to users in the Discord client in your [app's store](/docs/monetization/managing-skus#viewing-your-store-page) or your Activity's custom storefront.
+- Your users will be able to purchase them directly from the Discord client without having your Activity open so you should handle the purchase flow accordingly.
+
+#### Published to API Only
+
+- Your SKUs will **not** be visible to users in your [app's store](/docs/monetization/managing-skus#viewing-your-store-page), and users will only be able to purchase them through your Activity's custom storefront.
+
+
+Next, we'll cover how to create and render your own custom storefront in your Activity.
+
+---
+
+## Building a Storefront
+
+Once you have created your SKUs, you will need to build and render your own custom storefront in your Activity to display your premium products to users. This section will guide you through the process of listing SKUs, mapping SKUs to your premium perks, and displaying prices.
+
+### Listing SKUs
+
+To fetch the list of products for displaying in your Activity, you can call the [`getSkus()`](/docs/developer-tools/embedded-app-sdk#getskus) command from the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk). 
+
+You can also fetch SKUs using the [HTTP API](/docs/resources/sku#list-skus).
+
+### Mapping SKUs to Your Premium Perks
+
+When a user purchases a SKU, an entitlement is created. Entitlements represent the user's access to a specific SKU. You will need to map your SKUs to the premium perks you are offering in your application to ensure users receive the correct perks when they purchase a SKU.
+
+When mapping SKUs to premium perks, keep the following in mind:
+- SKUs should be mapped to product based on `id` attribute, **not** other attributes (such as `name`)
+- SKUs can never be deleted, so once purchased it cannot be revoked and should always be mapped to some perk or product in your application
+
+### Formatting and Displaying Prices
+
+The methods for listing SKUs automatically localize currency and prices. 
+
+This means `sku.price` has a number `amount` attribute and a string `currency` attribute. Properly rendering prices with proper currency can be challenging, given the large number of currencies.  The Embedded App SDK provides a `PriceUtils` utility to make this easier.
+
+```javascript
+import {PriceUtils} from '@discord/embedded-app-sdk';
+
+const displayPrice = PriceUtils.formatPrice(sku.price);
+console.log(`The price is ${displayPrice}!`);
+```
+
+---
+
+## Working with Entitlements
+
+When a user purchases a SKU, an entitlement is created. [Entitlements](/docs/resources/entitlement) represent the user's access to your premium product.
+
+Depending on your app's features, you can use a combination of the [Embedded App SDK events](/docs/developer-tools/embedded-app-sdk#getentitlements), [Gateway events](/docs/events/gateway-events#entitlements), the [Entitlement HTTP API](/docs/resources/entitlement), and [interaction payloads](/docs/interactions/receiving-and-responding) to keep track of entitlements to users who have purchased items in your app.
+
+### Fetching Entitlements with the Embedded App SDK
+
+Use the [`getEntitlements()`](/docs/developer-tools/embedded-app-sdk#getentitlements) SDK command to fetch a list of entitlements for a user. This command will return a list of entitlement objects that represent the user's access to your premium products.
+
+### Handling Subscription Entitlements
+  
+When a user purchases a subscription SKU, an entitlement is created. For more information on handling subscription entitlements, see the [Implementing App Subscriptions](/docs/monetization/implementing-app-subscriptions) guide.
+
+### Handling One-Time Purchase Entitlements
+
+When a user purchases a one-time purchase SKU, an entitlement is created. For more information on handling one-time purchase entitlements, see the [Implementing One-Time Purchases](/docs/monetization/implementing-one-time-purchases) guide.
+
+#### One-Time Purchases: Consumable and Durable Items
+
+It is common in Activities to have consumable or one-time-use items, such as a single-use potion or power-up. 
+
+When a user purchases a consumable SKU, an entitlement is created. This entitlement will be marked as `consumed: false`. Your application should process the item purchase and [consume the entitlement](/docs/resources/entitlement#consume-an-entitlement) as soon as possible to grant the user the perks associated with the item.
+
+If you want to offer an item that grants perks for an unlimited amount of time, you should use a durable SKU instead of a consumable SKU. 
+
+Learn more about consumable and durable items in the [Implementing One-Time Purchases](/docs/monetization/implementing-one-time-purchases) guide.
+
+---
+
+## Initiating Purchases
+
+After displaying your SKUs in your custom storefront, you will need to initiate a purchase when a user selects a SKU to purchase.
+
+To initiate a purchase in your activity, use the Embedded App SDK to call the [`startPurchase()`](/docs/developer-tools/embedded-app-sdk#startpurchase) command with the selected SKU `id`. This command will open the purchase flow modal in the Discord client, allowing users to purchase that SKU.
+
+Learn more about the [`startPurchase()`](/docs/developer-tools/embedded-app-sdk#startpurchase) command in the [Embedded App SDK Reference](/docs/developer-tools/embedded-app-sdk).
+
+To know when it has been completed, you can subscribe to `ENTITLEMENT_CREATE` events.
+
+### Subscribing to Purchase Events with the Embedded App SDK
+
+Once a user has completed a purchase, Discord will emit an `ENTITLEMENT_CREATE` event. You can subscribe to this event using the Embedded App SDK to know when a user has successfully purchased a SKU and is granted an entitlement.
+
+You can subscribe to the `ENTITLEMENT_CREATE` event using the [`subscribe()`](/docs/developer-tools/embedded-app-sdk#subscribe) method in the Embedded App SDK. 
+
+Here's an example of how to subscribe to the `ENTITLEMENT_CREATE` event:
+
+```js
+import {DiscordSDK} from '@discord/embedded-app-sdk';
+const discordSdk = new DiscordSDK(clientId);
+await discordSdk.ready();
+
+const handleEntitlementCreate = () => {
+  // refetch entitlements from server using the Entitlement HTTP API endpoint
+};
+discordSdk.subscribe('ENTITLEMENT_CREATE', handleEntitlementCreate);
+```
+
+You can also subscribe to the `ENTITLEMENT_CREATE` event using the [Gateway API](/docs/events/gateway-events#entitlements) to receive the event in your app's backend or use the [List Entitlements](/docs/resources/entitlement#list-entitlements) HTTP API endpoint to fetch a user's entitlements.
+
+---
+
+## Data Security Considerations
+
+When working with SKUs and Entitlements in an Activity, it's crucial to ensure the security and integrity of your application's data. Here are some things to keep in mind:
+
+Developers should ensure the accuracy of data obtained via [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) commands and events. A malicious actor could potentially establish their own RPC connection and interact with your application client, posing as Discord. While this might not be an issue for most SDK commands and events, it becomes critical when dealing with perks offered through In-App purchases.
+
+If your application relies solely on SDK data to determine a user's entitlements, a malicious actor could exploit this to gain access to premium products, features, or advantages without paying. This is particularly relevant for commands like [`getEntitlements()`](/docs/developer-tools/embedded-app-sdk#getentitlements).
+
+### Use the Discord HTTP API for Verification
+
+Data fetched from the Discord HTTP API from your application's backend servers can be trusted and should be treated as the source of truth. This data should be used to validate any inconsistent client-side data.
+
+### Recommended Approach
+
+- **Optimistically** use client-side techniques such as SDK commands and events to fetch SKUs and Entitlements.
+- **Verify** the results via the Discord HTTP API from your application's backend.
+
+In summary, use the principle of "Trust (the SDK), but Verify (via the API)" to ensure the security and integrity of your application's premium features.
+
+---
+
+## Testing Your In-App Purchases
+
+To test your In-App Purchases in your Activity, you will need to follow testing guidelines for both types of SKUs: [One-Time Purchases](/docs/monetization/implementing-one-time-purchases#testing-your-onetime-purchase-implementation) and [Subscriptions](/docs/monetization/implementing-app-subscriptions#testing-your-app-subscription-implementation).
+
+After you've tested your In-App Purchase flows, verify that your application has correctly granted the user the premium perks associated with the SKUs that were purchased during testing.
+
+---
+
+## Next Steps
+
+Check out our example implementation of In-App Purchase in our [SDK Playground Example Application](https://github.com/discord/embedded-app-sdk-examples/tree/main/sdk-playground).
+
+The example implementation includes client-side and server-side code. It also follows the [security considerations](/docs/monetization/implementing-iap-for-activities#data-security-considerations) you should make when working with SKUs and entitlements.
+
+<Container>
+    <Card title="Embedded App SDK Playground" link="https://github.com/discord/embedded-app-sdk-examples/tree/main/sdk-playground">
+        This reference example implements the commands and events available to you within the Embedded App SDK, including In-App Purchases.
+    </Card>
+</Container>

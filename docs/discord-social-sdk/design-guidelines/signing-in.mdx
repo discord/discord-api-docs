@@ -1,0 +1,85 @@
+---
+sidebar_label: Signing In
+---
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Design Guidelines](/docs/discord-social-sdk/design-guidelines) > Signing In
+
+# Signing In
+
+:::info
+Any in-game imagery used in is purely fictional for concept purposes.
+:::
+
+## Overall flow 
+
+Sign-in or log-in flows all begin with the interaction of a [**Discord-styled button**](/docs/discord-social-sdk/design-guidelines/branding-guidelines#buttons).
+
+The Discord Social SDK will support the user-journeys for those who already **have a Discord account** and those who **do not**. We will similarly support those who have Discord installed as well as those who do not (via browser).
+
+A player can also proceed **without** connecting their Discord and continue onwards to playing their game.
+
+![Overall Flow](images/social-sdk/design-guidelines/SigningIn-02.png)
+
+### Connecting your Discord account via Discord client (gif)
+
+![Connecting your Discord account via Discord client](images/social-sdk/design-guidelines/animated/Connecting-via-Client.gif)
+
+### Connecting your Discord account via Browser (gif)
+
+![Connecting your Discord account via Browser](images/social-sdk/design-guidelines/animated/Connecting-via-Browser.gif)
+
+## Overlay Authorization
+
+Discord's [Overlay](https://support.discord.com/hc/en-us/articles/217659737-Game-Overlay-101) feature can be used to enable authorization without ever leaving the game. This is available for games who support the feature.
+
+![Overlay Authorization](images/social-sdk/design-guidelines/SigningIn-05.png)
+
+## Before the user connects
+
+We recommend adding a **one-time user education** modal based on feedback we've heard from developers and players.
+
+This modal should include some of the key value props that the Discord Social SDK provides. The modal should be placed contextually **in the game**.
+
+#### Suggested Moments
+
+- Trigger upon game-start for first time after the Discord Social SDK integration is launched to players
+- Show when player interacts with the friends list for the first time
+- Show in the authorization flow once a player taps the Discord connection point
+
+![Before the user connects](images/social-sdk/design-guidelines/SigningIn-06.png)
+
+## After the user connects
+
+We recommend adding a **success state** in the game when the authorization completes — styled in a way that fits the game's aesthetic.
+
+#### Content
+
+Include the following points sequentially in the game' s writing-style. Remove any points that covers features that the game does not utilize.
+
+- You successfully connected your Discord account
+- You can chat with your friends here and on Discord
+- It might take some time for your game friends to show up in your Discord
+
+![After the user connects](images/social-sdk/design-guidelines/SigningIn-07.png)
+
+## Error State
+
+The user will also need to be shown an **error state** if the authorization fails — also styled in a way that fits the game's aesthetic.
+
+Please include these key points sequentially in the game's writing-style:
+- We were unable to connect your Discord account
+- A call-to-action that redirects back to Discord with the initial authorization modal
+
+![Error State](images/social-sdk/design-guidelines/SigningIn-08.png)
+
+---
+
+## Resources 
+
+- [Development Guide: Account Linking with Discord](/docs/discord-social-sdk/development-guides/account-linking-with-discord)
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | initial release |

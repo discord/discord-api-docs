@@ -1,0 +1,159 @@
+---
+sidebar_label: Using with the Embedded App SDK
+---
+
+# Using Rich Presence with the Embedded App SDK
+
+When developing an [Activity](/docs/activities/overview), the [Embedded App SDK](/docs/developer-tools/embedded-app-sdk) makes it easy to integrate Rich Presence to display details about what a user is up to inside of your game or social experience.
+
+Rich Presence data can be thought of as an extension of your Activity—and leveling it up just a *little* makes it more interesting and relevant to the user playing your Activity (and their friends that might want to jump in and play). This guide provides an overview of the platform and technical knowledge you need to integrate Rich Presence with your existing Activity.
+
+:::info
+Not sure if you should be building with the Embedded App SDK? Read through [Choosing an SDK](/docs/rich-presence/overview#choosing-an-sdk) to understand your options when integrating Rich Presence with your app.
+:::
+
+The rest of the guide assumes you've already developed an [app](/docs/quick-start/overview-of-apps) that can launch an Activity. If you aren't at that point quite yet, you should follow the guide on [building your first Activity](/docs/activities/building-an-activity) before continuing.
+
+## Understanding Rich Presence Data
+
+### Default Rich Presence Data
+
+By default, when a user is connected to your Activity, the app's icon will appear on their profile. If the user viewing the profile has the ability to join, an "Ask to Join" button will be displayed as well.
+
+![Example of default Rich Presence data for an Activity](images/default-presence-activities.png)
+
+While this is okay, it's pretty limited and doesn't provide much context about what a user is actually *doing* inside of the Activity. In the following sections, we'll take a look at what richer and more actionable presence can look like.
+
+### Custom Rich Presence Data
+
+Now let's see what custom presence data can look like when a user joins your Activity. The [types for these fields](/docs/rich-presence/using-with-the-embedded-app-sdk#setactivity-fields) and [examples](/docs/rich-presence/using-with-the-embedded-app-sdk#setactivity-example) are in the sections below, but for now let's just get an idea of what we're working with:
+
+![Image of where Rich Presence data appears in Discord profiles for Activities](images/annotated-presence-data-activities.png)
+
+A few small things to note about the above image:
+1. `large_image` and `small_image` are both in the `assets` object, which you can see below in the [table below](/docs/rich-presence/using-with-the-embedded-app-sdk#activity-partial-object). They're labeled with the object's keys to make it more clear how they appear in a Discord profile.
+2. You can't set App Name when setting presence—it's always the name configured in your [app's settings](https://discord.com/developers/applications).
+3. The state `(1 of max_party)` badge will only render when a party field is provided. Otherwise, state will be shown in a line of text below details.
+
+## Updating Presence
+
+When updating Rich Presence data using the Embedded App SDK, the only real command you need to use is **[`setActivity()`](/docs/developer-tools/embedded-app-sdk#setactivity)**. Under the hood, `setActivity()` calls the RPC [`SET_ACTIVITY` command](/docs/topics/rpc#setactivity) with the features and fields available when you're building an Activity.
+
+<Collapsible title="Why am I seeing the word activity everywhere?" description="A brief platform history lesson about what all these different activites are about" icon="question">
+As you start exploring the Rich Presence docs, you'll start seeing the word "activity" a *lot*. The "activities" referenced in docs (like the [RPC ones](/docs/topics/rpc#setactivity)) aren't related to the Activities you're building with the Embedded App SDK.
+
+When Rich Presence was introduced, the underlying object that contains presence data was called an "activity" (long before the Embedded App SDK), which is what the RPC [`SET_ACTIVITY` command](/docs/topics/rpc#setactivity) is referencing. And that's *also* why the Embedded App SDK's wrapper around the RPC command is called `setActivity()` yet isn't really related to setting the state for the kind of Activity that *you're* building.
+
+We know, it's confusing ¯\\\_(⊙︿⊙)\_/¯ — the naming was logical at the time because it was really about the user's activity in a 3rd party game or service, but now it sorta feels like activity-ception. Understanding the nuances here aren't super important, and it's why we have guides like this one. But as they say...the more you (at least sort of) know.
+</Collapsible>
+
+### rpc.activities.write Scope
+
+To display custom Rich Presence data for a user, your app will need to be authorized with the [`rpc.activities.write` scope](/docs/topics/oauth2#shared-resources-oauth2-scopes) for that user.
+
+To request the scope, your [`authorize()`](/docs/developer-tools/embedded-app-sdk#authorize) call might look something like this:
+
+<Collapsible title="Example requesting rpc.activities.write with authorize()" icon="code">
+
+:::info
+The following example only focuses on calling `authorize()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like installing and instantiating the Embedded App SDK.
+:::
+
+```js
+// Authorize with Discord Client
+const { code } = await discordSdk.commands.authorize({
+  client_id: import.meta.env.VITE_DISCORD_CLIENT_ID,
+  response_type: "code",
+  state: "",
+  prompt: "none",
+  scope: [
+    "identify",
+    "rpc.activities.write"
+  ],
+});
+```
+</Collapsible>
+
+### setActivity Fields
+
+When calling [`setActivity()`](/docs/developer-tools/embedded-app-sdk#setactivity), you are expected to pass a partial [activity object](/docs/events/gateway-events#activity-object-activity-structure).
+
+Below is a table with many of the available fields for the activity partial. Some were left out since they don't have an effect for Activities.
+
+#### Activity partial object
+
+:::info
+All of the fields on the partial object are optional and nullable
+:::
+
+| field      | type                                                                                 | description                                                                                                                              |
+|------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                                                              | [Activity](/docs/events/gateway-events#activity-object-activity-types) type, which determines the header text for the Rich Presence data |
+| state      | string                                                                               | User's current party status                                                                                                              |
+| details    | string                                                                               | What the player is currently doing in your Activity                                                                                      |
+| timestamps | [timestamps](/docs/events/gateway-events#activity-object-activity-timestamps) object | Unix timestamps to display start and/or end times                                                                                        |
+| assets     | [assets](/docs/events/gateway-events#activity-object-activity-assets) object         | Images used for the Rich Presence data (and their hover texts)                                                                           |
+| party      | [party](/docs/events/gateway-events#activity-object-activity-party) object           | Information for the current party of the player                                                                                          |
+
+### setActivity Example
+
+Now let's take a look at more of a real example. Take a look at the Rich Presence data below that is for an Activity:
+
+![Example of a fake game's Rich Presence data](images/activities-presence-example.png)
+
+To create this sort of Rich Presence, here is what the `setActivity()` code would look like:
+
+<Collapsible title="Example calling setActivity() command" icon="code" open>
+
+:::info
+The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+:::
+```js
+await discordSdk.commands.setActivity({
+  activity: {
+    type: 0,
+    details: 'Traveling with a group',
+    state: 'In Mainframe',
+    assets: {
+      large_image: 'main-game-image',
+      large_text: 'in a group',
+      small_image: 'map-mainframe',
+      small_text: 'in mainframe'
+    },
+    timestamps: {
+      start: 1723137832
+    },
+    party: {
+      size: [2,4]
+    }
+  }
+});
+```
+</Collapsible>
+
+## Using External Custom Assets
+
+Typically when building an Activity, you need to be aware of the proxy and [how to use external resources](/docs/activities/development-guides/networking#using-external-resources). However, lucikly for you (and the writer of this guide), image URLs in fields for features like Rich Presence don't need to jump through any extra hoops.
+
+As mentioned in the [Rich Presence overview](/docs/rich-presence/overview#assets), you have more than 300 custom assets or if you want to use your stored images from somewhere else, you can specify an external URL for `large_image` or `small_image` within the `assets` object.
+
+<Collapsible title="Example setting presence with an external asset" icon="code" open>
+
+:::info
+The following example only focuses on using `setActivity()`. Follow the [Building an Activity guide](/docs/activities/building-an-activity) for more details on topics like instantiating the Embedded App SDK and authenticating users.
+:::
+```js
+await discordSdk.commands.setActivity({
+  activity: {
+    type: 2,
+    state: 'Broken Hearts and Code (club edit)',
+    details: 'DJ Wump',
+    assets: {
+      large_image: 'https://example.com/album-covers/dj-wump/broken-code-and-hearts-club-edit.jpg',
+      large_text: 'Listening to a track',
+    }
+  }
+});
+```
+</Collapsible>
+

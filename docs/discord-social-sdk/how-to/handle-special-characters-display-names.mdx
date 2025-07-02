@@ -1,0 +1,50 @@
+---
+sidebar_label: Handle Special Characters in Display Names
+---
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [How To](/docs/discord-social-sdk/how-to) > {sidebar_label}
+
+# How To Handle Special Characters in Display Names
+
+The Social SDK [recommends](https://discord.com/developers/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list#step-1-fetch-relationships) using an account's [Display Name](https://discord.com/developers/docs/slayer-sdk/classdiscordpp_1_1UserHandle.html#af6447fa2011bfa4fcd7e55bc56847f5c) in the Unified Friends List. However, Display Names support a large set of characters across the Unicode spec, and some of these characters may not be supported in a game's specified font. 
+
+There are several options to address this:
+
+## Use a font family that supports Unicode
+
+A family such as [Noto](https://notofonts.github.io/) aims to have broad Unicode support. If a font cannot render a Display Name, consider rendering it with a fallback font, or in the extreme case, choose a font with broad Unicode support for the Friends List. 
+
+**Tradeoffs:**
+
+- One font family may not include 100% overlap with what Discord supports.
+- A font that supports Unicode may not mesh with your game's aesthetics.
+- Engine support is limited, especially for characters that rely on UTF surrogate pairs.
+
+## Map the Unicode characters to ASCII
+
+A library such as [Unidecode](https://metacpan.org/pod/Text::Unidecode) (which has been ported to many different languages) can map many Unicode characters to an ASCII equivalent. If you detect that a Display Name has characters that cannot be rendered, consider passing it through a library to transliterate the Display Name to ASCII.
+
+**Tradeoffs:**
+
+- This may result in unintended transliterations. It is impossible to create a perfect mapping between Unicode and ASCII in every situation. Libraries try their best, but this approach may unintentionally create an inaccurate or even offensive display name in some instances.
+- Libraries will not have 100% coverage. Some Unicode characters may not have a map to an ASCII character. If someone's Display Name is `ʕ•͡-•ʔ` what would it map to?
+- Similarly, most libraries assume English is the target language.
+- Users may not appreciate their display names being changed without their knowledge or consent.
+
+
+## Use the Discord Username as a Fallback
+
+If a Display Name is not renderable at all, consider falling back to the user's [`Username`](https://discord.com/developers/docs/slayer-sdk/classdiscordpp_1_1UserHandle.html#a0eda41fe18b50bce373fb5a1b88cb411).
+
+**Tradeoffs:**
+
+- This can break immersion in a game if a friend had expected to rely on their Display Name from within the game.
+- Some users consider their Username to be more private information and do not expect it to be shared by others (such as when someone is streaming and their friends list is visible).
+
+---
+
+## Change Log
+
+| Date          | Changes                         |
+|---------------|---------------------------------|
+| June 17, 2025 | special characters how-to added |
