@@ -5,7 +5,7 @@ topics:
 - "HTTP API"
 ---
 
-We've documented gradient role colors and guild tags in the API. Guild tags let users rep their favorite server with a 1-4 character badge next to their display name. They can be accessed using the `primary_guild` field on the user object. Servers can now give gradient colors to their roles instead of a single, solid color. Gradient colors use the new `colors` field on the guild object. As part of this change, the `color` field on roles is now deprecated, but it will still work for backwards compatibility.
+We've documented gradient role colors and guild tags in the API. Guild tags let users rep their favorite server with a 1-4 character badge next to their display name. They can be accessed using the `primary_guild` field on the user object. Servers can now give gradient colors to their roles instead of a single, solid color. Gradient colors use the new `colors` field on the role object. As part of this change, the `color` field on roles is now deprecated, but it will still work for backwards compatibility.
 
 #### Gradient Role Colors
 
