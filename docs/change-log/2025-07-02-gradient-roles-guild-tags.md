@@ -16,5 +16,5 @@ We've documented gradient role colors and guild tags in the API. Guild tags allo
 
 #### Guild Tags
 
-- Guild tags can be retrieved through the user `primary_guild` field.
+- Guild tags can be retrieved through the `primary_guild` field on the user object.
 - [User Primary Guild](/docs/resources/user#user-object-user-primary-guild)
