@@ -219,7 +219,7 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | tags?          | [role tags](/docs/topics/permissions#role-object-role-tags-structure) object  | the tags this role has                                                                                                          |
 | flags          | integer                                                                       | [role flags](/docs/topics/permissions#role-object-role-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
-Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
+Roles without colors (`colors.primary_color == 0`) do not count towards the final computed color in the user list.
 
 \* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
