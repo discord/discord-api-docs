@@ -230,7 +230,38 @@ def refresh_token(refresh_token):
 
 If a user wants to disconnect their Discord account or if a token is compromised, you can revoke access and refresh tokens.
 
+:::warn
+When any valid access or refresh token is revoked, all of your application's access and refresh tokens for that user are immediately invalidated.
+:::
+
+### Revoking Access Tokens for Public Clients
+
+<PublicClient />
+
+The easiest way to revoke tokens is using the SDK's `Client::RevokeToken` method. This will invalidate all access and refresh tokens for the user and they cannot be used again.
+
+```cpp
+client->RevokeToken(YOUR_DISCORD_APPLICATION_ID,
+                    accessToken, // Can also use refresh token
+                    [](const discordpp::ClientResult &result) {
+                      if (!result.Successful()) {
+                        std::cout
+                            << "? Error revoking token: " << result.Error()
+                            << std::endl;
+                        return;
+                      }
+
+                      std::cout
+                          << "? Token successfully revoked! User logged out."
+                          << std::endl;
+                      // Handle successful logout (clear stored tokens,
+                      // redirect to login, etc.)
+                    });
+```
+
 ### Server-to-Server Token Revocation
+
+If your application uses a backend server, you can revoke tokens by making an API request to Discord's token revocation endpoint.
 
 ```python
 import requests
