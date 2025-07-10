@@ -1004,7 +1004,9 @@ When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Playi
     "pid": 9999,
     "activity": {
       "state": "In a Group",
+      "state_url": "https://example.com/groups/50335231-9d9d-4ebd-873b-984787ee4d1d",
       "details": "Competitive | In a Match",
+      "details_url": "https://example.com/matches/42340203-2f25-4534-8ff6-2a6509e81207",
       "timestamps": {
         "start": time(nullptr),
         "end": time(nullptr) + (60 * 5 + 23)
@@ -1012,8 +1014,10 @@ When using `SET_ACTIVITY`, the `activity` object is limited to a `type` of Playi
       "assets": {
         "large_image": "numbani_map",
         "large_text": "Numbani",
+        "large_url": "https://example.wiki/maps/Numbani",
         "small_image": "pharah_profile",
-        "small_text": "Pharah"
+        "small_text": "Pharah",
+        "small_url": "https://example.wiki/characters/Pharah"
       },
       "party": {
         "id": GameEngine.GetPartyId(),
