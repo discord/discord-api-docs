@@ -200,46 +200,6 @@ See the `ActivityGamePlatforms` enum for all supported platforms.
 
 ---
 
-## Setting Field URLs
-
-You can set URLs for `details`, `state`, `assets.large_image` and `assets.small_image` in Rich Presence. When present, these URLs will make the corresponding image/text into clickable links.
-
-```cpp
-activity.SetState("Playing on Mainframe");
-activity.SetStateUrl("https://example.com/maps/mainframe");
-activity.SetDetails("Rank #1337 in global leaderboard");
-activity.SetDetailsUrl("https://example.com/leaderboard/global");
-
-discordpp::ActivityAssets assets;
-assets.SetLargeImage("map-mainframe");
-assets.SetLargeText("Mainframe");
-assets.SetLargeUrl("https://example.com/maps/mainframe");
-assets.SetSmallImage("tank-avatar");
-assets.SetSmallText("Tank");
-assets.SetSmallUrl("https://example.com/classes/tank");
-
-activity.SetAssets(assets);
-```
-
----
-
-## Configuring Status Text
-
-By default, Rich Presence will display the game's name in the user's status text. You can override this behavior by setting a status display type.
-
-```cpp
-// uses the game's name in the status text (default)
-activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::Name);
-
-// uses the activity's state field in the status text
-activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::State);
-
-// uses the activity's details field in the status text
-activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::Details);
-```
-
----
-
 ## Next Steps
 
 Now that you've set up Rich Presence, you might want to explore:
