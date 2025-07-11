@@ -1,12 +1,12 @@
 {
-	"compilerOptions": {
-		"noEmit": true,
-		"target": "ES2022",
-		"strict": true,
-		"esModuleInterop": true,
-		"rootDir": "./",
-		"module": "NodeNext",
-		"outDir": "./dist"
-	},
-	"include": ["**/*.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "rootDir": "./",
+    "module": "NodeNext",
+    "outDir": "./dist"
+  },
+  "include": ["**/*.ts"]
 }

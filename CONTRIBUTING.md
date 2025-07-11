@@ -52,7 +52,7 @@ Currently the following types are available: `info`, `warn`, `danger` and `previ
 
 ### MDX Components
 
-There are a few reusable MDX components that can be used on pages with the `mdx` extension. 
+There are a few reusable MDX components that can be used on pages with the `mdx` extension.
 
 #### Collapsibles
 

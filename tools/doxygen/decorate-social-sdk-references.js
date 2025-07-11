@@ -95,7 +95,7 @@ const processMarkdownFile = (filePath, mapping) => {
 
       while ((match = regex.exec(line)) !== null) {
         const shortSymbol = match[1];
-        const fullSymbol = `discordpp::${shortSymbol}`;
+        const fullSymbol = `discord-app::${shortSymbol}`;
 
         if (mapping[fullSymbol] && !referencesFound.has(shortSymbol)) {
           referencesFound.set(shortSymbol, {
@@ -104,7 +104,7 @@ const processMarkdownFile = (filePath, mapping) => {
             url: mapping[fullSymbol],
           });
         } else if (!shortSymbol.includes("::")) {
-          const constructorSymbol = `discordpp::${shortSymbol}::${shortSymbol}`;
+          const constructorSymbol = `discord-app::${shortSymbol}::${shortSymbol}`;
           if (mapping[constructorSymbol] && !referencesFound.has(shortSymbol)) {
             referencesFound.set(shortSymbol, {
               short: shortSymbol,
