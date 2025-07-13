@@ -353,14 +353,84 @@ def exchange_device_code_with_merge(device_code):
 
 ## Unmerging Provisional Accounts
 
-When a player wants to unlink their Discord account from their provisional account, there are two options.
+When a player wants to unlink their Discord account from their provisional account, there are three options:
 
-1. The user can unmerge their account from the Discord client.
-2. A developer can unmerge the account using the unmerge endpoint on the Discord API.
+1. The user can unmerge their account from the Discord client
+2. A developer can use the SDK helper method for public clients
+3. A developer can unmerge the account using the unmerge endpoint on the Discord API
+
+:::warn
+Unmerging invalidates all access/refresh tokens for the user. They cannot be used again after the unmerge operation completes.
+:::
 
 ### Discord Users
 
 Users can unmerge their account by removing access to your application on their Discord `User Settings -> Authorized Apps` page.
+
+This method doesn't require any code changes from developers, but we recommend providing unmerging functionality through
+one of the options below for a better user experience.
+
+### Using the SDK Helper Method
+
+<PublicClient />
+
+The quickest way to unmerge accounts is to leverage the [`Client::UnmergeIntoProvisionalAccount`] method,
+which will handle the entire process for you. This method is designed for public clients that don't have a backend server.
+
+**Important Notes:**
+- This function only works for **public clients** (applications without backend servers)
+- You'll need to enable "Public Client" on your Discord application's OAuth2 tab in the Discord developer portal
+- After unmerging, you should use [`Client::GetProvisionalToken`] to get a new provisional token for the newly created provisional account
+
+```cpp
+// unmerge a user account
+void UnmergeUserAccount(const std::shared_ptr<discordpp::Client>& client) {
+    // Get your external auth token (Steam, OIDC, etc.)
+    std::string externalToken = GetExternalAuthToken();
+
+    // Unmerge the Discord account from the external identity
+    client->UnmergeIntoProvisionalAccount(
+        YOUR_DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC, // or STEAM, EOS, etc.
+        externalToken,
+        [client, externalToken](const discordpp::ClientResult &result) {
+            if (result.Successful()) {
+                std::cout << "✅ Account unmerged successfully! Creating new provisional account...\n";
+
+                // Now get a new provisional token for the unlinked identity
+                client->GetProvisionalToken(
+                    YOUR_DISCORD_APPLICATION_ID,
+                    discordpp::AuthenticationExternalAuthType::OIDC,
+                    externalToken,
+                    [client](const discordpp::ClientResult &result,
+                                 const std::string &accessToken,
+                                                     const std::string& refreshToken,
+                                                     discordpp::AuthorizationTokenType tokenType,
+                                                     int32_t expiresIn,
+                                                     const std::string& scopes) {
+                        if (result.Successful()) {
+                            std::cout << "🔓 New provisional account created! Establishing connection...\n";
+                            client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken,
+                                [client](const discordpp::ClientResult &updateResult) {
+                                    if (updateResult.Successful()) {
+                                        client->Connect();
+                                    } else {
+                                        std::cerr << "❌ Failed to update token: " << updateResult.Error() << std::endl;
+                                    }
+                                }
+                            );
+                        } else {
+                            std::cerr << "❌ Failed to create new provisional account: " << result.Error() << std::endl;
+                        }
+                    }
+                );
+            } else {
+                std::cerr << "❌ Unmerge failed: " << result.Error() << std::endl;
+            }
+        }
+    );
+}
+```
 
 ### Unmerging using the unmerge endpoint
 
@@ -369,12 +439,12 @@ A developer can unmerge a user's account by sending a request to the unmerge end
 
 ```python
 import requests
- 
+
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 EXTERNAL_AUTH_TYPE = 'OIDC'
- 
+
 def unmerge_provisional_account(external_auth_token):
   data = {
     'client_id': CLIENT_ID,
@@ -385,6 +455,10 @@ def unmerge_provisional_account(external_auth_token):
   r = requests.post('%s/partner-sdk/provisional-accounts/unmerge' % API_ENDPOINT, json=data, headers=headers)
   r.raise_for_status()
 ```
+
+:::info
+If you have a server backend, you'll want to use the server-to-server unmerge endpoint rather than the SDK helper method to maintain better security and control over the unmerge process.
+:::
 
 ---
 
@@ -421,4 +495,5 @@ Now that you've set up provisional accounts for your game, you can explore more 
 [`Client::GetTokenFromDeviceProvisionalMerge`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#afd2207590ae7d6f60ee7bbb4fc7c21c8
 [`Client::GetTokenFromProvisionalMerge`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a41062b7dafa331ddd2320daf1b4b273b
 [`Client::SetTokenExpirationCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aab5bfc76809ea22e79f2f7a067ac4519
+[`Client::UnmergeIntoProvisionalAccount`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a2da21ae8a3015e0e5e42c1a7226b256f
 [`Client::UpdateProvisionalAccountDisplayName`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7485979ab2d4c533b75f8efd5e50bc60
