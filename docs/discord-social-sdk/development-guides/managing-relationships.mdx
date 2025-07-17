@@ -29,9 +29,9 @@ Before you begin, make sure you have:
 ## Understanding Relationship Types
 
 Discord models the relationship between two users using the Relationship entity in the SDK. Relationships are not just for friends. They are also used to send and receive friend requests and block other users.
-
-Note: While the SDK allows you to manage a user's relationships, you should never act without their explicit consent. You should not automatically send or accept friend requests. Only invoke APIs to manage relationships in response to a user action such as clicking a "Send Friend Request" button.
-
+:::warn
+While the SDK allows you to manage a user's relationships, you should never act without their explicit consent. You should not automatically send or accept friend requests. Only invoke APIs to manage relationships in response to a user action such as clicking a "Send Friend Request" button.
+:::
 ### Relationship Types
 
 We know that sometimes users will want to be friends with each other across all their games. If they start playing a new game, they can see all of their previous friends and don't start from scratch. But sometimes, they don't want to give out that access and only want to be friends in the current game they are playing.
