@@ -3,7 +3,6 @@ title: "Clickable Links and Customizable Statuses in Rich Presence"
 date: "2025-07-17"
 topics:
 - "Activities"
-- "Discord Social SDK"
 - "Embedded App SDK"
 ---
 
