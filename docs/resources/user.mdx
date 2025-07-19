@@ -28,38 +28,39 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field                   | Type                                                                                 | Description                                                                                          | Required OAuth2 Scope |
-| ----------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | --------------------- |
-| id                      | snowflake                                                                            | the user's id                                                                                        | identify              |
-| username                | string                                                                               | the user's unique username                                                 | identify              |
-| discriminator           | string                                                                               | the user's Discord-tag (Depricated, Now always `0`)                                                                               | identify              |
-| global_name             | ?string                                                                              | the user's display name, if it is set. For bots, this is the application name                        | identify              |
-| avatar                  | ?string                                                                              | the user's [avatar hash](/docs/reference#image-formatting)                                           | identify              |
-| bot?                    | boolean                                                                              | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?                 | boolean                                                                              | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?            | boolean                                                                              | whether the user has two factor enabled on their account                                             | identify              |
-| banner?                 | ?string                                                                              | the user's [banner hash](/docs/reference#image-formatting)                                           | identify              |
-| banner_color?                 | ?string                                                                             | the user's banner color as a hexadecimal color code                                           | identify              |
-| accent_color?           | ?integer                                                                             | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?                 | string                                                                               | the user's chosen [language option](/docs/reference#locales)                                         | identify              |
-| verified?               | boolean                                                                              | whether the email on this account has been verified                                                  | email                 |
-| email?                  | ?string                                                                              | the user's email                                                                                     | email                 |
-| flags?                  | integer                                                                              | the [flags](/docs/resources/user#user-object-user-flags) on a user's account                         | identify              |
-| premium_type?           | integer                                                                              | the [type of Nitro subscription](/docs/resources/user#user-object-premium-types) on a user's account | identify              |
-| public_flags?           | integer                                                                              | the public [flags](/docs/resources/user#user-object-user-flags) on a user's account                  | identify              |
-| avatar_decoration_data? | ?[avatar decoration data](/docs/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                | identify              |
-| collectibles?           | ?[collectibles](/docs/resources/user#collectibles) object                            | data for the user's collectibles                                                                     | identify              |
-| clan?          | ?[user primary guild](/docs/resources/user#user-object-user-primary-guild) object    | See `primary_guild`                                                                             | identify              |
-| primary_guild?          | ?[user primary guild](/docs/resources/user#user-object-user-primary-guild) object    | the user's primary guild                                                                             | identify              |
-| display_name_styles?    | ?[display name styles](/docs/resources/user#) object |data for the users display name style                                                                            | identify              |
-| locale    | ?[locale](/docs/reference#locales) object | the users locale settings                                                                            | identify              | 
-| phone    | ?string | the current users phone number (`/@me` only)                                                                           | identify              | 
-| premium_usage_flags    | integer | the ?[premium_usage_flags](/docs/resources/user#premium-usage-flags) on the account                                                                           | identify              | 
-| purchased_flags    | integer | the ?[purchased_flags](/docs/resources/user#purchased-flags) on the account                                                                           | identify              | 
-| nsfw_allowed    | ?boolean | the user is allowed to see nsfw content, `null` if not yet known                                                                           | identify              | 
-| bio?    | ?string | the user bio                                                                           | identify              | 
-| authenticator_types    | array[integer] | 	the ?[multi-factor authentication types](/docs/resources/user#authentication-types) the user has enabled                                                                        | identify              | 
-| age_verification_status    | integer | the ?[age verification](/docs/resources/user#age-verification) status of the user                                                                           | identify              | 
+| Field                       | Type                                                                                 | Description                                                                                                | Required OAuth2 Scope |
+| --------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | --------------------- |
+| id                          | snowflake                                                                            | the user's id                                                                                              | identify              |
+| username                    | string                                                                               | the user's unique username                                                                                 | identify              |
+| discriminator               | string                                                                               | the user's Discord-tag (Depricated, Now always `0`)                                                        | identify              |
+| global_name                 | ?string                                                                              | the user's display name, if it is set. For bots, this is the application name                              | identify              |
+| avatar                      | ?string                                                                              | the user's [avatar hash](/docs/reference#image-formatting)                                                 | identify              |
+| bot?                        | boolean                                                                              | whether the user belongs to an OAuth2 application                                                          | identify              |
+| system?                     | boolean                                                                              | whether the user is an Official Discord System user (part of the urgent message system)                    | identify              |
+| mfa_enabled?                | boolean                                                                              | whether the user has two factor enabled on their account                                                   | identify              |
+| banner?                     | ?string                                                                              | the user's [banner hash](/docs/reference#image-formatting)                                                 | identify              |
+| banner_color?               | ?string                                                                              | the user's banner color as a hexadecimal color code                                                        | identify              |
+| accent_color?               | ?integer                                                                             | the user's banner color encoded as an integer representation of hexadecimal color code                     | identify              |
+| locale?                     | string                                                                               | the user's chosen [language option](/docs/reference#locales)                                               | identify              |
+| verified?                   | boolean                                                                              | whether the email on this account has been verified                                                        | email                 |
+| email?\*                    | ?string                                                                              | the user's email                                                                                           | email                 |
+| flags?\*                    | integer                                                                              | the [flags](/docs/resources/user#user-object-user-flags) on a user's account                               | identify              |
+| premium_type?\*             | integer                                                                              | the [type of Nitro subscription](/docs/resources/user#user-object-premium-types) on a user's account       | identify              |
+| public_flags?\*             | integer                                                                              | the public [flags](/docs/resources/user#user-object-user-flags) on a user's account                        | identify              |
+| avatar_decoration_data?\*   | ?[avatar decoration data](/docs/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                      | identify              |
+| collectibles?\*             | ?[collectibles](/docs/resources/user#collectibles) object                            | data for the user's collectibles                                                                           | identify              |
+| clan?                       | ?[user primary guild](/docs/resources/user#user-object-user-primary-guild) object    | Replaced by `primary_guild`, but still currently visible                                                   | identify              |
+| primary_guild?              | ?[user primary guild](/docs/resources/user#user-object-user-primary-guild) object    | the user's primary guild                                                                                   | identify              |
+| locale\*                    | ?[locale](/docs/reference#locales) object                                            | the users locale settings                                                                                  | identify              | 
+| phone\*                     | ?string                                                                              | the current users phone number (`/@me` only)                                                               | identify              | 
+| premium_usage_flags\*       | integer                                                                              | the ?[premium_usage_flags](/docs/resources/user#premium-usage-flags) on the account                        | identify              | 
+| purchased_flags\*           | integer                                                                              | the ?[purchased_flags](/docs/resources/user#purchased-flags) on the account                                | identify              | 
+| nsfw_allowed\*              | ?boolean                                                                             | the user is allowed to see nsfw content, `null` if not yet known                                           | identify              | 
+| bio?\*                      | ?string                                                                              | the user bio                                                                                               | identify              | 
+| authenticator_types\*       | array[integer]                                                                       | 	the ?[multi-factor authentication types](/docs/resources/user#authentication-types) the user has enabled  | identify              | 
+| age_verification_status\*   | integer                                                                              | the ?[age verification](/docs/resources/user#age-verification) status of the user                          | identify              | 
+
+\* Only available from the `users/@me` endpoint
 
 ###### Example Partial User
 
@@ -86,7 +87,6 @@ There are other rules and restrictions not shared here for the sake of spam and 
       "palette": "sky"
     }
   },
-  "display_name_styles": null,
   "banner_color": "#FF0000",
   "clan": {
     "identity_guild_id": "1234647491267808778",
@@ -128,7 +128,6 @@ There are other rules and restrictions not shared here for the sake of spam and 
       "palette": "cobalt"
     }
   },
-  "display_name_styles": null,
   "banner_color": "#FF0000",
   "clan": {
     "identity_guild_id": "1234647491267808778",
