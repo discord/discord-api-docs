@@ -29,7 +29,8 @@ When creating items for one-time purchase, you can choose between durable and co
 - You will receive an `ENTITLEMENT_CREATE` event via the Gateway.
 - This entitlement is now available via the `LIST Entitlements` API endpoint.
 - This entitlement will be available on `Interaction Payloads` initiated from the entitled user or users in a guild (for guild subscriptions).
-- The purchasing user is unable to make another purchase of this specific SKU until you consume the entitlement using the [Consume Entitlement API](/docs/resources/entitlement#consume-an-entitlement) endpoint.
+- Users cannot repurchase this SKU until you consume the entitlement using the [Consume Entitlement API](/docs/resources/entitlement#consume-an-entitlement) endpoint.
+  - In [Test Mode](/docs/monetization/implementing-one-time-purchases#using-application-test-mode), repeated purchases are permitted without consumption for developer convenience.
 - When you receive an `ENTITLEMENT_CREATE` event for a consumable SKU, you should process the item purchase in your app and consume the entitlement as soon as possible.
 
 ---
