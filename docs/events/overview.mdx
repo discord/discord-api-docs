@@ -1,0 +1,53 @@
+---
+sidebar_label: Overview
+---
+
+# Overview of Events
+
+Apps can listen to events happening in Discord to stay up-to-date with changes and updates to servers, users, and even your app. The following sections cover basic information about the different transport methods that can be used to receive events, and link out to relevant documentation.
+
+## Receiving Events
+
+There are many event types that can be accessed using different transport methods:
+- **[Gateway events](/docs/events/overview#using-gateway)** are sent over a WebSocket connection between your app and Discord, and is the primary way to receive and send events. **Most events are only available via Gateway connections.**
+- **[Webhook events](/docs/events/overview#using-webhooks)** are sent to your app's Webhook Event URL over HTTP.
+- **[SDK events](/docs/events/overview#using-the-embedded-app-sdk)** are sent to your app when using the Embedded App SDK.
+
+Read details about each way to receive events in the sections below.
+
+### Using Gateway
+
+Gateway events are the primary way apps can listen and send events. Most events related to resources in Discord, like updates to channels, guilds, roles, and messages, are only available over [Gateway](/docs/events/gateway).
+
+Gateway events are sent over a WebSocket-based [Gateway connection](/docs/events/gateway#connections) between Discord and your app. To receive Gateway events, your app must open and maintain a persistent Gateway connection which you can read details about in the [Gateway documentation](/docs/events/gateway#connections). To make receiving Gateway events simpler, we suggest using a [developer library](/docs/developer-tools/community-resources#libraries) which helps setup, maintain, and handle common pitfalls with Gateway connections (like [rate limits](/docs/events/gateway#rate-limiting)).
+
+Details about receiving events using the Gateway API is in the [Gateway documentation](/docs/events/gateway#receiving-events), and the full list of available Gateway events is in the [Gateway Events documentation](/docs/events/gateway-events).
+
+### Using Webhooks
+
+Webhook events let you receive a small number of events over HTTP. While many events aren't supported over HTTP, some events like [Application Authorized](/docs/events/webhook-events#application-authorized) (sent when your app is installed to a user or server) aren't available using other transport methods like Gateway.
+
+Find the [list of webhook events](/docs/events/webhook-events#event-types) and details about subscribing and handling them in the [Webhook Events documentation](/docs/events/webhook-events).
+
+
+### Using the Embedded App SDK
+
+When developing [Activities](/docs/activities/overview), you can listen to a collection of [SDK events](/docs/developer-tools/embedded-app-sdk#sdk-events), like updates to a user's voice status or screen orientation. To listen to SDK events, you can call [`subscribe()`](/docs/developer-tools/embedded-app-sdk#subscribe) with the SDK event name.
+
+Details about listening to events using the Embedded App SDK is in the [Embedded App SDK documentation](/docs/developer-tools/embedded-app-sdk).
+
+## Next Steps
+
+<Container>
+  <Card title="Gateway Events" link="/docs/events/gateway">
+    Gateway is the primary apps receive events on Discord. Read details about using the Gateway and receiving Gateway Events.
+  </Card>
+  <Card title="Webhook Events" link="/docs/events/webhook-events">
+    Read details about receiving and responding a small number of HTTP-based Webhook Events.
+  </Card>
+  <Card title="Embedded App SDK Events" link="/docs/developer-tools/embedded-app-sdk#sdk-events">
+    Read details about subscribing and receiving events specific to your Activity using the Embedded App SDK.
+  </Card>
+</Container>
+
+
