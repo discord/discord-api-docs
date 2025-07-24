@@ -1123,11 +1123,12 @@ The user object within this event can be partial, the only field which must be s
 
 Active sessions are indicated with an "online", "idle", or "dnd" string per platform. If a user is offline or invisible, the corresponding field is not present.
 
-| Field    | Type   | Description                                                                       |
-|----------|--------|-----------------------------------------------------------------------------------|
-| desktop? | string | User's status set for an active desktop (Windows, Linux, Mac) application session |
-| mobile?  | string | User's status set for an active mobile (iOS, Android) application session         |
-| web?     | string | User's status set for an active web (browser, bot user) application session       |
+| Field     | Type   | Description                                                                               |
+|-----------|--------|-------------------------------------------------------------------------------------------|
+| desktop?  | string | User's status set for an active desktop (Windows, Linux, Mac) application session         |
+| mobile?   | string | User's status set for an active mobile (iOS, Android) application session                 |
+| web?      | string | User's status set for an active web (browser, bot user) application session               |
+| embedded? | string | User's status set for an active embedded (Xbox, PlayStation, in-game) application session |
 
 #### Activity Object
 
