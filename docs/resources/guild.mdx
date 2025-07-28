@@ -834,11 +834,6 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/docs/resources/guil
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 | safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                          |
 
-## Delete Guild
-<Route method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)</Route>
-
-Delete a guild permanently. User must be owner. Returns `204 No Content` on success. Fires a [Guild Delete](/docs/events/gateway-events#guild-delete) Gateway event.
-
 ## Get Guild Channels
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/channels</Route>
 
