@@ -5,7 +5,7 @@ import { compile } from "@mdx-js/mdx";
 const args = process.argv.slice(2);
 const bail = args.includes("--bail");
 
-const ROOT_DIR = path.join(import.meta.dirname, "..");
+const ROOT_DIR = path.join(path.dirname(new URL(import.meta.url).pathname), "..");
 const DOCS_DIR = path.join(ROOT_DIR, "docs");
 
 const extensions = [".mdx", ".md"];
