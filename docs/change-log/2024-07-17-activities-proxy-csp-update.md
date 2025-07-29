@@ -4,6 +4,10 @@ date: "2024-07-17"
 breaking: true
 ---
 
+:::warn
+This change is outdated. We have since updated the Activities Proxy CSP and the use of `/.proxy/` is no longer required. For the latest information, please refer to [this changelog](/docs/change-log#remove-proxy-from-discord-activity-proxy-path).
+:::
+
 This change will be rolled out to all existing applications on **August 28, 2024**.
 
 We will be updating our Content Security Policy (CSP) for the Activities Domain (`https://<application_id>.discordsays.com`). This represents a **breaking change** for **all Activities**, and as such we have a migration plan in order.
