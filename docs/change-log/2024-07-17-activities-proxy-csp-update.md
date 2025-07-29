@@ -2,6 +2,9 @@
 title: "Activities Proxy CSP Update"
 date: "2024-07-17"
 breaking: true
+topics:
+- "Activities"
+- "Embedded App SDK"
 ---
 
 :::warn
