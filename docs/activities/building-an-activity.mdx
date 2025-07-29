@@ -457,10 +457,6 @@ We can now run our server and client-side apps in separate terminal windows. You
 
 Before we call your backend activity server, we need to be aware of the Discord proxy and understand how to avoid any Content Security Policy (CSP) issues.
 
-:::info
-For this tutorial, we are going to prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
-:::
-
 Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides/networking#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides/networking#using-external-resources).
 
 ### Calling your backend server from your client
@@ -513,10 +509,7 @@ async function setupDiscordSdk() {
   });
 
   // Retrieve an access_token from your activity's server
-  // Note: We need to prefix our backend `/api/token` route with `/.proxy` to stay compliant with the CSP.
-  // Read more about constructing a full URL and using external resources at
-  // https://discord.com/developers/docs/activities/development-guides/networking#construct-a-full-url
-  const response = await fetch("/.proxy/api/token", {
+  const response = await fetch("/api/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
