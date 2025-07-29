@@ -1218,21 +1218,6 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 \* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
-## Modify Guild MFA Level
-<Route method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/mfa</Route>
-
-Modify a guild's MFA level. Requires guild ownership. Returns the updated [level](/docs/resources/guild#guild-object-mfa-level) on success. Fires a [Guild Update](/docs/events/gateway-events#guild-update) Gateway event.
-
-:::info
-This endpoint supports the `X-Audit-Log-Reason` header.
-:::
-
-###### JSON Params
-
-| Field | Type    | Description                                               |
-|-------|---------|-----------------------------------------------------------|
-| level | integer | [MFA level](/docs/resources/guild#guild-object-mfa-level) |
-
 ## Delete Guild Role
 <Route method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/roles/[\{role.id\}](/docs/topics/permissions#role-object)</Route>
 
