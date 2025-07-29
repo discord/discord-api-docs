@@ -821,7 +821,6 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/docs/resources/guil
 | afk_channel_id                | ?snowflake                                                                          | id for afk channel                                                                                                                                                |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds, can be set to: 60, 300, 900, 1800, 3600                                                                                                   |
 | icon                          | ?[image data](/docs/reference#image-data)                                           | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has the `ANIMATED_ICON` feature)                                      |
-| owner_id                      | snowflake                                                                           | user id to transfer guild ownership to (must be owner)                                                                                                            |
 | splash                        | ?[image data](/docs/reference#image-data)                                           | base64 16:9 png/jpeg image for the guild splash (when the server has the `INVITE_SPLASH` feature)                                                                 |
 | discovery_splash              | ?[image data](/docs/reference#image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                                                        |
 | banner                        | ?[image data](/docs/reference#image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature; can be animated gif when the server has the `ANIMATED_BANNER` feature) |
@@ -834,11 +833,6 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/docs/resources/guil
 | description                   | ?string                                                                             | the description for the guild                                                                                                                                     |
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 | safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                          |
-
-## Delete Guild
-<Route method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)</Route>
-
-Delete a guild permanently. User must be owner. Returns `204 No Content` on success. Fires a [Guild Delete](/docs/events/gateway-events#guild-delete) Gateway event.
 
 ## Get Guild Channels
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/channels</Route>
