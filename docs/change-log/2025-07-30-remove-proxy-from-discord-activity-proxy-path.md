@@ -1,5 +1,5 @@
 ---
-title: "Remove .proxy/ from Discord Activitiy proxy path"
+title: "Remove .proxy/ from Discord Activity proxy path"
 date: "2025-07-30"
 topics:
 - "Activities"
