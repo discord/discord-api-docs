@@ -13,7 +13,7 @@ We've updated the Content Security Policy (CSP) for Discord Activities to remove
 Activities were required to make proxy requests through paths prefixed with `/.proxy/`:
 
 ```
-https://<app_id>.discordsays.com/.proxy/api/endpoint
+https://&lt;app_id&gt;.discordsays.com/.proxy/api/endpoint
 ```
 
 #### After
@@ -21,7 +21,7 @@ https://<app_id>.discordsays.com/.proxy/api/endpoint
 Activities can now make proxy requests directly without the `/.proxy/` prefix:
 
 ```
-https://<app_id>.discordsays.com/api/endpoint
+https://&lt;app_id&gt;.discordsays.com/api/endpoint
 ```
 
 #### Technical Details
