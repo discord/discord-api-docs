@@ -16,7 +16,7 @@ It assumes an understanding of [JavaScript](https://developer.mozilla.org/en-US/
 
 <Collapsible title="What we'll be building" icon="view">
 
-![Building Your First Activity Tutorial](images/activities/tutorial-hero.png)
+![Building Your First Activity Tutorial](images/activities/tutorial-hero.webp)
 
 </Collapsible>
 
@@ -145,7 +145,7 @@ You can learn more about the OAuth flow and redirect URIs in the [OAuth2 documen
 
 Click on **OAuth2** on the sidebar in your app's settings. Under **Redirects**, enter `https://127.0.0.1` as a placeholder value then click **Save Changes**.
 
-![Redirect URI in Activity Settings](images/activities/oauth2-redirect.png)
+![Redirect URI in Activity Settings](images/activities/oauth2-redirect.webp)
 
 ### Fetch Your OAuth2 Credentials
 
@@ -310,7 +310,7 @@ Because Activities are in a sandbox enviornment and go through the Discord proxy
 
 Back in your app's settings, click on the **URL Mappings** page under **Activities** on the left-hand sidebar. Enter the URL you generated from `cloudflared` in the previous step.
 
-![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.webp)
 
 | PREFIX | TARGET                                  |
 |--------|-----------------------------------------|
@@ -324,7 +324,7 @@ Next, we'll need to enable Activities for your app. On the left hand sidebar und
 
 Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
 
-![Enabling Activities in Settings](images/activities/enable-activities.png)
+![Enabling Activities in Settings](images/activities/enable-activities.webp)
 
 #### Default Entry Point Command
 
@@ -341,7 +341,7 @@ Navigate to your Discord test server and, in any voice and or text channel, open
 
 Clicking on your app will launch your locally running app from inside Discord!
 
-![Running your activity](images/activities/start-activity.png)
+![Running your activity](images/activities/start-activity.webp)
 
 :::info
 **Customizing your Activity**
@@ -541,7 +541,7 @@ document.querySelector('#app').innerHTML = `
 
 Now if we relaunch our app, we'll be prompted to authorize with Discord using the `identify`, `guilds`, and `applications.commands` scopes.
 
-![Prompt to authorize Activity](images/activities/tutorial-auth.png)
+![Prompt to authorize Activity](images/activities/tutorial-auth.webp)
 
 :::warn
 **Safe storage of tokens**
@@ -606,7 +606,7 @@ setupDiscordSdk().then(() => {
 
 If you close and rejoin the Activity, you should now see the name of the current channel.
 
-![Discord Activities](images/activities/tutorial-channel-name.png)
+![Discord Activities](images/activities/tutorial-channel-name.webp)
 
 <Collapsible title="Step 6 Checkpoint" icon="list" open>
 
@@ -680,7 +680,7 @@ setupDiscordSdk().then(() => {
 
 If we relaunch our Activity, we will see the current server's avatar render in our Activity.
 
-![Discord Activities](images/activities/tutorial-hero.png)
+![Discord Activities](images/activities/tutorial-hero.webp)
 
 <Collapsible title="Step 7 Checkpoint" icon="list" open>
 
