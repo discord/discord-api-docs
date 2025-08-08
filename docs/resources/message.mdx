@@ -769,7 +769,7 @@ Any entities whose id is included can be mentioned. Do note the API will silentl
 ## Get Channel Messages
 <Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages</Route>
 
-Retrieves the messages in a channel. Returns an array of [message](/docs/resources/message#message-object) objects on success.
+Retrieves the messages in a channel. Returns an array of [message](/docs/resources/message#message-object) objects from newest to oldest on success.
 
 If operating on a guild channel, this endpoint requires the current user to have the `VIEW_CHANNEL` permission. If the channel is a voice channel, they must _also_ have the `CONNECT` permission.
 
