@@ -108,9 +108,9 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 - Targets must point to a directory; setting a target to a file (e.g. `example.com/index.html`) is unsupported and may lead to unexpected behavior.
 - Because of how URL globbing works, if you have multiple prefix urls with the same initial path, you must place the shortest of the prefix paths last in order for each url mapping to be reachable. For example, if you have `/foo` and `/foo/bar`, you must place the url `/foo/bar` before `/foo` or else the mapping for `/foo/bar` will never be reached.
 
-| ✅ DO                                                        | ❌ DON'T                                                         |
-|-------------------------------------------------------------|-----------------------------------------------------------------|
-| Requests mapped correctly                                   | Requests to /foo/bar will incorrectly be sent to `foo.com`      |
+| ✅ DO                                                         | ❌ DON'T                                                          |
+|--------------------------------------------------------------|------------------------------------------------------------------|
+| Requests mapped correctly                                    | Requests to /foo/bar will incorrectly be sent to `foo.com`       |
 | ![url-mapping-do.png](images/activities/url-mapping-do.webp) | ![url-mapping-dont.png](images/activities/url-mapping-dont.webp) |
 
 #### Exceptions
