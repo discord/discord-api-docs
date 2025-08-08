@@ -95,10 +95,10 @@ If you have `Public Client` enabled on your Discord app, you can use the followi
 void AuthenticateUser(std::shared_ptr<discordpp::Client> client) {
     // Get your external auth token (Steam, OIDC, etc.)
     std::string externalToken = GetExternalAuthToken();
-    
+
     // Get provisional token from Discord
-    client->GetProvisionalToken(DISCORD_APPLICATION_ID, 
-        discordpp::AuthenticationExternalAuthType::OIDC, 
+    client->GetProvisionalToken(DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC,
         externalToken,
         [client](discordpp::ClientResult result, std::string accessToken, std::string refreshToken, discordpp::AuthorizationTokenType tokenType, int32_t expiresIn, std::string scope) {
         if (result.Successful()) {
@@ -222,7 +222,7 @@ client->UpdateProvisionalAccountDisplayName("CoolPlayer123", [](discordpp::Clien
 
 ## Merging Provisional Accounts
 
-When a player wants to convert their provisional acount to a full Discord account.
+When a player wants to convert their provisional account to a full Discord account.
 
 ### Merging Provisional Accounts for Public Clients
 
@@ -255,7 +255,7 @@ client->Authorize(args, [client, codeVerifier](discordpp::ClientResult result, s
     std::cerr << "❌ Authorization Error: " << result.Error() << std::endl;
   } else {
     std::cout << "✅ Authorization successful! Next step: GetTokenFromProvisionalMerge \n";
-    
+
     // Retrieve your external auth token
     std::string externalAuthToken = GetExternalAuthToken();
 
@@ -290,12 +290,12 @@ If you are not using the [`Client::GetTokenFromProvisionalMerge`] or [`Client::G
 
 ```python
 import requests
- 
+
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 EXTERNAL_AUTH_TYPE = 'OIDC'
- 
+
 def exchange_code_with_merge(code, redirect_uri, external_auth_token):
   data = {
     'grant_type': 'authorization_code',
@@ -316,12 +316,12 @@ def exchange_code_with_merge(code, redirect_uri, external_auth_token):
 
 ```python
 import requests
- 
+
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 EXTERNAL_AUTH_TYPE = 'OIDC'
- 
+
 def exchange_device_code_with_merge(device_code):
   data = {
     'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
@@ -348,6 +348,16 @@ def exchange_device_code_with_merge(device_code):
   "scope": "sdk.social_layer"
 }
 ```
+
+### Data Migration During Merging
+
+When a user merges their provisional account with a Discord account, the following data is automatically transferred:
+
+* **✅ Friends**: All In-game and Discord friendships made through the provisional account
+* **✅ Lobby Memberships**: Active and historical lobby participation
+* **✅ DM Messages**: Direct messages and history
+
+This migration ensures users don't lose their social connections built while using the provisional account.
 
 ---
 
@@ -458,6 +468,19 @@ def unmerge_provisional_account(external_auth_token):
 
 :::info
 If you have a server backend, you'll want to use the server-to-server unmerge endpoint rather than the SDK helper method to maintain better security and control over the unmerge process.
+:::
+
+### Data Migration During Unmerging
+
+When a user unmerges their account, a new provisional account is created with a new user ID. The relationship transfer follows these rules:
+
+* **✅ In-game friends**: All copied to the new provisional account
+* **✅ Discord friends who use this application**: Copied to the provisional account
+* **❌ Discord friends who don't use this application**: Not transferred
+* **❌ DM message history**: Not moved to provisional accounts
+
+:::info
+Provisional accounts can have Discord friends, but can only message these friends when actively playing the game.
 :::
 
 ---
