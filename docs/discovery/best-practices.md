@@ -26,7 +26,7 @@ There are a few places where you can define different descriptions of your app w
 
 On the **General Information** tab, there is a general **Description** field (max of 400 characters) that appears within your bot user's profile. When a new user clicks on your app within Discord, they'll see this description.
 
-![App description on the General Information tab](images/bp-productpage-app-description.png)
+![App description on the General Information tab](images/bp-productpage-app-description.webp)
 
 #### App Summary
 
@@ -34,11 +34,11 @@ On the **App Directory** tab, the **Summary** field is a short description (max 
 
 When writing your app's Summary, think about how to grab the user's attention and quickly convey the value of your app. Consider the following description:
 
-![Poorly-written app Summary on the App Directory tab](images/bp-productpage-summary-bad.png)
+![Poorly-written app Summary on the App Directory tab](images/bp-productpage-summary-bad.webp)
 
 While this could be true, it doesnâ€™t really tell folks how the app makes servers better or more fun. The best descriptions start with an attention grabbing sentence that describes a problem a user might want to solve:
 
-![Well-written app Summary on the App Directory tab](images/bp-productpage-summary-good.png)
+![Well-written app Summary on the App Directory tab](images/bp-productpage-summary-good.webp)
 
 #### App Expanded Description
 
@@ -70,7 +70,7 @@ After adding some images, make a quick screen recording to demonstrate your appâ
 
 Think of up to five words that describe your app and add them as tags (see image below for an example). Consider what categories your app would fit under or keywords users would type into the search bar when looking for apps to add to their servers.
 
-![App tags which help categorize apps and make them more searchable](images/bp-productpage-tags.png)
+![App tags which help categorize apps and make them more searchable](images/bp-productpage-tags.webp)
 
 ## Support Your Users
 

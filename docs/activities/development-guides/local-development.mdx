@@ -41,7 +41,7 @@ https://funky-jogging-bunny.trycloudflare.com
 
 In the Discord Developer Portal, update the Application URL mapping for `/` url to `funky-jogging-bunny.trycloudflare.com` to match your network tunnel address and save your changes.
 
-![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.webp)
 
 :::warn
 If you do not own the URL that you are using to host the application (i.e. ngrok's free tier), someone else could claim that domain and host a malicious site in its place. Please be aware of these risks, and if you have to use a domain you do not own, be sure to reset your URL mapping when you are done using the tunnel.
@@ -59,7 +59,7 @@ The flow for setting up your production application is very similar:
 4. Follow the instructions for [Launching your Application from the Discord Client](/docs/activities/development-guides/local-development#launch-your-application-from-the-discord-client). Application URL Override should not be enabled.
 
 This application now uses the same configuration it will use once it is fully published ✨.
-![application-test-mode-prod](images/activities/application-test-mode-prod.gif)
+![application-test-mode-prod](images/activities/application-test-mode-prod.webp)
 
 
 ---
@@ -96,7 +96,7 @@ Because your application is "sandboxed", it will be unable to make network reque
 
 To add or modify your application's URL mappings, click on `Activities -> URL Mappings` and set the prefix and target values for each mapping as needed.
 
-![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.webp)
 
 #### Prefix/Target formatting rules
 
@@ -111,7 +111,7 @@ To add or modify your application's URL mappings, click on `Activities -> URL Ma
 | ✅ DO                                                        | ❌ DON'T                                                         |
 |-------------------------------------------------------------|-----------------------------------------------------------------|
 | Requests mapped correctly                                   | Requests to /foo/bar will incorrectly be sent to `foo.com`      |
-| ![url-mapping-do.png](images/activities/url-mapping-do.png) | ![url-mapping-dont.png](images/activities/url-mapping-dont.png) |
+| ![url-mapping-do.png](images/activities/url-mapping-do.webp) | ![url-mapping-dont.png](images/activities/url-mapping-dont.webp) |
 
 #### Exceptions
 
@@ -161,7 +161,7 @@ The first section of Debug Logs are not your application logs but Discord specif
 
 When you scroll down the page, your application logs should be visible.
 
-![debug-logs-filtering](images/activities/debug-logs-filtering.gif)
+![debug-logs-filtering](images/activities/debug-logs-filtering.webp)
 
 #### Sharing Application Logs from Mobile
 
