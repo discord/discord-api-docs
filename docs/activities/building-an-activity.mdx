@@ -278,7 +278,7 @@ Your app should start and you should see output similar to the following:
 ```
 VITE v5.0.12  ready in 100 ms
 
-➜  Local:   http://localhost:3000/
+➜  Local:   http://localhost:5173/
 ➜  Network: use --host to expose
 ➜  press h + enter to show help
 ```
@@ -289,10 +289,10 @@ We'll use the Local URL as our publicly-accessible URL in the next step.
 
 Next, we'll need to set up the public endpoint that serves the Activity's frontend. To do that, we'll create a tunnel with a reverse proxy. While we'll be using [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) in this guide, you can use [ngrok](https://ngrok.com/docs) or another reverse proxy solution if you prefer.
 
-While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `3000`):
+While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `5173`):
 
 ```
-cloudflared tunnel --url http://localhost:3000
+cloudflared tunnel --url http://localhost:5173
 ```
 
 When you run `cloudflared`, the tunnel will generate a public URL and you'll see output similar to the following:
