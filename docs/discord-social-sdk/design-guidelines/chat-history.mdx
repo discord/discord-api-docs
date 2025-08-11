@@ -1,0 +1,36 @@
+---
+sidebar_label: Chat History
+---
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Design Guidelines](/docs/discord-social-sdk/design-guidelines) > Chat History
+
+# Chat History
+
+
+## Style recommendations
+
+Chat history is a highly requested **optional** feature that helps players pick up conversations where they left off—whether they're returning to a lobby or jumping back into a linked channel.
+
+We recommend showing **timestamps** to give players better context about when messages were sent and seen.
+
+![Badge when online elsewhere](images/social-sdk/design-guidelines/ChatHistory-02.webp)
+
+## Display logic
+
+If one player is messaging from a game lobby or linked channel, then chat history is preserved, even if the other player is messaging from Discord.
+
+When players return to a lobby or open a linked channel, we recommend surfacing **10 to 15** of the most recent messages to provide meaningful context. This isn't a hard limit—older messages can be revealed through scroll or loading more content, depending on your UI constraints.
+
+![Message styling](images/social-sdk/design-guidelines/ChatHistory-03.webp)
+
+---
+
+## Resources
+
+- [Development Guide: Creating and Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies)
+
+## Change Log
+
+| Date          | Changes         |
+|---------------|-----------------|
+| July 02, 2025 | initial release |

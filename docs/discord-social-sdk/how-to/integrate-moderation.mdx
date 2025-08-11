@@ -1,0 +1,326 @@
+---
+sidebar_label: Integrate Moderation
+---
+import PublicClient from '../partials/callouts/public-client.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [How To](/docs/discord-social-sdk/how-to) > {sidebar_label}
+
+# Moderation with the Discord Social SDK
+
+{/*
+Script for converting mermaid sequence diagrams to SVG.
+
+# docker run --rm -u `id -u`:`id -g` -v "$(pwd):/data" minlag/mermaid-cli -i "/data/$file" -o "/data/$filename.svg" -t dark -b '#313338'
+*/}
+
+This guide will walk you through integrating and managing content moderation for your game when using the Discord Social SDK.
+
+## Overview
+
+Effective moderation is essential for creating healthy social experiences. This guide will help you:
+
+- Better understand your moderation responsibilities
+- Implement client-side moderation for text and audio content alongside the Discord Social SDK
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- A basic understanding of how the SDK works from the [Getting Started Guide](/docs/discord-social-sdk/getting-started)
+- A basic understanding of your game's communication features
+- Familiarity with [provisional accounts](/docs/discord-social-sdk/development-guides/using-provisional-accounts)
+- Reviewed the [Discord Social SDK Terms](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms)
+
+## Your Moderation Responsibilities
+
+### Moderation on Discord
+
+[Discord's Community Guidelines](https://discord.com/guidelines) and [Terms of Service](https://discord.com/terms) apply to any content that is rendered on Discord, including:
+
+- Text messages, audio, and video sent within Discord’s platform
+- Text messages that are appear on Discord (such as in DMs or Linked Channels) after being sent by players in your game (whether they have linked their Discord account or are using a provisional account)
+
+Discord can take various actions against such content on Discord for violating its terms or policies, including through Discord platform-wide account bans and restrictions. Actions against a player’s Discord account will not affect their separate account in the game (see [below](https://www.notion.so/Text-and-Voice-Moderation-1d0f46fd48aa80eda914cd3134d65afb?pvs=21) for more details); however, if a player’s Discord account is banned, they will no longer have access to the SDK features that require an account connection.
+
+### Game Developer's Responsibility
+
+Your terms and policies apply to the content in your game. You are responsible for:
+
+- Ensuring you comply with the [Discord Social SDK Terms](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms)
+- Creating game-specific content policies and enforcing them
+- In-game content moderation for messages or audio within your game
+- Implementing appropriate UIs for reporting and moderation; this includes providing players a way to report issues or violations of your policies and reviewing and taking appropriate action on such reports
+
+## Client-Side Chat Moderation
+
+While the Social SDK does not have a direct integration with external moderation toolkits, a client side approach to
+outgoing and incoming messages can be implemented when sending messages through [`Client::SendUserMessage`] and/or
+receiving them through [`Client::SetMessageCreatedCallback`].
+
+### How it works:
+
+An example moderation integration would be the following:
+
+**Message Sending**
+
+- Before a user sends a message, your client validates it with your backend
+- If it passes validation, the message is sent through the SDK
+- Messages can be optimistically rendered while validation occurs
+
+{/*
+```
+sequenceDiagram
+    participant User
+    participant GameClient
+    participant BackendService as Moderation Backend
+    participant DiscordSDK as Discord Social SDK
+    participant DiscordServers as Discord
+
+    %% User initiates sending a message %%
+    User->>GameClient: Enters and submits message text
+    activate GameClient
+
+    %% Optimistic rendering and validation request %%
+    Note right of GameClient: Optimistically render message in UI
+    GameClient->>BackendService: POST /validate (message)
+    activate BackendService
+
+    %% Backend validates %%
+    Note right of BackendService: Perform validation logic
+    BackendService-->>GameClient: Response (isValid: boolean, moderatedText?: string)
+    deactivate BackendService
+
+    %% Conditional sending based on validation %%
+    alt Message is Valid (isValid: true)
+        GameClient->>DiscordSDK: Client::SendUserMessage(recipient, message)
+        activate DiscordSDK
+        DiscordSDK->>DiscordServers: Forward message
+        activate DiscordServers
+        DiscordServers-->>DiscordSDK: Message Acknowledged (messageId)
+        deactivate DiscordServers
+        DiscordSDK-->>GameClient: Callback(result: Success, messageId)
+        deactivate DiscordSDK
+        Note right of GameClient: Confirm message sent (update UI if needed)
+    else Message is Invalid (isValid: false)
+        Note right of GameClient: Remove optimistically rendered message from UI
+        GameClient->>User: Notify: "Message violated content policy"
+    end
+    deactivate GameClient
+```
+*/}
+![Message sending sequence diagram](images/social-sdk/integrating-moderation/message-sending.svg)
+
+```cpp
+// Example: Validating a message before sending
+void validateAndSendMessage(const std::string& message) {
+    // Optimistically render the message immediately
+    renderMessage(myUserId, message);
+
+    // Send to backend for validation
+    myBackend->validateMessage(message, [this, message](bool isValid, std::string moderated) {
+        if (isValid) {
+            // Send through Discord SDK
+            client->SendUserMessage(recipientId, message, [](auto result, uint64_t messageId) {
+		  if (result.Successful()) {
+		    std::cout << "✅ Message sent successfully\n";
+		  } else {
+		    std::cout << "❌ Failed to send message: " << result.GetError() << "\n";
+		  }
+	});
+        } else {
+            // Remove the invalid message from UI and notify user
+            removeMessage(myUserId, message);
+            notifyUser("Message violated content policy");
+        }
+    });
+}
+```
+
+**Message Receiving**
+
+- When a message is received from players within Discord or a Game Client, your client sends it to your backend for validation
+- Once validation succeeds, render the message in the game
+
+:::info
+Depending on how long your content moderation processing takes, you may wish to optimistically render the incoming
+message, and remove or alter it if your moderation service deems it appropriate. However, this does pose the risk of
+temporarily exposing content to your game players that does not align with your moderation policies.
+:::
+
+
+{/*
+```
+sequenceDiagram
+    participant DiscordSDK as Discord Social SDK
+    participant GameClient as Game Client
+    participant BackendService as Moderation Backend
+
+    %% Message Arrives %%
+    activate DiscordSDK
+
+    %% SDK delivers message to Game Client via callback %%
+    Note right of DiscordSDK: Message arrives for subscribed channel/user
+    DiscordSDK->>GameClient: Trigger Client::SetMessageCreatedCallback(message)
+    deactivate DiscordSDK
+    activate GameClient
+
+    %% Game Client sends received message for validation %%
+    GameClient->>BackendService: POST /validate (receivedMessage)
+    activate BackendService
+
+    %% Backend validates %%
+    Note right of BackendService: Perform validation logic
+    BackendService-->>GameClient: Response (isValid: boolean)
+    deactivate BackendService
+
+    %% Conditional rendering based on validation %%
+    alt Message is Valid (isValid: true)
+        Note right of GameClient: Render received message in game UI
+    else Message is Invalid (isValid: false)
+        Note right of GameClient: Discard message (do not render)
+    end
+    deactivate GameClient
+```
+*/}
+![Message receiving sequence diagram](images/social-sdk/integrating-moderation/message-receiving.svg)
+
+:::info
+You may wish to implement moderation caching on your backend to avoid redundant validation. This is especially true for
+lobby messages, which are sent to multiple recipients.
+:::
+
+As a reminder, you are responsible for any third-party moderation toolkits or services you use for your game and will ensure you comply with any applicable terms and laws, including obtaining consents from players as necessary for processing their data using such moderation services.
+
+## Handling Users with Banned Discord Accounts
+
+### Discord Platform Bans
+
+:::info
+If a player has connected their Discord account with your game, and it is banned, their [`Client`] will be
+immediately disconnected, and that user will no longer be able to authenticate through Discord.
+:::
+
+The recommended path for integrating the Discord Social SDK is that your game has a primary authentication other than Discord that initially sets up a provisional account, and have the player link their Discord account to this primary authentication.
+
+This approach protects your users' game access and data if they encounter issues with their Discord account, such as a permanent or temporary ban. To implement this recommended path:
+
+1. Create an account through a [non-Discord authentication provider](/docs/discord-social-sdk/development-guides/using-provisional-accounts#configuring-your-identity-provider), and create a provisional account attached to it.
+2. When users later authenticate through Discord to link their account, have your game back end execute the [merge their provisional account with their Discord Account](/docs/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts).
+3. The account merging process will internally store the `externalAuthToken` from the provisional account against their Discord account. If a ban of the Discord account happens, that `externalAuthToken` will be attached to the new provisional account that is created in its stead, with the original Discord account's in-game friends, and will be available through the authentication provider the account was initially setup with.
+4. As a last step, your game back end should maintain the record of the `externalAuthToken` against the user account, even after the account merging process, since it will be needed to [authenticate via a provisional account](/docs/discord-social-sdk/development-guides/using-provisional-accounts#implementing-provisional-accounts) should Discord authentication fails for a ban, or any other reason.
+
+{/*
+```
+sequenceDiagram
+    participant User
+    participant Game
+    participant NonDiscordAuth as Non-Discord Auth Provider
+    participant GameBackend as Game Backend
+    participant Discord
+
+    User->>Game: Start game
+    Game->>NonDiscordAuth: Create account
+    NonDiscordAuth-->>Game: Authentication successful
+    Game->>GameBackend: Request provisional account
+    GameBackend->>Discord: Create provisional account
+    Discord-->>GameBackend: Account created
+    GameBackend-->>Game: Return Provisional Account
+    Note over GameBackend: Store externalAuthToken
+
+    User->>Game: Choose to link Discord account
+    Game->>Discord: Request authentication
+    Discord-->>Game: Auth successful
+    Game->>GameBackend: Request account merge
+    GameBackend->>Discord: Merge Provisional Account
+    Note over Discord: Stores externalAuthToken against Discord account
+    Discord-->>GameBackend: Merge successful
+
+    Note over GameBackend: Maintain externalAuthToken record
+
+    alt Discord Authentication Fails (Ban or Other Issue)
+        User->>Game: Attempt to login
+        Game->>Discord: Request authentication
+        Discord-->>Game: Auth failed
+        Game->>NonDiscordAuth: Fallback authentication
+        NonDiscordAuth-->>Game: Authentication successful
+        Game->>GameBackend: Access provisional account with externalAuthToken
+        GameBackend-->>Game: Access granted with in-game friends list
+        Game-->>User: Access game
+    end
+```
+*/}
+![Platform bans sequence diagram](images/social-sdk/integrating-moderation/platform-bans.svg)
+
+:::warn
+If you use Discord as the primary or sole authentication mechanism for your game, you risk players permanently losing access to their in-game data if their Discord account is banned, as there is no way to migrate them to a provisional account that is connected to an external authentication provider.
+:::
+
+:::info
+At this time, there is no API to look up if a player's Discord account has been banned.
+:::
+
+### Discord Server Bans
+
+If you wish to tie your in-game moderation policies to a specific Discord server that you own, such as your official community server, you are able to retrieve ban information for your Discord Server via our REST APIs.
+
+See the references for the REST endpoints[`{guild.id}/guilds/{guild.id}/bans`](/docs/resources/guild#get-guild-bans)
+or [`/guilds/{guild.id}/bans/{user.id}`](/docs/resources/guild#get-guild-ban)
+for more information on retrieving all bans for your guild, or ban information for a specific user within your guild.
+
+## Voice Chat Moderation
+
+The Discord Social SDK provides access to audio streams for in-game voice calls, allowing you to implement audio
+moderation for your game's voice chat functionality. The data for the call is available through
+[`Client::StartCallWithAudioCallbacks`], and can be passed to your voice moderation system.
+
+```cpp
+// Example: Capturing local voice chat audio for asynchronous moderation.
+
+// Callback for local users' audio with moderation
+auto capturedCallback = [](int16_t const* data,
+                     uint64_t samplesPerChannel, int32_t sampleRate,
+                     uint64_t channels) {
+    // Call the moderation function
+    moderateCapturedVoice(data, samplesPerChannel);
+};
+
+// Start the call with our moderation callback
+auto call = client->StartCallWithAudioCallbacks(lobbyId, receivedCallback, capturedCallback);
+```
+
+
+---
+
+## Next Steps
+
+<Container>
+    <Card title="Sending Direct Messages" link="/docs/discord-social-sdk/development-guides/sending-direct-messages"
+          icon="ChatIcon">
+        Enable private messaging between players.
+    </Card>
+    <Card title="Managing Voice Chat" link="/docs/discord-social-sdk/development-guides/managing-voice-chat"
+          icon="VoiceNormalIcon">
+        Add in-game voice communication.
+    </Card>
+    <Card title="Linked Channels" link="/docs/discord-social-sdk/development-guides/linked-channels"
+          icon="TextControllerIcon">
+        Connect game lobbies to Discord text channels.
+    </Card>
+</Container>
+
+<SupportCallout/>
+
+---
+
+## Change Log
+
+| Date         | Changes         |
+|--------------|-----------------|
+| May 22, 2025 | initial release |
+
+{/* Autogenerated Reference Links */}
+[`Client`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a91716140c699d8ef0bdf6bfd7ee0ae13
+[`Client::SendUserMessage`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3cf9d2b1b5a4a61dcad995dfc1009703
+[`Client::SetMessageCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28325a8e8c688a84ac851da4bc86e148
+[`Client::StartCallWithAudioCallbacks`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#abcaa891769f9e912bfa0e06ff7221b05

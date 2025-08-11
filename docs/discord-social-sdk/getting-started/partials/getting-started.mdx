@@ -1,0 +1,35 @@
+## Step 1: Create a Discord Developer Team
+
+Before you start, you'll need to create a developer team on the Discord Developer Portal. This team will be used to manage your Discord applications and SDK integrations.
+
+If you already have a team configured, you can skip this step.
+
+1. Create a developer team on the [Discord Developer Portal](https://discord.com/developers/teams).
+
+Later, you can invite your team members to your new team to collaborate on your integration.
+
+---
+
+## Step 2: Create a Discord Application
+
+1. Create a new application on the [Discord Developer Portal](https://discord.com/developers/applications) and assign it to your team.
+3. Add a redirect URL in the `OAuth2` tab:
+   - For desktop applications: `http://127.0.0.1/callback` (this can be changed later).
+   - See [`discordpp::Client::Authorize`](https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468) for more details on setting up more advanced redirect URIs.
+4. Enable the `Public Client` toggle in the `OAuth2` tab. 
+
+:::warn
+**Note:** This guide requires enabling **Public Client** to allow you to get started with the SDK quickly. Most games will not want to ship as a public client. This setting should be reviewed by your team prior to releasing your game. [Learn more about public clients](/docs/discord-social-sdk/core-concepts/oauth2-scopes#oauth2-client-types).
+:::
+
+---
+
+## Step 3: Enable Discord Social SDK for Your App
+
+Once you've created your Discord application, you'll need to enable the Discord Social SDK for it.
+
+1. From the [Discord Developer Portal](https://discord.com/developers/applications), select your newly created application from Step 2.
+2. In the left sidebar for your app, locate and click the `Getting Started` link under `Discord Social SDK`.
+3. Fill out the form to share details about your game.
+4. Click `Submit` and the Social SDK will be enabled for your application.
+5. Once enabled, you'll find binaries for the Social SDK under `Downloads`.

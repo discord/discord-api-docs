@@ -1,0 +1,260 @@
+---
+sidebar_label: Managing Relationships
+---
+import PublicClient from '../partials/callouts/public-client.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
+
+# Managing Relationships in Your Game
+
+## Overview
+
+The Discord Social SDK lets you manage relationships between players in your game. This guide will show you how to:
+
+- Send and accept friend requests
+- Handle different types of relationships
+- Block and unblock users
+- Work with both Discord-wide and game-specific friendships
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- Completed the [Getting Started](/docs/discord-social-sdk/getting-started) guide
+- Completed the [Creating a Unified Friends List](/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list) guide
+
+---
+
+## Understanding Relationship Types
+
+Discord models the relationship between two users using the Relationship entity in the SDK. Relationships are not just for friends. They are also used to send and receive friend requests and block other users.
+:::warn
+While the SDK allows you to manage a user's relationships, you should never act without their explicit consent. You should not automatically send or accept friend requests. Only invoke APIs to manage relationships in response to a user action such as clicking a "Send Friend Request" button.
+:::
+### Relationship Types
+
+We know that sometimes users will want to be friends with each other across all their games. If they start playing a new game, they can see all of their previous friends and don't start from scratch. But sometimes, they don't want to give out that access and only want to be friends in the current game they are playing.
+
+To support this, the Discord Social SDK supports two types of relationships between users:
+
+- **Discord relationships**: These relationships persist across games and on the Discord client. Both users can see whether each other is online, regardless of whether they are in the same game. Discord Relationships are the same as becoming a friend in the Discord client.
+- **Game relationships**: These are per-game relationships and do not carry over to other games. The two users can only see if the other is online if they are playing a game in which they are friends. Game friends can DM each other, and those DMs will show up in Discord, but they can disable that behavior and keep their game conversations restricted to just the game. That option is located at the bottom of the "Content & Social" settings.
+
+[`RelationshipHandle`] can be used to determine the type of friendship between the player and another user. It has two fields:
+
+- [`RelationshipHandle::DiscordRelationshipType`] for the **Discord friendship**
+- [`RelationshipHandle::GameRelationshipType`] for the **game friendship**
+
+Having both of these friend types is important because a pair of users might start out as game friends but later choose to "upgrade" to being full Discord friends. In this case, their [`RelationshipHandle::DiscordRelationshipType`] would be set to `RelationshipType::PendingIncoming` or `RelationshipType::PendingOutgoing` (based on whether they are receiving or sending the request respectively), and their [`RelationshipHandle::GameRelationshipType`] would remain as `RelationshipType::Friend`.
+
+While our API technically supports users being both types of friends, you don't have to ensure that every Discord friend is a game friend or vice versa. When adding friends, offer users a choice of friend type and explain the difference. See our design guidelines for more.
+
+### Discord Friend Relationships
+- Persist across all games and Discord
+- Limited to 1,000 friends
+- Online status visible everywhere
+- Full Discord chat functionality
+
+### Game Friend Relationships
+- Only exist within your game
+- No current friend limit
+- Online status is only visible in-game
+
+---
+
+## Relationship Actions
+
+Once you've [created a unified friends list](/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list), you can start managing relationships between players in your game. 
+
+Here are some common actions you might want to take:
+
+### Sending Game Friend Requests
+
+Sends (or accepts) a game friend request to the target user.
+
+You can send game friend requests to users using their Discord unique username or user ID.
+
+After the friend request is sent, each user will have a new game relationship created. For the current user, the [`RelationshipHandle::GameRelationshipType`] will be `RelationshipType::PendingOutgoing`, and for the target user, it will be `RelationshipType::PendingIncoming`.
+
+If the current user has already received a game friend request from the target user (meaning [`RelationshipHandle::GameRelationshipType`] is `RelationshipType::PendingIncoming`), the two users will become game friends.
+
+```cpp
+client->SendGameFriendRequest("username", [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Game friend request sent successfully!\n";
+  }
+});
+
+client->SendGameFriendRequestById(123456789, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Game friend request sent successfully!\n";
+  }
+});
+```
+
+### Sending Discord Friend Requests
+
+Sends (or accepts) a Discord friend request to the target user.
+
+You can send Discord friend requests to users by using their Discord unique username or user ID.
+
+After the friend request is sent, each user will have a new Discord relationship created. For the current user, the [`RelationshipHandle::DiscordRelationshipType`] will be `RelationshipType::PendingOutgoing`, and for the target user, it will be `RelationshipType::PendingIncoming`.
+
+If the current user has already received a Discord friend request from the target user (meaning [`RelationshipHandle::DiscordRelationshipType`] is `RelationshipType::PendingIncoming`), the two users will become Discord friends.
+
+```cpp
+client->SendDiscordFriendRequest("username", [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Discord friend request sent successfully!\n";
+  }
+});
+
+client->SendDiscordFriendRequestById(123456789, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Discord friend request sent successfully!\n";
+  }
+});
+```
+
+### Accept Incoming Friend Requests
+
+Allow your players to accept incoming friend requests, which `RelationshipType::PendingIncoming` represents.
+
+```cpp
+// RelationshipHandle::DiscordRelationshipType == RelationshipType::PendingIncoming
+client->AcceptDiscordFriendRequest(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Discord friend request accepted!\n";
+  }
+});
+
+// RelationshipHandle::GameRelationshipType == RelationshipType::PendingIncoming
+client->AcceptGameFriendRequest(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Game friend request accepted!\n";
+  }
+});
+```
+
+### Reject Incoming Friend Requests
+
+Allow your players to reject incoming friend requests, which `RelationshipType::PendingIncoming` represents.
+
+```cpp
+// Reject Incoming Friend Requests
+// RelationshipHandle::DiscordRelationshipType == RelationshipType::PendingIncoming
+client->RejectDiscordFriendRequest(userId,[](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Discord friend request rejected!\n";
+  }
+});
+
+// RelationshipHandle::GameRelationshipType == RelationshipType::PendingIncoming
+client->RejectGameFriendRequest(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Game friend request rejected!\n";
+  }
+});
+```
+
+### Cancel Outgoing Friend Requests
+
+Allow your players to cancel outgoing friend requests, which `RelationshipType::PendingOutgoing` represents.
+
+```cpp
+// Cancel Outgoing Friend Requests
+// RelationshipHandle::DiscordRelationshipType == RelationshipType::PendingIncoming
+client->CancelDiscordFriendRequest(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Discord friend request canceled!\n";
+  }
+});
+
+// RelationshipHandle::GameRelationshipType == RelationshipType::PendingOutgoing
+client->CancelGameFriendRequest(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Game friend request canceled!\n";
+  }
+});
+```
+
+### Managing Existing Relationships
+
+Allow your players to remove existing relationships with other users. This will remove the relationship from both users, and they will no longer be able to see each other's online status or send messages.
+
+```cpp
+// Removes any friendship between the current user and the target user. 
+// This function will remove BOTH any Discord friendship and any game friendship between the users.
+client->RemoveDiscordAndGameFriend(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Discord and Game friendships removed!\n";
+  }
+});
+
+// Removes any game friendship between the current user and the target user.
+client->RemoveGameFriend(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 Game friendship removed!\n";
+  }
+});
+```
+
+### Blocking  Users
+
+Allow your players to block another user so they cannot send friend or activity invites and cannot message them anymore.
+
+Blocking a user will also remove any existing relationship between the two users and persist across games, so blocking a user in one game or on Discord will block them in all other games and on Discord.
+
+```cpp
+client->BlockUser(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 User blocked successfully!\n";
+  }
+});
+```
+
+### Unblocking Users
+
+Allow your players to unblock another user if they have been blocked. Unblocking a user does not restore any previous relationships between the users.
+
+```cpp
+client->UnblockUser(userId, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "🎮 User unblocked successfully!\n";
+  }
+});
+```
+
+---
+
+## Next Steps
+
+Continue learning about the Discord Social SDK with these guides:
+
+<Container>
+  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
+    Combine Discord and game friends into a single list for easy management.
+  </Card>
+  <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
+    Allow players to invite friends to join their game session or party.
+  </Card>
+  <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
+    Bring players together in a shared lobby with invites, text chat, and voice comms.
+  </Card>
+</Container>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | Initial release |
+
+{/* Autogenerated Reference Links */}
+[`RelationshipHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#a7da36b15ad0b7d38ba658a622e9ded77
+[`RelationshipHandle::DiscordRelationshipType`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#a5fecfb79a4a2b6f3dc5f73b09d0c3881
+[`RelationshipHandle::GameRelationshipType`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#aa60146eb72ede07e3e615565f61f97eb

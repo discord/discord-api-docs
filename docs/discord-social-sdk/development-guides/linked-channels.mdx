@@ -1,0 +1,327 @@
+---
+sidebar_label: Linked Channels
+---
+import LimitedAccessCallout from '../partials/callouts/limited-access.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+import CommsScopeWarning from '../partials/callouts/oauth-comms-scopes.mdx';
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
+
+# {sidebar_label}
+
+<LimitedAccessCallout />
+
+## Overview
+
+Linked Channels let players connect in-game lobbies with Discord text channels, enabling chat between your game and Discord servers.
+
+When linked:
+- In-game messages appear in the Discord channel
+- Discord messages appear in your game
+- Messages from your game show your game's name and icon in Discord
+
+### Prerequisites
+
+Before implementing Linked Channels, make sure you have:
+
+- [Set up the Discord Social SDK](/docs/discord-social-sdk/getting-started)
+- An understanding of [Creating and Managing Lobbies](/docs/discord-social-sdk/development-guides/managing-lobbies)
+
+<CommsScopeWarning />
+
+---
+
+## Linked Channel Requirements
+
+### Channel Requirements
+
+For a Discord channel to be linkable with your game lobby, it must meet these requirements:
+
+#### Channel Type and Settings
+
+| Requirement  | Description                                 |
+|--------------|---------------------------------------------|
+| Channel Type | Must be a Discord text channel in a server  |
+| NSFW Status  | Cannot be marked as NSFW                    |
+| Link Status  | Cannot be currently linked to another lobby |
+
+#### Required Permissions
+
+The user linking the channel must have these Discord permissions:
+
+| Permission      | Description                      |
+|-----------------|----------------------------------|
+| Manage Channels | Ability to edit channel settings |
+| View Channel    | Can see and read the channel     |
+| Send Messages   | Can post messages in the channel |
+
+
+### Private Channels
+
+Discord allows all channels the user can access in a server to be linked in game, even if that channel is private to other server members. This means a user could choose to link a private "admins chat" channel (assuming they are an admin) in the game if they wanted.
+
+It's not possible for the game to know which users should have access to that channel. Every lobby member can view and reply to all messages sent in the linked channel.
+
+:::warn
+If you are going to allow private channels to be linked in-game, you must make sure that users are aware that their private channel will be viewable by everyone in the lobby.
+:::
+
+To help you identify which channels are public or private, we have added a `isViewableAndWriteableByAllMembers` boolean. You can use that boolean to prevent private channels from being linked or to know when to show a clear warning; it's up to you!
+
+### User Requirements
+
+#### Linking A Lobby
+
+The lobby member must have the `CanLinkLobby` flag set to link a channel to a lobby. This flag is disabled by default and must be explicitly set using the [Lobby API](/docs/resources/lobby) for users you want elevated permissions. We recommend only toggling this on for the equivalent of the administrator/owner of a lobby.
+
+This allows you, as the game developer, to say, "Only the admins of this guild are allowed to configure the linked channel." 
+
+#### Unlinking a Lobby
+
+To unlink a channel from a lobby, lobby members only require the `CanLinkLobby` flag to be set for them. They **do not** need to have any permissions on the Discord side.
+
+### Lobby Requirements
+
+We recommend only using channel linking for **persistent** lobbies. Ephemeral lobbies such as match-chat are not good candidates for linking. 
+
+Lobbies created on the client side with secrets are also not eligible for channel linking.
+
+---
+
+## Creating a Linked Channel
+
+Channel linking happens entirely in the game. The user is never kicked out of the game to go to Discord to set it up. So, at a high level, you will need to fetch the list of servers (also known as guilds) and channels the user can access, show them some UI to pick a channel, and then save that selection back to Discord.
+
+### Fetch Available Servers (Guilds) and Channels
+
+We provide a few helper methods in the SDK to fetch the guilds and channels to populate the lists.
+
+[`Client::GetUserGuilds`] will fetch the user's Discord servers from our API. A list of `GuildMinimal` structs, including the guild ID and name, is returned on success.
+
+[`Client::GetGuildChannels`] takes a guildId and fetches all the channels in a single guild that the user can access. On success, returns a list of `GuildChannel` objects, which are shown below:
+
+```cpp
+struct GuildChannel {
+    struct LinkedLobby {
+        uint64_t applicationId;
+        uint64_t lobbyId;
+    };
+    uint64_t id;
+    std::string name;
+    bool isLinkable;
+    bool isViewableAndWriteableByAllMembers;
+    std::optional<LinkedLobby> linkedLobby;
+};
+```
+
+- `isLinkable` indicates whether the user can link the given guild channel. This includes checking for channel validity (Is it a text channel? Is it marked safe for work? Is it already linked to another lobby?) and validating the user's channel permissions. (Check the **Edit Lobby/Channel Link** endpoint docs for a full list of requirements)  
+- `isViewableAndWriteableByAllMembers` indicates if the channel in Discord has restrictions on any members' or roles' ability to read or write to it (e.g. the channel may be considered private in some way). These read/write permissions are only enforced in the Discord client. A player who may not be able to view the channel in-Discord can read/write to it in-game as long as they are a lobby member. **It is important to notify the player performing the link that the channel contents may become exposed to players in-game who do not have access to the channel in Discord.**
+
+### Saving a channel link selection
+
+Once the user has chosen a channel to link to, you can call [`Client::LinkChannelToLobby`] to set or change the channel a lobby is linked to. You can also use [`Client::UnlinkChannelFromLobby`] to remove the link. The conditions specified in [Linked Channel Requirements](/docs/discord-social-sdk/development-guides/linked-channels#channel-requirements) must be met for the given lobby, channel, and user.
+
+### Try It Out
+
+To test Linked Channels before building out a player interface, here are some steps you can follow to get things working in a prototype using the Discord API:
+
+1. Create a lobby using the **[Create Lobby](/docs/resources/lobby#create-lobby)** endpoint.
+2. Enable the `CanLinkLobby` flag (`1 << 0`) on your lobby member by either sending a request to the `/lobbies/<lobby_id>/members/<user_id>` endpoint or by including the member data in the body of the [Create Lobby](/docs/resources/lobby#create-lobby) request.
+3. Identify a Discord server text channel that your `lobby_member` has the specified permissions enabled for (again, read/write and manage channels) and grab the channel's id.
+4. Send a request to the `/lobbies/<lobby_id>/channel-linking` endpoint described above with the channel id.
+
+Success! Your lobby and channel should now be linked, and if you send a message in the lobby you should see it appear in the channel and vice versa. 
+
+---
+
+## Example Implementation
+
+### Step 1: Set Up Message Handling
+
+```cpp
+// filepath: your_game/channel_linking.cpp
+void HandleDiscordMessage(const std::string& message) {
+    std::cout << "📱 Game received: " << message << "\n";
+    // Check if message is from the lobby
+    // Display in your game UI
+}
+
+void SetupMessageHandlers(std::shared_ptr<discordpp::Client> client) {
+    client->SetMessageCreatedCallback([](uint64_t messageId) {
+        discordpp::MessageHandle message = client->GetMessageHandle(messageId);
+        HandleDiscordMessage(message);
+    });
+}
+```
+
+### Step 2: Fetch Available Servers
+
+```cpp
+void FetchDiscordServers(std::shared_ptr<discordpp::Client> client) {
+    client->GetUserGuilds([](auto result, const auto& guilds) {
+        if (!result.Successful()) {
+            std::cout << "❌ Failed to fetch guilds\n";
+            return;
+        }
+
+        for (const auto& guild : guilds) {
+            std::cout << "📁 Guild: " << guild.name << "\n";
+            // Store guild IDs for later use
+            SaveGuildId(guild.id);
+        }
+    });
+}
+
+void FetchChannelsForGuild(
+    std::shared_ptr<discordpp::Client> client,
+    uint64_t guildId
+) {
+    client->GetGuildChannels(guildId, [](auto result, const auto& channels) {
+        if (!result.Successful()) return;
+
+        for (const auto& channel : channels) {
+            if (channel.isLinkable) {
+                std::cout << "  📝 Channel: " << channel.name;
+                if (!channel.isViewableAndWriteableByAllMembers) {
+                    std::cout << " (Private)";
+                }
+                std::cout << "\n";
+            }
+        }
+    });
+}
+```
+
+### Step 3: Link Channel to Lobby
+
+```cpp
+void ShowPrivateChannelWarning() {
+    std::cout << "⚠️ Warning: This is a private channel.\n";
+    std::cout << "All lobby members will be able to see messages.\n";
+    std::cout << "Do you want to continue? (y/n)\n";
+    
+    char response;
+    std::cin >> response;
+    return (response == 'y' || response == 'Y');
+}
+
+void LinkChannelToLobby(
+    std::shared_ptr<discordpp::Client> client,
+    uint64_t lobbyId,
+    uint64_t channelId,
+    bool isPrivate
+) {
+    if (isPrivate && !ShowPrivateChannelWarning()) {
+        std::cout << "❌ Channel linking cancelled\n";
+        return;
+    }
+
+    client->LinkChannelToLobby(
+        lobbyId,
+        channelId,
+        [](auto result) {
+            if (result.Successful()) {
+                std::cout << "✅ Channel linked successfully!\n";
+            } else {
+                std::cout << "❌ Failed to link channel\n";
+            }
+        }
+    );
+}
+```
+
+### Step 4: Send and Receive Messages
+
+```cpp
+void SendLobbyMessage(
+    std::shared_ptr<discordpp::Client> client,
+    uint64_t lobbyId,
+    const std::string& message
+) {
+    client->SendLobbyMessage(lobbyId, message, [](auto result) {
+        if (!result.Successful()) {
+            std::cout << "❌ Failed to send message\n";
+        }
+    });
+}
+
+void UnlinkChannel(
+    std::shared_ptr<discordpp::Client> client,
+    uint64_t lobbyId
+) {
+    client->UnlinkChannelFromLobby(lobbyId, [](auto result) {
+        if (result.Successful()) {
+            std::cout << "✅ Channel unlinked\n";
+        }
+    });
+}
+```
+
+### Step 5: Putting It All Together
+
+Here's how you might use these functions together:
+
+```cpp
+// filepath: your_game/main.cpp
+int main() {
+    auto client = std::make_shared<discordpp::Client>();
+    
+    // Set up handlers
+    SetupMessageHandlers(client);
+    
+    // When user wants to link a channel:
+    FetchDiscordServers(client);
+    
+    // After user selects a guild:
+    FetchChannelsForGuild(client, selectedGuildId);
+    
+    // After user selects a channel:
+    LinkChannelToLobby(
+        client,
+        currentLobbyId,
+        selectedChannelId,
+        isPrivateChannel
+    );
+    
+    // When sending a message:
+    SendLobbyMessage(client, currentLobbyId, "Hello from the game!");
+    
+    // When done with the channel:
+    UnlinkChannel(client, currentLobbyId);
+    
+    return 0;
+}
+```
+
+---
+
+## Next Steps
+
+<Container>
+  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
+    Combine Discord and game friends into a single list for easy management.
+  </Card>
+  <Card title="Setting Rich Presence" link="/docs/discord-social-sdk/development-guides/setting-rich-presence" icon="UserStatusIcon">
+    Display game status and information to Discord friends.
+  </Card>
+  <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
+    Allow players to invite friends to join their game session or party.
+  </Card>
+</Container>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes                          |
+|----------------|----------------------------------|
+| June 30, 2025  | Add communications scope warning |
+| March 17, 2025 | initial release                  |
+
+{/* Autogenerated Reference Links */}
+[`Client::GetGuildChannels`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#adba1e5a83c219a9c4f6dab1657778017
+[`Client::GetUserGuilds`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aac1ec02df6074ed9213ce230e6a42fe1
+[`Client::LinkChannelToLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3114d58d50d4d2cb5752d95e121315d4
+[`Client::UnlinkChannelFromLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28f78a6fe46eb11eb54ee9b53fa94ffe
