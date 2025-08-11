@@ -1,5 +1,5 @@
 ---
-title: "Embedded App SDK Version 2.2"
+title: "Embedded App SDK Version 2.1 & 2.2"
 date: "2025-08-11"
 topics:
 - "Activities"
@@ -8,7 +8,9 @@ topics:
 
 We've made a few improvements to the Embedded App SDK for version 2.2.0, here are the highlights:
 
-### New URL fields
+### Changes in version 2.1
+
+#### New URL fields
 
 We now support new fields for rich presence activities:
 
@@ -17,7 +19,9 @@ We now support new fields for rich presence activities:
 - `assets.large_url` - URL that is linked to when clicking on the large image in the activity card
 - `assets.small_url` - URL that is linked to when clicking on the small image in the activity card
 
-### patchUrlMappings
+### Changes in version 2.2
+
+#### patchUrlMappings
 
 In line with the [recent change](/docs/change-log#remove-proxy-from-discord-activity-proxy-path) to remove the `.proxy/` path from Discord Activity proxy URLs, the `patchUrlMappings` utility has been updated to generate simplified URLs by default. It will now create mappings without the `.proxy/` prefix.
 
