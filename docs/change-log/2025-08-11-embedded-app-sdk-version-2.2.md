@@ -9,7 +9,7 @@ topics:
 We've made a few improvements to the Embedded App SDK for version 2.2.0, here are the highlights:
 
 ### new URL fields
-we now support new fields for rich presence activities:
+We now support new fields for rich presence activities:
 
 - `state_url` - URL that is linked to when clicking on the state text in the activity card
 - `details_url` - URL that is linked to when clicking on the details text in the activity card
