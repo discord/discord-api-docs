@@ -9,6 +9,7 @@ topics:
 We've made a few improvements to the Embedded App SDK for version 2.2.0, here are the highlights:
 
 ### new URL fields
+
 We now support new fields for rich presence activities:
 
 - `state_url` - URL that is linked to when clicking on the state text in the activity card
@@ -17,6 +18,7 @@ We now support new fields for rich presence activities:
 - `assets.small_url` - URL that is linked to when clicking on the small image in the activity card
 
 ### patchUrlMappings
+
 In line with the recent change to remove the `.proxy/` path from Discord Activity proxy URLs, the `patchUrlMappings` utility has been updated to generate simplified URLs by default. It will now create mappings without the `.proxy/` prefix.
 
 The Embedded App SDK is available via [npm](https://www.npmjs.com/package/@discord/embedded-app-sdk) and [GitHub](https://github.com/discord/embedded-app-sdk). You can check out our [installation guide and reference](/docs/developer-tools/embedded-app-sdk) to get started with it!
