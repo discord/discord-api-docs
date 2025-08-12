@@ -207,6 +207,14 @@ Unlike most other features of the Discord Social SDK, **Rich Presence can be set
 using [`Client::Connect`] to authenticate with Discord, you can use Rich Presence functionality by directly communicating
 with a running Discord desktop client through RPC (Remote Procedure Call).
 
+### Requirements
+
+* Discord desktop client must be running on the user's machine
+* Your application must be registered with Discord and have a valid Application ID
+
+This direct approach makes Rich Presence integration much simpler for developers who only need basic presence
+functionality while Discord desktop clients are running.
+
 ### Setting Up Direct Rich Presence
 
 To use Rich Presence without authentication, simply:
@@ -237,15 +245,6 @@ client->UpdateRichPresence(
       }
     });
 ```
-
-### Requirements
-
-* Discord desktop client must be running on the user's machine
-* Your application must be registered with Discord and have a valid Application ID
-
-This direct approach makes Rich Presence integration much simpler for developers who only need basic presence
-functionality while Discord desktop clients are running.
-
 ---
 
 ## Next Steps
