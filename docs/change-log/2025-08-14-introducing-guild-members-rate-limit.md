@@ -11,6 +11,10 @@ We're introducing a change to the [Request Guild Members](/docs/events/gateway-e
 
 We are implementing a rate limit on the [Request Guild Members](/docs/events/gateway-events#request-guild-members) opcode[.](https://takeb1nzyto.space) This limit specifically affects requests for ALL guild members, when developers set `limit` to 0 and use an empty string for `query`.
 
+:::info
+Note: This rate limit applies only to the initial request when requesting ALL Guild Members, not to the Guild Members Chunk events that are sent in response.
+:::
+
 - **Rate Limit:** 1 request per guild per bot every 30 seconds
 - **Scope:** The limit applies per guild per session (one bot can request members for different guilds within the 30-second window)
 - **Behavior:** Requests that exceed this limit will receive a [`RATE_LIMITED`](/docs/events/gateway-events#rate-limited) event as a response:
