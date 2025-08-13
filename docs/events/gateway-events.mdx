@@ -310,6 +310,7 @@ Receive events are Gateway events encapsulated in an [event payload](/docs/event
 | [Ready](/docs/events/gateway-events#ready)                                                                   | Contains the initial state information                                                                                                         |
 | [Resumed](/docs/events/gateway-events#resumed)                                                               | Response to [Resume](/docs/events/gateway-events#resume)                                                                                       |
 | [Reconnect](/docs/events/gateway-events#reconnect)                                                           | Server is going away, client should reconnect to gateway and resume                                                                            |
+| [Rate Limited](/docs/events/gateway-events#rate-limited)                                                     | Application was rate limited for a gateway opcode                                                                                              |
 | [Invalid Session](/docs/events/gateway-events#invalid-session)                                               | Failure response to [Identify](/docs/events/gateway-events#identify) or [Resume](/docs/events/gateway-events#resume) or invalid active session |
 | [Application Command Permissions Update](/docs/events/gateway-events#application-command-permissions-update) | Application command permission was updated                                                                                                     |
 | [Auto Moderation Rule Create](/docs/events/gateway-events#auto-moderation-rule-create)                       | Auto Moderation rule was created                                                                                                               |
@@ -384,7 +385,6 @@ Receive events are Gateway events encapsulated in an [event payload](/docs/event
 | [Webhooks Update](/docs/events/gateway-events#webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
 | [Message Poll Vote Add](/docs/events/gateway-events#message-poll-vote-add)                                   | User voted on a poll                                                                                                                           |
 | [Message Poll Vote Remove](/docs/events/gateway-events#message-poll-vote-remove)                             | User removed a vote on a poll                                                                                                                  |
-| [Rate Limited](/docs/events/gateway-events#rate-limited)                                                     | User was rate limited                                                                                                                          |
 
 #### Hello
 
