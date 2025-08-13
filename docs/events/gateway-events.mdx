@@ -1484,21 +1484,21 @@ See changelog for [Introducing Rate Limit When Requesting All Guild Members](/do
 
 ###### Rate Limited Fields
 
-| Field       | Type                                                                                                   | Description                                                                                                        |
-|-------------|--------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| opcode      | integer                                                                                                | [Gateway opcode](/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes) of the event that was rate limited |
-| retry_after | float                                                                                                  | The number of seconds to wait before submitting another request                                                    |
+| Field       | Type                                                                                                                | Description                                                                                                        |
+|-------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| opcode      | integer                                                                                                             | [Gateway opcode](/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes) of the event that was rate limited |
+| retry_after | float                                                                                                               | The number of seconds to wait before submitting another request                                                    |
 | meta        | [Rate Limit Metadata for Opcode](/docs/events/gateway-events#rate-limited-rate-limit-metadata-for-opcode-structure) | Metadata for the event that was rate limited                                                                       |
 
 ###### Rate Limit Metadata for Opcode Structure
 
-| Opcode | Type                                                                                                                       |
-|--------|----------------------------------------------------------------------------------------------------------------------------|
+| Opcode | Type                                                                                                                                    |
+|--------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | 8      | [Request Guild Member Rate Limit Metadata](/docs/events/gateway-events#rate-limited-request-guild-member-rate-limit-metadata-structure) |
 
 ###### Request Guild Member Rate Limit Metadata Structure
 
-| Field    | Type      | Description                                                                                                                      |
-|----------|-----------|----------------------------------------------------------------------------------------------------------------------------------|
-| guild_id | snowflake | ID of the guild to get members for                                                                                               |
+| Field    | Type      | Description                                                                                           |
+|----------|-----------|-------------------------------------------------------------------------------------------------------|
+| guild_id | snowflake | ID of the guild to get members for                                                                    |
 | nonce?   | string    | nonce to identify the [Guild Members Chunk](/docs/events/gateway-events#guild-members-chunk) response |
