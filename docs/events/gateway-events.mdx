@@ -180,6 +180,10 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 - Requesting a prefix (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
 
+:::info
+We are introducing a new rate limit to the Request Guild Members opcode. See [Introducing Rate Limit When Requesting All Guild Members](/docs/change-log/2025-08-14-introducing-guild-members-rate-limit) for more information and timeline on this new rate limit.
+:::
+
 ###### Request Guild Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
@@ -306,6 +310,7 @@ Receive events are Gateway events encapsulated in an [event payload](/docs/event
 | [Ready](/docs/events/gateway-events#ready)                                                                   | Contains the initial state information                                                                                                         |
 | [Resumed](/docs/events/gateway-events#resumed)                                                               | Response to [Resume](/docs/events/gateway-events#resume)                                                                                       |
 | [Reconnect](/docs/events/gateway-events#reconnect)                                                           | Server is going away, client should reconnect to gateway and resume                                                                            |
+| [Rate Limited](/docs/events/gateway-events#rate-limited)                                                     | Application was rate limited for a gateway opcode                                                                                              |
 | [Invalid Session](/docs/events/gateway-events#invalid-session)                                               | Failure response to [Identify](/docs/events/gateway-events#identify) or [Resume](/docs/events/gateway-events#resume) or invalid active session |
 | [Application Command Permissions Update](/docs/events/gateway-events#application-command-permissions-update) | Application command permission was updated                                                                                                     |
 | [Auto Moderation Rule Create](/docs/events/gateway-events#auto-moderation-rule-create)                       | Auto Moderation rule was created                                                                                                               |
@@ -1466,3 +1471,34 @@ Sent when a user removes their vote on a poll. If the poll allows for multiple s
 | message_id | snowflake | ID of the message |
 | guild_id?  | snowflake | ID of the guild   |
 | answer_id  | integer   | ID of the answer  |
+
+### Rate Limits
+
+#### Rate Limited
+
+Sent when an app encounters a gateway rate limit for an event, such as [Request Guild Members](/docs/events/gateway-events#request-guild-members).
+
+:::info
+See changelog for [Introducing Rate Limit When Requesting All Guild Members](/docs/change-log#introducing-rate-limit-when-requesting-all-guild-members) for more information and timeline on this new rate limit.
+:::
+
+###### Rate Limited Fields
+
+| Field       | Type                                                                                                                | Description                                                                                                        |
+|-------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| opcode      | integer                                                                                                             | [Gateway opcode](/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes) of the event that was rate limited |
+| retry_after | float                                                                                                               | The number of seconds to wait before submitting another request                                                    |
+| meta        | [Rate Limit Metadata for Opcode](/docs/events/gateway-events#rate-limited-rate-limit-metadata-for-opcode-structure) | Metadata for the event that was rate limited                                                                       |
+
+###### Rate Limit Metadata for Opcode Structure
+
+| Opcode | Type                                                                                                                                    |
+|--------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| 8      | [Request Guild Member Rate Limit Metadata](/docs/events/gateway-events#rate-limited-request-guild-member-rate-limit-metadata-structure) |
+
+###### Request Guild Member Rate Limit Metadata Structure
+
+| Field    | Type      | Description                                                                                           |
+|----------|-----------|-------------------------------------------------------------------------------------------------------|
+| guild_id | snowflake | ID of the guild to get members for                                                                    |
+| nonce?   | string    | nonce to identify the [Guild Members Chunk](/docs/events/gateway-events#guild-members-chunk) response |
