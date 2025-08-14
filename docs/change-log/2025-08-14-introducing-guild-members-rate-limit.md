@@ -16,7 +16,7 @@ Note: This rate limit applies only to the initial request when requesting ALL Gu
 :::
 
 - **Rate Limit:** 1 request per guild per bot every 30 seconds
-- **Scope:** The limit applies per guild per session (one bot can request members for different guilds within the 30-second window)
+- **Scope:** The limit applies per guild per bot (one bot can request members for different guilds within the 30-second window)
 - **Behavior:** Requests that exceed this limit will receive a [`RATE_LIMITED`](/docs/events/gateway-events#rate-limited) event as a response:
 
 ```js
