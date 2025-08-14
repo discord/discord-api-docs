@@ -52,19 +52,4 @@ If your application uses [Request Guild Members](/docs/events/gateway-events#req
 - Implement caching mechanisms for member data
 - Update your cache using the `GUILD_MEMBER_ADD`, `GUILD_MEMBER_UPDATE`, and `GUILD_MEMBER_REMOVE` gateway events
 
-If you hit this limit, you will receive a [`RATE_LIMITED`](/docs/events/gateway-events#rate-limited) event as a response:
-
-```js
-{
-  "op": 0
-  "t": "RATE_LIMITED",
-  "d": {
-    "opcode": 8,
-    "retry_after": ...,
-    "meta": {
-      "guild_id": ...,
-      "nonce": ...
-    }
-  }
-}
-```
+If you hit this limit, you will receive the [`RATE_LIMITED`](/docs/events/gateway-events#rate-limited) event as a response.
