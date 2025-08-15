@@ -19,24 +19,24 @@ Rich Presence can now more accurately display the different types of activities 
 
 - Added support for additional activity types (Listening, Watching, Competing)
 - Added support for new clickable URL fields and additional user status customization
-- Support for server-to-server rich presence invites and gateway-based invite handling. This means an invite can be accepted on a different device and the [`ActivityInviteCreatedCallback`] will be invoked on connected SDK sessions.
+- Support for server-to-server rich presence invites and gateway-based invite handling. This means an invite can be accepted on a different device and the [`Client::SetActivityInviteCreatedCallback`] will be invoked on connected SDK sessions.
 
 ### Linked Channels
 
 Linked channels are all about keeping groups of friends connected in and outside the game. You can now join a player to channel’s linked Discord server from in-game, helping them bridge that gap and stay connected with friends even when they stop playing.
 
-- Added [`Client::JoinLinkedLobbyGuild()`] to allow members of linked
+- Added [`Client::JoinLinkedLobbyGuild`] to allow members of linked
 lobbies to join the linked lobby's guild from in-game
 
 ### Android
 
 The many-step process of mobile account linking has been simplified for users with Discord installed by deep-linking into the Discord mobile app to authorize with your game
 
-![Video showing off the account linking process in 1.4 vs 1.5 on Android](images/1.4vs1.5.webp)
-
 - Implemented native authentication support
 - Fixed native authentication callback when activities are terminated
-- Added an experimental audio setting on Android to avoid setting the OS to voice comms mode when connected to a Bluetooth headset on Android. This may be used if you wish to avoid the transition to voice volume controls and other related changes when connected to Bluetooth. To enable this setting, pass a [`ClientCreateOptions`] when instantiating the client and set the [`experimentalAndroidPreventCommsForBluetooth`] flag
+- Added an experimental audio setting on Android to avoid setting the OS to voice comms mode when connected to a Bluetooth headset on Android. This may be used if you wish to avoid the transition to voice volume controls and other related changes when connected to Bluetooth. To enable this setting, pass a [`ClientCreateOptions`] when instantiating the client and set the `experimentalAndroidPreventCommsForBluetooth` flag
+
+![Video showing off the account linking process in 1.4 vs 1.5 on Android](images/1.4vs1.5.webp)
 
 ### iOS
 
@@ -55,7 +55,7 @@ The many-step process of mobile account linking has been simplified for users wi
 
 ### Bug Fixes
 
-- Fixed bug where [`Client::SetLogVoiceDir`] didn’t have any effect
+- Fixed bug where [`Client::SetVoiceLogDir`] didn’t have any effect
 - Added better error event handling to distinguish server authorization errors from user cancellations
 - Fixed activity platform validation for console games
 - Fixed crash safety issues with [`Client::GetCurrentUser`] when the client is in an unexpected non-Ready state. Added [`Client::GetCurrentUserV2`] which explicitly returns an optional handle instead of dummy data in this situation. This issue also affected the Unity and Unreal versions of the SDK
@@ -65,8 +65,8 @@ The many-step process of mobile account linking has been simplified for users wi
 
 - When the network is disconnected temporarily, active Calls may sometimes enter the Disconnected state instead of reconnecting. If a Call reaches Disconnected state, you must end and rejoin the call to reconnect if desired.
 - For DM chat history
-    - No SDK-side caching for [`GetUserMessagesWithLimit`]
-        - Every invocation of [`GetUserMessagesWithLimit`] will directly query the backend rather than using local SDK-side caching. This may have performance implications, particularly under high-frequency usage.
+    - No SDK-side caching for [`Client::GetUserMessagesWithLimit`]
+        - Every invocation of [`Client::GetUserMessagesWithLimit`] will directly query the backend rather than using local SDK-side caching. This may have performance implications, particularly under high-frequency usage.
     - Provisional account merge message retrieval
         - After a provisional account is merged into a full account, messages sent while the user was on the provisional account cannot be retrieved.
 
@@ -76,4 +76,7 @@ The many-step process of mobile account linking has been simplified for users wi
 [`Client::GetCurrentUserV2`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ae52259570ba657252d91f5580636fe5d
 [`Client::GetUserMessageSummaries`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a32dafc20ff1f99b019e40bdc81f46dde
 [`Client::GetUserMessagesWithLimit`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a054a758a76c5873b38a4d79651a5f26c
+[`Client::JoinLinkedLobbyGuild`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a54ec764e72e168de419ac14e24e8fc60
+[`Client::SetActivityInviteCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3b4e37a222a8662506d763514774bedc
+[`Client::SetVoiceLogDir`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a48c6b7e8bbc2b632a935acafc6a5f7a7
 [`ClientCreateOptions`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1ClientCreateOptions.html#ae655ad66ba64f443496c158307cc77b4
