@@ -9,7 +9,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
 ### **DM History Support**
 
-With the release of DM chat history this patch, the Social SDK can now fully support asynchronous player communication between individual players and in larger chat rooms. Players who go offline or background the came can come back to the history of the chat room and get caught up with what’s happening.
+With the release of DM chat history this patch, the Social SDK can now fully support asynchronous player communication between individual players and in larger chat rooms. Players who go offline or background the game can come back to the history of the chat room and get caught up with what’s happening.
 
 - Added [`Client::GetUserMessageSummaries`] and [`Client::GetUserMessagesWithLimit`] to retrieve direct message history
 
