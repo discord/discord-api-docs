@@ -10,7 +10,7 @@ sidebar_label: Multiplayer Experience
 
 When a user clicks "Join Application", they expect to enter the same application that their friends are participating in. Whether the application is a shared drawing canvas, board game, collaborative playlist, or first-person shooter; the two users should have access to the same shared data. In this documentation, we refer to this shared data as an **application instance**.
 
-![join-application](images/activities/join-application.png)
+![join-application](images/activities/join-application.webp)
 
 The Embedded App SDK allows your app to talk bidirectionally with the Discord Client. The `instanceId` is necessary for your application, as well as Discord, to understand which unique instance of an application it is talking to.
 
@@ -151,4 +151,4 @@ curl https://discord.com/api/applications/1215413995645968394/activity-instances
 With this API, the activity's backend can verify that a client is in fact in an instance of that activity before allowing the client to participate in any meaningful gameplay. How an activity implements "session verification" is left to the developer's discretion. The solution can be as granular as gating specific features or as binary as not returning the activity HTML except for valid sessions.
 
 In the below flow diagram, we show how the server can deliver the activity website, only for valid users in a valid activity instance:
-![application-test-mode-prod](images/activities/activity-instance-validation.jpg)
+![application-test-mode-prod](images/activities/activity-instance-validation.webp)
