@@ -37,24 +37,26 @@ Components are a field on the [message object](/docs/resources/message#message-o
 
 The following is a complete table of available components. Details about each component are in the sections below.
 
-| Type | Name                                                                | Description                                                | Style       | Usage          |
-|------|---------------------------------------------------------------------|------------------------------------------------------------|-------------|----------------|
-| 1    | [Action Row](/docs/components/reference#action-row)                 | Container to display a row of interactive components       | Layout      | Message, Modal |
-| 2    | [Button](/docs/components/reference#button)                         | Button object                                              | Interactive | Message        |
-| 3    | [String Select](/docs/components/reference#string-select)           | Select menu for picking from defined text options          | Interactive | Message        |
-| 4    | [Text Input](/docs/components/reference#text-input)                 | Text input object                                          | Interactive | Modal          |
-| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                      | Interactive | Message        |
-| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                      | Interactive | Message        |
-| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)           | Interactive | Message        |
-| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                   | Interactive | Message        |
-| 9    | [Section](/docs/components/reference#section)                       | Container to display text alongside an accessory component | Layout      | Message        |
-| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                              | Content     | Message        |
-| 11   | [Thumbnail](/docs/components/reference#thumbnail)                   | Small image that can be used as an accessory               | Content     | Message        |
-| 12   | [Media Gallery](/docs/components/reference#media-gallery)           | Display images and other media                             | Content     | Message        |
-| 13   | [File](/docs/components/reference#file)                             | Displays an attached file                                  | Content     | Message        |
-| 14   | [Separator](/docs/components/reference#separator)                   | Component to add vertical padding between other components | Layout      | Message        |
-| 17   | [Container](/docs/components/reference#container)                   | Container that visually groups a set of components         | Layout      | Message        |
+| Type | Name                                                                | Description                                                    | Style       | Usage          |
+|------|---------------------------------------------------------------------|----------------------------------------------------------------|-------------|----------------|
+| 1    | [Action Row](/docs/components/reference#action-row)                 | Container to display a row of interactive components           | Layout      | Message        |
+| 2    | [Button](/docs/components/reference#button)                         | Button object                                                  | Interactive | Message        |
+| 3    | [String Select](/docs/components/reference#string-select)           | Select menu for picking from defined text options              | Interactive | Message, Modal |
+| 4    | [Text Input](/docs/components/reference#text-input)                 | Text input object                                              | Interactive | Modal          |
+| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                          | Interactive | Message        |
+| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                          | Interactive | Message        |
+| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)               | Interactive | Message        |
+| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                       | Interactive | Message        |
+| 9    | [Section](/docs/components/reference#section)                       | Container to display text alongside an accessory component     | Layout      | Message        |
+| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                                  | Content     | Message        |
+| 11   | [Thumbnail](/docs/components/reference#thumbnail)                   | Small image that can be used as an accessory                   | Content     | Message        |
+| 12   | [Media Gallery](/docs/components/reference#media-gallery)           | Display images and other media                                 | Content     | Message        |
+| 13   | [File](/docs/components/reference#file)                             | Displays an attached file                                      | Content     | Message        |
+| 14   | [Separator](/docs/components/reference#separator)                   | Component to add vertical padding between other components     | Layout      | Message        |
+| 17   | [Container](/docs/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
+| 18   | [Label](/docs/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
 
+--------------
 ## Anatomy of a Component
 
 All components have the following fields:
@@ -76,59 +78,77 @@ Additionally, interactive components like buttons and selects must have a `custo
 |-----------|--------|--------------------------------------------------|
 | custom_id | string | Developer-defined identifier, max 100 characters |
 
+--------------
 ## Action Row
 
-An Action Row is a top-level layout component used in messages and modals.
+An Action Row is a top-level layout component.
 
-Action Rows can contain:
+Action Rows can contain one of the following:
 
 - Up to 5 contextually grouped [buttons](/docs/components/reference#button)
-- A single [text input](/docs/components/reference#text-input)
 - A single select component ([string select](/docs/components/reference#string-select), [user select](/docs/components/reference#user-select), [role select](/docs/components/reference#role-select), [mentionable select](/docs/components/reference#mentionable-select), or [channel select](/docs/components/reference#channel-select))
+
+:::info
+[Label](/docs/components/reference#label) is recommended for use over an Action Row in modals. Action Row with Text Inputs in modals are now deprecated.
+:::
 
 ###### Action Row Structure
 
-| Field      | Type                                                                                      | Description                                                                                                                                       |
-|------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| type       | integer                                                                                   | `1` for action row component                                                                                                                      |
-| id?        | integer                                                                                   | Optional identifier for component                                                                                                                 |
-| components | array of [component objects](/docs/components/reference#component-object-component-types) | Up to 5 interactive [button](/docs/components/reference#button) components or a single [select](/docs/components/reference#user-select) component |
+| Field      | Type                                                                                                | Description                                                                                                                                       |
+|------------|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                             | `1` for action row component                                                                                                                      |
+| id?        | integer                                                                                             | Optional identifier for component                                                                                                                 |
+| components | array of [action row child components](/docs/components/reference#component-object-component-types) | Up to 5 interactive [button](/docs/components/reference#button) components or a single [select](/docs/components/reference#user-select) component |
 
-###### Example
+###### Action Row Child Components
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 1,
-      "components": [
+| Available Components                                                | Description                               |
+|---------------------------------------------------------------------|-------------------------------------------|
+| [button](/docs/components/reference#button)                         | An Action Row can contain up to 5 Buttons |
+| [string select](/docs/components/reference#string-select)           | A single String Select                    |
+| [user select](/docs/components/reference#user-select)               | A single User Select                      |
+| [role select](/docs/components/reference#role-select)               | A single Role Select                      |
+| [mentionable select](/docs/components/reference#mentionable-select) | A single Mentionable Select               |
+| [channel select](/docs/components/reference#channel-select)         | A single Channel Select                   |
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with an Action Row component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of an Action Row with three buttons](images/components/action-row.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1,  // ComponentType.ACTION_ROW
+        "components": [
           {
-              "type": 2,
-              "label": "Accept",
-              "style": 1,
-              "custom_id": "click_yes"
+            "type": 2,  // ComponentType.BUTTON
+            "custom_id": "click_yes"
+            "label": "Accept",
+            "style": 1,
           },
           {
-              "type": 2,
-              "label": "Learn More",
-              "style": 5,
-              "url": "http://watchanimeattheoffice.com/"
+            "type": 2,  // ComponentType.BUTTON
+            "label": "Learn More",
+            "style": 5,
+            "url": "http://watchanimeattheoffice.com/"
           },
           {
-              "type": 2,
-              "label": "Decline",
-              "style": 4,
-              "custom_id": "click_no"
+            "type": 2,  // ComponentType.BUTTON
+            "custom_id": "click_no"
+            "label": "Decline",
+            "style": 4,
           }
-      ]
-    }
-  ]
-}
-```
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
 
-![Example of an Action Row with three buttons](images/components/action-row.webp)
-
+--------------
 ## Button
 
 A Button is an interactive component that can only be used in messages. It creates clickable elements that users can interact with, sending an [interaction](/docs/interactions/receiving-and-responding#interaction-object) to your app when clicked.
@@ -168,103 +188,48 @@ Buttons come in various styles to convey different types of actions. These style
 | Link      | 5     | Navigates to a URL                                             | `url`          |
 | Premium   | 6     | Purchase                                                       | `sku_id`       |
 
-###### Example
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 1,
-      "components": [
-          {
-              "type": 2,
-              "label": "Click me!",
-              "style": 1,
-              "custom_id": "clicked_me"
-          }
-      ]
-    }
-  ]
-}
-```
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Button component" icon="code">
 
-###### Button Interaction
-
-```json
-{
-    "version": 1,
-    "type": 3,
-    "token": "unique_interaction_token",
-    "message": {
-        "type": 0,
-        "tts": false,
-        "timestamp": "2021-05-19T02:12:51.710000+00:00",
-        "pinned": false,
-        "mentions": [],
-        "mention_roles": [],
-        "mention_everyone": false,
-        "id": "844397162624450620",
-        "flags": 32768,
-        "edited_timestamp": null,
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1,  // ComponentType.ACTION_ROW
         "components": [
             {
-              "type": 10,
-              "content": "This is a message with components."
-            },
-            {
-                "type": 1,
-                "components": [
-                    {
-                        "type": 2,
-                        "label": "Click me!",
-                        "style": 1,
-                        "custom_id": "click_one"
-                    }
-                ]
+              "type": 2,  // ComponentType.BUTTON,
+              "custom_id": "click_me"
+              "label": "Click me!",
+              "style": 1,
             }
-        ],
-        "channel_id": "345626669114982402",
-        "author": {
-            "username": "Mason",
-            "public_flags": 131141,
-            "id": "53908232506183680",
-            "discriminator": "1337",
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
-        },
-        "attachments": []
-    },
-    "member": {
-        "user": {
-            "username": "Mason",
-            "public_flags": 131141,
-            "id": "53908232506183680",
-            "discriminator": "1337",
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
-        },
-        "roles": [
-            "290926798626357999"
-        ],
-        "premium_since": null,
-        "permissions": "17179869183",
-        "pending": false,
-        "nick": null,
-        "mute": false,
-        "joined_at": "2017-03-13T19:19:14.040000+00:00",
-        "is_pending": false,
-        "deaf": false,
-        "avatar": null
-    },
-    "id": "846462639134605312",
-    "guild_id": "290926798626357999",
+        ]
+      }
+    ]
+  }
+  ```
+
+</Collapsible>
+
+<Collapsible title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
+  When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+  ```json
+  {
+    "type": 3, // InteractionType.MESSAGE_COMPONENT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
     "data": {
-        "custom_id": "click_one",
-        "component_type": 2
+      "component_type": 2, // ComponentType.BUTTON
+      "id": 2,
+      "custom_id": "click_me",
     },
-    "channel_id": "345626669114982999",
-    "application_id": "290926444748734465"
-}
-```
+  }
+  ```
+
+</Collapsible>
 
 ### Button Design Guidelines
 
@@ -282,11 +247,11 @@ Buttons come in various styles to convey different types of actions. These style
 
 Use different button styles to create a hierarchy. Use only one `Primary` button per group.
 
-![Example showing one primary button per button group](images/multiple-buttons-example-1.webp)
+![Example showing one primary button per button group](images/components/multiple-buttons-example-1.webp)
 
 If there are multiple buttons of equal significance, use the `Secondary` button style for all buttons.
 
-![Example showing multiple buttons in a group with equal significance](images/multiple-buttons-example-2.webp)
+![Example showing multiple buttons in a group with equal significance](images/components/multiple-buttons-example-2.webp)
 
 ###### Premium Buttons
 
@@ -296,29 +261,34 @@ Premium buttons will automatically have the following:
 - SKU name
 - SKU price
 
-![A premium button](images/premium-button.webp)
+![A premium button](images/components/premium-button.webp)
 
+--------------
 ## String Select
 
-A String Select is an interactive component that allows users to select one or more provided `options` in a message.
+A String Select is an interactive component that allows users to select one or more provided `options`.
 
 String Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-String Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
-
+String Selects are available in messages and modals. String Selects must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### String Select Structure
 
-| Field        | Type                                                                                        | Description                                                                |
-|--------------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| type         | integer                                                                                     | `3` for string select                                                      |
-| id?          | integer                                                                                     | Optional identifier for component                                          |
-| custom_id    | string                                                                                      | ID for the select menu; max 100 characters                                 |
-| options      | array of [select options](/docs/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                 |
-| placeholder? | string                                                                                      | Placeholder text if nothing is selected or default; max 150 characters     |
-| min_values?  | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25 |
-| max_values?  | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25         |
-| disabled?    | boolean                                                                                     | Whether select menu is disabled (defaults to `false`)                      |
+| Field         | Type                                                                                        | Description                                                                     |
+|---------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| type          | integer                                                                                     | `3` for string select                                                           |
+| id?           | integer                                                                                     | Optional identifier for component                                               |
+| custom_id     | string                                                                                      | ID for the select menu; max 100 characters                                      |
+| options       | array of [select options](/docs/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                      |
+| placeholder?  | string                                                                                      | Placeholder text if nothing is selected or default; max 150 characters          |
+| min_values?   | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25      |
+| max_values?   | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25              |
+| required?\*   | boolean                                                                                     | Whether the string select is required to answer in a modal (defaults to `true`) |
+| disabled?\*\* | boolean                                                                                     | Whether select menu is disable in a message (defaults to `false`)               |
+
+\* The `required` field is only available for String Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Select Option Structure
 
@@ -330,206 +300,164 @@ String Selects must be placed inside an [Action Row](/docs/components/reference#
 | emoji?       | partial [emoji](/docs/resources/emoji#emoji-object) object | `id`, `name`, and `animated`                             |
 | default?     | boolean                                                    | Will show this option as selected by default             |
 
-###### Example
+###### String Select Interaction Response Structure
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 3,
-      "custom_id": "string_select",
-      "placeholder": "Favorite bug?",
-      "options": [
+| Field            | Type             | Description                                                    |
+|------------------|------------------|----------------------------------------------------------------|
+| type\*           | integer          | `3` for a String Select                                        |
+| component_type\* | integer          | `3` for a String Select                                        |
+| id               | integer          | Unique identifier for the component                            |
+| custom_id        | string           | Developer-defined identifier for the input; max 100 characters |
+| values           | array of strings | The text of the selected options                               |
+
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a String Select component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a String Select with three options](images/components/string-select.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1, // ComponentType.ACTION_ROW,
+        "id": 1,
+        "components": [
+          {
+            "type": 3, // ComponentType.STRING_SELECT
+            "id": 2,
+            "custom_id": "favorite_bug",
+            "placeholder": "Favorite bug?",
+            "options": [
+              {
+                "label": "Ant",
+                "value": "ant",
+                "description": "(best option)",
+                "emoji": {"name": "🐜"}
+              },
+              {
+                "label": "Butterfly",
+                "value": "butterfly",
+                "emoji": {"name": "🦋"}
+              },
+              {
+                "label": "Catarpillar",
+                "value": "caterpillar",
+                "emoji": {"name": "🐛"}
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+</Collapsible>
+
+<Collapsible title="Message Interaction Data Example" description="When a user interacts with a StringSelect in a message" icon="code">
+  When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+  ```json
+  {
+    "type": 3, // InteractionType.MESSAGE_COMPONENT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "component_type": 3, // ComponentType.STRING_SELECT
+      "custom_id": "favorite_bug",
+      "values": [
+        "butterfly",
+      ]
+    },
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Example" description="Modal create payload with a String Select component" icon="code">
+  ```json
+  {
+    "type": 9, // InteractionCallbackType.MODAL
+    "data": {
+      "custom_id": "bug_modal",
+      "title": "Bug Survey",
+      "components": [
         {
-          "label": "Ant",
-          "value": "ant",
-          "description": "(best option)",
-          "emoji": {"name": "🐜"}
-        },
-        {
-          "label": "Butterfly",
-          "value": "butterfly",
-          "emoji": {"name": "🦋"}
-        },
-        {
-          "label": "Catarpillar",
-          "value": "caterpillar",
-          "emoji": {"name": "🐛"}
+          "type": 18, // ComponentType.LABEL
+          "id": 1,
+          "label": "Favorite bug?"
+          "component": {
+            "type": 3, // ComponentType.STRING_SELECT
+            "id": 2,
+            "custom_id": "favorite_bug",
+            "placeholder": "Ants are the best",
+            "options": [
+              {
+                "label": "Ant",
+                "value": "ant",
+                "description": "(best option)",
+                "emoji": {"name": "🐜"}
+              },
+              {
+                "label": "Butterfly",
+                "value": "butterfly",
+                "emoji": {"name": "🦋"}
+              },
+              {
+                "label": "Catarpillar",
+                "value": "caterpillar",
+                "emoji": {"name": "🐛"}
+              }
+            ]
+          }
         }
       ]
     }
-  ]
-}
-```
+  }
+  ```
+</Collapsible>
 
-![Example of a String Select with three options](images/components/string-select.webp)
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a StringSelect" icon="code">
+  When a user submits a modal that contains a StringSelect, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-###### String Select Interaction
-
-```json
-{
-    "application_id": "845027738276462632",
-    "channel_id": "772908445358620702",
     "data": {
-        "component_type":3,
-        "custom_id": "class_select_1",
-        "values": [
-            "mage",
-            "rogue"
-        ]
-    },
-    "guild_id": "772904309264089089",
-    "id": "847587388497854464",
-    "member": {
-        "avatar": null,
-        "deaf": false,
-        "is_pending": false,
-        "joined_at": "2020-11-02T19:25:47.248000+00:00",
-        "mute": false,
-        "nick": "Bot Man",
-        "pending": false,
-        "permissions": "17179869183",
-        "premium_since": null,
-        "roles": [
-            "785609923542777878"
-        ],
-        "user":{
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-            "discriminator": "1337",
-            "id": "53908232506183680",
-            "public_flags": 131141,
-            "username": "Mason"
+      "custom_id": "bug_modal",
+      "components": [
+        {
+          "type": 18, // ComponentType.LABEL
+          "id": 1,
+          "component": {
+            "type": 3, // ComponentType.STRING_SELECT
+            "id": 2,
+            "custom_id": "favorite_bug",
+            "values": [
+              "butterfly",
+            ]
+          }
         }
+      ]
     },
-    "message":{
-        "application_id": "845027738276462632",
-        "attachments": [],
-        "author": {
-            "avatar": null,
-            "bot": true,
-            "discriminator": "5284",
-            "id": "845027738276462632",
-            "public_flags": 0,
-            "username": "Interactions Test"
-        },
-        "channel_id": "772908445358620702",
-        "components": [
-            {
-              "type": 10,
-              "content": "Mason is looking for new arena partners. What classes do you play?"
-            },
-            {
-                "type": 1,
-                "components": [
-                    {
-                        "type": 3,
-                        "placeholder": "Choose a class",
-                        "custom_id": "class_select_1",
-                        "max_values": 1,
-                        "min_values": 1,
-                        "options": [
-                            {
-                                "description": "Sneak n stab",
-                                "emoji":{
-                                    "id": "625891304148303894",
-                                    "name": "rogue"
-                                },
-                                "label": "Rogue",
-                                "value": "rogue"
-                            },
-                            {
-                                "description": "Turn 'em into a sheep",
-                                "emoji":{
-                                    "id": "625891304081063986",
-                                    "name": "mage"
-                                },
-                                "label": "Mage",
-                                "value": "mage"
-                            },
-                            {
-                                "description": "You get heals when I'm done doing damage",
-                                "emoji":{
-                                    "id": "625891303795982337",
-                                    "name": "priest"
-                                },
-                                "label": "Priest",
-                                "value": "priest"
-                            }
-                        ],
-                    }
-                ],
-            }
-        ],
-        "edited_timestamp": null,
-        "flags": 32768,
-        "id": "847587334500646933",
-        "interaction": {
-            "id": "847587333942935632",
-            "name": "dropdown",
-            "type": 2,
-            "user": {
-                "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-                "discriminator": "1337",
-                "id": "53908232506183680",
-                "public_flags": 131141,
-                "username": "Mason"
-            }
-        },
-        "mention_everyone": false,
-        "mention_roles":[],
-        "mentions":[],
-        "pinned": false,
-        "timestamp": "2021-05-27T21:29:27.956000+00:00",
-        "tts": false,
-        "type": 20,
-        "webhook_id": "845027738276462632"
-    },
-    "token": "UNIQUE_TOKEN",
-    "type": 3,
-    "version": 1
-}
-```
+  }
+  ```
+</Collapsible>
 
-###### Select Menu Resolved Object
-
-The `resolved` object is included in interaction payloads for user, role, mentionable, and channel select menu components. `resolved` contains a nested object with additional details about the selected options with the key of the resource type—`users`, `roles`, `channels`, and `members`.
-
-:::info
-`members` and `users` may both be present in the `resolved` object when a user is selected (in either a [user select](/docs/components/reference#user-select) or [mentionable select](/docs/components/reference#mentionable-select)).
-:::
-
-###### Example Resolved Object
-
-A sample `data` object (a subset of the interaction payload) for a channel select menu component:
-
-```json
-{
-    "component_type": 8,
-    "custom_id": "my_channel_select",
-    "resolved": {
-        "channels": {
-            "986678954901234567": {
-                "id": "986678954901234567",
-                "name": "general",
-                "permissions": "4398046511103",
-                "type": 0
-            }
-        }
-    },
-    "values": [
-        "986678954901234567"
-    ]
-}
-```
-
+------------
 ## Text Input
 
 Text Input is an interactive component that allows users to enter free-form text responses in modals. It supports both short, single-line inputs and longer, multi-line paragraph inputs.
 
-Text Inputs can only be used within modals and must be placed inside an [Action Row](/docs/components/reference#action-row).
+Text Inputs can only be used within modals and must be placed inside a [Label](/docs/components/reference#label).
 
-When defining a text input component, you can set attributes to customize the behavior and appearance of it. However, not all attributes will be returned in the [text input interaction payload](/docs/components/reference#text-input-text-input-interaction).
+:::info
+We no longer recommend using Text Input within an [Action Row](/docs/components/reference#action-row) in modals. Going forward all Text Inputs should be placed inside a [Label](/docs/components/reference#label) component.
+:::
 
 ###### Text Input Structure
 
@@ -539,12 +467,15 @@ When defining a text input component, you can set attributes to customize the be
 | id?          | integer | Optional identifier for component                                               |
 | custom_id    | string  | Developer-defined identifier for the input; max 100 characters                  |
 | style        | integer | The [Text Input Style](/docs/components/reference#text-input-text-input-styles) |
-| label        | string  | Label for this component; max 45 characters                                     |
 | min_length?  | integer | Minimum input length for a text input; min 0, max 4000                          |
 | max_length?  | integer | Maximum input length for a text input; min 1, max 4000                          |
 | required?    | boolean | Whether this component is required to be filled (defaults to `true`)            |
 | value?       | string  | Pre-filled value for this component; max 4000 characters                        |
 | placeholder? | string  | Custom placeholder text if the input is empty; max 100 characters               |
+
+:::info
+The `label` field on a Text Input is deprecated in favor of `label` and `description` on the [Label](/docs/components/reference#label) component.
+:::
 
 ###### Text Input Styles
 
@@ -553,94 +484,75 @@ When defining a text input component, you can set attributes to customize the be
 | Short     | 1     | Single-line input |
 | Paragraph | 2     | Multi-line input  |
 
-###### Example
+###### Text Input Interaction Response Structure
 
-```json
-// this is a modal
-{
-  "title": "My Cool Modal",
-  "custom_id": "cool_modal",
-  "components": [{
-    "type": 1,
-    "components": [{
-      "type": 4,
-      "custom_id": "name",
-      "label": "Name",
-      "style": 1,
-      "min_length": 1,
-      "max_length": 4000,
-      "placeholder": "John",
-      "required": true
-    }]
-  }]
-}
-```
+| Field     | Type    | Description                                                    |
+|-----------|---------|----------------------------------------------------------------|
+| type      | integer | `4` for a Text Input                                           |
+| id        | integer | Unique identifier for the component                            |
+| custom_id | string  | Developer-defined identifier for the input; max 100 characters |
+| value     | string  | The user's input text                                          |
 
-![A text input in a modal on desktop client](images/modal-desktop.webp)
-
-###### Text Input Interaction
-
-```json
-{
-    "application_id": "845027738276462632",
-    "channel": {
-        "flags": 0,
-        "guild_id": "772904309264089089",
-        "id": "772908445358620702",
-        "last_message_id": "113817814796417433",
-        "name": "general",
-        "nsfw": false,
-        "parent_id": "1113560261366927532",
-        "permissions": "281474976710655",
-        "position": 0,
-        "rate_limit_per_user": 0,
-        "topic": null,
-        "type": 0
-    },
-    "channel_id": "772908445358620702",
+###### Examples
+<Collapsible title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
+    ![A modal with Text Input in a Label](images/components/modal-label.webp)
+  </Collapsible>
+  ```json
+  {
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
-        "components": [
-            {
-                "type": 1,
-                "components": [
-                    {
-                        "custom_id": "name",
-                        "type": 4,
-                        "value": "John"
-                    }
-                ]
-            }
-        ],
-        "custom_id": "cool_modal"
-    },
-    "guild_id": "772904309264089089",
-    "id": "847587388497854464",
-    "member": {
-        "avatar": null,
-        "deaf": false,
-        "is_pending": false,
-        "joined_at": "2020-11-02T19:25:47.248000+00:00",
-        "mute": false,
-        "nick": null,
-        "pending": false,
-        "permissions": "17179869183",
-        "premium_since": null,
-        "roles": ["785609923542777878"],
-        "user": {
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-            "global_name": "Mason",
-            "discriminator": "0",
-            "id": "53908232506183680",
-            "public_flags": 131141,
-            "username": "Mason"
+      "custom_id": "game_feedback_modal",
+      "title": "Game Feedback",
+      "components": [
+        {
+          "type": 18,  // ComponentType.LABEL
+          "label": "What did you find interesting about the game?",
+          "description": "Please give us as much detail as possible so we can improve the game!",
+          "component": {
+            "type": 4,  // ComponentType.TEXT_INPUT
+            "custom_id": "game_feedback",
+            "style": 2,
+            "min_length": 100,
+            "max_length": 4000,
+            "placeholder": "Write your feedback here...",
+            "required": true
+          }
         }
-    },
-    "token": "UNIQUE_TOKEN",
-    "type": 5,
-    "version": 1
-}
-```
+      ]
+    }
+  }
+  ```
+</Collapsible>
 
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a TextInput" icon="code">
+  When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "custom_id": "game_feedback_modal",
+      "components": [
+        {
+          "type": 18, // ComponentType.LABEL
+          "id": 1,
+          "component": {
+            "type": 4, // ComponentType.TEXT_INPUT
+            "id": 2,
+            "custom_id": "game_feedback",
+            "value": "The recent changes to acceleration feel much better, but shadows still need help"
+          }
+        }
+      ]
+    },
+  }
+  ```
+</Collapsible>
+
+--------------
 ## User Select
 
 A User Select is an interactive component that allows users to select one or more users in a message. Options are automatically populated based on the server's available users.
@@ -669,32 +581,102 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | id    | snowflake | ID of a user, role, or channel                                                |
 | type  | string    | Type of value that `id` represents. Either `"user"`, `"role"`, or `"channel"` |
 
-###### Example
+###### User Select Interaction Response Structure
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 1,
-      "components": [
-        {
-          "type": 5,
-          "custom_id": "user_select",
-          "placeholder": "Select a user"
+| Field          | Type                                                                                                    | Description                                                    |
+|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| component_type | integer                                                                                                 | `5` for a User Select                                          |
+| id             | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values         | array of snowflakes                                                                                     | IDs of the selected users                                      |
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a User Select component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a User Select with two people and an app in a server](images/components/user-select.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1,  // ComponentType.ACTION_ROW
+        "components": [
+          {
+            "type": 5,  // ComponentType.USER_SELECT
+            "custom_id": "user_select",
+            "placeholder": "Select a user"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Message Interaction Data Example" description="When a user interacts with a UserSelect in a message" icon="code">
+  When a user interacts with a UserSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  :::info
+  `members` and `users` may both be present in the `resolved` object when a user is selected.
+  :::
+
+  ```json
+  {
+    "type": 3, // InteractionType.MESSAGE_COMPONENT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "component_type": 5, // ComponentType.USER_SELECT
+      "id": 2,
+      "custom_id": "user_select",
+      "values": [
+        "1111111111111111111",
+      ],
+      "resolved": {
+        "members": {
+          "1111111111111111111": {
+            "avatar": null,
+            "banner": null,
+            "collectibles": null,
+            "communication_disabled_until": null,
+            "flags": 0,
+            "joined_at": "2025-05-16T22:51:16.692000+00:00",
+            "nick": null,
+            "pending": false,
+            "permissions": "2248473465835073",
+            "premium_since": null,
+            "roles": [
+            "2222222222222222222"
+            ],
+            "unusual_dm_activity_until": null
+          }
+        },
+        "users": {
+          "1111111111111111111": {
+            "avatar": "d54e87d20539fe9aad2f2cebe56809a2",
+            "avatar_decoration_data": null,
+            "bot": true,
+            "clan": null,
+            "collectibles": null,
+            "discriminator": "9062",
+            "display_name_styles": null,
+            "global_name": null,
+            "id": "1111111111111111111",
+            "primary_guild": null,
+            "public_flags": 524289,
+            "username": "ExampleBot"
+          }
         }
-      ]
-    }
-  ]
-}
-```
+      }
+    },
+  }
+  ```
+</Collapsible>
 
-![Example of a User Select with two people and an app in a server](images/components/user-select.webp)
-
-###### User Select Interaction
-
-Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
-
+--------------
 ## Role Select
 
 A Role Select is an interactive component that allows users to select one or more roles in a message. Options are automatically populated based on the server's available roles.
@@ -716,34 +698,88 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
 | disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
 
-###### Example
+###### Role Select Interaction Response Structure
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 1,
-      "components": [
-        {
-          "type": 6,
-          "custom_id": "role_select",
-          "placeholder": "Which roles?",
-          "min_values": 1,
-          "max_values": 3
+| Field          | Type                                                                                                    | Description                                                    |
+|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| component_type | integer                                                                                                 | `6` for a Role Select                                          |
+| id             | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values         | array of snowflakes                                                                                     | IDs of the selected roles                                      |
+
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Role Select component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Role Select allowing up to 3 choices](images/components/role-select.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1,  // ComponentType.ACTION_ROW
+        "components": [
+          {
+            "type": 6,  // ComponentType.ROLE_SELECT
+            "custom_id": "role_ids",
+            "placeholder": "Which roles?",
+            "min_values": 1,
+            "max_values": 3
+          }
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Message Interaction Data Example" description="When a user interacts with a RoleSelect in a message" icon="code">
+  When a user interacts with a RoleSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 3, // InteractionType.MESSAGE_COMPONENT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "component_type": 6, // ComponentType.ROLE_SELECT
+      "id": 2,
+      "custom_id": "role_ids",
+      "values": [
+        "222222222222222222",
+      ],
+      "resolved": {
+        "roles": {
+          "222222222222222222": {
+            "color": 12745742,
+            "colors": {
+              "primary_color": 12745742,
+              "secondary_color": null,
+              "tertiary_color": null
+            },
+            "description": null,
+            "flags": 0,
+            "hoist": false,
+            "icon": null,
+            "id": "222222222222222222",
+            "managed": false,
+            "mentionable": true,
+            "name": "Developer",
+            "permissions": "0",
+            "position": 2,
+            "unicode_emoji": "🔧"
+          }
         }
-      ]
-    }
-  ]
-}
-```
+      }
+    },
+  }
+  ```
+</Collapsible>
 
-![Example of a Role Select allowing up to 3 choices](images/components/role-select.webp)
-
-###### Role Select Interaction
-
-Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
-
+---------------------
 ## Mentionable Select
 
 A Mentionable Select is an interactive component that allows users to select one or more mentionables in a message. Options are automatically populated based on available mentionables in the server.
@@ -765,32 +801,124 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
 | disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
 
-###### Example
+###### Mentionable Select Interaction Response Structure
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 1,
-      "components": [
-        {
-          "type": 7,
-          "custom_id": "mentionable_select",
-          "placeholder": "Who?"
+| Field          | Type                                                                                                    | Description                                                    |
+|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| component_type | integer                                                                                                 | `7` for a Mentionable Select                                   |
+| id             | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values         | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Mentionable Select](images/components/mentionable-select.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1,  // ComponentType.ACTION_ROW
+        "components": [
+          {
+            "type": 7, // ComponentType.MENTIONABLE_SELECT
+            "custom_id": "who_to_ping",
+            "placeholder": "Who?",
+          }
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Message Interaction Data Example" description="When a user interacts with a MentionableSelect in a message" icon="code">
+  When a user interacts with a MentionableSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  :::info
+  `members` and `users` may both be present in the `resolved` object when a user is selected.
+  :::
+
+  ```json
+  {
+    "type": 3, // InteractionType.MESSAGE_COMPONENT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "component_type": 7, // ComponentType.MENTIONABLE_SELECT
+      "id": 2,
+      "custom_id": "who_to_ping",
+      "values": [
+        "111111111111111111",
+        "222222222222222222",
+      ],
+      "resolved": {
+        "members": {
+          "1111111111111111111": {
+            "avatar": null,
+            "banner": null,
+            "collectibles": null,
+            "communication_disabled_until": null,
+            "flags": 0,
+            "joined_at": "2025-05-16T22:51:16.692000+00:00",
+            "nick": null,
+            "pending": false,
+            "permissions": "2248473465835073",
+            "premium_since": null,
+            "roles": [
+            "2222222222222222222"
+            ],
+            "unusual_dm_activity_until": null
+          }
+        },
+        "users": {
+          "1111111111111111111": {
+            "avatar": "d54e87d20539fe9aad2f2cebe56809a2",
+            "avatar_decoration_data": null,
+            "bot": true,
+            "clan": null,
+            "collectibles": null,
+            "discriminator": "9062",
+            "display_name_styles": null,
+            "global_name": null,
+            "id": "1111111111111111111",
+            "primary_guild": null,
+            "public_flags": 524289,
+            "username": "ExampleBot"
+          }
+        },
+        "roles": {
+          "222222222222222222": {
+            "color": 12745742,
+            "colors": {
+              "primary_color": 12745742,
+              "secondary_color": null,
+              "tertiary_color": null
+            },
+            "description": null,
+            "flags": 0,
+            "hoist": false,
+            "icon": null,
+            "id": "222222222222222222",
+            "managed": false,
+            "mentionable": true,
+            "name": "Developer",
+            "permissions": "0",
+            "position": 2,
+            "unicode_emoji": "🔧"
+          }
         }
-      ]
-    }
-  ]
-}
-```
+      }
+    },
+  }
+  ```
+</Collapsible>
 
-![Example of a Mentionable Select](images/components/mentionable-select.webp)
-
-###### Mentionable Select Interaction
-
-Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
-
+-----------------
 ## Channel Select
 
 A Channel Select is an interactive component that allows users to select one or more channels in a message. Options are automatically populated based on available channels in the server and can be filtered by channel types.
@@ -813,99 +941,172 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
 | disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
 
-###### Example
+###### Channel Select Interaction Response Structure
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 1,
-      "components": [
-        {
-          "type": 8,
-          "custom_id": "channel_select",
-          "channel_types": [0],
-          "placeholder": "Which text channel?"
+| Field          | Type                                                                                                    | Description                                                    |
+|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| component_type | integer                                                                                                 | `8` for a Channel Select                                       |
+| id             | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values         | array of snowflakes                                                                                     | IDs of the selected channels                                   |
+
+
+
+###### Examples
+
+<Collapsible title="Message Example" description="Message create payload with a Channel Select component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Channel Select for text channels](images/components/channel-select.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 1,  // ComponentType.ACTION_ROW
+        "components": [
+          {
+            "type": 8,  // ComponentType.CHANNEL_SELECT
+            "custom_id": "notification_channel",
+            "channel_types": [0],  // ChannelType.TEXT
+            "placeholder": "Which text channel?"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Message Interaction Data Example" description="When a user interacts with a ChannelSelect in a message" icon="code">
+  When a user interacts with a ChannelSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 3, // InteractionType.MESSAGE_COMPONENT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "component_type": 8, // ComponentType.CHANNEL_SELECT
+      "id": 2,
+      "custom_id": "notification_channel",
+      "values": [
+        "333333333333333333",
+      ],
+      "resolved": {
+        "channels": {
+          "333333333333333333": {
+            "flags": 0,
+            "guild_id": "44444444444444444",
+            "id": "333333333333333333",
+            "last_message_id": null,
+            "name": "playtesting",
+            "nsfw": false,
+            "parent_id": "5555555555555555",
+            "permissions": "4503599627370495",
+            "position": 1,
+            "rate_limit_per_user": 0,
+            "topic": null,
+            "type": 0  // ChannelType.TEXT
+          }
         }
-      ]
-    }
-  ]
-}
-```
+      }
+    },
+  }
+  ```
+</Collapsible>
 
-![Example of a Channel Select for text channels](images/components/channel-select.webp)
-
-###### Channel Select Interaction
-
-Check out the [String Select interaction](/docs/components/reference#string-select-string-select-interaction) to see the structure of the Select interaction object and resolved object.
-
+---------
 ## Section
 
-A Section is a top-level layout component that allows you to join text contextually with an accessory.
+A Section is a top-level layout component that allows you to contextually associate content with an accessory component.
+The typical use-case is to contextually associate [text content](/docs/components/reference#text-display) with
+an [accessory](/docs/components/reference#section-section-accessory-components).
 
-Sections are only available in messages.
+Sections are currently only available in messages.
 
 :::info
-To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
 
 ###### Section Structure
 
-| Field      | Type                                                                                                                 | Description                                                                                       |
-|------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| type       | integer                                                                                                              | `9` for section component                                                                         |
-| id?        | integer                                                                                                              | Optional identifier for component                                                                 |
-| components | array of [text display components](/docs/components/reference#text-display)                                          | One to three text components                                                                      |
-| accessory  | [thumbnail component](/docs/components/reference#thumbnail) or [button component](/docs/components/reference#button) | A thumbnail or a button component, with a future possibility of adding more compatible components |
+| Field      | Type                                                                                             | Description                                                                                                            |
+|------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                          | `9` for section component                                                                                              |
+| id?        | integer                                                                                          | Optional identifier for component                                                                                      |
+| components | array of [section child components](/docs/components/reference#section-section-child-components) | One to three child components representing the content of the section that is contextually associated to the accessory |
+| accessory  | [section accessory component](/docs/components/reference#section-section-accessory-components)   | A component that is contextually associated to the content of the section                                              |
 
 :::info
 Don't hardcode `components` to contain only text components. We may add other components in the future. Similarly, `accessory` may be expanded to include other components in the future.
 :::
 
-###### Example
+###### Section Child Components
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 9,
-      "components": [
-        {
-          "type": 10,
-          "content": "# Real Game v7.3"
-        },
-        {
-          "type": 10,
-          "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
-        },
-        {
-          "type": 10,
-          "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
-        }
-      ],
-      "accessory": {
-        "type": 11,
-        "media": {
-          "url": "https://websitewithopensourceimages/gamepreview.png"
+| Available Components                                              |
+|-------------------------------------------------------------------|
+| [Text Display component](/docs/components/reference#text-display) |
+
+###### Section Accessory Components
+
+| Available Components                                        |
+|-------------------------------------------------------------|
+| [Button component](/docs/components/reference#button)       |
+| [Thumbnail component](/docs/components/reference#thumbnail) |
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 9,  // ComponentType.SECTION
+        "components": [
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "# Real Game v7.3"
+          },
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
+          },
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
+          }
+        ],
+        "accessory": {
+          "type": 11,  // ComponentType.THUMBNAIL
+          "media": {
+            "url": "https://websitewithopensourceimages/gamepreview.webp"
+          }
         }
       }
-    }
-  ]
-}
-```
+    ]
+  }
+  ```
+</Collapsible>
 
-![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
-
+---------------
 ## Text Display
 
-A Text Display is a top-level content component that allows you to add text to your message formatted with markdown and mention users and roles. This is similar to the `content` field of a message, but allows you to add multiple text components, controlling the layout of your message.
+A Text Display is a content component that allows you to add markdown formatted text, including mentions (users, roles, etc) and emojis.
+The behavior of this component is extremely similar to the [`content` field of a message](/docs/resources/message#message-object), but allows you to add multiple text components, controlling the layout of your message.
 
-Text Displays are only available in messages.
+When sent in a message, pingable mentions (@user, @role, etc) present in this commponent will ping and send notifications based on the
+value of the [allowed mention object](/docs/resources/message#allowed-mentions-object) set in [`message.allowed_mentions`](/docs/resources/message#message-object).
+
+Text Displays are currently only available in messages.
 
 :::info
-To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
 
 ###### Text Display Structure
@@ -916,27 +1117,35 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | id?     | integer | Optional identifier for component                |
 | content | string  | Text that will be displayed similar to a message |
 
-###### Example
+###### Examples
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 10,
-      "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
-    }
-  ]
-}
-```
+<Collapsible title="Message Example" description="Message create payload with a TextDisplay component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Text Display with markdown](images/components/text-display.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
+      }
+    ]
+  }
+  ```
+</Collapsible>
 
-![Example of a Text Display with markdown](images/components/text-display.webp)
-
+------------
 ## Thumbnail
+A Thumbnail is a content component that displays visual media in a small form-factor.  It is intended as an accessory for
+to other content, and is primarily usable with [sections](/docs/components/reference#section). The media displayed is
+defined by the [unfurled media item](/docs/components/reference#unfurled-media-item) structure, which supports
+both uploaded media and externally hosted media.
 
-A Thumbnail is a content component that is a small image only usable as an accessory in a [section](/docs/components/reference#section). The preview comes from an url or attachment through the [unfurled media item](/docs/components/reference#unfurled-media-item-structure) structure.
+Thumbnails are currently only available in messages as an accessory in a [section](/docs/components/reference#section).
 
-Thumbnails are only available in messages as an accessory in a [section](/docs/components/reference#section).
+Thumbnails currently only support images, including animated formats like GIF and WEBP. Videos are not supported at this time.
 
 :::info
 To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2), which can be activated on a per-message basis.
@@ -944,26 +1153,61 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Thumbnail Structure
 
-| Field        | Type                                                                            | Description                                                                     |
-|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| type         | integer                                                                         | `11` for thumbnail component                                                    |
-| id?          | integer                                                                         | Optional identifier for component                                               |
-| media        | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | A url or attachment                                                             |
-| description? | string                                                                          | Alt text for the media, max 1024 characters                                     |
-| spoiler?     | boolean                                                                         | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false` |
+| Field        | Type                                                                  | Description                                                                                              |
+|--------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| type         | integer                                                               | `11` for thumbnail component                                                                             |
+| id?          | integer                                                               | Optional identifier for component                                                                        |
+| media        | [unfurled media item](/docs/components/reference#unfurled-media-item) | A url or attachment provided as an [unfurled media item](/docs/components/reference#unfurled-media-item) |
+| description? | string                                                                | Alt text for the media, max 1024 characters                                                              |
+| spoiler?     | boolean                                                               | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false`                          |
 
-###### Example
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 9,  // ComponentType.SECTION
+        "components": [
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "# Real Game v7.3"
+          },
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
+          },
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
+          }
+        ],
+        "accessory": {
+          "type": 11,  // ComponentType.THUMBNAIL
+          "media": {
+            "url": "https://websitewithopensourceimages/gamepreview.webp"
+          }
+        }
+      }
+    ]
+  }
+  ```
+</Collapsible>
 
-Check out the [Section example](/docs/components/reference#section-example) to see the thumbnail in use as an accessory.
-
+----------------
 ## Media Gallery
 
-A Media Gallery is a top-level content component that allows you to display 1-10 media attachments in an organized gallery format. Each item can have optional descriptions and can be marked as spoilers.
+A Media Gallery is a top-level content component that allows you to display 1-10 media attachments in an organized gallery format. 
+Each item can have optional descriptions and can be marked as spoilers.
 
-Media Galleries are only available in messages.
+Media Galleries are currently only available in messages.
 
 :::info
-To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
 
 ###### Media Gallery Structure
@@ -976,110 +1220,123 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Media Gallery Item Structure
 
-| Field        | Type                                                                            | Description                                                                 |
-|--------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| media        | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | A url or attachment                                                         |
-| description? | string                                                                          | Alt text for the media, max 1024 characters                                 |
-| spoiler?     | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false` |
+| Field        | Type                                                                  | Description                                                                                              |
+|--------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| media        | [unfurled media item](/docs/components/reference#unfurled-media-item) | A url or attachment provided as an [unfurled media item](/docs/components/reference#unfurled-media-item) |
+| description? | string                                                                | Alt text for the media, max 1024 characters                                                              |
+| spoiler?     | boolean                                                               | Whether the media should be a spoiler (or blurred out). Defaults to `false`                              |
 
-###### Example
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
+      },
+      {
+        "type": 12,  // ComponentType.MEDIA_GALLERY
+        "items": [
+          {
+            "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.webp"},
+            "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
+          },
+          {
+            "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.webp"},
+            "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
+          },
+          {
+            "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.webp"},
+            "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 10,
-      "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
-    },
-    {
-      "type": 12,
-      "items": [
-        {
-          "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.png"},
-          "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
-        },
-        {
-          "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.png"},
-          "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
-        },
-        {
-          "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.png"},
-          "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
-        }
-      ]
-    }
-  ]
-}
-```
-
-![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.webp)
-
+-------
 ## File
 
-A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload.
+A File is a top-level content component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as
+an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload
+multiple files and add them to different file components within your payload.
 
-Files are only available in messages.
+Files are currently only available in messages.
 
 :::info
-To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+The File component only supports using the `attachment://` protocol in [unfurled media item](/docs/components/reference#unfurled-media-item)
+:::
+
+:::info
+To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
 
 ###### File Structure
 
-| Field    | Type                                                                            | Description                                                                                                                      |
-|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| type     | integer                                                                         | `13` for a file component                                                                                                        |
-| id?      | integer                                                                         | Optional identifier for component                                                                                                |
-| file     | [unfurled media item](/docs/components/reference#unfurled-media-item-structure) | This unfurled media item is unique in that it **only** supports attachment references using the `attachment://<filename>` syntax |
-| spoiler? | boolean                                                                         | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                      |
-| name     | string                                                                          | The name of the file. This field is ignored and provided by the API as part of the response                                      |
-| size     | integer                                                                         | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
+| Field    | Type                                                                  | Description                                                                                                                      |
+|----------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| type     | integer                                                               | `13` for a file component                                                                                                        |
+| id?      | integer                                                               | Optional identifier for component                                                                                                |
+| file     | [unfurled media item](/docs/components/reference#unfurled-media-item) | This unfurled media item is unique in that it **only** supports attachment references using the `attachment://<filename>` syntax |
+| spoiler? | boolean                                                               | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                      |
+| name     | string                                                                | The name of the file. This field is ignored and provided by the API as part of the response                                      |
+| size     | integer                                                               | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
 
-###### Example
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a File component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a File showing a download for a game and manual](images/components/file.webp)
+  </Collapsible>
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 10,
-      "content": "# New game version released for testing!"
-    },
-    {
-      "type": 10,
-      "content": "Grab the game here:"
-    },
-    {
-      "type": 13,
-      "file": {
-        "url": "attachment://game.zip"
+  :::info
+  This example makes use of the `attachment://` protocol functionality in [unfurled media item](/docs/components/reference#unfurled-media-item).
+  :::
+
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "# New game version released for testing!\nGrab the game here:"
+      },
+      {
+        "type": 13,  // ComponentType.FILE
+        "file": {
+          "url": "attachment://game.zip"
+        }
+      },
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "Latest manual artwork here:"
+      },
+      {
+        "type": 13,  // ComponentType.FILE
+        "file": {
+          "url": "attachment://manual.pdf"
+        }
       }
-    },
-    {
-      "type": 10,
-      "content": "Latest manual artwork here:"
-    },
-    {
-      "type": 13,
-      "file": {
-        "url": "attachment://manual.pdf"
-      }
-    }
-  ]
-}
-```
+    ]
+  }
+  ```
+</Collapsible>
 
-![Example of a File showing a download for a game and manual](images/components/file.webp)
-
+------------
 ## Separator
 
 A Separator is a top-level layout component that adds vertical padding and visual division between other components.
 
-Separators are only available in messages.
+Separators are currently only available in messages.
 
 :::info
-To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
 
 ###### Separator Structure
@@ -1091,109 +1348,197 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | divider? | boolean | Whether a visual divider should be displayed in the component. Defaults to `true`       |
 | spacing? | integer | Size of separator padding—`1` for small padding, `2` for large padding. Defaults to `1` |
 
-###### Example
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Separator component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a separator with large spacing dividing content](images/components/separator.webp)
+  </Collapsible>
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 10,
-      "content": "It's dangerous to go alone!"
-    },
-    {
-      "type": 14,
-      "divider": true,
-      "spacing": 1
-    },
-    {
-      "type": 10,
-      "content": "Take this."
-    }
-  ]
-}
-```
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "It's dangerous to go alone!"
+      },
+      {
+        "type": 14,  // ComponentType.SEPARATOR
+        "divider": true,
+        "spacing": 1
+      },
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "Take this."
+      }
+    ]
+  }
+  ```
+</Collapsible>
 
-![Example of a separator with large spacing dividing content](images/components/separator.webp)
-
+------------
 ## Container
 
-A Container is a top-level layout component. Containers are visually distinct from surrounding components and have an optional customizable color bar.
+A Container is a top-level layout component. Containers offer the ability to visually encapsulate a collection of components
+and have an optional customizable accent color bar.
 
-Containers are only available in messages.
+Containers are currently only available in messages.
 
 :::info
-To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
+To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
 
 ###### Container Structure
 
-| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                  |
-|---------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                 |
-| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                            |
-| components    | array of components | Components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
-| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                   |
-| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                             |
+| Field         | Type                                                                                                   | Description                                                                      |
+|---------------|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| type          | integer                                                                                                | `17` for container component                                                     |
+| id?           | integer                                                                                                | Optional identifier for component                                                |
+| components    | array of [container child components](/docs/components/reference#container-container-child-components) | Child components that are encapsulated within the Container                      |
+| accent_color? | ?integer                                                                                               | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`       |
+| spoiler?      | boolean                                                                                                | Whether the container should be a spoiler (or blurred out). Defaults to `false`. |
 
-###### Example
+###### Container Child Components
 
-```json
-{
-  "flags": 32768,
-  "components": [
-    {
-      "type": 17,
-      "accent_color": 703487,
+| Available Components                                      |
+|-----------------------------------------------------------|
+| [action row](/docs/components/reference#action-row)       |
+| [text display](/docs/components/reference#text-display)   |
+| [section](/docs/components/reference#section)             |
+| [media gallery](/docs/components/reference#media-gallery) |
+| [separator](/docs/components/reference#separator)         |
+| [file](/docs/components/reference#file)                   |
+
+###### Examples
+<Collapsible title="Message Example" description="Message create payload with a Container component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.webp)
+  </Collapsible>
+  ```json
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 17,  // ComponentType.CONTAINER
+        "accent_color": 703487,
+        "components": [
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "# You have encountered a wild coyote!"
+          },
+          {
+            "type": 12,  // ComponentType.MEDIA_GALLERY
+            "items": [
+              {
+                "media": {"url": "https://websitewithopensourceimages/coyote.webp"},
+              }
+            ]
+          },
+          {
+            "type": 10,  // ComponentType.TEXT_DISPLAY
+            "content": "What would you like to do?"
+          },
+          {
+            "type": 1,  // ComponentType.ACTION_ROW
+            "components": [
+              {
+                "type": 2,  // ComponentType.BUTTON
+                "custom_id": "pet_coyote",
+                "label": "Pet it!",
+                "style": 1
+              },
+              {
+                "type": 2,  // ComponentType.BUTTON
+                "custom_id": "feed_coyote",
+                "label": "Attempt to feed it",
+                "style": 2
+              },
+              {
+                "type": 2,  // ComponentType.BUTTON
+                "custom_id": "run_away",
+                "label": "Run away!",
+                "style": 4
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  ```
+</Collapsible>
+
+--------
+## Label
+
+A Label is a top-level layout component. Labels wrap modal components with text as a label and optional description.
+
+:::info
+The `description` may display above or below the `component` depending on platform.
+:::
+
+###### Label Structure
+
+| Field        | Type                                                                             | Description                               |
+|--------------|----------------------------------------------------------------------------------|-------------------------------------------|
+| type         | integer                                                                          | `18` for a label                          |
+| id?          | integer                                                                          | Optional identifier for component         |
+| label        | string                                                                           | The label text                            |
+| description? | string                                                                           | An optional description textfor the label |
+| component    | [label child component](/docs/components/reference#label-label-child-components) | The component within the label            |
+
+###### Label Child Components
+
+| Available Components                                      |
+|-----------------------------------------------------------|
+| [text input](/docs/components/reference#text-input)       |
+| [string select](/docs/components/reference#string-select) |
+
+###### Examples
+<Collapsible title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
+    ![A modal with Text Input in a Label](images/components/modal-label.webp)
+  </Collapsible>
+  ```json
+  {
+    "type": 9, // InteractionCallbackType.MODAL
+    "data": {
+      "custom_id": "game_feedback_modal",
+      "title": "Game Feedback",
       "components": [
         {
-          "type": 10,
-          "content": "# You have encountered a wild coyote!"
-        },
-        {
-          "type": 12,
-          "items": [
-            {
-              "media": {"url": "https://websitewithopensourceimages/coyote.png"},
-            }
-          ]
-        },
-        {
-          "type": 10,
-          "content": "What would you like to do?"
-        },
-        {
-          "type": 1,
-          "components": [
-            {
-              "type": 2,
-              "custom_id": "pet_coyote",
-              "label": "Pet it!",
-              "style": 1
-            },
-            {
-              "type": 2,
-              "custom_id": "feed_coyote",
-              "label": "Attempt to feed it",
-              "style": 2
-            },
-            {
-              "type": 2,
-              "custom_id": "run_away",
-              "label": "Run away!",
-              "style": 4
-            }
-          ]
+          "type": 18,  // ComponentType.LABEL
+          "label": "What did you find interesting about the game?",
+          "description": "Please give us as much detail as possible so we can improve the game!",
+          "component": {
+            "type": 4,  // ComponentType.TEXT_INPUT
+            "custom_id": "game_feedback",
+            "style": 2,
+            "min_length": 100,
+            "max_length": 4000,
+            "placeholder": "Write your feedback here...",
+            "required": true
+          }
         }
       ]
     }
-  ]
-}
-```
+  }
+  ```
+</Collapsible>
 
-![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.webp)
+--------------------------------
+## Unfurled Media Item
+An Unfurled Media Item is a piece of media, represented by a URL, that is used within a component. It can be
+constructed via either uploading media to Discord, or by referencing external media via **a direct link** to the asset.
 
-## Unfurled Media Item Structure
+:::info
+While the structure below is the full representation of an Unfurled Media Item,
+**only the `url` field is settable by developers** when making requests that utilize this structure.
+
+All other fields will be automatically populated by Discord.
+:::
+
+###### Unfurled Media Item Structure
 
 | Field            | Type      | Description                                                                                                                                      |
 |------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|

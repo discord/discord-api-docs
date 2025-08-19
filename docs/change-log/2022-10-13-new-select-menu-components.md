@@ -10,6 +10,6 @@ Four new select menu [component types](/docs/components/reference#component-obje
 * Mentionable (user *and* role) select (type `7`)
 * Channel select (type `8`)
 
-The new select menu components are defined similarly to the existing string select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](/docs/components/reference#string-select-string-select-interaction) apps receive also contain a [`resolved` field](/docs/components/reference#string-select-select-menu-resolved-object) for the new components.
+The new select menu components are defined similarly to the existing string select menu—with the exception of not including the `options` field and, within channel select menus, having the option to include a `channel_types` field. The [select menu interaction](/docs/components/reference#user-select-examples) apps receive also contain a [`resolved` field](/docs/components/reference#user-select-examples) for the new components.
 
 More details can be found in the updated [select menu documentation](/docs/components/reference#component-object-component-types).

@@ -23,48 +23,65 @@ Currently, only [Text Input](/docs/components/reference#text-input) fields are s
 
 Displaying a modal can be done in response to a [slash command](/docs/tutorials/upgrading-to-application-commands#slash-commands) or when responding to an [interaction](/docs/interactions/receiving-and-responding). When displaying a modal you'll use an [interaction response](/docs/interactions/receiving-and-responding#interaction-response-object) with the [`MODAL`](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) interaction callback type and [modal fields](/docs/interactions/receiving-and-responding#interaction-response-object-modal).
 
-An example of a modal with two Text Inputs:
+An example of a modal with a [String Select](/docs/components/reference#string-select) and [Text Input](/docs/components/reference#text-input) both wrapped in [Labels](/docs/components/reference#label):
 
 ```json
 {
-    "type": 9,
-    "data": {
-        "custom_id": "feedback_modal",
-        "title": "Submit Feedback",
-        "components": [
+  "type": 9,
+  "data": {
+    "custom_id": "bug_modal",
+    "title": "Bug Report",
+    "components": [
+      {
+        "type": 18,
+        "label": "What's your favorite bug?",
+        "component": {
+          "type": 3,
+          "custom_id": "bug_string_select",
+          "placeholder": "Choose...",
+          "options": [
             {
-                "type": 1,
-                "components": [
-                    {
-                        "type": 4,
-                        "custom_id": "feedback_subject",
-                        "label": "Subject",
-                        "style": 1,
-                        "min_length": 1,
-                        "max_length": 100,
-                        "placeholder": "What is your feedback about?",
-                        "required": true
-                    }
-                ]
+              "label": "Ant",
+              "value": "ant",
+              "description": "(best option)",
+              "emoji": {
+                "name": "🐜"
+              }
             },
             {
-                "type": 1,
-                "components": [
-                    {
-                        "type": 4,
-                        "custom_id": "feedback_details",
-                        "label": "Details",
-                        "style": 2,
-                        "min_length": 10,
-                        "max_length": 1000,
-                        "placeholder": "Please provide details...",
-                        "required": true
-                    }
-                ]
+              "label": "Butterfly",
+              "value": "butterfly",
+              "emoji": {
+                "name": "🦋"
+              }
+            },
+            {
+              "label": "Catarpillar",
+              "value": "caterpillar",
+              "emoji": {
+                "name": "🐛"
+              }
             }
-        ]
-    }
+          ]
+        }
+      },
+      {
+        "type": 18,
+        "label": "Why is it your favorite?",
+        "description": "Please provide as much detail as possible!",
+        "component": {
+          "type": 4,
+          "custom_id": "bug_explanation",
+          "style": 2,
+          "min_length": 1000,
+          "max_length": 4000,
+          "placeholder": "Write your explanation here...",
+          "required": true
+        }
+      }
+    ]
+  }
 }
 ```
 
-![Example of a modal with two text inputs one for subject and one for details](images/components/modal.webp)
+![Example of a modal with a String Select and a Text Input both wrapped in Labels](images/components/modal.webp)
