@@ -1010,7 +1010,7 @@ If you want to get 100 pins you'd send these two requests:
 ## Pin Message
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Pin a message in a channel. Requires the `PIN_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1019,7 +1019,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Unpin Message
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Unpin a message in a channel. Requires the `PIN_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
