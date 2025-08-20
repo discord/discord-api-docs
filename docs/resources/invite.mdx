@@ -160,11 +160,11 @@ Returns an [invite](/docs/resources/invite#invite-object) object for the given c
 
 ###### Query String Params
 
-| Field                     | Type                                             | Description                                                                                      |
-|---------------------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| with_counts?              | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain approximate member counts                                      |
-| guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite                                             |
-| with_permissions?         | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain the `is_nickname_changeable` field                             |
+| Field                     | Type                                             | Description                                                          |
+|---------------------------|--------------------------------------------------|----------------------------------------------------------------------|
+| with_counts?              | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain approximate member counts          |
+| guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite                 |
+| with_permissions?         | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain the `is_nickname_changeable` field |
 
 ## Delete Invite
 <Route method="DELETE">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)</Route>
