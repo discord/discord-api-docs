@@ -1,21 +1,17 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
-import { exec } from 'child_process';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import fs from "fs";
+import path from "path";
+import { exec } from "child_process";
 
 // Configuration
 const CONFIG = {
-  imagesDir: 'static/images',
-  docsDir: 'docs',
-  tempDir: '/tmp/image-optimization-backup',
-  reportsDir: 'reports',
+  imagesDir: "static/images",
+  docsDir: "docs",
+  tempDir: "/tmp/image-optimization-backup",
+  reportsDir: "reports",
   dryRun: false, // Set to true to preview changes without executing
-  verbose: true
+  verbose: true,
 };
 
 class ImageOptimizer {
@@ -27,45 +23,45 @@ class ImageOptimizer {
       sizeBefore: 0,
       sizeAfter: 0,
       errors: [],
-      fileDetails: []
+      fileDetails: [],
     };
-    
+
     // Setup report directory
     this.reportDir = null;
     this.reportHtmlPath = null;
     this.setupReportDirectory();
   }
 
-  log(message, level = 'info') {
-    if (!this.config.verbose && level === 'debug') return;
-    const prefix = level === 'error' ? '❌' : level === 'warn' ? '⚠️' : '✅';
+  log(message, level = "info") {
+    if (!this.config.verbose && level === "debug") return;
+    const prefix = level === "error" ? "❌" : level === "warn" ? "⚠️" : "✅";
     console.log(`${prefix} ${message}`);
   }
 
   // Setup report directory structure
   setupReportDirectory() {
     if (this.config.dryRun) return;
-    
-    const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '').replace('T', '-');
+
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, "").replace("T", "-");
     this.reportDir = path.join(this.config.reportsDir, `optimization-${timestamp}`);
-    
+
     try {
       fs.mkdirSync(this.reportDir, { recursive: true });
-      fs.mkdirSync(path.join(this.reportDir, 'before'), { recursive: true });
-      fs.mkdirSync(path.join(this.reportDir, 'after'), { recursive: true });
-      
-      this.reportHtmlPath = path.join(this.reportDir, 'comparison.html');
+      fs.mkdirSync(path.join(this.reportDir, "before"), { recursive: true });
+      fs.mkdirSync(path.join(this.reportDir, "after"), { recursive: true });
+
+      this.reportHtmlPath = path.join(this.reportDir, "comparison.html");
       this.initializeHtmlReport();
-      this.log(`Report directory created: ${this.reportDir}`, 'debug');
+      this.log(`Report directory created: ${this.reportDir}`, "debug");
     } catch (error) {
-      this.log(`Failed to create report directory: ${error.message}`, 'warn');
+      this.log(`Failed to create report directory: ${error.message}`, "warn");
     }
   }
 
   // Initialize HTML report with header
   initializeHtmlReport() {
     if (!this.reportHtmlPath || this.config.dryRun) return;
-    
+
     const htmlHeader = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,8 +154,8 @@ class ImageOptimizer {
 
     try {
       fs.writeFileSync(this.reportHtmlPath, htmlHeader);
-    } catch (error) {
-      this.log(`Failed to initialize HTML report: ${error.message}`, 'warn');
+    } catch (e) {
+      this.log(`Failed to initialize HTML report: ${e.message}`, "warn");
     }
   }
 
@@ -168,14 +164,14 @@ class ImageOptimizer {
     if (!this.reportDir || this.config.dryRun) return null;
 
     const filename = path.basename(originalPath);
-    const beforePath = path.join(this.reportDir, 'before', filename);
+    const beforePath = path.join(this.reportDir, "before", filename);
 
     try {
       fs.copyFileSync(originalPath, beforePath);
-      this.log(`Copied original ${filename} to report`, 'debug');
+      this.log(`Copied original ${filename} to report`, "debug");
       return beforePath;
     } catch (error) {
-      this.log(`Failed to copy original ${filename}: ${error.message}`, 'debug');
+      this.log(`Failed to copy original ${filename}: ${error.message}`, "debug");
       return null;
     }
   }
@@ -185,7 +181,7 @@ class ImageOptimizer {
     if (!this.reportDir || this.config.dryRun || !beforeReportPath) return;
 
     const filename = path.basename(originalPath);
-    const afterPath = path.join(this.reportDir, 'after', path.basename(convertedPath));
+    const afterPath = path.join(this.reportDir, "after", path.basename(convertedPath));
 
     try {
       // Copy converted file
@@ -203,33 +199,33 @@ class ImageOptimizer {
         savedBytes,
         savingsPercent: parseFloat(savingsPercent),
         originalPath,
-        convertedPath: path.basename(convertedPath)
+        convertedPath: path.basename(convertedPath),
       });
 
-      this.log(`Added ${filename} to report`, 'debug');
+      this.log(`Added ${filename} to report`, "debug");
     } catch (error) {
-      this.log(`Failed to add ${filename} to report: ${error.message}`, 'debug');
+      this.log(`Failed to add ${filename} to report: ${error.message}`, "debug");
     }
   }
 
   // Recursively find all files with given extensions
   findFiles(dir, extensions) {
     const files = [];
-    
+
     const walk = (currentDir) => {
       const items = fs.readdirSync(currentDir);
       for (const item of items) {
         const fullPath = path.join(currentDir, item);
         const stat = fs.statSync(fullPath);
-        
+
         if (stat.isDirectory()) {
           walk(fullPath);
-        } else if (extensions.some(ext => item.toLowerCase().endsWith(ext))) {
+        } else if (extensions.some((ext) => item.toLowerCase().endsWith(ext))) {
           files.push(fullPath);
         }
       }
     };
-    
+
     walk(dir);
     return files;
   }
@@ -238,7 +234,7 @@ class ImageOptimizer {
   getFileSize(filePath) {
     try {
       return fs.statSync(filePath).size;
-    } catch (error) {
+    } catch {
       return 0;
     }
   }
@@ -247,20 +243,20 @@ class ImageOptimizer {
   async convertImage(inputPath, outputPath, quality = 85) {
     return new Promise((resolve, reject) => {
       const command = `magick "${inputPath}" -quality ${quality} "${outputPath}"`;
-      
+
       if (this.config.dryRun) {
-        this.log(`[DRY RUN] Would convert: ${inputPath} → ${outputPath}`, 'debug');
+        this.log(`[DRY RUN] Would convert: ${inputPath} → ${outputPath}`, "debug");
         resolve();
         return;
       }
 
-      exec(command, (error, stdout, stderr) => {
+      exec(command, (error) => {
         if (error) {
-          this.log(`Failed to convert ${inputPath}: ${error.message}`, 'error');
+          this.log(`Failed to convert ${inputPath}: ${error.message}`, "error");
           this.stats.errors.push(`Convert failed: ${inputPath} - ${error.message}`);
           reject(error);
         } else {
-          this.log(`Converted: ${path.basename(inputPath)} → ${path.basename(outputPath)}`, 'debug');
+          this.log(`Converted: ${path.basename(inputPath)} → ${path.basename(outputPath)}`, "debug");
           resolve();
         }
       });
@@ -271,7 +267,7 @@ class ImageOptimizer {
   async optimizeSvg(filePath) {
     return new Promise((resolve, reject) => {
       if (this.config.dryRun) {
-        this.log(`[DRY RUN] Would optimize SVG: ${filePath}`, 'debug');
+        this.log(`[DRY RUN] Would optimize SVG: ${filePath}`, "debug");
         resolve();
         return;
       }
@@ -279,23 +275,23 @@ class ImageOptimizer {
       // Get original size before optimization
       const originalSize = this.getFileSize(filePath);
       const backupPath = `${filePath}.backup`;
-      
+
       try {
         // Create backup
         fs.copyFileSync(filePath, backupPath);
-        
+
         const command = `pnpm dlx svgo "${filePath}" --output "${filePath}"`;
-        
-        exec(command, (error, stdout, stderr) => {
+
+        exec(command, (error) => {
           if (error) {
             // Restore backup on error
             try {
               fs.copyFileSync(backupPath, filePath);
               fs.unlinkSync(backupPath);
             } catch (restoreError) {
-              this.log(`Failed to restore SVG backup: ${restoreError.message}`, 'warn');
+              this.log(`Failed to restore SVG backup: ${restoreError.message}`, "warn");
             }
-            this.log(`Failed to optimize SVG ${filePath}: ${error.message}`, 'error');
+            this.log(`Failed to optimize SVG ${filePath}: ${error.message}`, "error");
             this.stats.errors.push(`SVG optimization failed: ${filePath} - ${error.message}`);
             reject(error);
             return;
@@ -303,30 +299,33 @@ class ImageOptimizer {
 
           // Check if optimization reduced file size
           const optimizedSize = this.getFileSize(filePath);
-          
+
           if (optimizedSize >= originalSize) {
             // Optimization made file larger or same size - revert
             try {
               fs.copyFileSync(backupPath, filePath);
-              this.log(`Reverted ${path.basename(filePath)} - SVG optimization increased size (${originalSize} → ${optimizedSize} bytes)`, 'warn');
+              this.log(
+                `Reverted ${path.basename(filePath)} - SVG optimization increased size (${originalSize} → ${optimizedSize} bytes)`,
+                "warn",
+              );
             } catch (revertError) {
-              this.log(`Failed to revert SVG optimization: ${revertError.message}`, 'warn');
+              this.log(`Failed to revert SVG optimization: ${revertError.message}`, "warn");
             }
           } else {
-            this.log(`Optimized SVG: ${path.basename(filePath)} (${originalSize} → ${optimizedSize} bytes)`, 'debug');
+            this.log(`Optimized SVG: ${path.basename(filePath)} (${originalSize} → ${optimizedSize} bytes)`, "debug");
           }
-          
+
           // Clean up backup
           try {
             fs.unlinkSync(backupPath);
           } catch (cleanupError) {
-            this.log(`Failed to cleanup SVG backup: ${cleanupError.message}`, 'debug');
+            this.log(`Failed to cleanup SVG backup: ${cleanupError.message}`, "debug");
           }
-          
+
           resolve();
         });
       } catch (backupError) {
-        this.log(`Failed to create SVG backup: ${backupError.message}`, 'warn');
+        this.log(`Failed to create SVG backup: ${backupError.message}`, "warn");
         reject(backupError);
       }
     });
@@ -334,18 +333,18 @@ class ImageOptimizer {
 
   // Update image references in markdown files
   updateMarkdownReferences(filePath, replacements) {
-    let content = fs.readFileSync(filePath, 'utf8');
+    let content = fs.readFileSync(filePath, "utf8");
     let updated = false;
     let changeCount = 0;
 
     for (const [oldRef, newRef] of replacements) {
-      const regex = new RegExp(oldRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      const regex = new RegExp(oldRef.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
       const newContent = content.replace(regex, newRef);
       if (newContent !== content) {
         content = newContent;
         updated = true;
         changeCount++;
-        this.log(`  Updated reference: ${oldRef} → ${newRef}`, 'debug');
+        this.log(`  Updated reference: ${oldRef} → ${newRef}`, "debug");
       }
     }
 
@@ -359,22 +358,22 @@ class ImageOptimizer {
 
   // Find all markdown references to images
   findImageReferences() {
-    const mdFiles = this.findFiles(this.config.docsDir, ['.md', '.mdx']);
-    mdFiles.push(...this.findFiles('.', ['.md']).filter(f => !f.includes('node_modules')));
-    
+    const mdFiles = this.findFiles(this.config.docsDir, [".md", ".mdx"]);
+    mdFiles.push(...this.findFiles(".", [".md"]).filter((f) => !f.includes("node_modules")));
+
     const references = new Map();
 
     for (const file of mdFiles) {
-      const content = fs.readFileSync(file, 'utf8');
-      
+      const content = fs.readFileSync(file, "utf8");
+
       // Pattern 1: static/images/path/file.ext
       const staticPattern = /!\[([^\]]*)\]\(static\/images\/([^)]+)\.(gif|png|jpg|jpeg)\)/g;
-      
-      // Pattern 2: images/path/file.ext  
+
+      // Pattern 2: images/path/file.ext
       const relativePattern = /!\[([^\]]*)\]\(images\/([^)]+)\.(gif|png|jpg|jpeg)\)/g;
 
       let match;
-      
+
       // Find static/images references
       while ((match = staticPattern.exec(content)) !== null) {
         const [fullMatch, altText, imagePath, ext] = match;
@@ -383,14 +382,14 @@ class ImageOptimizer {
         references.get(key).push({
           file,
           oldRef: fullMatch,
-          newRef: `![${altText}](static/images/${imagePath}.webp)`
+          newRef: `![${altText}](static/images/${imagePath}.webp)`,
         });
       }
-      
+
       // Reset regex
       relativePattern.lastIndex = 0;
-      
-      // Find images/ references  
+
+      // Find images/ references
       while ((match = relativePattern.exec(content)) !== null) {
         const [fullMatch, altText, imagePath, ext] = match;
         const key = `static/images/${imagePath}.${ext}`;
@@ -398,7 +397,7 @@ class ImageOptimizer {
         references.get(key).push({
           file,
           oldRef: fullMatch,
-          newRef: `![${altText}](images/${imagePath}.webp)`
+          newRef: `![${altText}](images/${imagePath}.webp)`,
         });
       }
     }
@@ -408,100 +407,102 @@ class ImageOptimizer {
 
   // Main optimization workflow
   async optimize() {
-    this.log('🚀 Starting Discord API Docs Image Optimization');
-    this.log(`Mode: ${this.config.dryRun ? 'DRY RUN' : 'LIVE'}`, 'warn');
+    this.log("🚀 Starting Discord API Docs Image Optimization");
+    this.log(`Mode: ${this.config.dryRun ? "DRY RUN" : "LIVE"}`, "warn");
 
     // Step 1: Analyze current images
-    this.log('\n📊 Analyzing current images...');
-    const imageFiles = this.findFiles(this.config.imagesDir, ['.gif', '.png', '.jpg', '.jpeg']);
-    const svgFiles = this.findFiles(this.config.imagesDir, ['.svg']);
-    
+    this.log("\n📊 Analyzing current images...");
+    const imageFiles = this.findFiles(this.config.imagesDir, [".gif", ".png", ".jpg", ".jpeg"]);
+    const svgFiles = this.findFiles(this.config.imagesDir, [".svg"]);
+
     // Calculate initial size
     for (const file of [...imageFiles, ...svgFiles]) {
       this.stats.sizeBefore += this.getFileSize(file);
     }
-    
+
     this.log(`Found ${imageFiles.length} raster images and ${svgFiles.length} SVGs`);
     this.log(`Total size before: ${(this.stats.sizeBefore / 1024 / 1024).toFixed(1)}MB`);
 
     // Step 2: Convert images to WebP
-    this.log('\n🔄 Converting images to WebP...');
+    this.log("\n🔄 Converting images to WebP...");
     const conversions = [];
-    
+
     for (const imagePath of imageFiles) {
       const ext = path.extname(imagePath).toLowerCase();
       const baseName = path.basename(imagePath, ext);
       const dir = path.dirname(imagePath);
       const webpPath = path.join(dir, `${baseName}.webp`);
-      
+
       try {
         // Copy original to report directory before conversion
         const originalSize = this.getFileSize(imagePath);
         const beforeReportPath = this.copyOriginalToReport(imagePath);
-        
+
         // Convert to WebP
         await this.convertImage(imagePath, webpPath);
-        
+
         // Check if optimization actually reduced file size
         const convertedSize = this.getFileSize(webpPath);
-        
+
         if (convertedSize >= originalSize) {
           // Optimization made file larger or same size - revert
           try {
             fs.unlinkSync(webpPath);
-            this.log(`Reverted ${path.basename(imagePath)} - optimization increased size (${originalSize} → ${convertedSize} bytes)`, 'warn');
+            this.log(
+              `Reverted ${path.basename(imagePath)} - optimization increased size (${originalSize} → ${convertedSize} bytes)`,
+              "warn",
+            );
             continue;
           } catch (unlinkError) {
-            this.log(`Failed to remove larger optimized file ${webpPath}: ${unlinkError.message}`, 'warn');
+            this.log(`Failed to remove larger optimized file ${webpPath}: ${unlinkError.message}`, "warn");
           }
         }
-        
+
         // Add to report after successful optimization
         this.addComparisonToReport(imagePath, webpPath, originalSize, convertedSize, beforeReportPath);
-        
+
         conversions.push({ original: imagePath, converted: webpPath, ext });
-        
-        if (ext === '.gif') this.stats.conversions.gif++;
-        else if (ext === '.png') this.stats.conversions.png++;  
+
+        if (ext === ".gif") this.stats.conversions.gif++;
+        else if (ext === ".png") this.stats.conversions.png++;
         else if (ext.match(/\.jpe?g/)) this.stats.conversions.jpg++;
-        
-      } catch (error) {
-        this.log(`Skipping ${imagePath} due to conversion error`, 'warn');
+      } catch {
+        this.log(`Skipping ${imagePath} due to conversion error`, "warn");
       }
     }
 
     // Step 3: Optimize SVGs
-    this.log('\n🎨 Optimizing SVG files...');
+    this.log("\n🎨 Optimizing SVG files...");
     for (const svgPath of svgFiles) {
       try {
         await this.optimizeSvg(svgPath);
         this.stats.conversions.svg++;
-      } catch (error) {
-        this.log(`Skipping ${svgPath} due to optimization error`, 'warn');
+      } catch {
+        this.log(`Skipping ${svgPath} due to optimization error`, "warn");
       }
     }
 
     // Step 4: Find all image references
-    this.log('\n🔍 Finding image references in markdown files...');
+    this.log("\n🔍 Finding image references in markdown files...");
     const references = this.findImageReferences();
     this.log(`Found references to ${references.size} unique images`);
 
     // Step 5: Update markdown references
-    this.log('\n📝 Updating markdown references...');
+    this.log("\n📝 Updating markdown references...");
     const fileUpdates = new Map();
-    
+
     for (const [imagePath, refs] of references) {
       // Check if we converted this image
-      const webpPath = imagePath.replace(/\.(gif|png|jpg|jpeg)$/i, '.webp');
+      const webpPath = imagePath.replace(/\.(gif|png|jpg|jpeg)$/i, ".webp");
       const webpExists = fs.existsSync(webpPath) || this.config.dryRun;
-      
+
       if (webpExists) {
         for (const ref of refs) {
           if (!fileUpdates.has(ref.file)) fileUpdates.set(ref.file, []);
           fileUpdates.get(ref.file).push([ref.oldRef, ref.newRef]);
         }
       } else {
-        this.log(`Warning: WebP not found for ${imagePath}, skipping reference updates`, 'warn');
+        this.log(`Warning: WebP not found for ${imagePath}, skipping reference updates`, "warn");
       }
     }
 
@@ -509,7 +510,7 @@ class ImageOptimizer {
     for (const [file, replacements] of fileUpdates) {
       if (this.updateMarkdownReferences(file, replacements)) {
         this.stats.references.files++;
-        this.log(`Updated references in ${path.relative('.', file)}`, 'debug');
+        this.log(`Updated references in ${path.relative(".", file)}`, "debug");
       }
     }
 
@@ -518,7 +519,7 @@ class ImageOptimizer {
       for (const { converted } of conversions) {
         this.stats.sizeAfter += this.getFileSize(converted);
       }
-      
+
       for (const svgPath of svgFiles) {
         this.stats.sizeAfter += this.getFileSize(svgPath);
       }
@@ -526,13 +527,13 @@ class ImageOptimizer {
 
     // Step 7: Remove original files (only if everything succeeded)
     if (!this.config.dryRun && this.stats.errors.length === 0) {
-      this.log('\n🗑️  Removing original files...');
+      this.log("\n🗑️  Removing original files...");
       for (const { original } of conversions) {
         try {
           fs.unlinkSync(original);
-          this.log(`Removed: ${path.basename(original)}`, 'debug');
+          this.log(`Removed: ${path.basename(original)}`, "debug");
         } catch (error) {
-          this.log(`Failed to remove ${original}: ${error.message}`, 'warn');
+          this.log(`Failed to remove ${original}: ${error.message}`, "warn");
         }
       }
     }
@@ -553,21 +554,19 @@ class ImageOptimizer {
       const totalOriginalSize = this.stats.fileDetails.reduce((sum, file) => sum + file.originalSize, 0);
       const totalConvertedSize = this.stats.fileDetails.reduce((sum, file) => sum + file.convertedSize, 0);
       const totalSaved = totalOriginalSize - totalConvertedSize;
-      const totalSavingsPercent = totalOriginalSize > 0 ? ((totalSaved / totalOriginalSize) * 100).toFixed(1) : '0';
+      const totalSavingsPercent = totalOriginalSize > 0 ? ((totalSaved / totalOriginalSize) * 100).toFixed(1) : "0";
 
       // Format file sizes
       const formatBytes = (bytes) => {
-        if (bytes === 0) return '0 B';
+        if (bytes === 0) return "0 B";
         const k = 1024;
-        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const sizes = ["B", "KB", "MB", "GB"];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
       };
 
       // Top 10 biggest savers
-      const topSavers = this.stats.fileDetails
-        .sort((a, b) => b.savedBytes - a.savedBytes)
-        .slice(0, 10);
+      const topSavers = this.stats.fileDetails.sort((a, b) => b.savedBytes - a.savedBytes).slice(0, 10);
 
       // Generate summary content
       const summaryHtml = `
@@ -593,24 +592,27 @@ class ImageOptimizer {
         <details style="margin-bottom: 20px;">
             <summary style="cursor: pointer; font-weight: 600; padding: 10px 0;">🏆 Top 10 Space Savers</summary>
             <div style="margin-top: 10px;">
-                ${topSavers.map((file, i) => 
-                  `<div style="padding: 5px 0; border-bottom: 1px solid #eee;">
+                ${topSavers
+                  .map(
+                    (file, i) =>
+                      `<div style="padding: 5px 0; border-bottom: 1px solid #eee;">
                      ${i + 1}. <strong>${file.filename}</strong> - Saved ${formatBytes(file.savedBytes)} (${file.savingsPercent}%)
-                   </div>`
-                ).join('')}
+                   </div>`,
+                  )
+                  .join("")}
             </div>
         </details>
       `;
 
       // Sort files by converted size (descending) - largest optimized files first
-      const sortedFiles = this.stats.fileDetails
-        .sort((a, b) => b.convertedSize - a.convertedSize);
+      const sortedFiles = this.stats.fileDetails.sort((a, b) => b.convertedSize - a.convertedSize);
 
       // Generate HTML comparisons for all files (sorted)
-      const comparisonsHtml = sortedFiles.map(file => {
-        const savingsClass = file.savedBytes > 0 ? 'savings-positive' : 'savings-negative';
-        
-        return `
+      const comparisonsHtml = sortedFiles
+        .map((file) => {
+          const savingsClass = file.savedBytes > 0 ? "savings-positive" : "savings-negative";
+
+          return `
     <div class="comparison-item">
         <div class="comparison-title">${file.filename}</div>
         <div class="comparison-stats">
@@ -628,13 +630,14 @@ class ImageOptimizer {
             </div>
         </div>
     </div>`;
-      }).join('\n');
+        })
+        .join("\n");
 
       // Update summary section and add all comparisons
-      const currentContent = fs.readFileSync(this.reportHtmlPath, 'utf8');
+      const currentContent = fs.readFileSync(this.reportHtmlPath, "utf8");
       const updatedContent = currentContent.replace(
         '<div id="summary">Loading summary...</div>',
-        `<div id="summary">${summaryHtml}</div>`
+        `<div id="summary">${summaryHtml}</div>`,
       );
 
       // Add footer
@@ -650,57 +653,57 @@ ${comparisonsHtml}
 </html>`;
 
       fs.writeFileSync(this.reportHtmlPath, updatedContent + htmlFooter);
-      
+
       this.log(`\n📊 Visual comparison report generated: ${this.reportHtmlPath}`);
       this.log(`   View in browser: file://${path.resolve(this.reportHtmlPath)}`);
     } catch (error) {
-      this.log(`Failed to finalize HTML report: ${error.message}`, 'warn');
+      this.log(`Failed to finalize HTML report: ${error.message}`, "warn");
     }
   }
 
   printSummary() {
-    console.log('\n' + '='.repeat(60));
-    console.log('📈 OPTIMIZATION SUMMARY');
-    console.log('='.repeat(60));
-    
+    console.log("\n" + "=".repeat(60));
+    console.log("📈 OPTIMIZATION SUMMARY");
+    console.log("=".repeat(60));
+
     console.log(`\n🔄 Conversions:`);
     console.log(`   GIFs → WebP: ${this.stats.conversions.gif}`);
     console.log(`   PNGs → WebP: ${this.stats.conversions.png}`);
     console.log(`   JPGs → WebP: ${this.stats.conversions.jpg}`);
     console.log(`   SVG optimized: ${this.stats.conversions.svg}`);
-    
+
     console.log(`\n📝 Reference Updates:`);
     console.log(`   Files updated: ${this.stats.references.files}`);
     console.log(`   References updated: ${this.stats.references.updated}`);
-    
+
     if (!this.config.dryRun) {
       const beforeMB = (this.stats.sizeBefore / 1024 / 1024).toFixed(1);
       const afterMB = (this.stats.sizeAfter / 1024 / 1024).toFixed(1);
       const savedMB = (beforeMB - afterMB).toFixed(1);
       const percentage = ((savedMB / beforeMB) * 100).toFixed(1);
-      
+
       console.log(`\n💾 Size Reduction:`);
       console.log(`   Before: ${beforeMB}MB`);
       console.log(`   After: ${afterMB}MB`);
       console.log(`   Saved: ${savedMB}MB (${percentage}% reduction)`);
     }
-    
+
     if (this.stats.errors.length > 0) {
       console.log(`\n❌ Errors (${this.stats.errors.length}):`);
-      this.stats.errors.forEach(error => console.log(`   ${error}`));
+      this.stats.errors.forEach((error) => console.log(`   ${error}`));
     }
-    
-    console.log('\n✨ Optimization complete!');
+
+    console.log("\n✨ Optimization complete!");
   }
 }
 
 // CLI handling
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = process.argv.slice(2);
-  const dryRun = args.includes('--dry-run');
-  const verbose = !args.includes('--quiet');
-  
-  if (args.includes('--help')) {
+  const dryRun = args.includes("--dry-run");
+  const verbose = !args.includes("--quiet");
+
+  if (args.includes("--help")) {
     console.log(`
 Discord API Docs Image Optimizer
 
@@ -720,9 +723,9 @@ Examples:
 
   const config = { ...CONFIG, dryRun, verbose };
   const optimizer = new ImageOptimizer(config);
-  
-  optimizer.optimize().catch(error => {
-    console.error('❌ Optimization failed:', error);
+
+  optimizer.optimize().catch((error) => {
+    console.error("❌ Optimization failed:", error);
     process.exit(1);
   });
 }
