@@ -17,6 +17,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | guild?                      | partial [guild](/docs/resources/guild#guild-object) object                                         | the guild this invite is for                                                                                                                   |
 | channel                     | ?partial [channel](/docs/resources/channel#channel-object) object                                  | the channel this invite is for                                                                                                                 |
 | inviter?                    | [user](/docs/resources/user#user-object) object                                                    | the user who created the invite                                                                                                                |
+| is_nickname_changeable?     | [boolean](/docs/reference#boolean-query-strings)                                                   | the members ability to change their nickname by default, returned from the `GET /invites/<code>` endpoint when `?with_permissions` is `true` |
 | target_type?                | integer                                                                                            | the [type of target](/docs/resources/invite#invite-object-invite-target-types) for this voice channel invite                                   |
 | target_user?                | [user](/docs/resources/user#user-object) object                                                    | the user whose stream to display for this voice channel stream invite                                                                          |
 | target_application?         | partial [application](/docs/resources/application#application-object) object                       | the embedded application to open for this voice channel embedded application invite                                                            |
@@ -159,10 +160,11 @@ Returns an [invite](/docs/resources/invite#invite-object) object for the given c
 
 ###### Query String Params
 
-| Field                     | Type                                             | Description                                                 |
-|---------------------------|--------------------------------------------------|-------------------------------------------------------------|
-| with_counts?              | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain approximate member counts |
-| guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite        |
+| Field                     | Type                                             | Description                                                                                      |
+|---------------------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| with_counts?              | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain approximate member counts                                      |
+| guild_scheduled_event_id? | snowflake                                        | the guild scheduled event to include with the invite                                             |
+| with_permissions?         | [boolean](/docs/reference#boolean-query-strings) | whether the invite should contain the `is_nickname_changeable` field                             |
 
 ## Delete Invite
 <Route method="DELETE">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)</Route>
