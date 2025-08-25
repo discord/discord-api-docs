@@ -377,6 +377,9 @@ String Selects are available in messages and modals. String Selects must be plac
 </Collapsible>
 
 <Collapsible title="Modal Example" description="Modal create payload with a String Select component" icon="code">
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a String Select](images/components/modal-string-select.webp)
+  </Collapsible>
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
@@ -387,7 +390,7 @@ String Selects are available in messages and modals. String Selects must be plac
         {
           "type": 18, // ComponentType.LABEL
           "id": 1,
-          "label": "Favorite bug?"
+          "label": "Favorite bug?",
           "component": {
             "type": 3, // ComponentType.STRING_SELECT
             "id": 2,
