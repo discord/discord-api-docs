@@ -20,7 +20,7 @@ We're introducing a new top-level [Label](/docs/components/reference#label) comp
 - The `required` field is now available on String Selects (defaults to true in modals, ignored in messages)
 - The `disabled` field on String Selects will trigger an error if used in modals and is not currently allowed
 
-We've also documented [interaction responses](/docs/components/reference#user-select-examples) and resolved objects for interactive components in each component's Examples section.
+We've also documented [interaction responses](/docs/interactions/receiving-and-responding#interaction-object-component-interaction-response-structures) and resolved objects for interactive components in each component's Examples section.
 
 #### New Layout Component
 
