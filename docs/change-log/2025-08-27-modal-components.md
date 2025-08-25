@@ -18,7 +18,7 @@ We're introducing a new top-level [Label](/docs/components/reference#label) comp
 - When a Text Input is used in a Label component the `label` field on the Text Input is not allowed in favor of `label` on the Label component
 - ActionRow + TextInput is now deprecated in favor of the new Label component for better accessibility
 - The `required` field is now available on String Selects (defaults to true in modals, ignored in messages)
-- The `disabled` field on String Selects will trigger an error if used in modals and is not currently allowed
+- The `disabled` field on String Selects is not currently allowed in modals, and will trigger an error if used
 
 We've also documented [interaction responses](/docs/components/reference#user-select-examples) and resolved objects for interactive components in each component's Examples section.
 
