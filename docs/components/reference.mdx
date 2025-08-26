@@ -1482,13 +1482,13 @@ The `description` may display above or below the `component` depending on platfo
 
 ###### Label Structure
 
-| Field        | Type                                                                             | Description                               |
-|--------------|----------------------------------------------------------------------------------|-------------------------------------------|
-| type         | integer                                                                          | `18` for a label                          |
-| id?          | integer                                                                          | Optional identifier for component         |
-| label        | string                                                                           | The label text                            |
-| description? | string                                                                           | An optional description textfor the label |
-| component    | [label child component](/docs/components/reference#label-label-child-components) | The component within the label            |
+| Field        | Type                                                                             | Description                                                    |
+|--------------|----------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type         | integer                                                                          | `18` for a label                                               |
+| id?          | integer                                                                          | Optional identifier for component                              |
+| label        | string                                                                           | The label text; max 45 characters                              |
+| description? | string                                                                           | An optional description text for the label; max 100 characters |
+| component    | [label child component](/docs/components/reference#label-label-child-components) | The component within the label                                 |
 
 ###### Label Child Components
 
