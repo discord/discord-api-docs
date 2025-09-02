@@ -1568,19 +1568,31 @@ The `description` may display above or below the `component` depending on platfo
 | description? | string                                                                           | An optional description text for the label; max 100 characters |
 | component    | [label child component](/docs/components/reference#label-label-child-components) | The component within the label                                 |
 
-###### Label Interaction Response Structure
-
-| Field  | Type    | Description                         |
-|--------|---------|-------------------------------------|
-| type\* | integer | `10` for a Label                    |
-| id     | integer | Unique identifier for the component |
-
 ###### Label Child Components
 
 | Available Components                                      |
 |-----------------------------------------------------------|
 | [Text Input](/docs/components/reference#text-input)       |
 | [String Select](/docs/components/reference#string-select) |
+
+###### Label Interaction Response Structure
+
+| Field     | Type                                                                                                                       | Description                         |
+|-----------|----------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| type\*    | integer                                                                                                                    | `18` for a Label                    |
+| id        | integer                                                                                                                    | Unique identifier for the component |
+| component | [interaction response label child component](/docs/components/reference#label-label-interaction-response-child-components) | The component within the label      |
+
+###### Label Interaction Response Child Components
+
+| Available Components                                                                                                  |
+|-----------------------------------------------------------------------------------------------------------------------|
+| [Text Input](/docs/components/reference#text-input-text-input-interaction-response-structure)                         |
+| [String Select](/docs/components/reference#string-select-string-select-interaction-response-structure)                |
+| [User Select](/docs/components/reference#user-select-user-select-interaction-response-structure)                      |
+| [Role Select](/docs/components/reference#role-select-role-select-interaction-response-structure)                      |
+| [Mentionable Select](/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
+| [Channel Select](/docs/components/reference#channel-select-channel-select-interaction-response-structure)             |
 
 ###### Examples
 
