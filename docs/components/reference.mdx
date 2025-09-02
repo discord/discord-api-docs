@@ -608,13 +608,16 @@ User Selects are available in messages and modals. User Selects must be placed i
 
 ###### User Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `5` for a User Select                                          |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected users                                      |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `5` for a User Select                                          |
+| component_type\* | integer                                                                                                 | `5` for a User Select                                          |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected users                                      |
+
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
 
@@ -734,14 +737,16 @@ Role Selects are available in messages and modals. Role Selects must be placed i
 
 ###### Role Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `6` for a Role Select                                          |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected roles                                      |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `6` for a Role Select                                          |
+| component_type\* | integer                                                                                                 | `6` for a Role Select                                          |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected roles                                      |
 
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
 
@@ -846,13 +851,16 @@ Mentionable Selects are available in messages and modals. Mentionable Selects mu
 
 ###### Mentionable Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `7` for a Mentionable Select                                   |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `7` for a Mentionable Select                                   |
+| component_type\* | integer                                                                                                 | `7` for a Mentionable Select                                   |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
+
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
 
@@ -995,13 +1003,16 @@ Channel Selects are available in messages and modals. Channel Selects must be pl
 
 ###### Channel Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `8` for a Channel Select                                       |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected channels                                   |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `8` for a Channel Select                                       |
+| component_type\* | integer                                                                                                 | `8` for a Channel Select                                       |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected channels                                   |
+
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
 
@@ -1557,6 +1568,13 @@ The `description` may display above or below the `component` depending on platfo
 | description? | string                                                                           | An optional description text for the label; max 100 characters |
 | component    | [label child component](/docs/components/reference#label-label-child-components) | The component within the label                                 |
 
+###### Label Interaction Response Structure
+
+| Field  | Type    | Description                         |
+|--------|---------|-------------------------------------|
+| type\* | integer | `10` for a Label                    |
+| id     | integer | Unique identifier for the component |
+
 ###### Label Child Components
 
 | Available Components                                      |
@@ -1601,6 +1619,7 @@ The `description` may display above or below the `component` depending on platfo
 
 --------------------------------
 ## Unfurled Media Item
+
 An Unfurled Media Item is a piece of media, represented by a URL, that is used within a component. It can be
 constructed via either uploading media to Discord, or by referencing external media via **a direct link** to the asset.
 
