@@ -43,10 +43,10 @@ The following is a complete table of available components. Details about each co
 | 2    | [Button](/docs/components/reference#button)                         | Button object                                                  | Interactive | Message        |
 | 3    | [String Select](/docs/components/reference#string-select)           | Select menu for picking from defined text options              | Interactive | Message, Modal |
 | 4    | [Text Input](/docs/components/reference#text-input)                 | Text input object                                              | Interactive | Modal          |
-| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                          | Interactive | Message        |
-| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                          | Interactive | Message        |
-| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)               | Interactive | Message        |
-| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                       | Interactive | Message        |
+| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                          | Interactive | Message, Modal |
+| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                          | Interactive | Message, Modal |
+| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)               | Interactive | Message, Modal |
+| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                       | Interactive | Message, Modal |
 | 9    | [Section](/docs/components/reference#section)                       | Container to display text alongside an accessory component     | Layout      | Message        |
 | 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                                  | Content     | Message        |
 | 11   | [Thumbnail](/docs/components/reference#thumbnail)                   | Small image that can be used as an accessory                   | Content     | Message        |
@@ -288,7 +288,7 @@ String Selects are available in messages and modals. String Selects must be plac
 | min_values?   | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25      |
 | max_values?   | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25              |
 | required?\*   | boolean                                                                                     | Whether the string select is required to answer in a modal (defaults to `true`) |
-| disabled?\*\* | boolean                                                                                     | Whether select menu is disable in a message (defaults to `false`)               |
+| disabled?\*\* | boolean                                                                                     | Whether select menu is disabled in a message (defaults to `false`)              |
 
 \* The `required` field is only available for String Selects in modals. It is ignored in messages.
 
@@ -575,11 +575,11 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 --------------
 ## User Select
 
-A User Select is an interactive component that allows users to select one or more users in a message. Options are automatically populated based on the server's available users.
+A User Select is an interactive component that allows users to select one or more users in a message or modal. Options are automatically populated based on the server's available users.
 
 User Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-User Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+User Selects are available in messages and modals. User Selects must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### User Select Structure
 
@@ -592,7 +592,12 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the user select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for User Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Select Default Value Structure
 
@@ -703,11 +708,11 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 --------------
 ## Role Select
 
-A Role Select is an interactive component that allows users to select one or more roles in a message. Options are automatically populated based on the server's available roles.
+A Role Select is an interactive component that allows users to select one or more roles in a message or modal. Options are automatically populated based on the server's available roles.
 
 Role Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-Role Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+Role Selects are available in messages and modals. Role Selects must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### Role Select Structure
 
@@ -720,7 +725,12 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the role select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for Role Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Role Select Interaction Response Structure
 
@@ -810,11 +820,11 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 ---------------------
 ## Mentionable Select
 
-A Mentionable Select is an interactive component that allows users to select one or more mentionables in a message. Options are automatically populated based on available mentionables in the server.
+A Mentionable Select is an interactive component that allows users to select one or more mentionables in a message or modal. Options are automatically populated based on available mentionables in the server.
 
 Mentionable Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s), your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-Mentionable Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+Mentionable Selects are available in messages and modals. Mentionable Selects must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### Mentionable Select Structure
 
@@ -827,7 +837,12 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the mentionable select is required to answer in a modal (defaults to `true`)                                                                     |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for Mentionable Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Mentionable Select Interaction Response Structure
 
@@ -953,11 +968,11 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 -----------------
 ## Channel Select
 
-A Channel Select is an interactive component that allows users to select one or more channels in a message. Options are automatically populated based on available channels in the server and can be filtered by channel types.
+A Channel Select is an interactive component that allows users to select one or more channels in a message or modal. Options are automatically populated based on available channels in the server and can be filtered by channel types.
 
 Channel Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-Channel Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+Channel Selects are available in messages and modals. Channel Selects must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### Channel Select Structure
 
@@ -971,7 +986,12 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the channel select is required to answer in a modal (defaults to `true`)                                                                         |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for Channel Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Channel Select Interaction Response Structure
 
@@ -982,8 +1002,6 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 | custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
 | resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
 | values         | array of snowflakes                                                                                     | IDs of the selected channels                                   |
-
-
 
 ###### Examples
 
