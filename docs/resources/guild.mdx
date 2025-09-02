@@ -1270,7 +1270,7 @@ Returns a list of [voice region](/docs/resources/voice#voice-region-object) obje
 ## Get Guild Invites
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/invites</Route>
 
-Returns a list of [invite](/docs/resources/invite#invite-object) objects (with [invite metadata](/docs/resources/invite#invite-metadata-object)) for the guild. Requires the `MANAGE_GUILD` permission.
+Returns a list of [invite](/docs/resources/invite#invite-object) objects. Requires the `MANAGE_GUILD` or `VIEW_AUDIT_LOG` permission. [Invite Metadata](/docs/resources/invite#invite-metadata-object) is included with the `MANAGE_GUILD` permission.
 
 ## Get Guild Integrations
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/integrations</Route>
