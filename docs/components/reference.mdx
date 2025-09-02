@@ -112,10 +112,13 @@ Action Rows can contain one of the following:
 | [Channel Select](/docs/components/reference#channel-select)         | A single Channel Select                   |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with an Action Row component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of an Action Row with three buttons](images/components/action-row.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -190,6 +193,7 @@ Buttons come in various styles to convey different types of actions. These style
 
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Button component" icon="code">
 
   ```json
@@ -210,12 +214,13 @@ Buttons come in various styles to convey different types of actions. These style
     ]
   }
   ```
-
 </Collapsible>
 
 <Collapsible title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
+
   When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 3, // InteractionType.MESSAGE_COMPONENT
@@ -228,7 +233,6 @@ Buttons come in various styles to convey different types of actions. These style
     },
   }
   ```
-
 </Collapsible>
 
 ### Button Design Guidelines
@@ -313,10 +317,13 @@ String Selects are available in messages and modals. String Selects must be plac
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a String Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a String Select with three options](images/components/string-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -354,12 +361,13 @@ String Selects are available in messages and modals. String Selects must be plac
     ]
   }
   ```
-
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a StringSelect in a message" icon="code">
+
   When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 3, // InteractionType.MESSAGE_COMPONENT
@@ -377,9 +385,11 @@ String Selects are available in messages and modals. String Selects must be plac
 </Collapsible>
 
 <Collapsible title="Modal Example" description="Modal create payload with a String Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a modal with a String Select](images/components/modal-string-select.webp)
   </Collapsible>
+
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
@@ -423,8 +433,10 @@ String Selects are available in messages and modals. String Selects must be plac
 </Collapsible>
 
 <Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a StringSelect" icon="code">
+
   When a user submits a modal that contains a StringSelect, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 5, // InteractionType.MODAL_SUBMIT
@@ -497,10 +509,13 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 | value     | string  | The user's input text                                          |
 
 ###### Examples
+
 <Collapsible title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
     ![A modal with Text Input in a Label](images/components/modal-label.webp)
   </Collapsible>
+
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
@@ -529,8 +544,10 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 </Collapsible>
 
 <Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a TextInput" icon="code">
+
   When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 5, // InteractionType.MODAL_SUBMIT
@@ -595,10 +612,13 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | values         | array of snowflakes                                                                                     | IDs of the selected users                                      |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a User Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a User Select with two people and an app in a server](images/components/user-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -619,6 +639,7 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a UserSelect in a message" icon="code">
+
   When a user interacts with a UserSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -713,10 +734,13 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Role Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Role Select allowing up to 3 choices](images/components/role-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -739,6 +763,7 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a RoleSelect in a message" icon="code">
+
   When a user interacts with a RoleSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -815,10 +840,13 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 | values         | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Mentionable Select](images/components/mentionable-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -839,6 +867,7 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a MentionableSelect in a message" icon="code">
+
   When a user interacts with a MentionableSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -959,9 +988,11 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 ###### Examples
 
 <Collapsible title="Message Example" description="Message create payload with a Channel Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Channel Select for text channels](images/components/channel-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -983,6 +1014,7 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a ChannelSelect in a message" icon="code">
+
   When a user interacts with a ChannelSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -1061,10 +1093,13 @@ Don't hardcode `components` to contain only text components. We may add other co
 | [Thumbnail](/docs/components/reference#thumbnail) |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1123,9 +1158,11 @@ To use this component in messages you must send the [message flag](/docs/resourc
 ###### Examples
 
 <Collapsible title="Message Example" description="Message create payload with a TextDisplay component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Text Display with markdown](images/components/text-display.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1165,10 +1202,13 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | spoiler?     | boolean                                                               | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false`                          |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1230,10 +1270,13 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | spoiler?     | boolean                                                               | Whether the media should be a spoiler (or blurred out). Defaults to `false`                              |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1293,7 +1336,9 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | size     | integer                                                               | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a File component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a File showing a download for a game and manual](images/components/file.webp)
   </Collapsible>
@@ -1353,6 +1398,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
 ###### Examples
 <Collapsible title="Message Example" description="Message create payload with a Separator component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a separator with large spacing dividing content](images/components/separator.webp)
   </Collapsible>
@@ -1413,10 +1459,13 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | [File](/docs/components/reference#file)                   |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Container component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1498,10 +1547,13 @@ The `description` may display above or below the `component` depending on platfo
 | [String Select](/docs/components/reference#string-select) |
 
 ###### Examples
+
 <Collapsible title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
     ![A modal with Text Input in a Label](images/components/modal-label.webp)
   </Collapsible>
+
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
