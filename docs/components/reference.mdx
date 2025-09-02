@@ -48,7 +48,7 @@ The following is a complete table of available components. Details about each co
 | 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)               | Interactive | Message, Modal |
 | 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                       | Interactive | Message, Modal |
 | 9    | [Section](/docs/components/reference#section)                       | Container to display text alongside an accessory component     | Layout      | Message        |
-| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                                  | Content     | Message        |
+| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                                  | Content     | Message, Modal |
 | 11   | [Thumbnail](/docs/components/reference#thumbnail)                   | Small image that can be used as an accessory                   | Content     | Message        |
 | 12   | [Media Gallery](/docs/components/reference#media-gallery)           | Display images and other media                                 | Content     | Message        |
 | 13   | [File](/docs/components/reference#file)                             | Displays an attached file                                      | Content     | Message        |
@@ -1170,8 +1170,6 @@ The behavior of this component is extremely similar to the [`content` field of a
 When sent in a message, pingable mentions (@user, @role, etc) present in this commponent will ping and send notifications based on the
 value of the [allowed mention object](/docs/resources/message#allowed-mentions-object) set in [`message.allowed_mentions`](/docs/resources/message#message-object).
 
-Text Displays are currently only available in messages.
-
 :::info
 To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
@@ -1183,6 +1181,13 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | type    | integer | `10` for text display                            |
 | id?     | integer | Optional identifier for component                |
 | content | string  | Text that will be displayed similar to a message |
+
+###### Text Display Interaction Response Structure
+
+| Field  | Type    | Description                         |
+|--------|---------|-------------------------------------|
+| type\* | integer | `10` for a Text Display             |
+| id     | integer | Unique identifier for the component |
 
 ###### Examples
 
