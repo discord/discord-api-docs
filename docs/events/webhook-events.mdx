@@ -127,25 +127,36 @@ The inner `data` object contains information specific to the [event type](/docs/
 
 ## Social SDK Message Objects
 
-Discord's Social SDK introduces additional message objects for lobby and direct message events.
+The Discord Social SDK introduces additional message objects for lobby and direct message events.
 
 ### Lobby Message Object
 
-Represents a message sent in a lobby channel.
+Represents a message sent in a lobby or [Linked Channel](/docs/discord-social-sdk/development-guides/linked-channels).
 
 ###### Lobby Message Structure
 
-| Field          | Type                                                           | Description                                   |
-|----------------|----------------------------------------------------------------|-----------------------------------------------|
-| id             | snowflake                                                      | ID of the message                             |
-| type           | integer                                                        | [Type of message](/docs/resources/message#message-object-message-types) |
-| content        | string                                                         | Contents of the message                       |
-| lobby_id       | snowflake                                                      | ID of the lobby where the message was sent   |
-| channel_id     | snowflake                                                      | ID of the channel                             |
-| author         | [user object](/docs/resources/user#user-object-user-structure) | Author of the message                         |
-| metadata?      | object                                                         | Additional metadata for the message (key-value pairs) |
-| flags          | integer                                                        | Message flags combined as a bitfield          |
-| application_id? | snowflake                                                     | ID of the application that created the message |
+| Field           | Type                                                           | Description                                                                                                                             |
+|-----------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| id              | snowflake                                                      | ID of the message                                                                                                                       |
+| type            | integer                                                        | [Type of message](/docs/resources/message#message-object-message-types)                                                                 |
+| content         | string                                                         | Contents of the message                                                                                                                 |
+| lobby_id        | snowflake                                                      | ID of the lobby where the message was sent                                                                                              |
+| channel_id      | snowflake                                                      | ID of the channel the message was sent in                                                                                               |
+| author          | [user object](/docs/resources/user#user-object-user-structure) | Author of the message                                                                                                                   |
+| metadata?       | object                                                         | Additional metadata for the message (key-value pairs)                                                                                   |
+| flags           | integer                                                        | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| application_id? | snowflake                                                      | ID of the application (only present during active Social SDK sessions)                                                                  |
+
+### Message Object
+
+Standard Discord [Message Object](/docs/resources/message#messages-resource) with additional fields.
+
+###### Additional Fields
+
+| Field     | Type                                                     | Description                                                                             |
+|-----------|----------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| lobby_id? | snowflake                                                | ID of the lobby where the message was created (only present in Linked Channel messages) |
+| channel   | [channel object](/docs/resources/channel#channel-object) | Channel object with recipient information                                               |
 
 ### Passthrough Message Object
 
@@ -153,17 +164,17 @@ Represents a message between provisional users that exists only in-game.
 
 ###### Passthrough Message Structure
 
-| Field          | Type                                                           | Description                                    |
-|----------------|----------------------------------------------------------------|------------------------------------------------|
-| id             | snowflake                                                      | Message ID                                     |
-| type           | integer                                                        | Message type                                   |
-| content        | string                                                         | Message content                                |
-| channel_id     | snowflake | SDK DM channel ID                              |
-| recipient_id   | snowflake | ID of the message recipient                    |
-| author         | [user object](/docs/resources/user#user-object-user-structure) | Message author |
-| flags          | integer   | Message flags combined as a bitfield           |
-| application_id | snowflake | Application ID                                 |
-| channel        | [channel object](/docs/resources/channel#channel-object)    | Channel object with recipient information |
+| Field          | Type                                                           | Description                                                                                                                             |
+|----------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake                                                      | ID of the message                                                                                                                       |
+| type           | integer                                                        | [Type of message](/docs/resources/message#message-object-message-types)                                                                 |
+| content        | string                                                         | Contents of the message                                                                                                                 |
+| channel_id     | snowflake                                                      | ID of the channel the message was sent in                                                                                               |
+| recipient_id   | snowflake                                                      | ID of the message recipient                                                                                                             |
+| author         | [user object](/docs/resources/user#user-object-user-structure) | Author of the message                                                                                                                   |
+| flags          | integer                                                        | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| application_id | snowflake                                                      | ID of the application that created the message                                                                                          |
+| channel        | [channel object](/docs/resources/channel#channel-object)       | Channel object with recipient information                                                                                               |
 
 :::info
 When both users in a direct message are provisional accounts, messages become "passthrough messages" that are only visible in-game and use this specialized structure.
@@ -176,15 +187,15 @@ The table below includes the different webhook event types your app can subscrib
 
 The "Value" column corresponds to the event's `type` field value in the [event body object](/docs/events/webhook-events#event-body-object).
 
-| Name                                                                             | Value                      | Description                                                            |
-|----------------------------------------------------------------------------------|----------------------------|------------------------------------------------------------------------|
-| [Application Authorized](/docs/events/webhook-events#application-authorized)     | `APPLICATION_AUTHORIZED`   | Sent when an app was authorized by a user to a server or their account |
-| [Application Deauthorized](/docs/events/webhook-events#application-deauthorized) | `APPLICATION_DEAUTHORIZED` | Sent when an app was deauthorized by a user                            |
-| [Entitlement Create](/docs/events/webhook-events#entitlement-create)             | `ENTITLEMENT_CREATE`       | Entitlement was created                                                |
-| [Quest User Enrollment](/docs/events/webhook-events#quest-user-enrollment)       | `QUEST_USER_ENROLLMENT`    | User was added to a Quest (currently unavailable)                      |
-| [Lobby Message Create](/docs/events/webhook-events#lobby-message-create)         | `LOBBY_MESSAGE_CREATE`     | Sent when a message is created in a lobby                              |
-| [Lobby Message Update](/docs/events/webhook-events#lobby-message-update)         | `LOBBY_MESSAGE_UPDATE`     | Sent when a message is updated in a lobby                              |
-| [Lobby Message Delete](/docs/events/webhook-events#lobby-message-delete)         | `LOBBY_MESSAGE_DELETE`     | Sent when a message is deleted from a lobby                            |
+| Name                                                                                 | Value                        | Description                                                               |
+|--------------------------------------------------------------------------------------|------------------------------|---------------------------------------------------------------------------|
+| [Application Authorized](/docs/events/webhook-events#application-authorized)         | `APPLICATION_AUTHORIZED`     | Sent when an app was authorized by a user to a server or their account    |
+| [Application Deauthorized](/docs/events/webhook-events#application-deauthorized)     | `APPLICATION_DEAUTHORIZED`   | Sent when an app was deauthorized by a user                               |
+| [Entitlement Create](/docs/events/webhook-events#entitlement-create)                 | `ENTITLEMENT_CREATE`         | Entitlement was created                                                   |
+| [Quest User Enrollment](/docs/events/webhook-events#quest-user-enrollment)           | `QUEST_USER_ENROLLMENT`      | User was added to a Quest (currently unavailable)                         |
+| [Lobby Message Create](/docs/events/webhook-events#lobby-message-create)             | `LOBBY_MESSAGE_CREATE`       | Sent when a message is created in a lobby                                 |
+| [Lobby Message Update](/docs/events/webhook-events#lobby-message-update)             | `LOBBY_MESSAGE_UPDATE`       | Sent when a message is updated in a lobby                                 |
+| [Lobby Message Delete](/docs/events/webhook-events#lobby-message-delete)             | `LOBBY_MESSAGE_DELETE`       | Sent when a message is deleted from a lobby                               |
 | [Game Direct Message Create](/docs/events/webhook-events#game-direct-message-create) | `GAME_DIRECT_MESSAGE_CREATE` | Sent when a direct message is created during an active Social SDK session |
 | [Game Direct Message Update](/docs/events/webhook-events#game-direct-message-update) | `GAME_DIRECT_MESSAGE_UPDATE` | Sent when a direct message is updated during an active Social SDK session |
 | [Game Direct Message Delete](/docs/events/webhook-events#game-direct-message-delete) | `GAME_DIRECT_MESSAGE_DELETE` | Sent when a direct message is deleted during an active Social SDK session |
@@ -309,7 +320,7 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 ```json
 {
   "version": 1,
-  "application_id": "1395901357214400653",
+  "application_id": "1234567765431056709",
   "type": 1,
   "event": {
     "type": "LOBBY_MESSAGE_CREATE",
@@ -317,20 +328,14 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
     "data": {
       "id": "1397729799727878254",
       "type": 0,
-      "content": "Hello! This is a test message to trigger LOBBY_MESSAGE_CREATE webhook.",
+      "content": "welcome to the party!",
       "lobby_id": "1397729744753266719",
       "channel_id": "1397729744753266719",
       "author": {
-        "id": "1395901357214400653",
-        "username": "Meka's Story",
-        "avatar": null,
-        "discriminator": "0406",
-        "public_flags": 524289,
-        "flags": 524289,
-        "bot": true
+        // user data
       },
       "flags": 65536,
-      "application_id": "1395901357214400653"
+      "application_id": "1234567765431056709"
     }
   }
 }
@@ -349,7 +354,7 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 ```json
 {
   "version": 1,
-  "application_id": "1395901357214400653",
+  "application_id": "1234567765431056709",
   "type": 1,
   "event": {
     "type": "LOBBY_MESSAGE_UPDATE",
@@ -357,13 +362,11 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
     "data": {
       "id": "1402390388030832792",
       "type": 0,
-      "content": "hello - edited",
+      "content": "noice",
       "lobby_id": "1402385687281537066",
       "channel_id": "1402389638311841883",
       "author": {
-        "id": "1111785262289277050",
-        "username": "colinloretz.gg",
-        "global_name": "Colin"
+        // user data
       },
       "edited_timestamp": "2025-08-05T20:39:19.557970+00:00",
       "flags": 0,
@@ -379,9 +382,9 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 
 ###### Lobby Message Delete Structure
 
-| Field    | Type      | Description                                    |
-|----------|-----------|------------------------------------------------|
-| id       | snowflake | ID of the deleted message                      |
+| Field    | Type      | Description                                   |
+|----------|-----------|-----------------------------------------------|
+| id       | snowflake | ID of the deleted message                     |
 | lobby_id | snowflake | ID of the lobby where the message was deleted |
 
 ###### Lobby Message Delete Example
@@ -389,7 +392,7 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 ```json
 {
   "version": 1,
-  "application_id": "1395901357214400653",
+  "application_id": "1234567765431056709",
   "type": 1,
   "event": {
     "type": "LOBBY_MESSAGE_DELETE",
@@ -415,7 +418,7 @@ The inner payload is a [message object](/docs/resources/message#message-object) 
 ```json
 {
   "version": 1,
-  "application_id": "1395901357214400653",
+  "application_id": "1234567765431056709",
   "type": 1,
   "event": {
     "type": "GAME_DIRECT_MESSAGE_CREATE",
@@ -423,15 +426,13 @@ The inner payload is a [message object](/docs/resources/message#message-object) 
     "data": {
       "id": "1405614357781545021",
       "type": 0,
-      "content": "heyo!",
+      "content": "get in friend, we're going raiding",
       "channel_id": "1405604229820715098",
       "author": {
-        "id": "1404960877324533784",
-        "username": "dazzling_starfish_30836",
-        "global_name": "Dazzling Meka"
+        // user data
       },
       "timestamp": "2025-08-14T18:09:37.947000+00:00",
-      "application_id": "1395901357214400653",
+      "application_id": "1234567765431056709",
       "attachments": []
     }
   }
@@ -451,7 +452,7 @@ The inner payload is a [message object](/docs/resources/message#message-object) 
 ```json
 {
   "version": 1,
-  "application_id": "1395901357214400653",
+  "application_id": "1234567765431056709",
   "type": 1,
   "event": {
     "type": "GAME_DIRECT_MESSAGE_UPDATE",
@@ -461,9 +462,7 @@ The inner payload is a [message object](/docs/resources/message#message-object) 
       "content": "almost ready to queue?",
       "channel_id": "1404960877324533784",
       "author": {
-        "id": "1405591265768112179",
-        "username": "jovial_flamingo_78200",
-        "global_name": "Jovial Meka"
+        // user data
       },
       "recipient_id": "1404960877324533784"
     }
@@ -484,7 +483,7 @@ The inner payload is a [message object](/docs/resources/message#message-object) 
 ```json
 {
   "version": 1,
-  "application_id": "1395901357214400653",
+  "application_id": "1234567765431056709",
   "type": 1,
   "event": {
     "type": "GAME_DIRECT_MESSAGE_DELETE",
@@ -492,12 +491,10 @@ The inner payload is a [message object](/docs/resources/message#message-object) 
     "data": {
       "id": "1407771600643686503",
       "type": 0,
-      "content": "nevermind",
+      "content": "cant make it in time",
       "channel_id": "1405604229820715098",
       "author": {
-        "id": "1390442082040287312",
-        "username": "meka.dev",
-        "global_name": "Meka"
+        // user data
       },
       "timestamp": "2025-08-20T17:01:44.725000+00:00",
       "flags": 0,
