@@ -14,27 +14,26 @@ You can find instructions on how to download the SDK for each platform in the [G
 
 The Discord Social SDK is available for the following platforms:
 
-## Desktop
+| Platform               | Support Level       | Standalone C++ | Unreal Engine | Unity |
+|------------------------|---------------------|----------------|---------------|-------|
+| **Desktop**            |                     |                |               |       |
+| Windows (x64)          | Generally Available | ✅              | ✅             | ✅     |
+| Windows (ARM64)        | Generally Available | ✅              | ❌             | ❌     |
+| macOS                  | Generally Available | ✅              | ❌             | ✅     |
+| Linux* (glibc >= 2.31) | Experimental        | ✅              | ✅             | ✅     |
+| **Mobile**             |                     |                |               |       |
+| Android                | Experimental        | ✅              | ❌             | ✅     |
+| iOS                    | Experimental        | ✅              | ❌             | ✅     |
+| **Console**            |                     |                |               |       |
+| Xbox One               | Experimental        | ✅              | ✅             | ❌     |
+| Xbox Series X\|S       | Experimental        | ✅              | ✅             | ✅     |
+| PlayStation 4          | Experimental        | ✅              | ✅             | ❌     |
+| PlayStation 5          | Experimental        | ✅              | ✅             | ✅     |
 
-- Standalone C++ (Windows and macOS)
-- Unreal Engine (Windows Only)
-- Unity (Windows and macOS)
-
-## Android/iOS (full mobile support & guides coming soon)
-
-- Standalone C++
-- Unity
-
-## Console (full console support & guides coming soon)
-
-- **Xbox Series X|S and Xbox One**
-  - Standalone C++
-  - Unreal Engine
-  - Unity 
-- **PlayStation5 and PlayStation4**
-  - Standalone C++
-  - Unreal Engine
-  - Unity
+:::info
+\* There are too many Linux distributions to test, but most distros with glibc 2.31, e.g. Ubuntu 20.04,
+or later should work.
+:::
 
 <ConsoleAccess />
 <SonyCallout />
