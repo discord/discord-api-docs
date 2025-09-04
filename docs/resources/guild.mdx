@@ -1015,9 +1015,12 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field | Type    | Description                     | Permission      |
-|-------|---------|---------------------------------|-----------------|
-| nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
+| Field   | Type    | Description                          | Permission      |
+|---------|---------|--------------------------------------|-----------------|
+| nick?   | ?string | value to set user's nickname to      | CHANGE_NICKNAME |
+| banner? | ?string | data URI base64 encoded banner image |                 |
+| avatar? | ?string | data URL base64 encoded avatar image |                 |
+| bio?    | ?string | guild member bio                     |                 |
 
 ## Modify Current User Nick
 <Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/members/@me/nick</Route>
