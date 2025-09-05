@@ -288,11 +288,11 @@ Not all message fields are currently supported.
 
 ###### Modal
 
-| Field      | Type                                                               | Description                                                    |
-|------------|--------------------------------------------------------------------|----------------------------------------------------------------|
-| custom_id  | string                                                             | Developer-defined identifier for the modal, max 100 characters |
-| title      | string                                                             | Title of the popup modal, max 45 characters                    |
-| components | array of [components](/docs/components/reference#component-object) | Between 1 and 5 (inclusive) components that make up the modal  |
+| Field      | Type                                                                       | Description                                                                                                                     |
+|------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| custom_id  | string                                                                     | Developer-defined identifier for the modal, max 100 characters                                                                  |
+| title      | string                                                                     | Title of the popup modal, max 45 characters                                                                                     |
+| components | array of partial [components](/docs/components/reference#component-object) | Between 1 and 5 (inclusive) components that make up the modal, see each component's interaction response structure for details. |
 
 :::warn
 If your application responds with user data, you should use [`allowed_mentions`](/docs/resources/message#allowed-mentions-object) to filter which mentions in the content actually ping.
