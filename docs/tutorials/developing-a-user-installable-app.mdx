@@ -103,7 +103,7 @@ The default install settings of your app determines the default [scopes](/docs/t
 
 ###### Update Install Link
 
-Before adding default install settings, we need to select Discord Provided Link for the app's [install link](/docs/resources/application#install-links). Under the **Install Link** section, select `Discord Provided Link` from the dropdown if it isn't already selected (it should be by default). Once its selected, the **Default Install Settings** will appear.
+Before adding default install settings, we need to select Discord Provided Link for the app's [install link](/docs/resources/application#install-links). Under the **Install Link** section, select `Discord Provided Link` from the dropdown if it isn't already selected (it should be by default). Once it's selected, the **Default Install Settings** will appear.
 
 ###### Adding Default Install Settings
 
@@ -200,7 +200,7 @@ First, go to your project's folder and run the following to start your app:
 npm run start
 ```
 
-There should be some output indiciating your app is running on port 3000. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](/docs/interactions/overview#preparing-for-interactions) documentation.
+There should be some output indicating your app is running on port 3000. Behind the scenes, our app is ready to handle interactions from Discord, which includes verifying security request headers and responding to `PING` requests. We're skipping over a lot of the details in this tutorial, but details about preparing apps for interactions is in the [Interactions Overview](/docs/interactions/overview#preparing-for-interactions) documentation.
 
 :::info
 By default, the server will listen to requests sent to port 3000, but if you want to change the port, you can specify a `PORT` variable in your `.env` file.
@@ -358,7 +358,7 @@ When someone clicks on the button, our app would care about two users when handl
 1. User B, who clicked the "Join" button so our app can track who is interested in joining the match
 2. User A, who ran the `/game` command so our app can tell them who is interested in joining the match
 
-There are two fields additional fields to know about that can be helpful in this scenario—
+There are two additional fields to know about that can be helpful in this scenario—
 
 ###### `interaction_metadata`
 
