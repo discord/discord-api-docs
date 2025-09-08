@@ -6,7 +6,7 @@ topics:
 - "Components"
 ---
 
-We've added more components to modals! All selects (User, Role, Mentionable, Channel) are now fully supported in modals and must be placed inside a [Label](/docs/components/reference#label) component. We've also added the [Text Display](/docs/components/reference#text-display) component as a top level component in modals with markdown support.
+We've added more components to modals! All selects (User, Role, Mentionable, Channel) are now fully supported in modals. In order to use a select in a modal it must be placed inside a [Label](/docs/components/reference#label) component. We've also added the [Text Display](/docs/components/reference#text-display) component with markdown support as a top level component in modals.
 
 #### Components Now Supported in Modals:
 
