@@ -243,7 +243,7 @@ And when your app has several commands (and perhaps [subcommands](/docs/interact
 #### Examples
 
 - You should use a descriptive name like `/stats` rather than a vague name like `/get` for a command that displays stats to a user.
-- You should use shorter name like `/poll` rather than a verbose name like `/create-new-poll` for a command that creates a new poll. If there are many actions to take related to `/poll`, it might be more intuitive to use a `create` subcommand.
+- You should use a shorter name like `/poll` rather than a verbose name like `/create-new-poll` for a command that creates a new poll. If there are many actions to take related to `/poll`, it might be more intuitive to use a `create` subcommand.
 
 ### Collecting User Input
 
