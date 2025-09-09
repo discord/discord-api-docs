@@ -84,7 +84,8 @@ Once we retrieve a session_id, token, and endpoint information, we can connect a
     "server_id": "41771983423143937",
     "user_id": "104694319306248192",
     "session_id": "my_session_id",
-    "token": "my_token"
+    "token": "my_token",
+    "max_dave_protocol_version": 1
   }
 }
 ```
@@ -426,7 +427,8 @@ Finally, the voice server will respond with a [Opcode 4 Session Description](/do
   "op": 4,
   "d": {
       "mode": "aead_aes256_gcm_rtpsize",
-      "secret_key": [ ...251, 100, 11...]
+      "secret_key": [ ...251, 100, 11...],
+      "dave_protocol_version": 1
   }
 }
 ```
