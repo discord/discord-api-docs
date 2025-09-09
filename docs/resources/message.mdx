@@ -53,7 +53,7 @@ An app will receive empty values in the `content`, `embeds`, `attachments`, and 
 | stickers?                 | array of [sticker](/docs/resources/sticker#sticker-object) objects                                                                 | **Deprecated** the stickers sent with the message                                                                                                                                                                                                                       |
 | position?                 | integer                                                                                                                            | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the message in a thread in company with `total_message_sent` on parent thread |
 | role_subscription_data?   | [role subscription data](/docs/resources/message#role-subscription-data-object) object                                             | data of the role subscription purchase or renewal that prompted this ROLE_SUBSCRIPTION_PURCHASE message                                                                                                                                                                 |
-| resolved?                 | [resolved](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) data                            | data for users, members, channels, and roles in the message's [auto-populated select menus](/docs/components/reference#string-select-select-menu-resolved-object)                                                                                                       |
+| resolved?                 | [resolved](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) data                            | data for users, members, channels, and roles in the message's [auto-populated select menus](/docs/interactions/receiving-and-responding#interaction-response-object-modal)                                                                                              |
 | poll? \[2\]               | [poll](/docs/resources/poll#poll-object) object                                                                                    | A poll!                                                                                                                                                                                                                                                                 |
 | call?                     | [message call](/docs/resources/message#message-call-object) object                                                                 | the call associated with the message                                                                                                                                                                                                                                    |
 
@@ -331,7 +331,7 @@ Determines how associated data is populated.
 | FORWARD | 1     | `message_snapshot`    | Reference used to point to a message at a point in time. |
 
 `FORWARD` can only be used for basic messages; i.e. messages which do not have strong bindings to a non global entity.
-Thus we support only messages with `DEFAULT` or `REPLY` types, but disallowed if there are any polls, calls, or components.
+Thus we support only messages with type `DEFAULT`, `REPLY`, `CHAT_INPUT_COMMAND`, or `CONTEXT_MENU_COMMAND`, and don't support messages with a poll, call, or activity.
 This is subject to change in the future.
 
 #### Message Reference Content Attribution
@@ -1010,7 +1010,7 @@ If you want to get 100 pins you'd send these two requests:
 ## Pin Message
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Pin a message in a channel. Requires the `PIN_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1019,7 +1019,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Unpin Message
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Unpin a message in a channel. Requires the `PIN_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.

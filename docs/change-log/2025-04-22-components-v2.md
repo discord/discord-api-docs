@@ -3,8 +3,8 @@ title: "Introducing New Components for Messages!"
 date: "2025-04-22"
 topics:
 - "User Apps"
-- "HTTP API"
 - "Interactions"
+- "Components"
 ---
 
 We're bringing new components to messages that you can use in your apps. They allow you to have full control over the layout of your messages.

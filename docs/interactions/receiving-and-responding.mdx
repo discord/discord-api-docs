@@ -87,6 +87,15 @@ The values in `authorizing_integration_owners` depend on the key—
 
 While the `data` field is guaranteed to be present for all [interaction types](/docs/interactions/receiving-and-responding#interaction-object-interaction-type) besides `PING`, its structure will vary. The following tables detail the inner `data` payload for each interaction type.
 
+| Interaction Type                       | Interaction Data                                                                                                                        |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| PING (`1`)                             | N / A                                                                                                                                   |
+| APPLICATION_COMMAND (`2`)              | [Application Command Data Structure](/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure) |
+| MESSAGE_COMPONENT (`3`)                | [Message Component Data Structure](/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure)     |
+| APPLICATION_COMMAND_AUTOCOMPLETE (`4`) | [Application Command Data Structure](/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure) |
+| MODAL_SUBMIT (`5`)                     | [Modal Submit Data Structure](/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure)               |
+
+
 ###### Application Command Data Structure
 
 :::info
@@ -118,10 +127,17 @@ Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interaction
 
 ###### Modal Submit Data Structure
 
-| Field      | Type                                                                       | Description                                                                             |
-|------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| custom_id  | string                                                                     | [`custom_id`](/docs/components/reference#anatomy-of-a-component-custom-id) of the modal |
-| components | array of [message components](/docs/components/reference#component-object) | Values submitted by the user                                                            |
+| Field      | Type                                                                                                                  | Description                          |
+|------------|-----------------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| custom_id  | string                                                                                                                | The custom ID provided for the modal |
+| components | array of [modal submit component data](/docs/interactions/receiving-and-responding#interaction-response-object-modal) | Values submitted by the user         |
+
+###### Component Interaction Response Structures
+
+| Component                                                                                              |
+|--------------------------------------------------------------------------------------------------------|
+| [String Select](/docs/components/reference#string-select-string-select-interaction-response-structure) |
+| [Text Input](/docs/components/reference#text-input-text-input-interaction-response-structure)          |
 
 ###### Resolved Data Structure
 
@@ -192,8 +208,8 @@ An [Interaction](/docs/interactions/receiving-and-responding#interaction-object)
 -   [Slash Commands](/docs/interactions/application-commands#slash-commands-example-interaction)
 -   [User Commands](/docs/interactions/application-commands#user-commands-example-interaction)
 -   [Message Commands](/docs/interactions/application-commands#message-commands-example-interaction)
--   [Message Components](/docs/components/reference#button-button-interaction)
--   [Select Menu Message Components](/docs/components/reference#string-select-string-select-interaction)
+-   [Message Components](/docs/components/using-message-components)
+-   [Modal Components](/docs/components/using-modal-components)
 
 An explanation of all the fields can be found in our [data models](/docs/interactions/receiving-and-responding#interaction-object).
 
@@ -265,10 +281,6 @@ Not all message fields are currently supported.
 | choices | array of [choices](/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
 ###### Modal
-
-:::warn
-Support for components in modals is currently limited to type 4 (Text Input).
-:::
 
 | Field      | Type                                                               | Description                                                    |
 |------------|--------------------------------------------------------------------|----------------------------------------------------------------|
