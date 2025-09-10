@@ -803,7 +803,7 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 |-------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | guild_id    | snowflake                                                                  | ID of the guild                                                                                |
 | members     | array of [guild member](/docs/resources/guild#guild-member-object) objects | Set of guild members                                                                           |
-| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (`0 <= chunk\_index < chunk\_count`)      |
+| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (`0 <= chunk_index < chunk_count`)        |
 | chunk_count | integer                                                                    | Total number of expected chunks for this response                                              |
 | not_found?  | array                                                                      | When passing an invalid ID to `REQUEST_GUILD_MEMBERS`, it will be returned here                |
 | presences?  | array of [presence](/docs/events/gateway-events#presence) objects          | When passing `true` to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
