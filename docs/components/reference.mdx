@@ -43,12 +43,12 @@ The following is a complete table of available components. Details about each co
 | 2    | [Button](/docs/components/reference#button)                         | Button object                                                  | Interactive | Message        |
 | 3    | [String Select](/docs/components/reference#string-select)           | Select menu for picking from defined text options              | Interactive | Message, Modal |
 | 4    | [Text Input](/docs/components/reference#text-input)                 | Text input object                                              | Interactive | Modal          |
-| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                          | Interactive | Message        |
-| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                          | Interactive | Message        |
-| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)               | Interactive | Message        |
-| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                       | Interactive | Message        |
+| 5    | [User Select](/docs/components/reference#user-select)               | Select menu for users                                          | Interactive | Message, Modal |
+| 6    | [Role Select](/docs/components/reference#role-select)               | Select menu for roles                                          | Interactive | Message, Modal |
+| 7    | [Mentionable Select](/docs/components/reference#mentionable-select) | Select menu for mentionables (users *and* roles)               | Interactive | Message, Modal |
+| 8    | [Channel Select](/docs/components/reference#channel-select)         | Select menu for channels                                       | Interactive | Message, Modal |
 | 9    | [Section](/docs/components/reference#section)                       | Container to display text alongside an accessory component     | Layout      | Message        |
-| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                                  | Content     | Message        |
+| 10   | [Text Display](/docs/components/reference#text-display)             | Markdown text                                                  | Content     | Message, Modal |
 | 11   | [Thumbnail](/docs/components/reference#thumbnail)                   | Small image that can be used as an accessory                   | Content     | Message        |
 | 12   | [Media Gallery](/docs/components/reference#media-gallery)           | Display images and other media                                 | Content     | Message        |
 | 13   | [File](/docs/components/reference#file)                             | Displays an attached file                                      | Content     | Message        |
@@ -112,10 +112,13 @@ Action Rows can contain one of the following:
 | [Channel Select](/docs/components/reference#channel-select)         | A single Channel Select                   |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with an Action Row component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of an Action Row with three buttons](images/components/action-row.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -190,6 +193,7 @@ Buttons come in various styles to convey different types of actions. These style
 
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Button component" icon="code">
 
   ```json
@@ -210,12 +214,13 @@ Buttons come in various styles to convey different types of actions. These style
     ]
   }
   ```
-
 </Collapsible>
 
 <Collapsible title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
+
   When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 3, // InteractionType.MESSAGE_COMPONENT
@@ -228,7 +233,6 @@ Buttons come in various styles to convey different types of actions. These style
     },
   }
   ```
-
 </Collapsible>
 
 ### Button Design Guidelines
@@ -270,7 +274,7 @@ A String Select is an interactive component that allows users to select one or m
 
 String Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-String Selects are available in messages and modals. String Selects must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
+String Selects are available in messages and modals. They must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### String Select Structure
 
@@ -284,7 +288,7 @@ String Selects are available in messages and modals. String Selects must be plac
 | min_values?   | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25      |
 | max_values?   | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25              |
 | required?\*   | boolean                                                                                     | Whether the string select is required to answer in a modal (defaults to `true`) |
-| disabled?\*\* | boolean                                                                                     | Whether select menu is disable in a message (defaults to `false`)               |
+| disabled?\*\* | boolean                                                                                     | Whether select menu is disabled in a message (defaults to `false`)              |
 
 \* The `required` field is only available for String Selects in modals. It is ignored in messages.
 
@@ -313,10 +317,13 @@ String Selects are available in messages and modals. String Selects must be plac
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a String Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a String Select with three options](images/components/string-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -354,12 +361,13 @@ String Selects are available in messages and modals. String Selects must be plac
     ]
   }
   ```
-
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a StringSelect in a message" icon="code">
+
   When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 3, // InteractionType.MESSAGE_COMPONENT
@@ -377,9 +385,11 @@ String Selects are available in messages and modals. String Selects must be plac
 </Collapsible>
 
 <Collapsible title="Modal Example" description="Modal create payload with a String Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a modal with a String Select](images/components/modal-string-select.webp)
   </Collapsible>
+
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
@@ -423,8 +433,10 @@ String Selects are available in messages and modals. String Selects must be plac
 </Collapsible>
 
 <Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a StringSelect" icon="code">
+
   When a user submits a modal that contains a StringSelect, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 5, // InteractionType.MODAL_SUBMIT
@@ -497,10 +509,13 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 | value     | string  | The user's input text                                          |
 
 ###### Examples
+
 <Collapsible title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
     ![A modal with Text Input in a Label](images/components/modal-label.webp)
   </Collapsible>
+
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
@@ -529,8 +544,10 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 </Collapsible>
 
 <Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a TextInput" icon="code">
+
   When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
   ```json
   {
     "type": 5, // InteractionType.MODAL_SUBMIT
@@ -558,11 +575,11 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 --------------
 ## User Select
 
-A User Select is an interactive component that allows users to select one or more users in a message. Options are automatically populated based on the server's available users.
+A User Select is an interactive component that allows users to select one or more users in a message or modal. Options are automatically populated based on the server's available users.
 
 User Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-User Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+User Selects are available in messages and modals. They must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### User Select Structure
 
@@ -575,7 +592,12 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the user select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for User Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Select Default Value Structure
 
@@ -586,19 +608,25 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 
 ###### User Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `5` for a User Select                                          |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected users                                      |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `5` for a User Select                                          |
+| component_type\* | integer                                                                                                 | `5` for a User Select                                          |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected users                                      |
+
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a User Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a User Select with two people and an app in a server](images/components/user-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -619,6 +647,7 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a UserSelect in a message" icon="code">
+
   When a user interacts with a UserSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -679,14 +708,123 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
   ```
 </Collapsible>
 
+<Collapsible title="Modal Example" description="Modal create payload with a User Select component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a User Select](images/components/modal-user-select.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "user_modal",
+      "title": "User Chooser",
+      "components": [
+        {
+          "type": 18, // ComponentType.LABEL
+          "label": "Choose your users",
+          "component": {
+            "type": 5, // ComponentType.USER_SELECT
+            "custom_id": "user_selected",
+            "max_values": 5,
+            "required": true
+          }
+        }
+      ]
+    }
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a UserSelect" icon="code">
+
+  When a user submits a modal that contains a UserSelect, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "custom_id": "user_modal",
+      "components": [
+        {
+          "component": {
+            "custom_id": "user_selected",
+            "id": 2,
+            "type": 5,
+            "values": [
+              "11111111111111111"
+            ]
+          },
+          "id": 1,
+          "type": 18
+        }
+      ],
+      "resolved": {
+        "members": {
+          "11111111111111111": {
+            "avatar": null,
+            "banner": null,
+            "collectibles": null,
+            "communication_disabled_until": null,
+            "flags": 0,
+            "joined_at": "2025-04-02T23:07:21.476000+00:00",
+            "nick": "Ant",
+            "pending": false,
+            "permissions": "4503599627370495",
+            "premium_since": null,
+            "roles": [
+              "1357409927680889032"
+            ],
+            "unusual_dm_activity_until": null
+          }
+        },
+        "users": {
+          "11111111111111111": {
+            "avatar": "a_b15bd8ee42e3c3d9a7de129fee60bc84",
+            "avatar_decoration_data": null,
+            "clan": null,
+            "collectibles": {
+              "nameplate": {
+                "asset": "nameplates/spell/white_mana/",
+                "expires_at": null,
+                "label": "COLLECTIBLES_SPELL_WHITE_MANA_NP_A11Y",
+                "palette": "bubble_gum",
+                "sku_id": "1379220459203072050"
+              }
+            },
+            "discriminator": "0",
+            "display_name_styles": {
+              "colors": [
+                16777215
+              ],
+              "effect_id": 4,
+              "font_id": 3
+            },
+            "global_name": "Anthony",
+            "id": "11111111111111111",
+            "primary_guild": null,
+            "public_flags": 65,
+            "username": "actuallyanthony"
+          }
+        }
+      }
+    }
+  }
+  ```
+</Collapsible>
+
 --------------
 ## Role Select
 
-A Role Select is an interactive component that allows users to select one or more roles in a message. Options are automatically populated based on the server's available roles.
+A Role Select is an interactive component that allows users to select one or more roles in a message or modal. Options are automatically populated based on the server's available roles.
 
 Role Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-Role Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+Role Selects are available in messages and modals. They must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### Role Select Structure
 
@@ -699,24 +837,34 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the role select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for Role Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Role Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `6` for a Role Select                                          |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected roles                                      |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `6` for a Role Select                                          |
+| component_type\* | integer                                                                                                 | `6` for a Role Select                                          |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected roles                                      |
 
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Role Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Role Select allowing up to 3 choices](images/components/role-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -739,6 +887,7 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a RoleSelect in a message" icon="code">
+
   When a user interacts with a RoleSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -782,14 +931,117 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
   ```
 </Collapsible>
 
+<Collapsible title="Modal Example" description="Modal create payload with a Role Select component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a Role Select](images/components/modal-role-select.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "role_modal",
+      "title": "Role Select",
+      "components": [
+        {
+          "type": 18,
+          "label": "Select which roles to assign",
+          "component": {
+            "type": 6,
+            "custom_id": "roles_selected",
+            "max_values": 10,
+            "required": true
+          }
+        }
+      ]
+    }
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a RoleSelect" icon="code">
+
+  When a user submits a modal that contains a RoleSelect, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "custom_id": "role_modal",
+      "components": [
+        {
+          "component": {
+            "custom_id": "roles_selected",
+            "id": 2,
+            "type": 6,
+            "values": [
+              "1362213912946147499",
+              "1357409927680889032"
+            ]
+          },
+          "id": 1,
+          "type": 18
+        }
+      ],
+      "resolved": {
+        "roles": {
+          "1357409927680889032": {
+            "color": 7419530,
+            "colors": {
+              "primary_color": 7419530,
+              "secondary_color": null,
+              "tertiary_color": null
+            },
+            "description": null,
+            "flags": 0,
+            "hoist": true,
+            "icon": null,
+            "id": "1357409927680889032",
+            "managed": false,
+            "mentionable": true,
+            "name": "Player",
+            "permissions": "2249596494938111",
+            "position": 3,
+            "unicode_emoji": "🎮"
+          },
+          "1362213912946147499": {
+            "color": 11342935,
+            "colors": {
+              "primary_color": 11342935,
+              "secondary_color": null,
+              "tertiary_color": null
+            },
+            "description": null,
+            "flags": 0,
+            "hoist": false,
+            "icon": null,
+            "id": "1362213912946147499",
+            "managed": false,
+            "mentionable": false,
+            "name": "Mod",
+            "permissions": "0",
+            "position": 1,
+            "unicode_emoji": "🔨"
+          }
+        }
+      }
+    }
+  }
+  ```
+</Collapsible>
+
 ---------------------
 ## Mentionable Select
 
-A Mentionable Select is an interactive component that allows users to select one or more mentionables in a message. Options are automatically populated based on available mentionables in the server.
+A Mentionable Select is an interactive component that allows users to select one or more mentionables in a message or modal. Options are automatically populated based on available mentionables in the server.
 
 Mentionable Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s), your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-Mentionable Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+Mentionable Selects are available in messages and modals. They must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### Mentionable Select Structure
 
@@ -802,23 +1054,34 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the mentionable select is required to answer in a modal (defaults to `true`)                                                                     |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for Mentionable Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Mentionable Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `7` for a Mentionable Select                                   |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `7` for a Mentionable Select                                   |
+| component_type\* | integer                                                                                                 | `7` for a Mentionable Select                                   |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
+
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Mentionable Select](images/components/mentionable-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -839,6 +1102,7 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a MentionableSelect in a message" icon="code">
+
   When a user interacts with a MentionableSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -921,14 +1185,96 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
   ```
 </Collapsible>
 
+<Collapsible title="Modal Example" description="Modal create payload with a Mentionable Select component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a Mentionable Select](images/components/modal-mentionable-select.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "mentionable_modal",
+      "title": "Unmentionables",
+      "components": [
+        {
+          "type": 18,
+          "label": "Who gets mentioned?",
+          "component": {
+            "type": 7,
+            "custom_id": "mentionables_selected",
+            "required": true
+          }
+        }
+      ]
+    }
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a MentionableSelect" icon="code">
+
+  When a user submits a modal that contains a MentionableSelect, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "custom_id": "mentionable_modal",
+      "components": [
+        {
+          "component": {
+            "custom_id": "mentionables_selected",
+            "id": 2,
+            "type": 7,
+            "values": [
+              "1361539726405926952"
+            ]
+          },
+          "id": 1,
+          "type": 18
+        }
+      ],
+      "resolved": {
+        "roles": {
+          "1361539726405926952": {
+            "color": 12745742,
+            "colors": {
+              "primary_color": 12745742,
+              "secondary_color": null,
+              "tertiary_color": null
+            },
+            "description": null,
+            "flags": 0,
+            "hoist": false,
+            "icon": null,
+            "id": "1361539726405926952",
+            "managed": false,
+            "mentionable": true,
+            "name": "Developer",
+            "permissions": "0",
+            "position": 2,
+            "unicode_emoji": "🔧"
+          }
+        }
+      }
+    }
+  }
+  ```
+</Collapsible>
+
 -----------------
 ## Channel Select
 
-A Channel Select is an interactive component that allows users to select one or more channels in a message. Options are automatically populated based on available channels in the server and can be filtered by channel types.
+A Channel Select is an interactive component that allows users to select one or more channels in a message or modal. Options are automatically populated based on available channels in the server and can be filtered by channel types.
 
 Channel Selects can be configured for both single-select and multi-select behavior. When a user finishes making their choice(s) your app receives an [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure).
 
-Channel Selects must be placed inside an [Action Row](/docs/components/reference#action-row) and are only available in messages. An Action Row can contain only one select menu and cannot contain buttons if it has a select menu.
+Channel Selects are available in messages and modals. They must be placed inside an [Action Row](/docs/components/reference#action-row) in messages and a [Label](/docs/components/reference#label) in modals.
 
 ###### Channel Select Structure
 
@@ -942,26 +1288,34 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| disabled?       | boolean                                                                                                 | Whether select menu is disabled (defaults to `false`)                                                                                                    |
+| required?\*     | boolean                                                                                                 | Whether the channel select is required to answer in a modal (defaults to `true`)                                                                         |
+| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+
+\* The `required` field is only available for Channel Selects in modals. It is ignored in messages.
+
+\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Channel Select Interaction Response Structure
 
-| Field          | Type                                                                                                    | Description                                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| component_type | integer                                                                                                 | `8` for a Channel Select                                       |
-| id             | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id      | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved       | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values         | array of snowflakes                                                                                     | IDs of the selected channels                                   |
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `8` for a Channel Select                                       |
+| component_type\* | integer                                                                                                 | `8` for a Channel Select                                       |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
+| values           | array of snowflakes                                                                                     | IDs of the selected channels                                   |
 
-
+\* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
 
 <Collapsible title="Message Example" description="Message create payload with a Channel Select component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Channel Select for text channels](images/components/channel-select.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -983,6 +1337,7 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 </Collapsible>
 
 <Collapsible title="Message Interaction Data Example" description="When a user interacts with a ChannelSelect in a message" icon="code">
+
   When a user interacts with a ChannelSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
@@ -1017,6 +1372,83 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
         }
       }
     },
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Example" description="Modal create payload with a Channel Select component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a Channel Select](images/components/modal-channel-select.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "channel_modal",
+      "title": "Lockdown",
+      "components": [
+        {
+          "type": 18,
+          "label": "Which channel should be locked?",
+          "component": {
+            "type": 8,
+            "custom_id": "channel_selected",
+            "required": true
+          }
+        }
+      ]
+    }
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a ChannelSelect" icon="code">
+
+  When a user submits a modal that contains a ChannelSelect, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "custom_id": "channel_modal",
+      "components": [
+        {
+          "component": {
+            "custom_id": "channel_selected",
+            "id": 2,
+            "type": 8,
+            "values": [
+              "1357483683627663450"
+            ]
+          },
+          "id": 1,
+          "type": 18
+        }
+      ],
+      "resolved": {
+        "channels": {
+          "1357483683627663450": {
+            "flags": 0,
+            "guild_id": "1111111111111111",
+            "id": "1357483683627663450",
+            "last_message_id": null,
+            "name": "playtesting",
+            "nsfw": false,
+            "parent_id": "1357129309164404938",
+            "permissions": "4503599627370495",
+            "position": 1,
+            "rate_limit_per_user": 0,
+            "topic": null,
+            "type": 0
+          }
+        }
+      }
+    }
   }
   ```
 </Collapsible>
@@ -1061,10 +1493,13 @@ Don't hardcode `components` to contain only text components. We may add other co
 | [Thumbnail](/docs/components/reference#thumbnail) |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1106,8 +1541,6 @@ The behavior of this component is extremely similar to the [`content` field of a
 When sent in a message, pingable mentions (@user, @role, etc) present in this commponent will ping and send notifications based on the
 value of the [allowed mention object](/docs/resources/message#allowed-mentions-object) set in [`message.allowed_mentions`](/docs/resources/message#message-object).
 
-Text Displays are currently only available in messages.
-
 :::info
 To use this component in messages you must send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 :::
@@ -1120,12 +1553,21 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | id?     | integer | Optional identifier for component                |
 | content | string  | Text that will be displayed similar to a message |
 
+###### Text Display Interaction Response Structure
+
+| Field  | Type    | Description                         |
+|--------|---------|-------------------------------------|
+| type\* | integer | `10` for a Text Display             |
+| id     | integer | Unique identifier for the component |
+
 ###### Examples
 
 <Collapsible title="Message Example" description="Message create payload with a TextDisplay component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Text Display with markdown](images/components/text-display.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1135,6 +1577,50 @@ To use this component in messages you must send the [message flag](/docs/resourc
         "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
       }
     ]
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a Text Display](images/components/modal-text-display.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "jail_modal",
+      "title": "Jail",
+      "components": [
+        {
+          "type": 10,
+          "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
+        },
+        {
+          "type": 18,
+          "label": "Choose a user",
+          "component": {
+            "type": 5,
+            "custom_id": "user_selected",
+            "required": true
+          }
+        },
+        {
+          "type": 18,
+          "label": "Where should they be sent?",
+          "component": {
+            "type": 8,
+            "custom_id": "channel_selected",
+            "channel_types": [
+              2
+            ],
+            "required": true
+          }
+        }
+      ]
+    }
   }
   ```
 </Collapsible>
@@ -1165,10 +1651,13 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 | spoiler?     | boolean                                                               | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false`                          |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1230,10 +1719,13 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | spoiler?     | boolean                                                               | Whether the media should be a spoiler (or blurred out). Defaults to `false`                              |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1293,7 +1785,9 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | size     | integer                                                               | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a File component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a File showing a download for a game and manual](images/components/file.webp)
   </Collapsible>
@@ -1353,6 +1847,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
 ###### Examples
 <Collapsible title="Message Example" description="Message create payload with a Separator component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a separator with large spacing dividing content](images/components/separator.webp)
   </Collapsible>
@@ -1413,10 +1908,13 @@ To use this component in messages you must send the [message flag](/docs/resourc
 | [File](/docs/components/reference#file)                   |
 
 ###### Examples
+
 <Collapsible title="Message Example" description="Message create payload with a Container component" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
     ![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.webp)
   </Collapsible>
+
   ```json
   {
     "flags": 32768,
@@ -1497,11 +1995,33 @@ The `description` may display above or below the `component` depending on platfo
 | [Text Input](/docs/components/reference#text-input)       |
 | [String Select](/docs/components/reference#string-select) |
 
+###### Label Interaction Response Structure
+
+| Field     | Type                                                                                                                       | Description                         |
+|-----------|----------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| type\*    | integer                                                                                                                    | `18` for a Label                    |
+| id        | integer                                                                                                                    | Unique identifier for the component |
+| component | [interaction response label child component](/docs/components/reference#label-label-interaction-response-child-components) | The component within the label      |
+
+###### Label Interaction Response Child Components
+
+| Available Components                                                                                                  |
+|-----------------------------------------------------------------------------------------------------------------------|
+| [Text Input](/docs/components/reference#text-input-text-input-interaction-response-structure)                         |
+| [String Select](/docs/components/reference#string-select-string-select-interaction-response-structure)                |
+| [User Select](/docs/components/reference#user-select-user-select-interaction-response-structure)                      |
+| [Role Select](/docs/components/reference#role-select-role-select-interaction-response-structure)                      |
+| [Mentionable Select](/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
+| [Channel Select](/docs/components/reference#channel-select-channel-select-interaction-response-structure)             |
+
 ###### Examples
+
 <Collapsible title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
+
   <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
     ![A modal with Text Input in a Label](images/components/modal-label.webp)
   </Collapsible>
+
   ```json
   {
     "type": 9, // InteractionCallbackType.MODAL
@@ -1531,6 +2051,7 @@ The `description` may display above or below the `component` depending on platfo
 
 --------------------------------
 ## Unfurled Media Item
+
 An Unfurled Media Item is a piece of media, represented by a URL, that is used within a component. It can be
 constructed via either uploading media to Discord, or by referencing external media via **a direct link** to the asset.
 
