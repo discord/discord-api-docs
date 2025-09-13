@@ -61,7 +61,7 @@ For OAuth2 to work correctly, you must **register the correct redirect URIs** fo
 | **Desktop** | `http://127.0.0.1/callback`                                                                |
 | **Mobile**  | `discord-APP_ID:/authorize/callback` _(replace `APP_ID` with your Discord application ID)_ |
 
-### Step 1: Request Authorization 
+### Step 1: Request Authorization
 
 The SDK provides helper methods to simplify OAuth2 login.
 
@@ -277,6 +277,13 @@ def revoke_token(access_or_refresh_token):
     r.raise_for_status()
 ```
 
+### Handling User Initiated Revocation
+
+Users can unlink their account by removing access to your application on their Discord `User Settings -> Authorized Apps` page.
+
+If you would like to be notified when a user unlinks this way, you can [configure you application to listen for the `APPLICATION_DEAUTHORIZED` webhook event](/docs/events/webhook-events#application-deauthorized).
+Otherwise, you will know that the user has unlinked because their access token and refresh token (if you have one) will be invalidated.
+
 ---
 
 ## Next Steps
@@ -292,7 +299,7 @@ Now that you've successfully implemented account linking with Discord, you can i
   </Card>
   <Card title="Setting Rich Presence" link="/docs/discord-social-sdk/development-guides/setting-rich-presence" icon="UserStatusIcon">
     Display game status and information to Discord friends.
-  </Card>  
+  </Card>
 </Container>
 
 <SupportCallout />
