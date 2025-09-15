@@ -137,12 +137,11 @@ def get_provisional_token(game_account: GameAccount):
   response = requests.post(
     'https://discord.com/api/v10/partner-sdk/token/bot',
     json={
-      'external_user_id': game_account.id,
-      'preferred_global_name': game_account.display_name,
+      'external_user_id': game_account.id,       # your account system's unique id
+      'preferred_global_name': game_account.display_name, # your account system's display name for the user
     }
   )
   return response.json()
-```
 
 #### Bot Token Endpoint Response
 
