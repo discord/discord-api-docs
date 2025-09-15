@@ -87,6 +87,15 @@ The values in `authorizing_integration_owners` depend on the key—
 
 While the `data` field is guaranteed to be present for all [interaction types](/docs/interactions/receiving-and-responding#interaction-object-interaction-type) besides `PING`, its structure will vary. The following tables detail the inner `data` payload for each interaction type.
 
+| Interaction Type                       | Interaction Data                                                                                                                        |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| PING (`1`)                             | N / A                                                                                                                                   |
+| APPLICATION_COMMAND (`2`)              | [Application Command Data Structure](/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure) |
+| MESSAGE_COMPONENT (`3`)                | [Message Component Data Structure](/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure)     |
+| APPLICATION_COMMAND_AUTOCOMPLETE (`4`) | [Application Command Data Structure](/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure) |
+| MODAL_SUBMIT (`5`)                     | [Modal Submit Data Structure](/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure)               |
+
+
 ###### Application Command Data Structure
 
 :::info
@@ -118,10 +127,24 @@ Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interaction
 
 ###### Modal Submit Data Structure
 
-| Field      | Type                                                                       | Description                                                                             |
-|------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| custom_id  | string                                                                     | [`custom_id`](/docs/components/reference#anatomy-of-a-component-custom-id) of the modal |
-| components | array of [message components](/docs/components/reference#component-object) | Values submitted by the user                                                            |
+| Field      | Type                                                                                                                                                | Description                             |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| custom_id  | string                                                                                                                                              | The custom ID provided for the modal    |
+| components | array of [component interaction response](/docs/interactions/receiving-and-responding#interaction-object-component-interaction-response-structures) | Values submitted by the user            |
+| resolved?  | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure)                                             | Resolved entities from selected options |
+
+###### Component Interaction Response Structures
+
+| Component                                                                                                             |
+|-----------------------------------------------------------------------------------------------------------------------|
+| [String Select](/docs/components/reference#string-select-string-select-interaction-response-structure)                |
+| [Text Input](/docs/components/reference#text-input-text-input-interaction-response-structure)                         |
+| [User Select](/docs/components/reference#user-select-user-select-interaction-response-structure)                      |
+| [Role Select](/docs/components/reference#role-select-role-select-interaction-response-structure)                      |
+| [Mentionable Select](/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
+| [Channel Select](/docs/components/reference#channel-select-channel-select-interaction-response-structure)             |
+| [Text Display](/docs/components/reference#text-display-text-display-interaction-response-structure)                   |
+| [Label](/docs/components/reference#label-label-interaction-response-structure)                                        |
 
 ###### Resolved Data Structure
 
@@ -140,7 +163,7 @@ If data for a Member is included, data for its corresponding User will also be i
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
-\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
+\*\* Partial `Channel` objects only have `id`, `name`, `type`, `permissions`, `last_message_id`, `last_pin_timestamp`, `nsfw`, `parent_id`, `guild_id`, `flags`, `rate_limit_per_user`, `topic` and `position` fields. Threads will also have the `thread_metadata` field.
 
 ###### Application Command Interaction Data Option Structure
 
@@ -192,8 +215,8 @@ An [Interaction](/docs/interactions/receiving-and-responding#interaction-object)
 -   [Slash Commands](/docs/interactions/application-commands#slash-commands-example-interaction)
 -   [User Commands](/docs/interactions/application-commands#user-commands-example-interaction)
 -   [Message Commands](/docs/interactions/application-commands#message-commands-example-interaction)
--   [Message Components](/docs/components/reference#button-button-interaction)
--   [Select Menu Message Components](/docs/components/reference#string-select-string-select-interaction)
+-   [Message Components](/docs/components/using-message-components)
+-   [Modal Components](/docs/components/using-modal-components)
 
 An explanation of all the fields can be found in our [data models](/docs/interactions/receiving-and-responding#interaction-object).
 
@@ -243,18 +266,18 @@ There are a number of ways you can respond to an interaction:
 Not all message fields are currently supported.
 
 
-| Field             | Type                                                                             | Description                                                                                                                                                                                                            |
-|-------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| tts?              | boolean                                                                          | Whether the response is TTS                                                                                                                                                                                            |
-| content?          | string                                                                           | Message content                                                                                                                                                                                                        |
-| embeds?           | array of [embeds](/docs/resources/message#embed-object)                          | Supports up to 10 embeds                                                                                                                                                                                               |
-| allowed_mentions? | [allowed mentions](/docs/resources/message#allowed-mentions-object)              | [Allowed mentions](/docs/resources/message#allowed-mentions-object) object                                                                                                                                             |
-| flags? \*         | integer                                                                          | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, and `SUPPRESS_NOTIFICATIONS` can be set) |
-| components?       | array of [components](/docs/components/reference#component-object)               | Message components                                                                                                                                                                                                     |
-| attachments? \*\* | array of partial [attachment](/docs/resources/message#attachment-object) objects | Attachment objects with filename and description                                                                                                                                                                       |
-| poll?             | [poll](/docs/resources/poll#poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                 |
+| Field             | Type                                                                             | Description                                                                                                                                                                                                                                                    |
+|-------------------|----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tts?              | boolean                                                                          | Whether the response is TTS                                                                                                                                                                                                                                    |
+| content?          | string                                                                           | Message content                                                                                                                                                                                                                                                |
+| embeds?           | array of [embeds](/docs/resources/message#embed-object)                          | Supports up to 10 embeds                                                                                                                                                                                                                                       |
+| allowed_mentions? | [allowed mentions](/docs/resources/message#allowed-mentions-object)              | [Allowed mentions](/docs/resources/message#allowed-mentions-object) object                                                                                                                                                                                     |
+| flags? \*         | integer                                                                          | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `EPHEMERAL`, `IS_COMPONENTS_V2`, `IS_VOICE_MESSAGE`, and `SUPPRESS_NOTIFICATIONS` can be set) |
+| components?       | array of [components](/docs/components/reference#component-object)               | Message components                                                                                                                                                                                                                                             |
+| attachments? \*\* | array of partial [attachment](/docs/resources/message#attachment-object) objects | Attachment objects with filename and description                                                                                                                                                                                                               |
+| poll?             | [poll](/docs/resources/poll#poll-create-request-object) request object           | Details about the poll                                                                                                                                                                                                                                         |
 
-\* If you create a callback with the [type](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` the only valid [message flag](/docs/resources/message#message-object-message-flags) you may use is `EPHEMERAL`. If you'd like to create a component based message with `IS_COMPONENTS_V2` you must do that with the [followup](/docs/interactions/receiving-and-responding#followup-messages) message, not this one.
+\* If you create a callback with the [type](/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE` the only valid [message flag](/docs/resources/message#message-object-message-flags) you may use is `EPHEMERAL`. If you'd like to create a component based message with `IS_COMPONENTS_V2` you must do that with the [edit original response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) endpoint, not this one.
 
 \*\* See [Uploading Files](/docs/reference#uploading-files) for details.
 
@@ -265,10 +288,6 @@ Not all message fields are currently supported.
 | choices | array of [choices](/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
 ###### Modal
-
-:::warn
-Support for components in modals is currently limited to type 4 (Text Input).
-:::
 
 | Field      | Type                                                               | Description                                                    |
 |------------|--------------------------------------------------------------------|----------------------------------------------------------------|
@@ -345,8 +364,8 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
 | type                        | integer   | [Interaction type](/docs/interactions/receiving-and-responding#interaction-object-interaction-type) |
 | activity_instance_id?       | string    | Instance ID of the Activity if one was launched or joined                                           |
 | response_message_id?        | snowflake | ID of the message that was created by the interaction                                               |
-| response_message_loading?   | boolean   | Whether or not the message is in a loading state                                                    |
-| response_message_ephemeral? | boolean   | Whether or not the response message was ephemeral                                                   |
+| response_message_loading?   | boolean   | Whether the message is in a loading state                                                           |
+| response_message_ephemeral? | boolean   | Whether the response message is ephemeral                                                           |
 
 ###### Interaction Callback Resource Object
 
@@ -369,7 +388,7 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
 
 ## Followup Messages
 
-Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
+Sometimes, you want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
 -   [`PATCH /webhooks/<application_id>/<interaction_token>/messages/@original`](/docs/interactions/receiving-and-responding#edit-original-interaction-response) to edit your initial response to an Interaction
 -   [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](/docs/interactions/receiving-and-responding#delete-original-interaction-response) to delete your initial response to an Interaction
@@ -426,7 +445,7 @@ Apps are limited to 5 followup messages per interaction if it was initiated from
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](/docs/resources/webhook#execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups. You can use the `EPHEMERAL` [message flag](/docs/resources/message#message-object-message-flags) `1 << 6` (64) to send a message that only the user can see. You can also use the `IS_COMPONENTS_V2` [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (32768) to send a [component](/docs/components/reference)-based message.
 
-When using this endpoint directly after responding to an interaction with `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`, this endpoint will function as [Edit Original Interaction Response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) for backwards compatibility. In this case, no new message will be created, and the loading message will be edited instead. The ephemeral flag will be ignored, and the value you provided in the initial defer response will be preserved, as an existing message's ephemeral state cannot be changed. This behavior is deprecated, and you should use the Edit Original Interaction Response endpoint in this case instead.
+When using this endpoint directly after responding to an interaction with `DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE`, this endpoint will function as [Edit Original Interaction Response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) for backwards compatibility. In this case, no new message will be created, and the loading message will be edited instead. The ephemeral flag will be ignored, and the value you provided in the initial defer response will be preserved, as an existing message's ephemeral state cannot be changed. This behavior is deprecated, and you should use the [Edit Original Interaction Response](/docs/interactions/receiving-and-responding#edit-original-interaction-response) endpoint in this case instead.
 
 ## Get Followup Message
 <Route method="GET">/webhooks/[\{application.id\}](/docs/resources/application#application-object)/[\{interaction.token\}](/docs/interactions/receiving-and-responding#interaction-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>

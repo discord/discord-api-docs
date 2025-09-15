@@ -259,27 +259,31 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure             | Example                         |
-|-------------------------|-----------------------|---------------------------------|
-| User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
-| User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
-| Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
-| Role                    | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
-| Slash Command \*\*      | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
-| Standard Emoji          | Unicode Characters    | 🦶                              |
-| Custom Emoji            | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
-| Custom Emoji (Animated) | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
-| Unix Timestamp          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
-| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
-| Guild Navigation        | `<id:TYPE>`           | `<id:customize>`                |
+| Type                           | Structure             | Example                         |
+|--------------------------------|-----------------------|---------------------------------|
+| User                           | `<@USER_ID>`          | `<@80351110224678912>`          |
+| User \*                        | `<@!USER_ID>`         | `<@!80351110224678912>`         |
+| Channel                        | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
+| Role                           | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
+| Slash Command \*\*             | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
+| Standard Emoji                 | Unicode Characters    | 🦶                              |
+| Custom Emoji                   | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
+| Custom Emoji (Animated)        | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
+| Unix Timestamp \*\*\*          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
+| Unix Timestamp (Styled) \*\*\* | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
+| Guild Navigation               | `<id:TYPE>`           | `<id:customize>`                |
+| Email \*\*\*\*                 | `<USERNAME@DOMAIN>`   | `<nelly@discord.com>`           |
+| Phone Number \*\*\*\*          | `<+PHONE_NUMBER>`     | `<+1 (555) 123 4567>`           |
 
-Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://github.com/jdecked/twemoji) for Desktop/Android and Apple's native emoji on iOS.
-
-Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
+Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the [`allowed_mentions`](/docs/resources/message#message-object) parameter (when creating a message). Standard emoji are currently rendered using [Twemoji](https://github.com/jdecked/twemoji) for Desktop/Android and Apple's native emoji on iOS.
 
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
 
 \*\* Subcommands and subcommand groups can also be mentioned by using respectively `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>`.
+
+\*\*\* Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
+
+\*\*\*\* Email and phone number markdown uses `mailto:` and `tel:` URI schemes respectively that can optionally be prefixed (e.g. `<mailto:nelly@discord.com>`). Email markdown supports headers, values must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) (e.g. `<nelly@discord.com?subject=Message%20Title&body=Message%20Content>`).
 
 ###### Timestamp Styles
 
@@ -293,7 +297,7 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 | F     | Tuesday, 20 April 2021 16:20 | Long Date/Time  |
 | R     | 2 months ago                 | Relative Time   |
 
-\*default
+\* Default style used when no style is specified.
 
 ###### Guild Navigation Types
 
@@ -353,6 +357,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Role Icon                   | role-icons/[role_id](/docs/topics/permissions#role-object)/[role_icon](/docs/topics/permissions#role-object).png                                                                                                                                                                                                                                                              | PNG, JPEG, WebP            |
 | Guild Scheduled Event Cover | guild-events/[scheduled_event_id](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)/[scheduled_event_cover_image](/docs/resources/guild-scheduled-event#guild-scheduled-event-object).png                                                                                                                                                                   | PNG, JPEG, WebP            |
 | Guild Member Banner         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/banners/[member_banner](/docs/resources/guild#guild-member-object).png \*                                                                                                                                                                                             | PNG, JPEG, WebP, GIF       |
+| Guild Tag Badge             | guild-tag-badges/[guild_id](/docs/resources/guild#guild-object)/[badge_hash](/docs/resources/user#user-object-user-primary-guild).png                                                                                                                                                                                                                                         | PNG, JPEG, WebP            |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. These images can also be retrieved as animated WebP using the `?animated=true` querystring parameter. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 

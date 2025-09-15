@@ -95,14 +95,14 @@ There are currently several caveats for this endpoint:
 ## Modify User Voice State
 <Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/voice-states/[\{user.id\}](/docs/resources/user#user-object)</Route>
 
-Updates another user's voice state. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
+Updates another user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](/docs/events/gateway-events#voice-state-update) Gateway event.
 
 ###### JSON Params
 
-| Field      | Type      | Description                                    |
-|------------|-----------|------------------------------------------------|
-| channel_id | snowflake | the id of the channel the user is currently in |
-| suppress?  | boolean   | toggles the user's suppress state              |
+| Field       | Type      | Description                                    |
+|-------------|-----------|------------------------------------------------|
+| channel_id? | snowflake | the id of the channel the user is currently in |
+| suppress?   | boolean   | toggles the user's suppress state              |
 
 ###### Caveats
 

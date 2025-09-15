@@ -17,6 +17,23 @@ By following this guide, you will learn how to:
 
 These design guidelines are intended to help you create a seamless and intuitive friends list that leverages Discord's social features to their fullest potential. Let's get started!
 
+---
+## Figma File - The Social SDK: Friend List Starter Pack
+
+We’ve created a Figma resource with a templated design-system of building out your game's friends list. Change
+various components to match your game’s visual-language, and see it update in realtime. We’ve also tossed in a
+few common use-cases, as well as an example of one of our partnered games, SUPERVIVE.
+
+We'd love your feedback! Join [Discord Developers Server](https://discord.gg/discord-developers) and create a post in
+the `#social-sdk-dev-help` channel if you would like to see more resources like this, or if you have suggestions
+for improvement.
+
+[![starter pack](images/social-sdk/design-guidelines/starter_pack.webp)](https://www.figma.com/community/file/1512487996808869592/the-social-sdk-friend-list-starter-pack)
+
+[See Figma Resource↗](https://www.figma.com/community/file/1512487996808869592/the-social-sdk-friend-list-starter-pack)
+
+---
+
 ## Sectioning
 
 Sections are ordered by descending availability to help users find friends they can play with.
@@ -25,15 +42,15 @@ The **Online — GameTitle** section shows friends who are online in the same ga
 
 The **Online — Elsewhere** section shows friends who are online but not in the same game. However, they can be messaged or invited to play the game.
 
-![Sectioning Friends List](images/social-sdk/design-guidelines/UFL-02.png)
+![Sectioning Friends List](images/social-sdk/design-guidelines/UFL-02.webp)
 
-## Discord = Communication 
+## Discord = Communication
 
 Show the Discord badge next to a player's name when they are **online elsewhere** and have **connected their Discord** account. Provisional accounts will not have a badge.
 
 The Discord logo represents **universal communication**. It aims to convey to users: “As a player, I know I can message or invite this friend to play a game anywhere Discord is present.” This means via phone, computer, and even console.
 
-![Discord logo represents universal communication](images/social-sdk/design-guidelines/UFL-03.png)
+![Discord logo represents universal communication](images/social-sdk/design-guidelines/UFL-03.webp)
 
 ## Identities
 
@@ -43,7 +60,7 @@ If the friend does not own the game, use their **Discord Display Name**.
 
 If the friend does not own the game nor have a linked Discord account, fall back to their **Provisional identity**.
 
-![Displaying different relationships](images/social-sdk/design-guidelines/UFL-04.png)
+![Displaying different relationships](images/social-sdk/design-guidelines/UFL-04.webp)
 
 ## Examples of friends lists
 
@@ -51,7 +68,7 @@ A player's **console ID** is effectively their **game ID**, as consoles require 
 
 The examples to the right show how the hierarchy translates to consoles.
 
-![Examples of friends lists](images/social-sdk/design-guidelines/UFL-05.png)
+![Examples of friends lists](images/social-sdk/design-guidelines/UFL-05.webp)
 
 ## How did we land here?
 
@@ -65,7 +82,11 @@ It's also **scalable** and **inclusive** of provisional accounts who do not have
 
 When referring to a player's Discord Identity, please use their **Discord Display Name**, and not their username.
 
-![Discord display names](images/social-sdk/design-guidelines/UFL-07.png)
+:::info
+See [How to Manage Special Characters in Discord Display Names](/docs/discord-social-sdk/how-to/handle-special-characters-display-names) for guidance on handling special characters in text chat and friend lists.
+:::
+
+![Discord display names](images/social-sdk/design-guidelines/UFL-07.webp)
 
 ## Scaling to Multiple Platforms
 
@@ -75,16 +96,18 @@ Prioritize player needs by elevating available players to the top of the friends
 
 Avoid friend-lists organized by company. This hierarchy dilutes the value-prop of putting online players first, in favor of platform delineation.
 
-![Scaling to Multiple Platforms](images/social-sdk/design-guidelines/UFL-08.png)
+![Scaling to Multiple Platforms](images/social-sdk/design-guidelines/UFL-08.webp)
 
 ---
 
-## Resources 
+## Resources
 
 - [Development Guide: Creating a Unified Friends List](/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list)
+- [Figma File - The Social SDK: Friend List Starter Pack ↗](https://www.figma.com/community/file/1512487996808869592/the-social-sdk-friend-list-starter-pack)
 
 ## Change Log
 
-| Date           | Changes         |
-|----------------|-----------------|
-| March 17, 2025 | initial release |
+| Date           | Changes                      |
+|----------------|------------------------------|
+| June 25, 2025  | Added Figma UFL starter pack |
+| March 17, 2025 | initial release              |

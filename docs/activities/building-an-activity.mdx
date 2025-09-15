@@ -16,7 +16,7 @@ It assumes an understanding of [JavaScript](https://developer.mozilla.org/en-US/
 
 <Collapsible title="What we'll be building" icon="view">
 
-![Building Your First Activity Tutorial](images/activities/tutorial-hero.png)
+![Building Your First Activity Tutorial](images/activities/tutorial-hero.webp)
 
 </Collapsible>
 
@@ -88,7 +88,7 @@ npm install
 npm run dev
 ```
 
-If you visit http://localhost:3000/ you should see a vanilla JS frontend template running with [Vite](https://vitejs.dev/).
+If you visit http://localhost:5173/ you should see a vanilla JS frontend template running with [Vite](https://vitejs.dev/).
 
 While it's not much at the moment, in the following steps we'll connect it to the backend services, make it runnable in Discord, and power it up by populating it with data we pull from Discord APIs.
 
@@ -107,7 +107,7 @@ By the end of Step 1, you should have:
 
 With our project set up, let's create our app and configure the Activity. Create a new app in the developer portal if you don't have one already:
 
-<LinkButton to="https://discord.com/developers/applications?new_application=true" color="brand">Create App</LinkButton>
+<LinkButton to="https://discord.com/developers/applications?new_application=true" color="brand" text="Create App" />
 
 Enter a name for your app, select a development team, then press **Create**.
 
@@ -145,7 +145,7 @@ You can learn more about the OAuth flow and redirect URIs in the [OAuth2 documen
 
 Click on **OAuth2** on the sidebar in your app's settings. Under **Redirects**, enter `https://127.0.0.1` as a placeholder value then click **Save Changes**.
 
-![Redirect URI in Activity Settings](images/activities/oauth2-redirect.png)
+![Redirect URI in Activity Settings](images/activities/oauth2-redirect.webp)
 
 ### Fetch Your OAuth2 Credentials
 
@@ -278,7 +278,7 @@ Your app should start and you should see output similar to the following:
 ```
 VITE v5.0.12  ready in 100 ms
 
-➜  Local:   http://localhost:3000/
+➜  Local:   http://localhost:5173/
 ➜  Network: use --host to expose
 ➜  press h + enter to show help
 ```
@@ -289,10 +289,10 @@ We'll use the Local URL as our publicly-accessible URL in the next step.
 
 Next, we'll need to set up the public endpoint that serves the Activity's frontend. To do that, we'll create a tunnel with a reverse proxy. While we'll be using [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) in this guide, you can use [ngrok](https://ngrok.com/docs) or another reverse proxy solution if you prefer.
 
-While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `3000`):
+While your app is still running, open another terminal window and start a network tunnel that listens to the port from the last step (in this case, port `5173`):
 
 ```
-cloudflared tunnel --url http://localhost:3000
+cloudflared tunnel --url http://localhost:5173
 ```
 
 When you run `cloudflared`, the tunnel will generate a public URL and you'll see output similar to the following:
@@ -310,7 +310,7 @@ Because Activities are in a sandbox enviornment and go through the Discord proxy
 
 Back in your app's settings, click on the **URL Mappings** page under **Activities** on the left-hand sidebar. Enter the URL you generated from `cloudflared` in the previous step.
 
-![Configuring your URL Mapping](images/activities/url-mapping-tutorial.png)
+![Configuring your URL Mapping](images/activities/url-mapping-tutorial.webp)
 
 | PREFIX | TARGET                                  |
 |--------|-----------------------------------------|
@@ -324,7 +324,7 @@ Next, we'll need to enable Activities for your app. On the left hand sidebar und
 
 Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
 
-![Enabling Activities in Settings](images/activities/enable-activities.png)
+![Enabling Activities in Settings](images/activities/enable-activities.webp)
 
 #### Default Entry Point Command
 
@@ -341,7 +341,7 @@ Navigate to your Discord test server and, in any voice and or text channel, open
 
 Clicking on your app will launch your locally running app from inside Discord!
 
-![Running your activity](images/activities/start-activity.png)
+![Running your activity](images/activities/start-activity.webp)
 
 :::info
 **Customizing your Activity**
@@ -457,10 +457,6 @@ We can now run our server and client-side apps in separate terminal windows. You
 
 Before we call your backend activity server, we need to be aware of the Discord proxy and understand how to avoid any Content Security Policy (CSP) issues.
 
-:::info
-For this tutorial, we are going to prefix the API call to `/api/token/` with `/.proxy`, but you can also use the SDK's `patchUrlMappings()` method to automatically prefix calls to your external resources for the proxy.
-:::
-
 Learn more about this topic in the guides for [Constructing a Full URL](/docs/activities/development-guides/networking#construct-a-full-url) and [Using External Resources](/docs/activities/development-guides/networking#using-external-resources).
 
 ### Calling your backend server from your client
@@ -513,10 +509,7 @@ async function setupDiscordSdk() {
   });
 
   // Retrieve an access_token from your activity's server
-  // Note: We need to prefix our backend `/api/token` route with `/.proxy` to stay compliant with the CSP.
-  // Read more about constructing a full URL and using external resources at
-  // https://discord.com/developers/docs/activities/development-guides/networking#construct-a-full-url
-  const response = await fetch("/.proxy/api/token", {
+  const response = await fetch("/api/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -548,7 +541,7 @@ document.querySelector('#app').innerHTML = `
 
 Now if we relaunch our app, we'll be prompted to authorize with Discord using the `identify`, `guilds`, and `applications.commands` scopes.
 
-![Prompt to authorize Activity](images/activities/tutorial-auth.png)
+![Prompt to authorize Activity](images/activities/tutorial-auth.webp)
 
 :::warn
 **Safe storage of tokens**
@@ -613,7 +606,7 @@ setupDiscordSdk().then(() => {
 
 If you close and rejoin the Activity, you should now see the name of the current channel.
 
-![Discord Activities](images/activities/tutorial-channel-name.png)
+![Discord Activities](images/activities/tutorial-channel-name.webp)
 
 <Collapsible title="Step 6 Checkpoint" icon="list" open>
 
@@ -687,7 +680,7 @@ setupDiscordSdk().then(() => {
 
 If we relaunch our Activity, we will see the current server's avatar render in our Activity.
 
-![Discord Activities](images/activities/tutorial-hero.png)
+![Discord Activities](images/activities/tutorial-hero.webp)
 
 <Collapsible title="Step 7 Checkpoint" icon="list" open>
 
