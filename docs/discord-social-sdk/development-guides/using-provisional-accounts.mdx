@@ -72,9 +72,9 @@ For existing Discord users who have added a provisional account as a game friend
 
 Discord offers a number of authentication methods, the one you use depends on how you game and account system is set up:
 
-1. Use the [Bot Token Endpoint](/docs/discord-social-sdk/development-guides/using-provisional-accounts#bot-token-endpoint#) if your game has an account system which uniquely identifies users. This is the recommended approach when possible.
-2. Use the [External Credentials Exchange Endpoint](/docs/discord-social-sdk/development-guides/using-provisional-accounts#external-credentials-exchange-endpoint) if you have an existing OIDC provider, or do not have an account system.
-3. Use the [Client Side Token Exchange Method](/docs/discord-social-sdk/development-guides/using-provisional-accounts#provisional-account-authentication-for-public-clients) if you are using a Public Client.
+1. Use the [Bot Token Endpoint](/docs/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-bot-token-endpoint) if your game has an account system which uniquely identifies users. This is the recommended approach when possible.
+2. Use the [Server Authentication with External Credentials Exchange](/docs/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-external-credentials-exchange) if you have an existing OIDC provider, or do not have an account system.
+3. Use the [Client Side Token Exchange Method](/docs/discord-social-sdk/development-guides/using-provisional-accounts#authentication-for-public-clients) if you are using a Public Client.
 
 If you are using (2) or (3), you must configure you identity provider before being able to create provisional accounts.
 
@@ -122,12 +122,12 @@ You provide external authentication and uniquely identifies the user, and Discor
 
 Once authentication is complete, you can use the access token as you would a full Discord user's access token.
 
+### Server Authentication with Bot Token Endpoint
 
-### Provisional Account Authentication for Servers
+:::info
+This is the preferred method of authentication. It ends up being the simplest choice for most provisional account integrations.
+:::
 
-If you are not using the [`Client::GetProvisionalToken`] method, you'll need to make a request to the Discord API provisional account token endpoint.
-
-#### Bot Token Endpoint
 ```python
 # filepath: your_game/server/auth.py
 import requests
@@ -142,6 +142,7 @@ def get_provisional_token(game_account: GameAccount):
     }
   )
   return response.json()
+```
 
 #### Bot Token Endpoint Response
 
@@ -155,7 +156,7 @@ def get_provisional_token(game_account: GameAccount):
 }
 ```
 
-#### External Credentials Exchange Endpoint
+### Server Authentication with External Credentials Exchange
 ```python
 # filepath: your_game/server/auth.py
 import requests
@@ -186,7 +187,7 @@ def get_provisional_token(external_token: str):
 }
 ```
 
-### Provisional Account Authentication for Public Clients
+### Authentication for Public Clients
 
 <PublicClient />
 
