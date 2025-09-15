@@ -297,7 +297,7 @@ When a player wants to convert their provisional account to a full Discord accou
 
 ### Merging Provisional Accounts for Servers
 
-Merging is as simple as including `external_auth_type` and `external_auth_token` in a request to `/oauth2/token`. Discord will look up the Provisional User associated with the provided identity and attempt to merge it in to the full Discord account that generated the provided `code`.
+To merge provisional accounts, include `external_auth_type` and `external_auth_token` values with a request to `/oauth2/token`. Discord will look up the Provisional User associated with the provided identity and attempt to merge it in to the full Discord account that generated the provided `code`.
 
 #### Desktop & Mobile
 
@@ -368,7 +368,7 @@ def exchange_device_code_with_merge(device_code):
 
 If you do not have a backend, leverage the [`Client::GetTokenFromProvisionalMerge`] (Desktop & Mobile) or [`Client::GetTokenFromDeviceProvisionalMerge`] (Console) method, which will handle the entire process for you. You'll want to first enable Public Client on your Discord application's OAuth2 tab on the Discord developer portal. You can then leverage the [`Client::GetTokenFromProvisionalMerge`] or [`Client::GetTokenFromDeviceProvisionalMerge`] method using just the client.
 
-This function should be used with the Client::Authorize function whenever a user with a provisional account wants to link to an existing Discord account or "upgrade" their provisional account into a "full" Discord account.
+This function should be used with the [`Client::Authorize`] function whenever a user with a provisional account wants to link to an existing Discord account or "upgrade" their provisional account into a "full" Discord account.
 
 In this case, data from the provisional account should be "migrated" to the Discord account, a process we call "account merging". Specifically, relationships, DMs, and lobby memberships are transferred to the Discord account.
 
