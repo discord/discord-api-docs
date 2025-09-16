@@ -55,6 +55,7 @@ The following is a complete table of available components. Details about each co
 | 14   | [Separator](/docs/components/reference#separator)                   | Component to add vertical padding between other components     | Layout      | Message        |
 | 17   | [Container](/docs/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
 | 18   | [Label](/docs/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
+| 19   | [File Upload](/docs/components/reference#file-upload)               | Component for uploading files                                  | Interactive | Modal          |
 
 --------------
 ## Anatomy of a Component
@@ -1998,6 +1999,7 @@ The `description` may display above or below the `component` depending on the pl
 | [Role Select](/docs/components/reference#role-select)               |
 | [Mentionable Select](/docs/components/reference#mentionable-select) |
 | [Channel Select](/docs/components/reference#channel-select)         |
+| [File Upload](/docs/components/reference#file-upload)               |
 
 ###### Label Interaction Response Structure
 
@@ -2017,6 +2019,7 @@ The `description` may display above or below the `component` depending on the pl
 | [Role Select](/docs/components/reference#role-select-role-select-interaction-response-structure)                      |
 | [Mentionable Select](/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
 | [Channel Select](/docs/components/reference#channel-select-channel-select-interaction-response-structure)             |
+| [File Upload](/docs/components/reference#file-upload-file-upload-interaction-response-structure)                      |
 
 ###### Examples
 
@@ -2053,7 +2056,117 @@ The `description` may display above or below the `component` depending on the pl
   ```
 </Collapsible>
 
---------------------------------
+--------------
+## File Upload
+
+A File Upload is an interactive component that allows users to upload files in modals.
+
+File Uploads can be configured for both single-file and multi-file uploads.
+
+File Uploads are available om modals. They must be placed inside a [Label](/docs/components/reference#label).
+
+###### File Upload Structure
+
+| Field           | Type                                                                                                    | Description                                                                                                                                              |
+|-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type            | integer                                                                                                 | `19` for file upload                                                                                                                                     |
+| id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
+| custom_id       | string                                                                                                  | ID for the file upload; max 100 characters                                                                                                               |
+| min_values?     | integer                                                                                                 | Minimum number of items that must be uploaded (defaults to 1); min 0, max ??                                                                             |
+| max_values?     | integer                                                                                                 | Maximum number of items that can be uploaded (defaults to 1); max ??                                                                                     |
+| required?       | boolean                                                                                                 | Whether the file upload is required to be used in a modal (defaults to `true`)                                                                           |
+
+###### File Upload Interaction Response Structure
+
+| Field            | Type                                                                                                    | Description                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| type             | integer                                                                                                 | `19` for a File Upload                                         |
+| id               | integer                                                                                                 | Unique identifier for the component                            |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from uploaded files                          |
+| values           | array of snowflakes                                                                                     | IDs of the uploaded files                                      |
+
+###### Examples
+
+<Collapsible title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a File Upload](images/components/modal-file-upload.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "pet_pictures_modal",
+      "title": "Pet Pictures",
+      "components": [
+        {
+          "type": 18, // ComponentType.LABEL
+          "label": "Send me some pictures of your pet!",
+          "component": {
+            "type": 19, // ComponentType.FILE_UPLOAD
+            "custom_id": "file_upload",
+            "min_values": 1,
+            "max_values": 5,
+            "required": true
+          }
+        }
+      ]
+    }
+  }
+  ```
+</Collapsible>
+
+<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a File Upload" icon="code">
+
+  When a user submits a modal that contains a File Upload, this is the basic form of the interaction data payload you will receive. The full payload
+  is available in the [interaction](/docs/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+  ```json
+  {
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+    "data": {
+      "custom_id": "pet_pictures_modal",
+      "components": [
+        {
+          "component": {
+            "custom_id": "file_upload",
+            "id": 2,
+            "type": 19,
+            "values": [
+              "11111111111111111"
+            ]
+          },
+          "id": 1,
+          "type": 18
+        }
+      ],
+      "resolved": {
+        "attachments": {
+          "11111111111111111": {
+            "filename": "image.png",
+            "title": null,
+            "description": null,
+            "content_type": "image/png",
+            "size": 12345,
+            "url": "https://cdn.discordapp.com/attachments/11111111111111111/22222222222222222/image.png",
+            "proxy_url": "https://media.discordapp.net/attachments/11111111111111111/22222222222222222/image.png",
+            "height": 512,
+            "width": 512,
+            "ephemeral": false,
+            "flags": 0
+          }
+        }
+      }
+    }
+  }
+  ```
+</Collapsible>
+
+----------------------
 ## Unfurled Media Item
 
 An Unfurled Media Item is a piece of media, represented by a URL, that is used within a component. It can be
