@@ -236,24 +236,24 @@ It is suggested that these provisional tokens are not stored and instead invoke 
 
 Common error codes and solutions for the server token exchange methods:
 
-| Code   | Meaning                           | Solution                                                                    |
-|--------|-----------------------------------|-----------------------------------------------------------------------------|
-| 530000 | Application not configured        | Contact Discord support to enable provisional accounts for your application |
-| 530001 | Expired ID token                  | Request a new token from your identity provider                             |
-| 530004 | Token too old                     | Request a new token (tokens over 1 week old are rejected)                   |
-| 530006 | Username generation failed        | Retry the operation (temporary error)                                       |
-| 530007 | Invalid client secret             | Verify or regenerate your client secret in the Developer Portal             |
-| 530010 | User account non-provisional      | User already linked to Discord account - use standard OAuth2 flow           |
+| Code   | Meaning                      | Solution                                                                    |
+|--------|------------------------------|-----------------------------------------------------------------------------|
+| 530000 | Application not configured   | Contact Discord support to enable provisional accounts for your application |
+| 530001 | Expired ID token             | Request a new token from your identity provider                             |
+| 530004 | Token too old                | Request a new token (tokens over 1 week old are rejected)                   |
+| 530006 | Username generation failed   | Retry the operation (temporary error)                                       |
+| 530007 | Invalid client secret        | Verify or regenerate your client secret in the Developer Portal             |
+| 530010 | User account non-provisional | User already linked to Discord account - use standard OAuth2 flow           |
 
 If you are using OIDC, you may encounter more specific errors:
 
-| Code   | Meaning                           | Solution                                                                    |
-|--------|-----------------------------------|-----------------------------------------------------------------------------|
-| 530002 | Invalid issuer                    | Verify the issuer in your ID token matches your configuration               |
-| 530003 | Invalid audience                  | Check that the audience in your ID token matches your OIDC configuration    |
-| 530008 | OIDC configuration not found      | Verify your OIDC issuer URL is configured and accessible                    |
-| 530009 | OIDC JWKS not found               | Check that your OIDC provider's JWKS endpoint is accessible                 |
-| 530020 | Invalid OIDC JWT token            | Ensure your OIDC ID token is properly signed and formatted                  |
+| Code   | Meaning                      | Solution                                                                 |
+|--------|------------------------------|--------------------------------------------------------------------------|
+| 530002 | Invalid issuer               | Verify the issuer in your ID token matches your configuration            |
+| 530003 | Invalid audience             | Check that the audience in your ID token matches your OIDC configuration |
+| 530008 | OIDC configuration not found | Verify your OIDC issuer URL is configured and accessible                 |
+| 530009 | OIDC JWKS not found          | Check that your OIDC provider's JWKS endpoint is accessible              |
+| 530020 | Invalid OIDC JWT token       | Ensure your OIDC ID token is properly signed and formatted               |
 
  You can find you OIDC configuration by visiting the [Developer Portal](https://discord.com/developers/applications), selecting your application, and opening the `External Auth` page under the `Discord Social SDK` section in the sidebar.
 
@@ -434,13 +434,13 @@ This migration ensures users don't lose their social connections built while usi
 
 You may receive a merge specific error code while attempting this operation:
 
-| Code   | HTTP Status | Meaning                                    | Solution                                                                   |
-|--------|-------------|--------------------------------------------|--------------------------------------------------------------------------- |
-| 530014 | 400         | Invalid merge source                       | The source account is not provisional                                      |
-| 530016 | 400         | Invalid merge destination                  | The destination account is provisional                                     |
-| 530017 | 400         | Merge source user banned                   | The provisional account being merged is banned from platform               |
-| 530023 | 400         | Too many application identities            | User already has an associated external identity for this application      |
-| -      | 423         | Resource locked                            | Transient error, wait and retry                                            |
+| Code   | HTTP Status | Meaning                         | Solution                                                              |
+|--------|-------------|---------------------------------|-----------------------------------------------------------------------|
+| 530014 | 400         | Invalid merge source            | The source account is not provisional                                 |
+| 530016 | 400         | Invalid merge destination       | The destination account is provisional                                |
+| 530017 | 400         | Merge source user banned        | The provisional account being merged is banned from platform          |
+| 530023 | 400         | Too many application identities | User already has an associated external identity for this application |
+| -      | 423         | Resource locked                 | Transient error, wait and retry                                       |
 
 ---
 
