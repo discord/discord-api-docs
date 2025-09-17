@@ -136,6 +136,9 @@ from models import GameAccount
 def get_provisional_token(game_account: GameAccount):
   response = requests.post(
     'https://discord.com/api/v10/partner-sdk/token/bot',
+    headers={
+      'Authorization': 'Bot <BOT_TOKEN>' # your application's bot token
+    },
     json={
       'external_user_id': game_account.id,       # your account system's unique id
       'preferred_global_name': game_account.display_name, # your account system's display name for the user
