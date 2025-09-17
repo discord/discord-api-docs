@@ -137,6 +137,7 @@ def get_provisional_token(game_account: GameAccount):
   response = requests.post(
     'https://discord.com/api/v10/partner-sdk/token/bot',
     headers={
+      'Content-Type': 'application/json',
       'Authorization': 'Bot <BOT_TOKEN>' # your application's bot token
     },
     json={
