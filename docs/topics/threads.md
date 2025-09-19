@@ -28,7 +28,7 @@ The list of gateway events that may be dropped includes, but is not limited to:
 
 Threads share and repurpose a number of the existing fields from the [channel object](/docs/resources/channel#channel-object):
 
-- `id`, `guild_id`, `type`, `name`, `last_message_id`, `last_pin_timestamp`, `rate_limit_per_user` are being re-used
+- `id`, `guild_id`, `type`, `name`, `last_message_id`, `last_pin_timestamp`, `rate_limit_per_user` and `flags` are being re-used
 - `owner_id` has been repurposed to store the id of the user that started the thread
 - `parent_id` has been repurposed to store the id of the `GUILD_TEXT` or `GUILD_ANNOUNCEMENT` channel the thread was created in
 
