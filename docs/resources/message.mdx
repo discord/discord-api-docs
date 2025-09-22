@@ -946,7 +946,7 @@ All parameters to this endpoint are optional and nullable.
 | payload_json     | string                                                                    | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/reference#uploading-files)             |
 | attachments      | array of [attachment](/docs/resources/message#attachment-object) objects  | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/reference#uploading-files)              |
 
-\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, `files[n]` or `poll` values in the initial message must be set to `null` first, otherwise it will fail with a 400 BAD REQUEST response.
+\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, or `poll` fields must have their values reset to empty. For `content` and `poll` this is `null`. For `embeds` and `sticker_ids` this is `[]`. Failing to do this will result in a 400 BAD REQUEST response.
 
 ## Delete Message
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
