@@ -1,0 +1,84 @@
+---
+title: Using Modal Components
+sidebarTitle: Using Modal Components
+mode: wide
+description: Guide to creating and displaying modal dialogs with text input fields.
+---
+
+## Overview
+
+Modal components are a great way to collect freeform information from your users. 
+
+### Prerequisites
+
+- You must have a Discord account and be a member of the Discord Developer Portal.
+- You must have a Discord application created in the Discord Developer Portal.
+
+---
+
+## Displaying a Modal
+
+Displaying a modal can be done in response to an [interaction](/developers/docs/interactions/receiving-and-responding). When displaying a modal you'll use an [interaction response](/developers/docs/interactions/receiving-and-responding#interaction-response-object) with the [`MODAL`](/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type) interaction callback type and [modal fields](/developers/docs/interactions/receiving-and-responding#interaction-response-object-modal).
+
+An example of a modal with a [String Select](/developers/docs/components/reference#string-select) and [Text Input](/developers/docs/components/reference#text-input) both wrapped in [Labels](/developers/docs/components/reference#label):
+
+```json
+{
+  "type": 9,
+  "data": {
+    "custom_id": "bug_modal",
+    "title": "Bug Report",
+    "components": [
+      {
+        "type": 18,
+        "label": "What's your favorite bug?",
+        "component": {
+          "type": 3,
+          "custom_id": "bug_string_select",
+          "placeholder": "Choose...",
+          "options": [
+            {
+              "label": "Ant",
+              "value": "ant",
+              "description": "(best option)",
+              "emoji": {
+                "name": "🐜"
+              }
+            },
+            {
+              "label": "Butterfly",
+              "value": "butterfly",
+              "emoji": {
+                "name": "🦋"
+              }
+            },
+            {
+              "label": "Caterpillar",
+              "value": "caterpillar",
+              "emoji": {
+                "name": "🐛"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": 18,
+        "label": "Why is it your favorite?",
+        "description": "Please provide as much detail as possible!",
+        "component": {
+          "type": 4,
+          "custom_id": "bug_explanation",
+          "style": 2,
+          "min_length": 1000,
+          "max_length": 4000,
+          "placeholder": "Write your explanation here...",
+          "required": true
+        }
+      }
+    ]
+  }
+}
+```
+
+![Example of a modal with a String Select and a Text Input both wrapped in Labels](/images/components/modal.png)

@@ -1,0 +1,464 @@
+/*
+Below are tweaks to Mintlify theme CSS.
+ */
+
+ /*
+Mintlify's way of setting background color can
+cause black flashes at bottom of page
+ */
+body {
+    background-color: #ffffff;
+}
+body:is(.dark *) {
+    background-color: #36373e;
+}
+
+/* Allow the content to stretch as wide as the page body */
+#content-container {
+    max-width: unset;
+}
+
+/* Set page width of navigation items */
+.max-w-8xl,
+/* Set page width of content */
+.peer.is-not-center~.peer-\[\.is-not-center\]\:max-w-8xl {
+    max-width: 110rem;
+}
+
+/*
+Make HRs thicker
+*/
+hr {
+    border: none;
+    margin: 48px 0;
+    height: 1px;
+    background-color: #e6e6e7;
+}
+
+hr:is(.dark *) {
+    background-color: #606169;
+}
+/*
+.prose is the container for the main markdown content
+ */
+.prose,.prose-sm {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    /* Turn all text white */
+    p :is(.dark *) {
+            color: white;
+    }
+
+    /*
+    Ensure code tags don't wrap when inline in text
+    */
+    code {
+        white-space: pre;
+        overflow-x: auto;
+        overflow-y: hidden;
+        line-height: 1.1rem;
+    }
+
+    code span {
+        font-size: 0.85rem;
+        line-height: 1rem;
+    }
+
+    .code-block {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* .accordion {
+        border-radius: var(--radius-sm);
+
+        summary {
+            border-radius: calc(var(--radius-sm) -1px) var(--radius-sm) 0 0;
+        }
+    } */
+
+    /*
+    Ensure lists have reasonable padding
+     */
+    li {
+        margin: 0px;
+    }
+    /*
+    Make title bold
+     */
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: bold;
+
+        /* Hide link icon for anchors on hover */
+        .absolute {
+            display: none;
+        }
+    }
+    
+    /*
+    Make bold, strong tags bold
+     */
+    b, strong {
+        font-weight: 800;
+    }
+
+    [data-component-part=update-label] {
+        font-size: 1rem;
+    }
+    /*
+    Make changelog tags resemble tags
+    */
+    [data-component-part=update-tag] {
+        opacity: 0.7;
+        padding: 0.1rem 0.3rem;
+        display: inline-block;
+        font-size: 0.8rem;
+        border: 1px solid #e6e6e7;
+    }
+    [data-component-part=update-tag]:is(.dark *) {
+        opacity: 0.5;
+        border-color: white;
+    }
+}
+
+/*
+This pushes all shades of gray to a full white,
+which is more similar to legacy docs.
+
+However it may add some visual clutter.
+ */
+.text-gray-200:is(.light *),
+.text-gray-400:is(.light *),
+.text-gray-500:is(.light *),
+.text-gray-600:is(.light *),
+.text-gray-800:is(.light *) {
+    color: black;
+    --tw-text-opacity: 1;
+}
+
+.dark\:text-gray-200:is(.dark *),
+.dark\:text-gray-400:is(.dark *),
+.dark\:text-gray-500:is(.dark *),
+.dark\:text-gray-600:is(.dark *),
+.dark\:text-gray-800:is(.dark *) {
+    color: white;
+}
+
+/*
+Remove eyebrow / breadcrumbs
+ */
+.eyebrow {
+    display: none;
+}
+
+/*
+Style left-hand navigation headers
+ */
+#sidebar-title {
+    font-family: "gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.3333333333333333;
+    font-weight: 600;
+}
+
+/*
+Indent left-hand navigation areas
+ */
+#sidebar-group {
+    margin-left: 1rem;
+
+    li > a, [data-group-tag] > div {
+        padding: 0.1rem;
+        padding-right: 0.5rem;
+        border-radius: var(--radius-sm);
+    }
+    
+}
+
+/*
+Reduce spacing between left-hand categories
+ */
+#navigation-items > div:not(:first-of-type) {
+    margin-top: 1rem;
+}
+
+
+.dark\:text-primary-light:is(.dark *) {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Inline code blocks */
+:not(pre)>code:is(.dark *) {
+    background-color: #232428;
+    color: white;
+}
+
+/*
+Darken table of contents (right hand) items
+ */
+.toc-item a {
+    opacity: 0.7;
+    border-width: 0px;
+}
+
+/*
+Lighten table of contents selected item
+ */
+.toc-item a.dark\:text-primary-light:is(.dark *) {
+    opacity: 1;
+    color: white;
+}
+
+/*
+Hide table of contents items below top depth in tree
+ */
+.toc-item:not([data-depth="0"]) {
+    text-decoration: underline;
+    display: none;
+}
+
+/*
+Tighten spacing between table of contents items
+ */
+.toc-item a {
+    padding: 0px;
+}
+
+/*
+Style anchor tags as blue without underline
+ */
+.prose a:is(.dark *):not(.card), .prose a:is(.dark *) code{
+    color: #7aaef3;
+    text-decoration: none;
+    border-bottom: 0px;
+}
+
+.callout {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+}
+
+.callout code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Expand tables horizontally */
+.prose table {
+    display: table;
+    /* Uncomment this and the th,td,tr below to wrap tables */
+    table-layout: fixed;
+}
+
+th, td, tr {
+    word-wrap: break-word;
+}
+
+td {
+    overflow: hidden;
+}
+
+td code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/*
+Set table header styles
+ */
+table > thead > tr > th {
+    font-family: "gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.3333333333333333;
+    font-weight: 800 !important;
+    text-align: left;
+}
+
+/*
+Add padding to table cells
+ */
+.prose th, .prose td {
+    padding: 0.5rem;
+    padding-inline: 0.5rem;
+}
+
+/*
+Set default table row color
+ */
+
+tr:is(.dark *) {
+    background-color: #323338;
+    border-bottom: 2px solid #161718;
+}
+
+/*
+Alternate table row colors with darker color
+ */
+tr:nth-child(even) {
+    background-color: #ebedef;
+}
+tr:nth-child(even):is(.dark *) {
+    background-color: #232428;
+}
+
+.dark\:bg-zinc-500\/10:is(.dark *) {
+    background-color: #353c4b;
+    border-color: #05aafc;
+}
+
+/*
+Hide bottom of page pagination
+ */
+#pagination {
+    display: none;
+}
+
+/*
+On change log only, we remove some HR spacing
+*/
+[data-page-title="Change Log"] {
+    hr {
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+/*
+Shrink and lighten accordian description
+ */
+[data-component-part=accordion-description] {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+
+/*
+    Move content up to cover eyebrow / breadcrumb space, but only when wide (see media queries below)
+*/
+#content-container > div:first-of-type {
+    padding-top: 8rem;
+}
+
+/*
+Very slightly shrink left hand nav
+*/
+#sidebar {
+    width: 17rem;
+}
+
+/*
+Hide breadcrumbs when there is only one item 
+*/
+header > div > .flex-row > div {
+    display: none;
+}   
+
+@media (min-width: 1024px) {
+    /* Middle breakpoint */
+    /*
+        Show breadcrumbs when the page is wide and there are multiple items 
+    */
+    header > div > .flex-row > div:not(:only-child) {
+        display: flex;
+    }   
+
+    /* Content mostly at top when not mobile */
+    #content-container > div:first-of-type {
+        padding-top: 1.5rem;
+    }
+
+    #content-container #content-side-layout {
+        padding-top: 0rem;
+    }
+
+    /* Widen main content on left and right */
+    #content-area:not(:has(div div.not-found-container)) {
+        margin-left: -5rem;
+        margin-right: 1rem;
+    }
+    /*
+    Hide TOC when only one category
+    */
+    #sidebar:has(#navigation-items > ul:only-child) {
+        display: none;
+    
+        + #content-container:has([data-page-title="Change Log"]) {
+            margin-left: -17rem;
+        }
+    }
+}
+
+@media (min-width: 1280px) {
+    /* Wide breakpoint */
+
+    /* Remove gap between main content and right TOC */
+    .gap-12 {
+        gap: 0rem;
+    }
+
+    /*
+    Move TOC up to cover eyebrow / breadcrumb space
+    */
+    #table-of-contents {
+        padding-top: 1.5rem;
+    }
+}
+
+/* Fix LEGACY tag in nav */
+.dark .nav-tag-pill {
+    background-color: black;
+}
+
+.nav-tag-pill {
+    padding: 0.1rem 0.2rem;
+    border-radius: var(--radius-sm);
+}
+
+.mdx-content {
+    margin-top: 1rem;
+}
+
+/* Set sidebar icon color */
+[data-title="Developer Terms of Service"] svg, [data-title="Developer Policy"] svg {
+    display: none;
+}
+[data-title] > a > svg:first-child:is(.dark *) {
+    display: block;
+    background-color: white;
+}
+
+/* Add some spacing to icons on cards and set a suble background color */
+[data-component-part=card-icon] {
+    width: 54px;
+    height: 54px;
+    padding: 15px;
+    margin-right: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    align-self: start;
+    margin-top: 0.5rem;
+}
+
+[data-component-part=card-icon]:is(.light *) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Light mode overrides */
+html[style*="color-scheme: light"] {
+    .prose :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) {
+        border-bottom: none; 
+        color: rgb(var(--primary));
+    }
+
+    .prose code {
+        background-color: #f0f1f5;
+    }
+}
+
+.chat-assistant-floating-input {
+    display: none;
+}

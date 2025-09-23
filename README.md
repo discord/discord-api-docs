@@ -10,6 +10,26 @@ We welcome your contributions!
 -   Discussions: Discord API feature and improvement requests
 -   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md) for types of changes accepted and specific markdown syntax used in the documentation.
 
+### Local Preview
+
+Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+
+```
+npm i -g mintlify
+```
+
+Run the following command at the root of the docs to see your changes locally.
+
+```
+mintlify dev
+```
+
+You will need to add `/developers/docs/` to the preview URL to see the docs and your changes.
+
+```
+http://localhost:3000/developers/docs/
+```
+
 ## Need some help?
 
 Here are some Discord servers that can help you out with everything Discord API:

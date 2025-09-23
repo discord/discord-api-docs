@@ -1,0 +1,35 @@
+/*
+Imports Discord brand font
+ */
+
+ @font-face {
+    font-family: discord;
+    src: url('https://mintlify-assets.b-cdn.net/fonts/discord/discord.woff2');
+ }
+ @font-face {
+    font-family: "gg sans";
+    font-weight: 200;
+    src: url('https://mintlify-assets.b-cdn.net/fonts/discord/gg_200.woff2')
+ }
+
+ @font-face {
+    font-family: "gg sans";
+    font-weight: 400;
+    src: url('https://mintlify-assets.b-cdn.net/fonts/discord/gg_400.woff2');
+ }
+
+ @font-face {
+    font-family: "gg sans";
+    font-weight: 600;
+    src: url('https://mintlify-assets.b-cdn.net/fonts/discord/gg_600.woff2');
+ }
+
+@font-face {
+    font-family: "gg sans";
+    font-weight: 800;
+    src: url('https://mintlify-assets.b-cdn.net/fonts/discord/gg_800.woff2')
+}
+
+
+
+

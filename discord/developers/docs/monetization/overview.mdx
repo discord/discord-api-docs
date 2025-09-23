@@ -1,0 +1,52 @@
+---
+title: Monetizing Your Discord App
+sidebarTitle: Overview
+description: Learn how to add premium features to your Discord app with subscriptions and purchases.
+---
+
+![Monetizing Your Discord App](/images/monetization/overview.png)
+
+### Offer native payment and checkout in your app using our Monetization APIs.
+
+Premium Apps lets you prompt customers to start subscriptions or purchase one-time items with our easy-to-use checkout and payment process. Discord notifies your app of the user's purchase, allowing you to grant access to your premium features.
+
+- Sell monthly recurring [subscriptions](/developers/docs/monetization/implementing-app-subscriptions) for your app's premium functionality within Discord
+- Sell [one-time purchases](/developers/docs/monetization/implementing-one-time-purchases) for both durable and consumable items or functionality within your app
+- Highlight your app's premium benefits on the App Directory and on your own [Store](/developers/docs/monetization/managing-skus#viewing-your-store-page) page
+- Offer native product tie-ins and upsells on the App Directory, app profiles, and in-chat
+- With secure transactions & fraud detection, your customers can securely pay for purchases without leaving Discord
+
+---
+
+## Components of a Premium App
+
+To integrate a premium feature into your application, there are three primary components of our Monetization API:
+
+- [SKUs](/developers/docs/resources/sku) represent specific items or subscription options your app offers. Each SKU is a unique offering.
+- [Entitlements](/developers/docs/resources/entitlement) indicate whether a user has access to a specific premium offering or SKU.
+- [Subscriptions](/developers/docs/resources/subscription) represent an ongoing agreement where a user commits to paying for an entitlement on a recurring basis until canceled.
+
+### Types of SKUs
+
+There are two types of SKUs that you can create for your app:
+
+#### One-Time Purchase SKUs
+
+A one-time purchase SKU represents a single item or feature that a user can purchase once. Developers can offer two types of one-time purchases:
+- Durable items: Items that a user can purchase once and keep forever. For example, a user might purchase a "premium" upgrade that unlocks premium features in an app.
+- Consumable items: Items that a user can purchase once and use up. For example, a user might purchase a "boost" item that gives them a temporary boost in an app.
+
+#### Subscription SKUs
+
+A subscription SKU represents a recurring purchase that a user can subscribe to for a set period of time. Developers can offer two types of subscriptions:
+
+- User subscriptions: A user subscribes to a SKU for themselves. In this case, only the purchasing user is considered entitled to the SKU.
+- Guild subscriptions: A user subscribes to a SKU for their guild. All members of that guild are considered entitled to the SKU.
+
+---
+
+## Next Steps
+
+Ready to start monetizing your app?
+
+Follow our full guide for [Enabling Monetization](/developers/docs/monetization/enabling-monetization) and implementing premium features in your app.

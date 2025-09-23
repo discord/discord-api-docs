@@ -92,10 +92,9 @@ const generateMapping = async () => {
   const outputJsonPath = resolvePath(OUTPUT_JSON, true);
   await fs.promises.writeFile(outputJsonPath, JSON.stringify(mapping, null, 2));
 
-  // eslint-disable-next-line no-undef
   console.log(`JSON mapping saved to ${outputJsonPath}`);
 };
 
 // Run the script
-// eslint-disable-next-line no-undef
+
 generateMapping().catch(console.error);

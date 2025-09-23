@@ -1,0 +1,350 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Documentation - Discord",
+  "colors": {
+    "primary": "#5865F2",
+    "light": "#5865F2",
+    "dark": "#5865F2"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "styling": {
+    "codeblocks": "system",
+    "eyebrows": "breadcrumbs"
+  },
+  "favicon": "/favicon.png",
+  "fonts": {
+    "body": {
+      "family": "gg sans",
+      "weight": 400,
+      "format": "woff2"
+    },
+    "heading": {
+      "family": "gg sans",
+      "weight": 600,
+      "format": "woff2"
+    }
+  },
+  "errors": {
+    "404": {
+      "redirect": false
+    }
+  },
+  "interaction": {
+    "drilldown": false
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity"
+    ]
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Home",
+            "pages": [
+              "developers/docs/intro",
+              "developers/docs/reference"
+            ]
+          },
+          {
+            "group": "Quick Start",
+            "pages": [
+              "developers/docs/quick-start/overview-of-apps",
+              "developers/docs/quick-start/getting-started"
+            ]
+          },
+          {
+            "group": "Interactions",
+            "pages": [
+              "developers/docs/interactions/overview",
+              "developers/docs/interactions/receiving-and-responding",
+              "developers/docs/interactions/application-commands"
+            ]
+          },
+          {
+            "group": "Components",
+            "pages": [
+              "developers/docs/components/overview",
+              "developers/docs/components/using-message-components",
+              "developers/docs/components/using-modal-components",
+              "developers/docs/components/reference"
+            ]
+          },
+          {
+            "group": "Activities",
+            "pages": [
+              "developers/docs/activities/overview",
+              "developers/docs/activities/how-activities-work",
+              "developers/docs/activities/building-an-activity",
+              {
+                "group": "Development Guides",
+                "pages": [
+                  "developers/docs/activities/development-guides",
+                  "developers/docs/activities/development-guides/local-development",
+                  "developers/docs/activities/development-guides/user-actions",
+                  "developers/docs/activities/development-guides/mobile",
+                  "developers/docs/activities/development-guides/layout",
+                  "developers/docs/activities/development-guides/networking",
+                  "developers/docs/activities/development-guides/multiplayer-experience",
+                  "developers/docs/activities/development-guides/growth-and-referrals",
+                  "developers/docs/activities/development-guides/assets-and-metadata",
+                  "developers/docs/activities/development-guides/production-readiness"
+                ]
+              },
+              "developers/docs/activities/design-patterns"
+            ]
+          },
+          {
+            "group": "Discord Social SDK",
+            "pages": [
+              "developers/docs/discord-social-sdk/overview",
+              {
+                "group": "Core Concepts",
+                "pages": [
+                  "developers/docs/discord-social-sdk/core-concepts",
+                  "developers/docs/discord-social-sdk/core-concepts/core-features",
+                  "developers/docs/discord-social-sdk/core-concepts/communication-features",
+                  "developers/docs/discord-social-sdk/core-concepts/integration-overview",
+                  "developers/docs/discord-social-sdk/core-concepts/platform-compatibility",
+                  "developers/docs/discord-social-sdk/core-concepts/oauth2-scopes"
+                ]
+              },
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "developers/docs/discord-social-sdk/getting-started",
+                  "developers/docs/discord-social-sdk/getting-started/using-c++",
+                  "developers/docs/discord-social-sdk/getting-started/using-unity",
+                  "developers/docs/discord-social-sdk/getting-started/using-unreal-engine"
+                ]
+              },
+              {
+                "group": "Development Guides",
+                "pages": [
+                  "developers/docs/discord-social-sdk/development-guides",
+                  "developers/docs/discord-social-sdk/development-guides/account-linking-with-discord",
+                  "developers/docs/discord-social-sdk/development-guides/account-linking-on-consoles",
+                  "developers/docs/discord-social-sdk/development-guides/using-provisional-accounts",
+                  "developers/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list",
+                  "developers/docs/discord-social-sdk/development-guides/managing-relationships",
+                  "developers/docs/discord-social-sdk/development-guides/setting-rich-presence",
+                  "developers/docs/discord-social-sdk/development-guides/managing-game-invites",
+                  "developers/docs/discord-social-sdk/development-guides/sending-direct-messages",
+                  "developers/docs/discord-social-sdk/development-guides/managing-lobbies",
+                  "developers/docs/discord-social-sdk/development-guides/linked-channels",
+                  "developers/docs/discord-social-sdk/development-guides/managing-voice-chat"
+                ]
+              },
+              {
+                "group": "Design Guidelines",
+                "pages": [
+                  "developers/docs/discord-social-sdk/design-guidelines",
+                  "developers/docs/discord-social-sdk/design-guidelines/principles",
+                  "developers/docs/discord-social-sdk/design-guidelines/signing-in",
+                  "developers/docs/discord-social-sdk/design-guidelines/connection-points",
+                  "developers/docs/discord-social-sdk/design-guidelines/branding-guidelines",
+                  "developers/docs/discord-social-sdk/design-guidelines/unified-friends-list",
+                  "developers/docs/discord-social-sdk/design-guidelines/direct-messages",
+                  "developers/docs/discord-social-sdk/design-guidelines/chat-history",
+                  "developers/docs/discord-social-sdk/design-guidelines/social-settings",
+                  "developers/docs/discord-social-sdk/design-guidelines/provisional-accounts",
+                  "developers/docs/discord-social-sdk/design-guidelines/status-rich-presence",
+                  "developers/docs/discord-social-sdk/design-guidelines/consoles",
+                  "developers/docs/discord-social-sdk/design-guidelines/game-friends",
+                  "developers/docs/discord-social-sdk/design-guidelines/linked-channels"
+                ]
+              },
+              {
+                "group": "How To",
+                "pages": [
+                  "developers/docs/discord-social-sdk/how-to",
+                  "developers/docs/discord-social-sdk/how-to/debug-log",
+                  "developers/docs/discord-social-sdk/how-to/use-with-discord-apis",
+                  "developers/docs/discord-social-sdk/how-to/integrate-moderation",
+                  "developers/docs/discord-social-sdk/how-to/market-your-integration",
+                  "developers/docs/discord-social-sdk/how-to/handle-special-characters-display-names"
+                ]
+              },
+              "developers/docs/discord-social-sdk/social-sdk-reference"
+            ]
+          },
+          {
+            "group": "Rich Presence",
+            "pages": [
+              "developers/docs/rich-presence/overview",
+              "developers/docs/rich-presence/using-with-the-embedded-app-sdk",
+              "developers/docs/rich-presence/using-with-the-discord-social-sdk",
+              "developers/docs/rich-presence/using-with-the-game-sdk",
+              "developers/docs/rich-presence/best-practices"
+            ]
+          },
+          {
+            "group": "Monetization",
+            "pages": [
+              "developers/docs/monetization/overview",
+              "developers/docs/monetization/enabling-monetization",
+              "developers/docs/monetization/managing-skus",
+              "developers/docs/monetization/implementing-app-subscriptions",
+              "developers/docs/monetization/implementing-one-time-purchases",
+              "developers/docs/monetization/implementing-iap-for-activities"
+            ]
+          },
+          {
+            "group": "Discovery",
+            "pages": [
+              "developers/docs/discovery/overview",
+              "developers/docs/discovery/enabling-discovery",
+              "developers/docs/discovery/best-practices"
+            ]
+          },
+          {
+            "group": "Events",
+            "pages": [
+              "developers/docs/events/overview",
+              "developers/docs/events/gateway",
+              "developers/docs/events/gateway-events",
+              "developers/docs/events/webhook-events"
+            ]
+          },
+          {
+            "group": "Developer Tools",
+            "pages": [
+              "developers/docs/developer-tools/embedded-app-sdk",
+              "developers/docs/developer-tools/community-resources",
+              "developers/docs/developer-tools/game-sdk"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "developers/docs/resources/application-role-connection-metadata",
+              "developers/docs/resources/application",
+              "developers/docs/resources/audit-log",
+              "developers/docs/resources/auto-moderation",
+              "developers/docs/resources/channel",
+              "developers/docs/resources/emoji",
+              "developers/docs/resources/entitlement",
+              "developers/docs/resources/guild",
+              "developers/docs/resources/guild-scheduled-event",
+              "developers/docs/resources/guild-template",
+              "developers/docs/resources/invite",
+              "developers/docs/resources/lobby",
+              "developers/docs/resources/message",
+              "developers/docs/resources/poll",
+              "developers/docs/resources/sku",
+              "developers/docs/resources/soundboard",
+              "developers/docs/resources/stage-instance",
+              "developers/docs/resources/sticker",
+              "developers/docs/resources/subscription",
+              "developers/docs/resources/user",
+              "developers/docs/resources/voice",
+              "developers/docs/resources/webhook"
+            ]
+          },
+          {
+            "group": "Topics",
+            "pages": [
+              "developers/docs/topics/certified-devices",
+              "developers/docs/topics/oauth2",
+              "developers/docs/topics/opcodes-and-status-codes",
+              "developers/docs/topics/permissions",
+              "developers/docs/topics/rate-limits",
+              "developers/docs/topics/rpc",
+              "developers/docs/topics/teams",
+              "developers/docs/topics/threads",
+              "developers/docs/topics/voice-connections"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": [
+              "developers/docs/tutorials/configuring-app-metadata-for-linked-roles",
+              "developers/docs/tutorials/developing-a-user-installable-app",
+              "developers/docs/tutorials/hosting-on-cloudflare-workers",
+              "developers/docs/tutorials/upgrading-to-application-commands"
+            ]
+          },
+          {
+            "group": "Policies and Agreements",
+            "pages": [
+              "developers/docs/policies/developer-policy",
+              "developers/docs/policies/developer-terms-of-service"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Change Log",
+        "pages": [
+          "developers/docs/change-log"
+        ]
+      }
+    ]
+  },
+  "redirects": [
+    {
+      "source": "/developers/docs",
+      "destination": "/developers/docs/intro"
+    },
+    {
+      "source": "/developers/docs/",
+      "destination": "/developers/docs/intro"
+    },
+    {
+      "source": "/developers/docs/index",
+      "destination": "/developers/docs/intro"
+    }
+  ],
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://discord.com/developers/docs/"
+  },
+  "background": {
+    "color": {
+      "light": "#ffffff",
+      "dark": "#36373e"
+    }
+  },
+  "api": {
+    "playground": {
+      "display": "simple"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Help Center",
+        "href": "https://support-dev.discord.com/hc/en-us"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Developer Portal",
+      "href": "https://discord.com/developers/applications"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/discord/discord-api-docs",
+      "discord": "https://discord.gg/discord-developers",
+      "youtube": "https://www.youtube.com/@DiscordDevelopers",
+      "linkedin": "https://www.linkedin.com/showcase/discord-developers"
+    }
+  },
+  "integrations": {
+    "gtm": {
+        "tagId": "G-5CWMJQ1S0X"
+    }
+  }
+}

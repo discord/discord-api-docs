@@ -19,20 +19,13 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: tools/package-lock.json
       - run: npm ci
+        working-directory: tools
       - run: npm run lint
+        working-directory: tools
       - run: npm run build
-  links:
-    name: Check Links
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm run test:links
+        working-directory: tools
   mdx:
     name: Validate mdx
     runs-on: ubuntu-latest
@@ -42,5 +35,8 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: tools/package-lock.json
       - run: npm ci
+        working-directory: tools
       - run: npm run test:build
+        working-directory: tools
