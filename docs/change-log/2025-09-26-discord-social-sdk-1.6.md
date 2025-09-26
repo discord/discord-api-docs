@@ -14,7 +14,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
 **This release adds features to support upcoming Discord experiments that will enhance how games integrate with user profiles and authentication:**
 
-- **Game Profile Integration**: New functionality to display game data on Discord user profiles. This includes `UserApplicationProfile` support with two new methods: [`Client::GetUserApplicationProfiles`] and [`Client::GetUserApplicationProfilesNoLock`] on the Users class, which retrieve game identity data from external authentication providers.
+- **Game Profile Integration**: New functionality to display game data on Discord user profiles. This includes `UserApplicationProfile` support with two new methods: `Client::GetUserApplicationProfiles` and `Client::GetUserApplicationProfilesNoLock` on the Users class, which retrieve game identity data from external authentication providers.
 - **In-Discord Authentication Flow**: Support for users to start account linking directly from Discord (rather than having to initiate it from within your game). Added [`Client::RegisterAuthorizeRequestCallback`] and [`Client::RemoveAuthorizeRequestCallback`] methods to handle authentication requests that originate from various Discord entry points. These functions support upcoming Discord client experiments that will be gradually rolled out to users over time.
 
 ### ⚠️ Deprecations
