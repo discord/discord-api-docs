@@ -1,42 +1,40 @@
 ---
 title: "Discord Social SDK Release 1.6"
-date: "2025-09-25"
+date: "2025-09-26"
 topics:
   - "Discord Social SDK"
 ---
 
 A new release of the Discord Social SDK is now available, with the following updates:
 
-### New Features
+## ✨ New Features
+
+- When calling [`Client::GetGuildChannels`], channels are now sorted by their `position` field, which matches how they are sorted in the Discord client.
+- Messages received via the Social SDK, no longer create notifications in a Discord client for the same user, to avoid double notification on the same machine.
 
 **This release adds features to support upcoming Discord experiments that will enhance how games integrate with user profiles and authentication:**
 
 - **Game Profile Integration**: New functionality to display game data on Discord user profiles. This includes `UserApplicationProfile` support with two new methods: [`Client::GetUserApplicationProfiles`] and [`Client::GetUserApplicationProfilesNoLock`] on the Users class, which retrieve game identity data from external authentication providers.
 - **In-Discord Authentication Flow**: Support for users to start account linking directly from Discord (rather than having to initiate it from within your game). Added [`Client::RegisterAuthorizeRequestCallback`] and [`Client::RemoveAuthorizeRequestCallback`] methods to handle authentication requests that originate from various Discord entry points. These functions support upcoming Discord client experiments that will be gradually rolled out to users over time.
 
-More detailed documentation will be available when the client experiments conclude. Additional new features:
-
-- When calling [`Client::GetGuildChannels`], channels are now sorted by their `position` field, which matches how they are sorted in the Discord client.
-- Messages received via the Social SDK, no longer create notifications in a Discord client for the same user, to avoid double notification on the same machine.
-
-### Deprecations
+### ⚠️ Deprecations
 
 This deprecation aims to improve consistence across the SDK’s API surface as well as provide a safer implementation that has fewer edge cases and less potential for accidental misuse.
 
 - Deprecated [`Client::GetCurrentUser`] API in favor of [`Client::GetCurrentUserV2`] which returns optional values instead of potentially invalid handles.
 
-### Performance Improvements
+### 🚀 Performance Improvements
 
 - This update implements caching capabilities for the [`Client::GetUserMessagesWithLimit`] function to avoid unnecessary remote API calls when sufficient messages are already cached locally.
 
-### Voice Communications Fixes and Improvements
+### 🎤 Voice Communications Fixes and Improvements
 
 Fixes several critical bugs with the voice communications system, as well as improved overall reliability, and noise and echo suppression and cancellation.
 
 - Fixed an issue where voice calls would sometimes transition to `Disconnected` state instead of reconnecting properly after a network interruption.
 - Extended AGC2 (Automatic Gain Control 2) support to mobile platforms
 
-### General Stability and Bug Fixes
+### 🐛 General Stability and Bug Fixes
 
 Multiple general critical bugs that can cause crashes and panics. We highly recommend upgrading to 1.6 to avoid them in your game.
 
