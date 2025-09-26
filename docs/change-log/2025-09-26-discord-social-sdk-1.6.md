@@ -7,7 +7,7 @@ topics:
 
 A new release of the Discord Social SDK is now available, with the following updates:
 
-## ✨ New Features
+### ✨ New Features
 
 - When calling [`Client::GetGuildChannels`], channels are now sorted by their `position` field, which matches how they are sorted in the Discord client.
 - Messages received via the Social SDK, no longer create notifications in a Discord client for the same user, to avoid double notification on the same machine.
