@@ -55,6 +55,7 @@ The following is a complete table of available components. Details about each co
 | 14   | [Separator](/docs/components/reference#separator)                   | Component to add vertical padding between other components     | Layout      | Message        |
 | 17   | [Container](/docs/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
 | 18   | [Label](/docs/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
+| 19   | [File Upload](/docs/components/reference#file-upload)               | Container associating a label and description with a component | Layout      | Modal          |
 
 --------------
 ## Anatomy of a Component
@@ -2047,6 +2048,75 @@ The `description` may display above or below the `component` depending on the pl
             "required": true
           }
         }
+      ]
+    }
+  }
+  ```
+</Collapsible>
+
+--------
+## File Upload
+
+A File Upload is an interactive component that allows users to upload files in modals.
+
+###### File Upload Structure
+
+| Field       | Type    | Description                                                                      |
+|-------------|---------|----------------------------------------------------------------------------------|
+| type        | integer | `19` for a file upload                                                           |
+| id?         | integer | Optional identifier for component                                                |
+| custom_id   | string  | Developer-defined identifier, max 100 characters                                 |
+| min_values? | integer | Minimum number of files that must be uploaded (defaults to 1); min 0, max 10     |
+| max_values? | integer | Maximum number of files that can be uploaded (defaults to 1); max 10             |
+| required?   | boolean | Whether the file upload is required to be filled in a modal (defaults to `true`) |
+
+###### File Upload Interaction Response Structure
+
+| Field     | Type                | Description                                                          |
+|-----------|---------------------|----------------------------------------------------------------------|
+| type      | integer             | `19` for a file upload                                               |
+| id        | integer             | Unique identifier for the component                                  |
+| custom_id | string              | Developer-defined identifier for the file upload; max 100 characters |
+| values    | array of snowflakes | IDs of the uploaded files                                            |
+
+###### Examples
+
+<Collapsible title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
+
+  <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
+    ![A bug report modal with a File Upload for screenshots](images/components/modal-file-upload.webp)
+  </Collapsible>
+
+  ```json
+  {
+    "type": 9, // InteractionCallbackType.MODAL
+    "data": {
+      "custom_id": "bug_report_modal",
+      "title": "Bug Report",
+      "components": [
+        {
+          "type": 18, // ComponentType.LABEL
+          "label": "Description of the bug",
+          "description": "Please describe the cause and effects of the bug",
+          "component": {
+            "type": 4, // ComponentType.TEXT_INPUT
+            "custom_id": "description",
+            "style": 2,
+            "min_length": 30,
+            "placeholder": "Whenever I click my profile...",
+          },
+        },
+        {
+          "type": 18, // ComponentType.LABEL
+          "label": "Provide screenshots of the bug",
+          "description": "Please include at least two pictures of the bug in action",
+          "component": {
+            "type": 19, // ComponentType.FILE_UPLOAD
+            "custom_id": "screenshots",
+            "min_values": 2,
+            "max_values": 10,
+          },
+        },
       ]
     }
   }
