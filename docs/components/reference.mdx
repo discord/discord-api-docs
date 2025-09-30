@@ -2059,9 +2059,7 @@ The `description` may display above or below the `component` depending on the pl
 --------------
 ## File Upload
 
-A File Upload is an interactive component that allows users to upload files in modals.
-
-File Uploads can be configured for both single-file and multi-file uploads.
+File Upload is an interactive component that allows users to upload files in modals. File Uploads can be configured for both single-file and multi-file uploads.
 
 File Uploads are available om modals. They must be placed inside a [Label](/docs/components/reference#label).
 
@@ -2074,7 +2072,7 @@ File Uploads are available om modals. They must be placed inside a [Label](/docs
 | custom_id       | string                                                                                                  | ID for the file upload; max 100 characters                                                                                                               |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be uploaded (defaults to 1); min 0, max 10                                                                             |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be uploaded (defaults to 1); max 10                                                                                     |
-| required?       | boolean                                                                                                 | Whether the file upload is required to be used in a modal (defaults to `true`)                                                                           |
+| required?       | boolean                                                                                                 | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`)                                                                           |
 
 ###### File Upload Interaction Response Structure
 
@@ -2091,24 +2089,25 @@ File Uploads are available om modals. They must be placed inside a [Label](/docs
 <Collapsible title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
 
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a File Upload](images/components/modal-file-upload.webp)
+    ![Example of a modal with a File Upload](images/components/file-upload-modal-example.webp)
   </Collapsible>
 
   ```json
   {
     "type": 9,
     "data": {
-      "custom_id": "pet_pictures_modal",
-      "title": "Pet Pictures",
+      "custom_id": "bug_submit_modal",
+      "title": "Bug Submission",
       "components": [
         {
           "type": 18, // ComponentType.LABEL
-          "label": "Send me some pictures of your pet!",
+          "label": "File Upload",
+          "description": "Please upload a screenshot or other image that shows the bug you encountered.",
           "component": {
             "type": 19, // ComponentType.FILE_UPLOAD
             "custom_id": "file_upload",
             "min_values": 1,
-            "max_values": 5,
+            "max_values": 10,
             "required": true
           }
         }
@@ -2129,35 +2128,35 @@ File Uploads are available om modals. They must be placed inside a [Label](/docs
     ...additionalInteractionFields, // See the Interaction documentation for all fields
 
     "data": {
-      "custom_id": "pet_pictures_modal",
       "components": [
         {
-          "component": {
-            "custom_id": "file_upload",
-            "id": 2,
-            "type": 19,
-            "values": [
-              "11111111111111111"
-            ]
-          },
-          "id": 1,
-          "type": 18
+            "component": {
+                "custom_id": "file_upload",
+                "id": 2,
+                "type": 19,
+                "values": [
+                    "1422387274989047838"
+                ]
+            },
+            "id": 1,
+            "type": 18
         }
       ],
+      "custom_id": "bug_submit_modal",
       "resolved": {
         "attachments": {
-          "11111111111111111": {
-            "filename": "image.png",
-            "title": null,
-            "description": null,
-            "content_type": "image/png",
-            "size": 12345,
-            "url": "https://cdn.discordapp.com/attachments/11111111111111111/22222222222222222/image.png",
-            "proxy_url": "https://media.discordapp.net/attachments/11111111111111111/22222222222222222/image.png",
-            "height": 512,
-            "width": 512,
-            "ephemeral": false,
-            "flags": 0
+          "111111111111111111111": {
+              "content_type": "image/png",
+              "ephemeral": true,
+              "filename": "bug.png",
+              "height": 604,
+              "id": "111111111111111111111",
+              "placeholder": "/PcBAoBQydvKesabEIoMsdg=",
+              "placeholder_version": 1,
+              "proxy_url": "https://media.discordapp.net/ephemeral-attachments/2222222222222222222/111111111111111111111/bug.png?ex=68dc7ce1&is=68db2b61&hm=5954f90117ccf8716ffa6c7f97a778a0d039810c9584045f400d8a9fff590768&",
+              "size": 241394,
+              "url": "https://cdn.discordapp.com/ephemeral-attachments/2222222222222222222/111111111111111111111/bug.png?ex=68dc7ce1&is=68db2b61&hm=5954f90117ccf8716ffa6c7f97a778a0d039810c9584045f400d8a9fff590768&",
+              "width": 2482
           }
         }
       }
