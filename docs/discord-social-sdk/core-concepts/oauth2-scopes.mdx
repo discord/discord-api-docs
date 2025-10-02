@@ -62,12 +62,12 @@ See [available OAuth2 scopes](/docs/topics/oauth2#shared-resources-oauth2-scopes
 
 ## OAuth2 Client Types
 
-OAuth2 has two client types: **Public** and **Confidential**. Most games will not want to ship with **Public Client** enabled.
+OAuth2 has two client types: **Confidential** and **Public**. Most games will not want to ship with **Public Client** enabled.
 
 Some Social SDK methods require your Discord application to be a **Public Client**. These methods also have server-side alternatives that you can use with a **Confidential Client**.
 
-- Public clients cannot securely store client secrets.
 - Using confidential clients with proper secret management for production applications is generally recommended.
+- Public clients cannot securely store client secrets.
 - Your security team should review this setting and authentication flows before releasing your game.
 
 [Learn more about OAuth2 client types](https://oauth.net/2/client-types)

@@ -108,25 +108,6 @@ Once the user approves the request from Step 2, Discord will redirect the user b
 
 #### Token Exchange for Public Clients
 
-<PublicClient />
-
-If your app does not have a backend server, enable `Public Client` in the Discord Developer Portal and use [`Client::GetToken`] to automatically exchange the authorization code for a token.
-
-We will also need the code verifier used to generate the code challenge in Step 1.
-
-```cpp
-client->GetToken(YOUR_DISCORD_APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
-  [client](discordpp::ClientResult result,
-    std::string accessToken,
-    std::string refreshToken,
-    discordpp::AuthorizationTokenType tokenType,
-    int32_t expiresIn,
-    std::string scope) {
-    std::cout << "🔓 Access token received! Establishing connection...\n";
-    // Next step: Update the token in the client and connect to Discord
-  });
-```
-
 #### Server-to-Server Get Token Exchange
 
 If your application uses a backend server and does **not** have `Public Client` enabled, you can manually exchange the authorization code for an access token using the Discord API.
@@ -160,6 +141,25 @@ def exchange_code(code, redirect_uri):
   "refresh_token": "<refresh token>",
   "scope": "sdk.social_layer"
 }
+```
+
+<PublicClient />
+
+If your app does not have a backend server, enable `Public Client` in the Discord Developer Portal and use [`Client::GetToken`] to automatically exchange the authorization code for a token.
+
+We will also need the code verifier used to generate the code challenge in Step 1.
+
+```cpp
+client->GetToken(YOUR_DISCORD_APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+  [client](discordpp::ClientResult result,
+    std::string accessToken,
+    std::string refreshToken,
+    discordpp::AuthorizationTokenType tokenType,
+    int32_t expiresIn,
+    std::string scope) {
+    std::cout << "🔓 Access token received! Establishing connection...\n";
+    // Next step: Update the token in the client and connect to Discord
+  });
 ```
 
 ---
