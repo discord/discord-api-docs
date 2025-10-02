@@ -238,8 +238,6 @@ If a user wants to disconnect their Discord account or if a token is compromised
 When any valid access or refresh token is revoked, all of your application's access and refresh tokens for that user are immediately invalidated.
 :::
 
-### Revoking Access Tokens for Public Clients
-
 ### Server-to-Server Token Revocation
 
 If your application uses a backend server, you can revoke tokens by making an API request to Discord's token revocation endpoint.
@@ -257,6 +255,8 @@ def revoke_token(access_or_refresh_token):
     r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
     r.raise_for_status()
 ```
+
+### Revoking Access Tokens for Public Clients
 
 <PublicClient />
 
