@@ -1003,11 +1003,11 @@ Sent when a message is created. The inner payload is a [message](/docs/resources
 
 ###### Message Create Extra Fields
 
-| Field     | Type                                                                                                                                            | Description                                                                                            |
-|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| guild_id? | snowflake                                                                                                                                       | ID of the guild the message was sent in - unless it is an ephemeral message                            |
-| member?   | partial [guild member](/docs/resources/guild#guild-member-object) object                                                                        | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
-| mentions  | array of [user](/docs/resources/user#user-object) objects, with an additional partial [member](/docs/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                            |
+| Field     | Type                                                                                                                                                       | Description                                                                                            |
+|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| guild_id? | snowflake                                                                                                                                                  | ID of the guild the message was sent in - unless it is an ephemeral message                            |
+| member?   | partial [guild member](/docs/resources/guild#guild-member-object) object                                                                                   | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
+| mentions  | array of [user](/docs/resources/user#user-object) objects, optionally with an additional partial [member](/docs/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                            |
 
 #### Message Update
 
