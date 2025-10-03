@@ -106,8 +106,6 @@ Once the user approves the request from Step 2, Discord will redirect the user b
 
 ### Step 4: Exchanging the Authorization Code for an Access Token
 
-#### Token Exchange for Public Clients
-
 #### Server-to-Server Get Token Exchange
 
 If your application uses a backend server and does **not** have `Public Client` enabled, you can manually exchange the authorization code for an access token using the Discord API.
@@ -142,6 +140,8 @@ def exchange_code(code, redirect_uri):
   "scope": "sdk.social_layer"
 }
 ```
+
+#### Token Exchange for Public Clients
 
 <PublicClient />
 
@@ -182,6 +182,28 @@ client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, ACCESS_TOKEN_VALU
 
 Access tokens expire after 7 days, requiring refresh tokens to get a new one.
 
+### Server-to-Server Token Refresh
+
+If you're handling authentication on your server, send an API request to refresh the token.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = 'YOUR_CLIENT_ID'
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
+
+def refresh_token(refresh_token):
+    data = {
+        'grant_type': 'refresh_token',
+        'refresh_token': refresh_token
+    }
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+    r.raise_for_status()
+    return r.json()
+```
+
 ### Refreshing Access Tokens for Public Clients
 
 <PublicClient />
@@ -206,28 +228,6 @@ client->RefreshToken(
       });
 ```
 
-### Server-to-Server Token Refresh
-
-If you're handling authentication on your server, send an API request to refresh the token.
-
-```python
-import requests
-
-API_ENDPOINT = 'https://discord.com/api/v10'
-CLIENT_ID = 'YOUR_CLIENT_ID'
-CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
-
-def refresh_token(refresh_token):
-    data = {
-        'grant_type': 'refresh_token',
-        'refresh_token': refresh_token
-    }
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
-    r.raise_for_status()
-    return r.json()
-```
-
 ---
 
 ## Revoking Access Tokens
@@ -237,6 +237,24 @@ If a user wants to disconnect their Discord account or if a token is compromised
 :::warn
 When any valid access or refresh token is revoked, all of your application's access and refresh tokens for that user are immediately invalidated.
 :::
+
+### Server-to-Server Token Revocation
+
+If your application uses a backend server, you can revoke tokens by making an API request to Discord's token revocation endpoint.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = 'YOUR_CLIENT_ID'
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
+
+def revoke_token(access_or_refresh_token):
+    data = {'token': access_or_refresh_token}
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+    r.raise_for_status()
+```
 
 ### Revoking Access Tokens for Public Clients
 
@@ -261,24 +279,6 @@ client->RevokeToken(YOUR_DISCORD_APPLICATION_ID,
                       // Handle successful logout (clear stored tokens,
                       // redirect to login, etc.)
                     });
-```
-
-### Server-to-Server Token Revocation
-
-If your application uses a backend server, you can revoke tokens by making an API request to Discord's token revocation endpoint.
-
-```python
-import requests
-
-API_ENDPOINT = 'https://discord.com/api/v10'
-CLIENT_ID = 'YOUR_CLIENT_ID'
-CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
-
-def revoke_token(access_or_refresh_token):
-    data = {'token': access_or_refresh_token}
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
-    r.raise_for_status()
 ```
 
 ### Handling User Initiated Revocation
