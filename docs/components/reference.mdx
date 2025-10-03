@@ -160,17 +160,17 @@ Buttons must be placed inside an [Action Row](/docs/components/reference#action-
 
 ###### Button Structure
 
-| Field     | Type                                                | Description                                                                                                         |
-|-----------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| type      | integer                                             | `2` for a button                                                                                                    |
-| id?       | integer                                             | Optional identifier for component                                                                                   |
-| style     | integer                                             | A [button style](/docs/components/reference#button-button-styles)                                                   |
-| label?    | string                                              | Text that appears on the button; max 80 characters                                                                  |
-| emoji?    | partial [emoji](/docs/resources/emoji#emoji-object) | `name`, `id`, and `animated`                                                                                        |
-| custom_id | string                                              | Developer-defined identifier for the button; max 100 characters                                                     |
-| sku_id?   | snowflake                                           | Identifier for a purchasable [SKU](/docs/resources/sku#sku-object), only available when using premium-style buttons |
-| url?      | string                                              | URL for link-style buttons; max 512 characters                                                                      |
-| disabled? | boolean                                             | Whether the button is disabled (defaults to `false`)                                                                |
+| Field      | Type                                                | Description                                                                                                         |
+|------------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                             | `2` for a button                                                                                                    |
+| id?        | integer                                             | Optional identifier for component                                                                                   |
+| style      | integer                                             | A [button style](/docs/components/reference#button-button-styles)                                                   |
+| label?     | string                                              | Text that appears on the button; max 80 characters                                                                  |
+| emoji?     | partial [emoji](/docs/resources/emoji#emoji-object) | `name`, `id`, and `animated`                                                                                        |
+| custom_id? | string                                              | Developer-defined identifier for the button; max 100 characters                                                     |
+| sku_id?    | snowflake                                           | Identifier for a purchasable [SKU](/docs/resources/sku#sku-object), only available when using premium-style buttons |
+| url?       | string                                              | URL for link-style buttons; max 512 characters                                                                      |
+| disabled?  | boolean                                             | Whether the button is disabled (defaults to `false`)                                                                |
 
 Buttons come in various styles to convey different types of actions. These styles also define what fields are valid for a button.
 
