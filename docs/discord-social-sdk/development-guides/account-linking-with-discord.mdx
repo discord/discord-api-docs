@@ -106,8 +106,6 @@ Once the user approves the request from Step 2, Discord will redirect the user b
 
 ### Step 4: Exchanging the Authorization Code for an Access Token
 
-#### Token Exchange for Public Clients
-
 #### Server-to-Server Get Token Exchange
 
 If your application uses a backend server and does **not** have `Public Client` enabled, you can manually exchange the authorization code for an access token using the Discord API.
@@ -142,6 +140,8 @@ def exchange_code(code, redirect_uri):
   "scope": "sdk.social_layer"
 }
 ```
+
+#### Token Exchange for Public Clients
 
 <PublicClient />
 
