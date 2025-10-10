@@ -2076,13 +2076,12 @@ File Uploads are available om modals. They must be placed inside a [Label](/docs
 
 ###### File Upload Interaction Response Structure
 
-| Field     | Type                                                                                                    | Description                                                    |
-|-----------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| type      | integer                                                                                                 | `19` for a File Upload                                         |
-| id        | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved  | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from uploaded files                          |
-| values    | array of snowflakes                                                                                     | IDs of the uploaded files                                      |
+| Field     | Type                | Description                                                                                                                                    |
+|-----------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| type      | integer             | `19` for a File Upload                                                                                                                         |
+| id        | integer             | Unique identifier for the component                                                                                                            |
+| custom_id | string              | Developer-defined identifier for the input; max 100 characters                                                                                 |
+| values    | array of snowflakes | IDs of the uploaded files found in the [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) |
 
 ###### Examples
 
