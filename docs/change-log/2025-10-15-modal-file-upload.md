@@ -1,6 +1,6 @@
 ---
 title: "Adding More Modal Components!"
-date: "2025-10-14"
+date: "2025-10-15"
 topics:
 - "Interactions"
 - "Components"
