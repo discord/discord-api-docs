@@ -17,7 +17,7 @@ This small update to v1.6 adds some highly requested features from our partners.
       `Client::UpdateRichPresence`. This method even affords you the ability to set a unique image on each invite if you
       want!
     - By uploading cover image art in the `Rich Presence` tab in the Developer Portal for your Application. Note: This
-      will be used as the fallback image if you don’t specify one via method 1
+      will be used as the fallback image if you don’t specify one via `activity.assets.inviteCoverImage`
 - It’s now possible to customize the displayed name for your Application in Discord’s Rich Presence. To do so, set
   the `activity.name` parameter when calling [`Client::UpdateRichPresence`]
 - Added support for Microsoft Xbox GDK version 2025.04
