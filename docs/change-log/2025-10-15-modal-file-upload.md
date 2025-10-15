@@ -1,5 +1,5 @@
 ---
-title: "Modal File Upload"
+title: "Introducing the File Upload component in Modals"
 date: "2025-10-15"
 topics:
 - "Interactions"
