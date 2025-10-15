@@ -1,5 +1,5 @@
 ---
-title: "Adding More Modal Components!"
+title: "Modal File Upload"
 date: "2025-10-15"
 topics:
 - "Interactions"
