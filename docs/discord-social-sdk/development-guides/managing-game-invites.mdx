@@ -158,6 +158,18 @@ Now your game supports rich presence with game invites! The Discord client will 
 
 ---
 
+## Setting a Cover Image for the Invite (Optional)
+
+You can set a cover image for an invite via rich presence activity. This image displays as the banner on the invite and helps draw attention to it. Setting a cover image via rich presence allows you to dynamically customize invites per rich presence activity; for example, showing different images based on game mode, map, etc. rather than using the same static image for all invites. If not set, the banner falls back to the "Rich Presence Invite Image" configured in the Developer Portal under the "Rich Presence" tab. Setting an invite cover image is entirely optional.
+
+```cpp
+discordpp::ActivityAssets assets;
+assets.SetInviteCoverImage("invite-cover-image");
+activity.SetAssets(assets);
+```
+
+---
+
 ## Registering a Launch Command
 
 Before we send a game invite, let's make sure that the Discord client knows about your game and how to launch it.
