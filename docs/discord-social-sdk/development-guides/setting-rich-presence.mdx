@@ -146,7 +146,7 @@ activity.SetTimestamps(timestamps);
 
 ## Setting Assets
 
-Once you've uploaded assets to your app, you can reference them using their **asset key** in your code to set custom artwork in Rich Presence. Here's an example of an asset with the key of "map-mainframe" and "tank-avatar":
+Once you've uploaded assets to your app, you can reference them using their **asset key** in your code to set custom artwork in Rich Presence. Here's an example of an asset with the key of "map-mainframe", "tank-avatar", and "invite-cover-image":
 
 ```cpp
 // Setting Activity Assets
@@ -155,6 +155,7 @@ assets.SetLargeImage("map-mainframe");
 assets.SetLargeText("Mainframe");
 assets.SetSmallImage("tank-avatar");
 assets.SetSmallText("Tank");
+assets.SetInviteCoverImage("invite-cover-image"); // Used for Game Invites
 activity.SetAssets(assets);
 ```
 
