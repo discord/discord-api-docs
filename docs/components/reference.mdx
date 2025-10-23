@@ -73,11 +73,11 @@ The `id` field is optional and is used to identify components in the response fr
 
 Additionally, interactive components like buttons and selects must have a `custom_id` field. The developer defines this field when sending the component payload, and it is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
 
-`custom_id` is only available on interactive components and must be unique per component. Multiple components on the same message must not share the same `custom_id`. This field is a string of a maximum of 100 characters and can be used flexibly to maintain state or pass through other important data.
+`custom_id` is only available on interactive components and must be unique per component. Multiple components on the same message must not share the same `custom_id`. This field is a string of 1 to 100 characters and can be used flexibly to maintain state or pass through other important data.
 
-| Field     | Type   | Description                                      |
-|-----------|--------|--------------------------------------------------|
-| custom_id | string | Developer-defined identifier, max 100 characters |
+| Field     | Type   | Description                                    |
+|-----------|--------|------------------------------------------------|
+| custom_id | string | Developer-defined identifier, 1-100 characters |
 
 --------------
 ## Action Row
@@ -168,7 +168,7 @@ Buttons must be placed inside an [Action Row](/docs/components/reference#action-
 | style     | integer                                             | A [button style](/docs/components/reference#button-button-styles)                                                   |
 | label?    | string                                              | Text that appears on the button; max 80 characters                                                                  |
 | emoji?    | partial [emoji](/docs/resources/emoji#emoji-object) | `name`, `id`, and `animated`                                                                                        |
-| custom_id | string                                              | Developer-defined identifier for the button; max 100 characters                                                     |
+| custom_id | string                                              | Developer-defined identifier for the button; 1-100 characters                                                       |
 | sku_id?   | snowflake                                           | Identifier for a purchasable [SKU](/docs/resources/sku#sku-object), only available when using premium-style buttons |
 | url?      | string                                              | URL for link-style buttons; max 512 characters                                                                      |
 | disabled? | boolean                                             | Whether the button is disabled (defaults to `false`)                                                                |
@@ -283,7 +283,7 @@ String Selects are available in messages and modals. They must be placed inside 
 |---------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
 | type          | integer                                                                                     | `3` for string select                                                           |
 | id?           | integer                                                                                     | Optional identifier for component                                               |
-| custom_id     | string                                                                                      | ID for the select menu; max 100 characters                                      |
+| custom_id     | string                                                                                      | ID for the select menu; 1-100 characters                                        |
 | options       | array of [select options](/docs/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                      |
 | placeholder?  | string                                                                                      | Placeholder text if nothing is selected or default; max 150 characters          |
 | min_values?   | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0, max 25      |
@@ -307,13 +307,13 @@ String Selects are available in messages and modals. They must be placed inside 
 
 ###### String Select Interaction Response Structure
 
-| Field            | Type             | Description                                                    |
-|------------------|------------------|----------------------------------------------------------------|
-| type\*           | integer          | `3` for a String Select                                        |
-| component_type\* | integer          | `3` for a String Select                                        |
-| id               | integer          | Unique identifier for the component                            |
-| custom_id        | string           | Developer-defined identifier for the input; max 100 characters |
-| values           | array of strings | The text of the selected options                               |
+| Field            | Type             | Description                                                  |
+|------------------|------------------|--------------------------------------------------------------|
+| type\*           | integer          | `3` for a String Select                                      |
+| component_type\* | integer          | `3` for a String Select                                      |
+| id               | integer          | Unique identifier for the component                          |
+| custom_id        | string           | Developer-defined identifier for the input; 1-100 characters |
+| values           | array of strings | The text of the selected options                             |
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
@@ -481,7 +481,7 @@ We no longer recommend using Text Input within an [Action Row](/docs/components/
 |--------------|---------|---------------------------------------------------------------------------------|
 | type         | integer | `4` for a text input                                                            |
 | id?          | integer | Optional identifier for component                                               |
-| custom_id    | string  | Developer-defined identifier for the input; max 100 characters                  |
+| custom_id    | string  | Developer-defined identifier for the input; 1-100 characters                    |
 | style        | integer | The [Text Input Style](/docs/components/reference#text-input-text-input-styles) |
 | min_length?  | integer | Minimum input length for a text input; min 0, max 4000                          |
 | max_length?  | integer | Maximum input length for a text input; min 1, max 4000                          |
@@ -502,12 +502,12 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 
 ###### Text Input Interaction Response Structure
 
-| Field     | Type    | Description                                                    |
-|-----------|---------|----------------------------------------------------------------|
-| type      | integer | `4` for a Text Input                                           |
-| id        | integer | Unique identifier for the component                            |
-| custom_id | string  | Developer-defined identifier for the input; max 100 characters |
-| value     | string  | The user's input text                                          |
+| Field     | Type    | Description                                                  |
+|-----------|---------|--------------------------------------------------------------|
+| type      | integer | `4` for a Text Input                                         |
+| id        | integer | Unique identifier for the component                          |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
+| value     | string  | The user's input text                                        |
 
 ###### Examples
 
@@ -588,7 +588,7 @@ User Selects are available in messages and modals. They must be placed inside an
 |-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type            | integer                                                                                                 | `5` for user select                                                                                                                                      |
 | id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
-| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
@@ -609,14 +609,14 @@ User Selects are available in messages and modals. They must be placed inside an
 
 ###### User Select Interaction Response Structure
 
-| Field            | Type                                                                                                    | Description                                                    |
-|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| type\*           | integer                                                                                                 | `5` for a User Select                                          |
-| component_type\* | integer                                                                                                 | `5` for a User Select                                          |
-| id               | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values           | array of snowflakes                                                                                     | IDs of the selected users                                      |
+| Field            | Type                                                                                                    | Description                                                  |
+|------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `5` for a User Select                                        |
+| component_type\* | integer                                                                                                 | `5` for a User Select                                        |
+| id               | integer                                                                                                 | Unique identifier for the component                          |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; 1-100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                      |
+| values           | array of snowflakes                                                                                     | IDs of the selected users                                    |
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
@@ -833,7 +833,7 @@ Role Selects are available in messages and modals. They must be placed inside an
 |-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type            | integer                                                                                                 | `6` for role select                                                                                                                                      |
 | id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
-| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
@@ -847,14 +847,14 @@ Role Selects are available in messages and modals. They must be placed inside an
 
 ###### Role Select Interaction Response Structure
 
-| Field            | Type                                                                                                    | Description                                                    |
-|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| type\*           | integer                                                                                                 | `6` for a Role Select                                          |
-| component_type\* | integer                                                                                                 | `6` for a Role Select                                          |
-| id               | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values           | array of snowflakes                                                                                     | IDs of the selected roles                                      |
+| Field            | Type                                                                                                    | Description                                                  |
+|------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `6` for a Role Select                                        |
+| component_type\* | integer                                                                                                 | `6` for a Role Select                                        |
+| id               | integer                                                                                                 | Unique identifier for the component                          |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; 1-100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                      |
+| values           | array of snowflakes                                                                                     | IDs of the selected roles                                    |
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
@@ -1050,7 +1050,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
 |-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type            | integer                                                                                                 | `7` for mentionable select                                                                                                                               |
 | id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
-| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
 | min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
@@ -1064,14 +1064,14 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
 ###### Mentionable Select Interaction Response Structure
 
-| Field            | Type                                                                                                    | Description                                                    |
-|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| type\*           | integer                                                                                                 | `7` for a Mentionable Select                                   |
-| component_type\* | integer                                                                                                 | `7` for a Mentionable Select                                   |
-| id               | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values           | array of snowflakes                                                                                     | IDs of the selected mentionables                               |
+| Field            | Type                                                                                                    | Description                                                  |
+|------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `7` for a Mentionable Select                                 |
+| component_type\* | integer                                                                                                 | `7` for a Mentionable Select                                 |
+| id               | integer                                                                                                 | Unique identifier for the component                          |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; 1-100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                      |
+| values           | array of snowflakes                                                                                     | IDs of the selected mentionables                             |
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
@@ -1283,7 +1283,7 @@ Channel Selects are available in messages and modals. They must be placed inside
 |-----------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type            | integer                                                                                                 | `8` for channel select                                                                                                                                   |
 | id?             | integer                                                                                                 | Optional identifier for component                                                                                                                        |
-| custom_id       | string                                                                                                  | ID for the select menu; max 100 characters                                                                                                               |
+| custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | channel_types?  | array of [channel types](/docs/resources/channel#channel-object-channel-types)                          | List of channel types to include in the channel select component                                                                                         |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
@@ -1298,14 +1298,14 @@ Channel Selects are available in messages and modals. They must be placed inside
 
 ###### Channel Select Interaction Response Structure
 
-| Field            | Type                                                                                                    | Description                                                    |
-|------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| type\*           | integer                                                                                                 | `8` for a Channel Select                                       |
-| component_type\* | integer                                                                                                 | `8` for a Channel Select                                       |
-| id               | integer                                                                                                 | Unique identifier for the component                            |
-| custom_id        | string                                                                                                  | Developer-defined identifier for the input; max 100 characters |
-| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                        |
-| values           | array of snowflakes                                                                                     | IDs of the selected channels                                   |
+| Field            | Type                                                                                                    | Description                                                  |
+|------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| type\*           | integer                                                                                                 | `8` for a Channel Select                                     |
+| component_type\* | integer                                                                                                 | `8` for a Channel Select                                     |
+| id               | integer                                                                                                 | Unique identifier for the component                          |
+| custom_id        | string                                                                                                  | Developer-defined identifier for the input; 1-100 characters |
+| resolved         | [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) | Resolved entities from selected options                      |
+| values           | array of snowflakes                                                                                     | IDs of the selected channels                                 |
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
@@ -2069,7 +2069,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/docs
 |-------------|---------|--------------------------------------------------------------------------------------------------------|
 | type        | integer | `19` for file upload                                                                                   |
 | id?         | integer | Optional identifier for component                                                                      |
-| custom_id   | string  | ID for the file upload; max 100 characters                                                             |
+| custom_id   | string  | ID for the file upload; 1-100 characters                                                               |
 | min_values? | integer | Minimum number of items that must be uploaded (defaults to 1); min 0, max 10                           |
 | max_values? | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
 | required?   | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
@@ -2080,7 +2080,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/docs
 |-----------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | type      | integer             | `19` for a File Upload                                                                                                                         |
 | id        | integer             | Unique identifier for the component                                                                                                            |
-| custom_id | string              | Developer-defined identifier for the input; max 100 characters                                                                                 |
+| custom_id | string              | Developer-defined identifier for the input; 1-100 characters                                                                                   |
 | values    | array of snowflakes | IDs of the uploaded files found in the [resolved data](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) |
 
 ###### Examples
