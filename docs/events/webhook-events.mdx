@@ -137,6 +137,8 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 | [Application Authorized](/docs/events/webhook-events#application-authorized)         | `APPLICATION_AUTHORIZED`     | Sent when an app was authorized by a user to a server or their account    |
 | [Application Deauthorized](/docs/events/webhook-events#application-deauthorized)     | `APPLICATION_DEAUTHORIZED`   | Sent when an app was deauthorized by a user                               |
 | [Entitlement Create](/docs/events/webhook-events#entitlement-create)                 | `ENTITLEMENT_CREATE`         | Entitlement was created                                                   |
+| [Entitlement Update](/docs/events/webhook-events#entitlement-update)                 | `ENTITLEMENT_UPDATE`         | Entitlement was updated                                                   |
+| [Entitlement Delete](/docs/events/webhook-events#entitlement-delete)                 | `ENTITLEMENT_DELETE`         | Entitlement was deleted                                                   |
 | [Quest User Enrollment](/docs/events/webhook-events#quest-user-enrollment)           | `QUEST_USER_ENROLLMENT`      | User was added to a Quest (currently unavailable)                         |
 | [Lobby Message Create](/docs/events/webhook-events#lobby-message-create)             | `LOBBY_MESSAGE_CREATE`       | Sent when a message is created in a lobby                                 |
 | [Lobby Message Update](/docs/events/webhook-events#lobby-message-update)             | `LOBBY_MESSAGE_UPDATE`       | Sent when a message is updated in a lobby                                 |
@@ -233,6 +235,72 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
       "application_id": "1234560123453231555",
       "consumed": false,
       "deleted": false,
+      "gift_code_flags": 0,
+      "id": "1234505980407808808",
+      "promotion_id": null,
+      "sku_id": "123489045643835123",
+      "type": 4,
+      "user_id": "111178765189277770"
+    }
+  }
+}
+```
+
+#### Entitlement Update
+
+`ENTITLEMENT_UPDATE` is sent when an [entitlement](/docs/resources/entitlement) is updated. Refer to the [Monetization documentation](/docs/monetization/overview) for details.
+
+###### Entitlement Update Structure
+
+The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-object) object.
+
+###### Entitlement Update Example
+
+```json
+{
+  "version": 1,
+  "application_id": "1234560123453231555",
+  "type": 1,
+  "event": {
+    "type": "ENTITLEMENT_UPDATE",
+    "timestamp": "2024-10-18T18:41:21.109604",
+    "data": {
+      "application_id": "1234560123453231555",
+      "consumed": false,
+      "deleted": false,
+      "gift_code_flags": 0,
+      "id": "1234505980407808808",
+      "promotion_id": null,
+      "sku_id": "123489045643835123",
+      "type": 4,
+      "user_id": "111178765189277770"
+    }
+  }
+}
+```
+
+#### Entitlement Delete
+
+`ENTITLEMENT_DELETE` is sent when an [entitlement](/docs/resources/entitlement) is deleted. Refer to the [Monetization documentation](/docs/monetization/overview) for details.
+
+###### Entitlement Delete Structure
+
+The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-object) object.
+
+###### Entitlement Delete Example
+
+```json
+{
+  "version": 1,
+  "application_id": "1234560123453231555",
+  "type": 1,
+  "event": {
+    "type": "ENTITLEMENT_DELETE",
+    "timestamp": "2024-10-18T18:41:21.109604",
+    "data": {
+      "application_id": "1234560123453231555",
+      "consumed": false,
+      "deleted": true,
       "gift_code_flags": 0,
       "id": "1234505980407808808",
       "promotion_id": null,
