@@ -284,7 +284,7 @@ If you'd like to set the display name for a provisional account, you can use the
 
 ```cpp
 client->UpdateProvisionalAccountDisplayName("CoolPlayer123", [](discordpp::ClientResult result) {
-    if (!result.Successful()) {
+    if (result.Successful()) {
       std::cout << "✅ Display name updated\n";
     }
   }

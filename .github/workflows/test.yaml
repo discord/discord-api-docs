@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
@@ -26,12 +26,26 @@ jobs:
         working-directory: tools
       - run: npm run build
         working-directory: tools
+  links:
+    name: Check Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - run: npm ci
+        working-directory: tools
+      - run: npm run test:links
+        working-directory: tools
   mdx:
     name: Validate mdx
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
