@@ -3,11 +3,75 @@ title: "Change Log"
 description: "Discover the latest updates, new features, and bug fixes on the Discord Developer Platform. To join in on the conversation, join the [Discord Developers Server](https://discord.com/invite/discord-developers)."
 ---
 
----
-
 import {Route} from '/snippets/route.jsx'
 
+---
+
+<Update label="Next Generation Docs Project" description="2025-11-06" tags={["Docs"]}>
+
+  ## Next Generation Docs Project
+
+  We're excited to announce the launch of our Next Gen Docs project! This initiative aims to improve the way developers interact with Discord's developer documentation, making it more accessible, comprehensive, and user-friendly.
+
+  ## Our Goal
+
+  The Discord API has evolved far beyond its origins as a platform for bots. Today, we're a comprehensive developer platform supporting:
+
+  - **Discord Apps and Bots** - The foundation of our ecosystem, extending Discord's functionality with custom apps, commands, and integrations
+  - **Discord Activities** - Real-time games and social experiences that users can launch directly inside Discord
+  - **Social SDK for Games** - Bringing Discord-powered features like voice, chat, rich presence, and social graph to games
+
+  Our documentation needs to evolve with us. With this project, we're not just updating our docs. We're aiming to improve the entire developer experience for learning and building on Discord as it exists in 2025 and beyond.
+
+  ## Our Next Gen Docs Journey
+
+  **What we've done so far:**
+  - Migrated to [Mintlify](https://mintlify.com) for a modern documentation experience
+  - For this migration, we preserved our existing content and familiar design but plan to evolve this over time
+  - We no longer have to maintain and build our own documentation platform and can instead focus on making content and improving our developer experience
+  - Gained new capabilities:
+    - **PR Previews** - See documentation changes before they go live! This works locally as well as in your pull requests
+    - **More Components and Docs Features** - We now have access to all of Mintlify's documentation components that will continue to grow over time
+    - **AI features & improved search** - You can now send our docs to your LLM of choice or access them via MCP (more on this soon!)
+
+  If you're reading this, the migration is complete! 🎉 
+
+  <Warning>
+      This migration did require us to reorganize the entire repository and make a lot of formatting changes. If you have an open PR, it will be a pretty gnarly merge conflict to resolve. We will be focusing on getting our PR backlog down over the next few weeks.
+  </Warning>
+
+  <Info>
+      We combed through the existing documentation to ensure everything was migrated correctly, but if you spot anything that looks off, please let us know by opening an issue or submitting feedback [here](https://github.com/discord/discord-api-docs/discussions/categories/next-gen-docs-feedback). We will be actively monitoring feedback to quickly address any issues.
+  </Info>
+
+  ## Why This Matters
+
+  Great documentation isn't just about having the right information, it's about presenting it in a way that helps developers succeed. 
+  
+  In the coming months, we'll be shipping changes to our documentation to ensure that it:
+
+  - **Reduces time-to-first-success** for new developers
+  - **Scales with complexity** as your projects grow
+  - **Stays current** with our rapidly evolving platform
+  - **Serves all skill levels** from beginners to experts
+
+  ## Contributing to Our Vision
+
+  This transformation is happening with the developer community at its heart. We welcome:
+
+  - **Feedback** on what's working and what isn't
+  - **Content contributions** through our existing PR process
+  - **Bug reports** when documentation doesn't match reality
+
+  We have created a Github Discussion topic for [Next Gen Docs Feedback](https://github.com/discord/discord-api-docs/discussions/categories/next-gen-docs-feedback) to collect feedback.
+
+  See our [Contributing Guidelines](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md) for how to get involved.
+</Update>
+
 <Update label="Discord Social SDK Release 1.6.12170" description="2025-10-15" tags={["Discord Social SDK"]}>
+
+  ## Discord Social SDK Release 1.6.12170
+
   A new release of the Discord Social SDK is now available, with the following updates:
 
   ## New Features
@@ -41,6 +105,9 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Discord Social SDK Release 1.6" description="2025-09-26" tags={["Discord Social SDK"]}>
+
+  ## Discord Social SDK Release 1.6
+
   A new release of the Discord Social SDK is now available, with the following updates:
 
   ### ✨ New Features
@@ -84,6 +151,9 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Adding More Modal Components!" description="2025-09-10" tags={["Interactions", "Components"]}>
+
+  ## Adding More Modal Components!
+
   We've added more components to modals! All select menus (User, Role, Mentionable, Channel) are now fully supported in modals. In order to use a select menu in a modal, it must be placed inside a [Label](/developers/docs/components/reference#label) component. We've also added the [Text Display](/developers/docs/components/reference#text-display) component with markdown support as a top-level component in modals.
 
   #### Components Now Supported in Modals:
@@ -104,10 +174,16 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Banner, avatar, and bio can be set on modify current member" description="2025-09-10" tags={["HTTP API"]}>
+
+  ## Banner, avatar, and bio can be set on modify current member
+
   As of September 10, 2025, bots can set `banner`, `avatar`, and `bio` fields using the [modify current member](/developers/docs/resources/guild#modify-current-member) route.
 </Update>
 
 <Update label="Deprecating Non-E2EE Voice Calls" description="2025-09-02" tags={["Voice"]}>
+
+  ## Deprecating Non-E2EE Voice Calls
+
   We started work on end-to-end encryption for Discord over two years ago to enhance our user privacy and security. With
   DAVE now supported across all platforms, we’re very close to making every call fully end-to-end encrypted.
 
@@ -133,6 +209,9 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Discord Social SDK Release 1.5.11353" description="2025-08-28" tags={["Discord Social SDK"]}>
+
+  ## Discord Social SDK Release 1.5.11353
+
   A new release of the Discord Social SDK is now available, with the following updates:
 
   ### Unity Plugin
@@ -149,6 +228,9 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Introducing New Modal Components!" description="2025-08-25" tags={["Interactions", "Components"]}>
+
+  ## Introducing New Modal Components!
+
   You asked for them, and now they're here! Modals are getting new components!!
 
   #### What's New
@@ -183,10 +265,13 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Pin Permission Split" description="2025-08-20" tags={["Breaking Changes", "HTTP API"]}>
-[Pinning](/developers/docs/resources/message#pin-message) and [unpinning](/developers/docs/resources/message#unpin-message) messages now has its own [permission](/developers/docs/topics/permissions#permissions-bitwise-permission-flags). We split `PIN_MESSAGES` out of `MANAGE_MESSAGES` to give more granular control over who can pin messages in a channel. This is effective immediately for both users and apps. This change will be backwards compatible until January 12th 2026 when `MANAGE_MESSAGES` will no longer grant the ability to pin or unpin messages.
+  ## Pin Permission Split
+  [Pinning](/developers/docs/resources/message#pin-message) and [unpinning](/developers/docs/resources/message#unpin-message) messages now has its own [permission](/developers/docs/topics/permissions#permissions-bitwise-permission-flags). We split `PIN_MESSAGES` out of `MANAGE_MESSAGES` to give more granular control over who can pin messages in a channel. This is effective immediately for both users and apps. This change will be backwards compatible until January 12th 2026 when `MANAGE_MESSAGES` will no longer grant the ability to pin or unpin messages.
 </Update>
 
 <Update label="Discord Social SDK Release 1.5" description="2025-08-15" tags={["Discord Social SDK"]}>
+  ## Discord Social SDK Release 1.5
+
   A new release of the Discord Social SDK is now available, with the following updates:
 
   ### **DM History Support**
@@ -254,6 +339,8 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Introducing Rate Limit When Requesting All Guild Members" description="2025-08-14" tags={["Gateway"]}>
+  ## Introducing Rate Limit When Requesting All Guild Members
+
   We're introducing a change to the [Request Guild Members](/developers/docs/events/gateway-events#request-guild-members) gateway opcode. 
 
   ### What's changing?
@@ -292,7 +379,7 @@ import {Route} from '/snippets/route.jsx'
 
   ### Timeline
 
-  Most apps won’t encounter this rate limit until it is rolled out to all servers on **October 1, 2025**. However, if you are the developer of an app that is requesting all guild members in very large guilds then you may start seeing this **as soon as today**, so we can ensure platform stability.
+  Most apps won't encounter this rate limit until it is rolled out to all servers on **October 1, 2025**. However, if you are the developer of an app that is requesting all guild members in very large guilds then you may start seeing this **as soon as today**, so we can ensure platform stability.
 
   ### What you need to do
 
@@ -305,7 +392,7 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Discord Social SDK Communication Features - General Availability" description="2025-08-13" tags={["Discord Social SDK"]}>
-  ### Discord Social SDK Communication Features - General Availability
+  ## Discord Social SDK Communication Features - General Availability
 
   Communication features (cross-platform messaging, voice chat, lobbies, and linked channels) are now generally available for all Discord
   Social SDK users that meet our application process criteria. Previously available only in closed beta, these features 
@@ -330,6 +417,8 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Embedded App SDK Version 2.1 & 2.2" description="2025-08-11"  tags={["Activities", "Embedded App SDK"]}>
+  ## Embedded App SDK Version 2.1 & 2.2
+  
   We've made a few improvements to the Embedded App SDK for version 2.2.0, here are the highlights:
 
   ### Changes in version 2.1
@@ -353,6 +442,8 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Remove .proxy/ from Discord Activity proxy path" description="July 30, 2025" tags={["Activities", "Embedded App SDK"]}>
+  ## Remove .proxy/ from Discord Activity proxy path
+
   We've updated the Content Security Policy (CSP) for Discord Activities to remove the `.proxy/` path requirement when making requests through the discordsays.com proxy. This change simplifies the developer experience while maintaining full backwards compatibility. This was made possible by resolving the underlying privacy considerations that originally required the `.proxy/` path restriction.
 
   #### Before
@@ -393,6 +484,8 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 <Update label="Guild Create Deprecation" description="July 28, 2025" tags={["HTTP API"]}>
+  ## Guild Create Deprecation
+  
   Apps can no longer create guilds. The documentation for these endpoints has been removed and the endpoints have been removed from the OpenAPI specification.
 
   See our [earlier changelog entry](/developers/docs/change-log#deprecating-guild-creation-by-apps) for more information.

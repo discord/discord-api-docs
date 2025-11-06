@@ -30,6 +30,20 @@ Imports Discord brand font
     src: url('https://mintlify-assets.b-cdn.net/fonts/discord/gg_800.woff2')
 }
 
+body {
+    font-family: "gg sans", var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "gg sans", var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-weight: 600;
+}
+
+.\[\&_\*\:not\(h1\2c h2\2c h3\2c h4\2c h5\2c h6\2c h1_\*\2c h2_\*\2c h3_\*\2c h4_\*\2c h5_\*\2c h6_\*\)\]\:font-bodyWeight :not(h1,h2,h3,h4,h5,h6,h1 *,h2 *,h3 *,h4 *,h5 *,h6 *) {
+    font-weight: 400;
+}
+
 
 
 

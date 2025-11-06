@@ -15,18 +15,6 @@
     "eyebrows": "breadcrumbs"
   },
   "favicon": "/favicon.png",
-  "fonts": {
-    "body": {
-      "family": "gg sans",
-      "weight": 400,
-      "format": "woff2"
-    },
-    "heading": {
-      "family": "gg sans",
-      "weight": 600,
-      "format": "woff2"
-    }
-  },
   "errors": {
     "404": {
       "redirect": false
@@ -341,6 +329,10 @@
       "youtube": "https://www.youtube.com/@DiscordDevelopers",
       "linkedin": "https://www.linkedin.com/showcase/discord-developers"
     }
+  },
+  "banner" : {
+    "content": "New docs? Check out the [change log](/developers/docs/change-log#next-generation-docs-project) to learn more!",
+    "dismissible": true 
   },
   "integrations": {
     "gtm": {

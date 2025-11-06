@@ -8,6 +8,7 @@ cause black flashes at bottom of page
  */
 body {
     background-color: #ffffff;
+    
 }
 body:is(.dark *) {
     background-color: #36373e;
@@ -228,10 +229,49 @@ Tighten spacing between table of contents items
 /*
 Style anchor tags as blue without underline
  */
-.prose a:is(.dark *):not(.card), .prose a:is(.dark *) code{
+.prose a:is(.dark *):not(.card), .prose a:is(.dark *) code, .prose a:is(.dark *) strong{
     color: #7aaef3;
     text-decoration: none;
     border-bottom: 0px;
+}
+
+/*
+Fix code blocks inside links that break page width
+ */
+.prose a code {
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    display: inline-block;
+}
+
+/*
+Fix MDXRoute components breaking page width on mobile
+ */
+@media (max-width: 768px) {
+    .MDXRoute {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .MDXRoute .url {
+        word-break: break-all;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/*
+Fix inline code blocks breaking page width in prose content
+ */
+.prose code:not(pre code) {
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
 }
 
 .callout {
@@ -447,18 +487,50 @@ header > div > .flex-row > div {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* Style inline code blocks with light background */
+.prose code:not(pre code) {
+    background-color: #f0f1f5;
+}
+
 /* Light mode overrides */
 html[style*="color-scheme: light"] {
     .prose :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) {
         border-bottom: none; 
         color: rgb(var(--primary));
     }
-
-    .prose code {
-        background-color: #f0f1f5;
-    }
 }
 
 .chat-assistant-floating-input {
     display: none;
+}
+
+#banner {
+    a, a:visited {
+        color: white;
+        font-weight: bold;
+    }
+
+    a:hover {
+        border-bottom: 1px solid white;
+    }
+}
+
+/* Add top margin when banner is present - mobile only */
+@media (max-width: 1023px) {
+    body:has(#banner) #content-container {
+        margin-top: 64px;
+    }
+
+    /* Override banner styling on mobile */
+    #banner {
+        button {
+            position: relative;
+            top: unset;
+            right: unset;
+            display: flex;
+            --tw-translate-y: 0;
+            padding: 10px;
+        }
+        font-size: 0.9rem;
+    }
 }
