@@ -1,4 +1,7 @@
-# How Activities Work
+---
+title: How Activities Work
+description: An introduction to how Activities work on Discord.
+---
 
 Activities are web applications that run in an iframe within Discord on desktop, mobile and web. In order to achieve this, we use the [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) protocol to enable secure communication between your application and Discord.
 
