@@ -6,7 +6,7 @@ const args = process.argv.slice(2);
 const bail = args.includes("--bail");
 
 const ROOT_DIR = path.join(import.meta.dirname, "..");
-const DOCS_DIR = path.join(ROOT_DIR, "docs");
+const DOCS_DIR = path.join(ROOT_DIR, "discord", "developers", "docs");
 
 const extensions = [".mdx", ".md"];
 let hasErrors = false;

@@ -1,0 +1,62 @@
+#homepage-hero {
+    display: grid;
+
+    margin: -1rem auto 1.5rem auto;
+    background-image: url(https://mintlify-assets.b-cdn.net/discord-back.png);
+    background-size: cover;
+    background-position: center;
+    grid-area: 1/1;
+    border-radius: var(--radius-lg);
+
+    #hero-text {
+        display: flex;
+        grid-area: 1/1;
+        align-self: center;
+        margin: 2rem;
+        gap: 1rem;
+        color: white;
+    }
+
+    #hero-tagline {
+        font-size: 2rem;
+        line-height: 2rem;
+        font-family: 'discord';
+        margin: 2rem 0 0.5rem 0;
+        color: white;
+    }
+
+    #hero-image {
+        width: 300px;
+        height: 300px;
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    #homepage-hero {
+        #hero-image {
+            display: block;
+        }
+        #hero-tagline {
+            font-size: 4rem;
+            line-height: 4rem;
+            margin-bottom: 0rem;
+        }
+        #hero-text {
+            margin: 4rem;
+        }
+    }
+}
+
+#content-area:has(.mdx-content[data-page-href="/src/_props/developers/docs/intro"]),
+#content-area:has(.mdx-content[data-page-href="/developers/docs/intro"]) {
+    padding-right: 1rem;
+
+    div:has(h1#page-title) {
+        display: none;
+    }
+    
+    div#page-context-menu {
+        display: none;
+    }
+}
