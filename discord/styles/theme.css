@@ -487,13 +487,14 @@ header > div > .flex-row > div {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Style inline code blocks with light background */
-.prose code:not(pre code) {
-    background-color: #f0f1f5;
-}
-
 /* Light mode overrides */
 html[style*="color-scheme: light"] {
+    /* Style inline code blocks with light background */
+    .prose code:not(pre code) {
+        background-color: #f0f1f5;
+    }
+
+
     .prose :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) {
         border-bottom: none; 
         color: rgb(var(--primary));
