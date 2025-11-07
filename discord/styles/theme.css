@@ -243,7 +243,6 @@ Fix code blocks inside links that break page width
     word-break: break-all;
     overflow-wrap: break-word;
     max-width: 100%;
-    display: inline-block;
 }
 
 /*
