@@ -496,6 +496,32 @@ def unmerge_provisional_account(external_auth_token):
 If you have a server backend, you'll want to use the server-to-server unmerge endpoint rather than the SDK helper method to maintain better security and control over the unmerge process.
 </Info>
 
+#### Unmerging with Bot Token Endpoint
+
+If you're using the [Bot Token Endpoint](/docs/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-bot-token-endpoint) for authentication, you can unmerge accounts without an external auth token.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+BOT_TOKEN = 'YOUR_BOT_TOKEN'
+
+def unmerge_provisional_account(external_user_id):
+  data = {
+    'external_user_id': external_user_id # identifier used in the /token/bot endpoint
+  }
+  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': f'Bot {BOT_TOKEN}'
+  }
+  r = requests.post('%s/provisional-accounts/unmerge/bot' % API_ENDPOINT, json=data, headers=headers)
+  r.raise_for_status()
+```
+
+<Tip>
+This endpoint can also be useful in cases where the Discord Auth token has been lost to to error or data loss, and an unmerge operation is required to migrate to a provisional account before re-linking a Discord account.
+</Tip>
+
 ### Unmerging Provisional Accounts for Public Clients
 
 <PublicClient />
