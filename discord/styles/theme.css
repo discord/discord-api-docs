@@ -500,7 +500,7 @@ html[style*="color-scheme: light"] {
     }
 }
 
-.chat-assistant-floating-input, .assistant-bar-placeholder {
+.chat-assistant-floating-input, #assistant-bar-placeholder {
     display: none;
 }
 
