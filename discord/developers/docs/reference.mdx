@@ -267,27 +267,30 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 <ManualAnchor id="message-formatting-formats" />
 **Formats**
 
-| Type                    | Structure             | Example                         |
-|-------------------------|-----------------------|---------------------------------|
-| User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
-| User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
-| Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
-| Role                    | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
-| Slash Command \*\*      | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
-| Standard Emoji          | Unicode Characters    | 🦶                              |
-| Custom Emoji            | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
-| Custom Emoji (Animated) | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
-| Unix Timestamp          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
-| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
-| Guild Navigation        | `<id:TYPE>`           | `<id:customize>`                |
+| Type                                 | Structure                                | Example                              |
+|--------------------------------------|------------------------------------------|--------------------------------------|
+| User                                 | `<@USER_ID>`                             | `<@80351110224678912>`               |
+| User *                               | `<@!USER_ID>`                            | `<@!80351110224678912>`              |
+| Channel                              | `<#CHANNEL_ID>`                          | `<#103735883630395392>`              |
+| Role                                 | `<@&ROLE_ID>`                            | `<@&165511591545143296>`             |
+| Slash command                        | `</NAME:COMMAND_ID>`                     | `</airhorn:816437322781949972>`      |
+| Slash command with subcommand        | `</NAME SUBCOMMAND:ID>`                  | `</foo bar:123456789012345678>`      |
+| Slash command with subcommand group  | `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>` | `</foo group bar:123456789012345678>`|
+| Standard emoji                       | Unicode characters                       | 🪴                                   |
+| Custom emoji                         | `<:NAME:ID>`                             | `<:mmLol:216154654256398347>`        |
+| Animated custom emoji                | `<a:NAME:ID>`                            | `<a:b1nzy:392938283556143104>`       |
+| Unix timestamp                       | `<t:TIMESTAMP>`                          | `<t:1618953630>`                     |
+| Styled unix timestamp                | `<t:TIMESTAMP:STYLE>`                    | `<t:1618953630:d>`                   |
+| Guild navigation                     | `<id:TYPE>`                              | See below                            |
 
-Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://github.com/jdecked/twemoji) for Desktop/Android and Apple's native emoji on iOS.
 
-Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
+Using the markdown for users or roles will mention the target(s), and notify them depending on the sender's permissions as well as the value of the `allowed_mentions` field when creating a message. 
+Standard emoji are currently rendered using [Twemoji](https://github.com/jdecked/twemoji) for Desktop and Android while iOS devices use Apple's native emoji set.
 
-\* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
+Timestamps are expressed in **seconds** and display the given timestamp in the user's timezone and locale.
 
-\*\* Subcommands and subcommand groups can also be mentioned by using respectively `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>`.
+\* User mentions with an exclamation point are deprecated and should be handled like any other user mention.
+
 
 **Timestamp Styles**
 
@@ -301,7 +304,7 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 | F     | Tuesday, April 20, 2021 at 16:20 | Full Date, Short Time   |
 | s     | 20/04/2021, 16:20                | Short Date, Short Time  |
 | S     | 20/04/2021, 16:20:30             | Short Date, Medium Time |
-| R     | 2 months ago                     | Relative Time           |
+| R     | 4 years ago                      | Relative Time           |
 
 \*default
 
@@ -309,17 +312,17 @@ Timestamps are expressed in seconds and display the given timestamp in the user'
 
 Guild navigation types link to the corresponding resource in the current server.
 
-| Type         | Description                                                                                                    |
-|--------------|----------------------------------------------------------------------------------------------------------------|
-| customize    | Customize tab with the server's [onboarding prompts](/developers/docs/resources/guild#guild-onboarding-object) |
-| browse       | Browse Channels tab                                                                                            |
-| guide        | [Server Guide](https://support.discord.com/hc/en-us/articles/13497665141655)                                   |
-| linked-roles | [Linked Roles](https://support.discord.com/hc/en-us/articles/10388356626711)                                   |
-| linked-roles | Linked Role connection                                                                                         |
+| Full Syntax          | Linked Resource                                                                                                |
+|----------------------|----------------------------------------------------------------------------------------------------------------|
+| <id:customize>       | Channel & Roles tab with [Onboarding prompts](/developers/docs/resources/guild#guild-onboarding-object)        |
+| <id:browse>          | Browse Channels tab                                                                                            |
+| <id:guide>           | [Server Guide](https://support.discord.com/hc/en-us/articles/13497665141655) tab                               |
+| <id:linked-roles>    | [Linked Roles](https://support.discord.com/hc/en-us/articles/10388356626711) tab                               |
+| <id:linked-roles:id> | Specific linked role, opening the connection modal on click (the second `id` is the role id)                   |
 
 ## Image Formatting
 
-**Image Base Url**
+**Image Base URL**
 
 ```bash
 https://cdn.discordapp.com/
@@ -376,7 +379,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 \*\*\*\*\* For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. WebP and AVIF formats must be requested as WebP since they don't convert well to other formats. The Discord client uses WebP for all emojis displayed in-app. See the [Emoji Resource](/developers/docs/resources/emoji) page for more details.
 
 <Info>
-Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
+Sticker GIFs do not use the CDN base URL, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
 </Info>
 
 ## Image Data
@@ -542,9 +545,9 @@ For example:
 | bg     | Bulgarian             | български           |
 | ru     | Russian               | Pусский             |
 | uk     | Ukrainian             | Українська          |
-| hi     | Hindi                 | हिन्दी              |
+| hi     | Hindi                 | हिन्दी                |
 | th     | Thai                  | ไทย                 |
 | zh-CN  | Chinese, China        | 中文                |
 | ja     | Japanese              | 日本語              |
 | zh-TW  | Chinese, Taiwan       | 繁體中文            |
-| ko     | Korean                | 한국어                 |
+| ko     | Korean                | 한국어              |
