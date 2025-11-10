@@ -169,12 +169,11 @@ Indent left-hand navigation areas
 #sidebar-group {
     margin-left: 1rem;
 
-    li > a, [data-group-tag] > div {
+    li > a, [data-group-tag] > div, [data-group-tag] > button {
         padding: 0.1rem;
         padding-right: 0.5rem;
         border-radius: var(--radius-sm);
     }
-    
 }
 
 /*
