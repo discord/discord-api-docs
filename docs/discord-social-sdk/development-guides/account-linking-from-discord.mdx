@@ -1,6 +1,6 @@
 ---
-title: On-Platform Account Linking
-description: Adopt the On-Platform account linking APIs to allow Discord to show your players new entry points for account linking within the Discord client
+title: Account Linking from Discord
+description: Adopt the new account linking APIs to allow Discord to show your players entry points for account linking within the Discord client
 ---
 
 import PublicClient from "/snippets/discord-social-sdk/callouts/public-client.mdx";
@@ -8,7 +8,7 @@ import SupportCallout from "/snippets/discord-social-sdk/callouts/support.mdx";
 
 ## Overview
 
-Discord is working on adding several new entry points for account linking from within the Discord client to encourage users to link their accounts to your game. This guide explains how to prepare your game for Discord's on-platform account linking flows.
+The Discord client contains entry points to encourage users to link their account to your game. This guide explains how to prepare your game for the Discord client's account linking flows.
 
 ### Prerequisites
 
@@ -27,9 +27,9 @@ If you haven't completed these prerequisites, we recommend first following the [
 
 ---
 
-## The On-Platform Account Linking Flows
+## The Account Linking Flows
 
-At this time, Discord provides two different flows for on-platform account linking, the connected game flow and the web flow. When a user clicks on one of the entry points within their Discord client, it will choose one of the currently available flows to send the user through. To provide a good user experience, flows are chosen in the following priority order:
+At this time, Discord provides two different flows for account linking from the client, the connected game flow and the web flow. When a user clicks on one of the entry points within their Discord client, it will choose one of the currently available flows to send the user through. To provide a good user experience, flows are chosen in the following priority order:
 
 - Connected game flow
 - Web flow
