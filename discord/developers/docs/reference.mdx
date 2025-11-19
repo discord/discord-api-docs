@@ -421,7 +421,7 @@ Some endpoints support file attachments, indicated by the `files[n]` parameter. 
 
 All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the snowflake placeholder that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure)).
 
-Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
+Images can also be referenced in embeds using the `attachment://filename` URL. An example payload is provided below.
 
 ### Editing Message Attachments
 
