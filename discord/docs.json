@@ -338,5 +338,10 @@
     "gtm": {
         "tagId": "G-5CWMJQ1S0X"
     }
+  },
+  "seo": {
+    "metatags": {
+      "robots": "noindex"
+    }
   }
 }
