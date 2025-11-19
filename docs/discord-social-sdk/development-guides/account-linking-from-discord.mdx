@@ -1,74 +1,99 @@
 ---
 title: Account Linking from Discord
+sidebar_label: Account Linking from Discord
 description: Adopt the new account linking APIs to allow Discord to show your players entry points for account linking within the Discord client
 ---
 
-import PublicClient from "/snippets/discord-social-sdk/callouts/public-client.mdx";
-import SupportCallout from "/snippets/discord-social-sdk/callouts/support.mdx";
+import SupportCallout from '../partials/callouts/support.mdx';
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
+
+# {sidebar_label}
 
 ## Overview
 
-The Discord client contains entry points to encourage users to link their account to your game. This guide explains how to prepare your game for the Discord client's account linking flows.
+To give players more flexibility and options for account linking, Discord can show prompts and buttons throughout the Discord client that encourage users to link their accounts with your game. These are called entry points for account linking.
+
+Higher account linking rates lead to better social features, improved engagement, and a stronger connection between your game and Discord users.
+
+This guide shows you how to enable Discord to display these account linking prompts to your players.
 
 ### Prerequisites
 
-Before you begin, make sure you have:
+Before enabling these entry points, you must have:
 
-- Read the [Core Concepts](/developers/docs/discord-social-sdk/core-concepts) guide to understand:
-  - OAuth2 authentication flow
-  - Discord application setup
-  - SDK initialization
-- Set up your development environment with:
-  - Discord application created in the [Developer Portal](https://discord.com/developers/applications)
-  - Discord Social SDK downloaded and configured
-  - Basic SDK integration working (initialization and connection)
+- **Discord application setup**
+  - Created a Discord application in the [Developer Portal](https://discord.com/developers/applications)
+  - Configured OAuth2 settings with appropriate redirect URLs
+- **Implemented account linking in your game**
+  - Discord Social SDK downloaded and integrated into your game
+  - SDK initialization working (can connect to Discord)
+  - [Basic account linking flow](/docs/discord-social-sdk/development-guides/account-linking-with-discord) already implemented in your game
+- **Development environment ready**
+  - Game can successfully authenticate users with Discord OAuth2
 
-If you haven't completed these prerequisites, we recommend first following the [Getting Started](/developers/docs/discord-social-sdk/getting-started) guide.
+If you haven't completed these prerequisites, we recommend first following the [Getting Started](/docs/discord-social-sdk/getting-started) guide.
 
 ---
 
-## The Account Linking Flows
+## Entry Points & Account Linking Flows
+
+### What are Entry Points?
+
+Entry points are buttons, prompts, and UI elements that Discord shows throughout the Discord client to encourage account linking. Think of them as "Link your account" buttons that appear in various places where users might see your game.
+
+### Example of an Entry Point
+
+Discord automatically chooses which entry points to show based on what features you've implemented and whether your game is currently running.
+
+![Example of entry points in Discord](images/social-sdk/development-guides/entrypoints.webp)
+
+### Account Linking Flows
 
 At this time, Discord provides two different flows for account linking from the client, the connected game flow and the web flow. When a user clicks on one of the entry points within their Discord client, it will choose one of the currently available flows to send the user through. To provide a good user experience, flows are chosen in the following priority order:
 
-- Connected game flow
-- Web flow
+- [Connected game flow](/docs/discord-social-sdk/development-guides/account-linking-from-discord#connected-game-flow)
+- [Web flow](/docs/discord-social-sdk/development-guides/account-linking-from-discord#web-flow)
 
-### Connected Game Flow
+Choose which flows work best for your game and follow the implementation guides below. You can implement one or both flows to give your players more options for linking their accounts.
+
+---
+
+## Connected Game Flow
 
 This is our prefered account linking flow as we think it provides the best user experience when it's available. The connected game flow will send the user into your game client to begin the account linking flow.
 
-#### Prerequisites
+### Prerequisites
 
 - Upgrade to SDK version 1.6 or higher
-- Implement account linking
+- Implement [account linking](/docs/discord-social-sdk/development-guides/account-linking-with-discord) in your game
 
-#### Implementation
+### Implementing the Connected Game Flow
 
 Once you have adopted SDK version 1.6 or higher, there will be two new methods on the Client object, [`Client::RegisterAuthorizeRequestCallback`] and [`Client::RemoveAuthorizeRequestCallback`]. These two new methods will allow you to enable and disable this flow while your game is running.
 
-<Warning>
+:::warn
 	Before calling [`Client::RegisterAuthorizeRequestCallback`], ensure
 	[`Client::SetApplicationId`] has been called. This ensures that your game is
 	properly identifying itself to the Discord client and that all requests are
 	associated with the correct application.
-</Warning>
+:::
 
 Calling [`Client::RegisterAuthorizeRequestCallback`] with a callback function will signal to the Discord client that your game is running and able to start the account linking process. You should run this as soon as your game is able to handle an account link, for instance just after your user has logged in or reached the main menu.
 
 When a user clicks one of the account linking entry points in their Discord client, the SDK will run your callback. Treat this as if the user had just clicked one of your in-game account linking buttons and begin the authorization flow right away.
 
-<Info>
+:::info
 	When your game receives this callback, the user is most likely focused on the
 	Discord client, not the game client. Make sure to pull focus or otherwise
 	alert the user that something is happening in the game. The Discord client
-	will notify them to check the game as well, but for a more seamless
+	will notify them to check the game as well. For a more seamless
 	experience, you should pull them back into the game.
-</Info>
+:::
 
 Calling [`Client::RemoveAuthorizeRequestCallback`] will signal to the Discord client that your game is no longer able to start the account linking process. Call this whenever your game client is entering a state where starting the account linking process wouldn't work, for instance if the player enters a match, logs out, or is in some other full screen flow like a cutscene.
 
-This is all you need to enable the connected game flow, you can test and debug this flow using our new [built-in developer tools](/developers/docs/discord-social-sdk/how-to/debug-log#client-tools) in the Discord client.
+This is all you need to enable the connected game flow, you can test and debug this flow using our new [built-in developer tools](/docs/discord-social-sdk/how-to/debug-log#client-tools) in the Discord client.
 
 ```cpp
 // If you haven't already
@@ -83,23 +108,27 @@ client.RegisterAuthorizeRequestCallback([client, myGameAuthorizationHandler]() {
 });
 ```
 
-#### Best Practices
+### Connected Game Best Practices
 
-When a user clicks the account link button in their Discord client, this is a high intent action. Skip any extra upsells you have until after the user has linked their account, any extra steps added to this linking flow increases the areas where users may drop off. Show them any upsells after they've linked to reaffirm all the new features and any rewards they may have unlocked by linking their account.
+When a user clicks the account link button in their Discord client, this is a high intent action. We recommend skipping any extra upsells you have until after the user has linked their account, as any extra steps added to this linking flow increases the areas where users may drop off. Show them any upsells after they've linked to reaffirm all the new features and any rewards they may have unlocked by linking their account.
 
 Ensure you're enabling and disabling the callback at the appropriate times. If a user clicks an entry point in their Discord client and it launches the account linking flow in the middle of a match, this can interrupt gameplay and pull them out of your intended experience.
 
 Don't worry about checking if the user is already linked, the Discord client will handle hiding the entry point for users that have already linked their accounts. This will keep your implementation simpler and reduce surface for issues.
 
-### Web Flow
+## Web Flow
 
-The web flow is an alternative to the connected game flow, allowing you to send users to a webpage to begin the account linking process. At this time, this flow is only available to partners.
+The web flow is an alternative to the connected game flow, allowing you to send users to a webpage to begin the account linking process. 
 
-#### Prerequisites
+:::preview
+At this time, this flow is only available to select partners.
+:::
 
-- Implement the [standard OAuth2 flow](/developers/docs/topics/oauth2) on your website
+### Prerequisites
 
-#### Implemetation
+- Implement the [standard OAuth2 flow](/docs/topics/oauth2) on your website
+
+### Implementing the Web Flow
 
 Ensure your webpage meets the following requirements:
 
@@ -114,33 +143,29 @@ Ensure your webpage meets the following requirements:
 
 Now that you've successfully implemented account linking with Discord, you can integrate more social features into your game.
 
-import { PaintPaletteIcon } from "/snippets/icons/PaintPaletteIcon.jsx";
-import { ListViewIcon } from "/snippets/icons/ListViewIcon.jsx";
-import { UserIcon } from "/snippets/icons/UserIcon.jsx";
-
-<CardGroup cols={3}>
+<Container>
 	<Card
 		title="Design: Signing In"
-		href="/developers/docs/discord-social-sdk/design-guidelines/signing-in"
-		icon={<PaintPaletteIcon />}
+		link="/docs/discord-social-sdk/design-guidelines/signing-in"
+		icon="PaintPaletteIcon"
 	>
 		Design guidelines for account linking and user authentication
 	</Card>
 	<Card
 		title="Creating a Unified Friends List"
-		href="/developers/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list"
-		icon={<ListViewIcon />}
+		link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list"
+		icon="ListViewIcon"
 	>
 		Combine Discord and game friends into a single list for easy management.
 	</Card>
 	<Card
 		title="Setting Rich Presence"
-		href="/developers/docs/discord-social-sdk/development-guides/setting-rich-presence"
-		icon={<UserIcon />}
+		link="/docs/discord-social-sdk/development-guides/setting-rich-presence"
+		icon="UserIcon"
 	>
 		Display game status and information to Discord friends.
 	</Card>
-</CardGroup>
+</Container>
 
 <SupportCallout />
 
@@ -149,7 +174,7 @@ import { UserIcon } from "/snippets/icons/UserIcon.jsx";
 ## Change Log
 
 | Date              | Changes         |
-| ----------------- | --------------- |
+|-------------------|-----------------|
 | November 17, 2025 | initial release |
 
 {/* Autogenerated Reference Links */}
