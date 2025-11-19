@@ -1,0 +1,65 @@
+---
+title: Discord Social SDK Development Guides Glossary
+sidebarTitle: Glossary
+description: Definitions and explanations of key terms used in Discord Social SDK development guides.
+---
+
+These guides include suggested development practices, and user flows for you to consider while integrating the Discord Social SDK into your game. These will help provide your users with a consistent and clear experience while interacting with your game.
+
+If you are new to the Discord Social SDK, we recommend you start with the [Getting Started](/developers/docs/discord-social-sdk/getting-started) guide.
+
+import {UserPlusIcon} from '/snippets/icons/UserPlusIcon.jsx'
+import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
+import {MagicWandIcon} from '/snippets/icons/MagicWandIcon.jsx'
+import {ListViewIcon} from '/snippets/icons/ListViewIcon.jsx'
+import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
+import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+import {ChatIcon} from '/snippets/icons/ChatIcon.jsx'
+import {DoorEnterIcon} from '/snippets/icons/DoorEnterIcon.jsx'
+import {TextControllerIcon} from '/snippets/icons/TextControllerIcon.jsx'
+import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
+
+
+## Authentication & Account Linking
+
+<CardGroup cols={3}>
+  <Card title="Account Linking with Discord" href="/developers/docs/discord-social-sdk/development-guides/account-linking-with-discord" icon={<UserPlusIcon/>}>
+    Learn how to authenticate users with their Discord accounts using OAuth2.
+  </Card>
+  <Card title="Account Linking on Consoles" href="/developers/docs/discord-social-sdk/development-guides/account-linking-on-consoles" icon={<GameControllerIcon/>}>
+  Implement Discord authentication flows for console platforms.
+  </Card>
+  <Card title="Using Provisional Accounts" href="/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts" icon={<MagicWandIcon/>}>
+    Give your users a seamless account experience with provisional accounts.
+  </Card>
+</CardGroup>
+
+## Game Relationships, Presence & Game Invites
+<CardGroup cols={3}>
+  <Card title="Creating a Unified Friends List" href="/developers/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon={<ListViewIcon/>}>
+    Combine Discord and game-specific friends in one view.
+  </Card>
+  <Card title="Setting Rich Presence" href="/developers/docs/discord-social-sdk/development-guides/setting-rich-presence" icon={<UserStatusIcon/>}>
+    Display detailed game status in Discord profiles.
+  </Card>
+  <Card title="Managing Game Invites" href="/developers/docs/discord-social-sdk/development-guides/managing-game-invites" icon={<InboxIcon/>}>
+    Allow players to invite friends to join their game session or party.
+  </Card>
+</CardGroup>
+
+## Text & Voice Chat
+
+<CardGroup cols={3}>
+  <Card title="Sending Direct Messages" href="/developers/docs/discord-social-sdk/development-guides/sending-direct-messages" icon={<ChatIcon/>}>
+    Enable private messaging between players.
+  </Card>
+  <Card title="Managing Lobbies" href="/developers/docs/discord-social-sdk/development-guides/managing-lobbies" icon={<DoorEnterIcon/>}>
+    Bring players together in a shared lobby with invites, text chat, and voice comms.
+  </Card>
+   <Card title="Linked Channels" href="/developers/docs/discord-social-sdk/development-guides/linked-channels" icon={<TextControllerIcon/>}>
+    Connect game lobbies to Discord text channels.
+  </Card>
+   <Card title="Managing Voice Chat" href="/developers/docs/discord-social-sdk/development-guides/managing-voice-chat" icon={<VoiceNormalIcon/>}>
+    Add in-game voice communication.
+  </Card>
+</CardGroup>

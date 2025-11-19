@@ -1,0 +1,52 @@
+
+/* Light mode styles */
+html[style*="color-scheme: light"] .MDXSnowflake {
+  text {
+    fill: black;
+  }
+
+  .arrow {
+    fill: oklab(0.251834 0.00131807 -0.008479);
+  }
+}
+
+html[style*="color-scheme: dark"] .MDXSnowflake {
+  text {
+    fill: white;
+  }
+}
+
+.MDXSnowflake {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+
+  .arrow {
+    fill: oklab(0.751834 0.00131807 -0.008479);
+  }
+
+  .header {
+    font-weight: bold;
+    font-size: 16px;
+
+    &.group1 {
+      fill: oklab(0.747617 0.00671133 -0.126112);
+    }
+
+    &.group2 {
+      fill: oklab(0.773758 0.0289854 0.0857202);
+    }
+
+    &.group3 {
+      fill: oklab(0.723746 0.150768 0.055049);
+    }
+
+    &.group4 {
+      fill: oklab(0.700146 -0.0932133 -0.0629166);
+    }
+  }
+
+  
+}

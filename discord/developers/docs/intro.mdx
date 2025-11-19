@@ -1,0 +1,192 @@
+---
+title: ""
+sidebarTitle: "Intro"
+mode: "wide"
+---
+
+import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
+import {SlashBoxIcon} from '/snippets/icons/SlashBoxIcon.jsx'
+import {ActivitiesIcon} from '/snippets/icons/ActivitiesIcon.jsx'
+import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
+import {PaintPaletteIcon} from '/snippets/icons/PaintPaletteIcon.jsx'
+import {ClydeIcon} from '/snippets/icons/ClydeIcon.jsx'
+import {BugIcon} from '/snippets/icons/BugIcon.jsx'
+import {CircleQuestionIcon} from '/snippets/icons/CircleQuestionIcon.jsx'
+
+<div id="homepage-center">
+<div id="homepage-hero">
+    <div id="hero-text">
+        <div className="flex-1" style={{alignSelf: "center"}}>
+          <p id="hero-tagline">Build Where the World Plays</p>
+          <p>Create social games, experiences, and integrations for millions of users on Discord</p>
+        </div>
+        <div id="hero-image">
+          <img src="/images/frame-wumpus.png" alt="Discord Developers" />
+        </div>
+  </div>
+</div>
+
+## Build with Discord
+
+Discord provides a platform for building social experiences, whether you're
+creating apps within Discord or integrating Discord's features into your game.
+
+<CardGroup cols={3}>
+  <Card
+  title="Apps"
+  href="/developers/docs/quick-start/overview-of-apps"
+  icon={<RobotIcon />}
+  iconType="solid"
+  horizontal
+  >
+    Develop apps, bots, and integrations to enhance the Discord experience.
+  </Card>
+
+  <Card
+    title="Activities"
+    href="/developers/docs/activities/overview"
+    icon={<ActivitiesIcon />}
+    iconType="solid"
+    horizontal
+  >
+    Build multiplayer games and social experiences that run directly in Discord.
+  </Card>
+
+  <Card
+    title="Discord Social SDK"
+    href="/developers/docs/discord-social-sdk/overview"
+    icon={<GameControllerIcon />}
+    iconType="solid"
+    horizontal
+  >
+    Add rich social features into your game across desktop, mobile, and console.
+  </Card>
+</CardGroup>
+
+## Extend Discord with Custom Integrations
+
+Enhance the Discord experience with custom apps, commands, and integrations.
+
+<CardGroup cols={3}>
+  <Card
+    title="Apps"
+    icon={<RobotIcon />}
+    href="/developers/docs/quick-start/overview-of-apps"
+    horizontal
+  >
+    Learn the fundamentals of building Discord apps and commands.
+  </Card>
+  <Card title="Build Your First Discord App"
+    icon={<WrenchIcon />}
+    href="/developers/docs/quick-start/getting-started"
+    horizontal
+  >
+    Create a bot user that plays 'rock, paper, scissors' with users.
+  </Card>
+  <Card
+    title="Slash Commands and Interactions"
+    icon={<SlashBoxIcon />}
+    href="/developers/docs/interactions/overview#message-components"
+    horizontal
+  >
+    Create custom commands and interactions for your app.
+  </Card>
+</CardGroup>
+
+## Build Multiplayer Games and Social Experiences
+
+Use the Embedded App SDK to create real-time games and social experiences that users can launch directly inside Discord.
+
+<CardGroup cols={3}>
+  <Card 
+    title="Activities Overview"
+    icon={<ActivitiesIcon />}
+    href="/developers/docs/activities/overview"
+    horizontal
+  >
+    Discover how activities work in Discord.
+  </Card>
+
+  <Card
+    title="Build Your First Activity"
+    icon={<WrenchIcon />}
+    href="/developers/docs/activities/building-an-activity"
+    horizontal
+  >
+    Build and test an Activity using the Embedded App SDK.
+  </Card>
+  <Card
+    title="Activity Design Patterns"
+    icon={<PaintPaletteIcon />}
+    href="/developers/docs/activities/design-patterns"
+    horizontal
+  >
+    Best practices for multiplayer, game design, and player experience.
+  </Card>
+</CardGroup>
+
+## Bring Social Features to Your Game
+
+Enable rich presence, voice chat, and more to create a seamless social experience for your players and grow your game.
+
+<CardGroup cols={3}>
+  <Card
+    title="Discord Social SDK Overview"
+    icon={<GameControllerIcon />}
+    href="/developers/docs/discord-social-sdk/overview"
+    horizontal
+  >
+    Explore rich presence, relationships, voice chat, and more.
+  </Card>
+  <Card
+    title="Build with the Discord Social SDK"
+    icon={<WrenchIcon />}
+    href="/developers/docs/discord-social-sdk/getting-started"
+    horizontal
+  >
+    Start here for a step-by-step guide to adding social features to your game.
+  </Card>
+  <Card
+    title="Design Guidelines"
+    icon={<PaintPaletteIcon />}
+    href="/developers/docs/discord-social-sdk/design-guidelines"
+    horizontal
+  >
+    Best practices for integrating Discord Social SDK features into your game.
+  </Card>
+</CardGroup>
+
+## Find Support
+
+Connect with the developer community, report issues, and stay updated with API changes.
+
+<br />
+
+<CardGroup cols={3}>
+  <Card
+    title="Join the Developer Discord "
+    href="https://discord.com/invite/discord-developers"
+    icon={<ClydeIcon />}
+    horizontal
+    >
+      Get support, API announcements, and participate in developer events.
+    </Card>
+  <Card
+    title="Report Issues on GitHub"
+    href="https://github.com/discord/discord-api-docs"
+    icon={<BugIcon />}
+    horizontal
+  >
+    Report issues with the Discord API and SDKs.
+  </Card>
+  <Card
+    title="Visit the Developer Help Center"
+    href="https://support-dev.discord.com/"
+    icon={<CircleQuestionIcon />}
+    horizontal
+  >
+    Find articles, FAQs, and reach out to Discord's developer support team.
+  </Card>
+</CardGroup>
+</div>

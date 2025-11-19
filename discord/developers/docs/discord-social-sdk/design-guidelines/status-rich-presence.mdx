@@ -1,0 +1,58 @@
+---
+title: Status & Rich Presence
+description: Design guidelines for displaying user status and Rich Presence information.
+---
+
+This guide provides best practices and design guidelines for integrating status and rich presence features within your game. These features are essential for enhancing player engagement and providing real-time information about player activities.
+
+By following this guide, you will learn how to:
+
+- Implement a status matrix to display player statuses in your friends list.
+- Apply core style guidelines to ensure consistency and player comprehension.
+- Customize the appearance to fit your game while maintaining the essential elements of status indicators.
+
+## Core statuses, plus game-specific
+
+![Core statuses, plus game-specific](/images/social-sdk/design-guidelines/StatusPresence-02.png)
+
+## Status matrix
+
+![Status matrix](/images/social-sdk/design-guidelines/StatusPresence-03.png)
+
+## Side-by-side
+
+Any of the **core statuses** (online, idle, DND, offline) will always be the same between the game and the Discord client.
+
+You can customize the status icon, but custom icons will only render within the game.
+
+![Side-by-side](/images/social-sdk/design-guidelines/StatusPresence-04.png)
+
+## Core style guidelines
+
+To ensure player comprehension, keep the **core colors, symbols, and information architecture consistent** across Discord-powered games — with choice of styling of applied. 
+
+In other words, as long as the status colors read as yellow/green/red, and the symbols as moon/circle/minus/offline, **all other styling is the game's choice**. 
+
+Avatars are not required.
+
+![Core style guidelines](/images/social-sdk/design-guidelines/StatusPresence-05.png)
+
+## Rich Presence
+
+The game developer should set rich presence — this will show in both the Discord and game client. 
+
+Please refer to [**Setting Rich Presence**](/developers/docs/discord-social-sdk/development-guides/setting-rich-presence) for more information on Rich Presence, such as other types of traits that can be included.
+
+![Rich Presence](/images/social-sdk/design-guidelines/StatusPresence-06.png)
+
+---
+
+## Resources 
+
+- [Development Guide: Setting Rich Presence](/developers/docs/discord-social-sdk/development-guides/setting-rich-presence)
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | Initial Release |

@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 // Configure paths
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-const MARKDOWN_DIR = path.join(REPO_ROOT, "docs");
+const MARKDOWN_DIR = path.join(REPO_ROOT, "/discord/developers/docs");
 const MAPPING_FILE = path.join(__dirname, "social-sdk-mappings.json");
 
 // Helper function to ensure paths are resolved correctly
@@ -137,7 +137,7 @@ const processMarkdownFile = (filePath, mapping) => {
 
   if (hasChanged) {
     fs.writeFileSync(filePath, newContent, "utf-8");
-    // eslint-disable-next-line no-undef
+
     console.log(`Updated ${filePath} with ${referencesFound.size} references`);
   }
 
@@ -151,7 +151,6 @@ const processMarkdownFile = (filePath, mapping) => {
 const processMarkdownFiles = async () => {
   const mapping = loadMapping();
   if (!Object.keys(mapping).length) {
-    // eslint-disable-next-line no-undef
     console.error("Mapping is empty! Make sure the JSON is generated correctly.");
     return;
   }
@@ -174,12 +173,10 @@ const processMarkdownFiles = async () => {
   }
 
   if (filesUpdated > 0) {
-    // eslint-disable-next-line no-undef
     console.log(
       `\nSDK reference links processed. Updated ${filesUpdated} files with ${totalReferences} total references.`,
     );
   } else {
-    // eslint-disable-next-line no-undef
     console.log("SDK reference links processed. No changes were made to any files.");
   }
 };
