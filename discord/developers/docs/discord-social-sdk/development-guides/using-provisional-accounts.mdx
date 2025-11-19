@@ -1,0 +1,624 @@
+---
+title: Using Provisional Accounts
+description: Implement provisional Discord accounts for users who don't have Discord accounts yet.
+---
+
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+import PublicClient from '/snippets/discord-social-sdk/callouts/public-client.mdx';
+import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+
+## Overview
+
+Provisional accounts let players use Social SDK features in your game without linking a Discord account so all players can have a consistent gameplay experience.
+
+With provisional accounts, players can:
+
+- Add friends and communicate with other players
+- Join voice chats in game lobbies
+- Send direct messages to other players
+- Appear in friends lists and game lobbies
+
+All of this works seamlessly whether your players have Discord accounts or not.
+
+This guide will show you how to:
+
+1. Set up provisional accounts for your game
+2. Create and manage provisional accounts
+3. Handle account merging when users want to upgrade to full Discord
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- A basic understanding of how the SDK works from the [Getting Started Guide](/developers/docs/discord-social-sdk/getting-started)
+- An external authentication provider set up for your game
+
+---
+
+<ManualAnchor id="what-are-provisional-accounts" />
+## What Are Provisional Accounts?
+
+Think of provisional accounts as temporary Discord accounts that:
+
+- Work only with your game
+- Can be upgraded to full Discord accounts later
+- Persist between game sessions
+- Use your game's authentication system
+
+With provisional accounts, players can use Discord features like chat and voice and interact with game friends without creating a full Discord account. They are "placeholder" Discord accounts for the user that your game owns and manages.
+
+For existing Discord users who have added a provisional account as a game friend, the provisional account will appear in their friend list, allowing you to send direct messages and interact with them for text and voice in lobbies.
+
+### How It Works
+
+1. Your game authenticates players using your existing system (Steam, Epic, etc.)
+2. Discord creates temporary accounts linked to those identities
+3. Players can use Discord features immediately
+4. Players can optionally upgrade to full Discord accounts later
+5. All friends and chat history transfer when upgrading
+
+### Benefits
+
+- Instant Access: Players can use social features immediately
+- Seamless Experience: Works the same for all players
+- Easy Upgrade Path: Simple conversion to full Discord accounts
+- Data Persistence: Friends and history are preserved
+- Cross-Platform: Works on all supported platforms
+
+---
+
+## Getting Set Up
+### Choosing an Authentication Method
+
+Discord offers a number of authentication methods, the one you use depends on how you game and account system is set up:
+
+1. Use the [Bot Token Endpoint](/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-bot-token-endpoint) if your game has an account system which uniquely identifies users. This is the recommended approach when possible.
+2. Use the [Server Authentication with External Credentials Exchange](/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-external-credentials-exchange) if you have an existing OIDC provider, or do not have an account system.
+3. Use the [Client Side Token Exchange Method](/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts#authentication-for-public-clients) if you are using a Public Client.
+
+If you are using (2) or (3), you must configure you identity provider before being able to create provisional accounts.
+
+### Configuring Your Identity Provider
+
+<Warning>
+If you are using the bot token endpoint, no Identity Provider configuration is required.
+</Warning>
+
+Open the Discord app for your game in the [Developer Portal](https://discord.com/developers/applications). Find the `External Auth` page under the `Discord Social SDK` section in the sidebar.
+
+Click on `Add Auth Provider` and choose the type of provider you're using (Steam, OIDC, etc.). Fill in the required details for your provider.
+
+We currently support the following provider types:
+
+- OpenID Connect (OIDC)
+- Steam Session Tickets
+- Epic Online Services (EOS)
+- Unity
+
+Providers are represented in Discord's systems by the following types:
+
+#### External Auth Types
+
+| Type                              | Description                                                                   |
+|-----------------------------------|-------------------------------------------------------------------------------|
+| OIDC                              | OpenID Connect ID token                                                       |
+| STEAM_SESSION_TICKET              | A Steam auth ticket for web generated with discord as the identity            |
+| EPIC_ONLINE_SERVICES_ACCESS_TOKEN | Access token for Epic Online Services. Supports EOS Auth access tokens        |
+| EPIC_ONLINE_SERVICES_ID_TOKEN     | ID token for Epic Online Services. Supports both EOS Auth + Connect ID tokens |
+| UNITY_SERVICES_ID_TOKEN           | Unity Services authentication ID token                                        |
+| DISCORD_BOT_ISSUED_ACCESS_TOKEN   | An access token for a user authenticated via the Bot Token Endpoint           |
+
+---
+
+## Implementing Provisional Accounts
+
+Creating a Provisional Account and requesting an Access Token for the account always happens in a single step.
+
+You provide external authentication and uniquely identifies the user, and Discord finds a user associated with that identifier.
+
+- If there is no account associated with the identity, a new provisional account is created along with a new access token for the user.
+- If there is a provisional account associated with the identity, an access token is returned.
+- If there is an existing _full Discord account_ associated with the identity, the request is aborted (See [Error Handling](/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts#error-handling)).
+
+Once authentication is complete, you can use the access token as you would a full Discord user's access token.
+
+### Server Authentication with Bot Token Endpoint
+
+<Info>
+This is the preferred method of authentication. It ends up being the simplest choice for most provisional account integrations.
+</Info>
+
+```python
+# filepath: your_game/server/auth.py
+import requests
+from models import GameAccount
+
+def get_provisional_token(game_account: GameAccount):
+  response = requests.post(
+    'https://discord.com/api/v10/partner-sdk/token/bot',
+    headers={
+      'Content-Type': 'application/json',
+      'Authorization': 'Bot <BOT_TOKEN>' # your application's bot token
+    },
+    json={
+      'external_user_id': game_account.id,       # your account system's unique id
+      'preferred_global_name': game_account.display_name, # your account system's display name for the user
+    }
+  )
+  return response.json()
+```
+
+#### Bot Token Endpoint Response
+
+```python
+{
+  "access_token": "<access token>",
+  "id_token": "<id token>",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "sdk.social_layer"
+}
+```
+
+### Server Authentication with External Credentials Exchange
+```python
+# filepath: your_game/server/auth.py
+import requests
+
+def get_provisional_token(external_token: str):
+  response = requests.post(
+    'https://discord.com/api/v10/partner-sdk/token',
+    json={
+      'client_id': CLIENT_ID,
+      'client_secret': CLIENT_SECRET,
+      'external_auth_type': EXTERNAL_AUTH_TYPE,  # See External Auth Types above
+      'external_auth_token': external_token
+    }
+  )
+  return response.json()
+```
+
+#### External Credentials Exchange Response
+
+```python
+{
+  "access_token": "<access token>",
+  "id_token": "<id token>",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "refresh_token": "<refresh token>", # only provided for OIDC when *not* a public client
+  "scope": "sdk.social_layer"
+}
+```
+
+### Authentication for Public Clients
+
+<PublicClient />
+
+If you have `Public Client` enabled on your Discord app, you can use the following code to authenticate your players with the external provider.
+
+```cpp
+// filepath: your_game/auth_manager.cpp
+void AuthenticateUser(std::shared_ptr<discordpp::Client> client) {
+    // Get your external auth token (Steam, OIDC, etc.)
+    std::string externalToken = GetExternalAuthToken();
+
+    // Get provisional token from Discord
+    client->GetProvisionalToken(DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC,
+        externalToken,
+        [client](discordpp::ClientResult result, std::string accessToken, std::string refreshToken, discordpp::AuthorizationTokenType tokenType, int32_t expiresIn, std::string scope) {
+        if (result.Successful()) {
+            std::cout << "🔓 Provisional token received! Establishing connection...\n";
+            client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken, [client](discordpp::ClientResult result) {
+                client->Connect();
+            });
+        } else {
+            std::cerr << "❌ Provisional token request failed: " << result.Error() << std::endl;
+        }
+    });
+}
+```
+
+### Provisional Account Access Tokens
+
+These methods generate a Discord access token. You pass in the user's identity, and it generates a new Discord account tied to that identity. There are multiple ways of specifying that identity, including using Steam/Epic services or your own identity system.
+
+The callback function will be invoked with an access token that expires in 1 hour. Refresh tokens are not supported for provisional accounts, so that will be an empty string. When the old one expires, you must call this function again to get a new access token.
+
+You can use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or expires.
+
+<Info>
+When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to UpdateToken without interrupting the user's experience.
+</Info>
+
+#### Provisional Account Access Token Storage
+
+It is suggested that these provisional tokens are not stored and instead invoke this function each time the game is launched and when these tokens are about to expire. However, should you choose to store it, it is recommended that these provisional account tokens be differentiated from "full" Discord account tokens.
+
+### Error Handling
+
+Common error codes and solutions for the server token exchange methods:
+
+| Code   | Meaning                      | Solution                                                                    |
+|--------|------------------------------|-----------------------------------------------------------------------------|
+| 530000 | Application not configured   | Contact Discord support to enable provisional accounts for your application |
+| 530001 | Expired ID token             | Request a new token from your identity provider                             |
+| 530004 | Token too old                | Request a new token (tokens over 1 week old are rejected)                   |
+| 530006 | Username generation failed   | Retry the operation (temporary error)                                       |
+| 530007 | Invalid client secret        | Verify or regenerate your client secret in the Developer Portal             |
+| 530010 | User account non-provisional | User already linked to Discord account - use standard OAuth2 flow           |
+
+If you are using OIDC, you may encounter more specific errors:
+
+| Code   | Meaning                      | Solution                                                                 |
+|--------|------------------------------|--------------------------------------------------------------------------|
+| 530002 | Invalid issuer               | Verify the issuer in your ID token matches your configuration            |
+| 530003 | Invalid audience             | Check that the audience in your ID token matches your OIDC configuration |
+| 530008 | OIDC configuration not found | Verify your OIDC issuer URL is configured and accessible                 |
+| 530009 | OIDC JWKS not found          | Check that your OIDC provider's JWKS endpoint is accessible              |
+| 530020 | Invalid OIDC JWT token       | Ensure your OIDC ID token is properly signed and formatted               |
+
+ You can find you OIDC configuration by visiting the [Developer Portal](https://discord.com/developers/applications), selecting your application, and opening the `External Auth` page under the `Discord Social SDK` section in the sidebar.
+
+---
+
+## Setting Display Names
+
+Using these credentials, we'll create a limited Discord account just for your game and try to set the username for you according to the following:
+
+- For Bot issued tokens, the `preferred_global_name` you specified will be used.
+- For OIDC, a provisional account's display name will be the value of the `preferred_username` claim, if specified in
+  the ID token. This field is optional and should be between 1 and 32 characters. If not specified, the user's display
+  name will default to the user's unique username, which Discord generates on creation.
+- For [Steam session tickets](https://partner.steamgames.com/doc/features/auth), the display name of the user's Steam
+  account is used as the provisional account's display name.
+- For [EOS Auth](https://dev.epicgames.com/docs/epic-account-services/auth/auth-interface) Access Tokens or ID Tokens,
+  the name of the user's Epic account is used as the provisional account's display name. EOS Connect ID Tokens do
+  not expose any username, and thus the game will need to configure the display name with
+  [`Client::UpdateProvisionalAccountDisplayName`].
+- For [Unity Services ID Tokens](https://services.docs.unity.com/docs/client-auth/),
+  the display name of the user's Unity Player Account is used as the provisional account's display name.
+
+If you'd like to set the display name for a provisional account, you can use the [`Client::UpdateProvisionalAccountDisplayName`] method.
+
+```cpp
+client->UpdateProvisionalAccountDisplayName("CoolPlayer123", [](discordpp::ClientResult result) {
+    if (result.Successful()) {
+      std::cout << "✅ Display name updated\n";
+    }
+  }
+);
+```
+
+----
+
+## Merging Provisional Accounts
+
+When a player wants to convert their provisional account to a full Discord account, we start a special version of the [access token request flow](/developers/docs/discord-social-sdk/development-guides/account-linking-with-discord#requesting-access-tokens) where the provisional users external identity is included.
+
+- If you have a backend, follow [Merging Provisional Accounts for Servers](/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts-for-servers)
+- If you do not have a backend, follow [Merging Provisional Accounts for Public Clients ](/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts-for-public-clients)
+
+### Merging Provisional Accounts for Servers
+
+To merge provisional accounts, include `external_auth_type` and `external_auth_token` values with a request to `/oauth2/token`. Discord will look up the Provisional User associated with the provided identity and attempt to merge it in to the full Discord account that generated the provided `code`.
+
+#### Desktop & Mobile
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+EXTERNAL_AUTH_TYPE = 'OIDC' # See External Auth Types above
+
+def exchange_code_with_merge(code, redirect_uri, external_auth_token):
+  data = {
+    'grant_type': 'authorization_code',
+    'code': code,
+    'redirect_uri': redirect_uri,
+    'external_auth_type': EXTERNAL_AUTH_TYPE,
+    'external_auth_token': external_auth_token
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+  r.raise_for_status()
+  return r.json()
+```
+
+#### Console
+
+```python
+import requests
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+EXTERNAL_AUTH_TYPE = 'OIDC'
+def exchange_device_code_with_merge(device_code):
+  data = {
+    'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
+    'device_code': device_code,
+    'external_auth_type': EXTERNAL_AUTH_TYPE,
+    'external_auth_token': external_auth_token
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+  r.raise_for_status()
+  return r.json()
+```
+
+#### Merge Request Response
+
+```python
+{
+  "access_token": "<access token>",
+  "token_type": "Bearer",
+  "expires_in": 604800,
+  "refresh_token": "<refresh token>",
+  "scope": "sdk.social_layer"
+}
+```
+
+### Merging Provisional Accounts for Public Clients
+
+<PublicClient />
+
+If you do not have a backend, leverage the [`Client::GetTokenFromProvisionalMerge`] (Desktop & Mobile) or [`Client::GetTokenFromDeviceProvisionalMerge`] (Console) method, which will handle the entire process for you. You'll want to first enable Public Client on your Discord application's OAuth2 tab on the Discord developer portal. You can then leverage the [`Client::GetTokenFromProvisionalMerge`] or [`Client::GetTokenFromDeviceProvisionalMerge`] method using just the client.
+
+This function should be used with the [`Client::Authorize`] function whenever a user with a provisional account wants to link to an existing Discord account or "upgrade" their provisional account into a "full" Discord account.
+
+In this case, data from the provisional account should be "migrated" to the Discord account, a process we call "account merging". Specifically, relationships, DMs, and lobby memberships are transferred to the Discord account.
+
+The provisional account will be deleted once this merging process is completed. If the user unlinks later, a new provisional account with a new unique ID is created.
+
+The account merging process starts like the normal login flow, invoking the [`Client::Authorize`] method to get an authorization code back. Instead of calling `GetToken`, call this function and pass on the provisional user's identity.
+
+Discord can then find the provisional account with that identity and the new Discord account and merge any data as necessary.
+
+See the documentation for [`Client::GetToken`] for more details on the callback. Note that the callback will be invoked when the token exchange is complete, but merging accounts happens asynchronously and will not be complete yet.
+
+```cpp
+// Create a code verifier and challenge if using GetToken
+auto codeVerifier = client->CreateAuthorizationCodeVerifier();
+discordpp::AuthorizationArgs args{};
+args.SetClientId(YOUR_DISCORD_APPLICATION_ID);
+args.SetScopes(discordpp::Client::GetDefaultPresenceScopes());
+args.SetCodeChallenge(codeVerifier.Challenge());
+
+client->Authorize(args, [client, codeVerifier](discordpp::ClientResult result, std::string code, std::string redirectUri) {
+  if (!result.Successful()) {
+    std::cerr << "❌ Authorization Error: " << result.Error() << std::endl;
+  } else {
+    std::cout << "✅ Authorization successful! Next step: GetTokenFromProvisionalMerge \n";
+
+    // Retrieve your external auth token
+    std::string externalAuthToken = GetExternalAuthToken();
+
+    client->GetTokenFromProvisionalMerge(YOUR_DISCORD_APPLICATION_ID, code, codeVerifier, redirectUri, discordpp::AuthenticationExternalAuthType::OIDC, externalAuthToken,[client](
+      discordpp::ClientResult result,
+      std::string accessToken,
+      std::string refreshToken,
+      discordpp::AuthorizationTokenType tokenType,
+      int32_t expiresIn,
+      std::string scope) {
+        if (result.Successful()) {
+          std::cout << "🔓 Token received! Establishing connection...\n";
+          client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken, [client](discordpp::ClientResult result) {
+            client->Connect();
+          });
+        } else {
+          std::cerr << "❌ Token request failed: " << result.Error() << std::endl;
+        }
+    });
+
+  }
+});
+```
+
+### Data Migration During Merging
+
+When a user merges their provisional account with a Discord account, the following data is automatically transferred:
+
+* **✅ Friends**: All In-game and Discord friendships made through the provisional account
+* **✅ Lobby Memberships**: Active and historical lobby participation
+* **✅ DM Messages**: Direct messages and history
+
+This migration ensures users don't lose their social connections built while using the provisional account.
+
+
+### Merge Request Failures
+
+You may receive a merge specific error code while attempting this operation:
+
+| Code   | HTTP Status | Meaning                         | Solution                                                              |
+|--------|-------------|---------------------------------|-----------------------------------------------------------------------|
+| 530014 | 400         | Invalid merge source            | The source account is not provisional                                 |
+| 530016 | 400         | Invalid merge destination       | The destination account is provisional                                |
+| 530017 | 400         | Merge source user banned        | The provisional account being merged is banned from platform          |
+| 530023 | 400         | Too many application identities | User already has an associated external identity for this application |
+| -      | 423         | Resource locked                 | Transient error, wait and retry                                       |
+
+---
+
+## Unmerging Provisional Accounts
+
+When a player wants to unlink their Discord account from their provisional account, there are three options:
+
+1. The user can unmerge their account from the Discord client
+2. A developer can unmerge the account using the unmerge endpoint on the Discord API
+3. A developer can use the SDK helper method for public clients
+
+<Warning>
+Unmerging invalidates all access/refresh tokens for the user. They cannot be used again after the unmerge operation completes. Any connected game sessions will be disconnected.
+</Warning>
+
+### Discord Users
+
+Users can unmerge their account by removing access to your application on their Discord `User Settings -> Authorized Apps` page.
+
+This method doesn't require any code changes from developers, but we recommend providing unmerging functionality through
+one of the options below for a better user experience.
+
+If you would like to be notified when a user unlinks this way, you can [configure you application to listen for the `APPLICATION_DEAUTHORIZED` webhook event](/developers/docs/events/webhook-events#application-deauthorized).
+Otherwise, you will know that the user has unlinked because their access token and refresh token (if you have one) will be invalidated.
+
+### Unmerging Provisional Accounts for Servers
+
+A developer can unmerge a user's account by sending a request to the unmerge endpoint on the Discord API.
+
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+EXTERNAL_AUTH_TYPE = 'OIDC'
+
+def unmerge_provisional_account(external_auth_token):
+  data = {
+    'client_id': CLIENT_ID,
+    'client_secret': CLIENT_SECRET,
+    'external_auth_type': EXTERNAL_AUTH_TYPE,
+    'external_auth_token': external_auth_token
+  }
+  r = requests.post('%s/partner-sdk/provisional-accounts/unmerge' % API_ENDPOINT, json=data, headers=headers)
+  r.raise_for_status()
+```
+
+<Info>
+If you have a server backend, you'll want to use the server-to-server unmerge endpoint rather than the SDK helper method to maintain better security and control over the unmerge process.
+</Info>
+
+### Unmerging Provisional Accounts for Public Clients
+
+<PublicClient />
+
+The quickest way to unmerge accounts is to leverage the [`Client::UnmergeIntoProvisionalAccount`] method,
+which will handle the entire process for you. This method is designed for public clients that don't have a backend server.
+
+**Important Notes:**
+- This function only works for **public clients** (applications without backend servers)
+- You'll need to enable "Public Client" on your Discord application's OAuth2 tab in the Discord developer portal
+- After unmerging, you should use [`Client::GetProvisionalToken`] to get a new provisional token for the newly created provisional account
+
+```cpp
+// unmerge a user account
+void UnmergeUserAccount(const std::shared_ptr<discordpp::Client>& client) {
+    // Get your external auth token (Steam, OIDC, etc.)
+    std::string externalToken = GetExternalAuthToken();
+
+    // Unmerge the Discord account from the external identity
+    client->UnmergeIntoProvisionalAccount(
+        YOUR_DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC, // or STEAM, EOS, etc.
+        externalToken,
+        [client, externalToken](const discordpp::ClientResult &result) {
+            if (result.Successful()) {
+                std::cout << "✅ Account unmerged successfully! Creating new provisional account...\n";
+
+                // Now get a new provisional token for the unlinked identity
+                client->GetProvisionalToken(
+                    YOUR_DISCORD_APPLICATION_ID,
+                    discordpp::AuthenticationExternalAuthType::OIDC,
+                    externalToken,
+                    [client](const discordpp::ClientResult &result,
+                                 const std::string &accessToken,
+                                                     const std::string& refreshToken,
+                                                     discordpp::AuthorizationTokenType tokenType,
+                                                     int32_t expiresIn,
+                                                     const std::string& scopes) {
+                        if (result.Successful()) {
+                            std::cout << "🔓 New provisional account created! Establishing connection...\n";
+                            client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken,
+                                [client](const discordpp::ClientResult &updateResult) {
+                                    if (updateResult.Successful()) {
+                                        client->Connect();
+                                    } else {
+                                        std::cerr << "❌ Failed to update token: " << updateResult.Error() << std::endl;
+                                    }
+                                }
+                            );
+                        } else {
+                            std::cerr << "❌ Failed to create new provisional account: " << result.Error() << std::endl;
+                        }
+                    }
+                );
+            } else {
+                std::cerr << "❌ Unmerge failed: " << result.Error() << std::endl;
+            }
+        }
+    );
+}
+```
+
+### Data Migration During Unmerging
+
+When a user unmerges their account, a new provisional account is created with a new user ID. The relationship transfer follows these rules:
+
+* **✅ In-game friends**: All copied to the new provisional account
+* **✅ Discord friends who use this application**: Copied to the provisional account
+* **❌ Discord friends who don't use this application**: Not transferred
+* **❌ DM message history**: Not moved to provisional accounts
+
+<Info>
+Provisional accounts can have Discord friends, but can only message these friends when actively playing the game.
+</Info>
+
+### Unmerge Request Failures
+
+You may receive an unmerge specific error code while attempting this operation:
+
+| Code  | HTTP Status | Meaning           | Solution                                                  |
+|-------|-------------|-------------------|-----------------------------------------------------------|
+| 50229 | 400         | Invalid user type | User account is provisional and cannot be unmerged        |
+| -     | 404         | Unknown user      | No user identity found for the provided external identity |
+
+
+---
+
+## Next Steps
+
+Now that you've set up provisional accounts for your game, you can explore more features of the Discord Social SDK:
+
+import {PaintPaletteIcon} from '/snippets/icons/PaintPaletteIcon.jsx'
+import {ListViewIcon} from '/snippets/icons/ListViewIcon.jsx'
+import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
+
+<CardGroup cols={3}>
+ <Card title="Design: Provisional Accounts" href="/developers/docs/discord-social-sdk/design-guidelines/provisional-accounts" icon={<PaintPaletteIcon />}>
+    Design guidelines for implementing provisional accounts in your game.
+  </Card>
+  <Card title="Creating a Unified Friends List" href="/developers/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon={<ListViewIcon />}>
+    Combine Discord and game friends into a single list for easy management.
+  </Card>
+  <Card title="Setting Rich Presence" href="/developers/docs/discord-social-sdk/development-guides/setting-rich-presence" icon={<UserStatusIcon />}>
+    Display game status and information to Discord friends.
+  </Card>
+</CardGroup>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | Initial release |
+
+{/* Autogenerated Reference Links */}
+[`Client::Authorize`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468
+[`Client::GetProvisionalToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8003130b6c46e54ac68442483bf0480c
+[`Client::GetToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aaee636f91fb1ea3465157c20313b702c
+[`Client::GetTokenFromDeviceProvisionalMerge`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#afd2207590ae7d6f60ee7bbb4fc7c21c8
+[`Client::GetTokenFromProvisionalMerge`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a41062b7dafa331ddd2320daf1b4b273b
+[`Client::SetTokenExpirationCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aab5bfc76809ea22e79f2f7a067ac4519
+[`Client::UnmergeIntoProvisionalAccount`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a2da21ae8a3015e0e5e42c1a7226b256f
+[`Client::UpdateProvisionalAccountDisplayName`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7485979ab2d4c533b75f8efd5e50bc60

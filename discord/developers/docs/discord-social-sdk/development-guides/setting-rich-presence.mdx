@@ -1,0 +1,325 @@
+---
+title: Setting Rich Presence
+description: Update Discord Rich Presence from your application to display activity information.
+---
+import PublicClient from '/snippets/discord-social-sdk/callouts/public-client.mdx';
+import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+
+## Overview
+
+Rich Presence allows you to display detailed information about what players are doing in your game. Users can see this information in their Discord profile and friends list and use it to join their friends' games with Game Invites.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+- [Set up the Discord Social SDK](/developers/docs/discord-social-sdk/getting-started)
+- Connected to Discord with a valid client instance
+
+---
+
+## Understanding Rich Presence
+
+Rich Presence allows you to display detailed information about players' actions in your game. Users can see this information in various places in Discord, including:
+
+- User profiles
+- Friend lists
+- Server member lists
+
+<Info>
+Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/developers/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/developers/docs/activities/overview), which are embedded games that can also set and display rich presence.
+</Info>
+
+Each [`Activity`] contains fields that describe the following:
+
+| Field                | Description              | Purpose                                                                                                          |
+|----------------------|--------------------------|------------------------------------------------------------------------------------------------------------------|
+| `name`               | Game or app name         | Displayed in the user's profile                                                                                  |
+| `type`               | Activity type            | What the player is doing (e.g., "Playing", "Watching", "Listening")                                              |
+| `details`            | What the player is doing | Main activity description (e.g., "Playing Capture the Flag")                                                     |
+| `state`              | Their current status     | Secondary status (e.g., "In Queue", "In Match, "In a group")                                                     |
+| `party`              | Party information        | Shows party size and capacity (e.g., "2 of 4")                                                                   |
+| `timestamps`         | Activity duration        | Shows elapsed or remaining time                                                                                  |
+| `assets`             | Custom artwork           | Game/map thumbnails and character icons                                                                          |
+| `secrets`            | Join/spectate tokens     | Enable [Game Invite](/developers/docs/discord-social-sdk/development-guides/managing-game-invites) functionality |
+| `supportedPlatforms` | Platform flags           | Control where join buttons appear                                                                                |
+
+See below for examples of how to set these fields in your code.
+
+<Info>
+While we support multiple [`ActivityTypes`], games should use `ActivityTypes::Playing` for `type`. The SDK automatically associates activity with your game, so fields like `name` will always show your game's name.
+</Info>
+
+### Customizing Rich Presence
+
+When displayed in Discord, Rich Presence has three main components:
+
+```
+Playing "Your Game Name"          <- Line 1: Game name (automatic)
+Capture the Flag | 2 - 1          <- Line 2: Details field
+In a group (2 of 3)               <- Line 3: State + Party info
+```
+
+You can control how lines 2 and 3 are rendered in Discord, here's the breakdown:
+
+- Line 1, `Playing "game name"` is powered by the name of your game (or application) on Discord.
+- Line 2, `Capture the flag | 2 - 1` is powered by the `details` field in the activity, and this should generally try to describe what the _player_ is currently doing. You can even include dynamic data such as a match score here.
+- Line 3, `In a group (2 of 3)` describes the _party_ the player is in. "Party" is used to refer to a group of players in a shared context, such as a lobby, server, team, etc. The first half, `In a group` is powered by the state field in the activity, and the second half, `(2 of 3)` is powered by the party field in the activity and describes how many people are in the current party and how big the party can get.
+
+This diagram visually shows the field mapping:
+
+![Graphical representation of the legend for rich presence details](/images/rich-presence/legend.png)
+
+<Info>
+For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/developers/docs/rich-presence/best-practices).
+</Info>
+
+---
+
+## Setting an Invite Image
+
+The Rich Presence invite image appears when invites are sent for a 3rd party game or app using the Discord Social SDK. After uploading an invite image for your app, you can see a preview of it to the right (under "IRL Invite Image Example").
+
+![Rich Presence invite image in app settings](/images/rich-presence/invite-image.png)
+
+---
+
+## Uploading Assets
+
+While integrating Rich Presence, you'll likely want to upload custom art assets for your app. For all Rich Presence assets, it's highly recommended to make them 1024 x 1024.
+
+To add custom assets for Rich Presence, navigate to your app's settings and click Rich Presence on the left-hand sidebar. On the Art Assets page, you can upload two different types of assets.
+
+![Rich Presence invite image in app settings](/images/rich-presence-invite-image.webp)
+
+Up to 300 custom assets can be added to your app for later use when setting Rich Presence for a Discord user. These assets can be anything that help orient others to what a user is doing inside of your Activity or 3rd party game.
+
+If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/developers/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+
+<Info>
+For tips on choosing assets, take a look at the [Rich Presence best practices guide](/developers/docs/rich-presence/best-practices#have-interesting-expressive-art).
+</Info>
+
+When uploading Rich Presence assets, **the asset keys will automatically be changed to lowercase**. You can see this reflected in your app's settings after saving a newly uploaded asset, and you should keep it in mind when referencing any asset keys in your code.
+
+Once you've uploaded these assets, you can use the asset key to reference them in your code when [Setting Assets in Rich Presence](/developers/docs/discord-social-sdk/development-guides/setting-rich-presence#setting-assets).
+
+![Rich Presence assets in app settings](/images/rich-presence/asset-images.png)
+
+---
+
+## Setting Details and State
+
+Here's a simple example setting the details and state of a Rich Presence activity:
+
+```cpp
+// Create a new activity
+discordpp::Activity activity;
+activity.SetType(discordpp::ActivityTypes::Playing);
+activity.SetDetails("Battle Creek");
+activity.SetState("In Competitive Match");
+
+// Update the presence
+client->UpdateRichPresence(activity, [](discordpp::ClientResult result) {
+  if (result.Successful()) {
+    std::cout << "✅ Rich presence updated!\n";
+  }
+});
+```
+
+---
+
+## Setting Timestamps
+
+You can also include timestamps in your Rich Presence to show how long the player has been in their current activity or how long until their current match ends if it is a timed activity. Here's an example:
+
+```cpp
+// Setting Timestamps
+discordpp::ActivityTimestamps timestamps;
+timestamps.SetStart(time(nullptr));
+// timestamps.SetEnd(time(nullptr) + 3600);
+activity.SetTimestamps(timestamps);
+```
+
+---
+
+## Setting Assets
+
+Once you've uploaded assets to your app, you can reference them using their **asset key** in your code to set custom artwork in Rich Presence. Here's an example of an asset with the key of "map-mainframe", "tank-avatar", and "invite-cover-image":
+
+```cpp
+// Setting Activity Assets
+discordpp::ActivityAssets assets;
+assets.SetLargeImage("map-mainframe");
+assets.SetLargeText("Mainframe");
+assets.SetSmallImage("tank-avatar");
+assets.SetSmallText("Tank");
+assets.SetInviteCoverImage("invite-cover-image"); // Used for Game Invites
+activity.SetAssets(assets);
+```
+
+<Info>
+If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/developers/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
+</Info>
+
+---
+
+## Setting Field URLs
+
+You can set URLs for `details`, `state`, `assets.large_image` and `assets.small_image` in Rich Presence. When present, these URLs will make the corresponding image/text into clickable links.
+
+```cpp
+activity.SetState("Playing on Mainframe");
+activity.SetStateUrl("https://example.com/maps/mainframe");
+activity.SetDetails("Rank #1337 in global leaderboard");
+activity.SetDetailsUrl("https://example.com/leaderboard/global");
+
+discordpp::ActivityAssets assets;
+assets.SetLargeImage("map-mainframe");
+assets.SetLargeText("Mainframe");
+assets.SetLargeUrl("https://example.com/maps/mainframe");
+assets.SetSmallImage("tank-avatar");
+assets.SetSmallText("Tank");
+assets.SetSmallUrl("https://example.com/classes/tank");
+
+activity.SetAssets(assets);
+```
+
+---
+
+## Configuring Status Text
+
+By default, Rich Presence will display the game's name in the user's status text. You can override this behavior by setting a status display type.
+
+```cpp
+// uses the game's name in the status text (default)
+activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::Name);
+
+// uses the activity's state field in the status text
+activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::State);
+
+// uses the activity's details field in the status text
+activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::Details);
+```
+
+---
+
+## Setting Party and Join Secret
+
+You can also include party details and a join secret in your Rich Presence to power Game Invites. Check out the [Game Invites guide](/developers/docs/discord-social-sdk/development-guides/managing-game-invites) for more information.
+
+```cpp
+
+// Setting Party Details
+discordpp::ActivityParty party;
+party.SetId("party1234");
+party.SetCurrentSize(1);
+party.SetMaxSize(5);
+activity.SetParty(party);
+
+// Setting Join Secret details
+discordpp::ActivitySecrets secrets;
+secrets.SetJoin("your-join-secret");
+activity.SetSecrets(secrets);
+```
+
+---
+
+## Setting Supported Platforms
+
+You can set the supported platforms for your game in Rich Presence. This will control where the join buttons appear in Discord.
+
+If you only want the join button to appear on desktop, you can set the supported platforms like this:
+
+```cpp
+activity.SetSupportedPlatforms(discordpp::ActivityGamePlatforms::Desktop);
+```
+
+See the `ActivityGamePlatforms` enum for all supported platforms.
+
+## Rich Presence Without Authentication
+
+<Warning>
+Rich Presence via RPC (Remote Procedure Call) will only work with a running Discord desktop client. It does not support mobile, console or web clients.
+</Warning>
+
+Unlike most other features of the Discord Social SDK, **Rich Presence can be set without authentication**. Instead of
+using [`Client::Connect`] to authenticate with Discord, you can use Rich Presence functionality by directly communicating
+with a running Discord desktop client through RPC (Remote Procedure Call).
+
+### Requirements
+
+* Discord desktop client must be running on the user's machine
+* Your application must be registered with Discord and have a valid Application ID
+
+This direct approach makes Rich Presence integration much simpler for developers who only need basic presence
+functionality while Discord desktop clients are running.
+
+### Setting Up Direct Rich Presence
+
+To use Rich Presence without authentication, simply:
+
+1. Set your application ID using [`Client::SetApplicationId`]
+2. Configure your activity details
+3. Call [`Client::UpdateRichPresence`]
+
+```cpp
+auto client = std::make_shared<discordpp::Client>();
+
+// Set the application ID (no Connect() call needed)
+client->SetApplicationId(APPLICATION_ID);
+
+// Configure rich presence details
+discordpp::Activity activity;
+activity.SetType(discordpp::ActivityTypes::Playing);
+activity.SetState("In Competitive Match");
+activity.SetDetails("Rank: Diamond II");
+
+// Update rich presence
+client->UpdateRichPresence(
+    activity, [](const discordpp::ClientResult &result) {
+      if (result.Successful()) {
+        std::cout << "🎮 Rich Presence updated successfully!\n";
+      } else {
+        std::cerr << "❌ Rich Presence update failed";
+      }
+    });
+```
+
+---
+
+## Next Steps
+
+Now that you've set up Rich Presence, you might want to explore:
+
+import {UserIcon} from '/snippets/icons/UserIcon.jsx'
+import {MagicDoorIcon} from '/snippets/icons/MagicDoorIcon.jsx'
+import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+
+<CardGroup cols={3}>
+  <Card title="Managing Game Invites" href="/developers/docs/discord-social-sdk/development-guides/managing-game-invites" icon={<InboxIcon />}>
+    Allow players to invite friends to join their game session or party.
+  </Card>
+  <Card title="Managing Lobbies" href="/developers/docs/discord-social-sdk/development-guides/managing-lobbies" icon={<MagicDoorIcon />}>
+    Bring players together in a shared lobby with invites, text chat, and voice comms.
+  </Card>
+  <Card title="Design Guidelines for Rich Presence" href="/developers/docs/discord-social-sdk/design-guidelines/status-rich-presence" icon={<UserIcon />}>
+    Best practices for Rich Presence UI/UX.
+  </Card>
+</CardGroup>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | Initial release |
+
+{/* Autogenerated Reference Links */}
+[`Activity`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Activity.html#ae793d9adbe16fef402b859ba02bee682
+[`ActivityTypes`]: https://discord.com/developers/docs/social-sdk/namespacediscordpp.html#a6c76a8cbbc9270f025fd6854d5558660
+[`Client::Connect`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a873a844c7c4c72e9e693419bb3e290aa
+[`Client::SetApplicationId`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ad452335c06b28be0406dab824acccc49
+[`Client::UpdateRichPresence`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#af0a85e30f2b3d8a0b502fd23744ee58e

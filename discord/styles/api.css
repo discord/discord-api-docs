@@ -1,0 +1,21 @@
+/* Hide link icon for anchors on hover */
+.param-head .absolute {
+    display: none;
+}
+
+.param-head .dark\:text-primary-light:is(.dark *) {
+    color: #929af2;
+    font-weight: bold;
+}
+
+.api-section .py-6 {
+    padding: 0.5rem 0.5rem;
+}
+
+.code-group:first-child {
+    display: none;
+}
+
+#content-side-layout:has(.code-group) {
+    top: 8.5rem;
+}

@@ -1,0 +1,37 @@
+---
+title: Direct Messages
+description: Design guidelines for implementing Discord direct messaging features in your application.
+---
+
+## Badge when online elsewhere
+
+The badging logic in direct-messages is consistent with the logic detailed in the [Unified Friends List](/developers/docs/discord-social-sdk/design-guidelines/unified-friends-list) section.
+
+If the user is **online elsewhere** and is not in the game client, their usernames will include a **Discord badge**. Once they're online in the game-client, they will not retain the Discord badge.
+
+![Badge when online elsewhere](/images/social-sdk/design-guidelines/animated/DMs-02.gif)
+
+## Message styling
+
+Style the Discord logo to match a player's username color. The logo should feel tied to a user's identity, not the message content. 
+
+![Message styling](/images/social-sdk/design-guidelines/DMs-03.png)
+
+## Unsupported rich media
+Regardless of whether a user has signed into Discord, unsupported rich media content should be paired with an **external link icon**.
+
+When content isn't clickable, don't show the icon. 
+
+![Unsupported rich media](/images/social-sdk/design-guidelines/DMs-04.png)
+
+---
+
+## Resources 
+
+- [Development Guide: Direct Messages](/developers/docs/discord-social-sdk/development-guides/sending-direct-messages)
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | initial release |

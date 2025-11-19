@@ -1,14 +1,35 @@
-# Discord API Documentation
+# Discord for Developers Documentation
 
-This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
+This repo contains the official Discord for Developers documentation, which can be viewed online [HERE](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
 
-This repository reflects the Discord API as it is meant to be accessed by third-party applications. It omits features and capabilities that are not generally available, or are not fully supported for third-party usage.
+This repository reflects the Discord Developer Platform as it is meant to be accessed by third-party applications. It omits features and capabilities that are not generally available, or are not fully supported for third-party usage.
 
 We welcome your contributions!
 
--   Issue tracker: Discord API bugs
--   Discussions: Discord API feature and improvement requests
+-   Issue tracker: [Discord API bugs](https://github.com/discord/discord-api-docs/issues)
+-   Discussions: [Discord API feature and improvement requests](https://github.com/discord/discord-api-docs/discussions/categories/api-feature-requests-ideas)
 -   Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/main/CONTRIBUTING.md) for types of changes accepted and specific markdown syntax used in the documentation.
+
+### Local Preview
+
+Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+
+```
+npm i -g mintlify
+```
+
+Run the `mintlify dev` in the `discord` directory to see your changes locally.
+
+```
+cd discord
+mintlify dev
+```
+
+Your local browser should open automatically to the correct page, but if not, navigate to:
+
+```
+http://localhost:3000/developers/docs/intro
+```
 
 ## Need some help?
 

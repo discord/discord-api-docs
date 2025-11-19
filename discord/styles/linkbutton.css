@@ -1,0 +1,15 @@
+.MDXLinkButton {
+    display: block;
+    color: white !important;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: var(--radius-xs);
+    width: fit-content;
+    height: fit-content;
+    box-sizing: border-box;
+    line-height: 18px;
+
+    &.brand {
+        background-color: var(--brand-500);
+    }
+}
