@@ -1,5 +1,5 @@
 ---
-title: "New BYPASS_SLOWMODE Permission"
+title: "New BYPASS_SLOWMODE Permission & Permission Split"
 date: "2025-11-24"
 ---
 
