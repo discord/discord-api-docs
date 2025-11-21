@@ -14,25 +14,29 @@ However, the breaking changes described below - where the old permissions will n
 
 **1. Pin Messages Permission**
 
-- The `PIN_MESSAGES` permission (`1 << 51`) was split from `MANAGE_MESSAGES` on August 20, 2025. [Read the change log](/docs/change-log#pin-permission-split).
+- The `PIN_MESSAGES` permission (`1 << 51`) was split from `MANAGE_MESSAGES` on August 20, 2025.
+- [Read the change log](/docs/change-log#pin-permission-split).
 - Starting February 23, 2026, bots will need the `PIN_MESSAGES` permission to pin messages. `MANAGE_MESSAGES` alone will no longer be sufficient.
 
 **2. Bypass Slowmode Permission**
 
 - The `BYPASS_SLOWMODE` permission (`1 << 52`) is being split from `MANAGE_MESSAGES`, `MANAGE_CHANNEL` and `MANAGE_THREADS`.
+- [Read the change log](!TODO).
 - Note: This primarily affects users, as bots are not affected by slowmode restrictions.
 - Starting on February 23, 2026, users will need the `BYPASS_SLOWMODE` permission to not be affected by slowmode restrictions.
 
 **3. Create Expressions Permission**
 
 - The `CREATE_GUILD_EXPRESSIONS` permission (`1 << 43`) was created in July 2023 and split from `MANAGE_GUILD_EXPRESSIONS` for users in December 2023. [Read the change log](/docs/change-log#clarification-on-permission-splits-for-expressions-and-events).
-- As of today, bots now have access to the `CREATE_GUILD_EXPRESSIONS` permission. [Read the change log](!TODO).
+- As of today, bots now have access to the `CREATE_GUILD_EXPRESSIONS` permission.
+- [Read the change log](!TODO).
 - Starting on February 23, 2026, bots will need the `CREATE_GUILD_EXPRESSIONS` permission to create custom emoji and stickers. `MANAGE_GUILD_EXPRESSIONS` alone will no longer be sufficient.
 
 **4. Create Events Permission**
 
 - The `CREATE_EVENTS` permission (`1 << 44`) was created in July 2023 and split from `MANAGE_EVENTS` for users in December 2023. [Read the change log](/docs/change-log#clarification-on-permission-splits-for-expressions-and-events).
-- As of today, bots now have access to the `CREATE_EVENTS` permission. Read the change log.
+- As of today, bots now have access to the `CREATE_EVENTS` permission.
+- [Read the change log](!TODO).
 - Starting on February 23, 2026, bots will need the `CREATE_EVENTS` permission to create scheduled events. `MANAGE_EVENTS` alone will no longer be sufficient.
 
 ### What Do You Need to Do?
