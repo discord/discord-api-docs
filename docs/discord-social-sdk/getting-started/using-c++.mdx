@@ -131,7 +131,7 @@ endif()
 add_custom_command(TARGET DiscordSDKExample POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
     "${DISCORD_SHARED_LIB}"
-    $&lt;TARGET_FILE_DIR:DiscordSDKExample&gt;
+    $<TARGET_FILE_DIR:DiscordSDKExample>;
 )
 ```
 

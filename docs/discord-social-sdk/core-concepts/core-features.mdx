@@ -1,0 +1,96 @@
+---
+sidebar_label: Core Features
+---
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Core Concepts](/docs/discord-social-sdk/core-concepts) > {sidebar_label}
+
+# Core Features
+
+The Discord Social SDK offers a range of features to enhance social interactions within games. Developers can leverage these features to create a more engaging and connected experience for players in their game.
+
+## Account Linking
+
+Account linking allows a game to authenticate users with their Discord credentials, gaining access to social features like friends, chat, and presence. This process uses OAuth2 authentication.
+
+| Development Guides                                                                                       |
+|----------------------------------------------------------------------------------------------------------|
+| [Account Linking with Discord](/docs/discord-social-sdk/development-guides/account-linking-with-discord) |
+| [Account Linking on Consoles](/docs/discord-social-sdk/development-guides/account-linking-on-consoles)   |
+
+| Design Guidelines                                                                |
+|----------------------------------------------------------------------------------|
+| [Signing in with Discord](/docs/discord-social-sdk/design-guidelines/signing-in) |
+| [Consoles](/docs/discord-social-sdk/design-guidelines/consoles)                  |
+
+## Provisional Accounts
+
+Provisional accounts let players use social features in your game without linking a Discord account so all players can have a consistent gameplay experience.
+
+| Development Guides                                                                                   |
+|------------------------------------------------------------------------------------------------------|
+| [Using Provisional Accounts](/docs/discord-social-sdk/development-guides/using-provisional-accounts) |
+
+| Design Guidelines                                                                       |
+|-----------------------------------------------------------------------------------------|
+| [Provisional Accounts](/docs/discord-social-sdk/design-guidelines/provisional-accounts) |
+
+## Friend System & Relationships
+
+The SDK models friendships and relationships in two ways:
+
+- Discord Friends: Persistent across all games.
+- Game-Specific Friends: Limited to the current game.
+
+| Development Guides                                                                                             |
+|----------------------------------------------------------------------------------------------------------------|
+| [Creating a Unified Friends List](/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list) |
+
+| Design Guidelines                                                                       |
+|-----------------------------------------------------------------------------------------|
+| [Unified Friends List](/docs/discord-social-sdk/design-guidelines/provisional-accounts) |
+| [Game Friends](/docs/discord-social-sdk/design-guidelines/game-friends)                 |
+
+## Presence & Rich Presence
+
+Presence refers to a user's online status, while Rich Presence provides game-specific activity data:
+
+- Displays if a user is online, idle, or offline.
+- Shows detailed game stats (e.g., what level they're playing and time played).
+- Allows users to send game invites through Discord and in-game.
+
+| Development Guides                                                                         |
+|--------------------------------------------------------------------------------------------|
+| [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence) |
+
+| Design Guidelines                                                                         |
+|-------------------------------------------------------------------------------------------|
+| [Status & Rich Presence](/docs/discord-social-sdk/design-guidelines/status-rich-presence) |
+
+
+---
+
+## Next Steps
+
+Learn the implementation steps, configure authentication, and explore development guides:
+
+<Container>
+    <Card title="Communication Features" link="/docs/discord-social-sdk/core-concepts/communication-features"
+          icon="PhoneCallIcon">
+        Learn about messaging, voice chat, and in-game lobbies.
+    </Card>
+    <Card title="Integration Overview"
+          link="/docs/discord-social-sdk/core-concepts/integration-overview" icon="HammerIcon">
+        Learn about the integration overview and implementation steps.
+    </Card>
+    <Card title="Development Guides" link="/docs/discord-social-sdk/development-guides" icon="BookCheckIcon">
+        Step-by-step guides for implementing each social feature.
+    </Card>
+</Container>
+
+---
+
+## Change Log
+
+| Date          | Changes         |
+|---------------|-----------------|
+| July 21, 2025 | initial release |

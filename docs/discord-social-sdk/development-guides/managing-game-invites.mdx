@@ -10,33 +10,41 @@ import SupportCallout from '../partials/callouts/support.mdx';
 
 ## Overview
 
-Game Invites allow users to invite others to join their game session or party. This feature is available on the Discord client and the Social SDK.
+Game Invites allow users to invite others to join their game session or party. This feature is available on the
+Discord client and the Social SDK.
+
+:::info
+**Game Invites are not a standalone feature** - they are **powered entirely by Rich Presence**. When you configure Rich
+Presence with party information, a join secret, and/or supported platforms, Discord automatically enables invite
+functionality. This guide shows you how to configure Rich Presence to unlock game invites.
+:::
 
 ### Prerequisites
 
 Before you begin, make sure you have:
 
+- Completed the [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence) guide
+- Understanding that without an active Rich Presence with party data, invites will not work
 - Set up the Discord Social SDK with our [Getting Started guide](/docs/discord-social-sdk/getting-started)
-- Familiarized yourself with [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence)
+
+---
+
+## Configuring Rich Presence to Enable Game Invites
+
+Game invites, or activity invites, are **powered by rich presence**.
+
+We covered the basics of [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence) in a previous guide but let's go over the key points again.
 
 :::info
 Let's talk about the naming of some Discord primitives first. Rich Presence, aka "Activity", can be thought of as the "current activity of a user" and is represented by the [`Activity`] class in the SDK and [in our gateway events](/docs/events/gateway-events#activity-object). This is not to be confused with [Discord Activities](/docs/activities/overview), which are embedded games that can also set and display rich presence.
 :::
 
----
-
-## Configuring Game Invites
-
-Game invites, or activity invites, are powered by rich presence. 
-
-We covered the basics of [Setting Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence) in a previous guide but let's go over the key points again.
-
 ### Setting Up Rich Presence
 
-Below is an example of setting up rich presence in your game. 
+Below is an example of setting up rich presence in your game to be used with game invites.
 
 ```cpp
-// Create discordpp::Activity
+// Create discordpp::Activity - This Rich Presence Activity is your invite configuration
 discordpp::Activity activity;
 activity.SetType(discordpp::ActivityTypes::Playing);
 
@@ -48,6 +56,7 @@ activity.SetDetails("Valhalla");
 client.UpdateRichPresence(activity, [](discordpp::ClientResult result) {
     if(result.Successful()) {
         std::cout << "🎮 Rich Presence updated successfully!\n";
+        // Note: Invites are NOT yet enabled - we need party info and join secret
     } else {
         std::cerr << "❌ Rich Presence update failed";
     }
@@ -63,17 +72,18 @@ You must set up your rich presence [`Activity`] with party information and a joi
 ```cpp
 // rest of the code
 
-// Set the party information
 // Create discordpp::ActivityParty
 discordpp::ActivityParty party;
 party.SetId("party1234");
 // current party size
-party.SetCurrentSize(1);  
+party.SetCurrentSize(1);
 // max party size
-party.SetMaxSize(5);      
+party.SetMaxSize(5);
+// Set the party information in the Activity, to inform the invite about the party size and how many players can join
 activity.SetParty(party);
 
 // Update Rich Presence
+// Still not enough for invites - we need the join secret!
 ```
 
 If we run our game, the Discord client will show that we are "In Competitive Match" on "Valhalla" with more information about the party.
@@ -82,7 +92,7 @@ We're almost there! Let's add the join secret next so we can send and receive ga
 
 ### Adding Join Secret & Supported Platforms
 
-The last step is to add a join secret to your rich presence activity. 
+The last step is to add a join secret to your rich presence activity.
 
 The `Join Secret` is a generic secret that you can use to [join a Discord lobby](/docs/discord-social-sdk/development-guides/managing-lobbies), a game session, or something else. The game invite system is a way for players to share this secret value with other players - how you use it is up to you.
 
@@ -93,7 +103,7 @@ You will also need to set the supported platforms for joining the game so that t
 
 // Create ActivitySecrets
 discordpp::ActivitySecrets secrets;
-secrets.SetJoin("joinsecret1234");
+secrets.SetJoin("joinsecret1234");    // Rich Presence secret will be in the invite payload
 activity.SetSecrets(secrets);
 
 // Set supported platforms that can join the game
@@ -101,12 +111,13 @@ activity.SetSecrets(secrets);
 activity.SetSupportedPlatforms(discordpp::ActivityGamePlatforms::Desktop);
 
 // Update Rich Presence
+// ✅ NOW invites are enabled through Rich Presence!
 ```
 
 ### Putting It All Together
 
 ```cpp
-// Create discordpp::Activity
+// Create discordpp::Activity - This Rich Presence Activity is your invite configuration
 discordpp::Activity activity;
 activity.SetType(discordpp::ActivityTypes::Playing);
 
@@ -115,18 +126,16 @@ activity.SetState("In Competitive Match");
 activity.SetDetails("Valhalla");
 
 // Set the party information
-// Create discordpp::ActivityParty
 discordpp::ActivityParty party;
 party.SetId("party1234");
-// current party size
-party.SetCurrentSize(1);  
-// max party size
-party.SetMaxSize(5);      
+party.SetCurrentSize(1);          // current party size
+party.SetMaxSize(5);              // max party size
+// Set the party information in the Activity, to inform the invite about the party size and how many players can join
 activity.SetParty(party);
 
 // Create ActivitySecrets
 discordpp::ActivitySecrets secrets;
-secrets.SetJoin("joinsecret1234");
+secrets.SetJoin("joinsecret1234");    // Rich Presence secret will be in the invite payload
 activity.SetSecrets(secrets);
 
 // Set supported platforms that can join the game
@@ -137,8 +146,10 @@ activity.SetSupportedPlatforms(discordpp::ActivityGamePlatforms::Desktop);
 client.UpdateRichPresence(activity, [](discordpp::ClientResult result) {
     if(result.Successful()) {
         std::cout << "🎮 Rich Presence updated successfully!\n";
+        // ✅ Rich Presence updated = Game invites now available!
     } else {
         std::cerr << "❌ Rich Presence update failed";
+        // ❌ No Rich Presence = No invites possible
     }
 });
 ```
@@ -154,11 +165,11 @@ Before we send a game invite, let's make sure that the Discord client knows abou
 When a user accepts a game invite for your game within Discord, the Discord client needs to know how to launch the game for that user. We have two ways to do this:
 
 - Register a launch command for your game
-- Register a Steam Game ID 
+- Register a Steam Game ID
 
 For desktop games, you should run one of these commands when the SDK starts up so that if the user tries to join from Discord, the game can be launched for them.
 
-### Registering a Launch Command 
+### Registering a Launch Command
 
 [`Client::RegisterLaunchCommand`] allows you to register a command that Discord will run to launch your game.
 
@@ -191,13 +202,23 @@ Users can send game invites directly through the Discord client. This feature is
 
 If a player has the required party, join secret, and supported platforms set in their rich presence, your game can send game invites programmatically through the SDK using [`Client::SendActivityInvite`].
 
+:::warn
+[`Client::SendActivityInvite`] only works if Rich Presence is active with proper configuration
+:::
+
 ```cpp
 uint64_t targetUserId = 1111785262289277050; 
 std::string inviteMessage = "Join my game!";
 client->SendActivityInvite(targetUserId, inviteMessage, [](discordpp::ClientResult result) {
-  std::cout << "Activity Invite sent to user" << std::endl;
+  if(result.Successful()) {
+    std::cout << "Activity Invite sent to user" << std::endl;
+  } else {
+    std::cerr << "Failed - check if Rich Presence has party, secret, and platforms set" << std::endl;
+  }
 });
 ```
+
+![Example of a sent game invite in the Discord client](images/social-sdk/development-guides/game-invite.webp)
 
 ---
 
@@ -205,7 +226,7 @@ client->SendActivityInvite(targetUserId, inviteMessage, [](discordpp::ClientResu
 
 Game invites can also be received in two ways:
 
-1. Users can receive game invites directly through the Discord client. 
+1. Users can receive game invites directly through the Discord client.
 2. Your game can receive game invites for a user programmatically through the SDK.
 
 ### Receiving Game Invites in the Discord Client
@@ -219,17 +240,18 @@ Use [`Client::SetActivityInviteCreatedCallback`] to detect new invites and [`Cli
 ```cpp
 client->SetActivityInviteCreatedCallback([&client](discordpp::ActivityInvite invite) {
   std::cout << "Activity Invite received from user: " << invite.SenderId() << std::endl;
-  if(auto message = client->GetMessageHandle(invite.MessageId())){        
+  if(auto message = client->GetMessageHandle(invite.MessageId())){
     std::cout << "Invite Message: " << message->Content() << std::endl;
   }
   client->AcceptActivityInvite(invite, [](discordpp::ClientResult result, std::string joinSecret) {
     if(result.Successful()) {
       std::cout << "Activity Invite accepted successfully!\n";
+      // joinSecret comes from the sender's Rich Presence configuration
       // Use the joinSecret to connect the two players in your game
     } else {
       std::cerr << "❌ Activity Invite accept failed";
     }
-  }); 
+  });
 });
 ```
 ---
@@ -239,7 +261,9 @@ client->SetActivityInviteCreatedCallback([&client](discordpp::ActivityInvite inv
 Use  [`Client::SetActivityJoinCallback`] to monitor for a user accepting a game invite, either in-game or in Discord. Use the join secret to connect the players in your game.
 
 ```cpp
+// This fires when a user clicks "Join" on someone's Rich Presence
 client->SetActivityJoinCallback([&client](std::string joinSecret) {
+  // joinSecret is pulled from the host's Rich Presence ActivitySecrets
   // Use the joinSecret to connect the players in your game
 });
 ```
@@ -274,29 +298,31 @@ Here's a code example of how you might implement this flow:
 std::string lobbySecret = "foo"
 uint64_t USER_B_ID = 01234567890;
 client->CreateOrJoinLobby(lobbySecret, [&client](discordpp::ClientResult result, uint64_t lobbyId) {
-  // 2. Update rich presence with join secret
+  // 2. Update Rich Presence with a party and join secret to enable invites
   discordpp::Activity activity{};
   activity.SetType(discordpp::ActivityTypes::Playing);
   activity.SetState("In Lobby");
 
+  // Rich Presence party configuration for how many players can join
   discordpp::ActivityParty party{};
   party.SetId("party1234");
   party.SetCurrentSize(1);
   party.SetMaxSize(4);
   activity.SetParty(party);
 
-  // set name, state, party size ...
+  // Rich Presence secret is what is shared via invites
   discordpp::ActivitySecrets secrets{};
-  secrets.SetJoin(lobbySecret);
+  secrets.SetJoin(lobbySecret);  // This connects Rich Presence to your lobby
   activity.SetSecrets(secrets);
 
+  // Don't forget to set this Rich Presence update, otherwise SendActivityInvite won't work!
   client->UpdateRichPresence(std::move(activity), [&client](discordpp::ClientResult result) {
-    // 3. Some time later, send an invite
+    // 3. NOW we can send invites because Rich Presence is configured
     client->SendActivityInvite(USER_B_ID, "come play with me", [](discordpp::ClientResult result) {
         if(result.Successful()) {
             std::cout << "💌 Invite sent successfully!\n";
         } else {
-            std::cerr << "❌ Invite failed\n";
+            std::cerr << "❌ Invite failed - check Rich Presence configuration\n";
         }
     });
   });
@@ -312,6 +338,7 @@ client->SetActivityInviteCreatedCallback([&client](discordpp::ActivityInvite inv
   client->AcceptActivityInvite(invite, [&client](discordpp::ClientResult result, std::string joinSecret) {
     if (result.Successful()) {
       std::cout << "🎮 Invite accepted! Joining lobby...\n";
+      // joinSecret came from User A's Rich Presence configuration
 
       // 6. Join the lobby using the joinSecret
       client->CreateOrJoinLobby(joinSecret, [=](discordpp::ClientResult result, uint64_t lobbyId) {
@@ -337,21 +364,24 @@ Users can also request to join each other's parties. This code example shows how
 std::string lobbySecret = "foo";
 uint64_t USER_A_ID = 286438705638408203;
 client->CreateOrJoinLobby(lobbySecret, [&client](discordpp::ClientResult result, uint64_t lobbyId) {
-  // 2. Update rich presence with join secret
+  // 2. Update Rich Presence with a party and join secret to enable invites
   discordpp::Activity activity{};
   activity.SetType(discordpp::ActivityTypes::Playing);
   activity.SetState("In Lobby");
 
+  // Rich Presence party configuration for how many players can join
   discordpp::ActivityParty party{};
   party.SetId("party1234");
   party.SetCurrentSize(1);
   party.SetMaxSize(4);
   activity.SetParty(party);
 
-  // set name, state, party size ...
+  // Rich Presence secret is what is shared via invites
   discordpp::ActivitySecrets secrets{};
   secrets.SetJoin(lobbySecret);
   activity.SetSecrets(secrets);
+
+  // This Rich Presence update is what enables the "Ask to Join" button in Discord
   client->UpdateRichPresence(std::move(activity), [&client](discordpp::ClientResult result) {});
 });
 
@@ -377,6 +407,7 @@ client->SetActivityInviteCreatedCallback([&client](discordpp::ActivityInvite inv
   client->AcceptActivityInvite(invite, [&client](discordpp::ClientResult result, std::string joinSecret) {
     if (result.Successful()) {
       std::cout << "🎮 Invite accepted! Joining lobby...\n";
+      // joinSecret came from User A's Rich Presence
       // 5. Join the lobby using the joinSecret
       client->CreateOrJoinLobby(joinSecret, [=](discordpp::ClientResult result, uint64_t lobbyId) {
         // Successfully joined lobby!
@@ -402,7 +433,7 @@ When a player receives a game invite on mobile, Discord must know how to launch 
 1. Configure your deep link URL in the Discord Developer Portal:
   - Go to your application's `General` tab
   - Enter your game's URL scheme (e.g., `yourgame://`)
-  - Discord will append `/_discord/join?secret=SECRETHERE` to your URL  
+  - Discord will append `/_discord/join?secret=SECRETHERE` to your URL
 
 2. Tell Discord which platforms can accept invites:
 ```cpp
@@ -417,26 +448,38 @@ activity.SetSupportedPlatforms(
 
 1. The user receives and accepts an invite in Discord
 2. Discord launches your game using your URL scheme:
-   ```
-   yourgame://_discord/join?secret=the_join_secret_you_set
+```
+yourgame://_discord/join?secret=the_join_secret_you_set
    ```
 3. Your game receives the URL and extracts the join secret
 4. Use the secret to connect the player to the session
 
 ---
 
+## Setting a Cover Image for the Invite (Optional)
+
+You can set a cover image for an invite via rich presence activity. This image displays as the banner on the invite and helps draw attention to it. Setting a cover image via rich presence allows you to dynamically customize invites per rich presence activity; for example, showing different images based on game mode, map, etc. rather than using the same static image for all invites. If not set, the banner falls back to the "Rich Presence Invite Image" configured in the Developer Portal under the "Rich Presence" tab. Setting an invite cover image is entirely optional.
+
+```cpp
+discordpp::ActivityAssets assets;
+assets.SetInviteCoverImage("invite-cover-image"); // This example uses an asset key, but you can use an external URL asset for more dynamic cover images.
+activity.SetAssets(assets);
+```
+
+---
+
 ## Next Steps
 
 <Container>
-  <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
-    Combine Discord and game friends into a single list for easy management.
-  </Card>
-  <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
-    Bring players together in a shared lobby with invites, text chat, and voice comms.
-  </Card>
-  <Card title="Sending Direct Messages" link="/docs/discord-social-sdk/development-guides/sending-direct-messages" icon="InboxIcon">
-    Enable private messaging between players.
-  </Card>
+    <Card title="Creating a Unified Friends List" link="/docs/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon="ListViewIcon">
+        Combine Discord and game friends into a single list for easy management.
+    </Card>
+    <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
+        Bring players together in a shared lobby with invites, text chat, and voice comms.
+    </Card>
+    <Card title="Sending Direct Messages" link="/docs/discord-social-sdk/development-guides/sending-direct-messages" icon="InboxIcon">
+        Enable private messaging between players.
+    </Card>
 </Container>
 
 <SupportCallout />

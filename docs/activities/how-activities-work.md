@@ -41,7 +41,7 @@ async function setup() {
   });
 
   // Retrieve an access_token from your application's server
-  const response = await fetch('/.proxy/api/token', {
+  const response = await fetch('/api/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

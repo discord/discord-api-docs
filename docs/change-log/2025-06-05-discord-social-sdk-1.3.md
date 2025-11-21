@@ -11,7 +11,8 @@ A new release of the Discord Social SDK is now available, with the following upd
 - Added an `APPLICATION_DEAUTHORIZED` webhook event which can be configured in the developer portal. When a user unlinks their account or revokes authorization for your application in any way, this event will be sent to configured webhooks. The payload will contain serialized user information. See [Webhook Events](/docs/events/webhook-events) docs for more information on configuring webhook events.
 
 ### PC
-- Added configurable request timeout SDK HTTP client requests to mitigate crashing when connected to unstable/slow internet. Support is on PC in this release with console and mobile support coming in future release. Timeout default value is 30000ms (30 seconds) and can be configured using the new Client API: [`Client::SetHttpRequestTimeout`]
+- Added configurable request timeout SDK HTTP client requests. Support is on PC in this release with console and mobile support coming in future release. Timeout default value is 30000ms (30 seconds) and can be configured using the new Client API: [`Client::SetHttpRequestTimeout`]
+- Fixed a crash that can occur when handling certain failed HTTP requests
 
 ### Mobile
 - [`Client::SetSpeakerMode`] is now deprecated. Unless [`Client::SetEngineManagedAudioSession`] is used, audio routing will be handled automatically by the SDK

@@ -71,7 +71,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 26   | DAVE MLS Key Package                | client            | MLS Key Package for pending group member                 | X      |
 | 27   | DAVE MLS Proposals                  | server            | MLS Proposals to be appended or revoked                  | X      |
 | 28   | DAVE MLS Commit Welcome             | client            | MLS Commit with optional MLS Welcome messages            | X      |
-| 29   | DAVE MLS Announce Commit Transition | server            | MLS Commit to be processed for upcoming transition       |        |
+| 29   | DAVE MLS Announce Commit Transition | server            | MLS Commit to be processed for upcoming transition       | X      |
 | 30   | DAVE MLS Welcome                    | server            | MLS Welcome to group for upcoming transition             | X      |
 | 31   | DAVE MLS Invalid Commit Welcome     | client            | Flag invalid commit or welcome, request re-add           |        |
 
@@ -341,6 +341,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 240000 | Message blocked by harmful links filter                                                                                       |
 | 350000 | Cannot enable onboarding, requirements are not met                                                                            |
 | 350001 | Cannot update onboarding while below requirements                                                                             |
+| 400001 | Access to file uploads has been limited for this guild                                                                        |
 | 500000 | Failed to ban users                                                                                                           |
 | 520000 | Poll voting blocked                                                                                                           |
 | 520001 | Poll expired                                                                                                                  |

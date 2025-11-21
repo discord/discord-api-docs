@@ -53,7 +53,7 @@ An app will receive empty values in the `content`, `embeds`, `attachments`, and 
 | stickers?                 | array of [sticker](/docs/resources/sticker#sticker-object) objects                                                                 | **Deprecated** the stickers sent with the message                                                                                                                                                                                                                       |
 | position?                 | integer                                                                                                                            | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the message in a thread in company with `total_message_sent` on parent thread |
 | role_subscription_data?   | [role subscription data](/docs/resources/message#role-subscription-data-object) object                                             | data of the role subscription purchase or renewal that prompted this ROLE_SUBSCRIPTION_PURCHASE message                                                                                                                                                                 |
-| resolved?                 | [resolved](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) data                            | data for users, members, channels, and roles in the message's [auto-populated select menus](/docs/components/reference#string-select-select-menu-resolved-object)                                                                                                       |
+| resolved?                 | [resolved](/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure) data                            | data for users, members, channels, and roles referenced in this message                                                                                                                                                                                                 |
 | poll? \[2\]               | [poll](/docs/resources/poll#poll-object) object                                                                                    | A poll!                                                                                                                                                                                                                                                                 |
 | call?                     | [message call](/docs/resources/message#message-call-object) object                                                                 | the call associated with the message                                                                                                                                                                                                                                    |
 
@@ -331,7 +331,7 @@ Determines how associated data is populated.
 | FORWARD | 1     | `message_snapshot`    | Reference used to point to a message at a point in time. |
 
 `FORWARD` can only be used for basic messages; i.e. messages which do not have strong bindings to a non global entity.
-Thus we support only messages with `DEFAULT` or `REPLY` types, but disallowed if there are any polls, calls, or components.
+Thus we support only messages with type `DEFAULT`, `REPLY`, `CHAT_INPUT_COMMAND`, or `CONTEXT_MENU_COMMAND`, and don't support messages with a poll, call, or activity.
 This is subject to change in the future.
 
 #### Message Reference Content Attribution
@@ -627,7 +627,13 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 
 ### Allowed Mentions Object
 
-The allowed mention field allows for more granular control over mentions without various hacks to the message. This will always validate against the message and components to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message), and check against user/bot permissions.
+Setting the `allowed_mentions` field lets you determine whether users will receive notifications when you include mentions in the message content, or the content of components attached to that message. This field is always validated against your permissions and the presence of said mentions in the message, to avoid "phantom" pings where users receive a notification without a visible mention in the message. For example, if you want to ping everyone, including it in the `allowed_mentions` field is not enough, the mention format (`@everyone`) must also be present in the content of the message or its components. It is important to note that setting this field **does not** guarantee a push notification will be sent, as additional factors can influence this:
+
+- To mention roles and notify their members, the role's `mentionable` field must be set to `true`, or the bot must have the `MENTION_EVERYONE` permission
+- To mention `@everyone` and `@here`, the bot must have the `MENTION_EVERYONE` permission
+- Setting the `SUPPRESS_NOTIFICATIONS` flag when sending a message will disable push notifications and only cause a notification badge
+- Users can customize their notification settings through the Discord app, which might cause them to only receive a notification badge and no push notification
+
 
 ###### Allowed Mention Types
 
@@ -637,47 +643,65 @@ The allowed mention field allows for more granular control over mentions without
 | User Mentions     | "users"    | Controls user mentions                |
 | Everyone Mentions | "everyone" | Controls @everyone and @here mentions |
 
-###### Allowed Mentions Structure
+###### Default Settings for Allowed Mentions
 
-| Field         | Type                           | Description                                                                                                                           |
-|---------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| parse?        | array of allowed mention types | An array of [allowed mention types](/docs/resources/message#allowed-mentions-object-allowed-mention-types) to parse from the content. |
-| roles?        | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                                        |
-| users?        | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                                        |
-| replied_user? | boolean                        | For replies, whether to mention the author of the message being replied to (default false)                                            |
+The default value for the `allowed_mentions` field, used when it is not passed in the body, varies depending on the context:
 
-###### Allowed Mentions Reference
-
-Due to the complexity of possibilities, we have included a set of examples and behavior for the allowed mentions field.
-
-If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the message content or message component content. This corresponds with existing behavior.
-
-In the example below we would ping @here (and also @role124 and @user123)
+In **regular messages**, all mention types are parsed, which is equivalent to sending the following data:
 
 ```json
 {
-  "content": "@here Hi there from <@123>, cc <@&124>"
+  "parse": ["users", "roles", "everyone"]
+} 
+```
+
+In **interactions** and **webhooks**, only user mentions are parsed, which corresponds to the following:
+
+```json
+{
+  "parse": ["users"]
+} 
+```
+
+
+
+| Field         | Type                           | Description                                                                                                                          |
+|---------------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| parse?        | array of allowed mention types | An array of [allowed mention types](/docs/resources/message#allowed-mentions-object-allowed-mention-types) to parse from the content |
+| roles?        | array of snowflakes            | Array of role ids to mention, max 100                                                                                                |
+| users?        | array of snowflakes            | Array of user ids to mention, max 100                                                                                                |
+| replied_user? | boolean                        | For replies, whether to mention the author of the message being replied to, defaults to false                                        |
+
+###### Allowed Mentions Examples
+
+Because the behavior of the `allowed_mentions` field is more complex than it seems, here's a set of examples:
+
+
+In the following case, we are sending a regular message **without** configuring `allowed_mentions`. As a result, all included mentions will be parsed.
+
+```json
+{
+  "content": "@here Hello <@&1234> and <@5678> 👋"
 }
 ```
 
-To suppress all mentions in a message use:
+If you want to completely suppress all mentions in the message, you can configure the `allowed_mentions` field as we've documented above:
 
 ```json
 {
-  "content": "@everyone hi there, <@&123>",
+  "content": "@here Hello <@&1234> and <@5678> 👋",
   "allowed_mentions": {
     "parse": []
   }
 }
 ```
 
-This will suppress _all_ mentions in the message (no @everyone or user mention).
 
-The `parse` field is mutually exclusive with the other fields. In the example below, we would ping users `123` and role `124`, but _not_ @everyone. Note that passing a `Falsy` value ([], null) into the "users" field does not trigger a validation error.
+It is important to note that the `parse` field is **mutually exclusive** with the other fields. In the example below, only the `1234` role and the `5678` user mentions would be parsed, but **not** the `@here` at the beginning. Passing a falsy value such as `null` or an empty array into the `users` field does not trigger a validation error.
 
 ```json
 {
-  "content": "@everyone <@123> <@&124>",
+  "content": "@here Hello <@&1234> and <@5678> 👋",
   "allowed_mentions": {
     "parse": ["users", "roles"],
     "users": []
@@ -685,43 +709,39 @@ The `parse` field is mutually exclusive with the other fields. In the example be
 }
 ```
 
-In the next example, we would ping @everyone, (and also users `123` and `124` if they suppressed
-@everyone mentions), but we would not ping any roles.
+
+In this next example, **only** `@everyone` would be parsed, as well as users `1234` and `5678` in case they suppressed `@everyone` mentions in their settings.
 
 ```json
 {
-  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "content": "@everyone <@1234> <@5678> <@&789> 👋",
   "allowed_mentions": {
     "parse": ["everyone"],
-    "users": ["123", "124"]
+    "users": ["1234", "5678"]
   }
 }
 ```
 
-Due to possible ambiguities, not all configurations are valid. An _invalid_ configuration is as follows
+
+Due to possible ambiguities, not all configurations are accepted. Here's an example of an *invalid* configuration, because it includes both `parse` and `users`, despite those fields being mutually exclusive, causing a validation error.
 
 ```json
 {
-  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "content": "@everyone <@1234> <@5678> <@9012> <@&200>",
   "allowed_mentions": {
     "parse": ["users"],
-    "users": ["123", "124"]
+    "users": ["1234", "5678"]
   }
 }
 ```
 
-Because `parse: ["users"]` and `users: [123, 124]` are both present, we would throw a validation error.
-This is because the conditions cannot be fulfilled simultaneously (they are mutually exclusive).
-
-Any entities with an ID included in the list of IDs can be mentioned. Note that the IDs of entities not present in the message content or message component content will simply be ignored.
-e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
-user 125 in the content.
+Any entities whose id is included can be mentioned. Do note the API will silently ignore entities whose id are present in the `allowed_mentions` field, but not in the content of the message or its components. For example, in the following configuration, the user 123 mention would be parsed because it is present in the `content`. However, since there is no mention of user 456 in the `content`, they would not be notified.
 
 ```json
 {
-  "content": "<@123> Time for some memes.",
+  "content": "<@123> Time for some memes 🤠",
   "allowed_mentions": {
-    "users": ["123", "125"]
+    "users": ["123", "456"]
   }
 }
 ```
@@ -749,7 +769,7 @@ user 125 in the content.
 ## Get Channel Messages
 <Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages</Route>
 
-Retrieves the messages in a channel. Returns an array of [message](/docs/resources/message#message-object) objects on success.
+Retrieves the messages in a channel. Returns an array of [message](/docs/resources/message#message-object) objects from newest to oldest on success.
 
 If operating on a guild channel, this endpoint requires the current user to have the `VIEW_CHANNEL` permission. If the channel is a voice channel, they must _also_ have the `CONNECT` permission.
 
@@ -800,28 +820,24 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 ###### JSON/Form Params
 
-:::info
-When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll`.
-:::
+| Field                | Type                                                                              | Description                                                                                                                                                                                                                                       |
+|----------------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| content?\*           | string                                                                            | Message contents (up to 2000 characters)                                                                                                                                                                                                          |
+| nonce?               | integer or string                                                                 | Can be used to verify a message was sent (up to 25 characters). Value will appear in the [Message Create event](/docs/events/gateway-events#message-create).                                                                                      |
+| tts?                 | boolean                                                                           | `true` if this is a TTS message                                                                                                                                                                                                                   |
+| embeds?\*            | array of [embed](/docs/resources/message#embed-object) objects                    | Up to 10 `rich` embeds (up to 6000 characters)                                                                                                                                                                                                    |
+| allowed_mentions?    | [allowed mention object](/docs/resources/message#allowed-mentions-object)         | Allowed mentions for the message                                                                                                                                                                                                                  |
+| message_reference?\* | [message reference](/docs/resources/message#message-reference-structure)          | Include to make your message a reply or a forward                                                                                                                                                                                                 |
+| components?\*        | array of [message component](/docs/components/reference#component-object) objects | Components to include with the message                                                                                                                                                                                                            |
+| sticker_ids?\*       | array of snowflakes                                                               | IDs of up to 3 [stickers](/docs/resources/sticker#sticker-object) in the server to send in the message                                                                                                                                            |
+| files[n]?\*          | file contents                                                                     | Contents of the file being sent. See [Uploading Files](/docs/reference#uploading-files)                                                                                                                                                           |
+| payload_json?        | string                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/reference#uploading-files)                                                                                                             |
+| attachments?         | array of partial [attachment](/docs/resources/message#attachment-object) objects  | Attachment objects with filename and description. See [Uploading Files](/docs/reference#uploading-files)                                                                                                                                          |
+| flags?\*\*           | integer                                                                           | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `SUPPRESS_NOTIFICATIONS`, `IS_VOICE_MESSAGE`, and `IS_COMPONENTS_V2` can be set) |
+| enforce_nonce?       | boolean                                                                           | If true and nonce is present, it will be checked for uniqueness in the past few minutes. If another message was created by the same author with the same nonce, that message will be returned and no new message will be created.                 |
+| poll?                | [poll](/docs/resources/poll#poll-create-request-object) request object            | A poll!                                                                                                                                                                                                                                           |
 
-| Field              | Type                                                                              | Description                                                                                                                                                                                                                       |
-|--------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| content?\*         | string                                                                            | Message contents (up to 2000 characters)                                                                                                                                                                                          |
-| nonce?             | integer or string                                                                 | Can be used to verify a message was sent (up to 25 characters). Value will appear in the [Message Create event](/docs/events/gateway-events#message-create).                                                                      |
-| tts?               | boolean                                                                           | `true` if this is a TTS message                                                                                                                                                                                                   |
-| embeds?\*          | array of [embed](/docs/resources/message#embed-object) objects                    | Up to 10 `rich` embeds (up to 6000 characters)                                                                                                                                                                                    |
-| allowed_mentions?  | [allowed mention object](/docs/resources/message#allowed-mentions-object)         | Allowed mentions for the message                                                                                                                                                                                                  |
-| message_reference? | [message reference](/docs/resources/message#message-reference-structure)          | Include to make your message a reply or a forward                                                                                                                                                                                 |
-| components?\*      | array of [message component](/docs/components/reference#component-object) objects | Components to include with the message                                                                                                                                                                                            |
-| sticker_ids?\*     | array of snowflakes                                                               | IDs of up to 3 [stickers](/docs/resources/sticker#sticker-object) in the server to send in the message                                                                                                                            |
-| files[n]?\*        | file contents                                                                     | Contents of the file being sent. See [Uploading Files](/docs/reference#uploading-files)                                                                                                                                           |
-| payload_json?      | string                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/docs/reference#uploading-files)                                                                                             |
-| attachments?       | array of partial [attachment](/docs/resources/message#attachment-object) objects  | Attachment objects with filename and description. See [Uploading Files](/docs/reference#uploading-files)                                                                                                                          |
-| flags?\*\*         | integer                                                                           | [Message flags](/docs/resources/message#message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS`, `SUPPRESS_NOTIFICATIONS` and `IS_COMPONENTS_V2` can be set)      |
-| enforce_nonce?     | boolean                                                                           | If true and nonce is present, it will be checked for uniqueness in the past few minutes. If another message was created by the same author with the same nonce, that message will be returned and no new message will be created. |
-| poll?              | [poll](/docs/resources/poll#poll-create-request-object) request object            | A poll!                                                                                                                                                                                                                           |
-
-\* At least one of `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll` is required.
+\* At least one of `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, or `poll` is required. When forwarding a message, only `message_reference` is required.
 
 \*\* When the flag `IS_COMPONENTS_V2` is set, the message can only contain `components`. Providing `content`, `embeds`, `sticker_ids`, `files[n]`, or `poll` will fail with a 400 BAD REQUEST response.
 
@@ -930,7 +946,7 @@ All parameters to this endpoint are optional and nullable.
 | payload_json     | string                                                                    | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](/docs/reference#uploading-files)             |
 | attachments      | array of [attachment](/docs/resources/message#attachment-object) objects  | Attached files to keep and possible descriptions for new files. See [Uploading Files](/docs/reference#uploading-files)              |
 
-\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, `files[n]` or `poll` values in the initial message must be set to `null` first, otherwise it will fail with a 400 BAD REQUEST response.
+\* The `SUPPRESS_EMBEDS` flag can be both set and unset, while the `IS_COMPONENTS_V2` flag can only be set. When the `IS_COMPONENTS_V2` flag is set, any of the used `content`, `embeds`, `sticker_ids`, or `poll` fields must have their values reset to empty. For `content` and `poll` this is `null`. For `embeds` and `sticker_ids` this is `[]`. Failing to do this will result in a 400 BAD REQUEST response.
 
 ## Delete Message
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
@@ -972,7 +988,6 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 | Field   | Type              | Description                               | Default |
 |---------|-------------------|-------------------------------------------|---------|
 | before? | ISO8601 timestamp | Get messages pinned before this timestamp | absent  |
-| after?  | ISO8601 timestamp | Get messages pinned after this timestamp  | absent  |
 | limit?  | integer           | Max number of pins to return (1-50)       | 50      |
 
 ###### Response Structure
@@ -986,12 +1001,12 @@ Retrieves the list of pins in a channel. Requires the `VIEW_CHANNEL` permission.
 
 If you want to get 100 pins you'd send these two requests:
 `GET /channels/:id/messages/pins?limit=50`
-`GET /channels/:id/messages/pins?limit=50&after={pins[pins.len() - 1].pinned_at}`
+`GET /channels/:id/messages/pins?limit=50&before={pins[pins.len() - 1].pinned_at}`
 
 ## Pin Message
 <Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Pin a message in a channel. Requires the `PIN_MESSAGES` permission. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1000,7 +1015,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Unpin Message
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/pins/[\{message.id\}](/docs/resources/message#message-object)</Route>
 
-Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
+Unpin a message in a channel. Requires the `PIN_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Channel Pins Update](/docs/events/gateway-events#channel-pins-update) Gateway event.
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.

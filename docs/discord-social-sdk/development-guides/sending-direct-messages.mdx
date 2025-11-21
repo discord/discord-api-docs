@@ -1,15 +1,15 @@
 ---
 sidebar_label: Sending Direct Messages
 ---
-import LimitedAccessCallout from '../partials/callouts/limited-access.mdx';
-import PublicClient from '../partials/callouts/public-client.mdx';
+import RateLimitCallout from '../partials/callouts/rate-limit.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
+import CommsScopeWarning from '../partials/callouts/oauth-comms-scopes.mdx';
 
 [Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
 
 # {sidebar_label}
 
-<LimitedAccessCallout />
+<RateLimitCallout />
 
 ## Overview
 
@@ -17,6 +17,15 @@ Direct Messages (DMs) allow players to communicate privately. This guide will sh
 
 - Send text messages between users
 - Handle displaying messages in your game
+- Retrieve conversation history and summaries
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- Set up the Discord Social SDK with our [Getting Started guide](/docs/discord-social-sdk/getting-started)
+
+<CommsScopeWarning />
 
 ### Types of Chat Messages
 
@@ -94,7 +103,12 @@ As a convenience for game developers, the first time a user sends a message in t
 
 ### Message History
 
-The SDK keeps the 25 most recent messages in each channel in memory, but it cannot access any historical messages sent before the SDK was connected. A [`MessageHandle`] will keep working even after the SDK has discarded the message for being too old. You just won't be able to create new [`MessageHandle`] objects for that message.
+The SDK keeps the 25 most recent messages in each channel in memory, including direct messages. For older messages,
+see the [Getting Direct Message History](/docs/discord-social-sdk/development-guides/sending-direct-messages#getting-direct-message-history)
+section below to retrieve additional history from Discord's servers.
+
+A [`MessageHandle`] will keep working even after the SDK has discarded the message for being too old.
+You just won't be able to create new [`MessageHandle`] objects for that message via [`Client::GetMessageHandle`].
 
 ### Working with Unrenderable Content
 
@@ -104,12 +118,82 @@ You can use this metadata to render a placeholder message for players and can li
 
 There is also more information about [messages in the Discord API](/docs/resources/message) documentation.
 
+## Getting Direct Message History
+
+The SDK provides two methods to retrieve direct message conversation history, allowing you to display past conversations when users open a DM or browse their message list.
+
+### Retrieving All Conversation Summaries
+
+Use [`Client::GetUserMessageSummaries`] to get a list of all users the current user has DM conversations with, along
+with the most recent message ID for each conversation:
+
+```cpp
+client->GetUserMessageSummaries([](const discordpp::ClientResult &result,
+                                  const std::vector<discordpp::UserMessageSummary> &summaries) {
+    if (result.Successful()) {
+        std::cout << "📋 Retrieved " << summaries.size() << " conversations\n";
+
+        for (const auto &summary : summaries) {
+            std::cout << "User ID: " << summary.UserId()
+                     << ", Last Message ID: " << summary.LastMessageId() << "\n";
+        }
+    } else {
+        std::cerr << "❌ Failed to retrieve conversation summaries\n";
+    }
+});
+```
+
+This is particularly useful for:
+- Building a conversation list UI
+- Determining which users have active conversations
+- Finding the most recent activity in each conversation
+
+### Retrieving Messages from a Specific Conversation
+
+Use [`Client::GetUserMessagesWithLimit`] to fetch message history from a specific DM conversation:
+
+```cpp
+const uint64_t recipientId = 1234567890; // The other user's Discord ID
+const int32_t messageLimit = 50; // Number of recent messages to retrieve
+
+client->GetUserMessagesWithLimit(
+    recipientId, messageLimit,
+    [](const discordpp::ClientResult &result,
+       const std::vector<discordpp::MessageHandle> &messages) {
+        if (result.Successful()) {
+            std::cout << "💬 Retrieved " << messages.size()
+                     << " messages from conversation\n";
+
+            // Messages are returned in reverse chronological order (newest first)
+            for (const auto &message : messages) {
+                std::cout << "Message: " << message.Content()
+                         << " from " << message.AuthorId() << std::endl;
+            }
+        } else {
+            std::cerr << "❌ Failed to retrieve message history\n";
+        }
+    }
+);
+```
+
+Key points about [`Client::GetUserMessagesWithLimit`] that are important to note:
+
+- Messages are returned in reverse chronological order (newest first)
+- The function checks the local cache first and only makes an HTTP request if needed
+- Pass 0 or a negative value for `limit` to retrieve all available messages
+
+This functionality is useful for:
+- Displaying conversation history when a user opens a DM
+- Implementing message scrollback features
+- Preserving conversation context across game sessions
+- Building a full-featured in-game messaging interface
+
 ## In-Game Direct Message Settings
 
 The Discord client provides a settings screen for users to be able to control who can DM them in-game via the
 Social SDK.
 
-![Discord content and social - Connected game settings](images/social-sdk/development-guides/discord-game-dm-settings.png)
+![Discord content and social - Connected game settings](images/social-sdk/development-guides/discord-game-dm-settings.webp)
 
 You cannot control these settings directly with the Social SDK. However, you can call
 [`Client::OpenConnectedGamesSettingsInDiscord`], which opens the Connected Games settings in the Discord client,
@@ -133,7 +217,7 @@ Now that you know how to send and receive messages, check out these other Discor
     Bring players together in a shared lobby with invites, text chat, and voice comms.
   </Card>
   <Card title="Linked Channels" link="/docs/discord-social-sdk/development-guides/linked-channels" icon="TextControllerIcon">
-    Enable cross-platform text chat between a Discord channel and your game.
+    Enable text chat between a Discord channel and your game.
   </Card>
 </Container>
 
@@ -143,14 +227,19 @@ Now that you know how to send and receive messages, check out these other Discor
 
 ## Change Log
 
-| Date           | Changes             |
-|----------------|---------------------|
-| May 06, 2025   | link to DM Settings |
-| March 17, 2025 | initial release     |
+| Date            | Changes                          |
+|-----------------|----------------------------------|
+| August 29, 2025 | Add DM history                   |
+| June 30, 2025   | Add communications scope warning |
+| May 06, 2025    | link to DM Settings              |
+| March 17, 2025  | initial release                  |
 
 {/* Autogenerated Reference Links */}
 [`ChannelHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1ChannelHandle.html#ac32096b2ef15c5c220e9b7b92253cc46
 [`Client::CanOpenMessageInDiscord`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ae2aac143a691091691c5cc75aa07dace
+[`Client::GetMessageHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7825220b28952a2156bd0e46db40ea5c
+[`Client::GetUserMessageSummaries`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a32dafc20ff1f99b019e40bdc81f46dde
+[`Client::GetUserMessagesWithLimit`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a054a758a76c5873b38a4d79651a5f26c
 [`Client::OpenConnectedGamesSettingsInDiscord`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a24f268f5eebe9919a3f774354eb577e0
 [`Client::OpenMessageInDiscord`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a66b8f85b14403a5d5ea125f39aa6e1b1
 [`Client::SetMessageCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28325a8e8c688a84ac851da4bc86e148
