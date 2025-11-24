@@ -21,7 +21,7 @@ However, the breaking changes described below - where the old permissions will n
 **2. Bypass Slowmode Permission**
 
 - The `BYPASS_SLOWMODE` permission (`1 << 52`) is being split from `MANAGE_MESSAGES`, `MANAGE_CHANNEL`, and `MANAGE_THREADS`.
-- [Read the change log](/docs/change-log#bypass-slow-mode-permission).
+- [Read the change log](/docs/change-log#new-bypassslowmode-permission-permission-split).
 - Note: This primarily affects users, as bots are not affected by slowmode restrictions.
 - Starting on February 23, 2026, users will need the `BYPASS_SLOWMODE` permission to not be affected by slowmode restrictions.
 
