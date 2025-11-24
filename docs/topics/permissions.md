@@ -84,6 +84,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | SEND_POLLS                             | `0x0002000000000000` `(1 << 49)` | Allows sending polls                                                                                                                                                                                               | T, V, S                    |
 | USE_EXTERNAL_APPS                      | `0x0004000000000000` `(1 << 50)` | Allows user-installed apps to send public responses. When disabled, users will still be allowed to use their apps but the responses will be ephemeral. This only applies to apps not also installed to the server. | T, V, S                    |
 | PIN_MESSAGES                           | `0x0008000000000000` `(1 << 51)` | Allows pinning and unpinning messages                                                                                                                                                                              | T                          |
+| BYPASS_SLOWMODE                        | `0x0010000000000000` `(1 << 52)` | Allows bypassing slowmode restrictions                                                                                                                                                                             | T, V, S                    |
 
 | Channel Type (Abbreviated) | Description | Channel Types                                            |
 |----------------------------|-------------|----------------------------------------------------------|
