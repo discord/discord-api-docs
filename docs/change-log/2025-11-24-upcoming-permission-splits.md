@@ -16,7 +16,7 @@ However, the breaking changes described below - where the old permissions will n
 
 - The `PIN_MESSAGES` permission (`1 << 51`) was split from `MANAGE_MESSAGES` on August 20, 2025.
 - [Read the change log](/docs/change-log#pin-permission-split).
-- Starting February 23, 2026, bots will need the `PIN_MESSAGES` permission to pin messages. `MANAGE_MESSAGES` alone will no longer be sufficient.
+- Starting February 23, 2026, users and bots will need the `PIN_MESSAGES` permission to pin messages. `MANAGE_MESSAGES` alone will no longer be sufficient.
 
 **2. Bypass Slowmode Permission**
 
