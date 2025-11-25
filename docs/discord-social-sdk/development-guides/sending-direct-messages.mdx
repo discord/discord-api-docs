@@ -154,7 +154,7 @@ Use [`Client::GetUserMessagesWithLimit`] to fetch message history from a specifi
 
 ```cpp
 const uint64_t recipientId = 1234567890; // The other user's Discord ID
-const int32_t messageLimit = 50; // Number of recent messages to retrieve
+const int32_t messageLimit = 50; // Number of recent messages to retrieve (max 200)
 
 client->GetUserMessagesWithLimit(
     recipientId, messageLimit,
@@ -176,11 +176,16 @@ client->GetUserMessagesWithLimit(
 );
 ```
 
+**Important limitations:**
+- Only a maximum of 200 messages and up to 72 hours of history can be retrieved
+- Both players must have played the game for DM history to be accessible
+- If either user hasn't played the game, the system cannot find a channel between them and may return a 404 `discordpp::ErrorType::HTTPError` error
+
 Key points about [`Client::GetUserMessagesWithLimit`] that are important to note:
 
 - Messages are returned in reverse chronological order (newest first)
 - The function checks the local cache first and only makes an HTTP request if needed
-- Pass 0 or a negative value for `limit` to retrieve all available messages
+- Pass 0 or a negative value for `limit` to retrieve all available messages (up to the 200 message maximum)
 
 This functionality is useful for:
 - Displaying conversation history when a user opens a DM
