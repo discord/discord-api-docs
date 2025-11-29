@@ -788,6 +788,120 @@ The `before`, `after`, and `around` parameters are mutually exclusive, only one 
 | after?  | snowflake | Get messages after this message ID       | absent  |
 | limit?  | integer   | Max number of messages to return (1-100) | 50      |
 
+## Search Guild Messages
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/messages/search</Route>
+
+Returns a list of messages without the `reactions` key that match a search query in the guild. Requires the `READ_MESSAGE_HISTORY` permission.
+
+:::warn
+If the entity you are searching is not yet indexed, the endpoint will return a 202 accepted response. The response body will not contain any search results, and will look similar to an error response:
+
+```json
+{
+  "message": "Index not yet available. Try again later",
+  "code": 110000,
+  "documents_indexed": 0,
+  "retry_after": 2
+}
+```
+
+You should retry the request after the timeframe specified in the `retry_after` field. If the `retry_after` field is `0`, you should retry the request after a short delay.
+:::
+
+:::info
+Due to speed optimizations, search may return slightly less results than the limit specified when messages have not been accessed for a long time.
+Clients should not rely on the length of the `messages` array to paginate results.
+
+Additionally, when messages are actively being created or deleted, the `total_results` field may not be accurate.
+:::
+
+###### Query String Params
+
+| Field                 | Type                | Description                                                                                                                   |
+|-----------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| limit?                | integer             | Max number of messages to return (1-25, default 25)                                                                           |
+| offset?               | integer             | Number to offset the returned messages by (max 9975)                                                                          |
+| max_id?               | snowflake           | Get messages before this message ID                                                                                           |
+| min_id?               | snowflake           | Get messages after this message ID                                                                                            |
+| slop?                 | integer             | Max number of words to skip between matching tokens in the search `content` (max 100, default 2)                              |
+| content?              | string              | Filter messages by content (max 1024 characters)                                                                              |
+| channel_id?           | array of snowflakes | Filter messages by these channels (max 500)                                                                                   |
+| author_type?          | array of strings    | Filter messages by [author type](/docs/resources/message#search-guild-messages-author-types)                                  |
+| author_id?            | array of snowflakes | Filter messages by these authors                                                                                              |
+| mentions?             | array of snowflakes | Filter messages that mention these users                                                                                      |
+| mention_everyone?     | boolean             | Filter messages that do or do not mention @everyone                                                                           |
+| pinned?               | boolean             | Filter messages by whether they are or are not pinned                                                                         |
+| has?                  | array of strings    | Filter messages by whether or not they [have specific things](/docs/resources/message#search-guild-messages-search-has-types) |
+| embed_type?           | array of strings    | Filter messages by [embed type](/docs/resources/message#search-guild-messages-search-embed-types)                             |
+| embed_provider?       | array of strings    | Filter messages by embed provider (case-sensitive, e.g. `Tenor`) (max 256 characters)                                         |
+| link_hostname?        | array of strings    | Filter messages by link hostname (case-sensitive, e.g. `discordapp.com`)                                                      |
+| attachment_filename?  | array of strings    | Filter messages by attachment filename (max 1024 characters)                                                                  |
+| attachment_extension? | array of strings    | Filter messages by attachment extension (e.g. `txt`)                                                                          |
+| sort_by? \[1\]        | string              | The [sorting algorithm](/docs/resources/message#search-guild-messages-search-sort-types) to use                               |
+| sort_order? \[1\]     | string              | The direction to sort (`asc` or `desc`, default `desc`)                                                                       |
+| include_nsfw?         | boolean             | Whether to include results from NSFW channels (default false)                                                                 |
+
+\[1\] Sort order is not respected when sorting by relevance.
+
+###### Author Types
+
+All types can be negated by prefixing them with `-`, which means results will not include messages that match the type.
+
+| Type    | Description                           |
+|---------|---------------------------------------|
+| user    | Return messages sent by user accounts |
+| bot     | Return messages sent by bot accounts  |
+| webhook | Return messages sent by webhooks      |
+
+###### Search Has Types
+
+All types can be negated by prefixing them with `-`, which means results will not include messages that match the type.
+
+| Type     | Description                                   |
+|----------|-----------------------------------------------|
+| image    | Return messages that have an image            |
+| sound    | Return messages that have a sound attachment  |
+| video    | Return messages that have a video             |
+| file     | Return messages that have an attachment       |
+| sticker  | Return messages that have a sent sticker      |
+| embed    | Return messages that have an embed            |
+| link     | Return messages that have a link              |
+| poll     | Return messages that have a poll              |
+| snapshot | Return messages that have a forwarded message |
+
+###### Search Embed Types
+
+These do not correspond 1:1 to actual [embed types](/docs/resources/message#embed-object-embed-types) and encompass a wider range of actual types.
+
+| Type                 | Description                                |
+|----------------------|--------------------------------------------|
+| image                | Return messages that have an image embed   |
+| video                | Return messages that have a video embed    |
+| gif **(deprecated)** | Return messages that have a gif embed      |
+| sound                | Return messages that have a sound embed    |
+| article              | Return messages that have an article embed |
+
+###### Search Sort Types
+
+| Type      | Description                                              |
+|-----------|----------------------------------------------------------|
+| timestamp | Sort by the message creation time (default)              |
+| relevance | Sort by the relevance of the message to the search query |
+
+###### Response Body
+
+| Field                       | Type                                                                        | Description                                                                               |
+|-----------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| analytics_id                | string                                                                      | The analytics ID for the search query                                                     |
+| doing_deep_historical_index | boolean                                                                     | The status of the guild's deep historical indexing operation, if any                      |
+| documents_indexed?          | integer                                                                     | The number of documents that have been indexed during the current index operation, if any |
+| total_results               | integer                                                                     | The total number of results that match the query                                          |
+| messages \[1\]              | array[array[[message](/docs/resources/message#message-object) object]]      | A nested array of messages that match the query                                           |
+| threads?                    | array[[channel](/docs/resources/channel#channel-object) object]             | The threads that contain the returned messages                                            |
+| members?                    | array[[thread member](/docs/resources/channel#thread-member-object) object] | A thread member object for each returned thread the current user has joined               |
+
+\[1\] The nested array was used to provide surrounding context to search results. However, surrounding context is no longer returned.
+
 ## Get Channel Message
 <Route method="GET">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/messages/[\{message.id\}](/docs/resources/message#message-object)</Route>
 

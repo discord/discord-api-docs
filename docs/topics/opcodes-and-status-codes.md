@@ -315,6 +315,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 90002  | User cannot use burst reactions                                                                                               |
+| 110000 | Index not yet available. Try again later                                                                                      |
 | 110001 | Application not yet available. Try again later                                                                                |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
