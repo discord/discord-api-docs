@@ -1,7 +1,6 @@
 ---
 sidebar_label: Setting Rich Presence
 ---
-import PublicClient from '../partials/callouts/public-client.mdx';
 import SupportCallout from '../partials/callouts/support.mdx';
 
 [Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
@@ -70,7 +69,7 @@ You can control how lines 2 and 3 are rendered in Discord, here's the breakdown:
 
 This diagram visually shows the field mapping:
 
-![Graphical representation of the legend for rich presence details](images/rp-legend.png)
+![Graphical representation of the legend for rich presence details](images/rp-legend.webp)
 
 :::info
 For tips on designing Rich Presence, take a look at the [Rich Presence best practices guide](/docs/rich-presence/best-practices).
@@ -82,7 +81,7 @@ For tips on designing Rich Presence, take a look at the [Rich Presence best prac
 
 The Rich Presence invite image appears when invites are sent for a 3rd party game or app using the Discord Social SDK. After uploading an invite image for your app, you can see a preview of it to the right (under "IRL Invite Image Example").
 
-![Rich Presence invite image in app settings](images/rich-presence-invite-image.png)
+![Rich Presence invite image in app settings](images/rich-presence-invite-image.webp)
 
 ---
 
@@ -92,7 +91,7 @@ While integrating Rich Presence, you'll likely want to upload custom art assets 
 
 To add custom assets for Rich Presence, navigate to your app's settings and click Rich Presence on the left-hand sidebar. On the Art Assets page, you can upload two different types of assets.
 
-![Rich Presence invite image in app settings](images/rich-presence-invite-image.png)
+![Rich Presence invite image in app settings](images/rich-presence-invite-image.webp)
 
 Up to 300 custom assets can be added to your app for later use when setting Rich Presence for a Discord user. These assets can be anything that help orient others to what a user is doing inside of your Activity or 3rd party game.
 
@@ -106,7 +105,7 @@ When uploading Rich Presence assets, **the asset keys will automatically be chan
 
 Once you've uploaded these assets, you can use the asset key to reference them in your code when [Setting Assets in Rich Presence](/docs/discord-social-sdk/development-guides/setting-rich-presence#setting-assets).
 
-![Rich Presence assets in app settings](images/rich-presence-asset-images.png)
+![Rich Presence assets in app settings](images/rich-presence-asset-images.webp)
 
 ---
 
@@ -147,7 +146,7 @@ activity.SetTimestamps(timestamps);
 
 ## Setting Assets
 
-Once you've uploaded assets to your app, you can reference them using their **asset key** in your code to set custom artwork in Rich Presence. Here's an example of an asset with the key of "map-mainframe" and "tank-avatar":
+Once you've uploaded assets to your app, you can reference them using their **asset key** in your code to set custom artwork in Rich Presence. Here's an example of an asset with the key of "map-mainframe", "tank-avatar", and "invite-cover-image":
 
 ```cpp
 // Setting Activity Assets
@@ -156,12 +155,53 @@ assets.SetLargeImage("map-mainframe");
 assets.SetLargeText("Mainframe");
 assets.SetSmallImage("tank-avatar");
 assets.SetSmallText("Tank");
+assets.SetInviteCoverImage("invite-cover-image"); // Used for Game Invites
 activity.SetAssets(assets);
 ```
 
 :::info
 If you need more than 300 custom assets or want to use images stored somewhere else, you can also [specify an external URL](/docs/events/gateway-events#activity-object-activity-asset-image) as long it still has the proper dimensions and size.
 :::
+
+---
+
+## Setting Field URLs
+
+You can set URLs for `details`, `state`, `assets.large_image` and `assets.small_image` in Rich Presence. When present, these URLs will make the corresponding image/text into clickable links.
+
+```cpp
+activity.SetState("Playing on Mainframe");
+activity.SetStateUrl("https://example.com/maps/mainframe");
+activity.SetDetails("Rank #1337 in global leaderboard");
+activity.SetDetailsUrl("https://example.com/leaderboard/global");
+
+discordpp::ActivityAssets assets;
+assets.SetLargeImage("map-mainframe");
+assets.SetLargeText("Mainframe");
+assets.SetLargeUrl("https://example.com/maps/mainframe");
+assets.SetSmallImage("tank-avatar");
+assets.SetSmallText("Tank");
+assets.SetSmallUrl("https://example.com/classes/tank");
+
+activity.SetAssets(assets);
+```
+
+---
+
+## Configuring Status Text
+
+By default, Rich Presence will display the game's name in the user's status text. You can override this behavior by setting a status display type.
+
+```cpp
+// uses the game's name in the status text (default)
+activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::Name);
+
+// uses the activity's state field in the status text
+activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::State);
+
+// uses the activity's details field in the status text
+activity.SetStatusDisplayType(discordpp::StatusDisplayTypes::Details);
+```
 
 ---
 
@@ -198,6 +238,55 @@ activity.SetSupportedPlatforms(discordpp::ActivityGamePlatforms::Desktop);
 
 See the `ActivityGamePlatforms` enum for all supported platforms.
 
+## Rich Presence Without Authentication
+
+:::warn
+Rich Presence via RPC (Remote Procedure Call) will only work with a running Discord desktop client. It does not support mobile, console or web clients.
+:::
+
+Unlike most other features of the Discord Social SDK, **Rich Presence can be set without authentication**. Instead of
+using [`Client::Connect`] to authenticate with Discord, you can use Rich Presence functionality by directly communicating
+with a running Discord desktop client through RPC (Remote Procedure Call).
+
+### Requirements
+
+* Discord desktop client must be running on the user's machine
+* Your application must be registered with Discord and have a valid Application ID
+
+This direct approach makes Rich Presence integration much simpler for developers who only need basic presence
+functionality while Discord desktop clients are running.
+
+### Setting Up Direct Rich Presence
+
+To use Rich Presence without authentication, simply:
+
+1. Set your application ID using [`Client::SetApplicationId`]
+2. Configure your activity details
+3. Call [`Client::UpdateRichPresence`]
+
+```cpp
+auto client = std::make_shared<discordpp::Client>();
+
+// Set the application ID (no Connect() call needed)
+client->SetApplicationId(APPLICATION_ID);
+
+// Configure rich presence details
+discordpp::Activity activity;
+activity.SetType(discordpp::ActivityTypes::Playing);
+activity.SetState("In Competitive Match");
+activity.SetDetails("Rank: Diamond II");
+
+// Update rich presence
+client->UpdateRichPresence(
+    activity, [](const discordpp::ClientResult &result) {
+      if (result.Successful()) {
+        std::cout << "🎮 Rich Presence updated successfully!\n";
+      } else {
+        std::cerr << "❌ Rich Presence update failed";
+      }
+    });
+```
+
 ---
 
 ## Next Steps
@@ -227,5 +316,8 @@ Now that you've set up Rich Presence, you might want to explore:
 | March 17, 2025 | Initial release |
 
 {/* Autogenerated Reference Links */}
-[`Activity`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Activity.html#ab87f0347d870044bb26d8f7e50cb4c1d
+[`Activity`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Activity.html#ae793d9adbe16fef402b859ba02bee682
 [`ActivityTypes`]: https://discord.com/developers/docs/social-sdk/namespacediscordpp.html#a6c76a8cbbc9270f025fd6854d5558660
+[`Client::Connect`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a873a844c7c4c72e9e693419bb3e290aa
+[`Client::SetApplicationId`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ad452335c06b28be0406dab824acccc49
+[`Client::UpdateRichPresence`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#af0a85e30f2b3d8a0b502fd23744ee58e

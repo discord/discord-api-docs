@@ -43,6 +43,10 @@ OAuth2 is the standard authentication flow that allows users to sign in using th
    - Access Token, which is valid for ~7 days
    - Refresh Token, used to obtain a new access token
 
+:::info
+The OAuth2 flow requires a user's account to be verified
+:::
+
 ### OAuth2 using the Discord Social SDK
 
 - If the Discord client has [overlay support](https://support.discord.com/hc/en-us/articles/217659737-Game-Overlay-101) (Windows only), the OAuth2 login modal appears in your game instead of opening a browser.
@@ -61,7 +65,7 @@ For OAuth2 to work correctly, you must **register the correct redirect URIs** fo
 | **Desktop** | `http://127.0.0.1/callback`                                                                |
 | **Mobile**  | `discord-APP_ID:/authorize/callback` _(replace `APP_ID` with your Discord application ID)_ |
 
-### Step 1: Request Authorization 
+### Step 1: Request Authorization
 
 The SDK provides helper methods to simplify OAuth2 login.
 
@@ -102,27 +106,6 @@ Once the user approves the request from Step 2, Discord will redirect the user b
 
 ### Step 4: Exchanging the Authorization Code for an Access Token
 
-#### Token Exchange for Public Clients
-
-<PublicClient />
-
-If your app does not have a backend server, enable `Public Client` in the Discord Developer Portal and use [`Client::GetToken`] to automatically exchange the authorization code for a token.
-
-We will also need the code verifier used to generate the code challenge in Step 1.
-
-```cpp
-client->GetToken(APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
-  [client](discordpp::ClientResult result,
-    std::string accessToken,
-    std::string refreshToken,
-    discordpp::AuthorizationTokenType tokenType,
-    int32_t expiresIn,
-    std::string scope) {
-    std::cout << "🔓 Access token received! Establishing connection...\n";
-    // Next step: Update the token in the client and connect to Discord
-  });
-```
-
 #### Server-to-Server Get Token Exchange
 
 If your application uses a backend server and does **not** have `Public Client` enabled, you can manually exchange the authorization code for an access token using the Discord API.
@@ -158,6 +141,27 @@ def exchange_code(code, redirect_uri):
 }
 ```
 
+#### Token Exchange for Public Clients
+
+<PublicClient />
+
+If your app does not have a backend server, enable `Public Client` in the Discord Developer Portal and use [`Client::GetToken`] to automatically exchange the authorization code for a token.
+
+We will also need the code verifier used to generate the code challenge in Step 1.
+
+```cpp
+client->GetToken(YOUR_DISCORD_APPLICATION_ID, code, codeVerifier.Verifier(), redirectUri,
+  [client](discordpp::ClientResult result,
+    std::string accessToken,
+    std::string refreshToken,
+    discordpp::AuthorizationTokenType tokenType,
+    int32_t expiresIn,
+    std::string scope) {
+    std::cout << "🔓 Access token received! Establishing connection...\n";
+    // Next step: Update the token in the client and connect to Discord
+  });
+```
+
 ---
 
 ## Working with Tokens
@@ -177,16 +181,6 @@ client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, ACCESS_TOKEN_VALU
 ## Refreshing Access Tokens
 
 Access tokens expire after 7 days, requiring refresh tokens to get a new one.
-
-### Refreshing Access Tokens for Public Clients
-
-<PublicClient />
-
-The easiest way to refresh tokens is using the SDK's [`Client::RefreshToken`] method.
-
-``` cpp
-client->RefreshToken();
-```
 
 ### Server-to-Server Token Refresh
 
@@ -210,13 +204,43 @@ def refresh_token(refresh_token):
     return r.json()
 ```
 
+### Refreshing Access Tokens for Public Clients
+
+<PublicClient />
+
+The easiest way to refresh tokens is using the SDK's [`Client::RefreshToken`] method.
+
+``` cpp
+client->RefreshToken(
+      YOUR_DISCORD_APPLICATION_ID, GetRefreshToken(),
+      [client](discordpp::ClientResult result, std::string accessToken,
+               std::string refreshToken,
+               discordpp::AuthorizationTokenType tokenType, int32_t expiresIn,
+               std::string scope) {
+        if (!result.Successful()) {
+          std::cout << "❌ Error refreshing token: " << result.Error()
+                    << std::endl;
+          return;
+        }
+
+        // Update token and connect
+        UpdateToken(client, refreshToken, accessToken);
+      });
+```
+
 ---
 
 ## Revoking Access Tokens
 
 If a user wants to disconnect their Discord account or if a token is compromised, you can revoke access and refresh tokens.
 
+:::warn
+When any valid access or refresh token is revoked, all of your application's access and refresh tokens for that user are immediately invalidated.
+:::
+
 ### Server-to-Server Token Revocation
+
+If your application uses a backend server, you can revoke tokens by making an API request to Discord's token revocation endpoint.
 
 ```python
 import requests
@@ -231,6 +255,38 @@ def revoke_token(access_or_refresh_token):
     r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
     r.raise_for_status()
 ```
+
+### Revoking Access Tokens for Public Clients
+
+<PublicClient />
+
+The easiest way to revoke tokens is using the SDK's `Client::RevokeToken` method. This will invalidate all access and refresh tokens for the user and they cannot be used again.
+
+```cpp
+client->RevokeToken(YOUR_DISCORD_APPLICATION_ID,
+                    accessToken, // Can also use refresh token
+                    [](const discordpp::ClientResult &result) {
+                      if (!result.Successful()) {
+                        std::cout
+                            << "? Error revoking token: " << result.Error()
+                            << std::endl;
+                        return;
+                      }
+
+                      std::cout
+                          << "? Token successfully revoked! User logged out."
+                          << std::endl;
+                      // Handle successful logout (clear stored tokens,
+                      // redirect to login, etc.)
+                    });
+```
+
+### Handling User Initiated Revocation
+
+Users can unlink their account by removing access to your application on their Discord `User Settings -> Authorized Apps` page.
+
+If you would like to be notified when a user unlinks this way, you can [configure you application to listen for the `APPLICATION_DEAUTHORIZED` webhook event](/docs/events/webhook-events#application-deauthorized).
+Otherwise, you will know that the user has unlinked because their access token and refresh token (if you have one) will be invalidated.
 
 ---
 
@@ -247,7 +303,7 @@ Now that you've successfully implemented account linking with Discord, you can i
   </Card>
   <Card title="Setting Rich Presence" link="/docs/discord-social-sdk/development-guides/setting-rich-presence" icon="UserStatusIcon">
     Display game status and information to Discord friends.
-  </Card>  
+  </Card>
 </Container>
 
 <SupportCallout />

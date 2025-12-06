@@ -180,6 +180,9 @@ for (const [name, raw] of docFiles) {
       if (!match.groups) continue;
       const [page, anchor] = match.groups?.link.split("#") ?? [];
       if (!validLinks.has(page)) {
+        // Automatically ignore links with "image/" as the prefix, since the link checker is not designed to validate images.
+        if (page.startsWith("images/")) continue;
+
         ownResults.push({
           title: `Base url ${chalk.blueBright(page)} does not exist`,
           startLine: lineNum + 1,

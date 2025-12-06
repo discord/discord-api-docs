@@ -1,0 +1,146 @@
+---
+sidebar_label: Use with Discord APIs
+---
+import PublicClient from '../partials/callouts/public-client.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [How To](/docs/discord-social-sdk/how-to) > {sidebar_label}
+
+# {sidebar_label}
+
+## Overview
+
+The Discord Social SDK provides client-side functionality for integrating Discord social features into your game. However, if you use a game backend, you should interact with Discord's HTTP APIs for server-side operations when possible.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+- A Discord application created in the Developer Portal
+- Access to your application's bot token
+- Required OAuth2 scopes configured
+
+---
+
+## Authentication Types
+
+### Bot Token Authentication
+For server-to-server communication:
+
+```
+curl -X GET https://discord.com/api/v10/users/@me \
+  -H "Authorization: Bot YOUR_BOT_TOKEN"
+```
+
+:::info
+Always prefix your bot token with `Bot ` in the Authorization header!
+:::
+
+### Bearer Token Authentication
+For authenticated user actions:
+
+```
+curl -X GET https://discord.com/api/v10/users/@me \
+  -H "Authorization: Bearer USER_ACCESS_TOKEN"
+```
+
+## Common API Operations
+
+### OAuth2 Token Exchange
+
+Exchange an authorization code for an access token:
+
+```python
+# filepath: /your/backend/auth.py
+import requests
+
+def exchange_code(code, redirect_uri):
+    data = {
+        'client_id': 'YOUR_CLIENT_ID',
+        'client_secret': 'YOUR_CLIENT_SECRET',
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': redirect_uri
+    }
+    
+    response = requests.post('https://discord.com/api/v10/oauth2/token', data=data)
+    return response.json()
+```
+
+### User Information
+
+Get information about the authenticated user:
+
+```python
+def get_user_info(access_token):
+    headers = {'Authorization': f'Bearer {access_token}'}
+    response = requests.get('https://discord.com/api/v10/users/@me', headers=headers)
+    return response.json()
+```
+
+---
+
+## Using the OpenAPI Specification
+
+You can use the [Discord OpenAPI Spec](https://github.com/discord/discord-api-spec) to generate a client in your preferred backend language to make it easier to call the various APIs. A good tool for that is https://openapi-generator.tech/.
+
+In python for example, that might look like this:
+
+```python 
+import openapi_client
+import os
+from pprint import pprint
+ 
+configuration = openapi_client.Configuration(host = "https://discord.com/api/v10")
+configuration.api_key['BotToken'] = 'Bot ' + os.environ["API_KEY"]
+with openapi_client.ApiClient(configuration) as api_client:
+    api_instance = openapi_client.DefaultApi(api_client)
+ 
+    request = openapi_client.CreateLobbyRequest()
+    request.metadata={'foo':'bar'}
+    pprint(api_instance.create_lobby(request))
+```
+
+---
+
+## Best Practices
+
+1. Token Security
+   - Never expose bot tokens in client-side code
+   - Store tokens securely
+2. Rate Limiting
+   - Respect Discord's rate limits
+   - Implement exponential backoff
+   - Cache responses when appropriate
+3. Error Handling
+   - Handle HTTP errors gracefully
+   - Implement retry logic for transient failures
+   - Log API errors for debugging
+
+---
+
+## Next Steps
+
+Now that you've set up Rich Presence, you might want to explore:
+
+<Container>
+  <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites" icon="InboxIcon">
+    Allow players to invite friends to join their game session or party.
+  </Card>
+  <Card title="Managing Lobbies" link="/docs/discord-social-sdk/development-guides/managing-lobbies" icon="DoorEnterIcon">
+    Bring players together in a shared lobby with invites, text chat, and voice comms.
+  </Card>
+  <Card title="Design Guidelines for Rich Presence" link="/docs/discord-social-sdk/design-guidelines/status-rich-presence" icon="UserStatusIcon">
+    Best practices for Rich Presence UI/UX.
+  </Card>
+</Container>
+
+<SupportCallout />
+
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| March 17, 2025 | Initial release |

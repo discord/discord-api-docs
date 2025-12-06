@@ -180,6 +180,10 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 - Requesting a prefix (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
 
+:::info
+We are introducing a new rate limit to the Request Guild Members opcode. See [Introducing Rate Limit When Requesting All Guild Members](/docs/change-log/2025-08-14-introducing-guild-members-rate-limit) for more information and timeline on this new rate limit.
+:::
+
 ###### Request Guild Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
@@ -306,6 +310,7 @@ Receive events are Gateway events encapsulated in an [event payload](/docs/event
 | [Ready](/docs/events/gateway-events#ready)                                                                   | Contains the initial state information                                                                                                         |
 | [Resumed](/docs/events/gateway-events#resumed)                                                               | Response to [Resume](/docs/events/gateway-events#resume)                                                                                       |
 | [Reconnect](/docs/events/gateway-events#reconnect)                                                           | Server is going away, client should reconnect to gateway and resume                                                                            |
+| [Rate Limited](/docs/events/gateway-events#rate-limited)                                                     | Application was rate limited for a gateway opcode                                                                                              |
 | [Invalid Session](/docs/events/gateway-events#invalid-session)                                               | Failure response to [Identify](/docs/events/gateway-events#identify) or [Resume](/docs/events/gateway-events#resume) or invalid active session |
 | [Application Command Permissions Update](/docs/events/gateway-events#application-command-permissions-update) | Application command permission was updated                                                                                                     |
 | [Auto Moderation Rule Create](/docs/events/gateway-events#auto-moderation-rule-create)                       | Auto Moderation rule was created                                                                                                               |
@@ -798,7 +803,7 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 |-------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | guild_id    | snowflake                                                                  | ID of the guild                                                                                |
 | members     | array of [guild member](/docs/resources/guild#guild-member-object) objects | Set of guild members                                                                           |
-| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (`0 <= chunk\_index < chunk\_count`)      |
+| chunk_index | integer                                                                    | Chunk index in the expected chunks for this response (`0 <= chunk_index < chunk_count`)        |
 | chunk_count | integer                                                                    | Total number of expected chunks for this response                                              |
 | not_found?  | array                                                                      | When passing an invalid ID to `REQUEST_GUILD_MEMBERS`, it will be returned here                |
 | presences?  | array of [presence](/docs/events/gateway-events#presence) objects          | When passing `true` to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
@@ -972,6 +977,7 @@ Sent when a new invite to a channel is created.
 | target_application? | partial [application](/docs/resources/application#application-object) object | Embedded application to open for this voice channel embedded application invite                                    |
 | temporary           | boolean                                                                      | Whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
 | uses                | integer                                                                      | How many times the invite has been used (always will be 0)                                                         |
+| expires_at          | ?ISO8601 timestamp                                                           | the expiration date of this invite                                                                                 |
 
 #### Invite Delete
 
@@ -997,11 +1003,11 @@ Sent when a message is created. The inner payload is a [message](/docs/resources
 
 ###### Message Create Extra Fields
 
-| Field     | Type                                                                                                                                            | Description                                                                                            |
-|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| guild_id? | snowflake                                                                                                                                       | ID of the guild the message was sent in - unless it is an ephemeral message                            |
-| member?   | partial [guild member](/docs/resources/guild#guild-member-object) object                                                                        | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
-| mentions  | array of [user](/docs/resources/user#user-object) objects, with an additional partial [member](/docs/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                            |
+| Field     | Type                                                                                                                                                       | Description                                                                                            |
+|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| guild_id? | snowflake                                                                                                                                                  | ID of the guild the message was sent in - unless it is an ephemeral message                            |
+| member?   | partial [guild member](/docs/resources/guild#guild-member-object) object                                                                                   | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
+| mentions  | array of [user](/docs/resources/user#user-object) objects, optionally with an additional partial [member](/docs/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                            |
 
 #### Message Update
 
@@ -1133,23 +1139,26 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Structure
 
-| Field           | Type                                                                                 | Description                                                                                                                      |
-|-----------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| name            | string                                                                               | Activity's name                                                                                                                  |
-| type            | integer                                                                              | [Activity type](/docs/events/gateway-events#activity-object-activity-types)                                                      |
-| url?            | ?string                                                                              | Stream URL, is validated when type is 1                                                                                          |
-| created_at      | integer                                                                              | Unix timestamp (in milliseconds) of when the activity was added to the user's session                                            |
-| timestamps?     | [timestamps](/docs/events/gateway-events#activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                 |
-| application_id? | snowflake                                                                            | Application ID for the game                                                                                                      |
-| details?        | ?string                                                                              | What the player is currently doing                                                                                               |
-| state?          | ?string                                                                              | User's current party status, or text used for a custom status                                                                    |
-| emoji?          | ?[emoji](/docs/events/gateway-events#activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                   |
-| party?          | [party](/docs/events/gateway-events#activity-object-activity-party) object           | Information for the current party of the player                                                                                  |
-| assets?         | [assets](/docs/events/gateway-events#activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                    |
-| secrets?        | [secrets](/docs/events/gateway-events#activity-object-activity-secrets) object       | Secrets for Rich Presence joining and spectating                                                                                 |
-| instance?       | boolean                                                                              | Whether or not the activity is an instanced game session                                                                         |
-| flags?          | integer                                                                              | [Activity flags](/docs/events/gateway-events#activity-object-activity-flags) `OR`d together, describes what the payload includes |
-| buttons?        | array of [buttons](/docs/events/gateway-events#activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                |
+| Field                | Type                                                                                 | Description                                                                                                                                                             |
+|----------------------|--------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                 | string                                                                               | Activity's name                                                                                                                                                         |
+| type                 | integer                                                                              | [Activity type](/docs/events/gateway-events#activity-object-activity-types)                                                                                             |
+| url?                 | ?string                                                                              | Stream URL, is validated when type is 1                                                                                                                                 |
+| created_at           | integer                                                                              | Unix timestamp (in milliseconds) of when the activity was added to the user's session                                                                                   |
+| timestamps?          | [timestamps](/docs/events/gateway-events#activity-object-activity-timestamps) object | Unix timestamps for start and/or end of the game                                                                                                                        |
+| application_id?      | snowflake                                                                            | Application ID for the game                                                                                                                                             |
+| status_display_type? | ?integer                                                                             | [Status display type](/docs/events/gateway-events#activity-object-status-display-types); controls which field is displayed in the user's status text in the member list |
+| details?             | ?string                                                                              | What the player is currently doing                                                                                                                                      |
+| details_url?         | ?string                                                                              | URL that is linked when clicking on the details text                                                                                                                    |
+| state?               | ?string                                                                              | User's current party status, or text used for a custom status                                                                                                           |
+| state_url?           | ?string                                                                              | URL that is linked when clicking on the state text                                                                                                                      |
+| emoji?               | ?[emoji](/docs/events/gateway-events#activity-object-activity-emoji) object          | Emoji used for a custom status                                                                                                                                          |
+| party?               | [party](/docs/events/gateway-events#activity-object-activity-party) object           | Information for the current party of the player                                                                                                                         |
+| assets?              | [assets](/docs/events/gateway-events#activity-object-activity-assets) object         | Images for the presence and their hover texts                                                                                                                           |
+| secrets?             | [secrets](/docs/events/gateway-events#activity-object-activity-secrets) object       | Secrets for Rich Presence joining and spectating                                                                                                                        |
+| instance?            | boolean                                                                              | Whether or not the activity is an instanced game session                                                                                                                |
+| flags?               | integer                                                                              | [Activity flags](/docs/events/gateway-events#activity-object-activity-flags) `OR`d together, describes what the payload includes                                        |
+| buttons?             | array of [buttons](/docs/events/gateway-events#activity-object-activity-buttons)     | Custom buttons shown in the Rich Presence (max 2)                                                                                                                       |
 
 :::info
 Bot users are only able to set `name`, `state`, `type`, and `url`.
@@ -1168,6 +1177,18 @@ Bot users are only able to set `name`, `state`, `type`, and `url`.
 
 :::info
 The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
+:::
+
+###### Status Display Types
+
+| ID | Name    | Example                                |
+|----|---------|----------------------------------------|
+| 0  | Name    | "Listening to Spotify"                 |
+| 1  | State   | "Listening to Rick Astley"             |
+| 2  | Details | "Listening to Never Gonna Give You Up" |
+
+:::info
+This applies to all activity types. "Listening" was used to serve as a consistent example of what the different fields might be used for.
 :::
 
 ###### Activity Timestamps
@@ -1198,12 +1219,15 @@ For Listening and Watching activities, you can include both start and end timest
 
 ###### Activity Assets
 
-| Field        | Type   | Description                                                                                  |
-|--------------|--------|----------------------------------------------------------------------------------------------|
-| large_image? | string | See [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
-| large_text?  | string | Text displayed when hovering over the large image of the activity                            |
-| small_image? | string | See [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image) |
-| small_text?  | string | Text displayed when hovering over the small image of the activity                            |
+| Field               | Type   | Description                                                                                                                                                                                                |
+|---------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| large_image?        | string | See [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image)                                                                                                               |
+| large_text?         | string | Text displayed when hovering over the large image of the activity                                                                                                                                          |
+| large_url?          | string | URL that is opened when clicking on the large image                                                                                                                                                        |
+| small_image?        | string | See [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image)                                                                                                               |
+| small_text?         | string | Text displayed when hovering over the small image of the activity                                                                                                                                          |
+| small_url?          | string | URL that is opened when clicking on the small image                                                                                                                                                        |
+| invite_cover_image? | string | See [Activity Asset Image](/docs/events/gateway-events#activity-object-activity-asset-image). Displayed as a banner on a [Game Invite](/docs/discord-social-sdk/development-guides/managing-game-invites). |
 
 ###### Activity Asset Image
 
@@ -1363,7 +1387,7 @@ A null endpoint means that the voice server allocated has gone away and is tryin
 {
   "token": "my_token",
   "guild_id": "41771983423143937",
-  "endpoint": "smart.loyal.discord.gg"
+  "endpoint": "sweetwater-12345.discord.media:2048"
 }
 ```
 
@@ -1449,3 +1473,34 @@ Sent when a user removes their vote on a poll. If the poll allows for multiple s
 | message_id | snowflake | ID of the message |
 | guild_id?  | snowflake | ID of the guild   |
 | answer_id  | integer   | ID of the answer  |
+
+### Rate Limits
+
+#### Rate Limited
+
+Sent when an app encounters a gateway rate limit for an event, such as [Request Guild Members](/docs/events/gateway-events#request-guild-members).
+
+:::info
+See changelog for [Introducing Rate Limit When Requesting All Guild Members](/docs/change-log#introducing-rate-limit-when-requesting-all-guild-members) for more information and timeline on this new rate limit.
+:::
+
+###### Rate Limited Fields
+
+| Field       | Type                                                                                                                | Description                                                                                                        |
+|-------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| opcode      | integer                                                                                                             | [Gateway opcode](/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes) of the event that was rate limited |
+| retry_after | float                                                                                                               | The number of seconds to wait before submitting another request                                                    |
+| meta        | [Rate Limit Metadata for Opcode](/docs/events/gateway-events#rate-limited-rate-limit-metadata-for-opcode-structure) | Metadata for the event that was rate limited                                                                       |
+
+###### Rate Limit Metadata for Opcode Structure
+
+| Opcode | Type                                                                                                                                    |
+|--------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| 8      | [Request Guild Member Rate Limit Metadata](/docs/events/gateway-events#rate-limited-request-guild-member-rate-limit-metadata-structure) |
+
+###### Request Guild Member Rate Limit Metadata Structure
+
+| Field    | Type      | Description                                                                                           |
+|----------|-----------|-------------------------------------------------------------------------------------------------------|
+| guild_id | snowflake | ID of the guild to get members for                                                                    |
+| nonce?   | string    | nonce to identify the [Guild Members Chunk](/docs/events/gateway-events#guild-members-chunk) response |

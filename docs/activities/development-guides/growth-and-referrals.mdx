@@ -140,7 +140,7 @@ Deleting is irreversible and immediate. Ensure that your link isn't in active us
 
 #### User Experience
 
-![custom-link-embed](images/activities/custom-link-embed.png)
+![custom-link-embed](images/activities/custom-link-embed.webp)
 
 Users will see an embed with your information displayed. Clicking "Play" opens the activity and passes through the `custom_id` you've set. A `referrer_id` will be present for links shared on Discord.
 
@@ -166,9 +166,10 @@ const linkIdResponse = await fetch(`${env.discordAPI}/applications/${env.applica
   method: 'POST',
   headers: {
     Authorization: `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
   },
   body: {
-    custom_id: 'user_123/game_456'
+    custom_id: 'user_123/game_456',
     description: 'I just beat level 10 with a perfect score',
     title: 'Check out my high score!',
     image,
@@ -178,7 +179,8 @@ const {link_id} = await linkIdResponse.json();
 
 // Open the Share modal with the generated link
 const {success} = await discordSdk.commands.shareLink({
-  linkId: link_id
+  message: 'Check out my high score!',
+  link_id,
 });
 success ? console.log('User shared link!') : console.log('User did not share link!');
 ```

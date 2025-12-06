@@ -8,7 +8,7 @@ As [message content has become a privileged intent](https://support-dev.discord.
 
 This guide is intended to provide developers with apps currently using message content with a resource to walk through implementing and designing commands. Throughout the guide, the terms "application commands" and "commands" are used interchangeably.
 
-![Client interfaces showing the different types of application commands](images/command-types.png)
+![Client interfaces showing the different types of application commands](images/command-types.webp)
 
 :::info
 If you are developing an app for the first time, the [commands documentation](/docs/interactions/application-commands) may be a more helpful resource for you.
@@ -158,7 +158,7 @@ Many libraries on the [Community Resources page](/docs/developer-tools/community
 
 After your URL is set up to handle signature verification and `PING` requests, you can add your Interaction Endpoint URL by navigating to your app settings from the [developer portal](https://discord.com/developers/applications). On the **General Information** page, you’ll see a field for your **Interactions Endpoint URL**. 
 
-![Interactions endpoint URL in app settings](images/interactions-url.png)
+![Interactions endpoint URL in app settings](images/interactions-url.webp)
 
 After you paste your URL and click **Save Changes**, Discord will attempt to verify your endpoint.
 
@@ -243,7 +243,7 @@ And when your app has several commands (and perhaps [subcommands](/docs/interact
 #### Examples
 
 - You should use a descriptive name like `/stats` rather than a vague name like `/get` for a command that displays stats to a user.
-- You should use shorter name like `/poll` rather than a verbose name like `/create-new-poll` for a command that creates a new poll. If there are many actions to take related to `/poll`, it might be more intuitive to use a `create` subcommand.
+- You should use a shorter name like `/poll` rather than a verbose name like `/create-new-poll` for a command that creates a new poll. If there are many actions to take related to `/poll`, it might be more intuitive to use a `create` subcommand.
 
 ### Collecting User Input
 

@@ -104,22 +104,6 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 
 Returns a [guild template](/docs/resources/guild-template#guild-template-object) object for the given code.
 
-## Create Guild from Guild Template
-<Route method="POST">/guilds/templates/[\{template.code\}](/docs/resources/guild-template#guild-template-object)</Route>
-
-Create a new guild based on a template. Returns a [guild](/docs/resources/guild#guild-object) object on success. Fires a [Guild Create](/docs/events/gateway-events#guild-create) Gateway event.
-
-:::warn
-This endpoint can be used only by bots in less than 10 guilds.
-:::
-
-###### JSON Params
-
-| Field | Type                                     | Description                             |
-|-------|------------------------------------------|-----------------------------------------|
-| name  | string                                   | name of the guild (2-100 characters)    |
-| icon? | [image data](/docs/reference#image-data) | base64 128x128 image for the guild icon |
-
 ## Get Guild Templates
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/templates</Route>
 

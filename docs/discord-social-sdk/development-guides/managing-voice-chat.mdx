@@ -1,0 +1,322 @@
+---
+sidebar_label: Managing Voice Chat
+---
+import RateLimitCallout from '../partials/callouts/rate-limit.mdx';
+import SupportCallout from '../partials/callouts/support.mdx';
+import CommsScopeWarning from '../partials/callouts/oauth-comms-scopes.mdx';
+
+[Home](/docs/intro) > [Discord Social SDK](/docs/discord-social-sdk/overview) > [Development Guides](/docs/discord-social-sdk/development-guides) > {sidebar_label}
+
+# {sidebar_label}
+
+<RateLimitCallout />
+
+## Overview
+
+Voice calls are a core feature of the Discord Social SDK that enable real-time voice communication between players in your game within lobbies.
+
+This guide will show you how to:
+
+- Start and join voice calls in lobbies
+- Control voice settings like mute, deafen, and volume
+- Process audio data with custom callbacks
+- Integrate with external audio systems
+- Check voice call status and participant states
+
+## Prerequisites
+
+Before you can start a voice call, you must complete these essential steps:
+
+<CommsScopeWarning />
+
+### 1. Lobby Management
+
+**Voice calls require an active lobby with participants.** You must:
+
+1. **Create or join a lobby** using the Discord Social SDK
+2. **Add players to the lobby** - voice calls only work with lobby members
+
+:::info
+Essential Reading: For detailed instructions on creating lobbies, joining lobbies, and managing lobby members, see
+the complete [Managing Lobbies Guide](/docs/discord-social-sdk/development-guides/managing-lobbies).
+::::
+
+### 2. Lobby Size Limitations
+
+While Discord lobbies technically support up to 1,000 members, **voice calls should be limited to much smaller groups**. We **strongly recommend keeping voice calls to 25 members or fewer** for optimal performance and user experience.
+
+---
+
+## Starting and Joining Voice Calls
+
+The Discord Social SDK makes it simple to start and join voice calls - both operations use the same functions whether you're creating something new or joining something that already exists.
+
+### Creating/Joining a Lobby and Starting/Joining a Call
+
+Here's a complete example of joining a lobby and starting a voice call:
+
+```cpp
+// First, create or join a lobby using a shared secret
+const std::string lobbySecret = "my-game-lobby-secret";
+
+client->CreateOrJoinLobby(lobbySecret, [client](const discordpp::ClientResult& result, uint64_t lobbyId) {
+    if (result.Successful()) {
+        std::cout << "🎮 Successfully joined lobby!" << std::endl;
+
+        // Now start or join the voice call in this lobby
+        // StartCall returns a Call object but has no callback
+        const auto call = client->StartCall(lobbyId);
+
+        // StartCall returns null if user is already in this voice channel
+        if (call) {
+          std::cout << "🎤 Voice call operation initiated..." << std::endl;
+        } else {
+          std::cout << "ℹ️ Already in this voice channel" << std::endl;
+        }
+
+    } else {
+        std::cerr << "❌ Failed to join lobby: " << result.Error() << std::endl;
+    }
+});
+```
+
+### How It Works
+
+Both [`Client::CreateOrJoinLobby`] and [`Client::StartCall`] are designed to handle existing and new scenarios automatically:
+
+- [`Client::CreateOrJoinLobby`]: If a lobby with the given secret already exists, you'll join it. If not, a new
+lobby is created with that secret.
+- [`Client::StartCall`]: If a voice call is already active in the lobby, you'll join it. If not, a new voice call is
+started.
+
+:::info
+You don't need to check if a lobby exists or if a call is already ongoing. The SDK handles both scenarios seamlessly, making your code simpler and more reliable.
+:::
+
+## Controlling Voice Features
+
+The Discord Social SDK provides comprehensive voice control options at both the individual call level and globally across all calls.
+
+### Global Voice Controls
+
+These methods control voice settings across all active calls using the [`Client`] object:
+
+- [`Client::SetSelfMuteAll`] - Mutes your microphone across all active calls
+- [`Client::SetSelfDeafAll`] - Deafens you across all active calls
+- [`Client::SetInputVolume`] - Sets microphone volume
+- [`Client::SetOutputVolume`] - Sets speaker volume
+
+### Per-Call Voice Controls
+
+These methods control voice settings for a specific call using the [`Call`] object:
+
+- [`Call::SetSelfMute`] - Mutes your microphone so other participants in this call cannot hear you
+- [`Call::SetSelfDeaf`] - Mutes all audio from this call so you cannot hear other participants, and they cannot hear you either
+- [`Call::SetParticipantVolume`] - Adjusts the volume of a specific participant
+
+### Voice Activity Detection
+
+Use [`Call::SetVADThreshold`] to control voice activation detection sensitivity. This allows optional fine-tuning of
+when the system considers someone to be speaking.
+
+```cpp
+// Per-call controls (assuming you have a Call object)
+uint64_t lobbyId = 123456789;  // Your lobby ID
+auto call = client->GetCall(lobbyId);
+if (call) {
+    call.SetSelfMute(true);           // Mute in this call only
+    call.SetSelfDeaf(false);          // Unmute audio in this call
+    call.SetParticipantVolume(userId, 150.0f);  // Increase participant volume
+    call.SetVADThreshold(false, -30.0f);       // Set custom voice detection threshold
+}
+
+// Global controls
+client->SetSelfMuteAll(true);          // Mute across all calls
+client->SetInputVolume(75.0f);         // Set microphone to 75%
+client->SetOutputVolume(120.0f);       // Increase speaker volume to 120%
+```
+
+## Advanced Audio Processing
+
+### Manipulating Voice Data with Callbacks
+
+For advanced audio processing needs, use [`Client::StartCallWithAudioCallbacks`] to access raw audio data. This
+enables real-time audio manipulation and integration with external audio processing systems.
+
+### In-Place Audio Modification
+
+To directly modify incoming audio samples (e.g., volume dampening):
+
+```cpp
+const auto call = client->StartCallWithAudioCallbacks(
+    lobbyId,
+    [](uint64_t userId, int16_t *data, const size_t samplesPerChannel,
+       int sampleRate, const size_t channels,
+       bool &outShouldMuteData) {
+      // Dampen volume of incoming audio by modifying data's samples
+      // in-place
+      for (int i = 0; i < samplesPerChannel * channels; i++) {
+        data[i] *= 0.5; // Reduce volume by 50%
+      }
+    },
+    [](int16_t *data, uint64_t samplesPerChannel, int32_t sampleRate,
+       uint64_t channels) {});
+
+```
+
+### External Audio Pipeline Integration
+
+To route audio to external processing systems such as [FMOD](https://www.fmod.com/) or
+[Wwise](https://www.audiokinetic.com/en/wwise/overview/):
+
+```cpp
+const auto call = client->StartCallWithAudioCallbacks(lobbyId,
+    [](uint64_t userId, int16_t* data, size_t samplesPerChannel,
+       int sampleRate, size_t channels, bool& outShouldMuteData) {
+        // Prevent Discord from playing the audio directly
+        outShouldMuteData = true;
+
+        const int totalNumSamples = samplesPerChannel * channels;
+        // Send audio data to your external audio system
+        SendAudioToExternalAudioSystem(data, totalNumSamples);
+    },
+    [](int16_t *data, uint64_t samplesPerChannel, int32_t sampleRate,
+       uint64_t channels) {});
+```
+
+### Key Audio Processing Points
+
+1. **Direct Manipulation**: The `data` parameter in `Client::UserAudioReceivedCallback` can be modified in-place to alter incoming audio samples
+2. **External Processing**: Set `outShouldMuteData = true` to prevent Discord from playing audio directly, allowing you to handle it through your own audio pipeline
+3. **No Encoding Required**: The SDK handles all voice encoding/decoding automatically - you work with raw audio samples
+
+## Ending Voice Calls
+
+When you need to terminate voice calls, you have two options:
+
+### End a Call For a Specific Lobby
+
+```cpp
+uint64_t lobbyId = 123456789;  // Your lobby ID
+client->EndCall(lobbyId, []() {
+    std::cout << "🔇 Call ended successfully" << std::endl;
+});
+```
+
+### End All Calls
+
+```cpp
+client->EndCalls([]() {
+    std::cout << "🔇 All calls ended successfully" << std::endl;
+});
+```
+
+## Checking Lobby Voice Call Status
+
+You may want to check the voice call status for your lobby to display UI indicators, monitor participant activity, or provide information to players. The Discord Social SDK provides several ways to inspect active voice calls and participant states.
+
+### Checking if a Call is Active
+
+Use `LobbyHandle::GetCallInfoHandle()` to determine if there's an active voice call in your lobby:
+
+```cpp
+// Check if there's an active call in the lobby
+const auto callInfoHandle = lobby->GetCallInfoHandle();
+if (callInfoHandle) {
+  // There's an active call - you can join it or get participant
+  // info
+  const auto participants = callInfoHandle->GetParticipants();
+  std::cout << "Active call with " << participants.size()
+            << " participants" << std::endl;
+} else {
+  // No active call in this lobby
+  std::cout << "No active voice call in this lobby" << std::endl;
+}
+
+```
+
+### Checking Individual Participant Status
+
+For each participant in a voice call, you can check their voice state using `VoiceStateHandle`:
+
+```cpp
+// Get voice state information for participants
+const auto callInfo = lobby->GetCallInfoHandle();
+if (callInfo) {
+  const auto participants = callInfo->GetParticipants();
+
+  for (const auto &participantId : participants) {
+    const auto voiceState = callInfo->GetVoiceStateHandle(participantId);
+    if (voiceState) {
+      const bool isMuted = voiceState->SelfMute();
+      const bool isDeafened = voiceState->SelfDeaf();
+
+      std::cout << "Participant " << participantId
+                << " - Muted: " << (isMuted ? "Yes" : "No")
+                << ", Deafened: " << (isDeafened ? "Yes" : "No")
+                << std::endl;
+    }
+  }
+}
+
+```
+
+### Voice State Information Available
+
+The [`VoiceStateHandle`] provides these key details about each participant:
+
+- [`VoiceStateHandle::SelfMute`]: Returns `true` if the user has muted themselves (others cannot hear them)
+- [`VoiceStateHandle::SelfDeaf`]: Returns `true` if the user has deafened themselves (they cannot hear others and others cannot hear them)
+
+This information is particularly useful for:
+
+- Displaying voice indicators in your UI
+- Implementing voice-related features or debugging audio issues
+
+---
+
+## Next Steps
+
+<Container>
+    <Card title="Integrate Moderation" link="/docs/discord-social-sdk/how-to/integrate-moderation"
+          icon="ShieldIcon">
+        Integrating and managing content moderation for your game when using the Discord Social SDK.
+    </Card>
+    <Card title="Use with Discord APIs" link="/docs/discord-social-sdk/how-to/use-with-discord-apis" icon="ClydeIcon">
+        Make requests to Discord's HTTP APIs from your game.
+    </Card>
+    <Card title="Managing Game Invites" link="/docs/discord-social-sdk/development-guides/managing-game-invites"
+          icon="InboxIcon">
+        Allow players to invite friends to join their game session or party.
+    </Card>
+</Container>
+
+<SupportCallout/>
+
+---
+
+## Change Log
+
+| Date           | Changes                          |
+|----------------|----------------------------------|
+| June 30, 2025  | Add communications scope warning |
+| June 19, 2025  | released guide                   |
+| March 17, 2025 | initial release                  |
+
+{/* Autogenerated Reference Links */}
+[`Call`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#a1cc8a7f73c15a960bc409d734b5edbd1
+[`Call::SetParticipantVolume`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#ad974fadbe89c453e4d8a3f9824e21ceb
+[`Call::SetSelfDeaf`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#a07d67c210f2a4655c6f1d2899c6d32d6
+[`Call::SetSelfMute`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#afa35a5d6a4564df97452df58bb74f617
+[`Call::SetVADThreshold`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#a7c3fd83c5dfe37d796e30c5e28c93b6e
+[`Client`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a91716140c699d8ef0bdf6bfd7ee0ae13
+[`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
+[`Client::SetInputVolume`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ad4358f5baffd9a5f2a6fa74d62459313
+[`Client::SetOutputVolume`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a61a9321a79479c8b1be1559e2bbdd934
+[`Client::SetSelfDeafAll`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a59be56ae5752e9f2f0f299bc552282b2
+[`Client::SetSelfMuteAll`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a9c6ef96590533d103a866cb8a99d2669
+[`Client::StartCall`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aef4f25d761fe198fbe9bc721fc24d83f
+[`Client::StartCallWithAudioCallbacks`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#abcaa891769f9e912bfa0e06ff7221b05
+[`VoiceStateHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1VoiceStateHandle.html#aad2d4454b6677d82721128b0cd98a2d8
+[`VoiceStateHandle::SelfDeaf`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1VoiceStateHandle.html#a9fd4ac5fb813b926d1336fc65b440f42
+[`VoiceStateHandle::SelfMute`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1VoiceStateHandle.html#a5476a6e8d5e9092a153b4646371a9f3f

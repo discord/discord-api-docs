@@ -259,41 +259,47 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure             | Example                         |
-|-------------------------|-----------------------|---------------------------------|
-| User                    | `<@USER_ID>`          | `<@80351110224678912>`          |
-| User \*                 | `<@!USER_ID>`         | `<@!80351110224678912>`         |
-| Channel                 | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
-| Role                    | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
-| Slash Command \*\*      | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
-| Standard Emoji          | Unicode Characters    | 🦶                              |
-| Custom Emoji            | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
-| Custom Emoji (Animated) | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
-| Unix Timestamp          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
-| Unix Timestamp (Styled) | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
-| Guild Navigation        | `<id:TYPE>`           | `<id:customize>`                |
+| Type                           | Structure             | Example                         |
+|--------------------------------|-----------------------|---------------------------------|
+| User                           | `<@USER_ID>`          | `<@80351110224678912>`          |
+| User \*                        | `<@!USER_ID>`         | `<@!80351110224678912>`         |
+| Channel                        | `<#CHANNEL_ID>`       | `<#103735883630395392>`         |
+| Role                           | `<@&ROLE_ID>`         | `<@&165511591545143296>`        |
+| Slash Command \*\*             | `</NAME:COMMAND_ID>`  | `</airhorn:816437322781949972>` |
+| Standard Emoji                 | Unicode Characters    | 🦶                              |
+| Custom Emoji                   | `<:NAME:ID>`          | `<:mmLol:216154654256398347>`   |
+| Custom Emoji (Animated)        | `<a:NAME:ID>`         | `<a:b1nzy:392938283556143104>`  |
+| Unix Timestamp \*\*\*          | `<t:TIMESTAMP>`       | `<t:1618953630>`                |
+| Unix Timestamp (Styled) \*\*\* | `<t:TIMESTAMP:STYLE>` | `<t:1618953630:d>`              |
+| Guild Navigation               | `<id:TYPE>`           | `<id:customize>`                |
+| Email \*\*\*\*                 | `<USERNAME@DOMAIN>`   | `<nelly@discord.com>`           |
+| Phone Number \*\*\*\*          | `<+PHONE_NUMBER>`     | `<+1 (555) 123 4567>`           |
 
-Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://github.com/jdecked/twemoji) for Desktop/Android and Apple's native emoji on iOS.
-
-Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
+Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the [`allowed_mentions`](/docs/resources/message#message-object) parameter (when creating a message). Standard emoji are currently rendered using [Twemoji](https://github.com/jdecked/twemoji) for Desktop/Android and Apple's native emoji on iOS.
 
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
 
 \*\* Subcommands and subcommand groups can also be mentioned by using respectively `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>`.
 
+\*\*\* Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
+
+\*\*\*\* Email and phone number markdown uses `mailto:` and `tel:` URI schemes respectively that can optionally be prefixed (e.g. `<mailto:nelly@discord.com>`). Email markdown supports headers, values must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) (e.g. `<nelly@discord.com?subject=Message%20Title&body=Message%20Content>`).
+
 ###### Timestamp Styles
 
-| Style | Example Output               | Description     |
-|-------|------------------------------|-----------------|
-| t     | 16:20                        | Short Time      |
-| T     | 16:20:30                     | Long Time       |
-| d     | 20/04/2021                   | Short Date      |
-| D     | 20 April 2021                | Long Date       |
-| f \*  | 20 April 2021 16:20          | Short Date/Time |
-| F     | Tuesday, 20 April 2021 16:20 | Long Date/Time  |
-| R     | 2 months ago                 | Relative Time   |
+| Style | Example Output                   | Description             |
+|-------|----------------------------------|-------------------------|
+| t     | 16:20                            | Short Time              |
+| T     | 16:20:30                         | Medium Time             |
+| d     | 20/04/2021                       | Short Date              |
+| D     | April 20, 2021                   | Long Date               |
+| f \*  | April 20, 2021 at 16:20          | Long Date, Short Time   |
+| F     | Tuesday, April 20, 2021 at 16:20 | Full Date, Short Time   |
+| s     | 20/04/2021, 16:20                | Short Date, Short Time  |
+| S     | 20/04/2021, 16:20:30             | Short Date, Medium Time |
+| R     | 2 months ago                     | Relative Time           |
 
-\*default
+\* Default style used when no style is specified.
 
 ###### Guild Navigation Types
 
@@ -325,41 +331,45 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | PNG    | .png        |
 | WebP   | .webp       |
 | GIF    | .gif        |
+| AVIF   | .avif       |
 | Lottie | .json       |
 
 ###### CDN Endpoints
 
-| Type                        | Path                                                                                                                                                                                                                                                                                                                                                                          | Supports             |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
-| Custom Emoji                | emojis/[emoji_id](/docs/resources/emoji#emoji-object).png                                                                                                                                                                                                                                                                                                                     | PNG, JPEG, WebP, GIF |
-| Guild Icon                  | icons/[guild_id](/docs/resources/guild#guild-object)/[guild_icon](/docs/resources/guild#guild-object).png \*                                                                                                                                                                                                                                                                  | PNG, JPEG, WebP, GIF |
-| Guild Splash                | splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_splash](/docs/resources/guild#guild-object).png                                                                                                                                                                                                                                                                | PNG, JPEG, WebP      |
-| Guild Discovery Splash      | discovery-splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_discovery_splash](/docs/resources/guild#guild-object).png                                                                                                                                                                                                                                            | PNG, JPEG, WebP      |
-| Guild Banner                | banners/[guild_id](/docs/resources/guild#guild-object)/[guild_banner](/docs/resources/guild#guild-object).png \*                                                                                                                                                                                                                                                              | PNG, JPEG, WebP, GIF |
-| User Banner                 | banners/[user_id](/docs/resources/user#user-object)/[user_banner](/docs/resources/user#user-object).png \*                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP, GIF |
-| Default User Avatar         | embed/avatars/[index](/docs/resources/user#user-object).png \*\* \*\*\*                                                                                                                                                                                                                                                                                                       | PNG                  |
-| User Avatar                 | avatars/[user_id](/docs/resources/user#user-object)/[user_avatar](/docs/resources/user#user-object).png \*                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP, GIF |
-| Guild Member Avatar         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/avatars/[member_avatar](/docs/resources/guild#guild-member-object).png \*                                                                                                                                                                                             | PNG, JPEG, WebP, GIF |
-| Avatar Decoration           | avatar-decoration-presets/[avatar_decoration_data_asset](/docs/resources/user#avatar-decoration-data-object).png                                                                                                                                                                                                                                                              | PNG                  |
-| Application Icon            | app-icons/[application_id](/docs/resources/application#application-object)/[icon](/docs/resources/application#application-object).png                                                                                                                                                                                                                                         | PNG, JPEG, WebP      |
-| Application Cover           | app-icons/[application_id](/docs/resources/application#application-object)/[cover_image](/docs/resources/application#application-object).png                                                                                                                                                                                                                                  | PNG, JPEG, WebP      |
-| Application Asset           | app-assets/[application_id](/docs/resources/application#application-object)/[asset_id](/docs/events/gateway-events#activity-object-activity-assets).png                                                                                                                                                                                                                       | PNG, JPEG, WebP      |
-| Achievement Icon            | app-assets/[application_id](/docs/resources/application#application-object)/achievements/[achievement_id](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#user-achievement-struct)/icons/[icon_hash](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#user-achievement-struct).png | PNG, JPEG, WebP      |
-| Store Page Asset            | app-assets/[application_id](/docs/resources/application#application-object)/store/asset_id                                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP      |
-| Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](/docs/resources/sticker#sticker-pack-object).png                                                                                                                                                                                                                                                           | PNG, JPEG, WebP      |
-| Team Icon                   | team-icons/[team_id](/docs/topics/teams#data-models-team-object)/[team_icon](/docs/topics/teams#data-models-team-object).png                                                                                                                                                                                                                                                  | PNG, JPEG, WebP      |
-| Sticker                     | stickers/[sticker_id](/docs/resources/sticker#sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                                                                                                                             | PNG, Lottie, GIF     |
-| Role Icon                   | role-icons/[role_id](/docs/topics/permissions#role-object)/[role_icon](/docs/topics/permissions#role-object).png                                                                                                                                                                                                                                                              | PNG, JPEG, WebP      |
-| Guild Scheduled Event Cover | guild-events/[scheduled_event_id](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)/[scheduled_event_cover_image](/docs/resources/guild-scheduled-event#guild-scheduled-event-object).png                                                                                                                                                                   | PNG, JPEG, WebP      |
-| Guild Member Banner         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/banners/[member_banner](/docs/resources/guild#guild-member-object).png \*                                                                                                                                                                                             | PNG, JPEG, WebP, GIF |
+| Type                        | Path                                                                                                                                                                                                                                                                                                                                                                          | Supports                   |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| Custom Emoji                | emojis/[emoji_id](/docs/resources/emoji#emoji-object).png \*\*\*\*\*                                                                                                                                                                                                                                                                                                          | PNG, JPEG, WebP, GIF, AVIF |
+| Guild Icon                  | icons/[guild_id](/docs/resources/guild#guild-object)/[guild_icon](/docs/resources/guild#guild-object).png \*                                                                                                                                                                                                                                                                  | PNG, JPEG, WebP, GIF       |
+| Guild Splash                | splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_splash](/docs/resources/guild#guild-object).png                                                                                                                                                                                                                                                                | PNG, JPEG, WebP            |
+| Guild Discovery Splash      | discovery-splashes/[guild_id](/docs/resources/guild#guild-object)/[guild_discovery_splash](/docs/resources/guild#guild-object).png                                                                                                                                                                                                                                            | PNG, JPEG, WebP            |
+| Guild Banner                | banners/[guild_id](/docs/resources/guild#guild-object)/[guild_banner](/docs/resources/guild#guild-object).png \*                                                                                                                                                                                                                                                              | PNG, JPEG, WebP, GIF       |
+| User Banner                 | banners/[user_id](/docs/resources/user#user-object)/[user_banner](/docs/resources/user#user-object).png \*                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP, GIF       |
+| Default User Avatar         | embed/avatars/[index](/docs/resources/user#user-object).png \*\* \*\*\*                                                                                                                                                                                                                                                                                                       | PNG                        |
+| User Avatar                 | avatars/[user_id](/docs/resources/user#user-object)/[user_avatar](/docs/resources/user#user-object).png \*                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP, GIF       |
+| Guild Member Avatar         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/avatars/[member_avatar](/docs/resources/guild#guild-member-object).png \*                                                                                                                                                                                             | PNG, JPEG, WebP, GIF       |
+| Avatar Decoration           | avatar-decoration-presets/[avatar_decoration_data_asset](/docs/resources/user#avatar-decoration-data-object).png                                                                                                                                                                                                                                                              | PNG                        |
+| Application Icon            | app-icons/[application_id](/docs/resources/application#application-object)/[icon](/docs/resources/application#application-object).png                                                                                                                                                                                                                                         | PNG, JPEG, WebP            |
+| Application Cover           | app-icons/[application_id](/docs/resources/application#application-object)/[cover_image](/docs/resources/application#application-object).png                                                                                                                                                                                                                                  | PNG, JPEG, WebP            |
+| Application Asset           | app-assets/[application_id](/docs/resources/application#application-object)/[asset_id](/docs/events/gateway-events#activity-object-activity-assets).png                                                                                                                                                                                                                       | PNG, JPEG, WebP            |
+| Achievement Icon            | app-assets/[application_id](/docs/resources/application#application-object)/achievements/[achievement_id](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#user-achievement-struct)/icons/[icon_hash](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#user-achievement-struct).png | PNG, JPEG, WebP            |
+| Store Page Asset            | app-assets/[application_id](/docs/resources/application#application-object)/store/asset_id                                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP            |
+| Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](/docs/resources/sticker#sticker-pack-object).png                                                                                                                                                                                                                                                           | PNG, JPEG, WebP            |
+| Team Icon                   | team-icons/[team_id](/docs/topics/teams#data-models-team-object)/[team_icon](/docs/topics/teams#data-models-team-object).png                                                                                                                                                                                                                                                  | PNG, JPEG, WebP            |
+| Sticker                     | stickers/[sticker_id](/docs/resources/sticker#sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                                                                                                                             | PNG, Lottie, GIF           |
+| Role Icon                   | role-icons/[role_id](/docs/topics/permissions#role-object)/[role_icon](/docs/topics/permissions#role-object).png                                                                                                                                                                                                                                                              | PNG, JPEG, WebP            |
+| Guild Scheduled Event Cover | guild-events/[scheduled_event_id](/docs/resources/guild-scheduled-event#guild-scheduled-event-object)/[scheduled_event_cover_image](/docs/resources/guild-scheduled-event#guild-scheduled-event-object).png                                                                                                                                                                   | PNG, JPEG, WebP            |
+| Guild Member Banner         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/banners/[member_banner](/docs/resources/guild#guild-member-object).png \*                                                                                                                                                                                             | PNG, JPEG, WebP, GIF       |
+| Guild Tag Badge             | guild-tag-badges/[guild_id](/docs/resources/guild#guild-object)/[badge_hash](/docs/resources/user#user-object-user-primary-guild).png                                                                                                                                                                                                                                         | PNG, JPEG, WebP            |
 
-\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
+\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. These images can also be retrieved as animated WebP using the `?animated=true` querystring parameter. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
 \*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](/docs/change-log#unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
 
 \*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](/docs/resources/sticker#sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
+
+\*\*\*\*\* For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. WebP and AVIF formats must be requested as WebP since they don't convert well to other formats. The Discord client uses WebP for all emojis displayed in-app. See the [Emoji Resource](/docs/resources/emoji) page for more details.
 
 :::info
 Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.

@@ -3,8 +3,8 @@ title: "Raised Component Limits"
 date: "2025-04-29"
 topics:
 - "User Apps"
-- "HTTP API"
 - "Interactions"
+- "Components"
 ---
 
 We're removing the top level component limit and raising the limit on number of components in a message to 40 when using the [`IS_COMPONENTS_V2` message flag](/docs/resources/message#message-object-message-flags)! We're also removing the limit on the number of components in a [Container Component](/docs/components/reference#container). Legacy messages have not changed and continue to allow up to 5 action rows.

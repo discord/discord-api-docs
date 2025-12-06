@@ -159,6 +159,9 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | VERIFIED                                  | guild is verified                                                                                                             |
 | VIP_REGIONS                               | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                               |
 | WELCOME_SCREEN_ENABLED                    | guild has enabled the welcome screen                                                                                          |
+| GUESTS_ENABLED                            | guild has access to guest invites                                                                                             |
+| GUILD_TAGS                                | guild has access to set guild tags                                                                                            |
+| ENHANCED_ROLE_COLORS                      | guild is able to set gradient colors to roles                                                                                 |
 
 ###### Mutable Guild Features
 
@@ -358,7 +361,7 @@ The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 | avatar?                       | ?string                                                                              | the member's [guild avatar hash](/docs/reference#image-formatting)                                                                                                                                                                   |
 | banner?                       | ?string                                                                              | the member's [guild banner hash](/docs/reference#image-formatting)                                                                                                                                                                   |
 | roles                         | array of snowflakes                                                                  | array of [role](/docs/topics/permissions#role-object) object ids                                                                                                                                                                     |
-| joined_at                     | ISO8601 timestamp                                                                    | when the user joined the guild                                                                                                                                                                                                       |
+| joined_at                     | ?ISO8601 timestamp                                                                   | when the user joined the guild                                                                                                                                                                                                       |
 | premium_since?                | ?ISO8601 timestamp                                                                   | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                              |
 | deaf                          | boolean                                                                              | whether the user is deafened in voice channels                                                                                                                                                                                       |
 | mute                          | boolean                                                                              | whether the user is muted in voice channels                                                                                                                                                                                          |
@@ -374,6 +377,10 @@ The field `user` won't be included in the member object attached to `MESSAGE_CRE
 
 :::info
 In `GUILD_` events, `pending` will always be included as true or false. In non `GUILD_` events which can only be triggered by non-`pending` users, `pending` will not be included.
+:::
+
+:::info
+Member objects retrieved from `VOICE_STATE_UPDATE` events will have `joined_at` set as `null` if the member was invited as a guest.
 :::
 
 ###### Example Guild Member
@@ -393,17 +400,18 @@ In `GUILD_` events, `pending` will always be included as true or false. In non `
 
 ###### Guild Member Flags
 
-| Flag                            | Value    | Description                                                                  | Editable |
-|---------------------------------|----------|------------------------------------------------------------------------------|----------|
-| DID_REJOIN                      | `1 << 0` | Member has left and rejoined the guild                                       | false    |
-| COMPLETED_ONBOARDING            | `1 << 1` | Member has completed onboarding                                              | false    |
-| BYPASSES_VERIFICATION           | `1 << 2` | Member is exempt from guild verification requirements                        | true     |
-| STARTED_ONBOARDING              | `1 << 3` | Member has started onboarding                                                | false    |
-| IS_GUEST                        | `1 << 4` | Member is a guest and can only access the voice channel they were invited to | false    |
-| STARTED_HOME_ACTIONS            | `1 << 5` | Member has started Server Guide new member actions                           | false    |
-| COMPLETED_HOME_ACTIONS          | `1 << 6` | Member has completed Server Guide new member actions                         | false    |
-| AUTOMOD_QUARANTINED_USERNAME    | `1 << 7` | Member's username, display name, or nickname is blocked by AutoMod           | false    |
-| DM_SETTINGS_UPSELL_ACKNOWLEDGED | `1 << 9` | Member has dismissed the DM settings upsell                                  | false    |
+| Flag                            | Value     | Description                                                                  | Editable |
+|---------------------------------|-----------|------------------------------------------------------------------------------|----------|
+| DID_REJOIN                      | `1 << 0`  | Member has left and rejoined the guild                                       | false    |
+| COMPLETED_ONBOARDING            | `1 << 1`  | Member has completed onboarding                                              | false    |
+| BYPASSES_VERIFICATION           | `1 << 2`  | Member is exempt from guild verification requirements                        | true     |
+| STARTED_ONBOARDING              | `1 << 3`  | Member has started onboarding                                                | false    |
+| IS_GUEST                        | `1 << 4`  | Member is a guest and can only access the voice channel they were invited to | false    |
+| STARTED_HOME_ACTIONS            | `1 << 5`  | Member has started Server Guide new member actions                           | false    |
+| COMPLETED_HOME_ACTIONS          | `1 << 6`  | Member has completed Server Guide new member actions                         | false    |
+| AUTOMOD_QUARANTINED_USERNAME    | `1 << 7`  | Member's username, display name, or nickname is blocked by AutoMod           | false    |
+| DM_SETTINGS_UPSELL_ACKNOWLEDGED | `1 << 9`  | Member has dismissed the DM settings upsell                                  | false    |
+| AUTOMOD_QUARANTINED_GUILD_TAG   | `1 << 10` | Member's guild tag is blocked by AutoMod                                     | false    |
 
 :::info
 BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
@@ -693,77 +701,6 @@ We are making significant changes to the Membership Screening API specifically r
 }
 ```
 
-## Create Guild
-<Route method="POST">/guilds</Route>
-
-Create a new guild. Returns a [guild](/docs/resources/guild#guild-object) object on success. Fires a [Guild Create](/docs/events/gateway-events#guild-create) Gateway event.
-
-:::warn
-This endpoint can be used only by bots in less than 10 guilds.
-:::
-
-###### JSON Params
-
-| Field                          | Type                                                                       | Description                                                                                                 |
-|--------------------------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| name                           | string                                                                     | name of the guild (2-100 characters)                                                                        |
-| region?                        | ?string                                                                    | [voice region](/docs/resources/voice#voice-region-object) id (deprecated)                                   |
-| icon?                          | [image data](/docs/reference#image-data)                                   | base64 128x128 image for the guild icon                                                                     |
-| verification_level?            | integer                                                                    | [verification level](/docs/resources/guild#guild-object-verification-level)                                 |
-| default_message_notifications? | integer                                                                    | default [message notification level](/docs/resources/guild#guild-object-default-message-notification-level) |
-| explicit_content_filter?       | integer                                                                    | [explicit content filter level](/docs/resources/guild#guild-object-explicit-content-filter-level)           |
-| roles?                         | array of [role](/docs/topics/permissions#role-object) objects              | new guild roles                                                                                             |
-| channels?                      | array of partial [channel](/docs/resources/channel#channel-object) objects | new guild's channels                                                                                        |
-| afk_channel_id?                | snowflake                                                                  | id for afk channel                                                                                          |
-| afk_timeout?                   | integer                                                                    | afk timeout in seconds, can be set to: 60, 300, 900, 1800, 3600                                             |
-| system_channel_id?             | snowflake                                                                  | the id of the channel where guild notices such as welcome messages and boost events are posted              |
-| system_channel_flags?          | integer                                                                    | [system channel flags](/docs/resources/guild#guild-object-system-channel-flags)                             |
-
-:::warn
-When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
-:::
-
-:::info
-When using the `roles` parameter, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](/docs/resources/channel#overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
-:::
-
-:::warn
-When using the `channels` parameter, the `position` field is ignored, and none of the default channels are created.
-:::
-
-:::info
-When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
-:::
-
-:::warn
-The `region` field is deprecated and is replaced by [channel.rtc_region](/docs/resources/channel#channel-object-channel-structure).
-:::
-
-###### Example Partial Channel Object
-
-```json
-{
-  "name": "naming-things-is-hard",
-  "type": 0
-}
-```
-
-###### Example Category Channel
-
-```json
-{
-  "name": "my-category",
-  "type": 4,
-  "id": 1
-}
-{
-  "name": "naming-things-is-hard",
-  "type": 0,
-  "id": 2,
-  "parent_id": 1
-}
-```
-
 ## Get Guild
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)</Route>
 
@@ -824,6 +761,11 @@ Returns the [guild](/docs/resources/guild#guild-object) object for the given id.
       "permissions": "49794752",
       "position": 0,
       "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
       "hoist": false,
       "managed": false,
       "mentionable": false
@@ -881,7 +823,6 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/docs/resources/guil
 | afk_channel_id                | ?snowflake                                                                          | id for afk channel                                                                                                                                                |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds, can be set to: 60, 300, 900, 1800, 3600                                                                                                   |
 | icon                          | ?[image data](/docs/reference#image-data)                                           | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has the `ANIMATED_ICON` feature)                                      |
-| owner_id                      | snowflake                                                                           | user id to transfer guild ownership to (must be owner)                                                                                                            |
 | splash                        | ?[image data](/docs/reference#image-data)                                           | base64 16:9 png/jpeg image for the guild splash (when the server has the `INVITE_SPLASH` feature)                                                                 |
 | discovery_splash              | ?[image data](/docs/reference#image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                                                        |
 | banner                        | ?[image data](/docs/reference#image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature; can be animated gif when the server has the `ANIMATED_BANNER` feature) |
@@ -894,11 +835,6 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/docs/resources/guil
 | description                   | ?string                                                                             | the description for the guild                                                                                                                                     |
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 | safety_alerts_channel_id      | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive safety alerts from Discord                                                          |
-
-## Delete Guild
-<Route method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)</Route>
-
-Delete a guild permanently. User must be owner. Returns `204 No Content` on success. Fires a [Guild Delete](/docs/events/gateway-events#guild-delete) Gateway event.
 
 ## Get Guild Channels
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/channels</Route>
@@ -1080,9 +1016,12 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field | Type    | Description                     | Permission      |
-|-------|---------|---------------------------------|-----------------|
-| nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
+| Field   | Type    | Description                                                        | Permission      |
+|---------|---------|--------------------------------------------------------------------|-----------------|
+| nick?   | ?string | value to set user's nickname to                                    | CHANGE_NICKNAME |
+| banner? | ?string | [data URI base64 encoded](/docs/reference#image-data) banner image |                 |
+| avatar? | ?string | [data URI base64 encoded](/docs/reference#image-data) avatar image |                 |
+| bio?    | ?string | guild member bio                                                   |                 |
 
 ## Modify Current User Nick
 <Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/members/@me/nick</Route>
@@ -1225,15 +1164,18 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field         | Type                                      | Description                                                                                                                    | Default                        |
-|---------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| name          | string                                    | name of the role, max 100 characters                                                                                           | "new role"                     |
-| permissions   | string                                    | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
-| color         | integer                                   | RGB color value                                                                                                                | 0                              |
-| hoist         | boolean                                   | whether the role should be displayed separately in the sidebar                                                                 | false                          |
-| icon          | ?[image data](/docs/reference#image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
-| unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
-| mentionable   | boolean                                   | whether the role should be mentionable                                                                                         | false                          |
+| Field         | Type                                                                          | Description                                                                                                                    | Default                                                                                       |
+|---------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| name          | string                                                                        | name of the role, max 100 characters                                                                                           | "new role"                                                                                    |
+| permissions   | string                                                                        | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild                                                                |
+| color*        | integer                                                                       | **Deprecated** RGB color value                                                                                                 | 0                                                                                             |
+| colors        | [role colors](/docs/topics/permissions#role-object-role-colors-object) object | the role's colors                                                                                                              | [default role colors object](/docs/topics/permissions#role-object-default-role-colors-object) |
+| hoist         | boolean                                                                       | whether the role should be displayed separately in the sidebar                                                                 | false                                                                                         |
+| icon          | ?[image data](/docs/reference#image-data)                                     | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                                                                                          |
+| unicode_emoji | ?string                                                                       | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                                                                                          |
+| mentionable   | boolean                                                                       | whether the role should be mentionable                                                                                         | false                                                                                         |
+
+\* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
 ## Modify Guild Role Positions
 <Route method="PATCH">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/roles</Route>
@@ -1268,30 +1210,18 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                                                                                    |
-|---------------|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| name          | string                                   | name of the role, max 100 characters                                                                                           |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              |
-| color         | integer                                  | RGB color value                                                                                                                |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 |
-| icon          | [image data](/docs/reference#image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
-| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) |
-| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         |
+| Field         | Type                                                                          | Description                                                                                                                    |
+|---------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| name          | string                                                                        | name of the role, max 100 characters                                                                                           |
+| permissions   | string                                                                        | bitwise value of the enabled/disabled permissions                                                                              |
+| color*        | integer                                                                       | **Deprecated** RGB color value                                                                                                 |
+| colors        | [role colors](/docs/topics/permissions#role-object-role-colors-object) object | the role's colors                                                                                                              |
+| hoist         | boolean                                                                       | whether the role should be displayed separately in the sidebar                                                                 |
+| icon          | [image data](/docs/reference#image-data)                                      | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
+| unicode_emoji | string                                                                        | the role's unicode emoji as a [standard emoji](/docs/reference#message-formatting) (if the guild has the `ROLE_ICONS` feature) |
+| mentionable   | boolean                                                                       | whether the role should be mentionable                                                                                         |
 
-## Modify Guild MFA Level
-<Route method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/mfa</Route>
-
-Modify a guild's MFA level. Requires guild ownership. Returns the updated [level](/docs/resources/guild#guild-object-mfa-level) on success. Fires a [Guild Update](/docs/events/gateway-events#guild-update) Gateway event.
-
-:::info
-This endpoint supports the `X-Audit-Log-Reason` header.
-:::
-
-###### JSON Params
-
-| Field | Type    | Description                                               |
-|-------|---------|-----------------------------------------------------------|
-| level | integer | [MFA level](/docs/resources/guild#guild-object-mfa-level) |
+\* `color` will still be returned by the API, but using the `colors` field is recommended when doing requests.
 
 ## Delete Guild Role
 <Route method="DELETE">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/roles/[\{role.id\}](/docs/topics/permissions#role-object)</Route>
@@ -1344,7 +1274,7 @@ Returns a list of [voice region](/docs/resources/voice#voice-region-object) obje
 ## Get Guild Invites
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/invites</Route>
 
-Returns a list of [invite](/docs/resources/invite#invite-object) objects (with [invite metadata](/docs/resources/invite#invite-metadata-object)) for the guild. Requires the `MANAGE_GUILD` permission.
+Returns a list of [invite](/docs/resources/invite#invite-object) objects. Requires the `MANAGE_GUILD` or `VIEW_AUDIT_LOG` permission. [Invite Metadata](/docs/resources/invite#invite-metadata-object) is included with the `MANAGE_GUILD` permission.
 
 ## Get Guild Integrations
 <Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/integrations</Route>
@@ -1468,6 +1398,10 @@ Onboarding enforces constraints when enabled. These constraints are that there m
 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
+:::
+
+:::info
+All parameters to this endpoint are optional.
 :::
 
 ###### JSON Params
