@@ -263,6 +263,14 @@ When sending `tertiary_color` the API enforces the role color to be a holographi
 }
 ```
 
+###### Roles Member Counts Object
+
+A mapping of role IDs to the number of members with that role.
+
+| Field      | Type      | Description                               |
+|------------|-----------|-------------------------------------------|
+| \{role.id} | integer   | number of members with the role           |
+
 ###### Example Role
 
 ```json
