@@ -467,7 +467,7 @@ The reaction count details object contains a breakdown of normal and super react
 | color?       | integer                                                                                    | color code of the embed                                                                                                           |
 | footer?      | [embed footer](/docs/resources/message#embed-object-embed-footer-structure) object         | footer information                                                                                                                |
 | image?       | [embed image](/docs/resources/message#embed-object-embed-image-structure) object           | image information                                                                                                                 |
-| thumbnail?   | [embed thumbnail](/docs/resources/message#embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                                             |
+| thumbnail?   | [embed image](/docs/resources/message#embed-object-embed-image-structure) object           | thumbnail information                                                                                                             |
 | video?       | [embed video](/docs/resources/message#embed-object-embed-video-structure) object           | video information                                                                                                                 |
 | provider?    | [embed provider](/docs/resources/message#embed-object-embed-provider-structure) object     | provider information                                                                                                              |
 | author?      | [embed author](/docs/resources/message#embed-object-embed-author-structure) object         | author information                                                                                                                |
@@ -488,39 +488,37 @@ The reaction count details object contains a breakdown of normal and super react
 
 ###### Embed Flags
 
-| Flag                       | Value    | Description                                                                                                 |
-|----------------------------|----------|-------------------------------------------------------------------------------------------------------------|
-| CONTAINS_EXPLICIT_MEDIA    | `1 << 4` | this embed was flagged as [sensitive content](https://support.discord.com/hc/en-us/articles/18210995019671) |
-| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a reply to an activity card and is no longer displayed                                        |
-
-###### Embed Thumbnail Structure
-
-| Field      | Type    | Description                                                                                                                                   |
-|------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| url        | string  | source url of thumbnail (only supports http(s) and attachments)                                                                               |
-| proxy_url? | string  | a proxied url of the thumbnail                                                                                                                |
-| height?    | integer | height of thumbnail                                                                                                                           |
-| width?     | integer | width of thumbnail                                                                                                                            |
-| flags?     | integer | [embed media flags](/docs/resources/message#embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Flag                       | Value    | Description                                                          |
+|----------------------------|----------|----------------------------------------------------------------------|
+| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a reply to an activity card and is no longer displayed |
 
 ###### Embed Video Structure
 
-| Field      | Type    | Description                |
-|------------|---------|----------------------------|
-| url?       | string  | source url of video        |
-| proxy_url? | string  | a proxied url of the video |
-| height?    | integer | height of video            |
-| width?     | integer | width of video             |
+| Field                | Type    | Description                                                                                                                                   |
+|----------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| url?                 | string  | source url of video                                                                                                                           |
+| proxy_url?           | string  | a proxied url of the video                                                                                                                    |
+| height?              | integer | height of video                                                                                                                               |
+| width?               | integer | width of video                                                                                                                                |
+| content_type?        | string  | the video's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                            |
+| placeholder?         | string  | [thumbhash](https://evanw.github.io/thumbhash/) placeholder of the video                                                                      |
+| placeholder_version? | integer | version of the placeholder                                                                                                                    |
+| description?         | string  | description (alt text) for the video                                                                                                          |
+| flags?               | integer | [embed media flags](/docs/resources/message#embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### Embed Image Structure
 
-| Field      | Type    | Description                                                                                                                                   |
-|------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| url        | string  | source url of image (only supports http(s) and attachments)                                                                                   |
-| proxy_url? | string  | a proxied url of the image                                                                                                                    |
-| height?    | integer | height of image                                                                                                                               |
-| width?     | integer | width of image                                                                                                                                |
-| flags?     | integer | [embed media flags](/docs/resources/message#embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field                | Type    | Description                                                                                                                                   |
+|----------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| url                  | string  | source url of image (only supports http(s) and attachments)                                                                                   |
+| proxy_url?           | string  | a proxied url of the image                                                                                                                    |
+| height?              | integer | height of image                                                                                                                               |
+| width?               | integer | width of image                                                                                                                                |
+| content_type?        | string  | the image's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                            |
+| placeholder?         | string  | [thumbhash](https://evanw.github.io/thumbhash/) placeholder of the image                                                                      |
+| placeholder_version? | integer | version of the placeholder                                                                                                                    |
+| description?         | string  | description (alt text) for the image                                                                                                          |
+| flags?               | integer | [embed media flags](/docs/resources/message#embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 ###### Embed Media Flags
 
@@ -610,7 +608,7 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 | id                 | snowflake                                                      | attachment id                                                                                                                                    |
 | filename           | string                                                         | name of file attached                                                                                                                            |
 | title?             | string                                                         | the title of the file                                                                                                                            |
-| description?       | string                                                         | description for the file (max 1024 characters)                                                                                                   |
+| description?       | string                                                         | description (alt text) for the file (max 1024 characters)                                                                                        |
 | content_type?      | string                                                         | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                          |
 | size               | integer                                                        | size of file in bytes                                                                                                                            |
 | url                | string                                                         | source url of file                                                                                                                               |
@@ -629,14 +627,13 @@ For the `attachments` array in Message Create/Edit requests, only the `id` is re
 
 ###### Attachment Flags
 
-| Flag                    | Value    | Description                                                                                                      |
-|-------------------------|----------|------------------------------------------------------------------------------------------------------------------|
-| IS_CLIP                 | `1 << 0` | this attachment is a [Clip from a stream](https://support.discord.com/hc/en-us/articles/16861982215703)          |
-| IS_THUMBNAIL            | `1 << 1` | this attachment is the thumbnail of a thread in a media channel, displayed in the grid but not on the message    |
-| IS_REMIX                | `1 << 2` | this attachment has been edited using the remix feature on mobile                                                |
-| IS_SPOILER              | `1 << 3` | this attachment was marked as a spoiler and is blurred until clicked                                             |
-| CONTAINS_EXPLICIT_MEDIA | `1 << 4` | this attachment was flagged as [sensitive content](https://support.discord.com/hc/en-us/articles/18210995019671) |
-| IS_ANIMATED             | `1 << 5` | this attachment is an animated image                                                                             |
+| Flag         | Value    | Description                                                                                                   |
+|--------------|----------|---------------------------------------------------------------------------------------------------------------|
+| IS_CLIP      | `1 << 0` | this attachment is a [Clip from a stream](https://support.discord.com/hc/en-us/articles/16861982215703)       |
+| IS_THUMBNAIL | `1 << 1` | this attachment is the thumbnail of a thread in a media channel, displayed in the grid but not on the message |
+| IS_REMIX     | `1 << 2` | this attachment has been edited using the remix feature on mobile (deprecated)                                |
+| IS_SPOILER   | `1 << 3` | this attachment was marked as a spoiler and is blurred until clicked                                          |
+| IS_ANIMATED  | `1 << 5` | this attachment is an animated image                                                                          |
 
 ### Channel Mention Object
 
