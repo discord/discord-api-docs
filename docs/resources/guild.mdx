@@ -1153,6 +1153,21 @@ Returns a list of [role](/docs/topics/permissions#role-object) objects for the g
 
 Returns a [role](/docs/topics/permissions#role-object) object for the specified role.
 
+## Get Guild Role Member Counts
+<Route method="GET">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/roles/member-counts</Route>
+
+Returns a map of role IDs to the number of members with the role. Does not include the @everyone role.
+
+###### Example Response
+
+```json
+{
+  "613425648685547541": 1337,
+  "1409696176629878905": 2,
+  "697138785317814292": 67
+}
+```
+
 ## Create Guild Role
 <Route method="POST">/guilds/[\{guild.id\}](/docs/resources/guild#guild-object)/roles</Route>
 
