@@ -145,7 +145,7 @@ Upon receiving the Hello event, your app should wait `heartbeat_interval * jitte
 When sending a heartbeat, your app will need to include the last sequence number your app received in the `d` field. The sequence number is sent to your app in the [event payload](/docs/events/gateway-events#payload-structure) in the `s` field. If your app hasn't received any events yet, you can just pass `null` in the `d` field.
 
 :::info
-In the first heartbeat, `jitter` is an offset value between 0 and `heartbeat_interval` that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).
+In the first heartbeat, `jitter` is an offset value between 0 and 1 that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).
 :::
 
 You *can* send heartbeats before the `heartbeat_interval` elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you don't need to account for it in your implementation.
