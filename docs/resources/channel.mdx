@@ -419,6 +419,21 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/do
 | flags?                | integer             | [channel flags](/docs/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
 | applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                 |
 
+## Set Voice Channel Status
+<Route method="PUT">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/voice-status</Route>
+
+Set a voice channel's status. Requires the `SET_VOICE_CHANNEL_STATUS` permission, and additionally the `MANAGE_CHANNELS` permission if the current user is not connected to the voice channel. Returns a 204 empty response on success. Fires a [Voice Channel Status Update](/docs/events/gateway-events#voice-channel-status-update) Gateway event.
+
+:::info
+This endpoint supports the `X-Audit-Log-Reason` header.
+:::
+
+###### JSON Params
+
+| Field  | Type    | Description                                     |
+|--------|---------|-------------------------------------------------|
+| status | ?string | new voice channel status (up to 500 characters) |
+
 ## Delete/Close Channel
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)</Route>
 
