@@ -16,4 +16,4 @@ More details about Entry Point commands can be found in the [Application Command
 
 ### Default Entry Point Commands
 
-Starting today, when you enable Activities in your [app's settings](http://discord.com/developers/applications), a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) called "Launch" will automatically be created for your app. This can be customized or deleted like other commands if you want to update the name or handler type.
+Starting today, when you enable Activities in your [app's settings](https://discord.com/developers/applications), a [default Entry Point command](/docs/interactions/application-commands#default-entry-point-command) called "Launch" will automatically be created for your app. This can be customized or deleted like other commands if you want to update the name or handler type.
