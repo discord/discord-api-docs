@@ -61,7 +61,7 @@ An app will receive empty values in the `content`, `embeds`, `attachments`, and 
 
 \[2\] An app will receive empty values in the `content`, `embeds`, `attachments`, and `components` fields while `poll` will be omitted if they have not configured (or been approved for) the [`MESSAGE_CONTENT` privileged intent (`1 << 15`)](/docs/events/gateway#message-content-intent).
 
-\[3\] Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
+\[3\] Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a public guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
 
 \[4\] This field is only returned for messages with a `type` of `19` (REPLY), `21` (THREAD_STARTER_MESSAGE), or `23` (CONTEXT_MENU_COMMAND). If the message is one of these but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
 
