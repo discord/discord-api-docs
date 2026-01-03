@@ -256,13 +256,13 @@ Downgrades to protocol version 0 are announced via [Opcode 21 DAVE Protocol Prep
 
 #### Protocol Version Change & Upgrade
 
-Protocol version transitions (including upgrades from protocol version 0) are announced via [Opcode 24 DAVE Protocol Prepare Epoch](/docs/topics/opcodes-and-status-codes#voice). In addition to the `transition_id`, this opcode includes the `epoch_id` for the upcoming MLS epoch. 
+Protocol version transitions (including upgrades from protocol version 0) are announced via [Opcode 24 DAVE Protocol Prepare Epoch](/docs/topics/opcodes-and-status-codes#voice). In addition to the `transition_id`, this opcode includes the `epoch` for the upcoming MLS epoch. 
 
-Receiving [Opcode 24 DAVE Protocol Prepare Epoch](/docs/topics/opcodes-and-status-codes#voice) with `epoch_id = 1` indicates that a new MLS group is being created. Participants must:
+Receiving [Opcode 24 DAVE Protocol Prepare Epoch](/docs/topics/opcodes-and-status-codes#voice) with `epoch = 1` indicates that a new MLS group is being created. Participants must:
 - prepare a local MLS group with the parameters appropriate for the DAVE protocol version
 - generate and send [Opcode 26 DAVE MLS Key Package](/docs/topics/opcodes-and-status-codes#voice) to deliver a new MLS key package to the voice gateway
 
-When the `epoch_id` is greater than 1, the protocol version of the existing MLS group is changing.
+When the `epoch` is greater than 1, the protocol version of the existing MLS group is changing.
 
 When the transition is executed, senders must start sending media using the new protocol context (e.g. formatted for the new protocol version or using a new key ratchet).
 
