@@ -266,13 +266,13 @@ A guild scheduled event exception represents a skipped or rescheduled recurrence
 
 ###### Guild Scheduled Event Exception Structure
 
-| Field                 | Type                                                   | Description                                                                                 
-|-----------------------|--------------------------------------------------------|---------------------------------------------------------------------------------|
-| event_id              | snowflake                                              | the id of the scheduled event the exception belongs to                          |
-| event_exception_id *  | snowflake                                              | a snowflake containing the original scheduled start time of the scheduled event |
-| scheduled_start_time  | ?[ISO8601 timestamp](/docs/reference#iso8601-datetime) | the new time at when the scheduled event recurrence will start, if applicable   |
-| scheduled_start_time  | ?[ISO8601 timestamp](/docs/reference#iso8601-datetime) | the new time at when the scheduled event recurrence will end, if applicable     |
-| is_canceled           | boolean                                                | whether or not the scheduled event will be skipped on the recurrence            |
+| Field                | Type                                                   | Description                                                                                 
+|----------------------|--------------------------------------------------------|---------------------------------------------------------------------------------|
+| event_id             | snowflake                                              | the id of the scheduled event the exception belongs to                          |
+| event_exception_id * | snowflake                                              | a snowflake containing the original scheduled start time of the scheduled event |
+| scheduled_start_time | ?[ISO8601 timestamp](/docs/reference#iso8601-datetime) | the new time at when the scheduled event recurrence will start, if applicable   |
+| scheduled_end_time   | ?[ISO8601 timestamp](/docs/reference#iso8601-datetime) | the new time at when the scheduled event recurrence will end, if applicable     |
+| is_canceled          | boolean                                                | whether or not the scheduled event will be skipped on the recurrence            |
 
 \* The snowflake in this field is not guranteed to be globally unique.
 
