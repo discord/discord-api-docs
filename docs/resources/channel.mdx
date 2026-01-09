@@ -479,9 +479,11 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | target_user_id        | snowflake           | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
 | target_application_id | snowflake           | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 | target_users_file?\*  | file                | a csv file with a single column of user IDs for all the users able to accept this invite                                                  |                  |
-| role_ids?             | array of snowflakes | the role ID(s) for roles in the guild given to the users that accept this invite                                                          |                  |
+| role_ids?\*\*         | array of snowflakes | the role ID(s) for roles in the guild given to the users that accept this invite                                                          |                  |
 
-\* Requires `multipart/form-data` as the content type.
+\* Requires `multipart/form-data` as the content type. Requires the `MANAGE_GUILD` permission.
+
+\*\* Requires the `MANAGE_ROLES` permission and cannot assign roles with higher permissions than the sender.
 
 ## Delete Channel Permission
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/channel#overwrite-object)</Route>
