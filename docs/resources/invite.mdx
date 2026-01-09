@@ -171,3 +171,46 @@ Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
+
+## Get Target Users
+<Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
+
+Gets the users allowed to see and accept this invite. Response is a CSV file with a single column `Users` containing the user IDs.
+
+## Update Target Users
+<Route method="PUT">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
+
+Updates the users allowed to see and accept this invite.
+
+###### Query String Params
+
+| Field             | Type | Description                                                                              |
+|-------------------|------|------------------------------------------------------------------------------------------|
+| target_users_file | file | a csv file with a single column of user IDs for all the users able to accept this invite |
+
+## Get Target Users Job Status
+<Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users/job-status</Route>
+
+Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job.
+
+###### Example Response
+
+```json
+{
+  "status": 3,
+  "total_users": 100,
+  "processed_users": 41,
+  "created_at": "2025-01-08T12:00:00.000000+00:00",
+  "completed_at": null,
+  "error_message": "Failed to parse CSV file"
+}
+```
+
+###### Error Codes
+
+| Code | Name        | Description                                                     |
+|------|-------------|-----------------------------------------------------------------|
+| 0    | UNSPECIFIED | The default value.                                              |
+| 1    | PROCESSING  | The job is still being processed.                               |
+| 2    | COMPLETED   | The job has been completed successfully.                        |
+| 3    | FAILED      | The job has failed, see `error_message` field for more details. |

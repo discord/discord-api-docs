@@ -467,17 +467,21 @@ Create a new [invite](/docs/resources/invite#invite-object) object for the chann
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
 
-###### JSON Params
+###### JSON/Form Params
 
-| Field                 | Type      | Description                                                                                                                               | Default          |
-|-----------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
-| max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
-| max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
-| temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
-| unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
-| target_type           | integer   | the [type of target](/docs/resources/invite#invite-object-invite-target-types) for this voice channel invite                              |                  |
-| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
-| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
+| Field                 | Type                | Description                                                                                                                               | Default          |
+|-----------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| max_age               | integer             | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
+| max_uses              | integer             | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
+| temporary             | boolean             | whether this invite only grants temporary membership                                                                                      | false            |
+| unique                | boolean             | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
+| target_type           | integer             | the [type of target](/docs/resources/invite#invite-object-invite-target-types) for this voice channel invite                              |                  |
+| target_user_id        | snowflake           | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
+| target_application_id | snowflake           | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
+| target_users_file?\*  | file                | a csv file with a single column of user IDs for all the users able to accept this invite                                                  |                  |
+| role_ids?             | array of snowflakes | the role ID(s) for roles in the guild given to the users that accept this invite                                                          |                  |
+
+\* Requires `multipart/form-data` as the content type.
 
 ## Delete Channel Permission
 <Route method="DELETE">/channels/[\{channel.id\}](/docs/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/docs/resources/channel#overwrite-object)</Route>
