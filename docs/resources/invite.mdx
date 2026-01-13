@@ -25,6 +25,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | expires_at                  | ?ISO8601 timestamp                                                                                 | the expiration date of this invite                                                                                 |
 | guild_scheduled_event?      | [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id  |
 | flags?                      | integer                                                                                            | [guild invite flags](/docs/resources/invite#invite-object-guild-invite-flags) for guild invites                    |
+| roles?                      | array of [role](/docs/topics/permissions#role-object) objects                                      | the roles assigned to the user upon accepting the invite                                                           |
 
 ###### Invite Types
 
@@ -171,3 +172,57 @@ Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this 
 :::info
 This endpoint supports the `X-Audit-Log-Reason` header.
 :::
+
+## Get Target Users
+<Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
+
+Gets the users allowed to see and accept this invite. Response is a CSV file with a single column `Users` containing the user IDs.
+
+## Update Target Users
+<Route method="PUT">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
+
+Updates the users allowed to see and accept this invite. Uploading a file with invalid user IDs will result in a 400 with the invalid IDs described.
+
+###### Query String Params
+
+| Field             | Type | Description                                                                              |
+|-------------------|------|------------------------------------------------------------------------------------------|
+| target_users_file | file | a csv file with a single column of user IDs for all the users able to accept this invite |
+
+###### Example Error Response
+
+```json
+{
+  "target_users_file": [
+    "Line 5: invalid user ID - must be a valid Discord snowflake",
+    "Line 6: invalid user ID format"
+  ]
+}
+```
+
+## Get Target Users Job Status
+<Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users/job-status</Route>
+
+Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job. 
+
+###### Example Response
+
+```json
+{
+  "status": 3,
+  "total_users": 100,
+  "processed_users": 41,
+  "created_at": "2025-01-08T12:00:00.000000+00:00",
+  "completed_at": null,
+  "error_message": "Failed to parse CSV file"
+}
+```
+
+###### Error Codes
+
+| Code | Name        | Description                                                     |
+|------|-------------|-----------------------------------------------------------------|
+| 0    | UNSPECIFIED | The default value.                                              |
+| 1    | PROCESSING  | The job is still being processed.                               |
+| 2    | COMPLETED   | The job has been completed successfully.                        |
+| 3    | FAILED      | The job has failed, see `error_message` field for more details. |
