@@ -181,7 +181,7 @@ Gets the users allowed to see and accept this invite. Response is a CSV file wit
 ## Update Target Users
 <Route method="PUT">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
 
-Updates the users allowed to see and accept this invite.
+Updates the users allowed to see and accept this invite. Uploading a file with invalid user IDs will result in a 400 with the invalid IDs described.
 
 ###### Query String Params
 
@@ -189,10 +189,21 @@ Updates the users allowed to see and accept this invite.
 |-------------------|------|------------------------------------------------------------------------------------------|
 | target_users_file | file | a csv file with a single column of user IDs for all the users able to accept this invite |
 
+###### Example Error Response
+
+```json
+{
+  "target_users_file": [
+    "Line 5: invalid user ID - must be a valid Discord snowflake",
+    "Line 6: invalid user ID format"
+  ]
+}
+```
+
 ## Get Target Users Job Status
 <Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users/job-status</Route>
 
-Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job.
+Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job. 
 
 ###### Example Response
 
