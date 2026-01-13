@@ -176,12 +176,12 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Get Target Users
 <Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
 
-Gets the users allowed to see and accept this invite. Response is a CSV file with a single column `Users` containing the user IDs.
+Gets the users allowed to see and accept this invite. Response is a CSV file with a single column `Users` containing the user IDs. Requires the `MANAGE_GUILD` permission.
 
 ## Update Target Users
 <Route method="PUT">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users</Route>
 
-Updates the users allowed to see and accept this invite. Uploading a file with invalid user IDs will result in a 400 with the invalid IDs described.
+Updates the users allowed to see and accept this invite. Uploading a file with invalid user IDs will result in a 400 with the invalid IDs described. Requires the `MANAGE_GUILD` permission.
 
 ###### Query String Params
 
@@ -203,7 +203,7 @@ Updates the users allowed to see and accept this invite. Uploading a file with i
 ## Get Target Users Job Status
 <Route method="GET">/invites/[\{invite.code\}](/docs/resources/invite#invite-object)/target-users/job-status</Route>
 
-Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job. 
+Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job. Requires the `MANAGE_GUILD` permission.
 
 ###### Example Response
 
