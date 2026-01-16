@@ -63,7 +63,7 @@ First, you'll need to create an app in the developer portal if you don't have on
 
 Enter a name for your app, then press **Create**.
 
-After you create your app, you'll land on the **General Overview** page of the app's settings where you can update basic information about your app like its description and icon.
+After you create your app, you'll land on the **General Information** page of the app's settings where you can update basic information about your app like its description and icon.
 
 ### Fetching app credentials
 
@@ -77,9 +77,9 @@ Back in your project folder, rename the `.env.sample` file to `.env`. `.env` is 
 
 We'll need three values from your app's settings for your `.env` file:
 
-- On the **General Information** page, copy the value for **Application ID**. In `.env`, replace `<YOUR_APP_ID>` with the ID you copied.
-- Back on the **General Information** page, copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
-- On the **Bot** page under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
+- On the [**General Information** page](https://discord.com/developers/applications/select/information), copy the value for **Application ID**. In `.env`, replace `<YOUR_APP_ID>` with the ID you copied.
+- Back on the [**General Information** page](https://discord.com/developers/applications/select/information), copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
+- On the [**Bot** page](https://discord.com/developers/applications/select/bot) under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
 
 Now that you have the credentials you need, we'll configure your app to support different installation contexts.
 
@@ -95,7 +95,7 @@ An app's **[installation context](/docs/resources/application#installation-conte
 
 We're going to configure our app to support both installation contexts, and while that's a good default for most apps, some apps may only make sense in one context or the other.
 
-In your app's settings, go to the **Installation** page from the sidebar. Under **Installation Contexts**, check both **User Install** and **Guild Install**, then press **Save Changes**.
+In your app's settings, go to the [**Installation** page](https://discord.com/developers/applications/select/installation) from the sidebar. Under **Installation Contexts**, check both **User Install** and **Guild Install**, then press **Save Changes**.
 
 ### Configuring Default Install Settings
 
@@ -221,7 +221,7 @@ The output will include a **Forwarding** URL, which is the publicly-accessible U
 
 Let's configure our app's **Interaction Endpoint URL**.
 
-Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
+Go to your [app's settings](https://discord.com/developers/applications) and on the [**General Information** page](https://discord.com/developers/applications/select/information) under **Interaction Endpoint URL**, paste your new ngrok URL and append `/interactions` (it'll be something like `https://84c5df474.ngrok-free.dev/interactions`).
 
 Click **Save Changes** and if all is well, your Interactions Endpoint URL should be verified by Discord.
 
