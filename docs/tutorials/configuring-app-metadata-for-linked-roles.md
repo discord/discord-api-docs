@@ -22,7 +22,7 @@ Basic steps to create an app are outlined below, but a more detailed walkthrough
 
 - Navigate to the [developer dashboard](https://discord.com/developers/applications)
 - Click **New Application** in the upper right corner, then select a name and create your app
-- Click on the **Bot** tab on the left sidebar. On that page, click **Reset Token** and store the token somewhere safe (like in a password manager)
+- Click on the [**Bot** tab](https://discord.com/developers/applications/select/bot) on the left sidebar. On that page, click **Reset Token** and store the token somewhere safe (like in a password manager)
 
 :::warn
 Bot tokens are used to authorize API requests and carry your bot's permissions, making them highly sensitive. Never share your token or check it into any kind of version control.
@@ -32,7 +32,7 @@ Bot tokens are used to authorize API requests and carry your bot's permissions, 
 
 Apps need approval from installing users to perform actions inside of Discord. So before installing your app, let's add some scopes to request during installation.
 
-- Click on `OAuth2` in the left sidebar, then `URL generator`
+- Click on [OAuth2](https://discord.com/developers/applications/select/oauth2/url-generator) in the left sidebar, then `URL generator`
 - Check the `bot` scope
 - After the scope is selected, you should see a **Generated URL** which can be used to install your app
 
@@ -92,7 +92,7 @@ It bears repeating that you should never check any credentials or secrets into s
 
 First, copy your bot user’s token from earlier and paste it in the `DISCORD_TOKEN` variable in your `.env` file.
 
-Next, navigate to your app settings in the developer portal, and navigate to OAuth2 -> General. Copy the Client ID and Client Secret for your application, and paste the values as `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` in your `.env`. 
+Next, navigate to your [app settings in the developer portal](https://discord.com/developers/applications), and navigate to [OAuth2 -> General](https://discord.com/developers/applications/select/oauth2). Copy the Client ID and Client Secret for your application, and paste the values as `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` in your `.env`. 
 
 ![Configure OAuth2](images/linked-roles-oauth-config.webp)
 
@@ -100,9 +100,9 @@ Now, we need to set the Redirect URL that will be used for our OAuth2 flow. Go b
 
 ![Glitch Share](images/linked-roles-glitch-share-url.webp)
 
-Go back to the OAuth2 -> General tab in the Discord developer portal, and add a new redirect for your app using the Glitch URL and the `/discord-oauth-callback` route. Copy this URL, then paste it as `DISCORD_REDIRECT_URI` in your `.env`. 
+Go back to the [OAuth2 -> General](https://discord.com/developers/applications/select/oauth2) tab in the Discord developer portal, and add a new redirect for your app using the Glitch URL and the `/discord-oauth-callback` route. Copy this URL, then paste it as `DISCORD_REDIRECT_URI` in your `.env`. 
 
-Go to the General Information tab in the developer portal, and scroll down to the `Linked Roles Verification Url` field. Paste the base URL to your Glitch app, add the `/linked-role` route, then save.
+Go to the [General Information tab](https://discord.com/developers/applications/select/information) in the developer portal, and scroll down to the `Linked Roles Verification Url` field. Paste the base URL to your Glitch app, add the `/linked-role` route, then save.
 
 :::info
 For the Glitch project used in the screenshots, the verification URL would be `https://adjoining-crawling-yamamomo.glitch.me/linked-role`

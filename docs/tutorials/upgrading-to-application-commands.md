@@ -156,7 +156,7 @@ However, before adding your URL to your app settings, your endpoint must be set 
 Many libraries on the [Community Resources page](/docs/developer-tools/community-resources#interactions) simplify verification and interaction request handling by exporting reusable functions and/or handling it automatically.
 :::
 
-After your URL is set up to handle signature verification and `PING` requests, you can add your Interaction Endpoint URL by navigating to your app settings from the [developer portal](https://discord.com/developers/applications). On the **General Information** page, you’ll see a field for your **Interactions Endpoint URL**. 
+After your URL is set up to handle signature verification and `PING` requests, you can add your Interaction Endpoint URL by navigating to your app settings from the [developer portal](https://discord.com/developers/applications). On the [**General Information** page](https://discord.com/developers/applications/select/information), you'll see a field for your **Interactions Endpoint URL**. 
 
 ![Interactions endpoint URL in app settings](images/interactions-url.webp)
 

@@ -26,7 +26,7 @@ To create a new app that belongs to a team, select the team from the **Team** dr
 
 ### Transferring an App
 
-To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's **General Information** page, click "Transfer App to Team".
+To transfer an existing app to a team, navigate to the [Application](https://discord.com/developers/applications) that you want to transfer. At the bottom of the app's [**General Information** page](https://discord.com/developers/applications/select/information), click "Transfer App to Team".
 
 :::danger
 Once an app has been transferred to a team, it _cannot_ be transferred back.

@@ -117,7 +117,7 @@ Enter a name for your app, select a development team, then press **Create**.
 Launching a non-distributed Activity is limited to you or members of the developer team, so if you're collaborating with others during development, create a [developer team](https://discord.com/developers/teams) and set it to the owner when you create the app.
 :::
 
-After you create your app, you'll land on the **General Overview** page of the app's settings, where you can update basic information about your app like its description and icon.
+After you create your app, you'll land on the **General Information** page of the app's settings, where you can update basic information about your app like its description and icon.
 
 ### Choose installation contexts
 
@@ -135,7 +135,7 @@ As mentioned, installation contexts determine where your app can be installed. T
 Details about installation contexts is in the [Application documentation](/docs/resources/application#installation-context) and the [Developing a User-Installable App tutorial](/docs/tutorials/developing-a-user-installable-app).
 </Collapsible>
 
-Click on **Installation** in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected. This will make sure users can launch our app's Activity across Discord servers, DMs, and Group DMs.
+Click on [**Installation**](https://discord.com/developers/applications/select/installation) in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected. This will make sure users can launch our app's Activity across Discord servers, DMs, and Group DMs.
 
 ### Add a Redirect URI
 
@@ -143,7 +143,7 @@ Next, we'll add a Redirect URI, which is where a user is typically redirected to
 
 You can learn more about the OAuth flow and redirect URIs in the [OAuth2 documentation](/docs/topics/oauth2), but since we're only authorizing in an Activity, we'll just use a placeholder value (`https://127.0.0.1`) and let the Embedded App SDK handle the rest.
 
-Click on **OAuth2** on the sidebar in your app's settings. Under **Redirects**, enter `https://127.0.0.1` as a placeholder value then click **Save Changes**.
+Click on [**OAuth2**](https://discord.com/developers/applications/select/oauth2) in your app's settings. Under **Redirects**, enter `https://127.0.0.1` as a placeholder value then click **Save Changes**.
 
 ![Redirect URI in Activity Settings](images/activities/oauth2-redirect.webp)
 
@@ -167,7 +167,7 @@ cp example.env .env
 Your `DISCORD_CLIENT_SECRET` and `DISCORD_BOT_TOKEN` are *highly* sensitive secrets. Never share either secrets or check them into any kind of version control.
 :::
 
-Back in your app's settings, click on **OAuth2** on the sidebar:
+Back in your app's settings, click on [**OAuth2**](https://discord.com/developers/applications/select/oauth2):
 1. **Client ID**: Copy the value for Client ID and add it to your `.env` file as **`VITE_CLIENT_ID`**. This is the public ID that Discord associates with your app, and is almost always the same as your App ID.
 2. **Client Secret**: Copy the value for Client Secret and add it to your `.env` as **`DISCORD_CLIENT_SECRET`**. This is a private, sensitive identifier that your app will use to grant an OAuth2 `access_token`, and should never be shared or checked into version control.
 
@@ -308,7 +308,7 @@ Copy the URL from the output, as we'll need to add it to our app's settings.
 
 Because Activities are in a sandbox enviornment and go through the Discord proxy, you'll need to add a public URL mapping to serve your application and make external requests in your Activity. Since we're developing locally, we'll use the public endpoint we just set up.
 
-Back in your app's settings, click on the **URL Mappings** page under **Activities** on the left-hand sidebar. Enter the URL you generated from `cloudflared` in the previous step.
+Back in your app's settings, click on the [**URL Mappings** page](https://discord.com/developers/applications/select/embedded/url-mappings) under **Activities** on the left-hand sidebar. Enter the URL you generated from `cloudflared` in the previous step.
 
 ![Configuring your URL Mapping](images/activities/url-mapping-tutorial.webp)
 
@@ -320,7 +320,7 @@ Read details about URL Mapping [in the development guide](/docs/activities/devel
 
 ### Enable Activities
 
-Next, we'll need to enable Activities for your app. On the left hand sidebar under **Activities**, click **Settings**.
+Next, we'll need to enable Activities for your app. On the left hand sidebar under **Activities**, click [**Settings**](https://discord.com/developers/applications/select/embedded/settings).
 
 Find the first checkbox, labeled `Enable Activities`. Turn it on 🎉
 

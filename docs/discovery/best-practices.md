@@ -24,13 +24,13 @@ There are a few places where you can define different descriptions of your app w
 
 #### App General Information Description
 
-On the **General Information** tab, there is a general **Description** field (max of 400 characters) that appears within your bot user's profile. When a new user clicks on your app within Discord, they'll see this description.
+On the [**General Information** tab](https://discord.com/developers/applications/select/information), there is a general **Description** field (max of 400 characters) that appears within your bot user's profile. When a new user clicks on your app within Discord, they'll see this description.
 
 ![App description on the General Information tab](images/bp-productpage-app-description.webp)
 
 #### App Summary
 
-On the **App Directory** tab, the **Summary** field is a short description (max of 200 characters) that users will see when you appear within search results on the App Directory.
+On the [**App Directory** tab](https://discord.com/developers/applications/select/discovery), the **Summary** field is a short description (max of 200 characters) that users will see when you appear within search results on the App Directory.
 
 When writing your app's Summary, think about how to grab the user's attention and quickly convey the value of your app. Consider the following description:
 
@@ -42,7 +42,7 @@ While this could be true, it doesn’t really tell folks how the app makes serve
 
 #### App Expanded Description
 
-On the **App Directory** tab, there is an **Expanded Description** field near the bottom of the page. This description appears when someone clicks on your app and enters its profile within the App Directory. This is your opportunity to showcase why a user should install your app, and the best functionality your app has to offer. The description also supports formatting via markdown.
+On the [**App Directory** tab](https://discord.com/developers/applications/select/discovery), there is an **Expanded Description** field near the bottom of the page. This description appears when someone clicks on your app and enters its profile within the App Directory. This is your opportunity to showcase why a user should install your app, and the best functionality your app has to offer. The description also supports formatting via markdown.
 
 When writing your app's Expanded Description, the first thing you do should be to convey the value of the app to users. After the value is clear, continue on with how to get started with your app after it’s installed. 
 
