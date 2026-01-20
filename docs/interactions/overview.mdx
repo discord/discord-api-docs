@@ -92,7 +92,7 @@ To properly acknowledge a `PING` payload, return a `200` response with a payload
 def my_command():
     if request.json["type"] == 1:
         return jsonify({
-            "type": 1
+            "type": 1  # InteractionResponseType.PONG
         })
 ```
 </Collapsible> 

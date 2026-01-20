@@ -113,7 +113,7 @@ These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is de
     "presence": {
       "activities": [{
         "name": "Cards Against Humanity",
-        "type": 0
+        "type": 0 // ActivityType.GAME
       }],
       "status": "dnd",
       "since": 91879201,
@@ -292,7 +292,7 @@ Sent by the client to indicate a presence or status update.
     "since": 91879201,
     "activities": [{
       "name": "Save the Oxford Comma",
-      "type": 0
+      "type": 0 // ActivityType.GAME
     }],
     "status": "online",
     "afk": false
@@ -1278,7 +1278,7 @@ When received over the gateway, the `buttons` field is an array of strings, whic
   "details": "24H RL Stream for Charity",
   "state": "Rocket League",
   "name": "Twitch",
-  "type": 1,
+  "type": 1, // ActivityType.STREAMING
   "url": "https://www.twitch.tv/discord"
 }
 ```
@@ -1288,7 +1288,7 @@ When received over the gateway, the `buttons` field is an array of strings, whic
 ```json
 {
   "name": "Rocket League",
-  "type": 0,
+  "type": 0, // ActivityType.GAME
   "application_id": "379286085710381999",
   "state": "In a Match",
   "details": "Ranked Duos: 2-1",

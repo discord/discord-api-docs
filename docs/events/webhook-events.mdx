@@ -167,12 +167,12 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 {
   "version": 1,
   "application_id": "1234560123453231555",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "APPLICATION_AUTHORIZED",
     "timestamp": "2024-10-18T14:42:53.064834",
     "data": {
-      "integration_type": 1,
+      "integration_type": 1, // InstallationContext.USER
       "scopes": [
         "applications.commands"
       ],
@@ -200,7 +200,7 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 {
   "version": 1,
   "application_id": "1234560123453231555",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "APPLICATION_DEAUTHORIZED",
     "timestamp": "2024-10-18T14:42:53.064834",
@@ -227,7 +227,7 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
 {
   "version": 1,
   "application_id": "1234560123453231555",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "ENTITLEMENT_CREATE",
     "timestamp": "2024-10-18T18:41:21.109604",
@@ -239,7 +239,7 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
       "id": "1234505980407808808",
       "promotion_id": null,
       "sku_id": "123489045643835123",
-      "type": 4,
+      "type": 4, // EntitlementType.GIFT
       "user_id": "111178765189277770"
     }
   }
@@ -260,7 +260,7 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
 {
   "version": 1,
   "application_id": "1234560123453231555",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "ENTITLEMENT_UPDATE",
     "timestamp": "2024-10-18T18:41:21.109604",
@@ -272,7 +272,7 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
       "id": "1234505980407808808",
       "promotion_id": null,
       "sku_id": "123489045643835123",
-      "type": 4,
+      "type": 4, // EntitlementType.GIFT
       "user_id": "111178765189277770"
     }
   }
@@ -293,7 +293,7 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
 {
   "version": 1,
   "application_id": "1234560123453231555",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "ENTITLEMENT_DELETE",
     "timestamp": "2024-10-18T18:41:21.109604",
@@ -305,7 +305,7 @@ The inner payload is an [entitlement](/docs/resources/entitlement#entitlement-ob
       "id": "1234505980407808808",
       "promotion_id": null,
       "sku_id": "123489045643835123",
-      "type": 4,
+      "type": 4, // EntitlementType.GIFT
       "user_id": "111178765189277770"
     }
   }
@@ -334,13 +334,13 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 {
   "version": 1,
   "application_id": "1234567765431056709",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "LOBBY_MESSAGE_CREATE",
     "timestamp": "2024-10-18T18:41:21.109604",
     "data": {
       "id": "1397729799727878254",
-      "type": 0,
+      "type": 0, // MessageType.DEFAULT
       "content": "welcome to the party!",
       "lobby_id": "1397729744753266719",
       "channel_id": "1397729744753266719",
@@ -368,13 +368,13 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 {
   "version": 1,
   "application_id": "1234567765431056709",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "LOBBY_MESSAGE_UPDATE",
     "timestamp": "2025-08-05T20:39:19.587872",
     "data": {
       "id": "1402390388030832792",
-      "type": 0,
+      "type": 0, // MessageType.DEFAULT
       "content": "noice",
       "lobby_id": "1402385687281537066",
       "channel_id": "1402389638311841883",
@@ -406,7 +406,7 @@ The inner payload is a [lobby message object](/docs/events/webhook-events#lobby-
 {
   "version": 1,
   "application_id": "1234567765431056709",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "LOBBY_MESSAGE_DELETE",
     "timestamp": "2025-08-05T21:44:09.412957",
@@ -432,13 +432,13 @@ The inner payload is a [message object](/docs/events/webhook-events#message-obje
 {
   "version": 1,
   "application_id": "1234567765431056709",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "GAME_DIRECT_MESSAGE_CREATE",
     "timestamp": "2025-08-14T18:09:38.063234",
     "data": {
       "id": "1405614357781545021",
-      "type": 0,
+      "type": 0, // MessageType.DEFAULT
       "content": "get in friend, we're going raiding",
       "channel_id": "1405604229820715098",
       "author": {
@@ -466,7 +466,7 @@ The inner payload is a [message object](/docs/events/webhook-events#message-obje
 {
   "version": 1,
   "application_id": "1234567765431056709",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "GAME_DIRECT_MESSAGE_UPDATE",
     "timestamp": "2025-08-14T16:44:31.847073",
@@ -497,13 +497,13 @@ The inner payload is a [message object](/docs/events/webhook-events#message-obje
 {
   "version": 1,
   "application_id": "1234567765431056709",
-  "type": 1,
+  "type": 1, // WebhookType.EVENT
   "event": {
     "type": "GAME_DIRECT_MESSAGE_DELETE",
     "timestamp": "2025-08-20T17:01:50.099204",
     "data": {
       "id": "1407771600643686503",
-      "type": 0,
+      "type": 0, // MessageType.DEFAULT
       "content": "cant make it in time",
       "channel_id": "1405604229820715098",
       "author": {

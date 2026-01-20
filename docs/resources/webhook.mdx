@@ -48,7 +48,7 @@ These types don't include [webhook events](/docs/events/webhook-events), which a
 ```json
 {
   "name": "test webhook",
-  "type": 1,
+  "type": 1, // WebhookType.INCOMING
   "channel_id": "199737254929760256",
   "token": "3d89bb7572e0fb30d8128367b3b1b44fecd1726de135cbe28a41f8b2f777c372ba2939e72279b94526ff5d1bd4358d65cf11",
   "avatar": null,
@@ -69,7 +69,7 @@ These types don't include [webhook events](/docs/events/webhook-events), which a
 
 ```json
 {
-  "type": 2,
+  "type": 2, // WebhookType.CHANNEL_FOLLOWER
   "id": "752831914402115456",
   "name": "Guildy name",
   "avatar": "bb71f469c158984e265093a81b3397fb",
@@ -99,7 +99,7 @@ These types don't include [webhook events](/docs/events/webhook-events), which a
 
 ```json
 {
-  "type": 3,
+  "type": 3, // WebhookType.APPLICATION
   "id": "658822586720976555",
   "name": "Clyde",
   "avatar": "689161dc90ac261d00f1608694ac6bfd",

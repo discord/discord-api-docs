@@ -85,14 +85,14 @@ Below is a sample payload to create a global slash command with an optional para
 ```json
 {
     "name": "rock",
-    "type": 1,
+    "type": 1, // ApplicationCommandType.CHAT_INPUT
     "description": "Sends a picture of a rock",
     "options": [
         {
             "name": "type",
             "description": "Type of rock",
-            "type": 3,
-            "required": True,
+            "type": 3, // ApplicationCommandOptionType.STRING
+            "required": true,
             "choices": [
                 {
                     "name": "Igneous",
@@ -180,7 +180,7 @@ Below is an example payload your app would receive when a user invoked a global 
 
 ```json
 {
-    "type": 2,
+    "type": 2, // InteractionType.APPLICATION_COMMAND
     "token": "A_UNIQUE_TOKEN",
     "member": {
         "user": {

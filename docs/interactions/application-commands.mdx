@@ -178,13 +178,13 @@ url = "https://discord.com/api/v10/applications/<my_application_id>/commands"
 # This is an example CHAT_INPUT or Slash Command, with a type of 1
 json = {
     "name": "blep",
-    "type": 1,
+    "type": 1, # InteractionType.CHAT_INPUT
     "description": "Send a random adorable animal photo",
     "options": [
         {
             "name": "animal",
             "description": "The type of animal",
-            "type": 3,
+            "type": 3, # InteractionOptionType.STRING
             "required": True,
             "choices": [
                 {
@@ -204,7 +204,7 @@ json = {
         {
             "name": "only_smol",
             "description": "Whether to show only baby animals",
-            "type": 5,
+            "type": 5, # InteractionOptionType.BOOLEAN
             "required": False
         }
     ]
@@ -238,7 +238,7 @@ url = "https://discord.com/api/v10/applications/<my_application_id>/guilds/<guil
 # This is an example USER command, with a type of 2
 json = {
     "name": "High Five",
-    "type": 2
+    "type": 2 # InteractionType.USER
 }
 
 # For authorization, you can use either your bot token
@@ -378,7 +378,7 @@ As an example, the following command would not be usable by anyone except admins
 {
     "name": "permissions_test",
     "description": "A test of default permissions",
-    "type": 1,
+    "type": 1, // InteractionType.CHAT_INPUT
     "default_member_permissions": "0"
 }
 ```
@@ -391,7 +391,7 @@ permissions = str(1 << 5)
 command = {
     "name": "permissions_test",
     "description": "A test of default permissions",
-    "type": 1,
+    "type": 1, # InteractionType.CHAT_INPUT
     "default_member_permissions": permissions
 }
 ```
@@ -406,7 +406,7 @@ json = {
     "permissions": [
         {
             "id": A_SPECIFIC_CHANNEL,
-            "type": 3,
+            "type": 3, # InteractionType.CHANNEL
             "permission": False
         }
     ]
@@ -435,13 +435,13 @@ Slash commands can have a maximum of 8000 characters for combined name, descript
 ```json
 {
     "name": "blep",
-    "type": 1,
+    "type": 1, // InteractionType.CHAT_INPUT
     "description": "Send a random adorable animal photo",
     "options": [
         {
             "name": "animal",
             "description": "The type of animal",
-            "type": 3,
+            "type": 3, // InteractionOptionType.STRING
             "required": true,
             "choices": [
                 {
@@ -461,7 +461,7 @@ Slash commands can have a maximum of 8000 characters for combined name, descript
         {
             "name": "only_smol",
             "description": "Whether to show only baby animals",
-            "type": 5,
+            "type": 5, // InteractionOptionType.BOOLEAN
             "required": false
         }
     ]
@@ -476,7 +476,7 @@ When someone uses a slash command, your application will receive an interaction:
 
 ```json
 {
-    "type": 2,
+    "type": 2, // InteractionType.APPLICATION_COMMAND
     "token": "A_UNIQUE_TOKEN",
     "member": {
         "user": {
@@ -503,11 +503,11 @@ When someone uses a slash command, your application will receive an interaction:
     "locale": "en-US",
     "data": {
         "options": [{
-            "type": 3,
+            "type": 3, // InteractionOptionType.STRING
             "name": "cardname",
             "value": "The Gitrog Monster"
         }],
-        "type": 1,
+        "type": 1, // ApplicationCommandType.CHAT_INPUT
         "name": "cardsearch",
         "id": "771825006014889984"
     },
@@ -632,12 +632,12 @@ Now we have a command named `permissions`. We want this command to be able to af
         {
             "name": "user",
             "description": "Get or edit permissions for a user",
-            "type": 2 // 2 is type SUB_COMMAND_GROUP
+            "type": 2 // InteractionOptionType.SUB_COMMAND_GROUP
         },
         {
             "name": "role",
             "description": "Get or edit permissions for a role",
-            "type": 2
+            "type": 2 // InteractionOptionType.SUB_COMMAND_GROUP
         }
     ]
 }
@@ -655,34 +655,34 @@ Now that we've effectively made `user` and `role` "folders", we want to be able 
         {
             "name": "user",
             "description": "Get or edit permissions for a user",
-            "type": 2, // 2 is type SUB_COMMAND_GROUP
+            "type": 2, // InteractionOptionType.SUB_COMMAND_GROUP
             "options": [
                 {
                     "name": "get",
                     "description": "Get permissions for a user",
-                    "type": 1 // 1 is type SUB_COMMAND
+                    "type": 1 // InteractionOptionType.SUB_COMMAND
                 },
                 {
                     "name": "edit",
                     "description": "Edit permissions for a user",
-                    "type": 1
+                    "type": 1 // InteractionOptionType.SUB_COMMAND
                 }
             ]
         },
         {
             "name": "role",
             "description": "Get or edit permissions for a role",
-            "type": 2,
+            "type": 2, // InteractionOptionType.SUB_COMMAND_GROUP
             "options": [
                 {
                     "name": "get",
                     "description": "Get permissions for a role",
-                    "type": 1
+                    "type": 1 // InteractionOptionType.SUB_COMMAND
                 },
                 {
                     "name": "edit",
                     "description": "Edit permissions for a role",
-                    "type": 1
+                    "type": 1 // InteractionOptionType.SUB_COMMAND
                 }
             ]
         }
@@ -702,23 +702,23 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
         {
             "name": "user",
             "description": "Get or edit permissions for a user",
-            "type": 2, // 2 is type SUB_COMMAND_GROUP
+            "type": 2, // InteractionOptionType.SUB_COMMAND_GROUP
             "options": [
                 {
                     "name": "get",
                     "description": "Get permissions for a user",
-                    "type": 1, // 1 is type SUB_COMMAND
+                    "type": 1, // InteractionOptionType.SUB_COMMAND
                     "options": [
                         {
                             "name": "user",
                             "description": "The user to get",
-                            "type": 6, // 6 is type USER
+                            "type": 6, // InteractionOptionType.USER
                             "required": true
                         },
                         {
                             "name": "channel",
                             "description": "The channel permissions to get. If omitted, the guild permissions will be returned",
-                            "type": 7, // 7 is type CHANNEL
+                            "type": 7, // InteractionOptionType.CHANNEL
                             "required": false
                         }
                     ]
@@ -726,18 +726,18 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                 {
                     "name": "edit",
                     "description": "Edit permissions for a user",
-                    "type": 1,
+                    "type": 1, // InteractionOptionType.SUB_COMMAND
                     "options": [
                         {
                             "name": "user",
                             "description": "The user to edit",
-                            "type": 6,
+                            "type": 6, // InteractionOptionType.USER
                             "required": true
                         },
                         {
                             "name": "channel",
                             "description": "The channel permissions to edit. If omitted, the guild permissions will be edited",
-                            "type": 7,
+                            "type": 7,  // InteractionOptionType.CHANNEL
                             "required": false
                         }
                     ]
@@ -747,23 +747,23 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
         {
             "name": "role",
             "description": "Get or edit permissions for a role",
-            "type": 2,
+            "type": 2, // InteractionOptionType.SUB_COMMAND_GROUP
             "options": [
                 {
                     "name": "get",
                     "description": "Get permissions for a role",
-                    "type": 1,
+                    "type": 1, // InteractionOptionType.SUB_COMMAND
                     "options": [
                         {
                             "name": "role",
                             "description": "The role to get",
-                            "type": 8, // 8 is type ROLE
+                            "type": 8, // InteractionOptionType.ROLE
                             "required": true
                         },
                         {
                             "name": "channel",
                             "description": "The channel permissions to get. If omitted, the guild permissions will be returned",
-                            "type": 7,
+                            "type": 7, // InteractionOptionType.CHANNEL
                             "required": false
                         }
                     ]
@@ -771,18 +771,18 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                 {
                     "name": "edit",
                     "description": "Edit permissions for a role",
-                    "type": 1,
+                    "type": 1, // InteractionOptionType.SUB_COMMAND
                     "options": [
                         {
                             "name": "role",
                             "description": "The role to edit",
-                            "type": 8,
+                            "type": 8, // InteractionOptionType.ROLE
                             "required": true
                         },
                         {
                             "name": "channel",
                             "description": "The channel permissions to edit. If omitted, the guild permissions will be edited",
-                            "type": 7,
+                            "type": 7, // InteractionOptionType.CHANNEL
                             "required": false
                         }
                     ]
@@ -814,7 +814,7 @@ The `description` field is not allowed when creating user commands. However, to 
 ```json
 {
     "name": "High Five",
-    "type": 2
+    "type": 2 // InteractionType.USER
 }
 ```
 
@@ -858,7 +858,7 @@ When someone uses a user command, your application will receive an interaction:
             }
         },
         "target_id": "809850198683418695",
-        "type": 2
+        "type": 2 // ApplicationCommandType.USER
     },
     "guild_id": "772904309264089089",
     "guild_locale": "en-US",
@@ -885,7 +885,7 @@ When someone uses a user command, your application will receive an interaction:
         }
     },
     "token": "UNIQUE_TOKEN",
-    "type": 2,
+    "type": 2, // ApplicationCommandType.USER
     "version": 1
 }
 ```
@@ -906,7 +906,7 @@ The `description` field is not allowed when creating message commands. However, 
 ```json
 {
     "name": "Bookmark",
-    "type": 3
+    "type": 3 // InteractionType.MESSAGE
 }
 ```
 
@@ -949,12 +949,12 @@ When someone uses a message command, your application will receive an interactio
                     "pinned": false,
                     "timestamp": "2021-07-22T15:42:57.744000+00:00",
                     "tts": false,
-                    "type": 0
+                    "type": 0 // MessageType.DEFAULT
                 }
             }
         },
         "target_id": "867793854505943041",
-        "type": 3
+        "type": 3 // ApplicationCommandType.MESSAGE
     },
     "guild_id": "772904309264089089",
     "guild_locale": "en-US",
@@ -981,7 +981,7 @@ When someone uses a message command, your application will receive an interactio
         }
     },
     "token": "UNIQUE_TOKEN",
-    "type": 2,
+    "type": 2, // InteractionType.USER
     "version": 1
 }
 ```
@@ -1001,8 +1001,8 @@ For the Entry Point command to be visible to users, an app must have [Activities
 {
     "name": "launch",
     "description": "Launch Racing with Friends",
-    "type": 4,
-    "handler": 2
+    "type": 4, // InteractionType.APPLICATION_COMMAND_ENTRY_POINT
+    "handler": 2 // ApplicationCommandEntryPointHandler.DISCORD_LAUNCH_ACTIVITY
 }
 ```
 
@@ -1031,15 +1031,15 @@ This validation is **client-side only**.
 
 ```json
 {
-  "type": 4,
+  "type": 4, // InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE
   "data": {
     "id": "816437322781949972",
     "name": "airhorn",
-    "type": 1,
+    "type": 1, // InteractionType.CHAT_INPUT
     "version": "847194950382780532",
     "options": [
       {
-        "type": 3,
+        "type": 3, // InteractionOptionType.STRING
         "name": "variant",
         "value": "data a user is typ",
         "focused": true
@@ -1064,7 +1064,7 @@ An application command furnished with localizations might look like this:
 ```json
 {
   "name": "birthday",
-  "type": 1,
+  "type": 1, // InteractionType.CHAT_INPUT
   "description": "Wish a friend a happy birthday",
   "name_localizations": {
     "zh-CN": "生日",
@@ -1076,7 +1076,7 @@ An application command furnished with localizations might look like this:
   "options": [
     {
       "name": "age",
-      "type": 4,
+      "type": 4, // InteractionOptionType.INTEGER
       "description": "Your friend's age",
       "name_localizations": {
         "zh-CN": "岁数"
@@ -1112,14 +1112,14 @@ For example, if a batch `GET` request were made with locale `zh-CN`, including t
 ```json
 {
   "name": "birthday",
-  "type": 1,
+  "type": 1, // InteractionType.CHAT_INPUT
   "description": "Wish a friend a happy birthday",
   "name_localized": "生日",
   "description_localized": "祝你朋友生日快乐",
   "options": [
     {
       "name": "age",
-      "type": 4,
+      "type": 4, // InteractionOptionType.INTEGER
       "description": "Your friend's age",
       "name_localized": "岁数",
       "description_localized": "你朋友的岁数",
