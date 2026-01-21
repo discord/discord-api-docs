@@ -32,7 +32,7 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 
 ![IDs found in app settings](images/cloudflare-general-overview.webp)
 
-- Now click on the **Bot** tab on the left sidebar.
+- Now click on the [**Bot** tab](https://discord.com/developers/applications/select/bot) on the left sidebar.
 - Grab the `token` for your bot, and store it somewhere safe (I like to put these tokens in a password manager like [1password](https://1password.com/) or [lastpass](https://www.lastpass.com/)).
 
 :::warn
@@ -43,7 +43,7 @@ For security reasons, you can only view your bot token once. If you misplace you
 
 Now we'll configure the bot with [permissions](/docs/topics/permissions) required to create and use slash commands, as well as send messages in  channels.
 
-- Click on the `OAuth2` tab, and choose the `URL Generator`. Click the `bot` and `applications.commands` scopes.
+- Click on the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2/url-generator), and choose the `URL Generator`. Click the `bot` and `applications.commands` scopes.
 - Check the boxes next to `Send Messages` and `Use Slash Commands`, then copy the `Generated URL`.
 
 ![Configuring bot permissions in app settings](images/cloudflare-url-generator.webp)

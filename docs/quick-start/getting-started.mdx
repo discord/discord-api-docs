@@ -105,9 +105,9 @@ Back in your project folder, rename the `.env.sample` file to `.env`. This is wh
 
 We'll need three values from your app's settings for your `.env` file:
 
-- On the **General Information** page, copy the value for **Application ID**. In `.env`, replace `<YOUR_APP_ID>` with the ID you copied.
-- Back on the **General Information** page, copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
-- On the **Bot** page under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
+- On the [**General Information** page](https://discord.com/developers/applications/select/information), copy the value for **Application ID**. In `.env`, replace `<YOUR_APP_ID>` with the ID you copied.
+- Back on the [**General Information** page](https://discord.com/developers/applications/select/information), copy the value for **Public Key**, which is used to ensure HTTP requests are coming from Discord. In `.env`, replace `<YOUR_PUBLIC_KEY>` with the value you copied.
+- On the [**Bot** page](https://discord.com/developers/applications/select/bot) under **Token**, click "Reset Token" to generate a new bot token. In `.env`, replace `<YOUR_BOT_TOKEN>` with your new token.
 
 :::warn
 You won't be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe (like in a password manager).
@@ -119,7 +119,7 @@ Now that you have the credentials you need, lets configure your bot user and ins
 
 Newly-created apps have a bot user enabled by default. Bot users allow your app to appear and behave similarly to other server members when it's [installed to a server](/docs/quick-start/overview-of-apps#where-are-apps-installed).
 
-On the left hand sidebar in your app's settings, there's a **Bot** page (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](/docs/events/gateway#privileged-intents) or whether it can be installed by other users.
+On the left hand sidebar in your app's settings, there's a [**Bot** page](https://discord.com/developers/applications/select/bot) (where we fetched the token from). On this page, you can also configure settings like its [privileged intents](/docs/events/gateway#privileged-intents) or whether it can be installed by other users.
 
 <Collapsible title="What are intents?" description="Introduction to standard and privileged intents" icon="question">
 Intents determine which events Discord will send your app when you're creating a [Gateway API connection](/docs/events/gateway). For example, if you want your app to perform an action when users add a reaction to a message, you can pass the `GUILD_MESSAGE_REACTIONS` (`1 << 10`) intent.
@@ -142,7 +142,7 @@ Now we'll select where your app can be installed in Discord, which is determined
 - Apps installed in a **[user context](/docs/resources/application#user-context)** (user-installed apps) are visible only to the authorizing user, and therefore don't require any server-specific permissions. Apps installed to a user context are visible across all of the user's servers, DMs, and GDMs—however, they're limited to using commands.
 </Collapsible>
 
-Click on **Installation** in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected.
+Click on [**Installation**](https://discord.com/developers/applications/select/installation) in the left sidebar, then under **Installation Contexts** make sure both "User Install" and "Guild Install" are selected.
 
 :::info
 Some apps may only want to support one installation context—for example, a moderation app may only support a server context. However, by default, we recommend supporting both installation contexts. For detailed information about supporting user-installed apps, you can read the [user-installable app tutorial](/docs/tutorials/developing-a-user-installable-app).
@@ -152,7 +152,7 @@ Some apps may only want to support one installation context—for example, a mod
 
 [Install links](/docs/resources/application#install-links) provide an easy way for users to install your app in Discord. We'll set up the default [Discord Provided Link](/docs/resources/application#discord-provided-link), but you can read more about the different type of install links in the [Application documentation](/docs/resources/application#types-of-install-links).
 
-On the **Installation** page, go to the **Install Link** section and select "Discord Provided Link" if it's not already selected.
+On the [**Installation** page](https://discord.com/developers/applications/select/installation), go to the **Install Link** section and select "Discord Provided Link" if it's not already selected.
 
 When Discorded Provided Link is selected, a new **Default Install Settings** section will appear, which we'll configure next.
 
@@ -167,7 +167,7 @@ When creating an app, scopes and permissions determine what your app can do and 
 - [Permissions](/docs/topics/permissions#permission-overwrites) are the granular permissions for your bot user, the same as other users in Discord have. They can be approved by the installing user or later updated within server settings or with [permission overwrites](/docs/topics/permissions#permission-overwrites). Since apps installed to a user context can only respond to commands, these permissions are only relevant to apps installed to a server.
 </Collapsible>
 
-On the **Installation** page in the **Default Install Settings** section:
+On the [**Installation** page](https://discord.com/developers/applications/select/installation) in the **Default Install Settings** section:
 - For **User Install**, add the `applications.commands` scope
 - For **Guild Install**, add the `applications.commands` scope and `bot` scope. When you select `bot`, a new **Permissions** menu will appear to select the bot user's permissions. Select any permissions that you may want for your app—for now, I'll just select `Send Messages`.
 
@@ -278,7 +278,7 @@ We'll use **Forwarding** URL as the publicly-accessible URL where Discord will s
 
 ### Adding an interaction endpoint URL
 
-Go to your [app's settings](https://discord.com/developers/applications) and on the **General Information** page under **Interaction Endpoint URL**, paste your new ngrok forwarding URL and append `/interactions`.
+Go to your [app's settings](https://discord.com/developers/applications) and on the [**General Information** page](https://discord.com/developers/applications/select/information) under **Interaction Endpoint URL**, paste your new ngrok forwarding URL and append `/interactions`.
 
 ![Interactions Endpoint URL](images/getting-started-interactions-endpoint.webp)
 
