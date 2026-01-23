@@ -330,6 +330,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | JPEG   | .jpg, .jpeg |
 | PNG    | .png        |
 | WebP   | .webp       |
+| WebM   | .webm       |
 | GIF    | .gif        |
 | AVIF   | .avif       |
 | Lottie | .json       |
@@ -348,6 +349,8 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | User Avatar                 | avatars/[user_id](/docs/resources/user#user-object)/[user_avatar](/docs/resources/user#user-object).png \*                                                                                                                                                                                                                                                                    | PNG, JPEG, WebP, GIF       |
 | Guild Member Avatar         | guilds/[guild_id](/docs/resources/guild#guild-object)/users/[user_id](/docs/resources/user#user-object)/avatars/[member_avatar](/docs/resources/guild#guild-member-object).png \*                                                                                                                                                                                             | PNG, JPEG, WebP, GIF       |
 | Avatar Decoration           | avatar-decoration-presets/[avatar_decoration_data_asset](/docs/resources/user#avatar-decoration-data-object).png                                                                                                                                                                                                                                                              | PNG                        |
+| Nameplate Static Asset      | assets/collectibles/[nameplate_asset_path](/docs/resources/user#nameplate-nameplate-structure) + static.png \*\*\*                                                                                                                                                                                                                                                            | PNG                        |
+| Nameplate Animated Asset    | assets/collectibles/[nameplate_asset_path](/docs/resources/user#nameplate-nameplate-structure) + asset.webm \*\*\*                                                                                                                                                                                                                                                            | WebM                       |
 | Application Icon            | app-icons/[application_id](/docs/resources/application#application-object)/[icon](/docs/resources/application#application-object).png                                                                                                                                                                                                                                         | PNG, JPEG, WebP            |
 | Application Cover           | app-icons/[application_id](/docs/resources/application#application-object)/[cover_image](/docs/resources/application#application-object).png                                                                                                                                                                                                                                  | PNG, JPEG, WebP            |
 | Application Asset           | app-assets/[application_id](/docs/resources/application#application-object)/[asset_id](/docs/events/gateway-events#activity-object-activity-assets).png                                                                                                                                                                                                                       | PNG, JPEG, WebP            |
@@ -365,7 +368,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](/docs/change-log#unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the *legacy* username system, `index` will be `discriminator % 5`.
 
-\*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
+\*\*\* In the case of the Default User Avatar, Sticker and Nameplate Asset endpoints, the size of images returned is constant with the `size` querystring parameter being ignored.
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](/docs/resources/sticker#sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
