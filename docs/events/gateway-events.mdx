@@ -978,6 +978,7 @@ Sent when a new invite to a channel is created.
 | temporary           | boolean                                                                      | Whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
 | uses                | integer                                                                      | How many times the invite has been used (always will be 0)                                                         |
 | expires_at          | ?ISO8601 timestamp                                                           | the expiration date of this invite                                                                                 |
+| role_ids?           | array of snowflakes                                                          | the role ID(s) for roles in the guild given to the users that accept this invite                                   |
 
 #### Invite Delete
 
