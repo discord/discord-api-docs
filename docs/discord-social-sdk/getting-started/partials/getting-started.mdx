@@ -13,13 +13,20 @@ Later, you can invite your team members to your new team to collaborate on your 
 ## Step 2: Create a Discord Application
 
 1. Create a new application on the [Discord Developer Portal](https://discord.com/developers/applications) and assign it to your team.
-3. Add a redirect URL in the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2):
+2. Add a redirect URL in the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2):
    - For desktop applications: `http://127.0.0.1/callback` (this can be changed later).
+   - For mobile applications (iOS/Android): `discord-YOUR_APP_ID://authorize/callback` (replace `YOUR_APP_ID` with your Discord application ID).
    - See [`discordpp::Client::Authorize`](https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468) for more details on setting up more advanced redirect URIs.
-4. Enable the `Public Client` toggle in the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2). 
+3. Enable the `Public Client` toggle in the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2).
 
 :::warn
 **Note:** This guide requires enabling **Public Client** to allow you to get started with the SDK quickly. Most games will not want to ship as a public client. This setting should be reviewed by your team prior to releasing your game. [Learn more about public clients](/docs/discord-social-sdk/core-concepts/oauth2-scopes#oauth2-client-types).
+:::
+
+:::info
+**Mobile Platform Setup**: If you're building for iOS or Android, you must also configure platform-specific settings
+and implement PKCE authentication. See the [Account Linking on Mobile](/docs/discord-social-sdk/development-guides/account-linking-on-mobile) guide for
+complete setup instructions.
 :::
 
 ---
