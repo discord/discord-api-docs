@@ -480,7 +480,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | target_application_id | snowflake           | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 | target_users_file?\*  | file                | a csv file with a single column of user IDs for all the users able to accept this invite                                                  |                  |
 | payload_json?         | string              | JSON-encoded body of non-file params, only for `multipart/form-data` requests.                                                            |                  |
-| role_ids?\*\*         | array of snowflakes | the role ID(s) for roles in the guild given to the users that accept this invite                                                          |                  |
+| role_ids?\*\*         | array of snowflakes | the role ID(s) for [roles](/docs/topics/permissions#role-object) in the guild given to the users that accept this invite                  |                  |
 
 \* Requires `multipart/form-data` as the content type with other parameters as form fields in the multipart body. Uploading a file with invalid user IDs will result in a 400 with the invalid IDs described.
 
