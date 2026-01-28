@@ -34,7 +34,7 @@ Refer to the [Monetization Overview](/docs/monetization/overview) for more infor
   "application_id": "1019370614521200640",
   "user_id": "771129655544643584",
   "promotion_id": null,
-  "type": 8,
+  "type": 8,  // EntitlementType.APPLICATION_SUBSCRIPTION
   "deleted": false,
   "gift_code_flags": 0,
   "consumed": false,
@@ -84,7 +84,7 @@ Returns all entitlements for a given app, active and expired.
     "application_id": "1019370614521200640",
     "user_id": "771129655544643584",
     "promotion_id": null,
-    "type": 8,
+    "type": 8,  // EntitlementType.APPLICATION_SUBSCRIPTION
     "deleted": false,
     "gift_code_flags": 0,
     "consumed": false,
@@ -108,7 +108,7 @@ Returns an entitlement.
   "application_id": "1019370614521200640",
   "user_id": "771129655544643584",
   "promotion_id": null,
-  "type": 8,
+  "type": 8,  // EntitlementType.APPLICATION_SUBSCRIPTION
   "deleted": false,
   "gift_code_flags": 0,
   "consumed": false,
@@ -147,7 +147,7 @@ After creating a test entitlement, you'll need to reload your Discord client. Af
 {
   "sku_id": "999184799365857331",
   "owner_id": "847184799365857999",
-  "owner_type": 1
+  "owner_type": 1 // EntitlementOwnerType.GUILD
 }
 ```
 

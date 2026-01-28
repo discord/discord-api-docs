@@ -34,10 +34,10 @@ All content must be sent as components instead of using the standard message for
 
 ```json
 {
-  "flags": 32768,
+  "flags": 32768,  // MessageFlags.IS_COMPONENTS_V2
   "components": [
     {
-      "type": 10,
+      "type": 10,  // ComponentType.TEXT_DISPLAY
       "content": "This is a message using the Text Display component"
     }
   ]
@@ -50,14 +50,14 @@ To send a message with multiple components, you can include multiple component o
 
 ```json
 {
-  "flags": 32768,
+  "flags": 32768,  // MessageFlags.IS_COMPONENTS_V2
   "components": [
     {
-      "type": 10,
+      "type": 10,  // ComponentType.TEXT_DISPLAY
       "content": "This is a Text Display component."
     },
     {
-      "type": 10,
+      "type": 10,  // ComponentType.TEXT_DISPLAY
       "content": "This is another Text Display component!"
     }
   ]
@@ -72,24 +72,24 @@ For example, you can create a message with an Action Row component that contains
 
 ```json
 {
-  "flags": 32768,
+  "flags": 32768,  // MessageFlags.IS_COMPONENTS_V2
   "components": [
     {
-      "type": 10,
+      "type": 10,  // ComponentType.TEXT_DISPLAY
       "content": "This is a message with v2 components"
     },
     {
-      "type": 1,
+      "type": 1,  // ComponentType.ACTION_ROW
       "components": [
         {
-          "type": 2,
-          "style": 1,
+          "type": 2,  // ComponentType.BUTTON
+          "style": 1,  // ButtonStyle.PRIMARY
           "label": "Click Me",
           "custom_id": "click_me_1"
         },
         {
-          "type": 2,
-          "style": 2,
+          "type": 2,  // ComponentType.BUTTON
+          "style": 2,  // ButtonStyle.SECONDARY
           "label": "Click Me Too",
           "custom_id": "click_me_2"
         }

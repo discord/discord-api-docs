@@ -122,28 +122,28 @@ Action Rows can contain one of the following:
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1,  // ComponentType.ACTION_ROW
         "components": [
           {
             "type": 2,  // ComponentType.BUTTON
-            "custom_id": "click_yes"
+            "custom_id": "click_yes",
             "label": "Accept",
-            "style": 1,
+            "style": 1 // ButtonStyle.PRIMARY
           },
           {
             "type": 2,  // ComponentType.BUTTON
             "label": "Learn More",
-            "style": 5,
+            "style": 5, // ButtonStyle.LINK
             "url": "http://watchanimeattheoffice.com/"
           },
           {
             "type": 2,  // ComponentType.BUTTON
-            "custom_id": "click_no"
+            "custom_id": "click_no",
             "label": "Decline",
-            "style": 4,
+            "style": 4 // ButtonStyle.DANGER
           }
         ]
       }
@@ -199,7 +199,7 @@ Buttons come in various styles to convey different types of actions. These style
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1,  // ComponentType.ACTION_ROW
@@ -208,7 +208,7 @@ Buttons come in various styles to convey different types of actions. These style
               "type": 2,  // ComponentType.BUTTON,
               "custom_id": "click_me",
               "label": "Click me!",
-              "style": 1
+              "style": 1 // ButtonStyle.PRIMARY
             }
         ]
       }
@@ -327,7 +327,7 @@ String Selects are available in messages and modals. They must be placed inside 
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1, // ComponentType.ACTION_ROW,
@@ -531,7 +531,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
           "component": {
             "type": 4,  // ComponentType.TEXT_INPUT
             "custom_id": "game_feedback",
-            "style": 2,
+            "style": 2,  // TextInputStyle.PARAGRAPH
             "min_length": 100,
             "max_length": 4000,
             "placeholder": "Write your feedback here...",
@@ -630,7 +630,7 @@ User Selects are available in messages and modals. They must be placed inside an
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1,  // ComponentType.ACTION_ROW
@@ -717,7 +717,7 @@ User Selects are available in messages and modals. They must be placed inside an
 
   ```json
   {
-    "type": 9,
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
       "custom_id": "user_modal",
       "title": "User Chooser",
@@ -755,13 +755,13 @@ User Selects are available in messages and modals. They must be placed inside an
           "component": {
             "custom_id": "user_selected",
             "id": 2,
-            "type": 5,
+            "type": 5, // ComponentType.USER_SELECT
             "values": [
               "11111111111111111"
             ]
           },
           "id": 1,
-          "type": 18
+          "type": 18 // ComponentType.LABEL
         }
       ],
       "resolved": {
@@ -868,7 +868,7 @@ Role Selects are available in messages and modals. They must be placed inside an
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1,  // ComponentType.ACTION_ROW
@@ -940,16 +940,16 @@ Role Selects are available in messages and modals. They must be placed inside an
 
   ```json
   {
-    "type": 9,
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
       "custom_id": "role_modal",
       "title": "Role Select",
       "components": [
         {
-          "type": 18,
+          "type": 18, // ComponentType.LABEL
           "label": "Select which roles to assign",
           "component": {
-            "type": 6,
+            "type": 6, // ComponentType.ROLE_SELECT
             "custom_id": "roles_selected",
             "max_values": 10,
             "required": true
@@ -978,14 +978,14 @@ Role Selects are available in messages and modals. They must be placed inside an
           "component": {
             "custom_id": "roles_selected",
             "id": 2,
-            "type": 6,
+            "type": 6, // ComponentType.ROLE_SELECT
             "values": [
               "1362213912946147499",
               "1357409927680889032"
             ]
           },
           "id": 1,
-          "type": 18
+          "type": 18 // ComponentType.LABEL
         }
       ],
       "resolved": {
@@ -1085,7 +1085,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1,  // ComponentType.ACTION_ROW
@@ -1194,16 +1194,16 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
   ```json
   {
-    "type": 9,
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
       "custom_id": "mentionable_modal",
       "title": "Unmentionables",
       "components": [
         {
-          "type": 18,
+          "type": 18, // ComponentType.LABEL
           "label": "Who gets mentioned?",
           "component": {
-            "type": 7,
+            "type": 7, // ComponentType.MENTIONABLE_SELECT
             "custom_id": "mentionables_selected",
             "required": true
           }
@@ -1231,13 +1231,13 @@ Mentionable Selects are available in messages and modals. They must be placed in
           "component": {
             "custom_id": "mentionables_selected",
             "id": 2,
-            "type": 7,
+            "type": 7, // ComponentType.MENTIONABLE_SELECT
             "values": [
               "1361539726405926952"
             ]
           },
           "id": 1,
-          "type": 18
+          "type": 18 // ComponentType.LABEL
         }
       ],
       "resolved": {
@@ -1319,7 +1319,7 @@ Channel Selects are available in messages and modals. They must be placed inside
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 1,  // ComponentType.ACTION_ROW
@@ -1385,16 +1385,16 @@ Channel Selects are available in messages and modals. They must be placed inside
 
   ```json
   {
-    "type": 9,
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
       "custom_id": "channel_modal",
       "title": "Lockdown",
       "components": [
         {
-          "type": 18,
+          "type": 18, // ComponentType.LABEL
           "label": "Which channel should be locked?",
           "component": {
-            "type": 8,
+            "type": 8, // ComponentType.CHANNEL_SELECT
             "custom_id": "channel_selected",
             "required": true
           }
@@ -1422,13 +1422,13 @@ Channel Selects are available in messages and modals. They must be placed inside
           "component": {
             "custom_id": "channel_selected",
             "id": 2,
-            "type": 8,
+            "type": 8, // ComponentType.CHANNEL_SELECT
             "values": [
               "1357483683627663450"
             ]
           },
           "id": 1,
-          "type": 18
+          "type": 18 // ComponentType.LABEL
         }
       ],
       "resolved": {
@@ -1445,7 +1445,7 @@ Channel Selects are available in messages and modals. They must be placed inside
             "position": 1,
             "rate_limit_per_user": 0,
             "topic": null,
-            "type": 0
+            "type": 0 // ChannelType.TEXT
           }
         }
       }
@@ -1503,7 +1503,7 @@ Don't hardcode `components` to contain only text components. We may add other co
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 9,  // ComponentType.SECTION
@@ -1571,7 +1571,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 10,  // ComponentType.TEXT_DISPLAY
@@ -1590,29 +1590,29 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
   ```json
   {
-    "type": 9,
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
       "custom_id": "jail_modal",
       "title": "Jail",
       "components": [
         {
-          "type": 10,
+          "type": 10, // ComponentType.TEXT_DISPLAY
           "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
         },
         {
-          "type": 18,
+          "type": 18, // ComponentType.LABEL
           "label": "Choose a user",
           "component": {
-            "type": 5,
+            "type": 5, // ComponentType.USER_SELECT
             "custom_id": "user_selected",
             "required": true
           }
         },
         {
-          "type": 18,
+          "type": 18, // ComponentType.LABEL
           "label": "Where should they be sent?",
           "component": {
-            "type": 8,
+            "type": 8, // ComponentType.CHANNEL_SELECT
             "custom_id": "channel_selected",
             "channel_types": [
               2
@@ -1661,7 +1661,7 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 9,  // ComponentType.SECTION
@@ -1729,7 +1729,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 10,  // ComponentType.TEXT_DISPLAY
@@ -1799,7 +1799,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 10,  // ComponentType.TEXT_DISPLAY
@@ -1855,7 +1855,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 10,  // ComponentType.TEXT_DISPLAY
@@ -1918,7 +1918,7 @@ To use this component in messages you must send the [message flag](/docs/resourc
 
   ```json
   {
-    "flags": 32768,
+    "flags": 32768, // MessageFlags.IS_COMPONENTS_V2
     "components": [
       {
         "type": 17,  // ComponentType.CONTAINER
@@ -1947,19 +1947,19 @@ To use this component in messages you must send the [message flag](/docs/resourc
                 "type": 2,  // ComponentType.BUTTON
                 "custom_id": "pet_coyote",
                 "label": "Pet it!",
-                "style": 1
+                "style": 1  // ButtonStyle.PRIMARY
               },
               {
                 "type": 2,  // ComponentType.BUTTON
                 "custom_id": "feed_coyote",
                 "label": "Attempt to feed it",
-                "style": 2
+                "style": 2  // ButtonStyle.SECONDARY
               },
               {
                 "type": 2,  // ComponentType.BUTTON
                 "custom_id": "run_away",
                 "label": "Run away!",
-                "style": 4
+                "style": 4  // ButtonStyle.DANGER
               }
             ]
           }
@@ -2043,7 +2043,7 @@ The `description` may display above or below the `component` depending on the pl
           "component": {
             "type": 4,  // ComponentType.TEXT_INPUT
             "custom_id": "game_feedback",
-            "style": 2,
+            "style": 2,  // TextInputStyle.PARAGRAPH
             "min_length": 100,
             "max_length": 4000,
             "placeholder": "Write your feedback here...",
@@ -2093,7 +2093,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/docs
 
   ```json
   {
-    "type": 9,
+    "type": 9, // InteractionCallbackType.MODAL
     "data": {
       "custom_id": "bug_submit_modal",
       "title": "Bug Submission",
@@ -2132,13 +2132,13 @@ File Uploads are available on modals. They must be placed inside a [Label](/docs
             "component": {
                 "custom_id": "file_upload",
                 "id": 2,
-                "type": 19,
+                "type": 19, // ComponentType.FILE_UPLOAD
                 "values": [
                     "111111111111111111111"
                 ]
             },
             "id": 1,
-            "type": 18
+            "type": 18 // ComponentType.LABEL
         }
       ],
       "custom_id": "bug_submit_modal",
@@ -2213,11 +2213,11 @@ Legacy Message Component Example
   "content": "This is a message with legacy components",
   "components": [
     {
-      "type": 1,
+      "type": 1,  // ComponentType.ACTION_ROW
       "components": [
         {
-          "type": 2,
-          "style": 1,
+          "type": 2,  // ComponentType.BUTTON
+          "style": 1,  // ButtonStyle.PRIMARY
           "label": "Click Me",
           "custom_id": "click_me_1"
         }
