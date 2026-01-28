@@ -2026,9 +2026,9 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
 | [Channel Select](/docs/components/reference#channel-select-channel-select-interaction-response-structure)             |
 | [File Upload](/docs/components/reference#file-upload-file-upload-interaction-response-structure)                      |
-| [Radio Group](/docs/components/reference#radio-group-interaction-response-structure)                                  |
-| [Checkbox Group](/docs/components/reference#checkbox-group-interaction-response-structure)                            |
-| [Checkbox](/docs/components/reference#checkbox-interaction-response-structure)                                        |
+| [Radio Group](/docs/components/reference#radio-group-radio-group-interaction-response-structure)                      |
+| [Checkbox Group](/docs/components/reference#checkbox-group-checkbox-group-interaction-response-structure)             |
+| [Checkbox](/docs/components/reference#checkbox-checkbox-interaction-response-structure)                               |
 
 ###### Examples
 
@@ -2180,22 +2180,22 @@ A Radio Group is an interactive component for selecting exactly one option from 
 
 ###### Radio Group Structure
 
-| Field       | Type                                                                                    | Description                                                              |
-|-------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| type        | integer                                                                                 | `21` for radio group                                                     |
-| id?         | integer                                                                                 | Optional identifier for component                                        |
-| custom_id   | string                                                                                  | Developer-defined identifier for the input; 1-100 characters             |
-| options     | array of [radio group options](/docs/components/reference#radio-group-option-structure) | List of options to render; min 2, max 10                                 |
-| required?   | boolean                                                                                 | Whether a selection is required to submit the modal (defaults to `true`) |
+| Field     | Type                                                                                                | Description                                                              |
+|-----------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| type      | integer                                                                                             | `21` for radio group                                                     |
+| id?       | integer                                                                                             | Optional identifier for component                                        |
+| custom_id | string                                                                                              | Developer-defined identifier for the input; 1-100 characters             |
+| options   | array of [radio group options](/docs/components/reference#radio-group-radio-group-option-structure) | List of options to render; min 2, max 10                                 |
+| required? | boolean                                                                                             | Whether a selection is required to submit the modal (defaults to `true`) |
 
 ###### Radio Group Option Structure
 
-| Field        | Type   | Description                                             |
-|--------------|--------|---------------------------------------------------------|
-| value        | string | Dev-defined value of the option; max 100 characters     |
-| label        | string | User-facing label of the option; max 100 characters     |
-| description? | string | Optional description for the option; max 100 characters |
-| default?     | boolean| Shows the option as selected by default                 |
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
 
 ###### Radio Group Interaction Response Structure
 
@@ -2270,24 +2270,24 @@ A Checkbox Group is an interactive component for selecting one or many options v
 
 ###### Checkbox Group Structure
 
-| Field       | Type                                                                                          | Description                                                                                   |
-|-------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| type        | integer                                                                                       | `22` for checkbox group                                                                       |
-| id?         | integer                                                                                       | Optional identifier for component                                                             |
-| custom_id   | string                                                                                        | Developer-defined identifier for the input; 1-100 characters                                  |
-| options     | array of [checkbox group options](/docs/components/reference#checkbox-group-option-structure) | List of options to render; min 1, max 10                                                      |
-| min_values? | integer                                                                                       | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1)                    |
-| max_values? | integer                                                                                       | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options) |
-| required?   | boolean                                                                                       | Whether selecting within the group is required (defaults to `true`)                           |
+| Field       | Type                                                                                                         | Description                                                                                   |
+|-------------|--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| type        | integer                                                                                                      | `22` for checkbox group                                                                       |
+| id?         | integer                                                                                                      | Optional identifier for component                                                             |
+| custom_id   | string                                                                                                       | Developer-defined identifier for the input; 1-100 characters                                  |
+| options     | array of [checkbox group options](/docs/components/reference#checkbox-group-checkbox-group-option-structure) | List of options to render; min 1, max 10                                                      |
+| min_values? | integer                                                                                                      | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1)                    |
+| max_values? | integer                                                                                                      | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options) |
+| required?   | boolean                                                                                                      | Whether selecting within the group is required (defaults to `true`)                           |
 
 ###### Checkbox Group Option Structure
 
-| Field        | Type   | Description                                             |
-|--------------|--------|---------------------------------------------------------|
-| value        | string | Dev-defined value of the option; max 100 characters     |
-| label        | string | User-facing label of the option; max 100 characters     |
-| description? | string | Optional description for the option; max 100 characters |
-| default?     | boolean| Shows the option as selected by default                 |
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
 
 ###### Checkbox Group Interaction Response Structure
 
