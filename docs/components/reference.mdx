@@ -279,23 +279,23 @@ String Selects are available in messages and modals. They must be placed inside 
 
 ###### String Select Structure
 
-| Field               | Type                                                                                        | Description                                                                     |
-|---------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| type                | integer                                                                                     | `3` for string select                                                           |
-| id?                 | integer                                                                                     | Optional identifier for component                                               |
-| custom_id           | string                                                                                      | ID for the select menu; 1-100 characters                                        |
-| options             | array of [select options](/docs/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                      |
-| placeholder?        | string                                                                                      | Placeholder text if nothing is selected or default; max 150 characters          |
-| min_values?\*\*\*   | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0 (or 1, see note), max 25  |
-| max_values?         | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25              |
-| required?\*         | boolean                                                                                     | Whether the string select is required to answer in a modal (defaults to `true`) |
-| disabled?\*\*       | boolean                                                                                     | Whether select menu is disabled in a message (defaults to `false`)              |
+| Field            | Type                                                                                        | Description                                                                                  |
+|------------------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| type             | integer                                                                                     | `3` for string select                                                                        |
+| id?              | integer                                                                                     | Optional identifier for component                                                            |
+| custom_id        | string                                                                                      | ID for the select menu; 1-100 characters                                                     |
+| options          | array of [select options](/docs/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                                   |
+| placeholder?     | string                                                                                      | Placeholder text if nothing is selected or default; max 150 characters                       |
+| min_values?\*    | integer                                                                                     | Minimum number of items that must be chosen (defaults to 1); min 0 (or 1, see note), max 25  |
+| max_values?      | integer                                                                                     | Maximum number of items that can be chosen (defaults to 1); max 25                           |
+| required?\*\*    | boolean                                                                                     | Whether the string select is required to answer in a modal (defaults to `true`)              |
+| disabled?\*\*\*  | boolean                                                                                     | Whether select menu is disabled in a message (defaults to `false`)                           |
 
-\* The `required` field is only available for String Selects in modals. It is ignored in messages.
+\* `min_values` must be at least `1` or omitted If `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for String Selects in modals. It is ignored in messages.
 
-\*\*\* `min_values` must be at least `1` or omitted If `required` is omitted or `true`.
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Select Option Structure
 
