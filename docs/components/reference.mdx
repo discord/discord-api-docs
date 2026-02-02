@@ -291,7 +291,7 @@ String Selects are available in messages and modals. They must be placed inside 
 | required?\*\*    | boolean                                                                                     | Whether the string select is required to answer in a modal (defaults to `true`)              |
 | disabled?\*\*\*  | boolean                                                                                     | Whether select menu is disabled in a message (defaults to `false`)                           |
 
-\* `min_values` must be at least `1` or omitted If `required` is omitted or `true`.
+\* `min_values` must be at least `1` or omitted if `required` is omitted or `true`.
 
 \*\* The `required` field is only available for String Selects in modals. It is ignored in messages.
 
@@ -593,12 +593,14 @@ User Selects are available in messages and modals. They must be placed inside an
 | custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0 (or 1, see note), max 25                                                              |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                 | Whether the user select is required to answer in a modal (defaults to `true`)                                                                            |
-| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                 | Whether the user select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*\* | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for User Selects in modals. It is ignored in messages.
+\* `min_values` must be at least `1` or omitted if `required` is omitted or `true`.
+
+\*\* The `required` field is only available for User Selects in modals. It is ignored in messages.
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
@@ -838,14 +840,16 @@ Role Selects are available in messages and modals. They must be placed inside an
 | custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0 (or 1, see note), max 25                                                              |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                 | Whether the role select is required to answer in a modal (defaults to `true`)                                                                            |
-| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                 | Whether the role select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*\* | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for Role Selects in modals. It is ignored in messages.
+\* `min_values` must be at least `1` or omitted if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for Role Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Role Select Interaction Response Structure
 
@@ -1055,14 +1059,16 @@ Mentionable Selects are available in messages and modals. They must be placed in
 | custom_id       | string                                                                                                  | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0 (or 1, see note), max 25                                                              |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                 | Whether the mentionable select is required to answer in a modal (defaults to `true`)                                                                     |
-| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                 | Whether the mentionable select is required to answer in a modal (defaults to `true`)                                                                     |
+| disabled?\*\*\* | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for Mentionable Selects in modals. It is ignored in messages.
+\* `min_values` must be at least `1` or omitted if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for Mentionable Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Mentionable Select Interaction Response Structure
 
@@ -1289,14 +1295,16 @@ Channel Selects are available in messages and modals. They must be placed inside
 | channel_types?  | array of [channel types](/docs/resources/channel#channel-object-channel-types)                          | List of channel types to include in the channel select component                                                                                         |
 | placeholder?    | string                                                                                                  | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/docs/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                 | Minimum number of items that must be chosen (defaults to 1); min 0 (or 1, see note), max 25                                                              |
 | max_values?     | integer                                                                                                 | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                 | Whether the channel select is required to answer in a modal (defaults to `true`)                                                                         |
-| disabled?\*\*   | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                 | Whether the channel select is required to answer in a modal (defaults to `true`)                                                                         |
+| disabled?\*\*\* | boolean                                                                                                 | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for Channel Selects in modals. It is ignored in messages.
+\* `min_values` must be at least `1` or omitted if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for Channel Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 ###### Channel Select Interaction Response Structure
 
@@ -2067,14 +2075,16 @@ File Uploads are available on modals. They must be placed inside a [Label](/docs
 
 ###### File Upload Structure
 
-| Field       | Type    | Description                                                                                            |
-|-------------|---------|--------------------------------------------------------------------------------------------------------|
-| type        | integer | `19` for file upload                                                                                   |
-| id?         | integer | Optional identifier for component                                                                      |
-| custom_id   | string  | ID for the file upload; 1-100 characters                                                               |
-| min_values? | integer | Minimum number of items that must be uploaded (defaults to 1); min 0, max 10                           |
-| max_values? | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
-| required?   | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
+| Field         | Type    | Description                                                                                            |
+|---------------|---------|--------------------------------------------------------------------------------------------------------|
+| type          | integer | `19` for file upload                                                                                   |
+| id?           | integer | Optional identifier for component                                                                      |
+| custom_id     | string  | ID for the file upload; 1-100 characters                                                               |
+| min_values?\* | integer | Minimum number of items that must be uploaded (defaults to 1); min 0 (or 1, see note), max 10          |
+| max_values?   | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
+| required?     | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
+
+\* `min_values` must be at least `1` or omitted if `required` is omitted or `true`.
 
 ###### File Upload Interaction Response Structure
 
