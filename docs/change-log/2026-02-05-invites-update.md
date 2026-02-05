@@ -1,6 +1,6 @@
 ---
-title: "New Invite Endpoints"
-date: "2026-01-13"
+title: "Community Invites Update"
+date: "2026-02-05"
 breaking: true
 topics:
 - "HTTP API"
