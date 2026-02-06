@@ -11,6 +11,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ###### Invite Structure
 
+<<<<<<< HEAD:developers/resources/invite.mdx
 | Field                       | Type                                                                                                     | Description                                                                                                                                           |
 |-----------------------------|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type                        | integer                                                                                                  | the [type of invite](/developers/resources/invite#invite-object-invite-types)                                                                         |
@@ -27,6 +28,26 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | guild_scheduled_event?      | [guild scheduled event](/developers/resources/guild-scheduled-event#guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id                                     |
 | flags?                      | integer                                                                                                  | [guild invite flags](/developers/resources/invite#invite-object-guild-invite-flags) for guild invites                                                 |
 | roles?                      | array of partial [role](/developers/topics/permissions#role-object) objects                              | the roles assigned to the user upon accepting the invite. Contains a limited amount of [role](/developers/topics/permissions#role-object) information |
+=======
+| Field                       | Type                                                                                               | Description                                                                                                        |
+|-----------------------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| type                        | integer                                                                                            | the [type of invite](/docs/resources/invite#invite-object-invite-types)                                            |
+| code                        | string                                                                                             | the invite code (unique ID)                                                                                        |
+| guild?                      | partial [guild](/docs/resources/guild#guild-object) object                                         | the guild this invite is for                                                                                       |
+| channel                     | ?partial [channel](/docs/resources/channel#channel-object) object                                  | the channel this invite is for                                                                                     |
+| inviter?                    | [user](/docs/resources/user#user-object) object                                                    | the user who created the invite                                                                                    |
+| target_type?                | integer                                                                                            | the [type of target](/docs/resources/invite#invite-object-invite-target-types) for this voice channel invite       |
+| target_user?                | [user](/docs/resources/user#user-object) object                                                    | the user whose stream to display for this voice channel stream invite                                              |
+| target_application?         | partial [application](/docs/resources/application#application-object) object                       | the embedded application to open for this voice channel embedded application invite                                |
+| approximate_presence_count? | integer                                                                                            | approximate count of online members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true` |
+| approximate_member_count?   | integer                                                                                            | approximate count of total members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`  |
+| expires_at                  | ?ISO8601 timestamp                                                                                 | the expiration date of this invite                                                                                 |
+| guild_scheduled_event?      | [guild scheduled event](/docs/resources/guild-scheduled-event#guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id  |
+| flags?                      | integer                                                                                            | [guild invite flags](/docs/resources/invite#invite-object-guild-invite-flags) for guild invites                    |
+| roles?\*                    | array of partial [role](/docs/topics/permissions#role-object) objects                              | the roles assigned to the user upon accepting the invite.                                                          |
+
+\* This is a partial role object that only contains `id`, `name`, `position`, `color`, `colors`, `icon`, and `unicode_emoji`.
+>>>>>>> 4898526c (Add more details):docs/resources/invite.mdx
 
 ###### Invite Types
 
