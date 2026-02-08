@@ -316,7 +316,7 @@ import requests
 url = "https://discord.com/api/v10/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
-    "type": 4,
+    "type": 4, # InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
     "data": {
         "content": "Congrats on sending your command!"
     }
@@ -336,12 +336,12 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
     def my_command():
         if request.json["type"] == 1:
             return jsonify({
-                "type": 1
+                "type": 1 # InteractionResponseType.PONG
             })
 
         else:
             return jsonify({
-                "type": 4,
+                "type": 4, # InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE
                 "data": {
                     "tts": False,
                     "content": "Congrats on sending your command!",

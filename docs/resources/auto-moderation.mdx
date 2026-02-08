@@ -30,19 +30,19 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   "guild_id": "613425648685547541",
   "name": "Keyword Filter 1",
   "creator_id": "423457898095789043",
-  "trigger_type": 1,
-  "event_type": 1,
+  "trigger_type": 1, // TriggerType.KEYWORD
+  "event_type": 1, // EventType.MESSAGE_SEND
   "actions": [
     {
-      "type": 1,
+      "type": 1, // ActionType.BLOCK_MESSAGE
       "metadata": { "custom_message": "Please keep financial discussions limited to the #finance channel" }
     },
     {
-      "type": 2,
+      "type": 2, // ActionType.SEND_ALERT_MESSAGE
       "metadata": { "channel_id": "123456789123456789" }
     },
     {
-      "type": 3,
+      "type": 3, // ActionType.TIMEOUT
       "metadata": { "duration_seconds": 60 }
     }
   ],

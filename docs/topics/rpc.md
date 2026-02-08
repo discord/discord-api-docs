@@ -385,7 +385,7 @@ Used to get a channel the client is in.
   "data": {
     "id": "199737254929760257",
     "name": "General",
-    "type": 2,
+    "type": 2, // ChannelType.GUILD_VOICE
     "bitrate": 64000,
     "user_limit": 0,
     "guild_id": "199737254929760256",
@@ -458,12 +458,12 @@ Used to get a guild's channels the client is in.
       {
         "id": "199737254929760256",
         "name": "general",
-        "type": 0
+        "type": 0 // ChannelType.GUILD_TEXT
       },
       {
         "id": "199737254929760257",
         "name": "General",
-        "type": 2
+        "type": 2 // ChannelType.GUILD_VOICE
       }
     ]
   },
@@ -568,7 +568,7 @@ When trying to join the user to a voice channel, you will receive a `5003` error
   "data": {
     "id": "199737254929760257",
     "name": "General",
-    "type": 2,
+    "type": 2, // ChannelType.GUILD_VOICE
     "bitrate": 64000,
     "user_limit": 0,
     "guild_id": "199737254929760256",
@@ -1219,7 +1219,7 @@ No arguments
   "data": {
     "id": "199737254929760257",
     "name": "General",
-    "type": 0
+    "type": 0 // ChannelType.GUILD_TEXT
   },
   "evt": "CHANNEL_CREATE"
 }
@@ -1429,7 +1429,7 @@ Dispatches message objects, with the exception of deletions, which only contains
       "mention_everyone": false,
       "embeds": [],
       "attachments": [],
-      "type": 0,
+      "type": 0, // MessageType.DEFAULT
       "pinned": false,
       "author": {
         "id": "190320984123768832",
@@ -1510,7 +1510,7 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](/d
       "mention_everyone": false,
       "embeds": [],
       "attachments": [],
-      "type": 0,
+      "type": 0, // MessageType.DEFAULT
       "pinned": false,
       "author": {
         "id": "190320984123768832",

@@ -24,11 +24,11 @@ SKUs (stock-keeping units) in Discord represent premium offerings that can be ma
 ```json
 {
   "id": "1088510058284990888",
-  "type": 5,
+  "type": 5, // SKUType.SUBSCRIPTION
   "dependent_sku_id": null,
   "application_id": "788708323867885999",
   "manifest_labels": null,
-  "access_type": 1,
+  "access_type": 1, // SKUAccessType.PUBLIC
   "name": "Test Premium",
   "features": [],
   "release_date": null,
@@ -78,11 +78,11 @@ Because of how our SKU and subscription systems work, you will see two SKUs for 
 [
   {
     "id": "1088510053843210999",
-    "type": 6,
+    "type": 6, // SKUType.SUBSCRIPTION_GROUP
     "dependent_sku_id": null,
     "application_id": "788708323867885999",
     "manifest_labels": null,
-    "access_type": 1,
+    "access_type": 1, // SKUAccessType.PUBLIC
     "name": "Test Premium",
     "features": [],
     "release_date": null,
@@ -93,17 +93,17 @@ Because of how our SKU and subscription systems work, you will see two SKUs for 
   },
   {
     "id": "1088510058284990888",
-    "type": 5,
+    "type": 5, // SKUType.SUBSCRIPTION
     "dependent_sku_id": null,
     "application_id": "788708323867885999",
     "manifest_labels": null,
-    "access_type": 1,
+    "access_type": 1, // SKUAccessType.PUBLIC
     "name": "Test Premium",
     "features": [],
     "release_date": null,
     "premium": false,
     "slug": "test-premium",
-    "flags": 128,
+    "flags": 128, // SKUFlag.USER_SUBSCRIPTION | SKUFlag.GUILD_SUBSCRIPTION
     "show_age_gate": false
   }
 ]

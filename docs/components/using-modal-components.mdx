@@ -23,16 +23,16 @@ An example of a modal with a [String Select](/docs/components/reference#string-s
 
 ```json
 {
-  "type": 9,
+  "type": 9,  // InteractionCallbackType.MODAL
   "data": {
     "custom_id": "bug_modal",
     "title": "Bug Report",
     "components": [
       {
-        "type": 18,
+        "type": 18,  // ComponentType.LABEL
         "label": "What's your favorite bug?",
         "component": {
-          "type": 3,
+          "type": 3,  // ComponentType.STRING_SELECT
           "custom_id": "bug_string_select",
           "placeholder": "Choose...",
           "options": [
@@ -62,13 +62,13 @@ An example of a modal with a [String Select](/docs/components/reference#string-s
         }
       },
       {
-        "type": 18,
+        "type": 18,  // ComponentType.LABEL
         "label": "Why is it your favorite?",
         "description": "Please provide as much detail as possible!",
         "component": {
-          "type": 4,
+          "type": 4,  // ComponentType.TEXT_INPUT
           "custom_id": "bug_explanation",
-          "style": 2,
+          "style": 2,  // TextInputStyle.PARAGRAPH
           "min_length": 1000,
           "max_length": 4000,
           "placeholder": "Write your explanation here...",

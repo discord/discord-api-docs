@@ -221,10 +221,10 @@ return new JsonResponse({
     data: {
         content: "This command requires Nelly Premium! Upgrade now to get access to these features!",
         components: [{
-            type: MessageComponentTypes.ACTION_ROW,
+            type: 1, // MessageComponentTypes.ACTION_ROW
             components: [
                 {
-                    type: MessageComponentTypes.BUTTON,
+                    type: 2, // MessageComponentTypes.BUTTON
                     style: 6, // ButtonStyleTypes.PREMIUM
                     sku_id: '1234965026943668316',
                 },

@@ -189,7 +189,7 @@ Type `19` and `20` are only available in API v8 and above. In v6, they are repre
   "content": "Supa Hot",
   "channel_id": "290926798999357250",
   "mentions": [],
-  "type": 0
+  "type": 0 // MessageType.DEFAULT
 }
 ```
 
@@ -233,16 +233,16 @@ Type `19` and `20` are only available in API v8 and above. In v6, they are repre
       "id": "278325129692446722",
       "guild_id": "278325129692446720",
       "name": "big-news",
-      "type": 5
+      "type": 5 // ChannelType.GUILD_ANNOUNCEMENT
     }
   ],
   "content": "Big news! In this <#278325129692446722> channel!",
   "channel_id": "290926798999357250",
   "mentions": [],
-  "type": 0,
-  "flags": 2,
+  "type": 0, // MessageType.DEFAULT
+  "flags": 2, // MessageFlags.IS_CROSSPOST
   "message_reference": {
-    "type": 0,
+    "type": 0, // MessageReferenceType.CROSSPOST
     "channel_id": "278325129692446722",
     "guild_id": "278325129692446720",
     "message_id": "306588351130107906"

@@ -52,7 +52,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ```json
 {
-  "type": 0,
+  "type": 0, // InviteType.GUILD
   "code": "0vCdhLbwjZZTWZLD",
   "guild": {
     "id": "165176875973476352",
@@ -70,7 +70,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
   "channel": {
     "id": "165176875973476352",
     "name": "illuminati",
-    "type": 0
+    "type": 0 // ChannelType.GUILD_TEXT
   },
   "inviter": {
     "id": "115590097100865541",
@@ -79,7 +79,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
     "discriminator": "7653",
     "public_flags": 131328
   },
-  "target_type": 1,
+  "target_type": 1, // InviteTargetType.STREAM
   "target_user": {
     "id": "165176875973476352",
     "username": "bob",

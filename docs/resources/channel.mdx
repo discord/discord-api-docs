@@ -113,7 +113,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
   "id": "41771983423143937",
   "guild_id": "41771983423143937",
   "name": "general",
-  "type": 0,
+  "type": 0, // ChannelType.GUILD_TEXT
   "position": 6,
   "permission_overwrites": [],
   "rate_limit_per_user": 2,
@@ -134,7 +134,7 @@ Bots can post or publish messages in this type of channel if they have the prope
   "id": "41771983423143937",
   "guild_id": "41771983423143937",
   "name": "important-news",
-  "type": 5,
+  "type": 5, // ChannelType.GUILD_ANNOUNCEMENT
   "position": 6,
   "permission_overwrites": [],
   "nsfw": true,
@@ -151,7 +151,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 {
   "id": "155101607195836416",
   "last_message_id": "174629835082649376",
-  "type": 2,
+  "type": 2, // ChannelType.GUILD_VOICE
   "name": "ROCKET CHEESE",
   "position": 5,
   "parent_id": null,
@@ -170,7 +170,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 ```json
 {
   "last_message_id": "3343820033257021450",
-  "type": 1,
+  "type": 1, // ChannelType.DM
   "id": "319674150115610528",
   "recipients": [
     {
@@ -204,7 +204,7 @@ Bots can post or publish messages in this type of channel if they have the prope
     }
   ],
   "last_message_id": "3343820033257021450",
-  "type": 3,
+  "type": 3,  // ChannelType.GROUP_DM
   "id": "319674150115710528",
   "owner_id": "82198810841029460"
 }
@@ -220,7 +220,7 @@ Bots can post or publish messages in this type of channel if they have the prope
   "nsfw": false,
   "position": 0,
   "guild_id": "290926798629997250",
-  "type": 4,
+  "type": 4,  // ChannelType.GUILD_CATEGORY
   "id": "399942396007890945"
 }
 ```
@@ -244,7 +244,7 @@ The [threads](/docs/topics/threads) topic has some more information.
   "parent_id": "41771983423143937",
   "owner_id": "41771983423143937",
   "name": "don't buy dota-2",
-  "type": 11,
+  "type": 11,  // ChannelType.PUBLIC_THREAD
   "last_message_id": "155117677105512449",
   "message_count": 1,
   "member_count": 5,
