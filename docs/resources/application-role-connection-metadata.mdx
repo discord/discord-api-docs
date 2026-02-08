@@ -21,6 +21,25 @@ When a user connects their account using the bot's [`role_connections_verificati
 | description                | string                                                                                                                                                                              | description of the metadata field (1-200 characters)                                             |
 | description_localizations? | dictionary with keys in [available locales](/docs/reference#locales)                                                                                                                | translations of the description                                                                  |
 
+###### Example Application Role Connection Metadata Object
+
+```json
+{
+  "type": 1,
+  "key": "level",
+  "name": "Level",
+  "name_localizations": {
+    "fr": "Niveau",
+    "tr": "Seviye"
+  },
+  "description": "User level",
+  "description_localizations": {
+    "fr": "Niveau de l'utilisateur",
+    "tr": "Kullanıcının seviyesi"
+  }
+}
+```
+
 ###### Application Role Connection Metadata Type
 
 | Type                           | Value | Description                                                                                                                            |
