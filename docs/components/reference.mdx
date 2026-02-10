@@ -2199,12 +2199,12 @@ A Radio Group is an interactive component for selecting exactly one option from 
 
 ###### Radio Group Interaction Response Structure
 
-| Field     | Type    | Description                                                                                            |
-|-----------|---------|--------------------------------------------------------------------------------------------------------|
-| type      | integer | `21` for a Radio Group                                                                                 |
-| id        | integer | Unique identifier for the component                                                                    |
-| custom_id | string  | Developer-defined identifier for the input; 1-100 characters                                           |
-| value     | ?string | The value of the selected option, or `null` if no option is selected (only possible when not required) |
+| Field     | Type    | Description                                                          |
+|-----------|---------|----------------------------------------------------------------------|
+| type      | integer | `21` for a Radio Group                                               |
+| id        | integer | Unique identifier for the component                                  |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters         |
+| value     | ?string | The value of the selected option, or `null` if no option is selected |
 
 ###### Examples
 
@@ -2297,12 +2297,12 @@ A Checkbox Group is an interactive component for selecting one or many options v
 
 ###### Checkbox Group Interaction Response Structure
 
-| Field     | Type             | Description                                                                                                                                              |
-|-----------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type      | integer          | `22` for a Checkbox Group                                                                                                                                |
-| id        | integer          | Unique identifier for the component                                                                                                                      |
-| custom_id | string           | Developer-defined identifier for the input; 1-100 characters                                                                                             |
-| values    | array of strings | The values of the selected options, or an empty array `[]` if no options are selected (only possible when `min_values` is `0` and `required` is `false`) |
+| Field     | Type             | Description                                                                           |
+|-----------|------------------|---------------------------------------------------------------------------------------|
+| type      | integer          | `22` for a Checkbox Group                                                             |
+| id        | integer          | Unique identifier for the component                                                   |
+| custom_id | string           | Developer-defined identifier for the input; 1-100 characters                          |
+| values    | array of strings | The values of the selected options, or an empty array `[]` if no options are selected |
 
 ###### Examples
 
