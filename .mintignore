@@ -1,0 +1,11 @@
+# Exclude directories
+resources/
+tools/
+
+# Exclude specific files
+LICENSE
+LICENSE-CODE
+CODE_OF_CONDUCT.md
+
+# Include developers/resource
+!developers/resources/
