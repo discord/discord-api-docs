@@ -56,9 +56,9 @@ The following is a complete table of available components. Details about each co
 | 17   | [Container](/docs/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
 | 18   | [Label](/docs/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
 | 19   | [File Upload](/docs/components/reference#file-upload)               | Component for uploading files                                  | Interactive | Modal          |
-| 21   | [Radio Group](/docs/components/reference#radio-group)               | Single-choice set of radio options                             | Interactive | Modal          |
-| 22   | [Checkbox Group](/docs/components/reference#checkbox-group)         | Multi-select group of checkboxes                               | Interactive | Modal          |
-| 23   | [Checkbox](/docs/components/reference#checkbox)                     | Single checkbox for binary choice                              | Interactive | Modal          |
+| 21   | [Radio Group](/docs/components/reference#radio-group)               | Single-choice set of options                                   | Interactive | Modal          |
+| 22   | [Checkbox Group](/docs/components/reference#checkbox-group)         | Multi-selectable group of checkboxes                           | Interactive | Modal          |
+| 23   | [Checkbox](/docs/components/reference#checkbox)                     | Single checkbox for yes/no choice                              | Interactive | Modal          |
 
 --------------
 ## Anatomy of a Component
@@ -2026,9 +2026,9 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/docs/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
 | [Channel Select](/docs/components/reference#channel-select-channel-select-interaction-response-structure)             |
 | [File Upload](/docs/components/reference#file-upload-file-upload-interaction-response-structure)                      |
-| [Radio Group](/docs/components/reference#radio-group-interaction-response-structure)                                  |
-| [Checkbox Group](/docs/components/reference#checkbox-group-interaction-response-structure)                            |
-| [Checkbox](/docs/components/reference#checkbox-interaction-response-structure)                                        |
+| [Radio Group](/docs/components/reference#radio-group-radio-group-interaction-response-structure)                      |
+| [Checkbox Group](/docs/components/reference#checkbox-group-checkbox-group-interaction-response-structure)             |
+| [Checkbox](/docs/components/reference#checkbox-checkbox-interaction-response-structure)                               |
 
 ###### Examples
 
@@ -2180,59 +2180,61 @@ A Radio Group is an interactive component for selecting exactly one option from 
 
 ###### Radio Group Structure
 
-| Field       | Type                                                                                    | Description                                                              |
-|-------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| type        | integer                                                                                 | `21` for radio group                                                     |
-| id?         | integer                                                                                 | Optional identifier for component                                        |
-| custom_id   | string                                                                                  | Developer-defined identifier for the input; 1-100 characters             |
-| options     | array of [radio group options](/docs/components/reference#radio-group-option-structure) | List of options to render; min 2, max 10                                 |
-| required?   | boolean                                                                                 | Whether a selection is required to submit the modal (defaults to `true`) |
+| Field     | Type                                                                                                | Description                                                              |
+|-----------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| type      | integer                                                                                             | `21` for radio group                                                     |
+| id?       | integer                                                                                             | Optional identifier for component                                        |
+| custom_id | string                                                                                              | Developer-defined identifier for the input; 1-100 characters             |
+| options   | array of [radio group options](/docs/components/reference#radio-group-radio-group-option-structure) | List of options to show; min 2, max 10                                   |
+| required? | boolean                                                                                             | Whether a selection is required to submit the modal (defaults to `true`) |
 
 ###### Radio Group Option Structure
 
-| Field        | Type   | Description                                             |
-|--------------|--------|---------------------------------------------------------|
-| value        | string | Dev-defined value of the option; max 100 characters     |
-| label        | string | User-facing label of the option; max 100 characters     |
-| description? | string | Optional description for the option; max 100 characters |
-| default?     | boolean| Shows the option as selected by default                 |
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
 
 ###### Radio Group Interaction Response Structure
 
-| Field     | Type    | Description                                                  |
-|-----------|---------|--------------------------------------------------------------|
-| type      | integer | `21` for a Radio Group                                       |
-| id        | integer | Unique identifier for the component                          |
-| custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
-| value     | string  | The value of the selected option                             |
+| Field     | Type    | Description                                                                                            |
+|-----------|---------|--------------------------------------------------------------------------------------------------------|
+| type      | integer | `21` for a Radio Group                                                                                 |
+| id        | integer | Unique identifier for the component                                                                    |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters                                           |
+| value     | ?string | The value of the selected option, or `null` if no option is selected (only possible when not required) |
 
 ###### Examples
 
 <Collapsible title="Modal Example" description="Modal create payload with a Radio Group component" icon="code">
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Radio Group](images/components/radio-group-modal-example.webp)
+  <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
+    ![Example of a modal with a Radio Group](images/components/modal-radio-group.webp)
   </Collapsible>
 
   ```json
   {
     "type": 9,
     "data": {
-      "custom_id": "release_feedback_modal",
-      "title": "Release Feedback",
+      "custom_id": "class_selection_modal",
+      "title": "Class Selection",
       "components": [
         {
           "type": 18, // ComponentType.LABEL
-          "label": "How satisfied are you?",
+          "label": "Choose your class",
+          "description": "Your class detertmines the style of play for your character.",
           "component": {
             "type": 21, // ComponentType.RADIO_GROUP
-            "custom_id": "satisfaction",
+            "custom_id": "class_radio",
             "options": [
-              {"label": "Great", "value": "great", "default": true},
-              {"label": "Okay", "value": "okay"},
-              {"label": "Needs work", "value": "needs_work"}
-            ],
-            "required": true
+              {"value": "warrior", "label": "Warrior", "description": "Strong and brave"},
+              {"value": "rogue", "label": "Rogue", "description": "Weak and squishy"},
+              {"value": "wizard", "label": "Wizard", "description": "Nerd"},
+              {"value": "bard", "label": "Bard", "description": "Annoys everyone"},
+              {"value": "witch_doctor", "label": "Witch Doctor", "description": "Actually a pretty cool option"}
+            ]
           }
         }
       ]
@@ -2245,16 +2247,20 @@ A Radio Group is an interactive component for selecting exactly one option from 
 
   ```json
   {
-    "type": 5,
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
     "data": {
-      "custom_id": "release_feedback_modal",
+      "custom_id": "class_selection_modal",
       "components": [
         {
+          "id": 1,
           "type": 18, // ComponentType.LABEL
           "component": {
+            "custom_id": "class_radio",
+            "id": 2,
             "type": 21, // ComponentType.RADIO_GROUP
-            "custom_id": "satisfaction",
-            "value": "great"
+            "value": "warrior"
           }
         }
       ]
@@ -2270,63 +2276,63 @@ A Checkbox Group is an interactive component for selecting one or many options v
 
 ###### Checkbox Group Structure
 
-| Field       | Type                                                                                          | Description                                                                                   |
-|-------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| type        | integer                                                                                       | `22` for checkbox group                                                                       |
-| id?         | integer                                                                                       | Optional identifier for component                                                             |
-| custom_id   | string                                                                                        | Developer-defined identifier for the input; 1-100 characters                                  |
-| options     | array of [checkbox group options](/docs/components/reference#checkbox-group-option-structure) | List of options to render; min 1, max 10                                                      |
-| min_values? | integer                                                                                       | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1)                    |
-| max_values? | integer                                                                                       | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options) |
-| required?   | boolean                                                                                       | Whether selecting within the group is required (defaults to `true`)                           |
+| Field       | Type                                                                                                         | Description                                                                                                       |
+|-------------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| type        | integer                                                                                                      | `22` for checkbox group                                                                                           |
+| id?         | integer                                                                                                      | Optional identifier for component                                                                                 |
+| custom_id   | string                                                                                                       | Developer-defined identifier for the input; 1-100 characters                                                      |
+| options     | array of [checkbox group options](/docs/components/reference#checkbox-group-checkbox-group-option-structure) | List of options to show; min 1, max 10                                                                            |
+| min_values? | integer                                                                                                      | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1) if set to 0 `required` must be `false` |
+| max_values? | integer                                                                                                      | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                     |
+| required?   | boolean                                                                                                      | Whether selecting within the group is required (defaults to `true`)                                               |
 
 ###### Checkbox Group Option Structure
 
-| Field        | Type   | Description                                             |
-|--------------|--------|---------------------------------------------------------|
-| value        | string | Dev-defined value of the option; max 100 characters     |
-| label        | string | User-facing label of the option; max 100 characters     |
-| description? | string | Optional description for the option; max 100 characters |
-| default?     | boolean| Shows the option as selected by default                 |
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
 
 ###### Checkbox Group Interaction Response Structure
 
-| Field     | Type             | Description                                                  |
-|-----------|------------------|--------------------------------------------------------------|
-| type      | integer          | `22` for a Checkbox Group                                    |
-| id        | integer          | Unique identifier for the component                          |
-| custom_id | string           | Developer-defined identifier for the input; 1-100 characters |
-| values    | array of strings | The values of the selected options                           |
+| Field     | Type              | Description                                                                                                                                              |
+|-----------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type      | integer           | `22` for a Checkbox Group                                                                                                                                |
+| id        | integer           | Unique identifier for the component                                                                                                                      |
+| custom_id | string            | Developer-defined identifier for the input; 1-100 characters                                                                                             |
+| values    | ?array of strings | The values of the selected options, or an empty array `[]` if no options are selected (only possible when `min_values` is `0` and `required` is `false`) |
 
 ###### Examples
 
 <Collapsible title="Modal Example" description="Modal create payload with a Checkbox Group component" icon="code">
 
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Checkbox Group](images/components/checkbox-group-modal-example.webp)
+    ![Example of a modal with a Checkbox Group](images/components/modal-checkbox-group.webp)
   </Collapsible>
 
   ```json
   {
     "type": 9,
     "data": {
-      "custom_id": "improvements_modal",
-      "title": "Improvement Areas",
+      "custom_id": "day_selection_modal",
+      "title": "Study Days",
       "components": [
         {
           "type": 18, // ComponentType.LABEL
-          "label": "Which areas should we improve?",
+          "label": "Which days are you free?",
+          "description": "Choose all of the days you're able to meet up.",
           "component": {
             "type": 22, // ComponentType.CHECKBOX_GROUP
-            "custom_id": "improvements",
+            "custom_id": "event_checkbox",
             "options": [
-              {"label": "Performance", "value": "perf"},
-              {"label": "UI", "value": "ui"},
-              {"label": "Docs", "value": "docs", "default": true}
-            ],
-            "min_values": 1,
-            "max_values": 3,
-            "required": true
+              {"value": "march-4", "label": "March 4th"},
+              {"value": "march-5", "label": "March 5th"},
+              {"value": "march-7", "label": "March 7th", "description": "I know this is a Saturday and is tough"},
+              {"value": "march-9", "label": "March 9th"},
+              {"value": "march-10", "label": "March 10th"}
+            ]
           }
         }
       ]
@@ -2339,16 +2345,24 @@ A Checkbox Group is an interactive component for selecting one or many options v
 
   ```json
   {
-    "type": 5,
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
     "data": {
-      "custom_id": "beta_preferences_modal",
+      "custom_id": "day_selection_modal",
       "components": [
         {
+          "id": 1,
           "type": 18, // ComponentType.LABEL
           "component": {
+            "custom_id": "event_checkbox",
+            "id": 2,
             "type": 22, // ComponentType.CHECKBOX_GROUP
-            "custom_id": "improvements",
-            "values": ["perf", "docs"]
+            "values": [
+              "march-5",
+              "march-10",
+              "march-4"
+            ]
           }
         }
       ]
@@ -2373,35 +2387,35 @@ A Checkbox is a single interactive component for simple yes/no style questions. 
 
 ###### Checkbox Interaction Response Structure
 
-| Field     | Type    | Description                                                  |
-|-----------|---------|--------------------------------------------------------------|
-| type      | integer | `23` for a Checkbox                                          |
-| id        | integer | Unique identifier for the component                          |
-| custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
-| value     | boolean | The state of the checkbox                                    |
+| Field     | Type    | Description                                                         |
+|-----------|---------|---------------------------------------------------------------------|
+| type      | integer | `23` for a Checkbox                                                 |
+| id        | integer | Unique identifier for the component                                 |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters        |
+| value     | boolean | The state of the checkbox (`true` if checked, `false` if unchecked) |
 
 ###### Examples
 
 <Collapsible title="Modal Example" description="Modal create payload with a Checkbox component" icon="code">
 
   <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Checkbox](images/components/checkbox-modal-example.webp)
+    ![Example of a modal with a Checkbox](images/components/modal-checkbox.webp)
   </Collapsible>
 
   ```json
   {
     "type": 9,
     "data": {
-      "custom_id": "newsletter_modal",
-      "title": "Newsletter",
+      "custom_id": "secret_note_modal",
+      "title": "Secret Note",
       "components": [
         {
           "type": 18, // ComponentType.LABEL
-          "label": "Subscribe to updates?",
+          "label": "Do you like me?",
+          "description": "😳😳😳",
           "component": {
             "type": 23, // ComponentType.CHECKBOX
-            "custom_id": "subscribe",
-            "default": false
+            "custom_id": "like_checkbox"
           }
         }
       ]
@@ -2414,15 +2428,19 @@ A Checkbox is a single interactive component for simple yes/no style questions. 
 
   ```json
   {
-    "type": 5,
+    "type": 5, // InteractionType.MODAL_SUBMIT
+    ...additionalInteractionFields, // See the Interaction documentation for all fields
+
     "data": {
-      "custom_id": "newsletter_modal",
+      "custom_id": "secret_note_modal",
       "components": [
         {
+          "id": 1,
           "type": 18, // ComponentType.LABEL
           "component": {
+            "custom_id": "like_checkbox",
+            "id": 2,
             "type": 23, // ComponentType.CHECKBOX
-            "custom_id": "subscribe",
             "value": true
           }
         }
