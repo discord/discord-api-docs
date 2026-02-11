@@ -1,0 +1,10 @@
+
+.MDXManualAnchor {
+    display: inline;
+    width: 100px;
+    height: 10px;
+    background-color: red;
+    position: relative;
+    top: -120px;
+    visibility: hidden;
+}
