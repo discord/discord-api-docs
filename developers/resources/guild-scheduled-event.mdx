@@ -263,10 +263,10 @@ by_month_day = [24]
 <ManualAnchor id="guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule--nweekday-structure" />
 ###### Guild Scheduled Event Recurrence Rule - N_Weekday Structure
 
-| Field | Type | Description                   |
-|-------|------|-------------------------------|
-| n     | int  | The week to reoccur on. 1 - 5 |
-| day          | [recurrence rule - weekday](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-weekday) | The day within the week to reoccur on |                                                                                                                                                                                | guild member data for this user for the guild which this event belongs to, if any |
+| Field | Type                                                                                                                                                                | Description                           |
+|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+| n     | integer                                                                                                                                                             | The week to reoccur on. 1 - 5         |
+| day   | [recurrence rule - weekday](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule-weekday) | The day within the week to reoccur on |
 
 <ManualAnchor id="guild-scheduled-event-recurrence-rule-object-guild-scheduled-event-recurrence-rule--month" />
 ###### Guild Scheduled Event Recurrence Rule - Month
@@ -287,17 +287,18 @@ by_month_day = [24]
 | DECEMBER  | 12    |
 
 ### Guild Scheduled Event Exception Object
-A guild scheduled event exception represents a skipped or rescheduled recurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object). In the client, scheduled event exceptions are commonly known as "canceled events" or "re-scheduled events".
+A guild scheduled event exception represents a skipped or rescheduled recurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object). In the client, scheduled event exceptions are commonly highlighted as events that have had specific recurrences canceled.
 
+<ManualAnchor id="guild-scheduled-event-exception-object-guild-scheduled-event-exception-structure" />
 ###### Guild Scheduled Event Exception Structure
 
-| Field                | Type                                                         | Description                                                                                |
-|----------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| event_id             | snowflake                                                    | the id of the scheduled event the exception belongs to                                     |
-| event_exception_id * | snowflake                                                    | a snowflake containing the original scheduled start time of the scheduled event recurrence |
-| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-datetime) | the new time at when the scheduled event recurrence will start, if applicable              |
-| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-datetime) | the new time at when the scheduled event recurrence will end, if applicable                |
-| is_canceled          | boolean                                                      | whether or not the scheduled event will be skipped on the recurrence                       |
+| Field                | Type                                                            | Description                                                                                |
+|----------------------|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| event_id             | snowflake                                                       | the id of the scheduled event the exception belongs to                                     |
+| event_exception_id * | snowflake                                                       | a snowflake containing the original scheduled start time of the scheduled event recurrence |
+| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will start, if applicable              |
+| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will end, if applicable                |
+| is_canceled          | boolean                                                         | whether or not the scheduled event will be skipped on the recurrence                       |
 
 \* The snowflake in this field is not guranteed to be globally unique.
 
@@ -413,7 +414,6 @@ Delete a guild scheduled event. Returns a `204` on success. Fires a [Guild Sched
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
-
 ## Get Guild Scheduled Event Users
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/users</Route>
 
@@ -441,20 +441,19 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
 <Warning>
-At minimum, you must provide a value for one of `is_canceled`, `scheduled_start_time`, or `scheduled_end_time`. Otherwise, the request will fail with an [180005 JSON error code](/developers/topics/opcodes-and-status-codes.md#json-error-codes).
+At minimum, you must provide a value for one of `is_canceled`, `scheduled_start_time`, or `scheduled_end_time`. Otherwise, the request will fail with an [180005 JSON error code](/developers/topics/opcodes-and-status-codes#json).
 </Warning>
 
 ###### JSON Params
 
-| Field                         | Type                                                         | Description                                                               |
-|-------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------|
-| original_scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-datetime)  | the original time at when the scheduled event recurrence would've started |
-| scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-datetime) | the new scheduled start time for the scheduled event's recurrence         |
-| scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-datetime) | the new scheduled end time for the scheduled event's recurrence           |
-| is_canceled?                  | boolean                                                      | whether the scheduled event should be skipped on this recurrence          |
+| Field                         | Type                                                            | Description                                                               |
+|-------------------------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+| scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled start time for the scheduled event's recurrence         |
+| scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled end time for the scheduled event's recurrence           |
+| is_canceled?                  | boolean                                                         | whether the scheduled event should be skipped on this recurrence          |
 
 ## Modify Guild Scheduled Event Exception
-<Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{guild_scheduled_event_exception.event_exception_id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
+<Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
 Modify an exception for the guild scheduled event's recurrence rule. Returns the updated [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Update](/developers/events/gateway-events#guild-scheduled-event-exception-update) Gateway event.
 
@@ -468,14 +467,14 @@ All parameters to this endpoint are optional.
 
 ###### JSON Params
 
-| Field                | Type                                                         | Description                                                       |
-|----------------------|--------------------------------------------------------------|-------------------------------------------------------------------|
-| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-datetime) | the new scheduled start time for the scheduled event's recurrence |
-| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-datetime) | the new scheduled end time for the scheduled event's recurrence   |
-| is_canceled          | boolean                                                      | whether the scheduled event should be skipped on this recurrence  |
+| Field                | Type                                                            | Description                                                       |
+|----------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
+| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled start time for the scheduled event's recurrence |
+| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled end time for the scheduled event's recurrence   |
+| is_canceled          | boolean                                                         | whether the scheduled event should be skipped on this recurrence  |
 
 ## Delete Guild Scheduled Event Exception
-<Route method="DELETE">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{guild_scheduled_event_exception.event_exception_id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
+<Route method="DELETE">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
 Delete an exception for the guild scheduled event's recurrence rule. Returns a `204` on success. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
 
@@ -484,10 +483,11 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
 ## Get Guild Scheduled Event Exception Users
-<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{guild_scheduled_event_exception.event_exception_id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)/users</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)/users</Route>
 
 Get a list of guild scheduled event users subscribed to a specific guild scheduled event exception. Returns a list of [guild scheduled event user](/developers/resources/guild-scheduled-event#guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
+<ManualAnchor id="get-guild-scheduled-event-exception-users-query-string-params" />
 ###### Query String Params
 
 | Field        | Type                                                   | Description                                   | Default |
@@ -504,6 +504,7 @@ Get a list of guild scheduled event users subscribed to a specific guild schedul
 
 Get the amount of users that are currently subscribed to a guild scheduled event, and optionally the scheduled event's exceptions.
 
+<ManualAnchor id="get-guild-scheduled-event-user-count-query-string-params" />
 ###### Query String Params
 
 | Field                                | Type                | Description                                                                               |
@@ -521,11 +522,11 @@ Get the amount of users that are currently subscribed to a guild scheduled event
 
 ```json
 {
-    "guild_scheduled_event_count": 122,
-    "guild_scheduled_event_exception_counts": {
-        "1446863752396800000": 6,
-        "1449400467456000000": 7
-    }
+  "guild_scheduled_event_count": 122,
+  "guild_scheduled_event_exception_counts": {
+    "1446863752396800000": 6,
+    "1449400467456000000": 7
+  }
 }
 ```
 
