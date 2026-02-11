@@ -18,10 +18,9 @@ Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview th
 npm i -g mintlify
 ```
 
-Run the `mintlify dev` in the `discord` directory to see your changes locally.
+Run the `mintlify dev` in the root directory to see your changes locally.
 
 ```
-cd discord
 mintlify dev
 ```
 
