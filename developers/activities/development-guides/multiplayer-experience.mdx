@@ -161,7 +161,7 @@ Each proxy-authenticated request is sent with the following headers:
 
 If you choose to use proxy authentication, you can validate these headers to ensure requests are legitimate. If the signature fails validation, your app should respond with a `401` error code.
 
-<Collapsible title="Validating Proxy Headers" description="Code example for validating proxy authentication headers" icon="code">
+<Accordion title="Validating Proxy Headers" description="Code example for validating proxy authentication headers" icon="code">
 Below are some code examples that show how to validate the headers sent in proxy-authenticated requests.
 
 **JavaScript**
@@ -239,7 +239,7 @@ try:
 except BadSignatureError:
     abort(401, 'invalid request signature')
 ```
-</Collapsible>
+</Accordion>
 
 Proxy authentication is entirely optional and provided as an additional security layer for apps that choose to implement it.
 

@@ -112,11 +112,8 @@ Action Rows can contain one of the following:
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with an Action Row component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of an Action Row with three buttons](/images/components/action-row.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with an Action Row component" icon="code">
+<img src="/images/components/action-row.webp" alt="Example of an Action Row with three buttons" style={{width: "450px", height: "auto"}} />
 
   ```json
   {
@@ -148,7 +145,7 @@ Action Rows can contain one of the following:
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 --------------
 ## Button
@@ -193,7 +190,7 @@ Buttons come in various styles to convey different types of actions. These style
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Button component" icon="code">
+<Accordion title="Message Example" description="Message create payload with a Button component" icon="code">
 
   ```json
   {
@@ -213,9 +210,9 @@ Buttons come in various styles to convey different types of actions. These style
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
-<Collapsible title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
+<Accordion title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
 
   When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
   is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
@@ -232,7 +229,7 @@ Buttons come in various styles to convey different types of actions. These style
     },
   }
   ```
-</Collapsible>
+</Accordion>
 
 ### Button Design Guidelines
 
@@ -250,11 +247,11 @@ Buttons come in various styles to convey different types of actions. These style
 
 Use different button styles to create a hierarchy. Use only one `Primary` button per group.
 
-![Example showing one primary button per button group](/images/components/multiple-buttons-example-1.webp)
+<img src="/images/components/multiple-buttons-example-1.webp" alt="Example showing one primary button per button group" style={{width: "450px", height: "auto"}} />
 
 If there are multiple buttons of equal significance, use the `Secondary` button style for all buttons.
 
-![Example showing multiple buttons in a group with equal significance](/images/components/multiple-buttons-example-2.webp)
+<img src="/images/components/multiple-buttons-example-2.webp" alt="Example showing multiple buttons in a group with equal significance" style={{width: "450px", height: "auto"}} />
 
 ###### Premium Buttons
 
@@ -264,7 +261,7 @@ Premium buttons will automatically have the following:
 - SKU name
 - SKU price
 
-![A premium button](/images/components/premium-button.webp)
+<img src="/images/components/premium-button.webp" alt="A premium button" style={{width: "450px", height: "auto"}} />
 
 --------------
 ## String Select
@@ -316,151 +313,146 @@ String Selects are available in messages and modals. They must be placed inside 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
 ###### Examples
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a String Select component" icon="code">
+    <img src="/images/components/string-select.webp" alt="Example of a String Select with three options" style={{width: "auto", height: "250px"}} />
 
-<Collapsible title="Message Example" description="Message create payload with a String Select component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a String Select with three options](/images/components/string-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1, // ComponentType.ACTION_ROW,
-        "id": 1,
-        "components": [
-          {
-            "type": 3, // ComponentType.STRING_SELECT
-            "id": 2,
-            "custom_id": "favorite_bug",
-            "placeholder": "Favorite bug?",
-            "options": [
-              {
-                "label": "Ant",
-                "value": "ant",
-                "description": "(best option)",
-                "emoji": {"name": "🐜"}
-              },
-              {
-                "label": "Butterfly",
-                "value": "butterfly",
-                "emoji": {"name": "🦋"}
-              },
-              {
-                "label": "Caterpillar",
-                "value": "caterpillar",
-                "emoji": {"name": "🐛"}
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Message Interaction Data Example" description="When a user interacts with a StringSelect in a message" icon="code">
-
-  When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
-
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
-
-    "data": {
-      "component_type": 3, // ComponentType.STRING_SELECT
-      "custom_id": "favorite_bug",
-      "values": [
-        "butterfly",
-      ]
-    },
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Example" description="Modal create payload with a String Select component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a String Select](/images/components/modal-string-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9, // InteractionCallbackType.MODAL
-    "data": {
-      "custom_id": "bug_modal",
-      "title": "Bug Survey",
+    ```json
+    {
+      "flags": 32768,
       "components": [
         {
-          "type": 18, // ComponentType.LABEL
+          "type": 1, // ComponentType.ACTION_ROW,
           "id": 1,
-          "label": "Favorite bug?",
-          "component": {
-            "type": 3, // ComponentType.STRING_SELECT
-            "id": 2,
-            "custom_id": "favorite_bug",
-            "placeholder": "Ants are the best",
-            "options": [
-              {
-                "label": "Ant",
-                "value": "ant",
-                "description": "(best option)",
-                "emoji": {"name": "🐜"}
-              },
-              {
-                "label": "Butterfly",
-                "value": "butterfly",
-                "emoji": {"name": "🦋"}
-              },
-              {
-                "label": "Caterpillar",
-                "value": "caterpillar",
-                "emoji": {"name": "🐛"}
-              }
-            ]
-          }
+          "components": [
+            {
+              "type": 3, // ComponentType.STRING_SELECT
+              "id": 2,
+              "custom_id": "favorite_bug",
+              "placeholder": "Favorite bug?",
+              "options": [
+                {
+                  "label": "Ant",
+                  "value": "ant",
+                  "description": "(best option)",
+                  "emoji": {"name": "🐜"}
+                },
+                {
+                  "label": "Butterfly",
+                  "value": "butterfly",
+                  "emoji": {"name": "🦋"}
+                },
+                {
+                  "label": "Caterpillar",
+                  "value": "caterpillar",
+                  "emoji": {"name": "🐛"}
+                }
+              ]
+            }
+          ]
         }
       ]
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
 
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a String Select" icon="code">
+  <Accordion title="Message Interaction Data Example" description="When a user interacts with a StringSelect in a message" icon="code">
 
-  When a user submits a modal that contains a String Select, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    ```json
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-    "data": {
-      "custom_id": "bug_modal",
-      "components": [
-        {
-          "type": 18, // ComponentType.LABEL
-          "id": 1,
-          "component": {
-            "type": 3, // ComponentType.STRING_SELECT
-            "id": 2,
-            "custom_id": "favorite_bug",
-            "values": [
-              "butterfly",
-            ]
+      "data": {
+        "component_type": 3, // ComponentType.STRING_SELECT
+        "custom_id": "favorite_bug",
+        "values": [
+          "butterfly",
+        ]
+      },
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Example" description="Modal create payload with a String Select component" icon="code">
+    <img src="/images/components/modal-string-select.webp" alt="Example of a String Select with three options in a modal" style={{width: "auto", height: "250px"}} />
+
+    ```json
+    {
+      "type": 9, // InteractionCallbackType.MODAL
+      "data": {
+        "custom_id": "bug_modal",
+        "title": "Bug Survey",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "id": 1,
+            "label": "Favorite bug?",
+            "component": {
+              "type": 3, // ComponentType.STRING_SELECT
+              "id": 2,
+              "custom_id": "favorite_bug",
+              "placeholder": "Ants are the best",
+              "options": [
+                {
+                  "label": "Ant",
+                  "value": "ant",
+                  "description": "(best option)",
+                  "emoji": {"name": "🐜"}
+                },
+                {
+                  "label": "Butterfly",
+                  "value": "butterfly",
+                  "emoji": {"name": "🦋"}
+                },
+                {
+                  "label": "Caterpillar",
+                  "value": "caterpillar",
+                  "emoji": {"name": "🐛"}
+                }
+              ]
+            }
           }
-        }
-      ]
-    },
-  }
-  ```
-</Collapsible>
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a String Select" icon="code">
+
+    When a user submits a modal that contains a String Select, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "bug_modal",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "id": 1,
+            "component": {
+              "type": 3, // ComponentType.STRING_SELECT
+              "id": 2,
+              "custom_id": "favorite_bug",
+              "values": [
+                "butterfly",
+              ]
+            }
+          }
+        ]
+      },
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ------------
 ## Text Input
@@ -509,67 +501,66 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 
 ###### Examples
 
-<Collapsible title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
+    <img src="/images/components/modal-label.webp" alt="A modal with Text Input in a Label" style={{width: "auto", height: "300px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
-    ![A modal with Text Input in a Label](/images/components/modal-label.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9, // InteractionCallbackType.MODAL
-    "data": {
-      "custom_id": "game_feedback_modal",
-      "title": "Game Feedback",
-      "components": [
-        {
-          "type": 18,  // ComponentType.LABEL
-          "label": "What did you find interesting about the game?",
-          "description": "Please give us as much detail as possible so we can improve the game!",
-          "component": {
-            "type": 4,  // ComponentType.TEXT_INPUT
-            "custom_id": "game_feedback",
-            "style": 2,
-            "min_length": 100,
-            "max_length": 4000,
-            "placeholder": "Write your feedback here...",
-            "required": true
+    ```json
+    {
+      "type": 9, // InteractionCallbackType.MODAL
+      "data": {
+        "custom_id": "game_feedback_modal",
+        "title": "Game Feedback",
+        "components": [
+          {
+            "type": 18,  // ComponentType.LABEL
+            "label": "What did you find interesting about the game?",
+            "description": "Please give us as much detail as possible so we can improve the game!",
+            "component": {
+              "type": 4,  // ComponentType.TEXT_INPUT
+              "custom_id": "game_feedback",
+              "style": 2,
+              "min_length": 100,
+              "max_length": 4000,
+              "placeholder": "Write your feedback here...",
+              "required": true
+            }
           }
-        }
-      ]
+        ]
+      }
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
 
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a TextInput" icon="code">
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a TextInput" icon="code">
 
-  When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-    "data": {
-      "custom_id": "game_feedback_modal",
-      "components": [
-        {
-          "type": 18, // ComponentType.LABEL
-          "id": 1,
-          "component": {
-            "type": 4, // ComponentType.TEXT_INPUT
-            "id": 2,
-            "custom_id": "game_feedback",
-            "value": "The recent changes to acceleration feel much better, but shadows still need help"
+      "data": {
+        "custom_id": "game_feedback_modal",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "id": 1,
+            "component": {
+              "type": 4, // ComponentType.TEXT_INPUT
+              "id": 2,
+              "custom_id": "game_feedback",
+              "value": "The recent changes to acceleration feel much better, but shadows still need help"
+            }
           }
-        }
-      ]
-    },
-  }
-  ```
-</Collapsible>
+        ]
+      },
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 --------------
 ## User Select
@@ -620,201 +611,197 @@ User Selects are available in messages and modals. They must be placed inside an
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a User Select component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a User Select component" icon="code">
+    <img src="/images/components/user-select.webp" alt="Example of a User Select with two people and an app in a server" style={{width: "auto", height: "250px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a User Select with two people and an app in a server](/images/components/user-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1,  // ComponentType.ACTION_ROW
-        "components": [
-          {
-            "type": 5,  // ComponentType.USER_SELECT
-            "custom_id": "user_select",
-            "placeholder": "Select a user"
-          }
-        ]
-      }
-    ]
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Message Interaction Data Example" description="When a user interacts with a User Select in a message" icon="code">
-
-  When a user interacts with a User Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
-
-  <Info>
-  `members` and `users` may both be present in the `resolved` object when a user is selected.
-  </Info>
-
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
-
-    "data": {
-      "component_type": 5, // ComponentType.USER_SELECT
-      "id": 2,
-      "custom_id": "user_select",
-      "values": [
-        "1111111111111111111",
-      ],
-      "resolved": {
-        "members": {
-          "1111111111111111111": {
-            "avatar": null,
-            "banner": null,
-            "collectibles": null,
-            "communication_disabled_until": null,
-            "flags": 0,
-            "joined_at": "2025-05-16T22:51:16.692000+00:00",
-            "nick": null,
-            "pending": false,
-            "permissions": "2248473465835073",
-            "premium_since": null,
-            "roles": [
-              "2222222222222222222"
-            ],
-            "unusual_dm_activity_until": null
-          }
-        },
-        "users": {
-          "1111111111111111111": {
-            "avatar": "d54e87d20539fe9aad2f2cebe56809a2",
-            "avatar_decoration_data": null,
-            "bot": true,
-            "clan": null,
-            "collectibles": null,
-            "discriminator": "9062",
-            "display_name_styles": null,
-            "global_name": null,
-            "id": "1111111111111111111",
-            "primary_guild": null,
-            "public_flags": 524289,
-            "username": "ExampleBot"
-          }
-        }
-      }
-    },
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Example" description="Modal create payload with a User Select component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a User Select](/images/components/modal-user-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9,
-    "data": {
-      "custom_id": "user_modal",
-      "title": "User Chooser",
+    ```json
+    {
+      "flags": 32768,
       "components": [
         {
-          "type": 18, // ComponentType.LABEL
-          "label": "Choose your users",
-          "component": {
-            "type": 5, // ComponentType.USER_SELECT
-            "custom_id": "user_selected",
-            "max_values": 5,
-            "required": true
-          }
+          "type": 1,  // ComponentType.ACTION_ROW
+          "components": [
+            {
+              "type": 5,  // ComponentType.USER_SELECT
+              "custom_id": "user_select",
+              "placeholder": "Select a user"
+            }
+          ]
         }
       ]
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
 
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a User Select" icon="code">
+  <Accordion title="Message Interaction Data Example" description="When a user interacts with a User Select in a message" icon="code">
 
-  When a user submits a modal that contains a User Select, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a User Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    <Info>
+    `members` and `users` may both be present in the `resolved` object when a user is selected.
+    </Info>
 
-    "data": {
-      "custom_id": "user_modal",
-      "components": [
-        {
-          "component": {
-            "custom_id": "user_selected",
-            "id": 2,
-            "type": 5,
-            "values": [
-              "11111111111111111"
-            ]
-          },
-          "id": 1,
-          "type": 18
-        }
-      ],
-      "resolved": {
-        "members": {
-          "11111111111111111": {
-            "avatar": null,
-            "banner": null,
-            "collectibles": null,
-            "communication_disabled_until": null,
-            "flags": 0,
-            "joined_at": "2025-04-02T23:07:21.476000+00:00",
-            "nick": "Ant",
-            "pending": false,
-            "permissions": "4503599627370495",
-            "premium_since": null,
-            "roles": [
-              "1357409927680889032"
-            ],
-            "unusual_dm_activity_until": null
-          }
-        },
-        "users": {
-          "11111111111111111": {
-            "avatar": "a_b15bd8ee42e3c3d9a7de129fee60bc84",
-            "avatar_decoration_data": null,
-            "clan": null,
-            "collectibles": {
-              "nameplate": {
-                "asset": "nameplates/spell/white_mana/",
-                "expires_at": null,
-                "label": "COLLECTIBLES_SPELL_WHITE_MANA_NP_A11Y",
-                "palette": "bubble_gum",
-                "sku_id": "1379220459203072050"
-              }
-            },
-            "discriminator": "0",
-            "display_name_styles": {
-              "colors": [
-                16777215
+    ```json
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "component_type": 5, // ComponentType.USER_SELECT
+        "id": 2,
+        "custom_id": "user_select",
+        "values": [
+          "1111111111111111111",
+        ],
+        "resolved": {
+          "members": {
+            "1111111111111111111": {
+              "avatar": null,
+              "banner": null,
+              "collectibles": null,
+              "communication_disabled_until": null,
+              "flags": 0,
+              "joined_at": "2025-05-16T22:51:16.692000+00:00",
+              "nick": null,
+              "pending": false,
+              "permissions": "2248473465835073",
+              "premium_since": null,
+              "roles": [
+                "2222222222222222222"
               ],
-              "effect_id": 4,
-              "font_id": 3
+              "unusual_dm_activity_until": null
+            }
+          },
+          "users": {
+            "1111111111111111111": {
+              "avatar": "d54e87d20539fe9aad2f2cebe56809a2",
+              "avatar_decoration_data": null,
+              "bot": true,
+              "clan": null,
+              "collectibles": null,
+              "discriminator": "9062",
+              "display_name_styles": null,
+              "global_name": null,
+              "id": "1111111111111111111",
+              "primary_guild": null,
+              "public_flags": 524289,
+              "username": "ExampleBot"
+            }
+          }
+        }
+      },
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Example" description="Modal create payload with a User Select component" icon="code">
+    <img src="/images/components/modal-user-select.webp" alt="Example of a modal with a User Select" style={{width: "auto", height: "300px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "user_modal",
+        "title": "User Chooser",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Choose your users",
+            "component": {
+              "type": 5, // ComponentType.USER_SELECT
+              "custom_id": "user_selected",
+              "max_values": 5,
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a User Select" icon="code">
+
+    When a user submits a modal that contains a User Select, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "user_modal",
+        "components": [
+          {
+            "component": {
+              "custom_id": "user_selected",
+              "id": 2,
+              "type": 5,
+              "values": [
+                "11111111111111111"
+              ]
             },
-            "global_name": "Anthony",
-            "id": "11111111111111111",
-            "primary_guild": null,
-            "public_flags": 65,
-            "username": "actuallyanthony"
+            "id": 1,
+            "type": 18
+          }
+        ],
+        "resolved": {
+          "members": {
+            "11111111111111111": {
+              "avatar": null,
+              "banner": null,
+              "collectibles": null,
+              "communication_disabled_until": null,
+              "flags": 0,
+              "joined_at": "2025-04-02T23:07:21.476000+00:00",
+              "nick": "Ant",
+              "pending": false,
+              "permissions": "4503599627370495",
+              "premium_since": null,
+              "roles": [
+                "1357409927680889032"
+              ],
+              "unusual_dm_activity_until": null
+            }
+          },
+          "users": {
+            "11111111111111111": {
+              "avatar": "a_b15bd8ee42e3c3d9a7de129fee60bc84",
+              "avatar_decoration_data": null,
+              "clan": null,
+              "collectibles": {
+                "nameplate": {
+                  "asset": "nameplates/spell/white_mana/",
+                  "expires_at": null,
+                  "label": "COLLECTIBLES_SPELL_WHITE_MANA_NP_A11Y",
+                  "palette": "bubble_gum",
+                  "sku_id": "1379220459203072050"
+                }
+              },
+              "discriminator": "0",
+              "display_name_styles": {
+                "colors": [
+                  16777215
+                ],
+                "effect_id": 4,
+                "font_id": 3
+              },
+              "global_name": "Anthony",
+              "id": "11111111111111111",
+              "primary_guild": null,
+              "public_flags": 65,
+              "username": "actuallyanthony"
+            }
           }
         }
       }
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
+</AccordionGroup>
 
 --------------
 ## Role Select
@@ -858,180 +845,176 @@ Role Selects are available in messages and modals. They must be placed inside an
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Role Select component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a Role Select component" icon="code">
+    <img src="/images/components/role-select.webp" alt="Example of a Role Select allowing up to 3 choices" style={{width: "auto", height: "250px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Role Select allowing up to 3 choices](/images/components/role-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1,  // ComponentType.ACTION_ROW
-        "components": [
-          {
-            "type": 6,  // ComponentType.ROLE_SELECT
-            "custom_id": "role_ids",
-            "placeholder": "Which roles?",
-            "min_values": 1,
-            "max_values": 3
-          }
-        ]
-      }
-    ]
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Message Interaction Data Example" description="When a user interacts with a Role Select in a message" icon="code">
-
-  When a user interacts with a Role Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
-
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
-
-    "data": {
-      "component_type": 6, // ComponentType.ROLE_SELECT
-      "id": 2,
-      "custom_id": "role_ids",
-      "values": [
-        "222222222222222222",
-      ],
-      "resolved": {
-        "roles": {
-          "222222222222222222": {
-            "color": 12745742,
-            "colors": {
-              "primary_color": 12745742,
-              "secondary_color": null,
-              "tertiary_color": null
-            },
-            "description": null,
-            "flags": 0,
-            "hoist": false,
-            "icon": null,
-            "id": "222222222222222222",
-            "managed": false,
-            "mentionable": true,
-            "name": "Developer",
-            "permissions": "0",
-            "position": 2,
-            "unicode_emoji": "🔧"
-          }
-        }
-      }
-    },
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Example" description="Modal create payload with a Role Select component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Role Select](/images/components/modal-role-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9,
-    "data": {
-      "custom_id": "role_modal",
-      "title": "Role Select",
+    ```json
+    {
+      "flags": 32768,
       "components": [
         {
-          "type": 18,
-          "label": "Select which roles to assign",
-          "component": {
-            "type": 6,
-            "custom_id": "roles_selected",
-            "max_values": 10,
-            "required": true
-          }
+          "type": 1,  // ComponentType.ACTION_ROW
+          "components": [
+            {
+              "type": 6,  // ComponentType.ROLE_SELECT
+              "custom_id": "role_ids",
+              "placeholder": "Which roles?",
+              "min_values": 1,
+              "max_values": 3
+            }
+          ]
         }
       ]
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
 
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Role Select" icon="code">
+  <Accordion title="Message Interaction Data Example" description="When a user interacts with a Role Select in a message" icon="code">
 
-  When a user submits a modal that contains a Role Select, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a Role Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    ```json
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-    "data": {
-      "custom_id": "role_modal",
-      "components": [
-        {
-          "component": {
-            "custom_id": "roles_selected",
-            "id": 2,
-            "type": 6,
-            "values": [
-              "1362213912946147499",
-              "1357409927680889032"
-            ]
-          },
-          "id": 1,
-          "type": 18
+      "data": {
+        "component_type": 6, // ComponentType.ROLE_SELECT
+        "id": 2,
+        "custom_id": "role_ids",
+        "values": [
+          "222222222222222222",
+        ],
+        "resolved": {
+          "roles": {
+            "222222222222222222": {
+              "color": 12745742,
+              "colors": {
+                "primary_color": 12745742,
+                "secondary_color": null,
+                "tertiary_color": null
+              },
+              "description": null,
+              "flags": 0,
+              "hoist": false,
+              "icon": null,
+              "id": "222222222222222222",
+              "managed": false,
+              "mentionable": true,
+              "name": "Developer",
+              "permissions": "0",
+              "position": 2,
+              "unicode_emoji": "🔧"
+            }
+          }
         }
-      ],
-      "resolved": {
-        "roles": {
-          "1357409927680889032": {
-            "color": 7419530,
-            "colors": {
-              "primary_color": 7419530,
-              "secondary_color": null,
-              "tertiary_color": null
+      },
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Example" description="Modal create payload with a Role Select component" icon="code">
+    <img src="/images/components/modal-role-select.webp" alt="Example of a modal with a Role Select" style={{width: "auto", height: "300px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "role_modal",
+        "title": "Role Select",
+        "components": [
+          {
+            "type": 18,
+            "label": "Select which roles to assign",
+            "component": {
+              "type": 6,
+              "custom_id": "roles_selected",
+              "max_values": 10,
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Role Select" icon="code">
+
+    When a user submits a modal that contains a Role Select, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "role_modal",
+        "components": [
+          {
+            "component": {
+              "custom_id": "roles_selected",
+              "id": 2,
+              "type": 6,
+              "values": [
+                "1362213912946147499",
+                "1357409927680889032"
+              ]
             },
-            "description": null,
-            "flags": 0,
-            "hoist": true,
-            "icon": null,
-            "id": "1357409927680889032",
-            "managed": false,
-            "mentionable": true,
-            "name": "Player",
-            "permissions": "2249596494938111",
-            "position": 3,
-            "unicode_emoji": "🎮"
-          },
-          "1362213912946147499": {
-            "color": 11342935,
-            "colors": {
-              "primary_color": 11342935,
-              "secondary_color": null,
-              "tertiary_color": null
+            "id": 1,
+            "type": 18
+          }
+        ],
+        "resolved": {
+          "roles": {
+            "1357409927680889032": {
+              "color": 7419530,
+              "colors": {
+                "primary_color": 7419530,
+                "secondary_color": null,
+                "tertiary_color": null
+              },
+              "description": null,
+              "flags": 0,
+              "hoist": true,
+              "icon": null,
+              "id": "1357409927680889032",
+              "managed": false,
+              "mentionable": true,
+              "name": "Player",
+              "permissions": "2249596494938111",
+              "position": 3,
+              "unicode_emoji": "🎮"
             },
-            "description": null,
-            "flags": 0,
-            "hoist": false,
-            "icon": null,
-            "id": "1362213912946147499",
-            "managed": false,
-            "mentionable": false,
-            "name": "Mod",
-            "permissions": "0",
-            "position": 1,
-            "unicode_emoji": "🔨"
+            "1362213912946147499": {
+              "color": 11342935,
+              "colors": {
+                "primary_color": 11342935,
+                "secondary_color": null,
+                "tertiary_color": null
+              },
+              "description": null,
+              "flags": 0,
+              "hoist": false,
+              "icon": null,
+              "id": "1362213912946147499",
+              "managed": false,
+              "mentionable": false,
+              "name": "Mod",
+              "permissions": "0",
+              "position": 1,
+              "unicode_emoji": "🔨"
+            }
           }
         }
       }
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ---------------------
 ## Mentionable Select
@@ -1075,196 +1058,192 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
+    <img src="/images/components/mentionable-select.webp" alt="Example of a Mentionable Select from the code below" style={{width: "auto", height: "250px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Mentionable Select](/images/components/mentionable-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1,  // ComponentType.ACTION_ROW
-        "components": [
-          {
-            "type": 7, // ComponentType.MENTIONABLE_SELECT
-            "custom_id": "who_to_ping",
-            "placeholder": "Who?",
-          }
-        ]
-      }
-    ]
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Message Interaction Data Example" description="When a user interacts with a Mentionable Select in a message" icon="code">
-
-  When a user interacts with a Mentionable Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
-
-  <Info>
-  `members` and `users` may both be present in the `resolved` object when a user is selected.
-  </Info>
-
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
-
-    "data": {
-      "component_type": 7, // ComponentType.MENTIONABLE_SELECT
-      "id": 2,
-      "custom_id": "who_to_ping",
-      "values": [
-        "111111111111111111",
-        "222222222222222222",
-      ],
-      "resolved": {
-        "members": {
-          "1111111111111111111": {
-            "avatar": null,
-            "banner": null,
-            "collectibles": null,
-            "communication_disabled_until": null,
-            "flags": 0,
-            "joined_at": "2025-05-16T22:51:16.692000+00:00",
-            "nick": null,
-            "pending": false,
-            "permissions": "2248473465835073",
-            "premium_since": null,
-            "roles": [
-              "2222222222222222222"
-            ],
-            "unusual_dm_activity_until": null
-          }
-        },
-        "users": {
-          "1111111111111111111": {
-            "avatar": "d54e87d20539fe9aad2f2cebe56809a2",
-            "avatar_decoration_data": null,
-            "bot": true,
-            "clan": null,
-            "collectibles": null,
-            "discriminator": "9062",
-            "display_name_styles": null,
-            "global_name": null,
-            "id": "1111111111111111111",
-            "primary_guild": null,
-            "public_flags": 524289,
-            "username": "ExampleBot"
-          }
-        },
-        "roles": {
-          "222222222222222222": {
-            "color": 12745742,
-            "colors": {
-              "primary_color": 12745742,
-              "secondary_color": null,
-              "tertiary_color": null
-            },
-            "description": null,
-            "flags": 0,
-            "hoist": false,
-            "icon": null,
-            "id": "222222222222222222",
-            "managed": false,
-            "mentionable": true,
-            "name": "Developer",
-            "permissions": "0",
-            "position": 2,
-            "unicode_emoji": "🔧"
-          }
-        }
-      }
-    },
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Example" description="Modal create payload with a Mentionable Select component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Mentionable Select](/images/components/modal-mentionable-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9,
-    "data": {
-      "custom_id": "mentionable_modal",
-      "title": "Unmentionables",
+    ```json
+    {
+      "flags": 32768,
       "components": [
         {
-          "type": 18,
-          "label": "Who gets mentioned?",
-          "component": {
-            "type": 7,
-            "custom_id": "mentionables_selected",
-            "required": true
-          }
+          "type": 1,  // ComponentType.ACTION_ROW
+          "components": [
+            {
+              "type": 7, // ComponentType.MENTIONABLE_SELECT
+              "custom_id": "who_to_ping",
+              "placeholder": "Who?",
+            }
+          ]
         }
       ]
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
 
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Mentionable Select" icon="code">
+  <Accordion title="Message Interaction Data Example" description="When a user interacts with a Mentionable Select in a message" icon="code">
 
-  When a user submits a modal that contains a Mentionable Select, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a Mentionable Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    <Info>
+    `members` and `users` may both be present in the `resolved` object when a user is selected.
+    </Info>
 
-    "data": {
-      "custom_id": "mentionable_modal",
-      "components": [
-        {
-          "component": {
-            "custom_id": "mentionables_selected",
-            "id": 2,
-            "type": 7,
-            "values": [
-              "1361539726405926952"
-            ]
+    ```json
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "component_type": 7, // ComponentType.MENTIONABLE_SELECT
+        "id": 2,
+        "custom_id": "who_to_ping",
+        "values": [
+          "111111111111111111",
+          "222222222222222222",
+        ],
+        "resolved": {
+          "members": {
+            "1111111111111111111": {
+              "avatar": null,
+              "banner": null,
+              "collectibles": null,
+              "communication_disabled_until": null,
+              "flags": 0,
+              "joined_at": "2025-05-16T22:51:16.692000+00:00",
+              "nick": null,
+              "pending": false,
+              "permissions": "2248473465835073",
+              "premium_since": null,
+              "roles": [
+                "2222222222222222222"
+              ],
+              "unusual_dm_activity_until": null
+            }
           },
-          "id": 1,
-          "type": 18
+          "users": {
+            "1111111111111111111": {
+              "avatar": "d54e87d20539fe9aad2f2cebe56809a2",
+              "avatar_decoration_data": null,
+              "bot": true,
+              "clan": null,
+              "collectibles": null,
+              "discriminator": "9062",
+              "display_name_styles": null,
+              "global_name": null,
+              "id": "1111111111111111111",
+              "primary_guild": null,
+              "public_flags": 524289,
+              "username": "ExampleBot"
+            }
+          },
+          "roles": {
+            "222222222222222222": {
+              "color": 12745742,
+              "colors": {
+                "primary_color": 12745742,
+                "secondary_color": null,
+                "tertiary_color": null
+              },
+              "description": null,
+              "flags": 0,
+              "hoist": false,
+              "icon": null,
+              "id": "222222222222222222",
+              "managed": false,
+              "mentionable": true,
+              "name": "Developer",
+              "permissions": "0",
+              "position": 2,
+              "unicode_emoji": "🔧"
+            }
+          }
         }
-      ],
-      "resolved": {
-        "roles": {
-          "1361539726405926952": {
-            "color": 12745742,
-            "colors": {
-              "primary_color": 12745742,
-              "secondary_color": null,
-              "tertiary_color": null
+      },
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Example" description="Modal create payload with a Mentionable Select component" icon="code">
+    <img src="/images/components/modal-mentionable-select.webp" alt="Example of a Mentionable Select from the code below" style={{width: "auto", height: "300px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "mentionable_modal",
+        "title": "Unmentionables",
+        "components": [
+          {
+            "type": 18,
+            "label": "Who gets mentioned?",
+            "component": {
+              "type": 7,
+              "custom_id": "mentionables_selected",
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Mentionable Select" icon="code">
+
+    When a user submits a modal that contains a Mentionable Select, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "mentionable_modal",
+        "components": [
+          {
+            "component": {
+              "custom_id": "mentionables_selected",
+              "id": 2,
+              "type": 7,
+              "values": [
+                "1361539726405926952"
+              ]
             },
-            "description": null,
-            "flags": 0,
-            "hoist": false,
-            "icon": null,
-            "id": "1361539726405926952",
-            "managed": false,
-            "mentionable": true,
-            "name": "Developer",
-            "permissions": "0",
-            "position": 2,
-            "unicode_emoji": "🔧"
+            "id": 1,
+            "type": 18
+          }
+        ],
+        "resolved": {
+          "roles": {
+            "1361539726405926952": {
+              "color": 12745742,
+              "colors": {
+                "primary_color": 12745742,
+                "secondary_color": null,
+                "tertiary_color": null
+              },
+              "description": null,
+              "flags": 0,
+              "hoist": false,
+              "icon": null,
+              "id": "1361539726405926952",
+              "managed": false,
+              "mentionable": true,
+              "name": "Developer",
+              "permissions": "0",
+              "position": 2,
+              "unicode_emoji": "🔧"
+            }
           }
         }
       }
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
+</AccordionGroup>
 
 -----------------
 ## Channel Select
@@ -1309,148 +1288,144 @@ Channel Selects are available in messages and modals. They must be placed inside
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Channel Select component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a Channel Select component" icon="code">
+    <img src="/images/components/channel-select.webp" alt="Example of a Channel Select for text channels" style={{width: "auto", height: "250px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Channel Select for text channels](/images/components/channel-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1,  // ComponentType.ACTION_ROW
-        "components": [
-          {
-            "type": 8,  // ComponentType.CHANNEL_SELECT
-            "custom_id": "notification_channel",
-            "channel_types": [0],  // ChannelType.TEXT
-            "placeholder": "Which text channel?"
-          }
-        ]
-      }
-    ]
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Message Interaction Data Example" description="When a user interacts with a Channel Select in a message" icon="code">
-
-  When a user interacts with a Channel Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
-
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
-
-    "data": {
-      "component_type": 8, // ComponentType.CHANNEL_SELECT
-      "id": 2,
-      "custom_id": "notification_channel",
-      "values": [
-        "333333333333333333",
-      ],
-      "resolved": {
-        "channels": {
-          "333333333333333333": {
-            "flags": 0,
-            "guild_id": "44444444444444444",
-            "id": "333333333333333333",
-            "last_message_id": null,
-            "name": "playtesting",
-            "nsfw": false,
-            "parent_id": "5555555555555555",
-            "permissions": "4503599627370495",
-            "position": 1,
-            "rate_limit_per_user": 0,
-            "topic": null,
-            "type": 0  // ChannelType.TEXT
-          }
-        }
-      }
-    },
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Example" description="Modal create payload with a Channel Select component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Channel Select](/images/components/modal-channel-select.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9,
-    "data": {
-      "custom_id": "channel_modal",
-      "title": "Lockdown",
+    ```json
+    {
+      "flags": 32768,
       "components": [
         {
-          "type": 18,
-          "label": "Which channel should be locked?",
-          "component": {
-            "type": 8,
-            "custom_id": "channel_selected",
-            "required": true
-          }
+          "type": 1,  // ComponentType.ACTION_ROW
+          "components": [
+            {
+              "type": 8,  // ComponentType.CHANNEL_SELECT
+              "custom_id": "notification_channel",
+              "channel_types": [0],  // ChannelType.TEXT
+              "placeholder": "Which text channel?"
+            }
+          ]
         }
       ]
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
 
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Channel Select" icon="code">
+  <Accordion title="Message Interaction Data Example" description="When a user interacts with a Channel Select in a message" icon="code">
 
-  When a user submits a modal that contains a Channel Select, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a Channel Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    ```json
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-    "data": {
-      "custom_id": "channel_modal",
-      "components": [
-        {
-          "component": {
-            "custom_id": "channel_selected",
-            "id": 2,
-            "type": 8,
-            "values": [
-              "1357483683627663450"
-            ]
-          },
-          "id": 1,
-          "type": 18
+      "data": {
+        "component_type": 8, // ComponentType.CHANNEL_SELECT
+        "id": 2,
+        "custom_id": "notification_channel",
+        "values": [
+          "333333333333333333",
+        ],
+        "resolved": {
+          "channels": {
+            "333333333333333333": {
+              "flags": 0,
+              "guild_id": "44444444444444444",
+              "id": "333333333333333333",
+              "last_message_id": null,
+              "name": "playtesting",
+              "nsfw": false,
+              "parent_id": "5555555555555555",
+              "permissions": "4503599627370495",
+              "position": 1,
+              "rate_limit_per_user": 0,
+              "topic": null,
+              "type": 0  // ChannelType.TEXT
+            }
+          }
         }
-      ],
-      "resolved": {
-        "channels": {
-          "1357483683627663450": {
-            "flags": 0,
-            "guild_id": "1111111111111111",
-            "id": "1357483683627663450",
-            "last_message_id": null,
-            "name": "playtesting",
-            "nsfw": false,
-            "parent_id": "1357129309164404938",
-            "permissions": "4503599627370495",
-            "position": 1,
-            "rate_limit_per_user": 0,
-            "topic": null,
-            "type": 0
+      },
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Example" description="Modal create payload with a Channel Select component" icon="code">
+    <img src="/images/components/modal-channel-select.webp" alt="Example of a modal with a Channel Select" style={{width: "auto", height: "300px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "channel_modal",
+        "title": "Lockdown",
+        "components": [
+          {
+            "type": 18,
+            "label": "Which channel should be locked?",
+            "component": {
+              "type": 8,
+              "custom_id": "channel_selected",
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Channel Select" icon="code">
+
+    When a user submits a modal that contains a Channel Select, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "channel_modal",
+        "components": [
+          {
+            "component": {
+              "custom_id": "channel_selected",
+              "id": 2,
+              "type": 8,
+              "values": [
+                "1357483683627663450"
+              ]
+            },
+            "id": 1,
+            "type": 18
+          }
+        ],
+        "resolved": {
+          "channels": {
+            "1357483683627663450": {
+              "flags": 0,
+              "guild_id": "1111111111111111",
+              "id": "1357483683627663450",
+              "last_message_id": null,
+              "name": "playtesting",
+              "nsfw": false,
+              "parent_id": "1357129309164404938",
+              "permissions": "4503599627370495",
+              "position": 1,
+              "rate_limit_per_user": 0,
+              "topic": null,
+              "type": 0
+            }
           }
         }
       }
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ---------
 ## Section
@@ -1493,11 +1468,9 @@ Don't hardcode `components` to contain only text components. We may add other co
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Section showing a fake game changelog and a thumbnail](/images/components/section.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
+  <img src="/images/components/section.webp" alt="Example of a Section showing a fake game changelog and a thumbnail" style={{width: "450px", height: "auto"}} />
 
   ```json
   {
@@ -1529,7 +1502,7 @@ Don't hardcode `components` to contain only text components. We may add other co
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 ---------------
 ## Text Display
@@ -1561,68 +1534,64 @@ To use this component in messages you must send the [message flag](/developers/r
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Text Display component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a Text Display component" icon="code">
+    <img src="/images/components/text-display.webp" alt="Example of a Text Display with markdown" style={{width: "auto", height: "250px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Text Display with markdown](/images/components/text-display.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 10,  // ComponentType.TEXT_DISPLAY
-        "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
-      }
-    ]
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a Text Display](/images/components/modal-text-display.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9,
-    "data": {
-      "custom_id": "jail_modal",
-      "title": "Jail",
+    ```json
+    {
+      "flags": 32768,
       "components": [
         {
-          "type": 10,
-          "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
-        },
-        {
-          "type": 18,
-          "label": "Choose a user",
-          "component": {
-            "type": 5,
-            "custom_id": "user_selected",
-            "required": true
-          }
-        },
-        {
-          "type": 18,
-          "label": "Where should they be sent?",
-          "component": {
-            "type": 8,
-            "custom_id": "channel_selected",
-            "channel_types": [
-              2
-            ],
-            "required": true
-          }
+          "type": 10,  // ComponentType.TEXT_DISPLAY
+          "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
         }
       ]
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
+    <img src="/images/components/modal-text-display.webp" alt="Example of a Text Display from the code below" style={{width: "auto", height: "350px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "jail_modal",
+        "title": "Jail",
+        "components": [
+          {
+            "type": 10,
+            "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
+          },
+          {
+            "type": 18,
+            "label": "Choose a user",
+            "component": {
+              "type": 5,
+              "custom_id": "user_selected",
+              "required": true
+            }
+          },
+          {
+            "type": 18,
+            "label": "Where should they be sent?",
+            "component": {
+              "type": 8,
+              "custom_id": "channel_selected",
+              "channel_types": [
+                2
+              ],
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ------------
 ## Thumbnail
@@ -1651,11 +1620,8 @@ To use this component, you need to send the [message flag](/developers/resources
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Section showing a fake game changelog and a thumbnail](/images/components/section.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
+  <img src="/images/components/section.webp" alt="Example of a Thumbnail in a Section from the code below" style={{width: "450px", height: "auto"}} />
 
   ```json
   {
@@ -1687,7 +1653,7 @@ To use this component, you need to send the [message flag](/developers/resources
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 ----------------
 ## Media Gallery
@@ -1719,11 +1685,8 @@ To use this component in messages you must send the [message flag](/developers/r
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a Media Gallery showing screenshots from live webcam feeds](/images/components/media-gallery.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
+  <img src="/images/components/media-gallery.webp" alt="Example of a Media Gallery showing screenshots from live webcam feeds" style={{width: "450px", height: "auto"}} />
 
   ```json
   {
@@ -1753,7 +1716,7 @@ To use this component in messages you must send the [message flag](/developers/r
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 -------
 ## File
@@ -1785,11 +1748,8 @@ To use this component in messages you must send the [message flag](/developers/r
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a File component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a File showing a download for a game and manual](/images/components/file.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with a File component" icon="code">
+  <img src="/images/components/file.webp" alt="Example of a File showing a download for a game and manual" style={{width: "auto", height: "250px"}} />
 
   <Info>
     This example makes use of the `attachment://` protocol functionality in [unfurled media item](/developers/components/reference#unfurled-media-item).
@@ -1822,7 +1782,7 @@ To use this component in messages you must send the [message flag](/developers/r
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 ------------
 ## Separator
@@ -1845,11 +1805,8 @@ To use this component in messages you must send the [message flag](/developers/r
 | spacing? | integer | Size of separator padding—`1` for small padding, `2` for large padding. Defaults to `1` |
 
 ###### Examples
-<Collapsible title="Message Example" description="Message create payload with a Separator component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a separator with large spacing dividing content](/images/components/separator.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with a Separator component" icon="code">
+  <img src="/images/components/separator.webp" alt="Example of a separator with large spacing dividing content" style={{width: "450px", height: "auto"}} />
 
   ```json
   {
@@ -1871,7 +1828,7 @@ To use this component in messages you must send the [message flag](/developers/r
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 ------------
 ## Container
@@ -1908,11 +1865,8 @@ To use this component in messages you must send the [message flag](/developers/r
 
 ###### Examples
 
-<Collapsible title="Message Example" description="Message create payload with a Container component" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a container showing text, image, and buttons for a wild enemy encounter](/images/components/container.webp)
-  </Collapsible>
+<Accordion title="Message Example" description="Message create payload with a Container component" icon="code">
+  <img src="/images/components/container.webp" alt="Example of a container showing text, image, and buttons for a wild enemy encounter" style={{width: "auto", height: "350px"}} />
 
   ```json
   {
@@ -1966,7 +1920,7 @@ To use this component in messages you must send the [message flag](/developers/r
     ]
   }
   ```
-</Collapsible>
+</Accordion>
 
 --------
 ## Label
@@ -2021,11 +1975,8 @@ The `description` may display above or below the `component` depending on the pl
 
 ###### Examples
 
-<Collapsible title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
-
-  <Collapsible title="Rendered Example" description="Visualization of the modal created by the payload below" icon="image" nested={true}>
-    ![A modal with Text Input in a Label](/images/components/modal-label.webp)
-  </Collapsible>
+<Accordion title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
+  <img src="/images/components/modal-label.webp" alt="A modal with Text Input in a Label" style={{width: "auto", height: "250px"}} />
 
   ```json
   {
@@ -2052,7 +2003,7 @@ The `description` may display above or below the `component` depending on the pl
     }
   }
   ```
-</Collapsible>
+</Accordion>
 
 --------------
 ## File Upload
@@ -2083,84 +2034,83 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 
 ###### Examples
 
-<Collapsible title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
+    <img src="/images/components/file-upload-modal-example.webp" alt="Example of a modal with a File Upload" style={{width: "auto", height: "250px"}} />
 
-  <Collapsible title="Rendered Example" description="Visualization of the message created by the payload below" icon="image" nested={true}>
-    ![Example of a modal with a File Upload](/images/components/file-upload-modal-example.webp)
-  </Collapsible>
-
-  ```json
-  {
-    "type": 9,
-    "data": {
-      "custom_id": "bug_submit_modal",
-      "title": "Bug Submission",
-      "components": [
-        {
-          "type": 18, // ComponentType.LABEL
-          "label": "File Upload",
-          "description": "Please upload a screenshot or other image that shows the bug you encountered.",
-          "component": {
-            "type": 19, // ComponentType.FILE_UPLOAD
-            "custom_id": "file_upload",
-            "min_values": 1,
-            "max_values": 10,
-            "required": true
-          }
-        }
-      ]
-    }
-  }
-  ```
-</Collapsible>
-
-<Collapsible title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a File Upload" icon="code">
-
-  When a user submits a modal that contains a File Upload, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
-
-  ```json
-  {
-    "type": 5, // InteractionType.MODAL_SUBMIT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
-
-    "data": {
-      "components": [
-        {
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "bug_submit_modal",
+        "title": "Bug Submission",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "File Upload",
+            "description": "Please upload a screenshot or other image that shows the bug you encountered.",
             "component": {
-                "custom_id": "file_upload",
-                "id": 2,
-                "type": 19,
-                "values": [
-                    "111111111111111111111"
-                ]
-            },
-            "id": 1,
-            "type": 18
-        }
-      ],
-      "custom_id": "bug_submit_modal",
-      "resolved": {
-        "attachments": {
-          "111111111111111111111": {
-              "content_type": "image/png",
-              "ephemeral": true,
-              "filename": "bug.png",
-              "height": 604,
-              "id": "111111111111111111111",
-              "placeholder": "/PcBAoBQydvKesabEIoMsdg=",
-              "placeholder_version": 1,
-              "proxy_url": "https://media.discordapp.net/ephemeral-attachments/2222222222222222222/111111111111111111111/bug.png?ex=68dc7ce1&is=68db2b61&hm=5954f90117ccf8716ffa6c7f97a778a0d039810c9584045f400d8a9fff590768&",
-              "size": 241394,
-              "url": "https://cdn.discordapp.com/ephemeral-attachments/2222222222222222222/111111111111111111111/bug.png?ex=68dc7ce1&is=68db2b61&hm=5954f90117ccf8716ffa6c7f97a778a0d039810c9584045f400d8a9fff590768&",
-              "width": 2482
+              "type": 19, // ComponentType.FILE_UPLOAD
+              "custom_id": "file_upload",
+              "min_values": 1,
+              "max_values": 10,
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a File Upload" icon="code">
+
+    When a user submits a modal that contains a File Upload, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "components": [
+          {
+              "component": {
+                  "custom_id": "file_upload",
+                  "id": 2,
+                  "type": 19,
+                  "values": [
+                      "111111111111111111111"
+                  ]
+              },
+              "id": 1,
+              "type": 18
+          }
+        ],
+        "custom_id": "bug_submit_modal",
+        "resolved": {
+          "attachments": {
+            "111111111111111111111": {
+                "content_type": "image/png",
+                "ephemeral": true,
+                "filename": "bug.png",
+                "height": 604,
+                "id": "111111111111111111111",
+                "placeholder": "/PcBAoBQydvKesabEIoMsdg=",
+                "placeholder_version": 1,
+                "proxy_url": "https://media.discordapp.net/ephemeral-attachments/2222222222222222222/111111111111111111111/bug.png?ex=68dc7ce1&is=68db2b61&hm=5954f90117ccf8716ffa6c7f97a778a0d039810c9584045f400d8a9fff590768&",
+                "size": 241394,
+                "url": "https://cdn.discordapp.com/ephemeral-attachments/2222222222222222222/111111111111111111111/bug.png?ex=68dc7ce1&is=68db2b61&hm=5954f90117ccf8716ffa6c7f97a778a0d039810c9584045f400d8a9fff590768&",
+                "width": 2482
+            }
           }
         }
       }
     }
-  }
-  ```
-</Collapsible>
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ----------------------
 ## Unfurled Media Item
