@@ -328,7 +328,7 @@ r = requests.post(url, json=json)
 Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**. If the 3 second deadline is exceeded, the token will be invalidated.
 </Info>
 
-<Collapsible title="Inline HTTP Response Behavior" icon="code">
+<Accordion title="Inline HTTP Response Behavior" icon="code">
     If you receive interactions over HTTP, your server can also respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](/developers/interactions/receiving-and-responding#interaction-response-object) object:
 
     ```py
@@ -350,7 +350,7 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
                 }
             })
     ```
-</Collapsible>
+</Accordion>
 
 ###### Interaction Callback Response Object
 
