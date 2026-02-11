@@ -2128,13 +2128,13 @@ A Radio Group is an interactive component for selecting exactly one option from 
 
 ### Radio Group Structure
 
-| Field     | Type                                                                                                | Description                                                              |
-|-----------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| type      | integer                                                                                             | `21` for radio group                                                     |
-| id?       | integer                                                                                             | Optional identifier for component                                        |
-| custom_id | string                                                                                              | Developer-defined identifier for the input; 1-100 characters             |
-| options   | array of [radio group options](/developers/components/reference#radio-group-option-structure)       | List of options to show; min 2, max 10                                   |
-| required? | boolean                                                                                             | Whether a selection is required to submit the modal (defaults to `true`) |
+| Field     | Type                                                                                          | Description                                                              |
+|-----------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| type      | integer                                                                                       | `21` for radio group                                                     |
+| id?       | integer                                                                                       | Optional identifier for component                                        |
+| custom_id | string                                                                                        | Developer-defined identifier for the input; 1-100 characters             |
+| options   | array of [radio group options](/developers/components/reference#radio-group-option-structure) | List of options to show; min 2, max 10                                   |
+| required? | boolean                                                                                       | Whether a selection is required to submit the modal (defaults to `true`) |
 
 ### Radio Group Option Structure
 
@@ -2223,15 +2223,15 @@ A Checkbox Group is an interactive component for selecting one or many options v
 
 ### Checkbox Group Structure
 
-| Field       | Type                                                                                                         | Description                                                                                                        |
-|-------------|--------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| type        | integer                                                                                                      | `22` for checkbox group                                                                                            |
-| id?         | integer                                                                                                      | Optional identifier for component                                                                                  |
-| custom_id   | string                                                                                                       | Developer-defined identifier for the input; 1-100 characters                                                       |
-| options     | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure)          | List of options to show; min 1, max 10                                                                             |
-| min_values? | integer                                                                                                      | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1); if set to 0 `required` must be `false` |
-| max_values? | integer                                                                                                      | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                      |
-| required?   | boolean                                                                                                      | Whether selecting within the group is required (defaults to `true`)                                                |
+| Field       | Type                                                                                                | Description                                                                                                        |
+|-------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| type        | integer                                                                                             | `22` for checkbox group                                                                                            |
+| id?         | integer                                                                                             | Optional identifier for component                                                                                  |
+| custom_id   | string                                                                                              | Developer-defined identifier for the input; 1-100 characters                                                       |
+| options     | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure) | List of options to show; min 1, max 10                                                                             |
+| min_values? | integer                                                                                             | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1); if set to 0 `required` must be `false` |
+| max_values? | integer                                                                                             | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                      |
+| required?   | boolean                                                                                             | Whether selecting within the group is required (defaults to `true`)                                                |
 
 ### Checkbox Group Option Structure
 
