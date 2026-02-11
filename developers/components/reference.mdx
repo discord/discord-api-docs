@@ -54,6 +54,9 @@ The following is a complete table of available components. Details about each co
 | 17   | [Container](/developers/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
 | 18   | [Label](/developers/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
 | 19   | [File Upload](/developers/components/reference#file-upload)               | Component for uploading files                                  | Interactive | Modal          |
+| 21   | [Radio Group](/developers/components/reference#radio-group)               | Single-choice set of options                                   | Interactive | Modal          |
+| 22   | [Checkbox Group](/developers/components/reference#checkbox-group)         | Multi-selectable group of checkboxes                           | Interactive | Modal          |
+| 23   | [Checkbox](/developers/components/reference#checkbox)                     | Single checkbox for yes/no choice                              | Interactive | Modal          |
 
 --------------
 ## Anatomy of a Component
@@ -1952,6 +1955,9 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/developers/components/reference#mentionable-select) |
 | [Channel Select](/developers/components/reference#channel-select)         |
 | [File Upload](/developers/components/reference#file-upload)               |
+| [Radio Group](/developers/components/reference#radio-group)               |
+| [Checkbox Group](/developers/components/reference#checkbox-group)         |
+| [Checkbox](/developers/components/reference#checkbox)                     |
 
 ###### Label Interaction Response Structure
 
@@ -1972,6 +1978,9 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/developers/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
 | [Channel Select](/developers/components/reference#channel-select-channel-select-interaction-response-structure)             |
 | [File Upload](/developers/components/reference#file-upload-file-upload-interaction-response-structure)                      |
+| [Radio Group](/developers/components/reference#radio-group-interaction-response-structure)                                  |
+| [Checkbox Group](/developers/components/reference#checkbox-group-interaction-response-structure)                            |
+| [Checkbox](/developers/components/reference#checkbox-interaction-response-structure)                                        |
 
 ###### Examples
 
@@ -2106,6 +2115,280 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
             }
           }
         }
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Radio Group
+
+A Radio Group is an interactive component for selecting exactly one option from a defined list. Radio Groups are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Radio Group Structure
+
+| Field     | Type                                                                                                | Description                                                              |
+|-----------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| type      | integer                                                                                             | `21` for radio group                                                     |
+| id?       | integer                                                                                             | Optional identifier for component                                        |
+| custom_id | string                                                                                              | Developer-defined identifier for the input; 1-100 characters             |
+| options   | array of [radio group options](/developers/components/reference#radio-group-option-structure)       | List of options to show; min 2, max 10                                   |
+| required? | boolean                                                                                             | Whether a selection is required to submit the modal (defaults to `true`) |
+
+### Radio Group Option Structure
+
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
+
+### Radio Group Interaction Response Structure
+
+| Field     | Type    | Description                                                          |
+|-----------|---------|----------------------------------------------------------------------|
+| type      | integer | `21` for a Radio Group                                               |
+| id        | integer | Unique identifier for the component                                  |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters         |
+| value     | ?string | The value of the selected option, or `null` if no option is selected |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Radio Group component" icon="code">
+    <img src="/images/components/modal-radio-group.webp" alt="Example of a modal with a Radio Group" style={{width: "auto", height: "350px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "class_selection_modal",
+        "title": "Class Selection",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Choose your class",
+            "description": "Your class detertmines the style of play for your character.",
+            "component": {
+              "type": 21, // ComponentType.RADIO_GROUP
+              "custom_id": "class_radio",
+              "options": [
+                {"value": "warrior", "label": "Warrior", "description": "Strong and brave"},
+                {"value": "rogue", "label": "Rogue", "description": "Weak and squishy"},
+                {"value": "wizard", "label": "Wizard", "description": "Nerd"},
+                {"value": "bard", "label": "Bard", "description": "Annoys everyone"},
+                {"value": "witch_doctor", "label": "Witch Doctor", "description": "Actually a pretty cool option"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Radio Group" icon="code">
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "class_selection_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "class_radio",
+              "id": 2,
+              "type": 21, // ComponentType.RADIO_GROUP
+              "value": "warrior"
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Checkbox Group
+
+A Checkbox Group is an interactive component for selecting one or many options via checkboxes. Checkbox Groups are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Checkbox Group Structure
+
+| Field       | Type                                                                                                         | Description                                                                                                        |
+|-------------|--------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| type        | integer                                                                                                      | `22` for checkbox group                                                                                            |
+| id?         | integer                                                                                                      | Optional identifier for component                                                                                  |
+| custom_id   | string                                                                                                       | Developer-defined identifier for the input; 1-100 characters                                                       |
+| options     | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure)          | List of options to show; min 1, max 10                                                                             |
+| min_values? | integer                                                                                                      | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1); if set to 0 `required` must be `false` |
+| max_values? | integer                                                                                                      | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                      |
+| required?   | boolean                                                                                                      | Whether selecting within the group is required (defaults to `true`)                                                |
+
+### Checkbox Group Option Structure
+
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
+
+### Checkbox Group Interaction Response Structure
+
+| Field     | Type             | Description                                                                           |
+|-----------|------------------|---------------------------------------------------------------------------------------|
+| type      | integer          | `22` for a Checkbox Group                                                             |
+| id        | integer          | Unique identifier for the component                                                   |
+| custom_id | string           | Developer-defined identifier for the input; 1-100 characters                          |
+| values    | array of strings | The values of the selected options, or an empty array `[]` if no options are selected |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Checkbox Group component" icon="code">
+    <img src="/images/components/modal-checkbox-group.webp" alt="Example of a modal with a Checkbox Group" style={{width: "auto", height: "350px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "day_selection_modal",
+        "title": "Study Days",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Which days are you free?",
+            "description": "Choose all of the days you're able to meet up.",
+            "component": {
+              "type": 22, // ComponentType.CHECKBOX_GROUP
+              "custom_id": "event_checkbox",
+              "options": [
+                {"value": "march-4", "label": "March 4th"},
+                {"value": "march-5", "label": "March 5th"},
+                {"value": "march-7", "label": "March 7th", "description": "I know this is a Saturday and is tough"},
+                {"value": "march-9", "label": "March 9th"},
+                {"value": "march-10", "label": "March 10th"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Checkbox Group" icon="code">
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "day_selection_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "event_checkbox",
+              "id": 2,
+              "type": 22, // ComponentType.CHECKBOX_GROUP
+              "values": [
+                "march-5",
+                "march-10",
+                "march-4"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Checkbox
+
+A Checkbox is a single interactive component for simple yes/no style questions. Checkboxes are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Checkbox Structure
+
+| Field     | Type    | Description                                                  |
+|-----------|---------|--------------------------------------------------------------|
+| type      | integer | `23` for checkbox                                            |
+| id?       | integer | Optional identifier for component                            |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
+| default?  | boolean | Whether the checkbox is selected by default                  |
+
+### Checkbox Interaction Response Structure
+
+| Field     | Type    | Description                                                         |
+|-----------|---------|---------------------------------------------------------------------|
+| type      | integer | `23` for a Checkbox                                                 |
+| id        | integer | Unique identifier for the component                                 |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters        |
+| value     | boolean | The state of the checkbox (`true` if checked, `false` if unchecked) |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Checkbox component" icon="code">
+    <img src="/images/components/modal-checkbox.webp" alt="Example of a modal with a Checkbox" style={{width: "auto", height: "250px"}} />
+
+    ```json
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "secret_note_modal",
+        "title": "Secret Note",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Do you like me?",
+            "description": "😳😳😳",
+            "component": {
+              "type": 23, // ComponentType.CHECKBOX
+              "custom_id": "like_checkbox"
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Checkbox" icon="code">
+
+    ```json
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "secret_note_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "like_checkbox",
+              "id": 2,
+              "type": 23, // ComponentType.CHECKBOX
+              "value": true
+            }
+          }
+        ]
       }
     }
     ```
