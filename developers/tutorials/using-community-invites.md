@@ -34,7 +34,7 @@ When using the API, the `role_ids` parameter lets you specify one or more Discor
 - Give roles that have permissions to access channels
 
 <Info>
-Once a user accepts an invite and receives the roles, those roles remain even after the invite expires or is deleted. You'll need to remove roles manually (via your bot or Discord's interface).
+Once a user accepts an invite and receives the roles, those roles remain even after the invite expires or is deleted. You'll need to remove roles manually (via a bot or Discord's interface).
 </Info>
 
 ### Targeted Invites
