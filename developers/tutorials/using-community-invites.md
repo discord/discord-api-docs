@@ -108,7 +108,7 @@ The rest of this tutorial focuses on API integration for developers who want to 
 
 ## Role Granting Invite Example: Auto-Assigning Player Roles
 
-In this example we’ll show you how to grant roles as part of an invite using the API. We’ll take a look at what a game developer could do to connect their game back to their community. When players join your Discord server from your game, you can give them a **Player** role for access to game specific channels. Here's how to create an invite that does this automatically:
+In this example we’ll show you how to grant roles as part of an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer could do to connect their game back to their community. When players join your Discord server from your game, you can give them a **Player** role for access to game specific channels. Here's how to create an invite that does this automatically:
 
 ```jsx
 // IMPORTANT: Never hardcode tokens or commit them to version control
@@ -186,7 +186,7 @@ Your bot needs the `CREATE_INSTANT_INVITE` permission to create invites, and the
 
 ## Target Users Example: Creating Targeted Supporter Invites
 
-In this example we’ll show you how to only allow specific users to accept an invite using the API. We’ll take a look at what a game developer or streamer could do to grant special roles and channels in their community for supporter. If you run a subscription service for your game or community, you can create exclusive invites that only your paying supporter can accept. Those roles can grant access to channels that other users in the server can’t see. Here’s how to create an invite that grants a role to specific users:
+In this example we’ll show you how to only allow specific users to accept an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer or streamer could do to grant special roles and channels in their community for supporter. If you run a subscription service for your game or community, you can create exclusive invites that only your paying supporter can accept. Those roles can grant access to channels that other users in the server can’t see. Here’s how to create an invite that grants a role to specific users:
 
 ```jsx
 // IMPORTANT: Never hardcode tokens or commit them to version control
