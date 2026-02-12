@@ -152,10 +152,6 @@ console.log(`Created invite: https://discord.gg/${invite.code}`);
 1. **`role_ids` array**: Contains the Discord role IDs to assign when the invite is accepted (we’re only assigning one in this example, but you can assign any number of roles using this array)
 2. **Response**: Returns an invite object with a `code` you can share
 
-### Permission Requirements
-
-Your bot needs the `CREATE_INSTANT_INVITE` permission to create invites, and the `MANAGE_ROLES` permission to assign roles via invites. Additionally, your bot can only assign roles that are lower than its highest role in the role hierarchy.
-
 ### Testing It Out
 
 <Steps>
@@ -278,10 +274,6 @@ console.log(`Share this link with supporters: https://discord.gg/${invite.code}`
 <Info>
 When using only JSON parameters like `role_ids`, use `Content-Type: application/json`. When uploading `target_users_file`, you must use `multipart/form-data`.
 </Info>
-
-### Permission Requirements
-
-Your bot needs the `CREATE_INSTANT_INVITE` permission to create invites, and the `MANAGE_ROLES` permission to assign roles via invites. It also needs the `MANAGE_GUILD` permission to use targeted invites (`target_users_file`). Additionally, your bot can only assign roles that are lower than its highest role in the role hierarchy.
 
 ### Setting Up the Supporter Role
 
