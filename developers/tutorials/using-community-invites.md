@@ -3,9 +3,9 @@ title: Using Community Invites
 sidebarTitle: Using Community Invites
 ---
 
-Community Invites make it easy to bring players into your Discord server with automatic role assignment and targeted user invites. Whether you're a community manager building a server around your game, a streamer building your following in Discord, or a server admin, community invites let you choose who can accept an invite and what roles it will give them when they accept the invite.
+Community Invites make it easy to bring players into your Discord server with automatic role assignment and targeted user invites. Whether you're a community manager building a server around your game, a streamer building your following in Discord, or a server admin, community invites let you choose who can accept an invite and what roles it will give them.
 
-With community invites, you can automatically assign Discord roles when players accept an invite like giving a role to your supporters, beta testers, or players. You can also restrict who can use an invite by uploading a list of specific Discord user IDs, perfect for any scenario where you need controlled access to an invite. By giving roles with specific permissions, you can create invites that give players access to the right channels and features based on their in-game status.
+With community invites, you can automatically assign Discord roles like giving a role to your supporters, beta testers, or players when users accept an invite. You can also restrict who can use an invite by uploading a list of specific Discord user IDs, perfect for any scenario where you need controlled access to an invite. By giving roles with specific permissions, you can create invites that give players access to the right channels and features based on their in-game status.
 
 This tutorial will walk you through using community invites both through the UI in Discord and programmatically in your bot or app. By the end, you'll know how to:
 
@@ -30,8 +30,8 @@ When using the API, the `role_ids` parameter lets you specify one or more Discor
 **Example use cases:**
 
 - Giving roles to supporters
-- Give roles related to characters or achievements from your game
-- Give roles that have permissions to access channels
+- Giving roles related to characters or achievements from your game
+- Giving roles that have permissions to access channels
 
 <Info>
 Once a user accepts an invite and receives the roles, those roles remain even after the invite expires or is deleted. You'll need to remove roles manually (via a bot or Discord's interface).
@@ -39,15 +39,15 @@ Once a user accepts an invite and receives the roles, those roles remain even af
 
 ### Targeted Invites
 
-Setting target users that are allowed to accept an invite can only be done through the Discord API. The `target_users_file` parameter accepts a CSV file containing Discord user IDs. Only users in that list can see and accept the invite.
+Setting which users that are allowed to accept an invite can only be done through the Discord API. The `target_users_file` parameter accepts a CSV file containing Discord user IDs. Only users in that list can see and accept the invite.
 
 **Example use cases:**
 
-- Preventing invite sharing for exclusive achievements (for example: create a unique invite for a player with a 100% completion role)
+- Preventing invite sharing for exclusive achievements (for example, create a unique invite for a player with a 100% completion role)
 - When combined with roles to give out mod/admin privileges
 - Combined with roles to give special roles/channel access to paying supporters
 
-These features both work with all standard invite parameters like `max_age`, `max_uses`, and more.
+These features work with all standard invite parameters like `max_age`, `max_uses`, and more.
 
 ---
 
@@ -94,7 +94,7 @@ The rest of this tutorial focuses on API integration for developers who want to 
 
 ## Role Granting Invite Example: Auto-Assigning Player Roles
 
-In this example we’ll show you how to grant roles as part of an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer could do to connect their game back to their community. 
+In this example, we’ll show you how to grant roles as part of an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer could do to connect their game back to their Discord server. 
 
 ### Prerequisites
 
@@ -110,9 +110,9 @@ Before you begin, make sure you have:
 
 ### Coding the Invite
 
-When players join your Discord server from your game, you can give them a **Player** role for access to game specific channels. Here's how to create an invite that does this automatically:
+When players join your Discord server from your game, you can give them a **Player** role for access to game-specific channels. Here's how to create an invite that does this automatically:
 
-```jsx
+```javascript
 // IMPORTANT: Never hardcode tokens or commit them to version control
 // Use environment variables or a secure configuration management system
 // Replace the placeholder below with your actual bot token, channel ID, and role ID
@@ -149,7 +149,7 @@ console.log(`Created invite: https://discord.gg/${invite.code}`);
 
 ### What's Happening
 
-1. **`role_ids` array**: Contains the Discord role IDs to assign when the invite is accepted (we’re only assigning one in this example but you can assign any number of roles using this array)
+1. **`role_ids` array**: Contains the Discord role IDs to assign when the invite is accepted (we’re only assigning one in this example, but you can assign any number of roles using this array)
 2. **Response**: Returns an invite object with a `code` you can share
 
 ### Permission Requirements
@@ -188,7 +188,7 @@ Your bot needs the `CREATE_INSTANT_INVITE` permission to create invites, and the
 
 ## Target Users Example: Creating Targeted Supporter Invites
 
-In this example we’ll show you how to only allow specific users to accept an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer or streamer could do to grant special roles and channels in their community for supporter. 
+In this example, we’ll show you how to only allow specific users to accept an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer or streamer could do to grant special roles and channels in their community for supporters. 
 
 ### Prerequisites
 
@@ -205,13 +205,13 @@ Before you begin, make sure you have:
 
 ### Coding the Invite
 
-If you run a subscription service for your game or community, you can create exclusive invites that only your paying supporter can accept. Those roles can grant access to channels that other users in the server can’t see. Here’s how to create an invite that grants a role to specific users:
+If you run a subscription service for your game or community, you can create exclusive invites that only your paying supporters can accept. Those roles can grant access to channels that other users in the server can’t see. Here’s how to create an invite that grants a role to specific users:
 
-```jsx
+```javascript
 // IMPORTANT: Never hardcode tokens or commit them to version control
 // Use environment variables or a secure configuration management system
 // Replace the placeholder below with your actual bot token, channel ID, and role ID
-const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+const BOT_TOKEN = "REPLACE_WITH_YOUR_BOT_TOKEN_FROM_THE_DEV_PORTAL";
 const SUPPORTER_CHANNEL_ID = '1234567890123456789';
 const SUPPORTER_ROLE_ID = '1111222233334444555';
 
@@ -318,7 +318,7 @@ For the best experience, configure your **Supporter** role with these permission
         Share the `discord.gg/...` link with one of the users you added to `activeSupporterIds` and one that you didn’t
     </Step>
     <Step>
-        The users in `activeSupporterIds`  will be able to accept and receive the **Supporter** role!
+        The users in `activeSupporterIds` will be able to accept and receive the **Supporter** role!
     </Step>
 </Steps>
 
@@ -329,7 +329,7 @@ For the best experience, configure your **Supporter** role with these permission
 
 ## Resources
 
-For complete API reference details check out the invite and channel API documentation.
+For complete API reference details, check out the invite and channel API documentation.
 
 <CardGroup cols={2}>
     <Card title="Invites" href="/developers/resources/invite">
