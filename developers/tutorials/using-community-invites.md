@@ -51,32 +51,15 @@ These features both work with all standard invite parameters like `max_age`, `ma
 
 ---
 
-## Prerequisites
-
-Before you begin, make sure you have:
-
-- A Discord server for testing
-
-**For use in the Discord Client:**
-
-- User permissions: **Create Invite**, **Manage Server**, and **Manage Roles**
-
-**For API integration:**
-
-- Developer Mode enabled on your account (so you can copy role, channel, and user IDs)
-- A Discord app with a bot token (create one in the [Developer Portal](https://discord.com/developers/applications))
-- Basic familiarity with the Discord REST API
-- Node.js installed, or the ability to make HTTP requests from your bot or app
-- Bot permissions:
-    - **Create Instant Invite** (required)
-    - **Manage Guild** (required for targeted invites with `target_users_file`)
-    - **Manage Roles** (required for automatic role assignment with `role_ids`)
-
----
-
 ## Creating Role Invites in Discord
 
 Before diving into API integration, you can create role-assigning invites directly in Discord's UI. This is perfect for server admins and community managers who want to create invites for specific purposes without writing code.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+- A Discord server for testing
+- User permissions for **Create Invite**, **Manage Server**, and **Manage Roles**
 
 ### How to Create a Role Invite
 
@@ -87,6 +70,9 @@ Before diving into API integration, you can create role-assigning invites direct
 
 1. Open your Discord server and click the server name
 2. Select **"Invite To Server"**
+
+**then**
+
 3. Click **"Edit invite link"**
 4. Under **"Roles (Optional)"**, select one or more roles to auto-assign
 5. Configure other settings like expiration time and max uses
@@ -108,7 +94,23 @@ The rest of this tutorial focuses on API integration for developers who want to 
 
 ## Role Granting Invite Example: Auto-Assigning Player Roles
 
-In this example we’ll show you how to grant roles as part of an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer could do to connect their game back to their community. When players join your Discord server from your game, you can give them a **Player** role for access to game specific channels. Here's how to create an invite that does this automatically:
+In this example we’ll show you how to grant roles as part of an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer could do to connect their game back to their community. 
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- A Discord server for testing
+- Developer Mode enabled on your account (so you can copy role, channel, and user IDs)
+- A Discord app with a bot token (create one in the [Developer Portal](https://discord.com/developers/applications))
+- Node.js installed, or the ability to make HTTP requests from your bot or app
+- Bot permissions for:
+    - **Create Instant Invite** (required to create invites)
+    - **Manage Roles** (required for automatic role assignment with `role_ids`)
+
+### Coding the Invite
+
+When players join your Discord server from your game, you can give them a **Player** role for access to game specific channels. Here's how to create an invite that does this automatically:
 
 ```jsx
 // IMPORTANT: Never hardcode tokens or commit them to version control
@@ -186,7 +188,24 @@ Your bot needs the `CREATE_INSTANT_INVITE` permission to create invites, and the
 
 ## Target Users Example: Creating Targeted Supporter Invites
 
-In this example we’ll show you how to only allow specific users to accept an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer or streamer could do to grant special roles and channels in their community for supporter. If you run a subscription service for your game or community, you can create exclusive invites that only your paying supporter can accept. Those roles can grant access to channels that other users in the server can’t see. Here’s how to create an invite that grants a role to specific users:
+In this example we’ll show you how to only allow specific users to accept an invite using the [channel invite API](/developers/resources/channel#create-channel-invite). We’ll take a look at what a game developer or streamer could do to grant special roles and channels in their community for supporter. 
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- A Discord server for testing
+- Developer Mode enabled on your account (so you can copy role, channel, and user IDs)
+- A Discord app with a bot token (create one in the [Developer Portal](https://discord.com/developers/applications))
+- Node.js installed, or the ability to make HTTP requests from your bot or app
+- Bot permissions for:
+    - **Create Instant Invite** (required to create invites)
+    - **Manage Guild** (required for targeted invites with `target_users_file`)
+    - **Manage Roles** (required for automatic role assignment with `role_ids`)
+
+### Coding the Invite
+
+If you run a subscription service for your game or community, you can create exclusive invites that only your paying supporter can accept. Those roles can grant access to channels that other users in the server can’t see. Here’s how to create an invite that grants a role to specific users:
 
 ```jsx
 // IMPORTANT: Never hardcode tokens or commit them to version control
