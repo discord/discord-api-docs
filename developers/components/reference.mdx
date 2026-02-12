@@ -54,6 +54,9 @@ The following is a complete table of available components. Details about each co
 | 17   | [Container](/developers/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
 | 18   | [Label](/developers/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
 | 19   | [File Upload](/developers/components/reference#file-upload)               | Component for uploading files                                  | Interactive | Modal          |
+| 21   | [Radio Group](/developers/components/reference#radio-group)               | Single-choice set of options                                   | Interactive | Modal          |
+| 22   | [Checkbox Group](/developers/components/reference#checkbox-group)         | Multi-selectable group of checkboxes                           | Interactive | Modal          |
+| 23   | [Checkbox](/developers/components/reference#checkbox)                     | Single checkbox for yes/no choice                              | Interactive | Modal          |
 
 --------------
 ## Anatomy of a Component
@@ -115,7 +118,7 @@ Action Rows can contain one of the following:
 <Accordion title="Message Example" description="Message create payload with an Action Row component" icon="code">
 <img src="/images/components/action-row.webp" alt="Example of an Action Row with three buttons" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -124,9 +127,9 @@ Action Rows can contain one of the following:
         "components": [
           {
             "type": 2,  // ComponentType.BUTTON
-            "custom_id": "click_yes"
+            "custom_id": "click_yes",
             "label": "Accept",
-            "style": 1,
+            "style": 1
           },
           {
             "type": 2,  // ComponentType.BUTTON
@@ -136,9 +139,9 @@ Action Rows can contain one of the following:
           },
           {
             "type": 2,  // ComponentType.BUTTON
-            "custom_id": "click_no"
+            "custom_id": "click_no",
             "label": "Decline",
-            "style": 4,
+            "style": 4
           }
         ]
       }
@@ -190,46 +193,48 @@ Buttons come in various styles to convey different types of actions. These style
 
 ###### Examples
 
-<Accordion title="Message Example" description="Message create payload with a Button component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a Button component" icon="code">
 
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1,  // ComponentType.ACTION_ROW
-        "components": [
-            {
-              "type": 2,  // ComponentType.BUTTON,
-              "custom_id": "click_me",
-              "label": "Click me!",
-              "style": 1
-            }
-        ]
-      }
-    ]
-  }
-  ```
-</Accordion>
+    ```jsonc
+    {
+      "flags": 32768,
+      "components": [
+        {
+          "type": 1,  // ComponentType.ACTION_ROW
+          "components": [
+              {
+                "type": 2,  // ComponentType.BUTTON,
+                "custom_id": "click_me",
+                "label": "Click me!",
+                "style": 1
+              }
+          ]
+        }
+      ]
+    }
+    ```
+  </Accordion>
 
-<Accordion title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
+  <Accordion title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
 
-  When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    ```jsonc
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-    "data": {
-      "component_type": 2, // ComponentType.BUTTON
-      "id": 2,
-      "custom_id": "click_me",
-    },
-  }
-  ```
-</Accordion>
+      "data": {
+        "component_type": 2, // ComponentType.BUTTON
+        "id": 2,
+        "custom_id": "click_me",
+      },
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ### Button Design Guidelines
 
@@ -317,7 +322,7 @@ String Selects are available in messages and modals. They must be placed inside 
   <Accordion title="Message Example" description="Message create payload with a String Select component" icon="code">
     <img src="/images/components/string-select.webp" alt="Example of a String Select with three options" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -361,7 +366,7 @@ String Selects are available in messages and modals. They must be placed inside 
     When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -376,11 +381,13 @@ String Selects are available in messages and modals. They must be placed inside 
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a String Select component" icon="code">
     <img src="/images/components/modal-string-select.webp" alt="Example of a String Select with three options in a modal" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9, // InteractionCallbackType.MODAL
       "data": {
@@ -427,7 +434,7 @@ String Selects are available in messages and modals. They must be placed inside 
     When a user submits a modal that contains a String Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -505,7 +512,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
   <Accordion title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
     <img src="/images/components/modal-label.webp" alt="A modal with Text Input in a Label" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9, // InteractionCallbackType.MODAL
       "data": {
@@ -537,7 +544,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
     When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -615,7 +622,7 @@ User Selects are available in messages and modals. They must be placed inside an
   <Accordion title="Message Example" description="Message create payload with a User Select component" icon="code">
     <img src="/images/components/user-select.webp" alt="Example of a User Select with two people and an app in a server" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -643,7 +650,7 @@ User Selects are available in messages and modals. They must be placed inside an
     `members` and `users` may both be present in the `resolved` object when a user is selected.
     </Info>
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -695,11 +702,13 @@ User Selects are available in messages and modals. They must be placed inside an
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a User Select component" icon="code">
     <img src="/images/components/modal-user-select.webp" alt="Example of a modal with a User Select" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -727,7 +736,7 @@ User Selects are available in messages and modals. They must be placed inside an
     When a user submits a modal that contains a User Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -849,7 +858,7 @@ Role Selects are available in messages and modals. They must be placed inside an
   <Accordion title="Message Example" description="Message create payload with a Role Select component" icon="code">
     <img src="/images/components/role-select.webp" alt="Example of a Role Select allowing up to 3 choices" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -875,7 +884,7 @@ Role Selects are available in messages and modals. They must be placed inside an
     When a user interacts with a Role Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -914,11 +923,13 @@ Role Selects are available in messages and modals. They must be placed inside an
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Role Select component" icon="code">
     <img src="/images/components/modal-role-select.webp" alt="Example of a modal with a Role Select" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -946,7 +957,7 @@ Role Selects are available in messages and modals. They must be placed inside an
     When a user submits a modal that contains a Role Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1062,7 +1073,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
   <Accordion title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
     <img src="/images/components/mentionable-select.webp" alt="Example of a Mentionable Select from the code below" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -1090,7 +1101,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
     `members` and `users` may both be present in the `resolved` object when a user is selected.
     </Info>
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1164,11 +1175,13 @@ Mentionable Selects are available in messages and modals. They must be placed in
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Mentionable Select component" icon="code">
     <img src="/images/components/modal-mentionable-select.webp" alt="Example of a Mentionable Select from the code below" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -1195,7 +1208,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
     When a user submits a modal that contains a Mentionable Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1292,7 +1305,7 @@ Channel Selects are available in messages and modals. They must be placed inside
   <Accordion title="Message Example" description="Message create payload with a Channel Select component" icon="code">
     <img src="/images/components/channel-select.webp" alt="Example of a Channel Select for text channels" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -1317,7 +1330,7 @@ Channel Selects are available in messages and modals. They must be placed inside
     When a user interacts with a Channel Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1351,11 +1364,13 @@ Channel Selects are available in messages and modals. They must be placed inside
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Channel Select component" icon="code">
     <img src="/images/components/modal-channel-select.webp" alt="Example of a modal with a Channel Select" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -1382,7 +1397,7 @@ Channel Selects are available in messages and modals. They must be placed inside
     When a user submits a modal that contains a Channel Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1472,7 +1487,7 @@ Don't hardcode `components` to contain only text components. We may add other co
 <Accordion title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
   <img src="/images/components/section.webp" alt="Example of a Section showing a fake game changelog and a thumbnail" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1534,64 +1549,62 @@ To use this component in messages you must send the [message flag](/developers/r
 
 ###### Examples
 
-<AccordionGroup>
-  <Accordion title="Message Example" description="Message create payload with a Text Display component" icon="code">
-    <img src="/images/components/text-display.webp" alt="Example of a Text Display with markdown" style={{width: "auto", height: "250px"}} />
+<Accordion title="Message Example" description="Message create payload with a Text Display component" icon="code">
+  <img src="/images/components/text-display.webp" alt="Example of a Text Display with markdown" style={{width: "auto", height: "250px"}} />
 
-    ```json
-    {
-      "flags": 32768,
+  ```jsonc
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
+      }
+    ]
+  }
+  ```
+</Accordion>
+
+<Accordion title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
+  <img src="/images/components/modal-text-display.webp" alt="Example of a Text Display from the code below" style={{width: "auto", height: "350px"}} />
+
+  ```jsonc
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "jail_modal",
+      "title": "Jail",
       "components": [
         {
-          "type": 10,  // ComponentType.TEXT_DISPLAY
-          "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
+          "type": 10,
+          "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
+        },
+        {
+          "type": 18,
+          "label": "Choose a user",
+          "component": {
+            "type": 5,
+            "custom_id": "user_selected",
+            "required": true
+          }
+        },
+        {
+          "type": 18,
+          "label": "Where should they be sent?",
+          "component": {
+            "type": 8,
+            "custom_id": "channel_selected",
+            "channel_types": [
+              2
+            ],
+            "required": true
+          }
         }
       ]
     }
-    ```
-  </Accordion>
-
-  <Accordion title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
-    <img src="/images/components/modal-text-display.webp" alt="Example of a Text Display from the code below" style={{width: "auto", height: "350px"}} />
-
-    ```json
-    {
-      "type": 9,
-      "data": {
-        "custom_id": "jail_modal",
-        "title": "Jail",
-        "components": [
-          {
-            "type": 10,
-            "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
-          },
-          {
-            "type": 18,
-            "label": "Choose a user",
-            "component": {
-              "type": 5,
-              "custom_id": "user_selected",
-              "required": true
-            }
-          },
-          {
-            "type": 18,
-            "label": "Where should they be sent?",
-            "component": {
-              "type": 8,
-              "custom_id": "channel_selected",
-              "channel_types": [
-                2
-              ],
-              "required": true
-            }
-          }
-        ]
-      }
-    }
-    ```
-  </Accordion>
-</AccordionGroup>
+  }
+  ```
+</Accordion>
 
 ------------
 ## Thumbnail
@@ -1623,7 +1636,7 @@ To use this component, you need to send the [message flag](/developers/resources
 <Accordion title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
   <img src="/images/components/section.webp" alt="Example of a Thumbnail in a Section from the code below" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1688,7 +1701,7 @@ To use this component in messages you must send the [message flag](/developers/r
 <Accordion title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
   <img src="/images/components/media-gallery.webp" alt="Example of a Media Gallery showing screenshots from live webcam feeds" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1755,7 +1768,7 @@ To use this component in messages you must send the [message flag](/developers/r
     This example makes use of the `attachment://` protocol functionality in [unfurled media item](/developers/components/reference#unfurled-media-item).
   </Info>
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1808,7 +1821,7 @@ To use this component in messages you must send the [message flag](/developers/r
 <Accordion title="Message Example" description="Message create payload with a Separator component" icon="code">
   <img src="/images/components/separator.webp" alt="Example of a separator with large spacing dividing content" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1868,7 +1881,7 @@ To use this component in messages you must send the [message flag](/developers/r
 <Accordion title="Message Example" description="Message create payload with a Container component" icon="code">
   <img src="/images/components/container.webp" alt="Example of a container showing text, image, and buttons for a wild enemy encounter" style={{width: "auto", height: "350px"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1952,6 +1965,9 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/developers/components/reference#mentionable-select) |
 | [Channel Select](/developers/components/reference#channel-select)         |
 | [File Upload](/developers/components/reference#file-upload)               |
+| [Radio Group](/developers/components/reference#radio-group)               |
+| [Checkbox Group](/developers/components/reference#checkbox-group)         |
+| [Checkbox](/developers/components/reference#checkbox)                     |
 
 ###### Label Interaction Response Structure
 
@@ -1972,13 +1988,16 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/developers/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
 | [Channel Select](/developers/components/reference#channel-select-channel-select-interaction-response-structure)             |
 | [File Upload](/developers/components/reference#file-upload-file-upload-interaction-response-structure)                      |
+| [Radio Group](/developers/components/reference#radio-group-interaction-response-structure)                                  |
+| [Checkbox Group](/developers/components/reference#checkbox-group-interaction-response-structure)                            |
+| [Checkbox](/developers/components/reference#checkbox-interaction-response-structure)                                        |
 
 ###### Examples
 
 <Accordion title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
   <img src="/images/components/modal-label.webp" alt="A modal with Text Input in a Label" style={{width: "auto", height: "250px"}} />
 
-  ```json
+  ```jsonc
   {
     "type": 9, // InteractionCallbackType.MODAL
     "data": {
@@ -2038,7 +2057,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
   <Accordion title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
     <img src="/images/components/file-upload-modal-example.webp" alt="Example of a modal with a File Upload" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -2068,7 +2087,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
     When a user submits a modal that contains a File Upload, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -2106,6 +2125,284 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
             }
           }
         }
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Radio Group
+
+A Radio Group is an interactive component for selecting exactly one option from a defined list. Radio Groups are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Radio Group Structure
+
+| Field     | Type                                                                                          | Description                                                              |
+|-----------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| type      | integer                                                                                       | `21` for radio group                                                     |
+| id?       | integer                                                                                       | Optional identifier for component                                        |
+| custom_id | string                                                                                        | Developer-defined identifier for the input; 1-100 characters             |
+| options   | array of [radio group options](/developers/components/reference#radio-group-option-structure) | List of options to show; min 2, max 10                                   |
+| required? | boolean                                                                                       | Whether a selection is required to submit the modal (defaults to `true`) |
+
+### Radio Group Option Structure
+
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
+
+### Radio Group Interaction Response Structure
+
+| Field     | Type    | Description                                                          |
+|-----------|---------|----------------------------------------------------------------------|
+| type      | integer | `21` for a Radio Group                                               |
+| id        | integer | Unique identifier for the component                                  |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters         |
+| value     | ?string | The value of the selected option, or `null` if no option is selected |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Radio Group component" icon="code">
+    <img src="/images/components/modal-radio-group.webp" alt="Example of a modal with a Radio Group" style={{width: "auto", height: "350px"}} />
+
+    ```jsonc
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "class_selection_modal",
+        "title": "Class Selection",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Choose your class",
+            "description": "Your class detertmines the style of play for your character.",
+            "component": {
+              "type": 21, // ComponentType.RADIO_GROUP
+              "custom_id": "class_radio",
+              "options": [
+                {"value": "warrior", "label": "Warrior", "description": "Strong and brave"},
+                {"value": "rogue", "label": "Rogue", "description": "Weak and squishy"},
+                {"value": "wizard", "label": "Wizard", "description": "Nerd"},
+                {"value": "bard", "label": "Bard", "description": "Annoys everyone"},
+                {"value": "witch_doctor", "label": "Witch Doctor", "description": "Actually a pretty cool option"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Radio Group" icon="code">
+
+    ```jsonc
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "class_selection_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "class_radio",
+              "id": 2,
+              "type": 21, // ComponentType.RADIO_GROUP
+              "value": "warrior"
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Checkbox Group
+
+A Checkbox Group is an interactive component for selecting one or many options via checkboxes. Checkbox Groups are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Checkbox Group Structure
+
+| Field       | Type                                                                                                | Description                                                                                                        |
+|-------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| type        | integer                                                                                             | `22` for checkbox group                                                                                            |
+| id?         | integer                                                                                             | Optional identifier for component                                                                                  |
+| custom_id   | string                                                                                              | Developer-defined identifier for the input; 1-100 characters                                                       |
+| options     | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure) | List of options to show; min 1, max 10                                                                             |
+| min_values? | integer                                                                                             | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1); if set to 0 `required` must be `false` |
+| max_values? | integer                                                                                             | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                      |
+| required?   | boolean                                                                                             | Whether selecting within the group is required (defaults to `true`)                                                |
+
+### Checkbox Group Option Structure
+
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
+
+### Checkbox Group Interaction Response Structure
+
+| Field     | Type             | Description                                                                           |
+|-----------|------------------|---------------------------------------------------------------------------------------|
+| type      | integer          | `22` for a Checkbox Group                                                             |
+| id        | integer          | Unique identifier for the component                                                   |
+| custom_id | string           | Developer-defined identifier for the input; 1-100 characters                          |
+| values    | array of strings | The values of the selected options, or an empty array `[]` if no options are selected |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Checkbox Group component" icon="code">
+    <img src="/images/components/modal-checkbox-group.webp" alt="Example of a modal with a Checkbox Group" style={{width: "auto", height: "350px"}} />
+
+    ```jsonc
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "day_selection_modal",
+        "title": "Study Days",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Which days are you free?",
+            "description": "Choose all of the days you're able to meet up.",
+            "component": {
+              "type": 22, // ComponentType.CHECKBOX_GROUP
+              "custom_id": "event_checkbox",
+              "options": [
+                {"value": "march-4", "label": "March 4th"},
+                {"value": "march-5", "label": "March 5th"},
+                {"value": "march-7", "label": "March 7th", "description": "I know this is a Saturday and is tough"},
+                {"value": "march-9", "label": "March 9th"},
+                {"value": "march-10", "label": "March 10th"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Checkbox Group" icon="code">
+
+    ```jsonc
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "day_selection_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "event_checkbox",
+              "id": 2,
+              "type": 22, // ComponentType.CHECKBOX_GROUP
+              "values": [
+                "march-5",
+                "march-10",
+                "march-4"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Checkbox
+
+A Checkbox is a single interactive component for simple yes/no style questions. Checkboxes are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Checkbox Structure
+
+| Field     | Type    | Description                                                  |
+|-----------|---------|--------------------------------------------------------------|
+| type      | integer | `23` for checkbox                                            |
+| id?       | integer | Optional identifier for component                            |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
+| default?  | boolean | Whether the checkbox is selected by default                  |
+
+<Tip>
+While you can't set a checkbox as required, you can use a [Checkbox Group](/developers/components/reference#checkbox-group) with a single option and `required` to achieve similar functionality.
+</Tip>
+
+### Checkbox Interaction Response Structure
+
+| Field     | Type    | Description                                                         |
+|-----------|---------|---------------------------------------------------------------------|
+| type      | integer | `23` for a Checkbox                                                 |
+| id        | integer | Unique identifier for the component                                 |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters        |
+| value     | boolean | The state of the checkbox (`true` if checked, `false` if unchecked) |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Checkbox component" icon="code">
+    <img src="/images/components/modal-checkbox.webp" alt="Example of a modal with a Checkbox" style={{width: "auto", height: "250px"}} />
+
+    ```jsonc
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "secret_note_modal",
+        "title": "Secret Note",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Do you like me?",
+            "description": "😳😳😳",
+            "component": {
+              "type": 23, // ComponentType.CHECKBOX
+              "custom_id": "like_checkbox"
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Checkbox" icon="code">
+
+    ```jsonc
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "secret_note_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "like_checkbox",
+              "id": 2,
+              "type": 23, // ComponentType.CHECKBOX
+              "value": true
+            }
+          }
+        ]
       }
     }
     ```
@@ -2156,7 +2453,7 @@ Legacy messages allow up to 5 action rows as top-level components
 
 Legacy Message Component Example
 
-```json
+```jsonc
 {
   "content": "This is a message with legacy components",
   "components": [
