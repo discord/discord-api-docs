@@ -26,7 +26,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | expires_at                  | ?ISO8601 timestamp                                                                                       | the expiration date of this invite                                                                                                                    |
 | guild_scheduled_event?      | [guild scheduled event](/developers/resources/guild-scheduled-event#guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id                                     |
 | flags?                      | integer                                                                                                  | [guild invite flags](/developers/resources/invite#invite-object-guild-invite-flags) for guild invites                                                 |
-| roles?\*                    | array of partial [role](/developers/topics/permissions#role-object) objects                              | the roles assigned to the user upon accepting the invite. Contains a limited amount of [role](/developers/topics/permissions#role-object) information |
+| roles?\*                    | array of partial [role](/developers/topics/permissions#role-object) objects                              | the roles assigned to the user upon accepting the invite. |
 
 \* This is a partial role object that only contains `id`, `name`, `position`, `color`, `colors`, `icon`, and `unicode_emoji`.
 
