@@ -313,6 +313,30 @@
       "source": "/developers/docs/policy",
       "destination": "https://support-dev.discord.com/hc/articles/8563934450327-Discord-Developer-Policy"
     },
+     {
+      "source": "/developers/policies-and-agreements/monetization-policy",
+      "destination": "https://support.discord.com/hc/en-us/articles/10575066024983-Monetization-Policy"
+    },
+    {
+      "source": "/developers/policies-and-agreements/developer-terms-of-service",
+      "destination": "https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service"
+    },
+    {
+      "source": "/developers/policies-and-agreements/terms-of-service",
+      "destination": "https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service"
+    },
+    {
+      "source": "/developers/legal",
+      "destination": "https://support-dev.discord.com/hc/articles/8562894815383-Discord-Developer-Terms-of-Service"
+    },
+    {
+      "source": "/developers/policies-and-agreements/developer-policy",
+      "destination": "https://support-dev.discord.com/hc/articles/8563934450327-Discord-Developer-Policy"
+    },
+    {
+      "source": "/developers/policy",
+      "destination": "https://support-dev.discord.com/hc/articles/8563934450327-Discord-Developer-Policy"
+    },
     {
       "source": "/developers/docs/best-practices/crafting-your-app-directory-product-page",
       "destination": "/developers/discovery/best-practices"
@@ -393,7 +417,7 @@
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
-    "href": "https://discord.com/developers/"
+    "href": "https://docs.discord.com/developers"
   },
   "background": {
     "color": {
