@@ -2,6 +2,8 @@
 title: Component Reference
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+
 This document serves as a comprehensive reference for all available components. It covers three main categories:
 
 - **Layout Components** - For organizing and structuring content (Action Rows, Sections, Containers)
@@ -31,6 +33,7 @@ Components are a field on the [message object](/developers/resources/message#mes
 
 ### Component Object
 
+<ManualAnchor id="component-object-component-types" />
 ###### Component Types
 
 The following is a complete table of available components. Details about each component are in the sections below.
@@ -70,6 +73,7 @@ All components have the following fields:
 
 The `id` field is optional and is used to identify components in the response from an interaction. The `id` must be unique within the message and is generated sequentially if left empty. Generation of `id`s won't use another `id` that exists in the message if you have one defined for another component. Sending components with an `id` of `0` is allowed but will be treated as empty and replaced by the API.
 
+<ManualAnchor id="anatomy-of-a-component-custom-id" />
 ###### Custom ID
 
 Additionally, interactive components like buttons and selects must have a `custom_id` field. The developer defines this field when sending the component payload, and it is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
@@ -94,6 +98,7 @@ Action Rows can contain one of the following:
 [Label](/developers/components/reference#label) is recommended for use over an Action Row in modals. Action Row with Text Inputs in modals are now deprecated.
 </Info>
 
+<ManualAnchor id="action-row-action-row-structure" />
 ###### Action Row Structure
 
 | Field      | Type                                                                                                      | Description                                                                                                                                                   |
@@ -102,6 +107,7 @@ Action Rows can contain one of the following:
 | id?        | integer                                                                                                   | Optional identifier for component                                                                                                                             |
 | components | array of [action row child components](/developers/components/reference#component-object-component-types) | Up to 5 interactive [button](/developers/components/reference#button) components or a single [select](/developers/components/reference#user-select) component |
 
+<ManualAnchor id="action-row-action-row-child-components" />
 ###### Action Row Child Components
 
 | Available Components                                                      | Description                               |
@@ -113,6 +119,7 @@ Action Rows can contain one of the following:
 | [Mentionable Select](/developers/components/reference#mentionable-select) | A single Mentionable Select               |
 | [Channel Select](/developers/components/reference#channel-select)         | A single Channel Select                   |
 
+<ManualAnchor id="action-row-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with an Action Row component" icon="code">
@@ -157,6 +164,7 @@ A Button is an interactive component that can only be used in messages. It creat
 
 Buttons must be placed inside an [Action Row](/developers/components/reference#action-row) or a [Section](/developers/components/reference#section)'s `accessory` field.
 
+<ManualAnchor id="button-button-structure" />
 ###### Button Structure
 
 | Field     | Type                                                      | Description                                                                                                               |
@@ -179,6 +187,7 @@ Buttons come in various styles to convey different types of actions. These style
 - Premium buttons **must** contain a `sku_id`, and cannot have a `custom_id`, `label`, `url`, or `emoji`.
 - Premium buttons do not send an [interaction](/developers/interactions/receiving-and-responding#interaction-object) to your app when clicked
 
+<ManualAnchor id="button-button-styles" />
 ###### Button Styles
 
 | Name      | Value | Action                                                         | Required Field |
@@ -191,6 +200,7 @@ Buttons come in various styles to convey different types of actions. These style
 | Premium   | 6     | Purchase                                                       | `sku_id`       |
 
 
+<ManualAnchor id="button-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -238,6 +248,7 @@ Buttons come in various styles to convey different types of actions. These style
 
 ### Button Design Guidelines
 
+<ManualAnchor id="button-design-guidelines-general-button-content" />
 ###### General Button Content
 
 - 34 characters max with icon or emoji.
@@ -248,6 +259,7 @@ Buttons come in various styles to convey different types of actions. These style
 - Maintain consistency in language and tone across buttons.
 - Anticipate the need for translation and test for expansion or contraction in different languages.
 
+<ManualAnchor id="button-design-guidelines-multiple-buttons" />
 ###### Multiple Buttons
 
 Use different button styles to create a hierarchy. Use only one `Primary` button per group.
@@ -258,6 +270,7 @@ If there are multiple buttons of equal significance, use the `Secondary` button 
 
 <img src="/images/components/multiple-buttons-example-2.webp" alt="Example showing multiple buttons in a group with equal significance" style={{width: "450px", height: "auto"}} />
 
+<ManualAnchor id="button-design-guidelines-premium-buttons" />
 ###### Premium Buttons
 
 Premium buttons will automatically have the following:
@@ -277,6 +290,7 @@ String Selects can be configured for both single-select and multi-select behavio
 
 String Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="string-select-string-select-structure" />
 ###### String Select Structure
 
 | Field         | Type                                                                                              | Description                                                                     |
@@ -295,6 +309,7 @@ String Selects are available in messages and modals. They must be placed inside 
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="string-select-select-option-structure" />
 ###### Select Option Structure
 
 | Field        | Type                                                             | Description                                              |
@@ -305,6 +320,7 @@ String Selects are available in messages and modals. They must be placed inside 
 | emoji?       | partial [emoji](/developers/resources/emoji#emoji-object) object | `id`, `name`, and `animated`                             |
 | default?     | boolean                                                          | Will show this option as selected by default             |
 
+<ManualAnchor id="string-select-string-select-interaction-response-structure" />
 ###### String Select Interaction Response Structure
 
 | Field            | Type             | Description                                                  |
@@ -317,6 +333,7 @@ String Selects are available in messages and modals. They must be placed inside 
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="string-select-examples" />
 ###### Examples
 <AccordionGroup>
   <Accordion title="Message Example" description="Message create payload with a String Select component" icon="code">
@@ -472,6 +489,7 @@ Text Inputs can only be used within modals and must be placed inside a [Label](/
 We no longer recommend using Text Input within an [Action Row](/developers/components/reference#action-row) in modals. Going forward all Text Inputs should be placed inside a [Label](/developers/components/reference#label) component.
 </Info>
 
+<ManualAnchor id="text-input-text-input-structure" />
 ###### Text Input Structure
 
 | Field        | Type    | Description                                                                           |
@@ -490,6 +508,7 @@ We no longer recommend using Text Input within an [Action Row](/developers/compo
 The `label` field on a Text Input is deprecated in favor of `label` and `description` on the [Label](/developers/components/reference#label) component.
 </Info>
 
+<ManualAnchor id="text-input-text-input-styles" />
 ###### Text Input Styles
 
 | Name      | Value | Description       |
@@ -497,6 +516,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 | Short     | 1     | Single-line input |
 | Paragraph | 2     | Multi-line input  |
 
+<ManualAnchor id="text-input-text-input-interaction-response-structure" />
 ###### Text Input Interaction Response Structure
 
 | Field     | Type    | Description                                                  |
@@ -506,6 +526,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 | custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
 | value     | string  | The user's input text                                        |
 
+<ManualAnchor id="text-input-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -578,6 +599,7 @@ User Selects can be configured for both single-select and multi-select behavior.
 
 User Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="user-select-user-select-structure" />
 ###### User Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -596,6 +618,7 @@ User Selects are available in messages and modals. They must be placed inside an
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="user-select-select-default-value-structure" />
 ###### Select Default Value Structure
 
 | Field | Type      | Description                                                                   |
@@ -603,6 +626,7 @@ User Selects are available in messages and modals. They must be placed inside an
 | id    | snowflake | ID of a user, role, or channel                                                |
 | type  | string    | Type of value that `id` represents. Either `"user"`, `"role"`, or `"channel"` |
 
+<ManualAnchor id="user-select-user-select-interaction-response-structure" />
 ###### User Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -616,6 +640,7 @@ User Selects are available in messages and modals. They must be placed inside an
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="user-select-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -821,6 +846,7 @@ Role Selects can be configured for both single-select and multi-select behavior.
 
 Role Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="role-select-role-select-structure" />
 ###### Role Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -839,6 +865,7 @@ Role Selects are available in messages and modals. They must be placed inside an
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="role-select-role-select-interaction-response-structure" />
 ###### Role Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -852,6 +879,7 @@ Role Selects are available in messages and modals. They must be placed inside an
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="role-select-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -1036,6 +1064,7 @@ Mentionable Selects can be configured for both single-select and multi-select be
 
 Mentionable Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="mentionable-select-mentionable-select-structure" />
 ###### Mentionable Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -1054,6 +1083,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="mentionable-select-mentionable-select-interaction-response-structure" />
 ###### Mentionable Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -1067,6 +1097,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="mentionable-select-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -1267,6 +1298,7 @@ Channel Selects can be configured for both single-select and multi-select behavi
 
 Channel Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="channel-select-channel-select-structure" />
 ###### Channel Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -1286,6 +1318,7 @@ Channel Selects are available in messages and modals. They must be placed inside
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="channel-select-channel-select-interaction-response-structure" />
 ###### Channel Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -1299,6 +1332,7 @@ Channel Selects are available in messages and modals. They must be placed inside
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="channel-select-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -1455,6 +1489,7 @@ Sections are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="section-section-structure" />
 ###### Section Structure
 
 | Field      | Type                                                                                                   | Description                                                                                                            |
@@ -1468,12 +1503,14 @@ To use this component in messages you must send the [message flag](/developers/r
 Don't hardcode `components` to contain only text components. We may add other components in the future. Similarly, `accessory` may be expanded to include other components in the future.
 </Info>
 
+<ManualAnchor id="section-section-child-components" />
 ###### Section Child Components
 
 | Available Components                                          |
 |---------------------------------------------------------------|
 | [Text Display](/developers/components/reference#text-display) |
 
+<ManualAnchor id="section-section-accessory-components" />
 ###### Section Accessory Components
 
 | Available Components                                    |
@@ -1481,6 +1518,7 @@ Don't hardcode `components` to contain only text components. We may add other co
 | [Button](/developers/components/reference#button)       |
 | [Thumbnail](/developers/components/reference#thumbnail) |
 
+<ManualAnchor id="section-examples" />
 ###### Examples
 
 
@@ -1532,6 +1570,7 @@ value of the [allowed mention object](/developers/resources/message#allowed-ment
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="text-display-text-display-structure" />
 ###### Text Display Structure
 
 | Field   | Type    | Description                                      |
@@ -1540,6 +1579,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | id?     | integer | Optional identifier for component                |
 | content | string  | Text that will be displayed similar to a message |
 
+<ManualAnchor id="text-display-text-display-interaction-response-structure" />
 ###### Text Display Interaction Response Structure
 
 | Field | Type    | Description                         |
@@ -1547,6 +1587,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | type  | integer | `10` for a Text Display             |
 | id    | integer | Unique identifier for the component |
 
+<ManualAnchor id="text-display-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Text Display component" icon="code">
@@ -1621,6 +1662,7 @@ Thumbnails currently only support images, including animated formats like GIF an
 To use this component, you need to send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2), which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="thumbnail-thumbnail-structure" />
 ###### Thumbnail Structure
 
 | Field        | Type                                                                        | Description                                                                                                    |
@@ -1631,6 +1673,7 @@ To use this component, you need to send the [message flag](/developers/resources
 | description? | ?string                                                                     | Alt text for the media, max 1024 characters                                                                    |
 | spoiler?     | boolean                                                                     | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false`                                |
 
+<ManualAnchor id="thumbnail-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
@@ -1680,6 +1723,7 @@ Media Galleries are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="media-gallery-media-gallery-structure" />
 ###### Media Gallery Structure
 
 | Field | Type                                                                                                        | Description                       |
@@ -1688,6 +1732,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | id?   | integer                                                                                                     | Optional identifier for component |
 | items | array of [media gallery items](/developers/components/reference#media-gallery-media-gallery-item-structure) | 1 to 10 media gallery items       |
 
+<ManualAnchor id="media-gallery-media-gallery-item-structure" />
 ###### Media Gallery Item Structure
 
 | Field        | Type                                                                        | Description                                                                                                    |
@@ -1696,6 +1741,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | description? | ?string                                                                     | Alt text for the media, max 1024 characters                                                                    |
 | spoiler?     | boolean                                                                     | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                    |
 
+<ManualAnchor id="media-gallery-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
@@ -1748,6 +1794,7 @@ The File component only supports using the `attachment://` protocol in [unfurled
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="file-file-structure" />
 ###### File Structure
 
 | Field    | Type                                                                        | Description                                                                                                                      |
@@ -1759,6 +1806,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | name     | string                                                                      | The name of the file. This field is ignored and provided by the API as part of the response                                      |
 | size     | integer                                                                     | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
 
+<ManualAnchor id="file-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a File component" icon="code">
@@ -1808,6 +1856,7 @@ Separators are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="separator-separator-structure" />
 ###### Separator Structure
 
 | Field    | Type    | Description                                                                             |
@@ -1817,6 +1866,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | divider? | boolean | Whether a visual divider should be displayed in the component. Defaults to `true`       |
 | spacing? | integer | Size of separator padding—`1` for small padding, `2` for large padding. Defaults to `1` |
 
+<ManualAnchor id="separator-examples" />
 ###### Examples
 <Accordion title="Message Example" description="Message create payload with a Separator component" icon="code">
   <img src="/images/components/separator.webp" alt="Example of a separator with large spacing dividing content" style={{width: "450px", height: "auto"}} />
@@ -1855,6 +1905,7 @@ Containers are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="container-container-structure" />
 ###### Container Structure
 
 | Field         | Type                                                                                                         | Description                                                                      |
@@ -1865,6 +1916,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | accent_color? | ?integer                                                                                                     | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`       |
 | spoiler?      | boolean                                                                                                      | Whether the container should be a spoiler (or blurred out). Defaults to `false`. |
 
+<ManualAnchor id="container-container-child-components" />
 ###### Container Child Components
 
 | Available Components                                            |
@@ -1876,6 +1928,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | [Separator](/developers/components/reference#separator)         |
 | [File](/developers/components/reference#file)                   |
 
+<ManualAnchor id="container-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Container component" icon="code">
@@ -1944,6 +1997,7 @@ A Label is a top-level layout component. Labels wrap modal components with text 
 The `description` may display above or below the `component` depending on the platform.
 </Info>
 
+<ManualAnchor id="label-label-structure" />
 ###### Label Structure
 
 | Field        | Type                                                                                   | Description                                                    |
@@ -1954,6 +2008,7 @@ The `description` may display above or below the `component` depending on the pl
 | description? | string                                                                                 | An optional description text for the label; max 100 characters |
 | component    | [label child component](/developers/components/reference#label-label-child-components) | The component within the label                                 |
 
+<ManualAnchor id="label-label-child-components" />
 ###### Label Child Components
 
 | Available Components                                                      |
@@ -1969,6 +2024,7 @@ The `description` may display above or below the `component` depending on the pl
 | [Checkbox Group](/developers/components/reference#checkbox-group)         |
 | [Checkbox](/developers/components/reference#checkbox)                     |
 
+<ManualAnchor id="label-label-interaction-response-structure" />
 ###### Label Interaction Response Structure
 
 | Field     | Type                                                                                                                             | Description                         |
@@ -1977,6 +2033,7 @@ The `description` may display above or below the `component` depending on the pl
 | id        | integer                                                                                                                          | Unique identifier for the component |
 | component | [label interaction response child component](/developers/components/reference#label-label-interaction-response-child-components) | The component within the label      |
 
+<ManualAnchor id="label-label-interaction-response-child-components" />
 ###### Label Interaction Response Child Components
 
 | Available Components                                                                                                        |
@@ -1992,6 +2049,7 @@ The `description` may display above or below the `component` depending on the pl
 | [Checkbox Group](/developers/components/reference#checkbox-group-interaction-response-structure)                            |
 | [Checkbox](/developers/components/reference#checkbox-interaction-response-structure)                                        |
 
+<ManualAnchor id="label-examples" />
 ###### Examples
 
 <Accordion title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
@@ -2031,6 +2089,7 @@ File Upload is an interactive component that allows users to upload files in mod
 
 File Uploads are available on modals. They must be placed inside a [Label](/developers/components/reference#label).
 
+<ManualAnchor id="file-upload-file-upload-structure" />
 ###### File Upload Structure
 
 | Field       | Type    | Description                                                                                            |
@@ -2042,6 +2101,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 | max_values? | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
 | required?   | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
 
+<ManualAnchor id="file-upload-file-upload-interaction-response-structure" />
 ###### File Upload Interaction Response Structure
 
 | Field     | Type                | Description                                                                                                                                          |
@@ -2051,6 +2111,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 | custom_id | string              | Developer-defined identifier for the input; 1-100 characters                                                                                         |
 | values    | array of snowflakes | IDs of the uploaded files found in the [resolved data](/developers/interactions/receiving-and-responding#interaction-object-resolved-data-structure) |
 
+<ManualAnchor id="file-upload-examples" />
 ###### Examples
 
 <AccordionGroup>
@@ -2422,6 +2483,7 @@ While the structure below is the full representation of an Unfurled Media Item,
 All other fields will be automatically populated by Discord.
 </Info>
 
+<ManualAnchor id="unfurled-media-item-unfurled-media-item-structure" />
 ###### Unfurled Media Item Structure
 
 | Field            | Type      | Description                                                                                                                                      |

@@ -2,10 +2,13 @@
 title: Opcodes and Status Codes
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+
 ## Gateway
 
 All gateway events in Discord are tagged with an opcode that denotes the payload type. Your connection to our gateway may also sometimes close. When it does, you will receive a close code that tells you what happened.
 
+<ManualAnchor id="gateway-gateway-opcodes" />
 ###### Gateway Opcodes
 
 | Code | Name                      | Client Action | Description                                                                             |
@@ -23,6 +26,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 11   | Heartbeat ACK             | Receive       | Sent in response to receiving a heartbeat to acknowledge that it has been received.     |
 | 31   | Request Soundboard Sounds | Send          | Request information about soundboard sounds in a set of guilds.                         |
 
+<ManualAnchor id="gateway-gateway-close-event-codes" />
 ###### Gateway Close Event Codes
 
 In order to prevent broken reconnect loops, you should consider some close codes as a signal to stop reconnecting. This can be because your token expired, or your identification is invalid. This table explains what the application defined close codes for the gateway are, and which close codes you should not attempt to reconnect.
@@ -49,6 +53,7 @@ In order to prevent broken reconnect loops, you should consider some close codes
 
 Our voice gateways have their own set of opcodes and close codes.
 
+<ManualAnchor id="voice-voice-opcodes" />
 ###### Voice Opcodes
 
 | Code | Name                                | Sent By           | Description                                              | Binary |
@@ -77,6 +82,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 30   | DAVE MLS Welcome                    | server            | MLS Welcome to group for upcoming transition             | X      |
 | 31   | DAVE MLS Invalid Commit Welcome     | client            | Flag invalid commit or welcome, request re-add           |        |
 
+<ManualAnchor id="voice-voice-close-event-codes" />
 ###### Voice Close Event Codes
 
 | Code | Description                   | Explanation                                                                                                                                            |
@@ -102,6 +108,7 @@ Our voice gateways have their own set of opcodes and close codes.
 
 Our API will return semantically valid HTTP response codes based on the success of your request. The following table can be used as a reference for response codes it will return.
 
+<ManualAnchor id="http-http-response-codes" />
 ###### HTTP Response Codes
 
 | Code                      | Meaning                                                                          |
@@ -123,6 +130,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](/developers/reference#error-messages) provided by an `errors` object.
 
+<ManualAnchor id="json-json-error-codes" />
 ###### JSON Error Codes
 
 | Code   | Meaning                                                                                                                                                                                                               |
@@ -361,6 +369,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 530006 | Discord failed to generate a unique username within the allotted time. This is not a terminal error, and should resolve itself upon a retry.                                                                          |
 | 530007 | Your client secret is invalid. Double check what you are sending or regenerate your client secret.                                                                                                                    |
 
+<ManualAnchor id="json-example-json-error-response" />
 ###### Example JSON Error Response
 
 ```json
@@ -374,6 +383,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 RPC is the [local Discord server](/developers/topics/rpc) running on localhost. Access to the RPC server requires approval from Discord.
 
+<ManualAnchor id="rpc-rpc-error-codes" />
 ###### RPC Error Codes
 
 | Code | Name                               | Description                                                                           |
@@ -395,6 +405,7 @@ RPC is the [local Discord server](/developers/topics/rpc) running on localhost. 
 | 5003 | Select voice force required        | You tried to join a user to a voice channel but the user was already in one.          |
 | 5004 | Capture shortcut already listening | You tried to capture more than one shortcut key at once.                              |
 
+<ManualAnchor id="rpc-rpc-close-event-codes" />
 ###### RPC Close Event Codes
 
 | Code | Name              | Description                                                               |
