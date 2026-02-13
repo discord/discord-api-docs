@@ -3,7 +3,7 @@ title: Using Community Invites
 sidebarTitle: Using Community Invites
 ---
 
-Community Invites make it easy to bring players into your Discord server with automatic role assignment and targeted user invites. Whether you're a community manager building a server around your game, a streamer building your following in Discord, or a server admin, community invites let you choose who can accept an invite and what roles it will give them.
+Community Invites make it easy to bring players into any Discord server with automatic role assignment and targeted user invites. Whether you're a community manager building a server around your game, a streamer building your following in Discord, or a server admin, community invites let you choose who can accept an invite and what roles it will give them.
 
 With community invites, you can automatically assign Discord roles like giving a role to your supporters, beta testers, or players when users accept an invite. You can also restrict who can use an invite by uploading a list of specific Discord user IDs, perfect for any scenario where you need controlled access to an invite. By giving roles with specific permissions, you can create invites that give players access to the right channels and features based on their in-game status.
 
