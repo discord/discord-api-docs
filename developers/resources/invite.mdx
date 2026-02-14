@@ -3,12 +3,14 @@ title: Invite Resource
 sidebarTitle: Invite
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
 
 ### Invite Object
 
 Represents a code that when used, adds a user to a guild or group DM channel.
 
+<ManualAnchor id="invite-object-invite-structure" />
 ###### Invite Structure
 
 | Field                       | Type                                                                                                     | Description                                                                                                        |
@@ -30,6 +32,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 \* This is a partial role object that only contains `id`, `name`, `position`, `color`, `colors`, `icon`, and `unicode_emoji`.
 
+<ManualAnchor id="invite-object-invite-types" />
 ###### Invite Types
 
 | Type     | Value |
@@ -38,6 +41,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | GROUP_DM | 1     |
 | FRIEND   | 2     |
 
+<ManualAnchor id="invite-object-invite-target-types" />
 ###### Invite Target Types
 
 | Type                 | Value |
@@ -45,12 +49,14 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | STREAM               | 1     |
 | EMBEDDED_APPLICATION | 2     |
 
+<ManualAnchor id="invite-object-guild-invite-flags" />
 ###### Guild Invite Flags
 
 | Flag            | Value    | Description                                       |
 |-----------------|----------|---------------------------------------------------|
 | IS_GUEST_INVITE | `1 << 0` | this invite is a guest invite for a voice channel |
 
+<ManualAnchor id="invite-object-example-invite-object" />
 ###### Example Invite Object
 
 ```json
@@ -97,6 +103,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 Extra information about an invite, will extend the [invite](/developers/resources/invite#invite-object) object.
 
+<ManualAnchor id="invite-metadata-object-invite-metadata-structure" />
 ###### Invite Metadata Structure
 
 | Field      | Type              | Description                                          |
@@ -107,6 +114,7 @@ Extra information about an invite, will extend the [invite](/developers/resource
 | temporary  | boolean           | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp | when this invite was created                         |
 
+<ManualAnchor id="invite-metadata-object-example-invite-metadata" />
 ###### Example Invite Metadata
 
 ```json
@@ -125,6 +133,7 @@ Extra information about an invite, will extend the [invite](/developers/resource
 This is deprecated.
 </Warning>
 
+<ManualAnchor id="invite-stage-instance-object-invite-stage-instance-structure" />
 ###### Invite Stage Instance Structure
 
 | Field             | Type                                                                                     | Description                                        |
@@ -134,6 +143,7 @@ This is deprecated.
 | speaker_count     | integer                                                                                  | the number of users speaking in the Stage          |
 | topic             | string                                                                                   | the topic of the Stage instance (1-120 characters) |
 
+<ManualAnchor id="invite-stage-instance-object-example-invite-stage-instance" />
 ###### Example Invite Stage Instance
 
 ```json
@@ -160,6 +170,7 @@ This is deprecated.
 
 Returns an [invite](/developers/resources/invite#invite-object) object for the given code.
 
+<ManualAnchor id="get-invite-query-string-params" />
 ###### Query String Params
 
 | Field                     | Type                                                   | Description                                                 |
@@ -186,12 +197,14 @@ Gets the users allowed to see and accept this invite. Response is a CSV file wit
 
 Updates the users allowed to see and accept this invite. Uploading a file with invalid user IDs will result in a 400 with the invalid IDs described. Requires the caller to be the inviter or have the `MANAGE_GUILD` permission.
 
+<ManualAnchor id="update-target-users-form-params" />
 ###### Form Params
 
 | Field             | Type | Description                                                                              |
 |-------------------|------|------------------------------------------------------------------------------------------|
 | target_users_file | file | a csv file with a single column of user IDs for all the users able to accept this invite |
 
+<ManualAnchor id="update-target-users-example-error-response" />
 ###### Example Error Response
 
 ```json
@@ -208,6 +221,7 @@ Updates the users allowed to see and accept this invite. Uploading a file with i
 
 Processing target users from a CSV when creating or updating an invite is done asynchronously. This endpoint allows you to check the status of that job. Requires the caller to be the inviter, or have `MANAGE_GUILD` permission, or have `VIEW_AUDIT_LOG` permission.
 
+<ManualAnchor id="get-target-users-job-status-example-response" />
 ###### Example Response
 
 ```json
@@ -221,6 +235,7 @@ Processing target users from a CSV when creating or updating an invite is done a
 }
 ```
 
+<ManualAnchor id="get-target-users-job-status-status-codes" />
 ###### Status Codes
 
 | Code | Name        | Description                                                     |

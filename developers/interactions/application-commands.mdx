@@ -1035,7 +1035,7 @@ For the Entry Point command to be visible to users, an app must have [Activities
 
 When a user invokes an app's Entry Point command, the value of [`handler`](/developers/interactions/application-commands#application-command-object-application-command-structure) will determine how the interaction is handled:
 
-- For `APP_HANDLER` (`1`), the app is responsible for [responding to the interaction](/developers/interactions/receiving-and-responding#responding-to-an-interaction). It can respond by launching the app's associated Activity using the `LAUNCH_ACTIVITY` (type `12`) [interaction callback type](/developers/interactions/receiving-and-responding##interaction-response-object-interaction-callback-type), or take another action (like sending a follow-up message in channel).
+- For `APP_HANDLER` (`1`), the app is responsible for [responding to the interaction](/developers/interactions/receiving-and-responding#responding-to-an-interaction). It can respond by launching the app's associated Activity using the `LAUNCH_ACTIVITY` (type `12`) [interaction callback type](/developers/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type), or take another action (like sending a follow-up message in channel).
 - For `DISCORD_LAUNCH_ACTIVITY` (`2`), Discord will handle the interaction automatically by launching the associated Activity and sending a message to the channel where it was launched.
 
 ### Default Entry Point command

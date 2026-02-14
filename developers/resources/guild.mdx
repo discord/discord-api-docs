@@ -3,12 +3,14 @@ title: Guild Resource
 sidebarTitle: Guild
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
 
 Guilds in Discord represent an isolated collection of users and channels, and are often referred to as "servers" in the UI.
 
 ### Guild Object
 
+<ManualAnchor id="guild-object-guild-structure" />
 ###### Guild Structure
 
 <Info>
@@ -66,6 +68,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 
 \*\* This field is deprecated and is replaced by [channel.rtc_region](/developers/resources/channel#channel-object-channel-structure)
 
+<ManualAnchor id="guild-object-default-message-notification-level" />
 ###### Default Message Notification Level
 
 | Key           | Value | Description                                                                        |
@@ -73,6 +76,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | ALL_MESSAGES  | 0     | members will receive notifications for all messages by default                     |
 | ONLY_MENTIONS | 1     | members will receive notifications only for messages that @mention them by default |
 
+<ManualAnchor id="guild-object-explicit-content-filter-level" />
 ###### Explicit Content Filter Level
 
 | Level                 | Integer | Description                                                 |
@@ -81,6 +85,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without roles will be scanned |
 | ALL_MEMBERS           | 2       | media content sent by all members will be scanned           |
 
+<ManualAnchor id="guild-object-mfa-level" />
 ###### MFA Level
 
 | Level    | Integer | Description                                             |
@@ -88,6 +93,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | NONE     | 0       | guild has no MFA/2FA requirement for moderation actions |
 | ELEVATED | 1       | guild has a 2FA requirement for moderation actions      |
 
+<ManualAnchor id="guild-object-verification-level" />
 ###### Verification Level
 
 | Level     | Integer | Description                                               |
@@ -98,6 +104,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | HIGH      | 3       | must be a member of the server for longer than 10 minutes |
 | VERY_HIGH | 4       | must have a verified phone number                         |
 
+<ManualAnchor id="guild-object-guild-nsfw-level" />
 ###### Guild NSFW Level
 
 | Level          | Value |
@@ -107,6 +114,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | SAFE           | 2     |
 | AGE_RESTRICTED | 3     |
 
+<ManualAnchor id="guild-object-premium-tier" />
 ###### Premium Tier
 
 | Level  | Integer | Description                                   |
@@ -116,6 +124,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | TIER_2 | 2       | guild has unlocked Server Boost level 2 perks |
 | TIER_3 | 3       | guild has unlocked Server Boost level 3 perks |
 
+<ManualAnchor id="guild-object-system-channel-flags" />
 ###### System Channel Flags
 
 | Flag                                                     | Value    | Description                                                   |
@@ -127,6 +136,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | `1 << 4` | Suppress role subscription purchase and renewal notifications |
 | SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | `1 << 5` | Hide role subscription sticker reply buttons                  |
 
+<ManualAnchor id="guild-object-guild-features" />
 ###### Guild Features
 
 | Feature                                   | Description                                                                                                                         |
@@ -164,6 +174,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | GUILD_TAGS                                | guild has access to set guild tags                                                                                                  |
 | ENHANCED_ROLE_COLORS                      | guild is able to set gradient colors to roles                                                                                       |
 
+<ManualAnchor id="guild-object-mutable-guild-features" />
 ###### Mutable Guild Features
 
 | Features             | Required Permissions | Effects                                                   |
@@ -175,6 +186,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 
 \* Server also must be passing all discovery requirements
 
+<ManualAnchor id="guild-object-example-guild" />
 ###### Example Guild
 
 ```json
@@ -228,6 +240,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 
 A partial [guild](/developers/resources/guild#guild-object) object. Represents an Offline Guild, or a Guild whose information has not been provided through [Guild Create](/developers/events/gateway-events#guild-create) events during the Gateway connect.
 
+<ManualAnchor id="unavailable-guild-object-example-unavailable-guild" />
 ###### Example Unavailable Guild
 
 ```json
@@ -239,6 +252,7 @@ A partial [guild](/developers/resources/guild#guild-object) object. Represents a
 
 ### Guild Preview Object
 
+<ManualAnchor id="guild-preview-object-guild-preview-structure" />
 ###### Guild Preview Structure
 
 | Field                      | Type                                                                                      | Description                                                     |
@@ -255,6 +269,7 @@ A partial [guild](/developers/resources/guild#guild-object) object. Represents a
 | description                | ?string                                                                                   | the description for the guild                                   |
 | stickers                   | array of [sticker](/developers/resources/sticker#sticker-object) objects                  | custom guild stickers                                           |
 
+<ManualAnchor id="guild-preview-object-example-guild-preview" />
 ###### Example Guild Preview
 
 ```json
@@ -285,6 +300,7 @@ A partial [guild](/developers/resources/guild#guild-object) object. Represents a
 
 ### Guild Widget Settings Object
 
+<ManualAnchor id="guild-widget-settings-object-guild-widget-settings-structure" />
 ###### Guild Widget Settings Structure
 
 | Field      | Type       | Description                   |
@@ -292,6 +308,7 @@ A partial [guild](/developers/resources/guild#guild-object) object. Represents a
 | enabled    | boolean    | whether the widget is enabled |
 | channel_id | ?snowflake | the widget channel id         |
 
+<ManualAnchor id="guild-widget-settings-object-example-guild-widget-settings" />
 ###### Example Guild Widget Settings
 
 ```json
@@ -303,6 +320,7 @@ A partial [guild](/developers/resources/guild#guild-object) object. Represents a
 
 ### Guild Widget Object
 
+<ManualAnchor id="guild-widget-object-guild-widget-structure" />
 ###### Guild Widget Structure
 
 | Field          | Type                                                                             | Description                                                          |
@@ -318,6 +336,7 @@ A partial [guild](/developers/resources/guild#guild-object) object. Represents a
 The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 </Warning>
 
+<ManualAnchor id="guild-widget-object-example-guild-widget" />
 ###### Example Guild Widget
 
 ```json
@@ -353,6 +372,7 @@ The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 
 ### Guild Member Object
 
+<ManualAnchor id="guild-member-object-guild-member-structure" />
 ###### Guild Member Structure
 
 | Field                         | Type                                                                                       | Description                                                                                                                                                                                                                          |
@@ -384,6 +404,7 @@ In `GUILD_` events, `pending` will always be included as true or false. In non `
 Member objects retrieved from `VOICE_STATE_UPDATE` events will have `joined_at` set as `null` if the member was invited as a guest.
 </Info>
 
+<ManualAnchor id="guild-member-object-example-guild-member" />
 ###### Example Guild Member
 
 ```json
@@ -399,6 +420,7 @@ Member objects retrieved from `VOICE_STATE_UPDATE` events will have `joined_at` 
 }
 ```
 
+<ManualAnchor id="guild-member-object-guild-member-flags" />
 ###### Guild Member Flags
 
 | Flag                            | Value     | Description                                                                  | Editable |
@@ -420,6 +442,7 @@ BYPASSES_VERIFICATION allows a member who does not meet verification requirement
 
 ### Integration Object
 
+<ManualAnchor id="integration-object-integration-structure" />
 ###### Integration Structure
 
 | Field                   | Type                                                                                                       | Description                                                                     |
@@ -446,6 +469,7 @@ BYPASSES_VERIFICATION allows a member who does not meet verification requirement
 Some older integrations may not have an attached user.
 </Warning>
 
+<ManualAnchor id="integration-object-integration-expire-behaviors" />
 ###### Integration Expire Behaviors
 
 | Value | Name        |
@@ -455,6 +479,7 @@ Some older integrations may not have an attached user.
 
 ### Integration Account Object
 
+<ManualAnchor id="integration-account-object-integration-account-structure" />
 ###### Integration Account Structure
 
 | Field | Type   | Description         |
@@ -464,6 +489,7 @@ Some older integrations may not have an attached user.
 
 ### Integration Application Object
 
+<ManualAnchor id="integration-application-object-integration-application-structure" />
 ###### Integration Application Structure
 
 | Field       | Type                                                  | Description                                                        |
@@ -476,6 +502,7 @@ Some older integrations may not have an attached user.
 
 ### Ban Object
 
+<ManualAnchor id="ban-object-ban-structure" />
 ###### Ban Structure
 
 | Field  | Type                                                  | Description            |
@@ -483,6 +510,7 @@ Some older integrations may not have an attached user.
 | reason | ?string                                               | the reason for the ban |
 | user   | [user](/developers/resources/user#user-object) object | the banned user        |
 
+<ManualAnchor id="ban-object-example-ban" />
 ###### Example Ban
 
 ```json
@@ -500,6 +528,7 @@ Some older integrations may not have an attached user.
 
 ### Welcome Screen Object
 
+<ManualAnchor id="welcome-screen-object-welcome-screen-structure" />
 ###### Welcome Screen Structure
 
 | Field            | Type                                                                                                                          | Description                                        |
@@ -507,6 +536,7 @@ Some older integrations may not have an attached user.
 | description      | ?string                                                                                                                       | the server description shown in the welcome screen |
 | welcome_channels | array of [welcome screen channel](/developers/resources/guild#welcome-screen-object-welcome-screen-channel-structure) objects | the channels shown in the welcome screen, up to 5  |
 
+<ManualAnchor id="welcome-screen-object-welcome-screen-channel-structure" />
 ###### Welcome Screen Channel Structure
 
 | Field       | Type       | Description                                                                               |
@@ -516,6 +546,7 @@ Some older integrations may not have an attached user.
 | emoji_id    | ?snowflake | the [emoji id](/developers/reference#image-formatting), if the emoji is custom            |
 | emoji_name  | ?string    | the emoji name if custom, the unicode character if standard, or `null` if no emoji is set |
 
+<ManualAnchor id="welcome-screen-object-example-welcome-screen" />
 ###### Example Welcome Screen
 
 ```json
@@ -613,6 +644,7 @@ Defines the criteria used to satisfy Onboarding constraints that are required fo
 | ONBOARDING_DEFAULT  | 0     | Counts only Default Channels towards constraints          |
 | ONBOARDING_ADVANCED | 1     | Counts Default Channels and Questions towards constraints |
 
+<ManualAnchor id="guild-onboarding-object-prompt-types" />
 ###### Prompt Types
 
 | Name            | Value |
@@ -620,6 +652,7 @@ Defines the criteria used to satisfy Onboarding constraints that are required fo
 | MULTIPLE_CHOICE | 0     |
 | DROPDOWN        | 1     |
 
+<ManualAnchor id="guild-onboarding-object-example-guild-onboarding" />
 ###### Example Guild Onboarding
 
 ```json
@@ -688,6 +721,7 @@ We are making significant changes to the Membership Screening API specifically r
 
 ### Incidents Data Object
 
+<ManualAnchor id="incidents-data-object-incidents-data-structure" />
 ###### Incidents Data Structure
 
 | Field                  | Type               | Description                            |
@@ -697,6 +731,7 @@ We are making significant changes to the Membership Screening API specifically r
 | dm_spam_detected_at?   | ?ISO8601 timestamp | when the dm spam was detected          |
 | raid_detected_at?      | ?ISO8601 timestamp | when the raid was detected             |
 
+<ManualAnchor id="incidents-data-object-example-incidents-data" />
 ###### Example Incidents Data
 
 ```json
@@ -711,12 +746,14 @@ We are making significant changes to the Membership Screening API specifically r
 
 Returns the [guild](/developers/resources/guild#guild-object) object for the given id. If `with_counts` is set to `true`, this endpoint will also return `approximate_member_count` and `approximate_presence_count` for the guild.
 
+<ManualAnchor id="get-guild-query-string-params" />
 ###### Query String Params
 
 | Field        | Type                                                   | Description                                                                   | Required | Default |
 |--------------|--------------------------------------------------------|-------------------------------------------------------------------------------|----------|---------|
 | with_counts? | [boolean](/developers/reference#boolean-query-strings) | when `true`, will return approximate member and presence counts for the guild | false    | false   |
 
+<ManualAnchor id="get-guild-example-response" />
 ###### Example Response
 
 ```json
@@ -816,6 +853,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 Attempting to add or remove the `COMMUNITY` [guild feature](/developers/resources/guild#guild-object-guild-features) requires the `ADMINISTRATOR` permission.
 </Warning>
 
+<ManualAnchor id="modify-guild-json-params" />
 ###### JSON Params
 
 | Field                         | Type                                                                                      | Description                                                                                                                                                       |
@@ -859,6 +897,7 @@ All parameters to this endpoint are optional and nullable excluding `name`
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="create-guild-channel-json-params" />
 ###### JSON Params
 
 | Field                              | Type                                                                                 | Description                                                                                                                                                                     | Channel Type                                   |
@@ -897,6 +936,7 @@ Only channels to be modified are required.
 
 This endpoint takes a JSON array of parameters in the following format:
 
+<ManualAnchor id="modify-guild-channel-positions-json-params" />
 ###### JSON Params
 
 | Field             | Type       | Description                                                                        |
@@ -911,6 +951,7 @@ This endpoint takes a JSON array of parameters in the following format:
 
 Returns all active threads in the guild, including public and private threads. Threads are ordered by their `id`, in descending order.
 
+<ManualAnchor id="list-active-guild-threads-response-body" />
 ###### Response Body
 
 | Field   | Type                                                                                  | Description                                                                 |
@@ -936,6 +977,7 @@ This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged
 All parameters to this endpoint are optional
 </Info>
 
+<ManualAnchor id="list-guild-members-query-string-params" />
 ###### Query String Params
 
 | Field | Type      | Description                              | Default |
@@ -952,6 +994,7 @@ Returns a list of [guild member](/developers/resources/guild#guild-member-object
 All parameters to this endpoint except for `query` are optional
 </Info>
 
+<ManualAnchor id="search-guild-members-query-string-params" />
 ###### Query String Params
 
 | Field | Type    | Description                                                | Default |
@@ -974,6 +1017,7 @@ All parameters to this endpoint except for `access_token` are optional.
 The Authorization header must be a Bot token (belonging to the same application used for authorization), and the bot must be a member of the guild with `CREATE_INSTANT_INVITE` permission.
 </Info>
 
+<ManualAnchor id="add-guild-member-json-params" />
 ###### JSON Params
 
 | Field        | Type                | Description                                                                                                              | Permission       |
@@ -998,6 +1042,7 @@ All parameters to this endpoint are optional and nullable. When moving members t
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="modify-guild-member-json-params" />
 ###### JSON Params
 
 | Field                        | Type                | Description                                                                                                                                                                                                                                                                                                                                | Permission                                                                          |
@@ -1019,6 +1064,7 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="modify-current-member-json-params" />
 ###### JSON Params
 
 | Field   | Type    | Description                                                              | Permission      |
@@ -1041,6 +1087,7 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="modify-current-user-nick-json-params" />
 ###### JSON Params
 
 | Field | Type    | Description                     | Permission      |
@@ -1079,6 +1126,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 Returns a list of [ban](/developers/resources/guild#ban-object) objects for the users banned from this guild. Requires the `BAN_MEMBERS` permission.
 
+<ManualAnchor id="get-guild-bans-query-string-params" />
 ###### Query String Params
 
 | Field      | Type      | Description                                    | Default |
@@ -1103,6 +1151,7 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="create-guild-ban-json-params" />
 ###### JSON Params
 
 | Field                   | Type    | Description                                                             | Default |
@@ -1128,6 +1177,7 @@ Ban up to 200 users from a guild, and optionally delete previous messages sent b
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="bulk-guild-ban-json-params" />
 ###### JSON Params
 
 | Field                   | Type                | Description                                                             | Default |
@@ -1135,6 +1185,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | user_ids                | array of snowflakes | list of user ids to ban (max 200)                                       |         |
 | delete_message_seconds? | integer             | number of seconds to delete messages for, between 0 and 604800 (7 days) | 0       |
 
+<ManualAnchor id="bulk-guild-ban-bulk-ban-response" />
 ###### Bulk Ban Response
 
 On success, this endpoint returns a 200 success response with the following body.
@@ -1163,6 +1214,7 @@ Returns a [role](/developers/topics/permissions#role-object) object for the spec
 
 Returns a map of role IDs to the number of members with the role. Does not include the @everyone role.
 
+<ManualAnchor id="get-guild-role-member-counts-example-response" />
 ###### Example Response
 
 ```json
@@ -1182,6 +1234,7 @@ Create a new [role](/developers/topics/permissions#role-object) for the guild. R
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="create-guild-role-json-params" />
 ###### JSON Params
 
 | Field         | Type                                                                                | Description                                                                                                                          | Default                                                                                             |
@@ -1208,6 +1261,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 This endpoint takes a JSON array of parameters in the following format:
 
+<ManualAnchor id="modify-guild-role-positions-json-params" />
 ###### JSON Params
 
 | Field     | Type      | Description                                                                  |
@@ -1228,6 +1282,7 @@ All parameters to this endpoint are optional and nullable.
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="modify-guild-role-json-params" />
 ###### JSON Params
 
 | Field         | Type                                                                                | Description                                                                                                                          |
@@ -1259,6 +1314,7 @@ Returns an object with one `pruned` key indicating the number of members that wo
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
+<ManualAnchor id="get-guild-prune-count-query-string-params" />
 ###### Query String Params
 
 | Field         | Type                                        | Description                              | Default |
@@ -1277,6 +1333,7 @@ By default, prune will not remove users with roles. You can optionally include s
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="begin-guild-prune-json-params" />
 ###### JSON Params
 
 | Field               | Type                | Description                                                | Default |
@@ -1342,6 +1399,7 @@ Returns a partial [invite](/developers/resources/invite#invite-object) object fo
 This endpoint is required to get the usage count of the vanity invite, but the invite code can be accessed as `vanity_url_code` in the [guild object](/developers/resources/guild#guild-object) without having the `MANAGE_GUILD` permission.
 </Info>
 
+<ManualAnchor id="get-guild-vanity-url-example-partial-invite-object" />
 ###### Example Partial Invite Object
 
 ```json
@@ -1360,12 +1418,14 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 All parameters to this endpoint are optional.
 </Info>
 
+<ManualAnchor id="get-guild-widget-image-query-string-params" />
 ###### Query String Params
 
 | Field | Type   | Description                                    | Default |
 |-------|--------|------------------------------------------------|---------|
 | style | string | style of the widget image returned (see below) | shield  |
 
+<ManualAnchor id="get-guild-widget-image-widget-style-options" />
 ###### Widget Style Options
 
 | Value   | Description                                                                                                                                                    | Example                                                                              |
@@ -1394,6 +1454,7 @@ All parameters to this endpoint are optional and nullable
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="modify-guild-welcome-screen-json-params" />
 ###### JSON Params
 
 | Field            | Type                                                                                                                          | Description                                                     |
@@ -1424,6 +1485,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 All parameters to this endpoint are optional.
 </Info>
 
+<ManualAnchor id="modify-guild-onboarding-json-params" />
 ###### JSON Params
 
 | Field               | Type                                                                                                                  | Description                                                |
@@ -1438,6 +1500,7 @@ All parameters to this endpoint are optional.
 
 Modifies the incident actions of the guild. Returns a 200 with the [Incidents Data](/developers/resources/guild#incidents-data-object) object for the guild. Requires the `MANAGE_GUILD` permission.
 
+<ManualAnchor id="modify-guild-incident-actions-json-params" />
 ###### JSON Params
 
 <Info>

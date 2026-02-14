@@ -3,12 +3,14 @@ title: Channels Resource
 sidebarTitle: Channel
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
 
 ### Channel Object
 
 Represents a guild or DM channel within Discord.
 
+<ManualAnchor id="channel-object-channel-structure" />
 ###### Channel Structure
 
 | Field                               | Type                                                                              | Description                                                                                                                                                                                                                                                                                            |
@@ -53,6 +55,7 @@ Represents a guild or DM channel within Discord.
 
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 
+<ManualAnchor id="channel-object-channel-types" />
 ###### Channel Types
 
 <Warning>
@@ -77,6 +80,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 
 \* The `GUILD_MEDIA` channel type is still in active development. Avoid implementing any features that are not documented here, since they are subject to change without notice!
 
+<ManualAnchor id="channel-object-video-quality-modes" />
 ###### Video Quality Modes
 
 | Mode | Value | Description                                         |
@@ -84,6 +88,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 | AUTO | 1     | Discord chooses the quality for optimal performance |
 | FULL | 2     | 720p                                                |
 
+<ManualAnchor id="channel-object-channel-flags" />
 ###### Channel Flags
 
 | Flag                        | Value     | Description                                                                                                                                                     |
@@ -92,6 +97,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 | REQUIRE_TAG                 | `1 << 4`  | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field. |
 | HIDE_MEDIA_DOWNLOAD_OPTIONS | `1 << 15` | when set hides the embedded media download options. Available only for media channels                                                                           |
 
+<ManualAnchor id="channel-object-sort-order-types" />
 ###### Sort Order Types
 
 | Flag            | Value | Description                                                    |
@@ -99,6 +105,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 | LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
 | CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
 
+<ManualAnchor id="channel-object-forum-layout-types" />
 ###### Forum Layout Types
 
 | Flag         | Value | Description                               |
@@ -107,6 +114,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 | LIST_VIEW    | 1     | Display posts as a list                   |
 | GALLERY_VIEW | 2     | Display posts as a collection of tiles    |
 
+<ManualAnchor id="channel-object-example-guild-text-channel" />
 ###### Example Guild Text Channel
 
 ```json
@@ -126,6 +134,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 }
 ```
 
+<ManualAnchor id="channel-object-example-guild-announcement-channel" />
 ###### Example Guild Announcement Channel
 
 Bots can post or publish messages in this type of channel if they have the proper permissions.
@@ -146,6 +155,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
+<ManualAnchor id="channel-object-example-guild-voice-channel" />
 ###### Example Guild Voice Channel
 
 ```json
@@ -166,6 +176,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
+<ManualAnchor id="channel-object-example-dm-channel" />
 ###### Example DM Channel
 
 ```json
@@ -184,6 +195,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
+<ManualAnchor id="channel-object-example-group-dm-channel" />
 ###### Example Group DM Channel
 
 ```json
@@ -211,6 +223,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
+<ManualAnchor id="channel-object-example-channel-category" />
 ###### Example Channel Category
 
 ```json
@@ -226,6 +239,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
+<ManualAnchor id="channel-object-example-thread-channel" />
 ###### Example Thread Channel
 
 [Threads](/developers/topics/threads) can be either `archived` or `active`.  Archived threads are generally immutable.  To send a message or add a reaction, a thread must first be unarchived.  The API will helpfully automatically unarchive a thread when sending a message in that thread.
@@ -262,6 +276,7 @@ The [threads](/developers/topics/threads) topic has some more information.
 
 ### Followed Channel Object
 
+<ManualAnchor id="followed-channel-object-followed-channel-structure" />
 ###### Followed Channel Structure
 
 | Field      | Type      | Description               |
@@ -273,6 +288,7 @@ The [threads](/developers/topics/threads) topic has some more information.
 
 See [permissions](/developers/topics/permissions#permissions) for more information about the `allow` and `deny` fields.
 
+<ManualAnchor id="overwrite-object-overwrite-structure" />
 ###### Overwrite Structure
 
 | Field | Type      | Description                   |
@@ -286,6 +302,7 @@ See [permissions](/developers/topics/permissions#permissions) for more informati
 
 The thread metadata object contains a number of thread-specific channel fields that are not needed by other channel types.
 
+<ManualAnchor id="thread-metadata-object-thread-metadata-structure" />
 ###### Thread Metadata Structure
 
 | Field                 | Type               | Description                                                                                                                                |
@@ -301,6 +318,7 @@ The thread metadata object contains a number of thread-specific channel fields t
 
 A thread member object contains information about a user that has joined a thread.
 
+<ManualAnchor id="thread-member-object-thread-member-structure" />
 ###### Thread Member Structure
 
 | Field           | Type                                                                   | Description                                                     |
@@ -319,6 +337,7 @@ A thread member object contains information about a user that has joined a threa
 
 An object that specifies the emoji to use as the default way to react to a forum post. Exactly one of `emoji_id` and `emoji_name` must be set.
 
+<ManualAnchor id="default-reaction-object-default-reaction-structure" />
 ###### Default Reaction Structure
 
 | Field      | Type       | Description                        |
@@ -330,6 +349,7 @@ An object that specifies the emoji to use as the default way to react to a forum
 
 An object that represents a tag that is able to be applied to a thread in a `GUILD_FORUM` or `GUILD_MEDIA` channel.
 
+<ManualAnchor id="forum-tag-object-forum-tag-structure" />
 ###### Forum Tag Structure
 
 <Info>
@@ -364,6 +384,7 @@ All parameters to this endpoint are optional
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="modify-channel-json-params-group-dm" />
 ###### JSON Params (Group DM)
 
 Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gateway event.
@@ -373,6 +394,7 @@ Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gatew
 | name  | string | 1-100 character channel name |
 | icon  | binary | base64 encoded icon          |
 
+<ManualAnchor id="modify-channel-json-params-guild-channel" />
 ###### JSON Params (Guild channel)
 
 Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gateway event. If modifying a category, individual [Channel Update](/developers/events/gateway-events#channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
@@ -403,6 +425,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 
 \*\* In each overwrite object, the `allow` and `deny` keys can be omitted or set to `null`, which both default to `"0"`.
 
+<ManualAnchor id="modify-channel-json-params-thread" />
 ###### JSON Params (Thread)
 
 When setting `archived` to `false`, when `locked` is also `false`, only the `SEND_MESSAGES` permission is required.
@@ -446,6 +469,7 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="edit-channel-permissions-json-params" />
 ###### JSON Params
 
 | Field  | Type    | Description                                                     |
@@ -468,6 +492,7 @@ Create a new [invite](/developers/resources/invite#invite-object) object for the
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="create-channel-invite-jsonform-params" />
 ###### JSON/Form Params
 
 | Field                 | Type                | Description                                                                                                                               | Default          |
@@ -505,6 +530,7 @@ Follow an Announcement Channel to send messages to a target channel. Requires th
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="follow-announcement-channel-json-params" />
 ###### JSON Params
 
 | Field              | Type      | Description          |
@@ -523,6 +549,7 @@ Generally bots should **not** use this route. However, if a bot is responding to
 
 Adds a recipient to a Group DM using their access token.
 
+<ManualAnchor id="group-dm-add-recipient-json-params" />
 ###### JSON Params
 
 | Field        | Type   | Description                                                           |
@@ -546,6 +573,7 @@ When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="start-thread-from-message-json-params" />
 ###### JSON Params
 
 | Field                  | Type     | Description                                                                                                                                |
@@ -563,6 +591,7 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="start-thread-without-message-json-params" />
 ###### JSON Params
 
 | Field                  | Type     | Description                                                                                                                                |
@@ -597,6 +626,7 @@ Discord may strip certain characters from message content, like invalid unicode 
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
+<ManualAnchor id="start-thread-in-forum-or-media-channel-jsonform-params" />
 ###### JSON/Form Params
 
 | Field                    | Type                                                                                                                                                      | Description                                                                                                                                 |
@@ -610,6 +640,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | payload_json?            | string                                                                                                                                                    | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](/developers/reference#uploading-files) |
 
 
+<ManualAnchor id="start-thread-in-forum-or-media-channel-forum-and-media-thread-message-params-object" />
 ###### Forum and Media Thread Message Params Object
 
 <Info>
@@ -655,6 +686,7 @@ Returns a [thread member](/developers/resources/channel#thread-member-object) ob
 
 When `with_member` is set to `true`, the thread member object will include a `member` field containing a [guild member](/developers/resources/guild#guild-member-object) object.
 
+<ManualAnchor id="get-thread-member-query-string-params" />
 ###### Query String Params
 
 | Field        | Type                                                   | Description                                                                                                       |
@@ -676,6 +708,7 @@ When `with_member` is set to `true`, the results will be paginated and each thre
 This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
 </Warning>
 
+<ManualAnchor id="list-thread-members-query-string-params" />
 ###### Query String Params
 
 | Field        | Type                                                   | Description                                                                                                        |
@@ -689,6 +722,7 @@ This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged
 
 Returns archived threads in the channel that are public. When called on a `GUILD_TEXT` channel, returns threads of [type](/developers/resources/channel#channel-object-channel-types) `PUBLIC_THREAD`. When called on a `GUILD_ANNOUNCEMENT` channel returns threads of [type](/developers/resources/channel#channel-object-channel-types) `ANNOUNCEMENT_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
+<ManualAnchor id="list-public-archived-threads-query-string-params" />
 ###### Query String Params
 
 | Field   | Type              | Description                                    |
@@ -696,6 +730,7 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 | before? | ISO8601 timestamp | returns threads archived before this timestamp |
 | limit?  | integer           | optional maximum number of threads to return   |
 
+<ManualAnchor id="list-public-archived-threads-response-body" />
 ###### Response Body
 
 | Field    | Type                                                                                  | Description                                                                                  |
@@ -709,6 +744,7 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 
 Returns archived threads in the channel that are of [type](/developers/resources/channel#channel-object-channel-types) `PRIVATE_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
 
+<ManualAnchor id="list-private-archived-threads-query-string-params" />
 ###### Query String Params
 
 | Field   | Type              | Description                                    |
@@ -716,6 +752,7 @@ Returns archived threads in the channel that are of [type](/developers/resources
 | before? | ISO8601 timestamp | returns threads archived before this timestamp |
 | limit?  | integer           | optional maximum number of threads to return   |
 
+<ManualAnchor id="list-private-archived-threads-response-body" />
 ###### Response Body
 
 | Field    | Type                                                                                  | Description                                                                                  |
@@ -729,6 +766,7 @@ Returns archived threads in the channel that are of [type](/developers/resources
 
 Returns archived threads in the channel that are of [type](/developers/resources/channel#channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
+<ManualAnchor id="list-joined-private-archived-threads-query-string-params" />
 ###### Query String Params
 
 | Field   | Type      | Description                                  |
@@ -736,6 +774,7 @@ Returns archived threads in the channel that are of [type](/developers/resources
 | before? | snowflake | returns threads before this id               |
 | limit?  | integer   | optional maximum number of threads to return |
 
+<ManualAnchor id="list-joined-private-archived-threads-response-body" />
 ###### Response Body
 
 | Field    | Type                                                                                  | Description                                                                                  |

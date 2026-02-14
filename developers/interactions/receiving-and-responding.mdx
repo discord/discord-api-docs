@@ -3,6 +3,7 @@ title: Interactions
 sidebarTitle: Receiving and Responding
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
 
 An **[Interaction](/developers/interactions/receiving-and-responding#interaction-object)** is the message that your application receives when a user uses an application command or a message component.
@@ -15,6 +16,7 @@ For [Message Components](/developers/components/reference) it includes identifyi
 
 ### Interaction Object
 
+<ManualAnchor id="interaction-object-interaction-structure" />
 ###### Interaction Structure
 
 | Field                          | Type                                                                                                                                        | Description                                                                                                                                                                                                                                                                |
@@ -48,6 +50,7 @@ For [Message Components](/developers/components/reference) it includes identifyi
 
 \*\*\*\* This is available on all interaction types except PING
 
+<ManualAnchor id="interaction-object-interaction-type" />
 ###### Interaction Type
 
 | Name                             | Value |
@@ -58,6 +61,7 @@ For [Message Components](/developers/components/reference) it includes identifyi
 | APPLICATION_COMMAND_AUTOCOMPLETE | 4     |
 | MODAL_SUBMIT                     | 5     |
 
+<ManualAnchor id="interaction-object-interaction-context-types" />
 ###### Interaction Context Types
 
 Context in Discord where an interaction can be used, or where it was triggered from. Details about using interaction contexts for application commands is in the [commands context documentation](/developers/interactions/application-commands#interaction-contexts).
@@ -68,6 +72,7 @@ Context in Discord where an interaction can be used, or where it was triggered f
 | BOT_DM          | 1    | Interaction can be used within DMs with the app's bot user                     |
 | PRIVATE_CHANNEL | 2    | Interaction can be used within Group DMs and DMs other than the app's bot user |
 
+<ManualAnchor id="interaction-object-authorizing-integration-owners-object" />
 ###### Authorizing Integration Owners Object
 
 The `authorizing_integration_owners` field includes details about the authorizing user or server for the installation(s) relevant to the interaction. For apps installed to a user, it can be used to tell the difference between the authorizing user and the user that triggered an interaction (like a message component).
@@ -84,6 +89,7 @@ The values in `authorizing_integration_owners` depend on the key—
     - The value will be `"0"` if the interaction is triggered from a DM with the app's bot user
 - If the key is `USER_INSTALL` (`"1"`), the value will be the ID of the authorizing user
 
+<ManualAnchor id="interaction-object-interaction-data" />
 ###### Interaction Data
 
 While the `data` field is guaranteed to be present for all [interaction types](/developers/interactions/receiving-and-responding#interaction-object-interaction-type) besides `PING`, its structure will vary. The following tables detail the inner `data` payload for each interaction type.
@@ -97,6 +103,7 @@ While the `data` field is guaranteed to be present for all [interaction types](/
 | MODAL_SUBMIT (`5`)                     | [Modal Submit Data Structure](/developers/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure)               |
 
 
+<ManualAnchor id="interaction-object-application-command-data-structure" />
 ###### Application Command Data Structure
 
 <Info>
@@ -115,6 +122,7 @@ Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interaction
 
 \* This [can be partial](/developers/interactions/application-commands#autocomplete) when in response to `APPLICATION_COMMAND_AUTOCOMPLETE`
 
+<ManualAnchor id="interaction-object-message-component-data-structure" />
 ###### Message Component Data Structure
 
 | Field          | Type                                                                                                          | Description                                                                                           |
@@ -126,6 +134,7 @@ Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interaction
 
 \* This is always present for select menu components
 
+<ManualAnchor id="interaction-object-modal-submit-data-structure" />
 ###### Modal Submit Data Structure
 
 | Field      | Type                                                                                                                                                      | Description                             |
@@ -134,6 +143,7 @@ Sent in `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interaction
 | components | array of [component interaction response](/developers/interactions/receiving-and-responding#interaction-object-component-interaction-response-structures) | Values submitted by the user            |
 | resolved?  | [resolved data](/developers/interactions/receiving-and-responding#interaction-object-resolved-data-structure)                                             | Resolved entities from selected options |
 
+<ManualAnchor id="interaction-object-component-interaction-response-structures" />
 ###### Component Interaction Response Structures
 
 Response structures for both modal and message component interactions.
@@ -153,6 +163,7 @@ Response structures for both modal and message component interactions.
 | [Checkbox Group](/developers/components/reference#checkbox-group-interaction-response-structure)                            |
 | [Checkbox](/developers/components/reference#checkbox-interaction-response-structure)                                        |
 
+<ManualAnchor id="interaction-object-resolved-data-structure" />
 ###### Resolved Data Structure
 
 <Info>
@@ -172,6 +183,7 @@ If data for a Member is included, data for its corresponding User will also be i
 
 \*\* Partial `Channel` objects only have `id`, `name`, `type`, `permissions`, `last_message_id`, `last_pin_timestamp`, `nsfw`, `parent_id`, `guild_id`, `flags`, `rate_limit_per_user`, `topic` and `position` fields. Threads will also have the `thread_metadata` field.
 
+<ManualAnchor id="interaction-object-application-command-interaction-data-option-structure" />
 ###### Application Command Interaction Data Option Structure
 
 All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
@@ -194,6 +206,7 @@ This is sent on the [message object](/developers/resources/message#message-objec
 This means responses to [Message Components](/developers/components/reference) do not include this property, instead including a [message reference](/developers/resources/message#message-reference-structure) object as components _always_ exist on preexisting messages.
 </Info>
 
+<ManualAnchor id="message-interaction-object-message-interaction-structure" />
 ###### Message Interaction Structure
 
 | Field   | Type                                                                                                      | Description                                                                                                                                                                            |
@@ -241,6 +254,7 @@ There are a number of ways you can respond to an interaction:
 
 ### Interaction Response Object
 
+<ManualAnchor id="interaction-response-object-interaction-response-structure" />
 ###### Interaction Response Structure
 
 | Field | Type                                                                                                                                           | Description                  |
@@ -248,6 +262,7 @@ There are a number of ways you can respond to an interaction:
 | type  | [interaction callback type](/developers/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type)           | Type of response             |
 | data? | [interaction callback data](/developers/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure) | An optional response message |
 
+<ManualAnchor id="interaction-response-object-interaction-callback-type" />
 ###### Interaction Callback Type
 
 | Name                                    | Value | Description                                                                                                                                                                                                                                       |
@@ -266,8 +281,10 @@ There are a number of ways you can respond to an interaction:
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
+<ManualAnchor id="interaction-response-object-interaction-callback-data-structure" />
 ###### Interaction Callback Data Structure
 
+<ManualAnchor id="interaction-response-object-messages" />
 ###### Messages
 
 Not all message fields are currently supported.
@@ -288,12 +305,14 @@ Not all message fields are currently supported.
 
 \*\* See [Uploading Files](/developers/reference#uploading-files) for details.
 
+<ManualAnchor id="interaction-response-object-autocomplete" />
 ###### Autocomplete
 
 | Field   | Type                                                                                                                                     | Description                              |
 |---------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
 | choices | array of [choices](/developers/interactions/application-commands#application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
+<ManualAnchor id="interaction-response-object-modal" />
 ###### Modal
 
 | Field      | Type                                                                     | Description                                                   |
@@ -356,6 +375,7 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
     ```
 </Accordion>
 
+<ManualAnchor id="interaction-callback-interaction-callback-response-object" />
 ###### Interaction Callback Response Object
 
 | Field       | Type                                                                                                                                       | Description                                                      |
@@ -363,6 +383,7 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
 | interaction | [interaction callback object](/developers/interactions/receiving-and-responding#interaction-callback-interaction-callback-object)          | The interaction object associated with the interaction response. |
 | resource?   | [interaction resource object](/developers/interactions/receiving-and-responding#interaction-callback-interaction-callback-resource-object) | The resource that was created by the interaction response.       |
 
+<ManualAnchor id="interaction-callback-interaction-callback-object" />
 ###### Interaction Callback Object
 
 | Field                       | Type      | Description                                                                                               |
@@ -374,6 +395,7 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
 | response_message_loading?   | boolean   | Whether the message is in a loading state                                                                 |
 | response_message_ephemeral? | boolean   | Whether the response message is ephemeral                                                                 |
 
+<ManualAnchor id="interaction-callback-interaction-callback-resource-object" />
 ###### Interaction Callback Resource Object
 
 | Field                | Type                                                                                                                                                 | Description                                                                                                                          |
@@ -386,6 +408,7 @@ Interaction `tokens` are valid for **15 minutes** and can be used to send follow
 
 \*\* Only present if type is either `CHANNEL_MESSAGE_WITH_SOURCE` or `UPDATE_MESSAGE`.
 
+<ManualAnchor id="interaction-callback-interaction-callback-activity-instance-resource" />
 ###### Interaction Callback Activity Instance Resource
 
 | Field | Type   | Description                                                |
@@ -421,6 +444,7 @@ Create a response to an Interaction. Body is an [interaction response](/develope
 
 This endpoint also supports file attachments similar to the webhook endpoints. Refer to [Uploading Files](/developers/reference#uploading-files) for details on uploading files and `multipart/form-data` requests.
 
+<ManualAnchor id="create-interaction-response-query-string-params" />
 ###### Query String Params
 
 | Field          | Type                                                   | Description                                                                                                                                                                      |
