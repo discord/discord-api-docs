@@ -363,7 +363,7 @@ Get a guild scheduled event. Returns a [guild scheduled event](/developers/resou
 ## Modify Guild Scheduled Event
 <Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)</Route>
 
-Modify a guild scheduled event. Returns the modified [guild scheduled event](/developers/resources/guild-scheduled-event#guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](/developers/events/gateway-events#guild-scheduled-event-update) Gateway event.
+Modify a guild scheduled event. Returns the modified [guild scheduled event](/developers/resources/guild-scheduled-event#guild-scheduled-event-object) object on success. Fires a [Guild Scheduled Event Update](/developers/events/gateway-events#guild-scheduled-event-update) Gateway event, and optionally multiple [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway events.
 
 <Info>
 To start or end an event, use this endpoint to modify the event's [status](/developers/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status) field.
@@ -378,7 +378,11 @@ This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
 </Info>
 
 <Info>
-All parameters to this endpoint are optional
+Modifying the `recurrence_rule` may cause all exceptions for an event to be removed.
+</Info>
+
+<Info>
+All parameters to this endpoint are optional.
 </Info>
 
 <ManualAnchor id="modify-guild-scheduled-event-json-params" />
@@ -476,7 +480,7 @@ All parameters to this endpoint are optional.
 ## Delete Guild Scheduled Event Exception
 <Route method="DELETE">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
-Delete an exception for the guild scheduled event's recurrence rule. Returns a `204` on success. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
+Delete an exception for the guild scheduled event's recurrence rule. Returns a `204` empty response on success. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
