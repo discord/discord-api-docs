@@ -5,12 +5,6 @@ description: Implement moderation features and safety controls in your applicati
 import PublicClient from '/snippets/discord-social-sdk/callouts/public-client.mdx';
 import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
 
-{/*
-Script for converting mermaid sequence diagrams to SVG.
-
-# docker run --rm -u `id -u`:`id -g` -v "$(pwd):/data" minlag/mermaid-cli -i "/data/$file" -o "/data/$filename.svg" -t dark -b '#313338'
-*/}
-
 This guide will walk you through integrating and managing content moderation for your game when using the Discord Social SDK.
 
 ## Overview
@@ -18,7 +12,8 @@ This guide will walk you through integrating and managing content moderation for
 Effective moderation is essential for creating healthy social experiences. This guide will help you:
 
 - Better understand your moderation responsibilities
-- Implement client-side moderation for text and audio content alongside the Discord Social SDK
+- Implement server-side moderation for text content using Discord's moderation metadata API
+- Implement client-side moderation for audio content with the Discord Social SDK
 
 ## Prerequisites
 
@@ -35,10 +30,10 @@ Before you begin, make sure you have:
 
 [Discord's Community Guidelines](https://discord.com/guidelines) and [Terms of Service](https://discord.com/terms) apply to any content that is rendered on Discord, including:
 
-- Text messages, audio, and video sent within Discord’s platform
+- Text messages, audio, and video sent within Discord's platform
 - Text messages that are appear on Discord (such as in DMs or Linked Channels) after being sent by players in your game (whether they have linked their Discord account or are using a provisional account)
 
-Discord can take various actions against such content on Discord for violating its terms or policies, including through Discord platform-wide account bans and restrictions. Actions against a player’s Discord account will not affect their separate account in the game (see [below](https://www.notion.so/Text-and-Voice-Moderation-1d0f46fd48aa80eda914cd3134d65afb?pvs=21) for more details); however, if a player’s Discord account is banned, they will no longer have access to the SDK features that require an account connection.
+Discord can take various actions against such content on Discord for violating its terms or policies, including through Discord platform-wide account bans and restrictions. Actions against a player's Discord account will not affect their separate account in the game (see [below](#handling-users-with-banned-discord-accounts) for more details); however, if a player's Discord account is banned, they will no longer have access to the SDK features that require an account connection.
 
 ### Game Developer's Responsibility
 
@@ -49,139 +44,260 @@ Your terms and policies apply to the content in your game. You are responsible f
 - In-game content moderation for messages or audio within your game
 - Implementing appropriate UIs for reporting and moderation; this includes providing players a way to report issues or violations of your policies and reviewing and taking appropriate action on such reports
 
-## Client-Side Chat Moderation
-
-While the Social SDK does not have a direct integration with external moderation toolkits, a client side approach to
-outgoing and incoming messages can be implemented when sending messages through [`Client::SendUserMessage`] and/or
-receiving them through [`Client::SetMessageCreatedCallback`].
-
-### How it works:
-
-An example moderation integration would be the following:
-
-**Message Sending**
-
-- Before a user sends a message, your client validates it with your backend
-- If it passes validation, the message is sent through the SDK
-- Messages can be optimistically rendered while validation occurs
-
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant GameClient
-    participant BackendService as Moderation Backend
-    participant DiscordSDK as Discord Social SDK
-    participant DiscordServers as Discord
-
-    %% User initiates sending a message %%
-    User->>GameClient: Enters and submits message text
-    activate GameClient
-
-    %% Optimistic rendering and validation request %%
-    Note right of GameClient: Optimistically render message in UI
-    GameClient->>BackendService: POST /validate (message)
-    activate BackendService
-
-    %% Backend validates %%
-    Note right of BackendService: Perform validation logic
-    BackendService-->>GameClient: Response (isValid: boolean, moderatedText?: string)
-    deactivate BackendService
-
-    %% Conditional sending based on validation %%
-    alt Message is Valid (isValid: true)
-        GameClient->>DiscordSDK: Client::SendUserMessage(recipient, message)
-        activate DiscordSDK
-        DiscordSDK->>DiscordServers: Forward message
-        activate DiscordServers
-        DiscordServers-->>DiscordSDK: Message Acknowledged (messageId)
-        deactivate DiscordServers
-        DiscordSDK-->>GameClient: Callback(result: Success, messageId)
-        deactivate DiscordSDK
-        Note right of GameClient: Confirm message sent (update UI if needed)
-    else Message is Invalid (isValid: false)
-        Note right of GameClient: Remove optimistically rendered message from UI
-        GameClient->>User: Notify: "Message violated content policy"
-    end
-    deactivate GameClient
-```
-```cpp
-// Example: Validating a message before sending
-void validateAndSendMessage(const std::string& message) {
-    // Optimistically render the message immediately
-    renderMessage(myUserId, message);
-
-    // Send to backend for validation
-    myBackend->validateMessage(message, [this, message](bool isValid, std::string moderated) {
-        if (isValid) {
-            // Send through Discord SDK
-            client->SendUserMessage(recipientId, message, [](auto result, uint64_t messageId) {
-		  if (result.Successful()) {
-		    std::cout << "✅ Message sent successfully\n";
-		  } else {
-		    std::cout << "❌ Failed to send message: " << result.GetError() << "\n";
-		  }
-	});
-        } else {
-            // Remove the invalid message from UI and notify user
-            removeMessage(myUserId, message);
-            notifyUser("Message violated content policy");
-        }
-    });
-}
-```
-
-**Message Receiving**
-
-- When a message is received from players within Discord or a Game Client, your client sends it to your backend for validation
-- Once validation succeeds, render the message in the game
-
-<Info>
-Depending on how long your content moderation processing takes, you may wish to optimistically render the incoming
-message, and remove or alter it if your moderation service deems it appropriate. However, this does pose the risk of
-temporarily exposing content to your game players that does not align with your moderation policies.
-</Info>
-
-
-
-```mermaid
-sequenceDiagram
-    participant DiscordSDK as Discord Social SDK
-    participant GameClient as Game Client
-    participant BackendService as Moderation Backend
-
-    %% Message Arrives %%
-    activate DiscordSDK
-
-    %% SDK delivers message to Game Client via callback %%
-    Note right of DiscordSDK: Message arrives for subscribed channel/user
-    DiscordSDK->>GameClient: Trigger Client::SetMessageCreatedCallback(message)
-    deactivate DiscordSDK
-    activate GameClient
-
-    %% Game Client sends received message for validation %%
-    GameClient->>BackendService: POST /validate (receivedMessage)
-    activate BackendService
-
-    %% Backend validates %%
-    Note right of BackendService: Perform validation logic
-    BackendService-->>GameClient: Response (isValid: boolean)
-    deactivate BackendService
-
-    %% Conditional rendering based on validation %%
-    alt Message is Valid (isValid: true)
-        Note right of GameClient: Render received message in game UI
-    else Message is Invalid (isValid: false)
-        Note right of GameClient: Discard message (do not render)
-    end
-    deactivate GameClient
-```
-<Info>
-You may wish to implement moderation caching on your backend to avoid redundant validation. This is especially true for
-lobby messages, which are sent to multiple recipients.
-</Info>
-
+<Warning>
 As a reminder, you are responsible for any third-party moderation toolkits or services you use for your game and will ensure you comply with any applicable terms and laws, including obtaining consents from players as necessary for processing their data using such moderation services.
+</Warning>
+
+## Server-Side Chat Moderation
+
+Discord's moderation metadata API lets your backend evaluate messages and attach application scoped
+`moderation_metadata` to them. The metadata is persisted by Discord and delivered to active game
+sessions via realtime `GAME_DIRECT_MESSAGE_UPDATE` or `LOBBY_MESSAGE_UPDATE` [Webhook Events](/developers/events/webhook-events) — no polling required. Metadata is never exposed to
+other applications and is not included in webhook events.
+
+### How It Works
+
+1. Your backend receives a webhook event when a message is created or updated.
+2. Your moderation system evaluates the message and updates the `moderation_metadata` on the message via the Discord
+API to indicate what action should be taken (hide, blur, replace, etc.).
+3. Discord persists the metadata and dispatches an update event to relevant game client participants via the Social SDK.
+4. The Game client is notified of the update via [`Client::SetMessageUpdatedCallback`], and retrieves the
+[`MessageHandle::ModerationMetadata`] from specified [`MessageHandle`] in the firing callback, and renders the message accordingly.
+5. If the message content is edited, Discord clears the moderation metadata before dispatching a new update,
+indicating the message needs to be re-moderated.
+
+```mermaid
+sequenceDiagram
+    participant User as Game Client
+    participant SDK as Social SDK
+    participant Discord as Discord
+    participant Webhook as Game HTTP Server
+    participant Mod as Moderation Service
+
+    Note over User,Mod: DM Message Send & Moderation Flow
+
+    User->>SDK: Client::SendUserMessage()
+    SDK->>Discord: Sends message to be created
+    Discord->>Discord: Stores message
+    Discord->>SDK: Return message (unmoderated)
+    SDK->>User: Client::SetMessageUpdatedCallback() fires<br/>MessageHandle.ModerationMetadata() = {}
+    Note left of User: Optional: Display message<br/>with pending moderation,<br/>or wait for moderation metadata<br/>to be populated.
+
+    Discord->>Webhook: HTTP POST: GAME_DIRECT_MESSAGE_CREATE
+    Note right of Webhook: Webhook event via HTTP<br/>Contains message content,<br/>IDs, author info
+
+    Webhook-->>Discord: HTTP 204 (acknowledge)
+
+    Webhook->>Mod: Process message for moderation
+    Note right of Mod: Apply moderation rules<br/>(toxicity check, filters, etc.)
+
+    Mod->>Webhook: Return moderation result
+    Note right of Mod: e.g., action: "hide"<br/>reason: "toxicity"<br/>rewritten: "censored text"
+
+    Webhook->>Discord: PUT /partner-sdk/dms/{user_id_1}/{user_id_2}/messages/{message_id}/moderation-metadata
+    Note right of Webhook: Attach moderation metadata<br/>as key-value pairs
+
+    Discord->>Discord: Update message.moderation_metadata
+
+    Discord->>SDK: Dispatch update with moderation_metadata
+    Note left of Discord: No webhook event fired
+
+    SDK->>User: MessageHandle.ModerationMetadata()<br/>has moderation data
+    Note left of User: Read MessageHandle.ModerationMetadata()<br/>Render based on action (hide/show/censor)
+
+    Note over User,Mod: Message Edit Flow
+
+    User->>SDK: Client::EditUserMessage()
+    SDK->>Discord: Sends updated message
+    Discord->>Discord: Clear moderation_metadata
+    Note right of Discord: Stale moderation cleared
+
+    Discord->>SDK: Return updated message (unmoderated)
+    SDK->>User: Client::SetMessageUpdatedCallback() fires<br/>MessageHandle.ModerationMetadata() = {}
+    Note left of User: Optional: Display edited message<br/>with pending moderation,<br/>or wait for moderation metadata<br/>to be re-populated.
+
+    Discord->>Webhook: HTTP POST: GAME_DIRECT_MESSAGE_UPDATE
+    Webhook-->>Discord: HTTP 204 (acknowledge)
+    Webhook->>Mod: Re-moderate new content
+    Mod->>Webhook: New moderation result
+    Webhook->>Discord: PUT /partner-sdk/dms/{user_id_1}/{user_id_2}/messages/{message_id}/moderation-metadata
+    Discord->>Discord: Update with new metadata
+    Discord->>SDK: Dispatch update with new moderation_metadata
+    SDK->>User: SetMessageUpdatedCallback fires<br/>MessageHandle.ModerationMetadata()<br/>has new moderation data
+    Note left of User: Read metadata map<br/>Render based on action<br/>(hide/show/censor)
+```
+
+<Tip>
+    You may wish to implement moderation caching on your backend to avoid redundant validation. This is especially true for
+    lobby messages, which are sent to multiple recipients.
+</Tip>
+
+<Info>
+While this sequence diagram demonstrates moderation for direct messaging, the same flow applies to to lobby messages.
+See below for the appropriate Social SDK methods, Webhook Event types and API paths to use instead.
+</Info>
+
+### Webhook Events
+
+The first thing you will need to do is [subscribe to the following events](/developers/events/webhook-events#subscribing-to-events)
+on your app's webhook to receive messages for moderation:
+
+| Event                        | Description                                          |
+|------------------------------|------------------------------------------------------|
+| `GAME_DIRECT_MESSAGE_CREATE` | Fired when a DM is created in a Social SDK session   |
+| `GAME_DIRECT_MESSAGE_UPDATE` | Fired when a DM is updated (content edit)            |
+| `LOBBY_MESSAGE_CREATE`       | Fired when a message is created in a lobby           |
+| `LOBBY_MESSAGE_UPDATE`       | Fired when a lobby message is updated (content edit) |
+
+See the [Webhook Events reference](/developers/events/webhook-events) for full event schemas.
+
+<Info>
+Metadata-only updates do **not** fire webhook events — they are delivered only via realtime SDK
+callbacks to active game sessions.
+</Info>
+
+### Applying Moderation Decisions
+
+Once your moderation backend receives and evaluates a message, apply the decision by updating the `moderation_metadata`
+on the message to indicate what action the game client should take with the content.
+
+#### DM Messages
+
+`user_id_1` and `user_id_2` are the two DM participants; order does not matter.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+BOT_TOKEN = 'YOUR_BOT_TOKEN'
+
+def apply_dm_moderation(user_id_1, user_id_2, message_id, metadata):
+  r = requests.put(
+    f'{API_ENDPOINT}/partner-sdk/dms/{user_id_1}/{user_id_2}/messages/{message_id}/moderation-metadata',
+    headers={
+      'Authorization': f'Bot {BOT_TOKEN}',
+      'Content-Type': 'application/json',
+    },
+    json=metadata
+  )
+  r.raise_for_status()
+
+# Instruct the client to hide this message — moderation service flagged it as toxic
+metadata = {
+  'action': 'hide',   # client will not render this message
+  'reason': 'toxicity',  # logged by the client for reporting purposes
+}
+apply_dm_moderation(user_id_1, user_id_2, message_id, metadata)
+
+# Alternatively, instruct the client to show this message — moderation service approved it
+metadata = {
+  'action': 'show',  # client will render the message normally
+}
+apply_dm_moderation(user_id_1, user_id_2, message_id, metadata)
+```
+
+#### Lobby Messages
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+BOT_TOKEN = 'YOUR_BOT_TOKEN'
+
+def apply_lobby_moderation(lobby_id, message_id, metadata):
+  r = requests.put(
+    f'{API_ENDPOINT}/lobbies/{lobby_id}/messages/{message_id}/moderation-metadata',
+    headers={
+      'Authorization': f'Bot {BOT_TOKEN}',
+      'Content-Type': 'application/json',
+    },
+    json=metadata
+  )
+  r.raise_for_status()
+
+# Instruct the client to replace the message content with a policy reminder
+metadata = {
+  'action': 'replace',  # client will display replacement text instead of the original
+  'replacement': 'Be kind to others!',  # the text the client will render in place of the message
+}
+apply_lobby_moderation(lobby_id, message_id, metadata)
+```
+
+<Info>
+Both endpoints return `HTTP 204: No Content` on success.
+</Info>
+
+### Moderation Metadata Fields
+
+The metadata body is a free-form key–value map. Use any keys your client understands.
+Some common conventions might include:
+
+| Key           | Example values                    | Purpose                                         |
+|---------------|-----------------------------------|-------------------------------------------------|
+| `action`      | `hide`, `show`, `blur`, `replace` | How the client should render the message        |
+| `reason`      | `toxicity`, `spam`                | Why the action was taken (useful for logging)   |
+| `replacement` | any string                        | Text to display instead of the original message |
+| `severity`    | `low`, `medium`, `high`           | Optional severity classification                |
+
+**Limits:** Up to 5 keys per message; key length ≤ 1024 characters; value length ≤ 2000 characters (the maximum
+Discord message length, so values can contain modified message content).
+
+<Info>
+    Moderation metadata is application scoped — only your application can read it, even for messages that are visible in
+    Discord.
+</Info>
+
+
+### Handling Moderation Metadata on the Client
+
+Register [`Client::SetMessageUpdatedCallback`] to receive metadata updates. Access the metadata
+through [`MessageHandle::ModerationMetadata`], which returns the key–value map written by your backend.
+
+```cpp
+client->SetMessageUpdatedCallback([&client](uint64_t messageId) {
+    if (auto message = client->GetMessageHandle(messageId)) {
+        auto metadata = message->ModerationMetadata();
+        if (metadata.empty()) {
+            // No moderation decision yet — render as pending, normally, or hide completely,
+            // depending on your moderation requirements
+            renderPendingModeration(message);
+            return;
+        }
+        auto action = metadata.count("action") ? metadata.at("action") : "show";
+        if (action == "hide") {
+            hideMessage(messageId);
+        } else if (action == "show") {
+            renderMessage(message);
+        } else if (action == "replace") {
+            renderMessage(messageId, metadata.at("replacement"));
+        } else if (action == "blur") {
+            renderBlurred(message);
+        } else {
+            std::cerr << "Unknown moderation action: " << action << "\n";
+            renderMessage(message);  // fall back to rendering normally
+        }
+    }
+});
+```
+
+<Info>
+    While moderation is in progress, consider not rendering new messages, or rendering in a "pending moderation"
+    state to avoid briefly displaying unmoderated content.
+</Info>
+
+### Handling Content Edits
+
+When a message is edited, Discord automatically clears the stored `moderation_metadata` and
+dispatches a new update notification for the message.
+
+The [`Client::SetMessageUpdatedCallback`] will fire with an empty metadata map for the edited message, and
+your backend will receive a `GAME_DIRECT_MESSAGE_UPDATE` or `LOBBY_MESSAGE_UPDATE` webhook
+event for the edit, which you can use to trigger re-moderation of the new content.
+
+<Info>
+    While re-moderation is in progress, consider not rendering the new, updated message, or rendering in a "pending
+    moderation" state to avoid briefly displaying unmoderated content.
+</Info>
 
 ## Handling Users with Banned Discord Accounts
 
@@ -304,12 +420,16 @@ import {TextControllerIcon} from '/snippets/icons/TextControllerIcon.jsx'
 
 ## Change Log
 
-| Date         | Changes         |
-|--------------|-----------------|
-| May 22, 2025 | initial release |
+| Date         | Changes                                                                     |
+|--------------|-----------------------------------------------------------------------------|
+| Feb 20, 2026 | Replaced client-side message moderation with server-side message moderation |
+| May 22, 2025 | initial release                                                             |
 
 {/* Autogenerated Reference Links */}
 [`Client`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a91716140c699d8ef0bdf6bfd7ee0ae13
+[`Client::SendLobbyMessage`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a779e0483f51dc99f0db3dd761d22ab6f
 [`Client::SendUserMessage`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3cf9d2b1b5a4a61dcad995dfc1009703
-[`Client::SetMessageCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28325a8e8c688a84ac851da4bc86e148
+[`Client::SetMessageUpdatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aa01cf3c15403f29780dabfcfaf3b1dcd
 [`Client::StartCallWithAudioCallbacks`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#abcaa891769f9e912bfa0e06ff7221b05
+[`MessageHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#ae25595b43bc74b0c4c92c5165d16382f
+[`MessageHandle::ModerationMetadata`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#afb9ae126f6b1f0de006f2be8e3688205
