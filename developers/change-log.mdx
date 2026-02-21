@@ -5,6 +5,18 @@ description: "Discover the latest updates, new features, and bug fixes on the Di
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="Server-Side Message Moderation" description="2026-02-20" tags={["Discord Social SDK", "HTTP API", "Docs"]}>
+
+We've released and documented two new API endpoints that enable you to modify the application-scoped moderation metadata on
+both game direct messages and lobby messages.
+
+Combined with the [previously announced](/developers/change-log#discord-social-sdk-release-1813395) [`MessageHandle::ModerationMetadata`], and game direct message and lobby [Webhook Events](/developers/events/webhook-events#event-types),
+this enables server-side lobby and game direct message moderation workflows. Your game backend can now evaluate messages and attache moderation metadata that the Discord Social SDK can then deliver to game clients in real time, driving in-game message rendering dependent on moderation results.
+
+To see this in detail, have a look at the newly updated [How To Integrate Moderation](/developers/discord-social-sdk/how-to/integrate-moderation) guide with the full server-side moderation flow.
+
+</Update>
+
 <Update label="Discord Social SDK Release 1.8.14026" description="2026-02-19" tags={["Discord Social SDK"]}>
     A new release of the Discord Social SDK is now available, with the following updates:
 
