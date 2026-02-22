@@ -176,12 +176,19 @@ In this step, we'll implement OAuth2 authentication to support account linking w
 
 ### Add the Authentication Code
 
+<Info>
+**Choosing your OAuth2 scopes:** This guide uses `Client.GetDefaultPresenceScopes()`, which requests the `openid` and `sdk.social_layer_presence` scopes. These enable core features like account linking, friends list, and rich presence.
+
+If your game also needs lobbies, voice chat, or direct messaging, use `Client.GetDefaultCommunicationScopes()` instead.
+See the [OAuth2 Scopes guide](/developers/discord-social-sdk/core-concepts/oauth2-scopes) for the full breakdown.
+</Info>
+
 To start we'll add this code to your `DiscordManager.cs`:
 ```cs
 private void StartOAuthFlow() {
     var authorizationVerifier = client.CreateAuthorizationCodeVerifier();
     codeVerifier = authorizationVerifier.Verifier();
-    
+
     var args = new AuthorizationArgs();
     args.SetClientId(clientId);
     args.SetScopes(Client.GetDefaultPresenceScopes());
