@@ -402,6 +402,9 @@ Receive events are Gateway events encapsulated in an [event payload](/developers
 | [Webhooks Update](/developers/events/gateway-events#webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                                      |
 | [Message Poll Vote Add](/developers/events/gateway-events#message-poll-vote-add)                                   | User voted on a poll                                                                                                                                       |
 | [Message Poll Vote Remove](/developers/events/gateway-events#message-poll-vote-remove)                             | User removed a vote on a poll                                                                                                                              |
+| [Guild Scheduled Event Exception Create](/developers/events/gateway-events#guild-scheduled-event-exception-create) | Guild scheduled event exception was created                                                                                                                |
+| [Guild Scheduled Event Exception Update](/developers/events/gateway-events#guild-scheduled-event-exception-update) | Guild scheduled event exception was updated                                                                                                                |
+| [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) | Guild scheduled event exception was deleted                                                                                                                |
 
 #### Hello
 
@@ -901,11 +904,12 @@ Sent when a user has subscribed to a guild scheduled event.
 <ManualAnchor id="guild-scheduled-event-user-add-guild-scheduled-event-user-add-event-fields" />
 ###### Guild Scheduled Event User Add Event Fields
 
-| Field                    | Type      | Description                     |
-|--------------------------|-----------|---------------------------------|
-| guild_scheduled_event_id | snowflake | ID of the guild scheduled event |
-| user_id                  | snowflake | ID of the user                  |
-| guild_id                 | snowflake | ID of the guild                 |
+| Field                               | Type      | Description                                              |
+|-------------------------------------|-----------|----------------------------------------------------------|
+| guild_scheduled_event_id            | snowflake | ID of the guild scheduled event                          |
+| user_id                             | snowflake | ID of the user                                           |
+| guild_id                            | snowflake | ID of the guild                                          |
+| guild_scheduled_event_exception_id? | snowflake | ID of the guild scheduled event exception, if applicable |
 
 #### Guild Scheduled Event User Remove
 
@@ -914,11 +918,24 @@ Sent when a user has unsubscribed from a guild scheduled event.
 <ManualAnchor id="guild-scheduled-event-user-remove-guild-scheduled-event-user-remove-event-fields" />
 ###### Guild Scheduled Event User Remove Event Fields
 
-| Field                    | Type      | Description                     |
-|--------------------------|-----------|---------------------------------|
-| guild_scheduled_event_id | snowflake | ID of the guild scheduled event |
-| user_id                  | snowflake | ID of the user                  |
-| guild_id                 | snowflake | ID of the guild                 |
+| Field                               | Type      | Description                                              |
+|-------------------------------------|-----------|----------------------------------------------------------|
+| guild_scheduled_event_id            | snowflake | ID of the guild scheduled event                          |
+| user_id                             | snowflake | ID of the user                                           |
+| guild_id                            | snowflake | ID of the guild                                          |
+| guild_scheduled_event_exception_id? | snowflake | ID of the guild scheduled event exception, if applicable |
+
+#### Guild Scheduled Event Exception Create
+
+Sent when a guild scheduled event exception is created. The inner payload is a [guild scheduled event exception](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) object with an additional `guild_id` key.
+
+#### Guild Scheduled Event Exception Update
+
+Sent when a guild scheduled event exception is updated. The inner payload is a [guild scheduled event exception](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) object with an additional `guild_id` key.
+
+#### Guild Scheduled Event Exception Delete
+
+Sent when a guild scheduled event exception is deleted. The inner payload is a [guild scheduled event exception](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) object with an additional `guild_id` key.
 
 #### Guild Soundboard Sound Create
 
