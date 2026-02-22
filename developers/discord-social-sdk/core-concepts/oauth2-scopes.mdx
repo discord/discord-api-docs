@@ -1,9 +1,14 @@
 ---
-title: OAuth2 Scopes
+title: OAuth2 Scopes for the Social SDK
+sidebarTitle: OAuth2 Scopes
 description: Learn about OAuth2 scopes required for Discord Social SDK features.
 ---
 
-OAuth2 scopes define the level of access your app has to a user's Discord account
+<Note>
+This page covers OAuth2 scopes specific to the Discord Social SDK. For the full list of Discord API OAuth2 scopes (bots, webhooks, etc.), see the [OAuth2 topic guide](/developers/topics/oauth2#shared-resources-oauth2-scopes).
+</Note>
+
+OAuth2 scopes define the level of access your app has to a user's Discord account.
 
 What OAuth scopes are available to your integration are set via
 [`AuthorizationArgs::SetScopes`] on [`AuthorizationArgs`] which is passed to [`Client::Authorize`] on Social SDK
@@ -54,8 +59,6 @@ For more information about these features, please see [Core Concepts: Communicat
 If your game requires additional scopes, you can add them to the default scopes to authorize additional access from your users.
 
 You should only add scopes that are necessary for your game to function. Requesting unnecessary scopes can lead to user distrust and may result in users not linking their Discord account.
-
-See [available OAuth2 scopes](/developers/topics/oauth2#shared-resources-oauth2-scopes) available with the Discord API.
 
 ## OAuth2 Client Types
 
