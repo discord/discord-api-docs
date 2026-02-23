@@ -1,6 +1,0 @@
-#content-area:has(.mdx-content[data-page-href="/src/_props/developers/docs/change-log"]),
-#content-area:has(.mdx-content[data-page-href="/developers/change-log"]) {
-    div#page-context-menu {
-        display: none;
-    }
-}
