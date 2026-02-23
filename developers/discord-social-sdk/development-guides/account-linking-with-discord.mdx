@@ -75,10 +75,10 @@ Use the [`Client::Authorize`] method to initiate authorization and allow the use
 
 One of the required arguments to [`Client::Authorize`] is scopes — the set of permissions your game is requesting from the user. The Discord Social SDK provides two helper methods that cover the most common use cases:
 
-| Helper Method | Scopes Requested | Features Enabled |
-|---|---|---|
-| [`Client::GetDefaultPresenceScopes`] | `openid sdk.social_layer_presence` | Account linking, friends list, rich presence |
-| [`Client::GetDefaultCommunicationScopes`] | `openid sdk.social_layer` | All of the above, plus lobbies, voice chat, direct messaging, and linked channels |
+| Helper Method                             | Scopes Requested                   | Features Enabled                                                                  |
+|-------------------------------------------|------------------------------------|-----------------------------------------------------------------------------------|
+| [`Client::GetDefaultPresenceScopes`]      | `openid sdk.social_layer_presence` | Account linking, friends list, rich presence                                      |
+| [`Client::GetDefaultCommunicationScopes`] | `openid sdk.social_layer`          | All of the above, plus lobbies, voice chat, direct messaging, and linked channels |
 
 Start with [`Client::GetDefaultPresenceScopes`] unless you know you need the communication features. You can always add more scopes later as your integration expands. See the [OAuth2 Scopes guide](/developers/discord-social-sdk/core-concepts/oauth2-scopes) for full details.
 
