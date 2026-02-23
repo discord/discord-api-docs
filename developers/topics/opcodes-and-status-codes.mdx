@@ -99,6 +99,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4014 | Disconnected                  | Disconnect individual client (you were kicked, the main gateway session was dropped, etc.). Should not reconnect.                                      |
 | 4015 | Voice server crashed          | The server crashed. Our bad! Try [resuming](/developers/topics/voice-connections#resuming-voice-connection).                                           |
 | 4016 | Unknown encryption mode       | We didn't recognize your [encryption](/developers/topics/voice-connections#transport-encryption-and-sending-voice).                                    |
+| 4017 | DAVE protocol required        | This channel requires a client supporting [E2EE via the DAVE Protocol](/developers/topics/voice-connections#end-to-end-encryption-dave-protocol)       |
 | 4020 | Bad request                   | You sent a malformed request                                                                                                                           |
 | 4021 | Disconnected: Rate Limited    | Disconnect due to rate limit exceeded. Should not reconnect.                                                                                           |
 | 4022 | Disconnected: Call Terminated | Disconnect all clients due to call terminated (channel deleted, voice server changed, etc.). Should not reconnect.                                     |
