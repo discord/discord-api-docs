@@ -960,13 +960,15 @@ All types can be negated by prefixing them with `-`, which means results will no
 
 These do not correspond 1:1 to actual [embed types](/developers/resources/message#embed-object-embed-types) and encompass a wider range of actual types.
 
-| Type    | Description                                |
-|---------|--------------------------------------------|
-| image   | Return messages that have an image embed   |
-| video   | Return messages that have a video embed    |
-| gif     | Return messages that have a gif embed      |
-| sound   | Return messages that have a sound embed    |
-| article | Return messages that have an article embed |
+| Type      | Description                                |
+|-----------|--------------------------------------------|
+| image     | Return messages that have an image embed   |
+| video     | Return messages that have a video embed    |
+| gif \[1\] | Return messages that have a gif embed      |
+| sound     | Return messages that have a sound embed    |
+| article   | Return messages that have an article embed |
+
+\[1\] Messages sent before February 24, 2026 may not be properly indexed under the `gif` embed type.
 
 <ManualAnchor id="search-guild-messages-search-sort-types" />
 ###### Search Sort Types
