@@ -52,8 +52,8 @@ As a reminder, you are responsible for any third-party moderation toolkits or se
 
 Discord's moderation metadata API lets your backend evaluate messages and attach application scoped
 `moderation_metadata` to them. The metadata is persisted by Discord and delivered to active game
-sessions via realtime `GAME_DIRECT_MESSAGE_UPDATE` or `LOBBY_MESSAGE_UPDATE` [Webhook Events](/developers/events/webhook-events) — no polling required. Metadata is never exposed to
-other applications and is not included in webhook events.
+sessions via realtime `GAME_DIRECT_MESSAGE_UPDATE` or `LOBBY_MESSAGE_UPDATE` [Webhook Events](/developers/events/webhook-events) — no polling required.
+Metadata is never exposed to other applications and is not included in other API endpoints or Gateway events.
 
 ### How It Works
 
@@ -126,11 +126,6 @@ sequenceDiagram
     SDK->>User: SetMessageUpdatedCallback fires<br/>MessageHandle.ModerationMetadata()<br/>has new moderation data
     Note left of User: Read metadata map<br/>Render based on action<br/>(hide/show/censor)
 ```
-
-<Tip>
-    You may wish to implement moderation caching on your backend to avoid redundant validation. This is especially true for
-    lobby messages, which are sent to multiple recipients.
-</Tip>
 
 <Info>
 While this sequence diagram demonstrates moderation for direct messaging, the same flow applies to to lobby messages.
