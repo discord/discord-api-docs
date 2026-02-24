@@ -837,6 +837,10 @@ The `before`, `after`, and `around` parameters are mutually exclusive, only one 
 Returns a list of messages without the `reactions` key that match a search query in the guild. Requires the `READ_MESSAGE_HISTORY` permission.
 
 <Warning>
+This endpoint is restricted according to whether the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
+</Warning>
+
+<Warning>
 If the entity you are searching is not yet indexed, the endpoint will return a 202 accepted response. The response body will not contain any search results, and will look similar to an error response:
 
 ```json
