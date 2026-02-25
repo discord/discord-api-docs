@@ -896,7 +896,7 @@ You should retry the request after the timeframe specified in the `retry_after` 
 </Warning>
 
 <Info>
-Due to speed optimizations, search may return slightly less results than the limit specified when messages have not been accessed for a long time.
+Due to speed optimizations, search may return slightly fewer results than the limit specified when messages have not been accessed for a long time.
 Clients should not rely on the length of the `messages` array to paginate results.
 
 Additionally, when messages are actively being created or deleted, the `total_results` field may not be accurate.
@@ -927,7 +927,7 @@ Additionally, when messages are actively being created or deleted, the `total_re
 | attachment_extension? | array of strings    | Filter messages by attachment extension (e.g. `txt`)                                                                                |
 | sort_by? \[1\]        | string              | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-types) to use                               |
 | sort_order? \[1\]     | string              | The direction to sort (`asc` or `desc`, default `desc`)                                                                             |
-| include_nsfw?         | boolean             | Whether to include results from NSFW channels (default false)                                                                       |
+| include_nsfw?         | boolean             | Whether to include results from age-restricted channels (default false)                                                             |
 
 \[1\] Sort order is not respected when sorting by relevance.
 
