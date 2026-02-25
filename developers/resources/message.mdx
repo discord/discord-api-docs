@@ -885,7 +885,7 @@ Additionally, when messages are actively being created or deleted, the `total_re
 | link_hostname?        | array of strings    | Filter messages by link hostname (case-sensitive, e.g. `discordapp.com`)                                                            |
 | attachment_filename?  | array of strings    | Filter messages by attachment filename (max 1024 characters)                                                                        |
 | attachment_extension? | array of strings    | Filter messages by attachment extension (e.g. `txt`)                                                                                |
-| sort_by? \[1\]        | string              | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-types) to use                               |
+| sort_by? \[1\]        | string              | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-modes) to use                               |
 | sort_order? \[1\]     | string              | The direction to sort (`asc` or `desc`, default `desc`)                                                                             |
 | include_nsfw?         | boolean             | Whether to include results from age-restricted channels (default false)                                                             |
 
@@ -934,8 +934,8 @@ These do not correspond 1:1 to actual [embed types](/developers/resources/messag
 
 \[1\] Messages sent before February 24, 2026 may not be properly indexed under the `gif` embed type.
 
-<ManualAnchor id="search-guild-messages-search-sort-types" />
-###### Search Sort Types
+<ManualAnchor id="search-guild-messages-search-sort-modes" />
+###### Search Sort Modes
 
 | Type      | Description                                              |
 |-----------|----------------------------------------------------------|
