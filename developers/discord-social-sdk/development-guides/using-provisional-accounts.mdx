@@ -159,7 +159,7 @@ def get_provisional_token(game_account: GameAccount):
   "access_token": "<access token>",
   "id_token": "<id token>",
   "token_type": "Bearer",
-  "expires_in": 3600,
+  "expires_in": 604800,
   "scope": "sdk.social_layer"
 }
 ```
@@ -189,7 +189,7 @@ def get_provisional_token(external_token: str):
   "access_token": "<access token>",
   "id_token": "<id token>",
   "token_type": "Bearer",
-  "expires_in": 3600,
+  "expires_in": 604800,
   "refresh_token": "<refresh token>", # only provided for OIDC when *not* a public client
   "scope": "sdk.social_layer"
 }
@@ -228,7 +228,7 @@ void AuthenticateUser(std::shared_ptr<discordpp::Client> client) {
 
 These methods generate a Discord access token. You pass in the user's identity, and it generates a new Discord account tied to that identity. There are multiple ways of specifying that identity, including using Steam/Epic services or your own identity system.
 
-The callback function will be invoked with an access token that expires in 1 hour. Refresh tokens are not supported for provisional accounts, so that will be an empty string. When the old one expires, you must call this function again to get a new access token.
+The callback function will be invoked with an access token that expires in 7 days. Refresh tokens are not supported for provisional accounts, so that will be an empty string. When the old one expires, you must call this function again to get a new access token.
 
 You can use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or expires.
 
