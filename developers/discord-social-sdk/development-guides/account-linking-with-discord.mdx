@@ -259,7 +259,7 @@ CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
 def revoke_token(access_or_refresh_token):
     data = {'token': access_or_refresh_token}
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
+    r = requests.post(f'{API_ENDPOINT}/oauth2/token/revoke', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
     r.raise_for_status()
 ```
 
