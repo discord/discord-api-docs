@@ -947,8 +947,7 @@ These do not correspond 1:1 to actual [embed types](/developers/resources/messag
 
 | Field                       | Type                                                                                 | Description                                                                               |
 |-----------------------------|--------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| analytics_id                | string                                                                               | The analytics ID for the search query                                                     |
-| doing_deep_historical_index | boolean                                                                              | The status of the guild's deep historical indexing operation, if any                      |
+| doing_deep_historical_index | boolean                                                                              | Whether the guild is undergoing a deep historical indexing operation                      |
 | documents_indexed?          | integer                                                                              | The number of documents that have been indexed during the current index operation, if any |
 | total_results               | integer                                                                              | The total number of results that match the query                                          |
 | messages \[1\]              | array of array of [message](/developers/resources/message#message-object) objects    | A nested array of messages that match the query                                           |
