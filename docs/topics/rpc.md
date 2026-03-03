@@ -1,6 +1,81 @@
 # RPC
 
+## RPC over IPC
+
+Discord's RPC server supports IPC (Inter-Process Communication) as the primary transport for native applications and games. This allows high-performance, local communication with the Discord client without requiring network-level overhead.
+
+###### IPC Path
+
+| Platform    | Path Format                                                    |
+|-------------|----------------------------------------------------------------|
+| Windows     | `\\.\pipe\discord-ipc-{n}`                                     |
+| Linux/macOS | `/run/user/{userid}/discord-ipc-{n}` or `/tmp/discord-ipc-{n}` |
+
+### Connecting to IPC
+
+To begin a session, the application must open the IPC socket and send a `HANDSHAKE` opcode.
+
+#### Handshake Payload
+
+The payload is a JSON object containing the RPC version and your application's client ID.
+
+| Field       | Type      | Description                  |
+|-------------|-----------|------------------------------|
+| `v`         | `integer` | RPC version                  |
+| `client_id` | `string`  | Your application's client ID |
+
+###### Example Handshake
+
+```
+[00 00 00 00] // Opcode 0 (Handshake)
+[2D 00 00 00] // Length 45
+{"v":1,"client_id":"123456789012345678"}
+```
+
+Upon success, Discord will respond with a `FRAME` (Opcode `1`) containing the `READY` event.
+
+Once the handshake is complete, all subsequent requests and responses use the `FRAME` opcode. The internal structure of these frames follows the standard [RPC Payload structure](/docs/topics/rpc#payloads-payload-structure)
+
+###### Opcodes
+
+| Opcode | Name        | Description                                   |
+|--------|-------------|-----------------------------------------------|
+| `0`    | `HANDSHAKE` | Sent by the client to initiate the connection |
+| `1`    | `FRAME`     | Used for all standard RPC commands and events |
+| `2`    | `CLOSE`     | Sent by either side to close the connection   |
+| `3`    | `PING`      | Sent to check if the connection is alive      |
+| `4`    | `PONG`      | Response to a `PING`                          |
+
+## RPC over Websocket
+
+:::danger
+This is a deprecated way, which is only available for old participants of private beta. It is preferable to use RPC that uses IPC. 
+:::
+
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
+
+### Connecting to websocket
+
+The local RPC server runs on localhost (`127.0.0.1`) and is set up to process WebSocket connections and proxy API requests.
+
+For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING`:
+
+- `CLIENT_ID` is the client ID of the application accessing the RPC Server.
+- `VERSION` is the version of the RPC Server.
+- `PORT` is the port of the RPC Server.
+- `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
+
+To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+
+When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
+
+If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discord.com` would be used if the user were connecting from `https://discord.com/some/page/url`.
+
+If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discord.com`.
+
+#### RPC Server Ports
+
+The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these 10 ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
 
 ###### RPC Versions
 
@@ -25,29 +100,6 @@ For applications/games not approved, we limit you to creating 10 guilds and 10 c
 | evt   | enum   | [subscription event](/docs/topics/rpc#commands-and-events-rpc-events) | In subscribed events, errors, and (un)subscribing events |
 | data  | object | event data                                                            | In responses from the server                             |
 | args  | object | command arguments                                                     | In commands sent to the server                           |
-
-## Connecting
-
-The local RPC server runs on localhost (`127.0.0.1`) and is set up to process WebSocket connections and proxy API requests.
-
-For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING`:
-
-- `CLIENT_ID` is the client ID of the application accessing the RPC Server.
-- `VERSION` is the version of the RPC Server.
-- `PORT` is the port of the RPC Server.
-- `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
-
-To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
-
-When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
-
-If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discord.com` would be used if the user were connecting from `https://discord.com/some/page/url`.
-
-If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discord.com`.
-
-### RPC Server Ports
-
-The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these 10 ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
 
 ## Authenticating
 
@@ -118,6 +170,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 |-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | [READY](/docs/topics/rpc#ready)                                                         | non-subscription event sent immediately after connecting, contains server information      |
 | [ERROR](/docs/topics/rpc#error)                                                         | non-subscription event sent when there is an error, including command responses            |
+| [CURRENT_USER_UPDATE](/docs/topics/rpc#currentuserupdate)                               | sent when the local user's data (avatar, username, etc.) changes                           |
+| [RELATIONSHIP_UPDATE](/docs/topics/rpc#relationshipupdate)                              | sent when a relationship (friend, block, etc.) is added or removed                         |
+| [USER_ACHIEVEMENT_UPDATE](/docs/topics/rpc#userachievementupdate)                       | sent when a user's achievement status is updated                                           |
 | [GUILD_STATUS](/docs/topics/rpc#guildstatus)                                            | sent when a subscribed server's state changes                                              |
 | [GUILD_CREATE](/docs/topics/rpc#guildcreate)                                            | sent when a guild is created/joined on the client                                          |
 | [CHANNEL_CREATE](/docs/topics/rpc#channelcreate)                                        | sent when a channel is created/joined on the client                                        |
@@ -126,6 +181,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [VOICE_STATE_UPDATE](/docs/topics/rpc#voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
 | [VOICE_STATE_DELETE](/docs/topics/rpc#voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user parts a subscribed voice channel                                          |
 | [VOICE_SETTINGS_UPDATE](/docs/topics/rpc#voicesettingsupdate)                           | sent when the client's voice settings update                                               |
+| [VOICE_SETTINGS_UPDATE_2](/docs/topics/rpc#voicesettingsupdate)                         | updated version of voice settings dispatch                                                 |
 | [VOICE_CONNECTION_STATUS](/docs/topics/rpc#voiceconnectionstatus)                       | sent when the client's voice connection status changes                                     |
 | [SPEAKING_START](/docs/topics/rpc#speakingstartspeakingstop)                            | sent when a user in a subscribed voice channel speaks                                      |
 | [SPEAKING_STOP](/docs/topics/rpc#speakingstartspeakingstop)                             | sent when a user in a subscribed voice channel stops speaking                              |
@@ -136,6 +192,20 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [ACTIVITY_JOIN](/docs/topics/rpc#activityjoin)                                          | sent when the user clicks a Rich Presence join invite in chat to join a game               |
 | [ACTIVITY_SPECTATE](/docs/topics/rpc#activityspectate)                                  | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
 | [ACTIVITY_JOIN_REQUEST](/docs/topics/rpc#activityjoinrequest)                           | sent when the user receives a Rich Presence Ask to Join request                            |
+| [ACTIVITY_INVITE](/docs/topics/rpc#activityinvite)                                      | sent when the user receives an activity invitation                                         |
+| [GAME_JOIN](/docs/topics/rpc#gamejoin)                                                  | legacy event for joining a game session                                                    |
+| [GAME_SPECTATE](/docs/topics/rpc#gamespectate)                                          | legacy event for spectating a game session                                                 |
+| [LOBBY_DELETE](/docs/topics/rpc#lobbydelete)                                            | sent when a joined lobby is deleted                                                        |
+| [LOBBY_UPDATE](/docs/topics/rpc#lobbyupdate)                                            | sent when lobby metadata or settings change                                                |
+| [LOBBY_MEMBER_CONNECT](/docs/topics/rpc#lobbymemberconnect)                             | sent when a new member joins the lobby                                                     |
+| [LOBBY_MEMBER_DISCONNECT](/docs/topics/rpc#lobbymemberdisconnect)                       | sent when a member leaves the lobby                                                        |
+| [LOBBY_MEMBER_UPDATE](/docs/topics/rpc#lobbymemberupdate)                               | sent when a lobby member's metadata changes                                                |
+| [LOBBY_MESSAGE](/docs/topics/rpc#lobbymessage)                                          | sent when a message is received in the lobby's networking layer                            |
+| [OVERLAY](/docs/topics/rpc#overlay)                                                     | sent when the Discord overlay is toggled or initialized                                    |
+| [OVERLAY_UPDATE](/docs/topics/rpc#overlayupdate)                                        | sent when the overlay's state or configuration changes                                     |
+| [CAPTURE_SHORTCUT_CHANGE](/docs/topics/rpc#captureshortcutchange)                       | sent when the user changes a registered global hotkey                                      |
+| [ENTITLEMENT_CREATE](/docs/topics/rpc#entitlementcreate)                                | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
+| [ENTITLEMENT_DELETE](/docs/topics/rpc#entitlementdelete)                                | sent when an entitlement is removed                                                        |
 
 #### AUTHORIZE
 
