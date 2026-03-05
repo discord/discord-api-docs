@@ -21,6 +21,10 @@ Note: You won't be able to browse files using that link, but that's ok. Individu
 
 You can access Discord's logs with [`Client::AddLogCallback`]. The [`Client::SetLogDir`] function will write the SDK's logs to that directory if set. 
 
+<Info>
+For production builds, use `ERROR (4)` or `WARN (3)` severity levels. For development builds, you can use `INFO (2)` or `VERBOSE (1)` severity levels to get more detailed logs.
+</Info>
+
 ```cpp
 client->AddLogCallback([](auto message, auto severity) {
   std::cout << "[" << EnumToString(severity) << "] " << message << std::endl;
