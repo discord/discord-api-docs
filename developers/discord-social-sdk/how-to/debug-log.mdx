@@ -19,7 +19,7 @@ Note: You won't be able to browse files using that link, but that's ok. Individu
 
 ## Logging
 
-You can access Discord's logs with [`Client::AddLogCallback`]. We recommend writing logs to a file and, during testing, including verbose logs. The [`Client::SetLogDir`] function will write the SDK's logs to that directory if set. 
+You can access Discord's logs with [`Client::AddLogCallback`]. The [`Client::SetLogDir`] function will write the SDK's logs to that directory if set. 
 
 ```cpp
 client->AddLogCallback([](auto message, auto severity) {
