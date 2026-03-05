@@ -865,29 +865,32 @@ Additionally, when messages are actively being created or deleted, the `total_re
 <ManualAnchor id="search-guild-messages-query-string-params" />
 ###### Query String Params
 
-| Field                 | Type                | Description                                                                                                                         |
-|-----------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| limit?                | integer             | Max number of messages to return (1-25, default 25)                                                                                 |
-| offset?               | integer             | Number to offset the returned messages by (max 9975)                                                                                |
-| max_id?               | snowflake           | Get messages before this message ID                                                                                                 |
-| min_id?               | snowflake           | Get messages after this message ID                                                                                                  |
-| slop?                 | integer             | Max number of words to skip between matching tokens in the search `content` (max 100, default 2)                                    |
-| content?              | string              | Filter messages by content (max 1024 characters)                                                                                    |
-| channel_id?           | array of snowflakes | Filter messages by these channels (max 500)                                                                                         |
-| author_type?          | array of strings    | Filter messages by [author type](/developers/resources/message#search-guild-messages-author-types)                                  |
-| author_id?            | array of snowflakes | Filter messages by these authors                                                                                                    |
-| mentions?             | array of snowflakes | Filter messages that mention these users                                                                                            |
-| mention_everyone?     | boolean             | Filter messages that do or do not mention @everyone                                                                                 |
-| pinned?               | boolean             | Filter messages by whether they are or are not pinned                                                                               |
-| has?                  | array of strings    | Filter messages by whether or not they [have specific things](/developers/resources/message#search-guild-messages-search-has-types) |
-| embed_type?           | array of strings    | Filter messages by [embed type](/developers/resources/message#search-guild-messages-search-embed-types)                             |
-| embed_provider?       | array of strings    | Filter messages by embed provider (case-sensitive, e.g. `Tenor`) (max 256 characters)                                               |
-| link_hostname?        | array of strings    | Filter messages by link hostname (e.g. `discordapp.com`)                                                                            |
-| attachment_filename?  | array of strings    | Filter messages by attachment filename (max 1024 characters)                                                                        |
-| attachment_extension? | array of strings    | Filter messages by attachment extension (e.g. `txt`)                                                                                |
-| sort_by? \[1\]        | string              | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-modes) to use                               |
-| sort_order? \[1\]     | string              | The direction to sort (`asc` or `desc`, default `desc`)                                                                             |
-| include_nsfw?         | boolean             | Whether to include results from age-restricted channels (default false)                                                             |
+| Field                  | Type                | Description                                                                                                                         |
+|------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| limit?                 | integer             | Max number of messages to return (1-25, default 25)                                                                                 |
+| offset?                | integer             | Number to offset the returned messages by (max 9975)                                                                                |
+| max_id?                | snowflake           | Get messages before this message ID                                                                                                 |
+| min_id?                | snowflake           | Get messages after this message ID                                                                                                  |
+| slop?                  | integer             | Max number of words to skip between matching tokens in the search `content` (max 100, default 2)                                    |
+| content?               | string              | Filter messages by content (max 1024 characters)                                                                                    |
+| channel_id?            | array of snowflakes | Filter messages by these channels (max 500)                                                                                         |
+| author_type?           | array of strings    | Filter messages by [author type](/developers/resources/message#search-guild-messages-author-types)                                  |
+| author_id?             | array of snowflakes | Filter messages by these authors (max 100)                                                                                          |
+| mentions?              | array of snowflakes | Filter messages that mention these users (max 100)                                                                                  |
+| mentions_role_id?      | array of snowflakes | Filter messages that mention these roles (max 100)                                                                                  |
+| mention_everyone?      | boolean             | Filter messages that do or do not mention @everyone                                                                                 |
+| replied_to_user_id?    | array of snowflakes | Filter messages that reply to these users (max 100)                                                                                 |
+| replied_to_message_id? | array of snowflakes | Filter messages that reply to these messages (max 100)                                                                              |
+| pinned?                | boolean             | Filter messages by whether they are or are not pinned                                                                               |
+| has?                   | array of strings    | Filter messages by whether or not they [have specific things](/developers/resources/message#search-guild-messages-search-has-types) |
+| embed_type?            | array of strings    | Filter messages by [embed type](/developers/resources/message#search-guild-messages-search-embed-types)                             |
+| embed_provider?        | array of strings    | Filter messages by embed provider (case-sensitive, e.g. `Tenor`) (max 256 characters, max 100)                                      |
+| link_hostname?         | array of strings    | Filter messages by link hostname (e.g. `discordapp.com`) (max 256 characters, max 100)                                              |
+| attachment_filename?   | array of strings    | Filter messages by attachment filename (max 1024 characters, max 100)                                                               |
+| attachment_extension?  | array of strings    | Filter messages by attachment extension (e.g. `txt`) (max 256 characters, max 100)                                                  |
+| sort_by? \[1\]         | string              | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-modes) to use                               |
+| sort_order? \[1\]      | string              | The direction to sort (`asc` or `desc`, default `desc`)                                                                             |
+| include_nsfw?          | boolean             | Whether to include results from age-restricted channels (default false)                                                             |
 
 \[1\] Sort order is not respected when sorting by relevance.
 
