@@ -1,0 +1,31 @@
+---
+title: Bots & Companion Apps
+sidebarTitle: Discord Bots
+description: Build bots and companion apps that connect to Discord and interact with servers, members, and events.
+---
+
+import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
+import {BookCheckIcon} from '/snippets/icons/BookCheckIcon.jsx'
+
+_Already familiar? Jump to the [Bots & Companion Apps docs](/developers/bots/overview) or [Getting Started guide](/developers/quick-start/getting-started)._
+
+Bots are the most common type of Discord app. They appear in servers as bot users with an `APP` tag and can listen to events, respond to slash commands, moderate servers, send messages, and much more, all powered by your code via the Discord API.
+
+Bots can connect to Discord in two ways: a persistent [Gateway WebSocket](/developers/events/gateway) for real-time events, or an [HTTP interactions endpoint](/developers/interactions/overview) for slash commands and UI components without a persistent connection. Most bots use one or both depending on their use case.
+
+Common bot use cases include moderation tools, server utilities, games, integrations with external services, and automated workflows. 
+
+If you only need to push messages into a channel, a [webhook](/developers/platform/webhooks) might be a better fit than a full bot. Webhooks are simpler to set up and can send messages with rich embeds, but they can't listen to events or respond to interactions like bots can.
+
+<CardGroup cols={3}>
+  <Card title="Bots Overview" href="/developers/bots/overview" icon={<RobotIcon />}>
+    What bots are, how they work, and when to use one.
+  </Card>
+  <Card title="Getting Started" href="/developers/quick-start/getting-started" icon={<WrenchIcon />}>
+    Build and run your first Discord bot end to end.
+  </Card>
+  <Card title="Bot Dev Guides" href="/developers/guides/bots" icon={<BookCheckIcon />}>
+    Guides on interactions, components, monetization, and more.
+  </Card>
+</CardGroup>
