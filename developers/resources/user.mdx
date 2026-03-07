@@ -32,27 +32,28 @@ There are other rules and restrictions not shared here for the sake of spam and 
 <ManualAnchor id="user-object-user-structure" />
 ###### User Structure
 
-| Field                   | Type                                                                                       | Description                                                                                                | Required OAuth2 Scope |
-|-------------------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|-----------------------|
-| id                      | snowflake                                                                                  | the user's id                                                                                              | identify              |
-| username                | string                                                                                     | the user's username, not unique across the platform                                                        | identify              |
-| discriminator           | string                                                                                     | the user's Discord-tag                                                                                     | identify              |
-| global_name             | ?string                                                                                    | the user's display name, if it is set. For bots, this is the application name                              | identify              |
-| avatar                  | ?string                                                                                    | the user's [avatar hash](/developers/reference#image-formatting)                                           | identify              |
-| bot?                    | boolean                                                                                    | whether the user belongs to an OAuth2 application                                                          | identify              |
-| system?                 | boolean                                                                                    | whether the user is an Official Discord System user (part of the urgent message system)                    | identify              |
-| mfa_enabled?            | boolean                                                                                    | whether the user has two factor enabled on their account                                                   | identify              |
-| banner?                 | ?string                                                                                    | the user's [banner hash](/developers/reference#image-formatting)                                           | identify              |
-| accent_color?           | ?integer                                                                                   | the user's banner color encoded as an integer representation of hexadecimal color code                     | identify              |
-| locale?                 | string                                                                                     | the user's chosen [language option](/developers/reference#locales)                                         | identify              |
-| verified?               | boolean                                                                                    | whether the email on this account has been verified                                                        | email                 |
-| email?                  | ?string                                                                                    | the user's email                                                                                           | email                 |
-| flags?                  | integer                                                                                    | the [flags](/developers/resources/user#user-object-user-flags) on a user's account                         | identify              |
-| premium_type?           | integer                                                                                    | the [type of Nitro subscription](/developers/resources/user#user-object-premium-types) on a user's account | identify              |
-| public_flags?           | integer                                                                                    | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account                  | identify              |
-| avatar_decoration_data? | ?[avatar decoration data](/developers/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                      | identify              |
-| collectibles?           | ?[collectibles](/developers/resources/user#collectibles) object                            | data for the user's collectibles                                                                           | identify              |
-| primary_guild?          | ?[user primary guild](/developers/resources/user#user-object-user-primary-guild) object    | the user's primary guild                                                                                   | identify              |
+| Field                   | Type                                                                                                                     | Description                                                                                                | Required OAuth2 Scope |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | --------------------- |
+| id                      | snowflake                                                                                                                | the user's id                                                                                              | identify              |
+| username                | string                                                                                                                   | the user's username, not unique across the platform                                                        | identify              |
+| discriminator           | string                                                                                                                   | the user's Discord-tag                                                                                     | identify              |
+| global_name             | ?string                                                                                                                  | the user's display name, if it is set. For bots, this is the application name                              | identify              |
+| avatar                  | ?string                                                                                                                  | the user's [avatar hash](/developers/reference#image-formatting)                                           | identify              |
+| bot?                    | boolean                                                                                                                  | whether the user belongs to an OAuth2 application                                                          | identify              |
+| system?                 | boolean                                                                                                                  | whether the user is an Official Discord System user (part of the urgent message system)                    | identify              |
+| mfa_enabled?            | boolean                                                                                                                  | whether the user has two factor enabled on their account                                                   | identify              |
+| banner?                 | ?string                                                                                                                  | the user's [banner hash](/developers/reference#image-formatting)                                           | identify              |
+| accent_color?           | ?integer                                                                                                                 | the user's banner color encoded as an integer representation of hexadecimal color code                     | identify              |
+| locale?                 | string                                                                                                                   | the user's chosen [language option](/developers/reference#locales)                                         | identify              |
+| verified?               | boolean                                                                                                                  | whether the email on this account has been verified                                                        | email                 |
+| email?                  | ?string                                                                                                                  | the user's email                                                                                           | email                 |
+| flags?                  | integer                                                                                                                  | the [flags](/developers/resources/user#user-object-user-flags) on a user's account                         | identify              |
+| premium_type?           | integer                                                                                                                  | the [type of Nitro subscription](/developers/resources/user#user-object-premium-types) on a user's account | identify              |
+| public_flags?           | integer                                                                                                                  | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account                  | identify              |
+| avatar_decoration_data? | ?[avatar decoration data](/developers/resources/user#avatar-decoration-data-object) object                               | data for the user's avatar decoration                                                                      | identify              |
+| collectibles?           | ?[collectibles](/developers/resources/user#collectibles) object                                                          | data for the user's collectibles                                                                           | identify              |
+| primary_guild?          | ?[user primary guild](/developers/resources/user#user-object-user-primary-guild) object                                  | the user's primary guild                                                                                   | identify              |
+| display_name_styles?    | ?[user display name styles](/developers/resources/user#display-name-styles-object-display-name-styles-structure) object  | styles applied to the user's display name                                                                  | identify              |
 
 <ManualAnchor id="user-object-example-user" />
 ###### Example User
@@ -171,6 +172,42 @@ The nameplate the user has.
 | asset   | string    | path to the [nameplate asset](/developers/reference#image-formatting)                                                                                |
 | label   | string    | the label of this nameplate. Currently unused                                                                                                        |
 | palette | string    | background color of the nameplate, one of: `crimson`, `berry`, `sky`, `teal`, `forest`, `bubble_gum`, `violet`, `cobalt`, `clover`, `lemon`, `white` |
+
+### Display Name Styles Object
+
+How a user's name gets displayed, such as font, colors, gradient, glow.
+
+<ManualAnchor id="display-name-styles-object-display-name-styles-structure" />
+###### Display Name Styles Structure
+
+| Field     | Type           | Description                                                                                    |
+| --------- | -------------- | ---------------------------------------------------------------------------------------------- |
+| font_id   | integer        | The [font](#display-name-font)                                                          |
+| effect_id | integer        | The [effect](#display-name-effect)                                                      |
+| colors    | array[integer] | The colors encoded as an array of integers representing hexadecimal color codes (max 2) |
+
+###### Display Name Font
+
+| Value | UI Name   | Font Name        | Description                |
+| ----- | --------- | ---------------- | -------------------------- |
+| 3     | Sakura    | Cherry Bomb One  | Sakura font                |
+| 4     | Jellybean | Chicle           | Jellybean font             |
+| 6     | Modern    | Museo Moderno    | Modern font                |
+| 7     | Medieval  | Neo Castel       | Medieval font              |
+| 8     | 8Bit      | Pixelify Sans    | 8Bit font                  |
+| 10    | Vampyre   | Sinistre         | Vampyre font               |
+| 11    | GG Sans   | GG Sans          | GG Sans, the default font. |
+| 12    | Tempo     | Zilla Slab       | Tempo font                 |
+
+###### Display Name Effect
+
+| Value | Name     | Description                         |
+| ----- | -------- | ----------------------------------- |
+| 1     | SOLID    | Displays the first color provided   |
+| 2     | GRADIENT | Two color gradient                  |
+| 3     | NEON     | Glow around the name                |
+| 4     | TOON     | Subtle vertical gradient and stroke |
+| 5     | POP      | Colored dropshadow                  |
 
 ### Connection Object
 
