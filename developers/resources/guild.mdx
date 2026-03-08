@@ -841,9 +841,9 @@ If the user is not in the guild, then the guild must be [discoverable](/develope
 
 Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the updated [guild](/developers/resources/guild#guild-object) object on success. Fires a [Guild Update](/developers/events/gateway-events#guild-update) Gateway event.
 
-<Info>
-All parameters to this endpoint are optional
-</Info>
+<Note>
+All parameters to this endpoint are optional.
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -889,9 +889,9 @@ Returns a list of guild [channel](/developers/resources/channel#channel-object) 
 
 Create a new [channel](/developers/resources/channel#channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. If setting permission overwrites, only permissions your bot has in the guild can be allowed/denied. Setting `MANAGE_ROLES` permission in channels is only possible for guild administrators. Returns the new [channel](/developers/resources/channel#channel-object) object on success. Fires a [Channel Create](/developers/events/gateway-events#channel-create) Gateway event.
 
-<Info>
-All parameters to this endpoint are optional and nullable excluding `name`
-</Info>
+<Note>
+All parameters to this endpoint are optional and nullable excluding `name`.
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -973,9 +973,9 @@ Returns a list of [guild member](/developers/resources/guild#guild-member-object
 This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
 </Warning>
 
-<Info>
-All parameters to this endpoint are optional
-</Info>
+<Note>
+All parameters to this endpoint are optional.
+</Note>
 
 <ManualAnchor id="list-guild-members-query-string-params" />
 ###### Query String Params
@@ -1034,9 +1034,9 @@ The Authorization header must be a Bot token (belonging to the same application 
 
 Modify attributes of a [guild member](/developers/resources/guild#guild-member-object). Returns a 200 OK with the [guild member](/developers/resources/guild#guild-member-object) as the body. Fires a [Guild Member Update](/developers/events/gateway-events#guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
-<Info>
+<Note>
 All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
-</Info>
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1274,9 +1274,9 @@ This endpoint takes a JSON array of parameters in the following format:
 
 Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated [role](/developers/topics/permissions#role-object) on success. Fires a [Guild Role Update](/developers/events/gateway-events#guild-role-update) Gateway event.
 
-<Info>
+<Note>
 All parameters to this endpoint are optional and nullable.
-</Info>
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1414,9 +1414,9 @@ This endpoint is required to get the usage count of the vanity invite, but the i
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
 
-<Info>
+<Note>
 All parameters to this endpoint are optional.
-</Info>
+</Note>
 
 <ManualAnchor id="get-guild-widget-image-query-string-params" />
 ###### Query String Params
@@ -1446,9 +1446,9 @@ Returns the [Welcome Screen](/developers/resources/guild#welcome-screen-object) 
 
 Modify the guild's [Welcome Screen](/developers/resources/guild#welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](/developers/resources/guild#welcome-screen-object) object. May fire a [Guild Update](/developers/events/gateway-events#guild-update) Gateway event.
 
-<Info>
-All parameters to this endpoint are optional and nullable
-</Info>
+<Note>
+All parameters to this endpoint are optional and nullable.
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1481,9 +1481,9 @@ Onboarding enforces constraints when enabled. These constraints are that there m
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
-<Info>
+<Note>
 All parameters to this endpoint are optional.
-</Info>
+</Note>
 
 <ManualAnchor id="modify-guild-onboarding-json-params" />
 ###### JSON Params
