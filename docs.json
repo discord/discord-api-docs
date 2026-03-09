@@ -627,7 +627,7 @@
     }
   },
   "banner" : {
-    "content": "New docs? Check out the [change log](/developers/change-log#next-generation-docs-project) to learn more!",
+    "content": "New docs? Check out the [change log](/developers/change-log#developer-portal-&-docs-refresh) to learn more!",
     "dismissible": true 
   },
   "integrations": {
