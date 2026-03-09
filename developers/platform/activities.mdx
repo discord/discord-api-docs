@@ -1,0 +1,37 @@
+---
+title: Activities
+sidebarTitle: Activities
+description: Build multiplayer games and social experiences that run directly inside Discord.
+---
+
+import {ShapesIcon} from '/snippets/icons/ShapesIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
+import {MagicWandIcon} from '/snippets/icons/MagicWandIcon.jsx'
+
+_Already familiar? Jump to the [Activities docs](/developers/activities/overview) or [Building Your First Activity](/developers/activities/building-an-activity)._
+
+## Multiplayer Experiences in Discord
+
+Activities are multiplayer games and social experiences embedded directly in Discord. They can be launched in channels, DMs, or from the App Launcher with no external window or separate download required. 
+
+Players can jump in together with friends already in a voice channel, making Activities a natural fit for party games, co-watching, collaborative tools, and more.
+
+![Discord Activities](/images/platform/activity-playing.png)
+
+## Embedded App SDK for Activities
+
+Under the hood, Activities are an iframe that communicates with Discord using the [Embedded App SDK](/developers/developer-tools/embedded-app-sdk). The SDK provides methods for interacting between your Activity and the Discord client.
+
+## Next Steps 
+
+<CardGroup cols={3}>
+  <Card title="Activities Overview" href="/developers/activities/overview" icon={<ShapesIcon />} >
+    Full guide to how Activities work, launch flows, and the Embedded App SDK.
+  </Card>
+  <Card title="How Activities Work" href="/developers/activities/how-activities-work" icon={<MagicWandIcon />} >
+    Deep dive into the Activity lifecycle, iframe environment, and client communication.
+  </Card>
+  <Card title="Build Your First Activity" href="/developers/activities/building-an-activity" icon={<WrenchIcon />} >
+    Step-by-step guide to setting up and deploying your first Activity.
+  </Card>
+</CardGroup>
