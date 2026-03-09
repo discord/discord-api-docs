@@ -419,7 +419,7 @@ There are multiple message types that have a `message_reference` object.
 ###### Context Menu Command messages
 
 - These are messages sent when a user uses a context menu Application Command. (type 23)
-- If the command was a [message command](/developers/interactions/application-commands#message-commands), the message will have have `message_id` and `channel_id`, and `guild_id` if it is in a guild, which point to the message that the command was used on. The channel_id and guild_id will be the same as the new message.
+- If the command was a [message command](/developers/interactions/application-commands#message-commands), the message will have `message_id` and `channel_id`, and `guild_id` if it is in a guild, which point to the message that the command was used on. The channel_id and guild_id will be the same as the new message.
 - These messages can have the referenced message resolved in the `referenced_message` field.
 
 #### Voice Messages
