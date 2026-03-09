@@ -37,11 +37,11 @@ For a Discord channel to be linkable with your game lobby, it must meet these re
 
 #### Channel Type and Settings
 
-| Requirement  | Description                                 |
-|--------------|---------------------------------------------|
-| Channel Type | Must be a Discord text channel in a server  |
-| NSFW Status  | Cannot be marked as NSFW                    |
-| Link Status  | Cannot be currently linked to another lobby |
+| Requirement     | Description                                                                                       |
+|-----------------|---------------------------------------------------------------------------------------------------|
+| Channel Type    | Must be a Discord text channel in a server                                                        |
+| Age Restriction | Cannot be an [age-restricted channel](https://support.discord.com/hc/en-us/articles/115000084051) |
+| Link Status     | Cannot be currently linked to another lobby                                                       |
 
 #### Required Permissions
 
@@ -112,7 +112,7 @@ struct GuildChannel {
 };
 ```
 
-- `isLinkable` indicates whether the user can link the given guild channel. This includes checking for channel validity (Is it a text channel? Is it marked safe for work? Is it already linked to another lobby?) and validating the user's channel permissions. (Check the **Edit Lobby/Channel Link** endpoint docs for a full list of requirements)  
+- `isLinkable` indicates whether the user can link the given guild channel. This includes checking for channel validity (Is it a text channel? Is it age-restricted? Is it already linked to another lobby?) and validating the user's channel permissions. (Check the **Edit Lobby/Channel Link** endpoint docs for a full list of requirements)  
 - `isViewableAndWriteableByAllMembers` indicates if the channel in Discord has restrictions on any members' or roles' ability to read or write to it (e.g. the channel may be considered private in some way). These read/write permissions are only enforced in the Discord client. A player who may not be able to view the channel in-Discord can read/write to it in-game as long as they are a lobby member. **It is important to notify the player performing the link that the channel contents may become exposed to players in-game who do not have access to the channel in Discord.**
 
 ### Saving a channel link selection

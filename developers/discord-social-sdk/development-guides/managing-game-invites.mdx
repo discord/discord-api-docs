@@ -5,6 +5,7 @@ description: Create and manage game invitations through Discord to bring friends
 
 import PublicClient from '/snippets/discord-social-sdk/callouts/public-client.mdx';
 import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+import PresenceScopeCallout from '/snippets/discord-social-sdk/callouts/oauth-presence-scopes.mdx';
 
 ## Overview
 
@@ -24,6 +25,8 @@ Before you begin, make sure you have:
 - Completed the [Setting Rich Presence](/developers/discord-social-sdk/development-guides/setting-rich-presence) guide
 - Understanding that without an active Rich Presence with party data, invites will not work
 - Set up the Discord Social SDK with our [Getting Started guide](/developers/discord-social-sdk/getting-started)
+
+<PresenceScopeCallout />
 
 ---
 
@@ -186,6 +189,10 @@ client->RegisterLaunchSteamApplication(YOUR_APP_ID, STEAM_GAME_ID);
 ---
 
 ## Sending Game Invites
+
+<Warning>
+**Testing invites requires a second account.** A user cannot see their own Rich Presence Invite — you won't receive invites you send to yourself. To test the full invite flow, you'll need to use a separate test account.
+</Warning>
 
 Game invites can be sent in two ways:
 

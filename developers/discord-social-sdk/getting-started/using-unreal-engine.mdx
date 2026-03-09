@@ -97,6 +97,13 @@ In this section, we'll add callbacks for logging and status of the SDK and OAuth
 3. Exchange it for an access token
 4. Connect to Discord
 
+<Info>
+**Choosing your OAuth2 scopes:** This guide uses `UDiscordClient::GetDefaultPresenceScopes()`, which requests the `openid` and `sdk.social_layer_presence` scopes. These enable core features like account linking, friends list, and rich presence.
+
+If your game also needs lobbies, voice chat, or direct messaging, use `UDiscordClient::GetDefaultCommunicationScopes()` instead.
+See the [OAuth2 Scopes guide](/developers/discord-social-sdk/core-concepts/oauth2-scopes) for the full breakdown.
+</Info>
+
 Open `DiscordSocialUnrealCharacter.h` in Visual Studio, where we start integrating the Social SDK!
 
 ### DiscordLocalPlayerSubsystem
@@ -399,7 +406,7 @@ void ADiscordSocialUnrealCharacter::DiscordConnect() {
 	auto AuthArgs = NewObject<UDiscordAuthorizationArgs>();
 	AuthArgs->Init();
 	AuthArgs->SetClientId(APPLICATION_ID);
-	AuthArgs->SetScopes(UDiscordClient::GetDefaultScopes());
+	AuthArgs->SetScopes(UDiscordClient::GetDefaultPresenceScopes());
 	AuthArgs->SetCodeChallenge(CodeVerifier->Challenge());
 	Discord->Client->Authorize(AuthArgs, FDiscordClientAuthorizationCallback::CreateUObject(this, &ADiscordSocialUnrealCharacter::OnAuthorizeCompleted));
 }

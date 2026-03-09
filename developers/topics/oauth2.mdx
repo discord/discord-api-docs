@@ -2,6 +2,7 @@
 title: OAuth2
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
 
 OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are multiple types of OAuth2 authentication. We support the authorization code grant, the implicit grant, client credentials, and some modified special-for-Discord flows for Bots and Webhooks.
@@ -10,6 +11,7 @@ OAuth2 enables application developers to build applications that utilize authent
 
 The first step in implementing OAuth2 is [registering a developer application](https://discord.com/developers/applications) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
 
+<ManualAnchor id="shared-resources-oauth2-urls" />
 ###### OAuth2 URLs
 
 | URL                                         | Description                                                 |
@@ -22,6 +24,7 @@ The first step in implementing OAuth2 is [registering a developer application](h
 In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 </Warning>
 
+<ManualAnchor id="shared-resources-oauth2-scopes" />
 ###### OAuth2 Scopes
 
 These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use. Requesting them from a user without approval from Discord may cause errors or undocumented behavior in the OAuth2 flow.
@@ -75,6 +78,7 @@ The authorization code grant is what most developers will recognize as "standard
 
 All calls to the OAuth2 endpoints require either HTTP Basic authentication or `client_id` and `client_secret` supplied in the form data body.
 
+<ManualAnchor id="authorization-code-grant-authorization-url-example" />
 ###### Authorization URL Example
 
 ```
@@ -89,6 +93,7 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 
 The `integration_type` parameter specifies the [installation context](/developers/resources/application#installation-context) for the authorization. The installation context determines where the application will be installed, and is only relevant when `scope` contains `applications.commands`. When set to 0 (GUILD_INSTALL) the application will be authorized for installation to a server, and when set to 1 (USER_INSTALL) the application will be authorized for installation to a user. The application must be configured in the Developer Portal to support the provided `integration_type`.
 
+<ManualAnchor id="authorization-code-grant-redirect-url-example" />
 ###### Redirect URL Example
 
 ```
@@ -101,6 +106,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 - `code` - the code from the querystring
 - `redirect_uri` - the `redirect_uri` associated with this authorization, usually from your authorization URL
 
+<ManualAnchor id="authorization-code-grant-access-token-exchange-example" />
 ###### Access Token Exchange Example
 
 ```python
@@ -127,6 +133,7 @@ def exchange_code(code):
 
 In response, you will receive:
 
+<ManualAnchor id="authorization-code-grant-access-token-response" />
 ###### Access Token Response
 
 ```json
@@ -144,6 +151,7 @@ Having the user's access token allows your application to make certain requests 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 
+<ManualAnchor id="authorization-code-grant-refresh-token-exchange-example" />
 ###### Refresh Token Exchange Example
 
 ```python
@@ -168,6 +176,7 @@ def refresh_token(refresh_token):
 
 Boom; fresh [access token response](/developers/topics/oauth2#authorization-code-grant-access-token-response)!
 
+<ManualAnchor id="authorization-code-grant-token-revocation-example" />
 ###### Token Revocation Example
 
 To disable an access or refresh token, you can revoke it by making a `POST` request to the [token revocation URL](/developers/topics/oauth2#shared-resources-oauth2-urls) with the following parameters:
@@ -203,6 +212,7 @@ Boom; the tokens are safely revoked.
 
 The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
 
+<ManualAnchor id="implicit-grant-authorization-url-example" />
 ###### Authorization URL Example
 
 ```
@@ -211,6 +221,7 @@ https://discord.com/oauth2/authorize?response_type=token&client_id=2909264447487
 
 On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](/developers/topics/oauth2#state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
 
+<ManualAnchor id="implicit-grant-redirect-url-example" />
 ###### Redirect URL Example
 
 ```
@@ -229,6 +240,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
 </Info>
 
+<ManualAnchor id="client-credentials-grant-client-credentials-token-request-example" />
 ###### Client Credentials Token Request Example
 
 ```python
@@ -253,6 +265,7 @@ def get_token():
 
 In return, you will receive an access token (without a refresh token):
 
+<ManualAnchor id="client-credentials-grant-client-credentials-access-token-response" />
 ###### Client Credentials Access Token Response
 
 ```json
@@ -286,6 +299,7 @@ Bot users have a few differences compared to standard Discord users:
 
 Bot authorization is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to guilds. The URL you create looks similar to what we use for full stack implementation:
 
+<ManualAnchor id="bot-authorization-flow-bot-auth-parameters" />
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
@@ -296,6 +310,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 | guild_id             | pre-fills the dropdown picker with a guild for the user               |
 | disable_guild_select | `true` or `false`—disallows the user from changing the guild dropdown |
 
+<ManualAnchor id="bot-authorization-flow-url-example" />
 ###### URL Example
 
 ```
@@ -317,6 +332,7 @@ Devs can extend the bot authorization functionality. You can request additional 
 
 When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure of the relationship between your bot and the guild, consider requiring the Oauth2 code grant in your bot's settings. Enabling it requires anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](/developers/topics/oauth2#authorization-code-grant). When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
 
+<ManualAnchor id="advanced-bot-authorization-extended-bot-authorization-access-token-example" />
 ###### Extended Bot Authorization Access Token Example
 
 ```json
@@ -384,6 +400,7 @@ For bots with [elevated permissions](/developers/topics/permissions#permissions-
 
 Discord's webhook flow is a specialized version of an [authorization code](/developers/topics/oauth2#authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
 
+<ManualAnchor id="webhooks-url-example" />
 ###### URL Example
 
 ```
@@ -392,6 +409,7 @@ https://discord.com/oauth2/authorize?response_type=code&client_id=15773059049219
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](/developers/resources/webhook#execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](/developers/topics/oauth2#authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
 
+<ManualAnchor id="webhooks-webhook-token-response-example" />
 ###### Webhook Token Response Example
 
 ```json
@@ -429,6 +447,7 @@ Returns the bot's [application](/developers/resources/application#application-ob
 
 Returns info about the current authorization. Requires authentication with a bearer token.
 
+<ManualAnchor id="get-current-authorization-information-response-structure" />
 ###### Response Structure
 
 | Field       | Type                                                                               | Description                                                                       |
@@ -438,6 +457,7 @@ Returns info about the current authorization. Requires authentication with a bea
 | expires     | ISO8601 timestamp                                                                  | when the access token expires                                                     |
 | user?       | [user](/developers/resources/user#user-object) object                              | the user who has authorized, if the user has authorized with the `identify` scope |
 
+<ManualAnchor id="get-current-authorization-information-example-authorization-information" />
 ###### Example Authorization Information
 
 ```json

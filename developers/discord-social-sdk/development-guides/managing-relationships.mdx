@@ -5,6 +5,7 @@ description: Manage Discord user relationships including friends and blocked use
 ---
 import PublicClient from '/snippets/discord-social-sdk/callouts/public-client.mdx';
 import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+import PresenceScopeCallout from '/snippets/discord-social-sdk/callouts/oauth-presence-scopes.mdx';
 
 ## Overview
 
@@ -22,6 +23,8 @@ Before you begin, make sure you have:
 - Completed the [Getting Started](/developers/discord-social-sdk/getting-started) guide
 - Completed the [Creating a Unified Friends List](/developers/discord-social-sdk/development-guides/creating-a-unified-friends-list) guide
 
+<PresenceScopeCallout />
+
 ---
 
 ## Understanding Relationship Types
@@ -37,7 +40,7 @@ We know that sometimes users will want to be friends with each other across all 
 To support this, the Discord Social SDK supports two types of relationships between users:
 
 - **Discord relationships**: These relationships persist across games and on the Discord client. Both users can see whether each other is online, regardless of whether they are in the same game. Discord Relationships are the same as becoming a friend in the Discord client.
-- **Game relationships**: These are per-game relationships and do not carry over to other games. The two users can only see if the other is online if they are playing a game in which they are friends. Game friends can DM each other, and those DMs will show up in Discord, but they can disable that behavior and keep their game conversations restricted to just the game. That option is located at the bottom of the "Content & Social" settings.
+- **Game relationships**: These are per-game relationships and do not carry over to other games. The two users can only see if the other is online if they are playing a game in which they are friends. Game friends can DM each other, and those DMs will show up in Discord, but they can disable that behavior and keep their game conversations restricted to just the game. That option is located in the "Content & Social" User settings, under the "Connected Games" tab at the top of the page.
 
 [`RelationshipHandle`] can be used to determine the type of friendship between the player and another user. It has two fields:
 

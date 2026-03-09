@@ -2,6 +2,8 @@
 title: Component Reference
 ---
 
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+
 This document serves as a comprehensive reference for all available components. It covers three main categories:
 
 - **Layout Components** - For organizing and structuring content (Action Rows, Sections, Containers)
@@ -31,6 +33,7 @@ Components are a field on the [message object](/developers/resources/message#mes
 
 ### Component Object
 
+<ManualAnchor id="component-object-component-types" />
 ###### Component Types
 
 The following is a complete table of available components. Details about each component are in the sections below.
@@ -54,6 +57,9 @@ The following is a complete table of available components. Details about each co
 | 17   | [Container](/developers/components/reference#container)                   | Container that visually groups a set of components             | Layout      | Message        |
 | 18   | [Label](/developers/components/reference#label)                           | Container associating a label and description with a component | Layout      | Modal          |
 | 19   | [File Upload](/developers/components/reference#file-upload)               | Component for uploading files                                  | Interactive | Modal          |
+| 21   | [Radio Group](/developers/components/reference#radio-group)               | Single-choice set of options                                   | Interactive | Modal          |
+| 22   | [Checkbox Group](/developers/components/reference#checkbox-group)         | Multi-selectable group of checkboxes                           | Interactive | Modal          |
+| 23   | [Checkbox](/developers/components/reference#checkbox)                     | Single checkbox for yes/no choice                              | Interactive | Modal          |
 
 --------------
 ## Anatomy of a Component
@@ -67,6 +73,7 @@ All components have the following fields:
 
 The `id` field is optional and is used to identify components in the response from an interaction. The `id` must be unique within the message and is generated sequentially if left empty. Generation of `id`s won't use another `id` that exists in the message if you have one defined for another component. Sending components with an `id` of `0` is allowed but will be treated as empty and replaced by the API.
 
+<ManualAnchor id="anatomy-of-a-component-custom-id" />
 ###### Custom ID
 
 Additionally, interactive components like buttons and selects must have a `custom_id` field. The developer defines this field when sending the component payload, and it is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
@@ -91,14 +98,16 @@ Action Rows can contain one of the following:
 [Label](/developers/components/reference#label) is recommended for use over an Action Row in modals. Action Row with Text Inputs in modals are now deprecated.
 </Info>
 
+<ManualAnchor id="action-row-action-row-structure" />
 ###### Action Row Structure
 
-| Field      | Type                                                                                                      | Description                                                                                                                                                   |
-|------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type       | integer                                                                                                   | `1` for action row component                                                                                                                                  |
-| id?        | integer                                                                                                   | Optional identifier for component                                                                                                                             |
-| components | array of [action row child components](/developers/components/reference#component-object-component-types) | Up to 5 interactive [button](/developers/components/reference#button) components or a single [select](/developers/components/reference#user-select) component |
+| Field      | Type                                                                                                            | Description                                                                                                                                                   |
+|------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                                         | `1` for action row component                                                                                                                                  |
+| id?        | integer                                                                                                         | Optional identifier for component                                                                                                                             |
+| components | array of [action row child components](/developers/components/reference#action-row-action-row-child-components) | Up to 5 interactive [button](/developers/components/reference#button) components or a single [select](/developers/components/reference#user-select) component |
 
+<ManualAnchor id="action-row-action-row-child-components" />
 ###### Action Row Child Components
 
 | Available Components                                                      | Description                               |
@@ -110,12 +119,13 @@ Action Rows can contain one of the following:
 | [Mentionable Select](/developers/components/reference#mentionable-select) | A single Mentionable Select               |
 | [Channel Select](/developers/components/reference#channel-select)         | A single Channel Select                   |
 
+<ManualAnchor id="action-row-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with an Action Row component" icon="code">
 <img src="/images/components/action-row.webp" alt="Example of an Action Row with three buttons" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -124,9 +134,9 @@ Action Rows can contain one of the following:
         "components": [
           {
             "type": 2,  // ComponentType.BUTTON
-            "custom_id": "click_yes"
+            "custom_id": "click_yes",
             "label": "Accept",
-            "style": 1,
+            "style": 1
           },
           {
             "type": 2,  // ComponentType.BUTTON
@@ -136,9 +146,9 @@ Action Rows can contain one of the following:
           },
           {
             "type": 2,  // ComponentType.BUTTON
-            "custom_id": "click_no"
+            "custom_id": "click_no",
             "label": "Decline",
-            "style": 4,
+            "style": 4
           }
         ]
       }
@@ -154,6 +164,7 @@ A Button is an interactive component that can only be used in messages. It creat
 
 Buttons must be placed inside an [Action Row](/developers/components/reference#action-row) or a [Section](/developers/components/reference#section)'s `accessory` field.
 
+<ManualAnchor id="button-button-structure" />
 ###### Button Structure
 
 | Field     | Type                                                      | Description                                                                                                               |
@@ -176,6 +187,7 @@ Buttons come in various styles to convey different types of actions. These style
 - Premium buttons **must** contain a `sku_id`, and cannot have a `custom_id`, `label`, `url`, or `emoji`.
 - Premium buttons do not send an [interaction](/developers/interactions/receiving-and-responding#interaction-object) to your app when clicked
 
+<ManualAnchor id="button-button-styles" />
 ###### Button Styles
 
 | Name      | Value | Action                                                         | Required Field |
@@ -188,51 +200,55 @@ Buttons come in various styles to convey different types of actions. These style
 | Premium   | 6     | Purchase                                                       | `sku_id`       |
 
 
+<ManualAnchor id="button-examples" />
 ###### Examples
 
-<Accordion title="Message Example" description="Message create payload with a Button component" icon="code">
+<AccordionGroup>
+  <Accordion title="Message Example" description="Message create payload with a Button component" icon="code">
 
-  ```json
-  {
-    "flags": 32768,
-    "components": [
-      {
-        "type": 1,  // ComponentType.ACTION_ROW
-        "components": [
-            {
-              "type": 2,  // ComponentType.BUTTON,
-              "custom_id": "click_me",
-              "label": "Click me!",
-              "style": 1
-            }
-        ]
-      }
-    ]
-  }
-  ```
-</Accordion>
+    ```jsonc
+    {
+      "flags": 32768,
+      "components": [
+        {
+          "type": 1,  // ComponentType.ACTION_ROW
+          "components": [
+              {
+                "type": 2,  // ComponentType.BUTTON,
+                "custom_id": "click_me",
+                "label": "Click me!",
+                "style": 1
+              }
+          ]
+        }
+      ]
+    }
+    ```
+  </Accordion>
 
-<Accordion title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
+  <Accordion title="Message Interaction Response Example" description="When a user interacts with a Button in a message" icon="code">
 
-  When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
-  is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
+    When a user interacts with a Button in a message, this is the basic form of the interaction data payload you will receive. The full payload
+    is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-  ```json
-  {
-    "type": 3, // InteractionType.MESSAGE_COMPONENT
-    ...additionalInteractionFields, // See the Interaction documentation for all fields
+    ```jsonc
+    {
+      "type": 3, // InteractionType.MESSAGE_COMPONENT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
 
-    "data": {
-      "component_type": 2, // ComponentType.BUTTON
-      "id": 2,
-      "custom_id": "click_me",
-    },
-  }
-  ```
-</Accordion>
+      "data": {
+        "component_type": 2, // ComponentType.BUTTON
+        "id": 2,
+        "custom_id": "click_me",
+      },
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ### Button Design Guidelines
 
+<ManualAnchor id="button-design-guidelines-general-button-content" />
 ###### General Button Content
 
 - 34 characters max with icon or emoji.
@@ -243,6 +259,7 @@ Buttons come in various styles to convey different types of actions. These style
 - Maintain consistency in language and tone across buttons.
 - Anticipate the need for translation and test for expansion or contraction in different languages.
 
+<ManualAnchor id="button-design-guidelines-multiple-buttons" />
 ###### Multiple Buttons
 
 Use different button styles to create a hierarchy. Use only one `Primary` button per group.
@@ -253,6 +270,7 @@ If there are multiple buttons of equal significance, use the `Secondary` button 
 
 <img src="/images/components/multiple-buttons-example-2.webp" alt="Example showing multiple buttons in a group with equal significance" style={{width: "450px", height: "auto"}} />
 
+<ManualAnchor id="button-design-guidelines-premium-buttons" />
 ###### Premium Buttons
 
 Premium buttons will automatically have the following:
@@ -272,6 +290,7 @@ String Selects can be configured for both single-select and multi-select behavio
 
 String Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="string-select-string-select-structure" />
 ###### String Select Structure
 
 | Field         | Type                                                                                              | Description                                                                     |
@@ -290,6 +309,7 @@ String Selects are available in messages and modals. They must be placed inside 
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="string-select-select-option-structure" />
 ###### Select Option Structure
 
 | Field        | Type                                                             | Description                                              |
@@ -300,6 +320,7 @@ String Selects are available in messages and modals. They must be placed inside 
 | emoji?       | partial [emoji](/developers/resources/emoji#emoji-object) object | `id`, `name`, and `animated`                             |
 | default?     | boolean                                                          | Will show this option as selected by default             |
 
+<ManualAnchor id="string-select-string-select-interaction-response-structure" />
 ###### String Select Interaction Response Structure
 
 | Field            | Type             | Description                                                  |
@@ -312,12 +333,13 @@ String Selects are available in messages and modals. They must be placed inside 
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="string-select-examples" />
 ###### Examples
 <AccordionGroup>
   <Accordion title="Message Example" description="Message create payload with a String Select component" icon="code">
     <img src="/images/components/string-select.webp" alt="Example of a String Select with three options" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -361,7 +383,7 @@ String Selects are available in messages and modals. They must be placed inside 
     When a user interacts with a StringSelect in a message, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -376,11 +398,13 @@ String Selects are available in messages and modals. They must be placed inside 
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a String Select component" icon="code">
     <img src="/images/components/modal-string-select.webp" alt="Example of a String Select with three options in a modal" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9, // InteractionCallbackType.MODAL
       "data": {
@@ -427,7 +451,7 @@ String Selects are available in messages and modals. They must be placed inside 
     When a user submits a modal that contains a String Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -465,6 +489,7 @@ Text Inputs can only be used within modals and must be placed inside a [Label](/
 We no longer recommend using Text Input within an [Action Row](/developers/components/reference#action-row) in modals. Going forward all Text Inputs should be placed inside a [Label](/developers/components/reference#label) component.
 </Info>
 
+<ManualAnchor id="text-input-text-input-structure" />
 ###### Text Input Structure
 
 | Field        | Type    | Description                                                                           |
@@ -483,6 +508,7 @@ We no longer recommend using Text Input within an [Action Row](/developers/compo
 The `label` field on a Text Input is deprecated in favor of `label` and `description` on the [Label](/developers/components/reference#label) component.
 </Info>
 
+<ManualAnchor id="text-input-text-input-styles" />
 ###### Text Input Styles
 
 | Name      | Value | Description       |
@@ -490,6 +516,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 | Short     | 1     | Single-line input |
 | Paragraph | 2     | Multi-line input  |
 
+<ManualAnchor id="text-input-text-input-interaction-response-structure" />
 ###### Text Input Interaction Response Structure
 
 | Field     | Type    | Description                                                  |
@@ -499,13 +526,14 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
 | custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
 | value     | string  | The user's input text                                        |
 
+<ManualAnchor id="text-input-examples" />
 ###### Examples
 
 <AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Text Input component" icon="code">
     <img src="/images/components/modal-label.webp" alt="A modal with Text Input in a Label" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9, // InteractionCallbackType.MODAL
       "data": {
@@ -537,7 +565,7 @@ The `label` field on a Text Input is deprecated in favor of `label` and `descrip
     When a user submits a modal that contains a TextInput, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -571,6 +599,7 @@ User Selects can be configured for both single-select and multi-select behavior.
 
 User Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="user-select-user-select-structure" />
 ###### User Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -589,6 +618,7 @@ User Selects are available in messages and modals. They must be placed inside an
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="user-select-select-default-value-structure" />
 ###### Select Default Value Structure
 
 | Field | Type      | Description                                                                   |
@@ -596,6 +626,7 @@ User Selects are available in messages and modals. They must be placed inside an
 | id    | snowflake | ID of a user, role, or channel                                                |
 | type  | string    | Type of value that `id` represents. Either `"user"`, `"role"`, or `"channel"` |
 
+<ManualAnchor id="user-select-user-select-interaction-response-structure" />
 ###### User Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -609,13 +640,14 @@ User Selects are available in messages and modals. They must be placed inside an
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="user-select-examples" />
 ###### Examples
 
 <AccordionGroup>
   <Accordion title="Message Example" description="Message create payload with a User Select component" icon="code">
     <img src="/images/components/user-select.webp" alt="Example of a User Select with two people and an app in a server" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -643,7 +675,7 @@ User Selects are available in messages and modals. They must be placed inside an
     `members` and `users` may both be present in the `resolved` object when a user is selected.
     </Info>
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -695,11 +727,13 @@ User Selects are available in messages and modals. They must be placed inside an
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a User Select component" icon="code">
     <img src="/images/components/modal-user-select.webp" alt="Example of a modal with a User Select" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -727,7 +761,7 @@ User Selects are available in messages and modals. They must be placed inside an
     When a user submits a modal that contains a User Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -812,6 +846,7 @@ Role Selects can be configured for both single-select and multi-select behavior.
 
 Role Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="role-select-role-select-structure" />
 ###### Role Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -830,6 +865,7 @@ Role Selects are available in messages and modals. They must be placed inside an
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="role-select-role-select-interaction-response-structure" />
 ###### Role Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -843,13 +879,14 @@ Role Selects are available in messages and modals. They must be placed inside an
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="role-select-examples" />
 ###### Examples
 
 <AccordionGroup>
   <Accordion title="Message Example" description="Message create payload with a Role Select component" icon="code">
     <img src="/images/components/role-select.webp" alt="Example of a Role Select allowing up to 3 choices" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -875,7 +912,7 @@ Role Selects are available in messages and modals. They must be placed inside an
     When a user interacts with a Role Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -914,11 +951,13 @@ Role Selects are available in messages and modals. They must be placed inside an
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Role Select component" icon="code">
     <img src="/images/components/modal-role-select.webp" alt="Example of a modal with a Role Select" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -946,7 +985,7 @@ Role Selects are available in messages and modals. They must be placed inside an
     When a user submits a modal that contains a Role Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1025,6 +1064,7 @@ Mentionable Selects can be configured for both single-select and multi-select be
 
 Mentionable Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="mentionable-select-mentionable-select-structure" />
 ###### Mentionable Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -1043,6 +1083,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="mentionable-select-mentionable-select-interaction-response-structure" />
 ###### Mentionable Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -1056,13 +1097,14 @@ Mentionable Selects are available in messages and modals. They must be placed in
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="mentionable-select-examples" />
 ###### Examples
 
 <AccordionGroup>
   <Accordion title="Message Example" description="Message create payload with a Mentionable Select component" icon="code">
     <img src="/images/components/mentionable-select.webp" alt="Example of a Mentionable Select from the code below" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -1090,7 +1132,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
     `members` and `users` may both be present in the `resolved` object when a user is selected.
     </Info>
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1164,11 +1206,13 @@ Mentionable Selects are available in messages and modals. They must be placed in
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Mentionable Select component" icon="code">
     <img src="/images/components/modal-mentionable-select.webp" alt="Example of a Mentionable Select from the code below" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -1195,7 +1239,7 @@ Mentionable Selects are available in messages and modals. They must be placed in
     When a user submits a modal that contains a Mentionable Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1254,6 +1298,7 @@ Channel Selects can be configured for both single-select and multi-select behavi
 
 Channel Selects are available in messages and modals. They must be placed inside an [Action Row](/developers/components/reference#action-row) in messages and a [Label](/developers/components/reference#label) in modals.
 
+<ManualAnchor id="channel-select-channel-select-structure" />
 ###### Channel Select Structure
 
 | Field           | Type                                                                                                          | Description                                                                                                                                              |
@@ -1273,6 +1318,7 @@ Channel Selects are available in messages and modals. They must be placed inside
 
 \*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
+<ManualAnchor id="channel-select-channel-select-interaction-response-structure" />
 ###### Channel Select Interaction Response Structure
 
 | Field            | Type                                                                                                          | Description                                                  |
@@ -1286,13 +1332,14 @@ Channel Selects are available in messages and modals. They must be placed inside
 
 \* In message interaction responses `component_type` will be returned and in modal interaction responses `type` will be returned.
 
+<ManualAnchor id="channel-select-examples" />
 ###### Examples
 
 <AccordionGroup>
   <Accordion title="Message Example" description="Message create payload with a Channel Select component" icon="code">
     <img src="/images/components/channel-select.webp" alt="Example of a Channel Select for text channels" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "flags": 32768,
       "components": [
@@ -1317,7 +1364,7 @@ Channel Selects are available in messages and modals. They must be placed inside
     When a user interacts with a Channel Select in a message, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 3, // InteractionType.MESSAGE_COMPONENT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1351,11 +1398,13 @@ Channel Selects are available in messages and modals. They must be placed inside
     }
     ```
   </Accordion>
+</AccordionGroup>
 
+<AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a Channel Select component" icon="code">
     <img src="/images/components/modal-channel-select.webp" alt="Example of a modal with a Channel Select" style={{width: "auto", height: "300px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -1382,7 +1431,7 @@ Channel Selects are available in messages and modals. They must be placed inside
     When a user submits a modal that contains a Channel Select, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -1440,6 +1489,7 @@ Sections are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="section-section-structure" />
 ###### Section Structure
 
 | Field      | Type                                                                                                   | Description                                                                                                            |
@@ -1453,12 +1503,14 @@ To use this component in messages you must send the [message flag](/developers/r
 Don't hardcode `components` to contain only text components. We may add other components in the future. Similarly, `accessory` may be expanded to include other components in the future.
 </Info>
 
+<ManualAnchor id="section-section-child-components" />
 ###### Section Child Components
 
 | Available Components                                          |
 |---------------------------------------------------------------|
 | [Text Display](/developers/components/reference#text-display) |
 
+<ManualAnchor id="section-section-accessory-components" />
 ###### Section Accessory Components
 
 | Available Components                                    |
@@ -1466,13 +1518,14 @@ Don't hardcode `components` to contain only text components. We may add other co
 | [Button](/developers/components/reference#button)       |
 | [Thumbnail](/developers/components/reference#thumbnail) |
 
+<ManualAnchor id="section-examples" />
 ###### Examples
 
 
 <Accordion title="Message Example" description="Message create payload with a Section (and Thumbnail) component" icon="code">
   <img src="/images/components/section.webp" alt="Example of a Section showing a fake game changelog and a thumbnail" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1517,6 +1570,7 @@ value of the [allowed mention object](/developers/resources/message#allowed-ment
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="text-display-text-display-structure" />
 ###### Text Display Structure
 
 | Field   | Type    | Description                                      |
@@ -1525,6 +1579,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | id?     | integer | Optional identifier for component                |
 | content | string  | Text that will be displayed similar to a message |
 
+<ManualAnchor id="text-display-text-display-interaction-response-structure" />
 ###### Text Display Interaction Response Structure
 
 | Field | Type    | Description                         |
@@ -1532,66 +1587,65 @@ To use this component in messages you must send the [message flag](/developers/r
 | type  | integer | `10` for a Text Display             |
 | id    | integer | Unique identifier for the component |
 
+<ManualAnchor id="text-display-examples" />
 ###### Examples
 
-<AccordionGroup>
-  <Accordion title="Message Example" description="Message create payload with a Text Display component" icon="code">
-    <img src="/images/components/text-display.webp" alt="Example of a Text Display with markdown" style={{width: "auto", height: "250px"}} />
+<Accordion title="Message Example" description="Message create payload with a Text Display component" icon="code">
+  <img src="/images/components/text-display.webp" alt="Example of a Text Display with markdown" style={{width: "auto", height: "250px"}} />
 
-    ```json
-    {
-      "flags": 32768,
+  ```jsonc
+  {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,  // ComponentType.TEXT_DISPLAY
+        "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
+      }
+    ]
+  }
+  ```
+</Accordion>
+
+<Accordion title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
+  <img src="/images/components/modal-text-display.webp" alt="Example of a Text Display from the code below" style={{width: "auto", height: "350px"}} />
+
+  ```jsonc
+  {
+    "type": 9,
+    "data": {
+      "custom_id": "jail_modal",
+      "title": "Jail",
       "components": [
         {
-          "type": 10,  // ComponentType.TEXT_DISPLAY
-          "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spoiler alert: ||these too!||"
+          "type": 10,
+          "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
+        },
+        {
+          "type": 18,
+          "label": "Choose a user",
+          "component": {
+            "type": 5,
+            "custom_id": "user_selected",
+            "required": true
+          }
+        },
+        {
+          "type": 18,
+          "label": "Where should they be sent?",
+          "component": {
+            "type": 8,
+            "custom_id": "channel_selected",
+            "channel_types": [
+              2
+            ],
+            "required": true
+          }
         }
       ]
     }
-    ```
-  </Accordion>
-
-  <Accordion title="Modal Example" description="Modal create payload with a Text Display component" icon="code">
-    <img src="/images/components/modal-text-display.webp" alt="Example of a Text Display from the code below" style={{width: "auto", height: "350px"}} />
-
-    ```json
-    {
-      "type": 9,
-      "data": {
-        "custom_id": "jail_modal",
-        "title": "Jail",
-        "components": [
-          {
-            "type": 10,
-            "content": "This action will move the selected user to the selected voice channel and take away all their permissions **for 1 hour**."
-          },
-          {
-            "type": 18,
-            "label": "Choose a user",
-            "component": {
-              "type": 5,
-              "custom_id": "user_selected",
-              "required": true
-            }
-          },
-          {
-            "type": 18,
-            "label": "Where should they be sent?",
-            "component": {
-              "type": 8,
-              "custom_id": "channel_selected",
-              "channel_types": [
-                2
-              ],
-              "required": true
-            }
-          }
-        ]
-      }
-    }
-    ```
-  </Accordion>
-</AccordionGroup>
+  }
+  ```
+</Accordion>
 
 ------------
 ## Thumbnail
@@ -1608,6 +1662,7 @@ Thumbnails currently only support images, including animated formats like GIF an
 To use this component, you need to send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2), which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="thumbnail-thumbnail-structure" />
 ###### Thumbnail Structure
 
 | Field        | Type                                                                        | Description                                                                                                    |
@@ -1618,12 +1673,13 @@ To use this component, you need to send the [message flag](/developers/resources
 | description? | ?string                                                                     | Alt text for the media, max 1024 characters                                                                    |
 | spoiler?     | boolean                                                                     | Whether the thumbnail should be a spoiler (or blurred out). Defaults to `false`                                |
 
+<ManualAnchor id="thumbnail-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Thumbnail component (via Section)" icon="code">
   <img src="/images/components/section.webp" alt="Example of a Thumbnail in a Section from the code below" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1667,6 +1723,7 @@ Media Galleries are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="media-gallery-media-gallery-structure" />
 ###### Media Gallery Structure
 
 | Field | Type                                                                                                        | Description                       |
@@ -1675,6 +1732,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | id?   | integer                                                                                                     | Optional identifier for component |
 | items | array of [media gallery items](/developers/components/reference#media-gallery-media-gallery-item-structure) | 1 to 10 media gallery items       |
 
+<ManualAnchor id="media-gallery-media-gallery-item-structure" />
 ###### Media Gallery Item Structure
 
 | Field        | Type                                                                        | Description                                                                                                    |
@@ -1683,12 +1741,13 @@ To use this component in messages you must send the [message flag](/developers/r
 | description? | ?string                                                                     | Alt text for the media, max 1024 characters                                                                    |
 | spoiler?     | boolean                                                                     | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                    |
 
+<ManualAnchor id="media-gallery-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Media Gallery component" icon="code">
   <img src="/images/components/media-gallery.webp" alt="Example of a Media Gallery showing screenshots from live webcam feeds" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1735,6 +1794,7 @@ The File component only supports using the `attachment://` protocol in [unfurled
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="file-file-structure" />
 ###### File Structure
 
 | Field    | Type                                                                        | Description                                                                                                                      |
@@ -1743,9 +1803,10 @@ To use this component in messages you must send the [message flag](/developers/r
 | id?      | integer                                                                     | Optional identifier for component                                                                                                |
 | file     | [unfurled media item](/developers/components/reference#unfurled-media-item) | This unfurled media item is unique in that it **only** supports attachment references using the `attachment://<filename>` syntax |
 | spoiler? | boolean                                                                     | Whether the media should be a spoiler (or blurred out). Defaults to `false`                                                      |
-| name     | string                                                                      | The name of the file. This field is ignored and provided by the API as part of the response                                      |
-| size     | integer                                                                     | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
+| name?    | string                                                                      | The name of the file. This field is ignored and provided by the API as part of the response                                      |
+| size?    | integer                                                                     | The size of the file in bytes. This field is ignored and provided by the API as part of the response                             |
 
+<ManualAnchor id="file-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a File component" icon="code">
@@ -1755,7 +1816,7 @@ To use this component in messages you must send the [message flag](/developers/r
     This example makes use of the `attachment://` protocol functionality in [unfurled media item](/developers/components/reference#unfurled-media-item).
   </Info>
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1795,6 +1856,7 @@ Separators are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="separator-separator-structure" />
 ###### Separator Structure
 
 | Field    | Type    | Description                                                                             |
@@ -1804,11 +1866,12 @@ To use this component in messages you must send the [message flag](/developers/r
 | divider? | boolean | Whether a visual divider should be displayed in the component. Defaults to `true`       |
 | spacing? | integer | Size of separator padding—`1` for small padding, `2` for large padding. Defaults to `1` |
 
+<ManualAnchor id="separator-examples" />
 ###### Examples
 <Accordion title="Message Example" description="Message create payload with a Separator component" icon="code">
   <img src="/images/components/separator.webp" alt="Example of a separator with large spacing dividing content" style={{width: "450px", height: "auto"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1842,6 +1905,7 @@ Containers are currently only available in messages.
 To use this component in messages you must send the [message flag](/developers/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
 </Info>
 
+<ManualAnchor id="container-container-structure" />
 ###### Container Structure
 
 | Field         | Type                                                                                                         | Description                                                                      |
@@ -1852,6 +1916,7 @@ To use this component in messages you must send the [message flag](/developers/r
 | accent_color? | ?integer                                                                                                     | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`       |
 | spoiler?      | boolean                                                                                                      | Whether the container should be a spoiler (or blurred out). Defaults to `false`. |
 
+<ManualAnchor id="container-container-child-components" />
 ###### Container Child Components
 
 | Available Components                                            |
@@ -1863,12 +1928,13 @@ To use this component in messages you must send the [message flag](/developers/r
 | [Separator](/developers/components/reference#separator)         |
 | [File](/developers/components/reference#file)                   |
 
+<ManualAnchor id="container-examples" />
 ###### Examples
 
 <Accordion title="Message Example" description="Message create payload with a Container component" icon="code">
   <img src="/images/components/container.webp" alt="Example of a container showing text, image, and buttons for a wild enemy encounter" style={{width: "auto", height: "350px"}} />
 
-  ```json
+  ```jsonc
   {
     "flags": 32768,
     "components": [
@@ -1931,6 +1997,7 @@ A Label is a top-level layout component. Labels wrap modal components with text 
 The `description` may display above or below the `component` depending on the platform.
 </Info>
 
+<ManualAnchor id="label-label-structure" />
 ###### Label Structure
 
 | Field        | Type                                                                                   | Description                                                    |
@@ -1941,6 +2008,7 @@ The `description` may display above or below the `component` depending on the pl
 | description? | string                                                                                 | An optional description text for the label; max 100 characters |
 | component    | [label child component](/developers/components/reference#label-label-child-components) | The component within the label                                 |
 
+<ManualAnchor id="label-label-child-components" />
 ###### Label Child Components
 
 | Available Components                                                      |
@@ -1952,7 +2020,11 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/developers/components/reference#mentionable-select) |
 | [Channel Select](/developers/components/reference#channel-select)         |
 | [File Upload](/developers/components/reference#file-upload)               |
+| [Radio Group](/developers/components/reference#radio-group)               |
+| [Checkbox Group](/developers/components/reference#checkbox-group)         |
+| [Checkbox](/developers/components/reference#checkbox)                     |
 
+<ManualAnchor id="label-label-interaction-response-structure" />
 ###### Label Interaction Response Structure
 
 | Field     | Type                                                                                                                             | Description                         |
@@ -1961,6 +2033,7 @@ The `description` may display above or below the `component` depending on the pl
 | id        | integer                                                                                                                          | Unique identifier for the component |
 | component | [label interaction response child component](/developers/components/reference#label-label-interaction-response-child-components) | The component within the label      |
 
+<ManualAnchor id="label-label-interaction-response-child-components" />
 ###### Label Interaction Response Child Components
 
 | Available Components                                                                                                        |
@@ -1972,13 +2045,17 @@ The `description` may display above or below the `component` depending on the pl
 | [Mentionable Select](/developers/components/reference#mentionable-select-mentionable-select-interaction-response-structure) |
 | [Channel Select](/developers/components/reference#channel-select-channel-select-interaction-response-structure)             |
 | [File Upload](/developers/components/reference#file-upload-file-upload-interaction-response-structure)                      |
+| [Radio Group](/developers/components/reference#radio-group-interaction-response-structure)                                  |
+| [Checkbox Group](/developers/components/reference#checkbox-group-interaction-response-structure)                            |
+| [Checkbox](/developers/components/reference#checkbox-interaction-response-structure)                                        |
 
+<ManualAnchor id="label-examples" />
 ###### Examples
 
 <Accordion title="Modal Example" description="Modal create payload with a Label component (wrapping a Text Input)" icon="code">
   <img src="/images/components/modal-label.webp" alt="A modal with Text Input in a Label" style={{width: "auto", height: "250px"}} />
 
-  ```json
+  ```jsonc
   {
     "type": 9, // InteractionCallbackType.MODAL
     "data": {
@@ -2012,6 +2089,7 @@ File Upload is an interactive component that allows users to upload files in mod
 
 File Uploads are available on modals. They must be placed inside a [Label](/developers/components/reference#label).
 
+<ManualAnchor id="file-upload-file-upload-structure" />
 ###### File Upload Structure
 
 | Field       | Type    | Description                                                                                            |
@@ -2023,6 +2101,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 | max_values? | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
 | required?   | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
 
+<ManualAnchor id="file-upload-file-upload-interaction-response-structure" />
 ###### File Upload Interaction Response Structure
 
 | Field     | Type                | Description                                                                                                                                          |
@@ -2032,13 +2111,14 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 | custom_id | string              | Developer-defined identifier for the input; 1-100 characters                                                                                         |
 | values    | array of snowflakes | IDs of the uploaded files found in the [resolved data](/developers/interactions/receiving-and-responding#interaction-object-resolved-data-structure) |
 
+<ManualAnchor id="file-upload-examples" />
 ###### Examples
 
 <AccordionGroup>
   <Accordion title="Modal Example" description="Modal create payload with a File Upload component" icon="code">
     <img src="/images/components/file-upload-modal-example.webp" alt="Example of a modal with a File Upload" style={{width: "auto", height: "250px"}} />
 
-    ```json
+    ```jsonc
     {
       "type": 9,
       "data": {
@@ -2068,7 +2148,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
     When a user submits a modal that contains a File Upload, this is the basic form of the interaction data payload you will receive. The full payload
     is available in the [interaction](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) reference.
 
-    ```json
+    ```jsonc
     {
       "type": 5, // InteractionType.MODAL_SUBMIT
       ...additionalInteractionFields, // See the Interaction documentation for all fields
@@ -2112,6 +2192,284 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
   </Accordion>
 </AccordionGroup>
 
+--------------
+## Radio Group
+
+A Radio Group is an interactive component for selecting exactly one option from a defined list. Radio Groups are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Radio Group Structure
+
+| Field     | Type                                                                                          | Description                                                              |
+|-----------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| type      | integer                                                                                       | `21` for radio group                                                     |
+| id?       | integer                                                                                       | Optional identifier for component                                        |
+| custom_id | string                                                                                        | Developer-defined identifier for the input; 1-100 characters             |
+| options   | array of [radio group options](/developers/components/reference#radio-group-option-structure) | List of options to show; min 2, max 10                                   |
+| required? | boolean                                                                                       | Whether a selection is required to submit the modal (defaults to `true`) |
+
+### Radio Group Option Structure
+
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
+
+### Radio Group Interaction Response Structure
+
+| Field     | Type    | Description                                                          |
+|-----------|---------|----------------------------------------------------------------------|
+| type      | integer | `21` for a Radio Group                                               |
+| id        | integer | Unique identifier for the component                                  |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters         |
+| value     | ?string | The value of the selected option, or `null` if no option is selected |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Radio Group component" icon="code">
+    <img src="/images/components/modal-radio-group.webp" alt="Example of a modal with a Radio Group" style={{width: "auto", height: "350px"}} />
+
+    ```jsonc
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "class_selection_modal",
+        "title": "Class Selection",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Choose your class",
+            "description": "Your class detertmines the style of play for your character.",
+            "component": {
+              "type": 21, // ComponentType.RADIO_GROUP
+              "custom_id": "class_radio",
+              "options": [
+                {"value": "warrior", "label": "Warrior", "description": "Strong and brave"},
+                {"value": "rogue", "label": "Rogue", "description": "Weak and squishy"},
+                {"value": "wizard", "label": "Wizard", "description": "Nerd"},
+                {"value": "bard", "label": "Bard", "description": "Annoys everyone"},
+                {"value": "witch_doctor", "label": "Witch Doctor", "description": "Actually a pretty cool option"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Radio Group" icon="code">
+
+    ```jsonc
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "class_selection_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "class_radio",
+              "id": 2,
+              "type": 21, // ComponentType.RADIO_GROUP
+              "value": "warrior"
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Checkbox Group
+
+A Checkbox Group is an interactive component for selecting one or many options via checkboxes. Checkbox Groups are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Checkbox Group Structure
+
+| Field       | Type                                                                                                | Description                                                                                                        |
+|-------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| type        | integer                                                                                             | `22` for checkbox group                                                                                            |
+| id?         | integer                                                                                             | Optional identifier for component                                                                                  |
+| custom_id   | string                                                                                              | Developer-defined identifier for the input; 1-100 characters                                                       |
+| options     | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure) | List of options to show; min 1, max 10                                                                             |
+| min_values? | integer                                                                                             | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1); if set to 0 `required` must be `false` |
+| max_values? | integer                                                                                             | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                      |
+| required?   | boolean                                                                                             | Whether selecting within the group is required (defaults to `true`)                                                |
+
+### Checkbox Group Option Structure
+
+| Field        | Type    | Description                                             |
+|--------------|---------|---------------------------------------------------------|
+| value        | string  | Dev-defined value of the option; max 100 characters     |
+| label        | string  | User-facing label of the option; max 100 characters     |
+| description? | string  | Optional description for the option; max 100 characters |
+| default?     | boolean | Shows the option as selected by default                 |
+
+### Checkbox Group Interaction Response Structure
+
+| Field     | Type             | Description                                                                           |
+|-----------|------------------|---------------------------------------------------------------------------------------|
+| type      | integer          | `22` for a Checkbox Group                                                             |
+| id        | integer          | Unique identifier for the component                                                   |
+| custom_id | string           | Developer-defined identifier for the input; 1-100 characters                          |
+| values    | array of strings | The values of the selected options, or an empty array `[]` if no options are selected |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Checkbox Group component" icon="code">
+    <img src="/images/components/modal-checkbox-group.webp" alt="Example of a modal with a Checkbox Group" style={{width: "auto", height: "350px"}} />
+
+    ```jsonc
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "day_selection_modal",
+        "title": "Study Days",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Which days are you free?",
+            "description": "Choose all of the days you're able to meet up.",
+            "component": {
+              "type": 22, // ComponentType.CHECKBOX_GROUP
+              "custom_id": "event_checkbox",
+              "options": [
+                {"value": "march-4", "label": "March 4th"},
+                {"value": "march-5", "label": "March 5th"},
+                {"value": "march-7", "label": "March 7th", "description": "I know this is a Saturday and is tough"},
+                {"value": "march-9", "label": "March 9th"},
+                {"value": "march-10", "label": "March 10th"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Checkbox Group" icon="code">
+
+    ```jsonc
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "day_selection_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "event_checkbox",
+              "id": 2,
+              "type": 22, // ComponentType.CHECKBOX_GROUP
+              "values": [
+                "march-5",
+                "march-10",
+                "march-4"
+              ]
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+--------------
+## Checkbox
+
+A Checkbox is a single interactive component for simple yes/no style questions. Checkboxes are available in modals and must be placed inside a [Label](/developers/components/reference#label).
+
+### Checkbox Structure
+
+| Field     | Type    | Description                                                  |
+|-----------|---------|--------------------------------------------------------------|
+| type      | integer | `23` for checkbox                                            |
+| id?       | integer | Optional identifier for component                            |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters |
+| default?  | boolean | Whether the checkbox is selected by default                  |
+
+<Tip>
+While you can't set a checkbox as required, you can use a [Checkbox Group](/developers/components/reference#checkbox-group) with a single option and `required` to achieve similar functionality.
+</Tip>
+
+### Checkbox Interaction Response Structure
+
+| Field     | Type    | Description                                                         |
+|-----------|---------|---------------------------------------------------------------------|
+| type      | integer | `23` for a Checkbox                                                 |
+| id        | integer | Unique identifier for the component                                 |
+| custom_id | string  | Developer-defined identifier for the input; 1-100 characters        |
+| value     | boolean | The state of the checkbox (`true` if checked, `false` if unchecked) |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Modal Example" description="Modal create payload with a Checkbox component" icon="code">
+    <img src="/images/components/modal-checkbox.webp" alt="Example of a modal with a Checkbox" style={{width: "auto", height: "250px"}} />
+
+    ```jsonc
+    {
+      "type": 9,
+      "data": {
+        "custom_id": "secret_note_modal",
+        "title": "Secret Note",
+        "components": [
+          {
+            "type": 18, // ComponentType.LABEL
+            "label": "Do you like me?",
+            "description": "😳😳😳",
+            "component": {
+              "type": 23, // ComponentType.CHECKBOX
+              "custom_id": "like_checkbox"
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Modal Submit Interaction Data Example" description="When a user submits a modal containing a Checkbox" icon="code">
+
+    ```jsonc
+    {
+      "type": 5, // InteractionType.MODAL_SUBMIT
+      ...additionalInteractionFields, // See the Interaction documentation for all fields
+
+      "data": {
+        "custom_id": "secret_note_modal",
+        "components": [
+          {
+            "id": 1,
+            "type": 18, // ComponentType.LABEL
+            "component": {
+              "custom_id": "like_checkbox",
+              "id": 2,
+              "type": 23, // ComponentType.CHECKBOX
+              "value": true
+            }
+          }
+        ]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
 ----------------------
 ## Unfurled Media Item
 
@@ -2125,6 +2483,7 @@ While the structure below is the full representation of an Unfurled Media Item,
 All other fields will be automatically populated by Discord.
 </Info>
 
+<ManualAnchor id="unfurled-media-item-unfurled-media-item-structure" />
 ###### Unfurled Media Item Structure
 
 | Field            | Type      | Description                                                                                                                                      |
@@ -2156,7 +2515,7 @@ Legacy messages allow up to 5 action rows as top-level components
 
 Legacy Message Component Example
 
-```json
+```jsonc
 {
   "content": "This is a message with legacy components",
   "components": [

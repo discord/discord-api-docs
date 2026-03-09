@@ -1,0 +1,94 @@
+---
+title: Community Invites
+sidebarTitle: Community Invites
+description: Give members roles and control who can join your server using community invites.
+---
+
+Community invites make it easy to bring people into your Discord server with automatic role assignment and controlled access. Whether you're a server admin, community manager, or streamer, community invites let you decide who can accept an invite and what roles they'll receive when they join.
+
+With community invites, you can automatically give members roles the moment they accept an invite — no manual role management needed. You can also create invites that only specific people can accept, giving you precise control over who enters your server.
+
+---
+
+## What Can Community Invites Do?
+
+Community invites extend Discord's standard invite system with two capabilities:
+
+### Role Assignment
+
+When someone accepts a community invite, Discord automatically assigns one or more roles to them. You can set this up directly in Discord's UI or through the API.
+
+This is useful for:
+
+- Giving roles to supporters, beta testers, or players
+- Granting access to specific channels based on a user's status or subscription
+- Automatically organizing new members without manual effort
+
+<Info>
+Roles assigned through an invite persist even after the invite expires or is deleted. You'll need to remove them manually via Discord's interface or a bot.
+</Info>
+
+### Targeted Invites
+
+Want to create an invite that only specific people can accept? Targeted invites let you restrict access to a list of specific Discord users — only those users will be able to see and accept the invite. This is an API-only feature.
+
+This is useful for:
+
+- Exclusive invites for paying supporters
+- Controlled access for beta testers or event attendees
+- Preventing invite sharing for special achievements or roles
+
+---
+
+## Creating Role Invites in Discord
+
+You can create role-assigning invites directly in Discord — no code required. This is perfect for server admins and community managers.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- A Discord server
+- User permissions for **Create Instant Invite**, **Manage Server**, and **Manage Roles**
+
+### How to Create a Role Invite
+
+1. Open your Discord server and right-click the channel you want to create an invite for
+2. Select **"Invite To Channel"**
+
+**or**
+
+1. Open your Discord server and click the server name
+2. Select **"Invite To Server"**
+
+**then**
+
+3. Click **"Edit invite link"**
+4. Under **"Roles (Optional)"**, select one or more roles to auto-assign
+5. Configure other settings like expiration time and max uses
+6. Click **"Generate a New Link"**
+7. Share the invite link — anyone who accepts it will automatically receive the selected roles
+
+<img src="/images/community-invite-ui.webp" alt="Example of creating an invite that grants roles" style={{width: "auto", height: "350px"}} />
+
+### Important Notes
+
+- Users who accept the invite will receive the selected roles **even if they're already in your server**
+- Roles persist after the invite expires or is deleted
+- You need **Create Instant Invite** and **Manage Roles** permissions to create role invites
+- You can only assign roles that are lower than your highest role
+
+---
+
+## For Developers
+
+If you want to automate community invites in a bot or app — or use targeted invites — check out the developer tutorial.
+
+<CardGroup cols={2}>
+    <Card title="Using Community Invites (Tutorial)" href="/developers/tutorials/using-community-invites">
+        Step-by-step API integration for bots and apps, including targeted invites and role assignment via the API
+    </Card>
+    <Card title="Create Channel Invite" href="/developers/resources/channel#create-channel-invite">
+        API reference for the create invite endpoint
+    </Card>
+</CardGroup>

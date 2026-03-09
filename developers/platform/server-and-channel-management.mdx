@@ -1,0 +1,62 @@
+---
+title: "Server and Channel Management"
+sidebarTitle: "Server & Channel Management"
+description: What Discord apps can do with servers and channels, and what permissions they need.
+---
+
+Discord apps can programmatically interact with Discord servers (guilds) and channels. This includes reading content, posting messages, managing members, creating channels, and more. Nearly all of these actions require the bot to have the appropriate permissions in the target server or channel.
+
+## What Apps Can Do
+
+Some examples of server and channel management features include the ability to do the following. Check out the [API Reference](/developers/reference) for a complete list of endpoints and capabilities.
+
+### Guilds
+
+- Read guild metadata: name, icon, member count, features
+- List and manage roles (create, update, delete, assign to members)
+- Kick and ban members
+- Manage and audit server events
+- List guild integrations and webhooks
+
+### Channels
+
+- List and read channels across the server
+- Create, edit, and delete channels and threads
+- Set channel permissions and position
+- Read and send messages (subject to message permissions)
+- Manage pinned messages
+
+### Members
+
+- Fetch member profiles and role assignments
+- Add or remove roles from members
+- Modify member nicknames
+- Manage member timeouts
+
+## Key Permissions
+
+Most server and channel operations require explicit permissions. Check out our [Permissions](/developers/topics/permissions) reference for a full list of permissions. Common ones include:
+
+| Permission        | What It Enables                                      |
+|-------------------|------------------------------------------------------|
+| `MANAGE_GUILD`    | Edit server settings, view audit log                 |
+| `MANAGE_CHANNELS` | Create, edit, delete channels                        |
+| `MANAGE_ROLES`    | Create and manage roles below the bot's highest role |
+| `KICK_MEMBERS`    | Remove members from the server                       |
+| `BAN_MEMBERS`     | Permanently ban members                              |
+| `MANAGE_MESSAGES` | Delete messages from other users, pin messages       |
+| `VIEW_CHANNEL`    | See a channel and its message history                |
+| `SEND_MESSAGES`   | Post messages in a channel                           |
+
+Permissions can be overridden at the channel level, so a bot may have server-wide permissions but be restricted in specific channels (or vice versa).
+
+## Further Reading
+
+<CardGroup cols={2}>
+  <Card title="Guild Resource" href="/developers/resources/guild">
+    Full API reference for guild endpoints and objects.
+  </Card>
+  <Card title="Channel Resource" href="/developers/resources/channel">
+    Full API reference for channel endpoints, message sending, and threads.
+  </Card>
+</CardGroup>

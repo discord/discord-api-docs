@@ -120,9 +120,9 @@ Threads can be edited and deleted with the existing `PATCH` and `DELETE` endpoin
 - Editing a thread to change the `name`, `archived`, `auto_archive_duration` fields requires `MANAGE_THREADS` or that the current user is the thread creator
 - Editing a thread to change `rate_limit_per_user` or `locked` requires `MANAGE_THREADS`
 
-## NSFW Threads
+## Age-Restricted Threads
 
-Threads do not explicitly set the `nsfw` field. All threads in a channel marked as `nsfw` inherit that setting though.
+Threads do not explicitly set the `nsfw` field. All threads in an [age-restricted channel](https://support.discord.com/hc/en-us/articles/115000084051) inherit that setting though.
 
 ## New Message Types
 

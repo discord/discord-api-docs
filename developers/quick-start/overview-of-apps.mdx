@@ -4,62 +4,60 @@ description: Build Discord apps to customize, extend, and enhance Discord for mi
 sidebarTitle: Overview of Apps
 ---
 
-import {ManualAnchor} from '/snippets/manualanchor.jsx'
+import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
+import {ShapesIcon} from '/snippets/icons/ShapesIcon.jsx'
+import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
+import {AppsIcon} from '/snippets/icons/AppsIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
 
-<img src="/images/overview-apps.png" noZoom style={{ width: 700, height: 'auto' }} />
+A **Discord application** is the core entity that represents your integration with the Discord platform. Every bot, Activity, and Social SDK integration is backed by an application registered in the [Discord Developer Portal](https://discord.com/developers/applications).
 
-On this page we'll answer the questions:
+Applications hold your credentials, OAuth2 settings, bot configuration, and metadata. Whether you're building a simple command-response bot or a full game integration with voice chat and rich presence, it all starts with creating an application.
 
-* [What can apps do?](/developers/quick-start/overview-of-apps#what-can-apps-do)
-* [Where are apps installed?](/developers/quick-start/overview-of-apps#where-are-apps-installed)
-* [What APIs can apps use?](/developers/quick-start/overview-of-apps#what-apis-can-apps-use)
+<iframe className="w-full aspect-video rounded-3xl" src="https://www.youtube-nocookie.com/embed/CFxo5w3SY2w?si=AFrLSog_hjC-xiV7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-<ManualAnchor id="what-can-apps-do" />
-## What can apps do?
+## The Three Types of Discord Apps
 
-You will discover the full possibility of apps as you explore the documentation and start building, but for now let's take a glance at some features you can build and integrate as you're developing your app.
+### Bots
 
-### Send and manage messages
+Bots are automated user accounts operated by application code. They appear in servers with an `APP` tag and can respond to events, slash commands, and user actions.
 
-Messages are a core part of Discord, and that's true for apps too. Apps can send messages in a few ways—they can call the [Create Message endpoint](/developers/resources/message#create-message), create and execute [webhooks](/developers/resources/webhook), or respond with a message when responding to an [interaction](/developers/interactions/overview). Apps can also manage messages if they have the proper permissions, which is covered more in the [Message documentation](/developers/resources/message).
+Use bots when you want to:
+- Add commands, moderation tools, or utilities to a server
+- React to events (messages, joins, reactions) in real time
+- Build interactive experiences with buttons, menus, and modals
+- Post automated updates from external systems
 
-### Interact with users
+Bots can be **guild-installed** (added to a specific server) or **user-installed** (available everywhere the user goes, without requiring server permissions).
 
-Apps can use [interactions](/developers/interactions/overview) to create more engaging and intuitive experiences for users. When sending messages, apps can send interactive components like [buttons](/developers/components/reference#button) and [select menus](/developers/components/reference#string-select) in the `components` field. Apps can also open form-like modals or launch an Activity [in response to interactions](/developers/interactions/receiving-and-responding#interaction-response-object-modal).
+### Activities
 
-### Build embedded games and experiences
+Activities are embedded web applications that run inside Discord channels. They're built with the [Embedded App SDK](/developers/developer-tools/embedded-app-sdk) and can be launched by any user in a channel or from a bot with the `LAUNCH_ACTIVITY` interaction callback.
 
-Using the [Embedded App SDK](/developers/developer-tools/embedded-app-sdk), apps can create [Activities](/developers/activities/overview) which are cross-platform interactive games and social experiences in Discord. They run in iframes in Discord, where people who play games are already hanging out.
+Use Activities when you want to:
+- Build a game or interactive experience that runs inside Discord
+- Create collaborative tools (watch parties, drawing apps, trivia games)
+- Leverage Discord's existing social context: voice, friends, servers
 
-### Customize servers
+### Social Layer for Games
 
-With the right API endpoints and proper [permissions](/developers/topics/permissions), apps can customize the experience of using and moderating servers by accessing and customizing all sorts of resources core to Discord—including [users](/developers/resources/user), [channels](/developers/resources/channel), and [AutoMod](/developers/resources/auto-moderation) to name a few. Explore the **Resources** documentation category to learn about the different Discord resources and how apps can use them.
+The [Discord Social SDK](/developers/discord-social-sdk/overview) lets you add Discord-powered social features to your game across PC, mobile, and console. You can integrate individual features alongside your existing social systems or build out a more complete Discord-powered experience.
 
-### Update user metadata and presence
+Use the Social SDK when you want to:
+- Add rich presence, friends lists, and voice chat to your game
+- Support cross-platform social features with Discord account linking
+- Let players interact through Discord without leaving your game
 
-Apps can update a Discord's user metadata with data from a party game or app in a few ways. Apps can also update a user's profile with actionable data from a game or app by integrating [Rich Presence](/developers/rich-presence/overview). Apps can also use [role connection metadata](/developers/resources/application-role-connection-metadata) to associate third-party metadata (like stats or account type) with Discord users, which server admins can use to set up roles based on. You can explore more in the [configuring metadata for linked roles](/developers/tutorials/configuring-app-metadata-for-linked-roles) tutorial.
+## Where Apps Install
 
-### Add premium features
+| App Type              | Install Target | What It Unlocks                              |
+|-----------------------|----------------|----------------------------------------------|
+| Bot (guild-installed) | A server       | Access to server channels, members, events   |
+| Bot (user-installed)  | A user         | Available in DMs, group DMs, and any server  |
+| Activity              | An application | Launchable from any voice channel            |
+| Social SDK            | Your game      | Social features embedded in your game client |
 
-[App subscriptions](/developers/monetization/implementing-app-subscriptions) let apps charge users and/or servers for premium functionality on a recurring basis natively within Discord. You can read more about eligibility and adding monetization features to your app in the [Monetization](/developers/monetization/overview) documentation.
-
-### ...and more
-
-This developer documentation is full of nooks and crannies with all sorts of features to explore. Discover the possibilities by exploring more of the docs, or by [building your own app](https://discord.com/developers/applications).
-
-
-<ManualAnchor id="where-are-apps-installed" />
-## Where are apps installed?
-
-Discord apps can be installed in two different contexts:
-
-1. Apps installed **to a server** (called a [guild](/developers/resources/guild) throughout the API) by a user with the Manage Server ([`MANAGE_GUILD`](/developers/topics/permissions#permissions-bitwise-permission-flags)) permission. Apps installed to a server can only be used within that server and DMs with the app's bot user, and are visible to all server members.
-2. Apps installed **to a user account**. Apps installed to a user are visible only to that user, across all of their servers, DMs, and Group DMs by default.
-
-The installation contexts that an app supports can be limited by the developer when [setting up the app](/developers/resources/application#setting-supported-installation-contexts). Details about installation contexts are in the [Application resource documentation](/developers/resources/application#installation-context).
-
-<ManualAnchor id="what-apis-can-apps-use" />
-## What APIs can apps use?
+## What APIs Can Apps Use?
 
 There are a handful of different APIs that you can pick and choose from based on your app's functionality and which Discord features you want to access. Below is a quick overview of the main APIs on the Discord developer platform, but you can read more details and information about API usage in the [API reference](/developers/reference).
 
@@ -75,29 +73,26 @@ Read details about using the HTTP API in the [API reference](/developers/referen
 
 ### Gateway API
 
-The **Gateway API** lets you receive event data over a WebSocket anytime an [event](/developers/events/gateway-events) occurs in a server where your app is installed.
+The **Gateway API** is a WebSocket connection between your app and Discord. While it's most commonly used to receive a real-time stream of events from Discord, the connection is bidirectional. Your app can also send events to Discord over the same connection.
 
 Use the Gateway API to:
-- Receive events happening in Discord
+- Receive real-time events from Discord (messages, member joins, reactions, voice state changes, and more)
+- Update your bot's presence and status
+- Manage voice state and connect to voice channels
+- Perform the connection handshake and manage the lifecycle of your Gateway connection
 
 Read details about using the Gateway API in the [API reference](/developers/reference#gateway-websocket-api).
 
 ## Start Building
 
-Well, would you look at the time? With the basics out of the way, it's time to start building your Discord app! You can explore the reset of the documentation, go to your [Apps](https://discord.com/developers/applications), or explore the beginner resources below.
-
-import {AppsIcon} from '/snippets/icons/AppsIcon.jsx'
-import {ActivitiesIcon} from '/snippets/icons/ActivitiesIcon.jsx'
-import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
-
 <CardGroup cols={3}>
-  <Card title="Develop your First App" href="/developers/quick-start/getting-started" icon={<AppsIcon />} horizontal >
-    Tutorial to develop your first Discord app with interactive components
+  <Card title="Bots & Companion Apps" href="/developers/bots/overview" icon={<RobotIcon />}>
+    Build a bot that responds to events, commands, and user interactions in Discord servers.
   </Card>
-  <Card title="Build an Activity on Discord" href="/developers/activities/building-an-activity" icon={<ActivitiesIcon />} horizontal >
-    Tutorial to develop an Activity using the Embedded App SDK
+   <Card title="Social Layer for Games" href="/developers/discord-social-sdk/overview" icon={<GameControllerIcon />}>
+    Add Discord-powered social features to your game using the Discord Social SDK.
   </Card>
-  <Card title="Explore Developer Tools" href="/developers/developer-tools/community-resources" icon={<WrenchIcon />} horizontal >
-    Explore community-built library and tools to speed up and simplify development
+  <Card title="Activities" href="/developers/activities/overview" icon={<ShapesIcon />}>
+    Build an embedded web app or game that runs inside Discord voice channels.
   </Card>
 </CardGroup>
