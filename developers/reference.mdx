@@ -328,9 +328,9 @@ https://cdn.discordapp.com/
 
 Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](/developers/resources/user#get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](/developers/reference#image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
 
-:::info
-Animated images uploaded as WebP or AVIF do not convert cleanly to GIF. Apps should request animated images as WebP for maximum compatibility, as this works regardless of the original upload format.
-:::
+<Note>
+  Animated images uploaded as WebP or AVIF do not convert cleanly to GIF. Apps should request animated images as WebP for maximum compatibility, as this works regardless of the original upload format.
+</Note>
 
 <ManualAnchor id="image-formatting-image-formats" />
  **Image Formats**
