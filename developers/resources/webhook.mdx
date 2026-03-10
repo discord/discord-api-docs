@@ -167,9 +167,9 @@ Same as above, except this call does not require authentication and returns no u
 
 Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](/developers/resources/webhook#webhook-object) object on success. Fires a [Webhooks Update](/developers/events/gateway-events#webhooks-update) Gateway event.
 
-<Info>
-All parameters to this endpoint are optional
-</Info>
+<Note>
+All parameters to this endpoint are optional.
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -311,9 +311,9 @@ Any provided files will be **appended** to the message. To remove or replace fil
 Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
 </Warning>
 
-<Info>
+<Note>
 All parameters to this endpoint are optional and nullable.
-</Info>
+</Note>
 
 <ManualAnchor id="edit-webhook-message-query-string-params" />
 ###### Query String Params

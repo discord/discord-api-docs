@@ -328,6 +328,10 @@ https://cdn.discordapp.com/
 
 Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](/developers/resources/user#get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](/developers/reference#image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
 
+<Note>
+  Animated images uploaded as WebP or AVIF do not convert cleanly to GIF. Apps should request animated images as WebP for maximum compatibility, as this works regardless of the original upload format.
+</Note>
+
 <ManualAnchor id="image-formatting-image-formats" />
  **Image Formats**
 
@@ -367,7 +371,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Guild Member Banner         | guilds/[guild_id](/developers/resources/guild#guild-object)/users/[user_id](/developers/resources/user#user-object)/banners/[member_banner](/developers/resources/guild#guild-member-object).png \*                                                                                                                                                                                 | PNG, JPEG, WebP, GIF |
 | Guild Tag Badge             | guild-tag-badges/[guild_id](/developers/resources/guild#guild-object)/[badge_hash](/developers/resources/user#user-object-user-primary-guild).png                                                                                                                                                                                                                                   | PNG, JPEG, WebP      |
 
-\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
+\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in an animated format (example: `a_1269e74af4df7417b13759eae50c83dc`). These images can be retrieved as animated WebP using the `.webp` file extension and `?animated=true` querystring parameter.
 
 \*\* In the case of the Default User Avatar endpoint, the value for `index` depends on whether the user is [migrated to the new username system](/developers/change-log#unique-usernames-on-discord). For users on the new username system, `index` will be `(user_id >> 22) % 6`. For users on the legacy username system, `index` will be `discriminator % 5`.
 
