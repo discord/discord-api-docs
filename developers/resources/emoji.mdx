@@ -30,9 +30,9 @@ Routes for controlling emojis do not follow the normal rate limit conventions. T
 <ManualAnchor id="emoji-object-premium-emoji" />
 ###### Premium Emoji
 
-Roles with the `integration_id` tag being the guild's guild_subscription integration are considered subscription roles.  
-An emoji cannot have both subscription roles and non-subscription roles.  
-Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.  
+Roles with the `integration_id` tag being the guild's guild_subscription integration are considered subscription roles.
+An emoji cannot have both subscription roles and non-subscription roles.
+Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.
 Emojis cannot be converted between normal and premium after creation.
 
 <ManualAnchor id="emoji-object-emoji-formats" />
@@ -115,7 +115,7 @@ Returns a list of [emoji](/developers/resources/emoji#emoji-object) objects for 
 ## Get Guild Emoji
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/emojis/[\{emoji.id\}](/developers/resources/emoji#emoji-object)</Route>
 
-Returns an [emoji](/developers/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the the `CREATE_GUILD_EXPRESSIONS` permission.
+Returns an [emoji](/developers/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the `CREATE_GUILD_EXPRESSIONS` permission.
 
 ## Create Guild Emoji
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/emojis</Route>
@@ -148,9 +148,9 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 Modify the given emoji. For emojis created by the current user, requires either the `CREATE_GUILD_EXPRESSIONS` or `MANAGE_GUILD_EXPRESSIONS` permission. For other emojis, requires the `MANAGE_GUILD_EXPRESSIONS` permission. Returns the updated [emoji](/developers/resources/emoji#emoji-object) object on success. Fires a [Guild Emojis Update](/developers/events/gateway-events#guild-emojis-update) Gateway event.
 
-<Info>
+<Note>
 All parameters to this endpoint are optional.
-</Info>
+</Note>
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.

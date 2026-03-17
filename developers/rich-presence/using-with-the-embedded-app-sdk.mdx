@@ -1,6 +1,6 @@
 ---
-title: Using Rich Presence with the Embedded App SDK
-sidebarTitle: Using with the Embedded App SDK
+title: Setting a User's Rich Presence
+sidebarTitle: Setting Rich Presence
 ---
 
 When developing an [Activity](/developers/activities/overview), the [Embedded App SDK](/developers/developer-tools/embedded-app-sdk) makes it easy to integrate Rich Presence to display details about what a user is up to inside of your game or social experience.
@@ -130,11 +130,21 @@ await discordSdk.commands.setActivity({
 ```
 </Accordion>
 
+## Uploading Custom Assets
+
+To upload custom art assets for Rich Presence, navigate to your [app's settings](https://discord.com/developers/applications) and click **Rich Presence** on the left-hand sidebar. On the [**Art Assets** page](https://discord.com/developers/applications/select/rich-presence/assets), you can upload up to 300 custom assets for your app. It's recommended to make all Rich Presence assets **1024 x 1024**.
+
+When uploading assets, the asset keys will automatically be changed to lowercase. Keep this in mind when referencing asset keys in the `assets` object when calling [`setActivity()`](/developers/developer-tools/embedded-app-sdk#setactivity)—for example, an asset uploaded as `Main-Game-Image` would be referenced as `main-game-image`.
+
+<Info>
+For tips on choosing assets, take a look at the [Rich Presence best practices guide](/developers/rich-presence/best-practices#have-interesting-expressive-art).
+</Info>
+
 ## Using External Custom Assets
 
 Typically when building an Activity, you need to be aware of the proxy and [how to use external resources](/developers/activities/development-guides/networking#using-external-resources). However, luckily for you (and the writer of this guide), image URLs in fields for features like Rich Presence don't need to jump through any extra hoops.
 
-As mentioned in the [Rich Presence overview](/developers/rich-presence/overview#assets), you have more than 300 custom assets or if you want to use your stored images from somewhere else, you can specify an external URL for `large_image` or `small_image` within the `assets` object.
+If you have more than 300 custom assets or want to use images stored somewhere else, you can specify an external URL for `large_image` or `small_image` within the `assets` object.
 
 <Accordion title="Example setting presence with an external asset" icon="code" defaultOpen>
 

@@ -1,0 +1,68 @@
+---
+title: "OAuth2 and Permissions"
+sidebarTitle: "OAuth2 & Permissions"
+description: How OAuth2, scopes, and permissions work across the Discord platform.
+---
+
+Discord uses [OAuth2](/developers/topics/oauth2) as the standard authorization framework for granting apps access to users and servers. Understanding OAuth2 and the permissions model is essential for any Discord app.
+
+## Two Ways to Authenticate
+
+### Bot Token
+
+When you create a bot user in the Developer Portal, Discord generates a **bot token**. Your code uses this token to authenticate as the bot user, a dedicated application account separate from a regular user account.
+
+**Bot tokens:**
+- Authenticate as the bot user, not on behalf of any person
+- Are used for Gateway connections and most REST API calls
+- Grant the permissions the bot was given when added to a server
+- Should be treated like passwords and never exposed publicly
+
+### OAuth2 User Token
+
+When you need to act on behalf of a user, you use OAuth2 to get a user access token. The user logs in with Discord and authorizes your app for specific scopes.
+
+**User tokens:**
+- Let your app read or write data on behalf of the user as authorized by requested scopes
+- Are scoped, so you only get access to what the user grants
+- Are short-lived and must be refreshed
+- Should be treated like passwords and never exposed publicly
+
+## Scopes
+
+Scopes define what your app is allowed to do. They are requested during the OAuth2 authorization flow and must be declared in the Developer Portal.
+
+Common scopes include:
+
+| Scope                   | What It Grants                                             |
+|-------------------------|------------------------------------------------------------|
+| `bot`                   | Adds your bot to a guild                                   |
+| `identify`              | Read the user's basic profile (e.g., id, username, avatar) |
+| `guilds`                | List the guilds the user belongs to                        |
+| `guilds.join`           | Add the user to a guild                                    |
+| `email`                 | Read the user's email address                              |
+| `connections`           | View the user's linked accounts (Twitch, Steam, etc.)      |
+| `applications.commands` | Register slash commands in a guild                         |
+
+For a complete list, see the [OAuth2 scopes reference](/developers/topics/oauth2#shared-resources).
+
+## Permissions
+
+Permissions control what a **bot** can do in a specific server or channel. When a bot is added to a server via OAuth2, the server admin grants it a set of permissions.
+
+Permissions are stored as a bitfield. They can be:
+- **Guild-level:** Apply across the entire server
+- **Channel-level:** Overrides that apply to specific channels
+
+Your app should request only the permissions it needs. Requesting excessive permissions reduces trust with users. Your app should request only the permissions it needs as described in our [Developer Policy](https://support-dev.discord.com/hc/en-us/articles/8563934450327-Discord-Developer-Policy).
+
+## Further Reading
+
+<CardGroup cols={2}>
+  <Card title="OAuth2 Reference" href="/developers/topics/oauth2">
+    Full OAuth2 flow documentation, scopes, and endpoint details.
+  </Card>
+  <Card title="Permissions Reference" href="/developers/topics/permissions">
+    Complete permissions bitfield reference and how overrides work.
+  </Card>
+</CardGroup>

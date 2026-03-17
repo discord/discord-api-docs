@@ -8,6 +8,28 @@ Activities are web applications that run in an iframe within Discord on desktop,
 
 The [Embedded App SDK](https://github.com/discord/embedded-app-sdk) simplifies this process by managing the `postMessage` protocol on your behalf. For details on available commands and their usage, consult the [SDK Reference](/developers/developer-tools/embedded-app-sdk). Our [Sample Projects](/developers/activities/overview#sample-projects) provide practical examples of how to implement these features.
 
+## Launching Activities
+
+After you have Activities enabled in your Application's [Activity's settings](https://discord.com/developers/applications/select/embedded/settings), your app can launch Activities in two ways:
+1. When a user invokes your app's Entry Point command in the App Launcher
+2. By responding to an interaction with the `LAUNCH_ACTIVITY` callback type
+
+Each of these are covered in more detail in the below sections.
+
+### Entry Point Command
+
+Activities are primarily opened when users invoke your app's [Entry Point command](/developers/interactions/application-commands#entry-point-commands) in the App Launcher.
+
+When you enable Activities for your app, a [default Entry Point command](/developers/interactions/application-commands#default-entry-point-command) called "Launch" is created for you. By default, Discord automatically handles opening your Activity when your Entry Point command is run by a user.
+
+Read more about setting up Entry Point commands in the [development guide](/developers/activities/development-guides/user-actions#setting-up-an-entry-point-command).
+
+### Interaction Response
+
+Activities can be launched in response to [command](/developers/interactions/overview#commands), [message component](/developers/interactions/overview#message-components), and [modal submission](/developers/interactions/overview#modals) interactions. To open an Activity, set the callback type to `LAUNCH_ACTIVITY` (type `12`) when [responding to the interaction](/developers/interactions/receiving-and-responding#responding-to-an-interaction).
+
+---
+
 ## Designed for Single-Page Apps (SPAs)
 
 This SDK is intended for use by a single-page application. We recognize developers may be using frameworks or approaches that are not an exact fit for single-page applications. We recommend nesting those frameworks inside your Activity's top-level single-page application and passing messages as you see fit. Please refer to the [Nested Messages App](/developers/activities/overview#sample-projects) sample project for guidance on this approach.

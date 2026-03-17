@@ -1,0 +1,133 @@
+---
+title: Claim Your Game
+description: Learn how to claim your game on Discord to unlock a verified checkmark and take control of your game's profile.
+---
+
+import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
+import {PaintPaletteIcon} from '/snippets/icons/PaintPaletteIcon.jsx'
+
+<img
+  src="/images/headers/docs-claimyourgame-hero.png"
+  alt="A rendition of the benefits that come with the verified checkmark"
+  style={{width: "100%", height: "auto"}}
+  noZoom
+/>
+
+## What is Game Claiming?
+
+Claiming your game connects your Discord community server and game profile to your verified developer identity. Players get a verified place to find the official game community, and you get direct control over how your game is represented on the Discord app.
+
+## Benefits of Claiming Your Game
+
+### Game Profile Customization
+
+Discord automatically generates a [game profile](/developers/platform/game-profiles) for every game it detects. Once you claim your game, you control the information and visual appearance of that profile across four sections:
+
+- **Title:** description, genres, platforms
+- **Visual Assets:** cover, icon, banner, screenshots
+- **Links:** official website, social media
+- **Company:** name, publisher or developer role
+
+Changes are made directly in the [Developer Portal](https://discord.com/developers/applications), making it easy to keep your game's identity current with live service updates or seasonal content.
+
+### Verified Checkmark
+
+Once your claim is confirmed, your Discord server receives a green verified badge on its server profile, marking it as the verified community for your game on Discord. The checkmark is visible in Server Discovery and is only available to servers associated with a claimed game. [Learn more about verified servers](https://discord.com/community).
+
+---
+
+## Before You Begin
+
+Make sure the following are in place before you start:
+
+- Your game must have a Steam store page. Other storefronts are not yet supported.
+- Games whose primary purpose is the delivery of sexual content or are Mods of other games are not eligible for claiming.
+- Your Discord application must be assigned to a [development team](/developers/topics/teams#teams), not owned by an individual account.
+- Your Discord server invite must be publicly visible on your Steam store page.
+- The server owner must be a member of your Team. Ownership is verified by sending a code to their email.
+
+<Info>
+At this time, games in private beta or limited release are not supported. Your game must be publicly available and playable to be eligible for claiming.
+</Info>
+
+---
+
+## Claiming Your Game
+
+### Step 1: Open Game Identity in the Developer Portal
+
+1. Visit the [Developer Portal](https://discord.com/developers/applications) and select your application.
+2. Select **Game Identity** from the left-hand menu. The game claiming interface will appear automatically.
+
+<Info>
+If you're an existing SDK partner, claim your game to the application you're already using for your SDK integration.
+</Info>
+
+
+### Step 2: Find and Select Your Game
+
+Search for your game by name in the Game Identity interface and select it to begin the claim.
+
+
+### Step 3: Verify Server Ownership
+
+To confirm you own the Discord server linked on your Steam store page, Discord will send a **verification code to the server owner's email address**.
+
+1. Check the email inbox associated with the owning Discord account.
+2. Enter the code when prompted to continue.
+
+### Step 4: Provide Your Details
+
+You'll be asked to provide:
+
+- Your full legal name (required)
+- A professional contact email (required)
+- Your role at the company (optional)
+- Your company or game website (optional)
+
+
+<Info>
+  This information will be used as described in our [Developer Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383-Discord-Developer-Terms-of-Service).
+</Info>
+
+### Step 5: Submit for Review
+
+Once all steps are complete, submit your claim. We'll let you know if your claim is successful or follow up if additional information is needed.
+
+---
+
+## If Your Claim is Successful
+
+When your claim is successful, you'll be notified by email (🎉) and the **Game Identity** section in your **Developer Portal** will update. You can then begin customizing your game's profile.
+
+## If Your Claim is Rejected
+
+If your claim is rejected, please work within the [Developer Support](https://dis.gd/developer-support/game-development) ticket to address any concerns.
+
+---
+
+## Current Limitations
+
+Game Claiming currently has the following limitations:
+- **No mobile support:** Games must be playable on non-mobile platforms (PC, Mac, or consoles). Mobile-only games cannot currently be claimed.
+- **Steam only:** Only games with a Steam store page can currently be claimed. Support for other platforms is not yet available.
+- **Released only:** Only games listed on Steam and playable by the public (no private betas) can currently be claimed.
+
+We're actively working on expanding coverage so more games can be claimed over time.
+
+<Info>
+If you believe your game should be listed and you cannot find your game, please [contact us](https://dis.gd/developer-support/game-development).
+</Info>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Discord Social SDK" href="/developers/discord-social-sdk/overview" icon={<GameControllerIcon />}>
+    Build social features directly into your game — friends, voice, lobbies, and more.
+  </Card>
+  <Card title="Game Profiles" href="/developers/platform/game-profiles" icon={<PaintPaletteIcon />}>
+    Learn how Discord surfaces your game's profile and where it appears across the platform.
+  </Card>
+</CardGroup>
