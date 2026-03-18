@@ -151,6 +151,8 @@ permissioning
 pid
 pingable
 Playstation
+playtest
+playtesting
 prepending
 primary_color
 proxied
@@ -189,6 +191,8 @@ smallText
 social_layer
 Soundshare
 spectateSecret
+speedrun
+speedrunning
 Spotify
 Stahp
 steamId
@@ -206,6 +210,7 @@ templated
 threadsafe
 toolbelt
 toolkits
+tooltip
 tooltips
 touchpoints
 tts

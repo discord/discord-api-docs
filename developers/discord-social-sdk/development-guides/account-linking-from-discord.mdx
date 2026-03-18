@@ -10,6 +10,10 @@ import {UserIcon} from '/snippets/icons/UserIcon.jsx'
 
 ## Overview
 
+<Tip>
+New to account linking? Read the [Account Linking overview](/developers/platform/account-linking) to understand what it is, how it works, and which flow to use.
+</Tip>
+
 To give players more flexibility and options for account linking, Discord can show prompts and buttons throughout the Discord client that encourage users to link their accounts with your game. These are called entry points for account linking.
 
 Higher account linking rates lead to better social features, improved engagement, and a stronger connection between your game and Discord users.
@@ -44,7 +48,44 @@ Entry points are buttons, prompts, and UI elements that Discord shows throughout
 
 Discord automatically chooses which entry points to show based on what features you've implemented and whether your game is currently running.
 
-![Example of entry points in Discord](/images/social-sdk/development-guides/entrypoints.webp)
+<img
+  src="/images/account-linking/account-link-discord.webp"
+  alt="Account Linking from Discord Entry Points"
+   style={{width: "100%", height: "auto"}}
+  noZoom
+/>
+
+Some of the current Discord entry points include:
+
+**Game Detection**
+
+Discord detects the player is playing your game and provides an entry point to link if they haven't already.
+
+<img
+  src="/images/account-linking/account-link-rtc.png"
+  alt="Discord entry points for account linking"
+  noZoom
+/>
+
+**Game Invites**
+
+Players are optionally able to link when receiving an invite for your game, which helps them get set up and playing with their friends faster.
+
+<img
+  src="/images/account-linking/account-link-invite.png"
+  alt="Game Invite entry points for account linking"
+  noZoom
+/>
+
+**Claiming Game Shop Items**
+
+Players need to account link when redeeming items from your Game Shop to be able to receive their in-game rewards.
+
+<img
+  src="/images/account-linking/account-link-redeem-item.png"
+  alt="Game Shop entry points for account linking"
+  noZoom
+/>
 
 ### Account Linking Flows
 
@@ -59,7 +100,7 @@ Choose which flows work best for your game and follow the implementation guides 
 
 ## Connected Game Flow
 
-This is our prefered account linking flow as we think it provides the best user experience when it's available. The connected game flow will send the user into your game client to begin the account linking flow.
+This is our preferred account linking flow as we think it provides the best user experience when it's available. The connected game flow will send the user into your game client to begin the account linking flow.
 
 ### Prerequisites
 
@@ -125,6 +166,7 @@ At this time, this flow is only available to select partners.
 ### Prerequisites
 
 - Implement the [standard OAuth2 flow](/developers/topics/oauth2) on your website
+- Set your **Connection Entrypoint URL** in the [Developer Portal](https://discord.com/developers/applications) to the URL that starts your OAuth2 web flow
 
 ### Implementing the Web Flow
 

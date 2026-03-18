@@ -10,6 +10,10 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 
 ## Overview
 
+<Tip>
+New to account linking? Read the [Account Linking overview](/developers/platform/account-linking) to understand what it is, how it works, and which flow to use.
+</Tip>
+
 This guide explains how to implement OAuth2 authentication for mobile users (iOS and Android), allowing them to link their Discord accounts with your game on mobile devices.
 
 Mobile authentication uses **deep linking** to provide a seamless experience. When the Discord mobile app is installed, users are automatically redirected to Discord to authorize your game, then returned to your game via a custom URL scheme.
@@ -48,12 +52,12 @@ If you haven't completed these prerequisites, we recommend first following the [
 
 For OAuth2 to work correctly on mobile, you must first register the correct redirect URI for your app in the [**Discord Developer Portal**](https://discord.com/developers/applications/select/oauth2).
 
-| Platform                   | Redirect URI                                                                                          |
-|----------------------------|-------------------------------------------------------------------------------------------------------|
-| **Mobile (iOS & Android)** | `discord-YOUR_APP_ID://authorize/callback` _(replace `YOUR_APP_ID` with your Discord application ID)_ |
+| Platform                   | Redirect URI                                                                                         |
+|----------------------------|------------------------------------------------------------------------------------------------------|
+| **Mobile (iOS & Android)** | `discord-YOUR_APP_ID:/authorize/callback` _(replace `YOUR_APP_ID` with your Discord application ID)_ |
 
 <Warning>
-The redirect URI must use your application ID in the format `discord-YOUR_APP_ID://authorize/callback`. Do not use `http://127.0.0.1/callback` on mobile.
+The redirect URI must use your application ID in the format `discord-YOUR_APP_ID:/authorize/callback`. Do not use `http://127.0.0.1/callback` on mobile.
 </Warning>
 
 ---
@@ -576,7 +580,7 @@ player's access token, which is covered under [Refreshing Access Tokens](/develo
 **Solutions**:
 1. Verify that `LSApplicationQueriesSchemes` includes `discord` in your Info.plist
 2. Ensure the Discord mobile app is installed on the device
-3. Check that your redirect URI is correctly configured as `discord-YOUR_APP_ID://authorize/callback`
+3. Check that your redirect URI is correctly configured as `discord-YOUR_APP_ID:/authorize/callback`
 
 #### Android: Deep Link Not Working
 
