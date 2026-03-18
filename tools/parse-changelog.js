@@ -11,7 +11,7 @@ import { toMarkdown } from "mdast-util-to-markdown";
 const doc = await fs.readFile("./old_changelog.md", "utf-8");
 const tree = fromMarkdown(doc);
 
-// write this for debugging purposes while parsig
+// write this for debugging purposes while parsing
 await fs.writeFile("changelog-ast.json", JSON.stringify(tree, null, 2));
 
 const files = [];
