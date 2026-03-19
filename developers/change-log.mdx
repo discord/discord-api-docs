@@ -6,6 +6,22 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="March 19, 2026" tags={["HTTP API"]} rss={{
+    title: "Search Guild Messages Endpoint",
+    description: "Search Guild Messages endpoint allows bots to search for messages within a guild using various filters and sorting options"
+  }}>
+
+  ## Search Guild Messages
+
+  We've added documentation for the [Search Guild Messages](/developers/resources/message#search-guild-messages) endpoint, which allows bots to search for messages within a guild using a variety of filters.
+
+  The endpoint supports filtering by content, author, channel, mentions, attachments, embeds, and more. Results can be sorted by timestamp or relevance.
+
+  This endpoint requires the `READ_MESSAGE_HISTORY` permission and is subject to restrictions based on whether the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
+
+  The error code `110000` has been added to the [error codes](/developers/topics/opcodes-and-status-codes#json) table to reflect the index-not-ready response returned when a guild has not yet been indexed for search.
+</Update>
+
 <Update label="March 15, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.8.14587",
     description: "Debug library support for Unity, Unreal, Windows, Mac, Linux, Android, PS5, PS4, and Xbox."
