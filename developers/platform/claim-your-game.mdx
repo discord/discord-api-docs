@@ -41,9 +41,10 @@ Once your claim is confirmed, your Discord server receives a green verified badg
 Make sure the following are in place before you start:
 
 - Your game must have a Steam store page. Other storefronts are not yet supported.
+- Games whose primary purpose is the delivery of sexual content or are Mods of other games are not eligible for claiming.
 - Your Discord application must be assigned to a [development team](/developers/topics/teams#teams), not owned by an individual account.
-- Your Discord server invite must be publicly visible on your Steam store page.
-- The server owner must be a member of your Team. Ownership is verified by sending a code to their email.
+- Your Steam store page must have a publicly visible Discord invite link. During the claim process, you'll receive a `proof` value to append to that link before the claim can be submitted.
+- The server owner must be a member of your Team. Discord verifies ownership by sending a verification code to the server owner's email address.
 
 <Info>
 At this time, games in private beta or limited release are not supported. Your game must be publicly available and playable to be eligible for claiming.
@@ -68,14 +69,23 @@ If you're an existing SDK partner, claim your game to the application you're alr
 Search for your game by name in the Game Identity interface and select it to begin the claim.
 
 
-### Step 3: Verify Server Ownership
+### Step 3: Update Your Steam Invite Link
+
+After selecting your game, the claim interface will display a `proof` query parameter. Copy this value and append it to your Discord invite link on your Steam store page.
+
+1. Copy the `proof` value shown in the Developer Portal.
+2. Update the Discord invite link on your Steam store page to include it (e.g., `discord.gg/yourcode?proof=<string>`).
+
+Once your link is updated, Discord will verify the `proof` value before you can continue.
+
+### Step 4: Verify Server Ownership
 
 To confirm you own the Discord server linked on your Steam store page, Discord will send a **verification code to the server owner's email address**.
 
 1. Check the email inbox associated with the owning Discord account.
 2. Enter the code when prompted to continue.
 
-### Step 4: Provide Your Details
+### Step 5: Provide Your Details
 
 You'll be asked to provide:
 
@@ -89,9 +99,9 @@ You'll be asked to provide:
   This information will be used as described in our [Developer Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383-Discord-Developer-Terms-of-Service).
 </Info>
 
-### Step 5: Submit for Review
+### Step 6: Submit for Review
 
-Once all steps are complete, submit your claim. We'll let you know if your claim is successful or follow up if additional information is needed.
+Once all steps are complete, submit your claim. Discord will notify you if the claim is successful, or reach out if additional information is needed.
 
 ---
 

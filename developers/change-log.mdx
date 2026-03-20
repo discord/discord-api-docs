@@ -6,6 +6,43 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="March 19, 2026" tags={["HTTP API"]} rss={{
+    title: "Search Guild Messages Endpoint",
+    description: "Search Guild Messages endpoint allows bots to search for messages within a guild using various filters and sorting options"
+  }}>
+
+  ## Search Guild Messages
+
+  We've added documentation for the [Search Guild Messages](/developers/resources/message#search-guild-messages) endpoint, which allows bots to search for messages within a guild using a variety of filters.
+
+  The endpoint supports filtering by content, author, channel, mentions, attachments, embeds, and more. Results can be sorted by timestamp or relevance.
+
+  This endpoint requires the `READ_MESSAGE_HISTORY` permission and is subject to restrictions based on whether the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
+
+  The error code `110000` has been added to the [error codes](/developers/topics/opcodes-and-status-codes#json) table to reflect the index-not-ready response returned when a guild has not yet been indexed for search.
+</Update>
+
+<Update label="March 15, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.8.14587",
+    description: "Debug library support for Unity, Unreal, Windows, Mac, Linux, Android, PS5, PS4, and Xbox."
+  }}>
+
+    ## Discord Social SDK Release 1.8.14587
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Debug Support
+    - Added Debug library support for the following:
+        - Unity plugin & sample
+        - Unreal plugin & sample
+        - Windows, Mac, Linux libraries
+        - Android library
+        - PS5 11.000 & 12.000 library
+        - PS4 12.000 & 12.500 library
+        - Scarlett & Xbox One 250400 GDK library
+
+</Update>
+
 <Update label="March 9, 2026" tags={["Docs"]} rss={{
     title: "Developer Portal & Docs Refresh",
     description: "New home page, UI redesign, new developer guides, and improved docs navigation."
@@ -33,7 +70,7 @@ import {Route} from '/snippets/route.jsx'
   We are working on more improvements for the portal and docs. We invite you to share any issues or feedback in the [Next Gen Docs discussion thread](https://github.com/discord/discord-api-docs/discussions/categories/next-gen-docs-feedback).
 </Update>
 
-<Update label="Discord Social SDK Release 1.8.14437" tags={["Discord Social SDK"]} rss={{
+<Update label="March 5, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.8.14437",
     description: "Bearer token filtering, log level changes, debug warning."
   }}>
@@ -51,7 +88,7 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 
-<Update label="Discord Social SDK Release 1.7.14433" tags={["Discord Social SDK"]} rss={{
+<Update label="March 5, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.7.14433",
     description: "Bearer token filtering, log level changes, debug warning."
   }}>
@@ -69,7 +106,7 @@ import {Route} from '/snippets/route.jsx'
 </Update>
 
 
-<Update label="Discord Social SDK Release 1.6.14448" tags={["Discord Social SDK"]} rss={{
+<Update label="March 5, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.6.14448",
     description: "Bearer token filtering, log level changes, debug warning."
   }}>

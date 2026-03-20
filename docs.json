@@ -615,7 +615,7 @@
     "primary": {
       "type": "button",
       "label": "Developer Portal",
-      "href": "https://discord.com/developers/applications"
+      "href": "https://discord.com/developers/home"
     }
   },
   "footer": {
