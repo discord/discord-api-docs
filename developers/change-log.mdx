@@ -17,7 +17,7 @@ import {Route} from '/snippets/route.jsx'
 
   The endpoint supports filtering by content, author, channel, mentions, attachments, embeds, and more. Results can be sorted by timestamp or relevance.
 
-  This endpoint requires the `READ_MESSAGE_HISTORY` permission and is subject to restrictions based on whether the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
+  This endpoint requires the `READ_MESSAGE_HISTORY` permission and the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents).
 
   The error code `110000` has been added to the [error codes](/developers/topics/opcodes-and-status-codes#json) table to reflect the index-not-ready response returned when a guild has not yet been indexed for search.
 </Update>
