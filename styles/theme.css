@@ -1,0 +1,4 @@
+/* Change dark mode border-color for hr and tr */
+.prose hr:is(.dark *), .prose tr:is(.dark *) {
+    border-color: #36373e;
+}

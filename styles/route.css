@@ -1,0 +1,47 @@
+.MDXRoute {
+    display: flex;
+    align-items: center;
+
+    .verb {
+        font-size: 14px;
+        color: var(--white-500);
+        background-color: var(--primary-600);
+        border: 1px solid var(--primary-500);
+        font-family: var(--font-code);
+        text-transform: uppercase;
+        margin-right: 10px;
+        padding: 4px 8px;
+        padding-bottom: 1.5px;
+        border-radius: var(--radius-md);
+    }
+
+    .url {
+        font-family: var(--font-code);
+        font-size: 16px;
+    }
+
+    .delete {
+        background-color: var(--red-630);
+        border: 1px solid var(--red-500);
+    }
+
+    .get {
+        background-color: var(--brand-700);
+        border: 1px solid var(--brand-530);
+    }
+
+    .patch {
+        background-color: var(--yellow-530);
+        border: 1px solid var(--yellow-400);
+    }
+
+    .post {
+        background-color: var(--green-500);
+        border: 1px solid var(--green-360);
+    }
+
+    .put {
+        background-color: var(--orange-600);
+        border: 1px solid var(--orange-430);
+    }
+}
