@@ -524,7 +524,7 @@ def unmerge_provisional_account(external_user_id):
     'Content-Type': 'application/json',
     'Authorization': f'Bot {BOT_TOKEN}'
   }
-  r = requests.post('%s/provisional-accounts/unmerge/bot' % API_ENDPOINT, json=data, headers=headers)
+  r = requests.post('%s/partner-sdk/provisional-accounts/unmerge/bot' % API_ENDPOINT, json=data, headers=headers)
   r.raise_for_status()
 ```
 
