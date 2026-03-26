@@ -153,73 +153,73 @@ Commands are requests made to the RPC socket by a client.
 <ManualAnchor id="commands-and-events-rpc-commands" />
 ###### RPC Commands
 
-| Name                                                                         | Description                                                     |
-|------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| DISPATCH                                                                    | event dispatch                                                  |
-| AUTHORIZE                                                                   | used to authorize a new client with your app                    |
-| AUTHENTICATE                                                                | used to authenticate an existing client with your app           |
-| GET_GUILD                                                                   | used to retrieve guild information from the client              |
-| GET_GUILDS                                                                  | used to retrieve a list of guilds from the client               |
-| GET_CHANNEL                                                                 | used to retrieve channel information from the client            |
-| GET_CHANNELS                                                                | used to retrieve a list of channels for a guild from the client |
-| SUBSCRIBE                                                                   | used to subscribe to an RPC event                               |
-| UNSUBSCRIBE                                                                 | used to unsubscribe from an RPC event                           |
-| SET_USER_VOICE_SETTINGS                                                     | used to change voice settings of users in voice channels        |
-| SELECT_VOICE_CHANNEL                                                        | used to join or leave a voice channel, group dm, or dm          |
-| GET_SELECTED_VOICE_CHANNEL                                                  | used to get the current voice channel the client is in          |
-| SELECT_TEXT_CHANNEL                                                         | used to join or leave a text channel, group dm, or dm           |
-| GET_VOICE_SETTINGS                                                          | used to retrieve the client's voice settings                    |
-| SET_VOICE_SETTINGS                                                          | used to set the client's voice settings                         |
-| SET_CERTIFIED_DEVICES                                                       | used to send info about certified hardware devices              |
-| SET_ACTIVITY                                                                | used to update a user's Rich Presence                           |
-| SEND_ACTIVITY_JOIN_INVITE                                                   | used to consent to a Rich Presence Ask to Join request          |
-| CLOSE_ACTIVITY_REQUEST                                                      | used to reject a Rich Presence Ask to Join request              |
+| Name                       | Description                                                     |
+|----------------------------|-----------------------------------------------------------------|
+| DISPATCH                   | event dispatch                                                  |
+| AUTHORIZE                  | used to authorize a new client with your app                    |
+| AUTHENTICATE               | used to authenticate an existing client with your app           |
+| GET_GUILD                  | used to retrieve guild information from the client              |
+| GET_GUILDS                 | used to retrieve a list of guilds from the client               |
+| GET_CHANNEL                | used to retrieve channel information from the client            |
+| GET_CHANNELS               | used to retrieve a list of channels for a guild from the client |
+| SUBSCRIBE                  | used to subscribe to an RPC event                               |
+| UNSUBSCRIBE                | used to unsubscribe from an RPC event                           |
+| SET_USER_VOICE_SETTINGS    | used to change voice settings of users in voice channels        |
+| SELECT_VOICE_CHANNEL       | used to join or leave a voice channel, group dm, or dm          |
+| GET_SELECTED_VOICE_CHANNEL | used to get the current voice channel the client is in          |
+| SELECT_TEXT_CHANNEL        | used to join or leave a text channel, group dm, or dm           |
+| GET_VOICE_SETTINGS         | used to retrieve the client's voice settings                    |
+| SET_VOICE_SETTINGS         | used to set the client's voice settings                         |
+| SET_CERTIFIED_DEVICES      | used to send info about certified hardware devices              |
+| SET_ACTIVITY               | used to update a user's Rich Presence                           |
+| SEND_ACTIVITY_JOIN_INVITE  | used to consent to a Rich Presence Ask to Join request          |
+| CLOSE_ACTIVITY_REQUEST     | used to reject a Rich Presence Ask to Join request              |
 
 Events are payloads sent over the socket to a client that correspond to events in Discord.
 
 <ManualAnchor id="commands-and-events-rpc-events" />
 ###### RPC Events
 
-| Name                                                                                          | Description                                                                                |
-|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| READY                                                                                         | non-subscription event sent immediately after connecting, contains server information      |
-| ERROR                                                                                         | non-subscription event sent when there is an error, including command responses            |
-| CURRENT_USER_UPDATE                                                                           | sent when the local user's data (avatar, username, etc.) changes                           |
-| RELATIONSHIP_UPDATE                                                                           | sent when a relationship (friend, block, etc.) is added or removed                         |
-| USER_ACHIEVEMENT_UPDATE                                                                       | sent when a user's achievement status is updated                                           |
-| GUILD_STATUS                                                                                  | sent when a subscribed server's state changes                                              |
-| GUILD_CREATE                                                                                  | sent when a guild is created/joined on the client                                          |
-| CHANNEL_CREATE                                                                                | sent when a channel is created/joined on the client                                        |
-| VOICE_CHANNEL_SELECT                                                                          | sent when the client joins a voice channel                                                 |
-| VOICE_STATE_CREATE                                                                            | sent when a user joins a subscribed voice channel                                          |
-| VOICE_STATE_UPDATE                                                                            | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
-| VOICE_STATE_DELETE                                                                            | sent when a user parts a subscribed voice channel                                          |
-| VOICE_SETTINGS_UPDATE                                                                         | sent when the client's voice settings update                                               |
-| VOICE_SETTINGS_UPDATE_2                                                                       | updated version of voice settings dispatch                                                 |
-| VOICE_CONNECTION_STATUS                                                                       | sent when the client's voice connection status changes                                     |
-| SPEAKING_START                                                                                | sent when a user in a subscribed voice channel speaks                                      |
-| SPEAKING_STOP                                                                                 | sent when a user in a subscribed voice channel stops speaking                              |
-| MESSAGE_CREATE                                                                                | sent when a message is created in a subscribed text channel                                |
-| MESSAGE_UPDATE                                                                                | sent when a message is updated in a subscribed text channel                                |
-| MESSAGE_DELETE                                                                                | sent when a message is deleted in a subscribed text channel                                |
-| NOTIFICATION_CREATE                                                                           | sent when the client receives a notification (mention or new message in eligible channels) |
-| ACTIVITY_JOIN                                                                                 | sent when the user clicks a Rich Presence join invite in chat to join a game               |
-| ACTIVITY_SPECTATE                                                                             | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
-| ACTIVITY_JOIN_REQUEST                                                                         | sent when the user receives a Rich Presence Ask to Join request                            |
-| ACTIVITY_INVITE                                                                               | sent when the user receives an activity invitation                                         |
-| GAME_JOIN                                                                                     | legacy event for joining a game session                                                    |
-| GAME_SPECTATE                                                                                 | legacy event for spectating a game session                                                 |
-| LOBBY_DELETE                                                                                  | sent when a joined lobby is deleted                                                        |
-| LOBBY_UPDATE                                                                                  | sent when lobby metadata or settings change                                                |
-| LOBBY_MEMBER_CONNECT                                                                          | sent when a new member joins the lobby                                                     |
-| LOBBY_MEMBER_DISCONNECT                                                                       | sent when a member leaves the lobby                                                        |
-| LOBBY_MEMBER_UPDATE                                                                           | sent when a lobby member's metadata changes                                                |
-| LOBBY_MESSAGE                                                                                 | sent when a message is received in the lobby's networking layer                            |
-| OVERLAY                                                                                       | sent when the Discord overlay is toggled or initialized                                    |
-| OVERLAY_UPDATE                                                                                | sent when the overlay's state or configuration changes                                     |
-| CAPTURE_SHORTCUT_CHANGE                                                                       | sent when the user changes a registered global hotkey                                      |
-| ENTITLEMENT_CREATE                                                                            | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
-| ENTITLEMENT_DELETE                                                                            | sent when an entitlement is removed                                                        |
+| Name                    | Description                                                                                |
+|-------------------------|--------------------------------------------------------------------------------------------|
+| READY                   | non-subscription event sent immediately after connecting, contains server information      |
+| ERROR                   | non-subscription event sent when there is an error, including command responses            |
+| CURRENT_USER_UPDATE     | sent when the local user's data (avatar, username, etc.) changes                           |
+| RELATIONSHIP_UPDATE     | sent when a relationship (friend, block, etc.) is added or removed                         |
+| USER_ACHIEVEMENT_UPDATE | sent when a user's achievement status is updated                                           |
+| GUILD_STATUS            | sent when a subscribed server's state changes                                              |
+| GUILD_CREATE            | sent when a guild is created/joined on the client                                          |
+| CHANNEL_CREATE          | sent when a channel is created/joined on the client                                        |
+| VOICE_CHANNEL_SELECT    | sent when the client joins a voice channel                                                 |
+| VOICE_STATE_CREATE      | sent when a user joins a subscribed voice channel                                          |
+| VOICE_STATE_UPDATE      | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
+| VOICE_STATE_DELETE      | sent when a user parts a subscribed voice channel                                          |
+| VOICE_SETTINGS_UPDATE   | sent when the client's voice settings update                                               |
+| VOICE_SETTINGS_UPDATE_2 | updated version of voice settings dispatch                                                 |
+| VOICE_CONNECTION_STATUS | sent when the client's voice connection status changes                                     |
+| SPEAKING_START          | sent when a user in a subscribed voice channel speaks                                      |
+| SPEAKING_STOP           | sent when a user in a subscribed voice channel stops speaking                              |
+| MESSAGE_CREATE          | sent when a message is created in a subscribed text channel                                |
+| MESSAGE_UPDATE          | sent when a message is updated in a subscribed text channel                                |
+| MESSAGE_DELETE          | sent when a message is deleted in a subscribed text channel                                |
+| NOTIFICATION_CREATE     | sent when the client receives a notification (mention or new message in eligible channels) |
+| ACTIVITY_JOIN           | sent when the user clicks a Rich Presence join invite in chat to join a game               |
+| ACTIVITY_SPECTATE       | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
+| ACTIVITY_JOIN_REQUEST   | sent when the user receives a Rich Presence Ask to Join request                            |
+| ACTIVITY_INVITE         | sent when the user receives an activity invitation                                         |
+| GAME_JOIN               | legacy event for joining a game session                                                    |
+| GAME_SPECTATE           | legacy event for spectating a game session                                                 |
+| LOBBY_DELETE            | sent when a joined lobby is deleted                                                        |
+| LOBBY_UPDATE            | sent when lobby metadata or settings change                                                |
+| LOBBY_MEMBER_CONNECT    | sent when a new member joins the lobby                                                     |
+| LOBBY_MEMBER_DISCONNECT | sent when a member leaves the lobby                                                        |
+| LOBBY_MEMBER_UPDATE     | sent when a lobby member's metadata changes                                                |
+| LOBBY_MESSAGE           | sent when a message is received in the lobby's networking layer                            |
+| OVERLAY                 | sent when the Discord overlay is toggled or initialized                                    |
+| OVERLAY_UPDATE          | sent when the overlay's state or configuration changes                                     |
+| CAPTURE_SHORTCUT_CHANGE | sent when the user changes a registered global hotkey                                      |
+| ENTITLEMENT_CREATE      | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
+| ENTITLEMENT_DELETE      | sent when an entitlement is removed                                                        |
 
 #### AUTHORIZE
 
