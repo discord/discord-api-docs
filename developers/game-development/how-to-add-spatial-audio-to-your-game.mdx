@@ -1,0 +1,301 @@
+---
+title: How Do I Add Spatial Audio to My Game?
+sidebarTitle: Add Spatial Audio
+---
+
+import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
+import {DoorEnterIcon} from '/snippets/icons/DoorEnterIcon.jsx'
+import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
+import CommsScopeWarning from '/snippets/discord-social-sdk/callouts/oauth-comms-scopes.mdx';
+
+<img src="/images/game-development/how-to-add-spatial-audio-to-your-game/docs-spatial-audio.webp" alt="A banner showing a microphone that produces audio waves that look like they're in 3d space" style={{width: "100%", height: "auto"}} />
+
+*Note: This guide was published on April XXth 2026 and was last updated on April XXth 2026.*
+
+Spatial audio in multiplayer games has become a genre-defining feature. Hearing a friend's voice fade as they disappear around a corner, or listening to a teammate call out from across the map, makes a multiplayer game feel alive in a way that flat voice chat can’t. In this guide, you will learn how to combine the Discord Social SDK's voice chat with Unity's 3D audio system to build proximity voice chat for a multiplayer game. Discord handles everything about the voice call itself, and your game just needs to put the audio in the right place. While this guide focuses on Unity, the same concepts apply to any engine. You intercept the decoded audio from Discord and route it to your engine's 3D audio system.
+
+This guide assumes you have already integrated the Discord Social SDK into a multiplayer Unity project. If you need to get set up with the Social SDK, follow the [Unity getting started guide](/developers/discord-social-sdk/getting-started/using-unity) first.
+
+[TODO: add preview vid of spatial audio]
+
+---
+
+## Why Discord Voice With the Social SDK
+
+Building voice chat from scratch is an incredibly difficult problem in games. Noise suppression, echo cancellation, and codec optimization are deep technical challenges. Discord has spent years battle-testing all of this infrastructure at scale. When you use the Discord Social SDK for voice, your game’s voice chat becomes powered by Discord.
+
+What your game needs to do is take the audio for each player and position it in 3D space. That’s where Unity comes in. By intercepting the audio that Discord would normally play through its default output, you can route it to per-player `AudioSource` components in your Unity scene instead. Unity handles all the spatial math: volume falloff based on distance, stereo panning based on direction, and any additional audio effects you want to layer on.
+
+The result is that players get Discord-quality voice that sounds like it’s coming from other players in the game world. No separate voice app needed. No complex audio networking code. Just Discord and Unity doing what each does best.
+
+---
+
+## How It Works
+
+Before diving into any code, it helps to understand the full architecture at a conceptual level. The spatial audio pipeline has five stages.
+
+### 1. Players Join a Lobby
+
+Everything starts with a [lobby in the Discord Social SDK](/developers/discord-social-sdk/development-guides/managing-lobbies). When players connect to a multiplayer session, they also join a shared Discord lobby managed by the Social SDK. The lobby tracks who is in the session and provides the foundation for the voice call.
+
+### 2. Starting a Voice Call with Audio Callbacks
+
+The Social SDK lets you start a voice call for a lobby, but here is the key difference from a normal voice call: instead of calling `StartCall()` and letting Discord handle playback through the user's default audio device, you call [`StartCallWithAudioCallbacks()`](/developers/docs/social-sdk/classdiscordpp_1_1Client.html#abcaa891769f9e912bfa0e06ff7221b05). This function intercepts the audio pipeline and gives you a callback that fires every time Discord has decoded audio ready for a player.
+
+### 3. Intercepting the Audio
+
+When Discord receives and decodes voice audio from a remote player, it calls your [`UserAudioReceivedCallback`](/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a49934aeb3ba5093c2362dedfd1e9ad3b). This callback hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
+
+### 4. Routing Audio to a GameObject
+
+Instead of letting Discord play the audio, you route the raw audio stream (PCM data) to a per-player `AudioSource` that lives on each player's GameObject in your Unity scene. Each remote player has their own `AudioSource` positioned at their character's location.
+
+### 5. Unity Handles the Spatial Audio
+
+With the `AudioSource` configured for full 3D spatial blending (`spatialBlend = 1f`), Unity automatically handles everything else. As players move around the scene, voices get louder when they are close, quieter when they are far, and pan left or right based on direction relative to the listener. Unity handles it all for you.
+
+---
+
+## Prerequisites
+
+Before starting with the implementation in this guide, you should have:
+
+- The Discord Social SDK integrated into a Unity project, with a working lobby that players can create and join. If you haven't done this yet, follow the [Unity getting started guide](/developers/discord-social-sdk/getting-started/using-unity) and the [Managing Lobbies](/developers/discord-social-sdk/development-guides/managing-lobbies) guide first.
+- A multiplayer game where remote players can join and move around in 2D or 3D space. The specific networking library you use doesn't matter as long as player spawning and movement is handled.
+
+<CommsScopeWarning />
+
+---
+
+## Players Join the Lobby
+
+When a remote player joins the lobby, two things need to happen: your networking layer spawns their GameObject in the scene, and you register them in a dictionary that maps their Discord user ID to their `VoiceAudioSource` component (defined later in this guide). This dictionary is what lets you send each player’s audio to the correct GameObject.
+
+Declare the dictionary at the top of your class handling Social SDK callbacks:
+
+```csharp
+private Dictionary<ulong, VoiceAudioSource> voiceSources = new Dictionary<ulong, VoiceAudioSource>();
+```
+
+Subscribe to `SetLobbyMemberAddedCallback()` to spawn the remote player and register them:
+
+```csharp
+client.SetLobbyMemberAddedCallback((lobbyId, userId) =>
+{
+		// This is where you will spawn a remote player with your multiplayer framework
+    GameObject playerObject = Instantiate(remotePlayerPrefab);
+    VoiceAudioSource voiceSource = playerObject.GetComponentInChildren<VoiceAudioSource>();
+    if (voiceSource != null)
+    {
+        voiceSources[userId] = voiceSource;
+    }
+});
+```
+
+Only register remote players, not the local player. The local player's voice is captured by Discord and transmitted to others.
+
+---
+
+## Setting Up the Voice Call
+
+When a player joins a lobby, start a voice call using `StartCallWithAudioCallbacks`. Provide two callbacks: one for received audio (`OnVoiceAudioReceived` defined below), which you will use for spatial positioning, and one for outgoing audio, which you can leave empty since Discord handles microphone capture.
+
+```csharp
+activeCall = client.StartCallWithAudioCallbacks(currentLobbyId, OnVoiceAudioReceived,
+    (data, samplesPerChannel, sampleRate, channels) => { });
+
+if (activeCall != null)
+{
+    activeCall.SetVADThreshold(false, -80f);
+}
+```
+
+The call returns an `activeCall` object you can use to configure voice settings.
+
+Voice Activity Detection (VAD) is how Discord determines whether a player is speaking or silent. Audio below the threshold is suppressed rather than transmitted. [`SetVADThreshold(false, -80f)`](/developers/docs/social-sdk/classdiscordpp_1_1Call.html#a7c3fd83c5dfe37d796e30c5e28c93b6e) sets a low threshold for voice detection (VAD). A low threshold like this allows players to whisper and still be heard. Tuning this value lower to `-100f` will allow all audio to come through but you may hear keyboard clicks and other noise. Raising it or removing this call will use a standard threshold set for regular volume speech.
+
+---
+
+## Intercepting Audio Per Player
+
+With the voice call active, Discord will fire your `OnVoiceAudioReceived` callback every time it has decoded audio from a remote player. This is where you intercept Discord's default playback and redirect audio to the correct `AudioSource` per player.
+
+```csharp
+private void OnVoiceAudioReceived(ulong userId, System.IntPtr data, ulong samplesPerChannel, int sampleRate, ulong channels, ref bool outShouldMute)
+{
+    outShouldMute = true;
+
+    if (voiceSources.TryGetValue(userId, out VoiceAudioSource voiceSource))
+    {
+        voiceSource.FeedSamples(data, samplesPerChannel, channels);
+    }
+}
+```
+
+The callback provides a few useful things. The `userId` of the player’s audio which you use to pass the audio to the correct player object in your scene. `data` , `samplesPerChannel`, `sampleRate`, and `channels`, all define the raw audio data which you’ll send to an `AudioSource`. Setting `outShouldMute = true` is important: it tells Discord to skip playing this audio to the default audio device for the player. Instead, you look up that player's `VoiceAudioSource` component from a dictionary keyed by user ID and feed the raw samples directly to it.
+
+---
+
+## The VoiceAudioSource Component
+
+The `VoiceAudioSource` component is where Discord's audio pipeline and Unity's spatial audio system meet. It lives on each remote player's GameObject alongside a Unity `AudioSource`, receives raw PCM audio from the Discord callback, buffers it in a thread-safe ring buffer, and feeds it to Unity's audio engine through a streaming `AudioClip`.
+
+```csharp
+using System;
+using System.Runtime.InteropServices;
+using UnityEngine;
+
+/// <summary>
+/// Receives raw PCM audio from the Discord Social SDK and plays it through a
+/// spatial AudioSource on the same GameObject.
+///
+/// Call FeedSamples() from the Discord UserAudioReceivedCallback.
+/// Unity's audio thread drains the ring buffer via the streaming AudioClip callback.
+///
+/// Add this component to a remote player GameObject with an AudioSource.
+/// </summary>
+[RequireComponent(typeof(AudioSource))]
+public class VoiceAudioSource : MonoBehaviour
+{
+		// This assumes a 48kHz sample rate for audio from Discord
+    private const int SampleRate = 48000;
+    private const int RingBufferSamples = SampleRate * 2; // 2-second ring buffer
+    // Target buffer depth: how many samples to keep ahead of the read pointer.
+    // Lower = less latency, but more risk of underrun glitches on a slow machine.
+    private const int TargetBufferSamples = 2400; // 50ms
+
+    private float[] _ringBuffer;
+    private int _writePosition;
+    private int _readPosition;
+    private readonly object _lock = new object();
+
+    private AudioSource _audioSource;
+
+    void Awake()
+    {
+        _ringBuffer = new float[RingBufferSamples];
+
+        _audioSource = GetComponent<AudioSource>();
+        // Streaming mono clip — OnPCMRead is called by Unity's audio thread to pull samples
+        _audioSource.clip = AudioClip.Create("VoiceClip", SampleRate, 1, SampleRate, true, OnPCMRead);
+        _audioSource.loop = true;
+        _audioSource.spatialBlend = 1f; // full 3D positioning
+        _audioSource.Play();
+    }
+
+    /// <summary>
+    /// Feed raw int16 PCM samples received from the Discord audio callback.
+    /// Thread-safe; may be called from any thread.
+    /// </summary>
+    public void FeedSamples(IntPtr data, ulong samplesPerChannel, ulong channels)
+    {
+        if (data == IntPtr.Zero || samplesPerChannel == 0) return;
+
+        int channelCount = (int)channels;
+        int totalSamples = (int)samplesPerChannel * channelCount;
+
+        short[] shorts = new short[totalSamples];
+        Marshal.Copy(data, shorts, 0, totalSamples);
+
+        lock (_lock)
+        {
+            for (int i = 0; i < (int)samplesPerChannel; i++)
+            {
+                // Mix down to mono for spatial playback
+                float mono = 0f;
+                for (int c = 0; c < channelCount; c++)
+                {
+                    mono += shorts[i * channelCount + c] / 32768f;
+                }
+                mono /= channelCount;
+
+                _ringBuffer[_writePosition] = mono;
+                _writePosition = (_writePosition + 1) % RingBufferSamples;
+            }
+        }
+    }
+
+    // Called by Unity's audio thread to fill the next block of samples
+    private void OnPCMRead(float[] data)
+    {
+        lock (_lock)
+        {
+            int available = (_writePosition - _readPosition + RingBufferSamples) % RingBufferSamples;
+
+            // If the buffer has drifted beyond the target depth, skip ahead.
+            // This keeps latency from compounding over the session at the cost
+            // of a brief glitch — better than ever-increasing delay.
+            if (available > TargetBufferSamples)
+            {
+                int excess = available - TargetBufferSamples;
+                _readPosition = (_readPosition + excess) % RingBufferSamples;
+                available = TargetBufferSamples;
+            }
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (available > 0)
+                {
+                    data[i] = _ringBuffer[_readPosition];
+                    _readPosition = (_readPosition + 1) % RingBufferSamples;
+                    available--;
+                }
+                else
+                {
+                    data[i] = 0f; // silence when buffer is empty
+                }
+            }
+        }
+    }
+}
+```
+
+Here is what this component does:
+
+- **Awake** creates a streaming `AudioClip` that Unity's audio thread pulls samples from continuously. The `AudioSource` is configured with `spatialBlend = 1f` for full 3D positioning, meaning Unity will apply distance-based volume attenuation and stereo panning based on where this GameObject is relative to the `AudioListener` in the scene.
+- **FeedSamples** is called from `OnVoiceAudioReceived` which is hooked up to `StartCallWithAudioCallbacks`. It takes the raw audio data from Discord, converts it to floating point, mixes multi-channel audio down to mono, and writes the samples into a ring buffer. The `lock` ensures thread safety between the Social SDK and Unity’s audio thread.
+- **OnPCMRead** is called by Unity's audio thread whenever it needs more samples to play. It drains available samples from the ring buffer, or outputs silence if the buffer is empty (for example, when the player is not speaking).
+
+The ring buffer is what makes this work. It bridges two completely different threading models: Discord's audio callback thread, which pushes data in, and Unity's audio thread, which pulls data out. The two-second buffer provides plenty of headroom to absorb timing differences between the two systems.
+
+<Tip>
+
+The `spatialBlend = 1f` setting on the `AudioSource` is what makes the audio spatial. Unity handles all of the 3D math automatically based on the GameObject's position relative to the `AudioListener` (typically on the camera or local player). You can further customize the spatial behavior by adjusting the `AudioSource`'s 3D Sound Settings in the Inspector, including min/max distance, rolloff curve, and spread.
+
+<img src="/images/game-development/how-to-add-spatial-audio-to-your-game/unity-3d-audio.webp" alt="3D audio settings in the Unity AudioSource inspector" style={{width: "60%", height: "auto"}} />
+
+</Tip>
+
+---
+
+## Putting It All Together
+
+Here is the full architecture from start to finish:
+
+1. A player joins lobby and `StartCallWithAudioCallbacks()` starts the Discord voice call with your custom audio callback.
+2. Decoded audio arrives for a remote player and the `OnVoiceAudioReceived` callback fires.
+3. Audio data is routed to that player's `VoiceAudioSource` component via `FeedSamples()` .
+4. `VoiceAudioSource` sends the audio into Unity's audio system through its ring buffer and streaming `AudioClip`
+5. As players move around the scene, Unity automatically adjusts volume and stereo panning based on distance and direction
+
+Discord handles voice networking. Unity handles spatial audio. The `VoiceAudioSource` component bridges the two.
+
+[TODO: a fun spatial audio clip]
+
+---
+
+## Next Steps
+
+Ready to go deeper? These guides cover the systems that work alongside spatial audio:
+
+<Columns cols={3}>
+    <Card title="How To Grow Your Game" href="/developers/game-development/how-to-grow-your-game" icon={<GameControllerIcon />}>
+        Guides for game developers on using Discord's Social SDK and APIs to grow and engage their player base
+    </Card>
+    <Card title="Managing Lobbies" href="/developers/discord-social-sdk/development-guides/managing-lobbies" icon={<DoorEnterIcon />}>
+        Create and manage multiplayer lobbies using the Discord Social SDK
+    </Card>
+    <Card title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" icon={<RobotIcon />}>
+        Build a Discord bot to extend your game's presence into the community
+    </Card>
+</Columns>
