@@ -6,6 +6,23 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="March 27, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.8.14856",
+    description: "Debug plugins for iOS Unity & Unreal, and fix for party privacy settings not propagating."
+  }}>
+
+    ## Discord Social SDK Release 1.8.14856
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### iOS Unity & Unreal
+    - Unity and Unreal packages now include Debug plugins, which have support for logging at the Info and Verbose severity levels
+
+    ### Party Privacy
+    - Fixed bug in which changes to party privacy settings didn't propagate when calling [`Client::UpdateRichPresence`], meaning switching a party from private to public wouldn't update the join button in Discord
+
+</Update>
+
 <Update label="March 19, 2026" tags={["HTTP API"]} rss={{
     title: "Search Guild Messages Endpoint",
     description: "Search Guild Messages endpoint allows bots to search for messages within a guild using various filters and sorting options"
