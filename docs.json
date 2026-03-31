@@ -572,6 +572,10 @@
       "destination": "/developers/discord-social-sdk/how-to/integrate-moderation"
     },
     {
+      "source": "/developers/discord-social-sdk/development-guides/integrating-moderation",
+      "destination": "/developers/discord-social-sdk/how-to/integrate-moderation"
+    },
+    {
       "source": "/developers/docs/changelog",
       "destination": "/developers/change-log"
     },
