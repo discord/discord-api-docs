@@ -504,7 +504,15 @@
       "destination": "/developers/monetization/implementing-one-time-purchases"
     },
     {
+      "source": "/developers/monetization/one-time-purchases",
+      "destination": "/developers/monetization/implementing-one-time-purchases"
+    },
+    {
       "source": "/developers/docs/monetization/managing-your-store",
+      "destination": "/developers/monetization/managing-skus"
+    },
+    {
+      "source": "/developers/monetization/managing-your-store",
       "destination": "/developers/monetization/managing-skus"
     },
     {
@@ -586,6 +594,10 @@
     {
       "source": "/developers/docs/rich-presence/using-with-the-social-sdk",
       "destination": "/developers/discord-social-sdk/development-guides/how-to-build-an-activity"
+    },
+    {
+      "source": "/developers/interactions/slash-commands",
+      "destination": "/developers/interactions/application-commands"
     }
   ],
   "logo": {
