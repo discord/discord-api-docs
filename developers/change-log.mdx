@@ -2749,15 +2749,15 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
 
-   * [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md)
-   * [Applications](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Applications.md)
-   * [Voice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Discord_Voice.md)
-   * [Images](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Images.md)
-   * [Lobbies](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Lobbies.md)
-   * [Networking](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Networking.md)
-   * [Relationships](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Relationships.md)
-   * [Storage](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Storage.md)
-   * [Store](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Store.mdmd)
+   * [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md)
+   * [Applications](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md)
+   * [Voice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Discord_Voice.md)
+   * [Images](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Images.md)
+   * [Lobbies](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md)
+   * [Networking](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Networking.md)
+   * [Relationships](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Relationships.md)
+   * [Storage](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Storage.md)
+   * [Store](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Store.mdmd)
 
   This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
 
@@ -3075,7 +3075,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](/developers/resources/audit-log).
   * Message routes (like [`POST /channels/{channel.id}/messages`](/developers/resources/message#create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
   * The `summary` field for [applications](/developers/resources/application) now returns an empty string for all API versions.
-  * The `name` and `description` fields for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](/developers/interactions/application-commands#localization). Read details in the [Achievements documentation](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#achievement-struct).
+  * The `name` and `description` fields for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](/developers/interactions/application-commands#localization). Read details in the [Achievements documentation](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct).
   * Existing attachments must be specified when [`PATCH`ing messages with new attachments](/developers/reference#editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
   * Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
 
@@ -3482,7 +3482,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   }}>
   ## GameSDK Version 2.5.5
 
-  We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#setuserachievement) method.
+  We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#setuserachievement) method.
 
   Get the latest at the top of the [Getting Started](/developers/developer-tools/game-sdk#step-1-get-the-sdk) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 </Update>
@@ -3511,7 +3511,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   }}>
   ## Bot Tokens for Achievements
 
-  You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#the-api-way).
+  You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#the-api-way).
 </Update>
 
 <Update label="June 19, 2019" rss={{
