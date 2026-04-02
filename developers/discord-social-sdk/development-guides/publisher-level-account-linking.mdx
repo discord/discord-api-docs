@@ -40,6 +40,36 @@ This guide will show you how to:
 
 ---
 
+## Is Publisher Level Account Linking Right for You?
+
+Publisher Level Account Linking is designed for publishers with centralized, cross-game social ecosystems. Not all multi-game publishers are a good fit.
+
+| **Good Fit**                                                                                                                                                       | **Poor Fit**                                                                                                          |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Publishers with cohesive portfolios where games share a centralized account system **and** a publisher-level social experience (shared friends list across games). | Publishers with disparate game portfolios that share only a centralized login but have no cross-game social features. |
+
+Publisher Level Account Linking was designed to support publishers with cross-game social ecosystems. When a player links their Discord account to a publisher account and that publisher shares a social graph across games, the authorization feels natural and expected — players already understand that their friends in one game appear across all games in the portfolio.
+
+### Key Behaviors to Understand
+
+Before committing to Publisher Level Account Linking, understand these architectural constraints:
+
+#### Authorization is all-or-nothing at the publisher level:
+- When a player links their Discord account to the publisher application, that authorization applies to **all** child game applications under the publisher
+- Players cannot opt out of the Discord connection for individual games while remaining linked at the publisher level
+- Revoking authorization disconnects Discord from the publisher account entirely, affecting all games
+
+#### Relationships exist at the publisher level, not per-game:
+
+Game friend lists exist at the publisher level — there are no per-game sandboxed friend lists. If you need separate friend lists per game, Publisher Level Account Linking is not the right solution.
+
+<Warning>
+    **This is a one-way architectural decision.** Once child applications are linked to a parent publisher application, [data is deleted and the relationship cannot be reverted](#3-establish-parent-child-relationships). Evaluate carefully before migrating existing applications.
+</Warning>
+
+
+---
+
 ## How It Works
 
 The Publisher Authentication system uses two types of applications:
@@ -449,6 +479,19 @@ def revoke_child_token(child_token):
 ```
 
 For more details on the token revocation API and additional options, see [Revoking Access Tokens](/developers/discord-social-sdk/development-guides/account-linking-with-discord#revoking-access-tokens) in the Account Linking guide.
+
+---
+
+## Alternatives for Publishers Without a Shared Social Graph
+
+
+If your studio operates a centralized publisher account system but doesn't have a shared social graph across games, you can still build your own
+centralized backend system that manages per-game Discord application IDs with the standard authentication model. This lets you reuse Social SDK integration logic across titles while keeping each game's Discord connection separate.
+
+There is also potential for you to build a publisher account settings UI that lets players link, unlink, and manage which Discord account is connected to each game, giving players finer-grained control over their account linking experience.
+
+The trade-off is that players will need to authorize each game individually, and it requires more development, but it also provides players more control over which games they link to their Discord accounts – which may well make more
+sense for your individual studio or game specific needs.
 
 ---
 
