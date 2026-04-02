@@ -186,7 +186,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | ERROR                   | non-subscription event sent when there is an error, including command responses            |
 | CURRENT_USER_UPDATE     | sent when the local user's data (avatar, username, etc.) changes                           |
 | RELATIONSHIP_UPDATE     | sent when a relationship (friend, block, etc.) is added or removed                         |
-| USER_ACHIEVEMENT_UPDATE | sent when a user's achievement status is updated                                           |
 | GUILD_STATUS            | sent when a subscribed server's state changes                                              |
 | GUILD_CREATE            | sent when a guild is created/joined on the client                                          |
 | CHANNEL_CREATE          | sent when a channel is created/joined on the client                                        |
@@ -195,7 +194,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | VOICE_STATE_UPDATE      | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
 | VOICE_STATE_DELETE      | sent when a user parts a subscribed voice channel                                          |
 | VOICE_SETTINGS_UPDATE   | sent when the client's voice settings update                                               |
-| VOICE_SETTINGS_UPDATE_2 | updated version of voice settings dispatch                                                 |
 | VOICE_CONNECTION_STATUS | sent when the client's voice connection status changes                                     |
 | SPEAKING_START          | sent when a user in a subscribed voice channel speaks                                      |
 | SPEAKING_STOP           | sent when a user in a subscribed voice channel stops speaking                              |
@@ -207,17 +205,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | ACTIVITY_SPECTATE       | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
 | ACTIVITY_JOIN_REQUEST   | sent when the user receives a Rich Presence Ask to Join request                            |
 | ACTIVITY_INVITE         | sent when the user receives an activity invitation                                         |
-| GAME_JOIN               | legacy event for joining a game session                                                    |
-| GAME_SPECTATE           | legacy event for spectating a game session                                                 |
-| LOBBY_DELETE            | sent when a joined lobby is deleted                                                        |
-| LOBBY_UPDATE            | sent when lobby metadata or settings change                                                |
-| LOBBY_MEMBER_CONNECT    | sent when a new member joins the lobby                                                     |
-| LOBBY_MEMBER_DISCONNECT | sent when a member leaves the lobby                                                        |
-| LOBBY_MEMBER_UPDATE     | sent when a lobby member's metadata changes                                                |
-| LOBBY_MESSAGE           | sent when a message is received in the lobby's networking layer                            |
-| OVERLAY                 | sent when the Discord overlay is toggled or initialized                                    |
-| OVERLAY_UPDATE          | sent when the overlay's state or configuration changes                                     |
-| CAPTURE_SHORTCUT_CHANGE | sent when the user changes a registered global hotkey                                      |
 | ENTITLEMENT_CREATE      | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
 | ENTITLEMENT_DELETE      | sent when an entitlement is removed                                                        |
 
