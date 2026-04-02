@@ -524,7 +524,11 @@
       "destination": "/developers/resources/sku"
     },
     {
-      "source": "/developers/docs/game-sdk/sdk-starter-guide",
+      "source": "/developers/docs/game-sdk/*",
+      "destination": "/developers/developer-tools/game-sdk"
+    },
+    {
+      "source": "/developers/game-sdk/*",
       "destination": "/developers/developer-tools/game-sdk"
     },
     {
