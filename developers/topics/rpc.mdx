@@ -6,39 +6,62 @@ description: Learn about Discord's RPC server for local application integration.
 import {ManualAnchor} from '/snippets/manualanchor.jsx'
 
 
+## RPC over IPC
+
+Discord's RPC server supports IPC (Inter-Process Communication) as the primary transport for native applications and games. This allows high-performance, local communication with the Discord client without requiring network-level overhead.
+
+###### IPC Path
+
+| Platform    | Path Format                                                                                                                                       |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| Windows     | `\\?\pipe\discord-ipc-{n}`                                                                                                                        |
+| Linux/macOS | `${XDG_RUNTIME_DIR}/discord-ipc-{n}`, `${TMPDIR}/discord-ipc-{n}`, `${TMP}/discord-ipc-{n}`, `${TEMP}/discord-ipc-{n}`, or `/tmp/discord-ipc-{n}` |
+
+On Linux/macOS, Discord resolves the IPC prefix in this order: `XDG_RUNTIME_DIR`, `TMPDIR`, `TMP`, `TEMP`, then `/tmp` as a final fallback.
+
+### Connecting to IPC
+
+To begin a session, the application must open the IPC socket and send a `HANDSHAKE` opcode.
+
+#### Handshake Payload
+
+The payload is a JSON object containing the RPC version and your application's client ID.
+
+| Field       | Type      | Description                  |
+|-------------|-----------|------------------------------|
+| `v`         | `integer` | RPC version                  |
+| `client_id` | `string`  | Your application's client ID |
+
+###### Example Handshake
+
+```
+[00 00 00 00] // Opcode 0 (Handshake)
+[2D 00 00 00] // Length 45
+{"v":1,"client_id":"123456789012345678"}
+```
+
+Upon success, Discord will respond with a `FRAME` (Opcode `1`) containing the `READY` event.
+
+Once the handshake is complete, all subsequent requests and responses use the `FRAME` opcode. The internal structure of these frames follows the standard [RPC Payload structure](/developers/topics/rpc#payloads-payload-structure)
+
+###### Opcodes
+
+| Opcode | Name        | Description                                   |
+|--------|-------------|-----------------------------------------------|
+| `0`    | `HANDSHAKE` | Sent by the client to initiate the connection |
+| `1`    | `FRAME`     | Used for all standard RPC commands and events |
+| `2`    | `CLOSE`     | Sent by either side to close the connection   |
+| `3`    | `PING`      | Sent to check if the connection is alive      |
+| `4`    | `PONG`      | Response to a `PING`                          |
+
+<Accordion title="RPC over WebSocket (Deprecated)" icon="warning">
 <Danger>
-For now, RPC is in a private beta. We are not currently accepting any new developers into the program at this time.
+This is a deprecated way, which is only available for old participants of private beta. It is preferable to use RPC that uses IPC. 
 </Danger>
 
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
 
-<ManualAnchor id="rpc-versions" />
-###### RPC Versions
-
-| Version | Out of Service |
-|---------|----------------|
-| 1       | no             |
-
-## Restrictions
-
-For connections to the RPC server, a [list of approved testers](/developers/topics/rpc#authorize) is used to restrict access while you're still developing. You can invite up to 50 people.
-
-For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
-
-## Payloads
-
-<ManualAnchor id="payloads-payload-structure" />
-###### Payload Structure
-
-| Field | Type   | Description                                                                 | Present                                                  |
-|-------|--------|-----------------------------------------------------------------------------|----------------------------------------------------------|
-| cmd   | enum   | [payload command](/developers/topics/rpc#commands-and-events-rpc-commands)  | Always                                                   |
-| nonce | string | unique string used once for replies from the server                         | In responses to commands (not subscribed events)         |
-| evt   | enum   | [subscription event](/developers/topics/rpc#commands-and-events-rpc-events) | In subscribed events, errors, and (un)subscribing events |
-| data  | object | event data                                                                  | In responses from the server                             |
-| args  | object | command arguments                                                           | In commands sent to the server                           |
-
-## Connecting
+### Connecting to WebSocket
 
 The local RPC server runs on localhost (`127.0.0.1`) and is set up to process WebSocket connections and proxy API requests.
 
@@ -60,6 +83,33 @@ If you're connecting to the RPC server from within a non-browser application (li
 ### RPC Server Ports
 
 The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these 10 ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
+
+<ManualAnchor id="rpc-versions" />
+###### RPC Versions
+
+| Version | Out of Service |
+|---------|----------------|
+| 1       | no             |
+</Accordion>
+
+## Restrictions
+
+For connections to the RPC server, a [list of approved testers](/developers/topics/rpc#authorize) is used to restrict access while you're still developing. You can invite up to 50 people.
+
+For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
+
+## Payloads
+
+<ManualAnchor id="payloads-payload-structure" />
+###### Payload Structure
+
+| Field | Type   | Description                                                                 | Present                                                  |
+|-------|--------|-----------------------------------------------------------------------------|----------------------------------------------------------|
+| cmd   | enum   | [payload command](/developers/topics/rpc#commands-and-events-rpc-commands)  | Always                                                   |
+| nonce | string | unique string used once for replies from the server                         | In responses to commands (not subscribed events)         |
+| evt   | enum   | [subscription event](/developers/topics/rpc#commands-and-events-rpc-events) | In subscribed events, errors, and (un)subscribing events |
+| data  | object | event data                                                                  | In responses from the server                             |
+| args  | object | command arguments                                                           | In commands sent to the server                           |
 
 ## Authenticating
 
@@ -105,7 +155,7 @@ Commands are requests made to the RPC socket by a client.
 
 | Name                                                                         | Description                                                     |
 |------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| [DISPATCH](/developers/topics/rpc#commands-and-events-rpc-events)            | event dispatch                                                  |
+| DISPATCH                                                                     | event dispatch                                                  |
 | [AUTHORIZE](/developers/topics/rpc#authorize)                                | used to authorize a new client with your app                    |
 | [AUTHENTICATE](/developers/topics/rpc#authenticate)                          | used to authenticate an existing client with your app           |
 | [GET_GUILD](/developers/topics/rpc#getguild)                                 | used to retrieve guild information from the client              |
@@ -130,28 +180,33 @@ Events are payloads sent over the socket to a client that correspond to events i
 <ManualAnchor id="commands-and-events-rpc-events" />
 ###### RPC Events
 
-| Name                                                                                          | Description                                                                                |
-|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| [READY](/developers/topics/rpc#ready)                                                         | non-subscription event sent immediately after connecting, contains server information      |
-| [ERROR](/developers/topics/rpc#error)                                                         | non-subscription event sent when there is an error, including command responses            |
-| [GUILD_STATUS](/developers/topics/rpc#guildstatus)                                            | sent when a subscribed server's state changes                                              |
-| [GUILD_CREATE](/developers/topics/rpc#guildcreate)                                            | sent when a guild is created/joined on the client                                          |
-| [CHANNEL_CREATE](/developers/topics/rpc#channelcreate)                                        | sent when a channel is created/joined on the client                                        |
-| [VOICE_CHANNEL_SELECT](/developers/topics/rpc#voicechannelselect)                             | sent when the client joins a voice channel                                                 |
-| [VOICE_STATE_CREATE](/developers/topics/rpc#voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user joins a subscribed voice channel                                          |
-| [VOICE_STATE_UPDATE](/developers/topics/rpc#voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
-| [VOICE_STATE_DELETE](/developers/topics/rpc#voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user parts a subscribed voice channel                                          |
-| [VOICE_SETTINGS_UPDATE](/developers/topics/rpc#voicesettingsupdate)                           | sent when the client's voice settings update                                               |
-| [VOICE_CONNECTION_STATUS](/developers/topics/rpc#voiceconnectionstatus)                       | sent when the client's voice connection status changes                                     |
-| [SPEAKING_START](/developers/topics/rpc#speakingstartspeakingstop)                            | sent when a user in a subscribed voice channel speaks                                      |
-| [SPEAKING_STOP](/developers/topics/rpc#speakingstartspeakingstop)                             | sent when a user in a subscribed voice channel stops speaking                              |
-| [MESSAGE_CREATE](/developers/topics/rpc#messagecreatemessageupdatemessagedelete)              | sent when a message is created in a subscribed text channel                                |
-| [MESSAGE_UPDATE](/developers/topics/rpc#messagecreatemessageupdatemessagedelete)              | sent when a message is updated in a subscribed text channel                                |
-| [MESSAGE_DELETE](/developers/topics/rpc#messagecreatemessageupdatemessagedelete)              | sent when a message is deleted in a subscribed text channel                                |
-| [NOTIFICATION_CREATE](/developers/topics/rpc#notificationcreate)                              | sent when the client receives a notification (mention or new message in eligible channels) |
-| [ACTIVITY_JOIN](/developers/topics/rpc#activityjoin)                                          | sent when the user clicks a Rich Presence join invite in chat to join a game               |
-| [ACTIVITY_SPECTATE](/developers/topics/rpc#activityspectate)                                  | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
-| [ACTIVITY_JOIN_REQUEST](/developers/topics/rpc#activityjoinrequest)                           | sent when the user receives a Rich Presence Ask to Join request                            |
+| Name                                                                                            | Description                                                                                |
+|-------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| [READY](/developers/topics/rpc#ready-ready-dispatch-data-structure)                             | non-subscription event sent immediately after connecting, contains server information      |
+| [ERROR](/developers/topics/rpc#error-error-data-structure)                                      | non-subscription event sent when there is an error, including command responses            |
+| CURRENT_USER_UPDATE                                                                             | sent when the local user's data (avatar, username, etc.) changes                           |
+| RELATIONSHIP_UPDATE                                                                             | sent when a relationship (friend, block, etc.) is added or removed                         |
+| [GUILD_STATUS](/developers/topics/rpc#guildstatus)                                              | sent when a subscribed server's state changes                                              |
+| [GUILD_CREATE](/developers/topics/rpc#guildcreate)                                              | sent when a guild is created/joined on the client                                          |
+| [CHANNEL_CREATE](/developers/topics/rpc#channelcreate)                                          | sent when a channel is created/joined on the client                                        |
+| [VOICE_CHANNEL_SELECT](/developers/topics/rpc#voicechannelselect)                               | sent when the client joins a voice channel                                                 |
+| [VOICE_STATE_CREATE](/developers/topics/rpc#voicestatecreate/voicestateupdate/voicestatedelete) | sent when a user joins a subscribed voice channel                                          |
+| [VOICE_STATE_UPDATE](/developers/topics/rpc#voicestatecreate/voicestateupdate/voicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
+| [VOICE_STATE_DELETE](/developers/topics/rpc#voicestatecreate/voicestateupdate/voicestatedelete) | sent when a user parts a subscribed voice channel                                          |
+| [VOICE_SETTINGS_UPDATE](/developers/topics/rpc#voicesettingsupdate)                             | sent when the client's voice settings update                                               |
+| [VOICE_CONNECTION_STATUS](/developers/topics/rpc#voiceconnectionstatus)                         | sent when the client's voice connection status changes                                     |
+| [SPEAKING_START](/developers/topics/rpc#speakingstart/speakingstop)                             | sent when a user in a subscribed voice channel speaks                                      |
+| [SPEAKING_STOP](/developers/topics/rpc#speakingstart/speakingstop)                              | sent when a user in a subscribed voice channel stops speaking                              |
+| [MESSAGE_CREATE](/developers/topics/rpc#messagecreate/messageupdate/messagedelete)              | sent when a message is created in a subscribed text channel                                |
+| [MESSAGE_UPDATE](/developers/topics/rpc#messagecreate/messageupdate/messagedelete)              | sent when a message is updated in a subscribed text channel                                |
+| [MESSAGE_DELETE](/developers/topics/rpc#messagecreate/messageupdate/messagedelete)              | sent when a message is deleted in a subscribed text channel                                |
+| [NOTIFICATION_CREATE](/developers/topics/rpc#notificationcreate)                                | sent when the client receives a notification (mention or new message in eligible channels) |
+| [ACTIVITY_JOIN](/developers/topics/rpc#activityjoin)                                            | sent when the user clicks a Rich Presence join invite in chat to join a game               |
+| [ACTIVITY_SPECTATE](/developers/topics/rpc#activityspectate)                                    | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
+| [ACTIVITY_JOIN_REQUEST](/developers/topics/rpc#activityjoinrequest)                             | sent when the user receives a Rich Presence Ask to Join request                            |
+| ACTIVITY_INVITE                                                                                 | sent when the user receives an activity invitation                                         |
+| ENTITLEMENT_CREATE                                                                              | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
+| ENTITLEMENT_DELETE                                                                              | sent when an entitlement is removed                                                        |
 
 #### AUTHORIZE
 
