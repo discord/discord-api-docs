@@ -646,10 +646,6 @@
       "linkedin": "https://www.linkedin.com/showcase/discord-developers"
     }
   },
-  "banner" : {
-    "content": "New docs? Check out the [change log](/developers/change-log#developer-portal-&-docs-refresh) to learn more!",
-    "dismissible": true 
-  },
   "integrations": {
     "gtm": {
         "tagId": "GTM-KP3BPCN4"
