@@ -180,33 +180,33 @@ Events are payloads sent over the socket to a client that correspond to events i
 <ManualAnchor id="commands-and-events-rpc-events" />
 ###### RPC Events
 
-| Name                    | Description                                                                                |
-|-------------------------|--------------------------------------------------------------------------------------------|
-| READY                   | non-subscription event sent immediately after connecting, contains server information      |
-| ERROR                   | non-subscription event sent when there is an error, including command responses            |
-| CURRENT_USER_UPDATE     | sent when the local user's data (avatar, username, etc.) changes                           |
-| RELATIONSHIP_UPDATE     | sent when a relationship (friend, block, etc.) is added or removed                         |
-| GUILD_STATUS            | sent when a subscribed server's state changes                                              |
-| GUILD_CREATE            | sent when a guild is created/joined on the client                                          |
-| CHANNEL_CREATE          | sent when a channel is created/joined on the client                                        |
-| VOICE_CHANNEL_SELECT    | sent when the client joins a voice channel                                                 |
-| VOICE_STATE_CREATE      | sent when a user joins a subscribed voice channel                                          |
-| VOICE_STATE_UPDATE      | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
-| VOICE_STATE_DELETE      | sent when a user parts a subscribed voice channel                                          |
-| VOICE_SETTINGS_UPDATE   | sent when the client's voice settings update                                               |
-| VOICE_CONNECTION_STATUS | sent when the client's voice connection status changes                                     |
-| SPEAKING_START          | sent when a user in a subscribed voice channel speaks                                      |
-| SPEAKING_STOP           | sent when a user in a subscribed voice channel stops speaking                              |
-| MESSAGE_CREATE          | sent when a message is created in a subscribed text channel                                |
-| MESSAGE_UPDATE          | sent when a message is updated in a subscribed text channel                                |
-| MESSAGE_DELETE          | sent when a message is deleted in a subscribed text channel                                |
-| NOTIFICATION_CREATE     | sent when the client receives a notification (mention or new message in eligible channels) |
-| ACTIVITY_JOIN           | sent when the user clicks a Rich Presence join invite in chat to join a game               |
-| ACTIVITY_SPECTATE       | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
-| ACTIVITY_JOIN_REQUEST   | sent when the user receives a Rich Presence Ask to Join request                            |
-| ACTIVITY_INVITE         | sent when the user receives an activity invitation                                         |
-| ENTITLEMENT_CREATE      | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
-| ENTITLEMENT_DELETE      | sent when an entitlement is removed                                                        |
+| Name                                                                                            | Description                                                                                |
+|-------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| [READY](/developers/topics/rpc#ready-ready-dispatch-data-structure)                             | non-subscription event sent immediately after connecting, contains server information      |
+| [ERROR](/developers/topics/rpc#error-error-data-structure)                                      | non-subscription event sent when there is an error, including command responses            |
+| CURRENT_USER_UPDATE                                                                             | sent when the local user's data (avatar, username, etc.) changes                           |
+| RELATIONSHIP_UPDATE                                                                             | sent when a relationship (friend, block, etc.) is added or removed                         |
+| [GUILD_STATUS](/developers/topics/rpc#guildstatus)                                              | sent when a subscribed server's state changes                                              |
+| [GUILD_CREATE](/developers/topics/rpc#guildcreate)                                              | sent when a guild is created/joined on the client                                          |
+| [CHANNEL_CREATE](/developers/topics/rpc#channelcreate)                                          | sent when a channel is created/joined on the client                                        |
+| [VOICE_CHANNEL_SELECT](/developers/topics/rpc#voicechannelselect)                               | sent when the client joins a voice channel                                                 |
+| [VOICE_STATE_CREATE](/developers/topics/rpc#voicestatecreate/voicestateupdate/voicestatedelete) | sent when a user joins a subscribed voice channel                                          |
+| [VOICE_STATE_UPDATE](/developers/topics/rpc#voicestatecreate/voicestateupdate/voicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.)  |
+| [VOICE_STATE_DELETE](/developers/topics/rpc#voicestatecreate/voicestateupdate/voicestatedelete) | sent when a user parts a subscribed voice channel                                          |
+| [VOICE_SETTINGS_UPDATE](/developers/topics/rpc#voicesettingsupdate)                             | sent when the client's voice settings update                                               |
+| [VOICE_CONNECTION_STATUS](/developers/topics/rpc#voiceconnectionstatus)                         | sent when the client's voice connection status changes                                     |
+| [SPEAKING_START](/developers/topics/rpc#speakingstart/speakingstop)                             | sent when a user in a subscribed voice channel speaks                                      |
+| [SPEAKING_STOP](/developers/topics/rpc#speakingstart/speakingstop)                              | sent when a user in a subscribed voice channel stops speaking                              |
+| [MESSAGE_CREATE](/developers/topics/rpc#messagecreate/messageupdate/messagedelete)              | sent when a message is created in a subscribed text channel                                |
+| [MESSAGE_UPDATE](/developers/topics/rpc#messagecreate/messageupdate/messagedelete)              | sent when a message is updated in a subscribed text channel                                |
+| [MESSAGE_DELETE](/developers/topics/rpc#messagecreate/messageupdate/messagedelete)              | sent when a message is deleted in a subscribed text channel                                |
+| [NOTIFICATION_CREATE](/developers/topics/rpc#notificationcreate)                                | sent when the client receives a notification (mention or new message in eligible channels) |
+| [ACTIVITY_JOIN](/developers/topics/rpc#activityjoin)                                            | sent when the user clicks a Rich Presence join invite in chat to join a game               |
+| [ACTIVITY_SPECTATE](/developers/topics/rpc#activityspectate)                                    | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
+| [ACTIVITY_JOIN_REQUEST](/developers/topics/rpc#activityjoinrequest)                             | sent when the user receives a Rich Presence Ask to Join request                            |
+| ACTIVITY_INVITE                                                                                 | sent when the user receives an activity invitation                                         |
+| ENTITLEMENT_CREATE                                                                              | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
+| ENTITLEMENT_DELETE                                                                              | sent when an entitlement is removed                                                        |
 
 #### AUTHORIZE
 
