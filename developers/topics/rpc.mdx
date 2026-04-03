@@ -8,7 +8,11 @@ import {ManualAnchor} from '/snippets/manualanchor.jsx'
 
 ## RPC over IPC
 
-Discord's RPC server supports IPC (Inter-Process Communication) as the primary transport for native applications and games. This allows high-performance, local communication with the Discord client without requiring network-level overhead.
+Discord's RPC server supports IPC (Inter-Process Communication) as transport for native applications and games. This allows high-performance, local communication with the Discord client without requiring network-level overhead.
+
+<Warning>
+    We recommend using the [Discord Social SDK](/developers/discord-social-sdk/overview) for new projects that are looking to integrate Discord's social features into their game.
+</Warning>
 
 ###### IPC Path
 
@@ -113,7 +117,7 @@ For applications/games not approved, we limit you to creating 10 guilds and 10 c
 
 ## Authenticating
 
-In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](/developers/topics/rpc#authorize):
+In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. To begin, call [AUTHORIZE](/developers/topics/rpc#authorize):
 
 <ManualAnchor id="authenticating-rpc-authorize-example" />
 ###### RPC Authorize Example
@@ -184,8 +188,8 @@ Events are payloads sent over the socket to a client that correspond to events i
 |-------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | [READY](/developers/topics/rpc#ready-ready-dispatch-data-structure)                             | non-subscription event sent immediately after connecting, contains server information      |
 | [ERROR](/developers/topics/rpc#error-error-data-structure)                                      | non-subscription event sent when there is an error, including command responses            |
-| CURRENT_USER_UPDATE                                                                             | sent when the local user's data (avatar, username, etc.) changes                           |
-| RELATIONSHIP_UPDATE                                                                             | sent when a relationship (friend, block, etc.) is added or removed                         |
+| [CURRENT_USER_UPDATE](/developers/topics/rpc#currentuserupdate)                                 | sent when the local user's data (avatar, username, etc.) changes                           |
+| [RELATIONSHIP_UPDATE](/developers/topics/rpc#relationshipupdate)                                | sent when a relationship (friend, block, etc.) is added or removed                         |
 | [GUILD_STATUS](/developers/topics/rpc#guildstatus)                                              | sent when a subscribed server's state changes                                              |
 | [GUILD_CREATE](/developers/topics/rpc#guildcreate)                                              | sent when a guild is created/joined on the client                                          |
 | [CHANNEL_CREATE](/developers/topics/rpc#channelcreate)                                          | sent when a channel is created/joined on the client                                        |
@@ -204,9 +208,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [ACTIVITY_JOIN](/developers/topics/rpc#activityjoin)                                            | sent when the user clicks a Rich Presence join invite in chat to join a game               |
 | [ACTIVITY_SPECTATE](/developers/topics/rpc#activityspectate)                                    | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game       |
 | [ACTIVITY_JOIN_REQUEST](/developers/topics/rpc#activityjoinrequest)                             | sent when the user receives a Rich Presence Ask to Join request                            |
-| ACTIVITY_INVITE                                                                                 | sent when the user receives an activity invitation                                         |
-| ENTITLEMENT_CREATE                                                                              | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
-| ENTITLEMENT_DELETE                                                                              | sent when an entitlement is removed                                                        |
+| [ACTIVITY_INVITE](/developers/topics/rpc#activityinvite)                                        | sent when the user receives an activity invitation                                         |
+| [ENTITLEMENT_CREATE](/developers/topics/rpc#entitlementcreate)                                  | sent when a user purchases or receives a new entitlement (SKU/Game)                        |
+| [ENTITLEMENT_DELETE](/developers/topics/rpc#entitlementdelete)                                  | sent when an entitlement is removed                                                        |
 
 #### AUTHORIZE
 
@@ -1785,5 +1789,252 @@ No arguments
     }
   },
   "evt": "ACTIVITY_JOIN_REQUEST"
+}
+```
+
+<ManualAnchor id="activityinvite" />
+#### ACTIVITY_INVITE
+
+No arguments
+
+<ManualAnchor id="activityinvite-activity-invite-dispatch-data-structure" />
+###### Activity Invite Dispatch Data Structure
+
+| Field      | Type                                                                 | Description                              |
+|------------|----------------------------------------------------------------------|------------------------------------------|
+| type       | integer                                                              | invite type; `1` for join                |
+| user       | partial [user](/developers/resources/user#user-object) object        | user who sent the invite                 |
+| activity   | [activity](/developers/events/gateway-events#activity-object) object | the activity associated with the invite  |
+| channel_id | string                                                               | id of the channel the invite was sent in |
+| message_id | string                                                               | id of the invite message                 |
+
+<ManualAnchor id="activityinvite-example-activity-invite-dispatch-payload" />
+###### Example Activity Invite Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "type": 1,
+    "user": {
+      "id": "53908232506183680",
+      "username": "Mason",
+      "discriminator": "1337",
+      "avatar": "a_bab14f271d565501444b2ca3be944b25"
+    },
+    "activity": {
+      "application_id": "192741864418312192",
+      "name": "My Game",
+      "party": {
+        "id": "party1234",
+        "size": [2, 5]
+      }
+    },
+    "channel_id": "199737254929760256",
+    "message_id": "199743874640379904"
+  },
+  "evt": "ACTIVITY_INVITE"
+}
+```
+
+<ManualAnchor id="currentuserupdate" />
+#### CURRENT_USER_UPDATE
+
+No arguments. Dispatches the current user's profile whenever it changes (avatar, username, etc.).
+
+<ManualAnchor id="currentuserupdate-current-user-update-dispatch-data-structure" />
+###### Current User Update Dispatch Data Structure
+
+| Field                  | Type    | Description                                                                               |
+|------------------------|---------|-------------------------------------------------------------------------------------------|
+| id                     | string  | user's id                                                                                 |
+| username               | string  | user's username                                                                           |
+| discriminator          | string  | user's discriminator                                                                      |
+| global_name            | string  | user's display name                                                                       |
+| avatar                 | string  | user's avatar hash                                                                        |
+| avatar_decoration_data | object  | avatar decoration data, if any (`null` if none)                                           |
+| bot                    | boolean | whether the user is a bot                                                                 |
+| flags                  | integer | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account |
+| premium_type           | integer | type of [Nitro subscription](/developers/resources/user#user-object-premium-types)        |
+
+<ManualAnchor id="currentuserupdate-example-current-user-update-dispatch-payload" />
+###### Example Current User Update Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "id": "53908232506183680",
+    "username": "Mason",
+    "discriminator": "0",
+    "global_name": "Mason",
+    "avatar": "a_bab14f271d565501444b2ca3be944b25",
+    "avatar_decoration_data": null,
+    "bot": false,
+    "flags": 64,
+    "premium_type": 2
+  },
+  "evt": "CURRENT_USER_UPDATE"
+}
+```
+
+<ManualAnchor id="relationshipupdate" />
+#### RELATIONSHIP_UPDATE
+
+No arguments. Requires the `relationships_read` [OAuth2 scope](/developers/topics/oauth2#shared-resources-oauth2-scopes).
+
+Fired when a relationship is added, updated (e.g. presence change), or removed. When a relationship is removed, `type` will be `0` (`NONE`).
+
+<ManualAnchor id="relationshipupdate-relationship-update-dispatch-data-structure" />
+###### Relationship Update Dispatch Data Structure
+
+| Field    | Type                                                                         | Description                                                                       |
+|----------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| type     | integer                                                                      | [relationship type](/developers/topics/rpc#relationshipupdate-relationship-types) |
+| user     | partial [user](/developers/resources/user#user-object) object                | the related user                                                                  |
+| presence | [presence](/developers/topics/rpc#relationshipupdate-presence-object) object | the related user's current presence                                               |
+
+<ManualAnchor id="relationshipupdate-relationship-types" />
+###### Relationship Types
+
+| Type             | Value | Description                              |
+|------------------|-------|------------------------------------------|
+| NONE             | 0     | relationship removed                     |
+| FRIEND           | 1     | user is a friend                         |
+| BLOCKED          | 2     | user is blocked                          |
+| PENDING_INCOMING | 3     | incoming friend request                  |
+| PENDING_OUTGOING | 4     | outgoing friend request                  |
+| IMPLICIT         | 5     | user is in a mutual guild (not a friend) |
+
+<ManualAnchor id="relationshipupdate-presence-object" />
+###### Presence Object
+
+| Field    | Type                                                                 | Description                                                   |
+|----------|----------------------------------------------------------------------|---------------------------------------------------------------|
+| status   | string                                                               | user's status (`online`, `idle`, `dnd`, `offline`)            |
+| activity | [activity](/developers/events/gateway-events#activity-object) object | user's current activity for this application (`null` if none) |
+
+<ManualAnchor id="relationshipupdate-example-relationship-update-dispatch-payload" />
+###### Example Relationship Update Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "type": 1,
+    "user": {
+      "id": "190320984123768832",
+      "username": "test user 2",
+      "discriminator": "0",
+      "global_name": "test user 2",
+      "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+      "bot": false,
+      "flags": 0,
+      "premium_type": 0
+    },
+    "presence": {
+      "status": "online",
+      "activity": null
+    }
+  },
+  "evt": "RELATIONSHIP_UPDATE"
+}
+```
+
+<ManualAnchor id="entitlementcreate" />
+#### ENTITLEMENT_CREATE
+
+No arguments. Fired when the user acquires a new entitlement for this application.
+
+<ManualAnchor id="entitlementcreate-entitlement-create-dispatch-data-structure" />
+###### Entitlement Create Dispatch Data Structure
+
+| Field       | Type                                                                              | Description                      |
+|-------------|-----------------------------------------------------------------------------------|----------------------------------|
+| entitlement | [entitlement](/developers/topics/rpc#entitlementcreate-entitlement-object) object | the entitlement that was created |
+
+<ManualAnchor id="entitlementcreate-entitlement-object" />
+###### Entitlement Object
+
+| Field          | Type    | Description                                                                    |
+|----------------|---------|--------------------------------------------------------------------------------|
+| id             | string  | entitlement id                                                                 |
+| sku_id         | string  | id of the SKU this entitlement is for                                          |
+| application_id | string  | id of the application                                                          |
+| user_id        | string  | id of the user that owns the entitlement                                       |
+| type           | integer | [entitlement type](/developers/topics/rpc#entitlementcreate-entitlement-types) |
+| deleted        | boolean | whether the entitlement has been deleted                                       |
+| starts_at?     | ISO8601 | start date of the entitlement                                                  |
+| ends_at?       | ISO8601 | end date of the entitlement                                                    |
+| guild_id?      | string  | id of the guild the entitlement applies to                                     |
+| consumed?      | boolean | for consumable entitlements, whether the entitlement has been consumed         |
+
+<ManualAnchor id="entitlementcreate-entitlement-types" />
+###### Entitlement Types
+
+| Type                     | Value | Description                    |
+|--------------------------|-------|--------------------------------|
+| PURCHASE                 | 1     | purchased by a user            |
+| PREMIUM_SUBSCRIPTION     | 2     | a Nitro subscription           |
+| DEVELOPER_GIFT           | 3     | gifted by a developer          |
+| TEST_MODE_PURCHASE       | 4     | purchased in test mode         |
+| FREE_PURCHASE            | 5     | granted for free               |
+| USER_GIFT                | 6     | gifted by another user         |
+| PREMIUM_PURCHASE         | 7     | purchased as a premium feature |
+| APPLICATION_SUBSCRIPTION | 8     | an app subscription            |
+
+<ManualAnchor id="entitlementcreate-example-entitlement-create-dispatch-payload" />
+###### Example Entitlement Create Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "entitlement": {
+      "id": "1019653849998299136",
+      "sku_id": "1019475255913222144",
+      "application_id": "192741864418312192",
+      "user_id": "53908232506183680",
+      "type": 8,
+      "deleted": false,
+      "starts_at": "2022-09-14T17:00:18.704163+00:00",
+      "ends_at": "2022-10-14T17:00:18.704163+00:00"
+    }
+  },
+  "evt": "ENTITLEMENT_CREATE"
+}
+```
+
+<ManualAnchor id="entitlementdelete" />
+#### ENTITLEMENT_DELETE
+
+No arguments. Fired when an entitlement for this application is removed. The entitlement object in the payload reflects the state of the entitlement at the time of deletion.
+
+<ManualAnchor id="entitlementdelete-entitlement-delete-dispatch-data-structure" />
+###### Entitlement Delete Dispatch Data Structure
+
+| Field       | Type                                                                              | Description                      |
+|-------------|-----------------------------------------------------------------------------------|----------------------------------|
+| entitlement | [entitlement](/developers/topics/rpc#entitlementcreate-entitlement-object) object | the entitlement that was deleted |
+
+<ManualAnchor id="entitlementdelete-example-entitlement-delete-dispatch-payload" />
+###### Example Entitlement Delete Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "entitlement": {
+      "id": "1019653849998299136",
+      "sku_id": "1019475255913222144",
+      "application_id": "192741864418312192",
+      "user_id": "53908232506183680",
+      "type": 8,
+      "deleted": true,
+      "starts_at": "2022-09-14T17:00:18.704163+00:00",
+      "ends_at": "2022-10-14T17:00:18.704163+00:00"
+    }
+  },
+  "evt": "ENTITLEMENT_DELETE"
 }
 ```
