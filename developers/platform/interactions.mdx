@@ -1,0 +1,50 @@
+---
+title: Interactions & Commands
+sidebarTitle: Interactions & Commands
+description: Build interactive slash commands, buttons, modals, and more using HTTP or the Gateway.
+---
+
+Interactions are the foundation of user-facing Discord app features. When a user invokes a slash command, clicks a button, selects from a dropdown, or submits a modal, Discord sends your app an interaction payload that your app can respond to directly.
+
+Your app can receive interactions over the Gateway or via HTTP requests to a dedicated endpoint. Both models are designed to be easy to implement and scale with your app's needs, whether you're building a simple command handler or a complex interactive experience.
+
+## Application Commands
+
+[Application Commands](/developers/interactions/application-commands) are the primary way users invoke your app in Discord. There are four types:
+
+- **Slash commands:** accessed by typing `/` in the chat input
+- **Message commands:** accessed from the context menu on a message
+- **User commands:** accessed from the context menu on a user profile
+- **Entry Point commands:** used to launch [Activities](/developers/platform/activities) from the App Launcher
+
+When a user invokes a command, Discord sends your app an interaction payload you can respond to with a message, a modal, or a deferred response for longer-running work.
+
+## Message Components & Modals
+
+[Message components](/developers/platform/components) also generate interactions when users act on them. When a user clicks a button or submits a select menu attached to one of your app's messages, Discord delivers an interaction the same way it would for a command.
+
+[Modals](/developers/platform/components#modals) work the same way. Your app responds to an interaction (a command or component click) by opening a modal, and the user's submission arrives as another interaction your app handles.
+
+## Gateway Interactions
+
+By default, your app receives interactions over the [Gateway](/developers/events/gateway), the same persistent WebSocket connection used for all other real-time events. If your bot is already connected to the Gateway to listen for messages, member joins, or other activity, interactions arrive through the same connection.
+
+## HTTP Interactions
+
+Alternatively, you can configure an **Interactions Endpoint URL** in your app's settings to receive interactions as HTTP POST requests sent directly to your server. Discord handles delivery and your app needs to respond within a few seconds.
+
+This model works well for apps that only need to respond to commands and UI components. No persistent connection is required and it scales naturally with standard web infrastructure. To use it, your endpoint must validate Discord's request signatures and handle the initial `PING` handshake. See the [Interactions Overview](/developers/interactions/overview#preparing-for-interactions) for setup details.
+
+## Further Reading
+
+<CardGroup cols={3}>
+  <Card title="Interactions Overview" href="/developers/interactions/overview">
+    Full guide to interaction types, endpoint setup, and security validation.
+  </Card>
+  <Card title="Application Commands" href="/developers/interactions/application-commands">
+    Create slash commands, message commands, user commands, and entry point commands.
+  </Card>
+  <Card title="Receiving & Responding" href="/developers/interactions/receiving-and-responding">
+    Technical reference for handling interaction payloads and sending responses.
+  </Card>
+</CardGroup>
