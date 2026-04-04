@@ -18,7 +18,7 @@ Discord's RPC server supports IPC (Inter-Process Communication) as transport for
 
 | Platform    | Path Format                                                                                                                                       |
 |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| Windows     | `\\?\pipe\discord-ipc-{n}`                                                                                                                        |
+| Windows     | `\\.\pipe\discord-ipc-{n}`                                                                                                                        |
 | Linux/macOS | `${XDG_RUNTIME_DIR}/discord-ipc-{n}`, `${TMPDIR}/discord-ipc-{n}`, `${TMP}/discord-ipc-{n}`, `${TEMP}/discord-ipc-{n}`, or `/tmp/discord-ipc-{n}` |
 
 On Linux/macOS, Discord resolves the IPC prefix in this order: `XDG_RUNTIME_DIR`, `TMPDIR`, `TMP`, `TEMP`, then `/tmp` as a final fallback.
