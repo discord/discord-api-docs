@@ -2500,16 +2500,28 @@ All other fields will be automatically populated by Discord.
 <ManualAnchor id="unfurled-media-item-unfurled-media-item-structure" />
 ###### Unfurled Media Item Structure
 
-| Field            | Type      | Description                                                                                                                                      |
-|------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| url              | string    | Supports arbitrary urls and `attachment://<filename>` references                                                                                 |
-| proxy_url?       | string    | The proxied url of the media item. This field is ignored and provided by the API as part of the response                                         |
-| height?          | ?integer  | The height of the media item. This field is ignored and provided by the API as part of the response                                              |
-| width?           | ?integer  | The width of the media item. This field is ignored and provided by the API as part of the response                                               |
-| content_type?    | string    | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content. This field is ignored and provided by the API as part of the response |
-| attachment_id?\* | snowflake | The id of the uploaded attachment. This field is ignored and provided by the API as part of the response                                         |
+| Field                   | Type      | Description                                                                                                                                                                   |
+|-------------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| url                     | string    | Supports arbitrary urls and `attachment://<filename>` references                                                                                                              |
+| proxy_url? \*           | string    | The proxied url of the media item                                                                                                                                             |
+| height? \*              | ?integer  | The height of the media item (if image or video)                                                                                                                              |
+| width? \*               | ?integer  | The width of the media item (if image or video)                                                                                                                               |
+| placeholder? \*         | string    | [Thumbhash](https://evanw.github.io/thumbhash/) placeholder (if image or video)                                                                                               |
+| placeholder_version? \* | integer   | Version of the placeholder (if image or video)                                                                                                                                |
+| content_type? \*        | string    | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content                                                                                                     |
+| flags? \*               | integer   | [Unfurled media item flags](/developers/components/reference#unfurled-media-item-unfurled-media-item-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| attachment_id? \* \**   | snowflake | The id of the uploaded attachment                                                                                                                                             |
 
-\* Only present if the media item was uploaded as an attachment.
+\* This field is ignored and provided by the API as part of the response.
+
+\** Only present if the media item was uploaded as an attachment.
+
+<ManualAnchor id="unfurled-media-item-unfurled-media-item-flags" />
+###### Unfurled Media Item Flags
+
+| Flag        | Value    | Description            |
+|-------------|----------|------------------------|
+| IS_ANIMATED | `1 << 0` | This image is animated |
 
 ### Uploading a file
 
