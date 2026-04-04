@@ -517,9 +517,9 @@ The reaction count details object contains a breakdown of normal and super react
 <ManualAnchor id="embed-object-embed-flags" />
 ###### Embed Flags
 
-| Flag                       | Value    | Description                                                          |
-|----------------------------|----------|----------------------------------------------------------------------|
-| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a reply to an activity card and is no longer displayed |
+| Flag                       | Value    | Description                                              |
+|----------------------------|----------|----------------------------------------------------------|
+| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a fallback for a reply to an activity card |
 
 <ManualAnchor id="embed-object-embed-video-structure" />
 ###### Embed Video Structure
@@ -642,25 +642,27 @@ Certain embed types are used to power special UIs. These embeds use [fields](/de
 For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 </Info>
 
-| Field              | Type                                                                 | Description                                                                                                                                            |
-|--------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                 | snowflake                                                            | attachment id                                                                                                                                          |
-| filename           | string                                                               | name of file attached                                                                                                                                  |
-| title?             | string                                                               | the title of the file                                                                                                                                  |
-| description?       | string                                                               | description (alt text) for the file (max 1024 characters)                                                                                              |
-| content_type?      | string                                                               | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                                |
-| size               | integer                                                              | size of file in bytes                                                                                                                                  |
-| url                | string                                                               | source url of file                                                                                                                                     |
-| proxy_url          | string                                                               | a proxied url of file                                                                                                                                  |
-| height?            | ?integer                                                             | height of file (if image)                                                                                                                              |
-| width?             | ?integer                                                             | width of file (if image)                                                                                                                               |
-| ephemeral? \*      | boolean                                                              | whether this attachment is ephemeral                                                                                                                   |
-| duration_secs?     | float                                                                | the duration of the audio file (currently for voice messages)                                                                                          |
-| waveform?          | string                                                               | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                                |
-| flags?             | integer                                                              | [attachment flags](/developers/resources/message#attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
-| clip_participants? | array of [user](/developers/resources/user#user-object) objects      | for Clips, array of users who were in the stream                                                                                                       |
-| clip_created_at?   | ISO8601 timestamp                                                    | for Clips, when the clip was created                                                                                                                   |
-| application?       | ?[application](/developers/resources/application#application-object) | for Clips, the application in the stream, if recognized                                                                                                |
+| Field                | Type                                                                 | Description                                                                                                                                            |
+|----------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                   | snowflake                                                            | attachment id                                                                                                                                          |
+| filename             | string                                                               | name of file attached                                                                                                                                  |
+| title?               | string                                                               | the title of the file                                                                                                                                  |
+| description?         | string                                                               | description (alt text) for the file (max 1024 characters)                                                                                              |
+| content_type?        | string                                                               | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                                |
+| size                 | integer                                                              | size of file in bytes                                                                                                                                  |
+| url                  | string                                                               | source url of file                                                                                                                                     |
+| proxy_url            | string                                                               | a proxied url of file                                                                                                                                  |
+| height?              | ?integer                                                             | height of file (if image or video)                                                                                                                     |
+| width?               | ?integer                                                             | width of file (if image or video)                                                                                                                      |
+| placeholder?         | string                                                               | [thumbhash](https://evanw.github.io/thumbhash/) placeholder (if image or video)                                                                        |
+| placeholder_version? | integer                                                              | version of the placeholder (if image or video)                                                                                                         |
+| ephemeral? \*        | boolean                                                              | whether this attachment is ephemeral                                                                                                                   |
+| duration_secs?       | float                                                                | the duration of the audio file (currently for voice messages)                                                                                          |
+| waveform?            | string                                                               | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                                |
+| flags?               | integer                                                              | [attachment flags](/developers/resources/message#attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| clip_participants?   | array of [user](/developers/resources/user#user-object) objects      | for Clips, array of users who were in the stream                                                                                                       |
+| clip_created_at?     | ISO8601 timestamp                                                    | for Clips, when the clip was created                                                                                                                   |
+| application?         | ?[application](/developers/resources/application#application-object) | for Clips, the application in the stream, if recognized                                                                                                |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
