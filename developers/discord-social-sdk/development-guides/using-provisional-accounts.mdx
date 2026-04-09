@@ -304,6 +304,12 @@ When a player wants to convert their provisional account to a full Discord accou
 - If you have a backend, follow [Merging Provisional Accounts for Servers](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts-for-servers)
 - If you do not have a backend, follow [Merging Provisional Accounts for Public Clients ](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts-for-public-clients)
 
+<Note>
+Unlike other API rate limits, the merge operation has a strict per-user limit since account merging is not something we expect to happen frequently. Under normal circumstances, a player will only ever link their account once.
+
+If you are testing your merge integration, make sure to add your QA users to your application's [App Testers](https://discord.com/developers/applications/select/testers) list to avoid hitting rate limits during testing.
+</Note>
+
 ### Merging Provisional Accounts for Servers
 
 To merge provisional accounts, include `external_auth_type` and `external_auth_token` values with a request to `/oauth2/token`. Discord will look up the Provisional User associated with the provided identity and attempt to merge it in to the full Discord account that generated the provided `code`.
