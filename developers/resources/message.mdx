@@ -349,6 +349,10 @@ Determines how associated data is populated.
 Thus we support only messages with type `DEFAULT`, `REPLY`, `CHAT_INPUT_COMMAND`, or `CONTEXT_MENU_COMMAND`, and don't support messages with a poll, call, or activity.
 This is subject to change in the future.
 
+<Warning>
+Applications must be able to read a message's content in order to forward it. An application attempting to forward a message it cannot read will receive error code `160014` with the message "You cannot forward a message whose content you cannot read."
+</Warning>
+
 #### Message Reference Content Attribution
 
 Message references are generic attribution on a message.
