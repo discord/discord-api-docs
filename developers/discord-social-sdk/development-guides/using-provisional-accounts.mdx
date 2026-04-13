@@ -313,9 +313,23 @@ If you are testing your merge integration, make sure to add your QA users to you
 
 ### Merging Provisional Accounts for Servers
 
-To merge provisional accounts, include `external_auth_type` and `external_auth_token` values with a request to `/oauth2/token`. Discord will look up the Provisional User associated with the provided identity and attempt to merge it in to the full Discord account that generated the provided `code`.
+To merge a provisional account, extend the standard [OAuth2 token exchange](/developers/topics/oauth2#authorization-code-grant-access-token-exchange-example) by posting to `/oauth2/token` with two additional parameters — `external_auth_type` and `external_auth_token`. Discord uses these to identify the provisional account and merge it into the full Discord account associated with the provided authorization code or device code.
+
+See the [External Auth Types](#external-auth-types) table above for the full list of supported `external_auth_type` values.
+
+The `external_auth_token` is the same credential you provided when creating the provisional account — for example, your OIDC identity token, Steam session ticket, or EOS access token. If you created the provisional account using the [Bot Token Endpoint](#server-authentication-with-bot-token-endpoint), use `DISCORD_BOT_ISSUED_ACCESS_TOKEN` as the `external_auth_type` and the `external_user_id` (your game account ID) as the `external_auth_token`.
 
 #### Desktop & Mobile
+
+###### Request Body Parameters
+
+| Parameter             | Description                                                                                                                                                                                                                                                           |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`          | Must be `authorization_code`. This is the standard [OAuth2 authorization code grant](/developers/topics/oauth2#authorization-code-grant-access-token-exchange-example) — the authorization code from the [`Client::Authorize`] flow is exchanged for an access token. |
+| `code`                | The authorization code returned to your server after the user completes the [`Client::Authorize`] flow.                                                                                                                                                               |
+| `redirect_uri`        | The redirect URI used in the original authorization request. Must match exactly.                                                                                                                                                                                      |
+| `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                                                              |
+| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `external_user_id` (game account ID) used when creating the provisional account.                                            |
 
 ```python
 import requests
@@ -323,7 +337,8 @@ import requests
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-EXTERNAL_AUTH_TYPE = 'OIDC' # See External Auth Types above
+# See External Auth Types above for all supported values
+EXTERNAL_AUTH_TYPE = 'DISCORD_BOT_ISSUED_ACCESS_TOKEN'
 
 def exchange_code_with_merge(code, redirect_uri, external_auth_token):
   data = {
@@ -343,13 +358,25 @@ def exchange_code_with_merge(code, redirect_uri, external_auth_token):
 
 #### Console
 
+###### Request Body Parameters
+
+| Parameter             | Description                                                                                                                                                                                                                |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`          | Must be `urn:ietf:params:oauth:grant-type:device_code`. This is the [RFC 8628](https://www.rfc-editor.org/rfc/rfc8628) device authorization grant, used for consoles and devices without a browser.                        |
+| `device_code`         | The device code from the device authorization flow. See [Account Linking on Consoles](/developers/discord-social-sdk/development-guides/account-linking-on-consoles).                                                      |
+| `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                   |
+| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `external_user_id` (game account ID) used when creating the provisional account. |
+
 ```python
 import requests
+
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-EXTERNAL_AUTH_TYPE = 'OIDC'
-def exchange_device_code_with_merge(device_code):
+# See External Auth Types above for all supported values
+EXTERNAL_AUTH_TYPE = 'DISCORD_BOT_ISSUED_ACCESS_TOKEN'
+
+def exchange_device_code_with_merge(device_code, external_auth_token):
   data = {
     'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
     'device_code': device_code,
@@ -366,7 +393,7 @@ def exchange_device_code_with_merge(device_code):
 
 #### Merge Request Response
 
-```python
+```json
 {
   "access_token": "<access token>",
   "token_type": "Bearer",
@@ -658,10 +685,11 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 
 ## Change Log
 
-| Date              | Changes                                     |
-|-------------------|---------------------------------------------|
-| February 25, 2026 | Clarify unmerge behavior and data migration |
-| March 17, 2025    | Initial release                             |
+| Date              | Changes                                          |
+|-------------------|--------------------------------------------------|
+| April 13, 2026    | Clarify Merging Provisional Accounts for Servers |
+| February 25, 2026 | Clarify unmerge behavior and data migration      |
+| March 17, 2025    | Initial release                                  |
 
 {/* Autogenerated Reference Links */}
 [`Client::Authorize`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468
