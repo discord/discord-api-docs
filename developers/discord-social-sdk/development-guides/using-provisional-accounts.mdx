@@ -229,13 +229,42 @@ void AuthenticateUser(std::shared_ptr<discordpp::Client> client) {
 
 These methods generate a Discord access token. You pass in the user's identity, and it generates a new Discord account tied to that identity. There are multiple ways of specifying that identity, including using Steam/Epic services or your own identity system.
 
-The callback function will be invoked with an access token that expires in 7 days. Refresh tokens are not supported for provisional accounts, so that will be an empty string. When the old one expires, you must call this function again to get a new access token.
+All these methods will return with an access token that expires in 7 days.
 
-You can use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or expires.
+#### Refreshing Provisional Account Tokens
+
+Use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or has expired, so you can refresh it without interrupting the user's experience.
+
+Unlike full Discord accounts, **provisional accounts do not support refresh tokens**. When the token expires, you must re-acquire a new token by calling the same method you used originally (e.g. the [Bot Token Endpoint](#bot-token-endpoint-response) or [`Client::GetProvisionalToken`]), and then pass the new access token to [`Client::UpdateToken`].
 
 <Info>
-When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to UpdateToken without interrupting the user's experience.
+When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to [`Client::UpdateToken`] without interrupting the user's experience.
 </Info>
+
+```cpp
+// Register a callback to handle token expiration
+client->SetTokenExpirationCallback([client](discordpp::AuthorizationTokenType tokenType) {
+    // Re-acquire a new token using the same method you used originally.
+    // For example, if you used GetProvisionalToken:
+    std::string externalToken = GetExternalAuthToken(); // get a fresh token from your identity provider
+    client->GetProvisionalToken(DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC,
+        externalToken,
+        [client](discordpp::ClientResult result, std::string accessToken, std::string refreshToken,
+                 discordpp::AuthorizationTokenType tokenType, int32_t expiresIn, std::string scope) {
+            if (result.Successful()) {
+                // Pass the new access token to UpdateToken — no reconnect needed
+                client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken, [](discordpp::ClientResult result) {
+                    if (result.Successful()) {
+                        std::cout << "✅ Token refreshed successfully\n";
+                    }
+                });
+            } else {
+                std::cerr << "❌ Failed to refresh provisional token: " << result.Error() << std::endl;
+            }
+        });
+});
+```
 
 #### Provisional Account Access Token Storage
 
@@ -687,6 +716,7 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 
 | Date              | Changes                                          |
 |-------------------|--------------------------------------------------|
+| April 14, 2026    | Clarify provisional account token refresh flow   |
 | April 13, 2026    | Clarify Merging Provisional Accounts for Servers |
 | February 25, 2026 | Clarify unmerge behavior and data migration      |
 | March 17, 2025    | Initial release                                  |
@@ -700,3 +730,4 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 [`Client::SetTokenExpirationCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aab5bfc76809ea22e79f2f7a067ac4519
 [`Client::UnmergeIntoProvisionalAccount`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a2da21ae8a3015e0e5e42c1a7226b256f
 [`Client::UpdateProvisionalAccountDisplayName`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7485979ab2d4c533b75f8efd5e50bc60
+[`Client::UpdateToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
