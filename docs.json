@@ -496,7 +496,15 @@
       "destination": "/developers/discovery/best-practices"
     },
     {
+      "source": "/developers/best-practices/crafting-your-app-directory-product-page",
+      "destination": "/developers/discovery/best-practices"
+    },
+    {
       "source": "/developers/docs/monetization/app-subscriptions",
+      "destination": "/developers/monetization/implementing-app-subscriptions"
+    },
+    {
+      "source": "/developers/monetization/app-subscriptions",
       "destination": "/developers/monetization/implementing-app-subscriptions"
     },
     {
@@ -520,7 +528,15 @@
       "destination": "/developers/resources/entitlement"
     },
     {
+      "source": "/developers/monetization/entitlements",
+      "destination": "/developers/resources/entitlement"
+    },
+    {
       "source": "/developers/docs/monetization/skus",
+      "destination": "/developers/resources/sku"
+    },
+    {
+      "source": "/developers/monetization/skus",
       "destination": "/developers/resources/sku"
     },
     {
@@ -533,6 +549,10 @@
     },
     {
       "source": "/developers/docs/rich-presence/how-to",
+      "destination": "/developers/rich-presence/overview"
+    },
+    {
+      "source": "/developers/rich-presence/how-to",
       "destination": "/developers/rich-presence/overview"
     },
     {
@@ -552,7 +572,15 @@
       "destination": "/developers/quick-start/getting-started"
     },
     {
+      "source": "/developers/getting-started",
+      "destination": "/developers/quick-start/getting-started"
+    },
+    {
       "source": "/developers/docs/topics/community-resources",
+      "destination": "/developers/developer-tools/community-resources"
+    },
+    {
+      "source": "/developers/topics/community-resources",
       "destination": "/developers/developer-tools/community-resources"
     },
     {
@@ -564,7 +592,15 @@
       "destination": "/developers/developer-tools/game-sdk"
     },
     {
+      "source": "/developers/game-sdk*",
+      "destination": "/developers/developer-tools/game-sdk"
+    },
+    {
       "source": "/developers/docs/topics/gateway-events*",
+      "destination": "/developers/events/gateway-events"
+    },
+    {
+      "source": "/developers/topics/gateway-events*",
       "destination": "/developers/events/gateway-events"
     },
     {
@@ -572,11 +608,23 @@
       "destination": "/developers/components/reference"
     },
     {
+      "source": "/developers/interactions/message-components*",
+      "destination": "/developers/components/reference"
+    },
+    {
       "source": "/developers/docs/discord-social-sdk/development-guides/debugging-logging",
       "destination": "/developers/discord-social-sdk/how-to/debug-log"
     },
     {
+      "source": "/developers/discord-social-sdk/development-guides/debugging-logging",
+      "destination": "/developers/discord-social-sdk/how-to/debug-log"
+    },
+    {
       "source": "/developers/docs/discord-social-sdk/development-guides/using-with-discord-apis",
+      "destination": "/developers/discord-social-sdk/how-to/use-with-discord-apis"
+    },
+    {
+      "source": "/developers/discord-social-sdk/development-guides/using-with-discord-apis",
       "destination": "/developers/discord-social-sdk/how-to/use-with-discord-apis"
     },
     {
@@ -592,7 +640,15 @@
       "destination": "/developers/change-log"
     },
     {
+      "source": "/developers/changelog",
+      "destination": "/developers/change-log"
+    },
+    {
       "source": "/developers/docs/topics/gateway",
+      "destination": "/developers/events/gateway"
+    },
+    {
+      "source": "/developers/topics/gateway",
       "destination": "/developers/events/gateway"
     },
     {
@@ -606,6 +662,10 @@
     {
       "source": "/developers/interactions/slash-commands",
       "destination": "/developers/interactions/application-commands"
+    },
+    {
+      "source": "/developers/embedded-apps/overview",
+      "destination": "/developers/activities/overview"
     }
   ],
   "logo": {
