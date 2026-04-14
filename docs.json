@@ -657,7 +657,11 @@
     },
     {
       "source": "/developers/docs/rich-presence/using-with-the-social-sdk",
-      "destination": "/developers/discord-social-sdk/development-guides/how-to-build-an-activity"
+      "destination": "/developers/discord-social-sdk/development-guides/setting-rich-presence"
+    },
+    {
+      "source": "/developers/rich-presence/using-with-the-social-sdk",
+      "destination": "/developers/discord-social-sdk/development-guides/setting-rich-presence"
     },
     {
       "source": "/developers/interactions/slash-commands",
