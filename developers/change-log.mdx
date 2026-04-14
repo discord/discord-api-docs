@@ -6,6 +6,21 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="April 14, 2026" tags={["HTTP API"]} rss={{
+    title: "Message Forwarding Requires Message Content Access",
+    description: "Starting today, applications must be able to read a message's content in order to forward it."
+  }}>
+
+  ## Message Forwarding Requires Message Content Access
+
+  Starting today, applications must be able to read a message's content in order to forward it.
+
+  An application attempting to forward a message it cannot read will now receive error code `160014` with the message "You cannot forward a message whose content you cannot read."
+
+  Most applications will not be affected by this change, but those recently affected have been notified directly via system DM.
+
+</Update>
+
 <Update label="April 6, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.8.14985",
     description: "Xbox GDK 251002 support."
