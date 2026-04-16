@@ -6,6 +6,28 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="April 16, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts",
+    description: "Using the OAuth2 refresh_token grant to refresh OIDC server-side provisional account tokens is deprecated. Re-authenticate using a fresh provider token instead."
+  }}>
+
+  ## Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts
+
+    If you are using [OIDC server-side authentication](/developers/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-external-credentials-exchange)
+    for provisional accounts, a `refresh_token` is returned — but using it via the OAuth2 `refresh_token` grant is now
+    deprecated.
+
+    This brings OIDC in line with all other provisional account authentication methods: when the token
+    expires, re-authenticate using a fresh provider token and pass the new access token to [`Client::UpdateToken`].
+
+    See the [Refreshing Provisional Account Tokens](/developers/discord-social-sdk/development-guides/using-provisional-accounts#refreshing-provisional-account-tokens)
+    section for details.
+
+    [`Client::UpdateToken`]:
+    https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
+
+</Update>
+
 <Update label="April 14, 2026" tags={["HTTP API"]} rss={{
     title: "Message Forwarding Requires Message Content Access",
     description: "Starting today, applications must be able to read a message's content in order to forward it."
