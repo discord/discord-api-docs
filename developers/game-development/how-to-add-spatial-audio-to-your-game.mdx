@@ -40,11 +40,11 @@ Everything starts with a [lobby in the Discord Social SDK](/developers/discord-s
 
 ### 2. Starting a Voice Call with Audio Callbacks
 
-The Social SDK lets you start a voice call for a lobby, but here is the key difference from a normal voice call: instead of calling `StartCall()` and letting Discord handle playback through the user's default audio device, you call [`StartCallWithAudioCallbacks()`](/developers/docs/social-sdk/classdiscordpp_1_1Client.html#abcaa891769f9e912bfa0e06ff7221b05). This function intercepts the audio pipeline and gives you a callback that fires every time Discord has decoded audio ready for a player.
+The Social SDK lets you start a voice call for a lobby, but here is the key difference from a normal voice call: instead of calling [`Client::StartCall`] and letting Discord handle playback through the user's default audio device, you call [`Client::StartCallWithAudioCallbacks`]. This function intercepts the audio pipeline and gives you a callback that fires every time Discord has decoded audio ready for a player.
 
 ### 3. Intercepting the Audio
 
-When Discord receives and decodes voice audio from a remote player, it calls your [`UserAudioReceivedCallback`](/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a49934aeb3ba5093c2362dedfd1e9ad3b). This callback hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
+When Discord receives and decodes voice audio from a remote player, it calls your [`Client::UserAudioReceivedCallback`]. This callback hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
 
 ### 4. Routing Audio to a GameObject
 
@@ -77,7 +77,7 @@ Declare the dictionary at the top of your class handling Social SDK callbacks:
 private Dictionary<ulong, VoiceAudioSource> voiceSources = new Dictionary<ulong, VoiceAudioSource>();
 ```
 
-Subscribe to `SetLobbyMemberAddedCallback()` to spawn the remote player and register them:
+Subscribe to [`Client::SetLobbyMemberAddedCallback`] to spawn the remote player and register them:
 
 ```csharp
 client.SetLobbyMemberAddedCallback((lobbyId, userId) =>
@@ -98,7 +98,7 @@ Only register remote players, not the local player. The local player's voice is 
 
 ## Setting Up the Voice Call
 
-When a player joins a lobby, start a voice call using `StartCallWithAudioCallbacks`. Provide two callbacks: one for received audio (`OnVoiceAudioReceived` defined below), which you will use for spatial positioning, and one for outgoing audio, which you can leave empty since Discord handles microphone capture.
+When a player joins a lobby, start a voice call using [`Client::StartCallWithAudioCallbacks`]. Provide two callbacks: one for received audio (`OnVoiceAudioReceived` defined below), which you will use for spatial positioning, and one for outgoing audio, which you can leave empty since Discord handles microphone capture.
 
 ```csharp
 activeCall = client.StartCallWithAudioCallbacks(currentLobbyId, OnVoiceAudioReceived,
@@ -112,7 +112,7 @@ if (activeCall != null)
 
 The call returns an `activeCall` object you can use to configure voice settings.
 
-Voice Activity Detection (VAD) is how Discord determines whether a player is speaking or silent. Audio below the threshold is suppressed rather than transmitted. [`SetVADThreshold(false, -80f)`](/developers/docs/social-sdk/classdiscordpp_1_1Call.html#a7c3fd83c5dfe37d796e30c5e28c93b6e) sets a low threshold for voice detection (VAD). A low threshold like this allows players to whisper and still be heard. Tuning this value lower to `-100f` will allow all audio to come through but you may hear keyboard clicks and other noise. Raising it or removing this call will use a standard threshold set for regular volume speech.
+Voice Activity Detection (VAD) is how Discord determines whether a player is speaking or silent. Audio below the threshold is suppressed rather than transmitted. [`Call::SetVADThreshold`] with a value of `-80f` sets a low threshold for voice detection (VAD). A low threshold like this allows players to whisper and still be heard. Tuning this value lower to `-100f` will allow all audio to come through but you may hear keyboard clicks and other noise. Raising it or removing this call will use a standard threshold set for regular volume speech.
 
 ---
 
@@ -253,7 +253,7 @@ public class VoiceAudioSource : MonoBehaviour
 Here is what this component does:
 
 - **Awake** creates a streaming `AudioClip` that Unity's audio thread pulls samples from continuously. The `AudioSource` is configured with `spatialBlend = 1f` for full 3D positioning, meaning Unity will apply distance-based volume attenuation and stereo panning based on where this GameObject is relative to the `AudioListener` in the scene.
-- **FeedSamples** is called from `OnVoiceAudioReceived` which is hooked up to `StartCallWithAudioCallbacks`. It takes the raw audio data from Discord, converts it to floating point, mixes multi-channel audio down to mono, and writes the samples into a ring buffer. The `lock` ensures thread safety between the Social SDK and Unity’s audio thread.
+- **FeedSamples** is called from `OnVoiceAudioReceived` which is hooked up to [`Client::StartCallWithAudioCallbacks`]. It takes the raw audio data from Discord, converts it to floating point, mixes multi-channel audio down to mono, and writes the samples into a ring buffer. The `lock` ensures thread safety between the Social SDK and Unity’s audio thread.
 - **OnPCMRead** is called by Unity's audio thread whenever it needs more samples to play. It drains available samples from the ring buffer, or outputs silence if the buffer is empty (for example, when the player is not speaking).
 
 The ring buffer is what makes this work. It bridges two completely different threading models: Discord's audio callback thread, which pushes data in, and Unity's audio thread, which pulls data out. The two-second buffer provides plenty of headroom to absorb timing differences between the two systems.
@@ -272,7 +272,7 @@ The `spatialBlend = 1f` setting on the `AudioSource` is what makes the audio spa
 
 Here is the full architecture from start to finish:
 
-1. A player joins lobby and `StartCallWithAudioCallbacks()` starts the Discord voice call with your custom audio callback.
+1. A player joins lobby and [`Client::StartCallWithAudioCallbacks`] starts the Discord voice call with your custom audio callback.
 2. Decoded audio arrives for a remote player and the `OnVoiceAudioReceived` callback fires.
 3. Audio data is routed to that player's `VoiceAudioSource` component via `FeedSamples()` .
 4. `VoiceAudioSource` sends the audio into Unity's audio system through its ring buffer and streaming `AudioClip`
@@ -299,3 +299,9 @@ Ready to go deeper? These guides cover the systems that work alongside spatial a
         Build a Discord bot to extend your game's presence into the community
     </Card>
 </Columns>
+
+{/* Autogenerated Reference Links */}
+[`Call::SetVADThreshold`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#a7c3fd83c5dfe37d796e30c5e28c93b6e
+[`Client::SetLobbyMemberAddedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ae5388407cfc02f25919cb9fbe14a8cb8
+[`Client::StartCall`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aef4f25d761fe198fbe9bc721fc24d83f
+[`Client::StartCallWithAudioCallbacks`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#abcaa891769f9e912bfa0e06ff7221b05
