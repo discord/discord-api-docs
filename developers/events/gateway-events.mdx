@@ -64,6 +64,7 @@ Previously, Gateway send events were labeled as commands
 | [Heartbeat](/developers/events/gateway-events#heartbeat)                                 | Maintains an active gateway connection                    |
 | [Request Guild Members](/developers/events/gateway-events#request-guild-members)         | Requests members for a guild                              |
 | [Request Soundboard Sounds](/developers/events/gateway-events#request-soundboard-sounds) | Requests soundboard sounds in a set of guilds             |
+| [Request Channel Info](/developers/events/gateway-events#request-channel-info)           | Requests ephemeral channel data for channels in a guild   |
 | [Update Voice State](/developers/events/gateway-events#update-voice-state)               | Joins, moves, or disconnects the app from a voice channel |
 | [Update Presence](/developers/events/gateway-events#update-presence)                     | Updates an app's presence                                 |
 
@@ -245,6 +246,28 @@ Used to request soundboard sounds for a list of guilds. The server will send [So
 }
 ```
 
+### Request Channel Info
+
+Requests ephemeral channel data for channels in a guild. The server will send a [Channel Info](/developers/events/gateway-events#channel-info) event in response.
+
+<ManualAnchor id="request-channel-info-request-channel-info-structure" />
+###### Request Channel Info Structure
+
+| Field    | Type             | Description                                                                              |
+|----------|------------------|------------------------------------------------------------------------------------------|
+| guild_id | snowflake        | The guild id to request channel info for                                                 |
+| fields   | array of strings | The fields to request. The current available fields are `status` and `voice_start_time`. |
+
+<ManualAnchor id="request-channel-info-example-request-channel-info" />
+###### Example Request Channel Info
+
+```json
+{
+  "guild_id": "613425648685547541",
+  "fields": ["status", "voice_start_time"]
+}
+```
+
 #### Update Voice State
 
 Sent when a client wants to join, move, or disconnect from a voice channel.
@@ -398,6 +421,7 @@ Receive events are Gateway events encapsulated in an [event payload](/developers
 | [User Update](/developers/events/gateway-events#user-update)                                                       | Properties about the user changed                                                                                                                          |
 | [Voice Channel Effect Send](/developers/events/gateway-events#voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                                 |
 | [Voice Channel Status Update](/developers/events/gateway-events#voice-channel-status-update)                       | Voice channel status was updated                                                                                                                           |
+| [Voice Channel Start Time Update](/developers/events/gateway-events#voice-channel-start-time-update)               | Voice channel start time was updated                                                                                                                       |
 | [Voice State Update](/developers/events/gateway-events#voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                             |
 | [Voice Server Update](/developers/events/gateway-events#voice-server-update)                                       | Guild's voice server was updated                                                                                                                           |
 | [Webhooks Update](/developers/events/gateway-events#webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                                      |
@@ -549,6 +573,27 @@ This event may reference roles or guild members that no longer exist in the guil
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](/developers/resources/channel#channel-object) object.
 
+#### Channel Info
+
+Includes ephemeral data for channels in a guild. Sent in response to [Request Channel Info](/developers/events/gateway-events#request-channel-info).
+
+<ManualAnchor id="channel-info-channel-info-structure" />
+###### Channel Info Structure
+
+| Field    | Type                                                                                                           | Description                              |
+|----------|----------------------------------------------------------------------------------------------------------------|------------------------------------------|
+| guild_id | snowflake                                                                                                      | The guild id                             |
+| channels | array of [channel info](/developers/events/gateway-events#channel-info-channel-info-channel-structure) objects | Ephemeral data for channels in the guild |
+
+<ManualAnchor id="channel-info-channel-info-channel-structure" />
+###### Channel Info Channel Structure
+
+| Field             | Type      | Description                                                   |
+|-------------------|-----------|---------------------------------------------------------------|
+| id                | snowflake | The channel id                                                |
+| status?           | ?string   | The voice channel status                                      |
+| voice_start_time? | ?integer  | Unix timestamp (in seconds) of when the voice session started |
+
 #### Voice Channel Status Update
 
 Sent when the voice channel status changes.
@@ -558,6 +603,16 @@ Sent when the voice channel status changes.
 | id       | snowflake | The channel id               |
 | guild_id | snowflake | The guild id                 |
 | status   | ?string   | The new voice channel status |
+
+#### Voice Channel Start Time Update
+
+Sent when the voice channel start time changes.
+
+| Field             | Type      | Description                                                   |
+|-------------------|-----------|---------------------------------------------------------------|
+| id                | snowflake | The channel id                                                |
+| guild_id          | snowflake | The guild id                                                  |
+| voice_start_time? | ?integer  | Unix timestamp (in seconds) of when the voice session started |
 
 #### Thread Create
 
