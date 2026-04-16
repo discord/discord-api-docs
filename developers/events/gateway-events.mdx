@@ -397,6 +397,7 @@ Receive events are Gateway events encapsulated in an [event payload](/developers
 | [Typing Start](/developers/events/gateway-events#typing-start)                                                     | User started typing in a channel                                                                                                                           |
 | [User Update](/developers/events/gateway-events#user-update)                                                       | Properties about the user changed                                                                                                                          |
 | [Voice Channel Effect Send](/developers/events/gateway-events#voice-channel-effect-send)                           | Someone sent an effect in a voice channel the current user is connected to                                                                                 |
+| [Voice Channel Status Update](/developers/events/gateway-events#voice-channel-status-update)                       | Voice channel status was updated                                                                                                                           |
 | [Voice State Update](/developers/events/gateway-events#voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                             |
 | [Voice Server Update](/developers/events/gateway-events#voice-server-update)                                       | Guild's voice server was updated                                                                                                                           |
 | [Webhooks Update](/developers/events/gateway-events#webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                                      |
@@ -547,6 +548,16 @@ This event may reference roles or guild members that no longer exist in the guil
 #### Channel Delete
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](/developers/resources/channel#channel-object) object.
+
+#### Voice Channel Status Update
+
+Sent when the voice channel status changes.
+
+| Field    | Type      | Description                  |
+|----------|-----------|------------------------------|
+| id       | snowflake | The channel id               |
+| guild_id | snowflake | The guild id                 |
+| status   | ?string   | The new voice channel status |
 
 #### Thread Create
 
