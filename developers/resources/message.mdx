@@ -35,7 +35,7 @@ An app will receive empty values in the `content`, `embeds`, `attachments`, and 
 | mentions                  | array of [user](/developers/resources/user#user-object) objects                                                                          | users specifically mentioned in the message                                                                                                                                                                                                                             |
 | mention_roles             | array of [role](/developers/topics/permissions#role-object) object ids                                                                   | roles specifically mentioned in this message                                                                                                                                                                                                                            |
 | mention_channels? \[3\]   | array of [channel mention](/developers/resources/message#channel-mention-object) objects                                                 | channels specifically mentioned in this message                                                                                                                                                                                                                         |
-| attachments \[2\]         | array of [attachment](/developers/resources/message#attachment-object) objects                                                           | any attached files                                                                                                                                                                                                                                                      |
+| attachments \[2\]         | array of [attachment](/developers/resources/message#attachment-object) objects                                                           | any attached files that are not referenced in embeds or components                                                                                                                                                                                                      |
 | embeds \[2\]              | array of [embed](/developers/resources/message#embed-object) objects                                                                     | any embedded content                                                                                                                                                                                                                                                    |
 | reactions?                | array of [reaction](/developers/resources/message#reaction-object) objects                                                               | reactions to the message                                                                                                                                                                                                                                                |
 | nonce?                    | integer or string                                                                                                                        | used for validating a message was sent                                                                                                                                                                                                                                  |
@@ -349,6 +349,10 @@ Determines how associated data is populated.
 Thus we support only messages with type `DEFAULT`, `REPLY`, `CHAT_INPUT_COMMAND`, or `CONTEXT_MENU_COMMAND`, and don't support messages with a poll, call, or activity.
 This is subject to change in the future.
 
+<Warning>
+Applications must be able to read a message's content in order to forward it. An application attempting to forward a message it cannot read will receive error code `160014` with the message "You cannot forward a message whose content you cannot read."
+</Warning>
+
 #### Message Reference Content Attribution
 
 Message references are generic attribution on a message.
@@ -484,21 +488,22 @@ The reaction count details object contains a breakdown of normal and super react
 <ManualAnchor id="embed-object-embed-structure" />
 ###### Embed Structure
 
-| Field        | Type                                                                                             | Description                                                                                                |
-|--------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| title?       | string                                                                                           | title of embed                                                                                             |
-| type?        | string                                                                                           | [type of embed](/developers/resources/message#embed-object-embed-types) (always "rich" for webhook embeds) |
-| description? | string                                                                                           | description of embed                                                                                       |
-| url?         | string                                                                                           | url of embed                                                                                               |
-| timestamp?   | ISO8601 timestamp                                                                                | timestamp of embed content                                                                                 |
-| color?       | integer                                                                                          | color code of the embed                                                                                    |
-| footer?      | [embed footer](/developers/resources/message#embed-object-embed-footer-structure) object         | footer information                                                                                         |
-| image?       | [embed image](/developers/resources/message#embed-object-embed-image-structure) object           | image information                                                                                          |
-| thumbnail?   | [embed thumbnail](/developers/resources/message#embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                      |
-| video?       | [embed video](/developers/resources/message#embed-object-embed-video-structure) object           | video information                                                                                          |
-| provider?    | [embed provider](/developers/resources/message#embed-object-embed-provider-structure) object     | provider information                                                                                       |
-| author?      | [embed author](/developers/resources/message#embed-object-embed-author-structure) object         | author information                                                                                         |
-| fields?      | array of [embed field](/developers/resources/message#embed-object-embed-field-structure) objects | fields information, max of 25                                                                              |
+| Field        | Type                                                                                             | Description                                                                                                                             |
+|--------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| title?       | string                                                                                           | title of embed                                                                                                                          |
+| type?        | string                                                                                           | [type of embed](/developers/resources/message#embed-object-embed-types) (always "rich" for webhook embeds)                              |
+| description? | string                                                                                           | description of embed                                                                                                                    |
+| url?         | string                                                                                           | url of embed                                                                                                                            |
+| timestamp?   | ISO8601 timestamp                                                                                | timestamp of embed content                                                                                                              |
+| color?       | integer                                                                                          | color code of the embed                                                                                                                 |
+| footer?      | [embed footer](/developers/resources/message#embed-object-embed-footer-structure) object         | footer information                                                                                                                      |
+| image?       | [embed image](/developers/resources/message#embed-object-embed-image-structure) object           | image information                                                                                                                       |
+| thumbnail?   | [embed image](/developers/resources/message#embed-object-embed-image-structure) object           | thumbnail information                                                                                                                   |
+| video?       | [embed video](/developers/resources/message#embed-object-embed-video-structure) object           | video information                                                                                                                       |
+| provider?    | [embed provider](/developers/resources/message#embed-object-embed-provider-structure) object     | provider information                                                                                                                    |
+| author?      | [embed author](/developers/resources/message#embed-object-embed-author-structure) object         | author information                                                                                                                      |
+| fields?      | array of [embed field](/developers/resources/message#embed-object-embed-field-structure) objects | fields information, max of 25                                                                                                           |
+| flags?       | integer                                                                                          | [embed flags](/developers/resources/message#embed-object-embed-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 <ManualAnchor id="embed-object-embed-types" />
 ###### Embed Types
@@ -513,35 +518,49 @@ The reaction count details object contains a breakdown of normal and super react
 | link        | link embed                                                                                             |
 | poll_result | [poll result embed](/developers/resources/message#embed-fields-by-embed-type-poll-result-embed-fields) |
 
-<ManualAnchor id="embed-object-embed-thumbnail-structure" />
-###### Embed Thumbnail Structure
+<ManualAnchor id="embed-object-embed-flags" />
+###### Embed Flags
 
-| Field      | Type    | Description                                                     |
-|------------|---------|-----------------------------------------------------------------|
-| url        | string  | source url of thumbnail (only supports http(s) and attachments) |
-| proxy_url? | string  | a proxied url of the thumbnail                                  |
-| height?    | integer | height of thumbnail                                             |
-| width?     | integer | width of thumbnail                                              |
+| Flag                       | Value    | Description                                              |
+|----------------------------|----------|----------------------------------------------------------|
+| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a fallback for a reply to an activity card |
 
 <ManualAnchor id="embed-object-embed-video-structure" />
 ###### Embed Video Structure
 
-| Field      | Type    | Description                |
-|------------|---------|----------------------------|
-| url?       | string  | source url of video        |
-| proxy_url? | string  | a proxied url of the video |
-| height?    | integer | height of video            |
-| width?     | integer | width of video             |
+| Field                | Type    | Description                                                                                                                                         |
+|----------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| url?                 | string  | source url of video                                                                                                                                 |
+| proxy_url?           | string  | a proxied url of the video                                                                                                                          |
+| height?              | integer | height of video                                                                                                                                     |
+| width?               | integer | width of video                                                                                                                                      |
+| content_type?        | string  | the video's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                                  |
+| placeholder?         | string  | [thumbhash](https://evanw.github.io/thumbhash/) placeholder of the video                                                                            |
+| placeholder_version? | integer | version of the placeholder                                                                                                                          |
+| description?         | string  | description (alt text) for the video                                                                                                                |
+| flags?               | integer | [embed media flags](/developers/resources/message#embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 <ManualAnchor id="embed-object-embed-image-structure" />
 ###### Embed Image Structure
 
-| Field      | Type    | Description                                                 |
-|------------|---------|-------------------------------------------------------------|
-| url        | string  | source url of image (only supports http(s) and attachments) |
-| proxy_url? | string  | a proxied url of the image                                  |
-| height?    | integer | height of image                                             |
-| width?     | integer | width of image                                              |
+| Field                | Type    | Description                                                                                                                                         |
+|----------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| url                  | string  | source url of image (only supports http(s) and attachments)                                                                                         |
+| proxy_url?           | string  | a proxied url of the image                                                                                                                          |
+| height?              | integer | height of image                                                                                                                                     |
+| width?               | integer | width of image                                                                                                                                      |
+| content_type?        | string  | the image's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                                  |
+| placeholder?         | string  | [thumbhash](https://evanw.github.io/thumbhash/) placeholder of the image                                                                            |
+| placeholder_version? | integer | version of the placeholder                                                                                                                          |
+| description?         | string  | description (alt text) for the image                                                                                                                |
+| flags?               | integer | [embed media flags](/developers/resources/message#embed-object-embed-media-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+
+<ManualAnchor id="embed-object-embed-media-flags" />
+###### Embed Media Flags
+
+| Flag        | Value    | Description            |
+|-------------|----------|------------------------|
+| IS_ANIMATED | `1 << 5` | this image is animated |
 
 <ManualAnchor id="embed-object-embed-provider-structure" />
 ###### Embed Provider Structure
@@ -627,31 +646,40 @@ Certain embed types are used to power special UIs. These embeds use [fields](/de
 For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 </Info>
 
-| Field          | Type      | Description                                                                                                                                            |
-|----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id             | snowflake | attachment id                                                                                                                                          |
-| filename       | string    | name of file attached                                                                                                                                  |
-| title?         | string    | the title of the file                                                                                                                                  |
-| description?   | string    | description for the file (max 1024 characters)                                                                                                         |
-| content_type?  | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                                |
-| size           | integer   | size of file in bytes                                                                                                                                  |
-| url            | string    | source url of file                                                                                                                                     |
-| proxy_url      | string    | a proxied url of file                                                                                                                                  |
-| height?        | ?integer  | height of file (if image)                                                                                                                              |
-| width?         | ?integer  | width of file (if image)                                                                                                                               |
-| ephemeral? \*  | boolean   | whether this attachment is ephemeral                                                                                                                   |
-| duration_secs? | float     | the duration of the audio file (currently for voice messages)                                                                                          |
-| waveform?      | string    | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                                |
-| flags?         | integer   | [attachment flags](/developers/resources/message#attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field                | Type                                                                 | Description                                                                                                                                            |
+|----------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                   | snowflake                                                            | attachment id                                                                                                                                          |
+| filename             | string                                                               | name of file attached                                                                                                                                  |
+| title?               | string                                                               | the title of the file                                                                                                                                  |
+| description?         | string                                                               | description (alt text) for the file (max 1024 characters)                                                                                              |
+| content_type?        | string                                                               | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)                                                                                |
+| size                 | integer                                                              | size of file in bytes                                                                                                                                  |
+| url                  | string                                                               | source url of file                                                                                                                                     |
+| proxy_url            | string                                                               | a proxied url of file                                                                                                                                  |
+| height?              | ?integer                                                             | height of file (if image or video)                                                                                                                     |
+| width?               | ?integer                                                             | width of file (if image or video)                                                                                                                      |
+| placeholder?         | string                                                               | [thumbhash](https://evanw.github.io/thumbhash/) placeholder (if image or video)                                                                        |
+| placeholder_version? | integer                                                              | version of the placeholder (if image or video)                                                                                                         |
+| ephemeral? \*        | boolean                                                              | whether this attachment is ephemeral                                                                                                                   |
+| duration_secs?       | float                                                                | the duration of the audio file (currently for voice messages)                                                                                          |
+| waveform?            | string                                                               | base64 encoded bytearray representing a sampled waveform (currently for voice messages)                                                                |
+| flags?               | integer                                                              | [attachment flags](/developers/resources/message#attachment-object-attachment-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| clip_participants?   | array of [user](/developers/resources/user#user-object) objects      | for Clips, array of users who were in the stream                                                                                                       |
+| clip_created_at?     | ISO8601 timestamp                                                    | for Clips, when the clip was created                                                                                                                   |
+| application?         | ?[application](/developers/resources/application#application-object) | for Clips, the application in the stream, if recognized                                                                                                |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
 <ManualAnchor id="attachment-object-attachment-flags" />
 ###### Attachment Flags
 
-| Flag     | Value    | Description                                                       |
-|----------|----------|-------------------------------------------------------------------|
-| IS_REMIX | `1 << 2` | this attachment has been edited using the remix feature on mobile |
+| Flag         | Value    | Description                                                                                                   |
+|--------------|----------|---------------------------------------------------------------------------------------------------------------|
+| IS_CLIP      | `1 << 0` | this attachment is a [Clip from a stream](https://support.discord.com/hc/en-us/articles/16861982215703)       |
+| IS_THUMBNAIL | `1 << 1` | this attachment is the thumbnail of a thread in a media channel, displayed in the grid but not on the message |
+| IS_REMIX     | `1 << 2` | this attachment has been edited using the remix feature on mobile (deprecated)                                |
+| IS_SPOILER   | `1 << 3` | this attachment was marked as a spoiler and is blurred until clicked                                          |
+| IS_ANIMATED  | `1 << 5` | this attachment is an animated image                                                                          |
 
 ### Channel Mention Object
 
@@ -905,32 +933,32 @@ Additionally, when messages are actively being created or deleted, the `total_re
 <ManualAnchor id="search-guild-messages-query-string-params" />
 ###### Query String Params
 
-| Field                  | Type                | Description                                                                                                                         |
-|------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| limit?                 | integer             | Max number of messages to return (1-25, default 25)                                                                                 |
-| offset?                | integer             | Number to offset the returned messages by (max 9975)                                                                                |
-| max_id?                | snowflake           | Get messages before this message ID                                                                                                 |
-| min_id?                | snowflake           | Get messages after this message ID                                                                                                  |
-| slop?                  | integer             | Max number of words to skip between matching tokens in the search `content` (max 100, default 2)                                    |
-| content?               | string              | Filter messages by content (max 1024 characters)                                                                                    |
-| channel_id?            | array of snowflakes | Filter messages by these channels (max 500)                                                                                         |
-| author_type?           | array of strings    | Filter messages by [author type](/developers/resources/message#search-guild-messages-author-types)                                  |
-| author_id?             | array of snowflakes | Filter messages by these authors (max 100)                                                                                          |
-| mentions?              | array of snowflakes | Filter messages that mention these users (max 100)                                                                                  |
-| mentions_role_id?      | array of snowflakes | Filter messages that mention these roles (max 100)                                                                                  |
-| mention_everyone?      | boolean             | Filter messages that do or do not mention @everyone                                                                                 |
-| replied_to_user_id?    | array of snowflakes | Filter messages that reply to these users (max 100)                                                                                 |
-| replied_to_message_id? | array of snowflakes | Filter messages that reply to these messages (max 100)                                                                              |
-| pinned?                | boolean             | Filter messages by whether they are or are not pinned                                                                               |
-| has?                   | array of strings    | Filter messages by whether or not they [have specific things](/developers/resources/message#search-guild-messages-search-has-types) |
-| embed_type?            | array of strings    | Filter messages by [embed type](/developers/resources/message#search-guild-messages-search-embed-types)                             |
-| embed_provider?        | array of strings    | Filter messages by embed provider (case-sensitive, e.g. `Tenor`) (max 256 characters, max 100)                                      |
-| link_hostname?         | array of strings    | Filter messages by link hostname (e.g. `discordapp.com`) (max 256 characters, max 100)                                              |
-| attachment_filename?   | array of strings    | Filter messages by attachment filename (max 1024 characters, max 100)                                                               |
-| attachment_extension?  | array of strings    | Filter messages by attachment extension (e.g. `txt`) (max 256 characters, max 100)                                                  |
-| sort_by? \[1\]         | string              | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-modes) to use                               |
-| sort_order? \[1\]      | string              | The direction to sort (`asc` or `desc`, default `desc`)                                                                             |
-| include_nsfw?          | boolean             | Whether to include results from age-restricted channels (default false)                                                             |
+| Field                  | Type                                                             | Description                                                                                                                         |
+|------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| limit?                 | integer                                                          | Max number of messages to return (1-25, default 25)                                                                                 |
+| offset?                | integer                                                          | Number to offset the returned messages by (max 9975)                                                                                |
+| max_id?                | snowflake                                                        | Get messages before this message ID                                                                                                 |
+| min_id?                | snowflake                                                        | Get messages after this message ID                                                                                                  |
+| slop?                  | integer                                                          | Max number of words to skip between matching tokens in the search `content` (max 100, default 2)                                    |
+| content?               | string                                                           | Filter messages by content (max 1024 characters)                                                                                    |
+| channel_id?            | [array](/developers/reference#array-query-strings) of snowflakes | Filter messages by these channels (max 500)                                                                                         |
+| author_type?           | [array](/developers/reference#array-query-strings) of strings    | Filter messages by [author type](/developers/resources/message#search-guild-messages-author-types)                                  |
+| author_id?             | [array](/developers/reference#array-query-strings) of snowflakes | Filter messages by these authors (max 100)                                                                                          |
+| mentions?              | [array](/developers/reference#array-query-strings) of snowflakes | Filter messages that mention these users (max 100)                                                                                  |
+| mentions_role_id?      | [array](/developers/reference#array-query-strings) of snowflakes | Filter messages that mention these roles (max 100)                                                                                  |
+| mention_everyone?      | [boolean](/developers/reference#boolean-query-strings)           | Filter messages that do or do not mention @everyone                                                                                 |
+| replied_to_user_id?    | [array](/developers/reference#array-query-strings) of snowflakes | Filter messages that reply to these users (max 100)                                                                                 |
+| replied_to_message_id? | [array](/developers/reference#array-query-strings) of snowflakes | Filter messages that reply to these messages (max 100)                                                                              |
+| pinned?                | [boolean](/developers/reference#boolean-query-strings)           | Filter messages by whether they are or are not pinned                                                                               |
+| has?                   | [array](/developers/reference#array-query-strings) of strings    | Filter messages by whether or not they [have specific things](/developers/resources/message#search-guild-messages-search-has-types) |
+| embed_type?            | [array](/developers/reference#array-query-strings) of strings    | Filter messages by [embed type](/developers/resources/message#search-guild-messages-search-embed-types)                             |
+| embed_provider?        | [array](/developers/reference#array-query-strings) of strings    | Filter messages by embed provider (case-sensitive, e.g. `Tenor`) (max 256 characters, max 100)                                      |
+| link_hostname?         | [array](/developers/reference#array-query-strings) of strings    | Filter messages by link hostname (e.g. `discordapp.com`) (max 256 characters, max 100)                                              |
+| attachment_filename?   | [array](/developers/reference#array-query-strings) of strings    | Filter messages by attachment filename (max 1024 characters, max 100)                                                               |
+| attachment_extension?  | [array](/developers/reference#array-query-strings) of strings    | Filter messages by attachment extension (e.g. `txt`) (max 256 characters, max 100)                                                  |
+| sort_by? \[1\]         | string                                                           | The [sorting algorithm](/developers/resources/message#search-guild-messages-search-sort-modes) to use                               |
+| sort_order? \[1\]      | string                                                           | The direction to sort (`asc` or `desc`, default `desc`)                                                                             |
+| include_nsfw?          | [boolean](/developers/reference#boolean-query-strings)           | Whether to include results from age-restricted channels (default false)                                                             |
 
 \[1\] Sort order is not respected when sorting by relevance.
 
@@ -1053,7 +1081,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 \* At least one of `content`, `embeds`, `sticker_ids`, `components`, `files[n]`, `poll`, or `shared_client_theme` is required. When forwarding a message, only `message_reference` is required.
 
-\*\* When the flag `IS_COMPONENTS_V2` is set, the message can only contain `components`. Providing `content`, `embeds`, `sticker_ids`, `files[n]`, `poll`, or `shared_client_theme` will fail with a 400 BAD REQUEST response.
+\*\* When the flag `IS_COMPONENTS_V2` is set, the message can only contain `components`. Providing `content`, `embeds`, `sticker_ids`, `poll`, or `shared_client_theme` will fail with a 400 BAD REQUEST response.
 
 <ManualAnchor id="create-message-example-request-body-application/json" />
 ###### Example Request Body (application/json)

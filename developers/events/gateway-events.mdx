@@ -716,7 +716,7 @@ Sent when a guild audit log entry is created. The inner payload is an [Audit Log
 
 #### Guild Ban Add
 
-Sent when a user is banned from a guild.
+Sent when a user is banned from a guild. This event is only sent to bots with the `BAN_MEMBERS` or `VIEW_AUDIT_LOG` permission.
 
 <ManualAnchor id="guild-ban-add-guild-ban-add-event-fields" />
 ###### Guild Ban Add Event Fields
@@ -728,7 +728,7 @@ Sent when a user is banned from a guild.
 
 #### Guild Ban Remove
 
-Sent when a user is unbanned from a guild.
+Sent when a user is unbanned from a guild. This event is only sent to bots with the `BAN_MEMBERS` or `VIEW_AUDIT_LOG` permission.
 
 <ManualAnchor id="guild-ban-remove-guild-ban-remove-event-fields" />
 ###### Guild Ban Remove Event Fields
@@ -1324,6 +1324,12 @@ To use an external image via media proxy, specify the URL as the field's value w
 |-------------------|--------------------------|----------------------------------------------------------------------------------|
 | Application Asset | `{application_asset_id}` | See [Application Asset Image Formatting](/developers/reference#image-formatting) |
 | Media Proxy Image | `mp:{image_id}`          | `https://media.discordapp.net/{image_id}`                                        |
+
+<Info>
+**Uploaded assets** (Application Asset type) support PNG, JPEG, and WebP. Animated images are not supported for uploaded assets.
+
+**External URL assets** (Media Proxy Image type) support any publicly accessible image URL, including GIF, animated WebP, and AVIF.
+</Info>
 
 <ManualAnchor id="activity-object-activity-secrets" />
 ###### Activity Secrets

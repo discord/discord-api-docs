@@ -6,6 +6,94 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="April 16, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts",
+    description: "Using the OAuth2 refresh_token grant to refresh OIDC server-side provisional account tokens is deprecated. Re-authenticate using a fresh provider token instead."
+  }}>
+
+  ## Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts
+
+    If you are using [OIDC server-side authentication](/developers/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-external-credentials-exchange)
+    for provisional accounts, a `refresh_token` is returned — but using it via the OAuth2 `refresh_token` grant is now
+    deprecated.
+
+    This brings OIDC in line with all other provisional account authentication methods: when the token
+    expires, re-authenticate using a fresh provider token and pass the new access token to [`Client::UpdateToken`].
+
+    See the [Refreshing Provisional Account Tokens](/developers/discord-social-sdk/development-guides/using-provisional-accounts#refreshing-provisional-account-tokens)
+    section for details.
+
+    [`Client::UpdateToken`]:
+    https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
+
+</Update>
+
+<Update label="April 14, 2026" tags={["HTTP API"]} rss={{
+    title: "Message Forwarding Requires Message Content Access",
+    description: "Starting today, applications must be able to read a message's content in order to forward it."
+  }}>
+
+  ## Message Forwarding Requires Message Content Access
+
+  Starting today, applications must be able to read a message's content in order to forward it.
+
+  An application attempting to forward a message it cannot read will now receive error code `160014` with the message "You cannot forward a message whose content you cannot read."
+
+  Most applications will not be affected by this change, but those recently affected have been notified directly via system DM.
+
+</Update>
+
+<Update label="April 6, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.8.14985",
+    description: "Xbox GDK 251002 support."
+  }}>
+
+    ## Discord Social SDK Release 1.8.14985
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Xbox
+    - Added Xbox GDK 251002 support
+
+</Update>
+
+<Update label="April 3, 2026" tags={["RPC"]} rss={{
+    title: "RPC over IPC Documentation",
+    description: "Documentation for RPC over IPC transport is now available, covering connection, opcodes, and IPC-specific events."
+  }}>
+
+  ## RPC over IPC Documentation
+
+  Documentation for Discord's RPC over IPC (Inter-Process Communication) transport is now available. IPC is a transport for native applications to communicate with a local Discord client, offering high-performance local communication without network overhead.
+
+  The [RPC documentation](/developers/topics/rpc) covers:
+  - IPC socket paths for Windows and Linux/macOS
+  - Handshake flow and opcodes
+  - IPC-specific events (`READY`, `ERROR`, and `GUILD_STATUS`)
+
+  <Note>
+  If you're building a game that integrates Discord social features, we recommend using the [Discord Social SDK](/developers/discord-social-sdk/overview) instead of communicating directly over RPC.
+  </Note>
+
+</Update>
+
+<Update label="March 27, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.8.14856",
+    description: "Debug plugins for iOS Unity & Unreal, and fix for party privacy settings not propagating."
+  }}>
+
+    ## Discord Social SDK Release 1.8.14856
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### iOS Unity & Unreal
+    - Unity and Unreal packages now include Debug plugins, which have support for logging at the Info and Verbose severity levels
+
+    ### Party Privacy
+    - Fixed bug in which changes to party privacy settings didn't propagate when calling [`Client::UpdateRichPresence`], meaning switching a party from private to public wouldn't update the join button in Discord
+
+</Update>
+
 <Update label="March 19, 2026" tags={["HTTP API"]} rss={{
     title: "Search Guild Messages Endpoint",
     description: "Search Guild Messages endpoint allows bots to search for messages within a guild using various filters and sorting options"
@@ -17,7 +105,7 @@ import {Route} from '/snippets/route.jsx'
 
   The endpoint supports filtering by content, author, channel, mentions, attachments, embeds, and more. Results can be sorted by timestamp or relevance.
 
-  This endpoint requires the `READ_MESSAGE_HISTORY` permission and is subject to restrictions based on whether the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents) is enabled for your application.
+  This endpoint requires the `READ_MESSAGE_HISTORY` permission and the `MESSAGE_CONTENT` [Privileged Intent](/developers/events/gateway#privileged-intents).
 
   The error code `110000` has been added to the [error codes](/developers/topics/opcodes-and-status-codes#json) table to reflect the index-not-ready response returned when a guild has not yet been indexed for search.
 </Update>
@@ -2749,15 +2837,15 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK **starting today**, and decommissioning them on **Tuesday, May 2, 2023**:
 
-   * [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md)
-   * [Applications](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Applications.md)
-   * [Voice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Discord_Voice.md)
-   * [Images](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Images.md)
-   * [Lobbies](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Lobbies.md)
-   * [Networking](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Networking.md)
-   * [Relationships](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Relationships.md)
-   * [Storage](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Storage.md)
-   * [Store](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Store.mdmd)
+   * [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md)
+   * [Applications](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Applications.md)
+   * [Voice](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Discord_Voice.md)
+   * [Images](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Images.md)
+   * [Lobbies](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Lobbies.md)
+   * [Networking](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Networking.md)
+   * [Relationships](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Relationships.md)
+   * [Storage](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Storage.md)
+   * [Store](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Store.mdmd)
 
   This deprecation period will last until **Tuesday May 2, 2023**, after which these pieces will be decommissioned and no longer work. The other pieces of the GameSDK will continue to be supported.
 
@@ -3075,7 +3163,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](/developers/resources/audit-log).
   * Message routes (like [`POST /channels/{channel.id}/messages`](/developers/resources/message#create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
   * The `summary` field for [applications](/developers/resources/application) now returns an empty string for all API versions.
-  * The `name` and `description` fields for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](/developers/interactions/application-commands#localization). Read details in the [Achievements documentation](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#achievement-struct).
+  * The `name` and `description` fields for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](/developers/interactions/application-commands#localization). Read details in the [Achievements documentation](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#achievement-struct).
   * Existing attachments must be specified when [`PATCH`ing messages with new attachments](/developers/reference#editing-message-attachments). Any attachments not specified will be removed and replaced with the specified list
   * Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
 
@@ -3482,7 +3570,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   }}>
   ## GameSDK Version 2.5.5
 
-  We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#setuserachievement) method.
+  We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#setuserachievement) method.
 
   Get the latest at the top of the [Getting Started](/developers/developer-tools/game-sdk#step-1-get-the-sdk) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 </Update>
@@ -3511,7 +3599,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   }}>
   ## Bot Tokens for Achievements
 
-  You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/developers/docs/game_sdk/Achievements.md#the-api-way).
+  You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](https://github.com/discord/discord-api-docs/blob/legacy-gamesdk/docs/game_sdk/Achievements.md#the-api-way).
 </Update>
 
 <Update label="June 19, 2019" rss={{

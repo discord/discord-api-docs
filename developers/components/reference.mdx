@@ -293,21 +293,23 @@ String Selects are available in messages and modals. They must be placed inside 
 <ManualAnchor id="string-select-string-select-structure" />
 ###### String Select Structure
 
-| Field         | Type                                                                                              | Description                                                                     |
-|---------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| type          | integer                                                                                           | `3` for string select                                                           |
-| id?           | integer                                                                                           | Optional identifier for component                                               |
-| custom_id     | string                                                                                            | ID for the select menu; 1-100 characters                                        |
-| options       | array of [select options](/developers/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                      |
-| placeholder?  | string                                                                                            | Placeholder text if nothing is selected or default; max 150 characters          |
-| min_values?   | integer                                                                                           | Minimum number of items that must be chosen (defaults to 1); min 0, max 25      |
-| max_values?   | integer                                                                                           | Maximum number of items that can be chosen (defaults to 1); max 25              |
-| required?\*   | boolean                                                                                           | Whether the string select is required to answer in a modal (defaults to `true`) |
-| disabled?\*\* | boolean                                                                                           | Whether select menu is disabled in a message (defaults to `false`)              |
+| Field           | Type                                                                                              | Description                                                                           |
+|-----------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| type            | integer                                                                                           | `3` for string select                                                                 |
+| id?             | integer                                                                                           | Optional identifier for component                                                     |
+| custom_id       | string                                                                                            | ID for the select menu; 1-100 characters                                              |
+| options         | array of [select options](/developers/components/reference#string-select-select-option-structure) | Specified choices in a select menu; max 25                                            |
+| placeholder?    | string                                                                                            | Placeholder text if nothing is selected or default; max 150 characters                |
+| min_values?\*   | integer                                                                                           | Minimum number of items that must be chosen (defaults to 1); min 0 (see note), max 25 |
+| max_values?     | integer                                                                                           | Maximum number of items that can be chosen (defaults to 1); max 25                    |
+| required?\*\*   | boolean                                                                                           | Whether the string select is required to answer in a modal (defaults to `true`)       |
+| disabled?\*\*\* | boolean                                                                                           | Whether select menu is disabled in a message (defaults to `false`)                    |
 
-\* The `required` field is only available for String Selects in modals. It is ignored in messages.
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for String Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 <ManualAnchor id="string-select-select-option-structure" />
 ###### Select Option Structure
@@ -609,14 +611,16 @@ User Selects are available in messages and modals. They must be placed inside an
 | custom_id       | string                                                                                                        | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                        | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/developers/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0 (see note), max 25                                                                    |
 | max_values?     | integer                                                                                                       | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                       | Whether the user select is required to answer in a modal (defaults to `true`)                                                                            |
-| disabled?\*\*   | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                       | Whether the user select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*\* | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for User Selects in modals. It is ignored in messages.
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for User Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 <ManualAnchor id="user-select-select-default-value-structure" />
 ###### Select Default Value Structure
@@ -856,14 +860,16 @@ Role Selects are available in messages and modals. They must be placed inside an
 | custom_id       | string                                                                                                        | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                        | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/developers/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0 (see note), max 25                                                                    |
 | max_values?     | integer                                                                                                       | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                       | Whether the role select is required to answer in a modal (defaults to `true`)                                                                            |
-| disabled?\*\*   | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                       | Whether the role select is required to answer in a modal (defaults to `true`)                                                                            |
+| disabled?\*\*\* | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for Role Selects in modals. It is ignored in messages.
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for Role Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 <ManualAnchor id="role-select-role-select-interaction-response-structure" />
 ###### Role Select Interaction Response Structure
@@ -1074,14 +1080,16 @@ Mentionable Selects are available in messages and modals. They must be placed in
 | custom_id       | string                                                                                                        | ID for the select menu; 1-100 characters                                                                                                                 |
 | placeholder?    | string                                                                                                        | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/developers/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0 (see note), max 25                                                                    |
 | max_values?     | integer                                                                                                       | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                       | Whether the mentionable select is required to answer in a modal (defaults to `true`)                                                                     |
-| disabled?\*\*   | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                       | Whether the mentionable select is required to answer in a modal (defaults to `true`)                                                                     |
+| disabled?\*\*\* | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for Mentionable Selects in modals. It is ignored in messages.
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for Mentionable Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 <ManualAnchor id="mentionable-select-mentionable-select-interaction-response-structure" />
 ###### Mentionable Select Interaction Response Structure
@@ -1309,14 +1317,16 @@ Channel Selects are available in messages and modals. They must be placed inside
 | channel_types?  | array of [channel types](/developers/resources/channel#channel-object-channel-types)                          | List of channel types to include in the channel select component                                                                                         |
 | placeholder?    | string                                                                                                        | Placeholder text if nothing is selected; max 150 characters                                                                                              |
 | default_values? | array of [default value objects](/developers/components/reference#user-select-select-default-value-structure) | List of default values for auto-populated select menu components; number of default values must be in the range defined by `min_values` and `max_values` |
-| min_values?     | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0, max 25                                                                               |
+| min_values?\*   | integer                                                                                                       | Minimum number of items that must be chosen (defaults to 1); min 0 (see note), max 25                                                                    |
 | max_values?     | integer                                                                                                       | Maximum number of items that can be chosen (defaults to 1); max 25                                                                                       |
-| required?\*     | boolean                                                                                                       | Whether the channel select is required to answer in a modal (defaults to `true`)                                                                         |
-| disabled?\*\*   | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
+| required?\*\*   | boolean                                                                                                       | Whether the channel select is required to answer in a modal (defaults to `true`)                                                                         |
+| disabled?\*\*\* | boolean                                                                                                       | Whether select menu is disabled in a message (defaults to `false`)                                                                                       |
 
-\* The `required` field is only available for Channel Selects in modals. It is ignored in messages.
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
-\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
+\*\* The `required` field is only available for Channel Selects in modals. It is ignored in messages.
+
+\*\*\* Using `disabled` in a modal will result in an error. Modals can not currently have disabled components in them.
 
 <ManualAnchor id="channel-select-channel-select-interaction-response-structure" />
 ###### Channel Select Interaction Response Structure
@@ -2092,14 +2102,16 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 <ManualAnchor id="file-upload-file-upload-structure" />
 ###### File Upload Structure
 
-| Field       | Type    | Description                                                                                            |
-|-------------|---------|--------------------------------------------------------------------------------------------------------|
-| type        | integer | `19` for file upload                                                                                   |
-| id?         | integer | Optional identifier for component                                                                      |
-| custom_id   | string  | ID for the file upload; 1-100 characters                                                               |
-| min_values? | integer | Minimum number of items that must be uploaded (defaults to 1); min 0, max 10                           |
-| max_values? | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
-| required?   | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
+| Field         | Type    | Description                                                                                            |
+|---------------|---------|--------------------------------------------------------------------------------------------------------|
+| type          | integer | `19` for file upload                                                                                   |
+| id?           | integer | Optional identifier for component                                                                      |
+| custom_id     | string  | ID for the file upload; 1-100 characters                                                               |
+| min_values?\* | integer | Minimum number of items that must be uploaded (defaults to 1); min 0 (see note), max 10                |
+| max_values?   | integer | Maximum number of items that can be uploaded (defaults to 1); max 10                                   |
+| required?     | boolean | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`) |
+
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
 <ManualAnchor id="file-upload-file-upload-interaction-response-structure" />
 ###### File Upload Interaction Response Structure
@@ -2294,15 +2306,17 @@ A Checkbox Group is an interactive component for selecting one or many options v
 
 ### Checkbox Group Structure
 
-| Field       | Type                                                                                                | Description                                                                                                        |
-|-------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| type        | integer                                                                                             | `22` for checkbox group                                                                                            |
-| id?         | integer                                                                                             | Optional identifier for component                                                                                  |
-| custom_id   | string                                                                                              | Developer-defined identifier for the input; 1-100 characters                                                       |
-| options     | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure) | List of options to show; min 1, max 10                                                                             |
-| min_values? | integer                                                                                             | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1); if set to 0 `required` must be `false` |
-| max_values? | integer                                                                                             | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options)                      |
-| required?   | boolean                                                                                             | Whether selecting within the group is required (defaults to `true`)                                                |
+| Field         | Type                                                                                                | Description                                                                                   |
+|---------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| type          | integer                                                                                             | `22` for checkbox group                                                                       |
+| id?           | integer                                                                                             | Optional identifier for component                                                             |
+| custom_id     | string                                                                                              | Developer-defined identifier for the input; 1-100 characters                                  |
+| options       | array of [checkbox group options](/developers/components/reference#checkbox-group-option-structure) | List of options to show; min 1, max 10                                                        |
+| min_values?\* | integer                                                                                             | Minimum number of items that must be chosen; min 0, max 10 (defaults to 1);                   |
+| max_values?   | integer                                                                                             | Maximum number of items that can be chosen; min 1, max 10 (defaults to the number of options) |
+| required?     | boolean                                                                                             | Whether selecting within the group is required (defaults to `true`)                           |
+
+\* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
 
 ### Checkbox Group Option Structure
 
@@ -2486,16 +2500,28 @@ All other fields will be automatically populated by Discord.
 <ManualAnchor id="unfurled-media-item-unfurled-media-item-structure" />
 ###### Unfurled Media Item Structure
 
-| Field            | Type      | Description                                                                                                                                      |
-|------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| url              | string    | Supports arbitrary urls and `attachment://<filename>` references                                                                                 |
-| proxy_url?       | string    | The proxied url of the media item. This field is ignored and provided by the API as part of the response                                         |
-| height?          | ?integer  | The height of the media item. This field is ignored and provided by the API as part of the response                                              |
-| width?           | ?integer  | The width of the media item. This field is ignored and provided by the API as part of the response                                               |
-| content_type?    | string    | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content. This field is ignored and provided by the API as part of the response |
-| attachment_id?\* | snowflake | The id of the uploaded attachment. This field is ignored and provided by the API as part of the response                                         |
+| Field                   | Type      | Description                                                                                                                                                                   |
+|-------------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| url                     | string    | Supports arbitrary urls and `attachment://<filename>` references                                                                                                              |
+| proxy_url? \*           | string    | The proxied url of the media item                                                                                                                                             |
+| height? \*              | ?integer  | The height of the media item (if image or video)                                                                                                                              |
+| width? \*               | ?integer  | The width of the media item (if image or video)                                                                                                                               |
+| placeholder? \*         | string    | [Thumbhash](https://evanw.github.io/thumbhash/) placeholder (if image or video)                                                                                               |
+| placeholder_version? \* | integer   | Version of the placeholder (if image or video)                                                                                                                                |
+| content_type? \*        | string    | The [media type](https://en.wikipedia.org/wiki/Media_type) of the content                                                                                                     |
+| flags? \*               | integer   | [Unfurled media item flags](/developers/components/reference#unfurled-media-item-unfurled-media-item-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| attachment_id? \* \*\*  | snowflake | The id of the uploaded attachment                                                                                                                                             |
 
-\* Only present if the media item was uploaded as an attachment.
+\* This field is ignored and provided by the API as part of the response.
+
+\*\* Only present if the media item was uploaded as an attachment.
+
+<ManualAnchor id="unfurled-media-item-unfurled-media-item-flags" />
+###### Unfurled Media Item Flags
+
+| Flag        | Value    | Description            |
+|-------------|----------|------------------------|
+| IS_ANIMATED | `1 << 0` | This image is animated |
 
 ### Uploading a file
 

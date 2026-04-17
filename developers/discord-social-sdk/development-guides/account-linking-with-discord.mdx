@@ -129,11 +129,12 @@ API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = 'YOUR_CLIENT_ID'
 CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
 
-def exchange_code(code, redirect_uri):
+def exchange_code(code, redirect_uri, code_verifier):
     data = {
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': redirect_uri
+        'redirect_uri': redirect_uri,
+        'code_verifier': code_verifier
     }
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     r = requests.post(f'{API_ENDPOINT}/oauth2/token', data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))

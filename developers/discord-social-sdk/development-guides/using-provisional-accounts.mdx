@@ -1,6 +1,7 @@
 ---
 title: Using Provisional Accounts
 description: Implement provisional Discord accounts for users who don't have Discord accounts yet.
+keywords: ['unlinking accounts', 'unlink account', 'unmerging accounts', 'unmerge account', 'account unlinking', 'provisional account unlinking']
 ---
 
 import {ManualAnchor} from '/snippets/manualanchor.jsx'
@@ -128,9 +129,9 @@ Once authentication is complete, you can use the access token as you would a ful
 
 ### Server Authentication with Bot Token Endpoint
 
-<Info>
+<Tip>
 This is the preferred method of authentication. It ends up being the simplest choice for most provisional account integrations.
-</Info>
+</Tip>
 
 ```python
 # filepath: your_game/server/auth.py
@@ -190,10 +191,13 @@ def get_provisional_token(external_token: str):
   "id_token": "<id token>",
   "token_type": "Bearer",
   "expires_in": 604800,
-  "refresh_token": "<refresh token>", # only provided for OIDC when *not* a public client
   "scope": "sdk.social_layer"
 }
 ```
+
+<Info>
+If you are using OIDC, you may see a `refresh_token` in this response. Using it via the OAuth2 `refresh_token` grant is **deprecated** — re-authenticate using a fresh provider token instead. See [Refreshing Provisional Account Tokens](#refreshing-provisional-account-tokens) for details.
+</Info>
 
 ### Authentication for Public Clients
 
@@ -228,12 +232,44 @@ void AuthenticateUser(std::shared_ptr<discordpp::Client> client) {
 
 These methods generate a Discord access token. You pass in the user's identity, and it generates a new Discord account tied to that identity. There are multiple ways of specifying that identity, including using Steam/Epic services or your own identity system.
 
-The callback function will be invoked with an access token that expires in 7 days. Refresh tokens are not supported for provisional accounts, so that will be an empty string. When the old one expires, you must call this function again to get a new access token.
+All these methods will return with an access token that expires in 7 days.
 
-You can use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or expires.
+#### Refreshing Provisional Account Tokens
+
+Use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or has expired, so you can refresh it without interrupting the user's experience.
+
+When the token expires, re-call the same method you used originally to obtain a new access token, then pass it to [`Client::UpdateToken`].
 
 <Info>
-When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to UpdateToken without interrupting the user's experience.
+When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to [`Client::UpdateToken`] without interrupting the user's experience.
+</Info>
+
+```cpp
+// Register a callback to handle token expiration
+client->SetTokenExpirationCallback([client](discordpp::AuthorizationTokenType tokenType) {
+    // Re-acquire a new token using the same method you used originally.
+    // For example, if you used GetProvisionalToken:
+    std::string externalToken = GetExternalAuthToken(); // get a fresh token from your identity provider
+    client->GetProvisionalToken(DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC,
+        externalToken,
+        [client](discordpp::ClientResult result, std::string accessToken, std::string refreshToken,
+                 discordpp::AuthorizationTokenType tokenType, int32_t expiresIn, std::string scope) {
+            if (result.Successful()) {
+                // Pass the new access token to UpdateToken — no reconnect needed
+                client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken, [](discordpp::ClientResult result) {
+                    if (result.Successful()) {
+                        std::cout << "✅ Token refreshed successfully\n";
+                    }
+                });
+            } else {
+                std::cerr << "❌ Failed to refresh provisional token: " << result.Error() << std::endl;
+            }
+        });
+});
+```
+<Info>
+    If you are using Server Authentication with OIDC, a `refresh_token` is returned but using it via the OAuth2 `refresh_token` grant is **deprecated**. Re-authenticate using a fresh provider token instead.
 </Info>
 
 #### Provisional Account Access Token Storage
@@ -304,11 +340,31 @@ When a player wants to convert their provisional account to a full Discord accou
 - If you have a backend, follow [Merging Provisional Accounts for Servers](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts-for-servers)
 - If you do not have a backend, follow [Merging Provisional Accounts for Public Clients ](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merging-provisional-accounts-for-public-clients)
 
+<Note>
+Unlike other API rate limits, the merge operation has a strict per-user limit since account merging is not something we expect to happen frequently. Under normal circumstances, a player will only ever link their account once.
+
+If you are testing your merge integration, make sure to add your QA users to your application's [App Testers](https://discord.com/developers/applications/select/testers) list to avoid hitting rate limits during testing.
+</Note>
+
 ### Merging Provisional Accounts for Servers
 
-To merge provisional accounts, include `external_auth_type` and `external_auth_token` values with a request to `/oauth2/token`. Discord will look up the Provisional User associated with the provided identity and attempt to merge it in to the full Discord account that generated the provided `code`.
+To merge a provisional account, extend the standard [OAuth2 token exchange](/developers/topics/oauth2#authorization-code-grant-access-token-exchange-example) by posting to `/oauth2/token` with two additional parameters — `external_auth_type` and `external_auth_token`. Discord uses these to identify the provisional account and merge it into the full Discord account associated with the provided authorization code or device code.
+
+See the [External Auth Types](#external-auth-types) table above for the full list of supported `external_auth_type` values.
+
+The `external_auth_token` is the same credential you provided when creating the provisional account — for example, your OIDC identity token, Steam session ticket, or EOS access token. If you created the provisional account using the [Bot Token Endpoint](#server-authentication-with-bot-token-endpoint), use `DISCORD_BOT_ISSUED_ACCESS_TOKEN` as the `external_auth_type` and the `external_user_id` (your game account ID) as the `external_auth_token`.
 
 #### Desktop & Mobile
+
+###### Request Body Parameters
+
+| Parameter             | Description                                                                                                                                                                                                                                                           |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`          | Must be `authorization_code`. This is the standard [OAuth2 authorization code grant](/developers/topics/oauth2#authorization-code-grant-access-token-exchange-example) — the authorization code from the [`Client::Authorize`] flow is exchanged for an access token. |
+| `code`                | The authorization code returned to your server after the user completes the [`Client::Authorize`] flow.                                                                                                                                                               |
+| `redirect_uri`        | The redirect URI used in the original authorization request. Must match exactly.                                                                                                                                                                                      |
+| `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                                                              |
+| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `external_user_id` (game account ID) used when creating the provisional account.                                            |
 
 ```python
 import requests
@@ -316,7 +372,8 @@ import requests
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-EXTERNAL_AUTH_TYPE = 'OIDC' # See External Auth Types above
+# See External Auth Types above for all supported values
+EXTERNAL_AUTH_TYPE = 'DISCORD_BOT_ISSUED_ACCESS_TOKEN'
 
 def exchange_code_with_merge(code, redirect_uri, external_auth_token):
   data = {
@@ -336,13 +393,25 @@ def exchange_code_with_merge(code, redirect_uri, external_auth_token):
 
 #### Console
 
+###### Request Body Parameters
+
+| Parameter             | Description                                                                                                                                                                                                                |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`          | Must be `urn:ietf:params:oauth:grant-type:device_code`. This is the [RFC 8628](https://www.rfc-editor.org/rfc/rfc8628) device authorization grant, used for consoles and devices without a browser.                        |
+| `device_code`         | The device code from the device authorization flow. See [Account Linking on Consoles](/developers/discord-social-sdk/development-guides/account-linking-on-consoles).                                                      |
+| `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                   |
+| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `external_user_id` (game account ID) used when creating the provisional account. |
+
 ```python
 import requests
+
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-EXTERNAL_AUTH_TYPE = 'OIDC'
-def exchange_device_code_with_merge(device_code):
+# See External Auth Types above for all supported values
+EXTERNAL_AUTH_TYPE = 'DISCORD_BOT_ISSUED_ACCESS_TOKEN'
+
+def exchange_device_code_with_merge(device_code, external_auth_token):
   data = {
     'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
     'device_code': device_code,
@@ -359,7 +428,7 @@ def exchange_device_code_with_merge(device_code):
 
 #### Merge Request Response
 
-```python
+```json
 {
   "access_token": "<access token>",
   "token_type": "Bearer",
@@ -524,7 +593,7 @@ def unmerge_provisional_account(external_user_id):
     'Content-Type': 'application/json',
     'Authorization': f'Bot {BOT_TOKEN}'
   }
-  r = requests.post('%s/provisional-accounts/unmerge/bot' % API_ENDPOINT, json=data, headers=headers)
+  r = requests.post('%s/partner-sdk/provisional-accounts/unmerge/bot' % API_ENDPOINT, json=data, headers=headers)
   r.raise_for_status()
 ```
 
@@ -651,10 +720,12 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 
 ## Change Log
 
-| Date              | Changes                                     |
-|-------------------|---------------------------------------------|
-| February 25, 2026 | Clarify unmerge behavior and data migration |
-| March 17, 2025    | Initial release                             |
+| Date              | Changes                                          |
+|-------------------|--------------------------------------------------|
+| April 14, 2026    | Clarify provisional account token refresh flow   |
+| April 13, 2026    | Clarify Merging Provisional Accounts for Servers |
+| February 25, 2026 | Clarify unmerge behavior and data migration      |
+| March 17, 2025    | Initial release                                  |
 
 {/* Autogenerated Reference Links */}
 [`Client::Authorize`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468
@@ -665,3 +736,4 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 [`Client::SetTokenExpirationCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aab5bfc76809ea22e79f2f7a067ac4519
 [`Client::UnmergeIntoProvisionalAccount`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a2da21ae8a3015e0e5e42c1a7226b256f
 [`Client::UpdateProvisionalAccountDisplayName`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7485979ab2d4c533b75f8efd5e50bc60
+[`Client::UpdateToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
