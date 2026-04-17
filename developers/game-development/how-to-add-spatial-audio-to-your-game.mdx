@@ -163,13 +163,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class VoiceAudioSource : MonoBehaviour
 {
-		// This assumes a 48kHz sample rate for audio from Discord
     private const int SampleRate = 48000;
     private const int RingBufferSamples = SampleRate * 2; // 2-second ring buffer
-    // Target buffer depth: how many samples to keep ahead of the read pointer.
-    // Lower = less latency, but more risk of underrun glitches on a slow machine.
-    private const int TargetBufferSamples = 2400; // 50ms
-
     private float[] _ringBuffer;
     private int _writePosition;
     private int _readPosition;
@@ -189,11 +184,8 @@ public class VoiceAudioSource : MonoBehaviour
         _audioSource.Play();
     }
 
-    /// <summary>
-    /// Feed raw int16 PCM samples received from the Discord audio callback.
-    /// Thread-safe; may be called from any thread.
-    /// </summary>
-    public void FeedSamples(IntPtr data, ulong samplesPerChannel, ulong channels)
+    // Feed raw int16 PCM samples received from the Discord audio callback.
+    public void FeedSamples(IntPtr data, ulong samplesPerChannel, int sampleRate, ulong channels)
     {
         if (data == IntPtr.Zero || samplesPerChannel == 0) return;
 
@@ -227,16 +219,6 @@ public class VoiceAudioSource : MonoBehaviour
         lock (_lock)
         {
             int available = (_writePosition - _readPosition + RingBufferSamples) % RingBufferSamples;
-
-            // If the buffer has drifted beyond the target depth, skip ahead.
-            // This keeps latency from compounding over the session at the cost
-            // of a brief glitch — better than ever-increasing delay.
-            if (available > TargetBufferSamples)
-            {
-                int excess = available - TargetBufferSamples;
-                _readPosition = (_readPosition + excess) % RingBufferSamples;
-                available = TargetBufferSamples;
-            }
 
             for (int i = 0; i < data.Length; i++)
             {
