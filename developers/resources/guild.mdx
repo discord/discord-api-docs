@@ -742,6 +742,60 @@ We are making significant changes to the Membership Screening API specifically r
 }
 ```
 
+### Guild Home Settings Object
+
+Represents the [server guide](https://support.discord.com/hc/en-us/articles/13497665141655-Server-Guide-FAQ) for a guild.
+
+<ManualAnchor id="guild-home-settings-object-guild-home-settings-structure" />
+###### Guild Home Settings Structure
+
+| Field              | Type                                                                                                                      | Description                                                   |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| guild_id           | snowflake                                                                                                                 | the ID of the guild the home settings are for                 |
+| enabled            | boolean                                                                                                                   | whether home settings are enabled in the guild                |
+| welcome_message?   | [welcome message](/developers/resources/guild#guild-home-settings-object-welcome-message-structure) object                | the message shown to new members who join the guild           |
+| new_member_actions | array of [new memeber action](/developers/resources/guild#guild-home-settings-object-new-member-action-structure) objects | the actions that new members are prompted to complete         |
+| resource_channels  | array of [resource channel](/developers/resources/guild#guild-home-settings-object-resource-channel-structure) objects    | the read-only resource channels that are shown to new members |
+
+<ManualAnchor id="guild-home-settings-object-new-member-action-structure" />
+###### New Member Action Structure
+
+| Field       | Type                                                                              | Description                                                           |
+|-------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| title       | string                                                                            | the title of the action                                               |
+| channel_id  | snowflake                                                                         | the ID of the channel where the action should be completed            |
+| action_type | [action type](/developers/resources/guild#guild-home-settings-object-action-type) | the type of the action                                                |
+| description | string                                                                            | the description of the action                                         |
+| emoji?      | partial [emoji](/developers/resources/emoji#emoji-object) object                  | the emoji of the action                                               |
+| icon?       | string                                                                            | the [icon hash](/developers/reference#image-formatting) of the action |
+
+<ManualAnchor id="guild-home-settings-object-resource-channel-structure" />
+###### Resource Channel Structure
+
+| Field       | Type                                                             | Description                                                                     |
+|-------------|------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| title       | string                                                           | the title of the resource channel                                               |
+| channel_id  | snowflake                                                        | the ID of the channel the resource channel references                           |
+| description | string                                                           | the description of the resource channel                                         |
+| emoji?      | partial [emoji](/developers/resources/emoji#emoji-object) object | the emoji of the resource channel                                               |
+| icon?       | string                                                           | the [icon hash](/developers/reference#image-formatting) of the resource channel |
+
+<ManualAnchor id="guild-home-settings-object-welcome-message-structure" />
+###### Welcome Message Structure
+
+| Field                  | Type                                | Description                                                                 |
+|------------------------|-------------------------------------|-----------------------------------------------------------------------------|
+| message                | string                              | the message shown to new members who join the guild                         |
+| author_ids             | array of snowflakes                 | the IDs of the users who are credited as the authors of the welcome message |
+
+<ManualAnchor id="guild-home-settings-object-action-type" />
+###### Action Type
+
+| Name  | Value | Description                                   |
+|-------|-------|-----------------------------------------------|
+| VIEW  | 0     | The member must view the channel              |
+| TALK  | 1     | The member must send a message in the channel |
+
 ## Get Guild
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)</Route>
 
@@ -1514,3 +1568,12 @@ Both `invites_disabled_until` and `dms_disabled_until` can be enabled for a maxi
 | dms_disabled_until?     | ?ISO8601 timestamp \* | when direct messages will be enabled again |
 
 \* Supplying `null` disables the action.
+
+## Get Guild New Member Welcome
+<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/new-member-welcome</Route>
+
+<Danger>
+If the new member welcome experience has been disabled, and the application does not have the `MANAGE_GUILD` permission, the endpoint will unexpectedly return a 204 empty response.
+</Danger>
+
+Returns the [Home Settings](/developers/resources/guild#guild-onboarding-object) object for the guild.
