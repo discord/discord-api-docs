@@ -104,6 +104,12 @@ client.SetLobbyMemberAddedCallback((lobbyId, userId) =>
 
 Only register remote players, not the local player. The local player's voice is captured by Discord and transmitted to others.
 
+<Info>
+
+For the purpose of this tutorial, all of the player and voice setup is tied to a player joining a Social SDK lobby. In a production game you will likely tie your player's lifecycle and voice to your own multiplayer session management system instead.
+
+</Info>
+
 ---
 
 ## Setting Up the Voice Call
@@ -144,6 +150,12 @@ private void OnVoiceAudioReceived(ulong userId, System.IntPtr data, ulong sample
 
 The callback provides a few useful things. The `userId` of the player’s audio which you use to pass the audio to the correct player object in your scene. `data` , `samplesPerChannel`, `sampleRate`, and `channels`, all define the raw audio data which you’ll send to an `AudioSource`. Setting `outShouldMute = true` is important: it tells Discord to skip playing this audio to the default audio device for the player. Instead, you look up that player's `VoiceAudioSource` component from a dictionary keyed by user ID and feed the raw samples directly to it.
 
+<Info>
+
+`outShouldMute` lets you choose wether Discord should play the audio through its normal output. Setting it to `true` gives you full control to route the audio yourself, which is necessary for spatial audio. If you set it to `false`, Discord will play the audio through your players' default audio device. In a full game it would make sense to set this to `false` while players are in a lobby so they can talk to each other and then `true` once they're playing the game.
+
+</Info>
+
 ---
 
 ## The VoiceAudioSource Component
@@ -169,7 +181,11 @@ public class VoiceAudioSource : MonoBehaviour
 {
     private const int SampleRate = 48000;
     private const int RingBufferSamples = SampleRate * 2; // 2-second ring buffer
+    private const float PcmNormalizationFactor = 1 / 32768f; // scaling factor for int16 to float conversion
+    private const int FrameSamples = 960; // 20ms at 48kHz
+    private const int MaxChannels = 2;
     private float[] _ringBuffer;
+    private readonly short[] _shortBuffer = new short[FrameSamples * MaxChannels];
     private int _writePosition;
     private int _readPosition;
     private readonly object _lock = new object();
@@ -189,15 +205,14 @@ public class VoiceAudioSource : MonoBehaviour
     }
 
     // Feed raw int16 PCM samples received from the Discord audio callback.
-    public void FeedSamples(IntPtr data, ulong samplesPerChannel, int sampleRate, ulong channels)
+    public void FeedSamples(IntPtr data, ulong samplesPerChannel, ulong channels)
     {
         if (data == IntPtr.Zero || samplesPerChannel == 0) return;
 
         int channelCount = (int)channels;
         int totalSamples = (int)samplesPerChannel * channelCount;
 
-        short[] shorts = new short[totalSamples];
-        Marshal.Copy(data, shorts, 0, totalSamples);
+        Marshal.Copy(data, _shortBuffer, 0, totalSamples);
 
         lock (_lock)
         {
@@ -207,7 +222,7 @@ public class VoiceAudioSource : MonoBehaviour
                 float mono = 0f;
                 for (int c = 0; c < channelCount; c++)
                 {
-                    mono += shorts[i * channelCount + c] / 32768f;
+                    mono += _shortBuffer[i * channelCount + c] * PcmNormalizationFactor;
                 }
                 mono /= channelCount;
 
