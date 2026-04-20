@@ -10,9 +10,13 @@ import CommsScopeWarning from '/snippets/discord-social-sdk/callouts/oauth-comms
 
 <img src="/images/game-development/how-to-add-spatial-audio-to-your-game/docs-spatial-audio.webp" alt="A banner showing a microphone that produces audio waves that look like they're in 3d space" style={{width: "100%", height: "auto"}} />
 
-*Note: This guide was published on April XXth 2026 and was last updated on April XXth 2026.*
+*Note: This guide was published on April 22nd 2026 and was last updated on April 22nd 2026.*
 
-Spatial audio in multiplayer games has become a genre-defining feature. Hearing a friend's voice fade as they disappear around a corner, or listening to a teammate call out from across the map, makes a multiplayer game feel alive in a way that flat voice chat can’t. In this guide, you will learn how to combine the Discord Social SDK's voice chat with Unity's 3D audio system to build proximity voice chat for a multiplayer game. Discord handles everything about the voice call itself, and your game just needs to put the audio in the right place. While this guide focuses on Unity, the same concepts apply to any engine. You intercept the decoded audio from Discord and route it to your engine's 3D audio system.
+Spatial audio in multiplayer games has become a genre-defining feature. Hearing a friend's voice fade as they disappear around a corner, or listening to a teammate call out from across the map, makes a multiplayer game feel alive in a way that flat voice chat can’t.
+
+In this guide, you will learn how to combine the Discord Social SDK's voice chat with Unity's 3D audio system to build proximity voice chat for a multiplayer game.
+
+Discord handles everything about the voice call itself, and your game just needs to put the audio in the right place. While this guide focuses on Unity, the same concepts apply to any engine. You intercept the decoded audio from Discord and route it to your engine's 3D audio system.
 
 This guide assumes you have already integrated the Discord Social SDK into a multiplayer Unity project. If you need to get set up with the Social SDK, follow the [Unity getting started guide](/developers/discord-social-sdk/getting-started/using-unity) first.
 
@@ -268,6 +272,8 @@ Here is the full architecture from start to finish:
 
 Discord handles voice networking. Unity handles spatial audio. The `VoiceAudioSource` component bridges the two.
 
+Now you have a working proximity voice solution combining the power of the Discord Social SDK and Unity's 3D audio system. From here you can integrate this into an existing game, or create your own!
+
 <iframe
   className="w-full aspect-video rounded-xl"
   src="https://www.youtube.com/embed/qupje9hoXdw"
@@ -280,14 +286,11 @@ Discord handles voice networking. Unity handles spatial audio. The `VoiceAudioSo
 
 ## Next Steps
 
-Ready to go deeper? These guides cover the systems that work alongside spatial audio:
+Ready to go deeper? These guides cover other ways to build games with Discord:
 
-<Columns cols={3}>
+<Columns cols={2}>
     <Card title="How To Grow Your Game" href="/developers/game-development/how-to-grow-your-game" icon={<GameControllerIcon />}>
         Guides for game developers on using Discord's Social SDK and APIs to grow and engage their player base
-    </Card>
-    <Card title="Managing Lobbies" href="/developers/discord-social-sdk/development-guides/managing-lobbies" icon={<DoorEnterIcon />}>
-        Create and manage multiplayer lobbies using the Discord Social SDK
     </Card>
     <Card title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" icon={<RobotIcon />}>
         Build a Discord bot to extend your game's presence into the community
