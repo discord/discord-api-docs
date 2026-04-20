@@ -25,6 +25,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 10   | Hello                     | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.            |
 | 11   | Heartbeat ACK             | Receive       | Sent in response to receiving a heartbeat to acknowledge that it has been received.     |
 | 31   | Request Soundboard Sounds | Send          | Request information about soundboard sounds in a set of guilds.                         |
+| 43   | Request Channel Info      | Send          | Request ephemeral channel data for channels in a guild.                                 |
 
 <ManualAnchor id="gateway-gateway-close-event-codes" />
 ###### Gateway Close Event Codes

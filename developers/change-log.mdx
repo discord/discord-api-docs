@@ -6,6 +6,34 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="April 20, 2026" tags={["Documentation"]} rss={{
+    title: "Voice Channel Status and Start Time Documentation",
+    description: "Documentation for Set Voice Channel Status endpoint, permission, and related Gateway and audit log events."
+  }}>
+
+  ## Voice Channel Status and Start Time Documentation
+
+  Voice channel status has been available for some time, but we're now officially documenting the endpoint, permission, and related Gateway and audit log events so apps can integrate with it.
+
+  The [Set Voice Channel Status](/developers/resources/channel#set-voice-channel-status) endpoint (`PUT /channels/{channel.id}/voice-status`) allows apps to set a short string (up to 500 characters) describing what's happening in a voice channel.
+
+  ### Permission
+
+  Setting a channel's status requires the `SET_VOICE_CHANNEL_STATUS` permission (`1 << 48`), now documented in the [permissions](/developers/topics/permissions) table. If the bot user is not connected to the voice channel, the `MANAGE_CHANNELS` permission is additionally required.
+
+  ### Gateway Events
+
+  Voice channel status and voice session start time are ephemeral and are not included on the [channel](/developers/resources/channel#channel-object) object. To read them, apps send the [Request Channel Info](/developers/events/gateway-events#request-channel-info) Gateway command (opcode `43`) and receive a [Channel Info](/developers/events/gateway-events#channel-info) event containing the requested fields (currently `status` and `voice_start_time`) for channels in the guild.
+
+  Two receive events are dispatched when these fields change:
+  - [Voice Channel Status Update](/developers/events/gateway-events#voice-channel-status-update) — fired when a channel's status changes.
+  - [Voice Channel Start Time Update](/developers/events/gateway-events#voice-channel-start-time-update) — fired when a voice session's start time changes.
+
+  ### Audit Log
+
+  Two [audit log events](/developers/resources/audit-log#audit-log-events) track status changes: `VOICE_CHANNEL_STATUS_UPDATE` (`192`) and `VOICE_CHANNEL_STATUS_DELETE` (`193`). A `status` field in [Optional Audit Entry Info](/developers/resources/audit-log#audit-log-entry-object-optional-audit-entry-info) carries the new status on `VOICE_CHANNEL_STATUS_UPDATE` entries.
+</Update>
+
 <Update label="April 16, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts",
     description: "Using the OAuth2 refresh_token grant to refresh OIDC server-side provisional account tokens is deprecated. Re-authenticate using a fresh provider token instead."
@@ -25,7 +53,6 @@ import {Route} from '/snippets/route.jsx'
 
     [`Client::UpdateToken`]:
     https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
-
 </Update>
 
 <Update label="April 14, 2026" tags={["HTTP API"]} rss={{
