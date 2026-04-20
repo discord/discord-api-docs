@@ -446,7 +446,7 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/de
 ## Set Voice Channel Status
 <Route method="PUT">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/voice-status</Route>
 
-Set a voice channel's status. Requires the `SET_VOICE_CHANNEL_STATUS` permission, and additionally the `MANAGE_CHANNELS` permission if the current user is not connected to the voice channel. Fires a [Voice Channel Status Update](/developers/events/gateway-events#voice-channel-status-update) Gateway event.
+Set a voice channel's status. Requires the `SET_VOICE_CHANNEL_STATUS` permission, and additionally the `MANAGE_CHANNELS` permission if the current user is not connected to the voice channel. Returns `204 No Content` on success. Fires a [Voice Channel Status Update](/developers/events/gateway-events#voice-channel-status-update) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
