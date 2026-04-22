@@ -1,6 +1,7 @@
 ---
-title: How Do I Add Spatial Audio to My Game?
-sidebarTitle: Add Spatial Audio
+title: How Do I Add Proximity Voice Chat to My Game?
+sidebarTitle: Add Proximity Voice Chat to Your Game
+keywords: ['prox chat', 'proximity chat', 'spatial', 'spatial audio']
 ---
 
 import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
@@ -8,11 +9,11 @@ import {DoorEnterIcon} from '/snippets/icons/DoorEnterIcon.jsx'
 import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
 import CommsScopeWarning from '/snippets/discord-social-sdk/callouts/oauth-comms-scopes.mdx';
 
-<img src="/images/game-development/how-to-add-spatial-audio-to-your-game/docs-spatial-audio.webp" alt="A banner showing a microphone that produces audio waves that look like they're in 3d space" style={{width: "100%", height: "auto"}} />
+<img src="/images/game-development/how-to-add-proximity-voice-chat-to-your-game/banner-proximity-voice-chat.webp" alt="A banner showing a microphone that produces audio waves that look like they're in 3d space" style={{width: "100%", height: "auto"}} />
 
 *Note: This guide was published on April 22nd 2026 and was last updated on April 22nd 2026.*
 
-Spatial audio in multiplayer games has become a genre-defining feature. Hearing a friend's voice fade as they disappear around a corner, or listening to a teammate call out from across the map, makes a multiplayer game feel alive in a way that flat voice chat can’t.
+Proximity voice chat in multiplayer games has become a genre-defining feature. Hearing a friend's voice fade as they disappear around a corner, or listening to a teammate call out from across the map, makes a multiplayer game feel alive in a way that flat voice chat can’t.
 
 In this guide, you will learn how to combine the Discord Social SDK's voice chat with Unity's 3D audio system to build proximity voice chat for a multiplayer game.
 
@@ -23,7 +24,7 @@ This guide assumes you have already integrated the Discord Social SDK into a mul
 <iframe
   className="w-full aspect-video rounded-xl"
   src="https://www.youtube.com/embed/AiDiu0xU3uI"
-  title="Spatial Audio with the Discord Social SDK"
+  title="Proximity Voice Chat with the Discord Social SDK"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowFullScreen
 ></iframe>
@@ -42,7 +43,7 @@ The result is that players get Discord-quality voice that sounds like it’s com
 
 ## How It Works
 
-Before diving into any code, it helps to understand the full architecture at a conceptual level. The spatial audio pipeline has five stages.
+Before diving into any code, it helps to understand the full architecture at a conceptual level. The proximity voice chat (spatial audio) pipeline has five stages.
 
 ### 1. Players Join a Lobby
 
@@ -152,7 +153,7 @@ The callback provides a few useful things. The `userId` of the player’s audio 
 
 <Info>
 
-`outShouldMute` lets you choose wether Discord should play the audio through its normal output. Setting it to `true` gives you full control to route the audio yourself, which is necessary for spatial audio. If you set it to `false`, Discord will play the audio through your players' default audio device. In a full game it would make sense to set this to `false` while players are in a lobby so they can talk to each other and then `true` once they're playing the game.
+`outShouldMute` lets you choose wether Discord should play the audio through its normal output. Setting it to `true` gives you full control to route the audio yourself, which is necessary for proximity voice chat. If you set it to `false`, Discord will play the audio through your players' default audio device. In a full game it would make sense to set this to `false` while players are in a lobby so they can talk to each other and then `true` once they're playing the game.
 
 </Info>
 
@@ -269,7 +270,7 @@ The ring buffer is what makes this work. It bridges two completely different thr
 
 The `spatialBlend = 1f` setting on the `AudioSource` is what makes the audio spatial. Unity handles all of the 3D math automatically based on the GameObject's position relative to the `AudioListener` (typically on the camera or local player). You can further customize the spatial behavior by adjusting the `AudioSource`'s 3D Sound Settings in the Inspector, including min/max distance, rolloff curve, and spread.
 
-<img src="/images/game-development/how-to-add-spatial-audio-to-your-game/unity-3d-audio.webp" alt="3D audio settings in the Unity AudioSource inspector" style={{width: "60%", height: "auto"}} />
+<img src="/images/game-development/how-to-add-proximity-voice-chat-to-your-game/unity-3d-audio.webp" alt="3D audio settings in the Unity AudioSource inspector" style={{width: "60%", height: "auto"}} />
 
 </Tip>
 
@@ -292,7 +293,7 @@ Now you have a working proximity voice solution combining the power of the Disco
 <iframe
   className="w-full aspect-video rounded-xl"
   src="https://www.youtube.com/embed/qupje9hoXdw"
-  title="Spatial Audio with the Discord Social SDK"
+  title="Proximity Voice Chat with the Discord Social SDK"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowFullScreen
 ></iframe>
