@@ -98,6 +98,8 @@ We currently support the following provider types:
 - Apple
 - PlayStation Network (PSN)
 
+If you are configuring OIDC, see [OIDC Integration Requirements](#oidc-integration-requirements) for the full list of requirements your issuer URL, discovery document, and ID tokens must meet.
+
 Providers are represented in Discord's systems by the following types:
 
 #### External Auth Types
@@ -228,6 +230,72 @@ void AuthenticateUser(std::shared_ptr<discordpp::Client> client) {
 }
 ```
 
+### OIDC Integration Requirements
+
+If you are using OpenID Connect (OIDC) as your identity provider, Discord validates your configuration and tokens against the requirements below. Meeting these requirements is necessary both when saving your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers) and at runtime when tokens are exchanged.
+
+#### Issuer URL Requirements
+
+The issuer URL you configure in the Developer Portal must meet all of the following:
+
+| Requirement                 | Details                                                                                                                 |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| HTTPS scheme                | Must use `https://` — HTTP is not permitted                                                                             |
+| No query parameters         | The URL must not contain a `?` character                                                                                |
+| No fragment                 | The URL must not contain a `#` character                                                                                |
+| No embedded credentials     | The URL must not contain a username or password                                                                         |
+| Public hostname             | The hostname must have at least two segments (e.g. `example.com`). Bare hostnames such as `localhost` are not permitted |
+| No private or reserved TLDs | The hostname must not end in `.local`, `.arpa`, `.internal`, or `.localhost`                                            |
+| No IP addresses             | The hostname must not be a bare IP address (e.g. `192.168.1.1`)                                                         |
+
+Non-standard ports (e.g. `:8080`) are permitted.
+
+#### OIDC Discovery Document Requirements
+
+Discord fetches your OIDC configuration from `{issuer_url}/.well-known/openid-configuration` per [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414). This endpoint must:
+
+- Be accessible over HTTPS
+- **Not require HTTP redirects** — Discord does not follow redirects when fetching this document or your JWKS endpoint
+- Return a valid JSON object (not an array)
+
+The discovery document must include these fields:
+
+| Field                                   | Type             | Requirement                                                                    |
+|-----------------------------------------|------------------|--------------------------------------------------------------------------------|
+| `issuer`                                | HTTPS URL        | Must exactly match the issuer URL used to fetch the document                   |
+| `jwks_uri`                              | HTTPS URL        | URI to your JWKS signing key endpoint                                          |
+| `id_token_signing_alg_values_supported` | Array of strings | Must contain at least one [supported algorithm](#supported-signing-algorithms) |
+
+`authorization_endpoint` and `token_endpoint` are accepted but not used by Discord.
+
+#### Supported Signing Algorithms
+
+Your ID tokens must be signed using an asymmetric algorithm. Discord supports:
+
+| Algorithm family | Algorithms                |
+|------------------|---------------------------|
+| RSA              | `RS256`, `RS384`, `RS512` |
+| ECDSA            | `ES256`, `ES384`, `ES512` |
+| RSA-PSS          | `PS256`, `PS384`, `PS512` |
+
+Symmetric (HMAC) algorithms such as `HS256` are not supported. Any unsupported algorithms listed in `id_token_signing_alg_values_supported` are silently ignored.
+
+#### ID Token Requirements
+
+The OIDC ID token passed as `external_auth_token` must meet all of the following:
+
+| Requirement       | Details                                                                                                                                                                     |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kid` header      | The JWT header must include a `kid` (Key ID) field that matches a key in your JWKS                                                                                          |
+| Signing algorithm | Must use one of the [supported algorithms](#supported-signing-algorithms) listed in your discovery document                                                                 |
+| `iss` claim       | Must exactly match the configured issuer URL                                                                                                                                |
+| `sub` claim       | Required — the unique user identifier from your identity provider                                                                                                           |
+| `aud` claim       | Must include the client ID configured for this application in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers) |
+| `exp` claim       | Required — token must not be expired                                                                                                                                        |
+| `iat` claim       | Required — token must have been issued within the past **7 days**                                                                                                           |
+
+The optional `preferred_username` claim (1–32 characters) sets the provisional account's display name if present.
+
 ### Provisional Account Access Tokens
 
 These methods generate a Discord access token. You pass in the user's identity, and it generates a new Discord account tied to that identity. There are multiple ways of specifying that identity, including using Steam/Epic services or your own identity system.
@@ -291,15 +359,14 @@ Common error codes and solutions for the server token exchange methods:
 
 If you are using OIDC, you may encounter more specific errors:
 
-| Code   | Meaning                      | Solution                                                                 |
-|--------|------------------------------|--------------------------------------------------------------------------|
-| 530002 | Invalid issuer               | Verify the issuer in your ID token matches your configuration            |
-| 530003 | Invalid audience             | Check that the audience in your ID token matches your OIDC configuration |
-| 530008 | OIDC configuration not found | Verify your OIDC issuer URL is configured and accessible                 |
-| 530009 | OIDC JWKS not found          | Check that your OIDC provider's JWKS endpoint is accessible              |
-| 530020 | Invalid OIDC JWT token       | Ensure your OIDC ID token is properly signed and formatted               |
-
- You can find you OIDC configuration by visiting the [Developer Portal](https://discord.com/developers/applications), selecting your application, and opening the [External Auth](https://discord.com/developers/applications/select/social-sdk/external-auth-providers) page under the `Discord Social SDK` section in the sidebar.
+| Code   | Meaning                      | Solution                                                                                                               |
+|--------|------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| 530002 | Invalid issuer               | Verify the `iss` claim in your ID token exactly matches the issuer URL in your OIDC configuration                      |
+| 530003 | Invalid audience             | Verify the `aud` claim in your ID token includes the client ID in your OIDC configuration                              |
+| 530008 | OIDC configuration not found | Verify your issuer URL is correct, accessible over HTTPS, and serves a valid discovery document without HTTP redirects |
+| 530009 | OIDC JWKS not found          | Verify your JWKS endpoint is accessible over HTTPS without HTTP redirects                                              |
+| 530020 | Invalid OIDC JWT token       | Verify your ID token is properly signed and uses a supported algorithm                                                 |
+| 530027 | Missing `kid` header         | Ensure your ID token includes a `kid` (Key ID) header in the JWT header identifying the signing key                    |
 
 ---
 
@@ -722,6 +789,7 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 
 | Date              | Changes                                          |
 |-------------------|--------------------------------------------------|
+| April 21, 2026    | Document OIDC integration requirements           |
 | April 14, 2026    | Clarify provisional account token refresh flow   |
 | April 13, 2026    | Clarify Merging Provisional Accounts for Servers |
 | February 25, 2026 | Clarify unmerge behavior and data migration      |

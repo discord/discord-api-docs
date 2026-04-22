@@ -6,6 +6,21 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="April 22, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Security Updates for Provisional Account OIDC Integrations",
+    description: "Recent security improvements to provisional account OIDC issuer validation are now documented. Existing integrations are unaffected, but review the new requirements before editing your configuration."
+  }}>
+
+  ## Security Updates for Provisional Account OIDC Integrations
+
+  We've made security improvements to how Discord validates OIDC issuer URLs and fetches OIDC configuration for [provisional accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts) — including stricter hostname checks and blocking HTTP redirects during configuration and JWKS discovery.
+
+  **Existing provisional account OIDC integrations are not affected** and will continue to work without any changes on your part.
+
+  However, if you need to edit your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers), your updated configuration will be validated against these requirements. We've published new documentation covering the full set of [OIDC Integration Requirements](/developers/discord-social-sdk/development-guides/using-provisional-accounts#oidc-integration-requirements) — including issuer URL rules, discovery document requirements, supported signing algorithms, and ID token claims. Before making any changes to a production integration, review those requirements and verify your configuration works in a test application first.
+
+</Update>
+
 <Update label="April 20, 2026" tags={["Documentation"]} rss={{
     title: "Voice Channel Status and Start Time Documentation",
     description: "Documentation for Set Voice Channel Status endpoint, permission, and related Gateway and audit log events."
