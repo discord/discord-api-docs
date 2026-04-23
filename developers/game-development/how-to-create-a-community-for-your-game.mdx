@@ -3,9 +3,8 @@ title: How Do I Create a Community For My Game?
 sidebarTitle: Create a Community For Your Game
 ---
 
-import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
-import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
-import {LinkIcon} from '/snippets/icons/LinkIcon.jsx'
+import {ImageCard} from '/snippets/imagecard.jsx'
+import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
 
 <img src="/images/game-development/how-to-create-a-community-for-your-game/banner-how-to-create-a-community-for-your-game.webp" alt="A banner showing pieces of a community Discord server" style={{width: "100%", height: "auto"}} />
 
@@ -318,9 +317,9 @@ If you’ve implemented the Discord Social SDK, your Rich Presence can include a
 
 <img src="/images/game-development/how-to-get-your-game-seen/rich-presence-buttons.webp" alt="Rich Presence with a button to join the community" style={{width: "60%", height: "auto"}} />
 
-<Card title="How Do I Get My Game Seen?" href="/developers/game-development/how-to-get-your-game-seen" icon={<UserStatusIcon />} horizontal>
+<ImageCard title="How Do I Get My Game Seen?" href="/developers/game-development/how-to-get-your-game-seen" img="/images/game-development/how-to-get-your-game-seen/banner-how-to-get-your-game-seen.webp" horizontal >
     Implement Rich Presence with game details, lobby joining, game launching, and store links
-</Card>
+</ImageCard>
 
 ---
 
@@ -409,9 +408,9 @@ Your server and your game don't have to exist independent of each other. Using a
 
 All of these can run through a Discord bot connected to your game's server. To learn how to build a bot and put these features into practice read this how-to guide:
 
-<Card title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" icon={<RobotIcon />} horizontal>
+<ImageCard title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" img="/images/game-development/how-to-keep-your-players-engaged/banner-how-to-keep-your-players-engaged.webp" horizontal>
     Build a bot connected to your game with leaderboards, event announcements, and achievement sharing
-</Card>
+</ImageCard>
 
 ---
 
@@ -420,13 +419,13 @@ All of these can run through a Discord bot connected to your game's server. To l
 Now that your server is live, configured, and ready for players, here are some helpful next steps:
 
 <CardGroup cols={3}>
-    <Card title="How Do I Get My Game Seen?" href="/developers/game-development/how-to-get-your-game-seen" icon={<UserStatusIcon />}>
+    <ImageCard title="How Do I Get My Game Seen?" href="/developers/game-development/how-to-get-your-game-seen" img="/images/game-development/how-to-get-your-game-seen/banner-how-to-get-your-game-seen.webp" horizontal >
         Implement Rich Presence with game details, lobby joining, game launching, and store links
-    </Card>
-    <Card title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" icon={<RobotIcon />}>
+    </ImageCard>
+    <ImageCard title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" img="/images/game-development/how-to-keep-your-players-engaged/banner-how-to-keep-your-players-engaged.webp" horizontal>
         Build a bot connected to your game with leaderboards, event announcements, and achievement sharing
-    </Card>
-    <Card title="Using Community Invites" href="/developers/tutorials/using-community-invites" icon={<LinkIcon />}>
+    </ImageCard>
+    <Card title="Using Community Invites" href="/developers/tutorials/using-community-invites" icon={<InboxIcon />}>
         Deep dive on Community Invites with full implementation details
     </Card>
 </CardGroup>

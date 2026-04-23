@@ -4,6 +4,10 @@ sidebarTitle: "Bot Development"
 description: "Guides for developing bots on Discord."
 ---
 
+import {ImageCard} from '/snippets/imagecard.jsx'
+import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
+
 <Note>
   Visit [Bots & Companion Apps](/developers/bots/overview) for more on building bots and companion apps on Discord, including how to get started, best practices, and more.
 </Note>
@@ -11,27 +15,27 @@ description: "Guides for developing bots on Discord."
 ## Getting Started
 
 <CardGroup cols={1}>
-  <Card title="Build your first Discord bot" href="/developers/quick-start/getting-started">
+  <ImageCard title="Build your first Discord bot" href="/developers/quick-start/getting-started" img="/images/headers/docs-botsapp-hero.png" >
     A step-by-step guide to building your first bot on Discord.
-  </Card>
+  </ImageCard>
 </CardGroup>
 
 ## Diving Deeper
 
 <CardGroup cols={2}>
-  <Card title="Using Message Components" href="/developers/components/using-message-components">
+  <ImageCard title="Using Message Components" href="/developers/components/using-message-components" img="/images/components/hero.webp">
     A guide to using message components in your Discord bot.
-  </Card>
-  <Card title="Using Modal Components" href="/developers/components/using-modal-components">
+  </ImageCard>
+  <ImageCard title="Using Modal Components" href="/developers/components/using-modal-components" img="/images/components/hero.webp">
     A guide to using modal components in your Discord bot.
-  </Card>
-  <Card title="Using Community Invites" href="/developers/tutorials/using-community-invites">
+  </ImageCard>
+  <Card title="Using Community Invites" href="/developers/tutorials/using-community-invites" icon={<InboxIcon />}>
     A guide to using community invites in your Discord bot.
   </Card>
-  <Card title="Developing A User-Installable App" href="/developers/tutorials/developing-a-user-installable-app">
+  <Card title="Developing A User-Installable App" href="/developers/tutorials/developing-a-user-installable-app" icon={<RobotIcon />} >
     A guide to developing a user-installable app on Discord.
   </Card>
-  <Card title="Hosting on Cloudflare Workers" href="/developers/tutorials/hosting-on-cloudflare-workers">
+  <Card title="Hosting on Cloudflare Workers" href="/developers/tutorials/hosting-on-cloudflare-workers" icon={<RobotIcon />} >
     A guide to hosting your Discord bot on Cloudflare Workers.
   </Card>
 </CardGroup>
