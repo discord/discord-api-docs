@@ -1,0 +1,303 @@
+---
+title: Voice Muting Based on Player Blocks
+description: |
+    Implement bi-directional voice muting for blocked players in lobby voice calls using lobby member
+    metadata, populated client-side or server-side.
+---
+
+import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+
+This guide explains how to mute players in a lobby voice call based on block relationships — whether those blocks
+come from Discord's own relationship system or from an external source such as your game or platform backend.
+
+## Overview
+
+This guide will help you:
+
+- Understand why blocking a user does not automatically silence them in voice
+- Populate a per-player mute list using Discord block relationships (client-side) or your game server (server-side)
+- Apply that mute list using a shared implementation that works for both approaches
+- Satisfy bi-directional mute requirements (if A blocks B, neither can hear the other)
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Completed the [Getting Started Guide](/developers/discord-social-sdk/getting-started)
+- A working lobby from the [Managing Lobbies](/developers/discord-social-sdk/development-guides/managing-lobbies) guide
+- Familiarity with [Managing Voice Chat](/developers/discord-social-sdk/development-guides/managing-voice-chat)
+- Familiarity with [Managing Relationships](/developers/discord-social-sdk/development-guides/managing-relationships)
+
+---
+
+## Why Voice Muting Must Be Handled Explicitly
+
+### Discord Blocking Does Not Silence Voice
+
+Calling [`Client::BlockUser`] prevents a user from sending friend requests or messages, but it does **not** mute them in a lobby voice call. If you want a blocked player to be inaudible, your game must explicitly call [`Call::SetLocalMute`].
+
+### Block Signals May Come From Outside Discord
+
+Your game may receive block information from sources other than Discord — for example, from a platform-level or game-level block list. In these cases, there is no Discord relationship to query on the client. Your server needs to supply this information to clients through another mechanism, such as lobby member metadata.
+
+### Bi-Directional Muting
+
+[`Call::SetLocalMute`] is one-directional: calling it on A's client only stops A from hearing B — it has no effect on what B hears. To silence audio in both directions, **both** clients must independently call `SetLocalMute` on each other.
+
+The challenge is that both players need to independently know to mute each other. A may know to mute B based on whatever block signal they have access to — but B may not have that same information, and vice versa. Each client can only act on what it knows.
+
+The approaches in this guide address this through lobby member metadata: each player writes their `mute_list` to their own member metadata, which is visible to all lobby members. This lets players detect when someone else has listed them and mute that person in return, regardless of the original source of the block signal.
+
+---
+
+## Step 1: Populate the Mute List
+
+Both approaches in this guide work by writing a `mute_list` key to each lobby member's metadata. The value is a comma-separated list of Discord user IDs that player should mute in the voice call. How that list gets populated is what differs.
+
+### Client-Side
+
+Use this approach when the block information your game needs is available directly on the client — for example, from Discord's relationship system, your own in-game friend/block system, or any other client-accessible data source.
+
+When joining the lobby, build the mute list from whatever client-side data you have and write those IDs to your own member metadata using [`Client::CreateOrJoinLobbyWithMetadata`]. This makes your mute list visible to other lobby members so they can mute you in return.
+
+The example below uses Discord's block relationships as the data source — substitute your own logic for building `myMuteList` if your game uses a different signal.
+
+```cpp
+const auto lobbySecret = "my-lobby-secret";
+
+// Example: build the mute list from Discord block relationships.
+// Replace this with your own logic if using a different data source.
+std::string myMuteList;
+for (const auto& rel : client->GetRelationships()) {
+    if (rel.DiscordRelationshipType() == discordpp::RelationshipType::Blocked) {
+        if (!myMuteList.empty()) myMuteList += ",";
+        myMuteList += std::to_string(rel.Id());
+    }
+}
+
+// Join the lobby with your mute list in your member metadata
+client->CreateOrJoinLobbyWithMetadata(
+  lobbySecret,
+  {},  // no lobby-level metadata needed
+  {{"mute_list", myMuteList}},
+  [](const discordpp::ClientResult &result, uint64_t lobbyId) {
+      if (!result.Successful()) {
+          std::cerr << "Failed to join lobby\n";
+      }
+  }
+);
+```
+
+<Info>
+Member metadata has a maximum total length of 1,000 characters. At ~19 characters per Discord snowflake ID plus a comma separator, this comfortably fits around 50 blocked users.
+
+Look at [Server Side](#server-side) integration if your needs exceed this limitation.
+</Info>
+
+### Server-Side
+
+Use this approach when block information comes from an external source — such as a platform-level blocklist, when
+you want to guarantee bi-directional muting without relying on clients to populate their own metadata or when you
+need to filter lobby blocklists to only those in the lobby to support players who have very large potential
+blocklists.
+
+Your server code can filter each player's block list down to only the other members in the session and writes it to
+their metadata when creating the lobby. Since you know exactly who is joining, you only need to consider block
+relationships between those specific players — not each player's entire block list.
+
+The client-side code in Step 2
+handles the reverse direction: each client also checks whether any other participant has listed them.
+
+```python
+import requests
+
+API_ENDPOINT = 'https://discord.com/api/v10'
+BOT_TOKEN = 'YOUR_BOT_TOKEN'
+
+def create_lobby_with_mute_metadata(session_members, block_relationships):
+    """
+    session_members: list of Discord user ID strings for this lobby
+    block_relationships: dict mapping user ID to list of user IDs they have blocked
+
+    Each player's mute_list contains only the session members they have blocked.
+    The client handles the reverse direction by checking whether others have listed them.
+    """
+    mute_map = {user_id: set() for user_id in session_members}
+
+    # Only include blocks where both users are in this session
+    for blocker_id, blocked_ids in block_relationships.items():
+        if blocker_id in mute_map:
+            for blocked_id in blocked_ids:
+                if blocked_id in mute_map:
+                    mute_map[blocker_id].add(blocked_id)
+
+    members = []
+    for user_id in session_members:
+        mute_list = mute_map.get(user_id, set())
+        members.append({
+            "id": user_id,
+            "metadata": {"mute_list": ",".join(mute_list)} if mute_list else None,
+        })
+
+    response = requests.post(
+        f'{API_ENDPOINT}/lobbies',
+        headers={
+            'Authorization': f'Bot {BOT_TOKEN}',
+            'Content-Type': 'application/json',
+        },
+        json={"members": members},
+    )
+    response.raise_for_status()
+    return response.json()
+
+
+# Example: Player A has blocked Player B.
+# Only A's mute_list contains B. B's mute_list is empty (B has not blocked anyone).
+# The client-side code in Step 2 handles the reverse: B will detect A has listed them and mute A.
+lobby = create_lobby_with_mute_metadata(
+    session_members=[
+        "111111111111111111",  # Player A
+        "222222222222222222",  # Player B
+        "333333333333333333",  # Player C (no blocks)
+    ],
+    block_relationships={
+        "111111111111111111": ["222222222222222222"],  # A has blocked B
+    },
+)
+print(f"Lobby created: {lobby['id']}")
+```
+
+<Tip>
+    If players join the lobby after the initial creation, you may need to update their metadata with the relevant
+    blocklists.
+
+    Use [`POST /lobbies/{lobby.id}/members/bulk`](/developers/resources/lobby#bulk-update-lobby-members) to add or
+    update up to 25 members in a single request, or
+    [`PUT /lobbies/{lobby.id}/members/{user.id}`](/developers/resources/lobby#add-a-member-to-a-lobby) to update
+    a single member.
+</Tip>
+
+---
+
+## Step 2: Apply the Mute List
+
+Once the `mute_list` metadata is populated — by either approach above — the client code that reads it and applies mutes is the same.
+
+### On Lobby Join
+
+After joining the lobby and starting the voice call, run `ApplyMuteChecks` against every other lobby member.
+
+```cpp
+const auto currentUser = client->GetCurrentUserV2();
+if (!currentUser) return;
+const auto myUserId = currentUser->Id();
+const auto lobby = client->GetLobbyHandle(lobbyId);
+auto call = client->StartCall(lobbyId);
+
+if (lobby && call) {
+    for (auto memberId : lobby->LobbyMemberIds()) {
+        if (memberId != myUserId) {
+            ApplyMuteChecks(call, *lobby, myUserId, memberId);
+        }
+    }
+}
+
+// Mutes lobbyUserId locally if either myUserId or lobbyUserId has listed the other in their mute_list.
+void ApplyMuteChecks(discordpp::Call& call, const discordpp::LobbyHandle& lobby,
+                     const uint64_t myUserId, const uint64_t lobbyUserId) {
+
+  auto isListed = [&](const uint64_t ownerId, const uint64_t searchId) -> bool {
+    const auto member = lobby.GetLobbyMemberHandle(ownerId);
+    if (!member) return false;
+    auto metadata = member->Metadata();
+    const auto it = metadata.find("mute_list");
+    if (it == metadata.end()) return false;
+    std::stringstream ss(it->second);
+    std::string idStr;
+    while (std::getline(ss, idStr, ',')) {
+      if (std::stoull(idStr) == searchId) return true;
+    }
+    return false;
+  };
+
+  if (isListed(myUserId, lobbyUserId) || isListed(lobbyUserId, myUserId)) {
+    call.SetLocalMute(lobbyUserId, true);
+  }
+}
+```
+
+### Handling Participants Who Join Later
+
+Register [`Call::SetParticipantChangedCallback`] to apply mutes when new participants join the voice call mid-session.
+This fires with `added = true` when someone joins and `added = false` when they leave.
+
+```cpp
+call.SetParticipantChangedCallback(
+    [client, lobbyId, myUserId, call](uint64_t userId, const bool added) mutable {
+      if (!added) return;
+      auto lobby = client->GetLobbyHandle(lobbyId);
+      if (!lobby) return;
+      ApplyMuteChecks(call, *lobby, myUserId, userId);
+    }
+);
+```
+
+---
+
+## Best Practices
+
+- **Consider filtering at matchmaking time.** The cleanest experience is to avoid placing blocked players in the same lobby at all. Voice muting handles the audio side, but blocked players may still see each other in the game UI.
+- **Update mutes when relationships change.** If a player blocks someone during an active session, call [`Call::SetLocalMute`] immediately and update your `mute_list` member metadata by re-calling [`Client::CreateOrJoinLobbyWithMetadata`] with the new list. For the server-side approach, update the member's metadata via [`PUT /lobbies/{lobby.id}/members/{user.id}`](/developers/resources/lobby#add-a-member-to-a-lobby).
+- **Keep metadata compact.** Lobby member metadata has a 1,000-character limit. Comma-separated ID strings are more efficient than JSON objects.
+
+---
+
+## Next Steps
+
+import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
+import {UserIcon} from '/snippets/icons/UserIcon.jsx'
+import {ListViewIcon} from '/snippets/icons/ListViewIcon.jsx'
+
+<CardGroup cols={3}>
+    <Card title="Managing Voice Chat"
+          href="/developers/discord-social-sdk/development-guides/managing-voice-chat"
+          icon={<VoiceNormalIcon/>}>
+        Add in-game voice communication to your lobbies.
+    </Card>
+    <Card title="Managing Lobbies"
+          href="/developers/discord-social-sdk/development-guides/managing-lobbies"
+          icon={<UserIcon/>}>
+        Create and manage game lobbies for matchmaking.
+    </Card>
+    <Card title="Managing Relationships"
+          href="/developers/discord-social-sdk/development-guides/managing-relationships"
+          icon={<ListViewIcon/>}>
+        Manage Discord user relationships including friends and blocked users.
+    </Card>
+</CardGroup>
+
+<SupportCallout/>
+
+---
+
+## Change Log
+
+| Date           | Changes         |
+|----------------|-----------------|
+| April 22, 2026 | Initial release |
+
+{/* Autogenerated Reference Links */}
+[`Call::SetLocalMute`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#aaf8e7728b15da5d1be8d8b4258225171
+[`Call::SetParticipantChangedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Call.html#acb20d338a04abec2369217f41c22c0e5
+[`Client::BlockUser`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#add4a917c8382e411d5a55737c9edc8ad
+[`Client::CreateOrJoinLobbyWithMetadata`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a5c84fa76c73cf3c0bfd68794ca5595c1
+[`Client::GetCurrentUserV2`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ae52259570ba657252d91f5580636fe5d
+[`Client::GetLobbyHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aee1d8d43efe5caa2d97b64ab699e5854
+[`Client::GetRelationships`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ad481849835cd570f0e03adafcf90125d
+[`Client::StartCall`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aef4f25d761fe198fbe9bc721fc24d83f
+[`LobbyHandle::GetLobbyMemberHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1LobbyHandle.html#a9e64cab5c6cfbf7477c6d868a3b47c0d
+[`LobbyHandle::LobbyMemberIds`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1LobbyHandle.html#acf329ee87e0f2f9f14b61adbd931b9c7
+[`LobbyMemberHandle::Metadata`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1LobbyMemberHandle.html#ade3709e5e5f44f53428b386924416f6b
+[`RelationshipHandle::DiscordRelationshipType`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#a5fecfb79a4a2b6f3dc5f73b09d0c3881
+[`RelationshipHandle::Id`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#a3a14b6cfa9a9fffc61e500d8329be587
+[`RelationshipType`]: https://discord.com/developers/docs/social-sdk/namespacediscordpp.html#a28fc5199b9211c24124c06f30c1d0cbb

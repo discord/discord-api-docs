@@ -11,6 +11,7 @@ import {ClydeIcon} from '/snippets/icons/ClydeIcon.jsx'
 import {ShieldIcon} from '/snippets/icons/ShieldIcon.jsx'
 import {StarShootingIcon} from '/snippets/icons/StarShootingIcon.jsx'
 import {LettersIcon} from '/snippets/icons/LettersIcon.jsx'
+import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
 
 <CardGroup cols={3}>
     <Card title="Debug & Log" href="/developers/discord-social-sdk/how-to/debug-log" icon={<BugIcon/>}>
@@ -28,6 +29,11 @@ import {LettersIcon} from '/snippets/icons/LettersIcon.jsx'
     <Card title="Handle Special Characters in Display Names"
           href="/developers/discord-social-sdk/how-to/handle-special-characters-display-names" icon={<LettersIcon/>}>
         Handling Unicode characters in Discord Display Names for your game's chat and friend lists.
+    </Card>
+    <Card title="Voice Muting Based on Player Blocks"
+          href="/developers/discord-social-sdk/how-to/voice-muting-for-blocked-players"
+          icon={<VoiceNormalIcon/>}>
+        Apply voice muting in lobbies based on Discord block relationships or external platform signals.
     </Card>
 </CardGroup>
 

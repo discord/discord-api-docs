@@ -277,7 +277,7 @@ This information is particularly useful for:
 
 import {MagicWandIcon} from '/snippets/icons/MagicWandIcon.jsx'
 import {ClydeIcon} from '/snippets/icons/ClydeIcon.jsx'
-import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
 
 <CardGroup cols={3}>
     <Card title="Integrate Moderation" href="/developers/discord-social-sdk/how-to/integrate-moderation"
@@ -287,9 +287,10 @@ import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
     <Card title="Use with Discord APIs" href="/developers/discord-social-sdk/how-to/use-with-discord-apis" icon={<ClydeIcon />}>
         Make requests to Discord's HTTP APIs from your game.
     </Card>
-    <Card title="Managing Game Invites" href="/developers/discord-social-sdk/development-guides/managing-game-invites"
-          icon={<InboxIcon />}>
-        Allow players to invite friends to join their game session or party.
+    <Card title="Voice Muting Based on Player Blocks"
+          href="/developers/discord-social-sdk/how-to/voice-muting-for-blocked-players"
+          icon={<VoiceNormalIcon />}>
+        Mute players in lobby voice calls based on block relationships.
     </Card>
 </CardGroup>
 

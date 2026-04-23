@@ -220,20 +220,24 @@ Check out the [Using Game Invites with Lobbies](/developers/discord-social-sdk/d
 
 With your game able to create and manage lobbies, you can now implement additional features:
 
-import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
 import {HashmarkIcon} from '/snippets/icons/HashmarkIcon.jsx'
 
 <CardGroup cols={3}>
-  <Card title="Managing Game Invites" href="/developers/discord-social-sdk/development-guides/managing-game-invites" icon={<InboxIcon />}>
-    Allow players to invite friends to join their game session or party.
-  </Card>
-  <Card title="Managing Voice Chat" href="/developers/discord-social-sdk/development-guides/managing-voice-chat" icon={<VoiceNormalIcon />}>
-    Add voice communication to your lobbies.
-  </Card>
-  <Card title="Linked Channels" href="/developers/discord-social-sdk/development-guides/linked-channels" icon={<HashmarkIcon />}>
-    Connect lobbies to Discord text channels.
-  </Card>
+    <Card title="Managing Voice Chat" href="/developers/discord-social-sdk/development-guides/managing-voice-chat"
+          icon={<VoiceNormalIcon/>}>
+        Add voice communication to your lobbies.
+    </Card>
+    <Card title="Linked Channels" href="/developers/discord-social-sdk/development-guides/linked-channels"
+          icon={<HashmarkIcon/>}>
+        Connect lobbies to Discord text channels.
+    </Card>
+    <Card title="Voice Muting Based on Player Blocks"
+          href="/developers/discord-social-sdk/how-to/voice-muting-for-blocked-players"
+          icon={<UserStatusIcon/>}>
+        Locally mute players in lobby voice calls based on block relationships.
+    </Card>
 </CardGroup>
 
 <SupportCallout />
