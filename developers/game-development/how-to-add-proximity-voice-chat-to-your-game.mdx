@@ -9,7 +9,7 @@ import CommsScopeWarning from '/snippets/discord-social-sdk/callouts/oauth-comms
 
 <img src="/images/game-development/how-to-add-proximity-voice-chat-to-your-game/banner-proximity-voice-chat.webp" alt="A banner showing a microphone that produces audio waves that look like they're in 3d space" style={{width: "100%", height: "auto"}} />
 
-*Note: This guide was published on April 22nd 2026 and was last updated on April 22nd 2026.*
+*Note: This guide was published on April 22nd 2026 and was last updated on April 23rd 2026.*
 
 Proximity voice chat in multiplayer games has become a genre-defining feature. Hearing a friend's voice fade as they disappear around a corner, or listening to a teammate call out from across the map, makes a multiplayer game feel alive in a way that flat voice chat can’t.
 
@@ -53,7 +53,7 @@ The Social SDK lets you start a voice call for a lobby, but here is the key diff
 
 ### 3. Intercepting the Audio
 
-When Discord receives and decodes voice audio from a remote player, it calls your [`Client::UserAudioReceivedCallback`]. This callback hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
+When Discord receives and decodes voice audio from a remote player, it calls the callback in [`Client::StartCallWithAudioCallbacks`]. The callback in this function hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
 
 ### 4. Routing Audio to a GameObject
 
@@ -91,7 +91,7 @@ Subscribe to [`Client::SetLobbyMemberAddedCallback`] to spawn the remote player 
 ```csharp
 client.SetLobbyMemberAddedCallback((lobbyId, userId) =>
 {
-		// This is where you will spawn a remote player with your multiplayer framework
+	// This is where you will spawn a remote player with your multiplayer framework
     GameObject playerObject = Instantiate(remotePlayerPrefab);
     VoiceAudioSource voiceSource = playerObject.GetComponentInChildren<VoiceAudioSource>();
     if (voiceSource != null)
@@ -105,7 +105,7 @@ Only register remote players, not the local player. The local player's voice is 
 
 <Info>
 
-For the purpose of this tutorial, all of the player and voice setup is tied to a player joining a Social SDK lobby. In a production game you will likely tie your player's lifecycle and voice to your own multiplayer session management system instead.
+For the purpose of this guide, all of the player and voice setup is tied to a player joining a Social SDK lobby. In a production game you will likely tie your player's lifecycle and voice to your own multiplayer session management system instead.
 
 </Info>
 
@@ -147,11 +147,11 @@ private void OnVoiceAudioReceived(ulong userId, System.IntPtr data, ulong sample
 }
 ```
 
-The callback provides a few useful things. The `userId` of the player’s audio which you use to pass the audio to the correct player object in your scene. `data` , `samplesPerChannel`, `sampleRate`, and `channels`, all define the raw audio data which you’ll send to an `AudioSource`. Setting `outShouldMute = true` is important: it tells Discord to skip playing this audio to the default audio device for the player. Instead, you look up that player's `VoiceAudioSource` component from a dictionary keyed by user ID and feed the raw samples directly to it.
+The callback provides a few useful things. The `userId` of the player’s audio which you use to pass the audio to the correct player object in your scene. `data`, `samplesPerChannel`, `sampleRate`, and `channels`, all define the raw audio data which you’ll send to an `AudioSource`. Setting `outShouldMute = true` is important: it tells Discord to skip playing this audio to the default audio device for the player. Instead, you look up that player's `VoiceAudioSource` component from a dictionary keyed by user ID and feed the raw samples directly to it.
 
 <Info>
 
-`outShouldMute` lets you choose wether Discord should play the audio through its normal output. Setting it to `true` gives you full control to route the audio yourself, which is necessary for proximity voice chat. If you set it to `false`, Discord will play the audio through your players' default audio device. In a full game it would make sense to set this to `false` while players are in a lobby so they can talk to each other and then `true` once they're playing the game.
+`outShouldMute` lets you choose whether Discord should play the audio through its normal output or not. Setting it to `true` stops it from playing out of the default device and gives you full control to route the audio yourself, which is necessary for proximity voice chat. If you set it to `false`, Discord will play the audio through your players' default audio device. In a full game it would make sense to set this to `false` while players are in a lobby so they can talk to each other and then `true` once they're playing the game.
 
 </Info>
 
@@ -278,11 +278,11 @@ The `spatialBlend = 1f` setting on the `AudioSource` is what makes the audio spa
 
 Here is the full architecture from start to finish:
 
-1. A player joins lobby and [`Client::StartCallWithAudioCallbacks`] starts the Discord voice call with your custom audio callback.
+1. A player joins a lobby and [`Client::StartCallWithAudioCallbacks`] starts the Discord voice call with your custom audio callback.
 2. Decoded audio arrives for a remote player and the `OnVoiceAudioReceived` callback fires.
-3. Audio data is routed to that player's `VoiceAudioSource` component via `FeedSamples()` .
-4. `VoiceAudioSource` sends the audio into Unity's audio system through its ring buffer and streaming `AudioClip`
-5. As players move around the scene, Unity automatically adjusts volume and stereo panning based on distance and direction
+3. Audio data is routed to that player's `VoiceAudioSource` component via `FeedSamples()`.
+4. `VoiceAudioSource` sends the audio into Unity's audio system through its ring buffer and streaming `AudioClip`.
+5. As players move around the scene, Unity automatically adjusts volume and stereo panning based on distance and direction.
 
 Discord handles voice networking. Unity handles spatial audio. The `VoiceAudioSource` component bridges the two.
 
@@ -303,7 +303,7 @@ Now you have a working proximity voice solution combining the power of the Disco
 Ready to go deeper? These guides cover other ways to build games with Discord:
 
 <Columns cols={2}>
-    <ImageCard title="How To Grow Your Game" href="/developers/game-development/how-to-grow-your-game" img="/images/game-development/how-to-grow-your-game/banner-how-to-grow-your-game.webp" horizontal>
+    <ImageCard title="How To Grow Your Game" href="/developers/game-development/how-to-grow-your-game" img="/images/game-development/how-to-grow-your-game/banner-how-to-grow-your-game.webp" >
         Guides for game developers on using Discord's Social SDK and APIs to grow and engage their player base
     </ImageCard>
     <ImageCard title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" img="/images/game-development/how-to-keep-your-players-engaged/banner-how-to-keep-your-players-engaged.webp" >
