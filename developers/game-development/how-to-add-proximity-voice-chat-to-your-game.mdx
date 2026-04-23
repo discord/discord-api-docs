@@ -53,7 +53,7 @@ The Social SDK lets you start a voice call for a lobby, but here is the key diff
 
 ### 3. Intercepting the Audio
 
-When Discord receives and decodes voice audio from a remote player, it calls your `Client::UserAudioReceivedCallback`. This callback hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
+When Discord receives and decodes voice audio from a remote player, it calls the callback in [`Client::StartCallWithAudioCallbacks`]. The callback in this function hands you the raw PCM audio data along with the user ID of the speaker. It also gives you an `outShouldMute` flag. Setting this to `true` tells Discord not to play the audio through its normal output and allows you to control where it gets played.
 
 ### 4. Routing Audio to a GameObject
 
