@@ -8,7 +8,7 @@ import {Route} from '/snippets/route.jsx'
 
 <Update label="April 23, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.9.15332",
-    description: "PlayStation 5 OS 13.000 support."
+    description: "PlayStation 5 OS 13.000 support and activity invite fix for Publisher Level Account Linking."
   }}>
 
     ## Discord Social SDK Release 1.9.15332
@@ -17,6 +17,9 @@ import {Route} from '/snippets/route.jsx'
 
     ### Playstation 5
     - Added OS 13.000 support
+
+    ### Activity Invites
+    - Accepting an activity invite over RPC now uses the `application_id` from the invite when provided, fixing cases where invites from sibling applications were sometimes attributed to the wrong app. This only affects teams leveraging Publisher Level Account Linking for having a single auth flow across all the games in their portfolio.
 
 </Update>
 
