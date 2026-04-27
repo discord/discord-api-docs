@@ -330,7 +330,7 @@ When the user navigates to this page, they'll be prompted to add the bot to a gu
 If you happen to already know the ID of the guild the user will add your bot to, you can provide this ID in the URL as a `guild_id=GUILD_ID` parameter.
 When the authorization page loads, that guild will be preselected in the dialog if that user has permission to add the bot to that guild. You can use this in conjunction with the parameter `disable_guild_select=true` to disallow the user from picking a different guild.
 
-If you only provide the client_id parameter (with optionally permissions, guild_id, or disable_guild_select), the authorization will use the [default install settings](/developers/resources/application#configuring-an-install-link-and-default-install-settings) configured in the developer portal. Specifying scope, integration_type, or redirect_uri will override this behavior.
+If you only provide the `client_id` parameter (with optionally `permissions`, `guild_id`, or `disable_guild_select`), the authorization will use the [default install settings](/developers/resources/application#configuring-an-install-link-and-default-install-settings) configured in the developer portal. Specifying `scope`, `integration_type`, or `redirect_uri` will override this behavior.
 
 If your bot is super specific to your private clubhouse, or you just don't like sharing, you can leave the `Public Bot` option unchecked in your application's settings. If unchecked, only you can add the bot to guilds. If marked as public, anyone with your bot's URL can add it to guilds in which they have proper permissions.
 
