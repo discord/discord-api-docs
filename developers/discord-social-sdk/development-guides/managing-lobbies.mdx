@@ -216,6 +216,27 @@ Check out the [Using Game Invites with Lobbies](/developers/discord-social-sdk/d
 
 ---
 
+## Development Rate Limits
+
+Applications without [increased rate limits for production releases](/developers/discord-social-sdk/core-concepts/communication-features#applying-for-increased-rate-limits-for-production-releases) are subject to the following application-wide limits:
+
+| Operation                          | Limit           |
+|------------------------------------|-----------------|
+| [`Client::CreateOrJoinLobby`]      | 20 per 2 hours  |
+| [`Client::LinkChannelToLobby`]     | 20 per 2 hours  |
+| [`Client::UnlinkChannelFromLobby`] | 20 per 2 hours  |
+| [`Client::SendLobbyMessage`]       | 100 per 2 hours |
+
+<Info>
+These are per-application rate limits, not per-user.
+</Info>
+
+These limitations are designed to provide sufficient capacity for development, testing, and small-scale demos while ensuring system stability.
+
+For guidance on detecting and retrying rate limited requests in the SDK, see [Handle Rate Limits](/developers/discord-social-sdk/how-to/handle-rate-limits).
+
+---
+
 ## Next Steps
 
 With your game able to create and manage lobbies, you can now implement additional features:
@@ -257,6 +278,8 @@ import {HashmarkIcon} from '/snippets/icons/HashmarkIcon.jsx'
 [`Client::CreateOrJoinLobbyWithMetadata`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a5c84fa76c73cf3c0bfd68794ca5595c1
 [`Client::GetLobbyMessagesWithLimit`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a0586192e85caf548b8b321f1cb21301f
 [`Client::LeaveLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8c78f797240b35d721383461a2e62926
+[`Client::LinkChannelToLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3114d58d50d4d2cb5752d95e121315d4
 [`Client::SendLobbyMessage`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a779e0483f51dc99f0db3dd761d22ab6f
 [`Client::SetMessageCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28325a8e8c688a84ac851da4bc86e148
+[`Client::UnlinkChannelFromLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28f78a6fe46eb11eb54ee9b53fa94ffe
 [`MessageHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#ae25595b43bc74b0c4c92c5165d16382f
