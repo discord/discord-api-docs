@@ -133,6 +133,28 @@ Returns the [lobby member](/developers/resources/lobby#lobby-member-object) obje
 | metadata? | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
 | flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
+## Bulk Update Lobby Members
+<Route method="POST">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/bulk</Route>
+
+Adds, updates, or removes up to 25 members from the specified lobby in a single request. Members with `remove_member: false` (the default) are upserted — added if not present, or updated with the provided metadata and flags if already a member. Members with `remove_member: true` are removed.
+
+Returns an array of [lobby member](/developers/resources/lobby#lobby-member-object) objects for the upserted members. Removed members are not included in the response.
+
+<Info>
+Users unknown to Discord will return a 404 UNKNOWN_USER error. Users that fail permission checks or who have already reached the maximum number of lobbies per application (and are not already a member of this lobby) are silently dropped from the upsert set.
+</Info>
+
+### JSON Params
+
+An array of member objects. Minimum 1, maximum 25.
+
+| Field          | Type                    | Description                                                                                                                                                |
+|----------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake               | Discord user id of the user to add, update, or remove                                                                                                      |
+| metadata?      | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
+| flags?         | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| remove_member? | boolean                 | if `true`, the user is removed from the lobby instead of upserted. Default `false`.                                                                        |
+
 ## Remove a Member from a Lobby
 <Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/[\{user.id\}](/developers/resources/user#user-object)</Route>
 

@@ -6,6 +6,21 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="April 24, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
+    title: "Voice Muting Based on Player Blocks Guide",
+    description: "New how-to guide for implementing bi-directional voice muting in lobby voice calls based on block relationships, with client-side and server-side approaches."
+  }}>
+
+  ## Voice Muting Based on Player Blocks
+
+  We've published a new how-to guide covering how to implement bi-directional voice muting in lobby voice calls based on block relationships. The guide covers two approaches for populating per-member mute lists — client-side using any client-accessible block signal (Discord relationships, in-game block lists, etc.) and server-side via lobby member metadata set at lobby creation — and a shared client-side implementation that applies mutes in both directions.
+
+  As part of this work, we've also documented the [`POST /lobbies/{lobby.id}/members/bulk`](/developers/resources/lobby#bulk-update-lobby-members) endpoint, which allows adding, updating, or removing up to 25 lobby members in a single request.
+
+  [Voice Muting Based on Player Blocks](/developers/discord-social-sdk/how-to/voice-muting-for-blocked-players)
+
+</Update>
+
 <Update label="April 23, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.9.15332",
     description: "PlayStation 5 OS 13.000 support and activity invite fix for Publisher Level Account Linking."
