@@ -40,9 +40,9 @@ client->SendLobbyMessage(lobbyId, message, [](discordpp::ClientResult result, ui
 
 Use [`ClientResult::RetryAfter`] as the minimum delay before your next attempt. Retrying before this elapses will trigger continued rate limiting.
 
-<Warning>
-Always respect the `RetryAfter` value. Ignoring it and retrying immediately will not succeed and may extend the rate limit window.
-</Warning>
+<Tip>
+Always respect the `RetryAfter` period. Retrying before it elapses will continue to fail.
+</Tip>
 
 A simple retry helper using your game engine's timer system:
 
