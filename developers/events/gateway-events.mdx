@@ -1123,11 +1123,12 @@ Sent when a message is created. The inner payload is a [message](/developers/res
 <ManualAnchor id="message-create-message-create-extra-fields" />
 ###### Message Create Extra Fields
 
-| Field     | Type                                                                                                                                                                   | Description                                                                                            |
-|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| guild_id? | snowflake                                                                                                                                                              | ID of the guild the message was sent in - unless it is an ephemeral message                            |
-| member?   | partial [guild member](/developers/resources/guild#guild-member-object) object                                                                                         | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
-| mentions  | array of [user](/developers/resources/user#user-object) objects, optionally with an additional partial [member](/developers/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                            |
+| Field         | Type                                                                                                                                                                   | Description                                                                                               |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| guild_id?     | snowflake                                                                                                                                                              | ID of the guild the message was sent in - unless it is an ephemeral message                               |
+| member?       | partial [guild member](/developers/resources/guild#guild-member-object) object                                                                                         | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks    |
+| mentions      | array of [user](/developers/resources/user#user-object) objects, optionally with an additional partial [member](/developers/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                               |
+| channel_type? | integer                                                                                                                                                                | The [type of channel](/developers/resources/channel#channel-object-channel-types) the message was sent in |
 
 #### Message Update
 
