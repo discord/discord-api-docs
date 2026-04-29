@@ -12,6 +12,7 @@ import {ShieldIcon} from '/snippets/icons/ShieldIcon.jsx'
 import {StarShootingIcon} from '/snippets/icons/StarShootingIcon.jsx'
 import {LettersIcon} from '/snippets/icons/LettersIcon.jsx'
 import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
 
 <CardGroup cols={3}>
     <Card title="Debug & Log" href="/developers/discord-social-sdk/how-to/debug-log" icon={<BugIcon/>}>
@@ -34,6 +35,11 @@ import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
           href="/developers/discord-social-sdk/how-to/voice-muting-for-blocked-players"
           icon={<VoiceNormalIcon/>}>
         Apply voice muting in lobbies based on Discord block relationships or external platform signals.
+    </Card>
+    <Card title="Handle Rate Limits"
+          href="/developers/discord-social-sdk/how-to/handle-rate-limits"
+          icon={<WrenchIcon/>}>
+        Detect and handle rate limit errors using ClientResult.
     </Card>
 </CardGroup>
 

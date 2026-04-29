@@ -271,6 +271,7 @@
               "developers/discord-social-sdk/how-to",
               "developers/discord-social-sdk/how-to/debug-log",
               "developers/discord-social-sdk/how-to/use-with-discord-apis",
+              "developers/discord-social-sdk/how-to/handle-rate-limits",
               "developers/discord-social-sdk/how-to/integrate-moderation",
               "developers/discord-social-sdk/how-to/market-your-integration",
               "developers/discord-social-sdk/how-to/handle-special-characters-display-names",
