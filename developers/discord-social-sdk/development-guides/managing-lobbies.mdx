@@ -65,9 +65,9 @@ You can use the Discord HTTP API to create, update, and delete lobbies and manag
 
 See the [Lobby](/developers/resources/lobby) API resource for available endpoints and [Use with Discord APIs](/developers/discord-social-sdk/how-to/use-with-discord-apis) for information on how to authenticate your requests.
 
-<Info>
-Clients will not be able to use [`Client::CreateOrJoinLobby`] or [`Client::LeaveLobby`] with lobbies created using the API.
-</Info>
+<Warning>
+Clients will not be able to use [`Client::CreateOrJoinLobby`], [`Client::CreateOrJoinLobbyWithMetadata`], or [`Client::LeaveLobby`] with lobbies created using the API.
+</Warning>
 
 ### Client-Side Lobby Management
 
