@@ -16,39 +16,42 @@ Routes for controlling emojis do not follow the normal rate limit conventions. T
 <ManualAnchor id="emoji-object-emoji-structure" />
 ###### Emoji Structure
 
-| Field           | Type                                                                   | Description                                                               |
-|-----------------|------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| id              | ?snowflake                                                             | [emoji id](/developers/reference#image-formatting)                        |
-| name            | ?string (can be null only in reaction emoji objects)                   | emoji name                                                                |
-| roles?          | array of [role](/developers/topics/permissions#role-object) object ids | roles allowed to use this emoji                                           |
-| user?           | [user](/developers/resources/user#user-object) object                  | user that created this emoji                                              |
-| require_colons? | boolean                                                                | whether this emoji must be wrapped in colons                              |
-| managed?        | boolean                                                                | whether this emoji is managed                                             |
-| animated?       | boolean                                                                | whether this emoji is animated                                            |
-| available?      | boolean                                                                | whether this emoji can be used, may be false due to loss of Server Boosts |
+| Field           | Type                                                            | Description                                                               |
+|-----------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+| id              | ?snowflake                                                      | [emoji id](/developers/reference#image-formatting)                        |
+| name            | ?string*                                                        | emoji name (2-32 alphanumeric characters and underscores)                 |
+| roles?          | array of [role](/developers/topics/permissions#role-object) ids | roles allowed to use this emoji                                           |
+| user?           | [user](/developers/resources/user#user-object) object           | user that created this emoji                                              |
+| require_colons? | boolean                                                         | whether this emoji must be wrapped in colons**                            |
+| managed?        | boolean                                                         | whether this emoji is managed by an integration                           |
+| animated?       | boolean                                                         | whether this emoji is animated                                            |
+| available?      | boolean                                                         | whether this emoji can be used, may be false due to loss of Server Boosts |
+
+* This field can only be `null` in reaction emoji objects.
+** The `requires_colons` field is only set to `false` for synced subscriber emotes when the [Twitch Integration](https://support.discord.com/hc/en-us/articles/212112068-Twitch-Integration-FAQ) is setup. 
 
 <ManualAnchor id="emoji-object-premium-emoji" />
-###### Premium Emoji
+###### Premium Emojis
 
 Roles with the `integration_id` tag being the guild's guild_subscription integration are considered subscription roles.
 An emoji cannot have both subscription roles and non-subscription roles.
-Emojis with subscription roles are considered premium emoji, and count toward a separate limit of 25.
+Emojis with subscription roles are considered premium emojis, and count toward a separate limit of 25.
 Emojis cannot be converted between normal and premium after creation.
 
 <ManualAnchor id="emoji-object-emoji-formats" />
 ###### Emoji Formats
 
-Emoji can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. All emoji (regardless of original format) can be served as WebP. We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. The Discord client uses WebP for all emoji displayed in-app.
+Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. All emojis, regardless of original format, can be served as WebP. We highly recommend that developers use the `.webp` extension when fetching emojis so they're rendered as WebP for maximum performance and compatibility. The Discord client uses WebP for all emojis displayed in-app.
 
-Still WebP emoji can be requested using the `.webp` file extension. For animated WebP emoji, use the `.webp` extension with the `?animated=true` query parameter.
+Non-animated WebP emojis can be requested using the `.webp` file extension. For animated WebP emojis, use the `.webp` extension with the `?animated=true` query parameter.
 
 <ManualAnchor id="emoji-object-applicationowned-emoji" />
-###### Application-Owned Emoji
+###### Application-Owned Emojis
 
-An application can own up to 2000 emojis that can only be used by that app.
-App emojis can be managed using the API with a bot token, or using the app's settings in the portal.
+An application can own up to 2,000 emojis that can only be used by that app.
+App emojis can be managed using the API with a bot token or through the "Emoji" tab on the developer portal.
 The `USE_EXTERNAL_EMOJIS` permission is not required to use app emojis.
-The `user` field of an app emoji object represents the team member that uploaded the emoji from the app's settings, or the bot user if uploaded using the API.
+The `user` field of an app emoji object represents the team member that uploaded the emoji from the developer portal, or the bot user if uploaded using the API.
 
 <ManualAnchor id="emoji-object-emoji-example" />
 ###### Emoji Example
@@ -85,7 +88,7 @@ The `user` field of an app emoji object represents the team member that uploaded
 ###### Custom Emoji Examples
 
 <Info>
-In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emoji.
+In `MESSAGE_REACTION_ADD`, `MESSAGE_REACTION_REMOVE` and `MESSAGE_REACTION_REMOVE_EMOJI` gateway events `animated` will be returned for animated emojis.
 </Info>
 
 <Info>
@@ -115,7 +118,7 @@ Returns a list of [emoji](/developers/resources/emoji#emoji-object) objects for 
 ## Get Guild Emoji
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/emojis/[\{emoji.id\}](/developers/resources/emoji#emoji-object)</Route>
 
-Returns an [emoji](/developers/resources/emoji#emoji-object) object for the given guild and emoji IDs. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the `CREATE_GUILD_EXPRESSIONS` permission.
+Returns an [emoji](/developers/resources/emoji#emoji-object) object for the provided emoji id in the given guild. Includes the `user` field if the bot has the `MANAGE_GUILD_EXPRESSIONS` permission, or if the bot created the emoji and has the `CREATE_GUILD_EXPRESSIONS` permission.
 
 ## Create Guild Emoji
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/emojis</Route>
@@ -127,7 +130,7 @@ Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to up
 </Warning>
 
 <Info>
-We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](/developers/resources/emoji#emoji-object-emoji-formats) section above for more details.
+We highly recommend that developers use the `.webp` extension when fetching emojis so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](/developers/resources/emoji#emoji-object-emoji-formats) section above for more details.
 </Info>
 
 <Info>
@@ -176,7 +179,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## List Application Emojis
 <Route method="GET">/applications/[\{application.id\}](/developers/resources/application#application-object)/emojis</Route>
 
-Returns an object containing a list of [emoji](/developers/resources/emoji#emoji-object) objects for the given application under the `items` key. Includes a `user` object for the team member that uploaded the emoji from the app's settings, or for the bot user if uploaded using the API.
+Returns an object containing a list of [emoji](/developers/resources/emoji#emoji-object) objects for the given application under the `items` key. Includes a `user` object for the team member that uploaded the emoji from the developer portal, or for the bot user if uploaded directly through the API.
 
 ```json
 {
@@ -203,7 +206,7 @@ Returns an object containing a list of [emoji](/developers/resources/emoji#emoji
 ## Get Application Emoji
 <Route method="GET">/applications/[\{application.id\}](/developers/resources/application#application-object)/emojis/[\{emoji.id\}](/developers/resources/emoji#emoji-object)</Route>
 
-Returns an [emoji](/developers/resources/emoji#emoji-object) object for the given application and emoji IDs. Includes the `user` field.
+Returns an [emoji](/developers/resources/emoji#emoji-object) objeect for the provided emoji id and the given application. Includes the `user` field.
 
 ## Create Application Emoji
 <Route method="POST">/applications/[\{application.id\}](/developers/resources/application#application-object)/emojis</Route>
@@ -211,11 +214,11 @@ Returns an [emoji](/developers/resources/emoji#emoji-object) object for the give
 Create a new emoji for the application. Returns the new [emoji](/developers/resources/emoji#emoji-object) object on success.
 
 <Warning>
-Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](/developers/topics/opcodes-and-status-codes#json).
+Emojis and animated emojis have a maximum file size of 256 KiB. Attempting to upload an emoji larger than this limit will fail and return `400 Bad Request` and an error message, but not a [JSON status code](/developers/topics/opcodes-and-status-codes#json).
 </Warning>
 
 <Info>
-We highly recommend that developers use the `.webp` extension when fetching emoji so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](/developers/resources/emoji#emoji-object-emoji-formats) section above for more details.
+We highly recommend that developers use the `.webp` extension when fetching emojis so they're rendered as WebP for maximum performance and compatibility. See the [Emoji Formats](/developers/resources/emoji#emoji-object-emoji-formats) section above for more details.
 </Info>
 
 <ManualAnchor id="create-application-emoji-json-params" />
