@@ -6,6 +6,19 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="May 5, 2026" tags={["HTTP API"]} rss={{
+    title: "User Premium Type Field Now Requires A Scope",
+    description: "The `premium_type` field on the User object now requires the `identify.premium` scope to return a user's Nitro subscription level."
+  }}>
+
+  ## User Premium Type Field Now Requires A Scope
+
+  The `premium_type` field on the [User object](/developers/resources/user#user-object-user-structure) will return `0` for applications that have not been approved for the `identify.premium` scope. To receive nitro subscription level, you must request the `identify.premium` scope during OAuth authorization. Without this scope, the field returns `0` regardless of the user's actual subscription status.
+
+  The `identify.premium` scope is only available to approved partners.
+
+</Update>
+
 <Update label="April 24, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
     title: "Voice Muting Based on Player Blocks Guide",
     description: "New how-to guide for implementing bi-directional voice muting in lobby voice calls based on block relationships, with client-side and server-side approaches."
