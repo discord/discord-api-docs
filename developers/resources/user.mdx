@@ -48,7 +48,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | verified?               | boolean                                                                                    | whether the email on this account has been verified                                                        | email                 |
 | email?                  | ?string                                                                                    | the user's email                                                                                           | email                 |
 | flags?                  | integer                                                                                    | the [flags](/developers/resources/user#user-object-user-flags) on a user's account                         | identify              |
-| premium_type?           | integer                                                                                    | the [type of Nitro subscription](/developers/resources/user#user-object-premium-types) on a user's account | identify              |
+| premium_type?           | integer                                                                                    | the [type of Nitro subscription](/developers/resources/user#user-object-premium-types) on a user's account | identify.premium      |
 | public_flags?           | integer                                                                                    | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account                  | identify              |
 | avatar_decoration_data? | ?[avatar decoration data](/developers/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                      | identify              |
 | collectibles?           | ?[collectibles](/developers/resources/user#collectibles) object                            | data for the user's collectibles                                                                           | identify              |
@@ -69,7 +69,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "flags": 64,
   "banner": "06c16474723fe537c283b8efa61a30c8",
   "accent_color": 16711680,
-  "premium_type": 1,
+  "premium_type": 0,
   "public_flags": 64,
   "avatar_decoration_data": {
     "sku_id": "1144058844004233369",

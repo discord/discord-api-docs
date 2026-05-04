@@ -1849,17 +1849,17 @@ No arguments. Dispatches the current user's profile whenever it changes (avatar,
 <ManualAnchor id="currentuserupdate-current-user-update-dispatch-data-structure" />
 ###### Current User Update Dispatch Data Structure
 
-| Field                  | Type    | Description                                                                               |
-|------------------------|---------|-------------------------------------------------------------------------------------------|
-| id                     | string  | user's id                                                                                 |
-| username               | string  | user's username                                                                           |
-| discriminator          | string  | user's discriminator                                                                      |
-| global_name            | string  | user's display name                                                                       |
-| avatar                 | string  | user's avatar hash                                                                        |
-| avatar_decoration_data | object  | avatar decoration data, if any (`null` if none)                                           |
-| bot                    | boolean | whether the user is a bot                                                                 |
-| flags                  | integer | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account |
-| premium_type           | integer | type of [Nitro subscription](/developers/resources/user#user-object-premium-types)        |
+| Field                  | Type    | Description                                                                                                            |
+|------------------------|---------|------------------------------------------------------------------------------------------------------------------------|
+| id                     | string  | user's id                                                                                                              |
+| username               | string  | user's username                                                                                                        |
+| discriminator          | string  | user's discriminator                                                                                                   |
+| global_name            | string  | user's display name                                                                                                    |
+| avatar                 | string  | user's avatar hash                                                                                                     |
+| avatar_decoration_data | object  | avatar decoration data, if any (`null` if none)                                                                        |
+| bot                    | boolean | whether the user is a bot                                                                                              |
+| flags                  | integer | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account                              |
+| premium_type           | integer | type of [Nitro subscription](/developers/resources/user#user-object-premium-types). Requires `identify.premium` scope. |
 
 <ManualAnchor id="currentuserupdate-example-current-user-update-dispatch-payload" />
 ###### Example Current User Update Dispatch Payload
@@ -1876,7 +1876,7 @@ No arguments. Dispatches the current user's profile whenever it changes (avatar,
     "avatar_decoration_data": null,
     "bot": false,
     "flags": 64,
-    "premium_type": 2
+    "premium_type": 0
   },
   "evt": "CURRENT_USER_UPDATE"
 }
