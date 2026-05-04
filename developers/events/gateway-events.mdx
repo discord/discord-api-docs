@@ -843,7 +843,9 @@ Sent when a guild integration is updated.
 If using [Gateway Intents](/developers/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 </Warning>
 
-Sent when a new user joins a guild. The inner payload is a [guild member](/developers/resources/guild#guild-member-object) object with an extra `guild_id` key:
+Sent when a user joins a guild. The inner payload is a [guild member](/developers/resources/guild#guild-member-object) object with an extra `guild_id` key:
+
+This event can be sent when the user is already a member of the guild.
 
 <ManualAnchor id="guild-member-add-guild-member-add-extra-fields" />
 ###### Guild Member Add Extra Fields
