@@ -6,6 +6,21 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="May 7, 2026" tags={["HTTP API"]} rss={{
+    title: "New flags_new Field on Application Object",
+    description: "The Application object now includes a `flags_new` field, a string-serialized integer containing all application flag bits including those beyond 32-bit precision."
+  }}>
+
+  ## New `flags_new` Field on Application Object
+
+  The [Application object](/developers/resources/application#application-object) now includes a `flags_new` field — a string-serialized integer containing the full set of [application flag bits](/developers/resources/application#application-object-application-flags), including any new flag bits introduced beyond bit 30.
+
+  The existing `flags` field continues to be serialized as a 32-bit integer. Existing integrations consuming `flags` for bits at or below `2^30` are not impacted, and request payloads that include flag values should continue to use the original `flags` field.
+
+  This mirrors the [`permissions_new` / `allow_new` / `deny_new`](/developers/topics/permissions) pattern previously introduced for permission bitfields.
+
+</Update>
+
 <Update label="May 5, 2026" tags={["HTTP API"]} rss={{
     title: "User Premium Type Field Now Requires A Scope",
     description: "The `premium_type` field on the User object now requires the `identify.premium` scope to return a user's Nitro subscription level."
