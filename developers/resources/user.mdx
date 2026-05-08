@@ -375,3 +375,8 @@ Updates and returns the [application role connection](/developers/resources/user
 | platform_name?     | string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                                |
 | platform_username? | string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                                  |
 | metadata?          | object | object mapping [application role connection metadata](/developers/resources/application-role-connection-metadata#application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
+
+## Delete Current User Application Role Connection
+<Route method="DELETE">/users/@me/applications/[\{application.id\}](/developers/resources/application#application-object)/role-connection</Route>
+
+Deletes the [application role connection](/developers/resources/user#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
