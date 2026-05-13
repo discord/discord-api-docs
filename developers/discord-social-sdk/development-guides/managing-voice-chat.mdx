@@ -196,7 +196,8 @@ client->SetNoiseCancellation(true);
 
 Krisp ships as additional libraries and model files alongside the core SDK, which adds to your installation size. If you're optimizing for size — for example on mobile — you can ship without Krisp and rely on the WebRTC noise suppression instead.
 
-To exclude Krisp from your distribution, remove all `.kef` files along with any file or directory whose name contains `krisp` (for example `discord_krisp.dll`, `libdiscord_krisp.dylib`, `discord_partner_sdk_krisp.aar`, and `discord_partner_sdk_krisp.xcframework`).
+To exclude Krisp from your distribution, remove all `.kef` and `.kw` files along with any file or directory whose name
+contains `krisp` (for example `discord_krisp.dll`, `libdiscord_krisp.dylib`, `discord_partner_sdk_krisp.aar`, and `discord_partner_sdk_krisp.xcframework`).
 
 ## Advanced Audio Processing
 
