@@ -9,6 +9,31 @@ import SonyCallout from '/snippets/discord-social-sdk/callouts/sony.mdx';
 You can find instructions on how to download the SDK for each platform in the [Getting Started](/developers/discord-social-sdk/getting-started) guide.
 </Info>
 
+---
+
+## Game Engine and Language
+
+The Discord Social SDK supports the following game engines and language environments:
+
+| Integration    | Minimum Supported Version |
+|----------------|---------------------------|
+| Standalone C++ | C++20                     |
+| Unity          | 2021.3                    |
+| Unreal Engine  | 5.5                       |
+
+<Info>
+    **PlayStation 4 / PS5 exception:** If you're targeting PlayStation 4, or PlayStation 5 with a PS5 SDK older than
+    13.000, the Discord Social SDK still supports C++17. All other platforms require C++20.
+</Info>
+
+<Info>
+    Prior to Social SDK release 1.9, C++17 is the minimum supported version.
+</Info>
+
+---
+
+## Platforms
+
 The Discord Social SDK is available for the following platforms:
 
 | Platform         | Minimum Supported Version | Support Level       | Standalone C++ | Unreal Engine | Unity |
@@ -62,6 +87,7 @@ Configure authentication, explore features, and get started with setup:
 
 ## Change Log
 
-| Date          | Changes         |
-|---------------|-----------------|
-| July 21, 2025 | initial release |
+| Date          | Changes                                 |
+|---------------|-----------------------------------------|
+| May 20, 2026  | Added Game Engine and Language section. |
+| July 21, 2025 | initial release                         |
