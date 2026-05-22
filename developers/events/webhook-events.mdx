@@ -219,6 +219,17 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 }
 ```
 
+###### Discord Social SDK
+
+For [Discord Social SDK](/developers/discord-social-sdk) apps, `APPLICATION_DEAUTHORIZED` is the **only out-of-game signal that a user's link state has changed**. Listening for it is required to keep your application state in sync — if you miss the webhook, the [next token use will fail](/developers/discord-social-sdk/development-guides/account-linking-with-discord#when-refresh-fails) and the game should fall back to the [provisional account flow](/developers/discord-social-sdk/development-guides/using-provisional-accounts#implementing-provisional-accounts).
+
+Every revocation that fires this event is mechanically an [unmerge](/developers/discord-social-sdk/development-guides/using-provisional-accounts#unmerging-provisional-accounts) — the merged Discord account reverts to a new provisional account, and the OAuth2 tokens for the Discord user become invalid. The triggers include:
+
+- Token revocations via [`/oauth2/token/revoke`](/developers/topics/oauth2#authorization-code-grant) or `Client::RevokeToken`.
+- The user removing your app from *User Settings → Authorized Apps* in Discord.
+- The [Social SDK unmerge endpoints](/developers/discord-social-sdk/development-guides/using-provisional-accounts#unmerging-provisional-accounts).
+- The user's Discord [account being banned](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge).
+
 #### Entitlement Create
 
 `ENTITLEMENT_CREATE` is sent when an [entitlement](/developers/resources/entitlement) is created when a user purchases or is otherwise granted one of your app's SKUs. Refer to the [Monetization documentation](/developers/monetization/overview) for details.
