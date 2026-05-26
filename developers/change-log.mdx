@@ -6,6 +6,21 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="May 22, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Account Linking Failure-Mode Documentation",
+    description: "New documentation covering what happens when a Discord account is banned, when OAuth2 tokens are revoked, and how to design account linking for resilience."
+  }}>
+
+  ## Account Linking Failure Modes
+
+  We've expanded documentation across the Social SDK guides to cover what happens when the Discord-to-game account link is severed — whether by a Discord account ban, an explicit unmerge, or an OAuth2 token revocation. Highlights:
+
+  - **[Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge)** documents the full lifecycle when a user's Discord account is banned: tokens are deleted immediately, a new cross-platform-restricted provisional account is created carrying the original external identity, and merge attempts return error [`530017`](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merge-request-failures) until the ban lifts (or, for permanent bans, indefinitely).
+  - **[Out-of-Band Revocation](/developers/discord-social-sdk/development-guides/account-linking-with-discord#out-of-band-revocation)** describes the auth-side observable signals (`APPLICATION_DEAUTHORIZED` webhook + `invalid_grant` on refresh) when a user removes your app from Discord or has their account banned.
+  - **[When Refresh Fails](/developers/discord-social-sdk/development-guides/account-linking-with-discord#when-refresh-fails)** documents the `/oauth2/token` response when the underlying token has been deleted, and recommends treating `invalid_grant` as equivalent to receiving the webhook.
+
+</Update>
+
 <Update label="May 12, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.9.15780",
     description: "Xbox GDK 260400 support and Krisp noise suppression integration across Android, iOS, macOS, and Windows."
