@@ -6,6 +6,39 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="May 26, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK Release Cadence & Support",
+    description: "New release cadence and support lifecycle taking effect with the 1.10 release in July 2026: a 5-version support window (1.6–1.10), and a rolling 18-month console OS SDK window where new Xbox and PlayStation SDKs ship only in new Social SDK releases."
+}}>
+
+    ## Discord Social SDK Release Cadence & Support
+
+    We've published a new [Release Cadence & Support](/developers/discord-social-sdk/core-concepts/release-cadence-and-support) page for the Discord Social SDK. It documents:
+
+    - Our new three-per-year minor release cadence (April, July, November)
+    - A new support window covering the five most recent minor versions, with hotfix patches (bug fixes and security fixes) for older supported minor releases
+    - How new Xbox and PlayStation OS SDK supports ship in new Social SDK releases only — each release bundles roughly the last 18 months of console OS SDKs
+    - The new end-of-life process for older minor releases
+
+    ### What this means for you
+
+    - **Over a year and a half of support per minor release.** Three minor releases of the Social SDK per year combined with a 5-version support window means every minor release you ship with gets more than 18 months of patch coverage.
+    - **A predictable release calendar.** Releases land in April, July, and November, so you can plan Social SDK upgrades and console certification windows well in advance.
+    - **More bandwidth for new features and stability.** A defined support window lets us focus engineering effort where it matters most, which means more capacity to build new features in current minor releases and keep the versions in the support window robust and reliable.
+
+    ### What changes with 1.10
+
+    These changes take effect with the 1.10 release, shipping in **July 2026**:
+
+    - The supported version window will cover versions **1.6 through 1.10**. Versions **1.5 and earlier** will be end-of-life and no longer eligible for patch updates.
+    - **New Xbox and PlayStation OS SDK support will ship in new Social SDK releases only**, not as patches to older Social SDK versions. Each Social SDK release will bundle roughly the last 18 months of console OS SDK versions.
+
+    **Already-shipped Social SDK releases (1.6–1.9) are unchanged** — they keep the console OS SDK support they were originally built with. The new model applies from 1.10 forward.
+
+    We're sharing this ahead of the 1.10 release so developers on older versions have plenty of time to upgrade.
+
+</Update>
+
 <Update label="May 22, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Account Linking Failure-Mode Documentation",
     description: "New documentation covering what happens when a Discord account is banned, when OAuth2 tokens are revoked, and how to design account linking for resilience."
