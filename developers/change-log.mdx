@@ -6,6 +6,22 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="June 3, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
+    title: "New Lobby HTTP API Endpoints",
+    description: "Reference documentation added for create-or-join, send/get messages, and linked-channel invite endpoints on the Lobby resource."
+  }}>
+
+  ## New Lobby HTTP API Endpoints
+
+  We've expanded the Discord [Lobby resource](/developers/resources/lobby) reference with several public endpoints:
+
+  - **[Create or Join Lobby](/developers/resources/lobby#create-or-join-lobby)** (`PUT /lobbies`) — create a lobby for your application or join an existing one by `secret` in a single call.
+  - **[Send Lobby Message](/developers/resources/lobby#send-lobby-message)** (`POST /lobbies/{lobby.id}/messages`) — send a message into a lobby on behalf of an authenticated member.
+  - **[Get Lobby Messages](/developers/resources/lobby#get-lobby-messages)** (`GET /lobbies/{lobby.id}/messages`) — fetch up to 200 of the most recent messages from a lobby the calling user is a member of.
+  - **[Create Lobby Channel Invite for Self](/developers/resources/lobby#create-lobby-channel-invite-for-self)** and **[for User](/developers/resources/lobby#create-lobby-channel-invite-for-user)** — generate a single-use, one-hour guild invite to a lobby's linked channel.
+
+</Update>
+
 <Update label="May 26, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK Release Cadence & Support",
     description: "New release cadence and support lifecycle taking effect with the 1.10 release in July 2026: a 5-version support window (1.6–1.10), and a rolling 18-month console OS SDK window where new Xbox and PlayStation SDKs ship only in new Social SDK releases."
