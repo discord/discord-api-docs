@@ -1,0 +1,145 @@
+---
+title: You Might Not Need a Privileged Intent
+description: Guide to understanding privileged intents and their alternatives for your Discord app.
+---
+
+<img src ="/images/platform/priv-intents-header.png" alt="Privileged Intents Requirements" noZoom style={{maxWidth: "100%", height: "auto"}} />
+
+
+[Privileged Intents](/developers/events/gateway#privileged-intents) give your Discord app access to additional data from servers they're added to, which can be useful when building your app, but they also come with extra review requirements and responsibility. Before you reach for one, ask yourself: 
+
+> Do I actually need this?
+
+**This guide walks through each privileged intent to help you determine whether you truly need it or whether an alternative approach will work.**
+
+Many developers may enable privileged intents out of habit or because a tutorial told them to, only to later discover that our API offers alternatives that accomplish many of the same goals without the overhead. 
+
+As a reminder, developers may access only the data necessary for their app's functionality. We encourage you to review our [Developer Policy](https://support-dev.discord.com/hc/en-us/articles/8563934450327-Discord-Developer-Policy) and [Developer Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383-Discord-Developer-Terms-of-Service), along with this guide, to make sure your app and its use of intended privileged intents are consistent with those policies. 
+
+
+### Who does this apply to?
+All apps that are considering or have already enabled privileged intents. Apps with server-installed user counts fewer than 10,000 can toggle privileged intents in the Developer Portal. 
+
+Once your app grows past 10,000 users, you'll need to apply for continued access and share information about your app and intended use cases for the requested intents. Planning ahead saves you from a migration later. 
+
+---
+
+## The Three Privileged Intents
+
+| Intent              | What it controls                                                                                                                                                                                                                                            |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Guild Presences** | Access to presence update events: when users go online/offline, change their status, or update their activity via Rich Presence.                                                                                                                            |
+| **Guild Members**   | Access to guild member events (joins, updates, leaves) and the ability to request full member lists.                                                                                                                                                        |
+| **Message Content** | Access to message content fields (`content`, `embeds`, `attachments`, `components`, `poll`) across Gateway events and API responses. Unlike the other two, this isn't tied to specific events. Instead, it controls data within message objects everywhere. |
+
+## Guild Members Intent
+
+### What you get with the intent
+
+The Guild Members intent unlocks three categories of functionality:
+
+- **Member events via the Gateway:** The `GUILD_MEMBER_ADD`, `GUILD_MEMBER_UPDATE`, and `GUILD_MEMBER_REMOVE` events fire when members join, change their profile/roles, or leave a server.
+- **Full member list:** The ability to request a complete list of every member in a server via the Gateway with the [`Request Guild Members` opcode](/developers/events/gateway-events#request-guild-members) or the [List Guild Members API](/developers/resources/guild#list-guild-members) endpoint.
+
+### What you can do without the intent
+
+You might not need the full member list or real-time member events. Our API provides several REST endpoints that work **without** the Guild Members intent:
+
+- **[Get Guild Member](/developers/resources/guild#get-guild-member):** Fetch a single member by their user ID. If you know *who* you're looking for, you don't need to enumerate every member.
+- **[Search Guild Members](/developers/resources/guild#search-guild-members):** Search for members by username or nickname prefix. Great for autocomplete, lookup commands, or finding specific users.
+- **[Get User](/developers/resources/user#get-user):** Get basic user information (username, avatar, etc.) without any guild-specific context.
+- **[Interaction-provided member data](/developers/interactions/receiving-and-responding#message-interaction-object):** When a user triggers a slash command, button, select menu, or modal, our API includes the member object in the interaction payload. You get their roles, nickname, permissions, and more, with no intent required.
+
+### Decision checklist
+
+Ask yourself these questions:
+
+1. Do I need to know about every member, or just specific ones I can look up by ID or search query?
+2. Do I need real-time events when members join, leave, or update, or can I fetch member data on demand when a user interacts with my bot using interactions?
+
+If your answers lean toward "specific ones" and "on demand," you probably don't need this intent since the REST API and interaction payloads cover those use cases well.
+
+---
+
+## Guild Presences Intent
+
+### What you get with the intent
+
+The Guild Presences intent gives you access to `PRESENCE_UPDATE` events, which include:
+
+- `status`: Whether the user is online, idle, do not disturb, or offline.
+- `activities`: What the user is currently playing, streaming, listening to, or watching (Rich Presence data).
+- `client_status`: Which platform(s) the user is active on (desktop, mobile, web).
+
+### What you can do without the intent
+
+This data is not available through any other means. Before building your app, you should consider whether you actually need this real-time presence data about users.
+
+Consider these endpoints that work without the Guild Presences intent:
+
+- **[Get User](/developers/resources/user#get-user):** You can fetch a user's basic profile information (username, avatar, banner) without the intent. This covers many "user info" command scenarios.
+- **[Guild Object - approximate_presence_count](/developers/resources/guild#get-guild):** Available on the Guild object via the API. Tells you roughly how many members are online without accessing individual presences.
+
+### Decision checklist
+
+1. Does my bot actually do something with presence data, or am I just displaying it in a "user info" command?
+2. Could I accomplish my goal with `approximate_presence_count` instead of accessing individual users' presence?
+3. Am I requesting this intent "just in case" or because a core feature depends on it?
+
+---
+
+## Message Content Intent
+
+### What you get with the intent
+
+The Message Content intent controls access to several fields within message objects across both Gateway events and REST API responses:
+
+- `content`: The text body of the message
+- `embeds`: Embedded content
+- `attachments`: Files attached to the message
+- `components`: Message components (buttons, selects, etc.) sent by users
+- `poll`: Poll data
+
+Without this intent, these fields will be empty strings or empty arrays when your app receives messages, with a few important exceptions.
+
+### Exceptions: when you get message content without the privileged intent
+
+The Message Content intent is **not** needed for your app to access message content in these situations:
+
+- **Messages your app sends**
+- **Direct Messages sent to your app**
+- **Messages that @mention your app**
+- **Replies to your app's messages.** Note: this applies to replies sent using Discord's reply feature to a regular bot message (not an interaction response) and the user has "ping on reply" enabled. It does not apply to replies to slash command responses.
+
+If your app's functionality can be built to work with this access, you should not request the Message Content intent.
+
+### What you can do without the intent
+
+We have built a robust set of interaction primitives specifically so that most bots don't need access to the Message Content intent:
+
+**[Slash Commands](developers/interactions/application-commands)**
+
+The most direct replacement for text commands. Users type `/command` and Discord handles argument parsing, validation, and autocomplete for you. Slash commands accept `string`, `integer`, `number`, `boolean`, `user`, `channel`, `role`, `mentionable`, and `attachment` option types, covering the vast majority of input scenarios.
+
+**[Message Context Menu Commands](/developers/interactions/application-commands#message-commands)** 
+
+These appear when a user right-clicks (or long-presses) a message. Your bot receives the full message object, including its content. This is ideal for "act on this message" features like reporting, translating, pinning, or saving, without needing to read every message in a channel.
+
+**[Message Components](/developers/components/overview)**
+
+Buttons and select menus let you gather structured user input. Perfect for polls, verification systems, role selection, confirmations, and multi-step workflows.
+
+**[Modals with Text Inputs](/developers/components/using-modal-components)**
+
+Pop-up forms that collect freeform text, checkboxes, and other structured input from users. Great for forms, applications, feedback collection, or any scenario where you need the user to type a specific response.
+
+### Decision checklist
+
+1. Is my bot using prefix commands (`!help`, `?play`) that could be migrated to slash commands?
+2. Could my feature work if users explicitly invoked or interacted with it (ie: via a command or context menu)?
+3. Does my bot need to read the content of messages, or does it just need to know that a message was sent?
+4. Is my bot's intended use case for moderation, and if so, does it provide functionality beyond what is possible with the AutoMod API? Providing what the AutoMod API already supports is generally not considered a compelling use case for access.
+
+## Further Reading
+
+- [Guide: Getting Started with Privileged Intent Review](/developers/gateway/getting-started-with-privileged-intent-review)

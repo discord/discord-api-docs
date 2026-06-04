@@ -167,8 +167,9 @@
               "developers/tutorials/configuring-app-metadata-for-linked-roles",
               "developers/tutorials/developing-a-user-installable-app",
               "developers/tutorials/hosting-on-cloudflare-workers",
-              "developers/tutorials/upgrading-to-application-commands",
-              "developers/tutorials/using-community-invites"
+              "developers/tutorials/using-community-invites",
+              "developers/gateway/you-might-not-need-a-privileged-intent",
+              "developers/gateway/getting-started-with-privileged-intent-review"
             ]
           }
         ]
@@ -673,6 +674,10 @@
     {
       "source": "/developers/embedded-apps/overview",
       "destination": "/developers/activities/overview"
+    },
+    {
+      "source": "/developers/tutorials/upgrading-to-application-commands",
+      "destination": "/developers/interactions/application-commands"
     }
   ],
   "logo": {
