@@ -21,11 +21,8 @@ jobs:
           cache: npm
           cache-dependency-path: tools/package-lock.json
       - run: npm ci
-        working-directory: tools
       - run: npm run lint
-        working-directory: tools
-      - run: npm run build
-        working-directory: tools
+      - run: npm run -w tools build
   mdx:
     name: Validate mdx
     runs-on: ubuntu-latest
@@ -38,5 +35,4 @@ jobs:
           cache-dependency-path: tools/package-lock.json
       - run: npm ci
         working-directory: tools
-      - run: npm run test:build
-        working-directory: tools
+      - run: npm run -w tools test:build
