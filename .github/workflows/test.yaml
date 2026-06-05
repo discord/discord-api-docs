@@ -32,5 +32,4 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-        working-directory: tools
       - run: npm run -w tools test:build
