@@ -38,15 +38,15 @@ Because entitlements are granted indefinitely and don't update on renewal or can
 This is not a complete list of when events may occur. You should use the presence of an entitlement to determine if a user has access to your premium features. The Subscription API and related events are intended for reporting and lifecycle management purposes and **should not be used as the source of truth for whether a user has access to your premium features**.
 </Info>
 
-| Event Name            | Subscription Behavior                      | Updated Fields                                                                                                                |
-|-----------------------|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Event Name            | Subscription Behavior                      | Updated Fields                                                                                                                  |
+|-----------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | `SUBSCRIPTION_CREATE` | Subscription is created                    | `status` is either `0 (active)` if an entitlement has been granted or `1 (inactive)` if an entitlement has not yet been granted |
-| `SUBSCRIPTION_UPDATE` | Subscription is granted an entitlement     | `status` is `0 (active)`                                                                                                      |
-| `SUBSCRIPTION_UPDATE` | Subscription is renewed                    | `current_period_start`, `current_period_end` timestamps updated                                                               |
-| `SUBSCRIPTION_UPDATE` | Subscription is upgraded or downgraded     | `sku_ids`, `entitlement_ids`, `renewal_sku_ids` may be updated                                                                |
-| `SUBSCRIPTION_UPDATE` | Subscription is canceled                   | `canceled_at` timestamp updated,  `status` is `2 (ending)`                                                                    |
-| `SUBSCRIPTION_UPDATE` | Subscription ends                          | `status` is `1 (inactive)`, this event is processed asynchronously and will not be immediate                                  |
-| `SUBSCRIPTION_UPDATE` | Subscription is resumed/uncanceled by user | `status` is `0 (active)`                                                                                                      |
+| `SUBSCRIPTION_UPDATE` | Subscription is granted an entitlement     | `status` is `0 (active)`                                                                                                        |
+| `SUBSCRIPTION_UPDATE` | Subscription is renewed                    | `current_period_start`, `current_period_end` timestamps updated                                                                 |
+| `SUBSCRIPTION_UPDATE` | Subscription is upgraded or downgraded     | `sku_ids`, `entitlement_ids`, `renewal_sku_ids` may be updated                                                                  |
+| `SUBSCRIPTION_UPDATE` | Subscription is canceled                   | `canceled_at` timestamp updated,  `status` is `2 (ending)`                                                                      |
+| `SUBSCRIPTION_UPDATE` | Subscription ends                          | `status` is `1 (inactive)`, this event is processed asynchronously and will not be immediate                                    |
+| `SUBSCRIPTION_UPDATE` | Subscription is resumed/uncanceled by user | `status` is `0 (active)`                                                                                                        |
 
 ---
 
@@ -110,11 +110,11 @@ To support subscriptions in your app, you need to [create a subscription SKU](/d
 
 When a user subscribes to a new subscription, you will receive the following events:
 
-| Event                 | Event Trigger                                                                                                                                                         |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Event                 | Event Trigger                                                                                                                                                           |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `SUBSCRIPTION_CREATE` | when the subscription is initially created. `status` is `0 (active)` if the entitlement has been granted or `1 (inactive)` if the entitlement has not yet been granted. |
-| `ENTITLEMENT_CREATE`  | when the user is granted an entitlement for the new subscription                                                                                                      |
-| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_ids`, `renewal_sku_ids`, and `status` (`0 (active)`)                                                           |
+| `ENTITLEMENT_CREATE`  | when the user is granted an entitlement for the new subscription                                                                                                        |
+| `SUBSCRIPTION_UPDATE` | when the subscription is updated with the `entitlement_ids`, `renewal_sku_ids`, and `status` (`0 (active)`)                                                             |
 
 ### Cancelling an existing subscription
 
