@@ -258,7 +258,8 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | actions             | array of [action](/developers/resources/auto-moderation#auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                                  |
 | enabled?            | boolean                                                                                        | whether the rule is enabled (False by default)                                                             |
 | exempt_roles?       | array of snowflakes                                                                            | the role ids that should not be affected by the rule (Maximum of 20)                                       |
-| exempt_channels?     | array of snowflakes                                                                            | the channel ids that should not be affected by the rule (Maximum of 50)                                    |
+| exempt_channels?    | array of snowflakes                                                                            | the channel ids that should not be affected by the rule (Maximum of 50)                                    |
+
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](/developers/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
 <Info>
