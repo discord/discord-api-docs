@@ -300,7 +300,7 @@ A guild scheduled event exception represents a skipped or rescheduled recurrence
 | scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will end, if applicable                |
 | is_canceled          | boolean                                                         | whether or not the scheduled event will be skipped on the recurrence                       |
 
-\* The snowflake in this field is not guranteed to be globally unique.
+\* The snowflake in this field is not guaranteed to be globally unique.
 
 ## List Scheduled Events for Guild
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events</Route>
@@ -504,7 +504,7 @@ Get a list of guild scheduled event users subscribed to a specific guild schedul
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user_id`. If both `before` and `after` are provided, only `before` is respected. Fetching users in-between `before` and `after` is not supported.
 
-## Get Guild Scheduled Event User count
+## Get Guild Scheduled Event User Counts
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/users/counts</Route>
 
 Get the amount of users that are currently subscribed to a guild scheduled event, and optionally the scheduled event's exceptions.
