@@ -450,12 +450,12 @@ At minimum, you must provide a value for one of `is_canceled`, `scheduled_start_
 
 ###### JSON Params
 
-| Field                         | Type                                                            | Description                                                               |
-|-------------------------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
-| original_scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime)  | the original time at when the scheduled event would've started            |
-| scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled start time for the scheduled event's recurrence         |
-| scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled end time for the scheduled event's recurrence           |
-| is_canceled?                  | boolean                                                         | whether the scheduled event should be skipped on this recurrence          |
+| Field                         | Type                                                            | Description                                                       |
+|-------------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
+| original_scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime)  | the original time at when the scheduled event would've started    |
+| scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled start time for the scheduled event's recurrence |
+| scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled end time for the scheduled event's recurrence   |
+| is_canceled?                  | boolean                                                         | whether the scheduled event should be skipped on this recurrence  |
 
 ## Modify Guild Scheduled Event Exception
 <Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
