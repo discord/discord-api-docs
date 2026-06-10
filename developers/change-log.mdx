@@ -6,6 +6,47 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="June 10, 2026" tags={["HTTP API", "Gateway"]} rss={{
+    title: "Changes to Privileged Intent Access for Discord Apps",
+    description: "Changes to the review threshold for privileged intent access, an annual reapplication process for continued access, and the ability for apps to keep growing during review."
+  }}>
+
+    ## Changes to Privileged Intent Access for Discord Apps
+
+    <img src ="/images/platform/priv-intents-header.png" alt="Privileged Intents Requirements" noZoom style={{maxWidth: "100%", height: "auto"}} />
+
+    Today, we're [announcing changes to how Discord Apps access Privileged Intent](https://support-dev.discord.com/hc/articles/40281523410967) with a new user-based threshold for when access requires review and an annual process to reapply for continued access.
+
+    > If your app is accessible to fewer than 10,000 users, these changes do not impact your app.
+
+    ### What's Changing
+
+    #### 1. The review threshold is now based on user count, not server count
+
+    Previously, apps in fewer than 100 servers could access Privileged Intents by toggling them on in the Developer Portal, and apps in 100+ servers needed to apply for access.
+
+    Starting today, the threshold is based on the number of users your app can access across all the servers it belongs to. If your app has fewer than 10,000 users, you can continue accessing Privileged Intents by toggling them on in the Developer Portal. **Once your app reaches 10,000 users, you'll need to apply for Privileged Intent access**.
+
+    #### 2. Apps must now reapply annually for continued access
+
+    Apps with Privileged Intent access granted from a prior review will need to reapply to confirm their continued access once per year in the Developer Portal. 
+
+    #### 3. Apps can keep growing during Privileged Intent review
+
+    Under the new user-based threshold, apps can continue joining servers and reaching new users while their submission is under review. 
+
+    ![Privileged Intents Requirements](/images/platform/priv-intents-requirements.png)
+
+    ### What This Means For Your App
+
+    For more information on how this applies to your Discord Apps, please read the [Privileged Intents Change announcement article](https://support-dev.discord.com/hc/articles/40281523410967) in our developer help center.
+
+    ### Updated Documentation & Resources
+    - Updated [Privileged Intents documentation](/developers/events/gateway#privileged-intents) to reflect the new threshold and review process.
+    - New [Getting Started with Privileged Intents Review](/developers/gateway/getting-started-with-privileged-intent-review) guide.
+    - New [You Might Not Need a Privileged Intent](/developers/gateway/you-might-not-need-a-privileged-intent) guide to help you determine whether you need a privileged intent or whether an alternative approach will work for your use case.
+</Update>
+
 <Update label="June 3, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.9.16441",
     description: "Fixed a PlayStation 5 crash caused by a use-after-free in WebSocket callbacks."
