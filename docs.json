@@ -678,6 +678,10 @@
     {
       "source": "/developers/tutorials/upgrading-to-application-commands",
       "destination": "/developers/interactions/application-commands"
+    },
+    {
+      "source": "/developers/events/gateway/getting-started-with-privileged-intent-review",
+      "destination": "/developers/gateway/getting-started-with-privileged-intent-review"
     }
   ],
   "logo": {
