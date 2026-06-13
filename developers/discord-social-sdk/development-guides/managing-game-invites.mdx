@@ -54,7 +54,7 @@ activity.SetState("In Competitive Match");
 activity.SetDetails("Valhalla");
 
 // Update Rich Presence presence
-client.UpdateRichPresence(activity, [](discordpp::ClientResult result) {
+client->UpdateRichPresence(activity, [](discordpp::ClientResult result) {
     if(result.Successful()) {
         std::cout << "🎮 Rich Presence updated successfully!\n";
         // Note: Invites are NOT yet enabled - we need party info and join secret
@@ -144,7 +144,7 @@ activity.SetSecrets(secrets);
 activity.SetSupportedPlatforms(discordpp::ActivityGamePlatforms::Desktop);
 
 // Update Rich Presence presence
-client.UpdateRichPresence(activity, [](discordpp::ClientResult result) {
+client->UpdateRichPresence(activity, [](discordpp::ClientResult result) {
     if(result.Successful()) {
         std::cout << "🎮 Rich Presence updated successfully!\n";
         // ✅ Rich Presence updated = Game invites now available!
