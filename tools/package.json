@@ -30,7 +30,7 @@
 		"decorate:docs": "node ./doxygen/generate-social-sdk-mapping.js && node ./doxygen/decorate-social-sdk-references.js"
 	},
 	"devDependencies": {
-		"@actions/core": "^1.10.1",
+		"@actions/core": "^1.11.1",
 		"@eslint/js": "^9.2.0",
 		"@mdx-js/mdx": "^3.0.1",
 		"@mdx-js/react": "^3.0.1",

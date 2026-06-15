@@ -1,0 +1,112 @@
+---
+title: Release Cadence & Support
+description: Discord Social SDK release cadence, supported version window, and end-of-life process.
+---
+
+<Info>
+This page describes which Discord Social SDK versions receive updates, our release cadence, and how end-of-life is handled. For platform support details, see [Platform Compatibility](/developers/discord-social-sdk/core-concepts/platform-compatibility).
+</Info>
+
+<Note>
+These changes take effect with the **1.10 release** of the Discord Social SDK, shipping in **July 2026**. Starting with 1.10:
+
+- The supported version window will cover versions **1.6 through 1.10**. Versions **1.5 and earlier** will be end-of-life.
+- New Xbox and PlayStation OS SDK support will ship in new Social SDK releases only — not as patches to older Social SDK versions. Each Social SDK release bundles roughly the last 18 months of console OS SDK versions.
+
+**Already-shipped Social SDK releases (1.6–1.9) are unchanged** — they keep the console OS SDK support they were originally built with. The new model applies from 1.10 forward.
+
+We're announcing this ahead of the 1.10 release so developers on older versions have time to upgrade.
+</Note>
+
+## Release Schedule
+
+We ship **three minor releases of the Discord Social SDK each year**, in **April, July, and November**. This cadence aligns with the release windows for console OS SDKs so that each Discord Social SDK release can pick up the most recent supported console SDK versions.
+
+Between minor releases, we publish patch releases as needed (see [What's Covered](#whats-covered) below).
+
+## Supported Version Window
+
+We provide **hotfix patches** — bug fixes and security fixes — for the **five most recent minor versions** of the Discord Social SDK. Older versions are End-of-Life (EOL) and will not receive further updates.
+
+To receive a patch fix on an EOL version, upgrade to a supported release first.
+
+For how console OS SDK updates work, see [Console OS SDK Support](#console-os-sdk-support) below.
+
+### Supported Versions
+
+Once the 1.10 release ships in July 2026, the supported version window will be:
+
+| Version         | Status              |
+|-----------------|---------------------|
+| 1.10            | Supported — current |
+| 1.9             | Supported           |
+| 1.8             | Supported           |
+| 1.7             | Supported           |
+| 1.6             | Supported           |
+| 1.5 and earlier | End-of-Life         |
+
+## Console OS SDK Support
+
+New Xbox and PlayStation OS SDK support ships in **new minor Social SDK releases only** (the three minor releases per year). They are not backported to older Social SDK versions as patches.
+
+Each Social SDK release bundles roughly the last **18 months** of console OS SDK versions — from whatever Xbox GDK or PlayStation OS was current ~18 months before the release, up through the latest available at release time. Console OS SDK versions older than that window are dropped at each new Social SDK release.
+
+In practice, this means:
+
+- If you need the latest Xbox or PlayStation platform SDK, upgrade to the latest Social SDK release.
+- Already-shipped Social SDK releases continue to support the console OS SDK versions they were originally built with — we don't add or remove support for console OS SDKs from already-shipped versions.
+
+The minimum supported Xbox and PlayStation platform SDK versions for the current Social SDK release are listed in [Platform Compatibility](/developers/discord-social-sdk/core-concepts/platform-compatibility).
+
+## End-of-Life Process
+
+When a new minor version of the Social SDK is released, the oldest version in the support window rolls off and reaches End-of-Life:
+
+1. It is removed from the supported version table above
+2. No new hotfix patch builds are produced for that version
+3. Developers on that version should upgrade to the latest supported version
+
+EOL transitions are announced in the [Change Log](/developers/change-log) entry for the corresponding minor release.
+
+## What's Covered
+
+Within the supported Social SDK version window, hotfix patches for a minor version may include:
+
+- Bug-fix and stability hotfix patches
+- Security hotfix patches
+
+## What's Not Covered
+
+The following are **not** provided for older minor versions of the Social SDK:
+
+- New feature development
+- Backports of features introduced in a newer minor version
+- Backports of support for newer console OS SDK versions
+
+---
+
+## Next Steps
+
+import {UserPlatformIcon} from '/snippets/icons/UserPlatformIcon.jsx'
+import {BookCheckIcon} from '/snippets/icons/BookCheckIcon.jsx'
+import {PlayIcon} from '/snippets/icons/PlayIcon.jsx'
+
+<CardGroup cols={3}>
+    <Card title="Platform Compatibility" href="/developers/discord-social-sdk/core-concepts/platform-compatibility" icon={<UserPlatformIcon />}>
+        See supported platforms and minimum supported versions.
+    </Card>
+    <Card title="Change Log" href="/developers/change-log" icon={<BookCheckIcon />}>
+        Browse release notes and EOL announcements.
+    </Card>
+    <Card title="Getting Started" href="/developers/discord-social-sdk/getting-started" icon={<PlayIcon/>}>
+        Download the latest supported SDK version.
+    </Card>
+</CardGroup>
+
+---
+
+## Change Log
+
+| Date         | Changes         |
+|--------------|-----------------|
+| May 26, 2026 | initial release |

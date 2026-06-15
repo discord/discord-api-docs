@@ -167,8 +167,9 @@
               "developers/tutorials/configuring-app-metadata-for-linked-roles",
               "developers/tutorials/developing-a-user-installable-app",
               "developers/tutorials/hosting-on-cloudflare-workers",
-              "developers/tutorials/upgrading-to-application-commands",
-              "developers/tutorials/using-community-invites"
+              "developers/tutorials/using-community-invites",
+              "developers/gateway/you-might-not-need-a-privileged-intent",
+              "developers/gateway/getting-started-with-privileged-intent-review"
             ]
           }
         ]
@@ -191,6 +192,7 @@
               "developers/discord-social-sdk/core-concepts/communication-features",
               "developers/discord-social-sdk/core-concepts/integration-overview",
               "developers/discord-social-sdk/core-concepts/platform-compatibility",
+              "developers/discord-social-sdk/core-concepts/release-cadence-and-support",
               "developers/discord-social-sdk/core-concepts/oauth2-scopes"
             ]
           },
@@ -271,9 +273,11 @@
               "developers/discord-social-sdk/how-to",
               "developers/discord-social-sdk/how-to/debug-log",
               "developers/discord-social-sdk/how-to/use-with-discord-apis",
+              "developers/discord-social-sdk/how-to/handle-rate-limits",
               "developers/discord-social-sdk/how-to/integrate-moderation",
               "developers/discord-social-sdk/how-to/market-your-integration",
-              "developers/discord-social-sdk/how-to/handle-special-characters-display-names"
+              "developers/discord-social-sdk/how-to/handle-special-characters-display-names",
+              "developers/discord-social-sdk/how-to/voice-muting-for-blocked-players"
             ]
           }
         ]
@@ -670,6 +674,18 @@
     {
       "source": "/developers/embedded-apps/overview",
       "destination": "/developers/activities/overview"
+    },
+    {
+      "source": "/developers/tutorials/upgrading-to-application-commands",
+      "destination": "/developers/interactions/application-commands"
+    },
+    {
+      "source": "/developers/events/gateway/getting-started-with-privileged-intent-review",
+      "destination": "/developers/gateway/getting-started-with-privileged-intent-review"
+    },
+    {
+      "source": "/developers/gateway/getting-started-with-privileged-intent-approval",
+      "destination": "/developers/gateway/getting-started-with-privileged-intent-review"
     }
   ],
   "logo": {

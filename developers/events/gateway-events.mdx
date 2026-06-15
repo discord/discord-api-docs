@@ -846,7 +846,7 @@ Sent when a guild integration is updated.
 If using [Gateway Intents](/developers/events/gateway#gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 </Warning>
 
-Sent when a new user joins a guild. The inner payload is a [guild member](/developers/resources/guild#guild-member-object) object with an extra `guild_id` key:
+Sent when a user joins a guild. This event may also be sent for users who are already members of the guild. The inner payload is a [guild member](/developers/resources/guild#guild-member-object) object with an extra `guild_id` key:
 
 <ManualAnchor id="guild-member-add-guild-member-add-extra-fields" />
 ###### Guild Member Add Extra Fields
@@ -1140,11 +1140,12 @@ Sent when a message is created. The inner payload is a [message](/developers/res
 <ManualAnchor id="message-create-message-create-extra-fields" />
 ###### Message Create Extra Fields
 
-| Field     | Type                                                                                                                                                                   | Description                                                                                            |
-|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| guild_id? | snowflake                                                                                                                                                              | ID of the guild the message was sent in - unless it is an ephemeral message                            |
-| member?   | partial [guild member](/developers/resources/guild#guild-member-object) object                                                                                         | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
-| mentions  | array of [user](/developers/resources/user#user-object) objects, optionally with an additional partial [member](/developers/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                            |
+| Field         | Type                                                                                                                                                                   | Description                                                                                               |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| guild_id?     | snowflake                                                                                                                                                              | ID of the guild the message was sent in - unless it is an ephemeral message                               |
+| member?       | partial [guild member](/developers/resources/guild#guild-member-object) object                                                                                         | Member properties for this message's author. Missing for ephemeral messages and messages from webhooks    |
+| mentions      | array of [user](/developers/resources/user#user-object) objects, optionally with an additional partial [member](/developers/resources/guild#guild-member-object) field | Users specifically mentioned in the message                                                               |
+| channel_type? | integer                                                                                                                                                                | The [type of channel](/developers/resources/channel#channel-object-channel-types) the message was sent in |
 
 #### Message Update
 

@@ -58,6 +58,8 @@ import {Route} from '/snippets/route.jsx'
   "bot_require_code_grant": false,
   "cover_image": "31deabb7e45b6c8ecfef77d2f99c81a5",
   "description": "Test",
+  "flags": 8192,
+  "flags_new": "8192",
   "guild_id": "290926798626357260",
   "icon": null,
   "id": "172150183260323840",
@@ -144,6 +146,10 @@ Status indicating whether event webhooks are enabled or disabled for an applicat
 
 <ManualAnchor id="application-object-application-flags" />
 ###### Application Flags
+
+<Info>
+The `flags` field is serialized as a number; however, this number will not grow beyond 31 bits. New flag bits beyond bit 30 will only appear in `flags_new`, a string-serialized integer containing the full set of flag bits. Existing integrations consuming `flags` are not impacted. `flags_new` is for response serialization only — requests that accept flag values should continue to use the original `flags` field.
+</Info>
 
 | Value     | Name                                          | Description                                                                                                                                                                                                                                                         |
 |-----------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
