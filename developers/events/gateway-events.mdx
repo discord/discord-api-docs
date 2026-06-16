@@ -125,10 +125,9 @@ These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is de
       "since": 91879201,
       "afk": false
     },
-    // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_MODERATION
-    // GUILD_MEMBERS is a privileged intent and must be enabled in the Developer Portal before identifying
-    // This connection will only receive the events defined in those three intents
-    "intents": 7
+    // These intents represent 1 << 0 for GUILDS and 1 << 2 for GUILD_MODERATION
+    // This connection will only receive the events defined in those two intents
+    "intents": 5
   }
 }
 ```
