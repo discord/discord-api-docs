@@ -751,13 +751,13 @@ Represents the [server guide](https://support.discord.com/hc/en-us/articles/1349
 <ManualAnchor id="guild-home-settings-object-guild-home-settings-structure" />
 ###### Guild Home Settings Structure
 
-| Field              | Type                                                                                                                      | Description                                                   |
-|--------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| guild_id           | snowflake                                                                                                                 | the ID of the guild the home settings are for                 |
-| enabled            | boolean                                                                                                                   | whether home settings are enabled in the guild                |
-| welcome_message?   | [welcome message](/developers/resources/guild#guild-home-settings-object-welcome-message-structure) object                | the message shown to new members who join the guild           |
+| Field              | Type                                                                                                                     | Description                                                   |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| guild_id           | snowflake                                                                                                                | the ID of the guild the home settings are for                 |
+| enabled            | boolean                                                                                                                  | whether home settings are enabled in the guild                |
+| welcome_message?   | [welcome message](/developers/resources/guild#guild-home-settings-object-welcome-message-structure) object               | the message shown to new members who join the guild           |
 | new_member_actions | array of [new member action](/developers/resources/guild#guild-home-settings-object-new-member-action-structure) objects | the actions that new members are prompted to complete         |
-| resource_channels  | array of [resource channel](/developers/resources/guild#guild-home-settings-object-resource-channel-structure) objects    | the read-only resource channels that are shown to new members |
+| resource_channels  | array of [resource channel](/developers/resources/guild#guild-home-settings-object-resource-channel-structure) objects   | the read-only resource channels that are shown to new members |
 
 <ManualAnchor id="guild-home-settings-object-new-member-action-structure" />
 ###### New Member Action Structure
@@ -785,18 +785,18 @@ Represents the [server guide](https://support.discord.com/hc/en-us/articles/1349
 <ManualAnchor id="guild-home-settings-object-welcome-message-structure" />
 ###### Welcome Message Structure
 
-| Field                  | Type                                | Description                                                                 |
-|------------------------|-------------------------------------|-----------------------------------------------------------------------------|
-| message                | string                              | the message shown to new members who join the guild                         |
-| author_ids             | array of snowflakes                 | the IDs of the users who are credited as the authors of the welcome message |
+| Field      | Type                | Description                                                                 |
+|------------|---------------------|-----------------------------------------------------------------------------|
+| message    | string              | the message shown to new members who join the guild                         |
+| author_ids | array of snowflakes | the IDs of the users who are credited as the authors of the welcome message |
 
 <ManualAnchor id="guild-home-settings-object-action-type" />
 ###### Action Type
 
-| Name  | Value | Description                                   |
-|-------|-------|-----------------------------------------------|
-| VIEW  | 0     | The member must view the channel              |
-| TALK  | 1     | The member must send a message in the channel |
+| Name | Value | Description                                   |
+|------|-------|-----------------------------------------------|
+| VIEW | 0     | The member must view the channel              |
+| TALK | 1     | The member must send a message in the channel |
 
 ## Get Guild
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)</Route>
