@@ -161,18 +161,21 @@ Now your game supports rich presence with game invites! The Discord client will 
 
 ## Registering a Launch Command
 
-Before we send a game invite, let's make sure that the Discord client knows about your game and how to launch it.
+Before we send a game invite, let's make sure that Discord knows how to launch your game when someone opens an invite.
 
-When a user accepts a game invite for your game within Discord, the Discord client needs to know how to launch the game for that user. We have two ways to do this:
+Launch registration is **local**, as in it only affects the machine that calls it.
+
+Therefore, each time the SDK starts up within your game client, register how your game should be launched on that machine,
+so that if the player opens an invite from Discord, your game can be launched for them if not already running.
+
+There are two ways to register, depending on how your game is distributed:
 
 - Register a launch command for your game
 - Register a Steam Game ID
 
-For desktop games, you should run one of these commands when the SDK starts up so that if the user tries to join from Discord, the game can be launched for them.
-
 ### Registering a Launch Command
 
-[`Client::RegisterLaunchCommand`] allows you to register a command that Discord will run to launch your game.
+[`Client::RegisterLaunchCommand`] allows you to register a command that Discord will run on this machine to launch your game. Run this when the SDK starts up so that if the user opens an invite from Discord the game can be launched for them.
 
 ```cpp
 client->RegisterLaunchCommand(YOUR_APP_ID, "yourgame://");
@@ -180,7 +183,7 @@ client->RegisterLaunchCommand(YOUR_APP_ID, "yourgame://");
 
 ### Registering a Steam Game
 
-For Steam games, [`Client::RegisterLaunchCommand`] allows you to register what the Steam game ID. You should run this when the SDK starts up so that if the user tries to join from Discord the game will be able to be launched for them.
+For Steam games, [`Client::RegisterLaunchSteamApplication`] allows you to register your Steam game ID on this machine. As with the launch command, run this when the SDK starts up so that if the user opens an invite from Discord the game can be launched for them.
 
 ```cpp
 client->RegisterLaunchSteamApplication(YOUR_APP_ID, STEAM_GAME_ID);
@@ -510,6 +513,7 @@ import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
 
 | Date           | Changes                                                               |
 |----------------|-----------------------------------------------------------------------|
+| June 10, 2026  | Clarify that launch command registration is local to each machine     |
 | June 8, 2026   | Recommend communication scopes; clarify empty invite message behavior |
 | March 17, 2025 | initial release                                                       |
 
@@ -519,6 +523,7 @@ import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
 [`Client::GetDefaultCommunicationScopes`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a71499da752fbdc2d4326ae0fd36c0dd1
 [`Client::RegisterLaunchCommand`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a024d7222931fdcb7d09c2b107642ecab
+[`Client::RegisterLaunchSteamApplication`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a45b2c791c5b06f77d457dacb53dfba40
 [`Client::SendActivityInvite`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#afc14e98fc070399895739da6d53efa60
 [`Client::SetActivityInviteCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3b4e37a222a8662506d763514774bedc
 [`Client::SetActivityJoinCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a587d1c6d0352eba397c888987aa58418
