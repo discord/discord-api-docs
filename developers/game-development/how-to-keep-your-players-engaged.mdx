@@ -3,7 +3,7 @@ title: How Do I Keep My Players Engaged?
 sidebarTitle: Keep Your Players Engaged
 ---
 
-import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
+import {ImageCard} from '/snippets/imagecard.jsx'
 import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
 import {LinkIcon} from '/snippets/icons/LinkIcon.jsx'
 
@@ -180,14 +180,14 @@ Not every strategy above fits every genre. Here are some ideas for which strateg
 You don't have to build all of this at once. Pick the strategy that fits your game and player base, get it running, and build from there. The bot can start simple. A single `/leaderboard` command can get your players showing off their achievements which can grow into a full engagement system over time. Start with account linking, add one feature, see how your community responds, and iterate.
 
 <CardGroup cols={3}>
-    <Card title="How Do I Grow My Game?" href="/developers/game-development/how-to-grow-your-game" icon={<UserStatusIcon />}>
-    Learn strategies to grow your game through Discord communities and APIs
-    </Card>
+    <ImageCard title="How Do I Grow My Game?" href="/developers/game-development/how-to-grow-your-game" img="/images/game-development/how-to-grow-your-game/banner-how-to-grow-your-game.webp" horizontal>
+        Learn strategies to grow your game through Discord communities and APIs
+    </ImageCard>
     <Card title="Bots and Companion Apps" href="/developers/quick-start/getting-started" icon={<RobotIcon />}>
-    Getting started guide for building a Discord bot or companion app
+        Getting started guide for building a Discord bot or companion app
     </Card>
     <Card title="Account Linking" href="/developers/platform/account-linking" icon={<LinkIcon />}>
-    Connect your players' game accounts to their Discord identity
+        Connect your players' game accounts to their Discord identity
     </Card>
 </CardGroup>
 

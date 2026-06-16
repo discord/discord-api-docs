@@ -3,6 +3,7 @@ title: How Do I Get My Game Seen?
 sidebarTitle: Get Your Game Seen
 ---
 
+import {ImageCard} from '/snippets/imagecard.jsx'
 import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
 import {DoorEnterIcon} from '/snippets/icons/DoorEnterIcon.jsx'
 import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
@@ -728,17 +729,15 @@ Chapter or act titles in `details` , like “Chapter 3: Letting Go”, can hint 
 Rich Presence scratches the surface of what the Discord Social SDK can do for your game. Want to dive deeper? Check out some of guides:
 
 <Columns cols={3}>
+    <ImageCard title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" img="/images/game-development/how-to-keep-your-players-engaged/banner-how-to-keep-your-players-engaged.webp" horizontal>
+        Build a Discord bot to extend your game's presence into the community
+    </ImageCard>
     <Card title="Managing Game Invites" href="/developers/discord-social-sdk/development-guides/managing-game-invites" icon={<InboxIcon />}>
-    Implementation guide for game invites
+        Implementation guide for game invites using the Social SDK to let friends join in-game or through Rich Presence
     </Card>
     <Card title="Managing Lobbies" href="/developers/discord-social-sdk/development-guides/managing-lobbies" icon={<DoorEnterIcon />}>
-    Create multiplayer lobbies
-    </Card>
-    <Card title="How Do I Keep My Players Engaged?" href="/developers/game-development/how-to-keep-your-players-engaged" icon={<RobotIcon />}>
-    Build a Discord bot to extend your game's presence into the community
+        Create multiplayer lobbies with the Social SDK 
     </Card>
 </Columns>
 
 Join the [Discord Developers server](https://discord.gg/discord-developers) to connect with other game developers building on Discord, or check out the [Discord Developers YouTube channel](https://youtube.com/@discorddevelopers) for video walkthroughs and tutorials.
-
-<img src="/images/game-development/how-to-get-your-game-seen/inline-how-to-get-your-game-seen.webp" alt="A banner showing rich presence for a fictional game" style={{width: "100%", height: "auto"}} />

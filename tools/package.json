@@ -30,7 +30,7 @@
 		"decorate:docs": "node ./doxygen/generate-social-sdk-mapping.js && node ./doxygen/decorate-social-sdk-references.js"
 	},
 	"devDependencies": {
-		"@actions/core": "^1.10.1",
+		"@actions/core": "^1.11.1",
 		"@eslint/js": "^9.2.0",
 		"@mdx-js/mdx": "^3.0.1",
 		"@mdx-js/react": "^3.0.1",
@@ -41,13 +41,13 @@
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-prettier": "^5.1.3",
 		"execa": "^9.5.2",
-		"js-yaml": "^4.1.1",
+		"js-yaml": "^4.2.0",
 		"markdown-table-formatter": "^1.6.0",
 		"mdast-util-from-markdown": "^2.0.1",
 		"mdast-util-to-markdown": "^2.1.0",
 		"prettier": "^3.2.5",
 		"remark": "^15.0.1",
-		"tsx": "^4.20.3",
+		"tsx": "^4.22.4",
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.0.0-alpha.12"
 	},

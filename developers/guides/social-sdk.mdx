@@ -4,20 +4,71 @@ sidebarTitle: "Social SDK"
 description: "Development guides for integrating the Discord Social SDK into your game."
 ---
 
+import {ImageCard} from '/snippets/imagecard.jsx'
+import {UserPlusIcon} from '/snippets/icons/UserPlusIcon.jsx'
+import {ListViewIcon} from '/snippets/icons/ListViewIcon.jsx'
+import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
+import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+import {ChatIcon} from '/snippets/icons/ChatIcon.jsx'
+import {DoorEnterIcon} from '/snippets/icons/DoorEnterIcon.jsx'
+import {TextControllerIcon} from '/snippets/icons/TextControllerIcon.jsx'
+import {VoiceNormalIcon} from '/snippets/icons/VoiceNormalIcon.jsx'
+import {MagicWandIcon} from '/snippets/icons/MagicWandIcon.jsx'
+import {BugIcon} from '/snippets/icons/BugIcon.jsx'
+import {ClydeIcon} from '/snippets/icons/ClydeIcon.jsx'
+import {ShieldIcon} from '/snippets/icons/ShieldIcon.jsx'
+import {StarShootingIcon} from '/snippets/icons/StarShootingIcon.jsx'
+import {LettersIcon} from '/snippets/icons/LettersIcon.jsx'
+
 <Note>
   Visit [Discord Social SDK](/developers/discord-social-sdk/overview) for more on integrating games with the Discord Social SDK, including how to get started, best practices, and more.
 </Note>
 
 ## Getting Started
 
+<ImageCard title="Getting Started with the Social SDK" href="/developers/discord-social-sdk/getting-started" img="/images/headers/docs-sdk-hero.png" >
+  A guide to integrating your game with the Discord Social SDK.
+</ImageCard>
+
+## Guides
+
 <CardGroup cols={3}>
-  <Card title="Getting Started with C++" href="/developers/discord-social-sdk/getting-started/using-c++">
-    A guide to integrating your game with the Discord Social SDK using C++.
+  <Card title="Account Linking with Discord" href="/developers/discord-social-sdk/development-guides/account-linking-with-discord" icon={<UserPlusIcon/>}>
+    Learn how to authenticate users with their Discord accounts using OAuth2.
   </Card>
-  <Card title="Getting Started with Unity" href="/developers/discord-social-sdk/getting-started/using-unity">
-    A guide to integrating your game with the Discord Social SDK using Unity.
+  <Card title="Creating a Unified Friends List" href="/developers/discord-social-sdk/development-guides/creating-a-unified-friends-list" icon={<ListViewIcon/>}>
+    Combine Discord and game-specific friends in one view.
   </Card>
-  <Card title="Getting Started with Unreal Engine" href="/developers/discord-social-sdk/getting-started/using-unreal-engine">
-    A guide to integrating your game with the Discord Social SDK using Unreal Engine.
+  <Card title="Setting Rich Presence" href="/developers/discord-social-sdk/development-guides/setting-rich-presence" icon={<UserStatusIcon/>}>
+    Display detailed game status in Discord profiles.
   </Card>
+  <Card title="Managing Game Invites" href="/developers/discord-social-sdk/development-guides/managing-game-invites" icon={<InboxIcon/>}>
+    Allow players to invite friends to join their game session or party.
+  </Card>
+    <Card title="Sending Direct Messages" href="/developers/discord-social-sdk/development-guides/sending-direct-messages" icon={<ChatIcon/>}>
+    Enable private messaging between players.
+  </Card>
+  <Card title="Managing Lobbies" href="/developers/discord-social-sdk/development-guides/managing-lobbies" icon={<DoorEnterIcon/>}>
+    Bring players together in a shared lobby with invites, text chat, and voice comms.
+  </Card>
+   <Card title="Linked Channels" href="/developers/discord-social-sdk/development-guides/linked-channels" icon={<TextControllerIcon/>}>
+    Connect game lobbies to Discord text channels.
+  </Card>
+   <Card title="Managing Voice Chat" href="/developers/discord-social-sdk/development-guides/managing-voice-chat" icon={<VoiceNormalIcon/>}>
+    Add in-game voice communication.
+  </Card>
+    <Card title="Using Provisional Accounts" href="/developers/discord-social-sdk/development-guides/using-provisional-accounts" icon={<MagicWandIcon/>}>
+    Give your users a seamless account experience with provisional accounts.
+  </Card>
+</CardGroup>
+
+## Game Development Guides
+
+<CardGroup cols={2}>
+  <ImageCard title="How Do I Get My Game Seen?" href="/developers/game-development/how-to-get-your-game-seen" img="/images/game-development/how-to-get-your-game-seen/banner-how-to-get-your-game-seen.webp" >
+    Implement Rich Presence with game details, lobby joining, game launching, and store links using the Social SDK
+  </ImageCard>
+  <ImageCard title="How Do I Add Proximity Voice Chat to My Game?" href="/developers/game-development/how-to-add-proximity-voice-chat-to-your-game" img="/images/game-development/how-to-add-proximity-voice-chat-to-your-game/banner-proximity-voice-chat.webp" >
+    Learn how to use the Social SDK's voice chat with Unity's 3D audio system to build proximity voice chat for a multiplayer game.
+  </ImageCard>
 </CardGroup>

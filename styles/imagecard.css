@@ -1,0 +1,39 @@
+.MDXImageCard {
+    .image-card-link,
+    .image-card-link:hover,
+    .image-card-link:focus,
+    .image-card-link:active,
+    .image-card-link:visited {
+        text-decoration: none !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: inherit !important;
+    }
+
+    .image-card {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: border-color 0.2s;
+    }
+    .image-card:is(.dark *) {
+        border-color: rgba(255, 255, 255, 0.1);
+        background-color: rgb(32, 32, 36);
+    }
+    .image-card-title {
+        color: rgb(31, 41, 55);
+    }
+    .image-card-title:is(.dark *) {
+        color: white;
+    }
+    .image-card-description {
+        color: rgb(75, 85, 99);
+    }
+    .image-card-description:is(.dark *) {
+        color: rgb(156, 163, 175);
+    }
+    &:hover .image-card,
+    &:hover .image-card:is(.dark *) {
+        border-color: #5865F2;
+    }
+}

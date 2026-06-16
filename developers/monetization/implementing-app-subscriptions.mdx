@@ -14,7 +14,7 @@ Charge users for premium app functionality with a recurring user or guild subscr
 
 When creating subscriptions, you will need to choose between user or guild subscriptions:
 
-- **User Subscriptions**: Offers premium features to an individual user across any server where your app installed.
+- **User Subscriptions**: Offers premium features to an individual user across any server where your app is installed.
 - **Guild Subscriptions**: Provides premium benefits to all members within a specific server.
 
 ---
@@ -35,7 +35,7 @@ When creating subscriptions, you will need to choose between user or guild subsc
 Because entitlements are granted indefinitely and don't update on renewal or cancellation, you can use subscription events to track the lifecycle of a subscription.
 
 <Info>
-This is not a complete list of when events may occur. You should use the presence of an entitlement to determine if a user has access to your premium features. The Subscription API and related events are intended for reporting and lifecycle management purposes and **should not be used as the source of truth of whether a user has access to your premium features**.
+This is not a complete list of when events may occur. You should use the presence of an entitlement to determine if a user has access to your premium features. The Subscription API and related events are intended for reporting and lifecycle management purposes and **should not be used as the source of truth for whether a user has access to your premium features**.
 </Info>
 
 | Event Name            | Subscription Behavior                      | Updated Fields                                                                                                                |
@@ -72,7 +72,7 @@ For subscription SKUs, you will receive the following entitlement events:
 
 For apps requiring background processing or not solely reliant on interactions, keeping track of entitlements is essential. You can utilize the [List Entitlements](/developers/resources/entitlement#list-entitlements) endpoint to list active and expired entitlements. Your app can filter entitlements by a specific user or guild by using the `?user_id=XYZ` or `?guild_id=XYZ` query params.
 
-For example, you might keep track of our entitlements in a database and check if a user still has access to a specific SKU before performing a cron job or other task.
+For example, you might keep track of entitlements in a database and check if a user still has access to a specific SKU before performing a cron job or other task.
 
 ### Accessing Entitlements on Interaction Payloads
 
@@ -155,7 +155,7 @@ To create multiple subscription tiers, you will need to [create multiple subscri
 
 ### Upgrading an existing subscription
 
-If an user is on a lower tier subscription and upgrades to subscription tier that is the same price or higher, the user is charged the difference in price between the two subscriptions and the subscription period resets at the time of upgrading.
+If a user is on a lower tier subscription and upgrades to a subscription tier that is the same price or higher, the user is charged the difference in price between the two subscriptions and the subscription period resets at the time of upgrading.
 
 When the subscription is upgraded, the current entitlement for the lower tier will end immediately and you will receive the following events:
 
@@ -168,7 +168,7 @@ When the subscription is upgraded, the current entitlement for the lower tier wi
 
 ### Downgrading an existing subscription
 
-If an user is on a higher tier subscription and downgrades to a lower tier subscription, the user is not charged immediately because the price is lower than what was already paid.
+If a user is on a higher tier subscription and downgrades to a lower tier subscription, the user is not charged immediately because the price is lower than what was already paid.
 
 The user has already paid for their current plan until `subscription.current_period_end` so their current plan will be valid until then and you will receive the following event:
 

@@ -48,7 +48,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | verified?               | boolean                                                                                    | whether the email on this account has been verified                                                        | email                 |
 | email?                  | ?string                                                                                    | the user's email                                                                                           | email                 |
 | flags?                  | integer                                                                                    | the [flags](/developers/resources/user#user-object-user-flags) on a user's account                         | identify              |
-| premium_type?           | integer                                                                                    | the [type of Nitro subscription](/developers/resources/user#user-object-premium-types) on a user's account | identify              |
+| premium_type?           | integer                                                                                    | the [type of Nitro subscription](/developers/resources/user#user-object-premium-types) on a user's account | identify.premium      |
 | public_flags?           | integer                                                                                    | the public [flags](/developers/resources/user#user-object-user-flags) on a user's account                  | identify              |
 | avatar_decoration_data? | ?[avatar decoration data](/developers/resources/user#avatar-decoration-data-object) object | data for the user's avatar decoration                                                                      | identify              |
 | collectibles?           | ?[collectibles](/developers/resources/user#collectibles) object                            | data for the user's collectibles                                                                           | identify              |
@@ -69,7 +69,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "flags": 64,
   "banner": "06c16474723fe537c283b8efa61a30c8",
   "accent_color": 16711680,
-  "premium_type": 1,
+  "premium_type": 0,
   "public_flags": 64,
   "avatar_decoration_data": {
     "sku_id": "1144058844004233369",
@@ -375,3 +375,8 @@ Updates and returns the [application role connection](/developers/resources/user
 | platform_name?     | string | the vanity name of the platform a bot has connected (max 50 characters)                                                                                                                                                                                                |
 | platform_username? | string | the username on the platform a bot has connected (max 100 characters)                                                                                                                                                                                                  |
 | metadata?          | object | object mapping [application role connection metadata](/developers/resources/application-role-connection-metadata#application-role-connection-metadata-object) keys to their `string`-ified value (max 100 characters) for the user on the platform a bot has connected |
+
+## Delete Current User Application Role Connection
+<Route method="DELETE">/users/@me/applications/[\{application.id\}](/developers/resources/application#application-object)/role-connection</Route>
+
+Deletes the [application role connection](/developers/resources/user#application-role-connection-object) for the user. Requires an OAuth2 access token with `role_connections.write` scope for the application specified in the path.
