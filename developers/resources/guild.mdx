@@ -756,7 +756,7 @@ Represents the [server guide](https://support.discord.com/hc/en-us/articles/1349
 | guild_id           | snowflake                                                                                                                 | the ID of the guild the home settings are for                 |
 | enabled            | boolean                                                                                                                   | whether home settings are enabled in the guild                |
 | welcome_message?   | [welcome message](/developers/resources/guild#guild-home-settings-object-welcome-message-structure) object                | the message shown to new members who join the guild           |
-| new_member_actions | array of [new memeber action](/developers/resources/guild#guild-home-settings-object-new-member-action-structure) objects | the actions that new members are prompted to complete         |
+| new_member_actions | array of [new member action](/developers/resources/guild#guild-home-settings-object-new-member-action-structure) objects | the actions that new members are prompted to complete         |
 | resource_channels  | array of [resource channel](/developers/resources/guild#guild-home-settings-object-resource-channel-structure) objects    | the read-only resource channels that are shown to new members |
 
 <ManualAnchor id="guild-home-settings-object-new-member-action-structure" />
@@ -1579,4 +1579,4 @@ Both `invites_disabled_until` and `dms_disabled_until` can be enabled for a maxi
 If the new member welcome experience has been disabled, and the application does not have the `MANAGE_GUILD` permission, the endpoint will unexpectedly return a 204 empty response.
 </Danger>
 
-Returns the [Home Settings](/developers/resources/guild#guild-onboarding-object) object for the guild.
+Returns the [Home Settings](/developers/resources/guild#guild-home-settings-object) object for the guild.
