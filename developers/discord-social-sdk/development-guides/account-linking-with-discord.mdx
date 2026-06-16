@@ -246,18 +246,27 @@ client->RefreshToken(
 
 ### When Refresh Fails
 
-A stored refresh token can become invalid between sessions for several reasons — the user revoked your application from their *User Settings → Authorized Apps* page,
-you called the [unmerge or token revocation endpoint](#revoking-access-tokens),
-or the [user's Discord account was banned](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge).
+A stored refresh token can become invalid between sessions for several reasons:
 
-In every one of these cases the response on `/oauth2/token` with `grant_type=refresh_token` is the same:
+- The user revoked your application from their *User Settings → Authorized Apps* page.
+- You called the [unmerge or token revocation endpoint](#revoking-access-tokens).
+- The [user's Discord account was banned](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge).
+- The access and refresh tokens expired or otherwise became invalid, with no revocation, unmerge, or ban involved.
+
+In every one of these cases the response on `/oauth2/token` with `grant_type=refresh_token` is identical:
 
 - **HTTP status:** `400`
 - **Body:** `{ "error": "invalid_grant", "error_description": "Invalid \"refresh_token\" in request" }`
 
-There is no ban-specific or unlink-specific error code on this path — by the time the refresh runs, the underlying tokens have already been deleted server-side, so the lookup fails.
+There is no ban-specific or unlink-specific error code on this path. `invalid_grant` only tells you the refresh token is no longer valid server-side — not *why* — so you cannot tell from the error alone which of the situations above you are in.
 
-When you do see `invalid_grant` on refresh, drop the stored Discord tokens for the user and fall back to the [provisional account flow](/developers/discord-social-sdk/development-guides/using-provisional-accounts#implementing-provisional-accounts) to keep the player in-game even if their Discord link is gone.
+#### Recovering from `invalid_grant`
+
+How you recover depends on whether the user still has a linked Discord account. Because the `invalid_grant` error doesn't distinguish the cases, the robust pattern is to **attempt the provisional account fallback first, then handle error `530010`**:
+
+1. Drop the stored Discord tokens for the user and attempt the [provisional account flow](/developers/discord-social-sdk/development-guides/using-provisional-accounts#implementing-provisional-accounts).
+2. **If the provisional flow succeeds**, a revocation, unmerge, or ban had already reverted the linked account to a [provisional account](#revoking-access-tokens). The player stays in-game even though their Discord link is gone.
+3. **If the provisional flow returns error code `530010`** — `User account is non-provisional and should be authed through OAuth2` — the tokens simply expired or became invalid and the user **still has a linked Discord account**. The token-exchange endpoint deliberately blocks linked users from the provisional path. Prompt the player to re-run the [OAuth2 authorization flow](#step-1-request-authorization) to obtain fresh tokens instead.
 
 <Tip>
 To be notified when a user's authorization for your app is revoked — whether by an unlink, a token revocation, or a Discord account ban — integrate the [`APPLICATION_DEAUTHORIZED`](/developers/events/webhook-events#application-deauthorized) webhook event. That gives you a proactive signal you can act on immediately, rather than discovering the change the next time a refresh fails.
@@ -420,6 +429,7 @@ import {UserIcon} from '/snippets/icons/UserIcon.jsx'
 
 | Date           | Changes                                                     |
 |----------------|-------------------------------------------------------------|
+| June 9, 2026   | Clarify `invalid_grant` recovery and the `530010` error     |
 | May 22, 2026   | Add out-of-band revocation and recommended integration path |
 | March 17, 2025 | initial release                                             |
 
