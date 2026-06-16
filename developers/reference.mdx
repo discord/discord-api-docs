@@ -256,6 +256,10 @@ The HTTP API implements a process for limiting and preventing excessive requests
 
 Certain endpoints in the API are documented to accept booleans for their query string parameters. While there is no standard system for boolean representation in query string parameters, Discord represents such cases using `True`, `true`, or `1` for true and `False`, `false` or `0` for false.
 
+### Array Query Strings
+
+Certain endpoints in the API are documented to accept arrays for their query string parameters. Unless otherwise specified, Discord represents such cases using multiple instances of the same query string parameter. For example, `?id=123&id=456` for `["123", "456"]`.
+
 ## Gateway (WebSocket) API
 
 Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](/developers/events/gateway#connections) section.

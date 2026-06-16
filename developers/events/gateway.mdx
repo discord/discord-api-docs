@@ -328,6 +328,8 @@ GUILDS (1 << 0)
   - STAGE_INSTANCE_CREATE
   - STAGE_INSTANCE_UPDATE
   - STAGE_INSTANCE_DELETE
+  - VOICE_CHANNEL_STATUS_UPDATE
+  - VOICE_CHANNEL_START_TIME_UPDATE
 
 GUILD_MEMBERS (1 << 1) **
   - GUILD_MEMBER_ADD
@@ -440,7 +442,7 @@ DIRECT_MESSAGE_POLLS (1 << 25)
 
 ### Privileged Intents
 
-Some intents are defined as "privileged" due to the sensitive nature of the data. Currently, those intents include:
+Some intents have additional requirements for access due to the nature of their data. Currently, those intents include:
 
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
@@ -448,19 +450,21 @@ Some intents are defined as "privileged" due to the sensitive nature of the data
 
 Apps that qualify for verification **must** be approved for the privileged intent(s) before they can use them. After your app is verified, you can request privileged intents within the app's settings within the Developer Portal.
 
-Before you specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app requires. [Verified apps](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) can only use privileged intents *after* they've been approved for them.
+Before you can specify any of these privileged intents in your `IDENTIFY` payload, you must enable the specific privileged intents you need in the Developer Portal. 
 
-<Info>
-Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
-</Info>
-
-In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. For example, to use the [List Guild Members](/developers/resources/guild#list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
+You may only enable a privileged intent if your use case requires it to function and is consistent with our Developer Policy. Check out our [You Might Not Need a Privileged Intent](/developers/gateway/you-might-not-need-a-privileged-intent) guide to better understand what data these intents grant and alternative approaches to consider when building your app.
 
 #### Enabling Privileged Intents
 
-Before using privileged intents, you must enable them in your app's settings. In the [Developer Portal](https://discord.com/developers/applications), you can navigate to your app's settings then toggle the privileged intents on the [**Bot** page](https://discord.com/developers/applications/select/bot) under the "Privileged Gateway Intents" section. You should only toggle privileged intents that your bot *requires to function*.
+Before using privileged intents, you must enable them in your app's settings. In the Developer Portal, you can navigate to your app's settings, then toggle the privileged intents on the [**Bot** page](https://discord.com/developers/applications/select/bot) under the "Privileged Gateway Intents" section. You may only toggle privileged intents that your bot requires to function. 
 
-If your app qualifies for [verification](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified), you must first [verify your app](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) and request access to these intents during the verification process. If your app is already verified and you need to request additional privileged intents, you can [contact support](https://dis.gd/support).
+#### Privileged Intent Access Review
+
+Apps with fewer than 10,000 users can access privileged intents by enabling them in the Developer Portal.
+
+When an app has more than 10,000 unique users who can see your app across all the servers it's in, it requires review for continued access to Privileged Intents. Once you hit this threshold, the app or team owner will receive a system DM and/or an email. There will also be a callout visible on your app in the Developer Portal. You will need to submit a request with information about your app and its use of Privileged Intents for review. If access is granted, you can enable the relevant intents for your app in the Developer Portal and you will be notified annually to reapply for continued access. 
+
+Read our [Getting Started with Privileged Intent Review](/developers/gateway/getting-started-with-privileged-intent-review) guide to learn more about the user threshold, requirements, and review process.
 
 #### Gateway Restrictions
 
