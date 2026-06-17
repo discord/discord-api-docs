@@ -1,5 +1,5 @@
 {
-	"name": "discord-api-docs",
+	"name": "discord-api-docs-tools",
 	"version": "1.1.1",
 	"description": "Documentation for using Discord's Developer Platform",
 	"main": "index.js",
@@ -25,8 +25,8 @@
 		"lint": "eslint",
 		"lint:fix": "eslint --fix",
 		"test:build": "tsx checkBuild.ts",
-		"test:tables": "npx markdown-table-formatter \"../developers/**/*.{md,mdx}\" --check",
-		"fix:tables": "npx markdown-table-formatter \"../developers/**/*.{md,mdx}\"",
+		"test:tables": "git ls-files .. | grep -E '.mdx?$' | xargs markdown-table-formatter --check",
+		"fix:tables": "git ls-files .. | grep -E '.mdx?$' | xargs markdown-table-formatter",
 		"decorate:docs": "node ./doxygen/generate-social-sdk-mapping.js && node ./doxygen/decorate-social-sdk-references.js"
 	},
 	"devDependencies": {
@@ -36,6 +36,7 @@
 		"@mdx-js/react": "^3.0.1",
 		"@types/js-yaml": "^4.0.9",
 		"@types/node": "^24.0.8",
+		"@types/react": "^18.3.29",
 		"chalk": "^5.3.0",
 		"eslint": "^9.2.0",
 		"eslint-config-prettier": "^10.1.5",
