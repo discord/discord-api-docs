@@ -1,0 +1,23 @@
+export const IntroCard = ({ img, href, title, description }) => {
+  return (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="group">
+    <div className="flex flex-col gap-4 rounded-xl transition-all duration-300 group-hover:scale-[1.05] group-hover:shadow-lg">
+      <div className="w-full h-60 overflow-hidden rounded-xl">
+        <img 
+          src={img} 
+          className="w-full h-full object-cover"
+          alt={title}
+        />
+      </div>
+      <div className="flex flex-col gap-3">
+        <h2 className="text-xl font-medium text-gray-900 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          {title}
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 text-md">
+          {description}
+        </p>
+      </div>
+    </div>
+    </a>
+  );
+};

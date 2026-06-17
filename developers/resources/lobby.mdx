@@ -1,0 +1,339 @@
+---
+title: Lobby Resource
+sidebarTitle: Lobby
+description: Reference for Discord lobby objects used for matchmaking.
+---
+
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+import {Route} from '/snippets/route.jsx'
+
+### Lobby Object
+
+Represents a lobby within Discord. See [Managing Lobbies](/developers/discord-social-sdk/development-guides/managing-lobbies) for more information.
+
+<ManualAnchor id="lobby-object-lobby-structure" />
+###### Lobby Structure
+
+| Field           | Type                                                                             | Description                                                         |
+|-----------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| id              | snowflake                                                                        | the id of this channel                                              |
+| application_id  | snowflake                                                                        | application that created the lobby                                  |
+| metadata        | ?dict\<string, string\>                                                          | dictionary of string key/value pairs. The max total length is 1000. |
+| members         | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | members of the lobby                                                |
+| linked_channel? | channel object                                                                   | the guild channel linked to the lobby                               |
+
+### Lobby Member Object
+
+Represents a member of a lobby, including optional metadata and flags.
+
+<ManualAnchor id="lobby-member-object-lobby-member-structure" />
+###### Lobby Member Structure
+
+| Field     | Type                    | Description                                                                                                                                                |
+|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id        | snowflake               | the id of the user                                                                                                                                         |
+| metadata? | ?dict\<string, string\> | dictionary of string key/value pairs. The max total length is 1000.                                                                                        |
+| flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+
+<ManualAnchor id="lobby-member-object-lobby-member-flags" />
+###### Lobby Member Flags
+
+| Flag         | Value  | Description                             |
+|--------------|--------|-----------------------------------------|
+| CanLinkLobby | `1<<0` | user can link a text channel to a lobby |
+
+
+<ManualAnchor id="lobby-member-object-example-lobby-object" />
+###### Example Lobby Object
+
+```json
+{
+  "id": "96008815106887111",
+  "application_id": "41771983429993937",
+  "metadata": {
+    "topic": "we need more redstone",
+  },
+  "members": [
+    {
+      "id": "41771983429993000",
+      "metadata": null,
+      "flags": 1
+    }
+  ]
+}
+```
+
+## Create Lobby
+<Route method="POST">/lobbies</Route>
+
+Creates a new lobby, adding any of the specified members to it, if provided. 
+
+Returns a [lobby](/developers/resources/lobby#lobby-object) object.
+
+<Info>
+    [Discord Social SDK](/developers/discord-social-sdk/overview) clients will not be able to join or leave a lobby
+    created using this API, such as [`Client::CreateOrJoinLobby`]. See
+    [Managing Lobbies](/developers/discord-social-sdk/development-guides/managing-lobbies#server-side-lobby-management)
+    for more information.
+</Info>
+
+### JSON Params
+
+| Field                 | Type                                                                             | Description                                                                                                                                                            |
+|-----------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                           |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to be added to the lobby                                                                                                              |
+| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
+
+#### Lobby Member JSON Params
+
+| Field     | Type                    | Description                                                                                                                                                |
+|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id        | snowflake               | Discord user id of the user to add to the lobby                                                                                                            |
+| metadata? | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
+| flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+
+## Create or Join Lobby
+<Route method="PUT">/lobbies</Route>
+
+Creates a new lobby for the application identified by a `secret`, or joins the calling user to the existing lobby with that secret if one already exists. Updates lobby metadata and the calling member's metadata on join.
+
+Uses `Bearer` token for authorization with the [`sdk.social_layer`](/developers/discord-social-sdk/core-concepts/oauth2-scopes#default-communication-scopes) scope.
+
+Returns a [lobby](/developers/resources/lobby#lobby-object) object.
+
+### JSON Params
+
+| Field                 | Type                    | Description                                                                                                                                                                    |
+|-----------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| secret                | string                  | secret used to identify the lobby. If a lobby for this application already exists with this secret, the caller joins it; otherwise a new lobby is created. Max 250 characters. |
+| idle_timeout_seconds? | integer                 | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.         |
+| lobby_metadata?       | ?dict\<string, string\> | optional dictionary of string key/value pairs to set on the lobby. The max total length is 1000. Overwrites any existing lobby metadata.                                       |
+| member_metadata?      | ?dict\<string, string\> | optional dictionary of string key/value pairs to set on the calling user's lobby member. The max total length is 1000.                                                         |
+
+## Get Lobby
+<Route method="GET">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)</Route>
+
+Returns a [lobby](/developers/resources/lobby#lobby-object) object for the specified lobby id, if it exists.
+
+## Modify Lobby
+<Route method="PATCH">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)</Route>
+
+Modifies the specified lobby with new values, if provided. 
+
+Returns the updated [lobby](/developers/resources/lobby#lobby-object) object.
+
+### JSON Params
+
+| Field                 | Type                                                                             | Description                                                                                                                                                            |
+|-----------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                         |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby.                        |
+| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
+
+## Delete Lobby
+<Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)</Route>
+
+Deletes the specified lobby if it exists.  
+
+It is safe to call even if the lobby is already deleted as well.
+
+Returns nothing.
+
+## Add a Member to a Lobby
+<Route method="PUT">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/[\{user.id\}](/developers/resources/user#user-object)</Route>
+
+Adds the provided user to the specified lobby. If called when the user is already a member of the lobby will update fields such as metadata on that user instead. 
+
+Returns the [lobby member](/developers/resources/lobby#lobby-member-object) object.
+
+### JSON Params
+
+| Field     | Type                    | Description                                                                                                                                                |
+|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata? | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
+| flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+
+## Bulk Update Lobby Members
+<Route method="POST">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/bulk</Route>
+
+Adds, updates, or removes up to 25 members from the specified lobby in a single request. Members with `remove_member: false` (the default) are upserted — added if not present, or updated with the provided metadata and flags if already a member. Members with `remove_member: true` are removed.
+
+Returns an array of [lobby member](/developers/resources/lobby#lobby-member-object) objects for the upserted members. Removed members are not included in the response.
+
+<Info>
+Users unknown to Discord will return a 404 UNKNOWN_USER error. Users that fail permission checks or who have already reached the maximum number of lobbies per application (and are not already a member of this lobby) are silently dropped from the upsert set.
+</Info>
+
+### JSON Params
+
+An array of member objects. Minimum 1, maximum 25.
+
+| Field          | Type                    | Description                                                                                                                                                |
+|----------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id             | snowflake               | Discord user id of the user to add, update, or remove                                                                                                      |
+| metadata?      | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
+| flags?         | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| remove_member? | boolean                 | if `true`, the user is removed from the lobby instead of upserted. Default `false`.                                                                        |
+
+## Remove a Member from a Lobby
+<Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/[\{user.id\}](/developers/resources/user#user-object)</Route>
+
+Removes the provided user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
+
+Returns nothing.
+
+## Leave Lobby
+<Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/@me</Route>
+
+Removes the current user from the specified lobby. It is safe to call this even if the user is no longer a member of the lobby, but will fail if the lobby does not exist.
+
+Uses `Bearer` token for authorization.
+
+Returns nothing.
+
+## Link Channel to Lobby
+<Route method="PATCH">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/channel-linking</Route>
+
+Links an existing text channel to a lobby. See [Linked Channels](/developers/discord-social-sdk/development-guides/linked-channels) for more information.
+
+Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](/developers/resources/lobby#lobby-member-object-lobby-member-flags).
+
+Returns a [lobby](/developers/resources/lobby#lobby-object) object with a linked channel.
+
+### JSON Params
+
+| Field       | Type      | Description                                                                                                            |
+|-------------|-----------|------------------------------------------------------------------------------------------------------------------------|
+| channel_id? | snowflake | the id of the channel to link to the lobby. If not provided, will unlink any currently linked channels from the lobby. |
+
+## Unlink Channel from Lobby
+<Route method="PATCH">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/channel-linking</Route>
+
+Unlinks any currently linked channels from the specified lobby.
+
+Send a request to this endpoint with an empty body to unlink any currently linked channels from the specified lobby.
+
+Uses `Bearer` token for authorization and user must be a lobby member with `CanLinkLobby` [lobby member flag](/developers/resources/lobby#lobby-member-object-lobby-member-flags).
+
+Returns a [lobby](/developers/resources/lobby#lobby-object) object without a linked channel.
+
+## Send Lobby Message
+<Route method="POST">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/messages</Route>
+
+Sends a message to the specified lobby. The calling user must be a member of the lobby.
+
+Uses `Bearer` token for authorization with the [`sdk.social_layer`](/developers/discord-social-sdk/core-concepts/oauth2-scopes#default-communication-scopes) scope.
+
+Returns the created lobby message object.
+
+<Info>
+If the lobby has a [linked channel](/developers/discord-social-sdk/development-guides/linked-channels), the message is also forwarded to that channel. If forwarding fails (for example, due to AutoMod), the lobby message is still delivered to other lobby members.
+</Info>
+
+### JSON Params
+
+| Field     | Type                    | Description                                                                                                                                                      |
+|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| content   | string                  | message content. Must be non-empty.                                                                                                                              |
+| metadata? | ?dict\<string, string\> | optional dictionary of string key/value pairs delivered alongside the message to active clients via the Social SDK. Not persisted on the linked channel message. |
+| flags?    | integer                 | optional message flags combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). Only flags creatable by the Social SDK are accepted.                   |
+
+### Lobby Message Object
+
+| Field                | Type                    | Description                                                                                                                                  |
+|----------------------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| id                   | snowflake               | id of the message                                                                                                                            |
+| type                 | integer                 | [message type](/developers/resources/message#message-object-message-types)                                                                   |
+| content              | string                  | message content                                                                                                                              |
+| lobby_id             | snowflake               | id of the lobby this message was sent to                                                                                                     |
+| channel_id           | snowflake               | included for compatibility with the messages interface; equal to `lobby_id`                                                                  |
+| author               | user object             | the [user](/developers/resources/user#user-object) who sent the message                                                                      |
+| metadata?            | ?dict\<string, string\> | dispatch-only metadata sent with the message                                                                                                 |
+| moderation_metadata? | ?dict\<string, string\> | moderation metadata set via [Update Lobby Message Moderation Metadata](/developers/resources/lobby#update-lobby-message-moderation-metadata) |
+| flags                | integer                 | [message flags](/developers/resources/message#message-object-message-flags) bitfield                                                         |
+| application_id       | snowflake               | the application that sent the message                                                                                                        |
+
+## Get Lobby Messages
+<Route method="GET">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/messages</Route>
+
+Returns the most recent messages in the specified lobby. The calling user must be a member of the lobby.
+
+Uses `Bearer` token for authorization with the [`sdk.social_layer`](/developers/discord-social-sdk/core-concepts/oauth2-scopes#default-communication-scopes) scope.
+
+Returns an array of lobby message objects (see [Send Lobby Message](/developers/resources/lobby#send-lobby-message) for the object shape).
+
+### Query Params
+
+| Field  | Type    | Description                                               |
+|--------|---------|-----------------------------------------------------------|
+| limit? | integer | max number of messages to return (1-200). Defaults to 50. |
+
+## Update Lobby Message Moderation Metadata
+<Route method="PUT">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/messages/\{message.id\}/moderation-metadata</Route>
+
+Sets the moderation metadata for a lobby message. The metadata is app-scoped and delivered to active
+game clients via the Social SDK as a realtime message update. See [Integrate Moderation](/developers/discord-social-sdk/how-to/integrate-moderation#server-side-chat-moderation)
+for the full moderation flow.
+
+Uses `Bot` token for authorization.
+
+Returns `HTTP 204: No Content` on success.
+
+### JSON Params
+
+| Field | Type   | Description                                                                                                                               |
+|-------|--------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| \*    | string | Free-form key–value pairs describing the moderation decision. Up to 5 keys; key length ≤ 1024 characters; value length ≤ 2000 characters. |
+
+## Create Lobby Channel Invite for Self
+<Route method="POST">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/@me/invites</Route>
+
+Creates a single-use guild invite to the lobby's [linked channel](/developers/discord-social-sdk/development-guides/linked-channels), targeted at the calling user. The lobby must have a linked channel and the caller must be a member of the lobby. The invite expires after one hour.
+
+Uses `Bearer` token for authorization with the [`sdk.social_layer`](/developers/discord-social-sdk/core-concepts/oauth2-scopes#default-communication-scopes) scope.
+
+Returns a [lobby invite object](/developers/resources/lobby#lobby-invite-object).
+
+## Create Lobby Channel Invite for User
+<Route method="POST">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/[\{user.id\}](/developers/resources/user#user-object)/invites</Route>
+
+Creates a single-use guild invite to the lobby's [linked channel](/developers/discord-social-sdk/development-guides/linked-channels) on behalf of an application, targeted at the specified user. The lobby must have a linked channel. The invite expires after one hour.
+
+Uses `Bot` token for authorization.
+
+Returns a [lobby invite object](/developers/resources/lobby#lobby-invite-object).
+
+<ManualAnchor id="lobby-invite-object" />
+###### Lobby Invite Object
+
+| Field | Type   | Description                                                                                  |
+|-------|--------|----------------------------------------------------------------------------------------------|
+| code  | string | the [invite](/developers/resources/invite#invite-object) code for the lobby's linked channel |
+
+## Development Rate Limits
+
+Applications without [increased rate limits for production releases](/developers/discord-social-sdk/core-concepts/communication-features#applying-for-increased-rate-limits-for-production-releases) are subject to the following application-wide development limits:
+
+| Endpoint                                             | Limit           |
+|------------------------------------------------------|-----------------|
+| `POST /lobbies`                                      | 100 per 2 hours |
+| `PUT /lobbies`                                       | 100 per 2 hours |
+| `PATCH /lobbies/{lobby.id}`                          | 100 per 2 hours |
+| `PUT /lobbies/{lobby.id}/members/{user.id}`          | 100 per 2 hours |
+| `DELETE /lobbies/{lobby.id}/members/{user.id}`       | 100 per 2 hours |
+| `POST /lobbies/{lobby.id}/members/bulk`              | 100 per 2 hours |
+| `POST /lobbies/{lobby.id}/members/@me/invites`       | 100 per 2 hours |
+| `POST /lobbies/{lobby.id}/members/{user.id}/invites` | 100 per 2 hours |
+| `PATCH /lobbies/{lobby.id}/channel-linking`          | 20 per 2 hours  |
+| `POST /lobbies/{lobby.id}/messages`                  | 100 per 2 hours |
+
+<Info>
+These are per-application rate limits, not per-user.
+</Info>
+
+These limitations are designed to provide sufficient capacity for development, testing, and small-scale demos while ensuring system stability.
+
+{/* Autogenerated Reference Links */}
+[`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
+[`LobbyHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1LobbyHandle.html#a04cebab69ab0e7fb930346a14a87e843

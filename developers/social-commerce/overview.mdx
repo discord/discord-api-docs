@@ -1,0 +1,52 @@
+---
+title: Social Commerce & Game Shops
+sidebarTitle: Social Commerce
+description: Sell in-game items, cosmetics, and bundles directly within Discord through a user-facing Game Shop that lives directly in your server.
+---
+
+import {DoorEnterIcon} from '/snippets/icons/DoorEnterIcon.jsx'
+
+
+<img
+  src="/images/headers/docs-commerce-hero.png"
+  alt="Discord Social Commerce Hero Image"
+   style={{width: "100%", height: "auto"}}
+  noZoom
+/>
+
+
+Discord Social Commerce brings your game's store directly into Discord, where your players already are. Instead of sending players to an external store, Game Shops let them browse items, make purchases, and send gifts to friends without ever leaving Discord.
+
+## Discord Game Shops
+
+Your Game Shop lives inside your Discord server and surfaces items across Discord: on player profiles, in DMs, and in voice chats. Players discover items organically through social activity, not just because they went looking for a store.
+
+When a player makes a purchase, Discord handles payment processing and creates an [entitlement](/developers/resources/entitlement) representing that the player is owed the item. Your backend listens for the fulfillment webhook, checks that their Discord account is linked to their game account, and grants the item.
+
+## Gifting & Wishlists
+
+Game Shops also unlock a category of purchaser that traditional in-game stores can't reach: people who don't play your game but want to buy something for someone who does.
+
+A player's friends, family members, or community followers can browse your Game Shop, pick an item off a wishlist, and send it as a gift. They don't need to own or ever launch your game to do it. For you as a developer, every player in your Discord community becomes a potential storefront for your items, and the people in their social circles become a new pool of buyers.
+
+Wishlists make this loop even tighter. Players pin the items they want, making it easy for gift-givers to find something meaningful rather than guessing. Birthdays, game launches, seasonal events: any moment that drives gifting behavior on Discord becomes a revenue opportunity for your shop.
+
+## Social Commerce APIs
+
+Social Commerce is backed by a set of APIs that give you full control over your catalog, purchases, and fulfillment:
+
+- **SKU & Storefront Management:** Define your catalog of items including cosmetics, bundles, and consumables. Set pricing, availability, and metadata through the API so your store stays in sync with your game.
+- **Entitlements:** Query and manage what players own. When a purchase is made, Discord creates an entitlement your backend can verify and act on.
+- **Fulfillment:** Receive webhook events the moment a purchase completes. Grant the item in your game, then mark the entitlement as fulfilled via the API to close the loop.
+
+Together, these APIs let you build a fully automated purchase-to-fulfillment pipeline with Discord handling the payment surface and your backend handling item delivery.
+
+## Get Access to Social Commerce
+
+Social Commerce is currently in early access. If you're interested in bringing your Game Shop to Discord, get in touch and we'll follow up as we expand access.
+
+<CardGroup cols={1}>
+  <Card title="Request Access to Social Commerce" href="https://discord.com/developers/commerce-contact-us" icon={<DoorEnterIcon />}>
+     Fill out our interest form and we'll reach out when we're ready to onboard new studios.
+  </Card>
+</CardGroup>

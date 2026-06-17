@@ -1,0 +1,52 @@
+---
+title: Overview of Rich Presence
+sidebarTitle: Overview
+description: Learn how to integrate Rich Presence to display activity information on user profiles.
+---
+
+![Examples of Rich Presence data on Discord user profiles](/images/rich-presence/examples.png)
+
+Rich Presence lets you display actionable data in a Discord user's profile about what they're up to in your game or app. The data you choose to display is up to you—whether it's a user's score, the duration they've been playing your game, what they're listening to on your platform, or something else.
+
+---
+
+## Choosing an SDK
+
+There are two options when integrating Rich Presence. Depending on what you're building, you'll want to choose the right SDK for your project:
+
+- The **[Discord Social SDK](/developers/rich-presence/overview#discord-social-sdk)** allows you to build social features into your game or app, including friends lists, game invites, and more.
+- The **[Embedded App SDK](/developers/rich-presence/overview#embedded-app-sdk)** should be used if you're building an [Activity](/developers/activities/overview) in Discord.
+
+<Warning>
+Rich Presence data appears publicly on your Discord profile, so during development you should use a test account that only belongs to your private development server(s).
+</Warning>
+
+### Discord Social SDK
+
+The [Discord Social SDK](/developers/discord-social-sdk/overview) is used for building social features directly into your game. When a user is playing your game, you can show what they're up to in their Discord profile and even prompt their friends to join in with game invites.
+
+When integrating Rich Presence with an off-platform game, data can be shown about what a user is up to in your game. A "Join" button can also be configured to allow a user's friends to jump into their game and enable sending game invites.
+
+[Read about using Rich Presence with the Discord Social SDK](/developers/discord-social-sdk/development-guides/setting-rich-presence)
+
+### Embedded App SDK
+
+The [Embedded App SDK](/developers/developer-tools/embedded-app-sdk) is used to build Activities, which are multiplayer games and social experiences hosted in an iframe within Discord. The SDK handles communication between Discord and the Activity and helps integrate platform features (like Rich Presence!).
+
+After a user joins an Activity, Rich Presence can be used to dynamically show data about what that user is doing or playing, as well as prompt others to join in and play along.
+
+[Read about using Rich Presence with the Embedded App SDK](/developers/rich-presence/using-with-the-embedded-app-sdk)
+
+## Start Building
+
+<CardGroup cols={3}>
+  <Card title="Using Rich Presence with the Embedded App SDK" href="/developers/rich-presence/using-with-the-embedded-app-sdk">
+    Guide on using Rich Presence in the Embedded App SDK while you're building an Activity
+  </Card>
+  <Card title="Using Rich Presence with the Discord Social SDK" href="/developers/discord-social-sdk/development-guides/setting-rich-presence">
+    Guide on using Rich Presence in the Discord Social SDK for your game
+  </Card>
+  <Card title="Designing your Data for Rich Presence" href="/developers/rich-presence/best-practices">
+    Best practices and launch checklist for when you're integrating Rich Presence with your game or app
+  </Card>
+</CardGroup>

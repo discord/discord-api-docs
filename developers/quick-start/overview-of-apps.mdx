@@ -1,0 +1,98 @@
+---
+title: Overview of Discord Apps
+description: Build Discord apps to customize, extend, and enhance Discord for millions of users.
+sidebarTitle: Overview of Apps
+---
+
+import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
+import {ShapesIcon} from '/snippets/icons/ShapesIcon.jsx'
+import {GameControllerIcon} from '/snippets/icons/GameControllerIcon.jsx'
+import {AppsIcon} from '/snippets/icons/AppsIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
+
+A **Discord application** is the core entity that represents your integration with the Discord platform. Every bot, Activity, and Social SDK integration is backed by an application registered in the [Discord Developer Portal](https://discord.com/developers/applications).
+
+Applications hold your credentials, OAuth2 settings, bot configuration, and metadata. Whether you're building a simple command-response bot or a full game integration with voice chat and rich presence, it all starts with creating an application.
+
+<iframe className="w-full aspect-video rounded-3xl" src="https://www.youtube-nocookie.com/embed/CFxo5w3SY2w?si=AFrLSog_hjC-xiV7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## The Three Types of Discord Apps
+
+### Bots
+
+Bots are automated user accounts operated by application code. They appear in servers with an `APP` tag and can respond to events, slash commands, and user actions.
+
+Use bots when you want to:
+- Add commands, moderation tools, or utilities to a server
+- React to events (messages, joins, reactions) in real time
+- Build interactive experiences with buttons, menus, and modals
+- Post automated updates from external systems
+
+Bots can be **guild-installed** (added to a specific server) or **user-installed** (available everywhere the user goes, without requiring server permissions).
+
+### Activities
+
+Activities are embedded web applications that run inside Discord channels. They're built with the [Embedded App SDK](/developers/developer-tools/embedded-app-sdk) and can be launched by any user in a channel or from a bot with the `LAUNCH_ACTIVITY` interaction callback.
+
+Use Activities when you want to:
+- Build a game or interactive experience that runs inside Discord
+- Create collaborative tools (watch parties, drawing apps, trivia games)
+- Leverage Discord's existing social context: voice, friends, servers
+
+### Social Layer for Games
+
+The [Discord Social SDK](/developers/discord-social-sdk/overview) lets you add Discord-powered social features to your game across PC, mobile, and console. You can integrate individual features alongside your existing social systems or build out a more complete Discord-powered experience.
+
+Use the Social SDK when you want to:
+- Add rich presence, friends lists, and voice chat to your game
+- Support cross-platform social features with Discord account linking
+- Let players interact through Discord without leaving your game
+
+## Where Apps Install
+
+| App Type              | Install Target | What It Unlocks                              |
+|-----------------------|----------------|----------------------------------------------|
+| Bot (guild-installed) | A server       | Access to server channels, members, events   |
+| Bot (user-installed)  | A user         | Available in DMs, group DMs, and any server  |
+| Activity              | An application | Launchable from any voice channel            |
+| Social SDK            | Your game      | Social features embedded in your game client |
+
+## What APIs Can Apps Use?
+
+There are a handful of different APIs that you can pick and choose from based on your app's functionality and which Discord features you want to access. Below is a quick overview of the main APIs on the Discord developer platform, but you can read more details and information about API usage in the [API reference](/developers/reference).
+
+### HTTP API
+
+The **HTTP API** is a REST API that lets you interact and modify core Discord resources like [channels](/developers/resources/channel), [servers (or guilds)](/developers/resources/guild), [users](/developers/resources/user), and [messages](/developers/resources/message#message-object).
+
+Use the HTTP API to:
+- Retrieve information about a resource
+- Create, update, or delete a resource
+
+Read details about using the HTTP API in the [API reference](/developers/reference#http-api).
+
+### Gateway API
+
+The **Gateway API** is a WebSocket connection between your app and Discord. While it's most commonly used to receive a real-time stream of events from Discord, the connection is bidirectional. Your app can also send events to Discord over the same connection.
+
+Use the Gateway API to:
+- Receive real-time events from Discord (messages, member joins, reactions, voice state changes, and more)
+- Update your bot's presence and status
+- Manage voice state and connect to voice channels
+- Perform the connection handshake and manage the lifecycle of your Gateway connection
+
+Read details about using the Gateway API in the [API reference](/developers/reference#gateway-websocket-api).
+
+## Start Building
+
+<CardGroup cols={3}>
+  <Card title="Bots & Companion Apps" href="/developers/bots/overview" icon={<RobotIcon />}>
+    Build a bot that responds to events, commands, and user interactions in Discord servers.
+  </Card>
+   <Card title="Social Layer for Games" href="/developers/discord-social-sdk/overview" icon={<GameControllerIcon />}>
+    Add Discord-powered social features to your game using the Discord Social SDK.
+  </Card>
+  <Card title="Activities" href="/developers/activities/overview" icon={<ShapesIcon />}>
+    Build an embedded web app or game that runs inside Discord voice channels.
+  </Card>
+</CardGroup>

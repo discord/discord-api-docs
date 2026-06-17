@@ -1,0 +1,57 @@
+---
+title: Social Layer for Games
+sidebarTitle: Social Layer
+description: Add Discord-powered social features directly into your game using the Discord Social SDK.
+---
+
+<iframe className="w-full aspect-video rounded-3xl" src="https://www.youtube-nocookie.com/embed/Uc8wLXMBRnM?si=didYKcNb7KUqlfNG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+_Already familiar? Jump to the [Discord Social SDK docs](/developers/discord-social-sdk/overview) or [Getting Started guides](/developers/discord-social-sdk/getting-started)._
+
+Our Social Layer for Games is a set of Discord-powered features that game developers can add to their games using the [Discord Social SDK](/developers/discord-social-sdk/overview). You can integrate individual features alongside your existing social systems or build out a Discord-powered social experience.
+
+The SDK is available for C++, Unity, and Unreal Engine, and works across PC, mobile, and console platforms.
+
+## Account Linking
+
+Players can [link their Discord account](/developers/platform/account-linking) to your game to unlock the full social experience. Once linked, they get access to their Discord friends list, game invites, rich presence, and voice directly inside your game. The link persists across sessions, so players authenticate once and never need to re-link.
+
+Account linking supports both a Game Flow (from inside your game via the Social SDK) and a Web Flow (through a standard OAuth2 page), giving players flexibility in how they connect. 
+
+## Provisional Accounts
+
+Players who prefer not to link a Discord account can still use the SDK's social features through [provisional accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts). This lets you ship a consistent social experience for your full player base, regardless of whether they have or want a Discord account.
+
+## Friends List
+
+The SDK provides a friends list that works for all players, whether or not they've linked a Discord account. Players using provisional accounts can add and manage in-game friends, while players who have linked their Discord account also see their Discord friends alongside any in-game friends.
+
+## Rich Presence
+
+[Rich Presence](/developers/platform/rich-presence) surfaces what a player is doing in your game directly on their Discord profile when they have activity sharing enabled. Friends browsing Discord can see the game, the mode, the map, and how many slots are open in a party, and can request to join with one click. This drives organic discovery and gives other players a direct path to join in.
+
+## Game Invites
+
+Players can invite Discord friends to join their game session with a single click. Invites appear in Discord and link directly back into your game, making it easy to fill a party or share a session.
+
+## Direct Messages
+
+Players can send direct messages to their Discord friends from inside your game. This keeps communication in context without pulling players out of the experience.
+
+## Lobbies and Voice Chat
+
+The SDK provides lobby-based voice and text chat that your game can create and manage programmatically. Players can talk to each other in a game session, a party, or any grouping your game defines, using Discord's voice infrastructure without requiring them to have the Discord app open separately.
+
+## Further Reading
+
+<CardGroup cols={3}>
+  <Card title="Social SDK Overview" href="/developers/discord-social-sdk/overview">
+    Full introduction to the SDK, feature set, and where to start.
+  </Card>
+  <Card title="Core Concepts" href="/developers/discord-social-sdk/core-concepts">
+    How the SDK works, key features, and platform compatibility.
+  </Card>
+  <Card title="Getting Started" href="/developers/discord-social-sdk/getting-started">
+    Step-by-step guides for C++, Unity, and Unreal Engine.
+  </Card>
+</CardGroup>
