@@ -488,7 +488,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
 ## Get Guild Scheduled Event Exception Users
-<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)/users</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/[\{guild_scheduled_event_exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)/users</Route>
 
 Get a list of guild scheduled event users subscribed to a specific guild scheduled event exception. Returns a list of [guild scheduled event user](/developers/resources/guild-scheduled-event#guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
