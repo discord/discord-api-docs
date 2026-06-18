@@ -287,7 +287,11 @@ by_month_day = [24]
 | DECEMBER  | 12    |
 
 ### Guild Scheduled Event Exception Object
-A guild scheduled event exception represents a skipped or rescheduled recurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object). In the client, scheduled event exceptions are commonly highlighted as events that have had specific recurrences canceled or re-scheduled.
+A guild scheduled event exception represents a skipped or rescheduled occurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object). In the client, scheduled event exceptions are commonly highlighted as events that have had specific recurrences canceled or re-scheduled.
+
+<Info>
+For the sake of readability, `event_exception_id` is referred to as `exception.id` when used in an endpoint path.
+</Info>
 
 <ManualAnchor id="guild-scheduled-event-exception-object-guild-scheduled-event-exception-structure" />
 ###### Guild Scheduled Event Exception Structure
@@ -378,7 +382,7 @@ This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
 </Info>
 
 <Info>
-Modifying the `recurrence_rule` may cause all exceptions for an event to be removed.
+Modifying the `recurrence_rule` may cause all exceptions for an event to be deleted.
 </Info>
 
 <Note>
@@ -438,7 +442,7 @@ Get a list of guild scheduled event users subscribed to a guild scheduled event.
 ## Create Guild Scheduled Event Exception
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions</Route>
 
-Create an exception for the guild scheduled event's recurrence rule. Returns the created [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Create](/developers/events/gateway-events#guild-scheduled-event-exception-create) Gateway event.
+Creates an exception to the recurrence rule for a guild scheduled event. Returns the created [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Create](/developers/events/gateway-events#guild-scheduled-event-exception-create) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -448,19 +452,23 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 At minimum, you must provide a value for one of `is_canceled`, `scheduled_start_time`, or `scheduled_end_time`. Otherwise, the request will fail with an [180005 JSON error code](/developers/topics/opcodes-and-status-codes#json).
 </Warning>
 
+<Danger>
+If an exception with the same `original_scheduled_start_time` already exists, this endpoint will completely overwrite the existing exception.
+</Danger>
+
 ###### JSON Params
 
-| Field                         | Type                                                            | Description                                                       |
-|-------------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
-| original_scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime)  | the original time at when the scheduled event would've started    |
-| scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled start time for the scheduled event's recurrence |
-| scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled end time for the scheduled event's recurrence   |
-| is_canceled?                  | boolean                                                         | whether the scheduled event should be skipped on this recurrence  |
+| Field                         | Type                                                            | Description                                                               |
+|-------------------------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+| original_scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime)  | the original time at when the scheduled event recurrence would've started |
+| scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified start time for the scheduled event recurrence                |
+| scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified end time for the scheduled event recurrence                  |
+| is_canceled?                  | boolean                                                         | whether the scheduled event should be skipped on this recurrence          |
 
 ## Modify Guild Scheduled Event Exception
 <Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
-Modify an exception for the guild scheduled event's recurrence rule. Returns the updated [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Update](/developers/events/gateway-events#guild-scheduled-event-exception-update) Gateway event.
+Modify an exception to the recurrence rule for a guild scheduled event. Returns the updated [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Update](/developers/events/gateway-events#guild-scheduled-event-exception-update) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -472,23 +480,23 @@ All parameters to this endpoint are optional.
 
 ###### JSON Params
 
-| Field                | Type                                                            | Description                                                       |
-|----------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
-| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled start time for the scheduled event's recurrence |
-| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new scheduled end time for the scheduled event's recurrence   |
-| is_canceled          | boolean                                                         | whether the scheduled event should be skipped on this recurrence  |
+| Field                | Type                                                            | Description                                                      |
+|----------------------|-----------------------------------------------------------------|------------------------------------------------------------------|
+| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified start time for the scheduled event recurrence       |
+| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified end time for the scheduled event recurrence         |
+| is_canceled          | boolean                                                         | whether the scheduled event should be skipped on this recurrence |
 
 ## Delete Guild Scheduled Event Exception
 <Route method="DELETE">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
-Delete an exception for the guild scheduled event's recurrence rule. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
+Delete an exception to the recurrence rule for a guild scheduled event. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
 ## Get Guild Scheduled Event Exception Users
-<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/[\{guild_scheduled_event_exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)/users</Route>
+<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)/users</Route>
 
 Get a list of guild scheduled event users subscribed to a specific guild scheduled event exception. Returns a list of [guild scheduled event user](/developers/resources/guild-scheduled-event#guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
