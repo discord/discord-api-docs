@@ -440,8 +440,8 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/de
 | locked                | boolean             | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                          |
 | invitable             | boolean             | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                              |
 | rate_limit_per_user   | ?integer            | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `BYPASS_SLOWMODE`, are unaffected                                                     |
-| flags?                | integer             | [channel flags](/developers/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
-| applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                       |
+| flags                 | integer             | [channel flags](/developers/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
+| applied_tags          | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                       |
 
 ## Set Voice Channel Status
 <Route method="PUT">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/voice-status</Route>
