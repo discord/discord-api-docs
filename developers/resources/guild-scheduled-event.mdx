@@ -287,7 +287,11 @@ by_month_day = [24]
 | DECEMBER  | 12    |
 
 ### Guild Scheduled Event Exception Object
-A guild scheduled event exception represents a skipped or rescheduled occurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object). In the client, scheduled event exceptions are commonly highlighted as events that have had specific recurrences canceled or re-scheduled.
+A guild scheduled event exception represents a skipped or rescheduled recurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object). In the client, scheduled event exceptions are commonly highlighted as events that have had specific recurrences canceled or re-scheduled.
+
+While the API uses the `_exception_id` naming convention, these fields additionally function as recurrence IDs. This means that these IDs are valid regardless of whether an exception has been created for that specific recurrence.
+
+A recurrence ID is the start time of a specific scheduled event recurrence, serialized as a snowflake. A recurrence ID is valid if its timestamp component corresponds to a recurrence for the scheduled event's recurrence rule.
 
 <Info>
 For the sake of readability, `event_exception_id` is referred to as `exception.id` when used in an endpoint path.
