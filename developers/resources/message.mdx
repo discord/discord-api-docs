@@ -842,25 +842,22 @@ Any entities whose id is included can be mentioned. Do note the API will silentl
 <ManualAnchor id="shared-client-theme-object-shared-client-theme-object-struture" />
 ###### Shared Client Theme Object Struture
 
-| Field          | Type                                                          | Description                                            |
-|----------------|---------------------------------------------------------------|--------------------------------------------------------|
-| colors         | array of strings                                              | the hexadecimal-encoded colors of the theme (max of 5) |
-| gradient_angle | integer                                                       | the direction of the theme's colors (max of 360)       |
-| base_mix       | integer                                                       | the intensity of the theme's colors (max of 100)       |
-| base_theme?    | ?[base theme](/developers/resources/message#base-theme-types) | the mode of the theme                                  |
+| Field          | Type                                                               | Description                                            |
+|----------------|--------------------------------------------------------------------|--------------------------------------------------------|
+| colors         | array of strings                                                   | the hexadecimal-encoded colors of the theme (max of 5) |
+| gradient_angle | integer                                                            | the direction of the theme's colors (max of 360)       |
+| base_mix       | integer                                                            | the intensity of the theme's colors (max of 100)       |
+| base_theme?    | ?[base theme](/developers/docs/resources/message#base-theme-types) | the mode of the theme                                  |
 
 <ManualAnchor id="base-theme-types" />
 ###### Base Theme Types
 
-| Type        | Value |
-|-------------|-------|
-| UNSET \[1\] | 0     |
-| DARK        | 1     |
-| LIGHT       | 2     |
-| DARKER      | 3     |
-| MIDNIGHT    | 4     |
-
-\[1\] Equivalent to the `DARK` type.
+| Type     | Value |
+|----------|-------|
+| DARK     | 1     |
+| LIGHT    | 2     |
+| DARKER   | 3     |
+| MIDNIGHT | 4     |
 
 <ManualAnchor id="example-shared-client-theme" />
 ###### Example Shared Client Theme
