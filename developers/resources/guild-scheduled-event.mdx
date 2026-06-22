@@ -467,7 +467,7 @@ If an exception with the same `original_scheduled_start_time` already exists, th
 | original_scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime)  | the original time at when the scheduled event recurrence would've started |
 | scheduled_start_time?         | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified start time for the scheduled event recurrence                |
 | scheduled_end_time?           | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified end time for the scheduled event recurrence                  |
-| is_canceled?                  | boolean                                                         | whether the scheduled event should be skipped on this recurrence          |
+| is_canceled?                  | ?boolean                                                        | whether the scheduled event should be skipped on this recurrence          |
 
 ## Modify Guild Scheduled Event Exception
 <Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
@@ -479,16 +479,16 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 </Info>
 
 <Note>
-All parameters to this endpoint are optional. Omitting or setting a null value will set it to default.
+All parameters to this endpoint are optional and nullable. Omitting or setting a null value will set it to default.
 </Note>
 
 ###### JSON Params
 
-| Field                | Type                                                            | Description                                                      |
-|----------------------|-----------------------------------------------------------------|------------------------------------------------------------------|
-| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified start time for the scheduled event recurrence       |
-| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified end time for the scheduled event recurrence         |
-| is_canceled          | boolean                                                         | whether the scheduled event should be skipped on this recurrence |
+| Field                | Type                                                            | Description                                                     |
+|----------------------|----------------------------------------------------------------|------------------------------------------------------------------|
+| scheduled_start_time | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified start time for the scheduled event recurrence       |
+| scheduled_end_time   | [ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the modified end time for the scheduled event recurrence         |
+| is_canceled          | boolean                                                        | whether the scheduled event should be skipped on this recurrence |
 
 ## Delete Guild Scheduled Event Exception
 <Route method="DELETE">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
