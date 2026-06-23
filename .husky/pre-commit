@@ -1,0 +1,9 @@
+# Ensure workspace dependencies are installed before linting.
+# Installs only when node_modules is missing or package-lock.json has changed,
+# so normal commits aren't slowed down.
+if [ ! -d node_modules ] || [ package-lock.json -nt node_modules/.package-lock.json ]; then
+  echo "husky - dependencies missing or out of date, running 'npm install'..."
+  npm install || exit 1
+fi
+
+lint-staged

@@ -6,6 +6,64 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="June 16, 2026" tags={["HTTP API"]} rss={{
+    title: "Documentation Fix: Subscription Status Values",
+    description: "Corrected the integer values for the INACTIVE and ENDING subscription statuses, which were swapped in the Subscription reference and the Implementing App Subscriptions guide."
+  }}>
+  ## Documentation Fix: Subscription Status Values
+
+  The integer values for the `INACTIVE` and `ENDING` subscription statuses were previously swapped in the documentation. The correct values are `INACTIVE` = `1` and `ENDING` = `2`, as shown in the [Subscription Statuses](/developers/resources/subscription#subscription-statuses) reference. This has been corrected in both the reference and the [Implementing App Subscriptions](/developers/monetization/implementing-app-subscriptions) guide, which described the subscription lifecycle with the swapped values.
+
+  The API has always returned these values, only the documentation was incorrect. If your app branches on the numeric `status` value, double-check that `1` is treated as `INACTIVE` and `2` as `ENDING`.
+
+  We discovered this issue while reconciling our documentation against [our OpenAPI spec](https://github.com/discord/discord-api-spec) in [this commit](https://github.com/discord/discord-api-spec/commit/cdbd53a2ac5144536bfee2a34e6d0de13e08eec0).
+</Update>
+
+<Update label="June 10, 2026" tags={["HTTP API", "Gateway"]} rss={{
+    title: "Changes to Privileged Intent Access for Discord Apps",
+    description: "Changes to the review threshold for privileged intent access, an annual reapplication process for continued access, and the ability for apps to keep growing during review."
+  }}>
+
+    ## Changes to Privileged Intent Access for Discord Apps
+
+    <img src ="/images/platform/priv-intents-header.png" alt="Privileged Intents Requirements" noZoom style={{maxWidth: "100%", height: "auto"}} />
+
+    Today, we're [announcing changes to how Discord Apps access Privileged Intent](https://support-dev.discord.com/hc/articles/40281523410967) with a new user-based threshold for when access requires review and an annual process to reapply for continued access.
+
+    > If your app is accessible to fewer than 10,000 users, these changes do not impact your app.
+
+    ### What's Changing
+
+    #### 1. The review threshold is now based on user count, not server count
+
+    Previously, apps in fewer than 100 servers could access Privileged Intents by toggling them on in the Developer Portal, and apps in 100+ servers needed to apply for access.
+
+    Starting today, the threshold is based on the number of users your app can access across all the servers it belongs to. If your app has fewer than 10,000 users, you can continue accessing Privileged Intents by toggling them on in the Developer Portal. **Once your app reaches 10,000 users, you'll need to apply for Privileged Intent access**.
+
+    #### 2. Apps must now reapply annually for continued access
+
+    Apps with Privileged Intent access granted from a prior review will need to reapply to confirm their continued access once per year in the Developer Portal. 
+
+    #### 3. Apps can keep growing during Privileged Intent review
+
+    Under the new user-based threshold, apps can continue joining servers and reaching new users while their submission is under review. 
+
+    #### 4. App Verification and Privileged Intent review are now separate
+
+    Previously, [App Verification](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) and Privileged Intent review were part of the same review process. With this change, we have separated App Verification and the Privileged Intent review process.
+
+    ![Privileged Intents Requirements](/images/platform/priv-intents-requirements.png)
+
+    ### What This Means For Your App
+
+    For more information on how this applies to your Discord Apps, please read the [Privileged Intents Change announcement article](https://support-dev.discord.com/hc/articles/40281523410967) in our developer help center.
+
+    ### Updated Documentation & Resources
+    - Updated [Privileged Intents documentation](/developers/events/gateway#privileged-intents) to reflect the new threshold and review process.
+    - New [Getting Started with Privileged Intents Review](/developers/gateway/getting-started-with-privileged-intent-review) guide.
+    - New [You Might Not Need a Privileged Intent](/developers/gateway/you-might-not-need-a-privileged-intent) guide to help you determine whether you need a privileged intent or whether an alternative approach will work for your use case.
+</Update>
+
 <Update label="June 3, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.9.16441",
     description: "Fixed a PlayStation 5 crash caused by a use-after-free in WebSocket callbacks."
@@ -584,7 +642,7 @@ To see this in detail, have a look at the newly updated [How To Integrate Modera
     - **More Components and Docs Features** - We now have access to all of Mintlify's documentation components that will continue to grow over time
     - **AI features & improved search** - You can now send our docs to your LLM of choice or access them via MCP (more on this soon!)
 
-  If you're reading this, the migration is complete! 🎉 
+  If you're reading this, the migration is complete! 🎉
 
   <Warning>
       This migration did require us to reorganize the entire repository and make a lot of formatting changes. If you have an open PR, it will be a pretty gnarly merge conflict to resolve. We will be focusing on getting our PR backlog down over the next few weeks.
@@ -596,8 +654,8 @@ To see this in detail, have a look at the newly updated [How To Integrate Modera
 
   ## Why This Matters
 
-  Great documentation isn't just about having the right information, it's about presenting it in a way that helps developers succeed. 
-  
+  Great documentation isn't just about having the right information, it's about presenting it in a way that helps developers succeed.
+
   In the coming months, we'll be shipping changes to our documentation to ensure that it:
 
   - **Reduces time-to-first-success** for new developers
@@ -1080,22 +1138,22 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   ### Developer Impact
 
-  To support our long-term privacy goals, we will **only support E2EE calls starting on March 1st, 2026** for all audio 
-  and video conversations in direct messages (DMs), group messages (GDMs), voice channels, and Go Live streams on 
-  Discord. After that date, any client or application not updated for DAVE support will no longer be able to 
+  To support our long-term privacy goals, we will **only support E2EE calls starting on March 1st, 2026** for all audio
+  and video conversations in direct messages (DMs), group messages (GDMs), voice channels, and Go Live streams on
+  Discord. After that date, any client or application not updated for DAVE support will no longer be able to
   participate in Discord calls.
 
   ### Implementing E2EE Voice
 
-  For developers working with Discord's voice APIs, you can consult 
+  For developers working with Discord's voice APIs, you can consult
   [the updated voice documentation](/developers/topics/voice-connections)
-  and the implementation examples available in our [open-source repository](https://github.com/discord/libdave) as 
-  well as [the protocol whitepaper](https://github.com/discord/dave-protocol). 
+  and the implementation examples available in our [open-source repository](https://github.com/discord/libdave) as
+  well as [the protocol whitepaper](https://github.com/discord/dave-protocol).
 
   The [Discord Developers community](https://discord.gg/discord-developers) is also a
   great place to find assistance and answers to any integration questions you may have.
 
-  We're committed to making this transition as smooth as possible while delivering the enhanced privacy and security that 
+  We're committed to making this transition as smooth as possible while delivering the enhanced privacy and security that
   DAVE provides to all Discord users.
 </Update>
 
@@ -1110,7 +1168,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   ### Unity Plugin
 
-  - Fixed a crash primarily affecting low-end Android devices (those with armv7 architecture) in 
+  - Fixed a crash primarily affecting low-end Android devices (those with armv7 architecture) in
   [`Client::CreateOrJoinLobbyWithMetadata`]
   - Fixed a crash when passing large amounts of metadata in [`Client::CreateOrJoinLobbyWithMetadata`]
 
@@ -1149,7 +1207,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   #### Updates to Modal Components
 
-  - [**Text Input**](/developers/components/reference#text-input) - Text Input can now be used in a [Label](/developers/components/reference#label) 
+  - [**Text Input**](/developers/components/reference#text-input) - Text Input can now be used in a [Label](/developers/components/reference#label)
   - [**String Select**](/developers/components/reference#string-select) - String Selects can be used in modals! Place them in a [Label](/developers/components/reference#label)
 
   #### Getting Started
@@ -1247,7 +1305,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   }}>
   ## Introducing Rate Limit When Requesting All Guild Members
 
-  We're introducing a change to the [Request Guild Members](/developers/events/gateway-events#request-guild-members) gateway opcode. 
+  We're introducing a change to the [Request Guild Members](/developers/events/gateway-events#request-guild-members) gateway opcode.
 
   ### What's changing?
 
@@ -1304,7 +1362,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   ## Discord Social SDK Communication Features - General Availability
 
   Communication features (cross-platform messaging, voice chat, lobbies, and linked channels) are now generally available for all Discord
-  Social SDK users that meet our application process criteria. Previously available only in closed beta, these features 
+  Social SDK users that meet our application process criteria. Previously available only in closed beta, these features
   enable seamless player interaction within your game.
 
   * **Direct Messages**: One-on-one private chat functionality
@@ -1330,7 +1388,7 @@ A new release of the Discord Social SDK is now available, with the following upd
     description: "New clickable URL fields for Rich Presence activities and updated patchUrlMappings for simplified proxy URLs"
   }}>
   ## Embedded App SDK Version 2.1 & 2.2
-  
+
   We've made a few improvements to the Embedded App SDK for version 2.2.0, here are the highlights:
 
   ### Changes in version 2.1
@@ -1403,7 +1461,7 @@ A new release of the Discord Social SDK is now available, with the following upd
     description: "Apps can no longer create guilds; endpoints have been removed from documentation and OpenAPI specification"
   }}>
   ## Guild Create Deprecation
-  
+
   Apps can no longer create guilds. The documentation for these endpoints has been removed and the endpoints have been removed from the OpenAPI specification.
 
   See our [earlier changelog entry](/developers/change-log#deprecating-guild-creation-by-apps) for more information.
@@ -1433,7 +1491,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   #### Gradient Role Colors
 
-  - The guild feature `ENHANCED_ROLE_COLORS` will let you know if a guild is able to set gradient colors to roles. 
+  - The guild feature `ENHANCED_ROLE_COLORS` will let you know if a guild is able to set gradient colors to roles.
   - Guild roles now have `colors` as part of the [structure](/developers/topics/permissions#role-object-role-structure).
   - `color` on guild roles is deprecated but will still be returned by the API and continues to work for backwards compatibility.
   - [Role color structure](/developers/topics/permissions#role-object-role-colors-object)
@@ -1476,7 +1534,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   - A new experimental audio mode has been added for mobile devices which uses standard media audio streams instead of
     voice-specific processing. On iOS this causes the voice engine to use the Remote I/O Audio Unit instead of Voice
     Processing I/O and likewise on Android, media stream types are used instead of voice communication types. This mode
-    may be enabled by creating a Client with a [`ClientCreateOptions`] parameter whose `experimentalAudioSystem` 
+    may be enabled by creating a Client with a [`ClientCreateOptions`] parameter whose `experimentalAudioSystem`
     property is
     set to `AudioSystem::Game`. In this case, you should also set [`Client::SetEngineManagedAudioSession`] to true. **We do
     not recommend using this for production** - however, if you are interested in trying it out, we are looking for
@@ -1512,28 +1570,28 @@ A new release of the Discord Social SDK is now available, with the following upd
   }}>
   ## Paginated Pin Endpoints
 
-  We've added new endpoints to manage paginated pins in channels. The Get Channel Pins endpoint allows you to retrieve and manage pinned messages in a more efficient way, especially for channels with a large number of pinned messages. Both Pin and Unpin endpoints remain the same with a new route. As part of this change we have deprecated the old endpoints for pinned messages. Switching to the new endpoints should be straightforward, as they maintain similar functionality but with improved pagination support. 
+  We've added new endpoints to manage paginated pins in channels. The Get Channel Pins endpoint allows you to retrieve and manage pinned messages in a more efficient way, especially for channels with a large number of pinned messages. Both Pin and Unpin endpoints remain the same with a new route. As part of this change we have deprecated the old endpoints for pinned messages. Switching to the new endpoints should be straightforward, as they maintain similar functionality but with improved pagination support.
 
   #### New Endpoints
 
-  **[Get Channel Pins](/developers/resources/message#get-channel-pins)**: Retrieve a list of pinned messages in a channel with pagination support:  
+  **[Get Channel Pins](/developers/resources/message#get-channel-pins)**: Retrieve a list of pinned messages in a channel with pagination support:
   <Route method="GET">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/messages/pins</Route>
 
-  **[Pin Message](/developers/resources/message#pin-message)**: Pin a message in a channel:  
+  **[Pin Message](/developers/resources/message#pin-message)**: Pin a message in a channel:
   <Route method="PUT">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/messages/pins/[\{message.id\}](/developers/resources/message#message-object)</Route>
 
-  **[Unpin Message](/developers/resources/message#unpin-message)**: Unpin a message in a channel:  
+  **[Unpin Message](/developers/resources/message#unpin-message)**: Unpin a message in a channel:
   <Route method="DELETE">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/messages/pins/[\{message.id\}](/developers/resources/message#message-object)</Route>
 
   #### Deprecated Endpoints
 
-  **[Get Pinned Messages](/developers/resources/message#get-pinned-messages-deprecated)**:  
+  **[Get Pinned Messages](/developers/resources/message#get-pinned-messages-deprecated)**:
   <Route method="GET">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/pins</Route>
 
-  **[Pin Message](/developers/resources/message#pin-message-deprecated)**:  
+  **[Pin Message](/developers/resources/message#pin-message-deprecated)**:
   <Route method="PUT">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/pins/[\{message.id\}](/developers/resources/message#message-object)</Route>
 
-  **[Unpin Message](/developers/resources/message#unpin-message-deprecated)**:  
+  **[Unpin Message](/developers/resources/message#unpin-message-deprecated)**:
   <Route method="DELETE">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/pins/[\{message.id\}](/developers/resources/message#message-object)</Route>
 </Update>
 
@@ -1652,7 +1710,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   #### Getting Started
 
-  To use the new components, you'll need to send the message flag `1 << 15` (`IS_COMPONENTS_V2`) which activates the components system on a per-message basis. 
+  To use the new components, you'll need to send the message flag `1 << 15` (`IS_COMPONENTS_V2`) which activates the components system on a per-message basis.
 
   We've created guides to help you implement these new features:
 
@@ -1713,7 +1771,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   - Added support for Unity Services as an external auth provider
 
   ### Voice
-  - [`Client::StartCallWithAudioCallbacks`] now permits sample data to be modified during record and 
+  - [`Client::StartCallWithAudioCallbacks`] now permits sample data to be modified during record and
     playback for custom effects processing
   - Fixed a bug where the speaking state for a user could be stuck in the "on" state
   - Added [`Call::GetPTTReleaseDelay`]
@@ -1828,7 +1886,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   - Linked Channels
   - Voice Chat
 
-  Developers can request expanded access to these available features via the closed beta. 
+  Developers can request expanded access to these available features via the closed beta.
 
   #### Discord Social SDK Developer Resources
 
@@ -1880,7 +1938,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   - These settings are available under `User Settings → Subscriptions → App Subscriptions`.
 
   #### Subscription Object
-  - New field `renewal_sku_ids` added to the [subscription object](/developers/resources/subscription#subscription-object) response for `SUBSCRIPTION_UPDATE` events and API endpoints. 
+  - New field `renewal_sku_ids` added to the [subscription object](/developers/resources/subscription#subscription-object) response for `SUBSCRIPTION_UPDATE` events and API endpoints.
   - `renewal_sku_ids` is a list of snowflakes that indicate the SKU(s) that the user will be subscribed to at renewal.
 
   #### Updated Guide: Managing SKUs
@@ -1937,7 +1995,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   We updated our previous entitlement migration guide to provide more up-to-date information on impacts of developer impacts. Here's a summary of the changes we made:
 
   - The migration will run through November 1, 2024 to ensure that any entitlements that are set to renew in October will be properly migrated to the new entitlement system upon renewal.
-  - `ENTITLEMENT_UPDATE` events will only occur when a subscription ends. 
+  - `ENTITLEMENT_UPDATE` events will only occur when a subscription ends.
   - The value of the `ends_at` in `ENTITLEMENT_UPDATE` events indicate the timestamp for **when the entitlement is no longer valid**.
   - The `ends_at` value on the [entitlement object](/developers/resources/entitlement#entitlement-object) is set when the subscription ends.
   - To receive the value of when a subscription was canceled, you should listen for the `SUBSCRIPTION_UPDATE` events or use the [Subscription API](/developers/resources/subscription).
@@ -1997,7 +2055,7 @@ A new release of the Discord Social SDK is now available, with the following upd
 
   ### **Developer Impact**
 
-  Starting September 2024, Discord is migrating voice and video in DMs, Group DMs, voice channels, and Go Live streams to use end-to-end encryption (E2EE). 
+  Starting September 2024, Discord is migrating voice and video in DMs, Group DMs, voice channels, and Go Live streams to use end-to-end encryption (E2EE).
 
   **Who this affects:** Any libraries or apps that support [Voice Connections](/developers/topics/voice-connections).
 

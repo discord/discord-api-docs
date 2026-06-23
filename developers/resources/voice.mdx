@@ -75,6 +75,8 @@ Returns the current user's [voice state](/developers/resources/voice#voice-state
 
 Returns the specified user's [voice state](/developers/resources/voice#voice-state-object) in the guild.
 
+If the specified user is connected to a voice channel, the current user must have permission to connect to the channel.
+
 ## Modify Current User Voice State
 <Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/voice-states/@me</Route>
 
