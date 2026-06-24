@@ -6,6 +6,20 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="June 24, 2026" tags={["HTTP API"]} rss={{
+    title: "Attachment Editing and is_spoiler Param",
+    description: "Some attachment metadata can now be edited, and the is_spoiler parameter should be used for setting spoiler status."
+  }}>
+
+  ## Attachment Editing and `is_spoiler` Param
+
+  Apps can now edit the `description` and `is_spoiler` parameters on existing attachments in the Edit Message endpoints.
+
+  We have also separated the [attachment request](/developers/resources/message#attachment-object-attachment-request-structure) object in the docs to make it more clear which params you can set for attachments and which fields are provided by the API.
+
+  Attachments can be marked as a spoiler by setting `is_spoiler: true` in the attachment request object, and apps can read whether an existing attachment is spoilered by checking for the `IS_SPOILER` [attachment flag](/developers/resources/message#attachment-object-attachment-flags) on the attachment object. The legacy `SPOILER_` filename prefix will continue to mark attachments as a spoiler, but not all spoilered attachments have the prefix.
+</Update>
+
 <Update label="June 16, 2026" tags={["HTTP API"]} rss={{
     title: "Documentation Fix: Subscription Status Values",
     description: "Corrected the integer values for the INACTIVE and ENDING subscription statuses, which were swapped in the Subscription reference and the Implementing App Subscriptions guide."
