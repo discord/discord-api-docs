@@ -13,8 +13,7 @@ import {Route} from '/snippets/route.jsx'
 
   ## Attachment Editing and `is_spoiler` Param
 
-  Apps can now edit the `description` and `is_spoiler` parameters on existing attachments in the Edit Message endpoints.
-
+  Apps can now edit the `description` and `is_spoiler` parameters on existing attachments when editing messages.
   We have also separated the [attachment request](/developers/resources/message#attachment-object-attachment-request-structure) object in the docs to make it more clear which params you can set for attachments and which fields are provided by the API.
 
   Attachments can be marked as a spoiler by setting `is_spoiler: true` in the attachment request object, and apps can read whether an existing attachment is spoilered by checking for the `IS_SPOILER` [attachment flag](/developers/resources/message#attachment-object-attachment-flags) on the attachment object. The legacy `SPOILER_` filename prefix will continue to mark attachments as a spoiler, but not all spoilered attachments have the prefix.
