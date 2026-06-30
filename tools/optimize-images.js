@@ -6,8 +6,8 @@ import { exec } from "child_process";
 
 // Configuration
 const CONFIG = {
-  imagesDir: "static/images",
-  docsDir: "docs",
+  imagesDir: "images",
+  docsDir: "developers",
   tempDir: "/tmp/image-optimization-backup",
   reportsDir: "reports",
   dryRun: false, // Set to true to preview changes without executing
