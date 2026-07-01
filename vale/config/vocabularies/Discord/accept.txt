@@ -29,7 +29,8 @@ Bitwise
 Blurple
 boolean
 booleans
-bot's
+BOT's
+bot
 breakpoint
 bytearray
 bynweekday
