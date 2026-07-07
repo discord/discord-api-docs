@@ -6,6 +6,37 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="June 30, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.9.17379",
+    description: "Fixed a PlayStation 5 crash caused by re-entrant HTTP requests during connection teardown."
+  }}>
+
+    ## Discord Social SDK Release 1.9.17379
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Stability
+    - Fixed a crash caused by re-entrant HTTP requests during connection teardown on PlayStation 5.
+
+</Update>
+
+<Update label="June 25, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.9.17228",
+    description: "Fixed an AUTHORIZE_REQUEST re-subscription issue and bundled Krisp noise suppression into the Unity and Unreal plugin packages."
+  }}>
+
+    ## Discord Social SDK Release 1.9.17228
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Authentication
+    - Fixed an issue where `AUTHORIZE_REQUEST` events would not re-subscribe after Discord disconnected and reconnected while the SDK was already running.
+
+    ### Noise Suppression
+    - Krisp noise suppression binaries and model files are now included in Unity and Unreal plugin packages for Windows, macOS, Android, and iOS.
+
+</Update>
+
 <Update label="June 24, 2026" tags={["HTTP API"]} rss={{
     title: "Attachment Editing and is_spoiler Param",
     description: "Some attachment metadata can now be edited, and the is_spoiler parameter should be used for setting spoiler status."
