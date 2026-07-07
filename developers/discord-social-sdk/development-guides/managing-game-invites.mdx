@@ -451,7 +451,7 @@ When a player receives a game invite on mobile, Discord must know how to launch 
 
 1. Configure your deep link URL in the Discord Developer Portal:
   - Go to your application's `General` tab
-  - Enter your game's URL scheme (e.g., `yourgame://`)
+  - Enter your game's URL scheme. Any `https://` URL will work here but for maximum flexibility should be a [Universal Link for iOS](https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app) or an [Android App Link](https://developer.android.com/training/app-links).
   - Discord will append `/_discord/join?secret=SECRETHERE` to your URL
 
 2. Tell Discord which platforms can accept invites:
@@ -468,7 +468,7 @@ activity.SetSupportedPlatforms(
 1. The user receives and accepts an invite in Discord
 2. Discord launches your game using your URL scheme:
    ```
-   yourgame://_discord/join?secret=the_join_secret_you_set
+   https://your-universal-app-link.com/_discord/join?secret=the_join_secret_you_set
    ```
 3. Your game receives the URL and extracts the join secret
 4. Use the secret to connect the player to the session
