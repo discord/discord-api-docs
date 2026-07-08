@@ -6,6 +6,39 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="July 9, 2026" tags={["Breaking Changes", "Gateway", "HTTP API"]} rss={{
+    title: "Channel Obfuscation for Bots",
+    description: "Bots will stop receiving full metadata for channels they can't view. Gateway channels are redacted, and GET /guilds/{guild.id}/channels omits them. This becomes mandatory for all bots on October 12, 2026."
+  }}>
+
+## Channel Obfuscation for Bots
+
+We're changing how bots see channels they lack `VIEW_CHANNEL` on.
+
+Today, bots receive every channel in a guild, including ones they can't view, with full metadata over both the Gateway and the HTTP API. Users are unable to view channels they don't have access to, so we are updating bots to follow the same rule.
+
+- **Over the Gateway**, channels a bot can't view will still be dispatched, but with sensitive fields redacted. The channel's `name` becomes `"___hidden___"`, other sensitive fields (`topic`, `parent_id`, `permission_overwrites`, and more) are nulled or reduced, and a new [`CHANNEL_OBFUSCATED` flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) is set on the channel's `flags`. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels) for the full list of affected fields.
+- **Over HTTP**, [`GET /guilds/{guild.id}/channels`](/developers/resources/guild#get-guild-channels) will omit those channels from the response entirely.
+
+A channel stops being obfuscated the moment your bot gains access to it, for example through a permission overwrite change or a role change. When that happens, the Gateway dispatches a [Channel Update](/developers/events/gateway-events#channel-update) event with the channel's full, unobfuscated data. [Interaction](/developers/interactions/receiving-and-responding) payloads are built through a separate path that does not apply obfuscation.
+
+### Breaking Change
+
+This affects bots that read data about channels they can't view, such as bots that mirror or audit a server's full channel list, calculate permissions across every channel, or report on channel structure regardless of the bot's own access. If your bot only acts in channels it has permission to view, this change does not affect you.
+
+If your bot manages or organizes channels, see [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels) for how to detect channels your bot can't see and surface that to users.
+
+### What Do You Need to Do?
+
+Update your bot to handle the `CHANNEL_OBFUSCATED` flag on Gateway payloads and channels missing from `GET /guilds/{guild.id}/channels` responses before October 12, 2026.
+
+The Gateway and HTTP behaviors have different rollout mechanisms ahead of the mandatory date:
+
+- **Gateway:** you can test the redaction behavior today by sending `1 << 15` in the `capabilities` field of your [Identify](/developers/events/gateway-events#identify-gateway-capabilities) payload. This capability is temporary and for testing only, so don't build support for it into a library.
+- **HTTP:** there is no early opt-in. `GET /guilds/{guild.id}/channels` will start omitting channels for all bots on October 12, 2026.
+
+</Update>
+
 <Update label="July 7, 2026" tags={["HTTP API", "Discord Social SDK"]} rss={{
     title: "Deprecation: Riot Games Connections in Get Current User Connections",
     description: "Riot Games and League of Legends connections are no longer returned by the /users/@me/connections endpoint as part of their migration to the Discord Social SDK."

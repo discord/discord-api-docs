@@ -883,7 +883,7 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/developers/resource
 ## Get Guild Channels
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/channels</Route>
 
-Returns a list of guild [channel](/developers/resources/channel#channel-object) objects. Does not include threads.
+Returns a list of guild [channel](/developers/resources/channel#channel-object) objects. Does not include threads. Starting October 12, 2026, this endpoint will omit any channel your app doesn't have `VIEW_CHANNEL` permission for; see [Channel Obfuscation for Bots](/developers/change-log#channel-obfuscation-for-bots).
 
 ## Create Guild Channel
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/channels</Route>

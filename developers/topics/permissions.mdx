@@ -196,6 +196,10 @@ For voice and stage channels, denying the `CONNECT` permission also implicitly d
 
 There may be other cases in which certain permissions implicitly deny or allow other permissions. In all cases, it is based on logical conclusions about how a user with certain permissions should or should not interact with Discord.
 
+## Channel Visibility
+
+Beyond the permission calculations above, `VIEW_CHANNEL` also governs what an app can see about a channel. Over the Gateway, channels an app lacks `VIEW_CHANNEL` on are dispatched with obfuscated data if the app has opted into the relevant capability. Starting October 12, 2026, [Get Guild Channels](/developers/resources/guild#get-guild-channels) will also omit those channels from its response entirely. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels) for the redacted fields, how to handle them, and how to detect and surface hidden channels to server admins.
+
 ## Inherited Permissions (Threads)
 
 Threads inherit permissions from the parent channel (the channel they were created in), with one exception: The `SEND_MESSAGES` permission is not inherited; users must have `SEND_MESSAGES_IN_THREADS` to send a message in a thread, which allows for users to participate in threads in places like announcement channels.
