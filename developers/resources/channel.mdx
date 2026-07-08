@@ -108,7 +108,7 @@ Obfuscated channels are dispatched through the normal [Channel Create](/develope
 To reliably detect whether a channel object has been obfuscated, check whether its `flags` field has the `CHANNEL_OBFUSCATED` [channel flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) set. Do not rely on inspecting `name` or any other redacted field.
 
 <Info>
-`id`, `type`, and `position` are not redacted, even on an obfuscated channel your app can rely on their real values. Most other fields are redacted and should not be relied on.
+`id`, `type`, and `position` won't be redacted, even on an obfuscated channel. Your app can rely on their real values to reorder channels or identify and report that it is missing permissions. Other fields should not be relied on.
 </Info>
 
 When an app regains visibility into a previously obfuscated channel (for example, a permission overwrite change, a change to the app's roles, a change to a role's permissions, or the app joining a voice channel it previously couldn't see), the Gateway dispatches a [Channel Update](/developers/events/gateway-events#channel-update) event containing the full, unobfuscated channel data. If the channel's parent category was also obfuscated (because the app couldn't see it either), that category also receives a Channel Update event with its full, unobfuscated data.
