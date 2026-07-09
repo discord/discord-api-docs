@@ -198,7 +198,7 @@ There may be other cases in which certain permissions implicitly deny or allow o
 
 ## Channel Visibility
 
-Beyond the permission calculations above, `VIEW_CHANNEL` also governs what an app can see about a channel. Over the Gateway, channels an app lacks `VIEW_CHANNEL` on are dispatched with obfuscated data if the app has opted into the relevant capability. Starting October 12, 2026, [Get Guild Channels](/developers/resources/guild#get-guild-channels) will also omit those channels from its response entirely. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels) for information about how to handle them, and how to detect and surface hidden channels to server admins.
+Beyond the permission calculations above, `VIEW_CHANNEL` also governs what a bot can see about a channel. Over the Gateway, channels a bot lacks `VIEW_CHANNEL` on are dispatched with obfuscated data. [Get Guild Channels](/developers/resources/guild#get-guild-channels) will also omit those channels from its response entirely. This is currently true if the client has opted into the `CHANNEL_OBFUSCATION` [capability](/developers/events/gateway-events#identify-gateway-capabilities). Starting October 12, 2026, it will be true for all bots. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels) for information.
 
 ## Inherited Permissions (Threads)
 
