@@ -22,6 +22,10 @@ Today, bots receive every channel in a guild, including ones they can't view, wi
 
 A channel stops being obfuscated the moment your bot gains access to it, for example through a permission overwrite change or a role change. When that happens, the Gateway dispatches a [Channel Update](/developers/events/gateway-events#channel-update) event with the channel's full, unobfuscated data. [Interaction](/developers/interactions/receiving-and-responding) payloads are built through a separate path that does not apply obfuscation.
 
+### Why are we Making This Change?
+
+Channels a user doesn't have access to shouldn't be accessible or visible to that user. This change is happening to respect the privacy of users. Because it's happening for users this means it will also apply to bots. The client does still require some info about channels, so instead of completely removing channels that a user or bot lacks `VIEW_CHANNEL` for, they will be obfuscated instead.
+
 ### Breaking Change
 
 This affects bots that read data about channels they can't view, such as bots that mirror or audit a server's full channel list, calculate permissions across every channel, or report on channel structure regardless of the bot's own access. If your bot only acts in channels it has permission to view, this change does not affect you.
