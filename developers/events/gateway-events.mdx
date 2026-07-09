@@ -98,7 +98,7 @@ Details about identifying is in the [Gateway documentation](/developers/events/g
 | CHANNEL_OBFUSCATION | `1 << 15` | Opts the app into receiving [obfuscated channel metadata](/developers/resources/channel#channel-object-obfuscated-channels) over the Gateway for channels it can't view |
 
 <Warning>
-`CHANNEL_OBFUSCATION` is a temporary, testing-only opt-in for channel obfuscation. This opt-in mechanism will change before the feature reaches general availability. Obfuscation is then planned to apply to all apps automatically, without requiring this capability. Don't add support for this capability to libraries.
+`CHANNEL_OBFUSCATION` is a temporary, testing-only opt-in for channel obfuscation. This opt-in mechanism will change before the feature reaches general availability. Obfuscation is then planned to apply to all bots automatically, even when they don't provide this capability.
 </Warning>
 
 <ManualAnchor id="identify-identify-connection-properties" />
