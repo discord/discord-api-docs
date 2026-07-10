@@ -77,16 +77,16 @@ Details about identifying is in the [Gateway documentation](/developers/events/g
 <ManualAnchor id="identify-identify-structure" />
 ###### Identify Structure
 
-| Field            | Type                                                                        | Description                                                                                                                         | Default |
-|------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|---------|
-| token            | string                                                                      | Authentication token                                                                                                                | -       |
-| properties       | object                                                                      | [Connection properties](/developers/events/gateway-events#identify-identify-connection-properties)                                  | -       |
-| compress?        | boolean                                                                     | Whether this connection supports compression of packets                                                                             | false   |
-| large_threshold? | integer                                                                     | Value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list      | 50      |
-| shard?           | array of two integers (shard_id, num_shards)                                | Used for [Guild Sharding](/developers/events/gateway#sharding)                                                                      | -       |
-| presence?        | [update presence](/developers/events/gateway-events#update-presence) object | Presence structure for initial presence information                                                                                 | -       |
-| intents          | integer                                                                     | [Gateway Intents](/developers/events/gateway#gateway-intents) you wish to receive                                                   | -       |
-| capabilities?    | integer                                                                     | Opt-in bitfield representing [capabilities](/developers/events/gateway-events#identify-gateway-capabilities) of your gateway client | 0       |
+| Field            | Type                                                                        | Description                                                                                                                    | Default |
+|------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|---------|
+| token            | string                                                                      | Authentication token                                                                                                           | -       |
+| properties       | object                                                                      | [Connection properties](/developers/events/gateway-events#identify-identify-connection-properties)                             | -       |
+| compress?        | boolean                                                                     | Whether this connection supports compression of packets                                                                        | false   |
+| large_threshold? | integer                                                                     | Value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
+| shard?           | array of two integers (shard_id, num_shards)                                | Used for [Guild Sharding](/developers/events/gateway#sharding)                                                                 | -       |
+| presence?        | [update presence](/developers/events/gateway-events#update-presence) object | Presence structure for initial presence information                                                                            | -       |
+| intents          | integer                                                                     | [Gateway Intents](/developers/events/gateway#gateway-intents) you wish to receive                                              | -       |
+| capabilities?    | integer                                                                     | Bitfield representing [capabilities](/developers/events/gateway-events#identify-gateway-capabilities) of your gateway client   | 0       |
 
 <ManualAnchor id="identify-gateway-capabilities" />
 ###### Gateway Capabilities
