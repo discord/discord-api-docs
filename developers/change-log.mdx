@@ -24,7 +24,7 @@ A channel stops being obfuscated the moment your bot gains access to it, for exa
 
 ### Why are we Making This Change?
 
-Channels a user doesn't have access to shouldn't be accessible or visible to that user. This change is happening to respect the privacy of users. Because it's happening for users this means it will also apply to bots. The client does still require some info about channels, so instead of completely removing channels that a user or bot does not have permission to view, they will be obfuscated instead. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice a channel. Channel categories are viewable if any of their children channels are viewable.
+Channels a user doesn't have access to shouldn't be accessible or visible to that user. This change is happening to respect the privacy of users. Because it's happening for users this means it will also apply to bots. The client does still require some info about channels, so instead of completely removing channels that a user or bot does not have permission to view, they will be obfuscated instead. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice channel. Channel categories are viewable if any of their children channels are viewable.
 
 ### Breaking Change
 
