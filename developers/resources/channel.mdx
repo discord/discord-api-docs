@@ -109,7 +109,7 @@ Starting October 12, 2026, channels will be obfuscated if your bot doesn't have 
 
 Obfuscated channels are dispatched through the normal [Channel Create](/developers/events/gateway-events#channel-create) and [Channel Update](/developers/events/gateway-events#channel-update) gateway events, including within the channel list of a [Guild Create](/developers/events/gateway-events#guild-create) event.
 
-To reliably detect whether a channel object has been obfuscated, check whether its `flags` field has the `CHANNEL_OBFUSCATED` [channel flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) set. Do not rely on inspecting `name` or any other obfuscated field.
+To reliably detect whether a channel object has been obfuscated, check whether its `flags` field has the `CHANNEL_OBFUSCATED` [channel flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) set. Do not rely on inspecting `name` or any other obfuscated field. The `permission_overwrites` for an obfuscated channel will contain only one entry denying `VIEW_CHANNEL` for the guild's `@everyone` role.
 
 <Info>
 `id`, `type`, `position`, and `parent_id` will not be obfuscated, even on an obfuscated channel. Other fields should not be relied on.
