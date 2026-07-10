@@ -198,7 +198,11 @@ There may be other cases in which certain permissions implicitly deny or allow o
 
 ## Channel Visibility
 
-Beyond the permission calculations above, `VIEW_CHANNEL` also governs what a bot can see about a channel. Over the Gateway, channels a bot lacks `VIEW_CHANNEL` on are dispatched with obfuscated data. [Get Guild Channels](/developers/resources/guild#get-guild-channels) will also omit those channels from its response entirely. This is currently true if the client has opted into the `CHANNEL_OBFUSCATION` [capability](/developers/events/gateway-events#identify-gateway-capabilities). Starting October 12, 2026, it will be true for all bots. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels) for information.
+Over the [Gateway](/developers/events/gateway), a client will receive a channel object with obfuscated metadata for guild channels it does not have permission to view. [Get Guild Channels](/developers/resources/guild#get-guild-channels) will also omit those channels from its response entirely. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice a channel. Channel categories are viewable if any of their children channels are viewable.
+
+<Warning>
+Starting October 12, 2026, channels will be obfuscated if your bot doesn't have permissions to view them. Currently, channels are only obfuscated if the client has opted into the `CHANNEL_OBFUSCATION` [capability](/developers/events/gateway-events#identify-gateway-capabilities) for testing. See [Channel Obfuscation for Users and Bots](/developers/change-log#channel-obfuscation-for-users-and-bots) for more information.
+</Warning>
 
 ## Inherited Permissions (Threads)
 
