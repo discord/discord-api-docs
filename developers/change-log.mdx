@@ -24,7 +24,7 @@ A channel stops being obfuscated the moment your bot gains access to it, for exa
 
 ### Why are we Making This Change?
 
-Channels a user doesn't have access to shouldn't be accessible or visible to that user. This change is happening to respect the privacy of users. Because it's happening for users this means it will also apply to bots. The client does still require some info about channels, so instead of completely removing channels that a user or bot does not have permission to view, they will be obfuscated instead. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice a channel. Channel categories are viewable if any of their children channels are viewable.
+Channels a user doesn't have access to shouldn't be accessible or visible to that user. This change is happening to respect the privacy of users. Because it's happening for users this means it will also apply to bots. The client does still require some info about channels, so instead of completely removing channels that a user or bot does not have permission to view, they will be obfuscated instead. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice channel. Channel categories are viewable if any of their children channels are viewable.
 
 ### Breaking Change
 
@@ -34,7 +34,7 @@ If your bot manages or organizes channels, see [Obfuscated Channels](/developers
 
 ### What Can You Do to Test This Change?
 
-- **Gateway:** If your bot interacts with channels you can test the obfuscation behavior today by sending `1 << 15` in the `capabilities` field of your [Identify](/developers/events/gateway-events#identify-gateway-capabilities) payload. This capability is temporary and for testing.
+- **Gateway:** If your bot interacts with channels, you can test the obfuscation behavior today by sending `1 << 15` in the `capabilities` field of your [Identify](/developers/events/gateway-events#identify-gateway-capabilities) payload. This capability is temporary and for testing.
 - **HTTP:** There is no early opt-in. `GET /guilds/{guild.id}/channels` will start omitting channels that your bot lacks `VIEW_CHANNEL` for on October 12, 2026.
 
 </Update>
