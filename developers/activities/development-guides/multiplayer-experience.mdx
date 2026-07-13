@@ -83,7 +83,7 @@ const username = user.global_name ?? `${user.username}#${user.discriminator}`;
 
 #### Rendering guild-specific avatars and nicknames
 
-In order to retrieve a user's guild-specific avatar and nickname, your application must request the `guilds.members.read` scope. Note, this only grants the information for that instance of the application's user. To display the guild-specific avater/nickname for all application users, any info retrieved from `guilds.members.read` scope'd API calls must be shared via your application's server.
+In order to retrieve a user's guild-specific avatar and nickname, your application must request the `guilds.members.read` scope. Note, this only grants the information for that instance of the application's user. To display the guild-specific avatar/nickname for all application users, any info retrieved from `guilds.members.read` scope'd API calls must be shared via your application's server.
 
 Here's an example of how to retrieve the user's guild-specific avatar and nickname:
 

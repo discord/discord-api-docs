@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 // Configure paths
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-const MARKDOWN_DIR = path.join(REPO_ROOT, "/developers");
+const MARKDOWN_DIR = path.join(REPO_ROOT, "/");
 const MAPPING_FILE = path.join(__dirname, "social-sdk-mappings.json");
 
 // Helper function to ensure paths are resolved correctly

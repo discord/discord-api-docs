@@ -52,12 +52,12 @@ If you haven't completed these prerequisites, we recommend first following the [
 
 For OAuth2 to work correctly on mobile, you must first register the correct redirect URI for your app in the [**Discord Developer Portal**](https://discord.com/developers/applications/select/oauth2).
 
-| Platform                   | Redirect URI                                                                                          |
-|----------------------------|-------------------------------------------------------------------------------------------------------|
-| **Mobile (iOS & Android)** | `discord-YOUR_APP_ID://authorize/callback` _(replace `YOUR_APP_ID` with your Discord application ID)_ |
+| Platform                   | Redirect URI                                                                                         |
+|----------------------------|------------------------------------------------------------------------------------------------------|
+| **Mobile (iOS & Android)** | `discord-YOUR_APP_ID:/authorize/callback` _(replace `YOUR_APP_ID` with your Discord application ID)_ |
 
 <Warning>
-The redirect URI must use your application ID in the format `discord-YOUR_APP_ID://authorize/callback`. Do not use `http://127.0.0.1/callback` on mobile.
+The redirect URI must use your application ID in the format `discord-YOUR_APP_ID:/authorize/callback`. Do not use `http://127.0.0.1/callback` on mobile.
 </Warning>
 
 ---
@@ -165,6 +165,10 @@ The Android SDK uses the following permissions:
 If your application does not use voice features, you may remove all permissions except `INTERNET` using the `tools:node="remove"` attribute [in your AndroidManifest.xml](https://developer.android.com/build/manage-manifests#node_markers).
 </Info>
 
+<Tip>
+Following the Getting Started guide for Unity? Continue with [Step 8: Connect the SDK to Discord](/developers/discord-social-sdk/getting-started/using-unity#step-8-connect-the-sdk-to-discord).
+</Tip>
+
 ---
 
 ## Unreal Engine Setup
@@ -181,7 +185,11 @@ To enable mobile authentication in Unreal Engine:
 
 ![Unreal Engine Discord Application ID Setting](/images/social-sdk/account-linking-on-mobile/unreal-mobile.webp)
 
-This setting configures the custom URL scheme (`discord-YOUR_APP_ID://`) for deep linking on both iOS and Android platforms automatically.
+This setting configures the custom URL scheme (`discord-YOUR_APP_ID`) for deep linking on both iOS and Android platforms automatically.
+
+<Tip>
+Following the Getting Started guide for Unreal Engine? Continue with [Step 6: Initialize the SDK](/developers/discord-social-sdk/getting-started/using-unreal-engine#discordlocalplayersubsystem).
+</Tip>
 
 ---
 
@@ -341,6 +349,10 @@ android:exported="true">
 ```
 
 Replace `YOUR_APP_ID` with your actual Discord application ID (e.g., `discord-1234567890123456789`).
+
+<Tip>
+Following the Getting Started guide for C++? Continue with [Step 9: Connect the SDK to Discord](/developers/discord-social-sdk/getting-started/using-c++#step-9-connect-the-sdk-to-discord).
+</Tip>
 
 ---
 
@@ -580,7 +592,7 @@ player's access token, which is covered under [Refreshing Access Tokens](/develo
 **Solutions**:
 1. Verify that `LSApplicationQueriesSchemes` includes `discord` in your Info.plist
 2. Ensure the Discord mobile app is installed on the device
-3. Check that your redirect URI is correctly configured as `discord-YOUR_APP_ID://authorize/callback`
+3. Check that your redirect URI is correctly configured as `discord-YOUR_APP_ID:/authorize/callback`
 
 #### Android: Deep Link Not Working
 

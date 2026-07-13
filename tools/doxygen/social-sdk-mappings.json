@@ -220,6 +220,7 @@
   "discordpp::Client::SetInputVolume": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ad4358f5baffd9a5f2a6fa74d62459313",
   "discordpp::Client::SetNoAudioInputCallback": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a479e60724bf6b0b39b555c1ff8489b9e",
   "discordpp::Client::SetNoAudioInputThreshold": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ab33f5d70461ee7590b6f3cfccaeb6df4",
+  "discordpp::Client::SetNoiseCancellation": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a54aad09e8e06dc327695209b733d3f4c",
   "discordpp::Client::SetNoiseSuppression": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ae3f6e33b956964525adfa4536bd1fe73",
   "discordpp::Client::SetOpusHardwareCoding": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a50f3315b3c13ad6e543b60981976fe33",
   "discordpp::Client::SetOutputDevice": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aa06fdf131c2105cd06fb79592624678e",

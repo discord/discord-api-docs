@@ -4,11 +4,14 @@ sidebarTitle: "Community Management"
 description: "Guides for managing your Discord community and server effectively."
 ---
 
+import {ImageCard} from '/snippets/imagecard.jsx'
+import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
+
 <CardGroup cols={2}>
-  <Card title="How Do I Create a Community For My Game?" href="/developers/game-development/how-to-create-a-community-for-your-game">
+  <ImageCard title="How Do I Create a Community For My Game?" href="/developers/game-development/how-to-create-a-community-for-your-game" img="/images/game-development/how-to-create-a-community-for-your-game/banner-how-to-create-a-community-for-your-game.webp" >
     Creating a community for your game involves establishing a Discord server to foster direct communication with players, gather feedback, and keep engagement alive between updates.
-  </Card>
-  <Card title="Community Invites for Community Managers" href="/developers/communities/guides/community-invites">
+  </ImageCard>
+  <Card title="Community Invites for Community Managers" href="/developers/communities/guides/community-invites" icon={<InboxIcon />} >
     Learn how to create and manage community invites to grow your community.
   </Card>
 </CardGroup>
