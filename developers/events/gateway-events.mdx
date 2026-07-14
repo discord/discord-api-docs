@@ -86,6 +86,20 @@ Details about identifying is in the [Gateway documentation](/developers/events/g
 | shard?           | array of two integers (shard_id, num_shards)                                | Used for [Guild Sharding](/developers/events/gateway#sharding)                                                                 | -       |
 | presence?        | [update presence](/developers/events/gateway-events#update-presence) object | Presence structure for initial presence information                                                                            | -       |
 | intents          | integer                                                                     | [Gateway Intents](/developers/events/gateway#gateway-intents) you wish to receive                                              | -       |
+| capabilities?    | integer                                                                     | Bitfield representing [capabilities](/developers/events/gateway-events#identify-gateway-capabilities) of your gateway client   | 0       |
+
+<ManualAnchor id="identify-gateway-capabilities" />
+###### Gateway Capabilities
+
+`capabilities` is a bitfield you can use to opt a bot client into gateway behaviors. It's a separate Identify bitfield from [`intents`](/developers/events/gateway#gateway-intents): `intents` control which events your bot client receives, while `capabilities` affects gateway behaviors.
+
+| Flag                | Value     | Description                                                                                                                                                                |
+|---------------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CHANNEL_OBFUSCATION | `1 << 15` | Opts the client into receiving [obfuscated channel metadata](/developers/resources/channel#channel-object-obfuscated-channels) over the Gateway for channels it can't view |
+
+<Warning>
+`CHANNEL_OBFUSCATION` is a temporary, testing-only opt-in for channel obfuscation. This opt-in mechanism will change before the feature reaches general availability. Obfuscation is then planned to apply to all bots automatically, even when they don't provide this capability.
+</Warning>
 
 <ManualAnchor id="identify-identify-connection-properties" />
 ###### Identify Connection Properties

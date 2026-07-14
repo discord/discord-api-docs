@@ -180,6 +180,8 @@ Just like with the interval, Discord will respond with an [Heartbeat ACK (opcode
 
 After the connection is open and your app is sending heartbeats, you should send an [Identify (opcode `2`)](/developers/events/gateway-events#identify) event. The Identify event is an initial handshake with the Gateway that's required before your app can begin sending or receiving most Gateway events.
 
+Clients can also opt into a [gateway capability](/developers/events/gateway-events#identify-gateway-capabilities) in the [Identify payload](/developers/events/gateway-events#identify-identify-structure) that changes how existing gateway behaviors work.
+
 Apps are limited by maximum concurrency (`max_concurrency` in the [session start limit object](/developers/events/gateway#session-start-limit-object)) when identifying. If your app exceeds this limit, Discord will respond with a [Invalid Session (opcode `9`)](/developers/events/gateway-events#invalid-session) event.
 
 After your app sends a valid Identify payload, Discord will respond with a [Ready](/developers/events/gateway-events#ready) event which indicates that your app is in a successfully-connected state with the Gateway. The Ready event is sent as a standard [Dispatch (opcode `0`)](/developers/topics/opcodes-and-status-codes#gateway-gateway-opcodes).

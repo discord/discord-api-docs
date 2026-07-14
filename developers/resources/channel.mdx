@@ -91,11 +91,33 @@ Type 10, 11 and 12 are only available in API v9 and above.
 <ManualAnchor id="channel-object-channel-flags" />
 ###### Channel Flags
 
-| Flag                        | Value     | Description                                                                                                                                                     |
-|-----------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| PINNED                      | `1 << 1`  | this thread is pinned to the top of its parent `GUILD_FORUM` or `GUILD_MEDIA` channel                                                                           |
-| REQUIRE_TAG                 | `1 << 4`  | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field. |
-| HIDE_MEDIA_DOWNLOAD_OPTIONS | `1 << 15` | when set hides the embedded media download options. Available only for media channels                                                                           |
+| Flag                        | Value     | Description                                                                                                                                                                                                                                                                                             |
+|-----------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PINNED                      | `1 << 1`  | this thread is pinned to the top of its parent `GUILD_FORUM` or `GUILD_MEDIA` channel                                                                                                                                                                                                                   |
+| REQUIRE_TAG                 | `1 << 4`  | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field.                                                                                                                                         |
+| HIDE_MEDIA_DOWNLOAD_OPTIONS | `1 << 15` | when set hides the embedded media download options. Available only for media channels                                                                                                                                                                                                                   |
+| CHANNEL_OBFUSCATED          | `1 << 17` | this channel's metadata has been obfuscated because the current user cannot view it. Only ever set on channels received over the [Gateway](/developers/events/gateway); the HTTP API never sets this flag. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels). |
+
+<ManualAnchor id="channel-object-obfuscated-channels" />
+###### Obfuscated Channels
+
+Over the [Gateway](/developers/events/gateway), a client will receive a channel object with obfuscated metadata for guild channels it does not have permission to view. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice channel. Channel categories are viewable if any of their child channels are viewable.
+
+<Warning>
+Starting October 12, 2026, channels will be obfuscated if your bot doesn't have permissions to view them. Currently, channels are only obfuscated if the client has opted into the `CHANNEL_OBFUSCATION` [capability](/developers/events/gateway-events#identify-gateway-capabilities) for testing. See [Channel Obfuscation for Users and Bots](/developers/change-log#channel-obfuscation-for-users-and-bots) for more information.
+</Warning>
+
+Obfuscated channels are dispatched through the normal [Channel Create](/developers/events/gateway-events#channel-create) and [Channel Update](/developers/events/gateway-events#channel-update) gateway events, including within the channel list of a [Guild Create](/developers/events/gateway-events#guild-create) event.
+
+To reliably detect whether a channel object has been obfuscated, check whether its `flags` field has the `CHANNEL_OBFUSCATED` [channel flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) set. Do not rely on inspecting `name` or any other obfuscated field. The `permission_overwrites` for an obfuscated channel will contain only one entry denying `VIEW_CHANNEL` for the guild's `@everyone` role.
+
+<Info>
+`id`, `type`, `position`, and `parent_id` will not be obfuscated, even on an obfuscated channel. Other fields should not be relied on.
+</Info>
+
+When a bot user regains visibility into a previously obfuscated channel (for example, a permission overwrite change, a change to the bot user's roles, a change to a role's permissions, or the bot user joining a voice channel it previously couldn't see), the Gateway dispatches a [Channel Update](/developers/events/gateway-events#channel-update) event containing the full, unobfuscated channel data. If the channel's parent category was also obfuscated (because the bot user couldn't see it either), that category also receives a Channel Update event with its full, unobfuscated data.
+
+[Interactions](/developers/interactions/receiving-and-responding) are built through a separate path that does not apply obfuscation, so an app always receives full channel data in interaction payloads for channels it can act on.
 
 <ManualAnchor id="channel-object-sort-order-types" />
 ###### Sort Order Types

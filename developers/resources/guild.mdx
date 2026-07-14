@@ -885,6 +885,10 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/developers/resource
 
 Returns a list of guild [channel](/developers/resources/channel#channel-object) objects. Does not include threads.
 
+<Warning>
+Starting October 12, 2026, this endpoint will omit any channel your bot doesn't have permissions to view. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice channel. Channel categories are viewable if any of their child channels are viewable. See [Channel Obfuscation for Users and Bots](/developers/change-log#channel-obfuscation-for-users-and-bots) for more information.
+</Warning>
+
 ## Create Guild Channel
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/channels</Route>
 
