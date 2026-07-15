@@ -1,0 +1,10 @@
+If you are using OIDC, you may encounter more specific errors:
+
+| Code   | Meaning                      | Solution                                                                                                               |
+|--------|------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| 530002 | Invalid issuer               | Verify the `iss` claim in your ID token exactly matches the issuer URL in your OIDC configuration                      |
+| 530003 | Invalid audience             | Verify the `aud` claim in your ID token includes the client ID in your OIDC configuration                              |
+| 530008 | OIDC configuration not found | Verify your issuer URL is correct, accessible over HTTPS, and serves a valid discovery document without HTTP redirects |
+| 530009 | OIDC JWKS not found          | Verify your JWKS endpoint is accessible over HTTPS without HTTP redirects                                              |
+| 530020 | Invalid OIDC JWT token       | Verify your ID token is properly signed and uses a supported algorithm                                                 |
+| 530027 | Missing `kid` header         | Ensure your ID token includes a `kid` (Key ID) header in the JWT header identifying the signing key                    |
