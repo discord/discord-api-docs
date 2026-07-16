@@ -419,7 +419,11 @@ To merge a provisional account, extend the standard [OAuth2 token exchange](/dev
 
 See the [External Auth Types](#external-auth-types) table above for the full list of supported `external_auth_type` values.
 
-The `external_auth_token` is the same credential you provided when creating the provisional account — for example, your OIDC identity token, Steam session ticket, or EOS access token. If you created the provisional account using the [Bot Token Endpoint](#server-authentication-with-bot-token-endpoint), use `DISCORD_BOT_ISSUED_ACCESS_TOKEN` as the `external_auth_type` and the `external_user_id` (your game account ID) as the `external_auth_token`.
+The `external_auth_token` is the same credential you provided when creating the provisional account — for example, your OIDC identity token, Steam session ticket, or EOS access token. If you created the provisional account using the [Bot Token Endpoint](#server-authentication-with-bot-token-endpoint), use `DISCORD_BOT_ISSUED_ACCESS_TOKEN` as the `external_auth_type` and the `access_token` returned by that endpoint (see [Bot Token Endpoint Response](#bot-token-endpoint-response)) as the `external_auth_token` — **not** the `external_user_id`.
+
+<Info>
+The bot-issued `external_auth_token` is the **access token**, because the merge runs through the OAuth2 `/oauth2/token` endpoint and the token is what proves the external identity. This differs from the [bot unmerge endpoint](#unmerging-with-bot-token-endpoint), which is authenticated by your bot token and therefore identifies the account by `external_user_id` instead.
+</Info>
 
 #### Desktop & Mobile
 
@@ -431,7 +435,7 @@ The `external_auth_token` is the same credential you provided when creating the 
 | `code`                | The authorization code returned to your server after the user completes the [`Client::Authorize`] flow.                                                                                                                                                               |
 | `redirect_uri`        | The redirect URI used in the original authorization request. Must match exactly.                                                                                                                                                                                      |
 | `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                                                              |
-| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `external_user_id` (game account ID) used when creating the provisional account.                                            |
+| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `access_token` returned by the Bot Token Endpoint (not the `external_user_id`).                                             |
 
 ```python
 import requests
@@ -462,12 +466,12 @@ def exchange_code_with_merge(code, redirect_uri, external_auth_token):
 
 ###### Request Body Parameters
 
-| Parameter             | Description                                                                                                                                                                                                                |
-|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `grant_type`          | Must be `urn:ietf:params:oauth:grant-type:device_code`. This is the [RFC 8628](https://www.rfc-editor.org/rfc/rfc8628) device authorization grant, used for consoles and devices without a browser.                        |
-| `device_code`         | The device code from the device authorization flow. See [Account Linking on Consoles](/developers/discord-social-sdk/development-guides/account-linking-on-consoles).                                                      |
-| `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                   |
-| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `external_user_id` (game account ID) used when creating the provisional account. |
+| Parameter             | Description                                                                                                                                                                                                               |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`          | Must be `urn:ietf:params:oauth:grant-type:device_code`. This is the [RFC 8628](https://www.rfc-editor.org/rfc/rfc8628) device authorization grant, used for consoles and devices without a browser.                       |
+| `device_code`         | The device code from the device authorization flow. See [Account Linking on Consoles](/developers/discord-social-sdk/development-guides/account-linking-on-consoles).                                                     |
+| `external_auth_type`  | The type of external identity provider. See [External Auth Types](#external-auth-types).                                                                                                                                  |
+| `external_auth_token` | The external identity token. For example, for `OIDC`, this is the OIDC identity token. For `DISCORD_BOT_ISSUED_ACCESS_TOKEN`, this is the `access_token` returned by the Bot Token Endpoint (not the `external_user_id`). |
 
 ```python
 import requests
@@ -578,6 +582,7 @@ You may receive a merge specific error code while attempting this operation:
 
 | Code   | HTTP Status | Meaning                         | Solution                                                              |
 |--------|-------------|---------------------------------|-----------------------------------------------------------------------|
+| 50025  | 403         | Invalid OAuth2 access token     | The `external_auth_token` is invalid.                                 |
 | 530014 | 400         | Invalid merge source            | The source account is not provisional                                 |
 | 530016 | 400         | Invalid merge destination       | The destination account is provisional                                |
 | 530017 | 400         | Merge source user banned        | The provisional account being merged is banned from platform          |
@@ -604,9 +609,10 @@ Unmerging invalidates all access/refresh tokens for the user. They cannot be use
 </Warning>
 
 <Tip>
-    The `external_auth_token` from your original provisional account setup is not affected by an unmerge. After the
-    unmerge completes, you can use the same token to retrieve the new provisional token for the newly created provisional
-    account.
+    Unmerging does not affect the external identity you used to create the provisional account — your `external_auth_token`
+    (for OIDC, Steam, EOS, and other credential-exchange providers) or your `external_user_id` (for the
+    [Bot Token Endpoint](#server-authentication-with-bot-token-endpoint)). After the unmerge completes, you can
+    re-authenticate with that same identity to retrieve the token for the newly created provisional account.
 </Tip>
 
 ### Unmerging Provisional Accounts for Servers
@@ -812,14 +818,15 @@ import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
 
 ## Change Log
 
-| Date              | Changes                                          |
-|-------------------|--------------------------------------------------|
-| May 22, 2026      | Document ban-driven unmerge lifecycle            |
-| April 21, 2026    | Document OIDC integration requirements           |
-| April 14, 2026    | Clarify provisional account token refresh flow   |
-| April 13, 2026    | Clarify Merging Provisional Accounts for Servers |
-| February 25, 2026 | Clarify unmerge behavior and data migration      |
-| March 17, 2025    | Initial release                                  |
+| Date              | Changes                                                   |
+|-------------------|-----------------------------------------------------------|
+| June 30, 2026     | Correct bot-issued `external_auth_token` for server merge |
+| May 22, 2026      | Document ban-driven unmerge lifecycle                     |
+| April 21, 2026    | Document OIDC integration requirements                    |
+| April 14, 2026    | Clarify provisional account token refresh flow            |
+| April 13, 2026    | Clarify Merging Provisional Accounts for Servers          |
+| February 25, 2026 | Clarify unmerge behavior and data migration               |
+| March 17, 2025    | Initial release                                           |
 
 {/* Autogenerated Reference Links */}
 [`Client::Authorize`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468

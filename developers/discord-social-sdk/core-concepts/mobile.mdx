@@ -1,0 +1,115 @@
+---
+title: Discord Social SDK on Mobile
+sidebarTitle: Mobile Development
+description: Add the Discord Social SDK to your iOS and Android games.
+---
+import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+import {MobilePhoneIcon} from '/snippets/icons/MobilePhoneIcon.jsx'
+import {LinkIcon} from '/snippets/icons/LinkIcon.jsx'
+import {ShapesIcon} from '/snippets/icons/ShapesIcon.jsx'
+import {PlayIcon} from '/snippets/icons/PlayIcon.jsx'
+
+This guide explains how to add the Discord Social SDK to your iOS and Android game. It covers what's supported on mobile, the mobile-specific setup you'll need, and where to go next for each game engine.
+
+---
+
+## Platform Support
+
+The Discord Social SDK is **Generally Available** on both mobile platforms:
+
+| Platform | Supported Versions | Standalone C++ | Unreal Engine | Unity |
+|----------|--------------------|----------------|---------------|-------|
+| Android  | 7.0+               | ✅              | ✅             | ✅     |
+| iOS      | 15.1+              | ✅              | ✅             | ✅     |
+
+For the full cross-platform support matrix, see [Platform Compatibility](/developers/discord-social-sdk/core-concepts/platform-compatibility).
+
+---
+
+## Feature Availability on Mobile
+
+
+All Discord Social SDK features are available on mobile. The table below lists mobile-specific setup or behavior differences where they apply.
+
+| Feature                                                                                              | Mobile-Specific Notes                                                                                                                                                                                                                                                                            |
+|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Account Linking](/developers/discord-social-sdk/development-guides/account-linking-with-discord)    | Requires deep linking (`discord-APP_ID:/authorize/callback`). Discord mobile app launches first for authentication, falls back to browser if not installed. See [Account Linking on Mobile](/developers/discord-social-sdk/development-guides/account-linking-on-mobile)                         |
+| [Provisional Accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts) | No special considerations                                                                                                                                                                                                                                                                        |
+| [Friends & Relationships](/developers/discord-social-sdk/development-guides/managing-relationships)  | No special considerations                                                                                                                                                                                                                                                                        |
+| [Rich Presence](/developers/discord-social-sdk/development-guides/setting-rich-presence)             | Requires account linking. Unlike desktop, you cannot publish presence on mobile without account linking first                                                                                                                                                                                    |
+| [Game Invites](/developers/discord-social-sdk/development-guides/managing-game-invites)              | Requires https URL configured in Developer Portal General tab and specifying supported mobile platforms. See [Supporting Mobile Game Invites](/developers/discord-social-sdk/development-guides/managing-game-invites#supporting-mobile-game-invites)                                            |
+| [Direct Messages](/developers/discord-social-sdk/development-guides/sending-direct-messages)         | No special considerations                                                                                                                                                                                                                                                                        |
+| [Lobbies & In-Game Chat](/developers/discord-social-sdk/development-guides/managing-lobbies)         | No special considerations                                                                                                                                                                                                                                                                        |
+| [Voice Chat](/developers/discord-social-sdk/development-guides/managing-voice-chat)                  | Request microphone permissions. See platform-specific setup: [iOS](/developers/discord-social-sdk/development-guides/account-linking-on-mobile#2-set-microphone-usage-description), [Android](/developers/discord-social-sdk/development-guides/account-linking-on-mobile#3-android-permissions) |
+| [Linked Channels](/developers/discord-social-sdk/development-guides/linked-channels)                 | No special considerations                                                                                                                                                                                                                                                                        |
+
+---
+
+## Prerequisites
+
+Before integrating on mobile, make sure you have:
+
+- A Discord application with the Social SDK enabled. See [Getting Started](/developers/discord-social-sdk/getting-started) to create your team, application, and enable the SDK.
+- A mobile OAuth2 redirect URI configured in the format `discord-YOUR_APP_ID:/authorize/callback` (replace `YOUR_APP_ID` with your Discord application ID).
+- Your development environment set up for your target platform (Xcode for iOS, Android Studio for Android).
+
+
+
+<Tip>
+**Reduce binary size:** You can reduce the SDK's installation size on mobile by excluding Krisp noise cancellation. See [Excluding Krisp to Reduce Installation Size](/developers/discord-social-sdk/development-guides/managing-voice-chat#excluding-krisp-to-reduce-installation-size).
+</Tip>
+
+---
+
+## Choose Your Getting Started Path
+
+Select the integration that matches your project. Each guide covers download, project setup, and connecting to Discord, with mobile-specific notes where they apply.
+
+<CardGroup cols={3}>
+  <Card title="Standalone C++" href="/developers/discord-social-sdk/getting-started/using-c++" icon={<PlayIcon />}>
+    For custom engines or standalone applications targeting iOS and Android.
+  </Card>
+  <Card title="Unity" href="/developers/discord-social-sdk/getting-started/using-unity" icon={<PlayIcon />}>
+    For Unity projects building to mobile.
+  </Card>
+  <Card title="Unreal Engine" href="/developers/discord-social-sdk/getting-started/using-unreal-engine" icon={<PlayIcon />}>
+    For Unreal Engine projects building to mobile.
+  </Card>
+</CardGroup>
+
+---
+
+## Samples
+
+### Unity Mobile Sample
+
+Check out our [Unity sample for the Discord Social SDK](https://github.com/discord/social-sdk-unity-sample), which includes a mobile scene (`Assets/Scenes/Mobile.unity`) that runs on Android and iOS. It contains easy to drop in prefabs with both code and UI to quickly integrate Discord's social features into your mobile game, with all mobile-specific configuration already set up:
+
+- Mobile redirect URI (`discord-APP_ID:/authorize/callback`) registration
+- Build processors that auto-inject the redirect scheme into Android manifest and iOS `Info.plist`
+- Portrait-optimized UI that reuses the same Discord SDK integration as the desktop scene
+
+See the **[Mobile Setup](https://github.com/discord/social-sdk-unity-sample#mobile-setup)** section in the sample's README for build instructions.
+
+<video src="/images/social-sdk/core-concepts/mobile/unity-mobile-sample.mov" controls width="400" />
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Design Foundations" href="/developers/discord-social-sdk/design-guidelines/principles" icon={<ShapesIcon />}>
+    UI patterns and principles for integrating Discord into your game.
+  </Card>
+  <Card title="Development Guides" href="/developers/discord-social-sdk/development-guides" icon={<MobilePhoneIcon />}>
+    Add features like a unified friends list, rich presence, and more.
+  </Card>
+</CardGroup>
+
+---
+
+## Change Log
+
+| Date          | Changes         |
+|---------------|-----------------|
+| July 14, 2026 | Initial release |

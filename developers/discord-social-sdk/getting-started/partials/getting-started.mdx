@@ -15,7 +15,7 @@ Later, you can invite your team members to your new team to collaborate on your 
 1. Create a new application on the [Discord Developer Portal](https://discord.com/developers/applications) and assign it to your team.
 2. Add a redirect URL in the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2):
    - For desktop applications: `http://127.0.0.1/callback` (this can be changed later).
-   - For mobile applications (iOS/Android): `discord-YOUR_APP_ID://authorize/callback` (replace `YOUR_APP_ID` with your Discord application ID).
+   - For mobile applications (iOS/Android): `discord-YOUR_APP_ID:/authorize/callback` (replace `YOUR_APP_ID` with your Discord application ID).
    - See [`discordpp::Client::Authorize`](https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace94a58e27545a933d79db32b387a468) for more details on setting up more advanced redirect URIs.
 3. Enable the `Public Client` toggle in the [OAuth2 tab](https://discord.com/developers/applications/select/oauth2).
 
