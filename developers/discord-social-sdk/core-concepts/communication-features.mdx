@@ -71,9 +71,9 @@ Prior to successful approval to increase rate limits, communication features hav
 * **Sending Messages to Lobby operations:** 100 requests every 2 hours
 * **Sending Direct Message operations:** 100 requests every 2 hours.
 
-<Info>
+<Tip>
 These are per-application rate limits, not per-user.
-</Info>
+</Tip>
 
 These limitations are designed to provide sufficient capacity for development, testing, and small-scale demos while ensuring system stability. Once you gain full access through the rate limit increase application process, these restrictions are increased, allowing your game to scale to production levels.
 
@@ -92,9 +92,9 @@ Once you have met those requirements, you can apply for increased rate limits by
 3. Under the **Discord Social SDK** heading in the sidebar, click the [**Comms Access**](https://discord.com/developers/applications/select/social-sdk/comms-access) button
 4. Fill out the application form with the required information and supporting materials
 
-<Info>
+<Tip>
 Video capture provided to the application should be in url format, hosted on a file or video-sharing service of your choice as an unlisted video
-</Info>
+</Tip>
 
 <a id="application-requirements-for-rate-limit-removal"/>
 ## Application Requirements for Increased Rate Limits
@@ -108,11 +108,11 @@ This section outlines the specific requirements you must meet before submitting 
 5. **Age-restricted user protection:** You'll need to confirm that you have appropriate measures in place for players' access to the SDK features in your game, depending on their age.
 
 
-<Info>
+<Tip>
 These requirements detail the **minimum bar** to be eligible for Social SDK communications usage at scale. Check out our [design guidelines](/developers/discord-social-sdk/design-guidelines) for what **“great”** looks like. Great integrations can drive higher player engagement and retention by creating seamless social experiences that keep players connected and coming back to your game. And of course, remember to make sure you are complying with our [Social SDK Terms](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms). 
 
 If you believe you meet these requirements, you can [apply for access to full release comms features](/developers/discord-social-sdk/core-concepts/communication-features#applying-for-rate-limit-removal). Discord may approve or deny your access after review of your application and additional terms may apply.
-</Info>
+</Tip>
 
 
 ### Minimum Required Feature Set
@@ -170,10 +170,10 @@ The intent is that Discord account linking *immediately grants access to the pla
 * **Authorization fails/times out:** Show clear error message with retry option
 * **User wants to disconnect:** Provide deauthorization option in-game and maintain game functionality post-disconnect
 
-<Info>
+<Tip>
 **These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Signing In](/developers/discord-social-sdk/design-guidelines/signing-in).
-</Info>
+</Tip>
 
 #### Rich Presence
 
@@ -194,10 +194,10 @@ To create an even better player experience, see our [Design Guidelines for Signi
 * **Network connectivity issues:** Queue presence updates and retry when connection restored
 * **Active and inactive clients**: Invites can complete even when one player doesn't have the game client open on acceptance.
 
-<Info>
+<Tip>
 **These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Rich Presence](/developers/discord-social-sdk/design-guidelines/status-rich-presence).
-</Info>
+</Tip>
 
 #### Unified Friends List
 
@@ -221,10 +221,10 @@ To create an even better player experience, see our [Design Guidelines for Rich 
 * **Special characters**: Non-standard characters in Discord usernames populate as expected.
 * **Unlinking Discord**: Player's in-game friends list removes Discord friend entries when they unlink their Discord account
 
-<Info>
+<Tip>
 **These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Unified Friends List](/developers/discord-social-sdk/design-guidelines/unified-friends-list).
-</Info>
+</Tip>
 
 #### Direct Messages through Discord
 
@@ -246,10 +246,10 @@ To create an even better player experience, see our [Design Guidelines for Unifi
 * **Blocked users:** Respect Discord blocking relationships and show appropriate messaging
 * **Network issues:** Queue messages locally and sync when connection restored
 
-<Info>
+<Tip>
 **These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Direct Messages](/developers/discord-social-sdk/design-guidelines/direct-messages).
-</Info>
+</Tip>
 
 #### Linked Channels
 
@@ -272,10 +272,10 @@ To create an even better player experience, see our [Design Guidelines for Direc
 * **Link establishment failure:** Show retry options and clear error messaging
 * **User wants to unlink:** Provide confirmation dialog and clean removal process
 
-<Info>
+<Tip>
 **These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Linked Channels](/developers/discord-social-sdk/design-guidelines/linked-channels).
-</Info>
+</Tip>
 
 #### Voice Communications
 
