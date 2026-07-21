@@ -949,6 +949,16 @@ This endpoint takes a JSON array of parameters in the following format:
 | parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                                                                                |
 | flags?            | ?integer   | [channel flags](/developers/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). |
 
+<Info>
+At most one entry per request may change `parent_id`. A request that changes `parent_id` for more than one channel fails with a `400` response and error code `40009` (`Only one channel can have a parent_id modified at a time`).
+</Info>
+
+<Info>
+Permissions are checked per entry, based on what the entry changes:
+- An entry that only changes `position` requires the `MANAGE_CHANNELS` permission at the guild level (or on the channel's current parent category). It does **not** require access to the individual channel, so a full reordering may include channels the current user cannot view.
+- An entry that changes `parent_id` requires the `MANAGE_CHANNELS` permission on that channel and on the destination (the new parent category, or the guild when moving the channel out of a category), and the current user must be able to view the channel. Otherwise the request fails with a `403` response and error code `50001` (`Missing Access`). Setting `lock_permissions` additionally requires `MANAGE_ROLES`.
+</Info>
+
 ## List Active Guild Threads
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/threads/active</Route>
 
