@@ -469,7 +469,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | session_id         | string                                                                                     | Used for resuming connections                                                                                   |
 | resume_gateway_url | string                                                                                     | Gateway URL for resuming connections                                                                            |
 | shard?             | array of two integers (shard_id, num_shards)                                               | [Shard information](/developers/events/gateway#sharding) associated with this session, if sent when identifying |
-| application        | partial [application object](/developers/resources/application#application-object)         | Contains `id` and `flags`                                                                                       |
+| application        | partial [application object](/developers/resources/application#application-object)         | Contains `id`, `flags`, and `flags_new`                                                                         |
 
 #### Resumed
 
