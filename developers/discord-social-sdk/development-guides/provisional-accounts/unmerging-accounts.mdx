@@ -51,7 +51,7 @@ sequenceDiagram
 
 ---
 
-## Unmerging Provisional Accounts for Servers
+## Unmerging Provisional Accounts Server-Side
 
 A developer can unmerge a user's account by sending a request to the unmerge endpoint on the Discord API. The endpoint and identifier you use depend on how the provisional account was created.
 
@@ -212,7 +212,8 @@ There is no API to look up whether a player's Discord account is currently banne
 This is the reverse of [merging](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts#data-migration-during-merging), and the two are not symmetric. Merging moves the provisional account's data **onto the existing full Discord account**, so DM history is preserved. Unmerging instead creates a **brand-new provisional account**, and DM history is **not** carried over to it.
 </Note>
 
-When a user unmerges their account, a new provisional account is created with a new user ID. The following data is transferred to the new provisional account:
+When a user unmerges their account, a new provisional account is created with a new user ID.
+The following data is transferred to the new provisional account asynchronously:
 
 * **✅ Username**: Global name is copied to the new provisional account
 * **✅ In-game friends**: All copied to the new provisional account

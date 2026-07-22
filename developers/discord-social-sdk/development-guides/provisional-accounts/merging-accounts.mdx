@@ -11,7 +11,11 @@ import {LinkIcon} from '/snippets/icons/LinkIcon.jsx'
 
 ## Merging Provisional Accounts
 
-When a player wants to convert their provisional account to a full Discord account, we start a special version of the [access token request flow](/developers/discord-social-sdk/development-guides/account-linking-with-discord#requesting-access-tokens) where the provisional user's external identity is included.
+When a player wants to link their account to your game, merging
+will convert their provisional account to a full Discord account via authenticating with their Discord account.
+
+We start a special version of
+the [access token request flow](/developers/discord-social-sdk/development-guides/account-linking-with-discord#requesting-access-tokens) where the provisional user's external identity is included.
 
 - If you have a backend, follow [Merging Provisional Accounts for Servers](#merging-provisional-accounts-for-servers).
 - If you do not have a backend, follow [Merging Provisional Accounts for Public Clients](#merging-provisional-accounts-for-public-clients).
@@ -282,8 +286,14 @@ client->Authorize(args, [client, codeVerifier](discordpp::ClientResult result, s
 ---
 
 ## Data Migration During Merging
+The endpoint validates, mints and returns the OAuth2 access token immediately, then the actual account-data merge runs in the background
 
-When a user merges their provisional account with a Discord account, the provisional account's data is transferred onto the full Discord account, and the **provisional account is deleted once the merge completes**. If the user later unlinks, a new provisional account with a new unique ID is created (see [Unmerging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts)).
+When a user merges their provisional account with a Discord account, a new OAuth2 access token immediately for the
+Discord account is created and returned immediately. The provisional account's data is transferred onto the full
+Discord account asynchronously, and the **provisional account is deleted once the merge completes**.
+
+If the user later unlinks, a new provisional account with a new unique ID is created
+(see [Unmerging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts)).
 
 The following data is automatically transferred:
 
