@@ -6,6 +6,22 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="July 22, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Provisional Accounts Documentation Restructure",
+    description: "The Using Provisional Accounts guide has been split into a dedicated Provisional Accounts section, with a focused page for each authentication, merge, and unmerge flow."
+}}>
+
+    ## Provisional Accounts Documentation Restructure
+
+    The single **Using Provisional Accounts** guide has been reorganized into a dedicated [Provisional Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview) section, with a focused page for each part of the flow:
+
+    - [Overview](/developers/discord-social-sdk/development-guides/provisional-accounts/overview) — core concepts, the account lifecycle, and how to choose an authentication method.
+    - Creating accounts: [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint), [External Credentials Exchange](/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange), and [Public Client Integration](/developers/discord-social-sdk/development-guides/provisional-accounts/public-client).
+    - Reference and lifecycle: [Configuring Identity Providers](/developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers), [Managing Provisional Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts), [Merging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts), and [Unmerging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts).
+
+    The [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint) and [Merging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts) guides now walk through the full client-to-server integration, with sequence diagrams for each flow.
+</Update>
+
 <Update label="July 16, 2026" tags={["Interactions"]} rss={{
     title: "Resolved Channel app_permissions in Interactions",
     description: "Resolved channels in interactions now include the app_permissions field."
@@ -204,7 +220,7 @@ import {Route} from '/snippets/route.jsx'
 
   We've expanded documentation across the Social SDK guides to cover what happens when the Discord-to-game account link is severed — whether by a Discord account ban, an explicit unmerge, or an OAuth2 token revocation. Highlights:
 
-  - **[Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge)** documents the full lifecycle when a user's Discord account is banned: tokens are deleted immediately, a new cross-platform-restricted provisional account is created carrying the original external identity, and merge attempts return error [`530017`](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merge-request-failures) until the ban lifts (or, for permanent bans, indefinitely).
+  - **[Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#ban-driven-unmerge)** documents the full lifecycle when a user's Discord account is banned: tokens are deleted immediately, a new cross-platform-restricted provisional account is created carrying the original external identity, and merge attempts return error [`530017`](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts#merge-request-failures) until the ban lifts (or, for permanent bans, indefinitely).
   - **[Out-of-Band Revocation](/developers/discord-social-sdk/development-guides/account-linking-with-discord#out-of-band-revocation)** describes the auth-side observable signals (`APPLICATION_DEAUTHORIZED` webhook + `invalid_grant` on refresh) when a user removes your app from Discord or has their account banned.
   - **[When Refresh Fails](/developers/discord-social-sdk/development-guides/account-linking-with-discord#when-refresh-fails)** documents the `/oauth2/token` response when the underlying token has been deleted, and recommends treating `invalid_grant` as equivalent to receiving the webhook.
 
@@ -306,11 +322,11 @@ import {Route} from '/snippets/route.jsx'
 
   ## Security Updates for Provisional Account OIDC Integrations
 
-  We've made security improvements to how Discord validates OIDC issuer URLs and fetches OIDC configuration for [provisional accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts) — including stricter hostname checks and blocking HTTP redirects during configuration and JWKS discovery.
+  We've made security improvements to how Discord validates OIDC issuer URLs and fetches OIDC configuration for [provisional accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview) — including stricter hostname checks and blocking HTTP redirects during configuration and JWKS discovery.
 
   **Existing provisional account OIDC integrations are not affected** and will continue to work without any changes on your part.
 
-  However, if you need to edit your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers), your updated configuration will be validated against these requirements. We've published new documentation covering the full set of [OIDC Integration Requirements](/developers/discord-social-sdk/development-guides/using-provisional-accounts#oidc-integration-requirements) — including issuer URL rules, discovery document requirements, supported signing algorithms, and ID token claims. Before making any changes to a production integration, review those requirements and verify your configuration works in a test application first.
+  However, if you need to edit your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers), your updated configuration will be validated against these requirements. We've published new documentation covering the full set of [OIDC Integration Requirements](/developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers#oidc-integration-requirements) — including issuer URL rules, discovery document requirements, supported signing algorithms, and ID token claims. Before making any changes to a production integration, review those requirements and verify your configuration works in a test application first.
 
 </Update>
 
@@ -349,14 +365,14 @@ import {Route} from '/snippets/route.jsx'
 
   ## Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts
 
-    If you are using [OIDC server-side authentication](/developers/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-external-credentials-exchange)
+    If you are using [OIDC server-side authentication](/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange#server-authentication-with-external-credentials-exchange)
     for provisional accounts, a `refresh_token` is returned — but using it via the OAuth2 `refresh_token` grant is now
     deprecated.
 
     This brings OIDC in line with all other provisional account authentication methods: when the token
     expires, re-authenticate using a fresh provider token and pass the new access token to [`Client::UpdateToken`].
 
-    See the [Refreshing Provisional Account Tokens](/developers/discord-social-sdk/development-guides/using-provisional-accounts#refreshing-provisional-account-tokens)
+    See the [Refreshing Access Tokens](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts#refreshing-access-tokens)
     section for details.
 
     [`Client::UpdateToken`]:

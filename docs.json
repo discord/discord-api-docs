@@ -216,17 +216,29 @@
             ]
           },
           {
-            "group": "Account Linking",
+            "group": "Provisional Accounts",
+            "pages": [
+              "developers/discord-social-sdk/development-guides/provisional-accounts/overview",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/public-client",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts",
+              "developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts",
+              "developers/discord-social-sdk/design-guidelines/provisional-accounts"
+            ]
+          },
+          {
+            "group": "Discord Account Linking",
             "pages": [
               "developers/discord-social-sdk/development-guides/account-linking-with-discord",
               "developers/discord-social-sdk/development-guides/account-linking-on-mobile",
               "developers/discord-social-sdk/development-guides/account-linking-on-consoles",
               "developers/discord-social-sdk/development-guides/account-linking-from-discord",
-              "developers/discord-social-sdk/development-guides/using-provisional-accounts",
               "developers/discord-social-sdk/development-guides/publisher-level-account-linking",
               "developers/discord-social-sdk/design-guidelines/signing-in",
-              "developers/discord-social-sdk/design-guidelines/connection-points",
-              "developers/discord-social-sdk/design-guidelines/provisional-accounts"
+              "developers/discord-social-sdk/design-guidelines/connection-points"
             ]
           },
           {
@@ -440,6 +452,14 @@
     ]
   },
   "redirects": [
+    {
+      "source": "/developers/discord-social-sdk/development-guides/using-provisional-accounts",
+      "destination": "/developers/discord-social-sdk/development-guides/provisional-accounts/overview"
+    },
+    {
+      "source": "/developers/docs/discord-social-sdk/development-guides/using-provisional-accounts",
+      "destination": "/developers/discord-social-sdk/development-guides/provisional-accounts/overview"
+    },
     {
       "source": "/developers/",
       "destination": "/developers/intro"

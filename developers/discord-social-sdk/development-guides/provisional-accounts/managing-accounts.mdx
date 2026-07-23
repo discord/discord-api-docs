@@ -1,0 +1,122 @@
+---
+title: Managing Provisional Accounts
+description: Refresh provisional account access tokens and set display names.
+---
+
+import {LinkIcon} from '/snippets/icons/LinkIcon.jsx'
+import {SlashBoxIcon} from '/snippets/icons/SlashBoxIcon.jsx'
+import {PaintPaletteIcon} from '/snippets/icons/PaintPaletteIcon.jsx'
+import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+
+Once you've created a provisional account with one of the authentication methods — the [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint), [External Credentials Exchange](/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange), or [Public Client Integration](/developers/discord-social-sdk/development-guides/provisional-accounts/public-client) — this guide covers how to manage the account's access token and set its display name.
+
+## Access Tokens
+
+Each authentication method returns a Discord access token that **expires after 7 days**. You use it with the SDK just like a full Discord user's access token.
+
+## Refreshing Access Tokens
+
+While we'd recommend generating a new access token whenever a user starts a session, you can also be notified when the
+access token is about to expire.
+
+Use [`Client::SetTokenExpirationCallback`] to receive a callback when the current token is about to expire or has expired, so you can refresh it without interrupting the user's experience.
+
+When the token expires, re-call the same method you used originally to obtain a new access token, then pass it to [`Client::UpdateToken`].
+
+<Info>
+When the token expires, the SDK will still receive updates, such as new messages sent in a lobby, and any voice calls will continue to be active. However, any new actions, such as sending a message or adding a friend, will fail. You can get a new token and pass it to [`Client::UpdateToken`] without interrupting the user's experience.
+</Info>
+
+```cpp
+// Register a callback to handle token expiration
+client->SetTokenExpirationCallback([client](discordpp::AuthorizationTokenType tokenType) {
+    // Re-acquire a new token using the same method you used originally.
+    // For example, if you used GetProvisionalToken:
+    std::string externalToken = GetExternalAuthToken(); // get a fresh token from your identity provider
+    client->GetProvisionalToken(DISCORD_APPLICATION_ID,
+        discordpp::AuthenticationExternalAuthType::OIDC,
+        externalToken,
+        [client](discordpp::ClientResult result, std::string accessToken, std::string refreshToken,
+                 discordpp::AuthorizationTokenType tokenType, int32_t expiresIn, std::string scope) {
+            if (result.Successful()) {
+                // Pass the new access token to UpdateToken — no reconnect needed
+                client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, accessToken, [](discordpp::ClientResult result) {
+                    if (result.Successful()) {
+                        std::cout << "✅ Token refreshed successfully\n";
+                    }
+                });
+            } else {
+                std::cerr << "❌ Failed to refresh provisional token: " << result.Error() << std::endl;
+            }
+        });
+});
+```
+<Info>
+    If you are using Server Authentication with OIDC, a `refresh_token` is returned but using it via the OAuth2 `refresh_token` grant is **deprecated**. Re-authenticate using a fresh provider token instead.
+</Info>
+
+## Storing Access Tokens
+
+It is suggested that these provisional tokens are not stored and instead invoke this function each time the game is launched and when these tokens are about to expire. However, should you choose to store it, it is recommended that these provisional account tokens be differentiated from "full" Discord account tokens.
+
+---
+
+## Setting Display Names
+
+Using these credentials, we'll create a limited Discord account just for your game and try to set the username for you according to the following:
+
+- For Bot issued tokens, the `preferred_global_name` you specified will be used.
+- For OIDC, a provisional account's display name will be the value of the `preferred_username` claim, if specified in
+  the ID token. This field is optional and should be between 1 and 32 characters. If not specified, the user's display
+  name will default to the user's unique username, which Discord generates on creation.
+- For [Steam session tickets](https://partner.steamgames.com/doc/features/auth), the display name of the user's Steam
+  account is used as the provisional account's display name.
+- For [EOS Auth](https://dev.epicgames.com/docs/epic-account-services/auth/auth-interface) Access Tokens or ID Tokens,
+  the name of the user's Epic account is used as the provisional account's display name. EOS Connect ID Tokens do
+  not expose any username, and thus the game will need to configure the display name with
+  [`Client::UpdateProvisionalAccountDisplayName`].
+- For [Unity Services ID Tokens](https://services.docs.unity.com/docs/client-auth/),
+  the display name of the user's Unity Player Account is used as the provisional account's display name.
+
+If you'd like to set the display name for a provisional account, you can use the [`Client::UpdateProvisionalAccountDisplayName`] method.
+
+```cpp
+client->UpdateProvisionalAccountDisplayName("CoolPlayer123", [](discordpp::ClientResult result) {
+    if (result.Successful()) {
+      std::cout << "✅ Display name updated\n";
+    }
+  }
+);
+```
+
+---
+
+## Next Steps
+
+<CardGroup cols={3}>
+  <Card title="Merging Accounts" href="/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts" icon={<LinkIcon />}>
+    Merge a provisional account into a full Discord account.
+  </Card>
+  <Card title="Unmerging Accounts" href="/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts" icon={<SlashBoxIcon />}>
+    Sever the link between a Discord account and a provisional account.
+  </Card>
+  <Card title="Designing for Provisional Accounts" href="/developers/discord-social-sdk/design-guidelines/provisional-accounts" icon={<PaintPaletteIcon />}>
+    Design guidelines for implementing provisional accounts in your game.
+  </Card>
+</CardGroup>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes                                                   |
+|----------------|-----------------------------------------------------------|
+| July 14, 2026  | Split the provisional accounts guide into its own section |
+| March 17, 2025 | Initial release                                           |
+
+{/* Autogenerated Reference Links */}
+[`Client::SetTokenExpirationCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aab5bfc76809ea22e79f2f7a067ac4519
+[`Client::UpdateProvisionalAccountDisplayName`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a7485979ab2d4c533b75f8efd5e50bc60
+[`Client::UpdateToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4

@@ -21,7 +21,7 @@ Before you begin, make sure you have:
 
 - A basic understanding of how the SDK works from the [Getting Started Guide](/developers/discord-social-sdk/getting-started)
 - A basic understanding of your game's communication features
-- Familiarity with [provisional accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts)
+- Familiarity with [provisional accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview)
 - Reviewed the [Discord Social SDK Terms](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms)
 
 ## Your Moderation Responsibilities
@@ -300,8 +300,8 @@ event for the edit, which you can use to trigger re-moderation of the new conten
 
 When a player's Discord account is banned by Discord — whether temporarily or permanently — they will no longer be able to authenticate to your app via Discord, their existing [`Client`] is disconnected, their OAuth2 tokens are invalidated, and an [`APPLICATION_DEAUTHORIZED`](/developers/events/webhook-events#application-deauthorized) webhook is fired.
 
-A ban is mechanically an [unmerge](/developers/discord-social-sdk/development-guides/using-provisional-accounts#unmerging-provisional-accounts) that Discord initiates — the OAuth2 tokens are deleted and a new cross-platform-restricted provisional account takes the place of the linked Discord identity.
-For the full lifecycle see [Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge) in the Provisional Accounts guide. For the auth-side observable signals and recommended integration architecture, see [Out-of-Band Revocation](/developers/discord-social-sdk/development-guides/account-linking-with-discord#out-of-band-revocation) in the Account Linking guide.
+A ban is mechanically an [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#unmerging-provisional-accounts) that Discord initiates — the OAuth2 tokens are deleted and a new cross-platform-restricted provisional account takes the place of the linked Discord identity.
+For the full lifecycle see [Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#ban-driven-unmerge) in the Provisional Accounts guide. For the auth-side observable signals and recommended integration architecture, see [Out-of-Band Revocation](/developers/discord-social-sdk/development-guides/account-linking-with-discord#out-of-band-revocation) in the Account Linking guide.
 
 ### Discord Server Bans
 
