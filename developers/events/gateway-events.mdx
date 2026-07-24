@@ -263,8 +263,11 @@ Requests ephemeral channel data for channels in a guild. The server will send a 
 
 ```json
 {
-  "guild_id": "613425648685547541",
-  "fields": ["status", "voice_start_time"]
+  "op": 43,
+  "d": {
+    "guild_id": "613425648685547541",
+    "fields": ["status", "voice_start_time"]
+  }
 }
 ```
 
@@ -702,13 +705,13 @@ Sent when an entitlement is created. The inner payload is an [entitlement](/deve
 Note: The `ENTITLEMENT_UPDATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](/developers/change-log#premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
 </Warning>
 
-Sent when an entitlement is updated. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object. 
+Sent when an entitlement is updated. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object.
 
 For subscription entitlements, this event is triggered only when a user's subscription ends, providing an `ends_at` timestamp that indicates the end of the entitlement.
 
 #### Entitlement Delete
 
-Sent when an entitlement is deleted. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object. 
+Sent when an entitlement is deleted. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object.
 
 Entitlement deletions are infrequent, and occur when:
 
