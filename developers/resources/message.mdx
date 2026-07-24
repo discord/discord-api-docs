@@ -1212,10 +1212,6 @@ All parameters to this endpoint are optional and nullable.
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](/developers/events/gateway-events#message-delete) Gateway event.
 
-<Info>
-This endpoint supports the `X-Audit-Log-Reason` header.
-</Info>
-
 ## Bulk Delete Messages
 <Route method="POST">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/messages/bulk-delete</Route>
 
