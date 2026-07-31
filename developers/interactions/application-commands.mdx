@@ -81,10 +81,13 @@ Required `options` must be listed before optional options
 | min_length?                | integer                                                                                                                                                            | The minimum allowed length (minimum of `0`, maximum of `6000`)                                                                            | `STRING`                                      |
 | max_length?                | integer                                                                                                                                                            | The maximum allowed length (minimum of `1`, maximum of `6000`)                                                                            | `STRING`                                      |
 | autocomplete? \*\*         | boolean                                                                                                                                                            | If autocomplete interactions are enabled for this option                                                                                  | `STRING`, `INTEGER`, `NUMBER`                 |
+| file_types?\*\*            | array of strings                                                                                                                                                   | File types to filter for; can be `image`, `video`, `audio` or any dot-prefixed extension such as `.pdf`; max 10                           | `ATTACHMENT`                                  |
 
 \* `name` must be unique within an array of [application command options](/developers/interactions/application-commands#application-command-object-application-command-option-structure).
 
 \*\* `autocomplete` may not be set to true if `choices` are present.
+
+\*\*\* `file_types` will only check the extension on the filename. Check [File Groups](/developers/reference#file-groups) for more details.
 
 <Info>
 Options using `autocomplete` are not confined to only use choices given by the application.

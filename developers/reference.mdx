@@ -527,6 +527,24 @@ For example:
 }
 ```
 
+### File Groups
+
+You can filter for file types in [File Upload](/developers/components/reference#file-upload-file-upload-structure) components and [Slash Command Options](/developers/interactions/application-commands#application-command-object-application-command-option-structure).
+
+This feature only checks the extension on the filename - it does not actually inspect the contents of the file. You still need to make sure that the file is valid.
+
+We provide pre-set groups for this:
+
+| Group Name | Extensions                                                  |
+|------------|-------------------------------------------------------------|
+| `image`    | `.png`, `.gif`, `.jpg`, `.jpeg`, `.jfif`, `.webp` & `.avif` |
+| `video`    | `.mp4`, `.mov`, `.qt` & `.webm`                             |
+| `audio`    | `.mp3`, `.m4a`, `.wav`, `.ogg`, `.opus` & `.flac`           |
+
+<Warning>
+  These are subject to change.
+</Warning>
+
 ## Locales
 
 | Locale | Language Name         | Native Name         |
