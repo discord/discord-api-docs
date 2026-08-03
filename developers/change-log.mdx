@@ -6,6 +6,54 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="July 28, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.10.18247",
+    description: "New minimum SDK versions for Xbox and PlayStation 5, Rich Presence over RPC on Android, a repackaged macOS framework, WebRTC M130, and a batch of stability fixes."
+  }}>
+
+    ## Discord Social SDK Release 1.10.18247
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Xbox
+    - Dropped support for Xbox GDK versions 230600-240605; the new minimum supported GDK version is 241000
+    - Console integrations can now read a user's presence on Xbox, including a custom status and activity from any application (not just the current game); PlayStation-specific activity is filtered out
+    - Fixed a crash in the WinRT HTTP client on Xbox when setting restricted headers
+
+    ### Playstation 5
+    - Dropped support for PS5 SDK versions 7.000-9.000; the new minimum supported version is 10.000
+
+    ### Android
+    - Added support for Rich Presence via an unauthenticated RPC transport, matching desktop's existing capability. Games can now publish presence to the signed-in Discord Android client without an OAuth flow.
+    - Fixed a crash in `AuthenticationActivity` on devices with no browser or Custom Tabs provider capable of handling OAuth
+
+    ### iOS
+    - Fixed a crash when an unsupported URL scheme was passed to the web authorization flow on iOS 26.3
+
+    ### macOS
+    - The macOS SDK is now packaged as `discord_partner_sdk.framework`, with a new signing/notarization pipeline and Krisp bundled inside. This changes how ImGui, Unity, and Unreal integrate and distribute the SDK on macOS.
+
+    ### Noise Suppression
+    - Fixed missing Unity `.meta` files for Krisp libraries, which could break Unity package import/setup
+
+    ### WebRTC
+    - Updated the SDK's base WebRTC version to M130 (up from M116)
+    - Enabled WebRTC M130 builds for PlayStation 4/5 and Xbox
+
+    ### Lobbies
+    - Added an additional display name field (e.g. a character name) to the lobby message record, readable via `MessageHandle::AdditionalName()`. This must be set server-side by your game backend when adding or updating a lobby member; it cannot be set from the client SDK.
+
+    ### Stability
+    - Fixed a race condition that could crash the SDK when an RPC connection was reused without resetting prior pending state
+    - Fixed the SDK getting stuck in an infinite reconnect loop after the gateway sent a terminal close code
+    - Fixed a bug where a timed-out HTTP response could be incorrectly treated as successful, leading to a crash
+    - Fixed a missing code path that caused every RTC client disconnect to incorrectly trigger voice-backend-version handling
+    - Fixed a crash from iterator invalidation in lobby dispatch callbacks, observed on PlayStation 5
+    - Routed the gateway bootstrap request through the shared API client for more reliable connectivity
+    - Fixed `GetCurrentInputDevice()`/`GetCurrentOutputDevice()` on Linux, which previously always reported the first enumerated device regardless of actual selection
+
+</Update>
+
 <Update label="July 22, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Provisional Accounts Documentation Restructure",
     description: "The Using Provisional Accounts guide has been split into a dedicated Provisional Accounts section, with a focused page for each authentication, merge, and unmerge flow."
