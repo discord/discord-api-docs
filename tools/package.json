@@ -35,7 +35,6 @@
 		"@mdx-js/mdx": "^3.0.1",
 		"@mdx-js/react": "^3.0.1",
 		"@types/node": "^24.0.8",
-		"@types/react": "^18.3.29",
 		"eslint": "^10.7.0",
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-prettier": "^5.1.3",
