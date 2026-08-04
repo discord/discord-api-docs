@@ -529,11 +529,16 @@ For example:
 
 ### File Groups
 
-You can filter for up to 10 file types in [File Upload](/developers/components/reference#file-upload-file-upload-structure) components and [Slash Command Options](/developers/interactions/application-commands#application-command-object-application-command-option-structure). Each value must be either one of the group names below, or a dot-prefixed file extension (e.g. `.pdf`).
+You can filter for up to 10 file types in [File Upload](/developers/components/reference#file-upload-file-upload-structure) components and [Slash Command Options](/developers/interactions/application-commands#application-command-object-application-command-option-structure). Each value must be either one of the group names below, or a dot-prefixed file extension (e.g. `.pdf`).  Extensions are case-insensitive and are normalized to
+lowercase, so `.PDF` and `.pdf` are equivalent.
 
-<Note>
-  If you specify dot-prefixed extensions instead, keep in mind that mobile clients may require additional variants for compatibility: include .jpg for image uploads, and both .mp4 and .mov for video uploads.
-</Note>
+<Warning>
+  Do not hardcode the extension lists above. They match the file types Discord natively supports and are subject to change.
+</Warning>
+
+We recommend using the file groups rather than listing extensions individually. If you do list extensions
+individually, include `.jpg` for image uploads and both `.mp4` and `.mov` for video uploads, as some mobile clients
+rely on those extensions.
 
 <Warning>
   This feature only checks the file extension against the filename and does not inspect the file contents. You are still responsible for validating the actual contents of the file.
@@ -541,11 +546,11 @@ You can filter for up to 10 file types in [File Upload](/developers/components/r
 
 The following preset groups are available:
 
-| Group Name | Extensions                                                  |
-|------------|-------------------------------------------------------------|
-| `image`    | `.png`, `.gif`, `.jpg`, `.jpeg`, `.jfif`, `.webp` & `.avif` |
-| `video`    | `.mp4`, `.mov`, `.qt` & `.webm`                             |
-| `audio`    | `.mp3`, `.m4a`, `.wav`, `.ogg`, `.opus` & `.flac`           |
+| Group Name | Extensions                                                 |
+|------------|------------------------------------------------------------|
+| `image`    | `.png`, `.gif`, `.jpg`, `.jpeg`, `.jfif`, `.webp`, `.avif` |
+| `video`    | `.mp4`, `.mov`, `.qt`, `.webm`                             |
+| `audio`    | `.mp3`, `.m4a`, `.wav`, `.ogg`, `.opus`, `.flac`           |
 
 ## Locales
 
