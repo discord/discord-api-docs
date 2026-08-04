@@ -2102,14 +2102,14 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 <ManualAnchor id="file-upload-file-upload-structure" />
 ###### File Upload Structure
 
-| Field           | Type             | Description                                                                                                     |
-|-----------------|------------------|-----------------------------------------------------------------------------------------------------------------|
-| type            | integer          | `19` for file upload                                                                                            |
-| id?             | integer          | Optional identifier for component                                                                               |
-| custom_id       | string           | ID for the file upload; 1-100 characters                                                                        |
-| min_values?\*   | integer          | Minimum number of items that must be uploaded (defaults to 1); min 0 (see note), max 10                         |
-| max_values?     | integer          | Maximum number of items that can be uploaded (defaults to 1); max 10                                            |
-| required?       | boolean          | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`)          |
+| Field           | Type             | Description                                                                                                      |
+|-----------------|------------------|------------------------------------------------------------------------------------------------------------------|
+| type            | integer          | `19` for file upload                                                                                             |
+| id?             | integer          | Optional identifier for component                                                                                |
+| custom_id       | string           | ID for the file upload; 1-100 characters                                                                         |
+| min_values?\*   | integer          | Minimum number of items that must be uploaded (defaults to 1); min 0 (see note), max 10                          |
+| max_values?     | integer          | Maximum number of items that can be uploaded (defaults to 1); max 10                                             |
+| required?       | boolean          | Whether the file upload requires files to be uploaded before submitting the modal (defaults to `true`)           |
 | file_types?\*\* | array of strings | File types to filter for; can be `image`, `video`, `audio`, or any dot-prefixed extension such as `.pdf`; max 10 |
 
 \* `min_values` must be either omitted or at least `1` if `required` is omitted or `true`.
