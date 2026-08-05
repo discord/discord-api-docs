@@ -375,7 +375,7 @@ client->SetActivityInviteCreatedCallback([&client](discordpp::ActivityInvite inv
 
 ### Lobby Join Request Example
 
-Users can also request to join each other's parties. This code example shows how that flow might look:
+Users can also request to join each other's parties. Use [`Client::SendActivityJoinRequest`] to ask to join another player's game, and [`Client::SendActivityJoinRequestReply`] to let that player accept the request. This code example shows how that flow might look:
 
 ```cpp
 // User A
@@ -524,5 +524,7 @@ import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
 [`Client::RegisterLaunchCommand`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a024d7222931fdcb7d09c2b107642ecab
 [`Client::RegisterLaunchSteamApplication`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a45b2c791c5b06f77d457dacb53dfba40
 [`Client::SendActivityInvite`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#afc14e98fc070399895739da6d53efa60
+[`Client::SendActivityJoinRequest`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a6c16b1cd68b4a3ce198575a7efb3a87b
+[`Client::SendActivityJoinRequestReply`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#adb88f1aa7976f4e9bafa8db4e533df07
 [`Client::SetActivityInviteCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3b4e37a222a8662506d763514774bedc
 [`Client::SetActivityJoinCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a587d1c6d0352eba397c888987aa58418
