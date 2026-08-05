@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 5, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
+    title: "Channel application_id is Now Nullable",
+    description: "The application_id field on the channel object is now documented as nullable, and will be serialized as null in some cases."
+  }}>
+
+    ## Channel `application_id` is Now Nullable
+
+    The `application_id` field on the [channel](/developers/resources/channel#channel-object) object is now nullable. For future guild channels, this field can be serialized as `null`. For group DMs, there are no plans to searialize this field as `null`.
+
+    Because the field was not previously documented as nullable, this is a slightly breaking change. If your app or library assumes `application_id` is always a snowflake when present, you'll need to update it to handle `null`.
+</Update>
+
 <Update label="July 28, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.10.18247",
     description: "New minimum SDK versions for Xbox and PlayStation 5, Rich Presence over RPC on Android, a repackaged macOS framework, WebRTC M130, and a batch of stability fixes."
@@ -174,11 +186,11 @@ import {Route} from '/snippets/route.jsx'
 
     #### 2. Apps must now reapply annually for continued access
 
-    Apps with Privileged Intent access granted from a prior review will need to reapply to confirm their continued access once per year in the Developer Portal. 
+    Apps with Privileged Intent access granted from a prior review will need to reapply to confirm their continued access once per year in the Developer Portal.
 
     #### 3. Apps can keep growing during Privileged Intent review
 
-    Under the new user-based threshold, apps can continue joining servers and reaching new users while their submission is under review. 
+    Under the new user-based threshold, apps can continue joining servers and reaching new users while their submission is under review.
 
     #### 4. App Verification and Privileged Intent review are now separate
 
