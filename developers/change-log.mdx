@@ -13,7 +13,7 @@ import {Route} from '/snippets/route.jsx'
 
     ## Channel `application_id` is Now Nullable
 
-    The `application_id` field on the [channel](/developers/resources/channel#channel-object) object is now nullable. For future guild channels, this field can be serialized as `null`. For group DMs, there are no plans to searialize this field as `null`.
+    The `application_id` field on the [channel](/developers/resources/channel#channel-object) object is now nullable. For future guild channels, this field can be serialized as `null`. For group DMs, there are no plans to serialize this field as `null`.
 
     Because the field was not previously documented as nullable, this is a slightly breaking change. If your app or library assumes `application_id` is always a snowflake when present, you'll need to update it to handle `null`.
 </Update>
