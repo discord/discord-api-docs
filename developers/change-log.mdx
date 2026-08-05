@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 5, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
+    title: "Channel application_id is Now Nullable",
+    description: "The application_id field on the channel object is now documented as nullable, and will be serialized as null in some cases."
+  }}>
+
+    ## Channel `application_id` is Now Nullable
+
+    The `application_id` field on the [channel](/developers/resources/channel#channel-object) object is now nullable. For future guild channels, this field can be serialized as `null`. For group DMs, there are no plans to searialize this field as `null`.
+
+    Because the field was not previously documented as nullable, this is a slightly breaking change. If your app or library assumes `application_id` is always a snowflake when present, you'll need to update it to handle `null`.
+</Update>
+
 <Update label="July 22, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Provisional Accounts Documentation Restructure",
     description: "The Using Provisional Accounts guide has been split into a dedicated Provisional Accounts section, with a focused page for each authentication, merge, and unmerge flow."
