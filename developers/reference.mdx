@@ -527,6 +527,31 @@ For example:
 }
 ```
 
+### File Type Filtering
+
+You can filter for up to 10 file types in [File Upload](/developers/components/reference#file-upload-file-upload-structure) components and [Slash Command Options](/developers/interactions/application-commands#application-command-object-application-command-option-structure). Each value must be either one of the group names below, or a dot-prefixed file extension (e.g. `.pdf`). Extensions are case-insensitive and are normalized to
+lowercase, so `.PDF` and `.pdf` are equivalent.
+
+We recommend using the file groups rather than listing extensions individually. If you do list extensions
+individually, include `.jpg` for image uploads and both `.mp4` and `.mov` for video uploads, as some mobile clients
+rely on those extensions.
+
+<Warning>
+  This feature only checks the file extension against the filename and does not inspect the file contents. You are still responsible for validating the actual contents of the file.
+</Warning>
+
+The following preset groups are available:
+
+| Group Name | Extensions                                                 |
+|------------|------------------------------------------------------------|
+| `image`    | `.png`, `.gif`, `.jpg`, `.jpeg`, `.jfif`, `.webp`, `.avif` |
+| `video`    | `.mp4`, `.mov`, `.qt`, `.webm`                             |
+| `audio`    | `.mp3`, `.m4a`, `.wav`, `.ogg`, `.opus`, `.flac`           |
+
+<Warning>
+  Do not hardcode the extension lists above. They match the file types Discord natively supports and are subject to change.
+</Warning>
+
 ## Locales
 
 | Locale | Language Name         | Native Name         |

@@ -6,6 +6,21 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 5, 2026" tags={["Interactions", "Components"]} rss={{
+    title: "Filter File Types in File Uploads and Attachment Options",
+    description: "File Upload components and ATTACHMENT command options now accept a file_types array that restricts which files a user can upload."
+  }}>
+  ## Filter File Types in File Uploads and Attachment Options
+
+    You can now restrict which files a user is allowed to upload in both [File Upload](/developers/components/reference#file-upload) components and
+    [`ATTACHMENT`](/developers/interactions/application-commands#application-command-object-application-command-option-type) command options.
+
+  #### Developer Resources
+  - [File Type Filtering](/developers/reference#file-type-filtering)
+  - [File Upload Component](/developers/components/reference#file-upload-file-upload-structure)
+  - [Slash Command Option Structure](/developers/interactions/application-commands#application-command-object-application-command-option-structure)
+</Update>
+
 <Update label="August 5, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
     title: "Channel application_id is Now Nullable",
     description: "The application_id field on the channel object is now documented as nullable, and will be serialized as null in some cases."
@@ -63,7 +78,6 @@ import {Route} from '/snippets/route.jsx'
     - Fixed a crash from iterator invalidation in lobby dispatch callbacks, observed on PlayStation 5
     - Routed the gateway bootstrap request through the shared API client for more reliable connectivity
     - Fixed `GetCurrentInputDevice()`/`GetCurrentOutputDevice()` on Linux, which previously always reported the first enumerated device regardless of actual selection
-
 </Update>
 
 <Update label="July 22, 2026" tags={["Discord Social SDK"]} rss={{
