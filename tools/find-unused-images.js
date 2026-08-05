@@ -5,8 +5,8 @@ import path from "path";
 
 // Configuration
 const CONFIG = {
-  imagesDir: "static/images",
-  docsDir: "docs",
+  imagesDir: "images",
+  docsDir: "developers",
   rootFiles: ["."], // Check root markdown files too
   imageExtensions: [".gif", ".png", ".jpg", ".jpeg", ".webp", ".svg"],
   markupExtensions: [".md", ".mdx", ".js", ".ts", ".tsx", ".jsx"], // Include JS/TS for potential imports

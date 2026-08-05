@@ -6,6 +6,138 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="July 28, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.10.18247",
+    description: "New minimum SDK versions for Xbox and PlayStation 5, Rich Presence over RPC on Android, a repackaged macOS framework, WebRTC M130, and a batch of stability fixes."
+  }}>
+
+    ## Discord Social SDK Release 1.10.18247
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Xbox
+    - Dropped support for Xbox GDK versions 230600-240605; the new minimum supported GDK version is 241000
+    - Console integrations can now read a user's presence on Xbox, including a custom status and activity from any application (not just the current game); PlayStation-specific activity is filtered out
+    - Fixed a crash in the WinRT HTTP client on Xbox when setting restricted headers
+
+    ### Playstation 5
+    - Dropped support for PS5 SDK versions 7.000-9.000; the new minimum supported version is 10.000
+
+    ### Android
+    - Added support for Rich Presence via an unauthenticated RPC transport, matching desktop's existing capability. Games can now publish presence to the signed-in Discord Android client without an OAuth flow.
+    - Fixed a crash in `AuthenticationActivity` on devices with no browser or Custom Tabs provider capable of handling OAuth
+
+    ### iOS
+    - Fixed a crash when an unsupported URL scheme was passed to the web authorization flow on iOS 26.3
+
+    ### macOS
+    - The macOS SDK is now packaged as `discord_partner_sdk.framework`, with a new signing/notarization pipeline and Krisp bundled inside. This changes how ImGui, Unity, and Unreal integrate and distribute the SDK on macOS.
+
+    ### Noise Suppression
+    - Fixed missing Unity `.meta` files for Krisp libraries, which could break Unity package import/setup
+
+    ### WebRTC
+    - Updated the SDK's base WebRTC version to M130 (up from M116)
+    - Enabled WebRTC M130 builds for PlayStation 4/5 and Xbox
+
+    ### Lobbies
+    - Added an additional display name field (e.g. a character name) to the lobby message record, readable via `MessageHandle::AdditionalName()`. This must be set server-side by your game backend when adding or updating a lobby member; it cannot be set from the client SDK.
+
+    ### Stability
+    - Fixed a race condition that could crash the SDK when an RPC connection was reused without resetting prior pending state
+    - Fixed the SDK getting stuck in an infinite reconnect loop after the gateway sent a terminal close code
+    - Fixed a bug where a timed-out HTTP response could be incorrectly treated as successful, leading to a crash
+    - Fixed a missing code path that caused every RTC client disconnect to incorrectly trigger voice-backend-version handling
+    - Fixed a crash from iterator invalidation in lobby dispatch callbacks, observed on PlayStation 5
+    - Routed the gateway bootstrap request through the shared API client for more reliable connectivity
+    - Fixed `GetCurrentInputDevice()`/`GetCurrentOutputDevice()` on Linux, which previously always reported the first enumerated device regardless of actual selection
+
+</Update>
+
+<Update label="July 22, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Provisional Accounts Documentation Restructure",
+    description: "The Using Provisional Accounts guide has been split into a dedicated Provisional Accounts section, with a focused page for each authentication, merge, and unmerge flow."
+}}>
+
+    ## Provisional Accounts Documentation Restructure
+
+    The single **Using Provisional Accounts** guide has been reorganized into a dedicated [Provisional Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview) section, with a focused page for each part of the flow:
+
+    - [Overview](/developers/discord-social-sdk/development-guides/provisional-accounts/overview) — core concepts, the account lifecycle, and how to choose an authentication method.
+    - Creating accounts: [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint), [External Credentials Exchange](/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange), and [Public Client Integration](/developers/discord-social-sdk/development-guides/provisional-accounts/public-client).
+    - Reference and lifecycle: [Configuring Identity Providers](/developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers), [Managing Provisional Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts), [Merging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts), and [Unmerging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts).
+
+    The [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint) and [Merging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts) guides now walk through the full client-to-server integration, with sequence diagrams for each flow.
+</Update>
+
+<Update label="July 16, 2026" tags={["Interactions"]} rss={{
+    title: "Resolved Channel app_permissions in Interactions",
+    description: "Resolved channels in interactions now include the app_permissions field."
+  }}>
+
+  ## Resolved Channel `app_permissions` in Interactions
+
+  Resolved channel objects in interaction payloads now include an `app_permissions` field containing the bot's permissions in that channel.
+
+  This field is only present when the application's bot user is in the guild.
+</Update>
+
+<Update label="July 7, 2026" tags={["HTTP API", "Discord Social SDK"]} rss={{
+    title: "Deprecation: Riot Games Connections in Get Current User Connections",
+    description: "Riot Games and League of Legends connections are no longer returned by the /users/@me/connections endpoint as part of their migration to the Discord Social SDK."
+  }}>
+
+  ## Deprecation: Riot Games Connections in `Get Current User Connections`
+
+  The new Riot Games connection is powered by the [Discord Social SDK](/developers/discord-social-sdk/overview) and application identities. As a result, newly created Riot Games connections are no longer returned by the [`Get Current User Connections`](/developers/resources/user#get-current-user-connections) endpoint (`GET /users/@me/connections`).
+
+  Starting July 10, 2026, legacy Riot Games and League of Legends connections will also no longer be returned by this endpoint. There is no replacement for this functionality.
+</Update>
+
+<Update label="June 30, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.9.17379",
+    description: "Fixed a PlayStation 5 crash caused by re-entrant HTTP requests during connection teardown."
+  }}>
+
+    ## Discord Social SDK Release 1.9.17379
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Stability
+    - Fixed a crash caused by re-entrant HTTP requests during connection teardown on PlayStation 5.
+
+</Update>
+
+<Update label="June 25, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.9.17228",
+    description: "Fixed an AUTHORIZE_REQUEST re-subscription issue and bundled Krisp noise suppression into the Unity and Unreal plugin packages."
+  }}>
+
+    ## Discord Social SDK Release 1.9.17228
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Authentication
+    - Fixed an issue where `AUTHORIZE_REQUEST` events would not re-subscribe after Discord disconnected and reconnected while the SDK was already running.
+
+    ### Noise Suppression
+    - Krisp noise suppression binaries and model files are now included in Unity and Unreal plugin packages for Windows, macOS, Android, and iOS.
+
+</Update>
+
+<Update label="June 24, 2026" tags={["HTTP API"]} rss={{
+    title: "Attachment Editing and is_spoiler Param",
+    description: "Some attachment metadata can now be edited, and the is_spoiler parameter should be used for setting spoiler status."
+  }}>
+
+  ## Attachment Editing and `is_spoiler` Param
+
+  Apps can now edit the `description` and `is_spoiler` parameters on existing attachments when editing messages.
+  We have also separated the [attachment request](/developers/resources/message#attachment-object-attachment-request-structure) object in the docs to make it more clear which params you can set for attachments and which fields are provided by the API.
+
+  Attachments can be marked as a spoiler by setting `is_spoiler: true` in the attachment request object, and apps can read whether an existing attachment is spoilered by checking for the `IS_SPOILER` [attachment flag](/developers/resources/message#attachment-object-attachment-flags) on the attachment object. The legacy `SPOILER_` filename prefix will continue to mark attachments as a spoiler, but not all spoilered attachments have the prefix.
+</Update>
+
 <Update label="June 16, 2026" tags={["HTTP API"]} rss={{
     title: "Documentation Fix: Subscription Status Values",
     description: "Corrected the integer values for the INACTIVE and ENDING subscription statuses, which were swapped in the Subscription reference and the Implementing App Subscriptions guide."
@@ -136,7 +268,7 @@ import {Route} from '/snippets/route.jsx'
 
   We've expanded documentation across the Social SDK guides to cover what happens when the Discord-to-game account link is severed — whether by a Discord account ban, an explicit unmerge, or an OAuth2 token revocation. Highlights:
 
-  - **[Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/using-provisional-accounts#ban-driven-unmerge)** documents the full lifecycle when a user's Discord account is banned: tokens are deleted immediately, a new cross-platform-restricted provisional account is created carrying the original external identity, and merge attempts return error [`530017`](/developers/discord-social-sdk/development-guides/using-provisional-accounts#merge-request-failures) until the ban lifts (or, for permanent bans, indefinitely).
+  - **[Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#ban-driven-unmerge)** documents the full lifecycle when a user's Discord account is banned: tokens are deleted immediately, a new cross-platform-restricted provisional account is created carrying the original external identity, and merge attempts return error [`530017`](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts#merge-request-failures) until the ban lifts (or, for permanent bans, indefinitely).
   - **[Out-of-Band Revocation](/developers/discord-social-sdk/development-guides/account-linking-with-discord#out-of-band-revocation)** describes the auth-side observable signals (`APPLICATION_DEAUTHORIZED` webhook + `invalid_grant` on refresh) when a user removes your app from Discord or has their account banned.
   - **[When Refresh Fails](/developers/discord-social-sdk/development-guides/account-linking-with-discord#when-refresh-fails)** documents the `/oauth2/token` response when the underlying token has been deleted, and recommends treating `invalid_grant` as equivalent to receiving the webhook.
 
@@ -238,11 +370,11 @@ import {Route} from '/snippets/route.jsx'
 
   ## Security Updates for Provisional Account OIDC Integrations
 
-  We've made security improvements to how Discord validates OIDC issuer URLs and fetches OIDC configuration for [provisional accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts) — including stricter hostname checks and blocking HTTP redirects during configuration and JWKS discovery.
+  We've made security improvements to how Discord validates OIDC issuer URLs and fetches OIDC configuration for [provisional accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview) — including stricter hostname checks and blocking HTTP redirects during configuration and JWKS discovery.
 
   **Existing provisional account OIDC integrations are not affected** and will continue to work without any changes on your part.
 
-  However, if you need to edit your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers), your updated configuration will be validated against these requirements. We've published new documentation covering the full set of [OIDC Integration Requirements](/developers/discord-social-sdk/development-guides/using-provisional-accounts#oidc-integration-requirements) — including issuer URL rules, discovery document requirements, supported signing algorithms, and ID token claims. Before making any changes to a production integration, review those requirements and verify your configuration works in a test application first.
+  However, if you need to edit your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers), your updated configuration will be validated against these requirements. We've published new documentation covering the full set of [OIDC Integration Requirements](/developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers#oidc-integration-requirements) — including issuer URL rules, discovery document requirements, supported signing algorithms, and ID token claims. Before making any changes to a production integration, review those requirements and verify your configuration works in a test application first.
 
 </Update>
 
@@ -281,14 +413,14 @@ import {Route} from '/snippets/route.jsx'
 
   ## Deprecation: OAuth2 Refresh Token Grant for OIDC Provisional Accounts
 
-    If you are using [OIDC server-side authentication](/developers/discord-social-sdk/development-guides/using-provisional-accounts#server-authentication-with-external-credentials-exchange)
+    If you are using [OIDC server-side authentication](/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange#server-authentication-with-external-credentials-exchange)
     for provisional accounts, a `refresh_token` is returned — but using it via the OAuth2 `refresh_token` grant is now
     deprecated.
 
     This brings OIDC in line with all other provisional account authentication methods: when the token
     expires, re-authenticate using a fresh provider token and pass the new access token to [`Client::UpdateToken`].
 
-    See the [Refreshing Provisional Account Tokens](/developers/discord-social-sdk/development-guides/using-provisional-accounts#refreshing-provisional-account-tokens)
+    See the [Refreshing Access Tokens](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts#refreshing-access-tokens)
     section for details.
 
     [`Client::UpdateToken`]:

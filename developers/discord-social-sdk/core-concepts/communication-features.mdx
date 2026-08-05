@@ -71,9 +71,9 @@ Prior to successful approval to increase rate limits, communication features hav
 * **Sending Messages to Lobby operations:** 100 requests every 2 hours
 * **Sending Direct Message operations:** 100 requests every 2 hours.
 
-<Info>
+<Tip>
 These are per-application rate limits, not per-user.
-</Info>
+</Tip>
 
 These limitations are designed to provide sufficient capacity for development, testing, and small-scale demos while ensuring system stability. Once you gain full access through the rate limit increase application process, these restrictions are increased, allowing your game to scale to production levels.
 
@@ -92,46 +92,40 @@ Once you have met those requirements, you can apply for increased rate limits by
 3. Under the **Discord Social SDK** heading in the sidebar, click the [**Comms Access**](https://discord.com/developers/applications/select/social-sdk/comms-access) button
 4. Fill out the application form with the required information and supporting materials
 
-<Info>
+<Tip>
 Video capture provided to the application should be in url format, hosted on a file or video-sharing service of your choice as an unlisted video
-</Info>
+</Tip>
 
 <a id="application-requirements-for-rate-limit-removal"/>
 ## Application Requirements for Increased Rate Limits
 
-This section outlines the specific requirements you must meet before submitting your game for approval to unlock
-Discord Social SDK text and/or voice communications for full release. You'll find:
+This section outlines the specific requirements you must meet before submitting your game for approval to unlock Discord Social SDK text and/or voice communications for full release. You'll find:
 
-1. **Minimum required feature set:** Your game must have integrated core Discord Social SDK features, such as Discord Account Linking, Rich Presence with Discord Joins, and Full Access to Discord Friends.
-2. **Feature Functionality:** The Discord Social SDK features you choose to integrate in your game must have end-to-end functionality, meaning that all your user interactions can be completed, work as intended across both game and Discord clients, and resolve negative options (such as user denial of options and failure states) correctly.
+1. **Minimum required feature set:** Your game must have integrated core Discord Social SDK features: Discord Account Linking, Rich Presence, Game Invites, and Unified Friends List (including full access to Discord friends.)
+2. **Feature Functionality:** The Discord Social SDK features you choose to integrate in your game must have end-to-end functionality, meaning that all your user interactions can be completed, work as intended across both game and Discord clients, and resolve edge cases (such as user denial of options and failure states) correctly.
 3. **Feature Access and Conveyance:** Discord Social SDK integrations must include the option for users to link their Discord account, and make it accessible and easily understandable for players to activate.
-4. **Supporting Materials:** You’ll be required to provide specific documentation of your game for review, such as a capture of integration and development timeline.
-5. **Age-restricted user protection:** You’ll need to confirm that you have appropriate measures in place for players’ access to the SDK features in your game, depending on their age.
+4. **Supporting Materials:** You'll be required to provide specific documentation of your game for review, such as a capture of integration and development timeline.
+5. **Age-restricted user protection:** You'll need to confirm that you have appropriate measures in place for players' access to the SDK features in your game, depending on their age.
 
 
-<Info>
-These requirements detail the **minimum bar** to be eligible for Social SDK communications usage at scale.
-Check out our [design guidelines](/developers/discord-social-sdk/design-guidelines) for what **“great”** looks like. Great
-integrations can drive higher player engagement and retention by creating seamless social experiences that keep players
-connected and coming back to your game. And of course, remember to make sure you are complying with our
-[Social SDK Terms](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms).
-<br/><br/>If you believe you meet these requirements, you can
-[apply for access to full release comms features](/developers/discord-social-sdk/core-concepts/communication-features#applying-for-increased-rate-limits-for-production-releases).
-Discord may approve or deny your access after review of your application and additional terms may apply.
-</Info>
+<Tip>
+These requirements detail the **minimum bar** to be eligible for Social SDK communications usage at scale. Check out our [design guidelines](/developers/discord-social-sdk/design-guidelines) for what **“great”** looks like. Great integrations can drive higher player engagement and retention by creating seamless social experiences that keep players connected and coming back to your game. And of course, remember to make sure you are complying with our [Social SDK Terms](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms). 
+
+If you believe you meet these requirements, you can [apply for access to full release comms features](/developers/discord-social-sdk/core-concepts/communication-features#applying-for-rate-limit-removal). Discord may approve or deny your access after review of your application and additional terms may apply.
+</Tip>
 
 
 ### Minimum Required Feature Set
 
-**In order to unlock Discord text and/or voice communications for full release, integrations of the Social SDK must include the following features at a minimum**. Developers are of course welcome (and encouraged) to take advantage of any SDK features that will supercharge their games beyond these minimum requirements.
+**In order to unlock Discord text and/or voice communications for full release, integrations of the Social SDK must include all of the following features at a minimum**. Developers are of course welcome (and encouraged) to take advantage of any SDK features that will supercharge their games beyond these minimum requirements.
 
 <SonyCallout />
 
-Required features are…
+Required features include:
 
 #### Option for Discord Account Linking
 
-**Players must have the opportunity to [link their Discord account in-game](/developers/discord-social-sdk/design-guidelines/signing-in).** This ensures players can access the full Social SDK-powered experience, and connects your game to a player’s existing social network.
+**Players must have the opportunity to [link their Discord account in-game](/developers/discord-social-sdk/design-guidelines/signing-in).** This ensures players can access the full Social SDK-powered experience, and connects your game to a player's existing social network. Account linking must also be readily accessible (see: [Access and Conveyance](/developers/discord-social-sdk/core-concepts/communication-features#feature-access-and-conveyance)).
 
 #### Rich Presence and Discord Joins
 
@@ -139,17 +133,28 @@ Required features are…
 
 #### Full Access to Discord Friends
 
-**Account-linked players must have their Discord friends accessible to them in-game, with supporting UI to take actions like [messaging](/developers/discord-social-sdk/design-guidelines/direct-messages), inviting, blocking, and ignoring**. This can be accomplished as a [Unified Friends List](/developers/discord-social-sdk/design-guidelines/unified-friends-list) which shows status across platforms, or as a simple in-game Discord friends list. Games should never copy and store Discord friend information (i.e. a player unlinking their Discord account  should automatically remove Discord friend information in-game).
+**Account-linked players must have their Discord friends accessible to them in-game, with supporting UI to take actions like [messaging](/developers/discord-social-sdk/design-guidelines/direct-messages), inviting, blocking, and ignoring**. This can be accomplished as a [Unified Friends List](/developers/discord-social-sdk/design-guidelines/unified-friends-list) which shows status across platforms, or as a simple in-game Discord friends list. Games should never copy and store Discord friend information (i.e. a player unlinking their Discord account should automatically remove Discord friend information in-game).
+
+“Full access to Discord friends” means:
+
+1. Players can view all their Discord friends directly within the game immediately after account linking  
+2. Viewing Discord friends in an in-game friends list is not dependent any actions other than account linking  
+3. Discord friends are displayed alongside or integrated with in-game friends  
+4. From an in-game friends list, Discord friends can be invited, blocked, or ignored, and messaged if the game supports Direct Messages  
+5. Discord social features unlock for players at least in parity with other social features in game  
+6. Players do not need to manually search for or re-add their Discord friends using in-game friend codes or usernames
+
+The intent is that Discord account linking *immediately grants access to the player's existing, full Discord social graph* within the game.
 
 ### Feature Functionality
 
-**All integrated Social SDK features (whether required as a part of the minimum feature set or not) must have at a minimum base level functionality for their intended use.** This is a **separate requirement in addition to the minimum feature set** above. “Base level functionality” means that each integrated feature’s **end-to-end user flow is** **completable** and **resolves negative options** (user denial of options and failure states) correctly. Details for each feature are as follows:
+**All integrated Social SDK features (whether required as a part of the minimum feature set or not) must have at a minimum base level functionality for their intended use.** This is a **separate requirement in addition to the minimum feature set** above. “Base level functionality” means that each integrated feature's **end-to-end user flow is** **completable** and **resolves edge cases** (user denial of options and failure states) correctly. Details for each feature are as follows:
 
 #### Discord Account Linking
 
 **Intended Use:** Connect a player's game account with their Discord account to enable social features and cross-platform functionality.
 
-**Example Complete User Flow:**
+**Complete In-Game User Flow:**
 
 1. Player encounters sign-in prompt (at game start, friends list access, or feature interaction)
 2. Player clicks Discord sign-in button
@@ -159,73 +164,73 @@ Required features are…
 6. Success state displays in-game confirming connection
 7. Social features become available and populate with Discord data
 
-**Negative Options to Resolve:**
+**Edge Cases & Recovery Flows:**
 
 * **User declines authorization:** Return to game normally with a provisional account; maintain access to sign-in option
 * **Authorization fails/times out:** Show clear error message with retry option
 * **User wants to disconnect:** Provide deauthorization option in-game and maintain game functionality post-disconnect
 
-<Info>
-These requirements represent the minimum standards for functionality.
+<Tip>
+**These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Signing In](/developers/discord-social-sdk/design-guidelines/signing-in).
-</Info>
+</Tip>
 
 #### Rich Presence
 
 **Intended Use:** Display detailed, real-time information about a player's in-game activity on their Discord profile, allowing friends to see what they're doing and potentially join their session.
 
-**Example Complete User Flow:**
+**Complete In-Game User Flow:**
 
 1. Player launches game and performs actions (enters lobby, starts match, joins party, etc.)
 2. Game feeds Rich Presence update to Discord via the SDK (e.g. “In lobby”)
 3. Rich Presence appears on player's Discord profile with current activity details
 4. Discord friends can view the presence information
-5. If including Joins/Invites, Discord Friends can "Ask to Join" or receive direct invites
+5. Discord Friends can "Ask to Join" or receive direct invites
 6. Game feeds additional Rich Presence updates to Discord via the SDK as the player's in-game status changes (e.g. “Looking for a match”, “In a match”, etc)
 7. On game shutdown, Discord automatically handles clearing player's Rich Presence
 
-**Negative Options to Resolve:**
+**Edge Cases & Recovery Flows:**
 
 * **Network connectivity issues:** Queue presence updates and retry when connection restored
-* **Active and inactive clients**: Invites can complete even when one player doesn’t have the game client open on acceptance.
+* **Active and inactive clients**: Invites can complete even when one player doesn't have the game client open on acceptance.
 
-<Info>
-These requirements represent the minimum standards for functionality.
+<Tip>
+**These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Rich Presence](/developers/discord-social-sdk/design-guidelines/status-rich-presence).
-</Info>
+</Tip>
 
 #### Unified Friends List
 
 **Intended Use:** Combine Discord friends and in-game relationships into a single, organized friends list that shows comprehensive social connections.
 
-**Example Complete User Flow:**
+**Complete In-Game User Flow:**
 
 1. Player opens their in-game friends list
 2. Game UI quickly populates friends in an organized list showing:
-    * In-game friends (always visible)
-    * "Online Elsewhere" section with Discord friends not currently in-game
-    * Appropriate status indicators and Discord badges
+   * In-game friends (always visible)
+   * "Online Elsewhere" section with Discord friends not currently in-game
+   * Appropriate status indicators and Discord badges
 3. Player interacts with friends in list (message, invite, block, view profile)
 4. Friends list updates dynamically in real time as statuses change
 5. Player can add/remove friends through the interface
 
-**Negative Options to Resolve:**
+**Edge Cases & Recovery Flows:**
 
 * **Friend removal:** Handle removal across both game and Discord systems appropriately
 * **Loading failures:** Show loading states and error messages for failed friend data retrieval
 * **Special characters**: Non-standard characters in Discord usernames populate as expected.
-* **Unlinking Discord**: Player’s in-game friends list removes Discord friend entries when they unlink their Discord account
+* **Unlinking Discord**: Player's in-game friends list removes Discord friend entries when they unlink their Discord account
 
-<Info>
-These requirements represent the minimum standards for functionality.
+<Tip>
+**These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Unified Friends List](/developers/discord-social-sdk/design-guidelines/unified-friends-list).
-</Info>
+</Tip>
 
 #### Direct Messages through Discord
 
 **Intended Use:** Enable seamless messaging between players across game platforms through Discord, maintaining conversation continuity.
 
-**Complete User Flow:**
+**Complete In-Game User Flow:**
 
 1. Player selects friend to message from an in-game friends list or other interface
 2. Message interface opens showing chat history (if available)
@@ -234,23 +239,23 @@ To create an even better player experience, see our [Design Guidelines for Unifi
 5. Messages from Discord appear in-game with Discord visual notation
 6. Conversation continues seamlessly across platforms
 
-**Negative Options to Resolve:**
+**Edge Cases & Recovery Flows:**
 
 * **Message delivery failure:** Show retry options and clear error states
 * **Unsupported media:** Display placeholder with external link icon for rich media
 * **Blocked users:** Respect Discord blocking relationships and show appropriate messaging
 * **Network issues:** Queue messages locally and sync when connection restored
 
-<Info>
-These requirements represent the minimum standards for functionality.
+<Tip>
+**These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Direct Messages](/developers/discord-social-sdk/design-guidelines/direct-messages).
-</Info>
+</Tip>
 
 #### Linked Channels
 
 **Intended Use:** Link in-game group chats to Discord text channels, enabling persistent conversations that flow between game platforms through Discord.
 
-**Complete User Flow:**
+**Complete In-Game User Flow:**
 
 1. Player with Discord server admin & game chat admin permissions accesses channel linking option in group chat interface
 2. Channel selection interface opens showing available Discord servers/channels
@@ -260,23 +265,23 @@ To create an even better player experience, see our [Design Guidelines for Direc
 6. Messages flow bidirectionally between game and Discord
 7. Persistent entrypoint shows linked channel info and management options
 
-**Negative Options to Resolve:**
+**Edge Cases & Recovery Flows:**
 
 * **Insufficient permissions:** Show clear error about channel management requirements
 * **No available channels:** Provide guidance on creating or accessing appropriate channels
 * **Link establishment failure:** Show retry options and clear error messaging
 * **User wants to unlink:** Provide confirmation dialog and clean removal process
 
-<Info>
-These requirements represent the minimum standards for functionality.
+<Tip>
+**These requirements represent the minimum standards for functionality.**
 To create an even better player experience, see our [Design Guidelines for Linked Channels](/developers/discord-social-sdk/design-guidelines/linked-channels).
-</Info>
+</Tip>
 
 #### Voice Communications
 
 **Intended Use:** Provide high-quality voice chat integration that works seamlessly between game platforms through Discord.
 
-**Complete User Flow:**
+**Complete In-Game User Flow:**
 
 1. Player joins voice-enabled game session/party
 2. Voice interface becomes available with Discord-powered audio
@@ -284,7 +289,7 @@ To create an even better player experience, see our [Design Guidelines for Linke
 4. Voice streams work for individual users with clear audio quality
 5. Player can leave voice
 
-**Negative Options to Resolve:**
+**Edge Cases & Recovery Flows:**
 
 * **Voice server unavailable:** Provide clear error messaging and retry mechanisms
 * **User leaves voice:** Clean up voice states and update interfaces appropriately
@@ -293,24 +298,52 @@ To create an even better player experience, see our [Design Guidelines for Linke
 
 #### Discord Account Linking
 
-**The option for players to link their Discord account must have top-level surfacing in-game.** Social SDK integrations must not only include account linking, but also make it accessible and easily understandable for players to activate and deactivate. That means…
+**The option for players to link their Discord account must have top-level surfacing in-game.** Social SDK integrations must not only include account linking, but also make it accessible and easily understandable for players to activate and deactivate. That means:
 
 **Access Requirements:**
 
-* Linking a Discord account is surfaced in parity with other platform-linking options.
-* The location for account linking is located in a **persistent and accessible** area in-game (e.g. Game Settings, Accounts menus).
-* The entry point for account linking is visually persistent within its associated menu location (i.e. it can’t be a one time pop up that players can’t access again).
-* The entry point for account linking is discoverable by players through normal expected play (i.e. not buried in a sub-menu or requiring right-click access).
-* The option to unlink accounts is also surfaced in-game in a persistent and easily accessible manner.
+* The account linking can be started **within two clicks or button presses of social features becoming available to players in game**.  
+
+Example flow:  
+  1. Player launches the game executable, and the game loads to its main menu.
+  2. Player opens in-game Friends menu (first click)
+  3. Player selects Find Friends on Discord (second click), which starts the OAuth process to connect their Discord account
+  
+Example flow:
+  1. Player launches the game executable for the first time, and the game loads to its main menu.
+  2. Player selects New Game (first click)
+  3. Player is presented with a modal listing the benefits of linking their Discord account with options to “Sign in with Discord” or “Not Now”
+  4. Player selects Sign in with Discord (second click), which starts the OAuth process to connect their Discord account.
+
+Example flow:
+  1. Player launches the game executable, and the game loads to its main menu.
+  2. Player sees they have a new message in-game.
+  3. Player selects the mailbox to check their in-game messages (first click).
+  4. Player is presented with their first game message listing the benefits of linking their Discord account with option to “Sign in with Discord”.
+  5. Player selects Sign in with Discord (second click), which starts the OAuth process to connect their Discord account.
+
+Example flow:
+  1. Player launches the game executable, and the game's first time user experience (FTUE) tutorial begins.
+  2. Player plays through tutorial gameplay.
+  3. Player completing tutorial gameplay, player sees the in-game chat unlock for them and selects the chat (first click).
+  4. Player is presented with a modal listing the benefits of linking their Discord account with options to “Sign in with Discord” or “Not Now”.
+  5. Player selects Sign in with Discord (second click), which starts the OAuth process to connect their Discord account.  
+
+* The entry point for account linking is discoverable by players through normal expected play (i.e. not buried in sub-menus or requiring unintuitive right-click access).  
+* If the game has a social tab or friends list, account linking can be started there.  
+* Linking a Discord account is surfaced in parity with other platform-linking options.  
+* The location for account linking is located in a **persistent and accessible** area in-game (e.g. Game Settings, Accounts menus).  
+* The entry point for account linking is visually persistent within its associated menu location (i.e. it can't be a one time pop up that players can't access again).   
+* The option to unlink accounts is also surfaced in-game in a persistent and easily accessible manner.  
 * Users without linked accounts must have an associated token path for handling social features (see: [Provisional Accounts](/developers/discord-social-sdk/design-guidelines/provisional-accounts)).
 
 **Conveyance Requirements:**
 
 * Developers must provide contextual education about Discord account-linking benefits before users encounter the authorization flow.
 * Acceptable contextual education looks like:
-* **Modal or informational screen** that explains specific benefits the player will receive (e.g., "Chat with friends here and on Discord," "See what your friends are playing," "Join friends' games directly")
-* **Contextual tooltips or hints** near social features that explain how they improve with Discord linking
-* **In-game messaging** that appears when players interact with limited social features, explaining how linking would enhance the experience
+  * **Modal or informational screen** that explains specific benefits the player will receive (e.g., "Chat with friends here and on Discord," "See what your friends are playing," "Join friends' games directly")
+  * **Contextual tooltips or hints** near social features that explain how they improve with Discord linking
+  * **In-game messaging** that appears when players interact with limited social features, explaining how linking would enhance the experience
 
 <Warning>
 Discord Account Linking entry points are prohibited on Sony platforms.
@@ -318,7 +351,7 @@ Discord Account Linking entry points are prohibited on Sony platforms.
 
 #### Direct Messages through Discord
 
-If you’ve chosen to integrate Direct Messages through Discord in your game, **Direct Messages must be identifiable as coming from Discord,** and **players must know when their messages are showing up in Discord.**
+If you've chosen to integrate Direct Messages through Discord in your game, **Direct Messages must be identifiable as coming from Discord,** and **players must know when their messages are showing up in Discord.**
 
 **Conveyance Requirements:**
 
@@ -328,9 +361,7 @@ If you’ve chosen to integrate Direct Messages through Discord in your game, **
 
 ### Supporting Materials
 
-To **unlock Discord text and/or voice communications for full release,** Social SDK integrations must have accompanying
-supporting materials in your application. You may submit your application and supporting materials under your application
-in the Developer Portal.
+To **unlock Discord text and/or voice communications for full release,** Social SDK integrations must have accompanying supporting materials in your application. You may submit your application and supporting materials under your application in the Developer Portal.
 
 <Warning>
 **For integrations available on multiple platforms including Sony platforms, submit materials that reflect your non-Sony platform user experience.**
@@ -403,9 +434,10 @@ Learn about integration steps, check platform support, and explore implementatio
 
 ## Change Log
 
-| Date          | Changes         |
-|---------------|-----------------|
-| July 21, 2025 | initial release |
+| Date          | Changes                    |
+|---------------|----------------------------|
+| July 7, 2026  | clarify comms requirements |
+| July 21, 2025 | initial release            |
 
 
 {/* Autogenerated Reference Links */}

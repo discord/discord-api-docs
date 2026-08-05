@@ -21,4 +21,4 @@ async function renameFilesInDirectory(directory) {
   }
 }
 
-await renameFilesInDirectory("docs");
+await renameFilesInDirectory("developers");

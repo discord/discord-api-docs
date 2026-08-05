@@ -197,7 +197,7 @@ Spotify
 Stahp
 steamId
 Steamworks
-Struture
+Structure
 Subcommand
 subcommand
 Subcommands

@@ -97,6 +97,10 @@ In this section, we'll add callbacks for logging and status of the SDK and OAuth
 3. Exchange it for an access token
 4. Connect to Discord
 
+<Note>
+**Building for mobile?** On iOS and Android you only need to configure your Discord Application ID in Project Settings. Set that up in the [Account Linking on Mobile](/developers/discord-social-sdk/development-guides/account-linking-on-mobile) guide, then continue here. The rest of this step is the same for mobile.
+</Note>
+
 <Info>
 **Choosing your OAuth2 scopes:** This guide uses `UDiscordClient::GetDefaultPresenceScopes()`, which requests the `openid` and `sdk.social_layer_presence` scopes. These enable core features like account linking, friends list, and rich presence.
 

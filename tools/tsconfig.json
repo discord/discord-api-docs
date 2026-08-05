@@ -6,7 +6,9 @@
 		"esModuleInterop": true,
 		"rootDir": "./",
 		"module": "NodeNext",
-		"outDir": "./dist"
+		"outDir": "./dist",
+		"skipLibCheck": true,
+		"types": ["node"]
 	},
 	"include": ["**/*.ts"],
 }
