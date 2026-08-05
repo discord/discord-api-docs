@@ -463,6 +463,7 @@
   "discordpp::MessageHandle::operator=": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#a62b6440741052c8593db05c66b9fb9c7",
   "discordpp::MessageHandle::operator bool": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#a118a3c041afcc84879451374c29f7cef",
   "discordpp::MessageHandle::AdditionalContent": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#af4497491a95fda65402b6acf7a8b42e5",
+  "discordpp::MessageHandle::AdditionalName": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#aed26c7506b01e735710530dac5eddb6e",
   "discordpp::MessageHandle::ApplicationId": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#a37865567c5dba319fd6baf5cff6d5590",
   "discordpp::MessageHandle::Author": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#a5e5b89806a8f03f2cf80ad9e1c10665f",
   "discordpp::MessageHandle::AuthorId": "https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#a0f85af33c2322a9afec892c2bcdce7c6",
