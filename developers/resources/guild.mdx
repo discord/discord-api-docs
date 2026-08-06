@@ -155,6 +155,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | INVITES_DISABLED                          | guild has paused invites, preventing new users from joining                                                                         |
 | INVITE_SPLASH                             | guild has access to set an invite splash background                                                                                 |
 | MEMBER_VERIFICATION_GATE_ENABLED          | guild has enabled [Membership Screening](/developers/resources/guild#membership-screening-object)                                   |
+| MEMBER_VERIFICATION_MANUAL_APPROVAL       | guild requires manual approval of [join requests](/developers/resources/guild-join-request) to join                                 |
 | MORE_SOUNDBOARD                           | guild has increased custom soundboard sound slots                                                                                   |
 | MORE_STICKERS                             | guild has increased custom sticker slots                                                                                            |
 | NEWS                                      | guild has access to create announcement channels                                                                                    |
@@ -715,6 +716,8 @@ Defines the criteria used to satisfy Onboarding constraints that are required fo
 ### Membership Screening Object
 
 In guilds with [Membership Screening](https://support.discord.com/hc/en-us/articles/1500000466882) enabled, when a member joins, [Guild Member Add](/developers/events/gateway-events#guild-member-add) will be emitted but they will initially be restricted from doing any actions in the guild, and `pending` will be true in the [member object](/developers/resources/guild#guild-member-object). When the member completes the screening, [Guild Member Update](/developers/events/gateway-events#guild-member-update) will be emitted and `pending` will be false.
+
+Guilds with the `MEMBER_VERIFICATION_MANUAL_APPROVAL` [feature](/developers/resources/guild#guild-object-guild-features) additionally require a moderator to review each applicant. See the [Guild Join Request](/developers/resources/guild-join-request) resource for the objects, endpoints, and Gateway events used to review those applications.
 
 <Warning>
 We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
