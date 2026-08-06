@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"husky": "^9.1.7",
-		"lint-staged": "^16.4.0"
+		"lint-staged": "^17.3.0"
 	},
 	"lint-staged": {
 		"*.{md,mdx}": "npm run lint:fix",
