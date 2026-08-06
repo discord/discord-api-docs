@@ -1,0 +1,260 @@
+---
+title: Guild Join Request Resource
+sidebarTitle: Guild Join Request
+description: Reference for guild join requests, the applications users submit when a guild requires manual approval to join.
+---
+
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+import {Route} from '/snippets/route.jsx'
+
+Guilds that have [Membership Screening](/developers/resources/guild#membership-screening-object) set up with manual approval require prospective members to submit a join request, referred to as a *membership application* in the Discord client. A join request contains the applicant's answers to the guild's member verification form, and stays pending until a moderator approves or rejects it.
+
+While a join request is pending, the applicant may already have a [guild member](/developers/resources/guild#guild-member-object) object with `pending` set to `true`, depending on whether the guild has `PREVIEW_ENABLED`. When a request is approved, the member's `pending` field becomes `false` and a [Guild Member Update](/developers/events/gateway-events#guild-member-update) Gateway event is fired.
+
+<Info>
+The endpoints on this page are only available for guilds with both the `MEMBER_VERIFICATION_GATE_ENABLED` and `MEMBER_VERIFICATION_MANUAL_APPROVAL` [features](/developers/resources/guild#guild-object-guild-features). Other guilds receive a `403 Forbidden` response.
+</Info>
+
+Apps can also follow join requests in real time using the [Guild Join Request Create](/developers/events/gateway-events#guild-join-request-create), [Guild Join Request Update](/developers/events/gateway-events#guild-join-request-update), and [Guild Join Request Delete](/developers/events/gateway-events#guild-join-request-delete) Gateway events, which require the `GUILD_MODERATION` [intent](/developers/events/gateway#gateway-intents) and the `KICK_MEMBERS` permission.
+
+### Guild Join Request Object
+
+<ManualAnchor id="guild-join-request-object-guild-join-request-structure" />
+###### Guild Join Request Structure
+
+| Field              | Type                                                                                                         | Description                                                                                                         |
+|--------------------|--------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| id                 | snowflake                                                                                                    | ID of the join request                                                                                              |
+| created_at         | ISO8601 timestamp                                                                                            | when the applicant started the join request                                                                         |
+| reviewed_at        | ?ISO8601 timestamp                                                                                           | when the join request was approved or rejected                                                                      |
+| application_status | ?string                                                                                                      | [status](/developers/resources/guild-join-request#guild-join-request-object-application-status) of the join request |
+| rejection_reason   | ?string                                                                                                      | reason the join request was rejected, only set when `application_status` is `REJECTED`                              |
+| guild_id           | snowflake                                                                                                    | ID of the guild the applicant is applying to                                                                        |
+| user_id            | snowflake                                                                                                    | ID of the applicant                                                                                                 |
+| user?              | ?[user](/developers/resources/user#user-object) object                                                       | the applicant                                                                                                       |
+| form_responses?    | ?array of [form field response](/developers/resources/guild-join-request#form-field-response-object) objects | applicant's responses to the guild's member verification form                                                       |
+| actioned_by_user?  | ?[user](/developers/resources/user#user-object) object                                                       | user who approved or rejected the join request                                                                      |
+
+<ManualAnchor id="guild-join-request-object-application-status" />
+###### Application Status
+
+| Value     | Description                                                      |
+|-----------|------------------------------------------------------------------|
+| STARTED   | applicant started but has not yet submitted their join request   |
+| SUBMITTED | applicant submitted their join request, which is awaiting review |
+| APPROVED  | join request was approved                                        |
+| REJECTED  | join request was rejected                                        |
+
+<ManualAnchor id="guild-join-request-object-example-guild-join-request" />
+###### Example Guild Join Request
+
+```json
+{
+  "id": "1345216948159746048",
+  "created_at": "2025-02-28T21:47:23.681000+00:00",
+  "reviewed_at": null,
+  "application_status": "SUBMITTED",
+  "rejection_reason": null,
+  "guild_id": "613425648685547541",
+  "user_id": "53908232506183680",
+  "user": {
+    "id": "53908232506183680",
+    "username": "nelly",
+    "discriminator": "0",
+    "global_name": "Nelly",
+    "avatar": "8342729096ea3675442027381ff50dfe",
+    "public_flags": 131328,
+    "flags": 131328,
+    "primary_guild": null
+  },
+  "form_responses": [
+    {
+      "field_type": "TERMS",
+      "label": "Server Rules",
+      "required": true,
+      "values": [
+        "Be respectful",
+        "No spam"
+      ],
+      "response": true
+    },
+    {
+      "field_type": "TEXT_INPUT",
+      "label": "How did you find this server?",
+      "required": true,
+      "response": "A friend invited me"
+    }
+  ]
+}
+```
+
+### Form Field Response Object
+
+Each entry in a join request's `form_responses` array represents one field on the guild's member verification form, along with the applicant's answer to it. The fields present on an entry depend on its `field_type`.
+
+<ManualAnchor id="form-field-response-object-form-field-response-structure" />
+###### Form Field Response Structure
+
+These fields are present on every form field response.
+
+| Field        | Type    | Description                                                                                               |
+|--------------|---------|-----------------------------------------------------------------------------------------------------------|
+| field_type   | string  | [type](/developers/resources/guild-join-request#form-field-response-object-form-field-type) of form field |
+| label?       | string  | label shown above the field                                                                               |
+| description? | string  | helper text shown below the label                                                                         |
+| required?    | boolean | whether the applicant must fill in the field                                                              |
+
+<ManualAnchor id="form-field-response-object-form-field-type" />
+###### Form Field Type
+
+| Value           | Description                                                  |
+|-----------------|--------------------------------------------------------------|
+| TERMS           | field requiring the applicant to acknowledge a list of terms |
+| TEXT_INPUT      | short text input field                                       |
+| PARAGRAPH       | long-form text input field                                   |
+| MULTIPLE_CHOICE | field where the applicant selects one of many options        |
+
+<ManualAnchor id="form-field-response-object-terms-form-field-response-extra-fields" />
+###### Terms Form Field Response Extra Fields
+
+| Field     | Type             | Description                              |
+|-----------|------------------|------------------------------------------|
+| values    | array of strings | terms the applicant must acknowledge     |
+| response? | boolean          | whether the applicant accepted the terms |
+
+<ManualAnchor id="form-field-response-object-text-input-and-paragraph-form-field-response-extra-fields" />
+###### Text Input and Paragraph Form Field Response Extra Fields
+
+| Field        | Type   | Description                           |
+|--------------|--------|---------------------------------------|
+| placeholder? | string | placeholder text shown in empty input |
+| response?    | string | applicant's text response             |
+
+<ManualAnchor id="form-field-response-object-multiple-choice-form-field-response-extra-fields" />
+###### Multiple Choice Form Field Response Extra Fields
+
+| Field     | Type             | Description                                   |
+|-----------|------------------|-----------------------------------------------|
+| choices   | array of strings | choices the applicant can select from         |
+| response? | integer          | index of the choice selected by the applicant |
+
+<ManualAnchor id="form-field-response-object-example-form-field-responses" />
+###### Example Form Field Responses
+
+```json
+[
+  {
+    "field_type": "TERMS",
+    "label": "Server Rules",
+    "description": "You must agree to all of the rules to join",
+    "required": true,
+    "values": [
+      "Be respectful",
+      "No spam"
+    ],
+    "response": true
+  },
+  {
+    "field_type": "PARAGRAPH",
+    "label": "Why do you want to join?",
+    "required": true,
+    "placeholder": "Tell us a bit about yourself",
+    "response": "I'm looking for people to play with on the weekends."
+  },
+  {
+    "field_type": "MULTIPLE_CHOICE",
+    "label": "Which platform do you play on?",
+    "required": true,
+    "choices": [
+      "PC",
+      "PlayStation",
+      "Xbox"
+    ],
+    "response": 0
+  }
+]
+```
+
+## List Guild Join Requests
+<Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/requests</Route>
+
+Returns a list of [guild join request](/developers/resources/guild-join-request#guild-join-request-object) objects for the guild. Requires the `KICK_MEMBERS` or `MANAGE_GUILD` permission.
+
+<Warning>
+The `guild_join_requests` array is only returned to apps with the `KICK_MEMBERS` permission. Apps that only have `MANAGE_GUILD` receive the count of pending join requests without the requests themselves.
+</Warning>
+
+Results are always filtered to a single [application status](/developers/resources/guild-join-request#guild-join-request-object-application-status). Omitting `status` returns the default `SUBMITTED` join requests.
+
+<ManualAnchor id="list-guild-join-requests-query-string-params" />
+###### Query String Params
+
+| Field      | Type      | Description                                                                                                                                                             | Default   |
+|------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| status?    | string    | [application status](/developers/resources/guild-join-request#guild-join-request-object-application-status) to filter by; one of `SUBMITTED`, `APPROVED`, or `REJECTED` | SUBMITTED |
+| limit?     | integer   | max number of join requests to return (1-100)                                                                                                                           | 100       |
+| before? \* | snowflake | get join requests before this value                                                                                                                                     | null      |
+| after? \*  | snowflake | get join requests after this value                                                                                                                                      | null      |
+
+\* Provide a snowflake to `before` or `after` for pagination. For `SUBMITTED` join requests, the value is compared against the request's `id`, and requests are returned in descending order by `id`. For `APPROVED` and `REJECTED` join requests, the value is compared against when the request was reviewed. If both `before` and `after` are provided, only `after` is respected.
+
+<ManualAnchor id="list-guild-join-requests-response-structure" />
+###### Response Structure
+
+| Field                | Type                                                                                                      | Description                                                                                          |
+|----------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| total?               | integer                                                                                                   | number of join requests with the given status, only returned when `status` is `SUBMITTED` or omitted |
+| guild_join_requests? | array of [guild join request](/developers/resources/guild-join-request#guild-join-request-object) objects | the join requests, only returned with the `KICK_MEMBERS` permission                                  |
+
+<ManualAnchor id="list-guild-join-requests-example-response" />
+###### Example Response
+
+```json
+{
+  "total": 2,
+  "guild_join_requests": [
+    {
+      "id": "1345216948159746048",
+      "created_at": "2025-02-28T21:47:23.681000+00:00",
+      "reviewed_at": null,
+      "application_status": "SUBMITTED",
+      "rejection_reason": null,
+      "guild_id": "613425648685547541",
+      "user_id": "53908232506183680",
+      "user": {
+        "id": "53908232506183680",
+        "username": "nelly",
+        "discriminator": "0",
+        "global_name": "Nelly",
+        "avatar": "8342729096ea3675442027381ff50dfe",
+        "public_flags": 131328,
+        "flags": 131328,
+        "primary_guild": null
+      },
+      "form_responses": [
+        {
+          "field_type": "TEXT_INPUT",
+          "label": "How did you find this server?",
+          "required": true,
+          "response": "A friend invited me"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Action Guild Join Request
+<Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/requests/[\{join_request.id\}](/developers/resources/guild-join-request#guild-join-request-object)</Route>
+
+Approve or reject a join request. Requires the `KICK_MEMBERS` permission. Returns the updated [guild join request](/developers/resources/guild-join-request#guild-join-request-object) object on success. Fires a [Guild Join Request Update](/developers/events/gateway-events#guild-join-request-update) Gateway event, and a [Guild Member Update](/developers/events/gateway-events#guild-member-update) Gateway event when the request is approved.
+
+Only join requests with an `application_status` of `SUBMITTED` can be actioned. Requests that have already been approved or rejected are returned unchanged, and requests in any other status return a `404 Not Found` response.
+
+<ManualAnchor id="action-guild-join-request-json-params" />
+###### JSON Params
+
+| Field             | Type    | Description                                                                      |
+|-------------------|---------|----------------------------------------------------------------------------------|
+| action            | string  | either `APPROVED` or `REJECTED`                                                  |
+| rejection_reason? | ?string | reason for rejection (max 160 characters), only used when `action` is `REJECTED` |

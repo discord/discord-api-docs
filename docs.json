@@ -414,6 +414,7 @@
               "developers/resources/emoji",
               "developers/resources/entitlement",
               "developers/resources/guild",
+              "developers/resources/guild-join-request",
               "developers/resources/guild-scheduled-event",
               "developers/resources/guild-template",
               "developers/resources/invite",
