@@ -6,6 +6,28 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 6, 2026" tags={["HTTP API", "Gateway"]} rss={{
+    title: "Guild Join Requests",
+    description: "Apps can now list and review the membership applications submitted to guilds that require manual approval, and receive Gateway events as those applications change."
+}}>
+
+    ## Guild Join Requests now available via the API
+
+    Guilds that have [Membership Screening](/developers/resources/guild#membership-screening-object) set up with manual approval require prospective members to submit a join request, called a *membership application* in the Discord client. 
+    
+    Discord apps can now review those requests with the [Guild Join Request](/developers/resources/guild-join-request) resource and endpoints:
+
+    - **[List Guild Join Requests](/developers/resources/guild-join-request#list-guild-join-requests)**: Return a guild's join requests, filtered by application status.
+    - **[Action Guild Join Request](/developers/resources/guild-join-request#action-guild-join-request)**: Approve or reject a join request.
+
+    Apps can also subscribe to requests in real time with Guild Join Request Gateway events, which are sent under the `GUILD_MODERATION` Intent:
+    - [Guild Join Request Create](/developers/events/gateway-events#guild-join-request-create)
+    - [Guild Join Request Update](/developers/events/gateway-events#guild-join-request-update)
+    - [Guild Join Request Delete](/developers/events/gateway-events#guild-join-request-delete)
+
+    These endpoints and events require the `KICK_MEMBERS` permission, and the guild must have both the `MEMBER_VERIFICATION_GATE_ENABLED` and `MEMBER_VERIFICATION_MANUAL_APPROVAL` [features](/developers/resources/guild#guild-object-guild-features).
+</Update>
+
 <Update label="August 5, 2026" tags={["Interactions", "Components"]} rss={{
     title: "Filter File Types in File Uploads and Attachment Options",
     description: "File Upload components and ATTACHMENT command options now accept a file_types array that restricts which files a user can upload."
