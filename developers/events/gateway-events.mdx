@@ -383,6 +383,9 @@ Receive events are Gateway events encapsulated in an [event payload](/developers
 | [Guild Emojis Update](/developers/events/gateway-events#guild-emojis-update)                                       | Guild emojis were updated                                                                                                                                  |
 | [Guild Stickers Update](/developers/events/gateway-events#guild-stickers-update)                                   | Guild stickers were updated                                                                                                                                |
 | [Guild Integrations Update](/developers/events/gateway-events#guild-integrations-update)                           | Guild integration was updated                                                                                                                              |
+| [Guild Join Request Create](/developers/events/gateway-events#guild-join-request-create)                           | User submitted a join request to a guild                                                                                                                   |
+| [Guild Join Request Update](/developers/events/gateway-events#guild-join-request-update)                           | Join request to a guild was updated                                                                                                                        |
+| [Guild Join Request Delete](/developers/events/gateway-events#guild-join-request-delete)                           | Join request to a guild was deleted                                                                                                                        |
 | [Guild Member Add](/developers/events/gateway-events#guild-member-add)                                             | New user joined a guild                                                                                                                                    |
 | [Guild Member Remove](/developers/events/gateway-events#guild-member-remove)                                       | User was removed from a guild                                                                                                                              |
 | [Guild Member Update](/developers/events/gateway-events#guild-member-update)                                       | Guild member was updated                                                                                                                                   |
@@ -839,6 +842,57 @@ Sent when a guild integration is updated.
 | Field    | Type      | Description                                     |
 |----------|-----------|-------------------------------------------------|
 | guild_id | snowflake | ID of the guild whose integrations were updated |
+
+#### Guild Join Request Create
+
+<Warning>
+If using [Gateway Intents](/developers/events/gateway#gateway-intents), the `GUILD_MODERATION` intent will be required to receive this event.
+</Warning>
+
+Sent when a user submits a new [join request](/developers/resources/guild-join-request#guild-join-request-object) to a guild. This event is only sent to bots with the `KICK_MEMBERS` permission.
+
+<ManualAnchor id="guild-join-request-create-guild-join-request-create-event-fields" />
+###### Guild Join Request Create Event Fields
+
+| Field    | Type                                                                                              | Description                                                                                                                     |
+|----------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| guild_id | snowflake                                                                                         | ID of the guild                                                                                                                 |
+| status   | string                                                                                            | [application status](/developers/resources/guild-join-request#guild-join-request-object-application-status) of the join request |
+| request  | a [guild join request](/developers/resources/guild-join-request#guild-join-request-object) object | The join request that was created                                                                                               |
+
+#### Guild Join Request Update
+
+<Warning>
+If using [Gateway Intents](/developers/events/gateway#gateway-intents), the `GUILD_MODERATION` intent will be required to receive this event.
+</Warning>
+
+Sent when a [join request](/developers/resources/guild-join-request#guild-join-request-object) is updated, such as when a user submits a request they had already started, or when a request is approved or rejected. This event is only sent to bots with the `KICK_MEMBERS` permission.
+
+<ManualAnchor id="guild-join-request-update-guild-join-request-update-event-fields" />
+###### Guild Join Request Update Event Fields
+
+| Field    | Type                                                                                              | Description                                                                                                                     |
+|----------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| guild_id | snowflake                                                                                         | ID of the guild                                                                                                                 |
+| status   | string                                                                                            | [application status](/developers/resources/guild-join-request#guild-join-request-object-application-status) of the join request |
+| request  | a [guild join request](/developers/resources/guild-join-request#guild-join-request-object) object | The join request that was updated                                                                                               |
+
+#### Guild Join Request Delete
+
+<Warning>
+If using [Gateway Intents](/developers/events/gateway#gateway-intents), the `GUILD_MODERATION` intent will be required to receive this event.
+</Warning>
+
+Sent when a [join request](/developers/resources/guild-join-request#guild-join-request-object) is deleted, such as when the applicant withdraws it. This event is only sent to bots with the `KICK_MEMBERS` permission.
+
+<ManualAnchor id="guild-join-request-delete-guild-join-request-delete-event-fields" />
+###### Guild Join Request Delete Event Fields
+
+| Field    | Type      | Description                |
+|----------|-----------|----------------------------|
+| id       | snowflake | ID of the join request     |
+| guild_id | snowflake | ID of the guild            |
+| user_id  | snowflake | ID of the user who applied |
 
 #### Guild Member Add
 
