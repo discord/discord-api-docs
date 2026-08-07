@@ -7,7 +7,7 @@ description: Reference for guild join requests, the applications users submit wh
 import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
 
-Guilds that have Membership Screening set up with manual approval require prospective members to submit a join request, referred to as a *membership application* in the Discord client. A join request contains the applicant's answers to the guild's member verification form, and stays pending until a moderator approves or rejects it.
+Guilds that have [Server Member Applications](https://support.discord.com/hc/en-us/articles/29729107418519-Server-Member-Applications) set up with manual approval require prospective members to submit a join request. A join request contains the applicant's answers to the guild's member verification form, and stays pending until a moderator approves or rejects it.
 
 While a join request is pending, the applicant may already have a [guild member](/developers/resources/guild#guild-member-object) object with `pending` set to `true`, depending on whether the guild has `PREVIEW_ENABLED`. When a request is approved, the member's `pending` field becomes `false` and a [Guild Member Update](/developers/events/gateway-events#guild-member-update) Gateway event is fired.
 
