@@ -6,6 +6,38 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 11, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK Hotfixes 1.10.18369, 1.9.18337 & 1.8.18335",
+    description: "Hotfix releases across the 1.8, 1.9, and 1.10 branches fixing C# bool marshaling and a PlayStation 5 lobby dispatch crash."
+  }}>
+
+    ## Discord Social SDK Hotfix Releases 1.10.18369, 1.9.18337 & 1.8.18335
+
+    Hotfix releases of the Discord Social SDK are now available across the 1.8, 1.9, and 1.10 branches, with the following updates:
+
+    ### 1.10.18369
+
+    #### C#
+    - Fixed incorrect marshaling of `bool` values across the C#/native boundary, which could produce garbage data on some platforms (e.g. wrong voice speaking-status indicators on Xbox)
+
+    ### 1.9.18337
+
+    #### Stability
+    - Fixed a crash from iterator invalidation in lobby dispatch callbacks, observed on PlayStation 5
+
+    #### C#
+    - Fixed incorrect marshaling of `bool` values across the C#/native boundary, which could produce garbage data on some platforms (e.g. wrong voice speaking-status indicators on Xbox)
+
+    ### 1.8.18335
+
+    #### Stability
+    - Fixed a crash from iterator invalidation in lobby dispatch callbacks, observed on PlayStation 5
+
+    #### C#
+    - Fixed incorrect marshaling of `bool` values across the C#/native boundary, which could produce garbage data on some platforms (e.g. wrong voice speaking-status indicators on Xbox)
+
+</Update>
+
 <Update label="August 5, 2026" tags={["Interactions", "Components"]} rss={{
     title: "Filter File Types in File Uploads and Attachment Options",
     description: "File Upload components and ATTACHMENT command options now accept a file_types array that restricts which files a user can upload."
