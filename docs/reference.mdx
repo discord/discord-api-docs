@@ -377,13 +377,13 @@ Sticker GIFs do not use the CDN base url, and can be accessed at `https://media.
 
 ## Image Data
 
-Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
+Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) carrying a base64-encoded image. Most endpoints accept JPG, GIF, and PNG; some accept additional formats — for example, [emoji](/docs/resources/emoji#emoji-object-emoji-formats) also accept WebP and AVIF. Refer to the specific resource for the formats it supports. An example Data URI format is:
 
 ```
 data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 ```
 
-Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
+The accepted format is determined from the encoded image data itself, so you should set a content type (`image/jpeg`, `image/png`, `image/gif`, etc.) that matches the image being provided.
 
 ### Signed Attachment CDN URLs
 
