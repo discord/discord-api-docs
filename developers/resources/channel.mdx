@@ -98,7 +98,7 @@ Type 10, 11 and 12 are only available in API v9 and above.
 | REQUIRE_TAG                 | `1 << 4`  | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel. Tags are specified in the `applied_tags` field.                                                                                                                                         |
 | HIDE_MEDIA_DOWNLOAD_OPTIONS | `1 << 15` | when set hides the embedded media download options. Available only for media channels                                                                                                                                                                                                                   |
 | CHANNEL_OBFUSCATED          | `1 << 17` | this channel's metadata has been obfuscated because the current user cannot view it. Only ever set on channels received over the [Gateway](/developers/events/gateway); the HTTP API never sets this flag. See [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels). |
-| IS_SPOILER_CHANNEL          | `1 << 21` | this channel is a Spoiler Channel i.e. users must opt in to view its contents. Can be set on all textual guild channels and voice channels (not `GUILD_STAGE`). Can only be set if channel's `nsfw` is false |
+| IS_SPOILER_CHANNEL          | `1 << 21` | this channel is a Spoiler Channel i.e. users must opt in to view its contents. Can be set on all textual guild channels and voice channels (not `GUILD_STAGE`). Can only be set if channel's `nsfw` is false                                                                                            |
 
 <ManualAnchor id="channel-object-obfuscated-channels" />
 ###### Obfuscated Channels
