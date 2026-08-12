@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 12, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
+    title: "PRUNE_REQUIRES_ADMIN Guild Feature",
+    description: "Prune endpoints require the ADMINISTRATOR permission if the guild has the new PRUNE_REQUIRES_ADMIN guild feature."
+  }}>
+
+    ## `PRUNE_REQUIRES_ADMIN` Guild Feature
+
+    The [Get Guild Prune Count](/developers/resources/guild#get-guild-prune-count) and [Begin Guild Prune](/developers/resources/guild#begin-guild-prune) endpoints require the `ADMINISTRATOR` permission if the guild has the new `PRUNE_REQUIRES_ADMIN` guild feature, which can be enabled by the server owner.
+
+    Without this guild feature, the endpoints still require the `MANAGE_GUILD` and `KICK_MEMBERS` permissions.
+</Update>
+
 <Update label="August 11, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK Hotfixes 1.10.18369, 1.9.18337 & 1.8.18335",
     description: "Hotfix releases across the 1.8, 1.9, and 1.10 branches fixing C# bool marshaling and a PlayStation 5 lobby dispatch crash."
@@ -2755,10 +2767,10 @@ A new release of the Discord Social SDK is now available, with the following upd
 </Update>
 
 <Update label="March 15, 2024" tags={["Breaking Changes"]} rss={{
-    title: "Guild Prune Requiring",
+    title: "Guild Prune Requiring MANAGE_GUILD",
     description: "The Get Guild Prune Count and Begin Guild Prune endpoints now require the MANAGE_GUILD permission alongside the existing KICK_MEMBERS requirement."
   }}>
-  ## Guild Prune Requiring
+  ## Guild Prune Requiring `MANAGE_GUILD`
 
   The [Get Guild Prune Count](/developers/resources/guild#get-guild-prune-count) and [Begin Guild Prune](/developers/resources/guild#begin-guild-prune)
   endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement.
