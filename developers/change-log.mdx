@@ -6,7 +6,7 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
-<Update label="August 12, 2026" tags={["Breaking Changes", "Gateway", "HTTP API"]} rss={{
+<Update label="August 12, 2026" tags={["Breaking Change", "Gateway", "HTTP API"]} rss={{
     title: "Channel Obfuscation for Users and Bots",
     description: "Users will stop receiving full metadata for channels they can't view. Gateway channels are redacted, and GET /guilds/{guild.id}/channels omits them. This becomes mandatory for all bots on November 16, 2026."
   }}>
@@ -97,7 +97,7 @@ If your bot manages or organizes channels, see [Obfuscated Channels](/developers
 
     The `application_id` field on the [channel](/developers/resources/channel#channel-object) object is now nullable. For future guild channels, this field can be serialized as `null`. For group DMs, there are no plans to serialize this field as `null`.
 
-    Because the field was not previously documented as nullable, this is a slightly breaking change. If your app or library assumes `application_id` is always a snowflake when present, you'll need to update it to handle `null`.
+    Because the field was not previously documented as nullable, this is a slightly breaking change. If your app or library assumes `application_id` is always a snowflake when present, you'll need to update it to handle `null`. The field continues to be optional.
 </Update>
 
 <Update label="July 28, 2026" tags={["Discord Social SDK"]} rss={{
@@ -1444,7 +1444,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   Check out our [Component Reference](/developers/components/reference) for details on all available components.
 </Update>
 
-<Update label="August 20, 2025" tags={["Breaking Changes", "HTTP API"]} rss={{
+<Update label="August 20, 2025" tags={["Breaking Change", "HTTP API"]} rss={{
     title: "Pin Permission Split",
     description: "PIN_MESSAGES permission split from MANAGE_MESSAGES for more granular control over pinning"
   }}>
@@ -2126,7 +2126,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   To learn more about building with the Discord Social SDK, check out the [Discord Social SDK Overview](/developers/discord-social-sdk/overview).
 </Update>
 
-<Update label="December 16, 2024" tags={["HTTP API", "Interactions", "Breaking Changes"]} rss={{
+<Update label="December 16, 2024" tags={["HTTP API", "Interactions", "Breaking Change"]} rss={{
     title: "Default File Upload Limit Change",
     description: "On January 16, 2025, the default file upload limit will change from 25 MiB to 10 MiB."
   }}>
@@ -2316,7 +2316,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   You can now create a poll while editing a deferred interaction response with the [Edit Original Interaction Response](/developers/interactions/receiving-and-responding#edit-original-interaction-response) endpoint. Poll away!
 </Update>
 
-<Update label="August 28, 2024" tags={["Premium Apps", "Breaking Changes"]} rss={{
+<Update label="August 28, 2024" tags={["Premium Apps", "Breaking Change"]} rss={{
     title: "Premium Apps: Entitlement Migration and New Subscription API",
     description: "Updates to this Change Log entry was published on October 7, 2024 to reflect up-to-date information."
   }}>
@@ -2524,7 +2524,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * Can be [managed via the API](/developers/resources/emoji#create-application-emoji) with a bot token
 </Update>
 
-<Update label="July 17, 2024" tags={["Activities", "Embedded App SDK", "Breaking Changes"]} rss={{
+<Update label="July 17, 2024" tags={["Activities", "Embedded App SDK", "Breaking Change"]} rss={{
     title: "Activities Proxy CSP Update",
     description: "This change is outdated. We have since updated the Activities Proxy CSP and the use of /.proxy/ is no longer required. For the latest information, please refer to this changelog. </Warning>"
   }}>
@@ -2612,7 +2612,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   [`GET /users/@me/guilds`](/developers/resources/user#get-current-user-guilds) now includes each guild's `banner` field! This enables apps using OAuth2 with the `guilds` scope to display guild banners.
 </Update>
 
-<Update label="June 27, 2024" tags={["Breaking Changes"]} rss={{
+<Update label="June 27, 2024" tags={["Breaking Change"]} rss={{
     title: "User-Installed Apps General Availability",
     description: "Back in March, we announced the beta for user-installed apps."
   }}>
@@ -2789,7 +2789,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * Follow-up messages have a bug where they will not correctly respect user permissions
 </Update>
 
-<Update label="March 15, 2024" tags={["Breaking Changes"]} rss={{
+<Update label="March 15, 2024" tags={["Breaking Change"]} rss={{
     title: "Guild Prune Requiring",
     description: "The Get Guild Prune Count and Begin Guild Prune endpoints now require the MANAGE_GUILD permission alongside the existing KICK_MEMBERS requirement."
   }}>
@@ -3134,7 +3134,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   At long last, a new [`GUILD_AUDIT_LOG_ENTRY_CREATE`](/developers/events/gateway-events#guild-audit-log-entry-create) event has been added to the gateway, allowing your application to react to moderation actions in guilds. The `VIEW_AUDIT_LOG` permission is required in order to receive these events, and the [`GUILD_MODERATION` intent](/developers/events/gateway#gateway-intents) needs to be set when connecting to the gateway.
 </Update>
 
-<Update label="January 09, 2023" tags={["Breaking Changes"]} rss={{
+<Update label="January 09, 2023" tags={["Breaking Change"]} rss={{
     title: "Thread Member Details and Pagination",
     description: "A new member field was added to the thread member object."
   }}>
@@ -3190,7 +3190,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * Increase maximum length for each regex pattern in the `regex_patterns` [trigger\_metadata](/developers/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata) field from 75 to 260.
 </Update>
 
-<Update label="November 17, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="November 17, 2022" tags={["Breaking Change"]} rss={{
     title: "Upcoming Application Command Permission Changes",
     description: "Based on feedback, we’re updating permissions for application commands to simplify permission management and to make command permissions more closely resemble other permissions systems in Discord."
   }}>
@@ -3321,7 +3321,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   In **late January or early February**, all servers will be migrated to the new behavior. We'll post another changelog at this point, at which time you can remove any logic around the old permissions behavior.
 </Update>
 
-<Update label="November 09, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="November 09, 2022" tags={["Breaking Change"]} rss={{
     title: "GameSDK Feature Deprecation",
     description: "To help keep us focused on the features, improvements, and gaming-related experiences that Discord users love, we are deprecating the following pieces of the GameSDK starting today, and decommissio..."
   }}>
@@ -3423,7 +3423,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   Check out the [forums topic](/developers/topics/threads#forums) for more information on the relevant APIs and technical details, and the [Forums FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N) for more about the feature.
 </Update>
 
-<Update label="September 01, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="September 01, 2022" tags={["Breaking Change"]} rss={{
     title: "Message Content is a Privileged Intent",
     description: "As of today, message content is a privileged intent for all verified apps and apps eligible for verification."
   }}>
@@ -3489,7 +3489,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * [`POST /channels/{channel.id}/webhooks`](/developers/resources/webhook#create-webhook)
 </Update>
 
-<Update label="July 01, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="July 01, 2022" tags={["Breaking Change"]} rss={{
     title: "Add Subcommand Groups and Subcommands to Message Interaction Objects",
     description: "While this is a breaking change, most apps only rely on interaction responses (INTERACTION_CREATE), not message interaction objects (MESSAGE_CREATE)."
   }}>
@@ -3539,7 +3539,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
 </Update>
 
-<Update label="June 29, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="June 29, 2022" tags={["Breaking Change"]} rss={{
     title: "Changes to Bot Permissions for Interactions and Webhooks",
     description: "MENTION_EVERYONE, SEND_TTS_MESSAGES and USE_EXTERNAL_EMOJIS are the only permissions that will be affected by this change."
   }}>
@@ -3567,7 +3567,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   Note that even if your bot is installed with certain permissions, they can be changed using overwrites. For interactions, you can use the [`app_permissions` field](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) to determine your app or bot's contextual permissions before replying.
 </Update>
 
-<Update label="June 21, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="June 21, 2022" tags={["Breaking Change"]} rss={{
     title: "Message Content in Auto Moderation events",
     description: "In API v10, the MESSAGE_CONTENT (1 << 15) intent is now required to receive non-empty values for the content and matched_content fields in AUTO_MODERATION_ACTION_EXECUTION gateway events."
   }}>
@@ -3601,7 +3601,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   * New [audit log entries](/developers/resources/audit-log#audit-log-entry-object-audit-log-events) when rules are created (`AUTO_MODERATION_RULE_CREATE`), updated (`AUTO_MODERATION_RULE_UPDATE`), or deleted (`AUTO_MODERATION_RULE_DELETE`), or when Auto Moderation performs an action (`AUTO_MODERATION_BLOCK_MESSAGE`)
 </Update>
 
-<Update label="April 27, 2022" tags={["Breaking Changes"]} rss={{
+<Update label="April 27, 2022" tags={["Breaking Change"]} rss={{
     title: "Updated Command Permissions",
     description: "Application command permissions have been updated to add more granular control and access to commands in Discord."
   }}>
@@ -4204,7 +4204,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   The [Accept Invite](/developers/resources/invite) endpoint is deprecated starting today, and will be discontinued on March 23, 2018. The [Add Guild Member](/developers/resources/guild#add-guild-member) endpoint should be used in its place.
 </Update>
 
-<Update label="January 03, 2018" tags={["Breaking Changes"]} rss={{
+<Update label="January 03, 2018" tags={["Breaking Change"]} rss={{
     title: "Semi-Breaking Change: Very Large Bot Sharding",
     description: "Additional sharding requirements and information for bots in over 100,000 guilds has been added."
   }}>
@@ -4228,7 +4228,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](/developers/rich-presence/overview)!
 </Update>
 
-<Update label="October 16, 2017" tags={["Breaking Changes"]} rss={{
+<Update label="October 16, 2017" tags={["Breaking Change"]} rss={{
     title: "Breaking Change: API & Gateway Below v6 Discontinued",
     description: "API and Gateway versions below v6 are now discontinued after being previously deprecated."
   }}>
@@ -4255,7 +4255,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   [Emoji endpoints](/developers/resources/emoji) have been added to the API. Bots can now manage guild emojis to their robo-hearts' content!
 </Update>
 
-<Update label="August 16, 2017" tags={["Breaking Changes"]} rss={{
+<Update label="August 16, 2017" tags={["Breaking Change"]} rss={{
     title: "Breaking Change: Presence Activity Objects",
     description: "The type field in the activity object for Gateway Status Update and Presence Update payloads is no longer optional when the activity object is not null."
   }}>
@@ -4264,7 +4264,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   The `type` field in the [activity object](/developers/events/gateway-events#activity-object) for [Gateway Status Update](/developers/events/gateway-events#update-presence) and [Presence Update](/developers/events/gateway-events#presence-update) payloads is no longer optional when the activity object is not null.
 </Update>
 
-<Update label="August 03, 2017" tags={["Breaking Changes"]} rss={{
+<Update label="August 03, 2017" tags={["Breaking Change"]} rss={{
     title: "Breaking Change: Default Channels",
     description: "After today, we are changing how default channels function."
   }}>
@@ -4286,7 +4286,7 @@ A new release of the Discord Social SDK is now available, with the following upd
   Audit logs are here! Well, they've been here all along, but now we've got [documentation](/developers/resources/audit-log) about them. Check it out, but remember: with great power comes great responsibility.
 </Update>
 
-<Update label="July 19, 2017" tags={["Breaking Changes"]} rss={{
+<Update label="July 19, 2017" tags={["Breaking Change"]} rss={{
     title: "Breaking Change: Version 6",
     description: "Breaking Change: Version 6"
   }}>
