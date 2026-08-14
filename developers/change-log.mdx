@@ -6,6 +6,20 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 13, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK 1.10.18687",
+    description: "Fixed the iOS web-authentication session clobbering the host app's ASWebAuthenticationSession presentation-context delegate during the OAuth flow."
+  }}>
+
+    ## Discord Social SDK Release 1.10.18687
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### iOS
+    - Fixed the iOS web-authentication session overriding `ASWebAuthenticationSession`'s presentation-context delegate, which could clobber the host app's own delegate during the OAuth flow
+
+</Update>
+
 <Update label="August 12, 2026" tags={["Breaking Change", "Gateway", "HTTP API"]} rss={{
     title: "Channel Obfuscation for Users and Bots",
     description: "Users will stop receiving full metadata for channels they can't view. Gateway channels are redacted, and GET /guilds/{guild.id}/channels omits them. This becomes mandatory for all bots on November 16, 2026."
