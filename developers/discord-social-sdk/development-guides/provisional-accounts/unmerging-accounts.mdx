@@ -46,7 +46,7 @@ sequenceDiagram
     D->>D: Create new provisional account (new user ID)
     D->>D: Migrate username, friends, lobbies, blockers
     D-->>Caller: New provisional account<br/>(restricted if ban-driven)
-    Note over Caller,D: Re-authenticate with the same identity<br/>to get a token for the new provisional account
+    Note over Caller,D: Re-authenticate with the same external identity<br/>to get a token for the new provisional account
 ```
 
 ---
