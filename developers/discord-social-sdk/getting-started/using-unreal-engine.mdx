@@ -76,6 +76,10 @@ Reload Unreal Editor and open the project. It should ask if you'd like to recomp
 
 Open Visual Studio from the `Tools -> Open Visual Studio` menu in Unreal Editor.
 
+<Info>
+If `Open Visual Studio` is greyed out, use `New C++ Class...` to create a throwaway class, which will also autogenerate other folders and files you'll need. You can delete the throwaway class after code generation completes.
+</Info>
+
 Open your `DiscordSocialUnreal.Build.cs` file located at `/Source/DiscordSocialUnreal/` and add the following line after `PublicDependencyModuleNames` array:
 
 ```cpp
