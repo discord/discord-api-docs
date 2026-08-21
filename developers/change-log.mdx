@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 14, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
+    title: "Deprecation: Battle.net Connections in Get Current User Connections",
+    description: "Battle.net connections are deprecated and will no longer be returned by the /users/@me/connections endpoint starting September 22, 2026."
+  }}>
+
+  ## Deprecation: Battle.net Connections in `Get Current User Connections`
+
+  The new Battle.net connection is powered by the [Discord Social SDK](/developers/discord-social-sdk/overview) and application identities. As a result, newly created Battle.net connections are no longer returned by the [`Get Current User Connections`](/developers/resources/user#get-current-user-connections) endpoint (`GET /users/@me/connections`).
+
+  Starting September 22, 2026, existing Battle.net connections will also no longer be returned by this endpoint. There is no replacement for this functionality.
+</Update>
+
 <Update label="August 13, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK 1.10.18687",
     description: "Fixed the iOS web-authentication session clobbering the host app's ASWebAuthenticationSession presentation-context delegate during the OAuth flow."
