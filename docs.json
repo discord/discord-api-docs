@@ -282,6 +282,15 @@
             ]
           },
           {
+            "group": "Game Stats Widgets",
+            "pages": [
+              "developers/social-layer/game-stats-widgets/overview",
+              "developers/social-layer/game-stats-widgets/widget-configuration",
+              "developers/social-layer/game-stats-widgets/sending-game-data",
+              "developers/social-layer/game-stats-widgets/best-practices"
+            ]
+          },
+          {
             "group": "How To",
             "pages": [
               "developers/discord-social-sdk/how-to",
@@ -407,6 +416,7 @@
           {
             "group": "HTTP API Resources",
             "pages": [
+              "developers/resources/application-identity-profile",
               "developers/resources/application-role-connection-metadata",
               "developers/resources/application",
               "developers/resources/audit-log",

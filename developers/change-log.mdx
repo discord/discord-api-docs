@@ -6,6 +6,22 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 26, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
+    title: "Game Stats Widgets",
+    description: "Claimed games can now display player stats like rank, playtime, and wins on Discord user profiles using the new Application Identity Profile API."
+  }}>
+
+  ## Game Stats Widgets
+
+  Games that have been [claimed on Discord](https://docs.discord.com/developers/platform/claim-your-game) can now configure a [Game Stats Widget](/developers/social-layer/game-stats-widgets/overview) to show off player progress, such as rank, playtime, wins, and any custom stat you define, directly on their Discord profile.
+
+  - Configure widget layouts and fields in the Developer Portal
+  - Populate pre-defined **primary** fields (`rank_name`, `total_wins`, `playtime_hours`, etc.) or your own **dynamic** fields using your bot token
+  - Data is written to a user's [Application Identity Profile](/developers/resources/application-identity-profile), a record of the user's identity in your game
+
+  See the [Game Stats Widgets overview](/developers/social-layer/game-stats-widgets/overview) to get started.
+</Update>
+
 <Update label="August 26, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Account Linking on Web",
     description: "New documentation for building account linking with the standard OAuth2 web flow, and updated guidance for enabling Discord entry points."
