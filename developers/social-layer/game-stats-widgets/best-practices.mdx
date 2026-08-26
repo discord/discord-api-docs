@@ -42,7 +42,7 @@ When a user's canonical account ID changes, or when a user intentionally switche
 1. Confirm on your server that the Discord user is linked to the current game account.
 2. Call [Get Application Identities by User ID](/developers/resources/application-identity-profile#get-application-identities-by-user-id) to list the user's application identities for your application.
 3. If an old identity no longer represents the user's selected account, call [Delete Application Identity](/developers/resources/application-identity-profile#delete-application-identity) for that identity. Use the `provider_type`, `provider_issued_user_id`, and optional `provider_id` returned by the list endpoint.
-4. Call [Update Application Identity Profile](/developers/resources/social-layer/application-identity-profile#update-application-identity-profile) with the current `provider_issued_user_id`.
+4. Call [Update Application Identity Profile](/developers/resources/application-identity-profile#update-application-identity-profile) with the current `provider_issued_user_id`.
 
 For example, if your integration originally used a character ID as `provider_issued_user_id`, migrate to a stable game account ID. List the user's identities, delete the stale character-based identity when it no longer represents the desired profile, then write the profile with the game account ID. If no application identity remains for the user and application, the next successful profile update creates a profile-only identity with provider type `NONE`.
 
