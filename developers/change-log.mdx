@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 26, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Account Linking on Web",
+    description: "New documentation for building account linking with the standard OAuth2 web flow, and updated guidance for enabling Discord entry points."
+  }}>
+
+  ## Account Linking on Web
+
+  We've published a new guide, [Account Linking on Web](/developers/discord-social-sdk/development-guides/account-linking-on-web), covering how to build account linking with a standard OAuth2 web flow. This doesn't require the Discord Social SDK and adds a web auth flow option for players who may be account linking outside of the game flow or on a different device.
+
+  We've also removed the partner-only restriction from [enabling Discord entry points](/developers/discord-social-sdk/development-guides/account-linking-from-discord) for the web flow, so any developer can now configure their `Connection Entrypoint URL` to let Discord surface account linking prompts and buttons in the client.
+</Update>
+
 <Update label="August 14, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
     title: "Deprecation: Battle.net Connections in Get Current User Connections",
     description: "Battle.net connections are deprecated and will no longer be returned by the /users/@me/connections endpoint starting September 22, 2026."
