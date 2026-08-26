@@ -234,6 +234,7 @@
             "pages": [
               "developers/discord-social-sdk/development-guides/account-linking-with-discord",
               "developers/discord-social-sdk/development-guides/account-linking-on-mobile",
+              "developers/discord-social-sdk/development-guides/account-linking-on-web",
               "developers/discord-social-sdk/development-guides/account-linking-on-consoles",
               "developers/discord-social-sdk/development-guides/account-linking-from-discord",
               "developers/discord-social-sdk/development-guides/publisher-level-account-linking",
