@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="August 27, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
+    title: "PRUNE_REQUIRES_ADMIN Guild Feature",
+    description: "Prune endpoints require the ADMINISTRATOR permission if the guild has the new PRUNE_REQUIRES_ADMIN guild feature."
+  }}>
+
+    ## `PRUNE_REQUIRES_ADMIN` Guild Feature
+
+    The [Get Guild Prune Count](/developers/resources/guild#get-guild-prune-count) and [Begin Guild Prune](/developers/resources/guild#begin-guild-prune) endpoints require the `ADMINISTRATOR` permission if the guild has the new `PRUNE_REQUIRES_ADMIN` guild feature, which can be enabled by the server owner.
+
+    Without this guild feature, the endpoints still require the `MANAGE_GUILD` and `KICK_MEMBERS` permissions.
+</Update>
+
 <Update label="August 26, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
     title: "Game Stats Widgets",
     description: "Claimed games can now display player stats like rank, playtime, and wins on Discord user profiles using the new Application Identity Profile API."
@@ -2844,10 +2856,10 @@ A new release of the Discord Social SDK is now available, with the following upd
 </Update>
 
 <Update label="March 15, 2024" tags={["Breaking Change"]} rss={{
-    title: "Guild Prune Requiring",
+    title: "Guild Prune Requiring MANAGE_GUILD",
     description: "The Get Guild Prune Count and Begin Guild Prune endpoints now require the MANAGE_GUILD permission alongside the existing KICK_MEMBERS requirement."
   }}>
-  ## Guild Prune Requiring
+  ## Guild Prune Requiring `MANAGE_GUILD`
 
   The [Get Guild Prune Count](/developers/resources/guild#get-guild-prune-count) and [Begin Guild Prune](/developers/resources/guild#begin-guild-prune)
   endpoints now require the `MANAGE_GUILD` permission alongside the existing `KICK_MEMBERS` requirement.
