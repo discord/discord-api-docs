@@ -234,6 +234,7 @@
             "pages": [
               "developers/discord-social-sdk/development-guides/account-linking-with-discord",
               "developers/discord-social-sdk/development-guides/account-linking-on-mobile",
+              "developers/discord-social-sdk/development-guides/account-linking-on-web",
               "developers/discord-social-sdk/development-guides/account-linking-on-consoles",
               "developers/discord-social-sdk/development-guides/account-linking-from-discord",
               "developers/discord-social-sdk/development-guides/publisher-level-account-linking",
@@ -278,6 +279,15 @@
               "developers/discord-social-sdk/development-guides/managing-voice-chat",
               "developers/discord-social-sdk/design-guidelines/chat-history",
               "developers/discord-social-sdk/design-guidelines/linked-channels"
+            ]
+          },
+          {
+            "group": "Game Stats Widgets",
+            "pages": [
+              "developers/social-layer/game-stats-widgets/overview",
+              "developers/social-layer/game-stats-widgets/widget-configuration",
+              "developers/social-layer/game-stats-widgets/sending-game-data",
+              "developers/social-layer/game-stats-widgets/best-practices"
             ]
           },
           {
@@ -406,6 +416,7 @@
           {
             "group": "HTTP API Resources",
             "pages": [
+              "developers/resources/application-identity-profile",
               "developers/resources/application-role-connection-metadata",
               "developers/resources/application",
               "developers/resources/audit-log",
