@@ -1,0 +1,143 @@
+---
+title: Configuring Identity Providers
+sidebarTitle: Identity Providers
+description: Configure OIDC, Steam, EOS, and other identity providers for provisional accounts, including the full OIDC integration requirements.
+---
+
+import {GlobeEarthIcon} from '/snippets/icons/GlobeEarthIcon.jsx'
+import {BrowserIcon} from '/snippets/icons/BrowserIcon.jsx'
+import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+
+Unless you are using the [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint), you must configure an identity provider before you can create provisional accounts. This applies to both [Server Authentication with External Credentials Exchange](/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange) and [Public Client Integration](/developers/discord-social-sdk/development-guides/provisional-accounts/public-client).
+
+Not sure which authentication method to use? See [Choosing an Authentication Method](/developers/discord-social-sdk/development-guides/provisional-accounts/overview#choosing-an-authentication-method).
+
+## Configuring Your Identity Provider
+
+<Warning>
+    If you are using the [Bot Token Endpoint](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint), no Identity Provider configuration is required.
+</Warning>
+
+Open the Discord app for your game in the [Developer Portal](https://discord.com/developers/applications). Find the [External Auth](https://discord.com/developers/applications/select/social-sdk/external-auth-providers) page under the `Discord Social SDK` section in the sidebar.
+
+Click on `Add Auth Provider` and choose the type of provider you're using (Steam, OIDC, etc.). Fill in the required details for your provider.
+
+We currently support the following provider types:
+
+- OpenID Connect (OIDC)
+- Steam Session Tickets
+- Epic Online Services (EOS)
+- Unity
+- Apple
+- PlayStation Network (PSN)
+
+If you are configuring OIDC, see [OIDC Integration Requirements](#oidc-integration-requirements) for the full list of requirements your issuer URL, discovery document, and ID tokens must meet.
+
+Providers are represented in Discord's systems by the following types:
+
+### External Auth Types
+
+| Type                              | Description                                                                   |
+|-----------------------------------|-------------------------------------------------------------------------------|
+| OIDC                              | OpenID Connect ID token                                                       |
+| STEAM_SESSION_TICKET              | A Steam auth ticket for web generated with discord as the identity            |
+| EPIC_ONLINE_SERVICES_ACCESS_TOKEN | Access token for Epic Online Services. Supports EOS Auth access tokens        |
+| EPIC_ONLINE_SERVICES_ID_TOKEN     | ID token for Epic Online Services. Supports both EOS Auth + Connect ID tokens |
+| UNITY_SERVICES_ID_TOKEN           | Unity Services authentication ID token                                        |
+| APPLE_ID_TOKEN                    | Apple sign-in authentication ID token                                         |
+| PLAYSTATION_NETWORK_ID_TOKEN      | PlayStation Network account authentication ID token                           |
+| DISCORD_BOT_ISSUED_ACCESS_TOKEN   | An access token for a user authenticated via the Bot Token Endpoint           |
+
+---
+
+## OIDC Integration Requirements
+
+If you are using OpenID Connect (OIDC) as your identity provider, Discord validates your configuration and tokens against the requirements below. Meeting these requirements is necessary both when saving your OIDC configuration in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers) and at runtime when tokens are exchanged.
+
+### Issuer URL Requirements
+
+The issuer URL you configure in the Developer Portal must meet all of the following:
+
+| Requirement                 | Details                                                                                                                 |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| HTTPS scheme                | Must use `https://` — HTTP is not permitted                                                                             |
+| No query parameters         | The URL must not contain a `?` character                                                                                |
+| No fragment                 | The URL must not contain a `#` character                                                                                |
+| No embedded credentials     | The URL must not contain a username or password                                                                         |
+| Public hostname             | The hostname must have at least two segments (e.g. `example.com`). Bare hostnames such as `localhost` are not permitted |
+| No private or reserved TLDs | The hostname must not end in `.local`, `.arpa`, `.internal`, or `.localhost`                                            |
+| No IP addresses             | The hostname must not be a bare IP address (e.g. `192.168.1.1`)                                                         |
+
+Non-standard ports (e.g. `:8080`) are permitted.
+
+### OIDC Discovery Document Requirements
+
+Discord fetches your OIDC configuration from `{issuer_url}/.well-known/openid-configuration` per [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414). This endpoint must:
+
+- Be accessible over HTTPS
+- **Not require HTTP redirects** — Discord does not follow redirects when fetching this document or your JWKS endpoint
+- Return a valid JSON object (not an array)
+
+The discovery document must include these fields:
+
+| Field                                   | Type             | Requirement                                                                    |
+|-----------------------------------------|------------------|--------------------------------------------------------------------------------|
+| `issuer`                                | HTTPS URL        | Must exactly match the issuer URL used to fetch the document                   |
+| `jwks_uri`                              | HTTPS URL        | URI to your JWKS signing key endpoint                                          |
+| `id_token_signing_alg_values_supported` | Array of strings | Must contain at least one [supported algorithm](#supported-signing-algorithms) |
+
+`authorization_endpoint` and `token_endpoint` are accepted but not used by Discord.
+
+### Supported Signing Algorithms
+
+Your ID tokens must be signed using an asymmetric algorithm. Discord supports:
+
+| Algorithm family | Algorithms                |
+|------------------|---------------------------|
+| RSA              | `RS256`, `RS384`, `RS512` |
+| ECDSA            | `ES256`, `ES384`, `ES512` |
+| RSA-PSS          | `PS256`, `PS384`, `PS512` |
+
+Symmetric (HMAC) algorithms such as `HS256` are not supported. Any unsupported algorithms listed in `id_token_signing_alg_values_supported` are silently ignored.
+
+### ID Token Requirements
+
+The OIDC ID token passed as `external_auth_token` must meet all of the following:
+
+| Requirement       | Details                                                                                                                                                                     |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kid` header      | The JWT header must include a `kid` (Key ID) field that matches a key in your JWKS                                                                                          |
+| Signing algorithm | Must use one of the [supported algorithms](#supported-signing-algorithms) listed in your discovery document                                                                 |
+| `iss` claim       | Must exactly match the configured issuer URL                                                                                                                                |
+| `sub` claim       | Required — the unique user identifier from your identity provider                                                                                                           |
+| `aud` claim       | Must include the client ID configured for this application in the [Developer Portal](https://discord.com/developers/applications/select/social-sdk/external-auth-providers) |
+| `exp` claim       | Required — token must not be expired                                                                                                                                        |
+| `iat` claim       | Required — token must have been issued within the past **7 days**                                                                                                           |
+
+The optional `preferred_username` claim (1–32 characters) sets the provisional account's display name if present. See [Setting Display Names](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts#setting-display-names) for how display names are chosen across providers.
+
+---
+
+## Next Steps
+
+Once your identity provider is configured, continue to the authentication method that matches your setup:
+
+<CardGroup cols={2}>
+  <Card title="External Credentials Exchange" href="/developers/discord-social-sdk/development-guides/provisional-accounts/external-credentials-exchange" icon={<GlobeEarthIcon />}>
+    Exchange an external provider token (OIDC, Steam, EOS, etc.) server-side.
+  </Card>
+  <Card title="Public Client Integration" href="/developers/discord-social-sdk/development-guides/provisional-accounts/public-client" icon={<BrowserIcon />}>
+    Authenticate directly from the client when you don't have a backend.
+  </Card>
+</CardGroup>
+
+<SupportCallout />
+
+---
+
+## Change Log
+
+| Date           | Changes                                                   |
+|----------------|-----------------------------------------------------------|
+| July 14, 2026  | Split the provisional accounts guide into its own section |
+| March 17, 2025 | Initial release                                           |

@@ -17,7 +17,7 @@ _Already familiar? Jump to the [implementation guides](#implementing-account-lin
 
 Account linking connects a player's Discord account to their account in your game. Once linked, players gain access to their Discord friends list, game invites, rich presence, and voice directly inside your game.
 
-This link persists across sessions, so players authenticate once and won't need to re-link unless your account linking [scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes) change. Players who aren't ready to link (or don't have a Discord account yet) can still use social features through [provisional accounts](/developers/discord-social-sdk/development-guides/using-provisional-accounts). When they do link later, their friends, DM history, and lobby memberships transfer automatically to their Discord account.
+This link persists across sessions, so players authenticate once and won't need to re-link unless your account linking [scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes) change. Players who aren't ready to link (or don't have a Discord account yet) can still use social features through [provisional accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview). When they do link later, their friends, DM history, and lobby memberships transfer automatically to their Discord account.
 
 Account linking is also important for [Social Commerce](/developers/social-commerce/overview) in Discord communities. Players with linked accounts can claim in-game items that they purchase or receive as gifts from Discord Game Shops.
 
@@ -115,7 +115,7 @@ Use the Discord Social SDK to let players link their accounts directly from your
 
 Use a standard OAuth2 flow to let players link their accounts through a web page on any device. This doesn't require the Social SDK and works well if you already have web infrastructure. Web Flow is the primary method for enabling [Social Commerce](/developers/social-commerce/overview) features like Game Shops and Game Stat Widgets.
 
-<Card title="OAuth2 Documentation" href="/developers/topics/oauth2">
+<Card title="Account Linking on Web" href="/developers/discord-social-sdk/development-guides/account-linking-on-web">
   Guide on implementing the standard OAuth2 web flow for account linking.
 </Card>
 
@@ -164,10 +164,6 @@ Players need to account link when redeeming items from your Game Shop to be able
   alt="Game Shop entry points for account linking"
 />
 
-<Note>
-Configuring Web Flow to work from official Discord entry points is currently available to select partners. Contact Discord if you're interested in enabling this for your game.
-</Note>
-
 <Card title="Account Linking from Discord Entry Points" href="/developers/discord-social-sdk/development-guides/account-linking-from-discord">
   Guide on enabling Discord entry points so players can link from within the Discord client.
 </Card>
@@ -176,7 +172,7 @@ Configuring Web Flow to work from official Discord entry points is currently ava
 
 Players who don't have Discord, or who choose not to link yet, can still use social features through provisional accounts. They can add friends, join lobbies, send messages, and participate in voice chat without a Discord account.
 
-When they later link a Discord account, their friends, DM history, and lobby memberships transfer automatically. Learn more in the [Provisional Accounts guide](/developers/discord-social-sdk/development-guides/using-provisional-accounts).
+When they later link a Discord account, their friends, DM history, and lobby memberships transfer automatically. Learn more in the [Provisional Accounts guide](/developers/discord-social-sdk/development-guides/provisional-accounts/overview).
 
 ## Next Steps
 

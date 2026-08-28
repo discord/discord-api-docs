@@ -38,7 +38,7 @@ A few small things to note about the above image:
 
 When updating Rich Presence data using the Embedded App SDK, the only real command you need to use is **[`setActivity()`](/developers/developer-tools/embedded-app-sdk#setactivity)**. Under the hood, `setActivity()` calls the RPC [`SET_ACTIVITY` command](/developers/topics/rpc#setactivity) with the features and fields available when you're building an Activity.
 
-<Accordion title="Why am I seeing the word activity everywhere?" description="A brief platform history lesson about what all these different activites are about">
+<Accordion title="Why am I seeing the word activity everywhere?" description="A brief platform history lesson about what all these different activities are about">
 As you start exploring the Rich Presence docs, you'll start seeing the word "activity" a *lot*. The "activities" referenced in docs (like the [RPC ones](/developers/topics/rpc#setactivity)) aren't related to the Activities you're building with the Embedded App SDK.
 
 When Rich Presence was introduced, the underlying object that contains presence data was called an "activity" (long before the Embedded App SDK), which is what the RPC [`SET_ACTIVITY` command](/developers/topics/rpc#setactivity) is referencing. And that's *also* why the Embedded App SDK's wrapper around the RPC command is called `setActivity()` yet isn't really related to setting the state for the kind of Activity that *you're* building.

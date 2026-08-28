@@ -1,0 +1,10 @@
+Common error codes and solutions when creating a provisional account:
+
+| Code   | Meaning                      | Solution                                                                    |
+|--------|------------------------------|-----------------------------------------------------------------------------|
+| 530000 | Application not configured   | Contact Discord support to enable provisional accounts for your application |
+| 530001 | Expired ID token             | Request a new token from your identity provider                             |
+| 530004 | Token too old                | Request a new token (tokens over 1 week old are rejected)                   |
+| 530006 | Username generation failed   | Retry the operation (temporary error)                                       |
+| 530007 | Invalid client secret        | Verify or regenerate your client secret in the Developer Portal             |
+| 530010 | User account non-provisional | User already linked to Discord account - use standard OAuth2 flow           |

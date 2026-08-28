@@ -151,7 +151,10 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | CREATOR_STORE_PAGE                        | guild has enabled the role subscription promo page                                                                                  |
 | DEVELOPER_SUPPORT_SERVER                  | guild has been set as a support server on the App Directory                                                                         |
 | DISCOVERABLE                              | guild is able to be discovered in the directory                                                                                     |
+| ENHANCED_ROLE_COLORS                      | guild is able to set gradient colors to roles                                                                                       |
 | FEATURABLE                                | guild is able to be featured in the directory                                                                                       |
+| GUILD_TAGS                                | guild has access to set guild tags                                                                                                  |
+| GUESTS_ENABLED                            | guild has access to guest invites                                                                                                   |
 | INVITES_DISABLED                          | guild has paused invites, preventing new users from joining                                                                         |
 | INVITE_SPLASH                             | guild has access to set an invite splash background                                                                                 |
 | MEMBER_VERIFICATION_GATE_ENABLED          | guild has enabled [Membership Screening](/developers/resources/guild#membership-screening-object)                                   |
@@ -160,6 +163,7 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | NEWS                                      | guild has access to create announcement channels                                                                                    |
 | PARTNERED                                 | guild is partnered                                                                                                                  |
 | PREVIEW_ENABLED                           | guild can be previewed before joining via Membership Screening or the directory                                                     |
+| PRUNE_REQUIRES_ADMIN                      | guild has enabled requiring admin to prune members                                                                                  |
 | RAID_ALERTS_DISABLED                      | guild has disabled alerts for join raids in the configured safety alerts channel                                                    |
 | ROLE_ICONS                                | guild is able to set role icons                                                                                                     |
 | ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE | guild has role subscriptions that can be purchased                                                                                  |
@@ -170,9 +174,6 @@ Fields specific to the `GUILD_CREATE` event are listed in the [Gateway Events do
 | VERIFIED                                  | guild is verified                                                                                                                   |
 | VIP_REGIONS                               | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                                     |
 | WELCOME_SCREEN_ENABLED                    | guild has enabled the welcome screen                                                                                                |
-| GUESTS_ENABLED                            | guild has access to guest invites                                                                                                   |
-| GUILD_TAGS                                | guild has access to set guild tags                                                                                                  |
-| ENHANCED_ROLE_COLORS                      | guild is able to set gradient colors to roles                                                                                       |
 
 <ManualAnchor id="guild-object-mutable-guild-features" />
 ###### Mutable Guild Features
@@ -885,6 +886,10 @@ Attempting to add or remove the `COMMUNITY` [guild feature](/developers/resource
 
 Returns a list of guild [channel](/developers/resources/channel#channel-object) objects. Does not include threads.
 
+<Warning>
+Starting November 16, 2026, this endpoint will omit any channel your bot doesn't have permissions to view. Permission to view a channel is defined by having `VIEW_CHANNEL` permission on a channel or by being connected to a voice channel. Channel categories are viewable if any of their child channels are viewable. See [Channel Obfuscation for Users and Bots](/developers/change-log#channel-obfuscation-for-users-and-bots) for more information.
+</Warning>
+
 ## Create Guild Channel
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/channels</Route>
 
@@ -921,6 +926,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 | default_sort_order                 | integer                                                                              | the [default sort order type](/developers/resources/channel#channel-object-sort-order-types) used to order posts in `GUILD_FORUM` and `GUILD_MEDIA` channels            | Forum, Media                                   |
 | default_forum_layout               | integer                                                                              | the [default forum layout view](/developers/resources/channel#channel-object-forum-layout-types) used to display posts in `GUILD_FORUM` channels                        | Forum                                          |
 | default_thread_rate_limit_per_user | integer                                                                              | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.           | Text, Announcement, Forum, Media               |
+| flags                              | integer                                                                              | [channel flags](/developers/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field).                          | Text, Voice, Announcement, Forum, Media        |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](/developers/resources/guild#guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -940,12 +946,23 @@ This endpoint takes a JSON array of parameters in the following format:
 <ManualAnchor id="modify-guild-channel-positions-json-params" />
 ###### JSON Params
 
-| Field             | Type       | Description                                                                        |
-|-------------------|------------|------------------------------------------------------------------------------------|
-| id                | snowflake  | channel id                                                                         |
-| position?         | ?integer   | sorting position of the channel (channels with the same position are sorted by id) |
-| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category   |
-| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                    |
+| Field             | Type       | Description                                                                                                                                    |
+|-------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                | snowflake  | channel id                                                                                                                                     |
+| position?         | ?integer   | sorting position of the channel (channels with the same position are sorted by id)                                                             |
+| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category                                                               |
+| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                                                                                |
+| flags?            | ?integer   | [channel flags](/developers/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field). |
+
+<Info>
+At most one entry per request may change `parent_id`. A request that changes `parent_id` for more than one channel fails with a `400` response and error code `40009` (`Only one channel can have a parent_id modified at a time`).
+</Info>
+
+<Info>
+Permissions are checked per entry, based on what the entry changes:
+- An entry that only changes `position` requires the `MANAGE_CHANNELS` permission at the guild level (or on the channel's current parent category). It does **not** require access to the individual channel, so a full reordering may include channels the current user cannot view.
+- An entry that changes `parent_id` requires the `MANAGE_CHANNELS` permission on that channel and on the destination (the new parent category, or the guild when moving the channel out of a category), and the current user must be able to view the channel. Otherwise the request fails with a `403` response and error code `50001` (`Missing Access`). Setting `lock_permissions` additionally requires `MANAGE_ROLES`.
+</Info>
 
 ## List Active Guild Threads
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/threads/active</Route>
@@ -1311,7 +1328,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Get Guild Prune Count
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/prune</Route>
 
-Returns an object with one `pruned` key indicating the number of members that would be removed in a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions.
+Returns an object with one `pruned` key indicating the number of members that would be removed in a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions, unless the guild has the `PRUNE_REQUIRES_ADMIN` guild feature, in which case it requires the `ADMINISTRATOR` permission.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
@@ -1326,7 +1343,7 @@ By default, prune will not remove users with roles. You can optionally include s
 ## Begin Guild Prune
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/prune</Route>
 
-Begin a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions. Returns an object with one `pruned` key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing `pruned` to `null`. Fires multiple [Guild Member Remove](/developers/events/gateway-events#guild-member-remove) Gateway events.
+Begin a prune operation. Requires the `MANAGE_GUILD` and `KICK_MEMBERS` permissions, unless the guild has the `PRUNE_REQUIRES_ADMIN` guild feature, in which case it requires the `ADMINISTRATOR` permission. Returns an object with one `pruned` key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing `pruned` to `null`. Fires multiple [Guild Member Remove](/developers/events/gateway-events#guild-member-remove) Gateway events.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
