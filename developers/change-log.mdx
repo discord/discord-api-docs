@@ -6,6 +6,23 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 1, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK Release 1.10.19337",
+    description: "Read-only access to the Discord desktop client's voice settings — mute/deafen, volumes, voice mode, and push-to-talk key — over RPC."
+  }}>
+
+    ## Discord Social SDK Release 1.10.19337
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Voice
+    Added read-only access to the Discord desktop client's voice settings over RPC, including mute/deafen state, volumes, voice mode, and the configured push-to-talk key.
+
+    Fetch the current settings with [`Client::GetVoiceSettings`](https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3ca1d435f1a2861462e2b3d313b15aec), or subscribe to changes with [`Client::SetVoiceSettingsUpdatedCallback`](https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a2006d6b52b1665fb51172a98c3a37661) — both return the new [`VoiceSettings`](https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1VoiceSettings.html) class.
+
+    See [Reading Voice Settings from the Discord Client](/developers/discord-social-sdk/development-guides/managing-voice-chat#reading-voice-settings-from-the-discord-client) for details.
+</Update>
+
 <Update label="August 27, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
     title: "PRUNE_REQUIRES_ADMIN Guild Feature",
     description: "Prune endpoints require the ADMINISTRATOR permission if the guild has the new PRUNE_REQUIRES_ADMIN guild feature."
