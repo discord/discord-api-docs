@@ -781,6 +781,13 @@ If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](/developers/eve
 
 Sent when a guild is updated. The inner payload is a [guild](/developers/resources/guild#guild-object) object.
 
+<ManualAnchor id="guild-update-guild-update-extra-fields" />
+###### Guild Update Extra Fields
+
+| Field    | Type                                                              | Description                          |
+|----------|-------------------------------------------------------------------|--------------------------------------|
+| profile? | ?[guild tag](/developers/resources/guild#guild-tag-object) object | The guild tag that the guild has set |
+
 #### Guild Delete
 
 Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](/developers/resources/guild#unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
