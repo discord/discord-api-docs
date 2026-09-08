@@ -19,7 +19,7 @@ This guide explains how to implement OAuth2 authentication for mobile users (iOS
 Mobile authentication uses **deep linking** to provide a seamless experience. When the Discord mobile app is installed, users are automatically redirected to Discord to authorize your game, then returned to your game via a custom URL scheme.
 
 <Info>
-As of Discord Social SDK 1.5, mobile account linking has been significantly simplified through native deep-link authentication support.
+As of Discord Social SDK 1.5, mobile account linking has been significantly simplified through native deep-link authentication support. If the Discord mobile app is installed and the user is already signed in, this native flow reuses their existing authenticated Discord app session, so they won't need to re-enter credentials in a browser.
 </Info>
 
 ### Key Differences from Desktop Authentication
@@ -637,9 +637,10 @@ Now that you've successfully implemented account linking on mobile, you can inte
 
 ## Change Log
 
-| Date             | Changes         |
-|------------------|-----------------|
-| January 26, 2026 | Initial release |
+| Date              | Changes                                                                     |
+|-------------------|-----------------------------------------------------------------------------|
+| September 8, 2026 | Clarified that native auth reuses an existing signed-in Discord app session |
+| January 26, 2026  | Initial release                                                             |
 
 [Unity Sample Project]: https://discord.com/developers/applications/select/social-sdk/downloads
 
