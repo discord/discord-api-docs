@@ -100,7 +100,7 @@ Suppose the user has the Discord desktop application open on the same machine as
 As a convenience for game developers, the first time a user sends a message in the game, that message shows up on the Discord client. The SDK will inject a "fake" message into the chat that contains a basic English explanation of what is happening to the user. You can identify these messages with the [`MessageHandle::DisclosureType`] method. We encourage you to customize the rendering of these messages, possibly changing the wording, translating them, and making them look more "official". You can choose to avoid rendering these as well.
 
 <Info>
-This disclosure message is injected client-side only and does not appear in the channel or lobby's message history. It is also not tied to a specific user—everyone in the channel or lobby will see it, rather than it being a private disclosure shown only to one person.
+This disclosure message does not appear in the channel or lobby's message history—it's generated only in the sending user's own client and is not persisted or synced anywhere else. It is private to that user; other members of the channel or lobby will not see it.
 </Info>
 
 ### Message History
@@ -250,6 +250,7 @@ import {HashmarkIcon} from '/snippets/icons/HashmarkIcon.jsx'
 
 | Date              | Changes                                                          |
 |-------------------|------------------------------------------------------------------|
+| September 9, 2026 | Correct legal disclosure message privacy scope                   |
 | September 8, 2026 | Clarify legal disclosure message visibility and history behavior |
 | August 29, 2025   | Add DM history                                                   |
 | June 30, 2025     | Add communications scope warning                                 |
