@@ -144,7 +144,7 @@ Returns a [sticker](/developers/resources/sticker#sticker-object) object for the
 ## Create Guild Sticker
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/stickers</Route>
 
-Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [sticker](/developers/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/developers/events/gateway-events#guild-stickers-update) Gateway event.
+Create a new sticker for the guild. Send a `multipart/form-data` body as described in [Uploading Files](/developers/reference#uploading-files). Requires the `CREATE_GUILD_EXPRESSIONS` permission. Returns the new [sticker](/developers/resources/sticker#sticker-object) object on success. Fires a [Guild Stickers Update](/developers/events/gateway-events#guild-stickers-update) Gateway event.
 
 Every guilds has five free sticker slots by default, and each Boost level will grant access to more slots.
 
