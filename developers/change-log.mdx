@@ -6,6 +6,27 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 11, 2026" tags={["Interactions"]} rss={{
+    title: "Slash Command Improvements and Mobile Fixes",
+    description: "String options now support multiline input, command autocomplete supports fuzzy search, and the input remembers your selected command when switching channels. Also fixes several mobile command experience bugs."
+  }}>
+
+  ## Slash Command Improvements and Mobile Fixes
+
+  We've shipped a set of small improvements to slash commands from long-awaited feature requests:
+
+  - String options now support multiline input
+  - Command autocomplete now has fuzzy search, so you can skip letters or type `/r a` to find `/role add`
+  - When you switch channels and come back, the input now remembers which command you had selected
+
+  We've also fixed bugs in the command experience on mobile:
+
+  - Fixed typing space while typing subcommands making the command picker disappear
+  - Fixed typing space to select a command sometimes selecting the wrong command
+  - Fixed slash command user options sometimes failing to find the user
+  - Fixed some minor UI issues in the app launcher
+</Update>
+
 <Update label="September 3, 2026" tags={["HTTP API", "Interactions"]} rss={{
     title: "Default File Upload Limit Increase",
     description: "The default file upload limit has been increased from 10 MiB to 20 MiB."
