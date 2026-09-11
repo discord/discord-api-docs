@@ -6,7 +6,9 @@
 	"engines": {
 		"node": ">= 20.11.0"
 	},
-	"workspaces": ["tools"],
+	"workspaces": [
+		"tools"
+	],
 	"scripts": {
 		"prepare": "husky",
 		"lint": "npm run -w tools test:tables && npm run -w tools lint",
@@ -15,7 +17,7 @@
 	},
 	"devDependencies": {
 		"husky": "^9.1.7",
-		"lint-staged": "^16.4.0"
+		"lint-staged": "^17.3.0"
 	},
 	"lint-staged": {
 		"*.{md,mdx}": "npm run lint:fix",
