@@ -202,9 +202,9 @@ See our guide on [Linked Channels](/developers/discord-social-sdk/development-gu
 
 ### Legal Disclosure Message Type
 
-The first time a user sends a message in a lobby that's linked to a Discord channel, the SDK will inject a "fake" message
-into the chat that contains a basic English explanation that their messages are now visible on Discord. This message
-is private to the sending user and does not appear in the lobby's message history—other lobby members will not see it.
+The first time a user sends a message in a lobby that's linked to a Discord channel, the SDK will inject a disclosure
+message into the chat that contains a basic English explanation that their messages are now visible on Discord. This
+message is private to the sending user and does not appear in the lobby's message history—other lobby members will not see it.
 
 You can identify these messages with the [`MessageHandle::DisclosureType`] method.
 
