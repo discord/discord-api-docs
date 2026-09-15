@@ -716,6 +716,8 @@ The [Get Gateway Bot endpoint](/developers/events/gateway#get-gateway-bot) will 
 
 The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 5)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](/developers/events/gateway#session-start-limit-object).
 
+Because your guilds are stored across `max_concurrency` shards, [Get Current User Guilds](/developers/resources/user#get-current-user-guilds) requires the `shard` query param for these bots. Request each shard from `0` to `max_concurrency - 1` separately to retrieve all of your guilds.
+
 ## Get Gateway
 <Route method="GET">/gateway</Route>
 
