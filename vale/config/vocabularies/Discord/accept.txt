@@ -291,3 +291,12 @@ startTimestamp
 partySize
 partyMax
 Wump
+unfurl
+unfurls
+unfurled
+unfurling
+oEmbed
+Discordbot
+WebP
+AVIF
+avif
