@@ -1,0 +1,257 @@
+---
+title: Component Embeds
+sidebarTitle: Component Embeds
+description: Build a custom link preview for your website using Discord components.
+keywords: ['component embed', 'link preview', 'unfurl', 'components', 'open graph', 'rich embed']
+---
+
+When you paste a link to your website into Discord, it turns into a link preview. A component embed replaces that preview with a layout you control, built from the same [components](/developers/components/reference) apps use in messages. You get markdown, images, galleries, an accent-colored container, and link buttons.
+
+<Warning>
+Link previews are subject to change, check the documentation for the latest information.
+</Warning>
+
+---
+
+## Prerequisites
+
+- An HTML page served over HTTPS.
+- The tag is server-rendered. Discord does not execute JavaScript, so a tag injected by client-side script is never seen.
+- Discord's crawler can reach the page. Pages are fetched with the user agent `Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)`, and linked JSON with `Discordbot/2.0`. Allow user agents containing `Discordbot` in your bot protection and WAF rules.
+- The whole fetch, including every image in the payload, must finish within 10 seconds.
+- Open Graph tags are present, so a standard preview is available when a component embed can't be shown. See [Link Previews](/developers/link-previews/overview) for the tags Discord reads.
+
+<Warning>
+Bot challenges from CDN and WAF products commonly block Discordbot. If previews never appear, confirm that a request with a `Discordbot` user agent gets a `200` for the page and for each image, with no JavaScript challenge in front of it.
+</Warning>
+
+---
+
+## How It Works
+
+1. A user posts a link to your page in a Discord message.
+2. Discord fetches that URL with its crawler and reads the HTML.
+3. Discord looks for a component-embed tag, parses the JSON, and fetches metadata for each image.
+4. If the payload is valid, Discord renders it in place of the standard preview.
+
+---
+
+## Adding the Payload
+
+There are two ways to expose the JSON. If both tags are present, the inline script is used and the `<link>` is ignored.
+
+### Option 1: Inline Script
+
+Put a `<script>` in the page Discord fetches, typically in the `<head>`. The `id` and `type` attributes must match exactly.
+
+```html
+<script id="discord:component-embed" type="application/json">
+{
+  "component": {
+    "type": 17,
+    "accent_color": 5793266,
+    "components": [
+      {
+        "type": 10,
+        "content": "# Hello friend!!"
+      }
+    ]
+  }
+}
+</script>
+```
+
+The `type` attribute must be exactly `application/json`. The script body must be the JSON object itself, not assigned to a variable or wrapped in a function call.
+
+### Option 2: Linked JSON
+
+Serve the JSON from a URL on the same site and point at it with a `<link>`.
+
+```html
+<link
+  rel="discord:component-embed"
+  type="application/json"
+  href="https://example.com/embeds/article.json"
+>
+```
+
+Rules for the `href`:
+
+| Rule          | Detail                                                                                                                                                           |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Absolute URL  | The `href` must be an absolute `https://` URL.                                                                                                                   |
+| Same site     | The host must be the page's host, a subdomain of it, or its parent domain. `cdn.example.com` is valid for a page on `example.com` and the reverse is also valid. |
+| Attributes    | `rel` must be exactly `discord:component-embed` and `type` must be exactly `application/json`.                                                                   |
+| Response body | The JSON object described in [Payload Structure](/developers/link-previews/component-embeds#payload-structure), the same shape as the inline script.             |
+| Size          | 3,000-byte limit, measured on the raw response bytes.                                                                                                            |
+
+---
+
+## Payload Structure
+
+The document, inline or linked, must be a JSON object with a single, parent [Container](/developers/components/reference#container-container-structure) component which can then hold other components.
+
+```json
+{
+  "component": {
+    "type": 17,
+    "components": [
+      {
+        "type": 10,
+        "content": "# Hello again!!!!"
+      }
+    ]
+  }
+}
+```
+
+| Field     | Type                                                                        |
+|-----------|-----------------------------------------------------------------------------|
+| component | [Container](/developers/components/reference#container-container-structure) |
+
+---
+
+## Compatible Components
+
+A component embed is a read-only subset of the components used in messages. Any component type not in this table invalidates the payload. You can use up to 40 components in a component embed.
+
+| Type | Component                                                                                      |
+|------|------------------------------------------------------------------------------------------------|
+| 1    | [Action Row](/developers/components/reference#action-row-action-row-structure)                 |
+| 2    | [Button](/developers/components/reference#button-button-structure) \*                          |
+| 9    | [Section](/developers/components/reference#section-section-structure)                          |
+| 10   | [Text Display](/developers/components/reference#text-display-text-display-structure) \*\*      |
+| 11   | [Thumbnail](/developers/components/reference#thumbnail-thumbnail-structure) \*\*\*             |
+| 12   | [Media Gallery](/developers/components/reference#media-gallery-media-gallery-structure) \*\*\* |
+| 14   | [Separator](/developers/components/reference#separator-separator-structure)                    |
+| 17   | [Container](/developers/components/reference#container-container-structure)                    |
+
+\* A button must use the link style (`style` of `5`) and may contain only `type`, `url`, `style`, `label`, `emoji`, and `disabled`, with a `label`, an `emoji`, or both. Any other key, including `id`, `custom_id`, and `sku_id`, invalidates the entire payload.
+
+\*\* Text Display content is Discord markdown including headings, bold, italics, strikethrough, spoilers, lists, links, inline code and code blocks, and emoji. See [Message Formatting](/developers/reference#message-formatting).
+
+\*\*\* Thumbnails and gallery items take an [unfurled media item](/developers/components/reference#unfurled-media-item) with only `url` set. Discord fills in the rest after it fetches the image. See [Media](/developers/link-previews/component-embeds#media).
+
+---
+
+## Media
+
+Thumbnails and gallery items take an [unfurled media item](/developers/components/reference#unfurled-media-item). Discord fills in the width, height, content type, placeholder, and proxy URL after it fetches the asset.
+
+```json
+{ "url": "https://watchanimeattheoffice.com/images/hero.webp" }
+```
+
+| Requirement   | Detail                                                                               |
+|---------------|--------------------------------------------------------------------------------------|
+| Scheme        | `http` or `https`. `attachment://` references are not valid in a component embed.    |
+| Length        | Max 2,048 characters.                                                                |
+| Format        | PNG, GIF, JPEG, WebP, or AVIF. Video is not supported anywhere in a component embed. |
+| Public access | Discord's crawler must be able to fetch the URL without cookies or a login.          |
+
+---
+
+## Full Example
+
+A game release preview. A headline with a button beside it, a gallery, a caption, a row of links, and a minor character spoiler with hidden avatar.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>New version out!</title>
+
+    <meta property="og:title" content="New version out!" />
+    <meta property="og:description" content="The dungeon is deceptively tougher." />
+    <meta property="og:image" content="https://watchanimeattheoffice.com/photos/hero.jpg" />
+    <meta property="og:url" content="https://watchanimeattheoffice.com/posts/version2" />
+
+    <script id="discord:component-embed" type="application/json">
+    {
+      "component": {
+        "type": 17,
+        "spoiler": false,
+        "accent_color": 1752220,
+        "components": [
+          {
+            "type": 9,
+            "components": [
+              {
+                "type": 10,
+                "content": "# **[New version out!](https://watchanimeattheoffice.com/posts/version2)**\nThe dungeon is deceptively tougher."
+              }
+            ],
+            "accessory": {
+              "type": 2,
+              "style": 5,
+              "url": "https://watchanimeattheoffice.com/posts/version2",
+              "label": "Open"
+            }
+          },
+          {
+            "type": 12,
+            "items": [
+              { "media": { "url": "https://watchanimeattheoffice.com/photos/1.png" }, "description": "The main character entering the dungeon" },
+              { "media": { "url": "https://watchanimeattheoffice.com/photos/2.png" } },
+              { "media": { "url": "https://watchanimeattheoffice.com/photos/3.png" } }
+            ]
+          },
+          {
+            "type": 10,
+            "content": "*Screenshots of new content*"
+          },
+          {
+            "type": 14,
+            "spacing": 1
+          },
+          {
+            "type": 1,
+            "components": [
+              { "type": 2, "style": 5, "url": "https://watchanimeattheoffice.com/store", "label": "Store" },
+              { "type": 2, "style": 5, "url": "https://watchanimeattheoffice.com/community", "label": "Community" },
+              { "type": 2, "style": 5, "url": "https://watchanimeattheoffice.com/patch-notes", "label": "Patch Notes" }
+            ]
+          },
+          { "type": 14 },
+          {
+            "type": 9,
+            "components": [
+              {
+                "type": 10,
+                "content": "## **[??????](https://watchanimeattheoffice.com/me)**\nWho could this be?"
+              }
+            ],
+            "accessory": {
+              "type": 11,
+              "media": { "url": "https://watchanimeattheoffice.com/new-boss.png" },
+              "spoiler": true
+            }
+          }
+        ]
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <h1>New version out!</h1>
+  </body>
+</html>
+```
+
+---
+
+## Open Graph Fallback
+
+Ship these tags alongside the component-embed payload. They are what Discord shows whenever a component embed can't be used.
+
+```html
+<meta property="og:title" content="New version out!" />
+<meta property="og:description" content="The dungeon is deceptively tougher" />
+<meta property="og:image" content="https://watchanimeattheoffice.com/photos/hero.png" />
+<meta property="og:url" content="https://watchanimeattheoffice.com/posts/version2" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+```
+
+[Link Previews](/developers/link-previews/overview) covers these tags and the rest of the metadata Discord reads.
