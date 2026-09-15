@@ -309,7 +309,9 @@ This endpoint returns 200 guilds by default, which is the maximum number of guil
 | with_counts | [boolean](/developers/reference#boolean-query-strings) | include approximate member and presence counts in response      | false                                  | false   |
 
 <Warning>
-Apps using [large bot sharding](/developers/events/gateway#sharding-for-large-bots) must provide the `shard` param. Valid values are `0` through `max_concurrency - 1`, where `max_concurrency` comes from the [session start limit object](/developers/events/gateway#session-start-limit-object) on [Get Gateway Bot](/developers/events/gateway#get-gateway-bot). Iterate over every shard to retreve the full guild list. Fetch one shard at a time to get every guild. Apps that are not using large bot sharding are unaffected.
+Apps using [large bot sharding](/developers/events/gateway#sharding-for-large-bots) must provide the `shard` param. Valid values are `0` through `max_concurrency - 1`, where `max_concurrency` comes from the [session start limit object](/developers/events/gateway#session-start-limit-object) on [Get Gateway Bot](/developers/events/gateway#get-gateway-bot). Iterate over every shard to retrieve the full guild list. Apps that are not using large bot sharding are unaffected.
+
+Note that this value is different from the shard id used when connecting to the [Gateway](/developers/events/gateway).
 </Warning>
 
 ## Get Current User Guild Member
