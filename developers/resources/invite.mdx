@@ -192,6 +192,16 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 
 Gets the users allowed to see and accept this invite. Response is a CSV file with the header `user_id` and each user ID from the original file passed to [invite create](/developers/resources/channel#create-channel-invite) on its own line. Requires the caller to be the inviter, or have `MANAGE_GUILD` permission, or have `VIEW_AUDIT_LOG` permission.
 
+## Add Target User
+<Route method="PUT">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/[\{user.id\}](/developers/resources/user#user-object)</Route>
+
+Adds a target user to an existing invite. Requires the caller to be the inviter or have the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
+
+## Remove Target User
+<Route method="DELETE">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/[\{user.id\}](/developers/resources/user#user-object)</Route>
+
+Removes a target user from an existing invite. Requires the caller to be the inviter or have the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
+
 ## Update Target Users
 <Route method="PUT">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users</Route>
 
@@ -215,6 +225,30 @@ Updates the users allowed to see and accept this invite. Uploading a file with i
   ]
 }
 ```
+
+## Bulk-Add Target Users
+<Route method="POST">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/bulk-add</Route>
+
+Adds multiple target users to an existing invite. Requires the caller to be the inviter or have the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
+
+<ManualAnchor id="bulk-add-target-users-json-params" />
+###### JSON Params
+
+| Field    | Type                | Description             |
+|----------|---------------------|-------------------------|
+| user_ids | array of snowflakes | the IDs of users to add |
+
+## Bulk-Delete Target Users
+<Route method="POST">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/bulk-delete</Route>
+
+Removes multiple target users from an existing invite. Requires the caller to be the inviter or have the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
+
+<ManualAnchor id="bulk-delete-target-users-json-params" />
+###### JSON Params
+
+| Field    | Type                | Description                |
+|----------|---------------------|----------------------------|
+| user_ids | array of snowflakes | the IDs of users to remove |
 
 ## Get Target Users Job Status
 <Route method="GET">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/job-status</Route>
