@@ -7,17 +7,17 @@ rss: true
 import {Route} from '/snippets/route.jsx'
 
 <Update label="September 15, 2026" tags={["HTTP API", "Breaking Change"]} rss={{
-    title: "Shard Param Required for Large Bot Sharding",
-    description: "Apps using large bot sharding must pass the new shard query param to Get Current User Guilds."
+    title: "Shard Param Required for Get Current User Guilds with Large Bot Sharding",
+    description: "Apps using large bot sharding must pass the shard query param to Get Current User Guilds."
   }}>
 
-  ## Shard Param Required for Large Bot Sharding
+  ## Shard Param Required for Get Current User Guilds with Large Bot Sharding
 
-  [Get Current User Guilds](/developers/resources/user#get-current-user-guilds) now accepts a `shard` query param, which returns only the guilds stored in that shard.
+  [Get Current User Guilds](/developers/resources/user#get-current-user-guilds) accepts a `shard` query param, which returns only the guilds stored in that shard.
 
-  Apps using [large bot sharding](/developers/events/gateway#sharding-for-large-bots) are **required** to pass it — requests without `shard` now return `400 Bad Request`. Valid values are `0` through `max_concurrency - 1`, using the `max_concurrency` returned by [Get Gateway Bot](/developers/events/gateway#get-gateway-bot); request each shard separately to retrieve every guild.
+  Apps using [large bot sharding](/developers/events/gateway#sharding-for-large-bots) are **required** to pass it — requests without `shard` now return `400 Bad Request`. Valid values are `0` through `max_concurrency - 1`, using the `max_concurrency` returned by [Get Gateway Bot](/developers/events/gateway#get-gateway-bot),
 
-  Apps that are not using large bot sharding have a `max_concurrency` of `1` and are unaffected.
+  Apps that are not using large bot sharding are unaffected.
 </Update>
 
 <Update label="September 11, 2026" tags={["Interactions"]} rss={{
