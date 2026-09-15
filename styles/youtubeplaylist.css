@@ -1,0 +1,179 @@
+.yt-carousel-description {
+    margin: 0 0 1rem;
+}
+
+.yt-carousel-viewport {
+    position: relative;
+}
+
+.yt-carousel-track {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.yt-carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.yt-carousel-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+}
+
+@media (min-width: 640px) {
+    .yt-carousel-slide {
+        flex-basis: calc((100% - 1rem) / 2);
+    }
+}
+
+@media (min-width: 1024px) {
+    .yt-carousel-slide {
+        flex-basis: calc((100% - 2rem) / 3);
+    }
+}
+
+.yt-carousel-slide iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 0.75rem;
+}
+
+.yt-carousel-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: black;
+    cursor: pointer;
+}
+
+.yt-carousel-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.yt-carousel-thumb:hover img {
+    transform: scale(1.03);
+}
+
+.yt-carousel-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.65);
+    color: white;
+    transition: background 0.2s ease;
+}
+
+.yt-carousel-play svg {
+    margin-left: 0.15rem;
+}
+
+.yt-carousel-thumb:hover .yt-carousel-play {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.yt-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+    color: rgb(75, 85, 99);
+    font-size: 1.5rem;
+    line-height: 1;
+    padding-bottom: 0.2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.yt-carousel-arrow:is(.dark *) {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgb(39, 39, 42);
+    color: rgb(212, 212, 216);
+}
+
+.yt-carousel-arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.yt-carousel-arrow-left {
+    left: 0.5rem;
+}
+
+.yt-carousel-arrow-right {
+    right: 0.5rem;
+}
+
+.yt-carousel-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0 0;
+    font-size: 0.875rem;
+    color: rgb(107, 114, 128);
+}
+
+.yt-carousel-footer:is(.dark *) {
+    color: rgb(161, 161, 170);
+}
+
+.yt-carousel-subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-xs);
+    background-color: var(--brand-500);
+    color: white !important;
+    font-weight: 500;
+    text-decoration: none !important;
+    line-height: 1.25;
+    transition: background-color 0.15s ease;
+}
+
+.yt-carousel-subscribe:hover {
+    background-color: var(--brand-560, var(--brand-500));
+    filter: brightness(1.1);
+}
+
+/* Below 640px the carousel is one slide per view; match the button to it. */
+@media (max-width: 639.98px) {
+    .yt-carousel-subscribe {
+        width: 100%;
+        justify-content: center;
+    }
+}
