@@ -1324,6 +1324,10 @@ Bot users are only able to set `name`, `state`, `type`, and `url`.
 | 5  | Competing | Competing in `{name}` | "Competing in Arena World Champions" |
 
 <Info>
+If the presence author's [Profile Privacy Setting](https://support.discord.com/hc/en-us/articles/38859942749463-Profile-Privacy-Setting-on-Discord) is set to `Friends Only`, or to `Friends & Small Servers Only` in a guild with more than 200 members, their custom status (activity type `4`) is omitted from `activities` in [Presence Update](/developers/events/gateway-events#presence-update) events dispatched to that guild. This applies to any subscription to the guild's presence, including bots and apps. Other activity types are not affected by this setting.
+</Info>
+
+<Info>
 The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
 </Info>
 
