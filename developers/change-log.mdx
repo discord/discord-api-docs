@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 17, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
+    title: "Unlinking Accounts Guide",
+    description: "New guide covering best practices for unlinking a user's Discord account, including when to revoke tokens and how to avoid relink conflicts."
+  }}>
+
+  ## Unlinking Accounts Guide
+
+  We've published a new guide, [Unlinking Accounts](/developers/discord-social-sdk/development-guides/unlinking-accounts), covering best practices for unlinking a user's Discord account from your game.
+
+  The guide explains why you should always revoke a user's access and refresh tokens when unlinking rather than only removing your own local record, what can go wrong if you don't (including relinking conflicts), and how to handle out-of-band unlinks using the [`APPLICATION_DEAUTHORIZED`](/developers/events/webhook-events#application-deauthorized) webhook event.
+</Update>
+
 <Update label="September 11, 2026" tags={["Interactions"]} rss={{
     title: "Slash Command Improvements and Mobile Fixes",
     description: "String options now support multiline input, command autocomplete supports fuzzy search, and the input remembers your selected command when switching channels. Also fixes several mobile command experience bugs."
