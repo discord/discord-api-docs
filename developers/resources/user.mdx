@@ -300,12 +300,19 @@ This endpoint returns 200 guilds by default, which is the maximum number of guil
 <ManualAnchor id="get-current-user-guilds-query-string-params" />
 ###### Query String Params
 
-| Field       | Type                                                   | Description                                                | Required | Default |
-|-------------|--------------------------------------------------------|------------------------------------------------------------|----------|---------|
-| before      | snowflake                                              | get guilds before this guild ID                            | false    | absent  |
-| after       | snowflake                                              | get guilds after this guild ID                             | false    | absent  |
-| limit       | integer                                                | max number of guilds to return (1-200)                     | false    | 200     |
-| with_counts | [boolean](/developers/reference#boolean-query-strings) | include approximate member and presence counts in response | false    | false   |
+| Field       | Type                                                   | Description                                                     | Required                               | Default |
+|-------------|--------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------|---------|
+| before      | snowflake                                              | get guilds before this guild ID                                 | false                                  | absent  |
+| after       | snowflake                                              | get guilds after this guild ID                                  | false                                  | absent  |
+| limit       | integer                                                | max number of guilds to return (1-200)                          | false                                  | 200     |
+| shard       | integer                                                | only return guilds in this shard (`0` to `max_concurrency - 1`) | false, unless using large bot sharding | absent  |
+| with_counts | [boolean](/developers/reference#boolean-query-strings) | include approximate member and presence counts in response      | false                                  | false   |
+
+<Warning>
+Apps using [large bot sharding](/developers/events/gateway#sharding-for-large-bots) must provide the `shard` param. Valid values are `0` through `max_concurrency - 1`, where `max_concurrency` comes from the [session start limit object](/developers/events/gateway#session-start-limit-object) on [Get Gateway Bot](/developers/events/gateway#get-gateway-bot). Iterate over every shard to retrieve the full guild list. Apps that are not using large bot sharding are unaffected.
+
+Note that this value is different from the shard id used when connecting to the [Gateway](/developers/events/gateway).
+</Warning>
 
 ## Get Current User Guild Member
 <Route method="GET">/users/@me/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/member</Route>
