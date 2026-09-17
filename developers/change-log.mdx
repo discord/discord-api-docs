@@ -6,6 +6,18 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 17, 2026" tags={["Gateway"]} rss={{
+    title: "Custom Status Hidden by Profile Privacy Settings",
+    description: "The custom status activity is omitted from Presence Update events dispatched to a guild based on the presence author's profile privacy setting."
+  }}>
+
+  ## Custom Status Hidden by Profile Privacy Settings
+
+  If a user's [Profile Privacy Setting](https://support.discord.com/hc/en-us/articles/38859942749463-Profile-Privacy-Setting-on-Discord) is set to `Friends Only`, or to `Friends & Small Servers Only` in a guild with more than 200 members, their custom status (an [activity object](/developers/events/gateway-events#activity-object) with `type` `4`) is omitted from the `activities` field of [Presence Update](/developers/events/gateway-events#presence-update) events dispatched to that guild.
+
+  This applies to apps and bots subscribed to the guild's presence. Other activity types (Playing, Streaming, Listening, Watching, Competing) are not affected by this setting but may be controlled by [Activity Sharing settings](https://support.discord.com/hc/en-us/articles/7931156448919-Activity-Sharing-on-Discord-FAQ).
+</Update>
+
 <Update label="September 17, 2026" tags={["Discord Social SDK", "HTTP API"]} rss={{
     title: "Unlinking Accounts Guide",
     description: "New guide covering best practices for unlinking a user's Discord account, including when to revoke tokens and how to avoid relink conflicts."
