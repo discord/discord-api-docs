@@ -7,13 +7,13 @@ rss: true
 import {Route} from '/snippets/route.jsx'
 
 <Update label="September 18, 2026" tags={["HTTP API"]} rss={{
-    title: "New Invite Target User Endpoints",
-    description: "Four new endpoints to add and remove individual or multiple target users on an invite without using a CSV."
+    title: "New Invite Target User Endpoints and Options",
+    description: "New endpoints and options to create, add, and remove individual or multiple target users on an invite without using a CSV."
   }}>
 
-  ## New Invite Target User Endpoints
+  ## New Invite Target User Endpoints and Options
 
-  [Update Target Users](/developers/resources/invite#update-target-users) replaces an invite's entire target user list from an uploaded CSV, which is processed as an asynchronous job. Changing a single user meant rebuilding and re-uploading the whole file. These four endpoints adjust the list in place, extending the [invite endpoints](/developers/change-log#new-invite-endpoints).
+  [Create Channel Invite](/developers/resources/channel#create-channel-invite) now takes an array of target user IDs without uploading a CSV file by using `target_user_ids`. [Update Target Users](/developers/resources/invite#update-target-users) replaces an invite's entire target user list from an uploaded CSV, which is processed as an asynchronous job. Changing a single user meant rebuilding and re-uploading the whole file. These four endpoints adjust the list in place, extending the [invite endpoints](/developers/change-log#new-invite-endpoints).
 
   - [Add Target User](/developers/resources/invite#add-target-user): Adds a single user to an invite's target users
   - [Remove Target User](/developers/resources/invite#remove-target-user): Removes a single user from an invite's target users
