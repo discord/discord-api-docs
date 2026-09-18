@@ -452,6 +452,13 @@
             ]
           },
           {
+            "group": "Link Previews",
+            "pages": [
+              "developers/link-previews/overview",
+              "developers/link-previews/component-embeds"
+            ]
+          },
+          {
             "group": "Voice & RPC",
             "pages": [
               "developers/topics/voice-connections",
