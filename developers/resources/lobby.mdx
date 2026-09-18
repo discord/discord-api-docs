@@ -29,11 +29,12 @@ Represents a member of a lobby, including optional metadata and flags.
 <ManualAnchor id="lobby-member-object-lobby-member-structure" />
 ###### Lobby Member Structure
 
-| Field     | Type                    | Description                                                                                                                                                |
-|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id        | snowflake               | the id of the user                                                                                                                                         |
-| metadata? | ?dict\<string, string\> | dictionary of string key/value pairs. The max total length is 1000.                                                                                        |
-| flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field            | Type                    | Description                                                                                                                                                                                                                           |
+|------------------|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | snowflake               | the id of the user                                                                                                                                                                                                                    |
+| metadata?        | ?dict\<string, string\> | dictionary of string key/value pairs. The max total length is 1000.                                                                                                                                                                   |
+| flags?           | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                            |
+| additional_name? | string                  | an additional 1-80 character display name for the member, such as an in-game character name. Can only be set through the HTTP API, not from a Social SDK client. Accessible via the Social SDK with [`MessageHandle::AdditionalName`] |
 
 <ManualAnchor id="lobby-member-object-lobby-member-flags" />
 ###### Lobby Member Flags
@@ -51,13 +52,14 @@ Represents a member of a lobby, including optional metadata and flags.
   "id": "96008815106887111",
   "application_id": "41771983429993937",
   "metadata": {
-    "topic": "we need more redstone",
+    "topic": "we need more redstone"
   },
   "members": [
     {
       "id": "41771983429993000",
       "metadata": null,
-      "flags": 1
+      "flags": 1,
+      "additional_name": "Twindly Shimmerleaf"
     }
   ]
 }
@@ -87,11 +89,12 @@ Returns a [lobby](/developers/resources/lobby#lobby-object) object.
 
 #### Lobby Member JSON Params
 
-| Field     | Type                    | Description                                                                                                                                                |
-|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id        | snowflake               | Discord user id of the user to add to the lobby                                                                                                            |
-| metadata? | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
-| flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field            | Type                    | Description                                                                                                                                                                                                  |
+|------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | snowflake               | Discord user id of the user to add to the lobby                                                                                                                                                              |
+| metadata?        | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                                                                 |
+| flags?           | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                   |
+| additional_name? | ?string                 | an additional display name for the member, such as an in-game character name. 1-80 characters. When updating an existing member, omit the field to preserve their current value, or send `null` to clear it. |
 
 ## Create or Join Lobby
 <Route method="PUT">/lobbies</Route>
@@ -125,11 +128,11 @@ Returns the updated [lobby](/developers/resources/lobby#lobby-object) object.
 
 ### JSON Params
 
-| Field                 | Type                                                                             | Description                                                                                                                                                            |
-|-----------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                         |
-| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby.                        |
-| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
+| Field                 | Type                                                                             | Description                                                                                                                                                                                                                                                   |
+|-----------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                                                                                                                |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby. See [Lobby Member JSON Params](/developers/resources/lobby#lobby-member-json-params) for the accepted fields. |
+| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                                                                                        |
 
 ## Delete Lobby
 <Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)</Route>
@@ -149,10 +152,11 @@ Returns the [lobby member](/developers/resources/lobby#lobby-member-object) obje
 
 ### JSON Params
 
-| Field     | Type                    | Description                                                                                                                                                |
-|-----------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| metadata? | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
-| flags?    | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
+| Field            | Type                    | Description                                                                                                                                                                       |
+|------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?        | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                                      |
+| flags?           | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                        |
+| additional_name? | ?string                 | an additional display name for the member, such as an in-game character name. 1-80 characters. Omit the field to preserve the member's current value, or send `null` to clear it. |
 
 ## Bulk Update Lobby Members
 <Route method="POST">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/bulk</Route>
@@ -169,12 +173,13 @@ Users unknown to Discord will return a 404 UNKNOWN_USER error. Users that fail p
 
 An array of member objects. Minimum 1, maximum 25.
 
-| Field          | Type                    | Description                                                                                                                                                |
-|----------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id             | snowflake               | Discord user id of the user to add, update, or remove                                                                                                      |
-| metadata?      | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                               |
-| flags?         | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
-| remove_member? | boolean                 | if `true`, the user is removed from the lobby instead of upserted. Default `false`.                                                                        |
+| Field            | Type                    | Description                                                                                                                                                                       |
+|------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | snowflake               | Discord user id of the user to add, update, or remove                                                                                                                             |
+| metadata?        | ?dict\<string, string\> | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                                      |
+| flags?           | integer                 | [lobby member flags](/developers/resources/lobby#lobby-member-object-lobby-member-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                        |
+| additional_name? | ?string                 | an additional display name for the member, such as an in-game character name. 1-80 characters. Omit the field to preserve the member's current value, or send `null` to clear it. |
+| remove_member?   | boolean                 | if `true`, the user is removed from the lobby instead of upserted. Default `false`.                                                                                               |
 
 ## Remove a Member from a Lobby
 <Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/members/[\{user.id\}](/developers/resources/user#user-object)</Route>
@@ -241,18 +246,19 @@ If the lobby has a [linked channel](/developers/discord-social-sdk/development-g
 
 ### Lobby Message Object
 
-| Field                | Type                    | Description                                                                                                                                  |
-|----------------------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| id                   | snowflake               | id of the message                                                                                                                            |
-| type                 | integer                 | [message type](/developers/resources/message#message-object-message-types)                                                                   |
-| content              | string                  | message content                                                                                                                              |
-| lobby_id             | snowflake               | id of the lobby this message was sent to                                                                                                     |
-| channel_id           | snowflake               | included for compatibility with the messages interface; equal to `lobby_id`                                                                  |
-| author               | user object             | the [user](/developers/resources/user#user-object) who sent the message                                                                      |
-| metadata?            | ?dict\<string, string\> | dispatch-only metadata sent with the message                                                                                                 |
-| moderation_metadata? | ?dict\<string, string\> | moderation metadata set via [Update Lobby Message Moderation Metadata](/developers/resources/lobby#update-lobby-message-moderation-metadata) |
-| flags                | integer                 | [message flags](/developers/resources/message#message-object-message-flags) bitfield                                                         |
-| application_id       | snowflake               | the application that sent the message                                                                                                        |
+| Field                | Type                    | Description                                                                                                                                                                                                                                |
+|----------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                   | snowflake               | id of the message                                                                                                                                                                                                                          |
+| type                 | integer                 | [message type](/developers/resources/message#message-object-message-types)                                                                                                                                                                 |
+| content              | string                  | message content                                                                                                                                                                                                                            |
+| lobby_id             | snowflake               | id of the lobby this message was sent to                                                                                                                                                                                                   |
+| channel_id           | snowflake               | included for compatibility with the messages interface; equal to `lobby_id`                                                                                                                                                                |
+| author               | user object             | the [user](/developers/resources/user#user-object) who sent the message                                                                                                                                                                    |
+| lobby_member?        | object                  | contains a single `additional_name` string — the author's [lobby member](/developers/resources/lobby#lobby-member-object) additional display name, captured when the message was sent. Omitted if the author had no `additional_name` set. |
+| metadata?            | ?dict\<string, string\> | dispatch-only metadata sent with the message                                                                                                                                                                                               |
+| moderation_metadata? | ?dict\<string, string\> | moderation metadata set via [Update Lobby Message Moderation Metadata](/developers/resources/lobby#update-lobby-message-moderation-metadata)                                                                                               |
+| flags                | integer                 | [message flags](/developers/resources/message#message-object-message-flags) bitfield                                                                                                                                                       |
+| application_id       | snowflake               | the application that sent the message                                                                                                                                                                                                      |
 
 ## Get Lobby Messages
 <Route method="GET">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)/messages</Route>
@@ -334,6 +340,15 @@ These are per-application rate limits, not per-user.
 
 These limitations are designed to provide sufficient capacity for development, testing, and small-scale demos while ensuring system stability.
 
+---
+
+## Change Log
+
+| Date            | Changes                                                            |
+|-----------------|--------------------------------------------------------------------|
+| August 12, 2026 | `additional_name` can now be set via Create Lobby and Modify Lobby |
+
 {/* Autogenerated Reference Links */}
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
 [`LobbyHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1LobbyHandle.html#a04cebab69ab0e7fb930346a14a87e843
+[`MessageHandle::AdditionalName`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#aed26c7506b01e735710530dac5eddb6e

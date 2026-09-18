@@ -36,7 +36,7 @@ Once your app grows past 10,000 users, you'll need to apply for continued access
 
 ### What you get with the intent
 
-The Guild Members intent unlocks three categories of functionality:
+The Guild Members intent unlocks two categories of functionality:
 
 - **Member events via the Gateway:** The `GUILD_MEMBER_ADD`, `GUILD_MEMBER_UPDATE`, and `GUILD_MEMBER_REMOVE` events fire when members join, change their profile/roles, or leave a server.
 - **Full member list:** The ability to request a complete list of every member in a server via the Gateway with the [`Request Guild Members` opcode](/developers/events/gateway-events#request-guild-members) or the [List Guild Members API](/developers/resources/guild#list-guild-members) endpoint.
@@ -79,6 +79,8 @@ Consider these endpoints that work without the Guild Presences intent:
 
 - **[Get User](/developers/resources/user#get-user):** You can fetch a user's basic profile information (username, avatar, banner) without the intent. This covers many "user info" command scenarios.
 - **[Guild Object - approximate_presence_count](/developers/resources/guild#get-guild):** Available on the Guild object via the API. Tells you roughly how many members are online without accessing individual presences.
+- **[Update Bot's Own Status](/developers/events/gateway-events#update-presence):** Setting your bot's own status/activity does not require the Guild Presences intent.
+
 
 ### Decision checklist
 

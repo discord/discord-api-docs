@@ -4,6 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      github-actions:
+        patterns: ["*"]
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -12,3 +15,6 @@ updates:
       - dependency-name: "*"
         update-types:
           ["version-update:semver-patch", "version-update:semver-minor"]
+    groups:
+      npm:
+        patterns: ["*"]

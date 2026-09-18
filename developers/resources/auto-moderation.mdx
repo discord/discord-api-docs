@@ -207,7 +207,7 @@ value of [action type](/developers/resources/auto-moderation#auto-moderation-act
 |------------------|-----------|-------------------------|----------------------------------------------------------------------------------------|--------------------------------------|
 | channel_id       | snowflake | SEND_ALERT_MESSAGE      | channel to which user content should be logged                                         | existing channel                     |
 | duration_seconds | integer   | TIMEOUT                 | timeout duration in seconds                                                            | maximum of 2419200 seconds (4 weeks) |
-| custom_message?  | string    | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked | maximum of 150 characters            |
+| custom_message?  | ?string   | BLOCK_MESSAGE           | additional explanation that will be shown to members whenever their message is blocked | maximum of 150 characters            |
 
 
 ### Auto Moderation Permission Requirements

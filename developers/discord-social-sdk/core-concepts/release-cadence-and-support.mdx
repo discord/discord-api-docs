@@ -7,17 +7,6 @@ description: Discord Social SDK release cadence, supported version window, and e
 This page describes which Discord Social SDK versions receive updates, our release cadence, and how end-of-life is handled. For platform support details, see [Platform Compatibility](/developers/discord-social-sdk/core-concepts/platform-compatibility).
 </Info>
 
-<Note>
-These changes take effect with the **1.10 release** of the Discord Social SDK, shipping in **July 2026**. Starting with 1.10:
-
-- The supported version window will cover versions **1.6 through 1.10**. Versions **1.5 and earlier** will be end-of-life.
-- New Xbox and PlayStation OS SDK support will ship in new Social SDK releases only — not as patches to older Social SDK versions. Each Social SDK release bundles roughly the last 18 months of console OS SDK versions.
-
-**Already-shipped Social SDK releases (1.6–1.9) are unchanged** — they keep the console OS SDK support they were originally built with. The new model applies from 1.10 forward.
-
-We're announcing this ahead of the 1.10 release so developers on older versions have time to upgrade.
-</Note>
-
 ## Release Schedule
 
 We ship **three minor releases of the Discord Social SDK each year**, in **April, July, and November**. This cadence aligns with the release windows for console OS SDKs so that each Discord Social SDK release can pick up the most recent supported console SDK versions.
@@ -34,7 +23,7 @@ For how console OS SDK updates work, see [Console OS SDK Support](#console-os-sd
 
 ### Supported Versions
 
-Once the 1.10 release ships in July 2026, the supported version window will be:
+The supported version window is currently:
 
 | Version         | Status              |
 |-----------------|---------------------|
@@ -55,6 +44,8 @@ In practice, this means:
 
 - If you need the latest Xbox or PlayStation platform SDK, upgrade to the latest Social SDK release.
 - Already-shipped Social SDK releases continue to support the console OS SDK versions they were originally built with — we don't add or remove support for console OS SDKs from already-shipped versions.
+
+This model applies from the 1.10 release (July 2026) onward. Releases 1.6–1.9 keep the console OS SDK support they originally shipped with.
 
 The minimum supported Xbox and PlayStation platform SDK versions for the current Social SDK release are listed in [Platform Compatibility](/developers/discord-social-sdk/core-concepts/platform-compatibility).
 
@@ -107,6 +98,7 @@ import {PlayIcon} from '/snippets/icons/PlayIcon.jsx'
 
 ## Change Log
 
-| Date         | Changes         |
-|--------------|-----------------|
-| May 26, 2026 | initial release |
+| Date           | Changes                      |
+|----------------|------------------------------|
+| August 3, 2026 | updated for the 1.10 release |
+| May 26, 2026   | initial release              |

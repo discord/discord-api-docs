@@ -1,0 +1,365 @@
+---
+title: "Application Identity Profile Resource"
+sidebarTitle: "Application Identity Profile Resource"
+description: Reference for Application Identity Profile objects and endpoints used to display game stats on Discord user profiles.
+---
+
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+import {Route} from '/snippets/route.jsx'
+
+Application Identity Profiles store game data associated with a user's identity in your application. This data powers [Game Stats Widgets](/developers/social-layer/game-stats-widgets/overview) on Discord user profiles.
+
+Profile records are stored on a user's Application Identity for your application. Each Application Identity is identified by an external account key: a provider type, an optional provider ID, and a provider-issued user ID.
+
+For profile-only writes, if the user does not already have an Application Identity for your application, the first successful profile update creates an Application Identity with provider type `NONE` and the `provider_issued_user_id` from the request path. If an Application Identity already exists for the user and application, profile updates must use a `provider_issued_user_id` that matches one of the user's existing application identities.
+
+### Application Identity Object
+
+<ManualAnchor id="application-identity-object-application-identity-structure" />
+###### Application Identity Structure
+
+| Field                      | Type   | Description                                                                                |
+|----------------------------|--------|--------------------------------------------------------------------------------------------|
+| provider\_type             | string | the external account provider type                                                         |
+| provider\_id?              | string | provider-specific identifier used to disambiguate identities; omitted when absent or empty |
+| provider\_issued\_user\_id | string | the user's ID in the external system                                                       |
+
+### Application Identity Profile Object
+
+<ManualAnchor id="application-identity-profile-object-application-identity-profile-structure" />
+###### Application Identity Profile Structure
+
+| Field    | Type                                                                                                                  | Description                                                                                |
+|----------|-----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| username | ?string                                                                                                               | the user's username in the external system                                                 |
+| metadata | ?object                                                                                                               | arbitrary game-defined data; not consumed by Discord, stored for the application's own use |
+| data     | ?[profile data](/developers/resources/application-identity-profile#profile-data-object-profile-data-structure) object | the profile data containing game stats                                                     |
+
+### Profile Data Object
+
+<ManualAnchor id="profile-data-object-profile-data-structure" />
+###### Profile Data Structure
+
+| Field    | Type                                                                                                                                         | Description                     |
+|----------|----------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| primary? | [primary profile data](/developers/resources/application-identity-profile#primary-profile-data-object-primary-profile-data-structure) object | pre-configured game stat fields |
+| dynamic? | array of [dynamic field](/developers/resources/application-identity-profile#dynamic-field-object-dynamic-field-types) objects                | custom game stat fields         |
+
+### Primary Profile Data Object
+
+Pre-configured fields meant to be generic across many games. All fields are optional.
+
+<ManualAnchor id="primary-profile-data-object-primary-profile-data-structure" />
+###### Primary Profile Data Structure
+
+| Field                            | Type                                                                                            | Description                                                    |
+|----------------------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| season?                          | string                                                                                          | current season name (e.g. "Season 3")                          |
+| rank_name?                       | string                                                                                          | current rank name (e.g. "Silver")                              |
+| rank_image?                      | [media](/developers/resources/application-identity-profile#media-object-media-structure) object | image representing the current rank                            |
+| highest_rank?                    | string                                                                                          | highest rank achieved                                          |
+| highest_rank_image?              | [media](/developers/resources/application-identity-profile#media-object-media-structure) object | image representing the highest rank achieved                   |
+| featured_played_character?       | string                                                                                          | name of the featured played character                          |
+| featured_played_character_image? | [media](/developers/resources/application-identity-profile#media-object-media-structure) object | image of the featured played character                         |
+| playtime_hours?                  | number                                                                                          | total playtime in hours; accepts decimal values (e.g. `69.41`) |
+| total_wins?                      | integer                                                                                         | total number of wins                                           |
+| current_period_wins?             | integer                                                                                         | wins in the current period (e.g. season)                       |
+| total_games?                     | integer                                                                                         | total number of games played                                   |
+| current_period_games?            | integer                                                                                         | games played in the current period                             |
+| total_kills?                     | integer                                                                                         | total number of kills                                          |
+| current_period_kills?            | integer                                                                                         | kills in the current period                                    |
+| total_assists?                   | integer                                                                                         | total number of assists                                        |
+| current_period_assists?          | integer                                                                                         | assists in the current period                                  |
+| total_deaths?                    | integer                                                                                         | total number of deaths                                         |
+| current_period_deaths?           | integer                                                                                         | deaths in the current period                                   |
+
+### Dynamic Field Object
+
+Dynamic fields let you specify custom stats when the pre-configured primary fields don't cover your needs. Each dynamic field has a `type` that determines its value format. The `name` is the data key you reference in the widget editor when configuring a **User Data** field. It is not shown to players; display labels are configured on the widget's fields in the editor.
+
+<ManualAnchor id="dynamic-field-object-dynamic-field-types" />
+###### Dynamic Field Types
+
+| Type   | Value | Description                |
+|--------|-------|----------------------------|
+| String | 1     | a text value               |
+| Number | 2     | a numeric value            |
+| Media  | 3     | a media object (image URL) |
+
+<ManualAnchor id="dynamic-field-object-dynamic-string-field-structure" />
+###### Dynamic String Field Structure
+
+| Field | Type    | Description                    |
+|-------|---------|--------------------------------|
+| type  | integer | `1`, identifies a string field |
+| name  | string  | the field name                 |
+| value | string  | the text value                 |
+
+<ManualAnchor id="dynamic-field-object-dynamic-number-field-structure" />
+###### Dynamic Number Field Structure
+
+| Field | Type    | Description                    |
+|-------|---------|--------------------------------|
+| type  | integer | `2`, identifies a number field |
+| name  | string  | the field name                 |
+| value | number  | the numeric value              |
+
+<ManualAnchor id="dynamic-field-object-dynamic-media-field-structure" />
+###### Dynamic Media Field Structure
+
+| Field | Type                                                                                            | Description                   |
+|-------|-------------------------------------------------------------------------------------------------|-------------------------------|
+| type  | integer                                                                                         | `3`, identifies a media field |
+| name  | string                                                                                          | the field name                |
+| value | [media](/developers/resources/application-identity-profile#media-object-media-structure) object | the media value               |
+
+### Media Object
+
+<ManualAnchor id="media-object-media-structure" />
+###### Media Structure
+
+| Field | Type   | Description            |
+|-------|--------|------------------------|
+| url   | string | URL of the media asset |
+
+<Info>
+Media URLs must be reachable from the public internet. Discord's media unfurler fetches the URL from our servers, not from the user's client, so `localhost` or LAN-only URLs won't load. For local development, expose your assets via a tunnel like [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) or [ngrok](https://ngrok.com/).
+</Info>
+
+<ManualAnchor id="application-identity-profile-object-example-application-identity-profile-object" />
+###### Example Application Identity Profile Object
+
+```json
+{
+  "username": "johndoe123",
+  "metadata": null,
+  "data": {
+    "primary": {
+      "season": "Season 3",
+      "rank_name": "Silver",
+      "rank_image": {"url": "https://example.com/assets/rank-images/silver.png"},
+      "highest_rank": "Platinum",
+      "highest_rank_image": {"url": "https://example.com/assets/rank-images/platinum.png"},
+      "featured_played_character": "John Doe",
+      "featured_played_character_image": {"url": "https://example.com/assets/character-images/john-doe.png"},
+      "playtime_hours": 69.41,
+      "total_wins": 57,
+      "current_period_wins": 8,
+      "total_games": 100,
+      "current_period_games": 10,
+      "total_kills": 253,
+      "current_period_kills": 35,
+      "total_assists": 478,
+      "current_period_assists": 68,
+      "total_deaths": 561,
+      "current_period_deaths": 21
+    },
+    "dynamic": [
+      {
+        "type": 1,
+        "name": "my_string",
+        "value": "hello"
+      },
+      {
+        "type": 2,
+        "name": "my_number",
+        "value": 123.45
+      },
+      {
+        "type": 3,
+        "name": "my_media",
+        "value": {"url": "https://example.com/some-media.png"}
+      }
+    ]
+  }
+}
+```
+
+## Update Application Identity Profile
+
+<Route method="PATCH">/applications/\{application\_id\}/users/\{user\_id\}/identities/\{provider\_issued\_user\_id\}/profile</Route>
+
+Updates the profile data on the user's matching Application Identity record. Returns an [Application Identity Profile](/developers/resources/application-identity-profile#application-identity-profile-object-application-identity-profile-structure) object.
+
+If the user does not have an Application Identity for your application yet, the first successful update creates a profile-only Application Identity with provider type `NONE` and the `provider_issued_user_id` from the path. If the user already has an Application Identity for your application, the `provider_issued_user_id` in the path must match an existing Application Identity.
+
+Requires a bot token for authorization. The target user must have authorized the application via [OAuth2](/developers/topics/oauth2) with the `application_identities.write` scope. If you are building a Social SDK integration, this scope is included in the [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes).
+
+### Path Parameters
+
+| Field                      | Type      | Description                  |
+|----------------------------|-----------|------------------------------|
+| application\_id            | snowflake | the ID of your application   |
+| user\_id                   | snowflake | the Discord user ID          |
+| provider\_issued\_user\_id | string    | the user's ID in your system |
+
+### JSON Params
+
+| Field     | Type                                                                                                                 | Description                        |
+|-----------|----------------------------------------------------------------------------------------------------------------------|------------------------------------|
+| username? | string                                                                                                               | the user's username in your system |
+| data?     | [profile data](/developers/resources/application-identity-profile#profile-data-object-profile-data-structure) object | the profile data to update         |
+
+<Warning>
+The `data` field is **fully replaced** on every PATCH. If you include `data` in your request body, the entire previous data payload is overwritten and any fields you omit are lost. Always send the complete set of data you want stored. If you omit `data` from the request body entirely, existing data is left untouched.
+</Warning>
+
+### Limits
+
+| Constraint                                 | Limit           |
+|--------------------------------------------|-----------------|
+| Serialized `data` object                   | 10 KB           |
+| Dynamic fields                             | 30 max          |
+| String field values (`rank_name`, etc.)    | 100 characters  |
+| Dynamic field `name` (data key)            | 100 characters  |
+| Username                                   | 1024 characters |
+| Custom String field values (widget config) | 256 characters  |
+
+The 10 KB limit applies to the serialized `data` object in your request, not the raw HTTP body.
+
+### Response
+
+Returns `201 Created` on first write, `204 No Content` on subsequent updates.
+
+### Error Responses
+
+| HTTP Status                                                                                            | Meaning                                                                                             |
+|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| `403 Forbidden`                                                                                        | Application not authorized for game stats                                                           |
+| `400 Bad Request` — `"Profile data is too large, must be less than 10KB"`                              | Serialized `data` object exceeds 10 KB                                                              |
+| `400 Bad Request` — `"Application identity for this external account already exists for another user"` | The requested application identity is already assigned to another Discord user                      |
+| `400 Bad Request` — `"Provider user ID <user_id> does not match existing identity record"`             | The requested provider-issued user ID does not match an existing identity for this user/application |
+| `400 Bad Request` — field-level validation errors                                                      | Invalid field types or values                                                                       |
+
+The Application Identity conflict errors above usually mean the requested `provider_issued_user_id` does not match the user's current Application Identity state. See [Resolving External ID Conflicts](/developers/social-layer/game-stats-widgets/best-practices#resolving-external-id-conflicts) for cleanup guidance.
+
+## Get Application Identity Profile
+
+<Route method="GET">/applications/\{application\_id\}/users/\{user\_id\}/identities/\{provider\_issued\_user\_id\}/profile</Route>
+
+Returns the [Application Identity Profile](/developers/resources/application-identity-profile#application-identity-profile-object-application-identity-profile-structure) object stored on the matching Application Identity for the specified user and application.
+
+Requires a bot token for authorization. The target user must have authorized the application via [OAuth2](/developers/topics/oauth2) with the `application_identities.write` scope. If you are building a Social SDK integration, this scope is included in the [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes).
+
+### Path Parameters
+
+| Field                      | Type      | Description                  |
+|----------------------------|-----------|------------------------------|
+| application\_id            | snowflake | the ID of your application   |
+| user\_id                   | snowflake | the Discord user ID          |
+| provider\_issued\_user\_id | string    | the user's ID in your system |
+
+## Get Application Identities by User ID
+
+<Route method="GET">/users/\{user\_id\}/application-identities/\{application\_id\}</Route>
+
+Returns the application identities for the specified user and application. Use this endpoint to discover the exact external ID values (`provider_type`, `provider_issued_user_id`, and optional `provider_id`) for a user's application identities.
+
+This endpoint does not return profile data. To read game stats for a specific identity, use [Get Application Identity Profile](/developers/resources/application-identity-profile#get-application-identity-profile).
+
+To delete an identity, use the returned values with [Delete Application Identity](/developers/resources/application-identity-profile#delete-application-identity).
+
+Requires a bot token for authorization. The caller must authenticate as the bot for `{application_id}` and can only fetch identities for its own application. The target user must have authorized the application via [OAuth2](/developers/topics/oauth2) with the `application_identities.write` scope. If you are building a Social SDK integration, this scope is included in the [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes).
+
+
+### Path Parameters
+
+| Field           | Type      | Description                |
+|-----------------|-----------|----------------------------|
+| user\_id        | snowflake | the Discord user ID        |
+| application\_id | snowflake | the ID of your application |
+
+### Response
+
+Returns `200 OK` with a wrapped list of [Application Identity](/developers/resources/application-identity-profile#application-identity-object-application-identity-structure) objects. `provider_id` is omitted from an identity when it is absent or empty.
+
+```json
+{
+  "identities": [
+    {
+      "user_id": "<user_id>",
+      "provider_type": "<provider_type>",
+      "provider_id": "<provider_id>",
+      "provider_issued_user_id": "<provider_issued_user_id>"
+    }
+  ]
+}
+```
+
+## Get Application Identities by External ID
+
+<Route method="GET">/applications/\{application\_id\}/application-identities/\{provider\_type\}/\{provider\_issued\_user\_id\}</Route>
+
+Returns the application identities for the user/application record currently associated with the specified external ID (combination of `provider_type`, `provider_issued_user_id`, and optional `provider_id`). Use this endpoint when you need to resolve the Discord `user_id` for an Application Identity but only know the external ID fields.
+
+This endpoint does not return profile data. To read game stats for a specific identity, use [Get Application Identity Profile](/developers/resources/application-identity-profile#get-application-identity-profile).
+
+To delete an identity, use the returned values with [Delete Application Identity](/developers/resources/application-identity-profile#delete-application-identity).
+
+Requires a bot token for authorization. The caller must authenticate as the bot for `{application_id}` and can only fetch identities for its own application. The matched user must have authorized the application via [OAuth2](/developers/topics/oauth2) with the `application_identities.write` scope. If you are building a Social SDK integration, this scope is included in the [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes).
+
+### Path Parameters
+
+| Field                    | Type      | Description                          |
+|--------------------------|-----------|--------------------------------------|
+| application\_id          | snowflake | the ID of your application           |
+| provider\_type           | string    | the external account provider type   |
+| provider\_issued_user_id | string    | the user's ID in the external system |
+
+### Query Params
+
+| Field         | Type   | Description                                                                                          |
+|---------------|--------|------------------------------------------------------------------------------------------------------|
+| provider\_id? | string | provider-specific identifier used to disambiguate matching provider type and provider-issued user ID |
+
+### Response
+
+Returns `200 OK` with a wrapped list of [Application Identity](/developers/resources/application-identity-profile#application-identity-object-application-identity-structure) objects. `provider_id` is omitted from an identity when it is absent or empty. If no identity matches the external account key, `identities` is empty.
+
+```json
+{
+  "identities": [
+    {
+      "user_id": "<user_id>",
+      "provider_type": "<provider_type>",
+      "provider_id": "<provider_id>",
+      "provider_issued_user_id": "<provider_issued_user_id>"
+    }
+  ]
+}
+```
+
+## Delete Application Identity
+
+<Route method="POST">/users/\{user\_id\}/application-identities/\{application\_id\}/\{provider\_type\}/\{provider\_issued\_user\_id\}/delete</Route>
+
+Deletes one Application Identity and its associated profile data for the specified user and application. Use this endpoint when a stale provider-issued user ID prevents you from writing profile data for the user's current identity.
+
+Uses the same bot/application authorization and OAuth2 authorization checks as [Get Application Identities](/developers/resources/application-identity-profile#get-application-identities-by-user-id).
+
+### Path Parameters
+
+| Field                      | Type      | Description                          |
+|----------------------------|-----------|--------------------------------------|
+| user\_id                   | snowflake | the Discord user ID                  |
+| application\_id            | snowflake | the ID of your application           |
+| provider\_type             | string    | the external account provider type   |
+| provider\_issued\_user\_id | string    | the user's ID in the external system |
+
+### JSON Params
+
+The JSON body is optional.
+
+| Field         | Type   | Description                                                                                          |
+|---------------|--------|------------------------------------------------------------------------------------------------------|
+| provider\_id? | string | provider-specific identifier used to disambiguate matching provider type and provider-issued user ID |
+
+### Deletion Rules
+
+Deletion is blocked if it would remove the user's last account-linking identity for the application.
+
+Profile-only `NONE` identities can be deleted. Deleting an identity also deletes the profile data stored on that identity.
+
+### Response
+
+Returns `204 No Content` on success.

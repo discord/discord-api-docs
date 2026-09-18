@@ -86,6 +86,20 @@ Details about identifying is in the [Gateway documentation](/developers/events/g
 | shard?           | array of two integers (shard_id, num_shards)                                | Used for [Guild Sharding](/developers/events/gateway#sharding)                                                                 | -       |
 | presence?        | [update presence](/developers/events/gateway-events#update-presence) object | Presence structure for initial presence information                                                                            | -       |
 | intents          | integer                                                                     | [Gateway Intents](/developers/events/gateway#gateway-intents) you wish to receive                                              | -       |
+| capabilities?    | integer                                                                     | Bitfield representing [capabilities](/developers/events/gateway-events#identify-gateway-capabilities) of your gateway client   | 0       |
+
+<ManualAnchor id="identify-gateway-capabilities" />
+###### Gateway Capabilities
+
+`capabilities` is a bitfield you can use to opt a bot client into gateway behaviors. It's a separate Identify bitfield from [`intents`](/developers/events/gateway#gateway-intents): `intents` control which events your bot client receives, while `capabilities` affects gateway behaviors.
+
+| Flag                | Value     | Description                                                                                                                                                                |
+|---------------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CHANNEL_OBFUSCATION | `1 << 15` | Opts the client into receiving [obfuscated channel metadata](/developers/resources/channel#channel-object-obfuscated-channels) over the Gateway for channels it can't view |
+
+<Warning>
+`CHANNEL_OBFUSCATION` is a temporary, testing-only opt-in for channel obfuscation. This opt-in mechanism will change before the feature reaches general availability. Obfuscation is then planned to apply to all bots automatically, even when they don't provide this capability.
+</Warning>
 
 <ManualAnchor id="identify-identify-connection-properties" />
 ###### Identify Connection Properties
@@ -97,7 +111,7 @@ Details about identifying is in the [Gateway documentation](/developers/events/g
 | device  | string | Your library name     |
 
 <Warning>
-These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](/developers/change-log#updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
+These fields originally were `$` prefixed (i.e: `$browser`) but [this syntax is deprecated](/developers/change-log#updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
 </Warning>
 
 <ManualAnchor id="identify-example-identify" />
@@ -263,8 +277,11 @@ Requests ephemeral channel data for channels in a guild. The server will send a 
 
 ```json
 {
-  "guild_id": "613425648685547541",
-  "fields": ["status", "voice_start_time"]
+  "op": 43,
+  "d": {
+    "guild_id": "613425648685547541",
+    "fields": ["status", "voice_start_time"]
+  }
 }
 ```
 
@@ -464,15 +481,15 @@ The ready event is dispatched when a client has completed the initial handshake 
 <ManualAnchor id="ready-ready-event-fields" />
 ###### Ready Event Fields
 
-| Field              | Type                                                                                       | Description                                                                                                     |
-|--------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| v                  | integer                                                                                    | [API version](/developers/reference#api-versioning-api-versions)                                                |
-| user               | [user](/developers/resources/user#user-object) object                                      | Information about the user including email                                                                      |
-| guilds             | array of [Unavailable Guild](/developers/resources/guild#unavailable-guild-object) objects | Guilds the user is in                                                                                           |
-| session_id         | string                                                                                     | Used for resuming connections                                                                                   |
-| resume_gateway_url | string                                                                                     | Gateway URL for resuming connections                                                                            |
-| shard?             | array of two integers (shard_id, num_shards)                                               | [Shard information](/developers/events/gateway#sharding) associated with this session, if sent when identifying |
-| application        | partial [application object](/developers/resources/application#application-object)         | Contains `id` and `flags`                                                                                       |
+| Field              | Type                                                                                       | Description                                                                                                          |
+|--------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| v                  | integer                                                                                    | [API version](/developers/reference#api-versioning-api-versions)                                                     |
+| user               | [user](/developers/resources/user#user-object) object                                      | Information about the user including email                                                                           |
+| guilds             | array of [Unavailable Guild](/developers/resources/guild#unavailable-guild-object) objects | Guilds the user is in. When [sharding](/developers/events/gateway#sharding) is used they are filtered to that shard. |
+| session_id         | string                                                                                     | Used for resuming connections                                                                                        |
+| resume_gateway_url | string                                                                                     | Gateway URL for resuming connections                                                                                 |
+| shard?             | array of two integers (shard_id, num_shards)                                               | [Shard information](/developers/events/gateway#sharding) associated with this session, if sent when identifying      |
+| application        | partial [application object](/developers/resources/application#application-object)         | Contains `id`, `flags`, and `flags_new`                                                                              |
 
 #### Resumed
 
@@ -705,13 +722,13 @@ Sent when an entitlement is created. The inner payload is an [entitlement](/deve
 Note: The `ENTITLEMENT_UPDATE` event behavior changed on October 1, 2024. Please see the [Change Log and Entitlement Migration Guide](/developers/change-log#premium-apps-entitlement-migration-and-new-subscription-api) for more information on what changed.
 </Warning>
 
-Sent when an entitlement is updated. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object. 
+Sent when an entitlement is updated. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object.
 
 For subscription entitlements, this event is triggered only when a user's subscription ends, providing an `ends_at` timestamp that indicates the end of the entitlement.
 
 #### Entitlement Delete
 
-Sent when an entitlement is deleted. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object. 
+Sent when an entitlement is deleted. The inner payload is an [entitlement](/developers/resources/entitlement#entitlement-object) object.
 
 Entitlement deletions are infrequent, and occur when:
 
@@ -1279,6 +1296,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | desktop? | string | User's status set for an active desktop (Windows, Linux, Mac) application session |
 | mobile?  | string | User's status set for an active mobile (iOS, Android) application session         |
 | web?     | string | User's status set for an active web (browser, bot user) application session       |
+| vr?      | string | User's status set for an active virtual reality application session               |
 
 #### Activity Object
 
@@ -1321,6 +1339,10 @@ Bot users are only able to set `name`, `state`, `type`, and `url`.
 | 3  | Watching  | Watching `{name}`     | "Watching YouTube Together"          |
 | 4  | Custom    | `{emoji}` `{state}`   | ":smiley: I am cool"                 |
 | 5  | Competing | Competing in `{name}` | "Competing in Arena World Champions" |
+
+<Info>
+If the presence author's [Profile Privacy Setting](https://support.discord.com/hc/en-us/articles/38859942749463-Profile-Privacy-Setting-on-Discord) is set to `Friends Only`, or to `Friends & Small Servers Only` in a guild with more than 200 members, their custom status (activity type `4`) is omitted from `activities` in [Presence Update](/developers/events/gateway-events#presence-update) events dispatched to that guild. This applies to any subscription to the guild's presence, including bots and apps. Other activity types are not affected by this setting.
+</Info>
 
 <Info>
 The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.

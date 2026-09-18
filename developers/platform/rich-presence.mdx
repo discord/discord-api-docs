@@ -4,11 +4,13 @@ sidebarTitle: Rich Presence
 description: Display real-time game activity on Discord user profiles with rich presence.
 ---
 
+import {YouTubeEmbed} from '/snippets/youtube.jsx'
+
 ![Rich Presence](/images/game-development/how-to-get-your-game-seen/banner-how-to-get-your-game-seen.webp)
 
 Rich Presence lets your game display live, actionable data on a Discord user's profile when they have activity sharing enabled: what they're playing, what level they're on, how long they've been in a session, or a prompt for friends to join. It's a lightweight integration that connects your app to Discord's social layer.
 
-<iframe className="w-full aspect-video rounded-3xl" src="https://www.youtube-nocookie.com/embed/NlRtLGwemMw?si=L6Bho5MksTjn4n-W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeEmbed src="https://www.youtube.com/embed/NlRtLGwemMw?si=L6Bho5MksTjn4n-W" title="Boost Game Discovery with Discord Rich Presence [Discord DevBytes]" />
 
 The data you surface is entirely up to you. Rich Presence supports custom text fields, timestamps, party size indicators, and uploaded art assets. When configured with a "Join" button, friends can jump directly into a user's game session from the profile card.
 

@@ -80,6 +80,9 @@ After the friend request is sent, each user will have a new game relationship cr
 
 If the current user has already received a game friend request from the target user (meaning [`RelationshipHandle::GameRelationshipType`] is `RelationshipType::PendingIncoming`), the two users will become game friends.
 
+The request fails if the target user has blocked the current user. The callback receives an error code `80001`, and
+[`ClientResult::Error`] set to `Friend request blocked`.
+
 ```cpp
 client->SendGameFriendRequest("username", [](discordpp::ClientResult result) {
   if (result.Successful()) {
@@ -103,6 +106,8 @@ You can send Discord friend requests to users by using their Discord unique user
 After the friend request is sent, each user will have a new Discord relationship created. For the current user, the [`RelationshipHandle::DiscordRelationshipType`] will be `RelationshipType::PendingOutgoing`, and for the target user, it will be `RelationshipType::PendingIncoming`.
 
 If the current user has already received a Discord friend request from the target user (meaning [`RelationshipHandle::DiscordRelationshipType`] is `RelationshipType::PendingIncoming`), the two users will become Discord friends.
+
+Like game friend requests, the request fails with error code `80001` if the target user has blocked the current user.
 
 ```cpp
 client->SendDiscordFriendRequest("username", [](discordpp::ClientResult result) {
@@ -201,11 +206,20 @@ client->RemoveGameFriend(userId, [](discordpp::ClientResult result) {
 });
 ```
 
-### Blocking  Users
+### Blocking Users
 
 Allow your players to block another user so they cannot send friend or activity invites and cannot message them anymore.
 
-Blocking a user will also remove any existing relationship between the two users and persist across games, so blocking a user in one game or on Discord will block them in all other games and on Discord.
+Blocks are always Discord-wide. A block is stored on [`RelationshipHandle::DiscordRelationshipType`] as `RelationshipType::Blocked` and never on [`RelationshipHandle::GameRelationshipType`], so check the Discord relationship type to detect a block regardless of whether the two users were game friends. It is not possible to block a user in only one game.
+
+When a player blocks another user:
+
+- Any existing Discord friendship between the two users is removed.
+- Any game friendship between the two users is removed in **every game where they were game friends**, not only the game the block was made from.
+- Any pending friend requests between them are cancelled, in both directions, for both Discord and game friendships.
+- The blocked user can no longer send the player friend requests of either type.
+
+Blocking works the same way whether or not either user is a provisional account.
 
 ```cpp
 client->BlockUser(userId, [](discordpp::ClientResult result) {
@@ -215,9 +229,15 @@ client->BlockUser(userId, [](discordpp::ClientResult result) {
 });
 ```
 
+<Info>
+Blocking a user does not mute them in lobby voice calls. See [Voice Muting Based on Player Blocks](/developers/discord-social-sdk/how-to/voice-muting-for-blocked-players) to drive voice muting from block relationships.
+</Info>
+
 ### Unblocking Users
 
-Allow your players to unblock another user if they have been blocked. Unblocking a user does not restore any previous relationships between the users.
+Allow your players to unblock another user if they have been blocked. Unblocking a user does not restore any previous relationships between the users, including game friendships that the block removed.
+
+[`Client::UnblockUser`] fails if the target user is not currently blocked. Gate the unblock action on [`RelationshipHandle::DiscordRelationshipType`] being `RelationshipType::Blocked` rather than offering it unconditionally.
 
 ```cpp
 client->UnblockUser(userId, [](discordpp::ClientResult result) {
@@ -226,6 +246,29 @@ client->UnblockUser(userId, [](discordpp::ClientResult result) {
   }
 });
 ```
+
+### Relationship Request Failures
+
+Relationship actions that fail server-side return an `ErrorType::HTTPError` result. Read
+[`ClientResult::ErrorCode`] to tell these cases apart, and [`ClientResult::Error`] for the message.
+All of the errors below use HTTP status `400`, and none of them are retryable.
+
+| Code  | HTTP Status | Meaning                                | Solution                                                                              |
+|-------|-------------|----------------------------------------|---------------------------------------------------------------------------------------|
+| 30002 | 400         | Maximum number of friends reached      | The player is at the Discord friend limit and must remove a friend first              |
+| 80001 | 400         | Friend request blocked                 | The target user has blocked the player; do not retry or reveal that they were blocked |
+| 80002 | 400         | Bots cannot have friends               | The target user is a bot account and cannot be added                                  |
+| 80003 | 400         | Cannot send friend request to self     | The target user is the current player                                                 |
+| 80004 | 400         | No users with DiscordTag exist         | No user matches the username; only returned by the username-based overloads           |
+| 80005 | 400         | No incoming friend request             | Accept or reject was called with no pending incoming request for that user            |
+| 80007 | 400         | You are already friends with that user | The two users are already friends of the requested type                               |
+| 80009 | 400         | Users have no common application       | Both users must be authorized in the same game before a game friendship can be made   |
+| 80012 | 400         | Game relationship limit reached        | The player is at the per-game friend limit and must remove a game friend first        |
+
+<Info>
+Errors `80009` and `80012` apply only to game friendships. The rest apply to both game and Discord
+relationship actions.
+</Info>
 
 ---
 
@@ -255,11 +298,15 @@ import {InboxIcon} from '/snippets/icons/InboxIcon.jsx'
 
 ## Change Log
 
-| Date           | Changes         |
-|----------------|-----------------|
-| March 17, 2025 | Initial release |
+| Date              | Changes                                                    |
+|-------------------|------------------------------------------------------------|
+| March 17, 2025    | Initial release                                            |
+| September 9, 2026 | Clarify blocking behavior and document relationship errors |
 
 {/* Autogenerated Reference Links */}
+[`Client::UnblockUser`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#acd8dc8d7e5c202256a219a65cfedae47
+[`ClientResult::Error`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1ClientResult.html#a3175ab59cd9268a3b2c6484129c89e04
+[`ClientResult::ErrorCode`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1ClientResult.html#ab361cb3d3381401f0d73736d5f49b3f5
 [`RelationshipHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#a7da36b15ad0b7d38ba658a622e9ded77
 [`RelationshipHandle::DiscordRelationshipType`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#a5fecfb79a4a2b6f3dc5f73b09d0c3881
 [`RelationshipHandle::GameRelationshipType`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1RelationshipHandle.html#aa60146eb72ede07e3e615565f61f97eb

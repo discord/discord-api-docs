@@ -108,10 +108,11 @@ Starting in API v8, we've improved error formatting in form error responses. The
 
 ## Authentication
 
-Authenticating with the Discord API can be done in one of two ways:
+Authenticating with the Discord API can be done in one of three ways:
 
 1. Using a bot token found on the Bot page within your app's settings. For more information on bots see [bots vs user accounts](/developers/topics/oauth2#bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](/developers/topics/oauth2).
+3. Using [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) with credentials as the client ID and client secret found on the **OAuth2** page of your app's settings in the format `client_id:client_secret` as a Base64 encoded string. Only applicable for [OAuth2 API](/developers/topics/oauth2) token endpoints.
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
 
@@ -125,6 +126,12 @@ Authorization: Bot MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs
 
 ```bash
 Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
+```
+
+**Example Basic Token Authorization Header**
+
+```bash
+Authorization: Basic MTk4NjIyNDgzNDcxOTI1MjQ4OlEzS052N0NSRW5DYS1nS0xMajFEOGV1ZFl1SmZ1Nm96
 ```
 
 ## Encryption
@@ -277,6 +284,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | User *                              | `<@!USER_ID>`                            | `<@!80351110224678912>`               |
 | Channel                             | `<#CHANNEL_ID>`                          | `<#103735883630395392>`               |
 | Role                                | `<@&ROLE_ID>`                            | `<@&165511591545143296>`              |
+| Game profile                        | `<@$GAME_ID>`                            | `<@$1402418491272986635>`             |
 | Slash command                       | `</NAME:COMMAND_ID>`                     | `</airhorn:816437322781949972>`       |
 | Slash command with subcommand       | `</NAME SUBCOMMAND:ID>`                  | `</foo bar:123456789012345678>`       |
 | Slash command with subcommand group | `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>` | `</foo group bar:123456789012345678>` |
@@ -427,18 +435,20 @@ https://cdn.discordapp.com/attachments/1012345678900020080/1234567891233211234/m
 ## Uploading Files
 
 <Info>
-The file upload size limit applies to each file in a request. The default limit is `10 MiB` for all users, but may be higher for users depending on their [Nitro](https://support.discord.com/hc/en-us/articles/115000435108-What-are-Nitro-Nitro-Basic) status or by the server's [Boost Tier](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583). The `attachment_size_limit` value provided [when working with interactions](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) is calculated as the maximum of these values.
+The file upload size limit applies to each file in a request. The default limit is `20 MiB` for all users, but may be higher for users depending on their [Nitro](https://support.discord.com/hc/en-us/articles/115000435108-What-are-Nitro-Nitro-Basic) status or by the server's [Boost Tier](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ#h_01HGX7DJ33Z5HGWCXJ6NKR2FTZ). The `attachment_size_limit` value provided [when working with interactions](/developers/interactions/receiving-and-responding#interaction-object-interaction-structure) is calculated as the maximum of these values.
 </Info>
 
-Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
+Endpoints that support file uploads use a `multipart/form-data` request body. The file field name varies by endpoint and is shown in its parameter table. Non-file parameters can be sent as individual form fields or collectively as JSON in the `payload_json` form field.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the snowflake placeholder that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/developers/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure)).
+Some endpoints use `files[n]` to upload files as attachments. All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the snowflake placeholder that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](/developers/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachment://filename` URL. An example payload is provided below.
 
 ### Editing Message Attachments
 
 The `attachments` JSON parameter includes all files that will be appended to the message, including new files and their respective snowflake placeholders (referenced above). When making a `PATCH` request, only files listed in the `attachments` parameter will be appended to the message. Any previously-added files that aren't included will be removed.
+
+The `description` and `is_spoiler` fields of existing attachments can optionally be updated.
 
 **Example Request Bodies (multipart/form-data)**
 
@@ -524,6 +534,31 @@ For example:
   }]
 }
 ```
+
+### File Type Filtering
+
+You can filter for up to 10 file types in [File Upload](/developers/components/reference#file-upload-file-upload-structure) components and [Slash Command Options](/developers/interactions/application-commands#application-command-object-application-command-option-structure). Each value must be either one of the group names below, or a dot-prefixed file extension (e.g. `.pdf`). Extensions are case-insensitive and are normalized to
+lowercase, so `.PDF` and `.pdf` are equivalent.
+
+We recommend using the file groups rather than listing extensions individually. If you do list extensions
+individually, include `.jpg` for image uploads and both `.mp4` and `.mov` for video uploads, as some mobile clients
+rely on those extensions.
+
+<Warning>
+  This feature only checks the file extension against the filename and does not inspect the file contents. You are still responsible for validating the actual contents of the file.
+</Warning>
+
+The following preset groups are available:
+
+| Group Name | Extensions                                                 |
+|------------|------------------------------------------------------------|
+| `image`    | `.png`, `.gif`, `.jpg`, `.jpeg`, `.jfif`, `.webp`, `.avif` |
+| `video`    | `.mp4`, `.mov`, `.qt`, `.webm`                             |
+| `audio`    | `.mp3`, `.m4a`, `.wav`, `.ogg`, `.opus`, `.flac`           |
+
+<Warning>
+  Do not hardcode the extension lists above. They match the file types Discord natively supports and are subject to change.
+</Warning>
 
 ## Locales
 

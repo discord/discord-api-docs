@@ -76,6 +76,10 @@ Reload Unreal Editor and open the project. It should ask if you'd like to recomp
 
 Open Visual Studio from the `Tools -> Open Visual Studio` menu in Unreal Editor.
 
+<Info>
+If `Open Visual Studio` is greyed out, use `New C++ Class...` to create a throwaway class, which will also autogenerate other folders and files you'll need. You can delete the throwaway class after code generation completes.
+</Info>
+
 Open your `DiscordSocialUnreal.Build.cs` file located at `/Source/DiscordSocialUnreal/` and add the following line after `PublicDependencyModuleNames` array:
 
 ```cpp
@@ -96,6 +100,10 @@ In this section, we'll add callbacks for logging and status of the SDK and OAuth
 2. Get an authorization code
 3. Exchange it for an access token
 4. Connect to Discord
+
+<Note>
+**Building for mobile?** On iOS and Android you only need to configure your Discord Application ID in Project Settings. Set that up in the [Account Linking on Mobile](/developers/discord-social-sdk/development-guides/account-linking-on-mobile) guide, then continue here. The rest of this step is the same for mobile.
+</Note>
 
 <Info>
 **Choosing your OAuth2 scopes:** This guide uses `UDiscordClient::GetDefaultPresenceScopes()`, which requests the `openid` and `sdk.social_layer_presence` scopes. These enable core features like account linking, friends list, and rich presence.

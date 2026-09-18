@@ -1,0 +1,94 @@
+---
+title: Game Stats Widgets
+sidebarTitle: Overview
+description: Display game stats like rank, playtime, and wins on Discord user profiles using the Application Identity Profile API.
+---
+
+import {TrophyIcon} from '/snippets/icons/TrophyIcon.jsx'
+import {UserPlusIcon} from '/snippets/icons/UserPlusIcon.jsx'
+import {UserStatusIcon} from '/snippets/icons/UserStatusIcon.jsx'
+import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
+
+<img src="/images/social-layer/game-stats/widget.png" alt="Game Stats Widget" style={{width: "60%", height: "auto"}} noZoom />
+
+Game Stats Widgets let players show off their progress, such as rank, playtime, wins, and any custom stat you define, right on their Discord profile. Friends can see live updates of those stats, which keeps your game visible outside of play sessions and gives players new ways to show off their progress.
+
+<Note>
+Game Stats Widgets are available to games that have been claimed on Discord. Claiming your game verifies you as the game's official developer, so only you can control how your Game Stats Widget is represented across Discord. Complete [Game Claiming](https://docs.discord.com/developers/platform/claim-your-game) before you configure your widget.
+</Note>
+
+Game Stats Widgets are powered by an API that uses your application's bot token to read and write profile data on behalf of your players. It requires that the player has linked their Discord account to your game. See [Account Linking on Web](/developers/discord-social-sdk/development-guides/account-linking-on-web) for details on how to link accounts.
+
+Game data is stored as part of a user's **Application Identity**, a record of the user's identity in your game, keyed by your application ID, the user's Discord ID, and the user's ID in your system. See the [Application Identity Profile Resource](/developers/resources/application-identity-profile) for full object and endpoint reference.
+
+<Tip>
+The Application Identity Profile endpoints can only be called for users who have authorized your application with the `application_identities.write` scope. If you are building a Social SDK integration, this scope is included in the [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes). See [Account Linking on Web](/developers/discord-social-sdk/development-guides/account-linking-on-web) for the linking flow.
+</Tip>
+
+## How Game Stats Widgets Work
+
+1. **Configure your widget** in the Developer Portal — choose a layout for each surface and set up which fields to display
+2. **Players link their Discord account** to your game via OAuth2, granting your application permission to write to their profile
+3. **Your game server sends player stats** to the Application Identity Profile API using your bot token
+4. **Players add your widget to their profile** to share their stats with friends
+
+There are two categories of stats you can provide:
+
+- **Primary data**: pre-configured fields with fixed keys defined by Discord (`rank_name`, `total_wins`, `playtime_hours`, etc.). Populate the ones that best fit your game and genre.
+- **Dynamic data**: custom fields you define with your own name and value, for stats that aren't covered by the primary set. Supports string, number, and media types.
+
+You can send both in the same API payload, under `data.primary` and `data.dynamic`. In the widget editor, you can reference any of the provided data by setting a field's Value Type to **User Data** and entering the key (the primary field name or the dynamic field's `name`).
+
+Check out [Choosing What to Display](/developers/social-layer/game-stats-widgets/best-practices) for guidance on which stats work best on Discord profiles, and the [Application Identity Profile Resource](/developers/resources/application-identity-profile) for the full field reference.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- **Discord application set up**
+  - Created a Discord application in the [Developer Portal](https://discord.com/developers/applications)
+  - A bot token from the Bot section of your application dashboard
+- **Social SDK enabled**
+  - Enabled the Discord Social SDK for your application in the [Developer Portal](https://discord.com/developers/applications) and agreed to the Discord Social SDK Terms
+- **Claimed your game on Discord**
+  - Your game must be claimed on Discord from the Developer Portal. See [Game Claiming](https://docs.discord.com/developers/platform/claim-your-game) for eligibility and steps.
+  - If you have agreed to the Discord Social SDK Terms and don't see **Games > Widget** in the Developer Portal sidebar, your game has likely not been claimed yet.
+- **Account linking configured**
+  - Implemented [Account Linking on Web](/developers/discord-social-sdk/development-guides/account-linking-on-web) with the necessary `application_identities.write` scope in your OAuth2 flow
+
+<Tip>
+  If you are building a [Social SDK integration](/developers/discord-social-sdk/overview), the [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes) already include the `application_identities.write` scopes for you.
+</Tip>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Widget Configuration"
+    href="/developers/social-layer/game-stats-widgets/widget-configuration"
+    icon={<WrenchIcon/>}
+  >
+    Set up your widget's layouts and fields in the Developer Portal.
+  </Card>
+  <Card
+    title="Sending Game Data"
+    href="/developers/social-layer/game-stats-widgets/sending-game-data"
+    icon={<TrophyIcon/>}
+  >
+    Authorize requests and send profile data to the Application Identity Profile API.
+  </Card>
+  <Card
+    title="Best Practices"
+    href="/developers/social-layer/game-stats-widgets/best-practices"
+    icon={<UserStatusIcon/>}
+  >
+    When to sync data and how to present your widget to users.
+  </Card>
+  <Card
+    title="Web Account Linking"
+    href="/developers/discord-social-sdk/development-guides/account-linking-on-web"
+    icon={<UserPlusIcon/>}
+  >
+    Let players link their Discord account to your game so you can write to their profile.
+  </Card>
+</CardGroup>

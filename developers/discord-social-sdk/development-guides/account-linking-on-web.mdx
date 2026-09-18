@@ -1,0 +1,188 @@
+---
+title: Account Linking on Web
+description: Build the OAuth2 authorization flow to link players' Discord accounts to your game from a website or web app.
+---
+
+Account Linking on Web lets players connect their Discord account to your game or app from your website or web app. Once linked, you can use the Discord account link to surface game stats data on their Discord profile, fulfill purchases from a [Game Shop](/developers/social-commerce/overview), or power in-game social features with the [Social SDK](/developers/discord-social-sdk/overview).
+
+<Tip>
+New to account linking? Read the [Account Linking overview](/developers/platform/account-linking) to understand what it is, how it works, and which flow to use.
+</Tip>
+
+The flow is built on standard OAuth2. You redirect the player to Discord to authorize your application, Discord sends them back to your site with a code, and you exchange that code for the player's Discord user ID.
+
+These docs cover the web flow, where your server holds a client secret. For the complete account linking reference, including server-side linking and PKCE for public clients such as native and mobile apps, see [Account Linking with Discord](/developers/discord-social-sdk/development-guides/account-linking-with-discord).
+
+<Warning>
+Account linking requires that your redirect URIs use HTTPS. HTTP redirect URIs are not permitted in production.
+</Warning>
+
+## How Account Linking Works
+
+1. The player clicks a "Connect Discord" button on your site
+2. You redirect them to Discord's authorization URL with your client ID, redirect URI, and requested scopes
+3. The player reviews and approves the authorization on Discord
+4. Discord redirects back to your site with a short-lived authorization code
+5. Your server exchanges the code for an access token
+6. You call Discord's API to retrieve the player's Discord user ID
+7. You store the mapping between their Discord user ID and their ID in your game
+
+The Discord user ID you receive is stable and permanent. Store it alongside your game's own player ID so you can look up the linked player when interacting with Discord's APIs, whether that's the Social SDK, Game Shop, or Game Stats Widgets.
+
+<Tip>
+This same web flow also powers entry points for account linking that Discord can surface in its client, like prompts and buttons that appear when a player is detected in your game or on a Game Shop listing. See [Account Linking from Discord](/developers/discord-social-sdk/development-guides/account-linking-from-discord#web-flow) to learn how to enable them.
+</Tip>
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- **A Discord application** created in the [Developer Portal](https://discord.com/developers/applications)
+- **A client secret** from the OAuth2 section of your application dashboard
+- **A redirect URI** added to the OAuth2 redirect URI allowlist in the Developer Portal
+
+### Choosing Scopes
+
+Be sure to request the required scopes your integration needs. See [Social SDK scopes](/developers/discord-social-sdk/core-concepts/oauth2-scopes) for more details.
+
+## Implementation
+
+### Step 1: Configure Your Redirect URI
+
+Before redirecting any users, add your redirect URI to the allowlist in the [Developer Portal](https://discord.com/developers/applications):
+
+1. Open the [Developer Portal](https://discord.com/developers/applications) and select your application
+2. Go to the **OAuth2** section in the left sidebar
+3. Under **Redirects**, add the URL on your site that will handle the OAuth2 callback (e.g., `https://yoursite.com/auth/discord/callback`)
+4. Save your changes
+
+The redirect URI you use when building authorization links must exactly match one of the URIs on this list, including trailing slashes.
+
+### Step 2: Redirect the Player to Discord
+
+When the player clicks "Connect Discord", redirect them to Discord's authorization URL with your necessary OAuth scopes. For example, to link a player's Discord user ID to your game's Application Identity, you would request the `identify` and `application_identities.write` scopes:
+
+```
+https://discord.com/oauth2/authorize
+  ?client_id=YOUR_CLIENT_ID
+  &redirect_uri=https%3A%2F%2Fyoursite.com%2Fauth%2Fdiscord%2Fcallback
+  &response_type=code
+  &scope=identify%20application_identities.write
+  &state=RANDOM_STATE_VALUE
+```
+
+Generate a random, unguessable `state` per request and store it in the user's session so you can validate it when they return. See the [OAuth2 authorization URL reference](/developers/topics/oauth2#authorization-code-grant) for the complete parameter list.
+
+### Step 3: Handle the Callback
+
+After the player authorizes (or denies) your app, Discord redirects them back to your `redirect_uri`:
+
+```
+GET /auth/discord/callback?code=AUTH_CODE&state=RANDOM_STATE_VALUE
+```
+
+- If `error` is present, the player denied the request or something went wrong. Handle it gracefully and do not proceed.
+- If `code` is present, the player approved. Validate that the `state` parameter matches what you stored in Step 2 before doing anything else.
+
+<Warning>
+Always validate the `state` parameter before exchanging the code. Skipping this check leaves your flow vulnerable to CSRF attacks.
+</Warning>
+
+### Step 4: Exchange the Code for Tokens
+
+Make a server-side POST to Discord's [token endpoint](/developers/topics/oauth2#authorization-code-grant-access-token-exchange-example) to exchange the authorization code for an access token. Do not do this from the browser — your client secret must stay on the server.
+
+<Note>
+This web flow is a confidential client: it authenticates with a client secret. Public clients that can't keep a secret (native and mobile apps) should use PKCE instead of a client secret. See [Account Linking with Discord](/developers/discord-social-sdk/development-guides/account-linking-with-discord) for the PKCE flow.
+</Note>
+
+The response includes an `access_token` (used to call APIs on the player's behalf) and a `refresh_token` (used to get a new access token when the current one expires). See the [token response reference](/developers/topics/oauth2#authorization-code-grant-access-token-response) for the full shape and refresh-token semantics.
+
+### Step 5: Fetch the Player's Discord User ID
+
+Use the access token to call [`/users/@me`](/developers/topics/oauth2#get-current-authorization-information). The `id` field is the stable Discord user ID you'll store.
+
+```bash
+curl https://discord.com/api/v10/users/@me \
+  -H 'Authorization: Bearer ACCESS_TOKEN'
+```
+
+### Step 6: Store the Account Mapping
+
+Store the relationship between the player's Discord user ID and their game ID in your system. Some Discord APIs require both IDs.
+| What to store          | Where it comes from                           |
+|------------------------|-----------------------------------------------|
+| Discord user ID (`id`) | Returned in the `/users/@me` response         |
+| Your game's player ID  | Your backend's own identifier for this player |
+
+Whether you need the player's access token afterward depends on which Discord APIs you call. Some APIs authenticate with your bot token and don't need it. Others, including calls scoped to re-fetching the player's user object, accessing connections, or any other OAuth2-scoped operation, do require it. Store the access and refresh tokens if you plan to make those calls.
+
+### Step 7: Enable Account Linking Entry Points from Discord
+
+Once you have this flow working, you can now configure your `Connection Entrypoint URL` in the [Developer Portal](https://discord.com/developers/applications/select/information). This powers the web flow for [Account Linking from Discord](/developers/discord-social-sdk/development-guides/account-linking-from-discord#web-flow), letting Discord redirect players to your site when they click account linking entry points—buttons and prompts—in the Discord client.
+
+Your `Connection Entrypoint URL` should point to the URL on your website that starts the OAuth2 flow (Step 2). For example, if your site has a "Connect Discord" button at `https://yoursite.com/auth/discord`, set that as your `Connection Entrypoint URL`.
+
+## Best Practices: Account Linking for Web
+
+### Always Validate the State Parameter
+
+Generate a cryptographically random `state` value for every authorization request and store it in the player's server-side session. When Discord redirects back, verify the returned `state` matches before exchanging the code for tokens. Without this check, your callback endpoint is vulnerable to CSRF attacks.
+
+### Exchange Tokens Server-Side
+
+Never expose your client secret in browser-side code. The code-for-token exchange in [Step 4](#step-4-exchange-the-code-for-tokens) must happen on your server.
+
+### Use HTTPS Redirect URIs
+
+Discord does not allow plain HTTP redirect URIs in production. All redirect URIs must use HTTPS.
+
+### Request Only the Scopes You Need
+
+Only request scopes your integration actively uses. 
+
+## Handling Errors and Edge Cases
+
+### Player Denies Authorization
+
+If the player clicks "Cancel" on the Discord authorization screen, Discord redirects back to your callback with `error=access_denied`. Handle this gracefully—show a message and let them try again or continue without linking.
+
+### Duplicate Account Links
+
+Decide how to handle the case where a Discord account is already linked to a different game account, or a game account is already linked to a different Discord account. Common approaches:
+
+- **One-to-one**: reject the new link and tell the user which account is already connected
+- **Re-link**: allow the player to replace the existing link, which will overwrite the Application Identity record
+
+### Token Expiry
+
+The access token returned during linking expires after 7 days (`expires_in: 604800`). If the APIs you call authenticate with your bot token, you don't need to refresh it. If you need long-term access to player data via OAuth2, store the refresh token and use it to obtain a new access token when needed.
+
+## UX Guidance
+
+### Be Clear About What You're Asking For
+
+The OAuth2 authorization screen shows players exactly what permissions they're granting. Your application name and icon are the first things they see. Use your game's name as the application name and your official logo as the icon so players immediately recognize what they're authorizing.
+
+### Let Players Unlink
+
+Provide a way for players to disconnect their Discord account from your game. This builds trust and is good practice regardless of platform requirements.
+
+### Don't Block Game Access on Linking
+
+Account linking should be optional or an enhancement—players who decline to link their Discord account should still be able to play your game. Surface the linking prompt as a feature benefit ("Connect Discord to show your stats on your profile"), not a gate.
+
+## Next Steps
+
+import {TrophyIcon} from '/snippets/icons/TrophyIcon.jsx'
+import {ListViewIcon} from '/snippets/icons/ListViewIcon.jsx'
+import {PaintPaletteIcon} from '/snippets/icons/PaintPaletteIcon.jsx'
+
+<CardGroup cols={3}>
+  <Card title="Account Linking with Discord" href="/developers/discord-social-sdk/development-guides/account-linking-with-discord" icon={<ListViewIcon />}>
+    The complete account linking reference, including server-side linking and PKCE for public clients.
+  </Card>
+  <Card title="Design: Signing In" href="/developers/discord-social-sdk/design-guidelines/signing-in" icon={<PaintPaletteIcon />}>
+    Design guidelines for account linking and user authentication.
+  </Card>
+</CardGroup>
