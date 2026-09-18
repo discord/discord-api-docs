@@ -8,7 +8,7 @@ keywords: ['component embed', 'link preview', 'unfurl', 'components', 'open grap
 When you paste a link to your website into Discord, it turns into a link preview. A component embed replaces that preview with a layout you control, built from the same [components](/developers/components/reference) apps use in messages. You get markdown, images, galleries, an accent-colored container, and link buttons.
 
 <Warning>
-Link previews are subject to change, check the documentation for the latest information.
+Link previews are subject to change.
 </Warning>
 
 ---
@@ -53,7 +53,7 @@ Put a `<script>` in the page Discord fetches, typically in the `<head>`. The `id
     "components": [
       {
         "type": 10,
-        "content": "# Hello friend!!"
+        "content": "# Patch Notes\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is full\n- Every third thursday the furniture will scream its darkest secrets to nearby npcs"
       }
     ]
   }
@@ -71,7 +71,7 @@ Serve the JSON from a URL on the same site and point at it with a `<link>`.
 <link
   rel="discord:component-embed"
   type="application/json"
-  href="https://example.com/embeds/article.json"
+  href="https://watchanimeattheoffice.com/embeds/article.json"
 >
 ```
 
@@ -84,6 +84,8 @@ Rules for the `href`:
 | Attributes    | `rel` must be exactly `discord:component-embed` and `type` must be exactly `application/json`.                                                                   |
 | Response body | The JSON object described in [Payload Structure](/developers/link-previews/component-embeds#payload-structure), the same shape as the inline script.             |
 | Size          | 3,000-byte limit, measured on the raw response bytes.                                                                                                            |
+
+<img src="/images/link-previews/link-preview-component-text.webp" alt="An embed link preview showing the examples above" style={{width: "60%", height: "auto"}} />
 
 ---
 
@@ -98,7 +100,7 @@ The document, inline or linked, must be a JSON object with a single, parent [Con
     "components": [
       {
         "type": 10,
-        "content": "# Hello again!!!!"
+        "content": "# Patch Notes\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is full\n- Every third thursday the furniture will scream its darkest secrets to nearby npcs"
       }
     ]
   }
@@ -130,24 +132,24 @@ A component embed is a read-only subset of the components used in messages. Any 
 
 \*\* Text Display content is Discord markdown including headings, bold, italics, strikethrough, spoilers, lists, links, inline code and code blocks, and emoji. See [Message Formatting](/developers/reference#message-formatting).
 
-\*\*\* Thumbnails and gallery items take an [unfurled media item](/developers/components/reference#unfurled-media-item) with only `url` set. Discord fills in the rest after it fetches the image. See [Media](/developers/link-previews/component-embeds#media).
+\*\*\* Thumbnails and gallery items take an [unfurled media item](/developers/components/reference#unfurled-media-item) with only `url` set. Discord fills in the rest after it fetches the file. Thumbnails accept images only. Media Gallery items accept images and video. See [Media](/developers/link-previews/component-embeds#media).
 
 ---
 
 ## Media
 
-Thumbnails and gallery items take an [unfurled media item](/developers/components/reference#unfurled-media-item). Discord fills in the width, height, content type, placeholder, and proxy URL after it fetches the asset.
+Thumbnails and gallery items take an [unfurled media item](/developers/components/reference#unfurled-media-item). Discord fills in the width, height, content type, placeholder, and proxy URL after it fetches the asset. A video in a Media Gallery shows a poster frame with play controls and does not autoplay.
 
 ```json
 { "url": "https://watchanimeattheoffice.com/images/hero.webp" }
 ```
 
-| Requirement   | Detail                                                                               |
-|---------------|--------------------------------------------------------------------------------------|
-| Scheme        | `http` or `https`. `attachment://` references are not valid in a component embed.    |
-| Length        | Max 2,048 characters.                                                                |
-| Format        | PNG, GIF, JPEG, WebP, or AVIF. Video is not supported anywhere in a component embed. |
-| Public access | Discord's crawler must be able to fetch the URL without cookies or a login.          |
+| Requirement   | Detail                                                                                                                        |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Scheme        | `http` or `https`. `attachment://` references are not valid in a component embed.                                             |
+| Length        | Max 2,048 characters.                                                                                                         |
+| Format        | Images in PNG, GIF, JPEG, WebP, or AVIF. Media Gallery items also accept MP4, MOV, and WebM video. Thumbnails are image only. |
+| Public access | Discord's crawler must be able to fetch the URL without cookies or a login.                                                   |
 
 ---
 
@@ -238,6 +240,8 @@ A game release preview. A headline with a button beside it, a gallery, a caption
   </body>
 </html>
 ```
+
+<img src="/images/link-previews/link-preview-component-full.webp" alt="An embed link preview showing the example above" style={{width: "60%", height: "auto"}} />
 
 ---
 
