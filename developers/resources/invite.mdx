@@ -190,7 +190,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Get Target Users
 <Route method="GET">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users</Route>
 
-Gets the users allowed to see and accept this invite. Response is a CSV file with the header `user_id` and each user ID from the original file passed to [invite create](/developers/resources/channel#create-channel-invite) on its own line. Requires the caller to be the inviter, or have `MANAGE_GUILD` permission, or have `VIEW_AUDIT_LOG` permission.
+Gets the users allowed to see and accept this invite. Response is a CSV file with the header `user_id` and each user ID on its own line. Requires the caller to be the inviter, or have `MANAGE_GUILD` permission, or have `VIEW_AUDIT_LOG` permission.
 
 ## Add Target User
 <Route method="PUT">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/[\{user.id\}](/developers/resources/user#user-object)</Route>
