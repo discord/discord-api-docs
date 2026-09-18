@@ -68,7 +68,7 @@ This is not the same User-Agent that API clients send. Apps calling the HTTP API
 
 ## Tag Reference
 
-Discord reads `<meta>` tags from anywhere in the document, not just the `<head>`. For each tag:
+For each tag:
 
 - The key comes from `name` if present, otherwise from `property`.
 - The value comes from `content` if present, otherwise from `value`.
@@ -115,7 +115,7 @@ The tags you set decide which layout a reader gets.
 ## Images
 
 - Supported formats are PNG, GIF, JPEG, WebP, and AVIF.
-- Provide `og:image:width` and `og:image:height`. Without them Discord fetches the image to measure it, and if that fetch fails or runs past the time budget the image is dropped.
+- Provide `og:image:width` and `og:image:height`. Without them, Discord fetches the image to measure it, and if that fetch fails or runs past the time budget the image is dropped.
 - Relative URLs must start with `/`. A bare `images/card.png` is not resolved.
 - Dimension, type, and alt tags attach to `og:image` and `twitter:image` only. They are not read for `og:image:url`, `og:image:secure_url`, or `twitter:image:src`, so use the plain tag names when you want to declare dimensions.
 - Two or more `og:image` tags produce a gallery. At most 4 images are shown.
@@ -128,7 +128,7 @@ The tags you set decide which layout a reader gets.
 A video plays inline when `og:video` points at a video file. Only the formats `.mp4`, `.webm`, or `.mov` are allowed. Point the tag at the file itself, not at a page that plays it. The following must also be true:
 
 - Set `og:type` to `video.other` or `twitter:card` to `player`. Video tags are ignored on the default link layout.
-- Set `og:image`. It becomes the poster frame, and without it the video is not rendered at all.
+- Set `og:image`. It becomes the poster frame and it is required to render the video.
 - Serve the file over `https`. Video URLs are always loaded over `https`, so an `http` URL is rewritten.
 - Discord measures the file to size the player, so `og:video:width` and `og:video:height` are optional. If the file cannot be measured and no dimensions are declared, the video is dropped and the layout falls back to a plain link preview.
 
