@@ -16,8 +16,8 @@ Link previews are subject to change.
 ## Prerequisites
 
 - An HTML page served over HTTPS.
-- The tag is server-rendered. Discord does not execute JavaScript, so a tag injected by client-side script is never seen.
-- Discord's crawler can reach the page. Pages are fetched with the user agent `Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)`, and linked JSON with `Discordbot/2.0`. Allow user agents containing `Discordbot` in your bot protection and WAF rules.
+- The tag is present in the server-rendered markup. Discord does not execute code so a tag injected by a client-side script is never seen.
+- Discord's crawler can reach the page. Pages are fetched with the user agent `Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)`, and linked JSON with `Discordbot/2.0`.
 - The whole fetch, including every image in the payload, must finish within 10 seconds.
 - Open Graph tags are present, so a standard preview is available when a component embed can't be shown. See [Link Previews](/developers/link-previews/overview) for the tags Discord reads.
 
@@ -38,11 +38,11 @@ Bot challenges from CDN and WAF products commonly block Discordbot. If previews 
 
 ## Adding the Payload
 
-There are two ways to expose the JSON. If both tags are present, the inline script is used and the `<link>` is ignored.
+There are two ways to expose the JSON. You can include the JSON directly in the page with a `<script>` element, or as an external file with a `<link>` element.
 
 ### Option 1: Inline Script
 
-Put a `<script>` in the page Discord fetches, typically in the `<head>`. The `id` and `type` attributes must match exactly.
+Put a `<script id="discord:component-embed" type="application/json">` in the page Discord fetches, inside the `<head>` element.
 
 ```html
 <script id="discord:component-embed" type="application/json">
@@ -65,7 +65,7 @@ The `type` attribute must be exactly `application/json`. The script body must be
 
 ### Option 2: Linked JSON
 
-Serve the JSON from a URL on the same site and point at it with a `<link>`.
+Serve the JSON from a URL on the same site and point at it with a `<link rel="discord:component-embed" type="application/json">` element.
 
 ```html
 <link
@@ -81,7 +81,6 @@ Rules for the `href`:
 |---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Absolute URL  | The `href` must be an absolute `https://` URL.                                                                                                                   |
 | Same site     | The host must be the page's host, a subdomain of it, or its parent domain. `cdn.example.com` is valid for a page on `example.com` and the reverse is also valid. |
-| Attributes    | `rel` must be exactly `discord:component-embed` and `type` must be exactly `application/json`.                                                                   |
 | Response body | The JSON object described in [Payload Structure](/developers/link-previews/component-embeds#payload-structure), the same shape as the inline script.             |
 | Size          | 3,000-byte limit, measured on the raw response bytes.                                                                                                            |
 
@@ -146,7 +145,7 @@ Thumbnails and gallery items take an [unfurled media item](/developers/component
 
 | Requirement   | Detail                                                                                                                        |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------|
-| Scheme        | `http` or `https`. `attachment://` references are not valid in a component embed.                                             |
+| Scheme        | `http` or `https`.                                                                                                            |
 | Length        | Max 2,048 characters.                                                                                                         |
 | Format        | Images in PNG, GIF, JPEG, WebP, or AVIF. Media Gallery items also accept MP4, MOV, and WebM video. Thumbnails are image only. |
 | Public access | Discord's crawler must be able to fetch the URL without cookies or a login.                                                   |
