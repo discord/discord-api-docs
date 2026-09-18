@@ -234,9 +234,9 @@ Adds multiple target users to an existing invite. Requires the caller to be the 
 <ManualAnchor id="bulk-add-target-users-json-params" />
 ###### JSON Params
 
-| Field    | Type                | Description             |
-|----------|---------------------|-------------------------|
-| user_ids | array of snowflakes | the IDs of users to add |
+| Field    | Type                | Description                                |
+|----------|---------------------|--------------------------------------------|
+| user_ids | array of snowflakes | the IDs of users to add, max of 1000 users |
 
 ## Bulk-Delete Target Users
 <Route method="POST">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/bulk-delete</Route>
@@ -246,9 +246,9 @@ Removes multiple target users from an existing invite. Requires the caller to be
 <ManualAnchor id="bulk-delete-target-users-json-params" />
 ###### JSON Params
 
-| Field    | Type                | Description                |
-|----------|---------------------|----------------------------|
-| user_ids | array of snowflakes | the IDs of users to remove |
+| Field    | Type                | Description                                   |
+|----------|---------------------|-----------------------------------------------|
+| user_ids | array of snowflakes | the IDs of users to remove, max of 1000 users |
 
 ## Get Target Users Job Status
 <Route method="GET">/invites/[\{invite.code\}](/developers/resources/invite#invite-object)/target-users/job-status</Route>

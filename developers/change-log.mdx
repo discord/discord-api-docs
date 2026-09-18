@@ -6,6 +6,23 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 18, 2026" tags={["HTTP API"]} rss={{
+    title: "New Invite Target User Endpoints",
+    description: "Four new endpoints to add and remove individual or multiple target users on an invite without using a CSV."
+  }}>
+
+  ## New Invite Target User Endpoints
+
+  [Update Target Users](/developers/resources/invite#update-target-users) replaces an invite's entire target user list from an uploaded CSV, which is processed as an asynchronous job. Changing a single user meant rebuilding and re-uploading the whole file. These four endpoints adjust the list in place, extending the [invite endpoints](/developers/change-log#new-invite-endpoints).
+
+  - [Add Target User](/developers/resources/invite#add-target-user): Adds a single user to an invite's target users
+  - [Remove Target User](/developers/resources/invite#remove-target-user): Removes a single user from an invite's target users
+  - [Bulk-Add Target Users](/developers/resources/invite#bulk-add-target-users): Adds multiple users, passed as a `user_ids` array of snowflakes
+  - [Bulk-Delete Target Users](/developers/resources/invite#bulk-delete-target-users): Removes multiple users, passed as a `user_ids` array of snowflakes
+
+  All four require the caller to be the inviter or have the `MANAGE_GUILD` permission.
+</Update>
+
 <Update label="September 17, 2026" tags={["Gateway"]} rss={{
     title: "Custom Status Hidden by Profile Privacy Settings",
     description: "The custom status activity is omitted from Presence Update events dispatched to a guild based on the presence author's profile privacy setting."
