@@ -300,15 +300,17 @@ For the sake of readability, `event_exception_id` is referred to as `exception.i
 <ManualAnchor id="guild-scheduled-event-exception-object-guild-scheduled-event-exception-structure" />
 ###### Guild Scheduled Event Exception Structure
 
-| Field                | Type                                                            | Description                                                                                |
-|----------------------|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| event_id             | snowflake                                                       | the id of the scheduled event the exception belongs to                                     |
-| event_exception_id * | snowflake                                                       | a snowflake containing the original scheduled start time of the scheduled event recurrence |
-| scheduled_start_time | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will start, if applicable              |
-| scheduled_end_time   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will end, if applicable                |
-| is_canceled          | boolean                                                         | whether or not the scheduled event will be skipped on the recurrence                       |
+| Field                      | Type                                                            | Description                                                                                |
+|----------------------------|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| event_id                   | snowflake                                                       | the id of the scheduled event the exception belongs to                                     |
+| event_exception_id \[1\]   | snowflake                                                       | a snowflake containing the original scheduled start time of the scheduled event recurrence |
+| scheduled_start_time \[2\] | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will start, if applicable              |
+| scheduled_end_time \[2\]   | ?[ISO8601 timestamp](/developers/reference#iso8601-date%2Ftime) | the new time at when the scheduled event recurrence will end, if applicable                |
+| is_canceled \[2\]          | boolean                                                         | whether or not the scheduled event will be skipped on the recurrence                       |
 
-\* The snowflake in this field is not guaranteed to be globally unique.
+\[1\] The snowflake in this field is not guaranteed to be globally unique.
+
+\[2\] When `is_canceled` is true, the recurrence will be skipped regardless of whether `scheduled_start_time` or `scheduled_end_time` are set.
 
 ## List Scheduled Events for Guild
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events</Route>
