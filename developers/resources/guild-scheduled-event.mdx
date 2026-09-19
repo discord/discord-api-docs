@@ -287,7 +287,7 @@ by_month_day = [24]
 | DECEMBER  | 12    |
 
 ### Guild Scheduled Event Exception Object
-A guild scheduled event exception represents a skipped or rescheduled recurrence for the scheduled event's [recurrence rule](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object).
+A guild scheduled event exception represents a skipped or rescheduled recurrence for a [recurring scheduled event](/developers/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule-object).
 
 An exception ID can be valid even if a corresponding exception does not exist for the scheduled event. The only requirement of an exception ID is that it's timestamp corresponds to a recurrence for the scheduled event's recurrence rule.
 
@@ -446,7 +446,7 @@ Get a list of guild scheduled event users subscribed to a guild scheduled event.
 ## Create Guild Scheduled Event Exception
 <Route method="POST">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions</Route>
 
-Creates an exception to the recurrence rule for a guild scheduled event. Returns the created [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Create](/developers/events/gateway-events#guild-scheduled-event-exception-create) Gateway event.
+Creates an exception for a recurring guild scheduled event. Returns the created [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Create](/developers/events/gateway-events#guild-scheduled-event-exception-create) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -472,7 +472,7 @@ If an exception with the same `original_scheduled_start_time` already exists, th
 ## Modify Guild Scheduled Event Exception
 <Route method="PATCH">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
-Modify an exception to the recurrence rule for a guild scheduled event. Returns the updated [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Update](/developers/events/gateway-events#guild-scheduled-event-exception-update) Gateway event.
+Modify an exception for a recurring guild scheduled event. Returns the updated [guild scheduled event exception object](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object) on success. Fires a [Guild Scheduled Event Exception Update](/developers/events/gateway-events#guild-scheduled-event-exception-update) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -493,7 +493,7 @@ All parameters to this endpoint are optional and nullable.
 ## Delete Guild Scheduled Event Exception
 <Route method="DELETE">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/exceptions/[\{exception.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-exception-object)</Route>
 
-Delete an exception to the recurrence rule for a guild scheduled event. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
+Delete an exception for a recurring guild scheduled event. Fires a [Guild Scheduled Event Exception Delete](/developers/events/gateway-events#guild-scheduled-event-exception-delete) Gateway event.
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -519,7 +519,7 @@ Get a list of guild scheduled event users subscribed to a specific guild schedul
 ## Get Guild Scheduled Event User Counts
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/scheduled-events/[\{guild_scheduled_event.id\}](/developers/resources/guild-scheduled-event#guild-scheduled-event-object)/users/counts</Route>
 
-Get the amount of users that are currently subscribed to a guild scheduled event, and optionally the scheduled event's exceptions.
+Get the amount of users that are currently subscribed to a guild scheduled event.
 
 <ManualAnchor id="get-guild-scheduled-event-user-counts-query-string-params" />
 ###### Query String Params
