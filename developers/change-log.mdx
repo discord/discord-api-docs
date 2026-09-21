@@ -6,6 +6,25 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 21, 2026" tags={["Components", "Documentation"]} rss={{
+    title: "Component Embeds and Link Preview Docs",
+    description: "Websites can customize their Discord link preview with a component embed, and new Link Previews documentation covers the tags Discord reads from a page."
+  }}>
+
+  ## Component Embeds and Link Preview Docs
+
+  Websites can now customize how their links look when shared on Discord. Add a `discord:component-embed` JSON payload to your page and Discord renders the link preview as a [Components V2](/developers/components/reference) layout instead of the default preview. Component embeds are display-only, so buttons can link out but nothing sends an interaction, and you don't need an app or a bot to use them.
+
+  Messages carrying one of these previews have a new `components` [embed type](/developers/resources/message#embed-object-embed-types), with a `components` array holding the single [Container](/developers/components/reference#container-container-structure) that makes up the embed.
+
+  We've also published Link Previews documentation covering which Open Graph, Twitter Card, and oEmbed tags Discord reads from a page when it builds a preview.
+
+  #### Developer Resources
+  - [Link Previews](/developers/link-previews/overview)
+  - [Component Embeds](/developers/link-previews/component-embeds)
+  - [Embed Types](/developers/resources/message#embed-object-embed-types)
+</Update>
+
 <Update label="September 17, 2026" tags={["Gateway"]} rss={{
     title: "Custom Status Hidden by Profile Privacy Settings",
     description: "The custom status activity is omitted from Presence Update events dispatched to a guild based on the presence author's profile privacy setting."
