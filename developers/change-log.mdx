@@ -6,6 +6,25 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="September 22, 2026" tags={["Gateway", "Activities", "Premium Apps", "Discord Social SDK"]} rss={{
+    title: "Age Assurance: What It Means for Discord Developers",
+    description: "Age assurance is rolling out globally. Apps continue to work as is, but you may observe changes to custom status visibility, age-restricted Activities, parent-set spending limits, and DM filtering."
+  }}>
+
+  ## Age Assurance: What It Means for Discord Developers
+
+  We [recently announced the launch of age assurance](https://discord.com/blog/safer-for-teens-same-discord-for-adults). For most developers, nothing changes: existing apps, bots, games, Activities, and Social SDK integrations continue to work as is.
+
+  There are four behaviors you may observe as these protections roll out. These are things your app might encounter at runtime, not changes you need to implement.
+
+  - **Bots & Apps:** Private Profiles limit the visibility of custom statuses from user presence.
+  - **Activities:** Age-restricted Activities may require users to confirm their age group.
+  - **Commerce:** Parent-set spending limits may prevent some purchases.
+  - **Social SDK:** DMs may be filtered to Message Requests more often.
+
+  Full details are available in our [help center article](https://support-dev.discord.com/hc/en-us/articles/38338398970263-Age-Assurance-What-Developers-Need-to-Know). If you hit something unexpected, please open a ticket with Developer Support.
+</Update>
+
 <Update label="September 18, 2026" tags={["HTTP API"]} rss={{
     title: "New Invite Target User Endpoints and Options",
     description: "New endpoints and options to create, add, and remove individual or multiple target users on an invite without using a CSV."
