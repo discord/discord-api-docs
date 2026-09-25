@@ -5,10 +5,41 @@ description: Complete guide to creating slash commands, user commands, and messa
 
 import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
+import {YouTubeEmbed} from '/snippets/youtube.jsx'
 
 Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a message's context menu (top-right menu or right-clicking in a message), and a user's context menu (right-clicking on a user).
 
 ![Client interfaces showing the different types of application commands](/images/command-types.png)
+
+<YouTubeEmbed
+  src="https://www.youtube.com/embed/CtrDTDI8afc"
+  title="Slash Commands and Friends"
+  showDuration
+  chapters={`0:00 Introduction to Bot Development and Interactions
+1:33 Host Introductions
+2:29 Overview of Interactions: Gateway vs. HTTP
+4:14 Interaction Examples: Slash Commands, Buttons, Modals, and Context Menus
+7:18 Gateway vs. HTTP Deep Dive
+8:09 Interactions Endpoint URL Configuration
+11:30 Coding a Web Server and Verifying Key Handshakes
+12:56 Handling Interaction Types and Responding to Pings
+22:46 Bot Online Status and Interaction URL Behavior
+23:25 Command Registration Basics (Global vs. Guild Commands)
+25:52 Command Options and Configuration Types
+27:00 Handling Application Commands and Checking Data Names
+33:34 Managing the 3-Second Interaction Timeout Response
+36:16 Creating and Registering the Weather Command with Options
+40:46 Drawing the Weather UI and Managing Stateless State
+46:44 Simulating API Latency and Using Deferred Responses
+51:33 Implementing Autocomplete for Command Options
+54:54 Handling Message Component Events and Storing Button State
+57:20 Updating Existing Messages with New Data
+1:00:12 Launching Modals for Alerts
+1:02:43 Interaction Token Expiration and Session Management
+1:04:10 Accessing GitHub Repositories and Tutorial Resources
+1:05:16 Q&A: Privileged Intents, Slash Commands, and Team Ownership
+1:07:29 Closing Out`}
+/>
 
 ## Application Command Object
 
