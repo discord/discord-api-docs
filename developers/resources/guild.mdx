@@ -1142,7 +1142,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Get Guild Bans
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/bans</Route>
 
-Returns a list of [ban](/developers/resources/guild#ban-object) objects for the users banned from this guild. Requires the `BAN_MEMBERS` permission.
+Returns a list of [ban](/developers/resources/guild#ban-object) objects for the users banned from this guild. Requires the `BAN_MEMBERS` or `VIEW_AUDIT_LOG` permission.
 
 <ManualAnchor id="get-guild-bans-query-string-params" />
 ###### Query String Params
@@ -1158,7 +1158,7 @@ Returns a list of [ban](/developers/resources/guild#ban-object) objects for the 
 ## Get Guild Ban
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/bans/[\{user.id\}](/developers/resources/user#user-object)</Route>
 
-Returns a [ban](/developers/resources/guild#ban-object) object for the given user or a 404 not found if the ban cannot be found. Requires the `BAN_MEMBERS` permission.
+Returns a [ban](/developers/resources/guild#ban-object) object for the given user or a 404 not found if the ban cannot be found. Requires the `BAN_MEMBERS` or `VIEW_AUDIT_LOG` permission.
 
 ## Create Guild Ban
 <Route method="PUT">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/bans/[\{user.id\}](/developers/resources/user#user-object)</Route>
