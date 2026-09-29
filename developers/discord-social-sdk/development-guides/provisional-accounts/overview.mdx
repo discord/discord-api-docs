@@ -8,9 +8,33 @@ import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {RobotIcon} from '/snippets/icons/RobotIcon.jsx'
 import {WrenchIcon} from '/snippets/icons/WrenchIcon.jsx'
 import {LinkIcon} from '/snippets/icons/LinkIcon.jsx'
+import {YouTubeEmbed} from '/snippets/youtube.jsx'
 import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
 
 ## Overview
+
+<YouTubeEmbed
+  src="https://www.youtube.com/embed/frILI2uDhOk"
+  title="Deep Dive Into Social SDK Provisional Accounts"
+  showDuration
+  chapters={`00:00 - Introductions
+01:18 - Overview: Social SDK and Provisional Accounts
+04:21 - Creating a Provisional Account via the Bot Token Endpoint
+08:20 - C++ Implementation: Authentication and Access Tokens
+14:38 - Verifying Provisional Account Status
+16:44 - Q&A Break
+19:16 - Sending Friend Requests and DMs from Provisional Accounts
+28:00 - Alternative Authentication Flows
+30:54 - Handling Token Expiration with Callbacks
+31:43 - Account Merging (Account Linking) Lifecycle
+39:58 - Server-Side Implementation for Merging
+45:03 - Data Migration: What Transfers During Merges
+46:03 - Unmerging Discord Accounts
+48:11 - Out-of-Band Unmerges and Banning
+50:11 - Using Webhooks to Track Unmerges
+54:23 - Summary and Best Practices
+56:23 - Q&A and Resources`}
+/>
 
 Provisional accounts let players use Social SDK features in your game without linking a Discord account so all players can have a consistent gameplay experience.
 
@@ -33,7 +57,7 @@ This section will show you how to:
 
 1. [Choose an authentication method](#choosing-an-authentication-method) and [configure your identity provider](/developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers)
 2. [Create](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint) and [manage](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts) provisional accounts for your game
-3. [Merge](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts) accounts when users link a full Discord account, and [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts) them when the link is severed
+3. [Merge](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts) accounts when users link a full Discord account, and [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts) them whenvoEc21roLas the link is severed
 
 ## Prerequisites
 

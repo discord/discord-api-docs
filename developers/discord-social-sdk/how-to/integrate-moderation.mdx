@@ -4,8 +4,32 @@ description: Implement moderation features and safety controls in your applicati
 ---
 import PublicClient from '/snippets/discord-social-sdk/callouts/public-client.mdx';
 import SupportCallout from '/snippets/discord-social-sdk/callouts/support.mdx';
+import {YouTubeEmbed} from '/snippets/youtube.jsx';
 
 This guide will walk you through integrating and managing content moderation for your game when using the Discord Social SDK.
+
+<YouTubeEmbed
+  src="https://www.youtube.com/embed/ZKhbiNN43Co"
+  title="Discord Developers Live: Server Side Moderation with the Discord Social SDK"
+  showDuration
+  chapters={`0:00 Intro & Meet the Developer Advocates
+1:00 Important: In-Game vs. Discord App Moderation
+2:45 Balancing Community Standards and Game Content Policies
+4:15 Demo: The Discord Social TUI (Terminal User Interface)
+6:15 Understanding Webhook Events & HTTP Endpoints
+7:45 Using Message Metadata for Content Filtering
+9:00 Defining a Moderation Policy (The "Meanie" Filter)
+10:45 Server-Side Setup: Coding the Webhook in Go
+12:50 Inspecting the JSON Packet Payload
+17:00 Implementing Logic for Direct Message (DM) Creation
+21:45 Applying Moderation Decisions via the Discord API
+30:30 Client Integration: Updating SDK Callbacks
+33:15 Rendering Moderated Content with Visual Cues
+41:15 Testing the Filter in Real-Time
+43:45 Compatibility: Unity, Unreal, and C++
+45:00 Why Voice Chat Moderation is Harder to Implement
+46:45 Live Q&A and Resources`}
+/>
 
 ## Overview
 
