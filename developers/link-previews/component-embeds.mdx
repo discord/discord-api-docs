@@ -221,6 +221,10 @@ Thumbnails and gallery items take an [unfurled media item](/developers/component
 
 Add these tags alongside the component-embed payload as a fallback whenever a component embed unfurl fails.
 
+<Warning>
+There are some cases in [Compatible Components](/developers/link-previews/component-embeds#compatible-components) that can cause embed unfurling to completely fail without a fallback, like using more than 40 components or adding an invalid `id`.
+</Warning>
+
 ```html
 <meta property="og:title" content="New version out!" />
 <meta property="og:description" content="The dungeon is deceptively tougher" />
