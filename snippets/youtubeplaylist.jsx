@@ -20,6 +20,7 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
   const playingRefs = useRef({});
   const trackRef = useRef(null);
   const [videoIds, setVideoIds] = useState(pinnedVideos || []);
+  const [needsDiscovery, setNeedsDiscovery] = useState(!pinnedVideos);
   const [playing, setPlaying] = useState(new Set());
   const [channel, setChannel] = useState(null);
   const [atStart, setAtStart] = useState(true);
@@ -33,17 +34,18 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
     }
   };
 
+  // Each field carries its own timestamp. A shared one meant refreshing the
+  // channel also marked the video list as fresh, so the list never expired.
   const writeCache = (patch) => {
     try {
       const previous = readCache() || {};
-      localStorage.setItem(
-        cacheKey,
-        JSON.stringify({ ...previous, ...patch, fetchedAt: Date.now() })
-      );
+      localStorage.setItem(cacheKey, JSON.stringify({ ...previous, ...patch }));
     } catch {
       // Storage unavailable (private browsing, quota) — live data still renders.
     }
   };
+
+  const isFresh = (timestamp) => timestamp && Date.now() - timestamp < cacheTtlMs;
 
   // Stale-while-revalidate: render whatever was cached immediately; only hit
   // oEmbed again when the cache is missing or older than an hour. A failed
@@ -55,7 +57,11 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
     if (!pinnedVideos && Array.isArray(cached?.videos) && cached.videos.length > 0) {
       setVideoIds(cached.videos);
     }
-    if (cached?.fetchedAt && Date.now() - cached.fetchedAt < cacheTtlMs) return;
+    // Showing a cached list must not stop us re-checking it. The list only ever
+    // arrives from the player, so staleness is tracked in its own flag rather
+    // than inferred from whether we currently have slides to render.
+    if (!pinnedVideos) setNeedsDiscovery(!isFresh(cached?.videosFetchedAt));
+    if (isFresh(cached?.channelFetchedAt)) return;
     fetch(
       `https://www.youtube.com/oembed?url=${encodeURIComponent(playlistUrl)}&format=json`
     )
@@ -67,7 +73,7 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
           : `https://www.youtube.com${data.author_url || ""}`;
         const freshChannel = { name: data.author_name, url };
         setChannel(freshChannel);
-        writeCache({ channel: freshChannel });
+        writeCache({ channel: freshChannel, channelFetchedAt: Date.now() });
       })
       .catch(() => {});
   }, [playlistId]);
@@ -88,7 +94,8 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
       const ids = data?.info?.playlist;
       if (Array.isArray(ids) && ids.length > 0 && ids.every((id) => typeof id === "string")) {
         if (!pinnedVideos) setVideoIds(ids);
-        writeCache({ videos: ids });
+        writeCache({ videos: ids, videosFetchedAt: Date.now() });
+        setNeedsDiscovery(false);
       }
     };
     window.addEventListener("message", onMessage);
@@ -153,7 +160,7 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
       {description && <p className="yt-carousel-description">{description}</p>}
       <div className="yt-carousel-viewport">
         <div className="yt-carousel-track" ref={trackRef} onScroll={handleTrackScroll}>
-          {videoIds.length === 0 && (
+          {needsDiscovery && videoIds.length === 0 && (
             <div className="yt-carousel-slide">
               <iframe
                 ref={playerRef}
@@ -230,6 +237,18 @@ export const YouTubePlaylistCarousel = ({ list, description = "", videos = null 
           </>
         )}
       </div>
+      {needsDiscovery && videoIds.length > 0 && (
+        <div className="yt-carousel-probe" aria-hidden="true">
+          <iframe
+            ref={playerRef}
+            src={`https://www.youtube.com/embed/videoseries?list=${playlistId}&enablejsapi=1`}
+            title=""
+            tabIndex={-1}
+            referrerPolicy="strict-origin-when-cross-origin"
+            onLoad={handlePlayerLoad}
+          ></iframe>
+        </div>
+      )}
       {channel && (
         <div className="yt-carousel-footer">
           <a

@@ -2,6 +2,10 @@
     margin: 0 0 1rem;
 }
 
+.yt-carousel {
+    position: relative;
+}
+
 .yt-carousel-viewport {
     position: relative;
 }
@@ -176,4 +180,15 @@
         width: 100%;
         justify-content: center;
     }
+}
+
+/* Offscreen player used only to re-read the playlist's current contents. */
+.yt-carousel-probe {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    width: 320px;
+    height: 180px;
+    overflow: hidden;
+    pointer-events: none;
 }
