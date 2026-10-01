@@ -107,9 +107,28 @@ client->LeaveLobby(lobbyId, [&](discordpp::ClientResult result) {
 }
 ```
 
+<Tip>
+    Disconnecting the SDK session — for example, the game losing network connectivity or the player closing the game —
+    does **not** remove the user from the lobby.
+
+    Lobby membership persists until [`Client::LeaveLobby`] is explicitly
+    called, or membership is removed server-side via the Discord API. If you need a user removed from a lobby when they
+    disconnect, call [`Client::LeaveLobby`] as part of your disconnect/shutdown handling.
+</Tip>
+
 ### Lobby Lifecycle
 
-Lobbies are intended to be ephemeral and should be cleaned up when the game/match/area/world is no longer needed. To support this, you can set a "max idle time". This means that if a lobby sits idle, with no one connected to it at all, for more than that time, we will automatically delete the lobby. But as long as one person is connected, the lobby won't be deleted (and the timer resets too).
+Lobbies are intended to be ephemeral and should be cleaned up when the game/match/area/world is no longer needed. To
+support this, you can set a "max idle time".
+
+This means that if a lobby sits idle, with no one connected to it at all, for more than that time, we will
+automatically delete the lobby. But as long as one person is connected, the lobby won't be deleted (and the timer
+resets too).
+
+<Warning>
+    "Connected" here means an active SDK session — a member who has disconnected without calling
+    `Client::LeaveLobby` still counts as a lobby member, just not as "connected" for purposes of this timer.
+</Warning>
 
 This value defaults to 5 minutes, and we expect that for most use cases, that will be ok. But we understand there are use cases such as "world chat" that might want to exist longer. The maximum value for this "idle time" will likely be 7 days, so that would mean that the lobby only gets deleted if no one connects to it for an entire week. This should give a good amount of permanence to lobbies when needed, but there may be rare cases where a lobby does need to be "rebuilt" if everyone is offline for an extended period.
 
