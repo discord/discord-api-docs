@@ -25,14 +25,14 @@ Link previews are subject to change.
 
 ## Adding the Payload
 
-There are two ways to expose the JSON. You can include the JSON directly in the page with a `<script>` element, or as an external file with a `<link>` element. For both options, there is a 3,000-byte limit. Escape sequences like `\u003c` also count toward it at their full length.
+There are two ways to expose the JSON. You can include the JSON directly in the page with a `<script>` element, or as an external file with a `<link>` element. The `type` attribute is `application/vnd.discord.component-embed+json`, and `application/json` is also accepted. For both options, there is a 3,000-byte limit. Escape sequences like `\u003c` also count toward it at their full length.
 
 ### Option 1: Inline Script
 
-Put a `<script id="discord:component-embed" type="application/json">` in the page Discord fetches, inside the `<head>` element.
+Put a `<script id="discord:component-embed" type="application/vnd.discord.component-embed+json">` in the page Discord fetches, inside the `<head>` element.
 
 ```html
-<script id="discord:component-embed" type="application/json">
+<script id="discord:component-embed" type="application/vnd.discord.component-embed+json">
 {
   "component": {
     "type": 17,
@@ -50,12 +50,12 @@ Put a `<script id="discord:component-embed" type="application/json">` in the pag
 
 ### Option 2: Linked JSON
 
-Serve the JSON from a URL on the same site and point at it with a `<link rel="discord:component-embed" type="application/json">` element. The `href` must be an absolute URL. The host must be the page's host, a subdomain of it, or its parent domain. `cdn.example.com` is valid for a page on `example.com`, and the reverse is also valid.
+Serve the JSON from a URL on the same site and point at it with a `<link rel="discord:component-embed" type="application/vnd.discord.component-embed+json">` element. The `href` must be an absolute URL. The host must be the page's host, a subdomain of it, or its parent domain. `cdn.example.com` is valid for a page on `example.com`, and the reverse is also valid.
 
 ```html
 <link
   rel="discord:component-embed"
-  type="application/json"
+  type="application/vnd.discord.component-embed+json"
   href="https://watchanimeattheoffice.com/embeds/article.json"
 >
 ```
@@ -141,7 +141,7 @@ Thumbnails and gallery items take an [unfurled media item](/developers/component
     <meta property="og:image" content="https://watchanimeattheoffice.com/photos/hero.jpg" />
     <meta property="og:url" content="https://watchanimeattheoffice.com/posts/version2" />
 
-    <script id="discord:component-embed" type="application/json">
+    <script id="discord:component-embed" type="application/vnd.discord.component-embed+json">
     {
       "component": {
         "type": 17,
