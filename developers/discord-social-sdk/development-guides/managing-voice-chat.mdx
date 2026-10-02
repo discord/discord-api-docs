@@ -112,6 +112,18 @@ These methods control voice settings for a specific call using the [`Call`] obje
 - [`Call::SetSelfDeaf`] - Mutes all audio from this call so you cannot hear other participants, and they cannot hear you either
 - [`Call::SetParticipantVolume`] - Adjusts the volume of a specific participant
 
+<Warning>
+    Global Voice ([`Client`]) controls override per-call ([`Call`]) controls.
+
+    For example, if [`Client::SetSelfDeafAll`] is
+    `true`, calling `call->SetSelfDeaf(false)` on an individual call will not undeafen the user — the global setting
+    takes precedence. Use the corresponding method on [`Client`] to change the global state instead.
+
+    This distinction exists because, unlike the Discord client app, the SDK supports being in multiple simultaneous
+    voice calls (for example, across different lobbies). Per-call controls let you mute or deafen a single call without
+    affecting your other active calls, while global controls apply uniformly across all of them.
+</Warning>
+
 ### Voice Activity Detection
 
 Use [`Call::SetVADThreshold`] to control voice activation detection sensitivity. This allows optional fine-tuning of
