@@ -48,10 +48,6 @@ If either of these are not complete, your Webhook Events URL will not be validat
 
 When adding your Webhook Events URL, Discord will send a `POST` request with a `PING` payload with a `type: 0` to your endpoint. Your app is expected to acknowledge the request by returning a `204` response with an empty body.
 
-<Info>
-You must provide a valid `Content-Type` when responding to `PING`s. See [here](/developers/reference#http-api) for further information.
-</Info>
-
 <Accordion title="Responding to PING Requests" description="Code example for acknowledging PING events" icon="code">
 To properly acknowledge a `PING` payload, return a `204` response with no body:
 
