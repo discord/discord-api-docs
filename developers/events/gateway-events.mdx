@@ -771,6 +771,7 @@ The inner payload can be:
 | stage_instances        | array of [stage instance](/developers/resources/stage-instance#stage-instance-object) objects                      | Stage instances in the guild                                                                                               |
 | guild_scheduled_events | array of [guild scheduled event](/developers/resources/guild-scheduled-event#guild-scheduled-event-object) objects | Scheduled events in the guild                                                                                              |
 | soundboard_sounds      | array of [soundboard sound](/developers/resources/soundboard#soundboard-sound-object) objects                      | Soundboard sounds in the guild                                                                                             |
+| profile                | ?[guild tag](/developers/resources/guild#guild-tag-object) object                                                  | The guild tag that the guild has set                                                                                       |
 
 <Warning>
 If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](/developers/events/gateway#gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
@@ -779,6 +780,13 @@ If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](/developers/eve
 #### Guild Update
 
 Sent when a guild is updated. The inner payload is a [guild](/developers/resources/guild#guild-object) object.
+
+<ManualAnchor id="guild-update-guild-update-extra-fields" />
+###### Guild Update Extra Fields
+
+| Field    | Type                                                              | Description                          |
+|----------|-------------------------------------------------------------------|--------------------------------------|
+| profile? | ?[guild tag](/developers/resources/guild#guild-tag-object) object | The guild tag that the guild has set |
 
 #### Guild Delete
 
