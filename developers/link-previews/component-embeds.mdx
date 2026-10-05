@@ -93,7 +93,7 @@ The document, inline or linked, must be a JSON object with a single, parent [Con
 A component embed can contain up to 40 components, including the parent Container component.
 
 <Warning>
-  Using more than 40 components will cause the embed to not render instead of falling back on Open Graph.
+  Using more than 40 components, or an invalid `id`, causes the embed to not render instead of falling back on Open Graph. An `id` is invalid when it isn't an integer from 0 to 2147483647, or when two components share it.
 </Warning>
 
 | Type | Component                                                                                      |
