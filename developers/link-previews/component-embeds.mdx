@@ -50,7 +50,7 @@ Put a `<script id="discord:component-embed" type="application/vnd.discord.compon
 
 ### Option 2: Linked JSON
 
-Serve the JSON from a URL on the same site and point at it with a `<link rel="discord:component-embed" type="application/vnd.discord.component-embed+json">` element. The `href` must be an absolute URL. The host must be the page's host, a subdomain of it, or its parent domain. `cdn.example.com` is valid for a page on `example.com`, and the reverse is also valid.
+Serve the JSON from a URL on the same site and point at it with a `<link rel="discord:component-embed" type="application/vnd.discord.component-embed+json">` element. The `href` must be an absolute URL on the page's host, a subdomain of it, or its parent domain. For example, a page on `example.com` can link to JSON on `cdn.example.com`, or the other way around. The JSON can be served with any `Content-Type`, or none.
 
 ```html
 <link
