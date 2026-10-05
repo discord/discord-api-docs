@@ -93,7 +93,7 @@ The document, inline or linked, must be a JSON object with a single, parent [Con
 A component embed can contain up to 40 components, including the parent Container component.
 
 <Warning>
-  Using more than 40 components, or an invalid `id`, causes the embed to not render instead of falling back on Open Graph. An `id` is invalid when it isn't an integer from 0 to 2147483647, or when two components share it.
+  Some component validation failures can result in no embed being shown. Use the [Embed Debugger](https://discord.com/developers/embeds) to diagnose issues with your embed.
 </Warning>
 
 | Type | Component                                                                                      |
@@ -221,9 +221,9 @@ Thumbnails and gallery items take an [unfurled media item](/developers/component
 
 Add these tags alongside the component-embed payload as a fallback whenever a component embed unfurl fails.
 
-<Warning>
-There are some cases in [Compatible Components](/developers/link-previews/component-embeds#compatible-components) that can cause embed unfurling to completely fail without a fallback, like using more than 40 components or adding an invalid `id`.
-</Warning>
+<Info>
+  Use the [Embed Debugger](https://discord.com/developers/embeds) to diagnose issues with your embed if it fails to render.
+</Info>
 
 ```html
 <meta property="og:title" content="New version out!" />
