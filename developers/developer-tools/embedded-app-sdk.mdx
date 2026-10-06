@@ -161,10 +161,10 @@ Developers can use these commands to interact with the Discord client. The follo
 | [authorize](/developers/developer-tools/embedded-app-sdk#authorize)                                                               | Authorize a new client with your app                                                                                                                                                                                                                                                                                                                                                                                       |
 | [captureLog](/developers/developer-tools/embedded-app-sdk#capturelog)                                                             | Forward logs to your own logger                                                                                                                                                                                                                                                                                                                                                                                            |
 | [encourageHardwareAcceleration](/developers/developer-tools/embedded-app-sdk#encouragehardwareacceleration)                       | Presents a modal dialog to allow enabling of hardware acceleration                                                                                                                                                                                                                                                                                                                                                         |
+| [getActivityInstanceConnectedParticipants](/developers/developer-tools/embedded-app-sdk#getactivityinstanceconnectedparticipants) | Returns all participants connected to the instance                                                                                                                                                                                                                                                                                                                                                                         |
 | [getChannel](/developers/developer-tools/embedded-app-sdk#getchannel)                                                             | Returns information about the channel, per the channel_id                                                                                                                                                                                                                                                                                                                                                                  |
 | [getChannelPermissions](/developers/developer-tools/embedded-app-sdk#getchannelpermissions)                                       | Returns permissions for the current user in the currently connected channel                                                                                                                                                                                                                                                                                                                                                |
 | [getEntitlements](/developers/developer-tools/embedded-app-sdk#getentitlements)                                                   | Returns a list of entitlements for the current user                                                                                                                                                                                                                                                                                                                                                                        |
-| [getActivityInstanceConnectedParticipants](/developers/developer-tools/embedded-app-sdk#getactivityinstanceconnectedparticipants) | Returns all participants connected to the instance                                                                                                                                                                                                                                                                                                                                                                         |
 | [getPlatformBehaviors](/developers/developer-tools/embedded-app-sdk#getplatformbehaviors)                                         | Returns information about supported platform behaviors                                                                                                                                                                                                                                                                                                                                                                     |
 | [getRelationships](/developers/developer-tools/embedded-app-sdk#getrelationships)                                                 | Allows your app to access a user’s Discord Friends list, their pending requests, and blocked users. This scope is part of our Social SDK - [submit for access here](https://discord.com/developers/applications/select/social-sdk/getting-started). [Social SDK Terms apply](https://support-dev.discord.com/hc/en-us/articles/30225844245271-Discord-Social-SDK-Terms), including Section 5(a)(ii) to the data you obtain |
 | [getSkus](/developers/developer-tools/embedded-app-sdk#getskus)                                                                   | Returns a list of your app's SKUs                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -318,6 +318,33 @@ await discordSdk.commands.encourageHardwareAcceleration();
 
 ---
 
+### getActivityInstanceConnectedParticipants()
+
+Returns all participants connected to the instance.
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+No scopes required
+
+#### Signature
+
+<Monospace>
+getActivityInstanceConnectedParticipants(): Promise\<[GetActivityInstanceConnectedParticipantsResponse](/developers/developer-tools/embedded-app-sdk#getactivityinstanceconnectedparticipantsresponse)\>
+</Monospace>
+
+#### Usage
+
+```js
+await discordSdk.commands.getActivityInstanceConnectedParticipants();
+```
+
+---
+
 ### getChannel()
 
 Returns information about the channel for a provided channel ID.
@@ -397,33 +424,6 @@ getEntitlements(): Promise\<[GetEntitlementsResponse](/developers/developer-tool
 
 ```js
 await discordSdk.commands.getEntitlements();
-```
-
----
-
-### getActivityInstanceConnectedParticipants()
-
-Returns all participants connected to the instance.
-
-#### Supported Platforms
-| Web | iOS | Android |
-|-----|-----|---------|
-| ✅   | ✅   | ✅       |
-
-#### Required Scopes
-
-No scopes required
-
-#### Signature
-
-<Monospace>
-getActivityInstanceConnectedParticipants(): Promise\<[GetActivityInstanceConnectedParticipantsResponse](/developers/developer-tools/embedded-app-sdk#getactivityinstanceconnectedparticipantsresponse)\>
-</Monospace>
-
-#### Usage
-
-```js
-await discordSdk.commands.getActivityInstanceConnectedParticipants();
 ```
 
 ---
@@ -1330,6 +1330,12 @@ Coming soon! Not available during Developer Preview
 | deleted?            | boolean \| null  |
 | gift_code_batch_id? | string \| null   |
 
+#### GetActivityInstanceConnectedParticipantsResponse
+
+| Property     | Type                                                        |
+|--------------|-------------------------------------------------------------|
+| participants | [User](/developers/developer-tools/embedded-app-sdk#user)[] |
+
 #### GetChannelPermissionsResponse
 
 | Property    | Type             |
@@ -1362,12 +1368,6 @@ Coming soon! Not available during Developer Preview
 | Property     | Type                                                                      |
 |--------------|---------------------------------------------------------------------------|
 | entitlements | [Entitlement](/developers/developer-tools/embedded-app-sdk#entitlement)[] |
-
-#### GetActivityInstanceConnectedParticipantsResponse
-
-| Property     | Type                                                        |
-|--------------|-------------------------------------------------------------|
-| participants | [User](/developers/developer-tools/embedded-app-sdk#user)[] |
 
 #### GetPlatformBehaviorsResponse
 
