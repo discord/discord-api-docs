@@ -1,0 +1,5 @@
+.MDXMonospace {
+    font-family: var(--font-code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
