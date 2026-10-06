@@ -1,0 +1,57 @@
+/*
+Mirrors Mintlify's code block (```) styling so inline type signatures sit
+alongside real code blocks.
+
+Values taken from Mintlify's rendered markup:
+  .code-block wrapper -> rounded-2xl, border-gray-950/10 dark:border-white/10,
+                         text-sm, leading-6, mt-5 mb-8
+  code-block-root     -> py-3.5 px-4, bg-white dark:bg-codeblock (#0B0C0E)
+  the <pre> itself    -> plain-text foreground #1f2328 / #D4D4D4 (Shiki)
+
+Unlike a real code block this wraps instead of scrolling horizontally, so long
+signatures stay readable without clipping the type links inside them.
+ */
+
+.MDXMonospace {
+    font-family: var(--font-code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+    padding: 0.875rem 1rem;
+
+    border: 1px solid rgb(3 7 18 / 0.1);
+    border-radius: 1rem;
+    background-color: #ffffff;
+    /* A real code block paints its border on a transparent wrapper, so the
+       translucent border composites over the page background rather than over
+       the code surface. Clipping to padding-box reproduces that: without it the
+       dark border sits on #0b0c0e and reads far darker than the real thing. */
+    background-clip: padding-box;
+    color: #1f2328;
+}
+
+.MDXMonospace:is(.dark *) {
+    border-color: rgb(255 255 255 / 0.1);
+    background-color: #0b0c0e;
+    color: #d4d4d4;
+}
+
+/* MDX wraps the children in a paragraph; strip the prose margins that would
+   otherwise pad the inside of the block. */
+.MDXMonospace > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Type references stay clickable, but should not pick up prose's heavier
+   link weight inside a code surface. */
+.MDXMonospace a {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
