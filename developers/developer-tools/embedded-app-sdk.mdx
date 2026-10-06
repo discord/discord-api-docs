@@ -53,9 +53,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 ready(): Promise\<void\>
-</Monospace>
+</pre>
 
 #### SDK Usage
 
@@ -83,9 +83,9 @@ Depends on the event. Refer to the Required Scopes for the specific event you ar
 
 #### Signature
 
-<Monospace>
+<pre>
 subscribe\<Event\>(event: [Event](/developers/developer-tools/embedded-app-sdk#sdk-events), listener: (data: EventPayloadData\<Event\>) => void, ...subscribeArgs: Partial\<EventPayloadData\<Event\>\>): Promise\<[EventEmitter](https://nodejs.org/docs/latest/api/events.html)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -112,9 +112,9 @@ No scopes required
 
 _The `EventPayloadData` will vary based on the event you are unsubscribing from. See the specific [event](/developers/developer-tools/embedded-app-sdk#sdk-events) for details._
 
-<Monospace>
+<pre>
 unsubscribe\<Event\>(event: [Event](/developers/developer-tools/embedded-app-sdk#sdk-events), listener: (data: EventPayloadData\<Event\>) => void, ...subscribeArgs: Partial\<EventPayloadData\<Event\>\>): Promise\<[EventEmitter](https://nodejs.org/docs/latest/api/events.html)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -139,9 +139,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 close(code: [RPCCloseCodes](/developers/developer-tools/embedded-app-sdk#rpcclosecodes), message: string): void
-</Monospace>
+</pre>
 
 #### SDK Usage
 
@@ -194,9 +194,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 authenticate(args: [AuthenticateRequest](/developers/developer-tools/embedded-app-sdk#authenticaterequest)): Promise\<[AuthenticateResponse](/developers/developer-tools/embedded-app-sdk#authenticateresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -223,9 +223,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 authorize(args: [AuthorizeRequest](/developers/developer-tools/embedded-app-sdk#authorizerequest)): Promise\<[AuthorizeResponse](/developers/developer-tools/embedded-app-sdk#authorizeresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -276,9 +276,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 captureLog(args: [CaptureLogRequest](/developers/developer-tools/embedded-app-sdk#capturelogrequest)): Promise\<void\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -306,9 +306,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 encourageHardwareAcceleration(): Promise\<[EncourageHardwareAccelerationResponse](/developers/developer-tools/embedded-app-sdk#encouragehardwareaccelerationresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -334,9 +334,9 @@ Returns information about the channel for a provided channel ID.
 
 #### Signature
 
-<Monospace>
+<pre>
 getChannel(args: [GetChannelRequest](/developers/developer-tools/embedded-app-sdk#getchannelrequest)): Promise\<[GetChannelResponse](/developers/developer-tools/embedded-app-sdk#getchannelresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 ```js
@@ -362,9 +362,9 @@ Returns permissions for the current user in the currently connected channel.
 
 #### Signature
 
-<Monospace>
+<pre>
 getChannelPermissions(): Promise\<[GetChannelPermissionsResponse](/developers/developer-tools/embedded-app-sdk#getchannelpermissionsresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -389,9 +389,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 getEntitlements(): Promise\<[GetEntitlementsResponse](/developers/developer-tools/embedded-app-sdk#getentitlementsresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -416,9 +416,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 getInstanceConnectedParticipants(): Promise\<[GetInstanceConnectedParticipantsResponse](/developers/developer-tools/embedded-app-sdk#getinstanceconnectedparticipantsresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -443,9 +443,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 getPlatformBehaviors(): Promise\<[GetPlatformBehaviorsResponse](/developers/developer-tools/embedded-app-sdk#getplatformbehaviorsresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -476,9 +476,9 @@ This scope is part of our Social SDK - [submit for access here](https://discord.
 
 #### Signature
 
-<Monospace>
+<pre>
 getRelationships(): Promise\<[GetRelationshipsResponse](/developers/developer-tools/embedded-app-sdk#getrelationshipsresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -503,9 +503,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 getSkus(): Promise\<[GetSkusResponse](/developers/developer-tools/embedded-app-sdk#getskusresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -530,9 +530,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 initiateImageUpload(): Promise\<[InitiateImageUploadResponse](/developers/developer-tools/embedded-app-sdk#initiateimageuploadresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -557,9 +557,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 openExternalLink(args: [OpenExternalLinkRequest](/developers/developer-tools/embedded-app-sdk#openexternallinkrequest)): Promise\<[OpenExternalLinkResponse](/developers/developer-tools/embedded-app-sdk#openexternallinkresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -586,9 +586,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 openInviteDialog(): Promise\<void\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -613,9 +613,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 openShareMomentDialog(args: [OpenShareMomentDialogRequest](/developers/developer-tools/embedded-app-sdk#opensharemomentdialogrequest)) Promise\<void\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -645,9 +645,9 @@ Read the guide on [Using Rich Presence with the Embedded App SDK](/developers/ri
 
 #### Signature
 
-<Monospace>
+<pre>
 setActivity(args: [SetActivityRequest](/developers/developer-tools/embedded-app-sdk#setactivityrequest)): Promise\<[Activity](/developers/developer-tools/embedded-app-sdk#activity)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -678,9 +678,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 setConfig(args: [SetConfigRequest](/developers/developer-tools/embedded-app-sdk#setconfigrequest)): Promise\<[SetConfigResponse](/developers/developer-tools/embedded-app-sdk#setconfigresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -707,9 +707,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 setOrientationLockState(args: [SetOrientationLockStateRequest](/developers/developer-tools/embedded-app-sdk#setorientationlockstaterequest)): Promise\<void\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -741,9 +741,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 shareLink(args: [ShareLinkRequest](/developers/developer-tools/embedded-app-sdk#sharelinkrequest)): Promise\<[ShareLinkResponse](/developers/developer-tools/embedded-app-sdk#sharelinkresponse)\>\<void\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -772,9 +772,9 @@ No scopes required
 
 #### Signature
 
-<Monospace>
+<pre>
 startPurchase(args: [StartPurchaseRequest](/developers/developer-tools/embedded-app-sdk#startpurchaserequest)): Promise\<[StartPurchaseResponse](/developers/developer-tools/embedded-app-sdk#startpurchaseresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 
@@ -799,9 +799,9 @@ Returns the current user's locale.
 
 #### Signature
 
-<Monospace>
+<pre>
 userSettingsGetLocale(): Promise\<[UserSettingsGetLocaleResponse](/developers/developer-tools/embedded-app-sdk#usersettingsgetlocaleresponse)\>
-</Monospace>
+</pre>
 
 #### Usage
 

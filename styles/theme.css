@@ -2,3 +2,7 @@
 .prose hr:is(.dark *), .prose tr:is(.dark *) {
     border-color: #36373e;
 }
+
+pre {
+    white-space: pre-wrap;
+}
