@@ -41,7 +41,7 @@ const discordSdk = new DiscordSDK('...');
 await discordSdk.ready();
 
 // Fetch
-const participants = await discordSdk.commands.getInstanceConnectedParticipants();
+const participants = await discordSdk.commands.getActivityInstanceConnectedParticipants();
 
 // Subscribe
 function updateParticipants(participants: Types.GetActivityInstanceConnectedParticipantsResponse) {
