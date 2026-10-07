@@ -57,7 +57,7 @@ This section will show you how to:
 
 1. [Choose an authentication method](#choosing-an-authentication-method) and [configure your identity provider](/developers/discord-social-sdk/development-guides/provisional-accounts/identity-providers)
 2. [Create](/developers/discord-social-sdk/development-guides/provisional-accounts/bot-token-endpoint) and [manage](/developers/discord-social-sdk/development-guides/provisional-accounts/managing-accounts) provisional accounts for your game
-3. [Merge](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts) accounts when users link a full Discord account, and [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts) them whenvoEc21roLas the link is severed
+3. [Merge](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts) accounts when users link a full Discord account, and [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts) them whenever the link is severed
 
 ## Prerequisites
 
@@ -89,6 +89,15 @@ For existing Discord users who have added a provisional account as a game friend
 - Easy Linking: Simple to merge into a full Discord account
 - Data Persistence: Friends and history are preserved
 - Cross-Platform: Works on all supported platforms
+
+### Identity Constraints
+
+Provisional accounts are keyed on the external identity your game authenticates with. Keep these rules in mind when designing your account system:
+
+- A provisional account is tied to exactly one external identity for your application.
+- A Discord account can be associated with only one provisional account for your application at a time. Attempting to merge a second one fails with error `530023` (see [Merge Request Failures](/developers/discord-social-sdk/development-guides/provisional-accounts/merging-accounts#merge-request-failures)).
+- When a player unlinks their Discord account, a **new** provisional account with a new user ID is created for the same external identity (see [Unmerging Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts)).
+- Because players may link and unlink over time, the Discord or provisional account ID attached to a given game user can change. Key your own persistence on your external identity rather than on the Discord user ID.
 
 ### Provisional Account Lifecycle
 
@@ -170,7 +179,8 @@ Once authentication is complete, you can use the access token as you would a ful
 
 ## Change Log
 
-| Date           | Changes                                                   |
-|----------------|-----------------------------------------------------------|
-| July 14, 2026  | Split the provisional accounts guide into its own section |
-| March 17, 2025 | Initial release                                           |
+| Date            | Changes                                                   |
+|-----------------|-----------------------------------------------------------|
+| October 5, 2026 | Add identity constraints                                  |
+| July 14, 2026   | Split the provisional accounts guide into its own section |
+| March 17, 2025  | Initial release                                           |
