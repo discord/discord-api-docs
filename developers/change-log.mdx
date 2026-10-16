@@ -6,6 +6,19 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="October 14, 2026" tags={["HTTP API"]} rss={{
+    title: "OAuth2 Authorization Responses Now Include iss",
+    description: "OAuth2 redirects to your app now include an iss parameter identifying Discord as the authorization server."
+}}>
+
+    ## OAuth2 Authorization Responses Now Include `iss`
+
+    OAuth2 authorization responses that redirect to your `redirect_uri` now include an `iss` parameter set to `https://discord.com`, following [RFC 9207](https://www.rfc-editor.org/info/rfc9207). Our [authorization server metadata](https://discord.com/.well-known/oauth-authorization-server) and [OpenID configuration](https://discord.com/.well-known/openid-configuration) now also set `authorization_response_iss_parameter_supported` to `true`.
+
+    #### Developer Resources
+    - [Issuer Identification](/developers/topics/oauth2#issuer-identification)
+</Update>
+
 <Update label="October 6, 2026" tags={["Activities", "Embedded App SDK"]} rss={{
     title: "getActivityInstanceConnectedParticipants Command Renamed",
     description: "The getInstanceConnectedParticipants command has been renamed to getActivityInstanceConnectedParticipants"

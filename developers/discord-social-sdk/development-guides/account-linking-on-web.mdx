@@ -78,11 +78,12 @@ Generate a random, unguessable `state` per request and store it in the user's se
 After the player authorizes (or denies) your app, Discord redirects them back to your `redirect_uri`:
 
 ```
-GET /auth/discord/callback?code=AUTH_CODE&state=RANDOM_STATE_VALUE
+GET /auth/discord/callback?code=AUTH_CODE&state=RANDOM_STATE_VALUE&iss=https%3A%2F%2Fdiscord.com
 ```
 
 - If `error` is present, the player denied the request or something went wrong. Handle it gracefully and do not proceed.
 - If `code` is present, the player approved. Validate that the `state` parameter matches what you stored in Step 2 before doing anything else.
+- If your site supports other sign-in providers, also check that `iss` is `https://discord.com`. See [Issuer Identification](/developers/topics/oauth2#issuer-identification).
 
 <Warning>
 Always validate the `state` parameter before exchanging the code. Skipping this check leaves your flow vulnerable to CSRF attacks.

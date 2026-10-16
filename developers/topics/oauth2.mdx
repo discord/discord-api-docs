@@ -14,11 +14,13 @@ The first step in implementing OAuth2 is [registering a developer application](h
 <ManualAnchor id="shared-resources-oauth2-urls" />
 ###### OAuth2 URLs
 
-| URL                                         | Description                                                 |
-|---------------------------------------------|-------------------------------------------------------------|
-| https://discord.com/oauth2/authorize        | Base authorization URL                                      |
-| https://discord.com/api/oauth2/token        | Token URL                                                   |
-| https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
+| URL                                                        | Description                                                                                     |
+|------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| https://discord.com/oauth2/authorize                       | Base authorization URL                                                                          |
+| https://discord.com/api/oauth2/token                       | Token URL                                                                                       |
+| https://discord.com/api/oauth2/token/revoke                | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL                                     |
+| https://discord.com/.well-known/oauth-authorization-server | [Authorization server metadata](https://www.rfc-editor.org/rfc/rfc8414)                         |
+| https://discord.com/.well-known/openid-configuration       | [OpenID Connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) document |
 
 <Warning>
 In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
@@ -78,6 +80,12 @@ When a user begins an authorization flow on the client, a `state` is generated t
 
 While Discord does not require the use of the `state` parameter, we support it and highly recommend that you implement it for the security of your own applications and data.
 
+### Issuer Identification
+
+Every authorization response that Discord redirects to your `redirect_uri` includes an `iss` parameter set to `https://discord.com`. This follows [RFC 9207](https://www.rfc-editor.org/info/rfc9207) and is a best practice for OAuth2 authorization servers.
+
+If your app supports more than one OAuth2 provider, check that `iss` matches the `issuer` in Discord's [authorization server metadata](https://discord.com/.well-known/oauth-authorization-server) before you exchange the `code`. If it doesn't match, reject the response. This prevents authorization server mix-up attacks, where a malicious provider tricks your app into sending it an authorization code that Discord issued.
+
 ## Authorization Code Grant
 
 The authorization code grant is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
@@ -93,7 +101,7 @@ https://discord.com/oauth2/authorize?response_type=code&client_id=15773059049219
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](/developers/topics/oauth2#shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](/developers/topics/oauth2#state-and-security).
 
-When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
+When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point. The redirect also includes [`iss`](/developers/topics/oauth2#issuer-identification), which identifies Discord as the authorization server.
 
 `prompt` controls how the authorization flow handles existing authorizations. If a user has previously authorized your application with the requested scopes and prompt is set to `consent`, it will request them to reapprove their authorization. If set to `none`, it will skip the authorization screen and redirect them back to your redirect URI without requesting their authorization. For passthrough scopes, like `bot` and `webhook.incoming`, authorization is always required.
 
@@ -103,7 +111,7 @@ The `integration_type` parameter specifies the [installation context](/developer
 ###### Redirect URL Example
 
 ```
-https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn
+https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn&iss=https%3A%2F%2Fdiscord.com
 ```
 
 `code` is now exchanged for the user's access token by making a `POST` request to the [token URL](/developers/topics/oauth2#shared-resources-oauth2-urls) with the following parameters:
@@ -216,7 +224,13 @@ Boom; the tokens are safely revoked.
 
 ## Implicit Grant
 
-The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
+The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. 
+
+<Warning>
+The implicit grant is not recommended outside of quick prototypes. It returns the access token directly in the redirect URL, where it can leak through browser history, logs, and `Referer` headers, and it doesn't provide a refresh token. For production apps, use the [authorization code grant](/developers/topics/oauth2#authorization-code-grant) with PKCE instead.
+</Warning>
+
+The URL is formatted as follows:
 
 <ManualAnchor id="implicit-grant-authorization-url-example" />
 ###### Authorization URL Example
@@ -225,13 +239,13 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 https://discord.com/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
-On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](/developers/topics/oauth2#state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
+On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, [`state`](/developers/topics/oauth2#state-and-security) (if specified), and [`iss`](/developers/topics/oauth2#issuer-identification). **These are not querystring parameters.** Be mindful of the "#" character:
 
 <ManualAnchor id="implicit-grant-redirect-url-example" />
 ###### Redirect URL Example
 
 ```
-https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn
+https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn&iss=https%3A%2F%2Fdiscord.com
 ```
 
 There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. **You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.**
