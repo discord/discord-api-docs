@@ -224,7 +224,13 @@ Boom; the tokens are safely revoked.
 
 ## Implicit Grant
 
-The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
+The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. 
+
+<Warning>
+The implicit grant is not recommended outside of quick prototypes. It returns the access token directly in the redirect URL, where it can leak through browser history, logs, and `Referer` headers, and it doesn't provide a refresh token. For production apps, use the [authorization code grant](/developers/topics/oauth2#authorization-code-grant) with PKCE instead.
+</Warning>
+
+The URL is formatted as follows:
 
 <ManualAnchor id="implicit-grant-authorization-url-example" />
 ###### Authorization URL Example
