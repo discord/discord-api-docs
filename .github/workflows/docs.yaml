@@ -27,4 +27,10 @@ jobs:
         run: npm ci
 
       - name: Check Markdown Tables
+        id: lint
         run: npm run lint
+
+      - name: Explain how to fix lint failures
+        if: failure() && steps.lint.outcome == 'failure'
+        run: |
+          echo "::error title=Markdown tables are not formatted correctly::Run 'npm run fix:tables' from the tools/ directory and commit the changes. If the tables pass and this still fails, ESLint found problems in tools/; run 'npm run lint:fix' from the repo root."

@@ -308,18 +308,49 @@ Where the two accounts disagree about a user, the Discord account's existing rel
 
 ---
 
+## Merging Before a Provisional Account Exists
+
+<Warning>
+    This is an edge case and is likely **not** appropriate for most operational flows. The standard path is to create
+    the provisional account first and merge it when the player links their Discord account — see the [Recommended
+    Integration Path](/developers/discord-social-sdk/development-guides/account-linking-with-discord#recommended-integration-path).
+</Warning>
+
+Use this only if your game lets a player link their Discord account **before** your backend has ever created a
+provisional account for that player's external identity. This can allow your system to skip creating a provisional
+account for the identity and then immediately merge it into the Discord account the player just authorized.
+
+Instead, you can skip that step and call the merge token exchange directly
+— [`/oauth2/token` with `external_auth_type` and `external_auth_token`](#merging-provisional-accounts-for-servers)
+from your backend, or [`Client::GetTokenFromProvisionalMerge`] / [`Client::GetTokenFromDeviceProvisionalMerge`]
+from a public client — passing the external identity that has no provisional account yet.
+
+Because there is no provisional account for that identity, Discord skips the data merge and associates the
+external identity with the authenticated Discord account. The end state is identical to a completed merge:
+
+- One Discord account per external identity per application is enforced for your game.
+- If the player later unlinks, or their Discord account is banned, Discord creates a new provisional account for
+that external identity exactly as it would after a normal [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts). Re-authenticate with the same `external_auth_token` to get the new provisional account's token.
+
+If the external identity is already linked to a *different* Discord account, the request fails with error `530014`.
+If the authenticated Discord account already has an identity for your application, the request fails with a `400`
+Invalid Form Body response. Both are listed under [Merge Request Failures](#merge-request-failures).
+
+---
+
 ## Merge Request Failures
 
 You may receive a merge specific error code while attempting this operation:
 
-| Code   | HTTP Status | Meaning                         | Solution                                                              |
-|--------|-------------|---------------------------------|-----------------------------------------------------------------------|
-| 50025  | 403         | Invalid OAuth2 access token     | The `external_auth_token` is invalid.                                 |
-| 530014 | 400         | Invalid merge source            | The source account is not provisional                                 |
-| 530016 | 400         | Invalid merge destination       | The destination account is provisional                                |
-| 530017 | 400         | Merge source user banned        | The provisional account being merged is banned from platform          |
-| 530023 | 400         | Too many application identities | User already has an associated external identity for this application |
-| -      | 423         | Resource locked                 | Transient error, wait and retry                                       |
+| Code   | HTTP Status | Meaning                         | Solution                                                                                                                                                                                                                                                    |
+|--------|-------------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 50025  | 403         | Invalid OAuth2 access token     | The `external_auth_token` is invalid.                                                                                                                                                                                                                       |
+| 530014 | 400         | Invalid merge source            | The source account is not provisional, or the external identity is already linked to a different Discord account                                                                                                                                            |
+| 530016 | 400         | Invalid merge destination       | The destination account is provisional                                                                                                                                                                                                                      |
+| 530017 | 400         | Merge source user banned        | The provisional account being merged is banned from platform                                                                                                                                                                                                |
+| 530023 | 400         | Too many application identities | User already has an associated external identity for this application                                                                                                                                                                                       |
+| -      | 400         | Invalid Form Body               | "An application identity already exists for this application and user" — returned when [merging before a provisional account exists](#merging-before-a-provisional-account-exists) into a Discord account that already has an identity for your application |
+| -      | 423         | Resource locked                 | Transient error, wait and retry                                                                                                                                                                                                                             |
 
 <Info>
 Error `530017` is most commonly seen *after* a successful link: when a previously linked Discord account is banned, that user's identity is severed back into a new provisional account in a **restricted** state, and that restricted provisional account cannot be merged into a different Discord account until the ban expires (temp ban) or is lifted. See [Ban-Driven Unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#ban-driven-unmerge) for the full lifecycle.
@@ -349,6 +380,7 @@ Error `530017` is most commonly seen *after* a successful link: when a previousl
 
 | Date              | Changes                                                                                    |
 |-------------------|--------------------------------------------------------------------------------------------|
+| October 5, 2026   | Document merging before a provisional account exists                                       |
 | September 8, 2026 | Document block migration during merges                                                     |
 | July 14, 2026     | Split into the Provisional Accounts section and documented the client-to-server merge flow |
 | March 17, 2025    | Initial release                                                                            |

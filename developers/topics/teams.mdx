@@ -72,12 +72,12 @@ Team members can be one of four roles (owner, admin, developer, and read-only), 
 <ManualAnchor id="data-models-team-member-object" />
 ###### Team Member Object
 
-| field            | type                                                          | description                                                                                       |
-|------------------|---------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| membership_state | integer                                                       | User's [membership state](/developers/topics/teams#data-models-membership-state-enum) on the team |
-| team_id          | snowflake                                                     | ID of the parent team of which they are a member                                                  |
-| user             | partial [user](/developers/resources/user#user-object) object | Avatar, discriminator, ID, and username of the user                                               |
-| role             | string                                                        | [Role](/developers/topics/teams#team-member-roles-team-member-role-types) of the team member      |
+| field            | type                                                  | description                                                                                       |
+|------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| membership_state | integer                                               | User's [membership state](/developers/topics/teams#data-models-membership-state-enum) on the team |
+| team_id          | snowflake                                             | ID of the parent team of which they are a member                                                  |
+| user             | [user](/developers/resources/user#user-object) object | User object of the team member                                                                    |
+| role             | string                                                | [Role](/developers/topics/teams#team-member-roles-team-member-role-types) of the team member      |
 
 <ManualAnchor id="data-models-membership-state-enum" />
 ###### Membership State Enum

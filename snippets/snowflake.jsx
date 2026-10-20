@@ -2,57 +2,57 @@ export const Snowflake = () => {
   return (
     <div className="MDXSnowflake">
       <svg width="633" height="355" viewBox="0 0 633 355" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text fontSize="20" fontWeight="bold">
+        <text fontSize="20" fontWeight="bold" className="ink">
           <tspan x="209" y="16.8223">
             175928847299117063
           </tspan>
         </text>
-        <text fill="#252525" className="header">
+        <text className="header ink">
           <tspan x="149" y="199.258">
             41944705796
           </tspan>
         </text>
-        <text fill="#252525" className="header">
+        <text className="header ink">
           <tspan x="140" y="276.258">
             1462015105796
           </tspan>
         </text>
-        <text fill="#252525" className="header">
+        <text className="header ink">
           <tspan x="72" y="350.258">
             2016-04-30 11:18:25.796 UTC
           </tspan>
         </text>
-        <text fill="#343B8F" className="header group1">
+        <text className="header group1">
           <tspan x="2" y="96.2578">
             000000100111000100000110010110101100000100
           </tspan>
         </text>
-        <text fill="#8F2022" className="header group2">
+        <text className="header group2">
           <tspan x="409" y="96.2578">
             00001
           </tspan>
         </text>
-        <text fill="#1A6334" className="header group3">
+        <text className="header group3">
           <tspan x="460" y="96.2578">
             00000
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="326" y="54.1934">
             to binary
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="215" y="154.193">
             to decimal
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="215" y="312.193">
             Parse unix timestamp (ms)
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="288.344" y="230.193">
             + 1420070400000
           </tspan>
@@ -60,7 +60,7 @@ export const Snowflake = () => {
             Discord Epoch (unix timestamp in ms)
           </tspan>
         </text>
-        <text fill="#343B8F" fontSize="12">
+        <text fontSize="12" className="group1">
           <tspan x="39.7383" y="114.193">
             Number of milliseconds since the Discord epoch{' '}
           </tspan>
@@ -68,7 +68,7 @@ export const Snowflake = () => {
             (first seconds of 2015)
           </tspan>
         </text>
-        <text fill="#8F2022" fontSize="11">
+        <text fontSize="11" className="group2">
           <tspan x="406.074" y="113.927">
             Internal
           </tspan>
@@ -79,7 +79,7 @@ export const Snowflake = () => {
             ID
           </tspan>
         </text>
-        <text fill="#1A6334" fontSize="11">
+        <text fontSize="11" className="group3">
           <tspan x="461.074" y="113.927">
             Internal
           </tspan>
@@ -90,12 +90,12 @@ export const Snowflake = () => {
             ID
           </tspan>
         </text>
-        <text className="header group4" fill="#0051B6">
+        <text className="header group4">
           <tspan x="511" y="96.2578">
             000000000111
           </tspan>
         </text>
-        <text fill="#0051B6" fontSize="12">
+        <text fontSize="12" className="group4">
           <tspan x="524.861" y="114.193">
             Incremented{' '}
           </tspan>
@@ -112,27 +112,27 @@ export const Snowflake = () => {
             process
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="0" y="71.1934">
             64
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="401" y="71.1934">
             22
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="504" y="71.1934">
             12
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="625" y="71.1934">
             0
           </tspan>
         </text>
-        <text fill="#252525" fontSize="12">
+        <text className="ink" fontSize="12">
           <tspan x="449" y="71.1934">
             17
           </tspan>

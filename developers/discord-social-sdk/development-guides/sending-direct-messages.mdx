@@ -48,6 +48,10 @@ Let's get started with sending a direct message to another user.
 While the SDK allows you to send messages on behalf of a user, you must only do so in response to a user action. You should never automatically send messages.
 </Info>
 
+<Warning>
+If the recipient is a [provisional account](/developers/discord-social-sdk/development-guides/provisional-accounts/overview), messages can only be delivered while that player is actively in-game.
+</Warning>
+
 Here's how to send a direct message. You'll need the recipient's Discord ID and the message you want to send.
 
 ```cpp

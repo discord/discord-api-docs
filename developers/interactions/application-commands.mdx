@@ -5,10 +5,41 @@ description: Complete guide to creating slash commands, user commands, and messa
 
 import {ManualAnchor} from '/snippets/manualanchor.jsx'
 import {Route} from '/snippets/route.jsx'
+import {YouTubeEmbed} from '/snippets/youtube.jsx'
 
 Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a message's context menu (top-right menu or right-clicking in a message), and a user's context menu (right-clicking on a user).
 
 ![Client interfaces showing the different types of application commands](/images/command-types.png)
+
+<YouTubeEmbed
+  src="https://www.youtube.com/embed/CtrDTDI8afc"
+  title="Slash Commands and Friends"
+  showDuration
+  chapters={`0:00 Introduction to Bot Development and Interactions
+1:33 Host Introductions
+2:29 Overview of Interactions: Gateway vs. HTTP
+4:14 Interaction Examples: Slash Commands, Buttons, Modals, and Context Menus
+7:18 Gateway vs. HTTP Deep Dive
+8:09 Interactions Endpoint URL Configuration
+11:30 Coding a Web Server and Verifying Key Handshakes
+12:56 Handling Interaction Types and Responding to Pings
+22:46 Bot Online Status and Interaction URL Behavior
+23:25 Command Registration Basics (Global vs. Guild Commands)
+25:52 Command Options and Configuration Types
+27:00 Handling Application Commands and Checking Data Names
+33:34 Managing the 3-Second Interaction Timeout Response
+36:16 Creating and Registering the Weather Command with Options
+40:46 Drawing the Weather UI and Managing Stateless State
+46:44 Simulating API Latency and Using Deferred Responses
+51:33 Implementing Autocomplete for Command Options
+54:54 Handling Message Component Events and Storing Button State
+57:20 Updating Existing Messages with New Data
+1:00:12 Launching Modals for Alerts
+1:02:43 Interaction Token Expiration and Session Management
+1:04:10 Accessing GitHub Repositories and Tutorial Resources
+1:05:16 Q&A: Privileged Intents, Slash Commands, and Team Ownership
+1:07:29 Closing Out`}
+/>
 
 ## Application Command Object
 
@@ -34,7 +65,7 @@ Application commands are native ways to interact with apps in the Discord client
 | default_member_permissions | ?string                                                                                                                                    | Set of [permissions](/developers/topics/permissions) represented as a bit set                                                                                                                                                                                              | all                 |
 | dm_permission?             | boolean                                                                                                                                    | **Deprecated (use `contexts` instead)**; Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                                                                                              | all                 |
 | default_permission?        | ?boolean                                                                                                                                   | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                                                                                                         | all                 |
-| nsfw?                      | boolean                                                                                                                                    | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#agerestricted-commands), defaults to `false`                                                                                                                               | all                 |
+| nsfw?                      | boolean                                                                                                                                    | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#age-restricted-commands), defaults to `false`                                                                                                                              | all                 |
 | integration_types?         | list of [integration types](/developers/resources/application#application-object-application-integration-types)                            | [Installation contexts](/developers/resources/application#installation-context) where the command is available, only for globally-scoped commands. Defaults to your app's [configured contexts](/developers/resources/application#setting-supported-installation-contexts) | all                 |
 | contexts?                  | ?list of [interaction context types](/developers/interactions/receiving-and-responding#interaction-object-interaction-context-types)       | [Interaction context(s)](/developers/interactions/receiving-and-responding#interaction-object-interaction-context-types) where the command can be used, only for globally-scoped commands.                                                                                 | all                 |
 | version                    | snowflake                                                                                                                                  | Autoincrementing version identifier updated during substantial record changes                                                                                                                                                                                              | all                 |
@@ -1223,7 +1254,7 @@ Create a new global command. Returns `201` if a command with the same name does 
 | integration_types?          | list of [integration types](/developers/resources/application#application-object-application-integration-types)                                        | [Installation context(s)](/developers/resources/application#installation-context) where the command is available                                                                        |
 | contexts?                   | list of [interaction context types](/developers/interactions/receiving-and-responding#interaction-object-interaction-context-types)                    | [Interaction context(s)](/developers/interactions/receiving-and-responding#interaction-object-interaction-context-types) where the command can be used                                  |
 | type?                       | one of [application command type](/developers/interactions/application-commands#application-command-object-application-command-types)                  | Type of command, defaults `1` if not set                                                                                                                                                |
-| nsfw?                       | boolean                                                                                                                                                | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#agerestricted-commands)                                                                 |
+| nsfw?                       | boolean                                                                                                                                                | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#age-restricted-commands)                                                                |
 | handler?                    | one of [entry point command handler types](/developers/interactions/application-commands#application-command-object-entry-point-command-handler-types) | Determines whether the interaction is handled by the app's interactions handler or by Discord. Only for `PRIMARY_ENTRY_POINT` commands                                                  |
 
 ## Get Global Application Command
@@ -1255,7 +1286,7 @@ Edit a global command. Returns `200` and an [application command](/developers/in
 | default_permission?         | boolean                                                                                                                                                | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
 | integration_types?          | list of [integration types](/developers/resources/application#application-object-application-integration-types)                                        | [Installation context(s)](/developers/resources/application#installation-context) where the command is available                                                                        |
 | contexts?                   | list of [interaction context types](/developers/interactions/receiving-and-responding#interaction-object-interaction-context-types)                    | [Interaction context(s)](/developers/interactions/receiving-and-responding#interaction-object-interaction-context-types) where the command can be used                                  |
-| nsfw?                       | boolean                                                                                                                                                | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#agerestricted-commands)                                                                 |
+| nsfw?                       | boolean                                                                                                                                                | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#age-restricted-commands)                                                                |
 | handler?                    | one of [entry point command handler types](/developers/interactions/application-commands#application-command-object-entry-point-command-handler-types) | Determines whether the interaction is handled by the app's interactions handler or by Discord. Only for `PRIMARY_ENTRY_POINT` commands                                                  |
 
 ## Delete Global Application Command
@@ -1310,7 +1341,7 @@ Create a new guild command. New guild commands will be available in the guild im
 | default_member_permissions? | ?string                                                                                                                                              | Set of [permissions](/developers/topics/permissions) represented as a bit set                                                                                                           |
 | default_permission?         | boolean                                                                                                                                              | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
 | type?                       | one of [application command type](/developers/interactions/application-commands#application-command-object-application-command-types)                | Type of command, defaults `1` if not set                                                                                                                                                |
-| nsfw?                       | boolean                                                                                                                                              | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#agerestricted-commands)                                                                 |
+| nsfw?                       | boolean                                                                                                                                              | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#age-restricted-commands)                                                                |
 
 ## Get Guild Application Command
 <Route method="GET">/applications/[\{application.id\}](/developers/resources/application#application-object)/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/commands/[\{command.id\}](/developers/interactions/application-commands#application-command-object)</Route>
@@ -1338,7 +1369,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | options?                    | array of [application command option](/developers/interactions/application-commands#application-command-object-application-command-option-structure) | Parameters for the command, max of 25. Only for `CHAT_INPUT` commands                                                                                                                   |
 | default_member_permissions? | ?string                                                                                                                                              | Set of [permissions](/developers/topics/permissions) represented as a bit set                                                                                                           |
 | default_permission?         | boolean                                                                                                                                              | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild. Defaults to `true` |
-| nsfw?                       | boolean                                                                                                                                              | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#agerestricted-commands)                                                                 |
+| nsfw?                       | boolean                                                                                                                                              | Indicates whether the command is [age-restricted](/developers/interactions/application-commands#age-restricted-commands)                                                                |
 
 ## Delete Guild Application Command
 <Route method="DELETE">/applications/[\{application.id\}](/developers/resources/application#application-object)/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/commands/[\{command.id\}](/developers/interactions/application-commands#application-command-object)</Route>

@@ -1,4 +1,4 @@
-export const Monospace = ({ method, children }) => {
+export const Monospace = ({ children }) => {
   return (
     <div className="MDXMonospace">
         {children}

@@ -6,6 +6,105 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="October 14, 2026" tags={["HTTP API"]} rss={{
+    title: "OAuth2 Authorization Responses Now Include iss",
+    description: "OAuth2 redirects to your app now include an iss parameter identifying Discord as the authorization server."
+}}>
+
+    ## OAuth2 Authorization Responses Now Include `iss`
+
+    OAuth2 authorization responses that redirect to your `redirect_uri` now include an `iss` parameter set to `https://discord.com`, following [RFC 9207](https://www.rfc-editor.org/info/rfc9207). Our [authorization server metadata](https://discord.com/.well-known/oauth-authorization-server) and [OpenID configuration](https://discord.com/.well-known/openid-configuration) now also set `authorization_response_iss_parameter_supported` to `true`.
+
+    #### Developer Resources
+    - [Issuer Identification](/developers/topics/oauth2#issuer-identification)
+</Update>
+
+<Update label="October 6, 2026" tags={["Activities", "Embedded App SDK"]} rss={{
+    title: "getActivityInstanceConnectedParticipants Command Renamed",
+    description: "The getInstanceConnectedParticipants command has been renamed to getActivityInstanceConnectedParticipants"
+}}>
+
+    ## getActivityInstanceConnectedParticipants Command Renamed
+
+    The Embedded App SDK's `getInstanceConnectedParticipants` command has been renamed to `getActivityInstanceConnectedParticipants`. The previous name will be removed in a future major version.
+</Update>
+
+<Update label="October 5, 2026" tags={["Components", "Documentation"]} rss={{
+    title: "Component Embeds and Link Preview Docs",
+    description: "Websites can customize their Discord link preview with a component embed, and new Link Previews documentation covers the tags Discord reads from a page."
+  }}>
+
+  ## Component Embeds and Link Preview Docs
+
+  Websites can now customize how their links look when shared on Discord. Add a `discord:component-embed` JSON payload to your page and Discord renders the link preview using a [Components V2](/developers/components/reference) layout instead of the default preview. Component embeds are display-only, so nothing sends an interaction, and you don't need an app or a bot to use them.
+
+  Messages carrying one of these previews have a new `components` [embed type](/developers/resources/message#embed-object-embed-types), with a `components` array holding the single [Container](/developers/components/reference#container-container-structure) that makes up the embed.
+
+  We've also published Link Previews documentation covering which Open Graph, Twitter Card, and oEmbed tags Discord reads from a page when it builds a preview.
+
+  #### Developer Resources
+  - [Link Previews](/developers/link-previews/overview)
+  - [Component Embeds](/developers/link-previews/component-embeds)
+  - [Embed Types](/developers/resources/message#embed-object-embed-types)
+</Update>
+
+<Update label="September 28, 2026" tags={["Docs"]} rss={{
+    title: "Videos in the Documentation",
+    description: "Videos from the Discord Developers YouTube channel are now embedded throughout the docs, with chapter navigation and running times on long-form content."
+}}>
+
+    ## Videos in the Documentation
+
+    Like to watch instead of read? Amazing — we've embedded videos from the [Discord Developers](https://youtube.com/@discorddevelopers) YouTube channel directly into the documentation, right next to the guides they pair with.
+
+    Long-form videos show their total running time and come with a chapter list, so you can jump straight to the section you need without leaving the page.
+
+    You'll find them throughout the docs, including on:
+
+    - [Provisional Accounts](/developers/discord-social-sdk/development-guides/provisional-accounts/overview)
+    - [Application Commands](/developers/interactions/application-commands)
+    - [Integrate Moderation](/developers/discord-social-sdk/how-to/integrate-moderation)
+    - [Add Proximity Voice Chat to Your Game](/developers/game-development/how-to-add-proximity-voice-chat-to-your-game)
+
+    Keep an eye out for them across the platform documentation! We'll be adding more as we release more content!
+</Update>
+
+<Update label="September 22, 2026" tags={["Gateway", "Activities", "Premium Apps", "Discord Social SDK"]} rss={{
+    title: "Age Assurance: What It Means for Discord Developers",
+    description: "Age assurance is rolling out globally. Apps continue to work as is, but you may observe changes to custom status visibility, age-restricted Activities, parent-set spending limits, and DM filtering."
+  }}>
+
+  ## Age Assurance: What It Means for Discord Developers
+
+  We [recently announced the launch of age assurance](https://discord.com/blog/safer-for-teens-same-discord-for-adults). For most developers, nothing changes: existing apps, bots, games, Activities, and Social SDK integrations continue to work as is.
+
+  There are four behaviors you may observe as these protections roll out. These are things your app might encounter at runtime, not changes you need to implement.
+
+  - **Bots & Apps:** Private Profiles limit the visibility of custom statuses from user presence.
+  - **Activities:** Age-restricted Activities may require users to confirm their age group.
+  - **Commerce:** Parent-set spending limits may prevent some purchases.
+  - **Social SDK:** DMs may be filtered to Message Requests more often.
+
+  Full details are available in our [help center article](https://support-dev.discord.com/hc/en-us/articles/38338398970263-Age-Assurance-What-Developers-Need-to-Know). If you hit something unexpected, please open a ticket with Developer Support.
+</Update>
+
+<Update label="September 18, 2026" tags={["HTTP API"]} rss={{
+    title: "New Invite Target User Endpoints and Options",
+    description: "New endpoints and options to create, add, and remove individual or multiple target users on an invite without using a CSV."
+  }}>
+
+  ## New Invite Target User Endpoints and Options
+
+  [Create Channel Invite](/developers/resources/channel#create-channel-invite) now takes an array of target user IDs without uploading a CSV file by using `target_user_ids`. [Update Target Users](/developers/resources/invite#update-target-users) replaces an invite's entire target user list from an uploaded CSV, which is processed as an asynchronous job. Changing a single user meant rebuilding and re-uploading the whole file. These four endpoints adjust the list in place, extending the [invite endpoints](/developers/change-log#new-invite-endpoints).
+
+  - [Add Target User](/developers/resources/invite#add-target-user): Adds a single user to an invite's target users
+  - [Remove Target User](/developers/resources/invite#remove-target-user): Removes a single user from an invite's target users
+  - [Bulk-Add Target Users](/developers/resources/invite#bulk-add-target-users): Adds multiple users, passed as a `user_ids` array of snowflakes
+  - [Bulk-Delete Target Users](/developers/resources/invite#bulk-delete-target-users): Removes multiple users, passed as a `user_ids` array of snowflakes
+
+  All four require the caller to be the inviter or have the `MANAGE_GUILD` permission.
+</Update>
+
 <Update label="September 17, 2026" tags={["Gateway"]} rss={{
     title: "Custom Status Hidden by Profile Privacy Settings",
     description: "The custom status activity is omitted from Presence Update events dispatched to a guild based on the presence author's profile privacy setting."
