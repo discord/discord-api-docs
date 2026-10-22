@@ -136,6 +136,35 @@ This value defaults to 5 minutes, and we expect that for most use cases, that wi
 Lobbies created by the SDK client using the [`Client::CreateOrJoinLobby`] function currently have an additional limitation. The "secret" value used in this call expires after 30 days, so the lobby will still exist, but new users won't be able to join the lobby after that.
 </Info>
 
+## Tracking Lobby Changes
+
+Use these callbacks to know when a lobby or its membership changes:
+
+- [`Client::SetLobbyCreatedCallback`] - Fires when a lobby becomes available to you: a new lobby is created with you as a member, you're added to an existing lobby, or a lobby recovers after a backend outage. Because of that last case, this can fire more than once for the same lobby in a single session.
+- [`Client::SetLobbyDeletedCallback`] - Fires when a lobby is no longer available to you: the lobby is deleted, you're removed from it, or a backend outage makes it unavailable. The lobby may still exist for other members when this fires.
+- [`Client::SetLobbyMemberAddedCallback`] - Fires when another user is added to a lobby you're already a member of. Membership and connection are tracked separately, so this does not mean they're online in the lobby yet, just that they have permission to connect.
+- [`Client::SetLobbyMemberRemovedCallback`] - Fires when another member is removed from the lobby and can no longer connect to it. This is not invoked when a member simply disconnects — see `Client::SetLobbyMemberUpdatedCallback` below for that.
+- [`Client::SetLobbyMemberUpdatedCallback`] - Fires when a member connects, disconnects, or has their metadata changed.
+- [`Client::SetLobbyUpdatedCallback`] - Fires when the lobby's own metadata is changed.
+
+```cpp
+client->SetLobbyCreatedCallback([](uint64_t lobbyId) {
+  std::cout << "Lobby " << lobbyId << " is now available" << std::endl;
+});
+
+client->SetLobbyDeletedCallback([](uint64_t lobbyId) {
+  std::cout << "Lobby " << lobbyId << " is no longer available" << std::endl;
+});
+
+client->SetLobbyMemberAddedCallback([](uint64_t lobbyId, uint64_t memberId) {
+  std::cout << "User " << memberId << " was added to lobby " << lobbyId << std::endl;
+});
+
+client->SetLobbyMemberRemovedCallback([](uint64_t lobbyId, uint64_t memberId) {
+  std::cout << "User " << memberId << " was removed from lobby " << lobbyId << std::endl;
+});
+```
+
 ---
 
 ## Sending Messages to a Lobby
@@ -313,6 +342,12 @@ import {HashmarkIcon} from '/snippets/icons/HashmarkIcon.jsx'
 [`Client::LeaveLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8c78f797240b35d721383461a2e62926
 [`Client::LinkChannelToLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a3114d58d50d4d2cb5752d95e121315d4
 [`Client::SendLobbyMessage`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a779e0483f51dc99f0db3dd761d22ab6f
+[`Client::SetLobbyCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ace81d150a0217d2436af8263860a01f3
+[`Client::SetLobbyDeletedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a89f6b85edcbab677f7f68c0a82605901
+[`Client::SetLobbyMemberAddedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ae5388407cfc02f25919cb9fbe14a8cb8
+[`Client::SetLobbyMemberRemovedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a90be7a74cdcbcc4daa0c07f7a2a568c5
+[`Client::SetLobbyMemberUpdatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ade147c60761a6bb31361f878e812e6b4
+[`Client::SetLobbyUpdatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#ada626c060ba77db627152a8c03222843
 [`Client::SetMessageCreatedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28325a8e8c688a84ac851da4bc86e148
 [`Client::UnlinkChannelFromLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a28f78a6fe46eb11eb54ee9b53fa94ffe
 [`MessageHandle`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1MessageHandle.html#ae25595b43bc74b0c4c92c5165d16382f
