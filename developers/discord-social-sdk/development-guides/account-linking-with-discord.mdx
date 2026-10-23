@@ -214,6 +214,14 @@ client->UpdateToken(discordpp::AuthorizationTokenType::Bearer, ACCESS_TOKEN_VALU
 
 Access tokens expire after 7 days, requiring refresh tokens to get a new one.
 
+### Knowing When to Refresh
+
+Use [`Client::SetTokenExpirationCallback`] to receive a callback when the current access token is about to expire, so you can refresh it using one of the methods below and pass the new token to [`Client::UpdateToken`] without interrupting the player's session.
+
+<Info>
+This callback won't fire if the client disconnects because the token was already expired or revoked when connecting. Use [`Client::SetStatusChangedCallback`] to catch that case instead.
+</Info>
+
 ### Server-to-Server Token Refresh
 
 If you're handling authentication on your server, send an API request to refresh the token.
@@ -460,4 +468,6 @@ import {UserIcon} from '/snippets/icons/UserIcon.jsx'
 [`Client::GetToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aaee636f91fb1ea3465157c20313b702c
 [`Client::RefreshToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a187af0f99f94b3b9a4ad4302f6a443e7
 [`Client::SetGameWindowPid`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aae200241796a779e4b9e8cb2d22138c2
+[`Client::SetStatusChangedCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a9d0e8824570b93149d5d1c65bb3fb97f
+[`Client::SetTokenExpirationCallback`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#aab5bfc76809ea22e79f2f7a067ac4519
 [`Client::UpdateToken`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a606b32cef7796f7fb91c2497bc31afc4
