@@ -524,9 +524,16 @@ The reaction count details object contains a breakdown of normal and super react
 <ManualAnchor id="embed-object-embed-flags" />
 ###### Embed Flags
 
-| Flag                       | Value    | Description                                              |
-|----------------------------|----------|----------------------------------------------------------|
-| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a fallback for a reply to an activity card |
+| Flag                       | Value    | Description                                                               |
+|----------------------------|----------|---------------------------------------------------------------------------|
+| CONTAINS_EXPLICIT_CONTENT  | `1 << 4` | this embed's media was flagged as explicit by Discord's content scanning  |
+| IS_CONTENT_INVENTORY_ENTRY | `1 << 5` | this embed is a fallback for a reply to an activity card                  |
+| CONTAINS_GORE_CONTENT      | `1 << 6` | this embed's media was flagged as gore by Discord's content scanning      |
+| CONTAINS_SELF_HARM_CONTENT | `1 << 7` | this embed's media was flagged as self-harm by Discord's content scanning |
+
+<Warning>
+Content scanning runs after the message is sent, so the `CONTAINS_*` flags may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
+</Warning>
 
 <ManualAnchor id="embed-object-embed-video-structure" />
 ###### Embed Video Structure
@@ -691,13 +698,20 @@ When editing, you must provide the `id` of each file to keep, and you can option
 <ManualAnchor id="attachment-object-attachment-flags" />
 ###### Attachment Flags
 
-| Flag         | Value    | Description                                                                                                   |
-|--------------|----------|---------------------------------------------------------------------------------------------------------------|
-| IS_CLIP      | `1 << 0` | this attachment is a [Clip from a stream](https://support.discord.com/hc/en-us/articles/16861982215703)       |
-| IS_THUMBNAIL | `1 << 1` | this attachment is the thumbnail of a thread in a media channel, displayed in the grid but not on the message |
-| IS_REMIX     | `1 << 2` | this attachment has been edited using the remix feature on mobile (deprecated)                                |
-| IS_SPOILER   | `1 << 3` | this attachment was marked as a spoiler and is blurred until clicked                                          |
-| IS_ANIMATED  | `1 << 5` | this attachment is an animated image                                                                          |
+| Flag                       | Value    | Description                                                                                                   |
+|----------------------------|----------|---------------------------------------------------------------------------------------------------------------|
+| IS_CLIP                    | `1 << 0` | this attachment is a [Clip from a stream](https://support.discord.com/hc/en-us/articles/16861982215703)       |
+| IS_THUMBNAIL               | `1 << 1` | this attachment is the thumbnail of a thread in a media channel, displayed in the grid but not on the message |
+| IS_REMIX                   | `1 << 2` | this attachment has been edited using the remix feature on mobile (deprecated)                                |
+| IS_SPOILER                 | `1 << 3` | this attachment was marked as a spoiler and is blurred until clicked                                          |
+| CONTAINS_EXPLICIT_CONTENT  | `1 << 4` | this attachment was flagged as explicit by Discord's content scanning                                         |
+| IS_ANIMATED                | `1 << 5` | this attachment is an animated image                                                                          |
+| CONTAINS_GORE_CONTENT      | `1 << 6` | this attachment was flagged as gore by Discord's content scanning                                             |
+| CONTAINS_SELF_HARM_CONTENT | `1 << 7` | this attachment was flagged as self-harm by Discord's content scanning                                        |
+
+<Warning>
+Content scanning runs after the message is sent, so the `CONTAINS_*` flags may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
+</Warning>
 
 ### Channel Mention Object
 
