@@ -296,6 +296,28 @@ To make sure you don't miss the join on a cold launch:
 - Initialize the SDK and connect as early as possible during startup, rather than waiting until your game has finished loading. You can hold on to the join secret and act on it once the player is ready.
 </Warning>
 
+### Game Invites for Provisional Accounts
+
+When a player is authenticated with a [provisional account](/developers/discord-social-sdk/development-guides/provisional-accounts/overview)
+and is also signed in to the Discord client on the same device, the SDK shares their Rich Presence with the Discord client over
+RPC, the same way as
+[Rich Presence without authentication](/developers/discord-social-sdk/development-guides/setting-rich-presence#rich-presence-without-authentication).
+The presence then appears on their full Discord account, so their Discord friends can invite or join them.
+
+In this scenario, invites sent to the player's full Discord account don't reach their provisional account, since
+they are separate accounts, so [`Client::SetActivityInviteCreatedCallback`] won't fire for them and you can't show
+them in your game's UI.
+
+However, the player can accept these invites in Discord instead. Discord launches your game if needed, and the
+join secret arrives through [`Client::SetActivityJoinCallback`] like any other join, even though they are authenticated
+with a provisional account.
+
+To support this flow, call [`Client::RegisterLaunchCommand`] at startup and register [`Client::SetActivityJoinCallback`] before calling
+[`Client::Connect`], the same as you would when handling invites for a full Discord account.
+
+This flow has the same platform and Discord app requirements
+as [Rich Presence without authentication](/developers/discord-social-sdk/development-guides/setting-rich-presence#rich-presence-without-authentication).
+
 ---
 
 ## Using Game Invites with Lobbies
@@ -529,6 +551,7 @@ import {YouTubeEmbed} from '/snippets/youtube.jsx';
 
 | Date             | Changes                                                               |
 |------------------|-----------------------------------------------------------------------|
+| October 20, 2026 | Explain how invites work for players without a linked account         |
 | October 15, 2026 | Document the 180 second window to receive a join after a cold launch  |
 | June 10, 2026    | Clarify that launch command registration is local to each machine     |
 | June 8, 2026     | Recommend communication scopes; clarify empty invite message behavior |
