@@ -118,7 +118,12 @@ export const YouTubeEmbed = ({
           {parsedChapters.length > 0 && (
             <details ref={detailsRef}>
               <summary className="cursor-pointer select-none">Chapters</summary>
-              <ul className="absolute left-0 top-full z-10 mt-1 mb-0 max-h-72 w-max max-w-full list-none overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 pl-3 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
+              {/* Inline z-index so it's guaranteed to beat positioned page
+                  content below (links, callouts) regardless of which Tailwind
+                  z-* utilities Mintlify happens to compile. */}
+              <ul
+                style={{ zIndex: 50 }}
+                className="not-prose absolute left-0 top-full mt-1 mb-0 max-h-72 w-max max-w-full list-none overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 pl-3 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
                 {parsedChapters.map((chapter, index) => (
                   <li key={chapter.seconds} className="m-0 pl-0">
                     <button
