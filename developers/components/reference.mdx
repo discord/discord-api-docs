@@ -2127,7 +2127,7 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 | values    | array of snowflakes | IDs of the uploaded files found in the [resolved data](/developers/interactions/receiving-and-responding#interaction-object-resolved-data-structure) |
 
 <Warning>
-Uploaded files don't include the [content scanning attachment flags](/developers/resources/message#attachment-object-attachment-flags). Discord sets them after the file is sent in a message, so check them in the [Message Update](/developers/events/gateway-events#message-update) event that follows.
+Uploaded files don't include the [content scanning attachment flags](/developers/resources/message#attachment-object-attachment-flags). Discord sets them once the file is sent in a message, so check them on the message you send and in any later [Message Update](/developers/events/gateway-events#message-update) event.
 </Warning>
 
 <ManualAnchor id="file-upload-examples" />
@@ -2539,9 +2539,9 @@ All other fields will be automatically populated by Discord.
 | flags | integer | [Content scan metadata flags](/developers/components/reference#unfurled-media-item-content-scan-metadata-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 
 <Warning>
-Content scanning runs after the message is sent, so `content_scan_metadata` may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
+Content scanning can run after the message is sent, so `content_scan_metadata` may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
 
-If your app reposts media from users, check the flags in that event and take action, like deleting the message, if the media was flagged.
+If your app reposts media from users, check the flags on the message you send and in any later Message Update event, and take action, like deleting the message, if the media was flagged.
 </Warning>
 
 <ManualAnchor id="unfurled-media-item-content-scan-metadata-flags" />
