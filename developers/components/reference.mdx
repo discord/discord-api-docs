@@ -2126,6 +2126,10 @@ File Uploads are available on modals. They must be placed inside a [Label](/deve
 | custom_id | string              | Developer-defined identifier for the input; 1-100 characters                                                                                         |
 | values    | array of snowflakes | IDs of the uploaded files found in the [resolved data](/developers/interactions/receiving-and-responding#interaction-object-resolved-data-structure) |
 
+<Warning>
+Uploaded files don't include the [content scanning attachment flags](/developers/resources/message#attachment-object-attachment-flags). Discord sets them after the file is sent in a message, so check them in the [Message Update](/developers/events/gateway-events#message-update) event that follows.
+</Warning>
+
 <ManualAnchor id="file-upload-examples" />
 ###### Examples
 
@@ -2536,6 +2540,8 @@ All other fields will be automatically populated by Discord.
 
 <Warning>
 Content scanning runs after the message is sent, so `content_scan_metadata` may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
+
+If your app reposts media from users, check the flags in that event and take action, like deleting the message, if the media was flagged.
 </Warning>
 
 <ManualAnchor id="unfurled-media-item-content-scan-metadata-flags" />

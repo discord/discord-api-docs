@@ -533,6 +533,8 @@ The reaction count details object contains a breakdown of normal and super react
 
 <Warning>
 Content scanning runs after the message is sent, so the `CONTAINS_*` flags may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
+
+If your app reposts media from users, check the flags in that event and take action, like deleting the message, if the media was flagged.
 </Warning>
 
 <ManualAnchor id="embed-object-embed-video-structure" />
@@ -711,6 +713,10 @@ When editing, you must provide the `id` of each file to keep, and you can option
 
 <Warning>
 Content scanning runs after the message is sent, so the `CONTAINS_*` flags may not be present on the initial message and can be added later in a [Message Update](/developers/events/gateway-events#message-update) event.
+
+If your app reposts media from users, check the flags in that event and take action, like deleting the message, if the media was flagged.
+
+Attachments in an interaction's resolved data, such as uploads from a [File Upload](/developers/components/reference#file-upload) component or an `attachment` command option, don't include these flags. They're only set once the media is sent in a message.
 </Warning>
 
 ### Channel Mention Object
