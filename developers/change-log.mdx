@@ -6,7 +6,7 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
-<Update label="October 23, 2026" tags={["HTTP API", "Components"]} rss={{
+<Update label="October 28, 2026" tags={["HTTP API", "Components"]} rss={{
     title: "Content Scanning Flags for Attachments, Embeds, and Media",
     description: "Attachments, embeds, and unfurled media items now document the flags Discord sets when its content scanning flags media as explicit, gore, or self-harm."
 }}>
@@ -17,8 +17,6 @@ import {Route} from '/snippets/route.jsx'
 
     - [Attachments](/developers/resources/message#attachment-object-attachment-flags) and [embeds](/developers/resources/message#embed-object-embed-flags) use the `CONTAINS_EXPLICIT_CONTENT`, `CONTAINS_GORE_CONTENT`, and `CONTAINS_SELF_HARM_CONTENT` flags.
     - [Unfurled media items](/developers/components/reference#unfurled-media-item) in components include a `content_scan_metadata` object with its own [flags](/developers/components/reference#unfurled-media-item-content-scan-metadata-flags).
-
-    Scanning runs after a message is sent, so these flags can arrive later in a [Message Update](/developers/events/gateway-events#message-update) event.
 </Update>
 
 <Update label="October 14, 2026" tags={["HTTP API"]} rss={{
