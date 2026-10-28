@@ -782,7 +782,9 @@ Sent when a guild is updated. The inner payload is a [guild](/developers/resourc
 
 #### Guild Delete
 
-Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](/developers/resources/guild#unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
+Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](/developers/resources/guild#unavailable-guild-object) object. 
+
+If `unavailable` is `true`, the guild is currently unavailable. If it becomes available to the session again, a [Guild Create](/developers/events/gateway-events#guild-create) event is sent.
 
 #### Guild Audit Log Entry Create
 
