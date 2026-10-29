@@ -946,12 +946,12 @@ This endpoint takes a JSON array of parameters in the following format:
 <ManualAnchor id="modify-guild-channel-positions-json-params" />
 ###### JSON Params
 
-| Field             | Type       | Description                                                                                                                                    |
-|-------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                | snowflake  | channel id                                                                                                                                     |
-| position?         | ?integer   | sorting position of the channel (channels with the same position are sorted by id)                                                             |
-| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category                                                               |
-| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                                                                                |
+| Field             | Type       | Description                                                                        |
+|-------------------|------------|------------------------------------------------------------------------------------|
+| id                | snowflake  | channel id                                                                         |
+| position?         | ?integer   | sorting position of the channel (channels with the same position are sorted by id) |
+| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category   |
+| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                    |
 
 <Info>
 At most one entry per request may change `parent_id`. A request that changes `parent_id` for more than one channel fails with a `400` response and error code `40009` (`Only one channel can have a parent_id modified at a time`).
