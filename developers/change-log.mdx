@@ -6,6 +6,20 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="October 29, 2026" tags={["HTTP API", "Documentation"]} rss={{
+    title: "Voice Channel Status Permission Clarification",
+    description: "Users connected to a voice channel can set its status with SET_VOICE_CHANNEL_STATUS even without CONNECT."
+}}>
+
+    ## Voice Channel Status Permission Clarification
+
+    Users already connected to a voice channel can now set the channel's status with the `SET_VOICE_CHANNEL_STATUS` permission even if they do not have `CONNECT`. Previously, a denied `CONNECT` implicitly removed `SET_VOICE_CHANNEL_STATUS`. Users not connected to the channel still need `MANAGE_CHANNELS` as well.
+
+    #### Developer Resources
+    - [Set Voice Channel Status](/developers/resources/channel#set-voice-channel-status)
+    - [Implicit Permissions](/developers/topics/permissions#implicit-permissions)
+</Update>
+
 <Update label="October 29, 2026" tags={["HTTP API", "Gateway"]} rss={{
     title: "Channel and Role Position Update Audit Logs",
     description: "New audit log events for reordering channels and roles"
