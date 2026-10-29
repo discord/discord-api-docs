@@ -6,6 +6,20 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="October 29, 2026" tags={["HTTP API", "Gateway"]} rss={{
+    title: "Channel and Role Position Update Audit Logs",
+    description: "New audit log events for reordering channels and roles"
+}}>
+
+    ## Channel and Role Position Update Audit Logs
+
+    We've added two new [audit log events](/developers/resources/audit-log#audit-log-entry-object-audit-log-events):
+    - `CHANNEL_POSITION_UPDATE` (16), for [reordering channels](/developers/resources/guild#modify-guild-channel-positions).
+    - `ROLE_POSITION_UPDATE` (33), for [reordering roles](/developers/resources/guild#modify-guild-role-positions).
+
+    We've also documented [audit log entry merging](/developers/resources/audit-log#audit-log-entry-object-audit-log-entry-merging), which impacts audit log behavior for some existing events as well as these new ones.
+</Update>
+
 <Update label="October 28, 2026" tags={["HTTP API", "Components"]} rss={{
     title: "Content Scanning Flags for Attachments, Embeds, and Media",
     description: "Attachments, embeds, and unfurled media items now document the flags Discord sets when its content scanning flags media as explicit, gore, or self-harm."
