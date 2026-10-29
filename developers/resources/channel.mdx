@@ -469,6 +469,50 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/de
 | flags?                | integer             | [channel flags](/developers/resources/channel#channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum and media channels |
 | applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` or a `GUILD_MEDIA` channel; limited to 5                                                                                       |
 
+## Get Channel Member Permissions
+
+<Route method="GET">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/permissions/member/[\{user.id\}](/developers/resources/user#user-object)</Route>
+
+Returns the fully cascaded permissions for a member in this channel, applying their roles and the channel's permission overwrites. Requires the `VIEW_CHANNEL` permission.
+
+<ManualAnchor id="get-channel-member-permissions-query-string-params" />
+###### Query String Params
+
+| Field     | Type    | Description                                                                                    | Default |
+|-----------|---------|------------------------------------------------------------------------------------------------|---------|
+| implicit? | boolean | whether to include [implicit permissions](/developers/topics/permissions#implicit-permissions) | true    |
+
+<ManualAnchor id="get-channel-member-permissions-permissions-response" />
+###### Permissions Response
+
+On success, returns a 200 OK response with the following body:
+
+| Field       | Type   | Description                                                                                                               |
+|-------------|--------|---------------------------------------------------------------------------------------------------------------------------|
+| permissions | string | the computed [permissions](/developers/topics/permissions#permissions-bitwise-permission-flags) as a stringified bitfield |
+
+## Get Channel Role Permissions
+
+<Route method="GET">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/permissions/role/[\{role.id\}](/developers/topics/permissions#role-object)</Route>
+
+Returns the permissions a role grants in this channel, applying the channel's permission overwrites on top of the role's guild-level permissions. Requires the `VIEW_CHANNEL` permission.
+
+<ManualAnchor id="get-channel-role-permissions-query-string-params" />
+###### Query String Params
+
+| Field     | Type    | Description                                                                                    | Default |
+|-----------|---------|------------------------------------------------------------------------------------------------|---------|
+| implicit? | boolean | whether to include [implicit permissions](/developers/topics/permissions#implicit-permissions) | true    |
+
+<ManualAnchor id="get-channel-role-permissions-permissions-response" />
+###### Permissions Response
+
+On success, returns a 200 OK response with the following body:
+
+| Field       | Type   | Description                                                                                                               |
+|-------------|--------|---------------------------------------------------------------------------------------------------------------------------|
+| permissions | string | the computed [permissions](/developers/topics/permissions#permissions-bitwise-permission-flags) as a stringified bitfield |
+
 ## Set Voice Channel Status
 <Route method="PUT">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/voice-status</Route>
 
