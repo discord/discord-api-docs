@@ -22,5 +22,9 @@
 	"lint-staged": {
 		"*.{md,mdx}": "npm run lint:fix",
 		"*.{ts,tsx,js,jsx,json}": "bash -c 'npm run lint:fix && npm run build'"
+	},
+	"allowScripts": {
+		"esbuild": true,
+		"fsevents": true
 	}
 }
