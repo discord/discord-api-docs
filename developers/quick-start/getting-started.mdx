@@ -211,7 +211,7 @@ To make development a bit simpler, the app uses [discord-interactions](https://g
 ### Installing slash commands
 
 <Info>
-To install slash commands, the app is using [`node-fetch`](https://github.com/node-fetch/node-fetch). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function.
+To install slash commands, the app uses the built-in [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function.
 </Info>
 
 The project contains a `register` script you can use to install the commands in `ALL_COMMANDS`, which is defined at the bottom of `commands.js`. It installs the commands as global commands by calling the HTTP API's [`PUT /applications/<APP_ID>/commands`](/developers/interactions/application-commands#bulk-overwrite-global-application-commands) endpoint.
@@ -469,7 +469,7 @@ if (type === InteractionType.MESSAGE_COMPONENT) {
 
 The above code:
 1. Checks for a `custom_id` that matches what we originally sent (in this case, it starts with `accept_button_`). The custom ID also has the active game ID appended, so we store that in `gameID`.
-2. [Deletes the original message](/developers/interactions/receiving-and-responding#delete-original-interaction-response) calling a webhook using `node-fetch` and passing the unique interaction `token` in the request body. This is done to clean up the channel, and so other users can't click the button.
+2. [Deletes the original message](/developers/interactions/receiving-and-responding#delete-original-interaction-response) by calling a webhook and passing the unique interaction `token` in the request body. This is done to clean up the channel, and so other users can't click the button.
 3. Responds to the request by sending a message that contains a select menu with the object choices for the game. The payload should look fairly similar to the previous one, with the exception of the `options` array and `flags: 64`, [which indicates that the message is ephemeral](/developers/interactions/receiving-and-responding#create-followup-message).
 
 The `options` array is populated using the `getShuffledOptions()` method in `game.js`, which manipulates the `RPSChoices` values to conform to the shape of [string select options](/developers/components/reference#string-select-select-option-structure).
