@@ -20,7 +20,7 @@
 		"lint-staged": "^17.3.0"
 	},
 	"lint-staged": {
-		"*.{md,mdx}": "npm run lint:fix",
+		"*.{md,mdx}": "bash -c 'npm run lint:fix'",
 		"*.{ts,tsx,js,jsx,json}": "bash -c 'npm run lint:fix && npm run build'"
 	},
 	"allowScripts": {
