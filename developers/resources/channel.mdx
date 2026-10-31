@@ -473,14 +473,14 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](/de
 
 <Route method="GET">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/permissions/member/[\{user.id\}](/developers/resources/user#user-object)</Route>
 
-Returns the fully cascaded permissions for a member in this channel, applying their roles and the channel's permission overwrites. Requires the `VIEW_CHANNEL` permission.
+Returns the member's computed permissions in the channel, including their roles and member-specific overwrites. Threads use their parent channel's overwrites. Requires the `VIEW_CHANNEL` permission, and additionally `CONNECT` for voice and stage channels.
 
 <ManualAnchor id="get-channel-member-permissions-query-string-params" />
 ###### Query String Params
 
 | Field     | Type    | Description                                                                                    | Default |
 |-----------|---------|------------------------------------------------------------------------------------------------|---------|
-| implicit? | boolean | whether to include [implicit permissions](/developers/topics/permissions#implicit-permissions) | true    |
+| implicit? | boolean | whether to apply [implicit permission masking](/developers/topics/permissions#implicit-permissions) for missing `VIEW_CHANNEL` or voice/stage `CONNECT`. Not applied when the target member is a bot | true |
 
 <ManualAnchor id="get-channel-member-permissions-permissions-response" />
 ###### Permissions Response
@@ -495,14 +495,14 @@ On success, returns a 200 OK response with the following body:
 
 <Route method="GET">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/permissions/role/[\{role.id\}](/developers/topics/permissions#role-object)</Route>
 
-Returns the permissions a role grants in this channel, applying the channel's permission overwrites on top of the role's guild-level permissions. Requires the `VIEW_CHANNEL` permission.
+Returns the permissions granted by the specified role together with `@everyone`, applying their channel overwrites. Other roles and member-specific overwrites are not included. Threads use their parent channel's overwrites. Requires the `VIEW_CHANNEL` permission, and additionally `CONNECT` for voice and stage channels.
 
 <ManualAnchor id="get-channel-role-permissions-query-string-params" />
 ###### Query String Params
 
 | Field     | Type    | Description                                                                                    | Default |
 |-----------|---------|------------------------------------------------------------------------------------------------|---------|
-| implicit? | boolean | whether to include [implicit permissions](/developers/topics/permissions#implicit-permissions) | true    |
+| implicit? | boolean | whether to apply [implicit permission masking](/developers/topics/permissions#implicit-permissions) for missing `VIEW_CHANNEL` or voice/stage `CONNECT` | true    |
 
 <ManualAnchor id="get-channel-role-permissions-permissions-response" />
 ###### Permissions Response

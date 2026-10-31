@@ -15,7 +15,7 @@ import {Route} from '/snippets/route.jsx'
 
     We've added four new endpoints to get a member or role's permissions for a guild or channel.
 
-    The channel endpoints can optionally include [implicit permissions](/developers/topics/permissions#implicit-permissions) by supplying the `implicit` query parameter.
+    The channel endpoints apply [implicit permission masking](/developers/topics/permissions#implicit-permissions) by default. Set `implicit=false` to skip this masking.
 
     #### Developer Resources
     - [Get Guild Member Permissions](/developers/resources/guild#get-guild-member-permissions)

@@ -1027,7 +1027,7 @@ All parameters to this endpoint except for `query` are optional
 
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/permissions/member/[\{user.id\}](/developers/resources/user#user-object)</Route>
 
-Returns the fully cascaded guild-level permissions for a member, applying all of their roles including @everyone's.
+Returns the member's computed guild permissions, combining their roles with `@everyone`.
 
 <ManualAnchor id="get-guild-member-permissions-permissions-response" />
 ###### Permissions Response
@@ -1249,7 +1249,7 @@ Returns a [role](/developers/topics/permissions#role-object) object for the spec
 
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)/permissions/role/[\{role.id\}](/developers/topics/permissions#role-object)</Route>
 
-Returns the permissions a role grants at the guild level, combining the role's own permissions with @everyone's.
+Returns the combined guild permissions of the specified role and `@everyone`. This calculation does not include other roles or member-specific restrictions.
 
 <ManualAnchor id="get-guild-role-permissions-permissions-response" />
 ###### Permissions Response
