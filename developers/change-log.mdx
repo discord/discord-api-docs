@@ -6,6 +6,24 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="October 30, 2026" tags={["HTTP API"]} rss={{
+    title: "New Endpoints for getting member and role permissions for guilds and channels",
+    description: "You can now get a member or role's permissions for a guild or channel without calculating them yourself, using the new Get Guild Member Permissions, Get Guild Role Permissions, Get Channel Member Permissions, and Get Channel Role Permissions endpoints."
+}}>
+
+    ## New Endpoints for getting member and role permissions for guilds and channels
+
+    We've added four new endpoints to get a member or role's permissions for a guild or channel.
+
+    The channel endpoints apply [implicit permission masking](/developers/topics/permissions#implicit-permissions) by default. Set `implicit=false` to skip this masking.
+
+    #### Developer Resources
+    - [Get Guild Member Permissions](/developers/resources/guild#get-guild-member-permissions)
+    - [Get Guild Role Permissions](/developers/resources/guild#get-guild-role-permissions)
+    - [Get Channel Member Permissions](/developers/resources/channel#get-channel-member-permissions)
+    - [Get Channel Role Permissions](/developers/resources/channel#get-channel-role-permissions)
+</Update>
+
 <Update label="October 29, 2026" tags={["HTTP API", "Documentation"]} rss={{
     title: "Voice Channel Status Permission Clarification",
     description: "Users connected to a voice channel can set its status with SET_VOICE_CHANNEL_STATUS even without CONNECT."
@@ -43,6 +61,7 @@ import {Route} from '/snippets/route.jsx'
 
     We've documented the flags Discord sets when its content scanning flags media as explicit, gore, or self-harm, so your app can check media before acting on it, like reposting an uploaded image to another channel.
 
+    #### Developer Resources
     - [Attachments](/developers/resources/message#attachment-object-attachment-flags) and [embeds](/developers/resources/message#embed-object-embed-flags) use the `CONTAINS_EXPLICIT_CONTENT`, `CONTAINS_GORE_CONTENT`, and `CONTAINS_SELF_HARM_CONTENT` flags.
     - [Unfurled media items](/developers/components/reference#unfurled-media-item) in components include a `content_scan_metadata` object with its own [flags](/developers/components/reference#unfurled-media-item-content-scan-metadata-flags).
 </Update>
