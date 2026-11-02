@@ -1,3 +1,5 @@
+/* Keep flat: Mintlify's production build strips nested CSS rules. */
+
 .MDXLinkButton {
     display: block;
     color: white !important;
@@ -8,8 +10,8 @@
     height: fit-content;
     box-sizing: border-box;
     line-height: 18px;
+}
 
-    &.brand {
-        background-color: var(--brand-500);
-    }
+.MDXLinkButton.brand {
+    background-color: var(--brand-500);
 }

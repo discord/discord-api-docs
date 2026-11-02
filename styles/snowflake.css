@@ -1,43 +1,41 @@
-/* Light mode styles */
-html[style*="color-scheme: light"] .MDXSnowflake {
-  text {
-    fill: black;
-  }
+/* Keep flat: Mintlify's production build strips nested CSS rules. */
 
-  .arrow {
-    fill: oklab(0.251834 0.00131807 -0.008479);
-  }
+/* Light mode styles */
+html[style*="color-scheme: light"] .MDXSnowflake text {
+  fill: black;
 }
 
-html[style*="color-scheme: dark"] .MDXSnowflake {
-  text {
-    fill: white;
-  }
+html[style*="color-scheme: light"] .MDXSnowflake .arrow {
+  fill: oklab(0.251834 0.00131807 -0.008479);
+}
 
-  .arrow {
-    fill: oklab(0.751834 0.00131807 -0.008479);
-  }
+html[style*="color-scheme: dark"] .MDXSnowflake text {
+  fill: white;
+}
 
-  /* brighter accent variants for dark backgrounds */
-  .header.group1,
-  .group1 {
-    fill: oklab(0.72 0.09 -0.14);
-  }
+html[style*="color-scheme: dark"] .MDXSnowflake .arrow {
+  fill: oklab(0.751834 0.00131807 -0.008479);
+}
 
-  .header.group2,
-  .group2 {
-    fill: oklab(0.7 0.16 0.12);
-  }
+/* brighter accent variants for dark backgrounds */
+html[style*="color-scheme: dark"] .MDXSnowflake .header.group1,
+html[style*="color-scheme: dark"] .MDXSnowflake .group1 {
+  fill: oklab(0.72 0.09 -0.14);
+}
 
-  .header.group3,
-  .group3 {
-    fill: oklab(0.72 0.13 0.05);
-  }
+html[style*="color-scheme: dark"] .MDXSnowflake .header.group2,
+html[style*="color-scheme: dark"] .MDXSnowflake .group2 {
+  fill: oklab(0.7 0.16 0.12);
+}
 
-  .header.group4,
-  .group4 {
-    fill: oklab(0.7 0.09 -0.16);
-  }
+html[style*="color-scheme: dark"] .MDXSnowflake .header.group3,
+html[style*="color-scheme: dark"] .MDXSnowflake .group3 {
+  fill: oklab(0.72 0.13 0.05);
+}
+
+html[style*="color-scheme: dark"] .MDXSnowflake .header.group4,
+html[style*="color-scheme: dark"] .MDXSnowflake .group4 {
+  fill: oklab(0.7 0.09 -0.16);
 }
 
 .MDXSnowflake {
@@ -45,75 +43,73 @@ html[style*="color-scheme: dark"] .MDXSnowflake {
   justify-content: center;
   margin-top: 40px;
   margin-bottom: 40px;
+}
 
-  .arrow {
-    fill: oklab(0.751834 0.00131807 -0.008479);
-  }
+.MDXSnowflake .arrow {
+  fill: oklab(0.751834 0.00131807 -0.008479);
+}
 
-  /* theme-aware "ink" color used by all neutral text; the old
-     hardcoded #252525 fill was unreadable in dark mode */
-  .ink,
-  .ink text {
-    fill: #252525;
-  }
+/* theme-aware "ink" color used by all neutral text; the old
+   hardcoded #252525 fill was unreadable in dark mode */
+.MDXSnowflake .ink,
+.MDXSnowflake .ink text {
+  fill: #252525;
+}
 
-  .header {
-    font-weight: bold;
-    font-size: 16px;
+.MDXSnowflake .header {
+  font-weight: bold;
+  font-size: 16px;
+}
 
-    &.group1 {
-      fill: oklab(0.747617 0.00671133 -0.126112);
-    }
+.MDXSnowflake .header.group1 {
+  fill: oklab(0.747617 0.00671133 -0.126112);
+}
 
-    &.group2 {
-      fill: oklab(0.773758 0.0289854 0.0857202);
-    }
+.MDXSnowflake .header.group2 {
+  fill: oklab(0.773758 0.0289854 0.0857202);
+}
 
-    &.group3 {
-      fill: oklab(0.723746 0.150768 0.055049);
-    }
+.MDXSnowflake .header.group3 {
+  fill: oklab(0.723746 0.150768 0.055049);
+}
 
-    &.group4 {
-      fill: oklab(0.700146 -0.0932133 -0.0629166);
-    }
-  }
+.MDXSnowflake .header.group4 {
+  fill: oklab(0.700146 -0.0932133 -0.0629166);
 }
 
 /* respect the OS-level preference when the site does not set an
    explicit color-scheme attribute (e.g. system theme, no toggle) */
 @media (prefers-color-scheme: dark) {
-  html:not([style*="color-scheme"]) .MDXSnowflake {
-    text {
-      fill: white;
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake text {
+    fill: white;
+  }
 
-    .arrow {
-      fill: oklab(0.751834 0.00131807 -0.008479);
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake .arrow {
+    fill: oklab(0.751834 0.00131807 -0.008479);
+  }
 
-    .ink,
-    .ink text {
-      fill: white;
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake .ink,
+  html:not([style*="color-scheme"]) .MDXSnowflake .ink text {
+    fill: white;
+  }
 
-    .header.group1,
-    .group1 {
-      fill: oklab(0.72 0.09 -0.14);
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake .header.group1,
+  html:not([style*="color-scheme"]) .MDXSnowflake .group1 {
+    fill: oklab(0.72 0.09 -0.14);
+  }
 
-    .header.group2,
-    .group2 {
-      fill: oklab(0.7 0.16 0.12);
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake .header.group2,
+  html:not([style*="color-scheme"]) .MDXSnowflake .group2 {
+    fill: oklab(0.7 0.16 0.12);
+  }
 
-    .header.group3,
-    .group3 {
-      fill: oklab(0.72 0.13 0.05);
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake .header.group3,
+  html:not([style*="color-scheme"]) .MDXSnowflake .group3 {
+    fill: oklab(0.72 0.13 0.05);
+  }
 
-    .header.group4,
-    .group4 {
-      fill: oklab(0.7 0.09 -0.16);
-    }
+  html:not([style*="color-scheme"]) .MDXSnowflake .header.group4,
+  html:not([style*="color-scheme"]) .MDXSnowflake .group4 {
+    fill: oklab(0.7 0.09 -0.16);
   }
 }

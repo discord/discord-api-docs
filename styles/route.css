@@ -1,47 +1,53 @@
+/* Keep flat: Mintlify's production build strips nested CSS rules. */
+
 .MDXRoute {
     display: flex;
     align-items: center;
+}
 
-    .verb {
-        font-size: 14px;
-        color: var(--white-500);
-        background-color: var(--primary-600);
-        border: 1px solid var(--primary-500);
-        font-family: var(--font-code);
-        text-transform: uppercase;
-        margin-right: 10px;
-        padding: 4px 8px;
-        padding-bottom: 1.5px;
-        border-radius: var(--radius-md);
-    }
+.MDXRoute .verb {
+    font-size: 14px;
+    color: var(--white-500);
+    background-color: var(--primary-600);
+    border: 1px solid var(--primary-500);
+    font-family: var(--font-code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+    text-transform: uppercase;
+    margin-right: 10px;
+    padding: 4px 8px;
+    padding-bottom: 1.5px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
 
-    .url {
-        font-family: var(--font-code);
-        font-size: 16px;
-    }
+.MDXRoute .url {
+    font-family: var(--font-code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+    font-size: 16px;
+    /* long paths wrap inside the content column instead of overflowing it */
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
 
-    .delete {
-        background-color: var(--red-630);
-        border: 1px solid var(--red-500);
-    }
+.MDXRoute .delete {
+    background-color: var(--red-630);
+    border: 1px solid var(--red-500);
+}
 
-    .get {
-        background-color: var(--brand-700);
-        border: 1px solid var(--brand-530);
-    }
+.MDXRoute .get {
+    background-color: var(--brand-700);
+    border: 1px solid var(--brand-530);
+}
 
-    .patch {
-        background-color: var(--yellow-530);
-        border: 1px solid var(--yellow-400);
-    }
+.MDXRoute .patch {
+    background-color: var(--yellow-530);
+    border: 1px solid var(--yellow-400);
+}
 
-    .post {
-        background-color: var(--green-500);
-        border: 1px solid var(--green-360);
-    }
+.MDXRoute .post {
+    background-color: var(--green-500);
+    border: 1px solid var(--green-360);
+}
 
-    .put {
-        background-color: var(--orange-600);
-        border: 1px solid var(--orange-430);
-    }
+.MDXRoute .put {
+    background-color: var(--orange-600);
+    border: 1px solid var(--orange-430);
 }
