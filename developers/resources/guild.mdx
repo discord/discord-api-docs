@@ -743,6 +743,28 @@ We are making significant changes to the Membership Screening API specifically r
 }
 ```
 
+### Guild Tag Object
+
+The [guild tag](https://support.discord.com/hc/en-us/articles/31444248479639-Server-Tags) that a guild has set.
+
+<ManualAnchor id="guild-tag-object-guild-tag-structure" />
+###### Guild Tag Structure
+
+| Field | Type   | Description                                                        |
+|-------|--------|--------------------------------------------------------------------|
+| tag   | string | the text of the guild tag. Limited to 4 characters                 |
+| badge | string | the [guild tag badge hash](/developers/reference#image-formatting) |
+
+<ManualAnchor id="guild-tag-object-example-guild-tag" />
+###### Example Guild Tag
+
+```json
+{
+  "tag": "CAP",
+  "badge": "ebdff4ff0e6d49275ab44d1f24e758d6"
+}
+```
+
 ## Get Guild
 <Route method="GET">/guilds/[\{guild.id\}](/developers/resources/guild#guild-object)</Route>
 
