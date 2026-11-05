@@ -224,6 +224,12 @@ First, we open a UDP connection to the IP and port provided in the Ready payload
 }
 ```
 
+<Warning>
+Send [Opcode 1 Select Protocol](/developers/topics/opcodes-and-status-codes#voice) only once per voice session. Sending it again after a protocol has been selected closes the Voice WebSocket with code `4006` (Session no longer valid).
+
+A successful resume preserves the selected protocol. If you already selected a protocol for that session, do not resend Select Protocol after resuming it.
+</Warning>
+
 ## End-to-End Encryption (DAVE Protocol)
 
 Since September 2024, Discord is migrating voice and video in DMs, Group DMs, voice channels, and Go Live streams to use end-to-end encryption (E2EE).
