@@ -71,6 +71,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 9    | Resumed                             | server            | Acknowledge a successful session resume.                 |        |
 | 11   | Clients Connect                     | server            | One or more clients have connected to the voice channel  |        |
 | 13   | Client Disconnect                   | server            | A client has disconnected from the voice channel         |        |
+| 15   | Media Sink Wants                    | client and server | Indicate which voice data the client wants to receive    |        |
 | 21   | DAVE Prepare Transition             | server            | A downgrade from the DAVE protocol is upcoming           |        |
 | 22   | DAVE Execute Transition             | server            | Execute a previously announced protocol transition       |        |
 | 23   | DAVE Transition Ready               | client            | Acknowledge readiness previously announced transition    |        |

@@ -25,11 +25,13 @@ Versions below 4 as well as the default version behavior will be discontinued as
 | 8       | recommended | ?v=8                 | Added server message buffering, missed messages re-delivered on resume |
 | 7       | available   | ?v=7                 | Added channel options opcode                                           |
 | 6       | available   | ?v=6                 | Added code version opcode                                              |
-| 5       | available   | ?v=5                 | Added video sink wants opcode                                          |
+| 5       | available   | ?v=5                 | Added media sink wants opcode                                          |
 | 4       | available   | ?v=4                 | Changed speaking status to bitmask from boolean                        |
 | 3       | deprecated  | ?v=3                 | Added video                                                            |
 | 2       | deprecated  | ?v=2                 | Changed heartbeat reply from server to heartbeat ACK opcode            |
 | 1       | deprecated  | ?v=1                 | Initial version                                                        |
+
+The voice gateway will report the version your connection is using as `v` in [Opcode 8 Hello](/developers/topics/opcodes-and-status-codes#voice). If you request a version newer than the latest available version, your connection will not be rejected and the latest available version will be used instead.
 
 ## Connecting to Voice
 
@@ -111,15 +113,10 @@ The voice server should respond with an [Opcode 2 Ready](/developers/topics/opco
     "ssrc": 1,
     "ip": "127.0.0.1",
     "port": 1234,
-    "modes": ["xsalsa20_poly1305", "xsalsa20_poly1305_suffix", "xsalsa20_poly1305_lite"],
-    "heartbeat_interval": 1
+    "modes": ["aead_aes256_gcm_rtpsize", "aead_xchacha20_poly1305_rtpsize"]
   }
 }
 ```
-
-<Danger>
-`heartbeat_interval` here is an erroneous field and should be ignored. The correct `heartbeat_interval` value comes from the Hello payload.
-</Danger>
 
 ## Heartbeating
 
@@ -133,9 +130,12 @@ In order to maintain your WebSocket connection, you need to continuously send he
   "op": 8,
   "d": {
     "heartbeat_interval": 41250,
+    "v": 8
   }
 }
 ```
+
+`v` is the [voice gateway version](/developers/topics/voice-connections#voice-gateway-versioning) your connection is using.
 
 After receiving [Opcode 8 Hello](/developers/topics/opcodes-and-status-codes#voice), you should send [Opcode 3 Heartbeat](/developers/topics/opcodes-and-status-codes#voice)—which contains an integer nonce—every elapsed interval:
 
@@ -200,7 +200,7 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](/
   "op": 2,
   "d": {
     ...,
-    "modes": ["aead_aes256_gcm_rtpsize", "aead_xchacha20_poly1305_rtpsize", "xsalsa20_poly1305_lite_rtpsize"]
+    "modes": ["aead_aes256_gcm_rtpsize", "aead_xchacha20_poly1305_rtpsize"]
   }
 }
 ```
@@ -405,7 +405,7 @@ OPUS frames are fully encrypted and no additional data is passed to the AEAD.
 
 Transport encryption between the client and the selective forwarding unit (SFU) is still used even in E2EE calls.
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](/developers/topics/opcodes-and-status-codes#voice) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](https://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](/developers/topics/opcodes-and-status-codes#voice) and a nonce that depends on your selected [transport encryption mode](/developers/topics/voice-connections#transport-encryption-modes).
 
 ### Transport Encryption Modes
 
@@ -499,9 +499,56 @@ You must send at least one [Opcode 5 Speaking](/developers/topics/opcodes-and-st
 The `delay` property should be set to `0` for bots that use the voice gateway.
 </Info>
 
+The voice gateway will also send you [Opcode 5 Speaking](/developers/topics/opcodes-and-status-codes#voice) payloads for the other users in the voice channel. These include the `user_id` of the user and the `ssrc` of their voice data, which you can use to identify the user that a received voice packet is from.
+
+<ManualAnchor id="speaking-example-received-speaking-payload" />
+###### Example Received Speaking Payload
+
+```json
+{
+  "op": 5,
+  "d": {
+    "user_id": "104694319306248192",
+    "ssrc": 2,
+    "speaking": 1
+  }
+}
+```
+
 ### Voice Data Interpolation
 
 When there's a break in the sent data, the packet transmission shouldn't simply stop. Instead, send five frames of silence (`0xF8, 0xFF, 0xFE`) before stopping to avoid unintended Opus interpolation with subsequent transmissions.
+
+## Media Sink Wants
+
+By default, the voice server will send you the voice data of every user in the voice channel. You can change what the voice server sends you with an [Opcode 15 Media Sink Wants](/developers/topics/opcodes-and-status-codes#voice) payload, so that voice data you don't need is never sent to you.
+
+The payload maps the SSRC of other users to a value between `0` and `100`. A value of `0` means the voice server will not send you the voice data of that SSRC, and a value of `100` means it will. The `any` key is the value used for every SSRC that is not in the payload.
+
+<ManualAnchor id="media-sink-wants-example-media-sink-wants-payload" />
+###### Example Media Sink Wants Payload
+
+```json
+{
+  "op": 15,
+  "d": {
+    "any": 100,
+    "2": 0
+  }
+}
+```
+
+In this example, the voice server will send you the voice data of every user except the one with an SSRC of `2`. To only receive the voice data of specific users, set `any` to `0` and the SSRC of each user you want to receive to `100`. Setting `any` to `0` without any other SSRC will stop the voice server from sending you any voice data.
+
+The SSRC of a user comes from the [Opcode 5 Speaking](/developers/topics/voice-connections#speaking) payloads sent by the voice gateway. You can send a Media Sink Wants payload at any time after receiving [Opcode 2 Ready](/developers/topics/opcodes-and-status-codes#voice), and it will take effect without reconnecting.
+
+<Warning>
+Each Media Sink Wants payload replaces the previous one. You must include every SSRC that you want a value for each time you send it.
+</Warning>
+
+<Info>
+Media Sink Wants is available since [voice gateway version 5](/developers/topics/voice-connections#voice-gateway-versioning-gateway-versions).
+</Info>
 
 ## Resuming Voice Connection
 
