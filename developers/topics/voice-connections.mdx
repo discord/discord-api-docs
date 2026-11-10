@@ -521,9 +521,9 @@ When there's a break in the sent data, the packet transmission shouldn't simply 
 
 ## Media Sink Wants
 
-By default, the voice server will send you the voice data of every user in the voice channel. You can change what the voice server sends you with an [Opcode 15 Media Sink Wants](/developers/topics/opcodes-and-status-codes#voice) payload, so that voice data you don't need is never sent to you.
+By default, the voice server will send you the voice data of every user in the voice channel over the UDP connection. You can change what it sends you with an [Opcode 15 Media Sink Wants](/developers/topics/opcodes-and-status-codes#voice) payload, so that voice data you don't need is never sent to you.
 
-The payload maps the SSRC of other users to a value between `0` and `100`. A value of `0` means the voice server will not send you the voice data of that SSRC, and a value of `100` means it will. The `any` key is the value used for every SSRC that is not in the payload.
+The payload maps the SSRC of other users to a value between `0` and `100`. A value of `0` means you will not be sent the packets of that SSRC, and a value of `100` means you will. Values in between are used to request lower quality video and have no use for audio. The `any` key is the value used for every SSRC that is not in the payload.
 
 <ManualAnchor id="media-sink-wants-example-media-sink-wants-payload" />
 ###### Example Media Sink Wants Payload
