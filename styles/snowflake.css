@@ -1,42 +1,7 @@
-/* Keep flat: Mintlify's production build strips nested CSS rules. */
-
-/* Light mode styles */
-html[style*="color-scheme: light"] .MDXSnowflake text {
-  fill: black;
-}
-
-html[style*="color-scheme: light"] .MDXSnowflake .arrow {
-  fill: oklab(0.251834 0.00131807 -0.008479);
-}
-
-html[style*="color-scheme: dark"] .MDXSnowflake text {
-  fill: white;
-}
-
-html[style*="color-scheme: dark"] .MDXSnowflake .arrow {
-  fill: oklab(0.751834 0.00131807 -0.008479);
-}
-
-/* brighter accent variants for dark backgrounds */
-html[style*="color-scheme: dark"] .MDXSnowflake .header.group1,
-html[style*="color-scheme: dark"] .MDXSnowflake .group1 {
-  fill: oklab(0.72 0.09 -0.14);
-}
-
-html[style*="color-scheme: dark"] .MDXSnowflake .header.group2,
-html[style*="color-scheme: dark"] .MDXSnowflake .group2 {
-  fill: oklab(0.7 0.16 0.12);
-}
-
-html[style*="color-scheme: dark"] .MDXSnowflake .header.group3,
-html[style*="color-scheme: dark"] .MDXSnowflake .group3 {
-  fill: oklab(0.72 0.13 0.05);
-}
-
-html[style*="color-scheme: dark"] .MDXSnowflake .header.group4,
-html[style*="color-scheme: dark"] .MDXSnowflake .group4 {
-  fill: oklab(0.7 0.09 -0.16);
-}
+/* Keep flat: Mintlify's production build strips nested CSS rules.
+   Theme must key off the `.dark` class on <html>: production never sets
+   `style="color-scheme: ..."` on <html> (only `mintlify dev` does), so
+   `html[style*="color-scheme"]` selectors silently never match on the live site. */
 
 .MDXSnowflake {
   display: flex;
@@ -45,15 +10,20 @@ html[style*="color-scheme: dark"] .MDXSnowflake .group4 {
   margin-bottom: 40px;
 }
 
-.MDXSnowflake .arrow {
-  fill: oklab(0.751834 0.00131807 -0.008479);
+.MDXSnowflake .ink {
+  fill: #252525;
 }
 
-/* theme-aware "ink" color used by all neutral text; the old
-   hardcoded #252525 fill was unreadable in dark mode */
-.MDXSnowflake .ink,
-.MDXSnowflake .ink text {
-  fill: #252525;
+.MDXSnowflake .ink:is(.dark *) {
+  fill: white;
+}
+
+.MDXSnowflake .arrow {
+  fill: oklab(0.251834 0.00131807 -0.008479);
+}
+
+.MDXSnowflake .arrow:is(.dark *) {
+  fill: oklab(0.751834 0.00131807 -0.008479);
 }
 
 .MDXSnowflake .header {
@@ -61,55 +31,36 @@ html[style*="color-scheme: dark"] .MDXSnowflake .group4 {
   font-size: 16px;
 }
 
-.MDXSnowflake .header.group1 {
+/* accent groups, light mode */
+.MDXSnowflake .group1 {
   fill: oklab(0.747617 0.00671133 -0.126112);
 }
 
-.MDXSnowflake .header.group2 {
+.MDXSnowflake .group2 {
   fill: oklab(0.773758 0.0289854 0.0857202);
 }
 
-.MDXSnowflake .header.group3 {
+.MDXSnowflake .group3 {
   fill: oklab(0.723746 0.150768 0.055049);
 }
 
-.MDXSnowflake .header.group4 {
+.MDXSnowflake .group4 {
   fill: oklab(0.700146 -0.0932133 -0.0629166);
 }
 
-/* respect the OS-level preference when the site does not set an
-   explicit color-scheme attribute (e.g. system theme, no toggle) */
-@media (prefers-color-scheme: dark) {
-  html:not([style*="color-scheme"]) .MDXSnowflake text {
-    fill: white;
-  }
+/* brighter accent variants for dark backgrounds */
+.MDXSnowflake .group1:is(.dark *) {
+  fill: oklab(0.72 0.09 -0.14);
+}
 
-  html:not([style*="color-scheme"]) .MDXSnowflake .arrow {
-    fill: oklab(0.751834 0.00131807 -0.008479);
-  }
+.MDXSnowflake .group2:is(.dark *) {
+  fill: oklab(0.7 0.16 0.12);
+}
 
-  html:not([style*="color-scheme"]) .MDXSnowflake .ink,
-  html:not([style*="color-scheme"]) .MDXSnowflake .ink text {
-    fill: white;
-  }
+.MDXSnowflake .group3:is(.dark *) {
+  fill: oklab(0.72 0.13 0.05);
+}
 
-  html:not([style*="color-scheme"]) .MDXSnowflake .header.group1,
-  html:not([style*="color-scheme"]) .MDXSnowflake .group1 {
-    fill: oklab(0.72 0.09 -0.14);
-  }
-
-  html:not([style*="color-scheme"]) .MDXSnowflake .header.group2,
-  html:not([style*="color-scheme"]) .MDXSnowflake .group2 {
-    fill: oklab(0.7 0.16 0.12);
-  }
-
-  html:not([style*="color-scheme"]) .MDXSnowflake .header.group3,
-  html:not([style*="color-scheme"]) .MDXSnowflake .group3 {
-    fill: oklab(0.72 0.13 0.05);
-  }
-
-  html:not([style*="color-scheme"]) .MDXSnowflake .header.group4,
-  html:not([style*="color-scheme"]) .MDXSnowflake .group4 {
-    fill: oklab(0.7 0.09 -0.16);
-  }
+.MDXSnowflake .group4:is(.dark *) {
+  fill: oklab(0.7 0.09 -0.16);
 }
