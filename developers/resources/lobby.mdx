@@ -84,8 +84,29 @@ Returns a [lobby](/developers/resources/lobby#lobby-object) object.
 | Field                 | Type                                                                             | Description                                                                                                                                                            |
 |-----------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                           |
-| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to be added to the lobby                                                                                                              |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of at most 25 users to be added to the lobby. More than 25 is a hard cap and rejects the request. See below.                                            |
 | idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
+
+25 `members` is a hard cap on this request. A longer array is not truncated, and extra users are not dropped. The request fails with HTTP 400:
+
+```json
+{
+  "code": 50035,
+  "errors": {
+    "members": {
+      "_errors": [
+        {
+          "code": "BASE_TYPE_MAX_LENGTH",
+          "message": "Must be 25 or fewer in length."
+        }
+      ]
+    }
+  },
+  "message": "Invalid Form Body"
+}
+```
+
+A lobby can still contain up to 1,000 members. Add further members with [Add a Member to a Lobby](/developers/resources/lobby#add-a-member-to-a-lobby), or in batches of at most 25 with [Bulk Update Lobby Members](/developers/resources/lobby#bulk-update-lobby-members).
 
 #### Lobby Member JSON Params
 
@@ -131,7 +152,7 @@ Returns the updated [lobby](/developers/resources/lobby#lobby-object) object.
 | Field                 | Type                                                                             | Description                                                                                                                                                                                                                                                   |
 |-----------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                                                                                                                |
-| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby. See [Lobby Member JSON Params](/developers/resources/lobby#lobby-member-json-params) for the accepted fields. |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of at most 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby. More than 25 is a hard cap and returns the same HTTP 400 as [Create Lobby](/developers/resources/lobby#create-lobby). See [Lobby Member JSON Params](/developers/resources/lobby#lobby-member-json-params) for the accepted fields. |
 | idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                                                                                        |
 
 ## Delete Lobby
@@ -171,7 +192,7 @@ Users unknown to Discord will return a 404 UNKNOWN_USER error. Users that fail p
 
 ### JSON Params
 
-An array of member objects. Minimum 1, maximum 25.
+An array of member objects. Minimum 1, maximum 25. More than 25 is a hard cap and rejects the request with HTTP 400 and error code `50035` (`Invalid Form Body`). Because the body is the array itself, the failure is on `errors._errors` with code `BASE_TYPE_MAX_LENGTH` and message `Must be 25 or fewer in length.` [Create Lobby](/developers/resources/lobby#create-lobby) returns the same message on `errors.members`.
 
 | Field            | Type                    | Description                                                                                                                                                                       |
 |------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -344,9 +365,10 @@ These limitations are designed to provide sufficient capacity for development, t
 
 ## Change Log
 
-| Date            | Changes                                                            |
-|-----------------|--------------------------------------------------------------------|
-| August 12, 2026 | `additional_name` can now be set via Create Lobby and Modify Lobby |
+| Date             | Changes                                                                                                                          |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| November 16, 2026 | Document that more than 25 members on Create Lobby, Modify Lobby, and Bulk Update Lobby Members is rejected with HTTP 400 |
+| August 12, 2026  | `additional_name` can now be set via Create Lobby and Modify Lobby                                                               |
 
 {/* Autogenerated Reference Links */}
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
