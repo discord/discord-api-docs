@@ -6,6 +6,31 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="November 16, 2026" tags={["Breaking Change", "Gateway", "HTTP API"]} rss={{
+    title: "Channel Obfuscation is Now Live for All Bots",
+    description: "Bots no longer receive full metadata for channels they can't view."
+}}>
+
+    ## Channel Obfuscation is Now Live for All Bots
+
+    As [announced in August](/developers/change-log#channel-obfuscation-for-users-and-bots), channel obfuscation is now rolling out to all bots. Bots no longer receive full metadata for channels they lack `VIEW_CHANNEL` on, matching what users can see. If your bot only acts in channels it has permission to view, this change does not affect you.
+
+    - **Over the Gateway**, channels your bot can't view are still dispatched, but with sensitive fields obfuscated. The channel's `name` is `"___hidden___"`, the [`CHANNEL_OBFUSCATED` flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) is set on its `flags`, and `permission_overwrites` contains a single overwrite denying `VIEW_CHANNEL` for `@everyone`.
+    - **Over HTTP**, [`GET /guilds/{guild.id}/channels`](/developers/resources/guild#get-guild-channels) omits those channels from the response entirely.
+
+    When your bot gains access to an obfuscated channel, the Gateway dispatches a [Channel Update](/developers/events/gateway-events#channel-update) event with the full channel data. [Interaction](/developers/interactions/receiving-and-responding) payloads are not obfuscated.
+
+    ### What Do You Need to Do?
+
+    - Use the `CHANNEL_OBFUSCATED` flag to detect obfuscated channels. Don't rely on `name` or other obfuscated fields.
+
+    #### Developer Resources
+    - [Obfuscated Channels](/developers/resources/channel#channel-object-obfuscated-channels)
+    - [Channel Flags](/developers/resources/channel#channel-object-channel-flags)
+    - [Get Guild Channels](/developers/resources/guild#get-guild-channels)
+    - [Channel Visibility](/developers/topics/permissions#channel-visibility)
+</Update>
+
 <Update label="October 30, 2026" tags={["HTTP API"]} rss={{
     title: "New Endpoints for getting member and role permissions for guilds and channels",
     description: "You can now get a member or role's permissions for a guild or channel without calculating them yourself, using the new Get Guild Member Permissions, Get Guild Role Permissions, Get Channel Member Permissions, and Get Channel Role Permissions endpoints."
