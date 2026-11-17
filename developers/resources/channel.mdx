@@ -107,7 +107,7 @@ Over the [Gateway](/developers/events/gateway), a client will receive a channel 
 
 Over the [HTTP API](/developers/resources/guild#get-guild-channels), channels that a client cannot view will be omitted from the response entirely.
 
-Obfuscated channels are dispatched through the normal [Channel Create](/developers/events/gateway-events#channel-create) and [Channel Update](/developers/events/gateway-events#channel-update) gateway events, including within the channel list of a [Guild Create](/developers/events/gateway-events#guild-create) event.
+Obfuscated channels are dispatched through the normal [Channel Create](/developers/events/gateway-events#channel-create), [Channel Update](/developers/events/gateway-events#channel-update), and [Channel Delete](/developers/events/gateway-events#channel-delete) gateway events, including within the channel list of a [Guild Create](/developers/events/gateway-events#guild-create) event.
 
 To reliably detect whether a channel object has been obfuscated, check whether its `flags` field has the `CHANNEL_OBFUSCATED` [channel flag](/developers/resources/channel#channel-object-channel-flags) (`1 << 17`) set. Do not rely on inspecting `name` or any other obfuscated field. The `permission_overwrites` for an obfuscated channel will contain only one entry denying `VIEW_CHANNEL` for the guild's `@everyone` role.
 
