@@ -149,11 +149,11 @@ Returns the updated [lobby](/developers/resources/lobby#lobby-object) object.
 
 ### JSON Params
 
-| Field                 | Type                                                                             | Description                                                                                                                                                                                                                                                   |
-|-----------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                                                                                                                |
+| Field                 | Type                                                                             | Description                                                                                                                                                                                                                                                                                                                                                                           |
+|-----------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                                                                                                                                                                                                                                        |
 | members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of at most 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby. More than 25 is a hard cap and returns the same HTTP 400 as [Create Lobby](/developers/resources/lobby#create-lobby). See [Lobby Member JSON Params](/developers/resources/lobby#lobby-member-json-params) for the accepted fields. |
-| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                                                                                        |
+| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                                                                                                                                                                                                                |
 
 ## Delete Lobby
 <Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)</Route>
@@ -365,10 +365,10 @@ These limitations are designed to provide sufficient capacity for development, t
 
 ## Change Log
 
-| Date             | Changes                                                                                                                          |
-|------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Date              | Changes                                                                                                                   |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|
 | November 16, 2026 | Document that more than 25 members on Create Lobby, Modify Lobby, and Bulk Update Lobby Members is rejected with HTTP 400 |
-| August 12, 2026  | `additional_name` can now be set via Create Lobby and Modify Lobby                                                               |
+| August 12, 2026   | `additional_name` can now be set via Create Lobby and Modify Lobby                                                        |
 
 {/* Autogenerated Reference Links */}
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
