@@ -81,11 +81,18 @@ Returns a [lobby](/developers/resources/lobby#lobby-object) object.
 
 ### JSON Params
 
-| Field                 | Type                                                                             | Description                                                                                                                                                            |
-|-----------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                           |
-| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to be added to the lobby                                                                                                              |
-| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior. |
+| Field                 | Type                                                                             | Description                                                                                                                                                                              |
+|-----------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000.                                                                                                             |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to be added to the lobby. Requests with more than 25 members are rejected. See [Member Limits](/developers/resources/lobby#create-lobby-member-limits). |
+| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                   |
+
+<ManualAnchor id="create-lobby-member-limits" />
+###### Member Limits
+
+Up to 25 members can be included in a single request. The array is not truncated. A request with more than 25 members fails with a `400` response and error code `50035` (`Invalid Form Body`), with a `BASE_TYPE_MAX_LENGTH` error on `members` in the [`errors` object](/developers/reference#error-messages).
+
+A lobby can still hold up to 1,000 members. Add more with [Add a Member to a Lobby](/developers/resources/lobby#add-a-member-to-a-lobby), or in batches of up to 25 with [Bulk Update Lobby Members](/developers/resources/lobby#bulk-update-lobby-members).
 
 #### Lobby Member JSON Params
 
@@ -128,11 +135,11 @@ Returns the updated [lobby](/developers/resources/lobby#lobby-object) object.
 
 ### JSON Params
 
-| Field                 | Type                                                                             | Description                                                                                                                                                                                                                                                   |
-|-----------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                                                                                                                |
-| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby. See [Lobby Member JSON Params](/developers/resources/lobby#lobby-member-json-params) for the accepted fields. |
-| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                                                                                        |
+| Field                 | Type                                                                             | Description                                                                                                                                                                                                                                                                                                                                                       |
+|-----------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| metadata?             | ?dict\<string, string\>                                                          | optional dictionary of string key/value pairs. The max total length is 1000. Overwrites any existing metadata.                                                                                                                                                                                                                                                    |
+| members?              | array of [lobby member](/developers/resources/lobby#lobby-member-object) objects | optional array of up to 25 users to replace the lobby members with. If provided, lobby members not in this list will be removed from the lobby. See [Lobby Member JSON Params](/developers/resources/lobby#lobby-member-json-params) for the accepted fields and [Member Limits](/developers/resources/lobby#create-lobby-member-limits) for the per-request cap. |
+| idle_timeout_seconds? | integer                                                                          | seconds to wait before shutting down a lobby after it becomes idle. Value can be between 5 and 604800 (7 days). See [`LobbyHandle`] for more details on this behavior.                                                                                                                                                                                            |
 
 ## Delete Lobby
 <Route method="DELETE">/lobbies/[\{lobby.id\}](/developers/resources/lobby#lobby-object)</Route>
@@ -171,7 +178,7 @@ Users unknown to Discord will return a 404 UNKNOWN_USER error. Users that fail p
 
 ### JSON Params
 
-An array of member objects. Minimum 1, maximum 25.
+An array of member objects. Minimum 1, maximum 25. Requests with more than 25 members fail with a `400` response and error code `50035` (`Invalid Form Body`).
 
 | Field            | Type                    | Description                                                                                                                                                                       |
 |------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -344,9 +351,10 @@ These limitations are designed to provide sufficient capacity for development, t
 
 ## Change Log
 
-| Date            | Changes                                                            |
-|-----------------|--------------------------------------------------------------------|
-| August 12, 2026 | `additional_name` can now be set via Create Lobby and Modify Lobby |
+| Date              | Changes                                                                                                                   |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|
+| November 16, 2026 | Document that more than 25 members on Create Lobby, Modify Lobby, and Bulk Update Lobby Members is rejected with HTTP 400 |
+| August 12, 2026   | `additional_name` can now be set via Create Lobby and Modify Lobby                                                        |
 
 {/* Autogenerated Reference Links */}
 [`Client::CreateOrJoinLobby`]: https://discord.com/developers/docs/social-sdk/classdiscordpp_1_1Client.html#a8b4e195555ecaa89ccdfc0acd28d3512
