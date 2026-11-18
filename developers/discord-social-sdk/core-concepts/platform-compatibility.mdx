@@ -41,17 +41,17 @@ The Discord Social SDK is available for the following platforms:
 | **Desktop**      |                    |                     |                |               |       |
 | Windows (x64)    | 10+                | Generally Available | ✅              | ✅             | ✅     |
 | Windows (ARM64)  | 11+                | Generally Available | ✅              | ❌             | ❌     |
-| macOS (x64)      | 10.5+              | Generally Available | ✅              | ❌             | ✅     |
-| macOS (ARM64)    | 11+                | Generally Available | ✅              | ❌             | ✅     |
+| macOS (x64)      | 12.0+              | Generally Available | ✅              | ❌             | ✅     |
+| macOS (ARM64)    | 12.0+              | Generally Available | ✅              | ❌             | ✅     |
 | Linux            | *glibc 2.31+       | Experimental        | ✅              | ✅             | ✅     |
 | **Mobile**       |                    |                     |                |               |       |
 | Android          | 7.0+               | Generally Available | ✅              | ✅             | ✅     |
 | iOS              | 15.1+              | Generally Available | ✅              | ✅             | ✅     |
 | **Console**      |                    |                     |                |               |       |
-| Xbox One         | GDK 241000-260400  | Experimental        | ✅              | ✅             | ❌     |
-| Xbox Series X\|S | GDK 241000-260400  | Generally Available | ✅              | ✅             | ✅     |
+| Xbox One         | GDK 250400-261000  | Experimental        | ✅              | ✅             | ❌     |
+| Xbox Series X\|S | GDK 250400-261000  | Generally Available | ✅              | ✅             | ✅     |
 | PlayStation 4    | OS 11.500-12.500   | Experimental        | ✅              | ✅             | ❌     |
-| PlayStation 5    | OS 10.000-13.000   | Generally Available | ✅              | ✅             | ✅     |
+| PlayStation 5    | OS 12.000-14.000   | Generally Available | ✅              | ✅             | ✅     |
 
 <Info>
 \* There are too many Linux distributions to test, but most distros with glibc 2.31, e.g. Ubuntu 20.04,
@@ -66,6 +66,10 @@ Building for iOS or Android? See [Feature Availability on Mobile](/developers/di
 Each Social SDK release supports roughly the last 18 months of Xbox and PlayStation OS SDK versions.
 See [Console OS SDK Support](/developers/discord-social-sdk/core-concepts/release-cadence-and-support#console-os-sdk-support) for how the window rolls forward at each release.
 </Info>
+
+<Warning>
+Xbox GDK 250400 and PS5 SDK 12.000 support are planned to be removed in April 2027.
+</Warning>
 
 <ConsoleAccess />
 <SonyCallout />
@@ -96,9 +100,10 @@ Configure authentication, explore features, and review our release cadence:
 
 ## Change Log
 
-| Date           | Changes                                                             |
-|----------------|---------------------------------------------------------------------|
-| August 3, 2026 | updated console OS SDK version windows for Social SDK 1.10          |
-| May 26, 2026   | added console minimum versions; linked to Release Cadence & Support |
-| May 20, 2026   | Added Game Engine and Language section.                             |
-| July 21, 2025  | initial release                                                     |
+| Date              | Changes                                                                      |
+|-------------------|------------------------------------------------------------------------------|
+| November 17, 2026 | updated console OS SDK version windows and macOS minimum for Social SDK 1.11 |
+| August 3, 2026    | updated console OS SDK version windows for Social SDK 1.10                   |
+| May 26, 2026      | added console minimum versions; linked to Release Cadence & Support          |
+| May 20, 2026      | Added Game Engine and Language section.                                      |
+| July 21, 2025     | initial release                                                              |

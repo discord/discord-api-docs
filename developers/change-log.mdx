@@ -6,6 +6,49 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="November 17, 2026" tags={["Discord Social SDK"]} rss={{
+    title: "Discord Social SDK Release 1.11.24259",
+    description: "Xbox GDK 261000 and PS5 SDK 14.000 support with new console minimums, Krisp noise cancellation on Xbox Series X|S, a macOS 12.0 minimum, and Rich Presence and noise suppression fixes."
+  }}>
+
+    ## Discord Social SDK Release 1.11.24259
+
+    A new release of the Discord Social SDK is now available, with the following updates:
+
+    ### Rich Presence
+    - Fixed presence updates being ignored when only `Activity::SetSupportedPlatforms()` changed
+    - `Client::SetApplicationId()` now immediately updates presence sent to the Discord desktop client, helping it identify the running game
+
+    ### Noise Suppression
+    - Fixed the previous noise suppression setting not being restored when Krisp fails to initialize
+    - Fixed a race condition during voice initialization that could apply outdated noise suppression or noise cancellation settings
+
+    ### iOS
+    - Fixed the Krisp xcframework shipping an empty binary with an incorrect framework name, and ensured Unreal applications embed the framework
+
+    ### Xbox
+    - Added Xbox GDK 261000 support and dropped support for GDK 241000; the new minimum supported GDK version is 250400
+    - Added Krisp noise cancellation on Xbox Series X|S, with runtime libraries and models included in standalone, Unity, and Unreal packages
+
+    ### PlayStation 5
+    - Added PS5 SDK 14.000 support and dropped support for SDK versions 10.000 and 11.000; the new minimum supported version is 12.000
+
+    ### macOS
+    - Raised the minimum supported macOS version from 10.15 to 12.0
+
+    ### Unreal Engine
+    - Fixed monolithic-header warnings when integrating the Unreal plugin
+
+    ### Upcoming Deprecations
+    - Xbox GDK 250400 support is planned to be removed in April 2027
+    - PS5 SDK 12.000 support is planned to be removed in April 2027
+
+    ### Supported Versions
+    With this release, the [supported version window](/developers/discord-social-sdk/core-concepts/release-cadence-and-support#supported-versions) covers Social SDK versions **1.7 through 1.11**. Version **1.6** is now end-of-life and no longer eligible for patch updates.
+
+    See [Platform Compatibility](/developers/discord-social-sdk/core-concepts/platform-compatibility) for the full list of supported platform versions.
+</Update>
+
 <Update label="November 16, 2026" tags={["Breaking Change", "Gateway", "HTTP API"]} rss={{
     title: "Channel Obfuscation is Now Live for All Bots",
     description: "Bots no longer receive full metadata for channels they can't view."
