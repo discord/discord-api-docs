@@ -459,9 +459,15 @@
             ]
           },
           {
-            "group": "Voice & RPC",
+            "group": "Voice",
             "pages": [
               "developers/topics/voice-connections",
+              "developers/topics/voice-receive"
+            ]
+          },
+          {
+            "group": "RPC",
+            "pages": [
               "developers/topics/rpc",
               "developers/topics/certified-devices"
             ]
