@@ -1,0 +1,95 @@
+---
+title: Voice Receive
+description: Technical guide to receiving and decrypting voice data from a Discord voice connection.
+---
+
+import {ManualAnchor} from '/snippets/manualanchor.jsx'
+
+Once you have an established [voice connection](/developers/topics/voice-connections), the voice server sends the voice data of the other users in the voice channel over the same UDP connection that you use to send voice data. Receiving voice data is the reverse of [sending it](/developers/topics/voice-connections#transport-encryption-and-sending-voice): you parse the RTP header, remove the transport encryption, remove the end-to-end encryption in calls using the [DAVE protocol](/developers/topics/voice-connections#end-to-end-encryption-dave-protocol), and decode the resulting Opus frame.
+
+You can choose which users' voice data the voice server sends you with [Media Sink Wants](/developers/topics/voice-connections#media-sink-wants).
+
+## Identifying Users
+
+Every user sending voice data has their own SSRC, which is included in the RTP header of each of their packets. The voice gateway tells you which user an SSRC belongs to with an [Opcode 5 Speaking](/developers/topics/voice-connections#speaking-example-received-speaking-payload) payload, which includes the `user_id` and `ssrc` of a user. Keep a map of SSRCs to user IDs and update it with every Speaking payload you receive.
+
+[Opcode 11 Clients Connect](/developers/topics/voice-connections#clients-connect-and-disconnect) tells you which users have connected to the voice channel, but does not include their SSRCs. When a user leaves the voice channel, you receive an [Opcode 13 Client Disconnect](/developers/topics/voice-connections#clients-connect-and-disconnect) payload with their `user_id`, and you should remove their SSRC from your map.
+
+<Info>
+If you receive voice packets from an SSRC before the Speaking payload for it, you can't tell which user these packets are from, and in calls using the DAVE protocol you can't decrypt them, because end-to-end decryption needs the sender's user ID.
+</Info>
+
+## Voice Recording
+
+Users can choose whether their voice can be recorded in other users' Clips, which the voice gateway tells you with the `ALLOW_VOICE_RECORDING` flag of an [Opcode 18 Client Flags](/developers/topics/voice-connections#client-flags) payload. This flag is set by the user's own client, is enabled by default, and only applies to Discord's Clips feature. Do not treat it as a user's consent to have their voice recorded by your application.
+
+## Receiving Voice Packets
+
+Voice packets are received on the UDP connection you established in [Establishing a Voice UDP Connection](/developers/topics/voice-connections#establishing-a-voice-udp-connection). Ignore any packet that does not come from the IP and port of the voice server given in [Opcode 2 Ready](/developers/topics/opcodes-and-status-codes#voice).
+The voice server sends both RTP packets, which contain voice data, and RTCP packets, which contain reports and feedback about the media streams. Both start with a first byte whose two most significant bits are the RTP version `2`. Use the second byte to tell them apart:
+
+| Second Byte | Packet                                                                                                         |
+|-------------|----------------------------------------------------------------------------------------------------------------|
+| `200`-`206` | RTCP packet. You can ignore these when receiving voice data.                                                   |
+| Any other   | RTP packet. The 7 least significant bits are the payload type, and the most significant bit is the marker bit. |
+
+Voice data has an Opus payload type of `0x78` (`120`). Ignore RTP packets with any other payload type.
+
+<ManualAnchor id="receiving-voice-packets-received-voice-packet-structure" />
+###### Received Voice Packet Structure
+
+| Field                     | Type                           | Size                |
+|---------------------------|--------------------------------|---------------------|
+| Version + Flags           | Single byte                    | 1 byte              |
+| Marker + Payload Type     | Single byte                    | 1 byte              |
+| Sequence                  | Unsigned short (big endian)    | 2 bytes             |
+| Timestamp                 | Unsigned integer (big endian)  | 4 bytes             |
+| SSRC                      | Unsigned integer (big endian)  | 4 bytes             |
+| CSRCs                     | Unsigned integers (big endian) | 4 bytes per CSRC    |
+| Header Extension Preamble | Binary data                    | 4 bytes, if present |
+| Encrypted data            | Binary data                    | n bytes             |
+| Authentication tag        | Binary data                    | 16 bytes            |
+| Nonce                     | Unsigned integer (big endian)  | 4 bytes             |
+
+Unlike the packets you send, received packets can have CSRCs and an RTP header extension. The Version + Flags byte describes both:
+
+| Bits   | Meaning                                                      |
+|--------|--------------------------------------------------------------|
+| `0xC0` | RTP version, always `2`                                      |
+| `0x20` | Padding, the decrypted data ends with padding                |
+| `0x10` | Extension, the header has a 4-byte header extension preamble |
+| `0x0F` | CSRC count, the number of 4-byte CSRCs that follow the SSRC  |
+
+The header extension preamble is a 2-byte profile followed by a 2-byte length (big endian), which is the length of the header extension body in 32-bit words. Following [the same rules as SRTP](https://tools.ietf.org/html/rfc3711#section-3.1), only the preamble is part of the unencrypted header. The header extension body is encrypted along with the voice data.
+
+## Decrypting Voice Packets
+
+Received packets use the [transport encryption mode](/developers/topics/voice-connections#transport-encryption-modes) and `secret_key` from [Opcode 4 Session Description](/developers/topics/opcodes-and-status-codes#voice), the same as the packets you send. To decrypt a packet:
+
+1. Find the length of the unencrypted header: 12 bytes, plus 4 bytes for each CSRC, plus 4 bytes if the extension bit is set.
+2. Take the last 4 bytes of the packet as the nonce, and build the full nonce for your encryption mode as described in [Transport Encryption Modes](/developers/topics/voice-connections#transport-encryption-modes).
+3. Decrypt the data between the unencrypted header and the nonce, which ends with the 16-byte authentication tag. Pass the unencrypted header to the cipher as additional data.
+4. If the extension bit is set, remove the header extension body from the start of the decrypted data. Its length is the length from the preamble multiplied by 4.
+5. If the padding bit is set, the last byte of the decrypted data is the number of padding bytes, including itself. Remove them from the end of the decrypted data.
+
+What remains is the Opus frame, or an end-to-end encrypted Opus frame in calls using the DAVE protocol.
+
+<Warning>
+A packet that fails to decrypt should be dropped. Do not decode its data as Opus.
+</Warning>
+
+## End-to-End Decryption
+
+In calls using the DAVE protocol, the Opus frame is [end-to-end encrypted](/developers/topics/voice-connections#audio-frame-e2ee) with a key unique to its sender. Use the user ID you mapped from the packet's SSRC to pick the sender's key, and decrypt the frame as described in [Frame Encryption](/developers/topics/voice-connections#frame-encryption).
+
+Not every frame in a call using the DAVE protocol is end-to-end encrypted. During [protocol transitions](/developers/topics/voice-connections#protocol-transitions), frames can be sent with transport encryption only. Frames that end with the `0xFAFA` magic marker are end-to-end encrypted, and frames without it are not. See the [Protocol Frame Check section of the Protocol Whitepaper](https://daveprotocol.com/#protocol-frame-check) for the full check.
+
+<Warning>
+The voice server can currently insert Opus silence frames (`0xF8, 0xFF, 0xFE`) into a user's audio, for example when they mute. These frames are not end-to-end encrypted. Pass any audio frame that exactly matches these 3 bytes through without decrypting it. See the [Silence Packets section of the Protocol Whitepaper](https://daveprotocol.com/#silence-packets), as this exception is planned to be removed.
+</Warning>
+
+## Decoding Voice Data
+
+Received Opus frames use a sample rate of 48kHz and two channels (stereo), the same as the voice data you send. Decode each user's frames with a separate Opus decoder, since an Opus decoder keeps state between frames.
+
+Because voice data is received over UDP, packets can arrive out of order, more than once, or not at all. Use the sequence of each SSRC to put its packets back in order and to drop duplicates, keeping in mind that the sequence wraps around to 0 after 65535. The timestamp increases by the number of samples in each frame, which is `960` for a 20ms frame, and can be used to find gaps in a user's voice data.

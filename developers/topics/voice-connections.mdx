@@ -1,5 +1,5 @@
 ---
-title: Voice
+title: Voice Connections
 description: Technical guide to implementing voice connections with Discord.
 ---
 
@@ -16,13 +16,13 @@ Connections that omit the version query string `v` or use a version below 4 are 
 <ManualAnchor id="voice-gateway-versioning-gateway-versions" />
 ###### Gateway Versions
 
-| Version | Status      | WebSocket URL Append | Change                                                                 |
-|---------|-------------|----------------------|------------------------------------------------------------------------|
-| 8       | recommended | ?v=8                 | Added server message buffering, missed messages re-delivered on resume |
-| 7       | available   | ?v=7                 | Added channel options opcode                                           |
-| 6       | available   | ?v=6                 | Added code version opcode                                              |
-| 5       | available   | ?v=5                 | Added media sink wants opcode                                          |
-| 4       | available   | ?v=4                 | Changed speaking status to bitmask from boolean                        |
+| Version | Status      | WebSocket URL Append | Change                                                                                                                         |
+|---------|-------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| 8       | recommended | ?v=8                 | Added [server message buffering](/developers/topics/voice-connections#buffered-resume), missed messages re-delivered on resume |
+| 7       | available   | ?v=7                 | Added channel options opcode                                                                                                   |
+| 6       | available   | ?v=6                 | Added [voice backend version opcode](/developers/topics/voice-connections#voice-backend-version)                               |
+| 5       | available   | ?v=5                 | Added [media sink wants opcode](/developers/topics/voice-connections#media-sink-wants)                                         |
+| 4       | available   | ?v=4                 | Changed speaking status to bitmask from boolean                                                                                |
 
 The voice gateway will report the version your connection is using as `v` in [Opcode 8 Hello](/developers/topics/opcodes-and-status-codes#voice). If you request a version newer than the latest available version, your connection will not be rejected and the latest available version will be used instead.
 
@@ -491,7 +491,7 @@ You must send at least one [Opcode 5 Speaking](/developers/topics/opcodes-and-st
 The `delay` property should be set to `0` for bots that use the voice gateway.
 </Info>
 
-The voice gateway will also send you [Opcode 5 Speaking](/developers/topics/opcodes-and-status-codes#voice) payloads for the other users in the voice channel. These include the `user_id` of the user and the `ssrc` of their voice data, which you can use to identify the user that a received voice packet is from.
+The voice gateway will also send you [Opcode 5 Speaking](/developers/topics/opcodes-and-status-codes#voice) payloads for the other users in the voice channel. These include the `user_id` of the user and the `ssrc` of their voice data, which you can use to identify the user that a received voice packet is from. See [Voice Receive](/developers/topics/voice-receive) for how to receive voice data.
 
 <ManualAnchor id="speaking-example-received-speaking-payload" />
 ###### Example Received Speaking Payload
@@ -540,6 +540,103 @@ Each Media Sink Wants payload replaces the previous one. You must include every 
 
 <Info>
 Media Sink Wants is available since [voice gateway version 5](/developers/topics/voice-connections#voice-gateway-versioning-gateway-versions).
+</Info>
+
+The voice server can also send you a Media Sink Wants payload. It only describes the video the voice server wants you to send, and can be ignored if you only send voice data.
+
+## Clients Connect and Disconnect
+
+The voice gateway tells you when users connect to and disconnect from the voice channel. [Opcode 11 Clients Connect](/developers/topics/opcodes-and-status-codes#voice) includes the user IDs of one or more users that have connected.
+
+<ManualAnchor id="clients-connect-and-disconnect-example-clients-connect-payload" />
+###### Example Clients Connect Payload
+
+```json
+{
+  "op": 11,
+  "d": {
+    "user_ids": ["104694319306248192"]
+  }
+}
+```
+
+[Opcode 13 Client Disconnect](/developers/topics/opcodes-and-status-codes#voice) includes the user ID of a user that has disconnected.
+
+<ManualAnchor id="clients-connect-and-disconnect-example-client-disconnect-payload" />
+###### Example Client Disconnect Payload
+
+```json
+{
+  "op": 13,
+  "d": {
+    "user_id": "104694319306248192"
+  }
+}
+```
+
+These payloads do not include the SSRC of the users. The SSRC of a user comes from the [Opcode 5 Speaking](/developers/topics/voice-connections#speaking) payloads sent by the voice gateway.
+
+## Client Flags
+
+The voice gateway sends an [Opcode 18 Client Flags](/developers/topics/opcodes-and-status-codes#voice) payload with the `flags` of a user in the voice channel. These flags are set by the user's own client in its voice state, based on the user's Clips settings.
+
+<Warning>
+Client flags are reported by each user's client and are not verified by Discord. A client that does not support Clips, including most bots, does not set them. They describe the user's settings for Discord's Clips feature only.
+</Warning>
+
+<ManualAnchor id="client-flags-example-client-flags-payload" />
+###### Example Client Flags Payload
+
+```json
+{
+  "op": 18,
+  "d": {
+    "user_id": "104694319306248192",
+    "flags": 3
+  }
+}
+```
+
+<ManualAnchor id="client-flags-voice-client-flags" />
+###### Voice Client Flags
+
+| Flag                   | Value    | Description                                                      |
+|------------------------|----------|------------------------------------------------------------------|
+| CLIPS_ENABLED          | `1 << 0` | The user has Clips enabled                                       |
+| ALLOW_VOICE_RECORDING  | `1 << 1` | The user allows their voice to be recorded in other users' Clips |
+| ALLOW_ANY_VIEWER_CLIPS | `1 << 2` | The user allows anyone watching their stream to clip it          |
+
+## Voice Backend Version
+
+Since [voice gateway version 6](/developers/topics/voice-connections#voice-gateway-versioning-gateway-versions), you can ask the voice server for the versions of its backend by sending an [Opcode 16 Voice Backend Version](/developers/topics/opcodes-and-status-codes#voice) payload with an empty object after receiving [Opcode 2 Ready](/developers/topics/opcodes-and-status-codes#voice).
+
+<ManualAnchor id="voice-backend-version-example-voice-backend-version-request-payload" />
+###### Example Voice Backend Version Request Payload
+
+```json
+{
+  "op": 16,
+  "d": {}
+}
+```
+
+The voice server responds with an Opcode 16 Voice Backend Version payload that includes the `voice` and `rtc_worker` versions of the voice server.
+
+<ManualAnchor id="voice-backend-version-example-voice-backend-version-payload" />
+###### Example Voice Backend Version Payload
+
+```json
+{
+  "op": 16,
+  "d": {
+    "voice": "voice_version",
+    "rtc_worker": "rtc_worker_version"
+  }
+}
+```
+
+<Info>
+These versions are informational and do not change how you use the voice gateway.
 </Info>
 
 ## Resuming Voice Connection
