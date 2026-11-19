@@ -408,8 +408,10 @@ To allow for fine-tuned access to commands, application command permissions are 
 
 Similar to how threads [inherit user and role permissions from the parent channel](/developers/topics/threads#permissions), any command permissions for a channel will apply to the threads it contains.
 
+If an app is installed to both a guild and a user, and the guild's command permissions don't allow that user to use a command, the command falls back to their [user install](/developers/resources/application#user-context) instead of being blocked. The interaction's [`authorizing_integration_owners`](/developers/interactions/receiving-and-responding#interaction-object-authorizing-integration-owners-object) only includes the user installation, and the app's response is forced to be ephemeral, with a footnote saying the command can't be used in that channel. Apps that want to respect the guild's command permissions in this case should check them using [Get Guild Application Command Permissions](/developers/interactions/application-commands#get-guild-application-command-permissions).
+
 <Info>
-If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
+If you don't have permission to use a command, it will not show up in the command picker, unless you also have the app installed to your account (see above). Members with the Administrator permission can use all commands.
 </Info>
 
 <ManualAnchor id="application-command-permissions-object-using-default-permissions" />
