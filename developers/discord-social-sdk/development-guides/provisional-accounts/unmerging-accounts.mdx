@@ -216,7 +216,7 @@ When a user unmerges their account, a new provisional account is created with a 
 The following data is transferred to the new provisional account asynchronously:
 
 * **✅ Username**: Global name is copied to the new provisional account
-* **✅ In-game friends**: All copied to the new provisional account
+* **✅ In-game friends and friend requests**: Moved to the new provisional account if the friend's Discord account is still authorized for your game with the `sdk.social_layer` or `sdk.social_layer_presence` scope. Transfers can also fail because of blocks or game relationship limits.
 * **✅ Discord friends who use this application**: Copied to the provisional account
 * **✅ Blockers**: Accounts that blocked the original Discord account are preserved
 * **✅ Blocks**: Users the original Discord account blocked are copied to the new provisional account
@@ -228,6 +228,8 @@ The following data is **not** transferred:
 * **❌ DM message history**: Not moved to provisional accounts
 
 Blocks are copied rather than moved. The original Discord account keeps every block it had, and the new provisional account receives its own copy of them.
+
+When a player unmerges, all game relationships for your application are removed from their Discord account. Relationships that meet the transfer requirements move to the new provisional account; the rest are deleted. Ordinary Discord friendships are not affected. Temporary bans are the exception: relationships that can't transfer stay on the original account.
 
 <Info>
 Provisional accounts can have Discord friends, but can only message these friends when actively playing the game.
