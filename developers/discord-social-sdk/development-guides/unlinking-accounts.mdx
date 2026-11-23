@@ -18,6 +18,10 @@ When a player unlinks their Discord account from your game (for example, from an
 
 Whenever your game unlinks a user's Discord account, revoke that user's access and refresh tokens at the same time. Don't treat unlinking as a purely local operation.
 
+<Note>
+Revoking your game's authorization removes all of its game relationships from the player's Discord account. Ordinary Discord friendships are not affected.
+</Note>
+
 See [Revoking Access Tokens](/developers/discord-social-sdk/development-guides/account-linking-with-discord#revoking-access-tokens) in the Account Linking guide for the server-side endpoint and the [`Client::RevokeToken`] method for public clients.
 
 <Warning>

@@ -6,6 +6,28 @@ rss: true
 
 import {Route} from '/snippets/route.jsx'
 
+<Update label="November 19, 2026" tags={["Breaking Change", "Discord Social SDK"]} rss={{
+    title: "Game Deauthorization Removes Game Relationships",
+    description: "Permanently revoking a Social SDK game's authorization now removes all of its game relationships from the player's Discord account."
+}}>
+
+    ## Game Deauthorization Removes Game Relationships
+
+    Permanently revoking a Social SDK game's authorization now removes all of its game relationships from the player's Discord account. Previously, relationships that could not transfer to a provisional account could remain on the original account.
+
+    Game friends and incoming or outgoing game friend requests move to the new provisional account only if the friend's Discord account is still authorized for your game with the `sdk.social_layer` or `sdk.social_layer_presence` scope. Transfers can also fail because of blocks or game relationship limits. Relationships that do not transfer are deleted. Ordinary Discord friendships are not affected.
+
+    Temporary bans are unchanged: relationships that can't transfer stay on the original account.
+
+    ### What Do You Need to Do?
+
+    - Update any unlinking or relinking flows that assume game friendships or friend requests remain on the original Discord account after authorization is revoked.
+
+    #### Developer Resources
+    - [Unlinking Accounts](/developers/discord-social-sdk/development-guides/unlinking-accounts#always-revoke-tokens-when-unlinking)
+    - [Data Migration During Unmerging](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#data-migration-during-unmerging)
+</Update>
+
 <Update label="November 17, 2026" tags={["Discord Social SDK"]} rss={{
     title: "Discord Social SDK Release 1.11.24259",
     description: "Xbox GDK 261000 and PS5 SDK 14.000 support with new console minimums, Krisp noise cancellation on Xbox Series X|S, a macOS 12.0 minimum, and Rich Presence and noise suppression fixes."
