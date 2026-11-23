@@ -394,7 +394,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](/developers/resources/sticker#sticker-object) is `PNG` or `APNG`, GIF if its `format_type` is `GIF`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
-\*\*\*\*\* For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. WebP and AVIF formats must be requested as WebP since they don't convert well to other formats. The Discord client uses WebP for all emojis displayed in-app. See the [Emoji Resource](/developers/resources/emoji) page for more details.
+\*\*\*\*\* For Custom Emoji, we highly recommend requesting emojis as WebP for maximum performance and compatibility. Emojis can be uploaded as JPEG, PNG, GIF, WebP, and AVIF formats. Animated WebP and AVIF emojis should be requested as WebP, since they don't convert cleanly to GIF. The Discord client uses WebP for all emojis displayed in-app. See the [Emoji Resource](/developers/resources/emoji) page for more details.
 
 <Info>
 Sticker GIFs do not use the CDN base URL, and can be accessed at `https://media.discordapp.net/stickers/<sticker_id>.gif`.
