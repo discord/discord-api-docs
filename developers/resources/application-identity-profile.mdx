@@ -18,11 +18,12 @@ For profile-only writes, if the user does not already have an Application Identi
 <ManualAnchor id="application-identity-object-application-identity-structure" />
 ###### Application Identity Structure
 
-| Field                      | Type   | Description                                                                                |
-|----------------------------|--------|--------------------------------------------------------------------------------------------|
-| provider\_type             | string | the external account provider type                                                         |
-| provider\_id?              | string | provider-specific identifier used to disambiguate identities; omitted when absent or empty |
-| provider\_issued\_user\_id | string | the user's ID in the external system                                                       |
+| Field                      | Type      | Description                                                                                |
+|----------------------------|-----------|--------------------------------------------------------------------------------------------|
+| user\_id                   | snowflake | the Discord user's ID                                                                      |
+| provider\_type             | string    | the external account provider type                                                         |
+| provider\_id?              | string    | provider-specific identifier used to disambiguate identities; omitted when absent or empty |
+| provider\_issued\_user\_id | string    | the user's ID in the external system                                                       |
 
 ### Application Identity Profile Object
 
