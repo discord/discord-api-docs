@@ -7,7 +7,7 @@ keywords: ['link preview', 'unfurl', 'embed', 'open graph', 'og tags', 'oembed',
 
 A link preview or embed is what shows up in Discord when a link to your website is pasted into a chat. If you've ever seen an embed pop up with a description, images, or a video, that is a link preview. Discord builds that card automatically by fetching the page and reading the metadata in its HTML. The process of building that embed is called unfurling.
 
-This page covers the standard unfurling process with a title, description, and image or video. If you want more control over your preview, [Component Embeds](/developers/link-previews/component-embeds) let you build a fully custom layout out of select [Discord components](/developers/components/overview).
+This page covers the standard unfurling process, including title, description, and optional media such as images, video, or audio. If you want more control over your preview, [Component Embeds](/developers/link-previews/component-embeds) let you build a fully custom layout out of select [Discord components](/developers/components/overview).
 
 <Warning>
 Link previews are subject to change.
@@ -145,6 +145,12 @@ The tags you set decide which embed layout is chosen.
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="720">
 ```
+
+---
+
+## Audio
+
+Sharing a direct link to an audio file produces an embed with an inline audio player on web, desktop, and mobile, just as direct image and video links produce media previews. No HTML metadata is required. These embeds use the `audio` [embed type](/developers/resources/message#embed-object-embed-types) and include an [audio resource](/developers/resources/message#embed-object-embed-audio-structure).
 
 ---
 
