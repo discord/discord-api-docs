@@ -227,12 +227,21 @@ We also have an RPC token system to bypass the user authorization modal. This is
 <ManualAnchor id="authorize-authorize-argument-structure" />
 ###### Authorize Argument Structure
 
-| Field     | Type                                                                               | Description                                                               |
-|-----------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| scopes    | array of [OAuth2 scopes](/developers/topics/oauth2#shared-resources-oauth2-scopes) | scopes to authorize                                                       |
-| client_id | string                                                                             | OAuth2 application id                                                     |
-| rpc_token | string                                                                             | one-time use RPC token                                                    |
-| username  | string                                                                             | username to create a guest account with if the user does not have Discord |
+| Field                  | Type                                                                                          | Description                                                                                                       |
+|------------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| client_id              | string                                                                                        | OAuth2 application id                                                                                             |
+| scope?                 | ?string or array of [OAuth2 scopes](/developers/topics/oauth2#shared-resources-oauth2-scopes) | scopes to authorize, as a space-separated string or an array                                                      |
+| scopes?                | ?string or array of [OAuth2 scopes](/developers/topics/oauth2#shared-resources-oauth2-scopes) | legacy alias for `scope`; takes precedence over `scope` if both are set                                           |
+| response_type?         | ?string                                                                                       | OAuth2 response type; defaults to `code` (`token` is not supported)                                               |
+| code_challenge?        | ?string                                                                                       | [PKCE](/developers/topics/oauth2#authorization-code-grant) code challenge                                         |
+| code_challenge_method? | ?string                                                                                       | PKCE code challenge method                                                                                        |
+| state?                 | ?string                                                                                       | OAuth2 [state](/developers/topics/oauth2#state-and-security) value                                                |
+| prompt?                | ?string                                                                                       | how to handle [existing authorizations](/developers/topics/oauth2#authorization-code-grant) (`consent` or `none`) |
+| nonce?                 | ?string                                                                                       | nonce to include in the authorization request                                                                     |
+| rpc_token              | string                                                                                        | one-time use RPC token                                                                                            |
+| username               | string                                                                                        | username to create a guest account with if the user does not have Discord                                         |
+
+If neither `scope` nor `scopes` is set, no scopes are requested. `client_id` cannot be `null`.
 
 <ManualAnchor id="authorize-authorize-response-structure" />
 ###### Authorize Response Structure
