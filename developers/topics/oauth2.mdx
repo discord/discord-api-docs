@@ -22,6 +22,14 @@ The first step in implementing OAuth2 is [registering a developer application](h
 | https://discord.com/.well-known/oauth-authorization-server | [Authorization server metadata](https://www.rfc-editor.org/rfc/rfc8414)                         |
 | https://discord.com/.well-known/openid-configuration       | [OpenID Connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) document |
 
+Discord's [OpenID Connect discovery document](https://discord.com/.well-known/openid-configuration) advertises the supported token endpoint authentication methods in `token_endpoint_auth_methods_supported`:
+
+- `client_secret_basic`: send the client ID and client secret using HTTP Basic authentication.
+- `client_secret_post`: send `client_id` and `client_secret` in the form-encoded request body.
+- `none`: send `client_id` in the request body. Any application can use `none` for an authorization code exchange, as long as the request includes an S256 PKCE `code_verifier`. Refresh token requests using `none` are only accepted for applications configured as public clients.
+
+The advertised methods do not mean that every method is accepted for every grant. The client credentials grant requires client authentication.
+
 <Warning>
 In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 </Warning>
