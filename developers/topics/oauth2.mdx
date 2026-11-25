@@ -417,11 +417,13 @@ When receiving the access code on redirect, there will be additional querystring
     "max_video_channel_users": 25
   },
   "access_token": "zMndOe7jFLXGawdlxMOdNvXjjOce5X",
-  "scope": "bot",
+  "scope": "",
   "expires_in": 604800,
   "refresh_token": "mgp8qnvBwJcmadwgCYKyYD5CAzGAX4"
 }
 ```
+
+The `scope` field lists the scopes granted to the user's access token. `bot` adds your bot to the guild but is not an access token scope, so it does not appear in `scope`. If you request only `bot`, `scope` is an empty string (`""`). If you also request other scopes, such as `identify`, `scope` lists only those. Responses from [refreshing this access token](/developers/topics/oauth2#authorization-code-grant-refresh-token-exchange-example) follow the same rule.
 
 ### Two-Factor Authentication Requirement
 
