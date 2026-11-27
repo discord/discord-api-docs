@@ -217,7 +217,7 @@ The "Value" column corresponds to the event's `type` field value in the [event b
 
 ###### Discord Social SDK
 
-For [Discord Social SDK](/developers/discord-social-sdk) apps, `APPLICATION_DEAUTHORIZED` is the **only out-of-game signal that a user's link state has changed**. Listening for it is required to keep your application state in sync — if you miss the webhook, the [next token use will fail](/developers/discord-social-sdk/development-guides/account-linking-with-discord#when-refresh-fails) and the game should fall back to the [provisional account flow](/developers/discord-social-sdk/development-guides/provisional-accounts/overview#implementing-provisional-accounts).
+For [Discord Social SDK](/developers/discord-social-sdk/overview) apps, `APPLICATION_DEAUTHORIZED` is the **only out-of-game signal that a user's link state has changed**. Listening for it is required to keep your application state in sync — if you miss the webhook, the [next token use will fail](/developers/discord-social-sdk/development-guides/account-linking-with-discord#when-refresh-fails) and the game should fall back to the [provisional account flow](/developers/discord-social-sdk/development-guides/provisional-accounts/overview#implementing-provisional-accounts).
 
 Every revocation that fires this event is mechanically an [unmerge](/developers/discord-social-sdk/development-guides/provisional-accounts/unmerging-accounts#unmerging-provisional-accounts) — the merged Discord account reverts to a new provisional account, and the OAuth2 tokens for the Discord user become invalid. The triggers include:
 
