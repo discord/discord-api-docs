@@ -321,7 +321,7 @@ Bot users have a few differences compared to standard Discord users:
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends or be added to or join Group DMs.
 3. [Verified bots](https://support-dev.discord.com/hc/en-us/articles/23926564536471-How-Do-I-Get-My-App-Verified) do not have a maximum number of guilds.
-4. Bots have an entirely separate set of [rate limits](/developers/topics/rate-limits#rate-limits).
+4. Bots have an entirely separate set of [rate limits](/developers/topics/rate-limits).
 
 ### Bot Authorization Flow
 
@@ -468,7 +468,7 @@ When the user navigates to this URL, they will be prompted to select a channel i
 
 From this object, you should store the `webhook.token` and `webhook.id`. See the [execute webhook](/developers/resources/webhook#execute-webhook) documentation for how to send messages with the webhook.
 
-Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](/developers/topics/rate-limits#rate-limits)!
+Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](/developers/topics/rate-limits)!
 
 ## Get Current Bot Application Information
 <Route method="GET">/oauth2/applications/@me</Route>

@@ -308,7 +308,7 @@ The [threads](/developers/topics/threads) topic has some more information.
 
 ### Overwrite Object
 
-See [permissions](/developers/topics/permissions#permissions) for more information about the `allow` and `deny` fields.
+See [permissions](/developers/topics/permissions) for more information about the `allow` and `deny` fields.
 
 <ManualAnchor id="overwrite-object-overwrite-structure" />
 ###### Overwrite Structure
@@ -544,7 +544,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Edit Channel Permissions
 <Route method="PUT">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/developers/resources/channel#overwrite-object)</Route>
 
-Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/developers/topics/permissions#permissions).
+Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/developers/topics/permissions).
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
@@ -599,7 +599,7 @@ This endpoint supports the `X-Audit-Log-Reason` header.
 ## Delete Channel Permission
 <Route method="DELETE">/channels/[\{channel.id\}](/developers/resources/channel#channel-object)/permissions/[\{overwrite.id\}](/developers/resources/channel#overwrite-object)</Route>
 
-Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/developers/topics/permissions#permissions)
+Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Channel Update](/developers/events/gateway-events#channel-update) Gateway event. For more information about permissions, see [permissions](/developers/topics/permissions)
 
 <Info>
 This endpoint supports the `X-Audit-Log-Reason` header.
